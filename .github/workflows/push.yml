@@ -22,9 +22,9 @@ jobs:
         run: |
           pip install poetry
           poetry --version
-      - name: Install dependencies
+      - name: Install dependencies and library
         working-directory: ${{ matrix.lib }}
-        run: poetry install --no-root
+        run: poetry install
       - name: Check format
         working-directory: ${{ matrix.lib }}
         run: poetry run black --check .
@@ -48,9 +48,9 @@ jobs:
         run: |
           pip install poetry
           poetry --version
-      - name: Install dependencies
+      - name: Install dependencies and library
         working-directory: ${{ matrix.lib }}
-        run: poetry install --no-root
+        run: poetry install
       - name: Check typing
         working-directory: ${{ matrix.lib }}
         run: poetry run mypy --install-types --non-interactive --strict $(echo "${{ matrix.lib }}" | tr "-" "_")
@@ -74,9 +74,9 @@ jobs:
         run: |
           pip install poetry
           poetry --version
-      - name: Install dependencies
+      - name: Install dependencies and library
         working-directory: ${{ matrix.lib }}
-        run: poetry install --no-root
+        run: poetry install
       - name: Check security
         working-directory: ${{ matrix.lib }}
         run: poetry run bandit -sB105 -r .
@@ -100,9 +100,9 @@ jobs:
         run: |
           pip install poetry
           poetry --version
-      - name: Install dependencies
+      - name: Install dependencies and library
         working-directory: ${{ matrix.lib }}
-        run: poetry install --no-root
+        run: poetry install
       - name: Run tests
         working-directory: ${{ matrix.lib }}
         run: poetry run python -m unittest discover -s tests -v
