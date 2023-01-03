@@ -1,0 +1,30 @@
+name: Check Commit
+on:
+  push:
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        lib:
+          - scaleway-core
+          - scaleway
+          - scaleway-async
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install poetry
+        working-directory: ${{ matrix.lib }}
+        run: |
+          pip install poetry
+          poetry --version
+      - name: Install dependencies
+        working-directory: ${{ matrix.lib }}
+        run: poetry install --no-root
+      - name: Check format
+        working-directory: ${{ matrix.lib }}
+        run: poetry run black --check .
