@@ -11,8 +11,10 @@ from scaleway_core.bridge import (
     unmarshal_ServiceInfo,
 )
 from scaleway_core.utils import (
+    WaitForOptions,
     fetch_all_pages,
     validate_path_param,
+    wait_for_resource,
 )
 from .types import (
     DomainStatus,
@@ -27,6 +29,10 @@ from .types import (
     Statistics,
     CreateEmailRequest,
     CreateDomainRequest,
+)
+from .content import (
+    DOMAIN_TRANSIENT_STATUSES,
+    EMAIL_TRANSIENT_STATUSES,
 )
 from .marshalling import (
     marshal_CreateDomainRequest,
@@ -168,6 +174,40 @@ class TemV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Email(res.json())
+
+    def wait_for_email(
+        self,
+        email_id: str,
+        region: Optional[Region] = None,
+        options: Optional[WaitForOptions[Email, bool]] = None,
+    ) -> Email:
+        """
+        Waits for :class:`Email <Email>` to be in a final state.
+        :param region: Region to target. If none is passed will use default region from the config
+        :param email_id: ID of the email to retrieve
+        :param options: The options for the waiter
+        :return: :class:`Email <Email>`
+
+        Usage:
+        ::
+
+            result = api.wait_for_email(email_id="example")
+        """
+
+        if not options:
+            options = WaitForOptions()
+
+        if not options.stop:
+            options.stop = lambda res: res.status not in EMAIL_TRANSIENT_STATUSES
+
+        return wait_for_resource(
+            fetcher=self.get_email,
+            options=options,
+            args={
+                "email_id": email_id,
+                "region": region,
+            },
+        )
 
     def list_emails(
         self,
@@ -424,6 +464,40 @@ class TemV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Domain(res.json())
+
+    def wait_for_domain(
+        self,
+        domain_id: str,
+        region: Optional[Region] = None,
+        options: Optional[WaitForOptions[Domain, bool]] = None,
+    ) -> Domain:
+        """
+        Waits for :class:`Domain <Domain>` to be in a final state.
+        :param region: Region to target. If none is passed will use default region from the config
+        :param domain_id: ID of the domain
+        :param options: The options for the waiter
+        :return: :class:`Domain <Domain>`
+
+        Usage:
+        ::
+
+            result = api.wait_for_domain(domain_id="example")
+        """
+
+        if not options:
+            options = WaitForOptions()
+
+        if not options.stop:
+            options.stop = lambda res: res.status not in DOMAIN_TRANSIENT_STATUSES
+
+        return wait_for_resource(
+            fetcher=self.get_domain,
+            options=options,
+            args={
+                "domain_id": domain_id,
+                "region": region,
+            },
+        )
 
     def list_domains(
         self,
