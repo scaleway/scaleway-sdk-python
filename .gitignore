@@ -1,0 +1,8 @@
+# Python compiled
+__pycache__/
+
+# Poetry
+dist/
+
+# macOS
+.DS_Store

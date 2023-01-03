@@ -1,0 +1,1 @@
+# Scaleway Python SDK - Core

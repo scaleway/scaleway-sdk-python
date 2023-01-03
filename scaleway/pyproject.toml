@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "scaleway"
+version = "0.0.1"
+description = "Scaleway SDK for Python"
+authors = ["Scaleway <opensource@scaleway.com>"]
+license = "BSD"
+readme = "README.md"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.4",
+    "Programming Language :: Python :: 3.5",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Software Development",
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+scaleway-core = "^0"
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^0"
+black = "^22.10.0"
+bandit = { extras = ["toml"], version = "^1.7.4" }
+scaleway-core = { path = "../scaleway-core", develop = true }
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
