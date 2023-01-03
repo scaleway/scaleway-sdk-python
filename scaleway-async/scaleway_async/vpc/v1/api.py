@@ -117,7 +117,7 @@ class VpcV1API(API):
 
         return await fetch_all_pages_async(
             type=ListPrivateNetworksResponse,
-            key="privateNetworks",
+            key="private_networks",
             fetcher=self.list_private_networks,
             args={
                 "zone": zone,

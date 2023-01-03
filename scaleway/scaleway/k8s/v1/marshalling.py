@@ -691,11 +691,11 @@ def marshal_CreateClusterRequest(
         )
         if request.autoscaler_config is not None
         else None,
-        "cni": CNI(request.cni),
+        "cni": CNI(request.cni) if request.cni is not None else None,
         "description": request.description,
         "enable_dashboard": request.enable_dashboard,
         "feature_gates": request.feature_gates,
-        "ingress": Ingress(request.ingress),
+        "ingress": Ingress(request.ingress) if request.ingress is not None else None,
         "name": request.name,
         "open_id_connect_config": marshal_CreateClusterRequestOpenIDConnectConfig(
             request.open_id_connect_config, defaults
@@ -784,7 +784,7 @@ def marshal_UpdateClusterRequest(
         "description": request.description,
         "enable_dashboard": request.enable_dashboard,
         "feature_gates": request.feature_gates,
-        "ingress": Ingress(request.ingress),
+        "ingress": Ingress(request.ingress) if request.ingress is not None else None,
         "name": request.name,
         "open_id_connect_config": marshal_UpdateClusterRequestOpenIDConnectConfig(
             request.open_id_connect_config, defaults

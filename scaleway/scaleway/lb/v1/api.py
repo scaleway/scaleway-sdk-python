@@ -1940,7 +1940,7 @@ class LbV1API(API):
 
         return fetch_all_pages(
             type=ListBackendStatsResponse,
-            key="backendServersStats",
+            key="backend_servers_stats",
             fetcher=self.list_backend_stats,
             args={
                 "lb_id": lb_id,
@@ -2531,7 +2531,7 @@ class LbV1API(API):
 
         return fetch_all_pages(
             type=ListLbTypesResponse,
-            key="lbTypes",
+            key="lb_types",
             fetcher=self.list_lb_types,
             args={
                 "region": region,
@@ -2937,7 +2937,7 @@ class LbV1API(API):
 
         return fetch_all_pages(
             type=ListLbPrivateNetworksResponse,
-            key="privateNetwork",
+            key="private_network",
             fetcher=self.list_lb_private_networks,
             args={
                 "lb_id": lb_id,
@@ -4720,7 +4720,7 @@ class LbZonedV1API(API):
 
         return fetch_all_pages(
             type=ListBackendStatsResponse,
-            key="backendServersStats",
+            key="backend_servers_stats",
             fetcher=self.list_backend_stats,
             args={
                 "lb_id": lb_id,
@@ -5330,7 +5330,7 @@ class LbZonedV1API(API):
 
         return fetch_all_pages(
             type=ListLbTypesResponse,
-            key="lbTypes",
+            key="lb_types",
             fetcher=self.list_lb_types,
             args={
                 "zone": zone,
@@ -5720,7 +5720,7 @@ class LbZonedV1API(API):
 
         return fetch_all_pages(
             type=ListLbPrivateNetworksResponse,
-            key="privateNetwork",
+            key="private_network",
             fetcher=self.list_lb_private_networks,
             args={
                 "lb_id": lb_id,

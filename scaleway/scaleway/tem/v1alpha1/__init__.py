@@ -13,4 +13,6 @@ from .types import EmailTry as EmailTry  # noqa
 from .types import ListDomainsResponse as ListDomainsResponse  # noqa
 from .types import ListEmailsResponse as ListEmailsResponse  # noqa
 from .types import Statistics as Statistics  # noqa
+from .content import DOMAIN_TRANSIENT_STATUSES as DOMAIN_TRANSIENT_STATUSES  # noqa
+from .content import EMAIL_TRANSIENT_STATUSES as EMAIL_TRANSIENT_STATUSES  # noqa
 from .api import TemV1Alpha1API as TemV1Alpha1API  # noqa

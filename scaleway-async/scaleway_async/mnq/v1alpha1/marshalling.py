@@ -310,7 +310,9 @@ def marshal_CreateNamespaceRequest(
     return {
         "name": request.name,
         "project_id": request.project_id or defaults.default_project_id,
-        "protocol": NamespaceProtocol(request.protocol),
+        "protocol": NamespaceProtocol(request.protocol)
+        if request.protocol is not None
+        else None,
     }
 
 

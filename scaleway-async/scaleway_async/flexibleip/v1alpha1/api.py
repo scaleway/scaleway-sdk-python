@@ -253,7 +253,7 @@ class FlexibleipV1Alpha1API(API):
 
         return await fetch_all_pages_async(
             type=ListFlexibleIPsResponse,
-            key="flexibleIps",
+            key="flexible_ips",
             fetcher=self.list_flexible_i_ps,
             args={
                 "zone": zone,

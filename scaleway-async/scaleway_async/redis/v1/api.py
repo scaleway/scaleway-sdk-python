@@ -541,7 +541,7 @@ class RedisV1API(API):
 
         return await fetch_all_pages_async(
             type=ListNodeTypesResponse,
-            key="nodeTypes",
+            key="node_types",
             fetcher=self.list_node_types,
             args={
                 "include_disabled_types": include_disabled_types,
