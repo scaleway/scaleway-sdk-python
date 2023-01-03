@@ -35,6 +35,6 @@ jobs:
         run: poetry build
       - name: Publish package
         working-directory: ${{ matrix.lib }}
-        run: poetry publish --build
+        run: poetry publish
         env:
           POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_TOKEN }}
