@@ -247,7 +247,7 @@ class DomainV2Beta1API(API):
 
         return await fetch_all_pages_async(
             type=ListDNSZonesResponse,
-            key="dnsZones",
+            key="dns_zones",
             fetcher=self.list_dns_zones,
             args={
                 "domain": domain,

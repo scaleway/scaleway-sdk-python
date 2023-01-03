@@ -117,7 +117,7 @@ class VpcV1API(API):
 
         return fetch_all_pages(
             type=ListPrivateNetworksResponse,
-            key="privateNetworks",
+            key="private_networks",
             fetcher=self.list_private_networks,
             args={
                 "zone": zone,

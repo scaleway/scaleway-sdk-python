@@ -1858,7 +1858,7 @@ class InstanceV1API(API):
 
         return fetch_all_pages(
             type=ListSecurityGroupsResponse,
-            key="securityGroups",
+            key="security_groups",
             fetcher=self.list_security_groups,
             args={
                 "zone": zone,
@@ -2525,7 +2525,7 @@ class InstanceV1API(API):
 
         return fetch_all_pages(
             type=ListPlacementGroupsResponse,
-            key="placementGroups",
+            key="placement_groups",
             fetcher=self.list_placement_groups,
             args={
                 "zone": zone,
@@ -3116,7 +3116,7 @@ class InstanceV1API(API):
         """
         List all private NICs of a given server.
         :param zone: Zone to target. If none is passed will use default zone from the config
-        :param server_id:
+        :param server_id: The server the private NIC is attached to
         :return: :class:`ListPrivateNICsResponse <ListPrivateNICsResponse>`
 
         Usage:
@@ -3145,8 +3145,8 @@ class InstanceV1API(API):
         """
         Create a private NIC connecting a server to a private network.
         :param zone: Zone to target. If none is passed will use default zone from the config
-        :param server_id:
-        :param private_network_id:
+        :param server_id: UUID of the server the private NIC will be attached to
+        :param private_network_id: UUID of the private network where the private NIC will be attached
         :return: :class:`CreatePrivateNICResponse <CreatePrivateNICResponse>`
 
         Usage:
@@ -3186,8 +3186,8 @@ class InstanceV1API(API):
         """
         Get private NIC properties.
         :param zone: Zone to target. If none is passed will use default zone from the config
-        :param server_id:
-        :param private_nic_id:
+        :param server_id: The server the private NIC is attached to
+        :param private_nic_id: The private NIC unique ID
         :return: :class:`GetPrivateNICResponse <GetPrivateNICResponse>`
 
         Usage:
@@ -3220,8 +3220,8 @@ class InstanceV1API(API):
         """
         Delete a private NIC.
         :param zone: Zone to target. If none is passed will use default zone from the config
-        :param server_id:
-        :param private_nic_id:
+        :param server_id: The server the private NIC is attached to
+        :param private_nic_id: The private NIC unique ID
 
         Usage:
         ::

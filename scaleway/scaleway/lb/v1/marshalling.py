@@ -1401,8 +1401,12 @@ def marshal_CreateBackendRequest(
     return {
         "failover_host": request.failover_host,
         "forward_port": request.forward_port,
-        "forward_port_algorithm": ForwardPortAlgorithm(request.forward_port_algorithm),
-        "forward_protocol": Protocol(request.forward_protocol),
+        "forward_port_algorithm": ForwardPortAlgorithm(request.forward_port_algorithm)
+        if request.forward_port_algorithm is not None
+        else None,
+        "forward_protocol": Protocol(request.forward_protocol)
+        if request.forward_protocol is not None
+        else None,
         "health_check": marshal_HealthCheck(request.health_check, defaults),
         "ignore_ssl_server_verify": request.ignore_ssl_server_verify,
         "name": request.name,
@@ -1411,7 +1415,9 @@ def marshal_CreateBackendRequest(
         "send_proxy_v2": request.send_proxy_v2,
         "server_ip": request.server_ip,
         "ssl_bridging": request.ssl_bridging,
-        "sticky_sessions": StickySessionsType(request.sticky_sessions),
+        "sticky_sessions": StickySessionsType(request.sticky_sessions)
+        if request.sticky_sessions is not None
+        else None,
         "sticky_sessions_cookie_name": request.sticky_sessions_cookie_name,
         "timeout_connect": request.timeout_connect,
         "timeout_server": request.timeout_server,
@@ -1677,15 +1683,21 @@ def marshal_UpdateBackendRequest(
     return {
         "failover_host": request.failover_host,
         "forward_port": request.forward_port,
-        "forward_port_algorithm": ForwardPortAlgorithm(request.forward_port_algorithm),
-        "forward_protocol": Protocol(request.forward_protocol),
+        "forward_port_algorithm": ForwardPortAlgorithm(request.forward_port_algorithm)
+        if request.forward_port_algorithm is not None
+        else None,
+        "forward_protocol": Protocol(request.forward_protocol)
+        if request.forward_protocol is not None
+        else None,
         "ignore_ssl_server_verify": request.ignore_ssl_server_verify,
         "name": request.name,
         "on_marked_down_action": OnMarkedDownAction(request.on_marked_down_action),
         "proxy_protocol": ProxyProtocol(request.proxy_protocol),
         "send_proxy_v2": request.send_proxy_v2,
         "ssl_bridging": request.ssl_bridging,
-        "sticky_sessions": StickySessionsType(request.sticky_sessions),
+        "sticky_sessions": StickySessionsType(request.sticky_sessions)
+        if request.sticky_sessions is not None
+        else None,
         "sticky_sessions_cookie_name": request.sticky_sessions_cookie_name,
         "timeout_connect": request.timeout_connect,
         "timeout_server": request.timeout_server,
@@ -1911,8 +1923,12 @@ def marshal_ZonedApiCreateBackendRequest(
     return {
         "failover_host": request.failover_host,
         "forward_port": request.forward_port,
-        "forward_port_algorithm": ForwardPortAlgorithm(request.forward_port_algorithm),
-        "forward_protocol": Protocol(request.forward_protocol),
+        "forward_port_algorithm": ForwardPortAlgorithm(request.forward_port_algorithm)
+        if request.forward_port_algorithm is not None
+        else None,
+        "forward_protocol": Protocol(request.forward_protocol)
+        if request.forward_protocol is not None
+        else None,
         "health_check": marshal_HealthCheck(request.health_check, defaults),
         "ignore_ssl_server_verify": request.ignore_ssl_server_verify,
         "name": request.name,
@@ -1921,7 +1937,9 @@ def marshal_ZonedApiCreateBackendRequest(
         "send_proxy_v2": request.send_proxy_v2,
         "server_ip": request.server_ip,
         "ssl_bridging": request.ssl_bridging,
-        "sticky_sessions": StickySessionsType(request.sticky_sessions),
+        "sticky_sessions": StickySessionsType(request.sticky_sessions)
+        if request.sticky_sessions is not None
+        else None,
         "sticky_sessions_cookie_name": request.sticky_sessions_cookie_name,
         "timeout_connect": request.timeout_connect,
         "timeout_server": request.timeout_server,
@@ -2196,15 +2214,21 @@ def marshal_ZonedApiUpdateBackendRequest(
     return {
         "failover_host": request.failover_host,
         "forward_port": request.forward_port,
-        "forward_port_algorithm": ForwardPortAlgorithm(request.forward_port_algorithm),
-        "forward_protocol": Protocol(request.forward_protocol),
+        "forward_port_algorithm": ForwardPortAlgorithm(request.forward_port_algorithm)
+        if request.forward_port_algorithm is not None
+        else None,
+        "forward_protocol": Protocol(request.forward_protocol)
+        if request.forward_protocol is not None
+        else None,
         "ignore_ssl_server_verify": request.ignore_ssl_server_verify,
         "name": request.name,
         "on_marked_down_action": OnMarkedDownAction(request.on_marked_down_action),
         "proxy_protocol": ProxyProtocol(request.proxy_protocol),
         "send_proxy_v2": request.send_proxy_v2,
         "ssl_bridging": request.ssl_bridging,
-        "sticky_sessions": StickySessionsType(request.sticky_sessions),
+        "sticky_sessions": StickySessionsType(request.sticky_sessions)
+        if request.sticky_sessions is not None
+        else None,
         "sticky_sessions_cookie_name": request.sticky_sessions_cookie_name,
         "timeout_connect": request.timeout_connect,
         "timeout_server": request.timeout_server,

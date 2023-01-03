@@ -2307,7 +2307,7 @@ def marshal_ImportRawDNSZoneRequest(
             ]
         ),
         "content": request.content,
-        "format": RawFormat(request.format),
+        "format": RawFormat(request.format) if request.format is not None else None,
         "project_id": request.project_id or defaults.default_project_id,
     }
 

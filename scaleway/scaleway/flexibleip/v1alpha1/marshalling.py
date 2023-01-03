@@ -202,7 +202,9 @@ def marshal_GenerateMACAddrRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
-        "mac_type": MACAddressType(request.mac_type),
+        "mac_type": MACAddressType(request.mac_type)
+        if request.mac_type is not None
+        else None,
     }
 
 

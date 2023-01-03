@@ -165,7 +165,7 @@ class IamV1Alpha1API(API):
 
         return fetch_all_pages(
             type=ListSSHKeysResponse,
-            key="sshKeys",
+            key="ssh_keys",
             fetcher=self.list_ssh_keys,
             args={
                 "order_by": order_by,
@@ -1415,7 +1415,7 @@ class IamV1Alpha1API(API):
 
         return fetch_all_pages(
             type=ListPermissionSetsResponse,
-            key="permissionSets",
+            key="permission_sets",
             fetcher=self.list_permission_sets,
             args={
                 "order_by": order_by,
@@ -1511,7 +1511,7 @@ class IamV1Alpha1API(API):
 
         return fetch_all_pages(
             type=ListAPIKeysResponse,
-            key="apiKeys",
+            key="api_keys",
             fetcher=self.list_api_keys,
             args={
                 "order_by": order_by,

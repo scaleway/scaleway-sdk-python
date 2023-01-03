@@ -825,7 +825,9 @@ def marshal_CreateHubRequest(
         "disable_events": request.disable_events,
         "events_topic_prefix": request.events_topic_prefix,
         "name": request.name,
-        "product_plan": HubProductPlan(request.product_plan),
+        "product_plan": HubProductPlan(request.product_plan)
+        if request.product_plan is not None
+        else None,
         "project_id": request.project_id or defaults.default_project_id,
         **resolve_one_of(
             [
@@ -845,7 +847,9 @@ def marshal_CreateNetworkRequest(
         "hub_id": request.hub_id,
         "name": request.name,
         "topic_prefix": request.topic_prefix,
-        "type": NetworkNetworkType(request.type_),
+        "type": NetworkNetworkType(request.type_)
+        if request.type_ is not None
+        else None,
     }
 
 

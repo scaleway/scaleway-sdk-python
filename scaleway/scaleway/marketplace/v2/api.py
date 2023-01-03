@@ -278,7 +278,7 @@ class MarketplaceV2API(API):
 
         return fetch_all_pages(
             type=ListLocalImagesResponse,
-            key="localImages",
+            key="local_images",
             fetcher=self.list_local_images,
             args={
                 "image_id": image_id,

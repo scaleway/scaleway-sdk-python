@@ -2955,6 +2955,9 @@ class ListPrivateNICsRequest:
     """
 
     server_id: str
+    """
+    The server the private NIC is attached to
+    """
 
 
 @dataclass
@@ -2965,8 +2968,14 @@ class CreatePrivateNICRequest:
     """
 
     server_id: str
+    """
+    UUID of the server the private NIC will be attached to
+    """
 
     private_network_id: str
+    """
+    UUID of the private network where the private NIC will be attached
+    """
 
 
 @dataclass
@@ -2977,8 +2986,14 @@ class GetPrivateNICRequest:
     """
 
     server_id: str
+    """
+    The server the private NIC is attached to
+    """
 
     private_nic_id: str
+    """
+    The private NIC unique ID
+    """
 
 
 @dataclass
@@ -2989,8 +3004,14 @@ class DeletePrivateNICRequest:
     """
 
     server_id: str
+    """
+    The server the private NIC is attached to
+    """
 
     private_nic_id: str
+    """
+    The private NIC unique ID
+    """
 
 
 @dataclass

@@ -536,7 +536,7 @@ class VpcgwV1API(API):
 
         return await fetch_all_pages_async(
             type=ListGatewayNetworksResponse,
-            key="gatewayNetworks",
+            key="gateway_networks",
             fetcher=self.list_gateway_networks,
             args={
                 "zone": zone,
@@ -1156,7 +1156,7 @@ class VpcgwV1API(API):
 
         return await fetch_all_pages_async(
             type=ListDHCPEntriesResponse,
-            key="dhcpEntries",
+            key="dhcp_entries",
             fetcher=self.list_dhcp_entries,
             args={
                 "zone": zone,
@@ -1420,7 +1420,7 @@ class VpcgwV1API(API):
 
         return await fetch_all_pages_async(
             type=ListPATRulesResponse,
-            key="patRules",
+            key="pat_rules",
             fetcher=self.list_pat_rules,
             args={
                 "zone": zone,

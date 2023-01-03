@@ -2258,7 +2258,7 @@ def marshal_CreateImageRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
-        "arch": Arch(request.arch),
+        "arch": Arch(request.arch) if request.arch is not None else None,
         "default_bootscript": request.default_bootscript,
         "extra_volumes": {
             k: marshal_VolumeTemplate(v, defaults)
@@ -2468,14 +2468,20 @@ def marshal_CreateSecurityGroupRuleRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
-        "action": SecurityGroupRuleAction(request.action),
+        "action": SecurityGroupRuleAction(request.action)
+        if request.action is not None
+        else None,
         "dest_port_from": request.dest_port_from,
         "dest_port_to": request.dest_port_to,
-        "direction": SecurityGroupRuleDirection(request.direction),
+        "direction": SecurityGroupRuleDirection(request.direction)
+        if request.direction is not None
+        else None,
         "editable": request.editable,
         "ip_range": request.ip_range,
         "position": request.position,
-        "protocol": SecurityGroupRuleProtocol(request.protocol),
+        "protocol": SecurityGroupRuleProtocol(request.protocol)
+        if request.protocol is not None
+        else None,
     }
 
 
@@ -2703,8 +2709,12 @@ def marshal_UpdatePlacementGroupRequest(
 ) -> Dict[str, Any]:
     return {
         "name": request.name,
-        "policy_mode": PlacementGroupPolicyMode(request.policy_mode),
-        "policy_type": PlacementGroupPolicyType(request.policy_type),
+        "policy_mode": PlacementGroupPolicyMode(request.policy_mode)
+        if request.policy_mode is not None
+        else None,
+        "policy_type": PlacementGroupPolicyType(request.policy_type)
+        if request.policy_type is not None
+        else None,
         "tags": request.tags,
     }
 
@@ -2734,7 +2744,9 @@ def marshal__CreateServerRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
-        "boot_type": BootType(request.boot_type),
+        "boot_type": BootType(request.boot_type)
+        if request.boot_type is not None
+        else None,
         "bootscript": request.bootscript,
         "commercial_type": request.commercial_type,
         "dynamic_ip_required": request.dynamic_ip_required,
@@ -2933,7 +2945,9 @@ def marshal__UpdateServerRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
-        "boot_type": BootType(request.boot_type),
+        "boot_type": BootType(request.boot_type)
+        if request.boot_type is not None
+        else None,
         "bootscript": request.bootscript,
         "dynamic_ip_required": request.dynamic_ip_required,
         "enable_ipv6": request.enable_ipv6,

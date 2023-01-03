@@ -296,7 +296,7 @@ class RdbV1API(API):
 
         return await fetch_all_pages_async(
             type=ListNodeTypesResponse,
-            key="nodeTypes",
+            key="node_types",
             fetcher=self.list_node_types,
             args={
                 "include_disabled_types": include_disabled_types,
@@ -388,7 +388,7 @@ class RdbV1API(API):
 
         return await fetch_all_pages_async(
             type=ListDatabaseBackupsResponse,
-            key="databaseBackups",
+            key="database_backups",
             fetcher=self.list_database_backups,
             args={
                 "region": region,

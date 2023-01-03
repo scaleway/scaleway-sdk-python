@@ -1473,7 +1473,7 @@ class BaremetalPrivateNetworkV1API(API):
 
         return fetch_all_pages(
             type=ListServerPrivateNetworksResponse,
-            key="serverPrivateNetworks",
+            key="server_private_networks",
             fetcher=self.list_server_private_networks,
             args={
                 "zone": zone,
