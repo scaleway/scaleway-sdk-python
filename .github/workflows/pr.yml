@@ -20,6 +20,9 @@ jobs:
           - scaleway-core
           - scaleway
           - scaleway-async
+    defaults:
+      run:
+        working-directory: ${{ matrix.lib }}
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python
@@ -27,15 +30,12 @@ jobs:
         with:
           python-version: 3.8
       - name: Install poetry
-        working-directory: ${{ matrix.lib }}
         run: |
           pip install poetry
           poetry --version
       - name: Install dependencies and library
-        working-directory: ${{ matrix.lib }}
         run: poetry install
       - name: Run tests
-        working-directory: ${{ matrix.lib }}
         run: poetry run python -m unittest discover -s tests -v
         env:
           SCW_ACCESS_KEY: ${{ secrets.SCW_ACCESS_KEY }}

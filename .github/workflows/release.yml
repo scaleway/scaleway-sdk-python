@@ -13,6 +13,9 @@ jobs:
           - scaleway-core
           - scaleway
           - scaleway-async
+    defaults:
+      run:
+        working-directory: ${{ matrix.lib }}
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python
@@ -20,21 +23,16 @@ jobs:
         with:
           python-version: 3.8
       - name: Install poetry
-        working-directory: ${{ matrix.lib }}
         run: |
           pip install poetry
           poetry --version
       - name: Install dependencies and library
-        working-directory: ${{ matrix.lib }}
         run: poetry install
       - name: Set package version
-        working-directory: ${{ matrix.lib }}
         run: poetry version $(echo "${{ github.ref }}" | cut -d "/" -f 3)
       - name: Build package
-        working-directory: ${{ matrix.lib }}
         run: poetry build
       - name: Publish package
-        working-directory: ${{ matrix.lib }}
         run: poetry publish
         env:
           POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_TOKEN }}
