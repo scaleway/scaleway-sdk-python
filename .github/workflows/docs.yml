@@ -8,20 +8,33 @@ on:
 jobs:
   docs:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./docs
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-      - name: Install dependencies
-        run: pip install sphinx
-      - name: Sphinx build
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
+      - name: Install poetry
         run: |
-          sphinx-apidoc -o docs scaleway
-          sphinx-build -b html docs _build
-      - name: Deploy
+          pip install poetry
+          poetry --version
+      - name: Install dependencies and library
+        run: poetry install --no-root
+      - name: Generate documentation sources
+        run: |
+          poetry run sphinx-apidoc -f -o ./source ../scaleway-core
+          poetry run sphinx-apidoc -f -o ./source ../scaleway
+          poetry run sphinx-apidoc -f -o ./source ../scaleway-async
+      - name: Generate documentation
+        run: poetry run sphinx-build -b html ./source ./_build
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+        # if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
         with:
           publish_branch: docs
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: _build/
+          publish_dir: ./_build
           force_orphan: true
