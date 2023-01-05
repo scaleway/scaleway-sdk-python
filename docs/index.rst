@@ -10,6 +10,10 @@ Welcome to Scaleway Python SDK's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   scaleway-core
+   scaleway
+   scaleway-async
+
 
 
 Indices and tables
