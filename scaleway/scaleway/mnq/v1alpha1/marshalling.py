@@ -12,11 +12,9 @@ from dateutil import parser
 from .types import (
     NamespaceProtocol,
     Credential,
-    CredentialAMQPCreds,
     CredentialNATSCredsFile,
     CredentialSQSSNSCreds,
     CredentialSummary,
-    CredentialSummaryAMQPCreds,
     CredentialSummarySQSSNSCreds,
     ListCredentialsResponse,
     ListNamespacesResponse,
@@ -49,23 +47,6 @@ def unmarshal_Permissions(data: Any) -> Permissions:
     return Permissions(**args)
 
 
-def unmarshal_CredentialSummaryAMQPCreds(data: Any) -> CredentialSummaryAMQPCreds:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'CredentialSummaryAMQPCreds' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("permissions")
-    args["permissions"] = unmarshal_Permissions(field) if field is not None else None
-
-    field = data.get("username")
-    args["username"] = field
-
-    return CredentialSummaryAMQPCreds(**args)
-
-
 def unmarshal_CredentialSummarySQSSNSCreds(data: Any) -> CredentialSummarySQSSNSCreds:
     if type(data) is not dict:
         raise TypeError(
@@ -81,26 +62,6 @@ def unmarshal_CredentialSummarySQSSNSCreds(data: Any) -> CredentialSummarySQSSNS
     args["permissions"] = unmarshal_Permissions(field) if field is not None else None
 
     return CredentialSummarySQSSNSCreds(**args)
-
-
-def unmarshal_CredentialAMQPCreds(data: Any) -> CredentialAMQPCreds:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'CredentialAMQPCreds' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("password")
-    args["password"] = field
-
-    field = data.get("permissions")
-    args["permissions"] = unmarshal_Permissions(field) if field is not None else None
-
-    field = data.get("username")
-    args["username"] = field
-
-    return CredentialAMQPCreds(**args)
 
 
 def unmarshal_CredentialNATSCredsFile(data: Any) -> CredentialNATSCredsFile:
@@ -144,11 +105,6 @@ def unmarshal_CredentialSummary(data: Any) -> CredentialSummary:
         )
 
     args: Dict[str, Any] = {}
-
-    field = data.get("amqp_credentials")
-    args["amqp_credentials"] = (
-        unmarshal_CredentialSummaryAMQPCreds(field) if field is not None else None
-    )
 
     field = data.get("id")
     args["id"] = field
@@ -212,11 +168,6 @@ def unmarshal_Credential(data: Any) -> Credential:
         )
 
     args: Dict[str, Any] = {}
-
-    field = data.get("amqp_credentials")
-    args["amqp_credentials"] = (
-        unmarshal_CredentialAMQPCreds(field) if field is not None else None
-    )
 
     field = data.get("id")
     args["id"] = field

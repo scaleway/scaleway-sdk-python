@@ -42,7 +42,6 @@ class NamespaceProtocol(str, Enum):
     UNKNOWN = "unknown"
     NATS = "nats"
     SQS_SNS = "sqs_sns"
-    AMQP = "amqp"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -78,43 +77,14 @@ class Credential:
     """
     Credentials file used to connect to the NATS service.
     
-    One-of ('credential_type'): at most one of 'nats_credentials', 'sqs_sns_credentials', 'amqp_credentials' could be set.
+    One-of ('credential_type'): at most one of 'nats_credentials', 'sqs_sns_credentials' could be set.
     """
 
     sqs_sns_credentials: Optional[CredentialSQSSNSCreds]
     """
     Credential used to connect to the SQS/SNS service.
     
-    One-of ('credential_type'): at most one of 'nats_credentials', 'sqs_sns_credentials', 'amqp_credentials' could be set.
-    """
-
-    amqp_credentials: Optional[CredentialAMQPCreds]
-    """
-    Credential used to connect to the AMQP service.
-    
-    One-of ('credential_type'): at most one of 'nats_credentials', 'sqs_sns_credentials', 'amqp_credentials' could be set.
-    """
-
-
-@dataclass
-class CredentialAMQPCreds:
-    """
-    Credential.amqp creds
-    """
-
-    username: str
-    """
-    Username used to connect to the AMQP service
-    """
-
-    password: Optional[str]
-    """
-    Password used to connect to the AMQP service
-    """
-
-    permissions: Optional[Permissions]
-    """
-    List of permissions associated to this Credential
+    One-of ('credential_type'): at most one of 'nats_credentials', 'sqs_sns_credentials' could be set.
     """
 
 
@@ -182,31 +152,7 @@ class CredentialSummary:
     """
     Credential used to connect to the SQS/SNS service.
     
-    One-of ('credential_type'): at most one of 'sqs_sns_credentials', 'amqp_credentials' could be set.
-    """
-
-    amqp_credentials: Optional[CredentialSummaryAMQPCreds]
-    """
-    Credential used to connect to the AMQP service.
-    
-    One-of ('credential_type'): at most one of 'sqs_sns_credentials', 'amqp_credentials' could be set.
-    """
-
-
-@dataclass
-class CredentialSummaryAMQPCreds:
-    """
-    Credential summary.amqp creds
-    """
-
-    username: str
-    """
-    Username used to connect to the AMQP service
-    """
-
-    permissions: Optional[Permissions]
-    """
-    List of permissions associated to this Credential
+    One-of ('credential_type'): at most one of 'sqs_sns_credentials' could be set.
     """
 
 
