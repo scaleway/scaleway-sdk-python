@@ -1025,15 +1025,15 @@ class InstanceV1API(API):
     def create_image(
         self,
         root_volume: str,
-        default_bootscript: str,
-        public: bool,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
         arch: Arch = Arch.X86_64,
+        default_bootscript: Optional[str] = None,
         extra_volumes: Optional[Dict[str, VolumeTemplate]] = None,
         organization: Optional[str] = None,
         project: Optional[str] = None,
         tags: Optional[List[str]] = None,
+        public: Optional[bool] = None,
     ) -> CreateImageResponse:
         """
         Create an instance image
@@ -1056,11 +1056,7 @@ class InstanceV1API(API):
         Usage:
         ::
 
-            result = api.create_image(
-                root_volume="example",
-                default_bootscript="example",
-                public=True,
-            )
+            result = api.create_image(root_volume="example")
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -1071,15 +1067,15 @@ class InstanceV1API(API):
             body=marshal_CreateImageRequest(
                 CreateImageRequest(
                     root_volume=root_volume,
-                    default_bootscript=default_bootscript,
-                    public=public,
                     zone=zone,
                     name=name or random_name(prefix="img"),
                     arch=arch,
+                    default_bootscript=default_bootscript,
                     extra_volumes=extra_volumes,
                     organization=organization,
                     project=project,
                     tags=tags,
+                    public=public,
                 ),
                 self.client,
             ),

@@ -2036,7 +2036,7 @@ class CreateImageRequest:
     Architecture of the image
     """
 
-    default_bootscript: str
+    default_bootscript: Optional[str]
     """
     Default bootscript of the image
     """
@@ -2066,7 +2066,7 @@ class CreateImageRequest:
     The tags of the image
     """
 
-    public: bool
+    public: Optional[bool]
     """
     True to create a public image
     """
