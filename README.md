@@ -11,6 +11,24 @@ This SDK enables you to interact with Scaleway APIs.
 * [Example projects](./examples)
 * [Developers website](https://developers.scaleway.com) (API documentation)
 
+## Installation
+
+This library was made using Python 3.8, it should work on the latest versions too.
+
+The SDK is available in two flavors, a synchronous and an asynchronous one. Both have the same usage, only difference is that the asynchronous library has every methods set to `async`.
+
+**Synchronous:**
+
+```sh
+pip install scaleway
+```
+
+**Asynchronous:**
+
+```sh
+pip install scaleway-async
+```
+
 ## Getting Started
 
 You'll need a pair of access and secret keys to connect to Scaleway API. Please check the [documentation](https://www.scaleway.com/docs/console/my-project/how-to/generate-api-key) on how to retrieve them.
