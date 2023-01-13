@@ -30,6 +30,7 @@ class MarketplaceV1API(API):
 
     def list_images(
         self,
+        *,
         per_page: Optional[int] = None,
         page: Optional[int] = None,
     ) -> ListImagesResponse:
@@ -59,6 +60,7 @@ class MarketplaceV1API(API):
 
     def list_images_all(
         self,
+        *,
         per_page: Optional[int] = None,
         page: Optional[int] = None,
     ) -> List[Image]:
@@ -86,6 +88,7 @@ class MarketplaceV1API(API):
 
     def get_image(
         self,
+        *,
         image_id: str,
     ) -> GetImageResponse:
         """
@@ -111,6 +114,7 @@ class MarketplaceV1API(API):
 
     def list_versions(
         self,
+        *,
         image_id: str,
     ) -> ListVersionsResponse:
         """
@@ -133,6 +137,7 @@ class MarketplaceV1API(API):
 
     def get_version(
         self,
+        *,
         image_id: str,
         version_id: str,
     ) -> GetVersionResponse:

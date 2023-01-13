@@ -107,6 +107,7 @@ class IotV1API(API):
 
     async def list_hubs(
         self,
+        *,
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -155,6 +156,7 @@ class IotV1API(API):
 
     async def list_hubs_all(
         self,
+        *,
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -197,6 +199,7 @@ class IotV1API(API):
 
     async def create_hub(
         self,
+        *,
         region: Optional[Region] = None,
         name: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -250,6 +253,7 @@ class IotV1API(API):
 
     async def get_hub(
         self,
+        *,
         hub_id: str,
         region: Optional[Region] = None,
     ) -> Hub:
@@ -280,6 +284,7 @@ class IotV1API(API):
 
     async def wait_for_hub(
         self,
+        *,
         hub_id: str,
         region: Optional[Region] = None,
         options: Optional[WaitForOptions[Hub, Union[bool, Awaitable[bool]]]] = None,
@@ -314,6 +319,7 @@ class IotV1API(API):
 
     async def update_hub(
         self,
+        *,
         hub_id: str,
         product_plan: HubProductPlan,
         region: Optional[Region] = None,
@@ -374,6 +380,7 @@ class IotV1API(API):
 
     async def enable_hub(
         self,
+        *,
         hub_id: str,
         region: Optional[Region] = None,
     ) -> Hub:
@@ -404,6 +411,7 @@ class IotV1API(API):
 
     async def disable_hub(
         self,
+        *,
         hub_id: str,
         region: Optional[Region] = None,
     ) -> Hub:
@@ -434,6 +442,7 @@ class IotV1API(API):
 
     async def delete_hub(
         self,
+        *,
         hub_id: str,
         region: Optional[Region] = None,
         delete_devices: Optional[bool] = None,
@@ -468,6 +477,7 @@ class IotV1API(API):
 
     async def get_hub_metrics(
         self,
+        *,
         hub_id: str,
         start_date: datetime,
         region: Optional[Region] = None,
@@ -506,6 +516,7 @@ class IotV1API(API):
 
     async def set_hub_ca(
         self,
+        *,
         hub_id: str,
         ca_cert_pem: str,
         challenge_cert_pem: str,
@@ -553,6 +564,7 @@ class IotV1API(API):
 
     async def get_hub_ca(
         self,
+        *,
         hub_id: str,
         region: Optional[Region] = None,
     ) -> GetHubCAResponse:
@@ -583,6 +595,7 @@ class IotV1API(API):
 
     async def list_devices(
         self,
+        *,
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -633,6 +646,7 @@ class IotV1API(API):
 
     async def list_devices_all(
         self,
+        *,
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -678,6 +692,7 @@ class IotV1API(API):
 
     async def create_device(
         self,
+        *,
         hub_id: str,
         allow_insecure: bool,
         allow_multiple_connections: bool,
@@ -733,6 +748,7 @@ class IotV1API(API):
 
     async def get_device(
         self,
+        *,
         device_id: str,
         region: Optional[Region] = None,
     ) -> Device:
@@ -763,6 +779,7 @@ class IotV1API(API):
 
     async def update_device(
         self,
+        *,
         device_id: str,
         region: Optional[Region] = None,
         description: Optional[str] = None,
@@ -815,6 +832,7 @@ class IotV1API(API):
 
     async def enable_device(
         self,
+        *,
         device_id: str,
         region: Optional[Region] = None,
     ) -> Device:
@@ -845,6 +863,7 @@ class IotV1API(API):
 
     async def disable_device(
         self,
+        *,
         device_id: str,
         region: Optional[Region] = None,
     ) -> Device:
@@ -875,6 +894,7 @@ class IotV1API(API):
 
     async def renew_device_certificate(
         self,
+        *,
         device_id: str,
         region: Optional[Region] = None,
     ) -> RenewDeviceCertificateResponse:
@@ -905,6 +925,7 @@ class IotV1API(API):
 
     async def set_device_certificate(
         self,
+        *,
         device_id: str,
         certificate_pem: str,
         region: Optional[Region] = None,
@@ -948,6 +969,7 @@ class IotV1API(API):
 
     async def get_device_certificate(
         self,
+        *,
         device_id: str,
         region: Optional[Region] = None,
     ) -> GetDeviceCertificateResponse:
@@ -978,6 +1000,7 @@ class IotV1API(API):
 
     async def delete_device(
         self,
+        *,
         device_id: str,
         region: Optional[Region] = None,
     ) -> Optional[None]:
@@ -1007,6 +1030,7 @@ class IotV1API(API):
 
     async def get_device_metrics(
         self,
+        *,
         device_id: str,
         start_date: datetime,
         region: Optional[Region] = None,
@@ -1045,6 +1069,7 @@ class IotV1API(API):
 
     async def list_routes(
         self,
+        *,
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1089,6 +1114,7 @@ class IotV1API(API):
 
     async def list_routes_all(
         self,
+        *,
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1128,6 +1154,7 @@ class IotV1API(API):
 
     async def create_route(
         self,
+        *,
         hub_id: str,
         topic: str,
         region: Optional[Region] = None,
@@ -1198,6 +1225,7 @@ class IotV1API(API):
 
     async def update_route(
         self,
+        *,
         route_id: str,
         region: Optional[Region] = None,
         name: Optional[str] = None,
@@ -1256,6 +1284,7 @@ class IotV1API(API):
 
     async def get_route(
         self,
+        *,
         route_id: str,
         region: Optional[Region] = None,
     ) -> Route:
@@ -1286,6 +1315,7 @@ class IotV1API(API):
 
     async def delete_route(
         self,
+        *,
         route_id: str,
         region: Optional[Region] = None,
     ) -> Optional[None]:
@@ -1315,6 +1345,7 @@ class IotV1API(API):
 
     async def list_networks(
         self,
+        *,
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1362,6 +1393,7 @@ class IotV1API(API):
 
     async def list_networks_all(
         self,
+        *,
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1404,6 +1436,7 @@ class IotV1API(API):
 
     async def create_network(
         self,
+        *,
         hub_id: str,
         topic_prefix: str,
         region: Optional[Region] = None,
@@ -1452,6 +1485,7 @@ class IotV1API(API):
 
     async def get_network(
         self,
+        *,
         network_id: str,
         region: Optional[Region] = None,
     ) -> Network:
@@ -1482,6 +1516,7 @@ class IotV1API(API):
 
     async def delete_network(
         self,
+        *,
         network_id: str,
         region: Optional[Region] = None,
     ) -> Optional[None]:
@@ -1511,6 +1546,7 @@ class IotV1API(API):
 
     async def get_twin_document(
         self,
+        *,
         twin_id: str,
         document_name: str,
         region: Optional[Region] = None,
@@ -1547,6 +1583,7 @@ class IotV1API(API):
 
     async def put_twin_document(
         self,
+        *,
         twin_id: str,
         document_name: str,
         region: Optional[Region] = None,
@@ -1597,6 +1634,7 @@ class IotV1API(API):
 
     async def patch_twin_document(
         self,
+        *,
         twin_id: str,
         document_name: str,
         region: Optional[Region] = None,
@@ -1653,6 +1691,7 @@ class IotV1API(API):
 
     async def delete_twin_document(
         self,
+        *,
         twin_id: str,
         document_name: str,
         region: Optional[Region] = None,
@@ -1688,6 +1727,7 @@ class IotV1API(API):
 
     async def list_twin_documents(
         self,
+        *,
         twin_id: str,
         region: Optional[Region] = None,
     ) -> ListTwinDocumentsResponse:
@@ -1718,6 +1758,7 @@ class IotV1API(API):
 
     async def delete_twin_documents(
         self,
+        *,
         twin_id: str,
         region: Optional[Region] = None,
     ) -> Optional[None]:

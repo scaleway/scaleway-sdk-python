@@ -101,6 +101,7 @@ class VpcgwV1API(API):
 
     def list_gateways(
         self,
+        *,
         zone: Optional[Zone] = None,
         order_by: ListGatewaysRequestOrderBy = ListGatewaysRequestOrderBy.CREATED_AT_ASC,
         page: Optional[int] = None,
@@ -159,6 +160,7 @@ class VpcgwV1API(API):
 
     def list_gateways_all(
         self,
+        *,
         zone: Optional[Zone] = None,
         order_by: Optional[ListGatewaysRequestOrderBy] = None,
         page: Optional[int] = None,
@@ -213,6 +215,7 @@ class VpcgwV1API(API):
 
     def get_gateway(
         self,
+        *,
         gateway_id: str,
         zone: Optional[Zone] = None,
     ) -> Gateway:
@@ -241,6 +244,7 @@ class VpcgwV1API(API):
 
     def wait_for_gateway(
         self,
+        *,
         gateway_id: str,
         zone: Optional[Zone] = None,
         options: Optional[WaitForOptions[Gateway, bool]] = None,
@@ -275,6 +279,7 @@ class VpcgwV1API(API):
 
     def create_gateway(
         self,
+        *,
         type_: str,
         enable_smtp: bool,
         enable_bastion: bool,
@@ -337,6 +342,7 @@ class VpcgwV1API(API):
 
     def update_gateway(
         self,
+        *,
         gateway_id: str,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
@@ -390,6 +396,7 @@ class VpcgwV1API(API):
 
     def delete_gateway(
         self,
+        *,
         gateway_id: str,
         cleanup_dhcp: bool,
         zone: Optional[Zone] = None,
@@ -426,6 +433,7 @@ class VpcgwV1API(API):
 
     def upgrade_gateway(
         self,
+        *,
         gateway_id: str,
         zone: Optional[Zone] = None,
     ) -> Gateway:
@@ -454,6 +462,7 @@ class VpcgwV1API(API):
 
     def list_gateway_networks(
         self,
+        *,
         zone: Optional[Zone] = None,
         order_by: ListGatewayNetworksRequestOrderBy = ListGatewayNetworksRequestOrderBy.CREATED_AT_ASC,
         page: Optional[int] = None,
@@ -505,6 +514,7 @@ class VpcgwV1API(API):
 
     def list_gateway_networks_all(
         self,
+        *,
         zone: Optional[Zone] = None,
         order_by: Optional[ListGatewayNetworksRequestOrderBy] = None,
         page: Optional[int] = None,
@@ -553,6 +563,7 @@ class VpcgwV1API(API):
 
     def get_gateway_network(
         self,
+        *,
         gateway_network_id: str,
         zone: Optional[Zone] = None,
     ) -> GatewayNetwork:
@@ -583,6 +594,7 @@ class VpcgwV1API(API):
 
     def wait_for_gateway_network(
         self,
+        *,
         gateway_network_id: str,
         zone: Optional[Zone] = None,
         options: Optional[WaitForOptions[GatewayNetwork, bool]] = None,
@@ -619,6 +631,7 @@ class VpcgwV1API(API):
 
     def create_gateway_network(
         self,
+        *,
         gateway_id: str,
         private_network_id: str,
         enable_masquerade: bool,
@@ -677,6 +690,7 @@ class VpcgwV1API(API):
 
     def update_gateway_network(
         self,
+        *,
         gateway_network_id: str,
         zone: Optional[Zone] = None,
         enable_masquerade: Optional[bool] = None,
@@ -730,6 +744,7 @@ class VpcgwV1API(API):
 
     def delete_gateway_network(
         self,
+        *,
         gateway_network_id: str,
         cleanup_dhcp: bool,
         zone: Optional[Zone] = None,
@@ -768,6 +783,7 @@ class VpcgwV1API(API):
 
     def list_dhc_ps(
         self,
+        *,
         zone: Optional[Zone] = None,
         order_by: ListDHCPsRequestOrderBy = ListDHCPsRequestOrderBy.CREATED_AT_ASC,
         page: Optional[int] = None,
@@ -817,6 +833,7 @@ class VpcgwV1API(API):
 
     def list_dhc_ps_all(
         self,
+        *,
         zone: Optional[Zone] = None,
         order_by: Optional[ListDHCPsRequestOrderBy] = None,
         page: Optional[int] = None,
@@ -862,6 +879,7 @@ class VpcgwV1API(API):
 
     def get_dhcp(
         self,
+        *,
         dhcp_id: str,
         zone: Optional[Zone] = None,
     ) -> DHCP:
@@ -890,6 +908,7 @@ class VpcgwV1API(API):
 
     def create_dhcp(
         self,
+        *,
         subnet: str,
         zone: Optional[Zone] = None,
         project_id: Optional[str] = None,
@@ -968,6 +987,7 @@ class VpcgwV1API(API):
 
     def update_dhcp(
         self,
+        *,
         dhcp_id: str,
         zone: Optional[Zone] = None,
         subnet: Optional[str] = None,
@@ -1045,6 +1065,7 @@ class VpcgwV1API(API):
 
     def delete_dhcp(
         self,
+        *,
         dhcp_id: str,
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
@@ -1072,6 +1093,7 @@ class VpcgwV1API(API):
 
     def list_dhcp_entries(
         self,
+        *,
         zone: Optional[Zone] = None,
         order_by: ListDHCPEntriesRequestOrderBy = ListDHCPEntriesRequestOrderBy.CREATED_AT_ASC,
         page: Optional[int] = None,
@@ -1123,6 +1145,7 @@ class VpcgwV1API(API):
 
     def list_dhcp_entries_all(
         self,
+        *,
         zone: Optional[Zone] = None,
         order_by: Optional[ListDHCPEntriesRequestOrderBy] = None,
         page: Optional[int] = None,
@@ -1171,6 +1194,7 @@ class VpcgwV1API(API):
 
     def get_dhcp_entry(
         self,
+        *,
         dhcp_entry_id: str,
         zone: Optional[Zone] = None,
     ) -> DHCPEntry:
@@ -1199,6 +1223,7 @@ class VpcgwV1API(API):
 
     def create_dhcp_entry(
         self,
+        *,
         gateway_network_id: str,
         mac_address: str,
         ip_address: str,
@@ -1243,6 +1268,7 @@ class VpcgwV1API(API):
 
     def update_dhcp_entry(
         self,
+        *,
         dhcp_entry_id: str,
         zone: Optional[Zone] = None,
         ip_address: Optional[str] = None,
@@ -1281,6 +1307,7 @@ class VpcgwV1API(API):
 
     def set_dhcp_entries(
         self,
+        *,
         gateway_network_id: str,
         zone: Optional[Zone] = None,
         dhcp_entries: Optional[List[SetDHCPEntriesRequestEntry]] = None,
@@ -1319,6 +1346,7 @@ class VpcgwV1API(API):
 
     def delete_dhcp_entry(
         self,
+        *,
         dhcp_entry_id: str,
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
@@ -1346,6 +1374,7 @@ class VpcgwV1API(API):
 
     def list_pat_rules(
         self,
+        *,
         zone: Optional[Zone] = None,
         order_by: ListPATRulesRequestOrderBy = ListPATRulesRequestOrderBy.CREATED_AT_ASC,
         page: Optional[int] = None,
@@ -1391,6 +1420,7 @@ class VpcgwV1API(API):
 
     def list_pat_rules_all(
         self,
+        *,
         zone: Optional[Zone] = None,
         order_by: Optional[ListPATRulesRequestOrderBy] = None,
         page: Optional[int] = None,
@@ -1433,6 +1463,7 @@ class VpcgwV1API(API):
 
     def get_pat_rule(
         self,
+        *,
         pat_rule_id: str,
         zone: Optional[Zone] = None,
     ) -> PATRule:
@@ -1461,6 +1492,7 @@ class VpcgwV1API(API):
 
     def create_pat_rule(
         self,
+        *,
         gateway_id: str,
         public_port: int,
         private_ip: str,
@@ -1513,6 +1545,7 @@ class VpcgwV1API(API):
 
     def update_pat_rule(
         self,
+        *,
         pat_rule_id: str,
         protocol: PATRuleProtocol,
         zone: Optional[Zone] = None,
@@ -1563,6 +1596,7 @@ class VpcgwV1API(API):
 
     def set_pat_rules(
         self,
+        *,
         gateway_id: str,
         pat_rules: List[SetPATRulesRequestRule],
         zone: Optional[Zone] = None,
@@ -1604,6 +1638,7 @@ class VpcgwV1API(API):
 
     def delete_pat_rule(
         self,
+        *,
         pat_rule_id: str,
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
@@ -1631,6 +1666,7 @@ class VpcgwV1API(API):
 
     def list_gateway_types(
         self,
+        *,
         zone: Optional[Zone] = None,
     ) -> ListGatewayTypesResponse:
         """
@@ -1656,6 +1692,7 @@ class VpcgwV1API(API):
 
     def list_i_ps(
         self,
+        *,
         zone: Optional[Zone] = None,
         order_by: ListIPsRequestOrderBy = ListIPsRequestOrderBy.CREATED_AT_ASC,
         page: Optional[int] = None,
@@ -1708,6 +1745,7 @@ class VpcgwV1API(API):
 
     def list_i_ps_all(
         self,
+        *,
         zone: Optional[Zone] = None,
         order_by: Optional[ListIPsRequestOrderBy] = None,
         page: Optional[int] = None,
@@ -1756,6 +1794,7 @@ class VpcgwV1API(API):
 
     def get_ip(
         self,
+        *,
         ip_id: str,
         zone: Optional[Zone] = None,
     ) -> IP:
@@ -1784,6 +1823,7 @@ class VpcgwV1API(API):
 
     def create_ip(
         self,
+        *,
         zone: Optional[Zone] = None,
         project_id: Optional[str] = None,
         tags: Optional[List[str]] = None,
@@ -1821,6 +1861,7 @@ class VpcgwV1API(API):
 
     def update_ip(
         self,
+        *,
         ip_id: str,
         zone: Optional[Zone] = None,
         tags: Optional[List[str]] = None,
@@ -1865,6 +1906,7 @@ class VpcgwV1API(API):
 
     def delete_ip(
         self,
+        *,
         ip_id: str,
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
@@ -1892,6 +1934,7 @@ class VpcgwV1API(API):
 
     def refresh_ssh_keys(
         self,
+        *,
         gateway_id: str,
         zone: Optional[Zone] = None,
     ) -> Gateway:

@@ -165,6 +165,7 @@ class DomainV2Beta1API(API):
 
     def list_dns_zones(
         self,
+        *,
         domain: str,
         dns_zone: str,
         organization_id: Optional[str] = None,
@@ -215,6 +216,7 @@ class DomainV2Beta1API(API):
 
     def list_dns_zones_all(
         self,
+        *,
         domain: str,
         dns_zone: str,
         organization_id: Optional[str] = None,
@@ -262,6 +264,7 @@ class DomainV2Beta1API(API):
 
     def create_dns_zone(
         self,
+        *,
         domain: str,
         subdomain: str,
         project_id: Optional[str] = None,
@@ -300,6 +303,7 @@ class DomainV2Beta1API(API):
 
     def update_dns_zone(
         self,
+        *,
         dns_zone: str,
         new_dns_zone: str,
         project_id: Optional[str] = None,
@@ -340,6 +344,7 @@ class DomainV2Beta1API(API):
 
     def clone_dns_zone(
         self,
+        *,
         dns_zone: str,
         dest_dns_zone: str,
         overwrite: bool,
@@ -384,6 +389,7 @@ class DomainV2Beta1API(API):
 
     def delete_dns_zone(
         self,
+        *,
         dns_zone: str,
         project_id: Optional[str] = None,
     ) -> DeleteDNSZoneResponse:
@@ -414,6 +420,7 @@ class DomainV2Beta1API(API):
 
     def list_dns_zone_records(
         self,
+        *,
         dns_zone: str,
         name: str,
         project_id: Optional[str] = None,
@@ -467,6 +474,7 @@ class DomainV2Beta1API(API):
 
     def list_dns_zone_records_all(
         self,
+        *,
         dns_zone: str,
         name: str,
         project_id: Optional[str] = None,
@@ -517,6 +525,7 @@ class DomainV2Beta1API(API):
 
     def update_dns_zone_records(
         self,
+        *,
         dns_zone: str,
         changes: List[RecordChange],
         disallow_new_zone_creation: bool,
@@ -581,6 +590,7 @@ class DomainV2Beta1API(API):
 
     def list_dns_zone_nameservers(
         self,
+        *,
         dns_zone: str,
         project_id: Optional[str] = None,
     ) -> ListDNSZoneNameserversResponse:
@@ -611,6 +621,7 @@ class DomainV2Beta1API(API):
 
     def update_dns_zone_nameservers(
         self,
+        *,
         dns_zone: str,
         ns: List[Nameserver],
     ) -> UpdateDNSZoneNameserversResponse:
@@ -648,6 +659,7 @@ class DomainV2Beta1API(API):
 
     def clear_dns_zone_records(
         self,
+        *,
         dns_zone: str,
     ) -> ClearDNSZoneRecordsResponse:
         """
@@ -676,6 +688,7 @@ class DomainV2Beta1API(API):
 
     def export_raw_dns_zone(
         self,
+        *,
         dns_zone: str,
         format: RawFormat,
     ) -> Optional[ScwFile]:
@@ -710,6 +723,7 @@ class DomainV2Beta1API(API):
 
     def import_raw_dns_zone(
         self,
+        *,
         dns_zone: str,
         content: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -760,6 +774,7 @@ class DomainV2Beta1API(API):
 
     def import_provider_dns_zone(
         self,
+        *,
         dns_zone: str,
         online_v1: Optional[ImportProviderDNSZoneRequestOnlineV1] = None,
     ) -> ImportProviderDNSZoneResponse:
@@ -794,6 +809,7 @@ class DomainV2Beta1API(API):
 
     def refresh_dns_zone(
         self,
+        *,
         dns_zone: str,
         recreate_dns_zone: bool,
         recreate_sub_dns_zone: bool,
@@ -837,6 +853,7 @@ class DomainV2Beta1API(API):
 
     def list_dns_zone_versions(
         self,
+        *,
         dns_zone: str,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -873,6 +890,7 @@ class DomainV2Beta1API(API):
 
     def list_dns_zone_versions_all(
         self,
+        *,
         dns_zone: str,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -906,6 +924,7 @@ class DomainV2Beta1API(API):
 
     def list_dns_zone_version_records(
         self,
+        *,
         dns_zone_version_id: str,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -941,6 +960,7 @@ class DomainV2Beta1API(API):
 
     def list_dns_zone_version_records_all(
         self,
+        *,
         dns_zone_version_id: str,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -971,6 +991,7 @@ class DomainV2Beta1API(API):
 
     def get_dns_zone_version_diff(
         self,
+        *,
         dns_zone_version_id: str,
     ) -> GetDNSZoneVersionDiffResponse:
         """
@@ -998,6 +1019,7 @@ class DomainV2Beta1API(API):
 
     def restore_dns_zone_version(
         self,
+        *,
         dns_zone_version_id: str,
     ) -> RestoreDNSZoneVersionResponse:
         """
@@ -1025,6 +1047,7 @@ class DomainV2Beta1API(API):
 
     def get_ssl_certificate(
         self,
+        *,
         dns_zone: str,
     ) -> SSLCertificate:
         """
@@ -1050,6 +1073,7 @@ class DomainV2Beta1API(API):
 
     def wait_for_ssl_certificate(
         self,
+        *,
         dns_zone: str,
         options: Optional[WaitForOptions[SSLCertificate, bool]] = None,
     ) -> SSLCertificate:
@@ -1083,6 +1107,7 @@ class DomainV2Beta1API(API):
 
     def create_ssl_certificate(
         self,
+        *,
         dns_zone: str,
         alternative_dns_zones: Optional[List[str]] = None,
     ) -> SSLCertificate:
@@ -1115,6 +1140,7 @@ class DomainV2Beta1API(API):
 
     def list_ssl_certificates(
         self,
+        *,
         dns_zone: str,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1150,6 +1176,7 @@ class DomainV2Beta1API(API):
 
     def list_ssl_certificates_all(
         self,
+        *,
         dns_zone: str,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1183,6 +1210,7 @@ class DomainV2Beta1API(API):
 
     def delete_ssl_certificate(
         self,
+        *,
         dns_zone: str,
     ) -> DeleteSSLCertificateResponse:
         """
@@ -1208,6 +1236,7 @@ class DomainV2Beta1API(API):
 
     def get_dns_zone_tsig_key(
         self,
+        *,
         dns_zone: str,
     ) -> GetDNSZoneTsigKeyResponse:
         """
@@ -1233,6 +1262,7 @@ class DomainV2Beta1API(API):
 
     def delete_dns_zone_tsig_key(
         self,
+        *,
         dns_zone: str,
     ) -> Optional[None]:
         """
@@ -1265,6 +1295,7 @@ class DomainRegistrarV2Beta1API(API):
 
     def list_tasks(
         self,
+        *,
         domain: str,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1306,6 +1337,7 @@ class DomainRegistrarV2Beta1API(API):
 
     def list_tasks_all(
         self,
+        *,
         domain: str,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1344,6 +1376,7 @@ class DomainRegistrarV2Beta1API(API):
 
     def buy_domains(
         self,
+        *,
         domains: List[str],
         duration_in_years: int,
         project_id: Optional[str] = None,
@@ -1402,6 +1435,7 @@ class DomainRegistrarV2Beta1API(API):
 
     def renew_domains(
         self,
+        *,
         domains: List[str],
         duration_in_years: int,
         force_late_renewal: Optional[bool] = None,
@@ -1441,6 +1475,7 @@ class DomainRegistrarV2Beta1API(API):
 
     def transfer_in_domain(
         self,
+        *,
         domains: List[TransferInDomainRequestTransferRequest],
         project_id: Optional[str] = None,
         owner_contact_id: Optional[str] = None,
@@ -1492,6 +1527,7 @@ class DomainRegistrarV2Beta1API(API):
 
     def trade_domain(
         self,
+        *,
         domain: str,
         project_id: Optional[str] = None,
         new_owner_contact_id: Optional[str] = None,
@@ -1536,6 +1572,7 @@ class DomainRegistrarV2Beta1API(API):
 
     def register_external_domain(
         self,
+        *,
         domain: str,
         project_id: Optional[str] = None,
     ) -> RegisterExternalDomainResponse:
@@ -1569,6 +1606,7 @@ class DomainRegistrarV2Beta1API(API):
 
     def delete_external_domain(
         self,
+        *,
         domain: str,
     ) -> DeleteExternalDomainResponse:
         """
@@ -1595,6 +1633,7 @@ class DomainRegistrarV2Beta1API(API):
 
     def check_contacts_compatibility(
         self,
+        *,
         domain: Optional[str] = None,
         tld: Optional[str] = None,
         owner_contact_id: Optional[str] = None,
@@ -1647,6 +1686,7 @@ class DomainRegistrarV2Beta1API(API):
 
     def list_contacts(
         self,
+        *,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         domain: Optional[str] = None,
@@ -1688,6 +1728,7 @@ class DomainRegistrarV2Beta1API(API):
 
     def list_contacts_all(
         self,
+        *,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         domain: Optional[str] = None,
@@ -1726,6 +1767,7 @@ class DomainRegistrarV2Beta1API(API):
 
     def get_contact(
         self,
+        *,
         contact_id: str,
     ) -> Contact:
         """
@@ -1751,6 +1793,7 @@ class DomainRegistrarV2Beta1API(API):
 
     def update_contact(
         self,
+        *,
         contact_id: str,
         lang: LanguageCode,
         email: Optional[str] = None,
@@ -1842,6 +1885,7 @@ class DomainRegistrarV2Beta1API(API):
 
     def list_domains(
         self,
+        *,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: ListDomainsRequestOrderBy = ListDomainsRequestOrderBy.DOMAIN_ASC,
@@ -1893,6 +1937,7 @@ class DomainRegistrarV2Beta1API(API):
 
     def list_domains_all(
         self,
+        *,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListDomainsRequestOrderBy] = None,
@@ -1941,6 +1986,7 @@ class DomainRegistrarV2Beta1API(API):
 
     def list_renewable_domains(
         self,
+        *,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: ListRenewableDomainsRequestOrderBy = ListRenewableDomainsRequestOrderBy.DOMAIN_ASC,
@@ -1980,6 +2026,7 @@ class DomainRegistrarV2Beta1API(API):
 
     def list_renewable_domains_all(
         self,
+        *,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListRenewableDomainsRequestOrderBy] = None,
@@ -2016,6 +2063,7 @@ class DomainRegistrarV2Beta1API(API):
 
     def get_domain(
         self,
+        *,
         domain: str,
     ) -> Domain:
         """
@@ -2041,6 +2089,7 @@ class DomainRegistrarV2Beta1API(API):
 
     def wait_for_domain(
         self,
+        *,
         domain: str,
         options: Optional[WaitForOptions[Domain, bool]] = None,
     ) -> Domain:
@@ -2072,6 +2121,7 @@ class DomainRegistrarV2Beta1API(API):
 
     def update_domain(
         self,
+        *,
         domain: str,
         technical_contact_id: Optional[str] = None,
         technical_contact: Optional[NewContact] = None,
@@ -2123,6 +2173,7 @@ class DomainRegistrarV2Beta1API(API):
 
     def lock_domain_transfer(
         self,
+        *,
         domain: str,
     ) -> Domain:
         """
@@ -2149,6 +2200,7 @@ class DomainRegistrarV2Beta1API(API):
 
     def unlock_domain_transfer(
         self,
+        *,
         domain: str,
     ) -> Domain:
         """
@@ -2175,6 +2227,7 @@ class DomainRegistrarV2Beta1API(API):
 
     def enable_domain_auto_renew(
         self,
+        *,
         domain: str,
     ) -> Domain:
         """
@@ -2200,6 +2253,7 @@ class DomainRegistrarV2Beta1API(API):
 
     def disable_domain_auto_renew(
         self,
+        *,
         domain: str,
     ) -> Domain:
         """
@@ -2225,6 +2279,7 @@ class DomainRegistrarV2Beta1API(API):
 
     def get_domain_auth_code(
         self,
+        *,
         domain: str,
     ) -> GetDomainAuthCodeResponse:
         """
@@ -2252,6 +2307,7 @@ class DomainRegistrarV2Beta1API(API):
 
     def enable_domain_dnssec(
         self,
+        *,
         domain: str,
         ds_record: Optional[DSRecord] = None,
     ) -> Domain:
@@ -2305,6 +2361,7 @@ class DomainRegistrarV2Beta1API(API):
 
     def disable_domain_dnssec(
         self,
+        *,
         domain: str,
     ) -> Domain:
         """
@@ -2330,6 +2387,7 @@ class DomainRegistrarV2Beta1API(API):
 
     def search_available_domains(
         self,
+        *,
         domains: List[str],
         tlds: Optional[List[str]] = None,
     ) -> SearchAvailableDomainsResponse:
@@ -2362,6 +2420,7 @@ class DomainRegistrarV2Beta1API(API):
 
     def create_domain_host(
         self,
+        *,
         domain: str,
         name: str,
         ips: Optional[List[str]] = None,
@@ -2402,6 +2461,7 @@ class DomainRegistrarV2Beta1API(API):
 
     def list_domain_hosts(
         self,
+        *,
         domain: str,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -2435,6 +2495,7 @@ class DomainRegistrarV2Beta1API(API):
 
     def list_domain_hosts_all(
         self,
+        *,
         domain: str,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -2465,6 +2526,7 @@ class DomainRegistrarV2Beta1API(API):
 
     def update_domain_host(
         self,
+        *,
         domain: str,
         name: str,
         ips: Optional[List[str]] = None,
@@ -2506,6 +2568,7 @@ class DomainRegistrarV2Beta1API(API):
 
     def delete_domain_host(
         self,
+        *,
         domain: str,
         name: str,
     ) -> Host:

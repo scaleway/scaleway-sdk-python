@@ -34,6 +34,7 @@ class VpcV1API(API):
 
     async def list_private_networks(
         self,
+        *,
         zone: Optional[Zone] = None,
         order_by: ListPrivateNetworksRequestOrderBy = ListPrivateNetworksRequestOrderBy.CREATED_AT_ASC,
         page: Optional[int] = None,
@@ -86,6 +87,7 @@ class VpcV1API(API):
 
     async def list_private_networks_all(
         self,
+        *,
         zone: Optional[Zone] = None,
         order_by: Optional[ListPrivateNetworksRequestOrderBy] = None,
         page: Optional[int] = None,
@@ -134,6 +136,7 @@ class VpcV1API(API):
 
     async def create_private_network(
         self,
+        *,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -177,6 +180,7 @@ class VpcV1API(API):
 
     async def get_private_network(
         self,
+        *,
         private_network_id: str,
         zone: Optional[Zone] = None,
     ) -> PrivateNetwork:
@@ -207,6 +211,7 @@ class VpcV1API(API):
 
     async def update_private_network(
         self,
+        *,
         private_network_id: str,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
@@ -253,6 +258,7 @@ class VpcV1API(API):
 
     async def delete_private_network(
         self,
+        *,
         private_network_id: str,
         zone: Optional[Zone] = None,
     ) -> Optional[None]:

@@ -96,6 +96,7 @@ class BaremetalV1API(API):
 
     async def list_servers(
         self,
+        *,
         zone: Optional[Zone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -151,6 +152,7 @@ class BaremetalV1API(API):
 
     async def list_servers_all(
         self,
+        *,
         zone: Optional[Zone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -202,6 +204,7 @@ class BaremetalV1API(API):
 
     async def get_server(
         self,
+        *,
         server_id: str,
         zone: Optional[Zone] = None,
     ) -> Server:
@@ -230,6 +233,7 @@ class BaremetalV1API(API):
 
     async def wait_for_server(
         self,
+        *,
         server_id: str,
         zone: Optional[Zone] = None,
         options: Optional[WaitForOptions[Server, Union[bool, Awaitable[bool]]]] = None,
@@ -264,6 +268,7 @@ class BaremetalV1API(API):
 
     async def create_server(
         self,
+        *,
         offer_id: str,
         name: str,
         description: str,
@@ -327,6 +332,7 @@ class BaremetalV1API(API):
 
     async def update_server(
         self,
+        *,
         server_id: str,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
@@ -371,6 +377,7 @@ class BaremetalV1API(API):
 
     async def install_server(
         self,
+        *,
         server_id: str,
         os_id: str,
         hostname: str,
@@ -432,6 +439,7 @@ class BaremetalV1API(API):
 
     async def get_server_metrics(
         self,
+        *,
         server_id: str,
         zone: Optional[Zone] = None,
     ) -> GetServerMetricsResponse:
@@ -460,6 +468,7 @@ class BaremetalV1API(API):
 
     async def delete_server(
         self,
+        *,
         server_id: str,
         zone: Optional[Zone] = None,
     ) -> Server:
@@ -488,6 +497,7 @@ class BaremetalV1API(API):
 
     async def reboot_server(
         self,
+        *,
         server_id: str,
         boot_type: ServerBootType,
         zone: Optional[Zone] = None,
@@ -529,6 +539,7 @@ class BaremetalV1API(API):
 
     async def start_server(
         self,
+        *,
         server_id: str,
         boot_type: ServerBootType,
         zone: Optional[Zone] = None,
@@ -570,6 +581,7 @@ class BaremetalV1API(API):
 
     async def stop_server(
         self,
+        *,
         server_id: str,
         zone: Optional[Zone] = None,
     ) -> Server:
@@ -598,6 +610,7 @@ class BaremetalV1API(API):
 
     async def list_server_events(
         self,
+        *,
         server_id: str,
         zone: Optional[Zone] = None,
         page: Optional[int] = None,
@@ -637,6 +650,7 @@ class BaremetalV1API(API):
 
     async def list_server_events_all(
         self,
+        *,
         server_id: str,
         zone: Optional[Zone] = None,
         page: Optional[int] = None,
@@ -673,6 +687,7 @@ class BaremetalV1API(API):
 
     async def start_bmc_access(
         self,
+        *,
         server_id: str,
         ip: str,
         zone: Optional[Zone] = None,
@@ -718,6 +733,7 @@ class BaremetalV1API(API):
 
     async def get_bmc_access(
         self,
+        *,
         server_id: str,
         zone: Optional[Zone] = None,
     ) -> BMCAccess:
@@ -746,6 +762,7 @@ class BaremetalV1API(API):
 
     async def stop_bmc_access(
         self,
+        *,
         server_id: str,
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
@@ -773,6 +790,7 @@ class BaremetalV1API(API):
 
     async def update_ip(
         self,
+        *,
         server_id: str,
         ip_id: str,
         zone: Optional[Zone] = None,
@@ -818,6 +836,7 @@ class BaremetalV1API(API):
 
     async def add_option_server(
         self,
+        *,
         server_id: str,
         option_id: str,
         zone: Optional[Zone] = None,
@@ -863,6 +882,7 @@ class BaremetalV1API(API):
 
     async def delete_option_server(
         self,
+        *,
         server_id: str,
         option_id: str,
         zone: Optional[Zone] = None,
@@ -897,6 +917,7 @@ class BaremetalV1API(API):
 
     async def list_offers(
         self,
+        *,
         zone: Optional[Zone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -933,6 +954,7 @@ class BaremetalV1API(API):
 
     async def list_offers_all(
         self,
+        *,
         zone: Optional[Zone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -966,6 +988,7 @@ class BaremetalV1API(API):
 
     async def get_offer(
         self,
+        *,
         offer_id: str,
         zone: Optional[Zone] = None,
     ) -> Offer:
@@ -994,6 +1017,7 @@ class BaremetalV1API(API):
 
     async def get_option(
         self,
+        *,
         option_id: str,
         zone: Optional[Zone] = None,
     ) -> Option:
@@ -1022,6 +1046,7 @@ class BaremetalV1API(API):
 
     async def list_options(
         self,
+        *,
         zone: Optional[Zone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1061,6 +1086,7 @@ class BaremetalV1API(API):
 
     async def list_options_all(
         self,
+        *,
         zone: Optional[Zone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1097,6 +1123,7 @@ class BaremetalV1API(API):
 
     async def list_settings(
         self,
+        *,
         zone: Optional[Zone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1136,6 +1163,7 @@ class BaremetalV1API(API):
 
     async def list_settings_all(
         self,
+        *,
         zone: Optional[Zone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1172,6 +1200,7 @@ class BaremetalV1API(API):
 
     async def update_setting(
         self,
+        *,
         setting_id: str,
         zone: Optional[Zone] = None,
         enabled: Optional[bool] = None,
@@ -1210,6 +1239,7 @@ class BaremetalV1API(API):
 
     async def list_os(
         self,
+        *,
         zone: Optional[Zone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1246,6 +1276,7 @@ class BaremetalV1API(API):
 
     async def list_os_all(
         self,
+        *,
         zone: Optional[Zone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1279,6 +1310,7 @@ class BaremetalV1API(API):
 
     async def get_os(
         self,
+        *,
         os_id: str,
         zone: Optional[Zone] = None,
     ) -> OS:
@@ -1313,6 +1345,7 @@ class BaremetalPrivateNetworkV1API(API):
 
     async def add_server_private_network(
         self,
+        *,
         server_id: str,
         private_network_id: str,
         zone: Optional[Zone] = None,
@@ -1354,6 +1387,7 @@ class BaremetalPrivateNetworkV1API(API):
 
     async def set_server_private_networks(
         self,
+        *,
         server_id: str,
         private_network_ids: List[str],
         zone: Optional[Zone] = None,
@@ -1395,6 +1429,7 @@ class BaremetalPrivateNetworkV1API(API):
 
     async def list_server_private_networks(
         self,
+        *,
         zone: Optional[Zone] = None,
         order_by: ListServerPrivateNetworksRequestOrderBy = ListServerPrivateNetworksRequestOrderBy.CREATED_AT_ASC,
         page: Optional[int] = None,
@@ -1444,6 +1479,7 @@ class BaremetalPrivateNetworkV1API(API):
 
     async def list_server_private_networks_all(
         self,
+        *,
         zone: Optional[Zone] = None,
         order_by: Optional[ListServerPrivateNetworksRequestOrderBy] = None,
         page: Optional[int] = None,
@@ -1489,6 +1525,7 @@ class BaremetalPrivateNetworkV1API(API):
 
     async def delete_server_private_network(
         self,
+        *,
         server_id: str,
         private_network_id: str,
         zone: Optional[Zone] = None,

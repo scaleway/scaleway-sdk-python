@@ -88,6 +88,7 @@ class ContainerV1Beta1API(API):
 
     async def list_namespaces(
         self,
+        *,
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -136,6 +137,7 @@ class ContainerV1Beta1API(API):
 
     async def list_namespaces_all(
         self,
+        *,
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -178,6 +180,7 @@ class ContainerV1Beta1API(API):
 
     async def get_namespace(
         self,
+        *,
         namespace_id: str,
         region: Optional[Region] = None,
     ) -> Namespace:
@@ -208,6 +211,7 @@ class ContainerV1Beta1API(API):
 
     async def wait_for_namespace(
         self,
+        *,
         namespace_id: str,
         region: Optional[Region] = None,
         options: Optional[
@@ -244,6 +248,7 @@ class ContainerV1Beta1API(API):
 
     async def create_namespace(
         self,
+        *,
         region: Optional[Region] = None,
         name: Optional[str] = None,
         environment_variables: Optional[Dict[str, str]] = None,
@@ -292,6 +297,7 @@ class ContainerV1Beta1API(API):
 
     async def update_namespace(
         self,
+        *,
         namespace_id: str,
         region: Optional[Region] = None,
         environment_variables: Optional[Dict[str, str]] = None,
@@ -338,6 +344,7 @@ class ContainerV1Beta1API(API):
 
     async def delete_namespace(
         self,
+        *,
         namespace_id: str,
         region: Optional[Region] = None,
     ) -> Namespace:
@@ -368,6 +375,7 @@ class ContainerV1Beta1API(API):
 
     async def list_containers(
         self,
+        *,
         namespace_id: str,
         region: Optional[Region] = None,
         page: Optional[int] = None,
@@ -419,6 +427,7 @@ class ContainerV1Beta1API(API):
 
     async def list_containers_all(
         self,
+        *,
         namespace_id: str,
         region: Optional[Region] = None,
         page: Optional[int] = None,
@@ -464,6 +473,7 @@ class ContainerV1Beta1API(API):
 
     async def get_container(
         self,
+        *,
         container_id: str,
         region: Optional[Region] = None,
     ) -> Container:
@@ -494,6 +504,7 @@ class ContainerV1Beta1API(API):
 
     async def wait_for_container(
         self,
+        *,
         container_id: str,
         region: Optional[Region] = None,
         options: Optional[
@@ -530,6 +541,7 @@ class ContainerV1Beta1API(API):
 
     async def create_container(
         self,
+        *,
         namespace_id: str,
         privacy: ContainerPrivacy,
         protocol: ContainerProtocol,
@@ -616,6 +628,7 @@ class ContainerV1Beta1API(API):
 
     async def update_container(
         self,
+        *,
         container_id: str,
         privacy: ContainerPrivacy,
         protocol: ContainerProtocol,
@@ -703,6 +716,7 @@ class ContainerV1Beta1API(API):
 
     async def delete_container(
         self,
+        *,
         container_id: str,
         region: Optional[Region] = None,
     ) -> Container:
@@ -733,6 +747,7 @@ class ContainerV1Beta1API(API):
 
     async def deploy_container(
         self,
+        *,
         container_id: str,
         region: Optional[Region] = None,
     ) -> Container:
@@ -763,6 +778,7 @@ class ContainerV1Beta1API(API):
 
     async def list_crons(
         self,
+        *,
         container_id: str,
         region: Optional[Region] = None,
         page: Optional[int] = None,
@@ -804,6 +820,7 @@ class ContainerV1Beta1API(API):
 
     async def list_crons_all(
         self,
+        *,
         container_id: str,
         region: Optional[Region] = None,
         page: Optional[int] = None,
@@ -840,6 +857,7 @@ class ContainerV1Beta1API(API):
 
     async def get_cron(
         self,
+        *,
         cron_id: str,
         region: Optional[Region] = None,
     ) -> Cron:
@@ -870,6 +888,7 @@ class ContainerV1Beta1API(API):
 
     async def wait_for_cron(
         self,
+        *,
         cron_id: str,
         region: Optional[Region] = None,
         options: Optional[WaitForOptions[Cron, Union[bool, Awaitable[bool]]]] = None,
@@ -904,6 +923,7 @@ class ContainerV1Beta1API(API):
 
     async def create_cron(
         self,
+        *,
         container_id: str,
         schedule: str,
         region: Optional[Region] = None,
@@ -952,6 +972,7 @@ class ContainerV1Beta1API(API):
 
     async def update_cron(
         self,
+        *,
         cron_id: str,
         region: Optional[Region] = None,
         container_id: Optional[str] = None,
@@ -1001,6 +1022,7 @@ class ContainerV1Beta1API(API):
 
     async def delete_cron(
         self,
+        *,
         cron_id: str,
         region: Optional[Region] = None,
     ) -> Cron:
@@ -1031,6 +1053,7 @@ class ContainerV1Beta1API(API):
 
     async def list_logs(
         self,
+        *,
         container_id: str,
         region: Optional[Region] = None,
         page: Optional[int] = None,
@@ -1072,6 +1095,7 @@ class ContainerV1Beta1API(API):
 
     async def list_logs_all(
         self,
+        *,
         container_id: str,
         region: Optional[Region] = None,
         page: Optional[int] = None,
@@ -1108,6 +1132,7 @@ class ContainerV1Beta1API(API):
 
     async def list_domains(
         self,
+        *,
         container_id: str,
         region: Optional[Region] = None,
         page: Optional[int] = None,
@@ -1149,6 +1174,7 @@ class ContainerV1Beta1API(API):
 
     async def list_domains_all(
         self,
+        *,
         container_id: str,
         region: Optional[Region] = None,
         page: Optional[int] = None,
@@ -1185,6 +1211,7 @@ class ContainerV1Beta1API(API):
 
     async def get_domain(
         self,
+        *,
         domain_id: str,
         region: Optional[Region] = None,
     ) -> Domain:
@@ -1215,6 +1242,7 @@ class ContainerV1Beta1API(API):
 
     async def wait_for_domain(
         self,
+        *,
         domain_id: str,
         region: Optional[Region] = None,
         options: Optional[WaitForOptions[Domain, Union[bool, Awaitable[bool]]]] = None,
@@ -1249,6 +1277,7 @@ class ContainerV1Beta1API(API):
 
     async def create_domain(
         self,
+        *,
         hostname: str,
         container_id: str,
         region: Optional[Region] = None,
@@ -1291,6 +1320,7 @@ class ContainerV1Beta1API(API):
 
     async def delete_domain(
         self,
+        *,
         domain_id: str,
         region: Optional[Region] = None,
     ) -> Domain:
@@ -1321,6 +1351,7 @@ class ContainerV1Beta1API(API):
 
     async def issue_jwt(
         self,
+        *,
         region: Optional[Region] = None,
         container_id: Optional[str] = None,
         namespace_id: Optional[str] = None,
@@ -1358,6 +1389,7 @@ class ContainerV1Beta1API(API):
 
     async def create_token(
         self,
+        *,
         region: Optional[Region] = None,
         container_id: Optional[str] = None,
         namespace_id: Optional[str] = None,
@@ -1403,6 +1435,7 @@ class ContainerV1Beta1API(API):
 
     async def get_token(
         self,
+        *,
         token_id: str,
         region: Optional[Region] = None,
     ) -> Token:
@@ -1433,6 +1466,7 @@ class ContainerV1Beta1API(API):
 
     async def wait_for_token(
         self,
+        *,
         token_id: str,
         region: Optional[Region] = None,
         options: Optional[WaitForOptions[Token, Union[bool, Awaitable[bool]]]] = None,
@@ -1467,6 +1501,7 @@ class ContainerV1Beta1API(API):
 
     async def list_tokens(
         self,
+        *,
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1511,6 +1546,7 @@ class ContainerV1Beta1API(API):
 
     async def list_tokens_all(
         self,
+        *,
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1550,6 +1586,7 @@ class ContainerV1Beta1API(API):
 
     async def delete_token(
         self,
+        *,
         token_id: str,
         region: Optional[Region] = None,
     ) -> Token:

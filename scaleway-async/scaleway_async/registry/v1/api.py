@@ -56,6 +56,7 @@ class RegistryV1API(API):
 
     async def list_namespaces(
         self,
+        *,
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -104,6 +105,7 @@ class RegistryV1API(API):
 
     async def list_namespaces_all(
         self,
+        *,
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -146,6 +148,7 @@ class RegistryV1API(API):
 
     async def get_namespace(
         self,
+        *,
         namespace_id: str,
         region: Optional[Region] = None,
     ) -> Namespace:
@@ -176,6 +179,7 @@ class RegistryV1API(API):
 
     async def wait_for_namespace(
         self,
+        *,
         namespace_id: str,
         region: Optional[Region] = None,
         options: Optional[
@@ -212,6 +216,7 @@ class RegistryV1API(API):
 
     async def create_namespace(
         self,
+        *,
         description: str,
         is_public: bool,
         region: Optional[Region] = None,
@@ -267,6 +272,7 @@ class RegistryV1API(API):
 
     async def update_namespace(
         self,
+        *,
         namespace_id: str,
         region: Optional[Region] = None,
         description: Optional[str] = None,
@@ -310,6 +316,7 @@ class RegistryV1API(API):
 
     async def delete_namespace(
         self,
+        *,
         namespace_id: str,
         region: Optional[Region] = None,
     ) -> Namespace:
@@ -340,6 +347,7 @@ class RegistryV1API(API):
 
     async def list_images(
         self,
+        *,
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -391,6 +399,7 @@ class RegistryV1API(API):
 
     async def list_images_all(
         self,
+        *,
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -436,6 +445,7 @@ class RegistryV1API(API):
 
     async def get_image(
         self,
+        *,
         image_id: str,
         region: Optional[Region] = None,
     ) -> Image:
@@ -466,6 +476,7 @@ class RegistryV1API(API):
 
     async def wait_for_image(
         self,
+        *,
         image_id: str,
         region: Optional[Region] = None,
         options: Optional[WaitForOptions[Image, Union[bool, Awaitable[bool]]]] = None,
@@ -500,6 +511,7 @@ class RegistryV1API(API):
 
     async def update_image(
         self,
+        *,
         image_id: str,
         visibility: ImageVisibility,
         region: Optional[Region] = None,
@@ -543,6 +555,7 @@ class RegistryV1API(API):
 
     async def delete_image(
         self,
+        *,
         image_id: str,
         region: Optional[Region] = None,
     ) -> Image:
@@ -573,6 +586,7 @@ class RegistryV1API(API):
 
     async def list_tags(
         self,
+        *,
         image_id: str,
         region: Optional[Region] = None,
         page: Optional[int] = None,
@@ -617,6 +631,7 @@ class RegistryV1API(API):
 
     async def list_tags_all(
         self,
+        *,
         image_id: str,
         region: Optional[Region] = None,
         page: Optional[int] = None,
@@ -656,6 +671,7 @@ class RegistryV1API(API):
 
     async def get_tag(
         self,
+        *,
         tag_id: str,
         region: Optional[Region] = None,
     ) -> Tag:
@@ -686,6 +702,7 @@ class RegistryV1API(API):
 
     async def wait_for_tag(
         self,
+        *,
         tag_id: str,
         region: Optional[Region] = None,
         options: Optional[WaitForOptions[Tag, Union[bool, Awaitable[bool]]]] = None,
@@ -720,6 +737,7 @@ class RegistryV1API(API):
 
     async def delete_tag(
         self,
+        *,
         tag_id: str,
         force: bool,
         region: Optional[Region] = None,

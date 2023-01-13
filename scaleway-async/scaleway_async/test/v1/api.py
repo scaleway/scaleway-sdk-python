@@ -48,6 +48,7 @@ class TestV1API(API):
 
     async def register(
         self,
+        *,
         username: str,
     ) -> RegisterResponse:
         """
@@ -80,6 +81,7 @@ class TestV1API(API):
 
     async def list_humans(
         self,
+        *,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: ListHumansRequestOrderBy = ListHumansRequestOrderBy.CREATED_AT_ASC,
@@ -119,6 +121,7 @@ class TestV1API(API):
 
     async def list_humans_all(
         self,
+        *,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListHumansRequestOrderBy] = None,
@@ -155,6 +158,7 @@ class TestV1API(API):
 
     async def get_human(
         self,
+        *,
         human_id: str,
     ) -> Human:
         """
@@ -180,6 +184,7 @@ class TestV1API(API):
 
     async def wait_for_human(
         self,
+        *,
         human_id: str,
         options: Optional[WaitForOptions[Human, Union[bool, Awaitable[bool]]]] = None,
     ) -> Human:
@@ -211,6 +216,7 @@ class TestV1API(API):
 
     async def create_human(
         self,
+        *,
         height: float,
         shoe_size: float,
         altitude_in_meter: int,
@@ -280,6 +286,7 @@ class TestV1API(API):
 
     async def update_human(
         self,
+        *,
         human_id: str,
         eyes_color: EyeColors,
         height: Optional[float] = None,
@@ -341,6 +348,7 @@ class TestV1API(API):
 
     async def delete_human(
         self,
+        *,
         human_id: str,
     ) -> Human:
         """
@@ -366,6 +374,7 @@ class TestV1API(API):
 
     async def run_human(
         self,
+        *,
         human_id: str,
     ) -> Human:
         """
@@ -391,6 +400,7 @@ class TestV1API(API):
 
     async def smoke_human(
         self,
+        *,
         human_id: Optional[str] = None,
     ) -> Human:
         """

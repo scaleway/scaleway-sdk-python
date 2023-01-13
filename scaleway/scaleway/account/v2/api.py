@@ -32,6 +32,7 @@ class AccountV2API(API):
 
     def create_project(
         self,
+        *,
         name: str,
         organization_id: Optional[str] = None,
         description: Optional[str] = None,
@@ -67,6 +68,7 @@ class AccountV2API(API):
 
     def list_projects(
         self,
+        *,
         organization_id: Optional[str] = None,
         name: Optional[str] = None,
         page: Optional[int] = None,
@@ -109,6 +111,7 @@ class AccountV2API(API):
 
     def list_projects_all(
         self,
+        *,
         organization_id: Optional[str] = None,
         name: Optional[str] = None,
         page: Optional[int] = None,
@@ -148,6 +151,7 @@ class AccountV2API(API):
 
     def get_project(
         self,
+        *,
         project_id: Optional[str] = None,
     ) -> Project:
         """
@@ -175,6 +179,7 @@ class AccountV2API(API):
 
     def delete_project(
         self,
+        *,
         project_id: Optional[str] = None,
     ) -> Optional[None]:
         """
@@ -201,6 +206,7 @@ class AccountV2API(API):
 
     def update_project(
         self,
+        *,
         project_id: Optional[str] = None,
         name: Optional[str] = None,
         description: Optional[str] = None,

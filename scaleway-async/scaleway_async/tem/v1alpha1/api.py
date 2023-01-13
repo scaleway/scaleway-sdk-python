@@ -55,6 +55,7 @@ class TemV1Alpha1API(API):
 
     async def get_service_info(
         self,
+        *,
         region: Optional[Region] = None,
     ) -> Optional[ServiceInfo]:
         """
@@ -80,6 +81,7 @@ class TemV1Alpha1API(API):
 
     async def create_email(
         self,
+        *,
         subject: str,
         text: str,
         html: str,
@@ -147,6 +149,7 @@ class TemV1Alpha1API(API):
 
     async def get_email(
         self,
+        *,
         email_id: str,
         region: Optional[Region] = None,
     ) -> Email:
@@ -177,6 +180,7 @@ class TemV1Alpha1API(API):
 
     async def wait_for_email(
         self,
+        *,
         email_id: str,
         region: Optional[Region] = None,
         options: Optional[WaitForOptions[Email, Union[bool, Awaitable[bool]]]] = None,
@@ -211,6 +215,7 @@ class TemV1Alpha1API(API):
 
     async def list_emails(
         self,
+        *,
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -270,6 +275,7 @@ class TemV1Alpha1API(API):
 
     async def list_emails_all(
         self,
+        *,
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -324,6 +330,7 @@ class TemV1Alpha1API(API):
 
     async def get_statistics(
         self,
+        *,
         region: Optional[Region] = None,
         project_id: Optional[str] = None,
         domain_id: Optional[str] = None,
@@ -368,6 +375,7 @@ class TemV1Alpha1API(API):
 
     async def cancel_email(
         self,
+        *,
         email_id: str,
         region: Optional[Region] = None,
     ) -> Email:
@@ -398,6 +406,7 @@ class TemV1Alpha1API(API):
 
     async def create_domain(
         self,
+        *,
         domain_name: str,
         region: Optional[Region] = None,
         project_id: Optional[str] = None,
@@ -437,6 +446,7 @@ class TemV1Alpha1API(API):
 
     async def get_domain(
         self,
+        *,
         domain_id: str,
         region: Optional[Region] = None,
     ) -> Domain:
@@ -467,6 +477,7 @@ class TemV1Alpha1API(API):
 
     async def wait_for_domain(
         self,
+        *,
         domain_id: str,
         region: Optional[Region] = None,
         options: Optional[WaitForOptions[Domain, Union[bool, Awaitable[bool]]]] = None,
@@ -501,6 +512,7 @@ class TemV1Alpha1API(API):
 
     async def list_domains(
         self,
+        *,
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -549,6 +561,7 @@ class TemV1Alpha1API(API):
 
     async def list_domains_all(
         self,
+        *,
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -591,6 +604,7 @@ class TemV1Alpha1API(API):
 
     async def revoke_domain(
         self,
+        *,
         domain_id: str,
         region: Optional[Region] = None,
     ) -> Domain:
@@ -621,6 +635,7 @@ class TemV1Alpha1API(API):
 
     async def check_domain(
         self,
+        *,
         domain_id: str,
         region: Optional[Region] = None,
     ) -> Domain:

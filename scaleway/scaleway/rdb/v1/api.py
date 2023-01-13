@@ -160,6 +160,7 @@ class RdbV1API(API):
 
     def list_database_engines(
         self,
+        *,
         region: Optional[Region] = None,
         name: Optional[str] = None,
         version: Optional[str] = None,
@@ -201,6 +202,7 @@ class RdbV1API(API):
 
     def list_database_engines_all(
         self,
+        *,
         region: Optional[Region] = None,
         name: Optional[str] = None,
         version: Optional[str] = None,
@@ -237,6 +239,7 @@ class RdbV1API(API):
 
     def list_node_types(
         self,
+        *,
         include_disabled_types: bool,
         region: Optional[Region] = None,
         page: Optional[int] = None,
@@ -275,6 +278,7 @@ class RdbV1API(API):
 
     def list_node_types_all(
         self,
+        *,
         include_disabled_types: bool,
         region: Optional[Region] = None,
         page: Optional[int] = None,
@@ -308,6 +312,7 @@ class RdbV1API(API):
 
     def list_database_backups(
         self,
+        *,
         region: Optional[Region] = None,
         name: Optional[str] = None,
         order_by: ListDatabaseBackupsRequestOrderBy = ListDatabaseBackupsRequestOrderBy.CREATED_AT_ASC,
@@ -359,6 +364,7 @@ class RdbV1API(API):
 
     def list_database_backups_all(
         self,
+        *,
         region: Optional[Region] = None,
         name: Optional[str] = None,
         order_by: Optional[ListDatabaseBackupsRequestOrderBy] = None,
@@ -404,6 +410,7 @@ class RdbV1API(API):
 
     def create_database_backup(
         self,
+        *,
         instance_id: str,
         database_name: str,
         region: Optional[Region] = None,
@@ -452,6 +459,7 @@ class RdbV1API(API):
 
     def get_database_backup(
         self,
+        *,
         database_backup_id: str,
         region: Optional[Region] = None,
     ) -> DatabaseBackup:
@@ -484,6 +492,7 @@ class RdbV1API(API):
 
     def wait_for_database_backup(
         self,
+        *,
         database_backup_id: str,
         region: Optional[Region] = None,
         options: Optional[WaitForOptions[DatabaseBackup, bool]] = None,
@@ -520,6 +529,7 @@ class RdbV1API(API):
 
     def update_database_backup(
         self,
+        *,
         database_backup_id: str,
         region: Optional[Region] = None,
         name: Optional[str] = None,
@@ -565,6 +575,7 @@ class RdbV1API(API):
 
     def delete_database_backup(
         self,
+        *,
         database_backup_id: str,
         region: Optional[Region] = None,
     ) -> DatabaseBackup:
@@ -597,6 +608,7 @@ class RdbV1API(API):
 
     def restore_database_backup(
         self,
+        *,
         database_backup_id: str,
         instance_id: str,
         region: Optional[Region] = None,
@@ -645,6 +657,7 @@ class RdbV1API(API):
 
     def export_database_backup(
         self,
+        *,
         database_backup_id: str,
         region: Optional[Region] = None,
     ) -> DatabaseBackup:
@@ -677,6 +690,7 @@ class RdbV1API(API):
 
     def upgrade_instance(
         self,
+        *,
         instance_id: str,
         region: Optional[Region] = None,
         node_type: Optional[str] = None,
@@ -739,6 +753,7 @@ class RdbV1API(API):
 
     def list_instances(
         self,
+        *,
         region: Optional[Region] = None,
         tags: Optional[List[str]] = None,
         name: Optional[str] = None,
@@ -790,6 +805,7 @@ class RdbV1API(API):
 
     def list_instances_all(
         self,
+        *,
         region: Optional[Region] = None,
         tags: Optional[List[str]] = None,
         name: Optional[str] = None,
@@ -835,6 +851,7 @@ class RdbV1API(API):
 
     def get_instance(
         self,
+        *,
         instance_id: str,
         region: Optional[Region] = None,
     ) -> Instance:
@@ -865,6 +882,7 @@ class RdbV1API(API):
 
     def wait_for_instance(
         self,
+        *,
         instance_id: str,
         region: Optional[Region] = None,
         options: Optional[WaitForOptions[Instance, bool]] = None,
@@ -899,6 +917,7 @@ class RdbV1API(API):
 
     def create_instance(
         self,
+        *,
         engine: str,
         user_name: str,
         password: str,
@@ -991,6 +1010,7 @@ class RdbV1API(API):
 
     def update_instance(
         self,
+        *,
         instance_id: str,
         region: Optional[Region] = None,
         backup_schedule_frequency: Optional[int] = None,
@@ -1049,6 +1069,7 @@ class RdbV1API(API):
 
     def delete_instance(
         self,
+        *,
         instance_id: str,
         region: Optional[Region] = None,
     ) -> Instance:
@@ -1079,6 +1100,7 @@ class RdbV1API(API):
 
     def clone_instance(
         self,
+        *,
         instance_id: str,
         name: str,
         region: Optional[Region] = None,
@@ -1125,6 +1147,7 @@ class RdbV1API(API):
 
     def restart_instance(
         self,
+        *,
         instance_id: str,
         region: Optional[Region] = None,
     ) -> Instance:
@@ -1155,6 +1178,7 @@ class RdbV1API(API):
 
     def get_instance_certificate(
         self,
+        *,
         instance_id: str,
         region: Optional[Region] = None,
     ) -> Optional[ScwFile]:
@@ -1186,6 +1210,7 @@ class RdbV1API(API):
 
     def renew_instance_certificate(
         self,
+        *,
         instance_id: str,
         region: Optional[Region] = None,
     ) -> Optional[None]:
@@ -1215,6 +1240,7 @@ class RdbV1API(API):
 
     def get_instance_metrics(
         self,
+        *,
         instance_id: str,
         region: Optional[Region] = None,
         start_date: Optional[datetime] = None,
@@ -1256,6 +1282,7 @@ class RdbV1API(API):
 
     def create_read_replica(
         self,
+        *,
         instance_id: str,
         region: Optional[Region] = None,
         endpoint_spec: Optional[List[ReadReplicaEndpointSpec]] = None,
@@ -1295,6 +1322,7 @@ class RdbV1API(API):
 
     def get_read_replica(
         self,
+        *,
         read_replica_id: str,
         region: Optional[Region] = None,
     ) -> ReadReplica:
@@ -1325,6 +1353,7 @@ class RdbV1API(API):
 
     def wait_for_read_replica(
         self,
+        *,
         read_replica_id: str,
         region: Optional[Region] = None,
         options: Optional[WaitForOptions[ReadReplica, bool]] = None,
@@ -1359,6 +1388,7 @@ class RdbV1API(API):
 
     def delete_read_replica(
         self,
+        *,
         read_replica_id: str,
         region: Optional[Region] = None,
     ) -> ReadReplica:
@@ -1389,6 +1419,7 @@ class RdbV1API(API):
 
     def reset_read_replica(
         self,
+        *,
         read_replica_id: str,
         region: Optional[Region] = None,
     ) -> ReadReplica:
@@ -1422,6 +1453,7 @@ class RdbV1API(API):
 
     def create_read_replica_endpoint(
         self,
+        *,
         read_replica_id: str,
         endpoint_spec: List[ReadReplicaEndpointSpec],
         region: Optional[Region] = None,
@@ -1465,6 +1497,7 @@ class RdbV1API(API):
 
     def prepare_instance_logs(
         self,
+        *,
         instance_id: str,
         region: Optional[Region] = None,
         start_date: Optional[datetime] = None,
@@ -1508,6 +1541,7 @@ class RdbV1API(API):
 
     def list_instance_logs(
         self,
+        *,
         instance_id: str,
         order_by: ListInstanceLogsRequestOrderBy,
         region: Optional[Region] = None,
@@ -1546,6 +1580,7 @@ class RdbV1API(API):
 
     def get_instance_log(
         self,
+        *,
         instance_log_id: str,
         region: Optional[Region] = None,
     ) -> InstanceLog:
@@ -1576,6 +1611,7 @@ class RdbV1API(API):
 
     def wait_for_instance_log(
         self,
+        *,
         instance_log_id: str,
         region: Optional[Region] = None,
         options: Optional[WaitForOptions[InstanceLog, bool]] = None,
@@ -1610,6 +1646,7 @@ class RdbV1API(API):
 
     def purge_instance_logs(
         self,
+        *,
         instance_id: str,
         region: Optional[Region] = None,
         log_name: Optional[str] = None,
@@ -1649,6 +1686,7 @@ class RdbV1API(API):
 
     def list_instance_logs_details(
         self,
+        *,
         instance_id: str,
         region: Optional[Region] = None,
     ) -> ListInstanceLogsDetailsResponse:
@@ -1679,6 +1717,7 @@ class RdbV1API(API):
 
     def add_instance_settings(
         self,
+        *,
         instance_id: str,
         settings: List[InstanceSetting],
         region: Optional[Region] = None,
@@ -1722,6 +1761,7 @@ class RdbV1API(API):
 
     def delete_instance_settings(
         self,
+        *,
         instance_id: str,
         setting_names: List[str],
         region: Optional[Region] = None,
@@ -1765,6 +1805,7 @@ class RdbV1API(API):
 
     def set_instance_settings(
         self,
+        *,
         instance_id: str,
         settings: List[InstanceSetting],
         region: Optional[Region] = None,
@@ -1808,6 +1849,7 @@ class RdbV1API(API):
 
     def list_instance_acl_rules(
         self,
+        *,
         instance_id: str,
         region: Optional[Region] = None,
         page: Optional[int] = None,
@@ -1846,6 +1888,7 @@ class RdbV1API(API):
 
     def list_instance_acl_rules_all(
         self,
+        *,
         instance_id: str,
         region: Optional[Region] = None,
         page: Optional[int] = None,
@@ -1879,6 +1922,7 @@ class RdbV1API(API):
 
     def add_instance_acl_rules(
         self,
+        *,
         instance_id: str,
         rules: List[ACLRuleRequest],
         region: Optional[Region] = None,
@@ -1922,6 +1966,7 @@ class RdbV1API(API):
 
     def set_instance_acl_rules(
         self,
+        *,
         instance_id: str,
         rules: List[ACLRuleRequest],
         region: Optional[Region] = None,
@@ -1965,6 +2010,7 @@ class RdbV1API(API):
 
     def delete_instance_acl_rules(
         self,
+        *,
         instance_id: str,
         acl_rule_ips: List[str],
         region: Optional[Region] = None,
@@ -2008,6 +2054,7 @@ class RdbV1API(API):
 
     def list_users(
         self,
+        *,
         instance_id: str,
         region: Optional[Region] = None,
         name: Optional[str] = None,
@@ -2052,6 +2099,7 @@ class RdbV1API(API):
 
     def list_users_all(
         self,
+        *,
         instance_id: str,
         region: Optional[Region] = None,
         name: Optional[str] = None,
@@ -2091,6 +2139,7 @@ class RdbV1API(API):
 
     def create_user(
         self,
+        *,
         instance_id: str,
         name: str,
         password: str,
@@ -2142,6 +2191,7 @@ class RdbV1API(API):
 
     def update_user(
         self,
+        *,
         instance_id: str,
         name: str,
         region: Optional[Region] = None,
@@ -2192,6 +2242,7 @@ class RdbV1API(API):
 
     def delete_user(
         self,
+        *,
         instance_id: str,
         name: str,
         region: Optional[Region] = None,
@@ -2227,6 +2278,7 @@ class RdbV1API(API):
 
     def list_databases(
         self,
+        *,
         instance_id: str,
         region: Optional[Region] = None,
         name: Optional[str] = None,
@@ -2277,6 +2329,7 @@ class RdbV1API(API):
 
     def list_databases_all(
         self,
+        *,
         instance_id: str,
         region: Optional[Region] = None,
         name: Optional[str] = None,
@@ -2322,6 +2375,7 @@ class RdbV1API(API):
 
     def create_database(
         self,
+        *,
         instance_id: str,
         name: str,
         region: Optional[Region] = None,
@@ -2365,6 +2419,7 @@ class RdbV1API(API):
 
     def delete_database(
         self,
+        *,
         instance_id: str,
         name: str,
         region: Optional[Region] = None,
@@ -2400,6 +2455,7 @@ class RdbV1API(API):
 
     def list_privileges(
         self,
+        *,
         instance_id: str,
         region: Optional[Region] = None,
         order_by: ListPrivilegesRequestOrderBy = ListPrivilegesRequestOrderBy.USER_NAME_ASC,
@@ -2447,6 +2503,7 @@ class RdbV1API(API):
 
     def list_privileges_all(
         self,
+        *,
         instance_id: str,
         region: Optional[Region] = None,
         order_by: Optional[ListPrivilegesRequestOrderBy] = None,
@@ -2489,6 +2546,7 @@ class RdbV1API(API):
 
     def set_privilege(
         self,
+        *,
         instance_id: str,
         database_name: str,
         user_name: str,
@@ -2540,6 +2598,7 @@ class RdbV1API(API):
 
     def list_snapshots(
         self,
+        *,
         region: Optional[Region] = None,
         name: Optional[str] = None,
         order_by: ListSnapshotsRequestOrderBy = ListSnapshotsRequestOrderBy.CREATED_AT_ASC,
@@ -2591,6 +2650,7 @@ class RdbV1API(API):
 
     def list_snapshots_all(
         self,
+        *,
         region: Optional[Region] = None,
         name: Optional[str] = None,
         order_by: Optional[ListSnapshotsRequestOrderBy] = None,
@@ -2636,6 +2696,7 @@ class RdbV1API(API):
 
     def get_snapshot(
         self,
+        *,
         snapshot_id: str,
         region: Optional[Region] = None,
     ) -> Snapshot:
@@ -2666,6 +2727,7 @@ class RdbV1API(API):
 
     def wait_for_snapshot(
         self,
+        *,
         snapshot_id: str,
         region: Optional[Region] = None,
         options: Optional[WaitForOptions[Snapshot, bool]] = None,
@@ -2700,6 +2762,7 @@ class RdbV1API(API):
 
     def create_snapshot(
         self,
+        *,
         instance_id: str,
         region: Optional[Region] = None,
         name: Optional[str] = None,
@@ -2743,6 +2806,7 @@ class RdbV1API(API):
 
     def update_snapshot(
         self,
+        *,
         snapshot_id: str,
         region: Optional[Region] = None,
         name: Optional[str] = None,
@@ -2786,6 +2850,7 @@ class RdbV1API(API):
 
     def delete_snapshot(
         self,
+        *,
         snapshot_id: str,
         region: Optional[Region] = None,
     ) -> Snapshot:
@@ -2816,6 +2881,7 @@ class RdbV1API(API):
 
     def create_instance_from_snapshot(
         self,
+        *,
         snapshot_id: str,
         instance_name: str,
         region: Optional[Region] = None,
@@ -2865,6 +2931,7 @@ class RdbV1API(API):
 
     def create_endpoint(
         self,
+        *,
         instance_id: str,
         region: Optional[Region] = None,
         endpoint_spec: Optional[EndpointSpec] = None,
@@ -2905,6 +2972,7 @@ class RdbV1API(API):
 
     def delete_endpoint(
         self,
+        *,
         endpoint_id: str,
         region: Optional[Region] = None,
     ) -> Optional[None]:
@@ -2934,6 +3002,7 @@ class RdbV1API(API):
 
     def get_endpoint(
         self,
+        *,
         endpoint_id: str,
         region: Optional[Region] = None,
     ) -> Endpoint:

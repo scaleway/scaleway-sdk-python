@@ -85,6 +85,7 @@ class RedisV1API(API):
 
     async def create_cluster(
         self,
+        *,
         version: str,
         node_type: str,
         user_name: str,
@@ -158,6 +159,7 @@ class RedisV1API(API):
 
     async def update_cluster(
         self,
+        *,
         cluster_id: str,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
@@ -205,6 +207,7 @@ class RedisV1API(API):
 
     async def get_cluster(
         self,
+        *,
         cluster_id: str,
         zone: Optional[Zone] = None,
     ) -> Cluster:
@@ -233,6 +236,7 @@ class RedisV1API(API):
 
     async def wait_for_cluster(
         self,
+        *,
         cluster_id: str,
         zone: Optional[Zone] = None,
         options: Optional[WaitForOptions[Cluster, Union[bool, Awaitable[bool]]]] = None,
@@ -267,6 +271,7 @@ class RedisV1API(API):
 
     async def list_clusters(
         self,
+        *,
         zone: Optional[Zone] = None,
         tags: Optional[List[str]] = None,
         name: Optional[str] = None,
@@ -319,6 +324,7 @@ class RedisV1API(API):
 
     async def list_clusters_all(
         self,
+        *,
         zone: Optional[Zone] = None,
         tags: Optional[List[str]] = None,
         name: Optional[str] = None,
@@ -367,6 +373,7 @@ class RedisV1API(API):
 
     async def migrate_cluster(
         self,
+        *,
         cluster_id: str,
         zone: Optional[Zone] = None,
         version: Optional[str] = None,
@@ -417,6 +424,7 @@ class RedisV1API(API):
 
     async def delete_cluster(
         self,
+        *,
         cluster_id: str,
         zone: Optional[Zone] = None,
     ) -> Cluster:
@@ -445,6 +453,7 @@ class RedisV1API(API):
 
     async def get_cluster_metrics(
         self,
+        *,
         cluster_id: str,
         zone: Optional[Zone] = None,
         start_at: Optional[datetime] = None,
@@ -484,6 +493,7 @@ class RedisV1API(API):
 
     async def list_node_types(
         self,
+        *,
         include_disabled_types: bool,
         zone: Optional[Zone] = None,
         page: Optional[int] = None,
@@ -520,6 +530,7 @@ class RedisV1API(API):
 
     async def list_node_types_all(
         self,
+        *,
         include_disabled_types: bool,
         zone: Optional[Zone] = None,
         page: Optional[int] = None,
@@ -553,6 +564,7 @@ class RedisV1API(API):
 
     async def list_cluster_versions(
         self,
+        *,
         include_disabled: bool,
         include_beta: bool,
         include_deprecated: bool,
@@ -602,6 +614,7 @@ class RedisV1API(API):
 
     async def list_cluster_versions_all(
         self,
+        *,
         include_disabled: bool,
         include_beta: bool,
         include_deprecated: bool,
@@ -648,6 +661,7 @@ class RedisV1API(API):
 
     async def get_cluster_certificate(
         self,
+        *,
         cluster_id: str,
         zone: Optional[Zone] = None,
     ) -> Optional[ScwFile]:
@@ -677,6 +691,7 @@ class RedisV1API(API):
 
     async def renew_cluster_certificate(
         self,
+        *,
         cluster_id: str,
         zone: Optional[Zone] = None,
     ) -> Cluster:
@@ -705,6 +720,7 @@ class RedisV1API(API):
 
     async def add_cluster_settings(
         self,
+        *,
         cluster_id: str,
         settings: List[ClusterSetting],
         zone: Optional[Zone] = None,
@@ -746,6 +762,7 @@ class RedisV1API(API):
 
     async def delete_cluster_setting(
         self,
+        *,
         cluster_id: str,
         setting_name: str,
         zone: Optional[Zone] = None,
@@ -780,6 +797,7 @@ class RedisV1API(API):
 
     async def set_cluster_settings(
         self,
+        *,
         cluster_id: str,
         settings: List[ClusterSetting],
         zone: Optional[Zone] = None,
@@ -821,6 +839,7 @@ class RedisV1API(API):
 
     async def set_acl_rules(
         self,
+        *,
         cluster_id: str,
         acl_rules: List[ACLRuleSpec],
         zone: Optional[Zone] = None,
@@ -862,6 +881,7 @@ class RedisV1API(API):
 
     async def add_acl_rules(
         self,
+        *,
         cluster_id: str,
         acl_rules: List[ACLRuleSpec],
         zone: Optional[Zone] = None,
@@ -903,6 +923,7 @@ class RedisV1API(API):
 
     async def delete_acl_rule(
         self,
+        *,
         acl_id: str,
         zone: Optional[Zone] = None,
     ) -> Cluster:
@@ -931,6 +952,7 @@ class RedisV1API(API):
 
     async def get_acl_rule(
         self,
+        *,
         acl_id: str,
         zone: Optional[Zone] = None,
     ) -> ACLRule:
@@ -959,6 +981,7 @@ class RedisV1API(API):
 
     async def set_endpoints(
         self,
+        *,
         cluster_id: str,
         endpoints: List[EndpointSpec],
         zone: Optional[Zone] = None,
@@ -1000,6 +1023,7 @@ class RedisV1API(API):
 
     async def add_endpoints(
         self,
+        *,
         cluster_id: str,
         endpoints: List[EndpointSpec],
         zone: Optional[Zone] = None,
@@ -1041,6 +1065,7 @@ class RedisV1API(API):
 
     async def delete_endpoint(
         self,
+        *,
         endpoint_id: str,
         zone: Optional[Zone] = None,
     ) -> Cluster:
@@ -1069,6 +1094,7 @@ class RedisV1API(API):
 
     async def get_endpoint(
         self,
+        *,
         endpoint_id: str,
         zone: Optional[Zone] = None,
     ) -> Endpoint:
@@ -1097,6 +1123,7 @@ class RedisV1API(API):
 
     async def update_endpoint(
         self,
+        *,
         endpoint_id: str,
         zone: Optional[Zone] = None,
         private_network: Optional[EndpointSpecPrivateNetworkSpec] = None,

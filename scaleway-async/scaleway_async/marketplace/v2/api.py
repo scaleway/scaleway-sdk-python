@@ -42,6 +42,7 @@ class MarketplaceV2API(API):
 
     async def list_images(
         self,
+        *,
         include_eol: bool,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
@@ -83,6 +84,7 @@ class MarketplaceV2API(API):
 
     async def list_images_all(
         self,
+        *,
         include_eol: bool,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
@@ -122,6 +124,7 @@ class MarketplaceV2API(API):
 
     async def get_image(
         self,
+        *,
         image_id: str,
     ) -> Image:
         """
@@ -147,6 +150,7 @@ class MarketplaceV2API(API):
 
     async def list_versions(
         self,
+        *,
         image_id: str,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
@@ -176,6 +180,7 @@ class MarketplaceV2API(API):
 
     async def list_versions_all(
         self,
+        *,
         image_id: str,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
@@ -204,6 +209,7 @@ class MarketplaceV2API(API):
 
     async def get_version(
         self,
+        *,
         version_id: str,
     ) -> Version:
         """
@@ -226,6 +232,7 @@ class MarketplaceV2API(API):
 
     async def list_local_images(
         self,
+        *,
         image_id: Optional[str] = None,
         version_id: Optional[str] = None,
         page_size: Optional[int] = None,
@@ -261,6 +268,7 @@ class MarketplaceV2API(API):
 
     async def list_local_images_all(
         self,
+        *,
         image_id: Optional[str] = None,
         version_id: Optional[str] = None,
         page_size: Optional[int] = None,
@@ -291,6 +299,7 @@ class MarketplaceV2API(API):
 
     async def get_local_image(
         self,
+        *,
         local_image_id: str,
     ) -> LocalImage:
         """
@@ -313,6 +322,7 @@ class MarketplaceV2API(API):
 
     async def list_categories(
         self,
+        *,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
     ) -> ListCategoriesResponse:
@@ -338,6 +348,7 @@ class MarketplaceV2API(API):
 
     async def list_categories_all(
         self,
+        *,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
     ) -> List[Category]:
@@ -362,6 +373,7 @@ class MarketplaceV2API(API):
 
     async def get_category(
         self,
+        *,
         category_id: str,
     ) -> Category:
         """

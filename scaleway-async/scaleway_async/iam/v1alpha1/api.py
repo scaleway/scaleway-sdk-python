@@ -93,6 +93,7 @@ class IamV1Alpha1API(API):
 
     async def list_ssh_keys(
         self,
+        *,
         order_by: ListSSHKeysRequestOrderBy = ListSSHKeysRequestOrderBy.CREATED_AT_ASC,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -138,6 +139,7 @@ class IamV1Alpha1API(API):
 
     async def list_ssh_keys_all(
         self,
+        *,
         order_by: Optional[ListSSHKeysRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -180,6 +182,7 @@ class IamV1Alpha1API(API):
 
     async def create_ssh_key(
         self,
+        *,
         public_key: str,
         name: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -215,6 +218,7 @@ class IamV1Alpha1API(API):
 
     async def get_ssh_key(
         self,
+        *,
         ssh_key_id: str,
     ) -> SSHKey:
         """
@@ -240,6 +244,7 @@ class IamV1Alpha1API(API):
 
     async def update_ssh_key(
         self,
+        *,
         ssh_key_id: str,
         name: Optional[str] = None,
         disabled: Optional[bool] = None,
@@ -277,6 +282,7 @@ class IamV1Alpha1API(API):
 
     async def delete_ssh_key(
         self,
+        *,
         ssh_key_id: str,
     ) -> Optional[None]:
         """
@@ -301,6 +307,7 @@ class IamV1Alpha1API(API):
 
     async def list_users(
         self,
+        *,
         order_by: ListUsersRequestOrderBy = ListUsersRequestOrderBy.CREATED_AT_ASC,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
@@ -340,6 +347,7 @@ class IamV1Alpha1API(API):
 
     async def list_users_all(
         self,
+        *,
         order_by: Optional[ListUsersRequestOrderBy] = None,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
@@ -376,6 +384,7 @@ class IamV1Alpha1API(API):
 
     async def get_user(
         self,
+        *,
         user_id: str,
     ) -> User:
         """
@@ -401,6 +410,7 @@ class IamV1Alpha1API(API):
 
     async def delete_user(
         self,
+        *,
         user_id: str,
     ) -> Optional[None]:
         """
@@ -425,6 +435,7 @@ class IamV1Alpha1API(API):
 
     async def list_applications(
         self,
+        *,
         order_by: ListApplicationsRequestOrderBy = ListApplicationsRequestOrderBy.CREATED_AT_ASC,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
@@ -470,6 +481,7 @@ class IamV1Alpha1API(API):
 
     async def list_applications_all(
         self,
+        *,
         order_by: Optional[ListApplicationsRequestOrderBy] = None,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
@@ -512,6 +524,7 @@ class IamV1Alpha1API(API):
 
     async def create_application(
         self,
+        *,
         description: str,
         name: Optional[str] = None,
         organization_id: Optional[str] = None,
@@ -547,6 +560,7 @@ class IamV1Alpha1API(API):
 
     async def get_application(
         self,
+        *,
         application_id: str,
     ) -> Application:
         """
@@ -572,6 +586,7 @@ class IamV1Alpha1API(API):
 
     async def update_application(
         self,
+        *,
         application_id: str,
         name: Optional[str] = None,
         description: Optional[str] = None,
@@ -609,6 +624,7 @@ class IamV1Alpha1API(API):
 
     async def delete_application(
         self,
+        *,
         application_id: str,
     ) -> Optional[None]:
         """
@@ -633,6 +649,7 @@ class IamV1Alpha1API(API):
 
     async def list_groups(
         self,
+        *,
         order_by: ListGroupsRequestOrderBy = ListGroupsRequestOrderBy.CREATED_AT_ASC,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -681,6 +698,7 @@ class IamV1Alpha1API(API):
 
     async def list_groups_all(
         self,
+        *,
         order_by: Optional[ListGroupsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -726,6 +744,7 @@ class IamV1Alpha1API(API):
 
     async def create_group(
         self,
+        *,
         description: str,
         organization_id: Optional[str] = None,
         name: Optional[str] = None,
@@ -761,6 +780,7 @@ class IamV1Alpha1API(API):
 
     async def get_group(
         self,
+        *,
         group_id: str,
     ) -> Group:
         """
@@ -786,6 +806,7 @@ class IamV1Alpha1API(API):
 
     async def update_group(
         self,
+        *,
         group_id: str,
         name: Optional[str] = None,
         description: Optional[str] = None,
@@ -823,6 +844,7 @@ class IamV1Alpha1API(API):
 
     async def set_group_members(
         self,
+        *,
         group_id: str,
         user_ids: List[str],
         application_ids: List[str],
@@ -864,6 +886,7 @@ class IamV1Alpha1API(API):
 
     async def add_group_member(
         self,
+        *,
         group_id: str,
         user_id: Optional[str] = None,
         application_id: Optional[str] = None,
@@ -905,6 +928,7 @@ class IamV1Alpha1API(API):
 
     async def remove_group_member(
         self,
+        *,
         group_id: str,
         user_id: Optional[str] = None,
         application_id: Optional[str] = None,
@@ -946,6 +970,7 @@ class IamV1Alpha1API(API):
 
     async def delete_group(
         self,
+        *,
         group_id: str,
     ) -> Optional[None]:
         """
@@ -970,6 +995,7 @@ class IamV1Alpha1API(API):
 
     async def list_policies(
         self,
+        *,
         order_by: ListPoliciesRequestOrderBy = ListPoliciesRequestOrderBy.POLICY_NAME_ASC,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
@@ -1024,6 +1050,7 @@ class IamV1Alpha1API(API):
 
     async def list_policies_all(
         self,
+        *,
         order_by: Optional[ListPoliciesRequestOrderBy] = None,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
@@ -1075,6 +1102,7 @@ class IamV1Alpha1API(API):
 
     async def create_policy(
         self,
+        *,
         description: str,
         name: Optional[str] = None,
         organization_id: Optional[str] = None,
@@ -1133,6 +1161,7 @@ class IamV1Alpha1API(API):
 
     async def get_policy(
         self,
+        *,
         policy_id: str,
     ) -> Policy:
         """
@@ -1158,6 +1187,7 @@ class IamV1Alpha1API(API):
 
     async def update_policy(
         self,
+        *,
         policy_id: str,
         name: Optional[str] = None,
         description: Optional[str] = None,
@@ -1215,6 +1245,7 @@ class IamV1Alpha1API(API):
 
     async def delete_policy(
         self,
+        *,
         policy_id: str,
     ) -> Optional[None]:
         """
@@ -1239,6 +1270,7 @@ class IamV1Alpha1API(API):
 
     async def clone_policy(
         self,
+        *,
         policy_id: str,
     ) -> Policy:
         """
@@ -1261,6 +1293,7 @@ class IamV1Alpha1API(API):
 
     async def set_rules(
         self,
+        *,
         policy_id: str,
         rules: List[RuleSpecs],
     ) -> SetRulesResponse:
@@ -1296,6 +1329,7 @@ class IamV1Alpha1API(API):
 
     async def list_rules(
         self,
+        *,
         policy_id: str,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
@@ -1328,6 +1362,7 @@ class IamV1Alpha1API(API):
 
     async def list_rules_all(
         self,
+        *,
         policy_id: str,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
@@ -1358,6 +1393,7 @@ class IamV1Alpha1API(API):
 
     async def list_permission_sets(
         self,
+        *,
         order_by: ListPermissionSetsRequestOrderBy = ListPermissionSetsRequestOrderBy.NAME_ASC,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
@@ -1394,6 +1430,7 @@ class IamV1Alpha1API(API):
 
     async def list_permission_sets_all(
         self,
+        *,
         order_by: Optional[ListPermissionSetsRequestOrderBy] = None,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
@@ -1427,6 +1464,7 @@ class IamV1Alpha1API(API):
 
     async def list_api_keys(
         self,
+        *,
         order_by: ListAPIKeysRequestOrderBy = ListAPIKeysRequestOrderBy.CREATED_AT_ASC,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1480,6 +1518,7 @@ class IamV1Alpha1API(API):
 
     async def list_api_keys_all(
         self,
+        *,
         order_by: Optional[ListAPIKeysRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1526,6 +1565,7 @@ class IamV1Alpha1API(API):
 
     async def create_api_key(
         self,
+        *,
         description: str,
         application_id: Optional[str] = None,
         user_id: Optional[str] = None,
@@ -1571,6 +1611,7 @@ class IamV1Alpha1API(API):
 
     async def get_api_key(
         self,
+        *,
         access_key: str,
     ) -> APIKey:
         """
@@ -1596,6 +1637,7 @@ class IamV1Alpha1API(API):
 
     async def update_api_key(
         self,
+        *,
         access_key: str,
         default_project_id: Optional[str] = None,
         description: Optional[str] = None,
@@ -1633,6 +1675,7 @@ class IamV1Alpha1API(API):
 
     async def delete_api_key(
         self,
+        *,
         access_key: str,
     ) -> Optional[None]:
         """
