@@ -216,6 +216,7 @@ class InstanceV1API(API):
 
     async def get_server_types_availability(
         self,
+        *,
         zone: Optional[Zone] = None,
         per_page: Optional[int] = None,
         page: Optional[int] = None,
@@ -249,6 +250,7 @@ class InstanceV1API(API):
 
     async def list_servers_types(
         self,
+        *,
         zone: Optional[Zone] = None,
         per_page: Optional[int] = None,
         page: Optional[int] = None,
@@ -282,6 +284,7 @@ class InstanceV1API(API):
 
     async def list_volumes_types(
         self,
+        *,
         zone: Optional[Zone] = None,
         per_page: Optional[int] = None,
         page: Optional[int] = None,
@@ -315,6 +318,7 @@ class InstanceV1API(API):
 
     async def list_servers(
         self,
+        *,
         zone: Optional[Zone] = None,
         per_page: Optional[int] = None,
         page: Optional[int] = None,
@@ -378,6 +382,7 @@ class InstanceV1API(API):
 
     async def list_servers_all(
         self,
+        *,
         zone: Optional[Zone] = None,
         per_page: Optional[int] = None,
         page: Optional[int] = None,
@@ -438,6 +443,7 @@ class InstanceV1API(API):
 
     async def _create_server(
         self,
+        *,
         commercial_type: str,
         image: str,
         enable_ipv6: bool,
@@ -537,6 +543,7 @@ class InstanceV1API(API):
 
     async def delete_server(
         self,
+        *,
         server_id: str,
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
@@ -564,6 +571,7 @@ class InstanceV1API(API):
 
     async def get_server(
         self,
+        *,
         server_id: str,
         zone: Optional[Zone] = None,
     ) -> GetServerResponse:
@@ -592,6 +600,7 @@ class InstanceV1API(API):
 
     async def _set_server(
         self,
+        *,
         id: str,
         name: str,
         commercial_type: str,
@@ -689,6 +698,7 @@ class InstanceV1API(API):
 
     async def _update_server(
         self,
+        *,
         server_id: str,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
@@ -757,6 +767,7 @@ class InstanceV1API(API):
 
     async def list_server_actions(
         self,
+        *,
         server_id: str,
         zone: Optional[Zone] = None,
     ) -> ListServerActionsResponse:
@@ -785,6 +796,7 @@ class InstanceV1API(API):
 
     async def server_action(
         self,
+        *,
         server_id: str,
         action: ServerAction,
         zone: Optional[Zone] = None,
@@ -836,6 +848,7 @@ class InstanceV1API(API):
 
     async def list_server_user_data(
         self,
+        *,
         server_id: str,
         zone: Optional[Zone] = None,
     ) -> ListServerUserDataResponse:
@@ -864,6 +877,7 @@ class InstanceV1API(API):
 
     async def delete_server_user_data(
         self,
+        *,
         server_id: str,
         key: str,
         zone: Optional[Zone] = None,
@@ -897,6 +911,7 @@ class InstanceV1API(API):
 
     async def list_images(
         self,
+        *,
         zone: Optional[Zone] = None,
         organization: Optional[str] = None,
         per_page: Optional[int] = None,
@@ -948,6 +963,7 @@ class InstanceV1API(API):
 
     async def list_images_all(
         self,
+        *,
         zone: Optional[Zone] = None,
         organization: Optional[str] = None,
         per_page: Optional[int] = None,
@@ -996,6 +1012,7 @@ class InstanceV1API(API):
 
     async def get_image(
         self,
+        *,
         image_id: str,
         zone: Optional[Zone] = None,
     ) -> GetImageResponse:
@@ -1024,6 +1041,7 @@ class InstanceV1API(API):
 
     async def create_image(
         self,
+        *,
         root_volume: str,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
@@ -1086,6 +1104,7 @@ class InstanceV1API(API):
 
     async def _set_image(
         self,
+        *,
         id: str,
         name: str,
         arch: Arch,
@@ -1167,6 +1186,7 @@ class InstanceV1API(API):
 
     async def delete_image(
         self,
+        *,
         image_id: str,
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
@@ -1194,6 +1214,7 @@ class InstanceV1API(API):
 
     async def list_snapshots(
         self,
+        *,
         zone: Optional[Zone] = None,
         organization: Optional[str] = None,
         per_page: Optional[int] = None,
@@ -1239,6 +1260,7 @@ class InstanceV1API(API):
 
     async def list_snapshots_all(
         self,
+        *,
         zone: Optional[Zone] = None,
         organization: Optional[str] = None,
         per_page: Optional[int] = None,
@@ -1281,6 +1303,7 @@ class InstanceV1API(API):
 
     async def create_snapshot(
         self,
+        *,
         volume_type: SnapshotVolumeType,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
@@ -1345,6 +1368,7 @@ class InstanceV1API(API):
 
     async def get_snapshot(
         self,
+        *,
         snapshot_id: str,
         zone: Optional[Zone] = None,
     ) -> GetSnapshotResponse:
@@ -1373,6 +1397,7 @@ class InstanceV1API(API):
 
     async def _set_snapshot(
         self,
+        *,
         snapshot_id: str,
         id: str,
         name: str,
@@ -1448,6 +1473,7 @@ class InstanceV1API(API):
 
     async def delete_snapshot(
         self,
+        *,
         snapshot_id: str,
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
@@ -1475,6 +1501,7 @@ class InstanceV1API(API):
 
     async def export_snapshot(
         self,
+        *,
         snapshot_id: str,
         bucket: str,
         key: str,
@@ -1520,6 +1547,7 @@ class InstanceV1API(API):
 
     async def list_volumes(
         self,
+        *,
         zone: Optional[Zone] = None,
         volume_type: VolumeVolumeType = VolumeVolumeType.L_SSD,
         per_page: Optional[int] = None,
@@ -1568,6 +1596,7 @@ class InstanceV1API(API):
 
     async def list_volumes_all(
         self,
+        *,
         zone: Optional[Zone] = None,
         volume_type: Optional[VolumeVolumeType] = None,
         per_page: Optional[int] = None,
@@ -1613,6 +1642,7 @@ class InstanceV1API(API):
 
     async def create_volume(
         self,
+        *,
         volume_type: VolumeVolumeType,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
@@ -1678,6 +1708,7 @@ class InstanceV1API(API):
 
     async def get_volume(
         self,
+        *,
         volume_id: str,
         zone: Optional[Zone] = None,
     ) -> GetVolumeResponse:
@@ -1706,6 +1737,7 @@ class InstanceV1API(API):
 
     async def update_volume(
         self,
+        *,
         volume_id: str,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
@@ -1750,6 +1782,7 @@ class InstanceV1API(API):
 
     async def delete_volume(
         self,
+        *,
         volume_id: str,
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
@@ -1777,6 +1810,7 @@ class InstanceV1API(API):
 
     async def list_security_groups(
         self,
+        *,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
         organization: Optional[str] = None,
@@ -1825,6 +1859,7 @@ class InstanceV1API(API):
 
     async def list_security_groups_all(
         self,
+        *,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
         organization: Optional[str] = None,
@@ -1870,6 +1905,7 @@ class InstanceV1API(API):
 
     async def create_security_group(
         self,
+        *,
         description: str,
         stateful: bool,
         inbound_default_policy: SecurityGroupPolicy,
@@ -1947,6 +1983,7 @@ class InstanceV1API(API):
 
     async def get_security_group(
         self,
+        *,
         security_group_id: str,
         zone: Optional[Zone] = None,
     ) -> GetSecurityGroupResponse:
@@ -1977,6 +2014,7 @@ class InstanceV1API(API):
 
     async def delete_security_group(
         self,
+        *,
         security_group_id: str,
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
@@ -2006,6 +2044,7 @@ class InstanceV1API(API):
 
     async def _set_security_group(
         self,
+        *,
         id: str,
         name: str,
         description: str,
@@ -2092,6 +2131,7 @@ class InstanceV1API(API):
 
     async def list_default_security_group_rules(
         self,
+        *,
         zone: Optional[Zone] = None,
     ) -> ListSecurityGroupRulesResponse:
         """
@@ -2117,6 +2157,7 @@ class InstanceV1API(API):
 
     async def list_security_group_rules(
         self,
+        *,
         security_group_id: str,
         zone: Optional[Zone] = None,
         per_page: Optional[int] = None,
@@ -2155,6 +2196,7 @@ class InstanceV1API(API):
 
     async def list_security_group_rules_all(
         self,
+        *,
         security_group_id: str,
         zone: Optional[Zone] = None,
         per_page: Optional[int] = None,
@@ -2188,6 +2230,7 @@ class InstanceV1API(API):
 
     async def create_security_group_rule(
         self,
+        *,
         security_group_id: str,
         ip_range: str,
         position: int,
@@ -2254,6 +2297,7 @@ class InstanceV1API(API):
 
     async def set_security_group_rules(
         self,
+        *,
         security_group_id: str,
         zone: Optional[Zone] = None,
         rules: Optional[List[SetSecurityGroupRulesRequestRule]] = None,
@@ -2294,6 +2338,7 @@ class InstanceV1API(API):
 
     async def delete_security_group_rule(
         self,
+        *,
         security_group_id: str,
         security_group_rule_id: str,
         zone: Optional[Zone] = None,
@@ -2331,6 +2376,7 @@ class InstanceV1API(API):
 
     async def get_security_group_rule(
         self,
+        *,
         security_group_id: str,
         security_group_rule_id: str,
         zone: Optional[Zone] = None,
@@ -2369,6 +2415,7 @@ class InstanceV1API(API):
 
     async def _set_security_group_rule(
         self,
+        *,
         security_group_id: str,
         security_group_rule_id: str,
         id: str,
@@ -2449,6 +2496,7 @@ class InstanceV1API(API):
 
     async def list_placement_groups(
         self,
+        *,
         zone: Optional[Zone] = None,
         per_page: Optional[int] = None,
         page: Optional[int] = None,
@@ -2494,6 +2542,7 @@ class InstanceV1API(API):
 
     async def list_placement_groups_all(
         self,
+        *,
         zone: Optional[Zone] = None,
         per_page: Optional[int] = None,
         page: Optional[int] = None,
@@ -2536,6 +2585,7 @@ class InstanceV1API(API):
 
     async def create_placement_group(
         self,
+        *,
         policy_mode: PlacementGroupPolicyMode,
         policy_type: PlacementGroupPolicyType,
         zone: Optional[Zone] = None,
@@ -2592,6 +2642,7 @@ class InstanceV1API(API):
 
     async def get_placement_group(
         self,
+        *,
         placement_group_id: str,
         zone: Optional[Zone] = None,
     ) -> GetPlacementGroupResponse:
@@ -2622,6 +2673,7 @@ class InstanceV1API(API):
 
     async def set_placement_group(
         self,
+        *,
         placement_group_id: str,
         name: str,
         policy_mode: PlacementGroupPolicyMode,
@@ -2682,6 +2734,7 @@ class InstanceV1API(API):
 
     async def update_placement_group(
         self,
+        *,
         placement_group_id: str,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
@@ -2731,6 +2784,7 @@ class InstanceV1API(API):
 
     async def delete_placement_group(
         self,
+        *,
         placement_group_id: str,
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
@@ -2760,6 +2814,7 @@ class InstanceV1API(API):
 
     async def get_placement_group_servers(
         self,
+        *,
         placement_group_id: str,
         zone: Optional[Zone] = None,
     ) -> GetPlacementGroupServersResponse:
@@ -2790,6 +2845,7 @@ class InstanceV1API(API):
 
     async def set_placement_group_servers(
         self,
+        *,
         placement_group_id: str,
         zone: Optional[Zone] = None,
         servers: Optional[List[str]] = None,
@@ -2830,6 +2886,7 @@ class InstanceV1API(API):
 
     async def update_placement_group_servers(
         self,
+        *,
         placement_group_id: str,
         servers: List[str],
         zone: Optional[Zone] = None,
@@ -2873,6 +2930,7 @@ class InstanceV1API(API):
 
     async def list_ips(
         self,
+        *,
         zone: Optional[Zone] = None,
         project: Optional[str] = None,
         organization: Optional[str] = None,
@@ -2918,6 +2976,7 @@ class InstanceV1API(API):
 
     async def list_ips_all(
         self,
+        *,
         zone: Optional[Zone] = None,
         project: Optional[str] = None,
         organization: Optional[str] = None,
@@ -2960,6 +3019,7 @@ class InstanceV1API(API):
 
     async def create_ip(
         self,
+        *,
         zone: Optional[Zone] = None,
         organization: Optional[str] = None,
         project: Optional[str] = None,
@@ -3007,6 +3067,7 @@ class InstanceV1API(API):
 
     async def get_ip(
         self,
+        *,
         ip: str,
         zone: Optional[Zone] = None,
     ) -> GetIpResponse:
@@ -3035,6 +3096,7 @@ class InstanceV1API(API):
 
     async def update_ip(
         self,
+        *,
         ip: str,
         zone: Optional[Zone] = None,
         reverse: Optional[str] = None,
@@ -3079,6 +3141,7 @@ class InstanceV1API(API):
 
     async def delete_ip(
         self,
+        *,
         ip: str,
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
@@ -3106,6 +3169,7 @@ class InstanceV1API(API):
 
     async def list_private_ni_cs(
         self,
+        *,
         server_id: str,
         zone: Optional[Zone] = None,
     ) -> ListPrivateNICsResponse:
@@ -3134,6 +3198,7 @@ class InstanceV1API(API):
 
     async def create_private_nic(
         self,
+        *,
         server_id: str,
         private_network_id: str,
         zone: Optional[Zone] = None,
@@ -3175,6 +3240,7 @@ class InstanceV1API(API):
 
     async def get_private_nic(
         self,
+        *,
         server_id: str,
         private_nic_id: str,
         zone: Optional[Zone] = None,
@@ -3209,6 +3275,7 @@ class InstanceV1API(API):
 
     async def delete_private_nic(
         self,
+        *,
         server_id: str,
         private_nic_id: str,
         zone: Optional[Zone] = None,
@@ -3242,6 +3309,7 @@ class InstanceV1API(API):
 
     async def list_bootscripts(
         self,
+        *,
         zone: Optional[Zone] = None,
         arch: Optional[str] = None,
         title: Optional[str] = None,
@@ -3287,6 +3355,7 @@ class InstanceV1API(API):
 
     async def list_bootscripts_all(
         self,
+        *,
         zone: Optional[Zone] = None,
         arch: Optional[str] = None,
         title: Optional[str] = None,
@@ -3329,6 +3398,7 @@ class InstanceV1API(API):
 
     async def get_bootscript(
         self,
+        *,
         bootscript_id: str,
         zone: Optional[Zone] = None,
     ) -> GetBootscriptResponse:
@@ -3357,6 +3427,7 @@ class InstanceV1API(API):
 
     async def get_dashboard(
         self,
+        *,
         zone: Optional[Zone] = None,
         organization: Optional[str] = None,
         project: Optional[str] = None,

@@ -127,6 +127,7 @@ class FunctionV1Beta1API(API):
 
     async def list_namespaces(
         self,
+        *,
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -175,6 +176,7 @@ class FunctionV1Beta1API(API):
 
     async def list_namespaces_all(
         self,
+        *,
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -217,6 +219,7 @@ class FunctionV1Beta1API(API):
 
     async def get_namespace(
         self,
+        *,
         namespace_id: str,
         region: Optional[Region] = None,
     ) -> Namespace:
@@ -247,6 +250,7 @@ class FunctionV1Beta1API(API):
 
     async def wait_for_namespace(
         self,
+        *,
         namespace_id: str,
         region: Optional[Region] = None,
         options: Optional[
@@ -283,6 +287,7 @@ class FunctionV1Beta1API(API):
 
     async def create_namespace(
         self,
+        *,
         region: Optional[Region] = None,
         name: Optional[str] = None,
         environment_variables: Optional[Dict[str, str]] = None,
@@ -331,6 +336,7 @@ class FunctionV1Beta1API(API):
 
     async def update_namespace(
         self,
+        *,
         namespace_id: str,
         region: Optional[Region] = None,
         environment_variables: Optional[Dict[str, str]] = None,
@@ -377,6 +383,7 @@ class FunctionV1Beta1API(API):
 
     async def delete_namespace(
         self,
+        *,
         namespace_id: str,
         region: Optional[Region] = None,
     ) -> Namespace:
@@ -407,6 +414,7 @@ class FunctionV1Beta1API(API):
 
     async def list_functions(
         self,
+        *,
         namespace_id: str,
         region: Optional[Region] = None,
         page: Optional[int] = None,
@@ -458,6 +466,7 @@ class FunctionV1Beta1API(API):
 
     async def list_functions_all(
         self,
+        *,
         namespace_id: str,
         region: Optional[Region] = None,
         page: Optional[int] = None,
@@ -503,6 +512,7 @@ class FunctionV1Beta1API(API):
 
     async def get_function(
         self,
+        *,
         function_id: str,
         region: Optional[Region] = None,
     ) -> Function:
@@ -533,6 +543,7 @@ class FunctionV1Beta1API(API):
 
     async def wait_for_function(
         self,
+        *,
         function_id: str,
         region: Optional[Region] = None,
         options: Optional[
@@ -569,6 +580,7 @@ class FunctionV1Beta1API(API):
 
     async def create_function(
         self,
+        *,
         namespace_id: str,
         runtime: FunctionRuntime,
         privacy: FunctionPrivacy,
@@ -649,6 +661,7 @@ class FunctionV1Beta1API(API):
 
     async def update_function(
         self,
+        *,
         function_id: str,
         runtime: FunctionRuntime,
         privacy: FunctionPrivacy,
@@ -730,6 +743,7 @@ class FunctionV1Beta1API(API):
 
     async def delete_function(
         self,
+        *,
         function_id: str,
         region: Optional[Region] = None,
     ) -> Function:
@@ -760,6 +774,7 @@ class FunctionV1Beta1API(API):
 
     async def deploy_function(
         self,
+        *,
         function_id: str,
         region: Optional[Region] = None,
     ) -> Function:
@@ -790,6 +805,7 @@ class FunctionV1Beta1API(API):
 
     async def list_function_runtimes(
         self,
+        *,
         region: Optional[Region] = None,
     ) -> ListFunctionRuntimesResponse:
         """
@@ -817,6 +833,7 @@ class FunctionV1Beta1API(API):
 
     async def get_function_upload_url(
         self,
+        *,
         function_id: str,
         content_length: int,
         region: Optional[Region] = None,
@@ -855,6 +872,7 @@ class FunctionV1Beta1API(API):
 
     async def get_function_download_url(
         self,
+        *,
         function_id: str,
         region: Optional[Region] = None,
     ) -> DownloadURL:
@@ -885,6 +903,7 @@ class FunctionV1Beta1API(API):
 
     async def list_crons(
         self,
+        *,
         function_id: str,
         region: Optional[Region] = None,
         page: Optional[int] = None,
@@ -926,6 +945,7 @@ class FunctionV1Beta1API(API):
 
     async def list_crons_all(
         self,
+        *,
         function_id: str,
         region: Optional[Region] = None,
         page: Optional[int] = None,
@@ -962,6 +982,7 @@ class FunctionV1Beta1API(API):
 
     async def get_cron(
         self,
+        *,
         cron_id: str,
         region: Optional[Region] = None,
     ) -> Cron:
@@ -992,6 +1013,7 @@ class FunctionV1Beta1API(API):
 
     async def wait_for_cron(
         self,
+        *,
         cron_id: str,
         region: Optional[Region] = None,
         options: Optional[WaitForOptions[Cron, Union[bool, Awaitable[bool]]]] = None,
@@ -1026,6 +1048,7 @@ class FunctionV1Beta1API(API):
 
     async def create_cron(
         self,
+        *,
         function_id: str,
         schedule: str,
         region: Optional[Region] = None,
@@ -1074,6 +1097,7 @@ class FunctionV1Beta1API(API):
 
     async def update_cron(
         self,
+        *,
         cron_id: str,
         region: Optional[Region] = None,
         function_id: Optional[str] = None,
@@ -1123,6 +1147,7 @@ class FunctionV1Beta1API(API):
 
     async def delete_cron(
         self,
+        *,
         cron_id: str,
         region: Optional[Region] = None,
     ) -> Cron:
@@ -1153,6 +1178,7 @@ class FunctionV1Beta1API(API):
 
     async def list_logs(
         self,
+        *,
         function_id: str,
         region: Optional[Region] = None,
         page: Optional[int] = None,
@@ -1194,6 +1220,7 @@ class FunctionV1Beta1API(API):
 
     async def list_logs_all(
         self,
+        *,
         function_id: str,
         region: Optional[Region] = None,
         page: Optional[int] = None,
@@ -1230,6 +1257,7 @@ class FunctionV1Beta1API(API):
 
     async def list_domains(
         self,
+        *,
         function_id: str,
         region: Optional[Region] = None,
         page: Optional[int] = None,
@@ -1271,6 +1299,7 @@ class FunctionV1Beta1API(API):
 
     async def list_domains_all(
         self,
+        *,
         function_id: str,
         region: Optional[Region] = None,
         page: Optional[int] = None,
@@ -1307,6 +1336,7 @@ class FunctionV1Beta1API(API):
 
     async def get_domain(
         self,
+        *,
         domain_id: str,
         region: Optional[Region] = None,
     ) -> Domain:
@@ -1337,6 +1367,7 @@ class FunctionV1Beta1API(API):
 
     async def wait_for_domain(
         self,
+        *,
         domain_id: str,
         region: Optional[Region] = None,
         options: Optional[WaitForOptions[Domain, Union[bool, Awaitable[bool]]]] = None,
@@ -1371,6 +1402,7 @@ class FunctionV1Beta1API(API):
 
     async def create_domain(
         self,
+        *,
         hostname: str,
         function_id: str,
         region: Optional[Region] = None,
@@ -1413,6 +1445,7 @@ class FunctionV1Beta1API(API):
 
     async def delete_domain(
         self,
+        *,
         domain_id: str,
         region: Optional[Region] = None,
     ) -> Domain:
@@ -1443,6 +1476,7 @@ class FunctionV1Beta1API(API):
 
     async def issue_jwt(
         self,
+        *,
         region: Optional[Region] = None,
         function_id: Optional[str] = None,
         namespace_id: Optional[str] = None,
@@ -1480,6 +1514,7 @@ class FunctionV1Beta1API(API):
 
     async def create_token(
         self,
+        *,
         region: Optional[Region] = None,
         function_id: Optional[str] = None,
         namespace_id: Optional[str] = None,
@@ -1525,6 +1560,7 @@ class FunctionV1Beta1API(API):
 
     async def get_token(
         self,
+        *,
         token_id: str,
         region: Optional[Region] = None,
     ) -> Token:
@@ -1555,6 +1591,7 @@ class FunctionV1Beta1API(API):
 
     async def wait_for_token(
         self,
+        *,
         token_id: str,
         region: Optional[Region] = None,
         options: Optional[WaitForOptions[Token, Union[bool, Awaitable[bool]]]] = None,
@@ -1589,6 +1626,7 @@ class FunctionV1Beta1API(API):
 
     async def list_tokens(
         self,
+        *,
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1633,6 +1671,7 @@ class FunctionV1Beta1API(API):
 
     async def list_tokens_all(
         self,
+        *,
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1672,6 +1711,7 @@ class FunctionV1Beta1API(API):
 
     async def delete_token(
         self,
+        *,
         token_id: str,
         region: Optional[Region] = None,
     ) -> Token:
@@ -1702,6 +1742,7 @@ class FunctionV1Beta1API(API):
 
     async def create_trigger(
         self,
+        *,
         name: str,
         description: str,
         function_id: str,
@@ -1753,6 +1794,7 @@ class FunctionV1Beta1API(API):
 
     async def get_trigger(
         self,
+        *,
         trigger_id: str,
         region: Optional[Region] = None,
     ) -> Trigger:
@@ -1779,6 +1821,7 @@ class FunctionV1Beta1API(API):
 
     async def wait_for_trigger(
         self,
+        *,
         trigger_id: str,
         region: Optional[Region] = None,
         options: Optional[WaitForOptions[Trigger, Union[bool, Awaitable[bool]]]] = None,
@@ -1813,6 +1856,7 @@ class FunctionV1Beta1API(API):
 
     async def list_triggers(
         self,
+        *,
         function_id: str,
         region: Optional[Region] = None,
         page: Optional[int] = None,
@@ -1847,6 +1891,7 @@ class FunctionV1Beta1API(API):
 
     async def list_triggers_all(
         self,
+        *,
         function_id: str,
         region: Optional[Region] = None,
         page: Optional[int] = None,
@@ -1877,6 +1922,7 @@ class FunctionV1Beta1API(API):
 
     async def update_trigger(
         self,
+        *,
         trigger_id: str,
         region: Optional[Region] = None,
         name: Optional[str] = None,
@@ -1918,6 +1964,7 @@ class FunctionV1Beta1API(API):
 
     async def delete_trigger(
         self,
+        *,
         trigger_id: str,
         region: Optional[Region] = None,
     ) -> Trigger:
@@ -1944,6 +1991,7 @@ class FunctionV1Beta1API(API):
 
     async def create_trigger_input(
         self,
+        *,
         trigger_id: str,
         region: Optional[Region] = None,
         mnq_namespace_id: Optional[str] = None,
@@ -1982,6 +2030,7 @@ class FunctionV1Beta1API(API):
 
     async def get_trigger_input(
         self,
+        *,
         trigger_input_id: str,
         region: Optional[Region] = None,
     ) -> TriggerInput:
@@ -2010,6 +2059,7 @@ class FunctionV1Beta1API(API):
 
     async def wait_for_trigger_input(
         self,
+        *,
         trigger_input_id: str,
         region: Optional[Region] = None,
         options: Optional[
@@ -2048,6 +2098,7 @@ class FunctionV1Beta1API(API):
 
     async def list_trigger_inputs(
         self,
+        *,
         trigger_id: str,
         region: Optional[Region] = None,
         page: Optional[int] = None,
@@ -2082,6 +2133,7 @@ class FunctionV1Beta1API(API):
 
     async def list_trigger_inputs_all(
         self,
+        *,
         trigger_id: str,
         region: Optional[Region] = None,
         page: Optional[int] = None,
@@ -2112,6 +2164,7 @@ class FunctionV1Beta1API(API):
 
     async def set_trigger_inputs(
         self,
+        *,
         trigger_input_id: str,
         region: Optional[Region] = None,
         sqs: Optional[SetTriggerInputsRequestSqsConfigs] = None,
@@ -2148,6 +2201,7 @@ class FunctionV1Beta1API(API):
 
     async def update_trigger_input(
         self,
+        *,
         trigger_input_id: str,
         region: Optional[Region] = None,
         nats_config: Optional[UpdateTriggerInputRequestNatsClientConfigSpec] = None,
@@ -2187,6 +2241,7 @@ class FunctionV1Beta1API(API):
 
     async def delete_trigger_input(
         self,
+        *,
         trigger_input_id: str,
         region: Optional[Region] = None,
     ) -> TriggerInput:

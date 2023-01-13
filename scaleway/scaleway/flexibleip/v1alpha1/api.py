@@ -54,6 +54,7 @@ class FlexibleipV1Alpha1API(API):
 
     def create_flexible_ip(
         self,
+        *,
         description: str,
         is_ipv6: bool,
         zone: Optional[Zone] = None,
@@ -106,6 +107,7 @@ class FlexibleipV1Alpha1API(API):
 
     def get_flexible_ip(
         self,
+        *,
         fip_id: str,
         zone: Optional[Zone] = None,
     ) -> FlexibleIP:
@@ -134,6 +136,7 @@ class FlexibleipV1Alpha1API(API):
 
     def wait_for_flexible_ip(
         self,
+        *,
         fip_id: str,
         zone: Optional[Zone] = None,
         options: Optional[WaitForOptions[FlexibleIP, bool]] = None,
@@ -168,6 +171,7 @@ class FlexibleipV1Alpha1API(API):
 
     def list_flexible_i_ps(
         self,
+        *,
         zone: Optional[Zone] = None,
         order_by: ListFlexibleIPsRequestOrderBy = ListFlexibleIPsRequestOrderBy.CREATED_AT_ASC,
         page: Optional[int] = None,
@@ -220,6 +224,7 @@ class FlexibleipV1Alpha1API(API):
 
     def list_flexible_i_ps_all(
         self,
+        *,
         zone: Optional[Zone] = None,
         order_by: Optional[ListFlexibleIPsRequestOrderBy] = None,
         page: Optional[int] = None,
@@ -268,6 +273,7 @@ class FlexibleipV1Alpha1API(API):
 
     def update_flexible_ip(
         self,
+        *,
         fip_id: str,
         zone: Optional[Zone] = None,
         description: Optional[str] = None,
@@ -312,6 +318,7 @@ class FlexibleipV1Alpha1API(API):
 
     def delete_flexible_ip(
         self,
+        *,
         fip_id: str,
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
@@ -339,6 +346,7 @@ class FlexibleipV1Alpha1API(API):
 
     def attach_flexible_ip(
         self,
+        *,
         fips_ids: List[str],
         server_id: str,
         zone: Optional[Zone] = None,
@@ -379,6 +387,7 @@ class FlexibleipV1Alpha1API(API):
 
     def detach_flexible_ip(
         self,
+        *,
         fips_ids: List[str],
         zone: Optional[Zone] = None,
     ) -> DetachFlexibleIPsResponse:
@@ -413,6 +422,7 @@ class FlexibleipV1Alpha1API(API):
 
     def generate_mac_addr(
         self,
+        *,
         fip_id: str,
         zone: Optional[Zone] = None,
         mac_type: MACAddressType = MACAddressType.UNKNOWN_TYPE,
@@ -451,6 +461,7 @@ class FlexibleipV1Alpha1API(API):
 
     def duplicate_mac_addr(
         self,
+        *,
         fip_id: str,
         duplicate_from_fip_id: str,
         zone: Optional[Zone] = None,
@@ -492,6 +503,7 @@ class FlexibleipV1Alpha1API(API):
 
     def move_mac_addr(
         self,
+        *,
         fip_id: str,
         dst_fip_id: str,
         zone: Optional[Zone] = None,
@@ -528,6 +540,7 @@ class FlexibleipV1Alpha1API(API):
 
     def delete_mac_addr(
         self,
+        *,
         fip_id: str,
         zone: Optional[Zone] = None,
     ) -> Optional[None]:

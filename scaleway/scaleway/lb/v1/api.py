@@ -207,6 +207,7 @@ class LbV1API(API):
 
     def list_lbs(
         self,
+        *,
         region: Optional[Region] = None,
         name: Optional[str] = None,
         order_by: ListLbsRequestOrderBy = ListLbsRequestOrderBy.CREATED_AT_ASC,
@@ -255,6 +256,7 @@ class LbV1API(API):
 
     def list_lbs_all(
         self,
+        *,
         region: Optional[Region] = None,
         name: Optional[str] = None,
         order_by: Optional[ListLbsRequestOrderBy] = None,
@@ -297,6 +299,7 @@ class LbV1API(API):
 
     def create_lb(
         self,
+        *,
         description: str,
         type_: str,
         ssl_compatibility_level: SSLCompatibilityLevel,
@@ -366,6 +369,7 @@ class LbV1API(API):
 
     def get_lb(
         self,
+        *,
         lb_id: str,
         region: Optional[Region] = None,
     ) -> Lb:
@@ -396,6 +400,7 @@ class LbV1API(API):
 
     def wait_for_lb(
         self,
+        *,
         lb_id: str,
         region: Optional[Region] = None,
         options: Optional[WaitForOptions[Lb, bool]] = None,
@@ -430,6 +435,7 @@ class LbV1API(API):
 
     def update_lb(
         self,
+        *,
         lb_id: str,
         name: str,
         description: str,
@@ -488,6 +494,7 @@ class LbV1API(API):
 
     def delete_lb(
         self,
+        *,
         lb_id: str,
         release_ip: bool,
         region: Optional[Region] = None,
@@ -525,6 +532,7 @@ class LbV1API(API):
 
     def migrate_lb(
         self,
+        *,
         lb_id: str,
         type_: str,
         region: Optional[Region] = None,
@@ -568,6 +576,7 @@ class LbV1API(API):
 
     def list_i_ps(
         self,
+        *,
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -613,6 +622,7 @@ class LbV1API(API):
 
     def list_i_ps_all(
         self,
+        *,
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -652,6 +662,7 @@ class LbV1API(API):
 
     def create_ip(
         self,
+        *,
         region: Optional[Region] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -698,6 +709,7 @@ class LbV1API(API):
 
     def get_ip(
         self,
+        *,
         ip_id: str,
         region: Optional[Region] = None,
     ) -> Ip:
@@ -728,6 +740,7 @@ class LbV1API(API):
 
     def release_ip(
         self,
+        *,
         ip_id: str,
         region: Optional[Region] = None,
     ) -> Optional[None]:
@@ -757,6 +770,7 @@ class LbV1API(API):
 
     def update_ip(
         self,
+        *,
         ip_id: str,
         region: Optional[Region] = None,
         reverse: Optional[str] = None,
@@ -797,6 +811,7 @@ class LbV1API(API):
 
     def list_backends(
         self,
+        *,
         lb_id: str,
         region: Optional[Region] = None,
         name: Optional[str] = None,
@@ -841,6 +856,7 @@ class LbV1API(API):
 
     def list_backends_all(
         self,
+        *,
         lb_id: str,
         region: Optional[Region] = None,
         name: Optional[str] = None,
@@ -880,6 +896,7 @@ class LbV1API(API):
 
     def create_backend(
         self,
+        *,
         lb_id: str,
         forward_port: int,
         sticky_sessions_cookie_name: str,
@@ -985,6 +1002,7 @@ class LbV1API(API):
 
     def get_backend(
         self,
+        *,
         backend_id: str,
         region: Optional[Region] = None,
     ) -> Backend:
@@ -1015,6 +1033,7 @@ class LbV1API(API):
 
     def update_backend(
         self,
+        *,
         backend_id: str,
         name: str,
         forward_port: int,
@@ -1113,6 +1132,7 @@ class LbV1API(API):
 
     def delete_backend(
         self,
+        *,
         backend_id: str,
         region: Optional[Region] = None,
     ) -> Optional[None]:
@@ -1142,6 +1162,7 @@ class LbV1API(API):
 
     def add_backend_servers(
         self,
+        *,
         backend_id: str,
         server_ip: List[str],
         region: Optional[Region] = None,
@@ -1185,6 +1206,7 @@ class LbV1API(API):
 
     def remove_backend_servers(
         self,
+        *,
         backend_id: str,
         server_ip: List[str],
         region: Optional[Region] = None,
@@ -1228,6 +1250,7 @@ class LbV1API(API):
 
     def set_backend_servers(
         self,
+        *,
         backend_id: str,
         server_ip: List[str],
         region: Optional[Region] = None,
@@ -1271,6 +1294,7 @@ class LbV1API(API):
 
     def update_health_check(
         self,
+        *,
         backend_id: str,
         port: int,
         check_delay: str,
@@ -1365,6 +1389,7 @@ class LbV1API(API):
 
     def list_frontends(
         self,
+        *,
         lb_id: str,
         region: Optional[Region] = None,
         name: Optional[str] = None,
@@ -1409,6 +1434,7 @@ class LbV1API(API):
 
     def list_frontends_all(
         self,
+        *,
         lb_id: str,
         region: Optional[Region] = None,
         name: Optional[str] = None,
@@ -1448,6 +1474,7 @@ class LbV1API(API):
 
     def create_frontend(
         self,
+        *,
         lb_id: str,
         inbound_port: int,
         backend_id: str,
@@ -1511,6 +1538,7 @@ class LbV1API(API):
 
     def get_frontend(
         self,
+        *,
         frontend_id: str,
         region: Optional[Region] = None,
     ) -> Frontend:
@@ -1541,6 +1569,7 @@ class LbV1API(API):
 
     def update_frontend(
         self,
+        *,
         frontend_id: str,
         name: str,
         inbound_port: int,
@@ -1605,6 +1634,7 @@ class LbV1API(API):
 
     def delete_frontend(
         self,
+        *,
         frontend_id: str,
         region: Optional[Region] = None,
     ) -> Optional[None]:
@@ -1634,6 +1664,7 @@ class LbV1API(API):
 
     def list_routes(
         self,
+        *,
         region: Optional[Region] = None,
         order_by: ListRoutesRequestOrderBy = ListRoutesRequestOrderBy.CREATED_AT_ASC,
         page_size: Optional[int] = None,
@@ -1675,6 +1706,7 @@ class LbV1API(API):
 
     def list_routes_all(
         self,
+        *,
         region: Optional[Region] = None,
         order_by: Optional[ListRoutesRequestOrderBy] = None,
         page_size: Optional[int] = None,
@@ -1711,6 +1743,7 @@ class LbV1API(API):
 
     def create_route(
         self,
+        *,
         frontend_id: str,
         backend_id: str,
         region: Optional[Region] = None,
@@ -1756,6 +1789,7 @@ class LbV1API(API):
 
     def get_route(
         self,
+        *,
         route_id: str,
         region: Optional[Region] = None,
     ) -> Route:
@@ -1786,6 +1820,7 @@ class LbV1API(API):
 
     def update_route(
         self,
+        *,
         route_id: str,
         backend_id: str,
         region: Optional[Region] = None,
@@ -1832,6 +1867,7 @@ class LbV1API(API):
 
     def delete_route(
         self,
+        *,
         route_id: str,
         region: Optional[Region] = None,
     ) -> Optional[None]:
@@ -1861,6 +1897,7 @@ class LbV1API(API):
 
     def get_lb_stats(
         self,
+        *,
         lb_id: str,
         region: Optional[Region] = None,
     ) -> LbStats:
@@ -1892,6 +1929,7 @@ class LbV1API(API):
 
     def list_backend_stats(
         self,
+        *,
         lb_id: str,
         region: Optional[Region] = None,
         page: Optional[int] = None,
@@ -1924,6 +1962,7 @@ class LbV1API(API):
 
     def list_backend_stats_all(
         self,
+        *,
         lb_id: str,
         region: Optional[Region] = None,
         page: Optional[int] = None,
@@ -1952,6 +1991,7 @@ class LbV1API(API):
 
     def list_acls(
         self,
+        *,
         frontend_id: str,
         region: Optional[Region] = None,
         order_by: ListAclRequestOrderBy = ListAclRequestOrderBy.CREATED_AT_ASC,
@@ -1996,6 +2036,7 @@ class LbV1API(API):
 
     def list_acls_all(
         self,
+        *,
         frontend_id: str,
         region: Optional[Region] = None,
         order_by: Optional[ListAclRequestOrderBy] = None,
@@ -2035,6 +2076,7 @@ class LbV1API(API):
 
     def create_acl(
         self,
+        *,
         frontend_id: str,
         action: AclAction,
         match: AclMatch,
@@ -2094,6 +2136,7 @@ class LbV1API(API):
 
     def get_acl(
         self,
+        *,
         acl_id: str,
         region: Optional[Region] = None,
     ) -> Acl:
@@ -2124,6 +2167,7 @@ class LbV1API(API):
 
     def update_acl(
         self,
+        *,
         acl_id: str,
         name: str,
         action: AclAction,
@@ -2179,6 +2223,7 @@ class LbV1API(API):
 
     def delete_acl(
         self,
+        *,
         acl_id: str,
         region: Optional[Region] = None,
     ) -> Optional[None]:
@@ -2208,6 +2253,7 @@ class LbV1API(API):
 
     def create_certificate(
         self,
+        *,
         lb_id: str,
         region: Optional[Region] = None,
         name: Optional[str] = None,
@@ -2258,6 +2304,7 @@ class LbV1API(API):
 
     def list_certificates(
         self,
+        *,
         lb_id: str,
         region: Optional[Region] = None,
         order_by: ListCertificatesRequestOrderBy = ListCertificatesRequestOrderBy.CREATED_AT_ASC,
@@ -2302,6 +2349,7 @@ class LbV1API(API):
 
     def list_certificates_all(
         self,
+        *,
         lb_id: str,
         region: Optional[Region] = None,
         order_by: Optional[ListCertificatesRequestOrderBy] = None,
@@ -2341,6 +2389,7 @@ class LbV1API(API):
 
     def get_certificate(
         self,
+        *,
         certificate_id: str,
         region: Optional[Region] = None,
     ) -> Certificate:
@@ -2371,6 +2420,7 @@ class LbV1API(API):
 
     def wait_for_certificate(
         self,
+        *,
         certificate_id: str,
         region: Optional[Region] = None,
         options: Optional[WaitForOptions[Certificate, bool]] = None,
@@ -2405,6 +2455,7 @@ class LbV1API(API):
 
     def update_certificate(
         self,
+        *,
         certificate_id: str,
         name: str,
         region: Optional[Region] = None,
@@ -2448,6 +2499,7 @@ class LbV1API(API):
 
     def delete_certificate(
         self,
+        *,
         certificate_id: str,
         region: Optional[Region] = None,
     ) -> Optional[None]:
@@ -2477,6 +2529,7 @@ class LbV1API(API):
 
     def list_lb_types(
         self,
+        *,
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -2512,6 +2565,7 @@ class LbV1API(API):
 
     def list_lb_types_all(
         self,
+        *,
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -2542,6 +2596,7 @@ class LbV1API(API):
 
     def create_subscriber(
         self,
+        *,
         name: str,
         region: Optional[Region] = None,
         email_config: Optional[SubscriberEmailConfig] = None,
@@ -2598,6 +2653,7 @@ class LbV1API(API):
 
     def get_subscriber(
         self,
+        *,
         subscriber_id: str,
         region: Optional[Region] = None,
     ) -> Subscriber:
@@ -2628,6 +2684,7 @@ class LbV1API(API):
 
     def list_subscriber(
         self,
+        *,
         name: str,
         region: Optional[Region] = None,
         order_by: ListSubscriberRequestOrderBy = ListSubscriberRequestOrderBy.CREATED_AT_ASC,
@@ -2676,6 +2733,7 @@ class LbV1API(API):
 
     def list_subscriber_all(
         self,
+        *,
         name: str,
         region: Optional[Region] = None,
         order_by: Optional[ListSubscriberRequestOrderBy] = None,
@@ -2718,6 +2776,7 @@ class LbV1API(API):
 
     def update_subscriber(
         self,
+        *,
         subscriber_id: str,
         name: str,
         region: Optional[Region] = None,
@@ -2771,6 +2830,7 @@ class LbV1API(API):
 
     def delete_subscriber(
         self,
+        *,
         subscriber_id: str,
         region: Optional[Region] = None,
     ) -> Optional[None]:
@@ -2800,6 +2860,7 @@ class LbV1API(API):
 
     def subscribe_to_lb(
         self,
+        *,
         lb_id: str,
         subscriber_id: str,
         region: Optional[Region] = None,
@@ -2843,6 +2904,7 @@ class LbV1API(API):
 
     def unsubscribe_from_lb(
         self,
+        *,
         lb_id: str,
         region: Optional[Region] = None,
     ) -> Lb:
@@ -2873,6 +2935,7 @@ class LbV1API(API):
 
     def list_lb_private_networks(
         self,
+        *,
         lb_id: str,
         region: Optional[Region] = None,
         order_by: ListPrivateNetworksRequestOrderBy = ListPrivateNetworksRequestOrderBy.CREATED_AT_ASC,
@@ -2914,6 +2977,7 @@ class LbV1API(API):
 
     def list_lb_private_networks_all(
         self,
+        *,
         lb_id: str,
         region: Optional[Region] = None,
         order_by: Optional[ListPrivateNetworksRequestOrderBy] = None,
@@ -2950,6 +3014,7 @@ class LbV1API(API):
 
     def attach_private_network(
         self,
+        *,
         lb_id: str,
         private_network_id: str,
         region: Optional[Region] = None,
@@ -3006,6 +3071,7 @@ class LbV1API(API):
 
     def detach_private_network(
         self,
+        *,
         lb_id: str,
         private_network_id: str,
         region: Optional[Region] = None,
@@ -3051,6 +3117,7 @@ class LbZonedV1API(API):
 
     def list_lbs(
         self,
+        *,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
         order_by: ListLbsRequestOrderBy = ListLbsRequestOrderBy.CREATED_AT_ASC,
@@ -3097,6 +3164,7 @@ class LbZonedV1API(API):
 
     def list_lbs_all(
         self,
+        *,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
         order_by: Optional[ListLbsRequestOrderBy] = None,
@@ -3139,6 +3207,7 @@ class LbZonedV1API(API):
 
     def create_lb(
         self,
+        *,
         description: str,
         type_: str,
         ssl_compatibility_level: SSLCompatibilityLevel,
@@ -3206,6 +3275,7 @@ class LbZonedV1API(API):
 
     def get_lb(
         self,
+        *,
         lb_id: str,
         zone: Optional[Zone] = None,
     ) -> Lb:
@@ -3234,6 +3304,7 @@ class LbZonedV1API(API):
 
     def wait_for_lb(
         self,
+        *,
         lb_id: str,
         zone: Optional[Zone] = None,
         options: Optional[WaitForOptions[Lb, bool]] = None,
@@ -3268,6 +3339,7 @@ class LbZonedV1API(API):
 
     def update_lb(
         self,
+        *,
         lb_id: str,
         name: str,
         description: str,
@@ -3324,6 +3396,7 @@ class LbZonedV1API(API):
 
     def delete_lb(
         self,
+        *,
         lb_id: str,
         release_ip: bool,
         zone: Optional[Zone] = None,
@@ -3359,6 +3432,7 @@ class LbZonedV1API(API):
 
     def migrate_lb(
         self,
+        *,
         lb_id: str,
         type_: str,
         zone: Optional[Zone] = None,
@@ -3400,6 +3474,7 @@ class LbZonedV1API(API):
 
     def list_i_ps(
         self,
+        *,
         zone: Optional[Zone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -3443,6 +3518,7 @@ class LbZonedV1API(API):
 
     def list_i_ps_all(
         self,
+        *,
         zone: Optional[Zone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -3482,6 +3558,7 @@ class LbZonedV1API(API):
 
     def create_ip(
         self,
+        *,
         zone: Optional[Zone] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -3526,6 +3603,7 @@ class LbZonedV1API(API):
 
     def get_ip(
         self,
+        *,
         ip_id: str,
         zone: Optional[Zone] = None,
     ) -> Ip:
@@ -3554,6 +3632,7 @@ class LbZonedV1API(API):
 
     def release_ip(
         self,
+        *,
         ip_id: str,
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
@@ -3581,6 +3660,7 @@ class LbZonedV1API(API):
 
     def update_ip(
         self,
+        *,
         ip_id: str,
         zone: Optional[Zone] = None,
         reverse: Optional[str] = None,
@@ -3619,6 +3699,7 @@ class LbZonedV1API(API):
 
     def list_backends(
         self,
+        *,
         lb_id: str,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
@@ -3661,6 +3742,7 @@ class LbZonedV1API(API):
 
     def list_backends_all(
         self,
+        *,
         lb_id: str,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
@@ -3700,6 +3782,7 @@ class LbZonedV1API(API):
 
     def create_backend(
         self,
+        *,
         lb_id: str,
         forward_port: int,
         sticky_sessions_cookie_name: str,
@@ -3803,6 +3886,7 @@ class LbZonedV1API(API):
 
     def get_backend(
         self,
+        *,
         backend_id: str,
         zone: Optional[Zone] = None,
     ) -> Backend:
@@ -3831,6 +3915,7 @@ class LbZonedV1API(API):
 
     def update_backend(
         self,
+        *,
         backend_id: str,
         name: str,
         forward_port: int,
@@ -3927,6 +4012,7 @@ class LbZonedV1API(API):
 
     def delete_backend(
         self,
+        *,
         backend_id: str,
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
@@ -3954,6 +4040,7 @@ class LbZonedV1API(API):
 
     def add_backend_servers(
         self,
+        *,
         backend_id: str,
         server_ip: List[str],
         zone: Optional[Zone] = None,
@@ -3995,6 +4082,7 @@ class LbZonedV1API(API):
 
     def remove_backend_servers(
         self,
+        *,
         backend_id: str,
         server_ip: List[str],
         zone: Optional[Zone] = None,
@@ -4036,6 +4124,7 @@ class LbZonedV1API(API):
 
     def set_backend_servers(
         self,
+        *,
         backend_id: str,
         server_ip: List[str],
         zone: Optional[Zone] = None,
@@ -4077,6 +4166,7 @@ class LbZonedV1API(API):
 
     def update_health_check(
         self,
+        *,
         backend_id: str,
         port: int,
         check_delay: str,
@@ -4169,6 +4259,7 @@ class LbZonedV1API(API):
 
     def list_frontends(
         self,
+        *,
         lb_id: str,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
@@ -4211,6 +4302,7 @@ class LbZonedV1API(API):
 
     def list_frontends_all(
         self,
+        *,
         lb_id: str,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
@@ -4250,6 +4342,7 @@ class LbZonedV1API(API):
 
     def create_frontend(
         self,
+        *,
         lb_id: str,
         inbound_port: int,
         backend_id: str,
@@ -4311,6 +4404,7 @@ class LbZonedV1API(API):
 
     def get_frontend(
         self,
+        *,
         frontend_id: str,
         zone: Optional[Zone] = None,
     ) -> Frontend:
@@ -4339,6 +4433,7 @@ class LbZonedV1API(API):
 
     def update_frontend(
         self,
+        *,
         frontend_id: str,
         name: str,
         inbound_port: int,
@@ -4401,6 +4496,7 @@ class LbZonedV1API(API):
 
     def delete_frontend(
         self,
+        *,
         frontend_id: str,
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
@@ -4428,6 +4524,7 @@ class LbZonedV1API(API):
 
     def list_routes(
         self,
+        *,
         zone: Optional[Zone] = None,
         order_by: ListRoutesRequestOrderBy = ListRoutesRequestOrderBy.CREATED_AT_ASC,
         page_size: Optional[int] = None,
@@ -4467,6 +4564,7 @@ class LbZonedV1API(API):
 
     def list_routes_all(
         self,
+        *,
         zone: Optional[Zone] = None,
         order_by: Optional[ListRoutesRequestOrderBy] = None,
         page_size: Optional[int] = None,
@@ -4503,6 +4601,7 @@ class LbZonedV1API(API):
 
     def create_route(
         self,
+        *,
         frontend_id: str,
         backend_id: str,
         zone: Optional[Zone] = None,
@@ -4546,6 +4645,7 @@ class LbZonedV1API(API):
 
     def get_route(
         self,
+        *,
         route_id: str,
         zone: Optional[Zone] = None,
     ) -> Route:
@@ -4574,6 +4674,7 @@ class LbZonedV1API(API):
 
     def update_route(
         self,
+        *,
         route_id: str,
         backend_id: str,
         zone: Optional[Zone] = None,
@@ -4618,6 +4719,7 @@ class LbZonedV1API(API):
 
     def delete_route(
         self,
+        *,
         route_id: str,
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
@@ -4645,6 +4747,7 @@ class LbZonedV1API(API):
 
     def get_lb_stats(
         self,
+        *,
         lb_id: str,
         zone: Optional[Zone] = None,
     ) -> LbStats:
@@ -4674,6 +4777,7 @@ class LbZonedV1API(API):
 
     def list_backend_stats(
         self,
+        *,
         lb_id: str,
         zone: Optional[Zone] = None,
         page: Optional[int] = None,
@@ -4704,6 +4808,7 @@ class LbZonedV1API(API):
 
     def list_backend_stats_all(
         self,
+        *,
         lb_id: str,
         zone: Optional[Zone] = None,
         page: Optional[int] = None,
@@ -4732,6 +4837,7 @@ class LbZonedV1API(API):
 
     def list_acls(
         self,
+        *,
         frontend_id: str,
         zone: Optional[Zone] = None,
         order_by: ListAclRequestOrderBy = ListAclRequestOrderBy.CREATED_AT_ASC,
@@ -4774,6 +4880,7 @@ class LbZonedV1API(API):
 
     def list_acls_all(
         self,
+        *,
         frontend_id: str,
         zone: Optional[Zone] = None,
         order_by: Optional[ListAclRequestOrderBy] = None,
@@ -4813,6 +4920,7 @@ class LbZonedV1API(API):
 
     def create_acl(
         self,
+        *,
         frontend_id: str,
         action: AclAction,
         match: AclMatch,
@@ -4870,6 +4978,7 @@ class LbZonedV1API(API):
 
     def get_acl(
         self,
+        *,
         acl_id: str,
         zone: Optional[Zone] = None,
     ) -> Acl:
@@ -4898,6 +5007,7 @@ class LbZonedV1API(API):
 
     def update_acl(
         self,
+        *,
         acl_id: str,
         name: str,
         action: AclAction,
@@ -4951,6 +5061,7 @@ class LbZonedV1API(API):
 
     def delete_acl(
         self,
+        *,
         acl_id: str,
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
@@ -4978,6 +5089,7 @@ class LbZonedV1API(API):
 
     def set_acls(
         self,
+        *,
         frontend_id: str,
         acls: List[AclSpec],
         zone: Optional[Zone] = None,
@@ -5019,6 +5131,7 @@ class LbZonedV1API(API):
 
     def create_certificate(
         self,
+        *,
         lb_id: str,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
@@ -5067,6 +5180,7 @@ class LbZonedV1API(API):
 
     def list_certificates(
         self,
+        *,
         lb_id: str,
         zone: Optional[Zone] = None,
         order_by: ListCertificatesRequestOrderBy = ListCertificatesRequestOrderBy.CREATED_AT_ASC,
@@ -5109,6 +5223,7 @@ class LbZonedV1API(API):
 
     def list_certificates_all(
         self,
+        *,
         lb_id: str,
         zone: Optional[Zone] = None,
         order_by: Optional[ListCertificatesRequestOrderBy] = None,
@@ -5148,6 +5263,7 @@ class LbZonedV1API(API):
 
     def get_certificate(
         self,
+        *,
         certificate_id: str,
         zone: Optional[Zone] = None,
     ) -> Certificate:
@@ -5176,6 +5292,7 @@ class LbZonedV1API(API):
 
     def wait_for_certificate(
         self,
+        *,
         certificate_id: str,
         zone: Optional[Zone] = None,
         options: Optional[WaitForOptions[Certificate, bool]] = None,
@@ -5210,6 +5327,7 @@ class LbZonedV1API(API):
 
     def update_certificate(
         self,
+        *,
         certificate_id: str,
         name: str,
         zone: Optional[Zone] = None,
@@ -5251,6 +5369,7 @@ class LbZonedV1API(API):
 
     def delete_certificate(
         self,
+        *,
         certificate_id: str,
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
@@ -5278,6 +5397,7 @@ class LbZonedV1API(API):
 
     def list_lb_types(
         self,
+        *,
         zone: Optional[Zone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -5311,6 +5431,7 @@ class LbZonedV1API(API):
 
     def list_lb_types_all(
         self,
+        *,
         zone: Optional[Zone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -5341,6 +5462,7 @@ class LbZonedV1API(API):
 
     def create_subscriber(
         self,
+        *,
         name: str,
         zone: Optional[Zone] = None,
         email_config: Optional[SubscriberEmailConfig] = None,
@@ -5395,6 +5517,7 @@ class LbZonedV1API(API):
 
     def get_subscriber(
         self,
+        *,
         subscriber_id: str,
         zone: Optional[Zone] = None,
     ) -> Subscriber:
@@ -5423,6 +5546,7 @@ class LbZonedV1API(API):
 
     def list_subscriber(
         self,
+        *,
         name: str,
         zone: Optional[Zone] = None,
         order_by: ListSubscriberRequestOrderBy = ListSubscriberRequestOrderBy.CREATED_AT_ASC,
@@ -5469,6 +5593,7 @@ class LbZonedV1API(API):
 
     def list_subscriber_all(
         self,
+        *,
         name: str,
         zone: Optional[Zone] = None,
         order_by: Optional[ListSubscriberRequestOrderBy] = None,
@@ -5511,6 +5636,7 @@ class LbZonedV1API(API):
 
     def update_subscriber(
         self,
+        *,
         subscriber_id: str,
         name: str,
         zone: Optional[Zone] = None,
@@ -5562,6 +5688,7 @@ class LbZonedV1API(API):
 
     def delete_subscriber(
         self,
+        *,
         subscriber_id: str,
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
@@ -5589,6 +5716,7 @@ class LbZonedV1API(API):
 
     def subscribe_to_lb(
         self,
+        *,
         lb_id: str,
         subscriber_id: str,
         zone: Optional[Zone] = None,
@@ -5630,6 +5758,7 @@ class LbZonedV1API(API):
 
     def unsubscribe_from_lb(
         self,
+        *,
         lb_id: str,
         zone: Optional[Zone] = None,
     ) -> Lb:
@@ -5658,6 +5787,7 @@ class LbZonedV1API(API):
 
     def list_lb_private_networks(
         self,
+        *,
         lb_id: str,
         zone: Optional[Zone] = None,
         order_by: ListPrivateNetworksRequestOrderBy = ListPrivateNetworksRequestOrderBy.CREATED_AT_ASC,
@@ -5697,6 +5827,7 @@ class LbZonedV1API(API):
 
     def list_lb_private_networks_all(
         self,
+        *,
         lb_id: str,
         zone: Optional[Zone] = None,
         order_by: Optional[ListPrivateNetworksRequestOrderBy] = None,
@@ -5733,6 +5864,7 @@ class LbZonedV1API(API):
 
     def attach_private_network(
         self,
+        *,
         lb_id: str,
         private_network_id: str,
         zone: Optional[Zone] = None,
@@ -5787,6 +5919,7 @@ class LbZonedV1API(API):
 
     def detach_private_network(
         self,
+        *,
         lb_id: str,
         private_network_id: str,
         zone: Optional[Zone] = None,

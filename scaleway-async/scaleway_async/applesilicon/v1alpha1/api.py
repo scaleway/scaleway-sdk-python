@@ -59,6 +59,7 @@ class ApplesiliconV1Alpha1API(API):
 
     async def list_server_types(
         self,
+        *,
         zone: Optional[Zone] = None,
     ) -> ListServerTypesResponse:
         """
@@ -84,6 +85,7 @@ class ApplesiliconV1Alpha1API(API):
 
     async def get_server_type(
         self,
+        *,
         server_type: str,
         zone: Optional[Zone] = None,
     ) -> ServerType:
@@ -112,6 +114,7 @@ class ApplesiliconV1Alpha1API(API):
 
     async def create_server(
         self,
+        *,
         type_: str,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
@@ -152,6 +155,7 @@ class ApplesiliconV1Alpha1API(API):
 
     async def list_servers(
         self,
+        *,
         zone: Optional[Zone] = None,
         order_by: ListServersRequestOrderBy = ListServersRequestOrderBy.CREATED_AT_ASC,
         project_id: Optional[str] = None,
@@ -195,6 +199,7 @@ class ApplesiliconV1Alpha1API(API):
 
     async def list_servers_all(
         self,
+        *,
         zone: Optional[Zone] = None,
         order_by: Optional[ListServersRequestOrderBy] = None,
         project_id: Optional[str] = None,
@@ -234,6 +239,7 @@ class ApplesiliconV1Alpha1API(API):
 
     async def list_os(
         self,
+        *,
         zone: Optional[Zone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -273,6 +279,7 @@ class ApplesiliconV1Alpha1API(API):
 
     async def list_os_all(
         self,
+        *,
         zone: Optional[Zone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -309,6 +316,7 @@ class ApplesiliconV1Alpha1API(API):
 
     async def get_os(
         self,
+        *,
         os_id: str,
         zone: Optional[Zone] = None,
     ) -> OS:
@@ -337,6 +345,7 @@ class ApplesiliconV1Alpha1API(API):
 
     async def get_server(
         self,
+        *,
         server_id: str,
         zone: Optional[Zone] = None,
     ) -> Server:
@@ -365,6 +374,7 @@ class ApplesiliconV1Alpha1API(API):
 
     async def wait_for_server(
         self,
+        *,
         server_id: str,
         zone: Optional[Zone] = None,
         options: Optional[WaitForOptions[Server, Union[bool, Awaitable[bool]]]] = None,
@@ -399,6 +409,7 @@ class ApplesiliconV1Alpha1API(API):
 
     async def update_server(
         self,
+        *,
         server_id: str,
         name: str,
         zone: Optional[Zone] = None,
@@ -440,6 +451,7 @@ class ApplesiliconV1Alpha1API(API):
 
     async def delete_server(
         self,
+        *,
         server_id: str,
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
@@ -467,6 +479,7 @@ class ApplesiliconV1Alpha1API(API):
 
     async def reboot_server(
         self,
+        *,
         server_id: str,
         zone: Optional[Zone] = None,
     ) -> Server:
@@ -495,6 +508,7 @@ class ApplesiliconV1Alpha1API(API):
 
     async def reinstall_server(
         self,
+        *,
         server_id: str,
         zone: Optional[Zone] = None,
     ) -> Server:

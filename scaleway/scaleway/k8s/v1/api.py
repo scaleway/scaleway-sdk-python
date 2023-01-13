@@ -84,6 +84,7 @@ class K8SV1API(API):
 
     def list_clusters(
         self,
+        *,
         region: Optional[Region] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -138,6 +139,7 @@ class K8SV1API(API):
 
     def list_clusters_all(
         self,
+        *,
         region: Optional[Region] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -186,6 +188,7 @@ class K8SV1API(API):
 
     def create_cluster(
         self,
+        *,
         type_: str,
         description: str,
         version: str,
@@ -280,6 +283,7 @@ class K8SV1API(API):
 
     def get_cluster(
         self,
+        *,
         cluster_id: str,
         region: Optional[Region] = None,
     ) -> Cluster:
@@ -310,6 +314,7 @@ class K8SV1API(API):
 
     def wait_for_cluster(
         self,
+        *,
         cluster_id: str,
         region: Optional[Region] = None,
         options: Optional[WaitForOptions[Cluster, bool]] = None,
@@ -344,6 +349,7 @@ class K8SV1API(API):
 
     def update_cluster(
         self,
+        *,
         cluster_id: str,
         region: Optional[Region] = None,
         name: Optional[str] = None,
@@ -416,6 +422,7 @@ class K8SV1API(API):
 
     def delete_cluster(
         self,
+        *,
         cluster_id: str,
         with_additional_resources: bool,
         region: Optional[Region] = None,
@@ -454,6 +461,7 @@ class K8SV1API(API):
 
     def upgrade_cluster(
         self,
+        *,
         cluster_id: str,
         version: str,
         upgrade_pools: bool,
@@ -501,6 +509,7 @@ class K8SV1API(API):
 
     def list_cluster_available_versions(
         self,
+        *,
         cluster_id: str,
         region: Optional[Region] = None,
     ) -> ListClusterAvailableVersionsResponse:
@@ -531,6 +540,7 @@ class K8SV1API(API):
 
     def _get_cluster_kube_config(
         self,
+        *,
         cluster_id: str,
         region: Optional[Region] = None,
     ) -> Optional[ScwFile]:
@@ -563,6 +573,7 @@ class K8SV1API(API):
 
     def reset_cluster_admin_token(
         self,
+        *,
         cluster_id: str,
         region: Optional[Region] = None,
     ) -> Optional[None]:
@@ -592,6 +603,7 @@ class K8SV1API(API):
 
     def list_pools(
         self,
+        *,
         cluster_id: str,
         region: Optional[Region] = None,
         order_by: ListPoolsRequestOrderBy = ListPoolsRequestOrderBy.CREATED_AT_ASC,
@@ -639,6 +651,7 @@ class K8SV1API(API):
 
     def list_pools_all(
         self,
+        *,
         cluster_id: str,
         region: Optional[Region] = None,
         order_by: Optional[ListPoolsRequestOrderBy] = None,
@@ -681,6 +694,7 @@ class K8SV1API(API):
 
     def create_pool(
         self,
+        *,
         cluster_id: str,
         node_type: str,
         autoscaling: bool,
@@ -777,6 +791,7 @@ class K8SV1API(API):
 
     def get_pool(
         self,
+        *,
         pool_id: str,
         region: Optional[Region] = None,
     ) -> Pool:
@@ -807,6 +822,7 @@ class K8SV1API(API):
 
     def wait_for_pool(
         self,
+        *,
         pool_id: str,
         region: Optional[Region] = None,
         options: Optional[WaitForOptions[Pool, bool]] = None,
@@ -841,6 +857,7 @@ class K8SV1API(API):
 
     def upgrade_pool(
         self,
+        *,
         pool_id: str,
         version: str,
         region: Optional[Region] = None,
@@ -884,6 +901,7 @@ class K8SV1API(API):
 
     def update_pool(
         self,
+        *,
         pool_id: str,
         region: Optional[Region] = None,
         autoscaling: Optional[bool] = None,
@@ -945,6 +963,7 @@ class K8SV1API(API):
 
     def delete_pool(
         self,
+        *,
         pool_id: str,
         region: Optional[Region] = None,
     ) -> Pool:
@@ -975,6 +994,7 @@ class K8SV1API(API):
 
     def list_nodes(
         self,
+        *,
         cluster_id: str,
         region: Optional[Region] = None,
         pool_id: Optional[str] = None,
@@ -1025,6 +1045,7 @@ class K8SV1API(API):
 
     def list_nodes_all(
         self,
+        *,
         cluster_id: str,
         region: Optional[Region] = None,
         pool_id: Optional[str] = None,
@@ -1070,6 +1091,7 @@ class K8SV1API(API):
 
     def get_node(
         self,
+        *,
         node_id: str,
         region: Optional[Region] = None,
     ) -> Node:
@@ -1100,6 +1122,7 @@ class K8SV1API(API):
 
     def wait_for_node(
         self,
+        *,
         node_id: str,
         region: Optional[Region] = None,
         options: Optional[WaitForOptions[Node, bool]] = None,
@@ -1134,6 +1157,7 @@ class K8SV1API(API):
 
     def replace_node(
         self,
+        *,
         node_id: str,
         region: Optional[Region] = None,
     ) -> Node:
@@ -1165,6 +1189,7 @@ class K8SV1API(API):
 
     def reboot_node(
         self,
+        *,
         node_id: str,
         region: Optional[Region] = None,
     ) -> Node:
@@ -1195,6 +1220,7 @@ class K8SV1API(API):
 
     def delete_node(
         self,
+        *,
         node_id: str,
         skip_drain: bool,
         replace: bool,
@@ -1237,6 +1263,7 @@ class K8SV1API(API):
 
     def list_versions(
         self,
+        *,
         region: Optional[Region] = None,
     ) -> ListVersionsResponse:
         """
@@ -1264,6 +1291,7 @@ class K8SV1API(API):
 
     def get_version(
         self,
+        *,
         version_name: str,
         region: Optional[Region] = None,
     ) -> Version:

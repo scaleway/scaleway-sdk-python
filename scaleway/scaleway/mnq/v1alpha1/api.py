@@ -48,6 +48,7 @@ class MnqV1Alpha1API(API):
 
     def list_namespaces(
         self,
+        *,
         region: Optional[Region] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -93,6 +94,7 @@ class MnqV1Alpha1API(API):
 
     def list_namespaces_all(
         self,
+        *,
         region: Optional[Region] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -132,6 +134,7 @@ class MnqV1Alpha1API(API):
 
     def create_namespace(
         self,
+        *,
         region: Optional[Region] = None,
         name: Optional[str] = None,
         protocol: NamespaceProtocol = NamespaceProtocol.UNKNOWN,
@@ -174,6 +177,7 @@ class MnqV1Alpha1API(API):
 
     def update_namespace(
         self,
+        *,
         namespace_id: str,
         region: Optional[Region] = None,
         name: Optional[str] = None,
@@ -213,6 +217,7 @@ class MnqV1Alpha1API(API):
 
     def get_namespace(
         self,
+        *,
         namespace_id: str,
         region: Optional[Region] = None,
     ) -> Namespace:
@@ -243,6 +248,7 @@ class MnqV1Alpha1API(API):
 
     def delete_namespace(
         self,
+        *,
         namespace_id: str,
         region: Optional[Region] = None,
     ) -> Optional[None]:
@@ -272,6 +278,7 @@ class MnqV1Alpha1API(API):
 
     def create_credential(
         self,
+        *,
         namespace_id: str,
         region: Optional[Region] = None,
         name: Optional[str] = None,
@@ -316,6 +323,7 @@ class MnqV1Alpha1API(API):
 
     def delete_credential(
         self,
+        *,
         credential_id: str,
         region: Optional[Region] = None,
     ) -> Optional[None]:
@@ -345,6 +353,7 @@ class MnqV1Alpha1API(API):
 
     def list_credentials(
         self,
+        *,
         region: Optional[Region] = None,
         namespace_id: Optional[str] = None,
         page: Optional[int] = None,
@@ -386,6 +395,7 @@ class MnqV1Alpha1API(API):
 
     def list_credentials_all(
         self,
+        *,
         region: Optional[Region] = None,
         namespace_id: Optional[str] = None,
         page: Optional[int] = None,
@@ -422,6 +432,7 @@ class MnqV1Alpha1API(API):
 
     def update_credential(
         self,
+        *,
         credential_id: str,
         region: Optional[Region] = None,
         name: Optional[str] = None,
@@ -467,6 +478,7 @@ class MnqV1Alpha1API(API):
 
     def get_credential(
         self,
+        *,
         credential_id: str,
         region: Optional[Region] = None,
     ) -> Credential:
