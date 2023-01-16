@@ -309,6 +309,11 @@ class Acl:
     Date at which the ACL was last updated
     """
 
+    description: str
+    """
+    Description of your ACL ressource
+    """
+
 
 @dataclass
 class AclAction:
@@ -380,6 +385,11 @@ class AclSpec:
     index: int
     """
     Order between your Acls (ascending order, 0 is first acl executed)
+    """
+
+    description: str
+    """
+    Description of your ACL ressource
     """
 
 
@@ -2505,6 +2515,11 @@ class CreateAclRequest:
     Order between your Acls (ascending order, 0 is first acl executed)
     """
 
+    description: str
+    """
+    Description of your ACL ressource
+    """
+
 
 @dataclass
 class GetAclRequest:
@@ -2549,6 +2564,11 @@ class UpdateAclRequest:
     index: int
     """
     Order between your Acls (ascending order, 0 is first acl executed)
+    """
+
+    description: Optional[str]
+    """
+    Description of your ACL ressource
     """
 
 
@@ -3991,6 +4011,11 @@ class ZonedApiCreateAclRequest:
     Order between your Acls (ascending order, 0 is first acl executed)
     """
 
+    description: str
+    """
+    Description of your ACL ressource
+    """
+
 
 @dataclass
 class ZonedApiGetAclRequest:
@@ -4035,6 +4060,11 @@ class ZonedApiUpdateAclRequest:
     index: int
     """
     Order between your Acls (ascending order, 0 is first acl executed)
+    """
+
+    description: Optional[str]
+    """
+    Description of your ACL ressource
     """
 
 
