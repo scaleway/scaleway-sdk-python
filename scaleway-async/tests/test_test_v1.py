@@ -16,6 +16,7 @@ class TestTestV1(unittest.IsolatedAsyncioTestCase):
         res = await self.api.register(username="scaleway-sdk-python")
         client.access_key = res.access_key
         client.secret_key = res.secret_key
+        client.default_project_id = "00000000-0000-0000-0000-000000000000"
 
     async def test_create_human(self) -> None:
         name = utils.random_name()
