@@ -1,27 +1,27 @@
 import unittest
-from contextlib import AsyncExitStack
+from contextlib import ExitStack
 from typing import Optional
 
 import utils
 
-from scaleway_async import Client, WaitForOptions
-from scaleway_async.test.v1 import EyeColors, Human, HumanStatus, TestV1API
+from scaleway import Client, WaitForOptions
+from scaleway.test.v1 import EyeColors, Human, HumanStatus, TestV1API
 
 
-class TestRegistryV1(unittest.IsolatedAsyncioTestCase):
-    async def asyncSetUp(self) -> None:
+class TestRegistryV1(unittest.TestCase):
+    def setUp(self) -> None:
         client = Client.from_config_file_and_env()
         self.api = TestV1API(client, bypass_validation=True)
 
-        res = await self.api.register(username="scaleway-sdk-python")
+        res = self.api.register(username="scaleway-sdk-python")
         client.access_key = res.access_key
         client.secret_key = res.secret_key
 
-    async def test_create_human(self) -> None:
+    def test_create_human(self) -> None:
         name = utils.random_name()
 
-        async with AsyncExitStack() as stack:
-            human = await self.api.create_human(
+        with ExitStack() as stack:
+            human = self.api.create_human(
                 height=1.0,
                 shoe_size=1.0,
                 altitude_in_meter=1,
@@ -32,23 +32,23 @@ class TestRegistryV1(unittest.IsolatedAsyncioTestCase):
                 eyes_color=EyeColors.BROWN,
                 name=name,
             )
-            stack.push_async_callback(self.api.delete_human, human_id=human.id)
+            stack.callback(self.api.delete_human, human_id=human.id)
 
             self.assertEqual(human.name, name)
 
-    async def test_list_humans(self) -> None:
-        humans = await self.api.list_humans()
+    def test_list_humans(self) -> None:
+        humans = self.api.list_humans()
         self.assertTrue(type(humans.humans) is list)
 
-    async def test_list_humans_all(self) -> None:
-        humans = await self.api.list_humans_all()
+    def test_list_humans_all(self) -> None:
+        humans = self.api.list_humans_all()
         self.assertTrue(type(humans) is list)
 
-    async def test_get_human(self) -> None:
+    def test_get_human(self) -> None:
         name = utils.random_name()
 
-        async with AsyncExitStack() as stack:
-            human = await self.api.create_human(
+        with ExitStack() as stack:
+            human = self.api.create_human(
                 height=1.0,
                 shoe_size=1.0,
                 altitude_in_meter=1,
@@ -59,16 +59,16 @@ class TestRegistryV1(unittest.IsolatedAsyncioTestCase):
                 eyes_color=EyeColors.BROWN,
                 name=name,
             )
-            stack.push_async_callback(self.api.delete_human, human_id=human.id)
+            stack.callback(self.api.delete_human, human_id=human.id)
 
-            human2 = await self.api.get_human(human_id=human.id)
+            human2 = self.api.get_human(human_id=human.id)
             self.assertEqual(human.id, human2.id)
 
-    async def test_update_human(self) -> None:
+    def test_update_human(self) -> None:
         name = utils.random_name()
 
-        async with AsyncExitStack() as stack:
-            human = await self.api.create_human(
+        with ExitStack() as stack:
+            human = self.api.create_human(
                 height=1.0,
                 shoe_size=1.0,
                 altitude_in_meter=1,
@@ -79,9 +79,9 @@ class TestRegistryV1(unittest.IsolatedAsyncioTestCase):
                 eyes_color=EyeColors.BROWN,
                 name=name,
             )
-            stack.push_async_callback(self.api.delete_human, human_id=human.id)
+            stack.callback(self.api.delete_human, human_id=human.id)
 
-            human2 = await self.api.update_human(
+            human2 = self.api.update_human(
                 human_id=human.id,
                 height=2.0,
                 eyes_color=EyeColors.BLUE,
@@ -91,13 +91,13 @@ class TestRegistryV1(unittest.IsolatedAsyncioTestCase):
             self.assertEqual(human2.height, 2.0)
             self.assertEqual(human2.eyes_color, EyeColors.BLUE)
 
-    async def test_delete_human(self) -> None:
+    def test_delete_human(self) -> None:
         name = utils.random_name()
 
         human: Optional[Human] = None
 
-        async with AsyncExitStack() as stack:
-            human = await self.api.create_human(
+        with ExitStack() as stack:
+            human = self.api.create_human(
                 height=1.0,
                 shoe_size=1.0,
                 altitude_in_meter=1,
@@ -108,22 +108,22 @@ class TestRegistryV1(unittest.IsolatedAsyncioTestCase):
                 eyes_color=EyeColors.BROWN,
                 name=name,
             )
-            stack.push_async_callback(self.api.delete_human, human_id=human.id)
+            stack.callback(self.api.delete_human, human_id=human.id)
 
         if human is None:
             raise Exception("human is None")
 
         try:
-            await self.api.wait_for_human(human_id=human.id)
+            self.api.wait_for_human(human_id=human.id)
         except Exception as e:
             self.assertNotIsInstance(e, TimeoutError)
             pass
 
-    async def test_run_human(self):
+    def test_run_human(self):
         name = utils.random_name()
 
-        async with AsyncExitStack() as stack:
-            human = await self.api.create_human(
+        with ExitStack() as stack:
+            human = self.api.create_human(
                 height=1.0,
                 shoe_size=1.0,
                 altitude_in_meter=1,
@@ -134,10 +134,10 @@ class TestRegistryV1(unittest.IsolatedAsyncioTestCase):
                 eyes_color=EyeColors.BROWN,
                 name=name,
             )
-            stack.push_async_callback(self.api.delete_human, human_id=human.id)
+            stack.callback(self.api.delete_human, human_id=human.id)
 
-            await self.api.run_human(human_id=human.id)
-            human = await self.api.wait_for_human(
+            self.api.run_human(human_id=human.id)
+            human = self.api.wait_for_human(
                 human_id=human.id,
                 options=WaitForOptions(
                     stop=lambda human: human.status == HumanStatus.RUNNING
