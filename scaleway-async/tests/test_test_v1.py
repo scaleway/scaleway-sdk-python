@@ -8,7 +8,7 @@ from scaleway_async import Client, WaitForOptions
 from scaleway_async.test.v1 import EyeColors, Human, HumanStatus, TestV1API
 
 
-class TestRegistryV1(unittest.IsolatedAsyncioTestCase):
+class TestTestV1(unittest.IsolatedAsyncioTestCase):
     async def asyncSetUp(self) -> None:
         client = Client.from_config_file_and_env()
         self.api = TestV1API(client, bypass_validation=True)

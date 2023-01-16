@@ -8,7 +8,7 @@ from scaleway import Client, WaitForOptions
 from scaleway.test.v1 import EyeColors, Human, HumanStatus, TestV1API
 
 
-class TestRegistryV1(unittest.TestCase):
+class TestTestV1(unittest.TestCase):
     def setUp(self) -> None:
         client = Client.from_config_file_and_env()
         self.api = TestV1API(client, bypass_validation=True)
