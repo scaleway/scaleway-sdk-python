@@ -736,6 +736,9 @@ def unmarshal_Acl(data: Any) -> Acl:
     field = data.get("created_at")
     args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
+    field = data.get("description")
+    args["description"] = field
+
     field = data.get("frontend")
     args["frontend"] = unmarshal_Frontend(field) if field is not None else None
 
@@ -1195,6 +1198,7 @@ def marshal_AclSpec(
 ) -> Dict[str, Any]:
     return {
         "action": marshal_AclAction(request.action, defaults),
+        "description": request.description,
         "index": request.index,
         "match": marshal_AclMatch(request.match, defaults),
         "name": request.name,
@@ -1388,6 +1392,7 @@ def marshal_CreateAclRequest(
 ) -> Dict[str, Any]:
     return {
         "action": marshal_AclAction(request.action, defaults),
+        "description": request.description,
         "index": request.index,
         "match": marshal_AclMatch(request.match, defaults),
         "name": request.name,
@@ -1670,6 +1675,7 @@ def marshal_UpdateAclRequest(
 ) -> Dict[str, Any]:
     return {
         "action": marshal_AclAction(request.action, defaults),
+        "description": request.description,
         "index": request.index,
         "match": marshal_AclMatch(request.match, defaults),
         "name": request.name,
@@ -1910,6 +1916,7 @@ def marshal_ZonedApiCreateAclRequest(
 ) -> Dict[str, Any]:
     return {
         "action": marshal_AclAction(request.action, defaults),
+        "description": request.description,
         "index": request.index,
         "match": marshal_AclMatch(request.match, defaults),
         "name": request.name,
@@ -2201,6 +2208,7 @@ def marshal_ZonedApiUpdateAclRequest(
 ) -> Dict[str, Any]:
     return {
         "action": marshal_AclAction(request.action, defaults),
+        "description": request.description,
         "index": request.index,
         "match": marshal_AclMatch(request.match, defaults),
         "name": request.name,

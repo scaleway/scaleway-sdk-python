@@ -2081,6 +2081,7 @@ class LbV1API(API):
         action: AclAction,
         match: AclMatch,
         index: int,
+        description: str,
         region: Optional[Region] = None,
         name: Optional[str] = None,
     ) -> Acl:
@@ -2097,6 +2098,7 @@ class LbV1API(API):
           - `ip_subnet`, `http_filter` and `http_filter_value` are defined
 
         :param index: Order between your Acls (ascending order, 0 is first acl executed)
+        :param description: Description of your ACL ressource
         :return: :class:`Acl <Acl>`
 
         Usage:
@@ -2107,6 +2109,7 @@ class LbV1API(API):
                 action=AclAction(...),
                 match=AclMatch(...),
                 index=1,
+                description="example",
             )
         """
 
@@ -2124,6 +2127,7 @@ class LbV1API(API):
                     action=action,
                     match=match,
                     index=index,
+                    description=description,
                     region=region,
                     name=name or random_name(prefix="acl"),
                 ),
@@ -2174,6 +2178,7 @@ class LbV1API(API):
         match: AclMatch,
         index: int,
         region: Optional[Region] = None,
+        description: Optional[str] = None,
     ) -> Acl:
         """
         Update an ACL
@@ -2183,6 +2188,7 @@ class LbV1API(API):
         :param action: Action to undertake when an ACL filter matches
         :param match: The ACL match rule. At least `ip_subnet` or `http_filter` and `http_filter_value` are required
         :param index: Order between your Acls (ascending order, 0 is first acl executed)
+        :param description: Description of your ACL ressource
         :return: :class:`Acl <Acl>`
 
         Usage:
@@ -2213,6 +2219,7 @@ class LbV1API(API):
                     match=match,
                     index=index,
                     region=region,
+                    description=description,
                 ),
                 self.client,
             ),
@@ -4927,6 +4934,7 @@ class LbZonedV1API(API):
         action: AclAction,
         match: AclMatch,
         index: int,
+        description: str,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
     ) -> Acl:
@@ -4943,6 +4951,7 @@ class LbZonedV1API(API):
           - `ip_subnet`, `http_filter` and `http_filter_value` are defined
 
         :param index: Order between your Acls (ascending order, 0 is first acl executed)
+        :param description: Description of your ACL ressource
         :return: :class:`Acl <Acl>`
 
         Usage:
@@ -4953,6 +4962,7 @@ class LbZonedV1API(API):
                 action=AclAction(...),
                 match=AclMatch(...),
                 index=1,
+                description="example",
             )
         """
 
@@ -4968,6 +4978,7 @@ class LbZonedV1API(API):
                     action=action,
                     match=match,
                     index=index,
+                    description=description,
                     zone=zone,
                     name=name or random_name(prefix="acl"),
                 ),
@@ -5016,6 +5027,7 @@ class LbZonedV1API(API):
         match: AclMatch,
         index: int,
         zone: Optional[Zone] = None,
+        description: Optional[str] = None,
     ) -> Acl:
         """
         Update an ACL
@@ -5025,6 +5037,7 @@ class LbZonedV1API(API):
         :param action: Action to undertake when an ACL filter matches
         :param match: The ACL match rule. At least `ip_subnet` or `http_filter` and `http_filter_value` are required
         :param index: Order between your Acls (ascending order, 0 is first acl executed)
+        :param description: Description of your ACL ressource
         :return: :class:`Acl <Acl>`
 
         Usage:
@@ -5053,6 +5066,7 @@ class LbZonedV1API(API):
                     match=match,
                     index=index,
                     zone=zone,
+                    description=description,
                 ),
                 self.client,
             ),
