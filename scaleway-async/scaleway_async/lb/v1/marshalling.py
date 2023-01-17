@@ -716,6 +716,9 @@ def unmarshal_RouteMatch(data: Any) -> RouteMatch:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("host_header")
+    args["host_header"] = field
+
     field = data.get("sni")
     args["sni"] = field
 
@@ -1335,7 +1338,18 @@ def marshal_RouteMatch(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
-        "sni": request.sni,
+        **resolve_one_of(
+            [
+                OneOfPossibility("sni", request.sni),
+                OneOfPossibility("host_header", request.host_header),
+            ]
+        ),
+        **resolve_one_of(
+            [
+                OneOfPossibility("sni", request.sni),
+                OneOfPossibility("host_header", request.host_header),
+            ]
+        ),
     }
 
 
