@@ -80,7 +80,7 @@ class CreateEmailRequestAttachment:
     MIME type of the attachment (Currently only allow, text files, pdf and html files)
     """
 
-    content: bytes
+    content: str
     """
     Content of the attachment, encoded in base64
     """
