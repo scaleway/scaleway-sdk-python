@@ -488,6 +488,7 @@ class IotV1API(API):
         :param hub_id: Hub ID
         :param start_date: Start date used to compute the best scale for the returned metrics
         :return: :class:`GetHubMetricsResponse <GetHubMetricsResponse>`
+        :deprecated
 
         Usage:
         ::
@@ -1041,6 +1042,7 @@ class IotV1API(API):
         :param device_id: Device ID
         :param start_date: Start date used to compute the best scale for the returned metrics
         :return: :class:`GetDeviceMetricsResponse <GetDeviceMetricsResponse>`
+        :deprecated
 
         Usage:
         ::
