@@ -4,6 +4,9 @@
 from typing import List, Optional
 
 from scaleway_core.api import API
+from scaleway_core.bridge import (
+    Zone,
+)
 from scaleway_core.utils import (
     OneOfPossibility,
     fetch_all_pages_async,
@@ -238,8 +241,19 @@ class MarketplaceV2API(API):
         page_size: Optional[int] = None,
         page: Optional[int] = None,
         order_by: ListLocalImagesRequestOrderBy = ListLocalImagesRequestOrderBy.CREATED_AT_ASC,
+        image_label: Optional[str] = None,
+        zone: Optional[Zone] = None,
     ) -> ListLocalImagesResponse:
         """
+        List local images from a specific image or version
+        :param image_id: One-of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
+        :param version_id: One-of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
+        :param page_size:
+        :param page:
+        :param order_by:
+        :param image_label: One-of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
+        :param zone:
+        :return: :class:`ListLocalImagesResponse <ListLocalImagesResponse>`
 
         Usage:
         ::
@@ -254,10 +268,12 @@ class MarketplaceV2API(API):
                 "order_by": order_by,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
+                "zone": zone or self.client.default_zone,
                 **resolve_one_of(
                     [
                         OneOfPossibility("image_id", image_id),
                         OneOfPossibility("version_id", version_id),
+                        OneOfPossibility("image_label", image_label),
                     ]
                 ),
             },
@@ -274,8 +290,18 @@ class MarketplaceV2API(API):
         page_size: Optional[int] = None,
         page: Optional[int] = None,
         order_by: Optional[ListLocalImagesRequestOrderBy] = None,
+        image_label: Optional[str] = None,
+        zone: Optional[Zone] = None,
     ) -> List[LocalImage]:
         """
+        List local images from a specific image or version
+        :param image_id: One-of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
+        :param version_id: One-of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
+        :param page_size:
+        :param page:
+        :param order_by:
+        :param image_label: One-of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
+        :param zone:
         :return: :class:`List[ListLocalImagesResponse] <List[ListLocalImagesResponse]>`
 
         Usage:
@@ -294,6 +320,8 @@ class MarketplaceV2API(API):
                 "page_size": page_size,
                 "page": page,
                 "order_by": order_by,
+                "image_label": image_label,
+                "zone": zone,
             },
         )
 

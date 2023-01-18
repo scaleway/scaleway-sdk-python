@@ -157,6 +157,11 @@ class LocalImage:
     Availability Zone where this local image is available
     """
 
+    label: str
+    """
+    Image label this image belongs to
+    """
+
 
 @dataclass
 class Version:
@@ -251,12 +256,12 @@ class GetVersionRequest:
 class ListLocalImagesRequest:
     image_id: Optional[str]
     """
-    One-of ('scope'): at most one of 'image_id', 'version_id' could be set.
+    One-of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
     """
 
     version_id: Optional[str]
     """
-    One-of ('scope'): at most one of 'image_id', 'version_id' could be set.
+    One-of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
     """
 
     page_size: Optional[int]
@@ -264,6 +269,13 @@ class ListLocalImagesRequest:
     page: Optional[int]
 
     order_by: Optional[ListLocalImagesRequestOrderBy]
+
+    image_label: Optional[str]
+    """
+    One-of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
+    """
+
+    zone: Optional[Zone]
 
 
 @dataclass
