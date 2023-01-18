@@ -830,12 +830,6 @@ def marshal_CreateTriggerRequestNatsFailureHandlingPolicy(
         )
         if request.retry_policy is not None
         else None,
-        **resolve_one_of(
-            [
-                OneOfPossibility("nats_dead_letter", request.nats_dead_letter),
-                OneOfPossibility("sqs_dead_letter", request.sqs_dead_letter),
-            ]
-        ),
     }
 
 
@@ -967,20 +961,14 @@ def marshal_CreateTokenRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
+        **resolve_one_of(
+            [
+                OneOfPossibility("function_id", request.function_id),
+                OneOfPossibility("namespace_id", request.namespace_id),
+            ]
+        ),
         "description": request.description,
         "expires_at": request.expires_at,
-        **resolve_one_of(
-            [
-                OneOfPossibility("function_id", request.function_id),
-                OneOfPossibility("namespace_id", request.namespace_id),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("function_id", request.function_id),
-                OneOfPossibility("namespace_id", request.namespace_id),
-            ]
-        ),
     }
 
 
@@ -989,19 +977,13 @@ def marshal_CreateTriggerInputRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
+        **resolve_one_of(
+            [
+                OneOfPossibility("nats_config", request.nats_config),
+                OneOfPossibility("sqs_config", request.sqs_config),
+            ]
+        ),
         "mnq_namespace_id": request.mnq_namespace_id,
-        **resolve_one_of(
-            [
-                OneOfPossibility("nats_config", request.nats_config),
-                OneOfPossibility("sqs_config", request.sqs_config),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("nats_config", request.nats_config),
-                OneOfPossibility("sqs_config", request.sqs_config),
-            ]
-        ),
         "trigger_id": request.trigger_id,
     }
 
@@ -1011,29 +993,19 @@ def marshal_CreateTriggerRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
+        **resolve_one_of(
+            [
+                OneOfPossibility(
+                    "nats_failure_handling_policy", request.nats_failure_handling_policy
+                ),
+                OneOfPossibility(
+                    "sqs_failure_handling_policy", request.sqs_failure_handling_policy
+                ),
+            ]
+        ),
         "description": request.description,
         "function_id": request.function_id,
         "name": request.name,
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "nats_failure_handling_policy", request.nats_failure_handling_policy
-                ),
-                OneOfPossibility(
-                    "sqs_failure_handling_policy", request.sqs_failure_handling_policy
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "nats_failure_handling_policy", request.nats_failure_handling_policy
-                ),
-                OneOfPossibility(
-                    "sqs_failure_handling_policy", request.sqs_failure_handling_policy
-                ),
-            ]
-        ),
         "type": TriggerType(request.type_),
     }
 
@@ -1043,12 +1015,6 @@ def marshal_SetTriggerInputsRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
-        **resolve_one_of(
-            [
-                OneOfPossibility("sqs", request.sqs),
-                OneOfPossibility("nats", request.nats),
-            ]
-        ),
         **resolve_one_of(
             [
                 OneOfPossibility("sqs", request.sqs),
@@ -1121,12 +1087,6 @@ def marshal_UpdateTriggerInputRequest(
                 OneOfPossibility("sqs_config", request.sqs_config),
             ]
         ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("nats_config", request.nats_config),
-                OneOfPossibility("sqs_config", request.sqs_config),
-            ]
-        ),
     }
 
 
@@ -1135,18 +1095,12 @@ def marshal_UpdateTriggerRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
+        **resolve_one_of(
+            [
+                OneOfPossibility("nats_config", request.nats_config),
+                OneOfPossibility("sqs_config", request.sqs_config),
+            ]
+        ),
         "description": request.description,
         "name": request.name,
-        **resolve_one_of(
-            [
-                OneOfPossibility("nats_config", request.nats_config),
-                OneOfPossibility("sqs_config", request.sqs_config),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("nats_config", request.nats_config),
-                OneOfPossibility("sqs_config", request.sqs_config),
-            ]
-        ),
     }
