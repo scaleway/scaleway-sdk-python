@@ -240,6 +240,13 @@ class MarketplaceV2API(API):
         order_by: ListLocalImagesRequestOrderBy = ListLocalImagesRequestOrderBy.CREATED_AT_ASC,
     ) -> ListLocalImagesResponse:
         """
+        List local images from a specific image or version
+        :param image_id: One-of ('scope'): at most one of 'image_id', 'version_id' could be set.
+        :param version_id: One-of ('scope'): at most one of 'image_id', 'version_id' could be set.
+        :param page_size:
+        :param page:
+        :param order_by:
+        :return: :class:`ListLocalImagesResponse <ListLocalImagesResponse>`
 
         Usage:
         ::
@@ -276,6 +283,12 @@ class MarketplaceV2API(API):
         order_by: Optional[ListLocalImagesRequestOrderBy] = None,
     ) -> List[LocalImage]:
         """
+        List local images from a specific image or version
+        :param image_id: One-of ('scope'): at most one of 'image_id', 'version_id' could be set.
+        :param version_id: One-of ('scope'): at most one of 'image_id', 'version_id' could be set.
+        :param page_size:
+        :param page:
+        :param order_by:
         :return: :class:`List[ListLocalImagesResponse] <List[ListLocalImagesResponse]>`
 
         Usage:
