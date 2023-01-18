@@ -230,6 +230,9 @@ def unmarshal_Cluster(data: Any) -> Cluster:
     field = data.get("updated_at")
     args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
+    field = data.get("upgradable_versions")
+    args["upgradable_versions"] = field
+
     field = data.get("user_name")
     args["user_name"] = field
 
@@ -494,12 +497,6 @@ def marshal_EndpointSpec(
                 OneOfPossibility("public_network", request.public_network),
             ]
         ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("private_network", request.private_network),
-                OneOfPossibility("public_network", request.public_network),
-            ]
-        ),
     }
 
 
@@ -570,20 +567,6 @@ def marshal_MigrateClusterRequest(
                 OneOfPossibility("cluster_size", request.cluster_size),
             ]
         ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("version", request.version),
-                OneOfPossibility("node_type", request.node_type),
-                OneOfPossibility("cluster_size", request.cluster_size),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("version", request.version),
-                OneOfPossibility("node_type", request.node_type),
-                OneOfPossibility("cluster_size", request.cluster_size),
-            ]
-        ),
     }
 
 
@@ -631,12 +614,6 @@ def marshal_UpdateEndpointRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
-        **resolve_one_of(
-            [
-                OneOfPossibility("private_network", request.private_network),
-                OneOfPossibility("public_network", request.public_network),
-            ]
-        ),
         **resolve_one_of(
             [
                 OneOfPossibility("private_network", request.private_network),

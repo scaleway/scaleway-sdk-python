@@ -265,6 +265,11 @@ class Cluster:
     Name of the user associated to the cluster
     """
 
+    upgradable_versions: List[str]
+    """
+    List of versions the cluster can be migrated to
+    """
+
 
 @dataclass
 class ClusterMetricsResponse:
