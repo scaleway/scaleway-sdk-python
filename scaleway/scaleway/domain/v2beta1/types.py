@@ -2044,6 +2044,11 @@ class RegistrarApiSearchAvailableDomainsRequest:
     Array of tlds to search on
     """
 
+    strict_search: bool
+    """
+    Search exact match
+    """
+
 
 @dataclass
 class RegistrarApiCreateDomainHostRequest:
