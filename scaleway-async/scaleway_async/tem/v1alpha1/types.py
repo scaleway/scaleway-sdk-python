@@ -346,14 +346,6 @@ class Statistics:
 
 
 @dataclass
-class GetServiceInfoRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config
-    """
-
-
-@dataclass
 class CreateEmailRequest:
     region: Optional[Region]
     """
