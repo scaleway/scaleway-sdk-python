@@ -219,7 +219,7 @@ class K8SV1API(API):
         :param project_id: The project ID where the cluster will be created.
 
         One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
-        :param type_: The type of the cluster
+        :param type_: The type of the cluster (possible values are kapsule, multicloud).
         :param name: The name of the cluster
         :param description: The description of the cluster
         :param tags: The tags associated with the cluster
