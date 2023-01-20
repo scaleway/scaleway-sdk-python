@@ -1232,88 +1232,22 @@ def marshal_HealthCheck(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
+        **resolve_one_of(
+            [
+                OneOfPossibility("mysql_config", request.mysql_config),
+                OneOfPossibility("ldap_config", request.ldap_config),
+                OneOfPossibility("redis_config", request.redis_config),
+                OneOfPossibility("tcp_config", request.tcp_config),
+                OneOfPossibility("pgsql_config", request.pgsql_config),
+                OneOfPossibility("http_config", request.http_config),
+                OneOfPossibility("https_config", request.https_config),
+            ]
+        ),
         "check_delay": request.check_delay,
         "check_max_retries": request.check_max_retries,
         "check_send_proxy": request.check_send_proxy,
         "check_timeout": request.check_timeout,
-        **resolve_one_of(
-            [
-                OneOfPossibility("mysql_config", request.mysql_config),
-                OneOfPossibility("ldap_config", request.ldap_config),
-                OneOfPossibility("redis_config", request.redis_config),
-                OneOfPossibility("tcp_config", request.tcp_config),
-                OneOfPossibility("pgsql_config", request.pgsql_config),
-                OneOfPossibility("http_config", request.http_config),
-                OneOfPossibility("https_config", request.https_config),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("mysql_config", request.mysql_config),
-                OneOfPossibility("ldap_config", request.ldap_config),
-                OneOfPossibility("redis_config", request.redis_config),
-                OneOfPossibility("tcp_config", request.tcp_config),
-                OneOfPossibility("pgsql_config", request.pgsql_config),
-                OneOfPossibility("http_config", request.http_config),
-                OneOfPossibility("https_config", request.https_config),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("mysql_config", request.mysql_config),
-                OneOfPossibility("ldap_config", request.ldap_config),
-                OneOfPossibility("redis_config", request.redis_config),
-                OneOfPossibility("tcp_config", request.tcp_config),
-                OneOfPossibility("pgsql_config", request.pgsql_config),
-                OneOfPossibility("http_config", request.http_config),
-                OneOfPossibility("https_config", request.https_config),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("mysql_config", request.mysql_config),
-                OneOfPossibility("ldap_config", request.ldap_config),
-                OneOfPossibility("redis_config", request.redis_config),
-                OneOfPossibility("tcp_config", request.tcp_config),
-                OneOfPossibility("pgsql_config", request.pgsql_config),
-                OneOfPossibility("http_config", request.http_config),
-                OneOfPossibility("https_config", request.https_config),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("mysql_config", request.mysql_config),
-                OneOfPossibility("ldap_config", request.ldap_config),
-                OneOfPossibility("redis_config", request.redis_config),
-                OneOfPossibility("tcp_config", request.tcp_config),
-                OneOfPossibility("pgsql_config", request.pgsql_config),
-                OneOfPossibility("http_config", request.http_config),
-                OneOfPossibility("https_config", request.https_config),
-            ]
-        ),
         "port": request.port,
-        **resolve_one_of(
-            [
-                OneOfPossibility("mysql_config", request.mysql_config),
-                OneOfPossibility("ldap_config", request.ldap_config),
-                OneOfPossibility("redis_config", request.redis_config),
-                OneOfPossibility("tcp_config", request.tcp_config),
-                OneOfPossibility("pgsql_config", request.pgsql_config),
-                OneOfPossibility("http_config", request.http_config),
-                OneOfPossibility("https_config", request.https_config),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("mysql_config", request.mysql_config),
-                OneOfPossibility("ldap_config", request.ldap_config),
-                OneOfPossibility("redis_config", request.redis_config),
-                OneOfPossibility("tcp_config", request.tcp_config),
-                OneOfPossibility("pgsql_config", request.pgsql_config),
-                OneOfPossibility("http_config", request.http_config),
-                OneOfPossibility("https_config", request.https_config),
-            ]
-        ),
     }
 
 
@@ -1338,12 +1272,6 @@ def marshal_RouteMatch(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
-        **resolve_one_of(
-            [
-                OneOfPossibility("sni", request.sni),
-                OneOfPossibility("host_header", request.host_header),
-            ]
-        ),
         **resolve_one_of(
             [
                 OneOfPossibility("sni", request.sni),
@@ -1385,12 +1313,6 @@ def marshal_AttachPrivateNetworkRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
-        **resolve_one_of(
-            [
-                OneOfPossibility("static_config", request.static_config),
-                OneOfPossibility("dhcp_config", request.dhcp_config),
-            ]
-        ),
         **resolve_one_of(
             [
                 OneOfPossibility("static_config", request.static_config),
@@ -1455,12 +1377,6 @@ def marshal_CreateCertificateRequest(
                 OneOfPossibility("custom_certificate", request.custom_certificate),
             ]
         ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("letsencrypt", request.letsencrypt),
-                OneOfPossibility("custom_certificate", request.custom_certificate),
-            ]
-        ),
         "name": request.name,
     }
 
@@ -1497,18 +1413,6 @@ def marshal_CreateIpRequest(
                 ),
             ]
         ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "project_id", request.project_id, defaults.default_project_id
-                ),
-                OneOfPossibility(
-                    "organization_id",
-                    request.organization_id,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
         "reverse": request.reverse,
     }
 
@@ -1518,33 +1422,21 @@ def marshal_CreateLbRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
+        **resolve_one_of(
+            [
+                OneOfPossibility(
+                    "project_id", request.project_id, defaults.default_project_id
+                ),
+                OneOfPossibility(
+                    "organization_id",
+                    request.organization_id,
+                    defaults.default_organization_id,
+                ),
+            ]
+        ),
         "description": request.description,
         "ip_id": request.ip_id,
         "name": request.name,
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "project_id", request.project_id, defaults.default_project_id
-                ),
-                OneOfPossibility(
-                    "organization_id",
-                    request.organization_id,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "project_id", request.project_id, defaults.default_project_id
-                ),
-                OneOfPossibility(
-                    "organization_id",
-                    request.organization_id,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
         "ssl_compatibility_level": SSLCompatibilityLevel(
             request.ssl_compatibility_level
         ),
@@ -1590,60 +1482,6 @@ def marshal_CreateSubscriberRequest(
             ]
         ),
         "name": request.name,
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "project_id", request.project_id, defaults.default_project_id
-                ),
-                OneOfPossibility(
-                    "organization_id",
-                    request.organization_id,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("email_config", request.email_config),
-                OneOfPossibility("webhook_config", request.webhook_config),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "project_id", request.project_id, defaults.default_project_id
-                ),
-                OneOfPossibility(
-                    "organization_id",
-                    request.organization_id,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("email_config", request.email_config),
-                OneOfPossibility("webhook_config", request.webhook_config),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "project_id", request.project_id, defaults.default_project_id
-                ),
-                OneOfPossibility(
-                    "organization_id",
-                    request.organization_id,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("email_config", request.email_config),
-                OneOfPossibility("webhook_config", request.webhook_config),
-            ]
-        ),
     }
 
 
@@ -1754,88 +1592,22 @@ def marshal_UpdateHealthCheckRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
+        **resolve_one_of(
+            [
+                OneOfPossibility("mysql_config", request.mysql_config),
+                OneOfPossibility("ldap_config", request.ldap_config),
+                OneOfPossibility("redis_config", request.redis_config),
+                OneOfPossibility("pgsql_config", request.pgsql_config),
+                OneOfPossibility("tcp_config", request.tcp_config),
+                OneOfPossibility("http_config", request.http_config),
+                OneOfPossibility("https_config", request.https_config),
+            ]
+        ),
         "check_delay": request.check_delay,
         "check_max_retries": request.check_max_retries,
         "check_send_proxy": request.check_send_proxy,
         "check_timeout": request.check_timeout,
-        **resolve_one_of(
-            [
-                OneOfPossibility("mysql_config", request.mysql_config),
-                OneOfPossibility("ldap_config", request.ldap_config),
-                OneOfPossibility("redis_config", request.redis_config),
-                OneOfPossibility("pgsql_config", request.pgsql_config),
-                OneOfPossibility("tcp_config", request.tcp_config),
-                OneOfPossibility("http_config", request.http_config),
-                OneOfPossibility("https_config", request.https_config),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("mysql_config", request.mysql_config),
-                OneOfPossibility("ldap_config", request.ldap_config),
-                OneOfPossibility("redis_config", request.redis_config),
-                OneOfPossibility("pgsql_config", request.pgsql_config),
-                OneOfPossibility("tcp_config", request.tcp_config),
-                OneOfPossibility("http_config", request.http_config),
-                OneOfPossibility("https_config", request.https_config),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("mysql_config", request.mysql_config),
-                OneOfPossibility("ldap_config", request.ldap_config),
-                OneOfPossibility("redis_config", request.redis_config),
-                OneOfPossibility("pgsql_config", request.pgsql_config),
-                OneOfPossibility("tcp_config", request.tcp_config),
-                OneOfPossibility("http_config", request.http_config),
-                OneOfPossibility("https_config", request.https_config),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("mysql_config", request.mysql_config),
-                OneOfPossibility("ldap_config", request.ldap_config),
-                OneOfPossibility("redis_config", request.redis_config),
-                OneOfPossibility("pgsql_config", request.pgsql_config),
-                OneOfPossibility("tcp_config", request.tcp_config),
-                OneOfPossibility("http_config", request.http_config),
-                OneOfPossibility("https_config", request.https_config),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("mysql_config", request.mysql_config),
-                OneOfPossibility("ldap_config", request.ldap_config),
-                OneOfPossibility("redis_config", request.redis_config),
-                OneOfPossibility("pgsql_config", request.pgsql_config),
-                OneOfPossibility("tcp_config", request.tcp_config),
-                OneOfPossibility("http_config", request.http_config),
-                OneOfPossibility("https_config", request.https_config),
-            ]
-        ),
         "port": request.port,
-        **resolve_one_of(
-            [
-                OneOfPossibility("mysql_config", request.mysql_config),
-                OneOfPossibility("ldap_config", request.ldap_config),
-                OneOfPossibility("redis_config", request.redis_config),
-                OneOfPossibility("pgsql_config", request.pgsql_config),
-                OneOfPossibility("tcp_config", request.tcp_config),
-                OneOfPossibility("http_config", request.http_config),
-                OneOfPossibility("https_config", request.https_config),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("mysql_config", request.mysql_config),
-                OneOfPossibility("ldap_config", request.ldap_config),
-                OneOfPossibility("redis_config", request.redis_config),
-                OneOfPossibility("pgsql_config", request.pgsql_config),
-                OneOfPossibility("tcp_config", request.tcp_config),
-                OneOfPossibility("http_config", request.http_config),
-                OneOfPossibility("https_config", request.https_config),
-            ]
-        ),
     }
 
 
@@ -1886,12 +1658,6 @@ def marshal_UpdateSubscriberRequest(
             ]
         ),
         "name": request.name,
-        **resolve_one_of(
-            [
-                OneOfPossibility("email_config", request.email_config),
-                OneOfPossibility("webhook_config", request.webhook_config),
-            ]
-        ),
     }
 
 
@@ -1909,12 +1675,6 @@ def marshal_ZonedApiAttachPrivateNetworkRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
-        **resolve_one_of(
-            [
-                OneOfPossibility("static_config", request.static_config),
-                OneOfPossibility("dhcp_config", request.dhcp_config),
-            ]
-        ),
         **resolve_one_of(
             [
                 OneOfPossibility("static_config", request.static_config),
@@ -1979,12 +1739,6 @@ def marshal_ZonedApiCreateCertificateRequest(
                 OneOfPossibility("custom_certificate", request.custom_certificate),
             ]
         ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("letsencrypt", request.letsencrypt),
-                OneOfPossibility("custom_certificate", request.custom_certificate),
-            ]
-        ),
         "name": request.name,
     }
 
@@ -2021,18 +1775,6 @@ def marshal_ZonedApiCreateIpRequest(
                 ),
             ]
         ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "project_id", request.project_id, defaults.default_project_id
-                ),
-                OneOfPossibility(
-                    "organization_id",
-                    request.organization_id,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
         "reverse": request.reverse,
     }
 
@@ -2042,33 +1784,21 @@ def marshal_ZonedApiCreateLbRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
+        **resolve_one_of(
+            [
+                OneOfPossibility(
+                    "project_id", request.project_id, defaults.default_project_id
+                ),
+                OneOfPossibility(
+                    "organization_id",
+                    request.organization_id,
+                    defaults.default_organization_id,
+                ),
+            ]
+        ),
         "description": request.description,
         "ip_id": request.ip_id,
         "name": request.name,
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "project_id", request.project_id, defaults.default_project_id
-                ),
-                OneOfPossibility(
-                    "organization_id",
-                    request.organization_id,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "project_id", request.project_id, defaults.default_project_id
-                ),
-                OneOfPossibility(
-                    "organization_id",
-                    request.organization_id,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
         "ssl_compatibility_level": SSLCompatibilityLevel(
             request.ssl_compatibility_level
         ),
@@ -2114,60 +1844,6 @@ def marshal_ZonedApiCreateSubscriberRequest(
             ]
         ),
         "name": request.name,
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "project_id", request.project_id, defaults.default_project_id
-                ),
-                OneOfPossibility(
-                    "organization_id",
-                    request.organization_id,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("email_config", request.email_config),
-                OneOfPossibility("webhook_config", request.webhook_config),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "project_id", request.project_id, defaults.default_project_id
-                ),
-                OneOfPossibility(
-                    "organization_id",
-                    request.organization_id,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("email_config", request.email_config),
-                OneOfPossibility("webhook_config", request.webhook_config),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "project_id", request.project_id, defaults.default_project_id
-                ),
-                OneOfPossibility(
-                    "organization_id",
-                    request.organization_id,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("email_config", request.email_config),
-                OneOfPossibility("webhook_config", request.webhook_config),
-            ]
-        ),
     }
 
 
@@ -2287,88 +1963,22 @@ def marshal_ZonedApiUpdateHealthCheckRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
+        **resolve_one_of(
+            [
+                OneOfPossibility("mysql_config", request.mysql_config),
+                OneOfPossibility("ldap_config", request.ldap_config),
+                OneOfPossibility("redis_config", request.redis_config),
+                OneOfPossibility("pgsql_config", request.pgsql_config),
+                OneOfPossibility("tcp_config", request.tcp_config),
+                OneOfPossibility("http_config", request.http_config),
+                OneOfPossibility("https_config", request.https_config),
+            ]
+        ),
         "check_delay": request.check_delay,
         "check_max_retries": request.check_max_retries,
         "check_send_proxy": request.check_send_proxy,
         "check_timeout": request.check_timeout,
-        **resolve_one_of(
-            [
-                OneOfPossibility("mysql_config", request.mysql_config),
-                OneOfPossibility("ldap_config", request.ldap_config),
-                OneOfPossibility("redis_config", request.redis_config),
-                OneOfPossibility("pgsql_config", request.pgsql_config),
-                OneOfPossibility("tcp_config", request.tcp_config),
-                OneOfPossibility("http_config", request.http_config),
-                OneOfPossibility("https_config", request.https_config),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("mysql_config", request.mysql_config),
-                OneOfPossibility("ldap_config", request.ldap_config),
-                OneOfPossibility("redis_config", request.redis_config),
-                OneOfPossibility("pgsql_config", request.pgsql_config),
-                OneOfPossibility("tcp_config", request.tcp_config),
-                OneOfPossibility("http_config", request.http_config),
-                OneOfPossibility("https_config", request.https_config),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("mysql_config", request.mysql_config),
-                OneOfPossibility("ldap_config", request.ldap_config),
-                OneOfPossibility("redis_config", request.redis_config),
-                OneOfPossibility("pgsql_config", request.pgsql_config),
-                OneOfPossibility("tcp_config", request.tcp_config),
-                OneOfPossibility("http_config", request.http_config),
-                OneOfPossibility("https_config", request.https_config),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("mysql_config", request.mysql_config),
-                OneOfPossibility("ldap_config", request.ldap_config),
-                OneOfPossibility("redis_config", request.redis_config),
-                OneOfPossibility("pgsql_config", request.pgsql_config),
-                OneOfPossibility("tcp_config", request.tcp_config),
-                OneOfPossibility("http_config", request.http_config),
-                OneOfPossibility("https_config", request.https_config),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("mysql_config", request.mysql_config),
-                OneOfPossibility("ldap_config", request.ldap_config),
-                OneOfPossibility("redis_config", request.redis_config),
-                OneOfPossibility("pgsql_config", request.pgsql_config),
-                OneOfPossibility("tcp_config", request.tcp_config),
-                OneOfPossibility("http_config", request.http_config),
-                OneOfPossibility("https_config", request.https_config),
-            ]
-        ),
         "port": request.port,
-        **resolve_one_of(
-            [
-                OneOfPossibility("mysql_config", request.mysql_config),
-                OneOfPossibility("ldap_config", request.ldap_config),
-                OneOfPossibility("redis_config", request.redis_config),
-                OneOfPossibility("pgsql_config", request.pgsql_config),
-                OneOfPossibility("tcp_config", request.tcp_config),
-                OneOfPossibility("http_config", request.http_config),
-                OneOfPossibility("https_config", request.https_config),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("mysql_config", request.mysql_config),
-                OneOfPossibility("ldap_config", request.ldap_config),
-                OneOfPossibility("redis_config", request.redis_config),
-                OneOfPossibility("pgsql_config", request.pgsql_config),
-                OneOfPossibility("tcp_config", request.tcp_config),
-                OneOfPossibility("http_config", request.http_config),
-                OneOfPossibility("https_config", request.https_config),
-            ]
-        ),
     }
 
 
@@ -2419,10 +2029,4 @@ def marshal_ZonedApiUpdateSubscriberRequest(
             ]
         ),
         "name": request.name,
-        **resolve_one_of(
-            [
-                OneOfPossibility("email_config", request.email_config),
-                OneOfPossibility("webhook_config", request.webhook_config),
-            ]
-        ),
     }
