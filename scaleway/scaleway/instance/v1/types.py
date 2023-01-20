@@ -1154,7 +1154,7 @@ class ServerLocation:
 
 @dataclass
 class ServerMaintenance:
-    pass
+    reason: str
 
 
 @dataclass
