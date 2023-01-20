@@ -531,6 +531,9 @@ def unmarshal_ServerMaintenance(data: Any) -> ServerMaintenance:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("reason")
+    args["reason"] = field
+
     return ServerMaintenance(**args)
 
 
@@ -2170,7 +2173,9 @@ def marshal_ServerMaintenance(
     request: ServerMaintenance,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {}
+    return {
+        "reason": request.reason,
+    }
 
 
 def marshal_SetSecurityGroupRulesRequestRule(
@@ -2222,32 +2227,20 @@ def marshal_VolumeTemplate(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
+        **resolve_one_of(
+            [
+                OneOfPossibility(
+                    "project", request.project, defaults.default_project_id
+                ),
+                OneOfPossibility(
+                    "organization",
+                    request.organization,
+                    defaults.default_organization_id,
+                ),
+            ]
+        ),
         "id": request.id,
         "name": request.name,
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "project", request.project, defaults.default_project_id
-                ),
-                OneOfPossibility(
-                    "organization",
-                    request.organization,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "project", request.project, defaults.default_project_id
-                ),
-                OneOfPossibility(
-                    "organization",
-                    request.organization,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
         "size": request.size,
         "volume_type": VolumeVolumeType(request.volume_type),
     }
@@ -2258,6 +2251,18 @@ def marshal_CreateImageRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
+        **resolve_one_of(
+            [
+                OneOfPossibility(
+                    "project", request.project, defaults.default_project_id
+                ),
+                OneOfPossibility(
+                    "organization",
+                    request.organization,
+                    defaults.default_organization_id,
+                ),
+            ]
+        ),
         "arch": Arch(request.arch) if request.arch is not None else None,
         "default_bootscript": request.default_bootscript,
         "extra_volumes": {
@@ -2267,30 +2272,6 @@ def marshal_CreateImageRequest(
         if request.extra_volumes is not None
         else None,
         "name": request.name,
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "project", request.project, defaults.default_project_id
-                ),
-                OneOfPossibility(
-                    "organization",
-                    request.organization,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "project", request.project, defaults.default_project_id
-                ),
-                OneOfPossibility(
-                    "organization",
-                    request.organization,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
         "public": request.public,
         "root_volume": request.root_volume,
         "tags": request.tags,
@@ -2314,18 +2295,6 @@ def marshal_CreateIpRequest(
                 ),
             ]
         ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "project", request.project, defaults.default_project_id
-                ),
-                OneOfPossibility(
-                    "organization",
-                    request.organization,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
         "server": request.server,
         "tags": request.tags,
     }
@@ -2336,7 +2305,6 @@ def marshal_CreatePlacementGroupRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
-        "name": request.name,
         **resolve_one_of(
             [
                 OneOfPossibility(
@@ -2349,20 +2317,9 @@ def marshal_CreatePlacementGroupRequest(
                 ),
             ]
         ),
+        "name": request.name,
         "policy_mode": PlacementGroupPolicyMode(request.policy_mode),
         "policy_type": PlacementGroupPolicyType(request.policy_type),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "project", request.project, defaults.default_project_id
-                ),
-                OneOfPossibility(
-                    "organization",
-                    request.organization,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
         "tags": request.tags,
     }
 
@@ -2381,83 +2338,29 @@ def marshal_CreateSecurityGroupRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
+        **resolve_one_of(
+            [
+                OneOfPossibility("organization_default", request.organization_default),
+                OneOfPossibility("project_default", request.project_default),
+            ]
+        ),
+        **resolve_one_of(
+            [
+                OneOfPossibility(
+                    "project", request.project, defaults.default_project_id
+                ),
+                OneOfPossibility(
+                    "organization",
+                    request.organization,
+                    defaults.default_organization_id,
+                ),
+            ]
+        ),
         "description": request.description,
         "enable_default_security": request.enable_default_security,
         "inbound_default_policy": SecurityGroupPolicy(request.inbound_default_policy),
         "name": request.name,
-        **resolve_one_of(
-            [
-                OneOfPossibility("organization_default", request.organization_default),
-                OneOfPossibility("project_default", request.project_default),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "project", request.project, defaults.default_project_id
-                ),
-                OneOfPossibility(
-                    "organization",
-                    request.organization,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("organization_default", request.organization_default),
-                OneOfPossibility("project_default", request.project_default),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "project", request.project, defaults.default_project_id
-                ),
-                OneOfPossibility(
-                    "organization",
-                    request.organization,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
         "outbound_default_policy": SecurityGroupPolicy(request.outbound_default_policy),
-        **resolve_one_of(
-            [
-                OneOfPossibility("organization_default", request.organization_default),
-                OneOfPossibility("project_default", request.project_default),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "project", request.project, defaults.default_project_id
-                ),
-                OneOfPossibility(
-                    "organization",
-                    request.organization,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("organization_default", request.organization_default),
-                OneOfPossibility("project_default", request.project_default),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "project", request.project, defaults.default_project_id
-                ),
-                OneOfPossibility(
-                    "organization",
-                    request.organization,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
         "stateful": request.stateful,
         "tags": request.tags,
     }
@@ -2490,33 +2393,21 @@ def marshal_CreateSnapshotRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
+        **resolve_one_of(
+            [
+                OneOfPossibility(
+                    "project", request.project, defaults.default_project_id
+                ),
+                OneOfPossibility(
+                    "organization",
+                    request.organization,
+                    defaults.default_organization_id,
+                ),
+            ]
+        ),
         "bucket": request.bucket,
         "key": request.key,
         "name": request.name,
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "project", request.project, defaults.default_project_id
-                ),
-                OneOfPossibility(
-                    "organization",
-                    request.organization,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "project", request.project, defaults.default_project_id
-                ),
-                OneOfPossibility(
-                    "organization",
-                    request.organization,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
         "size": request.size,
         "tags": request.tags,
         "volume_id": request.volume_id,
@@ -2548,83 +2439,7 @@ def marshal_CreateVolumeRequest(
                 OneOfPossibility("base_snapshot", request.base_snapshot),
             ]
         ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "project", request.project, defaults.default_project_id
-                ),
-                OneOfPossibility(
-                    "organization",
-                    request.organization,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("size", request.size),
-                OneOfPossibility("base_volume", request.base_volume),
-                OneOfPossibility("base_snapshot", request.base_snapshot),
-            ]
-        ),
         "name": request.name,
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "project", request.project, defaults.default_project_id
-                ),
-                OneOfPossibility(
-                    "organization",
-                    request.organization,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("size", request.size),
-                OneOfPossibility("base_volume", request.base_volume),
-                OneOfPossibility("base_snapshot", request.base_snapshot),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "project", request.project, defaults.default_project_id
-                ),
-                OneOfPossibility(
-                    "organization",
-                    request.organization,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("size", request.size),
-                OneOfPossibility("base_volume", request.base_volume),
-                OneOfPossibility("base_snapshot", request.base_snapshot),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "project", request.project, defaults.default_project_id
-                ),
-                OneOfPossibility(
-                    "organization",
-                    request.organization,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("size", request.size),
-                OneOfPossibility("base_volume", request.base_volume),
-                OneOfPossibility("base_snapshot", request.base_snapshot),
-            ]
-        ),
         "tags": request.tags,
         "volume_type": VolumeVolumeType(request.volume_type),
     }
@@ -2744,6 +2559,18 @@ def marshal__CreateServerRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
+        **resolve_one_of(
+            [
+                OneOfPossibility(
+                    "project", request.project, defaults.default_project_id
+                ),
+                OneOfPossibility(
+                    "organization",
+                    request.organization,
+                    defaults.default_organization_id,
+                ),
+            ]
+        ),
         "boot_type": BootType(request.boot_type)
         if request.boot_type is not None
         else None,
@@ -2753,31 +2580,7 @@ def marshal__CreateServerRequest(
         "enable_ipv6": request.enable_ipv6,
         "image": request.image,
         "name": request.name,
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "project", request.project, defaults.default_project_id
-                ),
-                OneOfPossibility(
-                    "organization",
-                    request.organization,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
         "placement_group": request.placement_group,
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "project", request.project, defaults.default_project_id
-                ),
-                OneOfPossibility(
-                    "organization",
-                    request.organization,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
         "public_ip": request.public_ip,
         "security_group": request.security_group,
         "tags": request.tags,
