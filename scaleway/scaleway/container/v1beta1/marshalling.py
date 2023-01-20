@@ -493,12 +493,6 @@ def marshal_CreateTokenRequest(
         ),
         "description": request.description,
         "expires_at": request.expires_at,
-        **resolve_one_of(
-            [
-                OneOfPossibility("container_id", request.container_id),
-                OneOfPossibility("namespace_id", request.namespace_id),
-            ]
-        ),
     }
 
 
