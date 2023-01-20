@@ -1865,45 +1865,21 @@ def marshal_DomainRecord(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
+        **resolve_one_of(
+            [
+                OneOfPossibility("geo_ip_config", request.geo_ip_config),
+                OneOfPossibility("http_service_config", request.http_service_config),
+                OneOfPossibility("weighted_config", request.weighted_config),
+                OneOfPossibility("view_config", request.view_config),
+            ]
+        ),
         "comment": request.comment,
         "data": request.data,
-        **resolve_one_of(
-            [
-                OneOfPossibility("geo_ip_config", request.geo_ip_config),
-                OneOfPossibility("http_service_config", request.http_service_config),
-                OneOfPossibility("weighted_config", request.weighted_config),
-                OneOfPossibility("view_config", request.view_config),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("geo_ip_config", request.geo_ip_config),
-                OneOfPossibility("http_service_config", request.http_service_config),
-                OneOfPossibility("weighted_config", request.weighted_config),
-                OneOfPossibility("view_config", request.view_config),
-            ]
-        ),
         "id": request.id,
         "name": request.name,
         "priority": request.priority,
         "ttl": request.ttl,
         "type": DomainRecordType(request.type_),
-        **resolve_one_of(
-            [
-                OneOfPossibility("geo_ip_config", request.geo_ip_config),
-                OneOfPossibility("http_service_config", request.http_service_config),
-                OneOfPossibility("weighted_config", request.weighted_config),
-                OneOfPossibility("view_config", request.view_config),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("geo_ip_config", request.geo_ip_config),
-                OneOfPossibility("http_service_config", request.http_service_config),
-                OneOfPossibility("weighted_config", request.weighted_config),
-                OneOfPossibility("view_config", request.view_config),
-            ]
-        ),
     }
 
 
@@ -1942,43 +1918,7 @@ def marshal_ContactExtensionFR(
                 OneOfPossibility("code_auth_afnic_info", request.code_auth_afnic_info),
             ]
         ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("individual_info", request.individual_info),
-                OneOfPossibility("duns_info", request.duns_info),
-                OneOfPossibility("association_info", request.association_info),
-                OneOfPossibility("trademark_info", request.trademark_info),
-                OneOfPossibility("code_auth_afnic_info", request.code_auth_afnic_info),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("individual_info", request.individual_info),
-                OneOfPossibility("duns_info", request.duns_info),
-                OneOfPossibility("association_info", request.association_info),
-                OneOfPossibility("trademark_info", request.trademark_info),
-                OneOfPossibility("code_auth_afnic_info", request.code_auth_afnic_info),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("individual_info", request.individual_info),
-                OneOfPossibility("duns_info", request.duns_info),
-                OneOfPossibility("association_info", request.association_info),
-                OneOfPossibility("trademark_info", request.trademark_info),
-                OneOfPossibility("code_auth_afnic_info", request.code_auth_afnic_info),
-            ]
-        ),
         "mode": ContactExtensionFRMode(request.mode),
-        **resolve_one_of(
-            [
-                OneOfPossibility("individual_info", request.individual_info),
-                OneOfPossibility("duns_info", request.duns_info),
-                OneOfPossibility("association_info", request.association_info),
-                OneOfPossibility("trademark_info", request.trademark_info),
-                OneOfPossibility("code_auth_afnic_info", request.code_auth_afnic_info),
-            ]
-        ),
     }
 
 
@@ -2053,12 +1993,6 @@ def marshal_RecordChangeDelete(
                 OneOfPossibility("id_fields", request.id_fields),
             ]
         ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("id", request.id),
-                OneOfPossibility("id_fields", request.id_fields),
-            ]
-        ),
     }
 
 
@@ -2067,12 +2001,6 @@ def marshal_RecordChangeSet(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
-        **resolve_one_of(
-            [
-                OneOfPossibility("id", request.id),
-                OneOfPossibility("id_fields", request.id_fields),
-            ]
-        ),
         **resolve_one_of(
             [
                 OneOfPossibility("id", request.id),
@@ -2088,20 +2016,14 @@ def marshal_DSRecord(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
+        **resolve_one_of(
+            [
+                OneOfPossibility("digest", request.digest),
+                OneOfPossibility("public_key", request.public_key),
+            ]
+        ),
         "algorithm": DSRecordAlgorithm(request.algorithm),
-        **resolve_one_of(
-            [
-                OneOfPossibility("digest", request.digest),
-                OneOfPossibility("public_key", request.public_key),
-            ]
-        ),
         "key_id": request.key_id,
-        **resolve_one_of(
-            [
-                OneOfPossibility("digest", request.digest),
-                OneOfPossibility("public_key", request.public_key),
-            ]
-        ),
     }
 
 
@@ -2197,30 +2119,6 @@ def marshal_RecordChange(
                 OneOfPossibility("clear", request.clear),
             ]
         ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("add", request.add),
-                OneOfPossibility("set", request.set_),
-                OneOfPossibility("delete", request.delete),
-                OneOfPossibility("clear", request.clear),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("add", request.add),
-                OneOfPossibility("set", request.set_),
-                OneOfPossibility("delete", request.delete),
-                OneOfPossibility("clear", request.clear),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("add", request.add),
-                OneOfPossibility("set", request.set_),
-                OneOfPossibility("delete", request.delete),
-                OneOfPossibility("clear", request.clear),
-            ]
-        ),
     }
 
 
@@ -2300,12 +2198,6 @@ def marshal_ImportRawDNSZoneRequest(
                 OneOfPossibility("axfr_source", request.axfr_source),
             ]
         ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("bind_source", request.bind_source),
-                OneOfPossibility("axfr_source", request.axfr_source),
-            ]
-        ),
         "content": request.content,
         "format": RawFormat(request.format) if request.format is not None else None,
         "project_id": request.project_id or defaults.default_project_id,
@@ -2349,119 +2241,9 @@ def marshal_RegistrarApiBuyDomainsRequest(
                 OneOfPossibility("technical_contact", request.technical_contact),
             ]
         ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "administrative_contact_id", request.administrative_contact_id
-                ),
-                OneOfPossibility(
-                    "administrative_contact", request.administrative_contact
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("owner_contact_id", request.owner_contact_id),
-                OneOfPossibility("owner_contact", request.owner_contact),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("technical_contact_id", request.technical_contact_id),
-                OneOfPossibility("technical_contact", request.technical_contact),
-            ]
-        ),
         "domains": request.domains,
         "duration_in_years": request.duration_in_years,
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "administrative_contact_id", request.administrative_contact_id
-                ),
-                OneOfPossibility(
-                    "administrative_contact", request.administrative_contact
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("owner_contact_id", request.owner_contact_id),
-                OneOfPossibility("owner_contact", request.owner_contact),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("technical_contact_id", request.technical_contact_id),
-                OneOfPossibility("technical_contact", request.technical_contact),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "administrative_contact_id", request.administrative_contact_id
-                ),
-                OneOfPossibility(
-                    "administrative_contact", request.administrative_contact
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("owner_contact_id", request.owner_contact_id),
-                OneOfPossibility("owner_contact", request.owner_contact),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("technical_contact_id", request.technical_contact_id),
-                OneOfPossibility("technical_contact", request.technical_contact),
-            ]
-        ),
         "project_id": request.project_id or defaults.default_project_id,
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "administrative_contact_id", request.administrative_contact_id
-                ),
-                OneOfPossibility(
-                    "administrative_contact", request.administrative_contact
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("owner_contact_id", request.owner_contact_id),
-                OneOfPossibility("owner_contact", request.owner_contact),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("technical_contact_id", request.technical_contact_id),
-                OneOfPossibility("technical_contact", request.technical_contact),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "administrative_contact_id", request.administrative_contact_id
-                ),
-                OneOfPossibility(
-                    "administrative_contact", request.administrative_contact
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("owner_contact_id", request.owner_contact_id),
-                OneOfPossibility("owner_contact", request.owner_contact),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("technical_contact_id", request.technical_contact_id),
-                OneOfPossibility("technical_contact", request.technical_contact),
-            ]
-        ),
     }
 
 
@@ -2470,202 +2252,6 @@ def marshal_RegistrarApiCheckContactsCompatibilityRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "administrative_contact_id", request.administrative_contact_id
-                ),
-                OneOfPossibility(
-                    "administrative_contact", request.administrative_contact
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("owner_contact_id", request.owner_contact_id),
-                OneOfPossibility("owner_contact", request.owner_contact),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("domain", request.domain),
-                OneOfPossibility("tld", request.tld),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("technical_contact_id", request.technical_contact_id),
-                OneOfPossibility("technical_contact", request.technical_contact),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "administrative_contact_id", request.administrative_contact_id
-                ),
-                OneOfPossibility(
-                    "administrative_contact", request.administrative_contact
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("owner_contact_id", request.owner_contact_id),
-                OneOfPossibility("owner_contact", request.owner_contact),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("domain", request.domain),
-                OneOfPossibility("tld", request.tld),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("technical_contact_id", request.technical_contact_id),
-                OneOfPossibility("technical_contact", request.technical_contact),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "administrative_contact_id", request.administrative_contact_id
-                ),
-                OneOfPossibility(
-                    "administrative_contact", request.administrative_contact
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("owner_contact_id", request.owner_contact_id),
-                OneOfPossibility("owner_contact", request.owner_contact),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("domain", request.domain),
-                OneOfPossibility("tld", request.tld),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("technical_contact_id", request.technical_contact_id),
-                OneOfPossibility("technical_contact", request.technical_contact),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "administrative_contact_id", request.administrative_contact_id
-                ),
-                OneOfPossibility(
-                    "administrative_contact", request.administrative_contact
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("owner_contact_id", request.owner_contact_id),
-                OneOfPossibility("owner_contact", request.owner_contact),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("domain", request.domain),
-                OneOfPossibility("tld", request.tld),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("technical_contact_id", request.technical_contact_id),
-                OneOfPossibility("technical_contact", request.technical_contact),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "administrative_contact_id", request.administrative_contact_id
-                ),
-                OneOfPossibility(
-                    "administrative_contact", request.administrative_contact
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("owner_contact_id", request.owner_contact_id),
-                OneOfPossibility("owner_contact", request.owner_contact),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("domain", request.domain),
-                OneOfPossibility("tld", request.tld),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("technical_contact_id", request.technical_contact_id),
-                OneOfPossibility("technical_contact", request.technical_contact),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "administrative_contact_id", request.administrative_contact_id
-                ),
-                OneOfPossibility(
-                    "administrative_contact", request.administrative_contact
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("owner_contact_id", request.owner_contact_id),
-                OneOfPossibility("owner_contact", request.owner_contact),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("domain", request.domain),
-                OneOfPossibility("tld", request.tld),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("technical_contact_id", request.technical_contact_id),
-                OneOfPossibility("technical_contact", request.technical_contact),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "administrative_contact_id", request.administrative_contact_id
-                ),
-                OneOfPossibility(
-                    "administrative_contact", request.administrative_contact
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("owner_contact_id", request.owner_contact_id),
-                OneOfPossibility("owner_contact", request.owner_contact),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("domain", request.domain),
-                OneOfPossibility("tld", request.tld),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("technical_contact_id", request.technical_contact_id),
-                OneOfPossibility("technical_contact", request.technical_contact),
-            ]
-        ),
         **resolve_one_of(
             [
                 OneOfPossibility(
@@ -2750,12 +2336,6 @@ def marshal_RegistrarApiTradeDomainRequest(
                 OneOfPossibility("new_owner_contact", request.new_owner_contact),
             ]
         ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("new_owner_contact_id", request.new_owner_contact_id),
-                OneOfPossibility("new_owner_contact", request.new_owner_contact),
-            ]
-        ),
         "project_id": request.project_id or defaults.default_project_id,
     }
 
@@ -2787,121 +2367,11 @@ def marshal_RegistrarApiTransferInDomainRequest(
                 OneOfPossibility("technical_contact", request.technical_contact),
             ]
         ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "administrative_contact_id", request.administrative_contact_id
-                ),
-                OneOfPossibility(
-                    "administrative_contact", request.administrative_contact
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("owner_contact_id", request.owner_contact_id),
-                OneOfPossibility("owner_contact", request.owner_contact),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("technical_contact_id", request.technical_contact_id),
-                OneOfPossibility("technical_contact", request.technical_contact),
-            ]
-        ),
         "domains": [
             marshal_TransferInDomainRequestTransferRequest(v, defaults)
             for v in request.domains
         ],
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "administrative_contact_id", request.administrative_contact_id
-                ),
-                OneOfPossibility(
-                    "administrative_contact", request.administrative_contact
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("owner_contact_id", request.owner_contact_id),
-                OneOfPossibility("owner_contact", request.owner_contact),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("technical_contact_id", request.technical_contact_id),
-                OneOfPossibility("technical_contact", request.technical_contact),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "administrative_contact_id", request.administrative_contact_id
-                ),
-                OneOfPossibility(
-                    "administrative_contact", request.administrative_contact
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("owner_contact_id", request.owner_contact_id),
-                OneOfPossibility("owner_contact", request.owner_contact),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("technical_contact_id", request.technical_contact_id),
-                OneOfPossibility("technical_contact", request.technical_contact),
-            ]
-        ),
         "project_id": request.project_id or defaults.default_project_id,
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "administrative_contact_id", request.administrative_contact_id
-                ),
-                OneOfPossibility(
-                    "administrative_contact", request.administrative_contact
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("owner_contact_id", request.owner_contact_id),
-                OneOfPossibility("owner_contact", request.owner_contact),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("technical_contact_id", request.technical_contact_id),
-                OneOfPossibility("technical_contact", request.technical_contact),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "administrative_contact_id", request.administrative_contact_id
-                ),
-                OneOfPossibility(
-                    "administrative_contact", request.administrative_contact
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("owner_contact_id", request.owner_contact_id),
-                OneOfPossibility("owner_contact", request.owner_contact),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("technical_contact_id", request.technical_contact_id),
-                OneOfPossibility("technical_contact", request.technical_contact),
-            ]
-        ),
     }
 
 
@@ -2956,116 +2426,6 @@ def marshal_RegistrarApiUpdateDomainRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "administrative_contact_id", request.administrative_contact_id
-                ),
-                OneOfPossibility(
-                    "administrative_contact", request.administrative_contact
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("owner_contact_id", request.owner_contact_id),
-                OneOfPossibility("owner_contact", request.owner_contact),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("technical_contact_id", request.technical_contact_id),
-                OneOfPossibility("technical_contact", request.technical_contact),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "administrative_contact_id", request.administrative_contact_id
-                ),
-                OneOfPossibility(
-                    "administrative_contact", request.administrative_contact
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("owner_contact_id", request.owner_contact_id),
-                OneOfPossibility("owner_contact", request.owner_contact),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("technical_contact_id", request.technical_contact_id),
-                OneOfPossibility("technical_contact", request.technical_contact),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "administrative_contact_id", request.administrative_contact_id
-                ),
-                OneOfPossibility(
-                    "administrative_contact", request.administrative_contact
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("owner_contact_id", request.owner_contact_id),
-                OneOfPossibility("owner_contact", request.owner_contact),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("technical_contact_id", request.technical_contact_id),
-                OneOfPossibility("technical_contact", request.technical_contact),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "administrative_contact_id", request.administrative_contact_id
-                ),
-                OneOfPossibility(
-                    "administrative_contact", request.administrative_contact
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("owner_contact_id", request.owner_contact_id),
-                OneOfPossibility("owner_contact", request.owner_contact),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("technical_contact_id", request.technical_contact_id),
-                OneOfPossibility("technical_contact", request.technical_contact),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "administrative_contact_id", request.administrative_contact_id
-                ),
-                OneOfPossibility(
-                    "administrative_contact", request.administrative_contact
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("owner_contact_id", request.owner_contact_id),
-                OneOfPossibility("owner_contact", request.owner_contact),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("technical_contact_id", request.technical_contact_id),
-                OneOfPossibility("technical_contact", request.technical_contact),
-            ]
-        ),
         **resolve_one_of(
             [
                 OneOfPossibility(
