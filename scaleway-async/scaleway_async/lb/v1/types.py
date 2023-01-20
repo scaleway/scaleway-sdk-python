@@ -1387,7 +1387,16 @@ class RouteMatch:
 
     sni: Optional[str]
     """
-    Server Name Indication TLS extension (SNI) field from an incoming connection made via an SSL/TLS transport layer
+    Server Name Indication TLS extension (SNI) field from an incoming connection made via an SSL/TLS transport layer.
+    
+    One-of ('match_type'): at most one of 'sni', 'host_header' could be set.
+    """
+
+    host_header: Optional[str]
+    """
+    The Host request header specifies the host of the server to which the request is being sent.
+    
+    One-of ('match_type'): at most one of 'sni', 'host_header' could be set.
     """
 
 
