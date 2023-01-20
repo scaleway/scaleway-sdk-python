@@ -1208,7 +1208,7 @@ class CreateClusterRequest:
 
     type_: str
     """
-    The type of the cluster
+    The type of the cluster (possible values are kapsule, multicloud).
     """
 
     name: Optional[str]

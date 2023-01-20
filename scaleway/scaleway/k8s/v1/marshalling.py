@@ -679,6 +679,18 @@ def marshal_CreateClusterRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
+        **resolve_one_of(
+            [
+                OneOfPossibility(
+                    "project_id", request.project_id, defaults.default_project_id
+                ),
+                OneOfPossibility(
+                    "organization_id",
+                    request.organization_id,
+                    defaults.default_organization_id,
+                ),
+            ]
+        ),
         "admission_plugins": request.admission_plugins,
         "apiserver_cert_sans": request.apiserver_cert_sans,
         "auto_upgrade": marshal_CreateClusterRequestAutoUpgrade(
@@ -702,35 +714,11 @@ def marshal_CreateClusterRequest(
         )
         if request.open_id_connect_config is not None
         else None,
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "project_id", request.project_id, defaults.default_project_id
-                ),
-                OneOfPossibility(
-                    "organization_id",
-                    request.organization_id,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
         "pools": [
             marshal_CreateClusterRequestPoolConfig(v, defaults) for v in request.pools
         ]
         if request.pools is not None
         else None,
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "project_id", request.project_id, defaults.default_project_id
-                ),
-                OneOfPossibility(
-                    "organization_id",
-                    request.organization_id,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
         "tags": request.tags,
         "type": request.type_,
         "version": request.version,
