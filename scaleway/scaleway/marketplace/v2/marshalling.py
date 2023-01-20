@@ -91,6 +91,9 @@ def unmarshal_LocalImage(data: Any) -> LocalImage:
     field = data.get("id")
     args["id"] = field
 
+    field = data.get("label")
+    args["label"] = field
+
     field = data.get("zone")
     args["zone"] = field
 
