@@ -2389,6 +2389,7 @@ class DomainRegistrarV2Beta1API(API):
         self,
         *,
         domains: List[str],
+        strict_search: bool,
         tlds: Optional[List[str]] = None,
     ) -> SearchAvailableDomainsResponse:
         """
@@ -2398,12 +2399,16 @@ class DomainRegistrarV2Beta1API(API):
 
         :param domains: A list of domain to search, TLD is optional
         :param tlds: Array of tlds to search on
+        :param strict_search: Search exact match
         :return: :class:`SearchAvailableDomainsResponse <SearchAvailableDomainsResponse>`
 
         Usage:
         ::
 
-            result = api.search_available_domains(domains=["example"])
+            result = api.search_available_domains(
+                domains=["example"],
+                strict_search=True,
+            )
         """
 
         res = self._request(
@@ -2411,6 +2416,7 @@ class DomainRegistrarV2Beta1API(API):
             f"/domain/v2beta1/search-domains",
             params={
                 "domains": domains,
+                "strict_search": strict_search,
                 "tlds": tlds,
             },
         )
