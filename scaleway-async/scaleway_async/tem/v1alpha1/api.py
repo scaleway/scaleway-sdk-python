@@ -7,8 +7,6 @@ from typing import Awaitable, List, Optional, Union
 from scaleway_core.api import API
 from scaleway_core.bridge import (
     Region,
-    ServiceInfo,
-    unmarshal_ServiceInfo,
 )
 from scaleway_core.utils import (
     WaitForOptions,
@@ -52,32 +50,6 @@ class TemV1Alpha1API(API):
 
     Tem.
     """
-
-    async def get_service_info(
-        self,
-        *,
-        region: Optional[Region] = None,
-    ) -> Optional[ServiceInfo]:
-        """
-
-        Usage:
-        ::
-
-            result = await api.get_service_info()
-        """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
-        res = self._request(
-            "GET",
-            f"/transactional-email/v1alpha1/regions/{param_region}",
-        )
-
-        self._throw_on_error(res)
-        json = res.json()
-        return unmarshal_ServiceInfo(json) if json is not None else None
 
     async def create_email(
         self,
