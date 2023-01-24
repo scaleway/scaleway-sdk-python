@@ -1,5 +1,6 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
+from .types import AclActionRedirectRedirectType
 from .types import AclActionType
 from .types import AclHttpFilter
 from .types import BackendServerStatsHealthCheckStatus
@@ -26,6 +27,7 @@ from .types import SSLCompatibilityLevel
 from .types import StickySessionsType
 from .types import Acl
 from .types import AclAction
+from .types import AclActionRedirect
 from .types import AclMatch
 from .types import AclSpec
 from .types import Backend
@@ -75,6 +77,7 @@ from .api import LbV1API
 from .api import LbZonedV1API
 
 __all__ = [
+    "AclActionRedirectRedirectType",
     "AclActionType",
     "AclHttpFilter",
     "BackendServerStatsHealthCheckStatus",
@@ -101,6 +104,7 @@ __all__ = [
     "StickySessionsType",
     "Acl",
     "AclAction",
+    "AclActionRedirect",
     "AclMatch",
     "AclSpec",
     "Backend",

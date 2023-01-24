@@ -13,9 +13,18 @@ from scaleway_core.bridge import (
 )
 
 
+class AclActionRedirectRedirectType(str, Enum):
+    LOCATION = "location"
+    SCHEME = "scheme"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class AclActionType(str, Enum):
     ALLOW = "allow"
     DENY = "deny"
+    REDIRECT = "redirect"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -324,6 +333,40 @@ class AclAction:
     type_: AclActionType
     """
     The action type
+    """
+
+    redirect: Optional[AclActionRedirect]
+    """
+    Redirect parameters when using an ACL with `redirect` action
+    """
+
+
+@dataclass
+class AclActionRedirect:
+    """
+    Acl action redirect
+    """
+
+    type_: AclActionRedirectRedirectType
+    """
+    Redirect type
+    """
+
+    target: str
+    """
+    An URL can be used in case of a location redirect (e.g. `https://scaleway.com` will redirect to this same URL).
+    A scheme name (e.g. `https`, `http`, `ftp`, `git`) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects.
+    Placeholders can be used when using a `location` redirect in order to insert original request's parts, these are:
+    - `{{ host }}` for the current request's Host header
+    - `{{ query }}` for the current request's query string
+    - `{{ path }}` for the current request's URL path
+    - `{{ scheme }}` for the current request's scheme
+    
+    """
+
+    code: Optional[int]
+    """
+    HTTP redirect code to use. Valid values are 301, 302, 303, 307 and 308. Default value is 302
     """
 
 

@@ -10,6 +10,7 @@ from scaleway_core.utils import (
 )
 from dateutil import parser
 from .types import (
+    AclActionRedirectRedirectType,
     AclActionType,
     AclHttpFilter,
     ForwardPortAlgorithm,
@@ -20,6 +21,7 @@ from .types import (
     StickySessionsType,
     Acl,
     AclAction,
+    AclActionRedirect,
     AclMatch,
     AclSpec,
     Backend,
@@ -475,6 +477,26 @@ def unmarshal_Lb(data: Any) -> Lb:
     return Lb(**args)
 
 
+def unmarshal_AclActionRedirect(data: Any) -> AclActionRedirect:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'AclActionRedirect' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("code")
+    args["code"] = field
+
+    field = data.get("target")
+    args["target"] = field
+
+    field = data.get("type_")
+    args["type_"] = field
+
+    return AclActionRedirect(**args)
+
+
 def unmarshal_Backend(data: Any) -> Backend:
     if type(data) is not dict:
         raise TypeError(
@@ -606,6 +628,9 @@ def unmarshal_AclAction(data: Any) -> AclAction:
         )
 
     args: Dict[str, Any] = {}
+
+    field = data.get("redirect")
+    args["redirect"] = unmarshal_AclActionRedirect(field) if field is not None else None
 
     field = data.get("type_")
     args["type_"] = field
@@ -1109,11 +1134,25 @@ def unmarshal_SetAclsResponse(data: Any) -> SetAclsResponse:
     return SetAclsResponse(**args)
 
 
+def marshal_AclActionRedirect(
+    request: AclActionRedirect,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    return {
+        "code": request.code,
+        "target": request.target,
+        "type": AclActionRedirectRedirectType(request.type_),
+    }
+
+
 def marshal_AclAction(
     request: AclAction,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
+        "redirect": marshal_AclActionRedirect(request.redirect, defaults)
+        if request.redirect is not None
+        else None,
         "type": AclActionType(request.type_),
     }
 
