@@ -514,16 +514,6 @@ def marshal_RuleSpecs(
             ]
         ),
         "permission_set_names": request.permission_set_names,
-        **resolve_one_of(
-            [
-                OneOfPossibility("project_ids", request.project_ids),
-                OneOfPossibility(
-                    "organization_id",
-                    request.organization_id,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
     }
 
 
@@ -532,12 +522,6 @@ def marshal_AddGroupMemberRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
-        **resolve_one_of(
-            [
-                OneOfPossibility("user_id", request.user_id),
-                OneOfPossibility("application_id", request.application_id),
-            ]
-        ),
         **resolve_one_of(
             [
                 OneOfPossibility("user_id", request.user_id),
@@ -561,12 +545,6 @@ def marshal_CreateAPIKeyRequest(
         "default_project_id": request.default_project_id,
         "description": request.description,
         "expires_at": request.expires_at,
-        **resolve_one_of(
-            [
-                OneOfPossibility("application_id", request.application_id),
-                OneOfPossibility("user_id", request.user_id),
-            ]
-        ),
     }
 
 
@@ -606,35 +584,11 @@ def marshal_CreatePolicyRequest(
             ]
         ),
         "description": request.description,
-        **resolve_one_of(
-            [
-                OneOfPossibility("user_id", request.user_id),
-                OneOfPossibility("group_id", request.group_id),
-                OneOfPossibility("application_id", request.application_id),
-                OneOfPossibility("no_principal", request.no_principal),
-            ]
-        ),
         "name": request.name,
-        **resolve_one_of(
-            [
-                OneOfPossibility("user_id", request.user_id),
-                OneOfPossibility("group_id", request.group_id),
-                OneOfPossibility("application_id", request.application_id),
-                OneOfPossibility("no_principal", request.no_principal),
-            ]
-        ),
         "organization_id": request.organization_id or defaults.default_organization_id,
         "rules": [marshal_RuleSpecs(v, defaults) for v in request.rules]
         if request.rules is not None
         else None,
-        **resolve_one_of(
-            [
-                OneOfPossibility("user_id", request.user_id),
-                OneOfPossibility("group_id", request.group_id),
-                OneOfPossibility("application_id", request.application_id),
-                OneOfPossibility("no_principal", request.no_principal),
-            ]
-        ),
     }
 
 
@@ -654,12 +608,6 @@ def marshal_RemoveGroupMemberRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
-        **resolve_one_of(
-            [
-                OneOfPossibility("user_id", request.user_id),
-                OneOfPossibility("application_id", request.application_id),
-            ]
-        ),
         **resolve_one_of(
             [
                 OneOfPossibility("user_id", request.user_id),
@@ -733,31 +681,7 @@ def marshal_UpdatePolicyRequest(
             ]
         ),
         "description": request.description,
-        **resolve_one_of(
-            [
-                OneOfPossibility("user_id", request.user_id),
-                OneOfPossibility("group_id", request.group_id),
-                OneOfPossibility("application_id", request.application_id),
-                OneOfPossibility("no_principal", request.no_principal),
-            ]
-        ),
         "name": request.name,
-        **resolve_one_of(
-            [
-                OneOfPossibility("user_id", request.user_id),
-                OneOfPossibility("group_id", request.group_id),
-                OneOfPossibility("application_id", request.application_id),
-                OneOfPossibility("no_principal", request.no_principal),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("user_id", request.user_id),
-                OneOfPossibility("group_id", request.group_id),
-                OneOfPossibility("application_id", request.application_id),
-                OneOfPossibility("no_principal", request.no_principal),
-            ]
-        ),
     }
 
 

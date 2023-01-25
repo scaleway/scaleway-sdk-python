@@ -822,13 +822,6 @@ def marshal_CreateHubRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
-        "disable_events": request.disable_events,
-        "events_topic_prefix": request.events_topic_prefix,
-        "name": request.name,
-        "product_plan": HubProductPlan(request.product_plan)
-        if request.product_plan is not None
-        else None,
-        "project_id": request.project_id or defaults.default_project_id,
         **resolve_one_of(
             [
                 OneOfPossibility(
@@ -836,6 +829,13 @@ def marshal_CreateHubRequest(
                 ),
             ]
         ),
+        "disable_events": request.disable_events,
+        "events_topic_prefix": request.events_topic_prefix,
+        "name": request.name,
+        "product_plan": HubProductPlan(request.product_plan)
+        if request.product_plan is not None
+        else None,
+        "project_id": request.project_id or defaults.default_project_id,
     }
 
 
@@ -867,20 +867,6 @@ def marshal_CreateRouteRequest(
         ),
         "hub_id": request.hub_id,
         "name": request.name,
-        **resolve_one_of(
-            [
-                OneOfPossibility("s3_config", request.s3_config),
-                OneOfPossibility("db_config", request.db_config),
-                OneOfPossibility("rest_config", request.rest_config),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("s3_config", request.s3_config),
-                OneOfPossibility("db_config", request.db_config),
-                OneOfPossibility("rest_config", request.rest_config),
-            ]
-        ),
         "topic": request.topic,
     }
 
@@ -946,11 +932,6 @@ def marshal_UpdateHubRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
-        "disable_events": request.disable_events,
-        "enable_device_auto_provisioning": request.enable_device_auto_provisioning,
-        "events_topic_prefix": request.events_topic_prefix,
-        "name": request.name,
-        "product_plan": HubProductPlan(request.product_plan),
         **resolve_one_of(
             [
                 OneOfPossibility(
@@ -958,6 +939,11 @@ def marshal_UpdateHubRequest(
                 ),
             ]
         ),
+        "disable_events": request.disable_events,
+        "enable_device_auto_provisioning": request.enable_device_auto_provisioning,
+        "events_topic_prefix": request.events_topic_prefix,
+        "name": request.name,
+        "product_plan": HubProductPlan(request.product_plan),
     }
 
 
@@ -974,19 +960,5 @@ def marshal_UpdateRouteRequest(
             ]
         ),
         "name": request.name,
-        **resolve_one_of(
-            [
-                OneOfPossibility("s3_config", request.s3_config),
-                OneOfPossibility("db_config", request.db_config),
-                OneOfPossibility("rest_config", request.rest_config),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("s3_config", request.s3_config),
-                OneOfPossibility("db_config", request.db_config),
-                OneOfPossibility("rest_config", request.rest_config),
-            ]
-        ),
         "topic": request.topic,
     }

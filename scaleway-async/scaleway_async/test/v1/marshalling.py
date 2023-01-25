@@ -115,6 +115,18 @@ def marshal_CreateHumanRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
+        **resolve_one_of(
+            [
+                OneOfPossibility(
+                    "project_id", request.project_id, defaults.default_project_id
+                ),
+                OneOfPossibility(
+                    "organization_id",
+                    request.organization_id,
+                    defaults.default_organization_id,
+                ),
+            ]
+        ),
         "altitude_in_meter": request.altitude_in_meter,
         "altitude_in_millimeter": request.altitude_in_millimeter,
         "eyes_color": EyeColors(request.eyes_color),
@@ -123,30 +135,6 @@ def marshal_CreateHumanRequest(
         "height": request.height,
         "is_happy": request.is_happy,
         "name": request.name,
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "project_id", request.project_id, defaults.default_project_id
-                ),
-                OneOfPossibility(
-                    "organization_id",
-                    request.organization_id,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "project_id", request.project_id, defaults.default_project_id
-                ),
-                OneOfPossibility(
-                    "organization_id",
-                    request.organization_id,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
         "shoe_size": request.shoe_size,
     }
 
