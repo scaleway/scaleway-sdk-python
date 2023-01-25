@@ -244,13 +244,13 @@ def marshal_CreateCredentialRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
-        "name": request.name,
-        "namespace_id": request.namespace_id,
         **resolve_one_of(
             [
                 OneOfPossibility("permissions", request.permissions),
             ]
         ),
+        "name": request.name,
+        "namespace_id": request.namespace_id,
     }
 
 
@@ -272,12 +272,12 @@ def marshal_UpdateCredentialRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
-        "name": request.name,
         **resolve_one_of(
             [
                 OneOfPossibility("permissions", request.permissions),
             ]
         ),
+        "name": request.name,
     }
 
 

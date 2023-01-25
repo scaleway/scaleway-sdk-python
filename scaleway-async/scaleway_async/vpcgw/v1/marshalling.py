@@ -577,12 +577,6 @@ def marshal_CreateGatewayNetworkRequest(
                 OneOfPossibility("address", request.address),
             ]
         ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("dhcp_id", request.dhcp_id),
-                OneOfPossibility("address", request.address),
-            ]
-        ),
         "enable_dhcp": request.enable_dhcp,
         "enable_masquerade": request.enable_masquerade,
         "gateway_id": request.gateway_id,
@@ -692,12 +686,6 @@ def marshal_UpdateGatewayNetworkRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
-        **resolve_one_of(
-            [
-                OneOfPossibility("dhcp_id", request.dhcp_id),
-                OneOfPossibility("address", request.address),
-            ]
-        ),
         **resolve_one_of(
             [
                 OneOfPossibility("dhcp_id", request.dhcp_id),

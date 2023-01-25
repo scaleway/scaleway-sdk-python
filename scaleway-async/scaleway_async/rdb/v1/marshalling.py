@@ -1199,12 +1199,6 @@ def marshal_EndpointSpec(
                 OneOfPossibility("private_network", request.private_network),
             ]
         ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("load_balancer", request.load_balancer),
-                OneOfPossibility("private_network", request.private_network),
-            ]
-        ),
     }
 
 
@@ -1233,12 +1227,6 @@ def marshal_ReadReplicaEndpointSpec(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
-        **resolve_one_of(
-            [
-                OneOfPossibility("direct_access", request.direct_access),
-                OneOfPossibility("private_network", request.private_network),
-            ]
-        ),
         **resolve_one_of(
             [
                 OneOfPossibility("direct_access", request.direct_access),
@@ -1324,6 +1312,18 @@ def marshal_CreateInstanceRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
+        **resolve_one_of(
+            [
+                OneOfPossibility(
+                    "project_id", request.project_id, defaults.default_project_id
+                ),
+                OneOfPossibility(
+                    "organization_id",
+                    request.organization_id,
+                    defaults.default_organization_id,
+                ),
+            ]
+        ),
         "backup_same_region": request.backup_same_region,
         "disable_backup": request.disable_backup,
         "engine": request.engine,
@@ -1340,31 +1340,7 @@ def marshal_CreateInstanceRequest(
         "is_ha_cluster": request.is_ha_cluster,
         "name": request.name,
         "node_type": request.node_type,
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "project_id", request.project_id, defaults.default_project_id
-                ),
-                OneOfPossibility(
-                    "organization_id",
-                    request.organization_id,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
         "password": request.password,
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "project_id", request.project_id, defaults.default_project_id
-                ),
-                OneOfPossibility(
-                    "organization_id",
-                    request.organization_id,
-                    defaults.default_organization_id,
-                ),
-            ]
-        ),
         "tags": request.tags,
         "user_name": request.user_name,
         "volume_size": request.volume_size,
@@ -1546,50 +1522,6 @@ def marshal_UpgradeInstanceRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
-        **resolve_one_of(
-            [
-                OneOfPossibility("node_type", request.node_type),
-                OneOfPossibility("enable_ha", request.enable_ha),
-                OneOfPossibility("volume_size", request.volume_size),
-                OneOfPossibility("volume_type", request.volume_type),
-                OneOfPossibility(
-                    "upgradable_version_id", request.upgradable_version_id
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("node_type", request.node_type),
-                OneOfPossibility("enable_ha", request.enable_ha),
-                OneOfPossibility("volume_size", request.volume_size),
-                OneOfPossibility("volume_type", request.volume_type),
-                OneOfPossibility(
-                    "upgradable_version_id", request.upgradable_version_id
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("node_type", request.node_type),
-                OneOfPossibility("enable_ha", request.enable_ha),
-                OneOfPossibility("volume_size", request.volume_size),
-                OneOfPossibility("volume_type", request.volume_type),
-                OneOfPossibility(
-                    "upgradable_version_id", request.upgradable_version_id
-                ),
-            ]
-        ),
-        **resolve_one_of(
-            [
-                OneOfPossibility("node_type", request.node_type),
-                OneOfPossibility("enable_ha", request.enable_ha),
-                OneOfPossibility("volume_size", request.volume_size),
-                OneOfPossibility("volume_type", request.volume_type),
-                OneOfPossibility(
-                    "upgradable_version_id", request.upgradable_version_id
-                ),
-            ]
-        ),
         **resolve_one_of(
             [
                 OneOfPossibility("node_type", request.node_type),
