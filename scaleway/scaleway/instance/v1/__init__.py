@@ -1,5 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
+import importlib
+from typing import TYPE_CHECKING
 from .types import Arch
 from .types import BootType
 from .types import ImageState
@@ -113,7 +115,13 @@ from .content import SNAPSHOT_TRANSIENT_STATUSES
 from .content import TASK_TRANSIENT_STATUSES
 from .content import VOLUME_SERVER_TRANSIENT_STATUSES
 from .content import VOLUME_TRANSIENT_STATUSES
-from .api import InstanceV1API
+
+try:
+    from .api_utils import InstanceV1UtilsAPI as InstanceV1API  # type: ignore
+except ImportError:
+    from .api import InstanceV1API
+except ModuleNotFoundError:
+    from .api import InstanceV1API
 
 __all__ = [
     "Arch",

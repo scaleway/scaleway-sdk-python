@@ -120,7 +120,7 @@ class TestTestV1(unittest.IsolatedAsyncioTestCase):
             self.assertNotIsInstance(e, TimeoutError)
             pass
 
-    async def test_run_human(self):
+    async def test_run_human(self) -> None:
         name = utils.random_name()
 
         async with AsyncExitStack() as stack:

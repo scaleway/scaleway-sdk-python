@@ -110,19 +110,20 @@ class TestTestV1UnmarshallingHuman(unittest.TestCase):
         self._assert_raw_and_unmarshalled_human(data, human)
 
     def test_unmarshal_ListHumansResponse(self) -> None:
+        humans = [_mock_human_raw() for _ in range(10)]
         data = {
-            "humans": [_mock_human_raw() for _ in range(10)],
+            "humans": humans,
             "total_count": 1,
         }
 
         list_humans_response = unmarshal_ListHumansResponse(data)
 
         self.assertTrue(isinstance(list_humans_response, ListHumansResponse))
-        self.assertEqual(len(list_humans_response.humans), len(data["humans"]))
+        self.assertEqual(len(list_humans_response.humans), len(humans))
 
         for i in range(len(list_humans_response.humans)):
             self._assert_raw_and_unmarshalled_human(
-                data["humans"][i], list_humans_response.humans[i]
+                humans[i], list_humans_response.humans[i]
             )
 
 

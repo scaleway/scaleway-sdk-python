@@ -120,7 +120,7 @@ class TestTestV1(unittest.TestCase):
             self.assertNotIsInstance(e, TimeoutError)
             pass
 
-    def test_run_human(self):
+    def test_run_human(self) -> None:
         name = utils.random_name()
 
         with ExitStack() as stack:
