@@ -1095,8 +1095,21 @@ def unmarshal_RenewableDomain(data: Any) -> RenewableDomain:
     field = data.get("domain")
     args["domain"] = field
 
+    field = data.get("estimated_delete_at")
+    args["estimated_delete_at"] = (
+        parser.isoparse(field) if type(field) is str else field
+    )
+
     field = data.get("expired_at")
     args["expired_at"] = parser.isoparse(field) if type(field) is str else field
+
+    field = data.get("limit_redemption_at")
+    args["limit_redemption_at"] = (
+        parser.isoparse(field) if type(field) is str else field
+    )
+
+    field = data.get("limit_renew_at")
+    args["limit_renew_at"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("organization_id")
     args["organization_id"] = field

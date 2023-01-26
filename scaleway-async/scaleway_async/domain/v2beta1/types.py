@@ -1197,6 +1197,12 @@ class RenewableDomain:
 
     expired_at: Optional[datetime]
 
+    limit_renew_at: Optional[datetime]
+
+    limit_redemption_at: Optional[datetime]
+
+    estimated_delete_at: Optional[datetime]
+
 
 @dataclass
 class RestoreDNSZoneVersionResponse:
