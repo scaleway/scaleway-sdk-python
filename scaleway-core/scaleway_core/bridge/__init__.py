@@ -3,7 +3,9 @@ from .money import unmarshal_Money
 from .money import marshal_Money
 
 from .region import Region
+from .region import ALL_REGIONS
 from .zone import Zone
+from .zone import ALL_ZONES
 
 from .scwfile import ScwFile
 from .scwfile import unmarshal_ScwFile
@@ -23,7 +25,9 @@ __all__ = [
     "unmarshal_Money",
     "marshal_Money",
     "Region",
+    "ALL_REGIONS",
     "Zone",
+    "ALL_ZONES",
     "ScwFile",
     "unmarshal_ScwFile",
     "marshal_ScwFile",
