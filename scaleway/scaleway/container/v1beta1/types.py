@@ -219,7 +219,7 @@ class Container:
     http_option: ContainerHttpOption
     """
     possible values:
-     - redirected: Responds to HTTP request with a 302 redirect to ask the clients to use HTTPS.
+     - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
      - enabled: Serve both HTTP and HTTPS traffic.
     
     """
@@ -576,7 +576,7 @@ class CreateContainerRequest:
     http_option: ContainerHttpOption
     """
     possible values:
-     - redirected: Responds to HTTP request with a 302 redirect to ask the clients to use HTTPS.
+     - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
      - enabled: Serve both HTTP and HTTPS traffic.
     
     """
@@ -620,7 +620,7 @@ class UpdateContainerRequest:
     http_option: ContainerHttpOption
     """
     possible values:
-     - redirected: Responds to HTTP request with a 302 redirect to ask the clients to use HTTPS.
+     - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
      - enabled: Serve both HTTP and HTTPS traffic.
     
     """
