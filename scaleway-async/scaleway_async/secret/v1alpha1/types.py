@@ -389,6 +389,11 @@ class ListSecretVersionsRequest:
 
     page_size: Optional[int]
 
+    status: Optional[List[SecretVersionStatus]]
+    """
+    Filter results by status
+    """
+
 
 @dataclass
 class DestroySecretVersionRequest:

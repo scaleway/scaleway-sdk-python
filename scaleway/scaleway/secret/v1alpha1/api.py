@@ -13,6 +13,7 @@ from scaleway_core.utils import (
 )
 from .types import (
     ListSecretsRequestOrderBy,
+    SecretVersionStatus,
     AccessSecretVersionResponse,
     ListSecretVersionsResponse,
     ListSecretsResponse,
@@ -428,6 +429,7 @@ class SecretV1Alpha1API(API):
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
+        status: Optional[List[SecretVersionStatus]] = None,
     ) -> ListSecretVersionsResponse:
         """
         List versions of a secret, not returning any sensitive data
@@ -435,6 +437,7 @@ class SecretV1Alpha1API(API):
         :param secret_id: ID of the Secret
         :param page:
         :param page_size:
+        :param status: Filter results by status
         :return: :class:`ListSecretVersionsResponse <ListSecretVersionsResponse>`
 
         Usage:
@@ -454,6 +457,7 @@ class SecretV1Alpha1API(API):
             params={
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
+                "status": status,
             },
         )
 
@@ -467,6 +471,7 @@ class SecretV1Alpha1API(API):
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
+        status: Optional[List[SecretVersionStatus]] = None,
     ) -> List[SecretVersion]:
         """
         List versions of a secret, not returning any sensitive data
@@ -474,6 +479,7 @@ class SecretV1Alpha1API(API):
         :param secret_id: ID of the Secret
         :param page:
         :param page_size:
+        :param status: Filter results by status
         :return: :class:`List[ListSecretVersionsResponse] <List[ListSecretVersionsResponse]>`
 
         Usage:
@@ -491,6 +497,7 @@ class SecretV1Alpha1API(API):
                 "region": region,
                 "page": page,
                 "page_size": page_size,
+                "status": status,
             },
         )
 
