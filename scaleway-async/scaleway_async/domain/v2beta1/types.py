@@ -639,6 +639,8 @@ class Domain:
     One-of ('registration_status'): at most one of 'external_domain_registration_status', 'transfer_registration_status' could be set.
     """
 
+    tld: Optional[Tld]
+
 
 @dataclass
 class DomainDNSSEC:
@@ -1202,6 +1204,8 @@ class RenewableDomain:
     limit_redemption_at: Optional[datetime]
 
     estimated_delete_at: Optional[datetime]
+
+    tld: Optional[Tld]
 
 
 @dataclass
