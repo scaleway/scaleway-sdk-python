@@ -275,7 +275,7 @@ class Cluster:
 
     auto_upgrade: Optional[ClusterAutoUpgrade]
     """
-    The auo upgrade configuration of the cluster
+    The auto upgrade configuration of the cluster
     """
 
     upgrade_available: bool
