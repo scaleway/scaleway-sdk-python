@@ -1123,6 +1123,9 @@ def unmarshal_RenewableDomain(data: Any) -> RenewableDomain:
     field = data.get("status")
     args["status"] = field
 
+    field = data.get("tld")
+    args["tld"] = unmarshal_Tld(field) if field is not None else None
+
     return RenewableDomain(**args)
 
 
@@ -1335,6 +1338,9 @@ def unmarshal_Domain(data: Any) -> Domain:
 
     field = data.get("technical_contact")
     args["technical_contact"] = unmarshal_Contact(field) if field is not None else None
+
+    field = data.get("tld")
+    args["tld"] = unmarshal_Tld(field) if field is not None else None
 
     field = data.get("transfer_registration_status")
     args["transfer_registration_status"] = (
