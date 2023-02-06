@@ -194,7 +194,8 @@ class UpdatePrivateNetworkRequest:
 
     subnets: Optional[List[str]]
     """
-    Private network subnets CIDR
+    Private network subnets CIDR (deprecated)
+    :deprecated
     """
 
 
