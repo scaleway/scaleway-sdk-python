@@ -18,6 +18,7 @@ from .types import ListDNSZoneRecordsRequestOrderBy
 from .types import ListDNSZonesRequestOrderBy
 from .types import ListDomainsRequestOrderBy
 from .types import ListRenewableDomainsRequestOrderBy
+from .types import ListTasksRequestOrderBy
 from .types import RawFormat
 from .types import RenewableDomainStatus
 from .types import SSLCertificateStatus
@@ -132,6 +133,7 @@ __all__ = [
     "ListDNSZonesRequestOrderBy",
     "ListDomainsRequestOrderBy",
     "ListRenewableDomainsRequestOrderBy",
+    "ListTasksRequestOrderBy",
     "RawFormat",
     "RenewableDomainStatus",
     "SSLCertificateStatus",

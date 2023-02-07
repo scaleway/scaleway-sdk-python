@@ -22,7 +22,10 @@ from .types import (
     ListDNSZonesRequestOrderBy,
     ListDomainsRequestOrderBy,
     ListRenewableDomainsRequestOrderBy,
+    ListTasksRequestOrderBy,
     RawFormat,
+    TaskStatus,
+    TaskType,
     CheckContactsCompatibilityResponse,
     ClearDNSZoneRecordsResponse,
     Contact,
@@ -1298,11 +1301,14 @@ class DomainRegistrarV2Beta1API(API):
     async def list_tasks(
         self,
         *,
-        domain: str,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
+        domain: Optional[str] = None,
+        types: Optional[List[TaskType]] = None,
+        statuses: Optional[List[TaskStatus]] = None,
+        order_by: ListTasksRequestOrderBy = ListTasksRequestOrderBy.DOMAIN_DESC,
     ) -> ListTasksResponse:
         """
         List all account tasks.
@@ -1310,15 +1316,18 @@ class DomainRegistrarV2Beta1API(API):
 
         :param page:
         :param page_size:
-        :param domain:
         :param project_id:
         :param organization_id:
+        :param domain:
+        :param types:
+        :param statuses:
+        :param order_by:
         :return: :class:`ListTasksResponse <ListTasksResponse>`
 
         Usage:
         ::
 
-            result = await api.list_tasks(domain="example")
+            result = await api.list_tasks()
         """
 
         res = self._request(
@@ -1326,11 +1335,14 @@ class DomainRegistrarV2Beta1API(API):
             f"/domain/v2beta1/tasks",
             params={
                 "domain": domain,
+                "order_by": order_by,
                 "organization_id": organization_id
                 or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
+                "statuses": statuses,
+                "types": types,
             },
         )
 
@@ -1340,11 +1352,14 @@ class DomainRegistrarV2Beta1API(API):
     async def list_tasks_all(
         self,
         *,
-        domain: str,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
+        domain: Optional[str] = None,
+        types: Optional[List[TaskType]] = None,
+        statuses: Optional[List[TaskStatus]] = None,
+        order_by: Optional[ListTasksRequestOrderBy] = None,
     ) -> List[Task]:
         """
         List all account tasks.
@@ -1352,15 +1367,18 @@ class DomainRegistrarV2Beta1API(API):
 
         :param page:
         :param page_size:
-        :param domain:
         :param project_id:
         :param organization_id:
+        :param domain:
+        :param types:
+        :param statuses:
+        :param order_by:
         :return: :class:`List[ListTasksResponse] <List[ListTasksResponse]>`
 
         Usage:
         ::
 
-            result = await api.list_tasks_all(domain="example")
+            result = await api.list_tasks_all()
         """
 
         return await fetch_all_pages_async(
@@ -1368,11 +1386,14 @@ class DomainRegistrarV2Beta1API(API):
             key="tasks",
             fetcher=self.list_tasks,
             args={
-                "domain": domain,
                 "page": page,
                 "page_size": page_size,
                 "project_id": project_id,
                 "organization_id": organization_id,
+                "domain": domain,
+                "types": types,
+                "statuses": statuses,
+                "order_by": order_by,
             },
         )
 

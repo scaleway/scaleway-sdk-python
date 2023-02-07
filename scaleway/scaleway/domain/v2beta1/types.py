@@ -246,6 +246,20 @@ class ListRenewableDomainsRequestOrderBy(str, Enum):
         return str(self.value)
 
 
+class ListTasksRequestOrderBy(str, Enum):
+    DOMAIN_DESC = "domain_desc"
+    DOMAIN_ASC = "domain_asc"
+    TYPE_ASC = "type_asc"
+    TYPE_DESC = "type_desc"
+    STATUS_ASC = "status_asc"
+    STATUS_DESC = "status_desc"
+    UPDATED_AT_ASC = "updated_at_asc"
+    UPDATED_AT_DESC = "updated_at_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class RawFormat(str, Enum):
     UNKNOWN_RAW_FORMAT = "unknown_raw_format"
     BIND = "bind"
@@ -1703,11 +1717,17 @@ class RegistrarApiListTasksRequest:
 
     page_size: Optional[int]
 
-    domain: str
-
     project_id: Optional[str]
 
     organization_id: Optional[str]
+
+    domain: Optional[str]
+
+    types: Optional[List[TaskType]]
+
+    statuses: Optional[List[TaskStatus]]
+
+    order_by: Optional[ListTasksRequestOrderBy]
 
 
 @dataclass
