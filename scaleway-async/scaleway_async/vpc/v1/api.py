@@ -224,7 +224,7 @@ class VpcV1API(API):
         :param private_network_id: The private network ID
         :param name: The name of the private network
         :param tags: The private networks tags
-        :param subnets: Private network subnets CIDR
+        :param subnets: Private network subnets CIDR (deprecated)
         :return: :class:`PrivateNetwork <PrivateNetwork>`
 
         Usage:
