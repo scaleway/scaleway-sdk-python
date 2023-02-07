@@ -138,6 +138,7 @@ class _CreateServerRequest:
     bootscript: Optional[str]
     """
     The bootscript ID to use when `boot_type` is set to `bootscript`
+    :deprecated
     """
 
     organization: Optional[str]
@@ -276,6 +277,7 @@ class _SetServerRequest:
     bootscript: Optional[Bootscript]
     """
     The server bootscript
+    :deprecated
     """
 
     boot_type: BootType
@@ -346,6 +348,9 @@ class _UpdateServerRequest:
     volumes: Optional[Dict[str, VolumeServerTemplate]]
 
     bootscript: Optional[str]
+    """
+    :deprecated
+    """
 
     dynamic_ip_required: Optional[bool]
 
@@ -384,6 +389,9 @@ class _SetImageRequest:
     modification_date: Optional[datetime]
 
     default_bootscript: Optional[Bootscript]
+    """
+    :deprecated
+    """
 
     extra_volumes: Optional[Dict[str, Volume]]
 

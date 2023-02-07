@@ -3328,6 +3328,7 @@ class InstanceV1API(API):
         :param per_page:
         :param page:
         :return: :class:`ListBootscriptsResponse <ListBootscriptsResponse>`
+        :deprecated
 
         Usage:
         ::
@@ -3374,6 +3375,7 @@ class InstanceV1API(API):
         :param per_page:
         :param page:
         :return: :class:`List[ListBootscriptsResponse] <List[ListBootscriptsResponse]>`
+        :deprecated
 
         Usage:
         ::
@@ -3407,6 +3409,7 @@ class InstanceV1API(API):
         :param zone: Zone to target. If none is passed will use default zone from the config
         :param bootscript_id:
         :return: :class:`GetBootscriptResponse <GetBootscriptResponse>`
+        :deprecated
 
         Usage:
         ::

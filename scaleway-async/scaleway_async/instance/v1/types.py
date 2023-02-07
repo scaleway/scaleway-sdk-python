@@ -460,6 +460,9 @@ class Image:
     modification_date: Optional[datetime]
 
     default_bootscript: Optional[Bootscript]
+    """
+    :deprecated
+    """
 
     extra_volumes: Dict[str, Volume]
 
@@ -1028,6 +1031,7 @@ class Server:
     bootscript: Optional[Bootscript]
     """
     The server bootscript
+    :deprecated
     """
 
     boot_type: BootType
@@ -2039,6 +2043,7 @@ class CreateImageRequest:
     default_bootscript: Optional[str]
     """
     Default bootscript of the image
+    :deprecated
     """
 
     extra_volumes: Optional[Dict[str, VolumeTemplate]]
