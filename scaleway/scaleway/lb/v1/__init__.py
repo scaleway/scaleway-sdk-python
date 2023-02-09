@@ -62,6 +62,7 @@ from .types import ListRoutesResponse
 from .types import ListSubscriberResponse
 from .types import PrivateNetwork
 from .types import PrivateNetworkDHCPConfig
+from .types import PrivateNetworkIpamConfig
 from .types import PrivateNetworkStaticConfig
 from .types import Route
 from .types import RouteMatch
@@ -139,6 +140,7 @@ __all__ = [
     "ListSubscriberResponse",
     "PrivateNetwork",
     "PrivateNetworkDHCPConfig",
+    "PrivateNetworkIpamConfig",
     "PrivateNetworkStaticConfig",
     "Route",
     "RouteMatch",
