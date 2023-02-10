@@ -1381,6 +1381,11 @@ class PrivateNetworkDHCPConfig:
 
 
 @dataclass
+class PrivateNetworkIpamConfig:
+    pass
+
+
+@dataclass
 class PrivateNetworkStaticConfig:
     ip_address: List[str]
 
