@@ -1846,15 +1846,9 @@ class RegistrarApiDeleteExternalDomainRequest:
 
 @dataclass
 class RegistrarApiCheckContactsCompatibilityRequest:
-    domain: Optional[str]
-    """
-    One-of ('parameter'): at most one of 'domain', 'tld' could be set.
-    """
+    domains: Optional[List[str]]
 
-    tld: Optional[str]
-    """
-    One-of ('parameter'): at most one of 'domain', 'tld' could be set.
-    """
+    tlds: Optional[List[str]]
 
     owner_contact_id: Optional[str]
     """

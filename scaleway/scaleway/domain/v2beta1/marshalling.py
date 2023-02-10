@@ -2289,16 +2289,12 @@ def marshal_RegistrarApiCheckContactsCompatibilityRequest(
         ),
         **resolve_one_of(
             [
-                OneOfPossibility("domain", request.domain),
-                OneOfPossibility("tld", request.tld),
-            ]
-        ),
-        **resolve_one_of(
-            [
                 OneOfPossibility("technical_contact_id", request.technical_contact_id),
                 OneOfPossibility("technical_contact", request.technical_contact),
             ]
         ),
+        "domains": request.domains,
+        "tlds": request.tlds,
     }
 
 

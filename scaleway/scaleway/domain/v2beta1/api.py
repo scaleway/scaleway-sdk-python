@@ -1655,8 +1655,8 @@ class DomainRegistrarV2Beta1API(API):
     def check_contacts_compatibility(
         self,
         *,
-        domain: Optional[str] = None,
-        tld: Optional[str] = None,
+        domains: Optional[List[str]] = None,
+        tlds: Optional[List[str]] = None,
         owner_contact_id: Optional[str] = None,
         owner_contact: Optional[NewContact] = None,
         administrative_contact_id: Optional[str] = None,
@@ -1668,8 +1668,8 @@ class DomainRegistrarV2Beta1API(API):
         Check if contacts are compatible against a domain or a tld.
         If not, it will return the information requiring a correction.
 
-        :param domain: One-of ('parameter'): at most one of 'domain', 'tld' could be set.
-        :param tld: One-of ('parameter'): at most one of 'domain', 'tld' could be set.
+        :param domains:
+        :param tlds:
         :param owner_contact_id: One-of ('owner_contact_type'): at most one of 'owner_contact_id', 'owner_contact' could be set.
         :param owner_contact: One-of ('owner_contact_type'): at most one of 'owner_contact_id', 'owner_contact' could be set.
         :param administrative_contact_id: One-of ('administrative_contact_type'): at most one of 'administrative_contact_id', 'administrative_contact' could be set.
@@ -1689,8 +1689,8 @@ class DomainRegistrarV2Beta1API(API):
             f"/domain/v2beta1/check-contacts-compatibility",
             body=marshal_RegistrarApiCheckContactsCompatibilityRequest(
                 RegistrarApiCheckContactsCompatibilityRequest(
-                    domain=domain,
-                    tld=tld,
+                    domains=domains,
+                    tlds=tlds,
                     owner_contact_id=owner_contact_id,
                     owner_contact=owner_contact,
                     administrative_contact_id=administrative_contact_id,
