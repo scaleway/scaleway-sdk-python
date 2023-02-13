@@ -26,6 +26,12 @@ jobs:
         run: |
           pip install poetry
           poetry --version
+      - name: Set scaleway-core version
+        run: poetry version $(echo "${{ github.ref }}" | cut -d "/" -f 3)
+        working-directory: scaleway-core
+        if: matrix.lib != 'scaleway-core'
+      - name: Update lock file
+        run: poetry lock
       - name: Install dependencies and library
         run: poetry install
       - name: Set package version
