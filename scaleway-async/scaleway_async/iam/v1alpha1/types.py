@@ -8,6 +8,15 @@ from enum import Enum
 from typing import List, Optional
 
 
+class ListAPIKeysRequestBearerType(str, Enum):
+    UNKNOWN_BEARER_TYPE = "unknown_bearer_type"
+    USER = "user"
+    APPLICATION = "application"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListAPIKeysRequestOrderBy(str, Enum):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
@@ -1341,6 +1350,7 @@ class ListAPIKeysRequest:
     ID of an application bearer.
     
     One-of ('bearer'): at most one of 'application_id', 'user_id' could be set.
+    :deprecated
     """
 
     user_id: Optional[str]
@@ -1348,11 +1358,37 @@ class ListAPIKeysRequest:
     ID of a user bearer.
     
     One-of ('bearer'): at most one of 'application_id', 'user_id' could be set.
+    :deprecated
     """
 
     editable: Optional[bool]
     """
     Filter out editable API keys or not
+    """
+
+    expirable: Optional[bool]
+    """
+    Filter out expirable API keys or not
+    """
+
+    access_key: Optional[str]
+    """
+    Filter out by access key
+    """
+
+    description: Optional[str]
+    """
+    Filter out by description
+    """
+
+    bearer_id: Optional[str]
+    """
+    Filter out by bearer ID
+    """
+
+    bearer_type: Optional[ListAPIKeysRequestBearerType]
+    """
+    Filter out by type of bearer
     """
 
 
