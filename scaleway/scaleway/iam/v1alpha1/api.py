@@ -13,7 +13,7 @@ from scaleway_core.utils import (
     validate_path_param,
 )
 from .types import (
-    ListAPIKeysRequestBearerType,
+    BearerType,
     ListAPIKeysRequestOrderBy,
     ListApplicationsRequestOrderBy,
     ListGroupsRequestOrderBy,
@@ -1477,7 +1477,7 @@ class IamV1Alpha1API(API):
         access_key: Optional[str] = None,
         description: Optional[str] = None,
         bearer_id: Optional[str] = None,
-        bearer_type: ListAPIKeysRequestBearerType = ListAPIKeysRequestBearerType.UNKNOWN_BEARER_TYPE,
+        bearer_type: BearerType = BearerType.UNKNOWN_BEARER_TYPE,
     ) -> ListAPIKeysResponse:
         """
         List API keys
@@ -1546,7 +1546,7 @@ class IamV1Alpha1API(API):
         access_key: Optional[str] = None,
         description: Optional[str] = None,
         bearer_id: Optional[str] = None,
-        bearer_type: Optional[ListAPIKeysRequestBearerType] = None,
+        bearer_type: Optional[BearerType] = None,
     ) -> List[APIKey]:
         """
         List API keys
