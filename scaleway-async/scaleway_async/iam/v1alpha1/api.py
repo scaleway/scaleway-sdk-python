@@ -13,7 +13,7 @@ from scaleway_core.utils import (
     validate_path_param,
 )
 from .types import (
-    ListAPIKeysRequestBearerType,
+    BearerType,
     ListAPIKeysRequestOrderBy,
     ListApplicationsRequestOrderBy,
     ListGroupsRequestOrderBy,
@@ -1473,11 +1473,11 @@ class IamV1Alpha1API(API):
         application_id: Optional[str] = None,
         user_id: Optional[str] = None,
         editable: Optional[bool] = None,
-        expirable: Optional[bool] = None,
+        expired: Optional[bool] = None,
         access_key: Optional[str] = None,
         description: Optional[str] = None,
         bearer_id: Optional[str] = None,
-        bearer_type: ListAPIKeysRequestBearerType = ListAPIKeysRequestBearerType.UNKNOWN_BEARER_TYPE,
+        bearer_type: BearerType = BearerType.UNKNOWN_BEARER_TYPE,
     ) -> ListAPIKeysResponse:
         """
         List API keys
@@ -1492,7 +1492,7 @@ class IamV1Alpha1API(API):
 
         One-of ('bearer'): at most one of 'application_id', 'user_id' could be set.
         :param editable: Filter out editable API keys or not
-        :param expirable: Filter out expirable API keys or not
+        :param expired: Filter out expired API keys or not
         :param access_key: Filter out by access key
         :param description: Filter out by description
         :param bearer_id: Filter out by bearer ID
@@ -1514,7 +1514,7 @@ class IamV1Alpha1API(API):
                 "bearer_type": bearer_type,
                 "description": description,
                 "editable": editable,
-                "expirable": expirable,
+                "expired": expired,
                 "order_by": order_by,
                 "organization_id": organization_id
                 or self.client.default_organization_id,
@@ -1542,11 +1542,11 @@ class IamV1Alpha1API(API):
         application_id: Optional[str] = None,
         user_id: Optional[str] = None,
         editable: Optional[bool] = None,
-        expirable: Optional[bool] = None,
+        expired: Optional[bool] = None,
         access_key: Optional[str] = None,
         description: Optional[str] = None,
         bearer_id: Optional[str] = None,
-        bearer_type: Optional[ListAPIKeysRequestBearerType] = None,
+        bearer_type: Optional[BearerType] = None,
     ) -> List[APIKey]:
         """
         List API keys
@@ -1561,7 +1561,7 @@ class IamV1Alpha1API(API):
 
         One-of ('bearer'): at most one of 'application_id', 'user_id' could be set.
         :param editable: Filter out editable API keys or not
-        :param expirable: Filter out expirable API keys or not
+        :param expired: Filter out expired API keys or not
         :param access_key: Filter out by access key
         :param description: Filter out by description
         :param bearer_id: Filter out by bearer ID
@@ -1586,7 +1586,7 @@ class IamV1Alpha1API(API):
                 "application_id": application_id,
                 "user_id": user_id,
                 "editable": editable,
-                "expirable": expirable,
+                "expired": expired,
                 "access_key": access_key,
                 "description": description,
                 "bearer_id": bearer_id,
