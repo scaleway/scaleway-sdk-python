@@ -1941,6 +1941,10 @@ class VpcgwV1API(API):
         zone: Optional[Zone] = None,
     ) -> Gateway:
         """
+        Refresh SSH keys of a VPC Public Gateway
+        :param zone: Zone to target. If none is passed will use default zone from the config
+        :param gateway_id: ID of the gateway that needs fresh ssh keys
+        :return: :class:`Gateway <Gateway>`
 
         Usage:
         ::
