@@ -8,7 +8,7 @@ from enum import Enum
 from typing import List, Optional
 
 
-class ListAPIKeysRequestBearerType(str, Enum):
+class BearerType(str, Enum):
     UNKNOWN_BEARER_TYPE = "unknown_bearer_type"
     USER = "user"
     APPLICATION = "application"
@@ -1386,7 +1386,7 @@ class ListAPIKeysRequest:
     Filter out by bearer ID
     """
 
-    bearer_type: Optional[ListAPIKeysRequestBearerType]
+    bearer_type: Optional[BearerType]
     """
     Filter out by type of bearer
     """
