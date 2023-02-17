@@ -1366,9 +1366,9 @@ class ListAPIKeysRequest:
     Filter out editable API keys or not
     """
 
-    expirable: Optional[bool]
+    expired: Optional[bool]
     """
-    Filter out expirable API keys or not
+    Filter out expired API keys or not
     """
 
     access_key: Optional[str]
