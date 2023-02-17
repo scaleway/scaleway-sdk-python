@@ -1777,3 +1777,6 @@ class RefreshSSHKeysRequest:
     """
 
     gateway_id: str
+    """
+    ID of the gateway that needs fresh ssh keys
+    """
