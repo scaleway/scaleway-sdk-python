@@ -8,7 +8,6 @@ from .types import (
     FunctionStatus,
     NamespaceStatus,
     TokenStatus,
-    TriggerInputStatus,
     TriggerStatus,
 )
 
@@ -55,15 +54,6 @@ TOKEN_TRANSIENT_STATUSES: List[TokenStatus] = [
 ]
 """
 Lists transient statutes of the enum :class:`TokenStatus <TokenStatus>`.
-"""
-
-TRIGGER_INPUT_TRANSIENT_STATUSES: List[TriggerInputStatus] = [
-    TriggerInputStatus.DELETING,
-    TriggerInputStatus.CREATING,
-    TriggerInputStatus.PENDING,
-]
-"""
-Lists transient statutes of the enum :class:`TriggerInputStatus <TriggerInputStatus>`.
 """
 
 TRIGGER_TRANSIENT_STATUSES: List[TriggerStatus] = [
