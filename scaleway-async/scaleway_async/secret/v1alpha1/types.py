@@ -233,9 +233,16 @@ class GetSecretRequest:
     Region to target. If none is passed will use default region from the config
     """
 
-    secret_id: str
+    secret_id: Optional[str]
     """
     ID of the Secret
+    """
+
+    secret_name: Optional[str]
+    """
+    Name of the Secret (alternative to secret_id).
+    
+    One-of ('secret_ref'): at most one of 'secret_name' could be set.
     """
 
 
@@ -289,6 +296,11 @@ class ListSecretsRequest:
     List of tags to filter on (optional)
     """
 
+    name: Optional[str]
+    """
+    Name of the secrets (optional)
+    """
+
     order_by: Optional[ListSecretsRequestOrderBy]
 
     page: Optional[int]
@@ -339,7 +351,7 @@ class GetSecretVersionRequest:
     Region to target. If none is passed will use default region from the config
     """
 
-    secret_id: str
+    secret_id: Optional[str]
     """
     ID of the Secret
     """
@@ -347,6 +359,13 @@ class GetSecretVersionRequest:
     revision: str
     """
     Revision of the SecretVersion (may be a number or "latest")
+    """
+
+    secret_name: Optional[str]
+    """
+    Name of the Secret (alternative to secret_id).
+    
+    One-of ('secret_ref'): at most one of 'secret_name' could be set.
     """
 
 
@@ -380,9 +399,16 @@ class ListSecretVersionsRequest:
     Region to target. If none is passed will use default region from the config
     """
 
-    secret_id: str
+    secret_id: Optional[str]
     """
     ID of the Secret
+    """
+
+    secret_name: Optional[str]
+    """
+    Name of the Secret (alternative to secret_id).
+    
+    One-of ('secret_ref'): at most one of 'secret_name' could be set.
     """
 
     page: Optional[int]
@@ -456,12 +482,19 @@ class AccessSecretVersionRequest:
     Region to target. If none is passed will use default region from the config
     """
 
-    secret_id: str
+    secret_id: Optional[str]
     """
     ID of the Secret
     """
 
     revision: str
     """
-    Revision of the SecretVersion (may be a number or "latest")
+    Revision of the SecretVersion (may be a number, "latest" or "latest_enabled")
+    """
+
+    secret_name: Optional[str]
+    """
+    Name of the Secret (alternative to secret_id).
+    
+    One-of ('secret_ref'): at most one of 'secret_name' could be set.
     """
