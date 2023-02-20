@@ -27,13 +27,10 @@ from .types import (
     ListLogsRequestOrderBy,
     ListNamespacesRequestOrderBy,
     ListTokensRequestOrderBy,
-    ListTriggerInputsRequestOrderBy,
     ListTriggersRequestOrderBy,
-    TriggerType,
-    CreateTriggerInputRequestNatsClientConfigSpec,
-    CreateTriggerInputRequestSqsClientConfigSpec,
-    CreateTriggerRequestNatsFailureHandlingPolicy,
-    CreateTriggerRequestSqsFailureHandlingPolicy,
+    CreateTriggerRequestMnqNatsClientConfig,
+    CreateTriggerRequestMnqSqsClientConfig,
+    CreateTriggerRequestSqsClientConfig,
     Cron,
     Domain,
     DownloadURL,
@@ -45,19 +42,15 @@ from .types import (
     ListLogsResponse,
     ListNamespacesResponse,
     ListTokensResponse,
-    ListTriggerInputsResponse,
     ListTriggersResponse,
     Log,
     Namespace,
     Secret,
-    SetTriggerInputsRequestNatsConfigs,
-    SetTriggerInputsRequestSqsConfigs,
-    SetTriggerInputsResponse,
     Token,
     Trigger,
-    TriggerInput,
-    UpdateTriggerInputRequestNatsClientConfigSpec,
-    UpdateTriggerInputRequestSqsClientConfigSpec,
+    UpdateTriggerRequestMnqNatsClientConfig,
+    UpdateTriggerRequestMnqSqsClientConfig,
+    UpdateTriggerRequestSqsClientConfig,
     UploadURL,
     CreateNamespaceRequest,
     UpdateNamespaceRequest,
@@ -69,9 +62,6 @@ from .types import (
     CreateTokenRequest,
     CreateTriggerRequest,
     UpdateTriggerRequest,
-    CreateTriggerInputRequest,
-    SetTriggerInputsRequest,
-    UpdateTriggerInputRequest,
 )
 from .content import (
     CRON_TRANSIENT_STATUSES,
@@ -79,7 +69,6 @@ from .content import (
     FUNCTION_TRANSIENT_STATUSES,
     NAMESPACE_TRANSIENT_STATUSES,
     TOKEN_TRANSIENT_STATUSES,
-    TRIGGER_INPUT_TRANSIENT_STATUSES,
     TRIGGER_TRANSIENT_STATUSES,
 )
 from .marshalling import (
@@ -88,13 +77,10 @@ from .marshalling import (
     marshal_CreateFunctionRequest,
     marshal_CreateNamespaceRequest,
     marshal_CreateTokenRequest,
-    marshal_CreateTriggerInputRequest,
     marshal_CreateTriggerRequest,
-    marshal_SetTriggerInputsRequest,
     marshal_UpdateCronRequest,
     marshal_UpdateFunctionRequest,
     marshal_UpdateNamespaceRequest,
-    marshal_UpdateTriggerInputRequest,
     marshal_UpdateTriggerRequest,
     unmarshal_Cron,
     unmarshal_Domain,
@@ -102,7 +88,6 @@ from .marshalling import (
     unmarshal_Namespace,
     unmarshal_Token,
     unmarshal_Trigger,
-    unmarshal_TriggerInput,
     unmarshal_DownloadURL,
     unmarshal_ListCronsResponse,
     unmarshal_ListDomainsResponse,
@@ -111,9 +96,7 @@ from .marshalling import (
     unmarshal_ListLogsResponse,
     unmarshal_ListNamespacesResponse,
     unmarshal_ListTokensResponse,
-    unmarshal_ListTriggerInputsResponse,
     unmarshal_ListTriggersResponse,
-    unmarshal_SetTriggerInputsResponse,
     unmarshal_UploadURL,
 )
 
@@ -1742,14 +1725,10 @@ class FunctionV1Beta1API(API):
         name: str,
         description: str,
         function_id: str,
-        type_: TriggerType,
         region: Optional[Region] = None,
-        nats_failure_handling_policy: Optional[
-            CreateTriggerRequestNatsFailureHandlingPolicy
-        ] = None,
-        sqs_failure_handling_policy: Optional[
-            CreateTriggerRequestSqsFailureHandlingPolicy
-        ] = None,
+        scw_sqs_config: Optional[CreateTriggerRequestMnqSqsClientConfig] = None,
+        sqs_config: Optional[CreateTriggerRequestSqsClientConfig] = None,
+        scw_nats_config: Optional[CreateTriggerRequestMnqNatsClientConfig] = None,
     ) -> Trigger:
         """
 
@@ -1760,7 +1739,6 @@ class FunctionV1Beta1API(API):
                 name="example",
                 description="example",
                 function_id="example",
-                type_=unknown_trigger_type,
             )
         """
 
@@ -1776,10 +1754,10 @@ class FunctionV1Beta1API(API):
                     name=name,
                     description=description,
                     function_id=function_id,
-                    type_=type_,
                     region=region,
-                    nats_failure_handling_policy=nats_failure_handling_policy,
-                    sqs_failure_handling_policy=sqs_failure_handling_policy,
+                    scw_sqs_config=scw_sqs_config,
+                    sqs_config=sqs_config,
+                    scw_nats_config=scw_nats_config,
                 ),
                 self.client,
             ),
@@ -1853,18 +1831,20 @@ class FunctionV1Beta1API(API):
     def list_triggers(
         self,
         *,
-        function_id: str,
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: ListTriggersRequestOrderBy = ListTriggersRequestOrderBy.CREATED_AT_ASC,
+        function_id: Optional[str] = None,
+        namespace_id: Optional[str] = None,
+        project_id: Optional[str] = None,
     ) -> ListTriggersResponse:
         """
 
         Usage:
         ::
 
-            result = api.list_triggers(function_id="example")
+            result = api.list_triggers()
         """
 
         param_region = validate_path_param(
@@ -1875,10 +1855,18 @@ class FunctionV1Beta1API(API):
             "GET",
             f"/functions/v1beta1/regions/{param_region}/triggers",
             params={
-                "function_id": function_id,
                 "order_by": order_by,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
+                **resolve_one_of(
+                    [
+                        OneOfPossibility(
+                            "project_id", project_id, self.client.default_project_id
+                        ),
+                        OneOfPossibility("function_id", function_id),
+                        OneOfPossibility("namespace_id", namespace_id),
+                    ]
+                ),
             },
         )
 
@@ -1888,11 +1876,13 @@ class FunctionV1Beta1API(API):
     def list_triggers_all(
         self,
         *,
-        function_id: str,
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListTriggersRequestOrderBy] = None,
+        function_id: Optional[str] = None,
+        namespace_id: Optional[str] = None,
+        project_id: Optional[str] = None,
     ) -> List[Trigger]:
         """
         :return: :class:`List[ListTriggersResponse] <List[ListTriggersResponse]>`
@@ -1900,7 +1890,7 @@ class FunctionV1Beta1API(API):
         Usage:
         ::
 
-            result = api.list_triggers_all(function_id="example")
+            result = api.list_triggers_all()
         """
 
         return fetch_all_pages(
@@ -1908,11 +1898,13 @@ class FunctionV1Beta1API(API):
             key="triggers",
             fetcher=self.list_triggers,
             args={
-                "function_id": function_id,
                 "region": region,
                 "page": page,
                 "page_size": page_size,
                 "order_by": order_by,
+                "function_id": function_id,
+                "namespace_id": namespace_id,
+                "project_id": project_id,
             },
         )
 
@@ -1923,8 +1915,9 @@ class FunctionV1Beta1API(API):
         region: Optional[Region] = None,
         name: Optional[str] = None,
         description: Optional[str] = None,
-        nats_config: Optional[CreateTriggerRequestNatsFailureHandlingPolicy] = None,
-        sqs_config: Optional[CreateTriggerRequestSqsFailureHandlingPolicy] = None,
+        scw_sqs_config: Optional[UpdateTriggerRequestMnqSqsClientConfig] = None,
+        sqs_config: Optional[UpdateTriggerRequestSqsClientConfig] = None,
+        scw_nats_config: Optional[UpdateTriggerRequestMnqNatsClientConfig] = None,
     ) -> Trigger:
         """
 
@@ -1948,8 +1941,9 @@ class FunctionV1Beta1API(API):
                     region=region,
                     name=name,
                     description=description,
-                    nats_config=nats_config,
+                    scw_sqs_config=scw_sqs_config,
                     sqs_config=sqs_config,
+                    scw_nats_config=scw_nats_config,
                 ),
                 self.client,
             ),
@@ -1984,280 +1978,3 @@ class FunctionV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Trigger(res.json())
-
-    def create_trigger_input(
-        self,
-        *,
-        trigger_id: str,
-        region: Optional[Region] = None,
-        mnq_namespace_id: Optional[str] = None,
-        nats_config: Optional[CreateTriggerInputRequestNatsClientConfigSpec] = None,
-        sqs_config: Optional[CreateTriggerInputRequestSqsClientConfigSpec] = None,
-    ) -> TriggerInput:
-        """
-
-        Usage:
-        ::
-
-            result = api.create_trigger_input(trigger_id="example")
-        """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
-        res = self._request(
-            "POST",
-            f"/functions/v1beta1/regions/{param_region}/trigger-inputs",
-            body=marshal_CreateTriggerInputRequest(
-                CreateTriggerInputRequest(
-                    trigger_id=trigger_id,
-                    region=region,
-                    mnq_namespace_id=mnq_namespace_id,
-                    nats_config=nats_config,
-                    sqs_config=sqs_config,
-                ),
-                self.client,
-            ),
-        )
-
-        self._throw_on_error(res)
-        return unmarshal_TriggerInput(res.json())
-
-    def get_trigger_input(
-        self,
-        *,
-        trigger_input_id: str,
-        region: Optional[Region] = None,
-    ) -> TriggerInput:
-        """
-
-        Usage:
-        ::
-
-            result = api.get_trigger_input(trigger_input_id="example")
-        """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-        param_trigger_input_id = validate_path_param(
-            "trigger_input_id", trigger_input_id
-        )
-
-        res = self._request(
-            "GET",
-            f"/functions/v1beta1/regions/{param_region}/trigger-inputs/{param_trigger_input_id}",
-        )
-
-        self._throw_on_error(res)
-        return unmarshal_TriggerInput(res.json())
-
-    def wait_for_trigger_input(
-        self,
-        *,
-        trigger_input_id: str,
-        region: Optional[Region] = None,
-        options: Optional[WaitForOptions[TriggerInput, bool]] = None,
-    ) -> TriggerInput:
-        """
-        Waits for :class:`TriggerInput <TriggerInput>` to be in a final state.
-        :param region: Region to target. If none is passed will use default region from the config
-        :param trigger_input_id:
-        :param options: The options for the waiter
-        :return: :class:`TriggerInput <TriggerInput>`
-
-        Usage:
-        ::
-
-            result = api.wait_for_trigger_input(trigger_input_id="example")
-        """
-
-        if not options:
-            options = WaitForOptions()
-
-        if not options.stop:
-            options.stop = (
-                lambda res: res.status not in TRIGGER_INPUT_TRANSIENT_STATUSES
-            )
-
-        return wait_for_resource(
-            fetcher=self.get_trigger_input,
-            options=options,
-            args={
-                "trigger_input_id": trigger_input_id,
-                "region": region,
-            },
-        )
-
-    def list_trigger_inputs(
-        self,
-        *,
-        trigger_id: str,
-        region: Optional[Region] = None,
-        page: Optional[int] = None,
-        page_size: Optional[int] = None,
-        order_by: ListTriggerInputsRequestOrderBy = ListTriggerInputsRequestOrderBy.CREATED_AT_ASC,
-    ) -> ListTriggerInputsResponse:
-        """
-
-        Usage:
-        ::
-
-            result = api.list_trigger_inputs(trigger_id="example")
-        """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
-        res = self._request(
-            "GET",
-            f"/functions/v1beta1/regions/{param_region}/trigger-inputs",
-            params={
-                "order_by": order_by,
-                "page": page,
-                "page_size": page_size or self.client.default_page_size,
-                "trigger_id": trigger_id,
-            },
-        )
-
-        self._throw_on_error(res)
-        return unmarshal_ListTriggerInputsResponse(res.json())
-
-    def list_trigger_inputs_all(
-        self,
-        *,
-        trigger_id: str,
-        region: Optional[Region] = None,
-        page: Optional[int] = None,
-        page_size: Optional[int] = None,
-        order_by: Optional[ListTriggerInputsRequestOrderBy] = None,
-    ) -> List[TriggerInput]:
-        """
-        :return: :class:`List[ListTriggerInputsResponse] <List[ListTriggerInputsResponse]>`
-
-        Usage:
-        ::
-
-            result = api.list_trigger_inputs_all(trigger_id="example")
-        """
-
-        return fetch_all_pages(
-            type=ListTriggerInputsResponse,
-            key="inputs",
-            fetcher=self.list_trigger_inputs,
-            args={
-                "trigger_id": trigger_id,
-                "region": region,
-                "page": page,
-                "page_size": page_size,
-                "order_by": order_by,
-            },
-        )
-
-    def set_trigger_inputs(
-        self,
-        *,
-        trigger_input_id: str,
-        region: Optional[Region] = None,
-        sqs: Optional[SetTriggerInputsRequestSqsConfigs] = None,
-        nats: Optional[SetTriggerInputsRequestNatsConfigs] = None,
-    ) -> SetTriggerInputsResponse:
-        """
-
-        Usage:
-        ::
-
-            result = api.set_trigger_inputs(trigger_input_id="example")
-        """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
-        res = self._request(
-            "PUT",
-            f"/functions/v1beta1/regions/{param_region}/trigger-inputs",
-            body=marshal_SetTriggerInputsRequest(
-                SetTriggerInputsRequest(
-                    trigger_input_id=trigger_input_id,
-                    region=region,
-                    sqs=sqs,
-                    nats=nats,
-                ),
-                self.client,
-            ),
-        )
-
-        self._throw_on_error(res)
-        return unmarshal_SetTriggerInputsResponse(res.json())
-
-    def update_trigger_input(
-        self,
-        *,
-        trigger_input_id: str,
-        region: Optional[Region] = None,
-        nats_config: Optional[UpdateTriggerInputRequestNatsClientConfigSpec] = None,
-        sqs_config: Optional[UpdateTriggerInputRequestSqsClientConfigSpec] = None,
-    ) -> TriggerInput:
-        """
-
-        Usage:
-        ::
-
-            result = api.update_trigger_input(trigger_input_id="example")
-        """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-        param_trigger_input_id = validate_path_param(
-            "trigger_input_id", trigger_input_id
-        )
-
-        res = self._request(
-            "PATCH",
-            f"/functions/v1beta1/regions/{param_region}/trigger-inputs/{param_trigger_input_id}",
-            body=marshal_UpdateTriggerInputRequest(
-                UpdateTriggerInputRequest(
-                    trigger_input_id=trigger_input_id,
-                    region=region,
-                    nats_config=nats_config,
-                    sqs_config=sqs_config,
-                ),
-                self.client,
-            ),
-        )
-
-        self._throw_on_error(res)
-        return unmarshal_TriggerInput(res.json())
-
-    def delete_trigger_input(
-        self,
-        *,
-        trigger_input_id: str,
-        region: Optional[Region] = None,
-    ) -> TriggerInput:
-        """
-
-        Usage:
-        ::
-
-            result = api.delete_trigger_input(trigger_input_id="example")
-        """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-        param_trigger_input_id = validate_path_param(
-            "trigger_input_id", trigger_input_id
-        )
-
-        res = self._request(
-            "DELETE",
-            f"/functions/v1beta1/regions/{param_region}/trigger-inputs/{param_trigger_input_id}",
-        )
-
-        self._throw_on_error(res)
-        return unmarshal_TriggerInput(res.json())

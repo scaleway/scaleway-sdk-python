@@ -78,6 +78,7 @@ class FunctionRuntime(str, Enum):
     PYTHON311 = "python311"
     PHP82 = "php82"
     NODE19 = "node19"
+    GO120 = "go120"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -151,14 +152,6 @@ class ListTokensRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListTriggerInputsRequestOrderBy(str, Enum):
-    CREATED_AT_ASC = "created_at_asc"
-    CREATED_AT_DESC = "created_at_desc"
-
-    def __str__(self) -> str:
-        return str(self.value)
-
-
 class ListTriggersRequestOrderBy(str, Enum):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
@@ -219,13 +212,12 @@ class TokenStatus(str, Enum):
         return str(self.value)
 
 
-class TriggerInputStatus(str, Enum):
-    UNKNOWN = "unknown"
-    READY = "ready"
-    DELETING = "deleting"
-    ERROR = "error"
-    CREATING = "creating"
-    PENDING = "pending"
+class TriggerInputType(str, Enum):
+    UNKNOWN_INPUT_TYPE = "unknown_input_type"
+    SQS = "sqs"
+    SCW_SQS = "scw_sqs"
+    NATS = "nats"
+    SCW_NATS = "scw_nats"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -243,68 +235,29 @@ class TriggerStatus(str, Enum):
         return str(self.value)
 
 
-class TriggerType(str, Enum):
-    UNKNOWN_TRIGGER_TYPE = "unknown_trigger_type"
-    NATS = "nats"
-    SQS = "sqs"
-
-    def __str__(self) -> str:
-        return str(self.value)
-
-
 @dataclass
-class CreateTriggerInputRequestNatsClientConfigSpec:
+class CreateTriggerRequestMnqNatsClientConfig:
+    mnq_namespace_id: str
+
     subject: str
 
 
 @dataclass
-class CreateTriggerInputRequestSqsClientConfigSpec:
+class CreateTriggerRequestMnqSqsClientConfig:
+    mnq_namespace_id: str
+
     queue: str
 
 
 @dataclass
-class CreateTriggerRequestNatsFailureHandlingPolicy:
-    retry_policy: Optional[CreateTriggerRequestNatsFailureHandlingPolicyRetryPolicy]
+class CreateTriggerRequestSqsClientConfig:
+    endpoint: str
 
-    nats_dead_letter: Optional[
-        CreateTriggerRequestNatsFailureHandlingPolicyNatsDeadLetter
-    ]
-    """
-    One-of ('dead_letter'): at most one of 'nats_dead_letter', 'sqs_dead_letter' could be set.
-    """
+    queue_url: str
 
-    sqs_dead_letter: Optional[
-        CreateTriggerRequestNatsFailureHandlingPolicySqsDeadLetter
-    ]
-    """
-    One-of ('dead_letter'): at most one of 'nats_dead_letter', 'sqs_dead_letter' could be set.
-    """
+    access_key: str
 
-
-@dataclass
-class CreateTriggerRequestNatsFailureHandlingPolicyNatsDeadLetter:
-    mnq_namespace_id: Optional[str]
-
-    subject: Optional[str]
-
-
-@dataclass
-class CreateTriggerRequestNatsFailureHandlingPolicyRetryPolicy:
-    max_retries: Optional[int]
-
-    retry_period: Optional[str]
-
-
-@dataclass
-class CreateTriggerRequestNatsFailureHandlingPolicySqsDeadLetter:
-    mnq_namespace_id: Optional[str]
-
-    queue: Optional[str]
-
-
-@dataclass
-class CreateTriggerRequestSqsFailureHandlingPolicy:
-    pass
+    secret_key: str
 
 
 @dataclass
@@ -479,13 +432,6 @@ class ListTokensResponse:
 
 
 @dataclass
-class ListTriggerInputsResponse:
-    inputs: List[TriggerInput]
-
-    total_count: int
-
-
-@dataclass
 class ListTriggersResponse:
     triggers: List[Trigger]
 
@@ -587,21 +533,6 @@ class SecretHashedValue:
 
 
 @dataclass
-class SetTriggerInputsRequestNatsConfigs:
-    configs: List[CreateTriggerInputRequestNatsClientConfigSpec]
-
-
-@dataclass
-class SetTriggerInputsRequestSqsConfigs:
-    configs: List[CreateTriggerInputRequestSqsClientConfigSpec]
-
-
-@dataclass
-class SetTriggerInputsResponse:
-    trigger_inputs: List[TriggerInput]
-
-
-@dataclass
 class Token:
     """
     Token
@@ -641,7 +572,7 @@ class Trigger:
 
     description: str
 
-    type_: TriggerType
+    input_type: TriggerInputType
 
     status: TriggerStatus
 
@@ -649,97 +580,70 @@ class Trigger:
 
     function_id: str
 
-    nats_failure_handling_policy: Optional[TriggerNatsFailureHandlingPolicy]
+    scw_sqs_config: Optional[TriggerMnqSqsClientConfig]
     """
-    One-of ('failure_handling_policy'): at most one of 'nats_failure_handling_policy', 'sqs_failure_handling_policy' could be set.
-    """
-
-    sqs_failure_handling_policy: Optional[TriggerSqsFailureHandlingPolicy]
-    """
-    One-of ('failure_handling_policy'): at most one of 'nats_failure_handling_policy', 'sqs_failure_handling_policy' could be set.
+    One-of ('config'): at most one of 'scw_sqs_config', 'sqs_config', 'scw_nats_config' could be set.
     """
 
-
-@dataclass
-class TriggerInput:
-    id: str
-
-    mnq_namespace_id: Optional[str]
-
-    status: TriggerInputStatus
-
-    error_message: Optional[str]
-
-    nats_config: Optional[TriggerInputNatsClientConfig]
+    sqs_config: Optional[TriggerSqsClientConfig]
     """
-    One-of ('config'): at most one of 'nats_config', 'sqs_config' could be set.
+    One-of ('config'): at most one of 'scw_sqs_config', 'sqs_config', 'scw_nats_config' could be set.
     """
 
-    sqs_config: Optional[TriggerInputSqsClientConfig]
+    scw_nats_config: Optional[TriggerMnqNatsClientConfig]
     """
-    One-of ('config'): at most one of 'nats_config', 'sqs_config' could be set.
+    One-of ('config'): at most one of 'scw_sqs_config', 'sqs_config', 'scw_nats_config' could be set.
     """
 
 
 @dataclass
-class TriggerInputNatsClientConfig:
-    subject: str
-
-
-@dataclass
-class TriggerInputSqsClientConfig:
-    queue: str
-
-
-@dataclass
-class TriggerNatsDeadLetter:
+class TriggerMnqNatsClientConfig:
     mnq_namespace_id: str
 
     subject: str
 
 
 @dataclass
-class TriggerNatsFailureHandlingPolicy:
-    retry_policy: Optional[TriggerRetryPolicy]
-
-    nats_dead_letter: Optional[TriggerNatsDeadLetter]
-    """
-    One-of ('dead_letter'): at most one of 'nats_dead_letter', 'sqs_dead_letter' could be set.
-    """
-
-    sqs_dead_letter: Optional[TriggerSqsDeadLetter]
-    """
-    One-of ('dead_letter'): at most one of 'nats_dead_letter', 'sqs_dead_letter' could be set.
-    """
-
-
-@dataclass
-class TriggerRetryPolicy:
-    max_retries: int
-
-    retry_period: Optional[str]
-
-
-@dataclass
-class TriggerSqsDeadLetter:
+class TriggerMnqSqsClientConfig:
     mnq_namespace_id: str
 
     queue: str
 
 
 @dataclass
-class TriggerSqsFailureHandlingPolicy:
-    pass
+class TriggerSqsClientConfig:
+    endpoint: str
+
+    queue_url: str
+
+    access_key: str
+
+    secret_key: str
 
 
 @dataclass
-class UpdateTriggerInputRequestNatsClientConfigSpec:
-    subject: Optional[str]
+class UpdateTriggerRequestMnqNatsClientConfig:
+    mnq_namespace_id: str
+
+    subject: str
 
 
 @dataclass
-class UpdateTriggerInputRequestSqsClientConfigSpec:
-    queue: Optional[str]
+class UpdateTriggerRequestMnqSqsClientConfig:
+    mnq_namespace_id: str
+
+    queue: str
+
+
+@dataclass
+class UpdateTriggerRequestSqsClientConfig:
+    endpoint: str
+
+    queue_url: str
+
+    access_key: str
+
+    secret_key: str
 
 
 @dataclass
@@ -1216,18 +1120,19 @@ class CreateTriggerRequest:
 
     function_id: str
 
-    type_: TriggerType
-
-    nats_failure_handling_policy: Optional[
-        CreateTriggerRequestNatsFailureHandlingPolicy
-    ]
+    scw_sqs_config: Optional[CreateTriggerRequestMnqSqsClientConfig]
     """
-    One-of ('failure_handling_policy'): at most one of 'nats_failure_handling_policy', 'sqs_failure_handling_policy' could be set.
+    One-of ('config'): at most one of 'scw_sqs_config', 'sqs_config', 'scw_nats_config' could be set.
     """
 
-    sqs_failure_handling_policy: Optional[CreateTriggerRequestSqsFailureHandlingPolicy]
+    sqs_config: Optional[CreateTriggerRequestSqsClientConfig]
     """
-    One-of ('failure_handling_policy'): at most one of 'nats_failure_handling_policy', 'sqs_failure_handling_policy' could be set.
+    One-of ('config'): at most one of 'scw_sqs_config', 'sqs_config', 'scw_nats_config' could be set.
+    """
+
+    scw_nats_config: Optional[CreateTriggerRequestMnqNatsClientConfig]
+    """
+    One-of ('config'): at most one of 'scw_sqs_config', 'sqs_config', 'scw_nats_config' could be set.
     """
 
 
@@ -1254,7 +1159,20 @@ class ListTriggersRequest:
 
     order_by: Optional[ListTriggersRequestOrderBy]
 
-    function_id: str
+    function_id: Optional[str]
+    """
+    One-of ('scope'): at most one of 'function_id', 'namespace_id', 'project_id' could be set.
+    """
+
+    namespace_id: Optional[str]
+    """
+    One-of ('scope'): at most one of 'function_id', 'namespace_id', 'project_id' could be set.
+    """
+
+    project_id: Optional[str]
+    """
+    One-of ('scope'): at most one of 'function_id', 'namespace_id', 'project_id' could be set.
+    """
 
 
 @dataclass
@@ -1270,14 +1188,19 @@ class UpdateTriggerRequest:
 
     description: Optional[str]
 
-    nats_config: Optional[CreateTriggerRequestNatsFailureHandlingPolicy]
+    scw_sqs_config: Optional[UpdateTriggerRequestMnqSqsClientConfig]
     """
-    One-of ('failure_handling_policy'): at most one of 'nats_config', 'sqs_config' could be set.
+    One-of ('config'): at most one of 'scw_sqs_config', 'sqs_config', 'scw_nats_config' could be set.
     """
 
-    sqs_config: Optional[CreateTriggerRequestSqsFailureHandlingPolicy]
+    sqs_config: Optional[UpdateTriggerRequestSqsClientConfig]
     """
-    One-of ('failure_handling_policy'): at most one of 'nats_config', 'sqs_config' could be set.
+    One-of ('config'): at most one of 'scw_sqs_config', 'sqs_config', 'scw_nats_config' could be set.
+    """
+
+    scw_nats_config: Optional[UpdateTriggerRequestMnqNatsClientConfig]
+    """
+    One-of ('config'): at most one of 'scw_sqs_config', 'sqs_config', 'scw_nats_config' could be set.
     """
 
 
@@ -1289,101 +1212,3 @@ class DeleteTriggerRequest:
     """
 
     trigger_id: str
-
-
-@dataclass
-class CreateTriggerInputRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config
-    """
-
-    trigger_id: str
-
-    mnq_namespace_id: Optional[str]
-
-    nats_config: Optional[CreateTriggerInputRequestNatsClientConfigSpec]
-    """
-    One-of ('config'): at most one of 'nats_config', 'sqs_config' could be set.
-    """
-
-    sqs_config: Optional[CreateTriggerInputRequestSqsClientConfigSpec]
-    """
-    One-of ('config'): at most one of 'nats_config', 'sqs_config' could be set.
-    """
-
-
-@dataclass
-class GetTriggerInputRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config
-    """
-
-    trigger_input_id: str
-
-
-@dataclass
-class ListTriggerInputsRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config
-    """
-
-    page: Optional[int]
-
-    page_size: Optional[int]
-
-    order_by: Optional[ListTriggerInputsRequestOrderBy]
-
-    trigger_id: str
-
-
-@dataclass
-class SetTriggerInputsRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config
-    """
-
-    trigger_input_id: str
-
-    sqs: Optional[SetTriggerInputsRequestSqsConfigs]
-    """
-    One-of ('configs'): at most one of 'sqs', 'nats' could be set.
-    """
-
-    nats: Optional[SetTriggerInputsRequestNatsConfigs]
-    """
-    One-of ('configs'): at most one of 'sqs', 'nats' could be set.
-    """
-
-
-@dataclass
-class UpdateTriggerInputRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config
-    """
-
-    trigger_input_id: str
-
-    nats_config: Optional[UpdateTriggerInputRequestNatsClientConfigSpec]
-    """
-    One-of ('config'): at most one of 'nats_config', 'sqs_config' could be set.
-    """
-
-    sqs_config: Optional[UpdateTriggerInputRequestSqsClientConfigSpec]
-    """
-    One-of ('config'): at most one of 'nats_config', 'sqs_config' could be set.
-    """
-
-
-@dataclass
-class DeleteTriggerInputRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config
-    """
-
-    trigger_input_id: str

@@ -13,14 +13,9 @@ from .types import (
     FunctionHttpOption,
     FunctionPrivacy,
     FunctionRuntime,
-    TriggerType,
-    CreateTriggerInputRequestNatsClientConfigSpec,
-    CreateTriggerInputRequestSqsClientConfigSpec,
-    CreateTriggerRequestNatsFailureHandlingPolicy,
-    CreateTriggerRequestNatsFailureHandlingPolicyNatsDeadLetter,
-    CreateTriggerRequestNatsFailureHandlingPolicyRetryPolicy,
-    CreateTriggerRequestNatsFailureHandlingPolicySqsDeadLetter,
-    CreateTriggerRequestSqsFailureHandlingPolicy,
+    CreateTriggerRequestMnqNatsClientConfig,
+    CreateTriggerRequestMnqSqsClientConfig,
+    CreateTriggerRequestSqsClientConfig,
     Cron,
     Domain,
     DownloadURL,
@@ -32,28 +27,20 @@ from .types import (
     ListLogsResponse,
     ListNamespacesResponse,
     ListTokensResponse,
-    ListTriggerInputsResponse,
     ListTriggersResponse,
     Log,
     Namespace,
     Runtime,
     Secret,
     SecretHashedValue,
-    SetTriggerInputsRequestNatsConfigs,
-    SetTriggerInputsRequestSqsConfigs,
-    SetTriggerInputsResponse,
     Token,
     Trigger,
-    TriggerInput,
-    TriggerInputNatsClientConfig,
-    TriggerInputSqsClientConfig,
-    TriggerNatsDeadLetter,
-    TriggerNatsFailureHandlingPolicy,
-    TriggerRetryPolicy,
-    TriggerSqsDeadLetter,
-    TriggerSqsFailureHandlingPolicy,
-    UpdateTriggerInputRequestNatsClientConfigSpec,
-    UpdateTriggerInputRequestSqsClientConfigSpec,
+    TriggerMnqNatsClientConfig,
+    TriggerMnqSqsClientConfig,
+    TriggerSqsClientConfig,
+    UpdateTriggerRequestMnqNatsClientConfig,
+    UpdateTriggerRequestMnqSqsClientConfig,
+    UpdateTriggerRequestSqsClientConfig,
     UploadURL,
     CreateNamespaceRequest,
     UpdateNamespaceRequest,
@@ -65,61 +52,7 @@ from .types import (
     CreateTokenRequest,
     CreateTriggerRequest,
     UpdateTriggerRequest,
-    CreateTriggerInputRequest,
-    SetTriggerInputsRequest,
-    UpdateTriggerInputRequest,
 )
-
-
-def unmarshal_TriggerNatsDeadLetter(data: Any) -> TriggerNatsDeadLetter:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'TriggerNatsDeadLetter' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("mnq_namespace_id")
-    args["mnq_namespace_id"] = field
-
-    field = data.get("subject")
-    args["subject"] = field
-
-    return TriggerNatsDeadLetter(**args)
-
-
-def unmarshal_TriggerRetryPolicy(data: Any) -> TriggerRetryPolicy:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'TriggerRetryPolicy' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("max_retries")
-    args["max_retries"] = field
-
-    field = data.get("retry_period")
-    args["retry_period"] = field
-
-    return TriggerRetryPolicy(**args)
-
-
-def unmarshal_TriggerSqsDeadLetter(data: Any) -> TriggerSqsDeadLetter:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'TriggerSqsDeadLetter' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("mnq_namespace_id")
-    args["mnq_namespace_id"] = field
-
-    field = data.get("queue")
-    args["queue"] = field
-
-    return TriggerSqsDeadLetter(**args)
 
 
 def unmarshal_SecretHashedValue(data: Any) -> SecretHashedValue:
@@ -139,73 +72,61 @@ def unmarshal_SecretHashedValue(data: Any) -> SecretHashedValue:
     return SecretHashedValue(**args)
 
 
-def unmarshal_TriggerInputNatsClientConfig(data: Any) -> TriggerInputNatsClientConfig:
+def unmarshal_TriggerMnqNatsClientConfig(data: Any) -> TriggerMnqNatsClientConfig:
     if type(data) is not dict:
         raise TypeError(
-            f"Unmarshalling the type 'TriggerInputNatsClientConfig' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'TriggerMnqNatsClientConfig' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
+
+    field = data.get("mnq_namespace_id")
+    args["mnq_namespace_id"] = field
 
     field = data.get("subject")
     args["subject"] = field
 
-    return TriggerInputNatsClientConfig(**args)
+    return TriggerMnqNatsClientConfig(**args)
 
 
-def unmarshal_TriggerInputSqsClientConfig(data: Any) -> TriggerInputSqsClientConfig:
+def unmarshal_TriggerMnqSqsClientConfig(data: Any) -> TriggerMnqSqsClientConfig:
     if type(data) is not dict:
         raise TypeError(
-            f"Unmarshalling the type 'TriggerInputSqsClientConfig' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'TriggerMnqSqsClientConfig' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
+
+    field = data.get("mnq_namespace_id")
+    args["mnq_namespace_id"] = field
 
     field = data.get("queue")
     args["queue"] = field
 
-    return TriggerInputSqsClientConfig(**args)
+    return TriggerMnqSqsClientConfig(**args)
 
 
-def unmarshal_TriggerNatsFailureHandlingPolicy(
-    data: Any,
-) -> TriggerNatsFailureHandlingPolicy:
+def unmarshal_TriggerSqsClientConfig(data: Any) -> TriggerSqsClientConfig:
     if type(data) is not dict:
         raise TypeError(
-            f"Unmarshalling the type 'TriggerNatsFailureHandlingPolicy' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'TriggerSqsClientConfig' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
-    field = data.get("nats_dead_letter")
-    args["nats_dead_letter"] = (
-        unmarshal_TriggerNatsDeadLetter(field) if field is not None else None
-    )
+    field = data.get("access_key")
+    args["access_key"] = field
 
-    field = data.get("retry_policy")
-    args["retry_policy"] = (
-        unmarshal_TriggerRetryPolicy(field) if field is not None else None
-    )
+    field = data.get("endpoint")
+    args["endpoint"] = field
 
-    field = data.get("sqs_dead_letter")
-    args["sqs_dead_letter"] = (
-        unmarshal_TriggerSqsDeadLetter(field) if field is not None else None
-    )
+    field = data.get("queue_url")
+    args["queue_url"] = field
 
-    return TriggerNatsFailureHandlingPolicy(**args)
+    field = data.get("secret_key")
+    args["secret_key"] = field
 
-
-def unmarshal_TriggerSqsFailureHandlingPolicy(
-    data: Any,
-) -> TriggerSqsFailureHandlingPolicy:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'TriggerSqsFailureHandlingPolicy' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    return TriggerSqsFailureHandlingPolicy(**args)
+    return TriggerSqsClientConfig(**args)
 
 
 def unmarshal_Cron(data: Any) -> Cron:
@@ -510,59 +431,31 @@ def unmarshal_Trigger(data: Any) -> Trigger:
     field = data.get("id")
     args["id"] = field
 
+    field = data.get("input_type")
+    args["input_type"] = field
+
     field = data.get("name")
     args["name"] = field
 
-    field = data.get("nats_failure_handling_policy")
-    args["nats_failure_handling_policy"] = (
-        unmarshal_TriggerNatsFailureHandlingPolicy(field) if field is not None else None
+    field = data.get("scw_nats_config")
+    args["scw_nats_config"] = (
+        unmarshal_TriggerMnqNatsClientConfig(field) if field is not None else None
     )
 
-    field = data.get("sqs_failure_handling_policy")
-    args["sqs_failure_handling_policy"] = (
-        unmarshal_TriggerSqsFailureHandlingPolicy(field) if field is not None else None
-    )
-
-    field = data.get("status")
-    args["status"] = field
-
-    field = data.get("type_")
-    args["type_"] = field
-
-    return Trigger(**args)
-
-
-def unmarshal_TriggerInput(data: Any) -> TriggerInput:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'TriggerInput' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("error_message")
-    args["error_message"] = field
-
-    field = data.get("id")
-    args["id"] = field
-
-    field = data.get("mnq_namespace_id")
-    args["mnq_namespace_id"] = field
-
-    field = data.get("nats_config")
-    args["nats_config"] = (
-        unmarshal_TriggerInputNatsClientConfig(field) if field is not None else None
+    field = data.get("scw_sqs_config")
+    args["scw_sqs_config"] = (
+        unmarshal_TriggerMnqSqsClientConfig(field) if field is not None else None
     )
 
     field = data.get("sqs_config")
     args["sqs_config"] = (
-        unmarshal_TriggerInputSqsClientConfig(field) if field is not None else None
+        unmarshal_TriggerSqsClientConfig(field) if field is not None else None
     )
 
     field = data.get("status")
     args["status"] = field
 
-    return TriggerInput(**args)
+    return Trigger(**args)
 
 
 def unmarshal_DownloadURL(data: Any) -> DownloadURL:
@@ -701,23 +594,6 @@ def unmarshal_ListTokensResponse(data: Any) -> ListTokensResponse:
     return ListTokensResponse(**args)
 
 
-def unmarshal_ListTriggerInputsResponse(data: Any) -> ListTriggerInputsResponse:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'ListTriggerInputsResponse' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("inputs")
-    args["inputs"] = [unmarshal_TriggerInput(v) for v in data["inputs"]]
-
-    field = data.get("total_count")
-    args["total_count"] = field
-
-    return ListTriggerInputsResponse(**args)
-
-
 def unmarshal_ListTriggersResponse(data: Any) -> ListTriggersResponse:
     if type(data) is not dict:
         raise TypeError(
@@ -733,20 +609,6 @@ def unmarshal_ListTriggersResponse(data: Any) -> ListTriggersResponse:
     args["triggers"] = [unmarshal_Trigger(v) for v in data["triggers"]]
 
     return ListTriggersResponse(**args)
-
-
-def unmarshal_SetTriggerInputsResponse(data: Any) -> SetTriggerInputsResponse:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'SetTriggerInputsResponse' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("trigger_inputs")
-    args["trigger_inputs"] = [unmarshal_TriggerInput(v) for v in data["trigger_inputs"]]
-
-    return SetTriggerInputsResponse(**args)
 
 
 def unmarshal_UploadURL(data: Any) -> UploadURL:
@@ -766,26 +628,8 @@ def unmarshal_UploadURL(data: Any) -> UploadURL:
     return UploadURL(**args)
 
 
-def marshal_CreateTriggerInputRequestNatsClientConfigSpec(
-    request: CreateTriggerInputRequestNatsClientConfigSpec,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    return {
-        "subject": request.subject,
-    }
-
-
-def marshal_CreateTriggerInputRequestSqsClientConfigSpec(
-    request: CreateTriggerInputRequestSqsClientConfigSpec,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    return {
-        "queue": request.queue,
-    }
-
-
-def marshal_CreateTriggerRequestNatsFailureHandlingPolicyNatsDeadLetter(
-    request: CreateTriggerRequestNatsFailureHandlingPolicyNatsDeadLetter,
+def marshal_CreateTriggerRequestMnqNatsClientConfig(
+    request: CreateTriggerRequestMnqNatsClientConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
@@ -794,18 +638,8 @@ def marshal_CreateTriggerRequestNatsFailureHandlingPolicyNatsDeadLetter(
     }
 
 
-def marshal_CreateTriggerRequestNatsFailureHandlingPolicyRetryPolicy(
-    request: CreateTriggerRequestNatsFailureHandlingPolicyRetryPolicy,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    return {
-        "max_retries": request.max_retries,
-        "retry_period": request.retry_period,
-    }
-
-
-def marshal_CreateTriggerRequestNatsFailureHandlingPolicySqsDeadLetter(
-    request: CreateTriggerRequestNatsFailureHandlingPolicySqsDeadLetter,
+def marshal_CreateTriggerRequestMnqSqsClientConfig(
+    request: CreateTriggerRequestMnqSqsClientConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
@@ -814,30 +648,16 @@ def marshal_CreateTriggerRequestNatsFailureHandlingPolicySqsDeadLetter(
     }
 
 
-def marshal_CreateTriggerRequestNatsFailureHandlingPolicy(
-    request: CreateTriggerRequestNatsFailureHandlingPolicy,
+def marshal_CreateTriggerRequestSqsClientConfig(
+    request: CreateTriggerRequestSqsClientConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
-        **resolve_one_of(
-            [
-                OneOfPossibility("nats_dead_letter", request.nats_dead_letter),
-                OneOfPossibility("sqs_dead_letter", request.sqs_dead_letter),
-            ]
-        ),
-        "retry_policy": marshal_CreateTriggerRequestNatsFailureHandlingPolicyRetryPolicy(
-            request.retry_policy, defaults
-        )
-        if request.retry_policy is not None
-        else None,
+        "access_key": request.access_key,
+        "endpoint": request.endpoint,
+        "queue_url": request.queue_url,
+        "secret_key": request.secret_key,
     }
-
-
-def marshal_CreateTriggerRequestSqsFailureHandlingPolicy(
-    request: CreateTriggerRequestSqsFailureHandlingPolicy,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    return {}
 
 
 def marshal_Secret(
@@ -850,45 +670,35 @@ def marshal_Secret(
     }
 
 
-def marshal_SetTriggerInputsRequestNatsConfigs(
-    request: SetTriggerInputsRequestNatsConfigs,
+def marshal_UpdateTriggerRequestMnqNatsClientConfig(
+    request: UpdateTriggerRequestMnqNatsClientConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
-        "configs": [
-            marshal_CreateTriggerInputRequestNatsClientConfigSpec(v, defaults)
-            for v in request.configs
-        ],
-    }
-
-
-def marshal_SetTriggerInputsRequestSqsConfigs(
-    request: SetTriggerInputsRequestSqsConfigs,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    return {
-        "configs": [
-            marshal_CreateTriggerInputRequestSqsClientConfigSpec(v, defaults)
-            for v in request.configs
-        ],
-    }
-
-
-def marshal_UpdateTriggerInputRequestNatsClientConfigSpec(
-    request: UpdateTriggerInputRequestNatsClientConfigSpec,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    return {
+        "mnq_namespace_id": request.mnq_namespace_id,
         "subject": request.subject,
     }
 
 
-def marshal_UpdateTriggerInputRequestSqsClientConfigSpec(
-    request: UpdateTriggerInputRequestSqsClientConfigSpec,
+def marshal_UpdateTriggerRequestMnqSqsClientConfig(
+    request: UpdateTriggerRequestMnqSqsClientConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
+        "mnq_namespace_id": request.mnq_namespace_id,
         "queue": request.queue,
+    }
+
+
+def marshal_UpdateTriggerRequestSqsClientConfig(
+    request: UpdateTriggerRequestSqsClientConfig,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    return {
+        "access_key": request.access_key,
+        "endpoint": request.endpoint,
+        "queue_url": request.queue_url,
+        "secret_key": request.secret_key,
     }
 
 
@@ -972,22 +782,6 @@ def marshal_CreateTokenRequest(
     }
 
 
-def marshal_CreateTriggerInputRequest(
-    request: CreateTriggerInputRequest,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
-            [
-                OneOfPossibility("nats_config", request.nats_config),
-                OneOfPossibility("sqs_config", request.sqs_config),
-            ]
-        ),
-        "mnq_namespace_id": request.mnq_namespace_id,
-        "trigger_id": request.trigger_id,
-    }
-
-
 def marshal_CreateTriggerRequest(
     request: CreateTriggerRequest,
     defaults: ProfileDefaults,
@@ -995,33 +789,14 @@ def marshal_CreateTriggerRequest(
     return {
         **resolve_one_of(
             [
-                OneOfPossibility(
-                    "nats_failure_handling_policy", request.nats_failure_handling_policy
-                ),
-                OneOfPossibility(
-                    "sqs_failure_handling_policy", request.sqs_failure_handling_policy
-                ),
+                OneOfPossibility("scw_sqs_config", request.scw_sqs_config),
+                OneOfPossibility("sqs_config", request.sqs_config),
+                OneOfPossibility("scw_nats_config", request.scw_nats_config),
             ]
         ),
         "description": request.description,
         "function_id": request.function_id,
         "name": request.name,
-        "type": TriggerType(request.type_),
-    }
-
-
-def marshal_SetTriggerInputsRequest(
-    request: SetTriggerInputsRequest,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
-            [
-                OneOfPossibility("sqs", request.sqs),
-                OneOfPossibility("nats", request.nats),
-            ]
-        ),
-        "trigger_input_id": request.trigger_input_id,
     }
 
 
@@ -1076,20 +851,6 @@ def marshal_UpdateNamespaceRequest(
     }
 
 
-def marshal_UpdateTriggerInputRequest(
-    request: UpdateTriggerInputRequest,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
-            [
-                OneOfPossibility("nats_config", request.nats_config),
-                OneOfPossibility("sqs_config", request.sqs_config),
-            ]
-        ),
-    }
-
-
 def marshal_UpdateTriggerRequest(
     request: UpdateTriggerRequest,
     defaults: ProfileDefaults,
@@ -1097,8 +858,9 @@ def marshal_UpdateTriggerRequest(
     return {
         **resolve_one_of(
             [
-                OneOfPossibility("nats_config", request.nats_config),
+                OneOfPossibility("scw_sqs_config", request.scw_sqs_config),
                 OneOfPossibility("sqs_config", request.sqs_config),
+                OneOfPossibility("scw_nats_config", request.scw_nats_config),
             ]
         ),
         "description": request.description,
