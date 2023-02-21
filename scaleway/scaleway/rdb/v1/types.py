@@ -177,6 +177,15 @@ class MaintenanceStatus(str, Enum):
         return str(self.value)
 
 
+class NodeTypeGeneration(str, Enum):
+    UNKNOWN_GENERATION = "unknown_generation"
+    GENERATION_V1 = "generation_v1"
+    GENERATION_V2 = "generation_v2"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class NodeTypeStock(str, Enum):
     UNKNOWN = "unknown"
     LOW_STOCK = "low_stock"
@@ -1156,6 +1165,11 @@ class NodeType:
     is_ha_required: bool
     """
     The Node Type can be used only with high availability option
+    """
+
+    generation: NodeTypeGeneration
+    """
+    Generation associated the NodeType offer
     """
 
     region: Region

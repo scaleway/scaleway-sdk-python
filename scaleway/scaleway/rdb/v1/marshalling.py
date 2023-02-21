@@ -730,6 +730,9 @@ def unmarshal_NodeType(data: Any) -> NodeType:
     field = data.get("disabled")
     args["disabled"] = field
 
+    field = data.get("generation")
+    args["generation"] = field
+
     field = data.get("is_bssd_compatible")
     args["is_bssd_compatible"] = field
 

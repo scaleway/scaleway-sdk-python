@@ -15,6 +15,7 @@ from .types import ListPrivilegesRequestOrderBy
 from .types import ListSnapshotsRequestOrderBy
 from .types import ListUsersRequestOrderBy
 from .types import MaintenanceStatus
+from .types import NodeTypeGeneration
 from .types import NodeTypeStock
 from .types import Permission
 from .types import ReadReplicaStatus
@@ -96,6 +97,7 @@ __all__ = [
     "ListSnapshotsRequestOrderBy",
     "ListUsersRequestOrderBy",
     "MaintenanceStatus",
+    "NodeTypeGeneration",
     "NodeTypeStock",
     "Permission",
     "ReadReplicaStatus",
