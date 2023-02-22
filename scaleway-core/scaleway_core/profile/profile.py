@@ -85,7 +85,7 @@ ProfileSelf = TypeVar("ProfileSelf", bound="Profile")
 
 @dataclass
 class Profile(ProfileDefaults, ProfileConfig):
-    def merge(self, other: Profile):
+    def merge(self, other: Profile) -> None:
         """
         Merge the current profile with another one.
         """
