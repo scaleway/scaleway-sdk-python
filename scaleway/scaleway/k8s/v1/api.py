@@ -34,6 +34,7 @@ from .types import (
     CreateClusterRequestOpenIDConnectConfig,
     CreateClusterRequestPoolConfig,
     CreatePoolRequestUpgradePolicy,
+    ExternalNode,
     ListClusterAvailableVersionsResponse,
     ListClustersResponse,
     ListNodesResponse,
@@ -69,6 +70,7 @@ from .marshalling import (
     unmarshal_Node,
     unmarshal_Pool,
     unmarshal_Version,
+    unmarshal_ExternalNode,
     unmarshal_ListClusterAvailableVersionsResponse,
     unmarshal_ListClustersResponse,
     unmarshal_ListNodesResponse,
@@ -991,6 +993,37 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Pool(res.json())
+
+    def create_external_node(
+        self,
+        *,
+        pool_id: str,
+        region: Optional[Region] = None,
+    ) -> ExternalNode:
+        """
+        This method returns metadata about a Kosmos node, it is not intended to be directly called by end users, rather by kapsule-node-agent.
+        :param region: Region to target. If none is passed will use default region from the config
+        :param pool_id:
+        :return: :class:`ExternalNode <ExternalNode>`
+
+        Usage:
+        ::
+
+            result = api.create_external_node(pool_id="example")
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_pool_id = validate_path_param("pool_id", pool_id)
+
+        res = self._request(
+            "POST",
+            f"/k8s/v1/regions/{param_region}/pools/{param_pool_id}/external-nodes",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ExternalNode(res.json())
 
     def list_nodes(
         self,

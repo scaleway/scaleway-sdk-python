@@ -27,6 +27,7 @@ from .types import (
     CreateClusterRequestPoolConfig,
     CreateClusterRequestPoolConfigUpgradePolicy,
     CreatePoolRequestUpgradePolicy,
+    ExternalNode,
     ListClusterAvailableVersionsResponse,
     ListClustersResponse,
     ListNodesResponse,
@@ -430,6 +431,38 @@ def unmarshal_Version(data: Any) -> Version:
     args["region"] = field
 
     return Version(**args)
+
+
+def unmarshal_ExternalNode(data: Any) -> ExternalNode:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'ExternalNode' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("cluster_ca")
+    args["cluster_ca"] = field
+
+    field = data.get("cluster_url")
+    args["cluster_url"] = field
+
+    field = data.get("cluster_version")
+    args["cluster_version"] = field
+
+    field = data.get("id")
+    args["id"] = field
+
+    field = data.get("kube_token")
+    args["kube_token"] = field
+
+    field = data.get("kubelet_config")
+    args["kubelet_config"] = field
+
+    field = data.get("name")
+    args["name"] = field
+
+    return ExternalNode(**args)
 
 
 def unmarshal_ListClusterAvailableVersionsResponse(

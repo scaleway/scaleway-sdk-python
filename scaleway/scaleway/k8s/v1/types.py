@@ -659,6 +659,23 @@ class CreatePoolRequestUpgradePolicy:
 
 
 @dataclass
+class ExternalNode:
+    id: str
+
+    name: str
+
+    cluster_url: str
+
+    cluster_version: str
+
+    cluster_ca: str
+
+    kube_token: str
+
+    kubelet_config: str
+
+
+@dataclass
 class ListClusterAvailableVersionsResponse:
     """
     List cluster available versions response
@@ -1661,6 +1678,16 @@ class DeletePoolRequest:
     """
     The ID of the pool to delete
     """
+
+
+@dataclass
+class CreateExternalNodeRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config
+    """
+
+    pool_id: str
 
 
 @dataclass
