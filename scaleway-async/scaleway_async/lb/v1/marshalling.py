@@ -1242,7 +1242,9 @@ def marshal_AclSpec(
         "action": marshal_AclAction(request.action, defaults),
         "description": request.description,
         "index": request.index,
-        "match": marshal_AclMatch(request.match, defaults),
+        "match": marshal_AclMatch(request.match, defaults)
+        if request.match is not None
+        else None,
         "name": request.name,
     }
 
@@ -1369,7 +1371,9 @@ def marshal_CreateAclRequest(
         "action": marshal_AclAction(request.action, defaults),
         "description": request.description,
         "index": request.index,
-        "match": marshal_AclMatch(request.match, defaults),
+        "match": marshal_AclMatch(request.match, defaults)
+        if request.match is not None
+        else None,
         "name": request.name,
     }
 
@@ -1568,7 +1572,9 @@ def marshal_UpdateAclRequest(
         "action": marshal_AclAction(request.action, defaults),
         "description": request.description,
         "index": request.index,
-        "match": marshal_AclMatch(request.match, defaults),
+        "match": marshal_AclMatch(request.match, defaults)
+        if request.match is not None
+        else None,
         "name": request.name,
     }
 
@@ -1731,7 +1737,9 @@ def marshal_ZonedApiCreateAclRequest(
         "action": marshal_AclAction(request.action, defaults),
         "description": request.description,
         "index": request.index,
-        "match": marshal_AclMatch(request.match, defaults),
+        "match": marshal_AclMatch(request.match, defaults)
+        if request.match is not None
+        else None,
         "name": request.name,
     }
 
@@ -1939,7 +1947,9 @@ def marshal_ZonedApiUpdateAclRequest(
         "action": marshal_AclAction(request.action, defaults),
         "description": request.description,
         "index": request.index,
-        "match": marshal_AclMatch(request.match, defaults),
+        "match": marshal_AclMatch(request.match, defaults)
+        if request.match is not None
+        else None,
         "name": request.name,
     }
 

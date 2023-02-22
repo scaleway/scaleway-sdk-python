@@ -2079,11 +2079,11 @@ class LbV1API(API):
         *,
         frontend_id: str,
         action: AclAction,
-        match: AclMatch,
         index: int,
         description: str,
         region: Optional[Region] = None,
         name: Optional[str] = None,
+        match: Optional[AclMatch] = None,
     ) -> Acl:
         """
         Create an ACL for a given frontend
@@ -2107,7 +2107,6 @@ class LbV1API(API):
             result = await api.create_acl(
                 frontend_id="example",
                 action=AclAction(...),
-                match=AclMatch(...),
                 index=1,
                 description="example",
             )
@@ -2125,11 +2124,11 @@ class LbV1API(API):
                 CreateAclRequest(
                     frontend_id=frontend_id,
                     action=action,
-                    match=match,
                     index=index,
                     description=description,
                     region=region,
                     name=name or random_name(prefix="acl"),
+                    match=match,
                 ),
                 self.client,
             ),
@@ -2175,9 +2174,9 @@ class LbV1API(API):
         acl_id: str,
         name: str,
         action: AclAction,
-        match: AclMatch,
         index: int,
         region: Optional[Region] = None,
+        match: Optional[AclMatch] = None,
         description: Optional[str] = None,
     ) -> Acl:
         """
@@ -2198,7 +2197,6 @@ class LbV1API(API):
                 acl_id="example",
                 name="example",
                 action=AclAction(...),
-                match=AclMatch(...),
                 index=1,
             )
         """
@@ -2216,9 +2214,9 @@ class LbV1API(API):
                     acl_id=acl_id,
                     name=name,
                     action=action,
-                    match=match,
                     index=index,
                     region=region,
+                    match=match,
                     description=description,
                 ),
                 self.client,
@@ -4932,11 +4930,11 @@ class LbZonedV1API(API):
         *,
         frontend_id: str,
         action: AclAction,
-        match: AclMatch,
         index: int,
         description: str,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
+        match: Optional[AclMatch] = None,
     ) -> Acl:
         """
         Create an ACL for a given frontend
@@ -4960,7 +4958,6 @@ class LbZonedV1API(API):
             result = await api.create_acl(
                 frontend_id="example",
                 action=AclAction(...),
-                match=AclMatch(...),
                 index=1,
                 description="example",
             )
@@ -4976,11 +4973,11 @@ class LbZonedV1API(API):
                 ZonedApiCreateAclRequest(
                     frontend_id=frontend_id,
                     action=action,
-                    match=match,
                     index=index,
                     description=description,
                     zone=zone,
                     name=name or random_name(prefix="acl"),
+                    match=match,
                 ),
                 self.client,
             ),
@@ -5024,9 +5021,9 @@ class LbZonedV1API(API):
         acl_id: str,
         name: str,
         action: AclAction,
-        match: AclMatch,
         index: int,
         zone: Optional[Zone] = None,
+        match: Optional[AclMatch] = None,
         description: Optional[str] = None,
     ) -> Acl:
         """
@@ -5047,7 +5044,6 @@ class LbZonedV1API(API):
                 acl_id="example",
                 name="example",
                 action=AclAction(...),
-                match=AclMatch(...),
                 index=1,
             )
         """
@@ -5063,9 +5059,9 @@ class LbZonedV1API(API):
                     acl_id=acl_id,
                     name=name,
                     action=action,
-                    match=match,
                     index=index,
                     zone=zone,
+                    match=match,
                     description=description,
                 ),
                 self.client,

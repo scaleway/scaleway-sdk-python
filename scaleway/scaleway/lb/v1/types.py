@@ -420,7 +420,7 @@ class AclSpec:
     Action to undertake when an ACL filter matches
     """
 
-    match: AclMatch
+    match: Optional[AclMatch]
     """
     The ACL match rule. At least `ip_subnet` or `http_filter` and `http_filter_value` are required
     """
@@ -2557,7 +2557,7 @@ class CreateAclRequest:
     Action to undertake when an ACL filter matches
     """
 
-    match: AclMatch
+    match: Optional[AclMatch]
     """
     The ACL match rule. You can have one of those three cases:
     
@@ -2613,7 +2613,7 @@ class UpdateAclRequest:
     Action to undertake when an ACL filter matches
     """
 
-    match: AclMatch
+    match: Optional[AclMatch]
     """
     The ACL match rule. At least `ip_subnet` or `http_filter` and `http_filter_value` are required
     """
@@ -4053,7 +4053,7 @@ class ZonedApiCreateAclRequest:
     Action to undertake when an ACL filter matches
     """
 
-    match: AclMatch
+    match: Optional[AclMatch]
     """
     The ACL match rule. You can have one of those three cases:
     
@@ -4109,7 +4109,7 @@ class ZonedApiUpdateAclRequest:
     Action to undertake when an ACL filter matches
     """
 
-    match: AclMatch
+    match: Optional[AclMatch]
     """
     The ACL match rule. At least `ip_subnet` or `http_filter` and `http_filter_value` are required
     """
