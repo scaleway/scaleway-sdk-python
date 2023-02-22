@@ -78,6 +78,7 @@ class FunctionRuntime(str, Enum):
     PYTHON311 = "python311"
     PHP82 = "php82"
     NODE19 = "node19"
+    GO120 = "go120"
 
     def __str__(self) -> str:
         return str(self.value)
