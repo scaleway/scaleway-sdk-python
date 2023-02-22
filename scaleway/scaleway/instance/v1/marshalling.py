@@ -126,6 +126,7 @@ from .types import (
     CreateIpRequest,
     UpdateIpRequest,
     CreatePrivateNICRequest,
+    UpdatePrivateNICRequest,
 )
 from .types_private import (
     _SetImageResponse,
@@ -436,6 +437,9 @@ def unmarshal_PrivateNIC(data: Any) -> PrivateNIC:
 
     field = data.get("state")
     args["state"] = field
+
+    field = data.get("tags")
+    args["tags"] = field
 
     return PrivateNIC(**args)
 
@@ -1621,6 +1625,9 @@ def unmarshal_ListPrivateNICsResponse(data: Any) -> ListPrivateNICsResponse:
     field = data.get("private_nics")
     args["private_nics"] = [unmarshal_PrivateNIC(v) for v in data["private_nics"]]
 
+    field = data.get("total_count")
+    args["total_count"] = field
+
     return ListPrivateNICsResponse(**args)
 
 
@@ -2102,6 +2109,7 @@ def marshal_PrivateNIC(
         "private_network_id": request.private_network_id,
         "server_id": request.server_id,
         "state": PrivateNICState(request.state),
+        "tags": request.tags,
     }
 
 
@@ -2330,6 +2338,7 @@ def marshal_CreatePrivateNICRequest(
 ) -> Dict[str, Any]:
     return {
         "private_network_id": request.private_network_id,
+        "tags": request.tags,
     }
 
 
@@ -2540,6 +2549,15 @@ def marshal_UpdatePlacementGroupServersRequest(
 ) -> Dict[str, Any]:
     return {
         "servers": request.servers,
+    }
+
+
+def marshal_UpdatePrivateNICRequest(
+    request: UpdatePrivateNICRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    return {
+        "tags": request.tags,
     }
 
 
