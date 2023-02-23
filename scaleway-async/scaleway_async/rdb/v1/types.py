@@ -250,7 +250,10 @@ class VolumeType(str, Enum):
 class ACLRule:
     ip: str
 
-    port: int
+    port: Optional[int]
+    """
+    :deprecated
+    """
 
     protocol: ACLRuleProtocol
 
