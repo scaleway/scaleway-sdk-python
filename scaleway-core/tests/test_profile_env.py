@@ -6,7 +6,6 @@ import uuid
 from unittest import mock
 
 import utils
-
 from scaleway_core.profile import Profile
 
 logger = logging.getLogger()

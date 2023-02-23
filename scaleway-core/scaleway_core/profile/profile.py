@@ -85,18 +85,15 @@ ProfileSelf = TypeVar("ProfileSelf", bound="Profile")
 
 @dataclass
 class Profile(ProfileDefaults, ProfileConfig):
-    @classmethod
-    def merge(cls: Type[ProfileSelf], other: ProfileSelf) -> ProfileSelf:
+    def merge(self, other: Profile) -> None:
         """
-        Create a new profile by merging the current profile with another one.
+        Merge the current profile with another one.
         """
-        fields = dataclasses.fields(Profile)
-        merged = {}
+        for field in dataclasses.fields(Profile):
+            current_value = getattr(self, field.name)
 
-        for field in fields:
-            merged[field.name] = getattr(cls, field.name) or getattr(other, field.name)
-
-        return cls(**merged)
+            if current_value is None:
+                setattr(self, field.name, getattr(other, field.name))
 
     @classmethod
     def from_env(cls: Type[ProfileSelf]) -> ProfileSelf:
@@ -192,7 +189,8 @@ class Profile(ProfileDefaults, ProfileConfig):
 
         try:
             a = cls.from_config_file(filepath, profile_name)
-            return profile.merge(a)
+            profile.merge(a)
         except Exception as e:
             print(e)
-            return profile
+
+        return profile
