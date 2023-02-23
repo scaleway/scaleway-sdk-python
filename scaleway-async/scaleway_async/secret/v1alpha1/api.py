@@ -8,9 +8,7 @@ from scaleway_core.bridge import (
     Region,
 )
 from scaleway_core.utils import (
-    OneOfPossibility,
     fetch_all_pages_async,
-    resolve_one_of,
     validate_path_param,
 )
 from .types import (
@@ -95,23 +93,19 @@ class SecretV1Alpha1API(API):
     async def get_secret(
         self,
         *,
+        secret_id: str,
         region: Optional[Region] = None,
-        secret_id: Optional[str] = None,
-        secret_name: Optional[str] = None,
     ) -> Secret:
         """
         Get metadata of a Secret
         :param region: Region to target. If none is passed will use default region from the config
         :param secret_id: ID of the Secret
-        :param secret_name: Name of the Secret (alternative to secret_id).
-
-        One-of ('secret_ref'): at most one of 'secret_name' could be set.
         :return: :class:`Secret <Secret>`
 
         Usage:
         ::
 
-            result = await api.get_secret()
+            result = await api.get_secret(secret_id="example")
         """
 
         param_region = validate_path_param(
@@ -122,13 +116,6 @@ class SecretV1Alpha1API(API):
         res = self._request(
             "GET",
             f"/secret-manager/v1alpha1/regions/{param_region}/secrets/{param_secret_id}",
-            params={
-                **resolve_one_of(
-                    [
-                        OneOfPossibility("secret_name", secret_name),
-                    ]
-                ),
-            },
         )
 
         self._throw_on_error(res)
@@ -188,7 +175,6 @@ class SecretV1Alpha1API(API):
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         tags: Optional[List[str]] = None,
-        name: Optional[str] = None,
         order_by: ListSecretsRequestOrderBy = ListSecretsRequestOrderBy.NAME_ASC,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -199,7 +185,6 @@ class SecretV1Alpha1API(API):
         :param organization_id: ID of an organization to filter on (optional)
         :param project_id: ID of a project to filter on (optional)
         :param tags: List of tags to filter on (optional)
-        :param name: Name of the secrets (optional)
         :param order_by:
         :param page:
         :param page_size:
@@ -219,7 +204,6 @@ class SecretV1Alpha1API(API):
             "GET",
             f"/secret-manager/v1alpha1/regions/{param_region}/secrets",
             params={
-                "name": name,
                 "order_by": order_by,
                 "organization_id": organization_id
                 or self.client.default_organization_id,
@@ -240,7 +224,6 @@ class SecretV1Alpha1API(API):
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         tags: Optional[List[str]] = None,
-        name: Optional[str] = None,
         order_by: Optional[ListSecretsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -251,7 +234,6 @@ class SecretV1Alpha1API(API):
         :param organization_id: ID of an organization to filter on (optional)
         :param project_id: ID of a project to filter on (optional)
         :param tags: List of tags to filter on (optional)
-        :param name: Name of the secrets (optional)
         :param order_by:
         :param page:
         :param page_size:
@@ -272,7 +254,6 @@ class SecretV1Alpha1API(API):
                 "organization_id": organization_id,
                 "project_id": project_id,
                 "tags": tags,
-                "name": name,
                 "order_by": order_by,
                 "page": page,
                 "page_size": page_size,
@@ -359,25 +340,24 @@ class SecretV1Alpha1API(API):
     async def get_secret_version(
         self,
         *,
+        secret_id: str,
         revision: str,
         region: Optional[Region] = None,
-        secret_id: Optional[str] = None,
-        secret_name: Optional[str] = None,
     ) -> SecretVersion:
         """
         Get metadata of a SecretVersion
         :param region: Region to target. If none is passed will use default region from the config
         :param secret_id: ID of the Secret
         :param revision: Revision of the SecretVersion (may be a number or "latest")
-        :param secret_name: Name of the Secret (alternative to secret_id).
-
-        One-of ('secret_ref'): at most one of 'secret_name' could be set.
         :return: :class:`SecretVersion <SecretVersion>`
 
         Usage:
         ::
 
-            result = await api.get_secret_version(revision="example")
+            result = await api.get_secret_version(
+                secret_id="example",
+                revision="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -389,13 +369,6 @@ class SecretV1Alpha1API(API):
         res = self._request(
             "GET",
             f"/secret-manager/v1alpha1/regions/{param_region}/secrets/{param_secret_id}/versions/{param_revision}",
-            params={
-                **resolve_one_of(
-                    [
-                        OneOfPossibility("secret_name", secret_name),
-                    ]
-                ),
-            },
         )
 
         self._throw_on_error(res)
@@ -452,9 +425,8 @@ class SecretV1Alpha1API(API):
     async def list_secret_versions(
         self,
         *,
+        secret_id: str,
         region: Optional[Region] = None,
-        secret_id: Optional[str] = None,
-        secret_name: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         status: Optional[List[SecretVersionStatus]] = None,
@@ -463,9 +435,6 @@ class SecretV1Alpha1API(API):
         List versions of a secret, not returning any sensitive data
         :param region: Region to target. If none is passed will use default region from the config
         :param secret_id: ID of the Secret
-        :param secret_name: Name of the Secret (alternative to secret_id).
-
-        One-of ('secret_ref'): at most one of 'secret_name' could be set.
         :param page:
         :param page_size:
         :param status: Filter results by status
@@ -474,7 +443,7 @@ class SecretV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.list_secret_versions()
+            result = await api.list_secret_versions(secret_id="example")
         """
 
         param_region = validate_path_param(
@@ -489,11 +458,6 @@ class SecretV1Alpha1API(API):
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "status": status,
-                **resolve_one_of(
-                    [
-                        OneOfPossibility("secret_name", secret_name),
-                    ]
-                ),
             },
         )
 
@@ -503,9 +467,8 @@ class SecretV1Alpha1API(API):
     async def list_secret_versions_all(
         self,
         *,
+        secret_id: str,
         region: Optional[Region] = None,
-        secret_id: Optional[str] = None,
-        secret_name: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         status: Optional[List[SecretVersionStatus]] = None,
@@ -514,9 +477,6 @@ class SecretV1Alpha1API(API):
         List versions of a secret, not returning any sensitive data
         :param region: Region to target. If none is passed will use default region from the config
         :param secret_id: ID of the Secret
-        :param secret_name: Name of the Secret (alternative to secret_id).
-
-        One-of ('secret_ref'): at most one of 'secret_name' could be set.
         :param page:
         :param page_size:
         :param status: Filter results by status
@@ -525,7 +485,7 @@ class SecretV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.list_secret_versions_all()
+            result = await api.list_secret_versions_all(secret_id="example")
         """
 
         return await fetch_all_pages_async(
@@ -533,9 +493,8 @@ class SecretV1Alpha1API(API):
             key="versions",
             fetcher=self.list_secret_versions,
             args={
-                "region": region,
                 "secret_id": secret_id,
-                "secret_name": secret_name,
+                "region": region,
                 "page": page,
                 "page_size": page_size,
                 "status": status,
@@ -656,25 +615,24 @@ class SecretV1Alpha1API(API):
     async def access_secret_version(
         self,
         *,
+        secret_id: str,
         revision: str,
         region: Optional[Region] = None,
-        secret_id: Optional[str] = None,
-        secret_name: Optional[str] = None,
     ) -> AccessSecretVersionResponse:
         """
         Access a SecretVersion, returning the sensitive data
         :param region: Region to target. If none is passed will use default region from the config
         :param secret_id: ID of the Secret
-        :param revision: Revision of the SecretVersion (may be a number, "latest" or "latest_enabled")
-        :param secret_name: Name of the Secret (alternative to secret_id).
-
-        One-of ('secret_ref'): at most one of 'secret_name' could be set.
+        :param revision: Revision of the SecretVersion (may be a number or "latest")
         :return: :class:`AccessSecretVersionResponse <AccessSecretVersionResponse>`
 
         Usage:
         ::
 
-            result = await api.access_secret_version(revision="example")
+            result = await api.access_secret_version(
+                secret_id="example",
+                revision="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -686,13 +644,6 @@ class SecretV1Alpha1API(API):
         res = self._request(
             "GET",
             f"/secret-manager/v1alpha1/regions/{param_region}/secrets/{param_secret_id}/versions/{param_revision}/access",
-            params={
-                **resolve_one_of(
-                    [
-                        OneOfPossibility("secret_name", secret_name),
-                    ]
-                ),
-            },
         )
 
         self._throw_on_error(res)
