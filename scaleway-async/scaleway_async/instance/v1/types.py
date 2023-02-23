@@ -574,6 +574,8 @@ class ListPlacementGroupsResponse:
 class ListPrivateNICsResponse:
     private_nics: List[PrivateNIC]
 
+    total_count: int
+
 
 @dataclass
 class ListSecurityGroupRulesResponse:
@@ -794,6 +796,11 @@ class PrivateNIC:
     state: PrivateNICState
     """
     The private NIC state
+    """
+
+    tags: List[str]
+    """
+    The private NIC tags
     """
 
 
@@ -2964,6 +2971,21 @@ class ListPrivateNICsRequest:
     The server the private NIC is attached to
     """
 
+    tags: Optional[List[str]]
+    """
+    The private NIC tags
+    """
+
+    per_page: Optional[int]
+    """
+    A positive integer lower or equal to 100 to select the number of items to return
+    """
+
+    page: Optional[int]
+    """
+    A positive integer to choose the page to return
+    """
+
 
 @dataclass
 class CreatePrivateNICRequest:
@@ -2982,6 +3004,11 @@ class CreatePrivateNICRequest:
     UUID of the private network where the private NIC will be attached
     """
 
+    tags: Optional[List[str]]
+    """
+    The private NIC tags
+    """
+
 
 @dataclass
 class GetPrivateNICRequest:
@@ -2998,6 +3025,29 @@ class GetPrivateNICRequest:
     private_nic_id: str
     """
     The private NIC unique ID
+    """
+
+
+@dataclass
+class UpdatePrivateNICRequest:
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config
+    """
+
+    server_id: str
+    """
+    UUID of the server the private NIC will be attached to
+    """
+
+    private_nic_id: str
+    """
+    The private NIC unique ID
+    """
+
+    tags: Optional[List[str]]
+    """
+    Tags used to select private NIC/s
     """
 
 

@@ -115,6 +115,7 @@ from .types import (
     CreateIpRequest,
     UpdateIpRequest,
     CreatePrivateNICRequest,
+    UpdatePrivateNICRequest,
 )
 from .types_private import (
     _SetImageResponse,
@@ -147,6 +148,7 @@ from .marshalling import (
     marshal_UpdateIpRequest,
     marshal_UpdatePlacementGroupRequest,
     marshal_UpdatePlacementGroupServersRequest,
+    marshal_UpdatePrivateNICRequest,
     marshal_UpdateVolumeRequest,
     marshal__CreateServerRequest,
     marshal__SetImageRequest,
@@ -155,6 +157,7 @@ from .marshalling import (
     marshal__SetServerRequest,
     marshal__SetSnapshotRequest,
     marshal__UpdateServerRequest,
+    unmarshal_PrivateNIC,
     unmarshal_CreateImageResponse,
     unmarshal_CreateIpResponse,
     unmarshal_CreatePlacementGroupResponse,
@@ -3172,11 +3175,17 @@ class InstanceV1API(API):
         *,
         server_id: str,
         zone: Optional[Zone] = None,
+        tags: Optional[List[str]] = None,
+        per_page: Optional[int] = None,
+        page: Optional[int] = None,
     ) -> ListPrivateNICsResponse:
         """
         List all private NICs of a given server.
         :param zone: Zone to target. If none is passed will use default zone from the config
         :param server_id: The server the private NIC is attached to
+        :param tags: The private NIC tags
+        :param per_page: A positive integer lower or equal to 100 to select the number of items to return
+        :param page: A positive integer to choose the page to return
         :return: :class:`ListPrivateNICsResponse <ListPrivateNICsResponse>`
 
         Usage:
@@ -3191,10 +3200,52 @@ class InstanceV1API(API):
         res = self._request(
             "GET",
             f"/instance/v1/zones/{param_zone}/servers/{param_server_id}/private_nics",
+            params={
+                "page": page,
+                "per_page": per_page or self.client.default_page_size,
+                "tags": ",".join(tags) if tags and len(tags) > 0 else None,
+            },
         )
 
         self._throw_on_error(res)
         return unmarshal_ListPrivateNICsResponse(res.json())
+
+    def list_private_ni_cs_all(
+        self,
+        *,
+        server_id: str,
+        zone: Optional[Zone] = None,
+        tags: Optional[List[str]] = None,
+        per_page: Optional[int] = None,
+        page: Optional[int] = None,
+    ) -> List[PrivateNIC]:
+        """
+        List all private NICs of a given server.
+        :param zone: Zone to target. If none is passed will use default zone from the config
+        :param server_id: The server the private NIC is attached to
+        :param tags: The private NIC tags
+        :param per_page: A positive integer lower or equal to 100 to select the number of items to return
+        :param page: A positive integer to choose the page to return
+        :return: :class:`List[ListPrivateNICsResponse] <List[ListPrivateNICsResponse]>`
+
+        Usage:
+        ::
+
+            result = api.list_private_ni_cs_all(server_id="example")
+        """
+
+        return fetch_all_pages(
+            type=ListPrivateNICsResponse,
+            key="private_nics",
+            fetcher=self.list_private_ni_cs,
+            args={
+                "server_id": server_id,
+                "zone": zone,
+                "tags": tags,
+                "per_page": per_page,
+                "page": page,
+            },
+        )
 
     def create_private_nic(
         self,
@@ -3202,12 +3253,14 @@ class InstanceV1API(API):
         server_id: str,
         private_network_id: str,
         zone: Optional[Zone] = None,
+        tags: Optional[List[str]] = None,
     ) -> CreatePrivateNICResponse:
         """
         Create a private NIC connecting a server to a private network.
         :param zone: Zone to target. If none is passed will use default zone from the config
         :param server_id: UUID of the server the private NIC will be attached to
         :param private_network_id: UUID of the private network where the private NIC will be attached
+        :param tags: The private NIC tags
         :return: :class:`CreatePrivateNICResponse <CreatePrivateNICResponse>`
 
         Usage:
@@ -3230,6 +3283,7 @@ class InstanceV1API(API):
                     server_id=server_id,
                     private_network_id=private_network_id,
                     zone=zone,
+                    tags=tags,
                 ),
                 self.client,
             ),
@@ -3272,6 +3326,52 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_GetPrivateNICResponse(res.json())
+
+    def update_private_nic(
+        self,
+        *,
+        server_id: str,
+        private_nic_id: str,
+        zone: Optional[Zone] = None,
+        tags: Optional[List[str]] = None,
+    ) -> PrivateNIC:
+        """
+        Update one or more parameter/s to a given private NIC.
+        :param zone: Zone to target. If none is passed will use default zone from the config
+        :param server_id: UUID of the server the private NIC will be attached to
+        :param private_nic_id: The private NIC unique ID
+        :param tags: Tags used to select private NIC/s
+        :return: :class:`PrivateNIC <PrivateNIC>`
+
+        Usage:
+        ::
+
+            result = api.update_private_nic(
+                server_id="example",
+                private_nic_id="example",
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_server_id = validate_path_param("server_id", server_id)
+        param_private_nic_id = validate_path_param("private_nic_id", private_nic_id)
+
+        res = self._request(
+            "PATCH",
+            f"/instance/v1/zones/{param_zone}/servers/{param_server_id}/private_nics/{param_private_nic_id}",
+            body=marshal_UpdatePrivateNICRequest(
+                UpdatePrivateNICRequest(
+                    server_id=server_id,
+                    private_nic_id=private_nic_id,
+                    zone=zone,
+                    tags=tags,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_PrivateNIC(res.json())
 
     def delete_private_nic(
         self,
