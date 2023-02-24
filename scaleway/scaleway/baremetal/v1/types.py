@@ -559,7 +559,7 @@ class Offer:
 
     bandwidth: int
     """
-    Bandwidth available in bits/s with the offer
+    Public Bandwidth available in bits/s with the offer
     """
 
     commercial_range: str
@@ -635,6 +635,21 @@ class Offer:
     options: List[OfferOptionOffer]
     """
     Options available on offer
+    """
+
+    private_bandwidth: int
+    """
+    Private bandwidth available in bits/s with the offer
+    """
+
+    shared_bandwidth: bool
+    """
+    The offer is shared or not
+    """
+
+    tags: List[str]
+    """
+    Array of tags attached to the offer
     """
 
 

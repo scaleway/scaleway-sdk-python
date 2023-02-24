@@ -416,6 +416,9 @@ def unmarshal_Offer(data: Any) -> Offer:
     field = data.get("price_per_month")
     args["price_per_month"] = unmarshal_Money(field) if field is not None else None
 
+    field = data.get("private_bandwidth")
+    args["private_bandwidth"] = field
+
     field = data.get("quota_name")
     args["quota_name"] = field
 
@@ -424,11 +427,17 @@ def unmarshal_Offer(data: Any) -> Offer:
         unmarshal_RaidController(v) for v in data["raid_controllers"]
     ]
 
+    field = data.get("shared_bandwidth")
+    args["shared_bandwidth"] = field
+
     field = data.get("stock")
     args["stock"] = field
 
     field = data.get("subscription_period")
     args["subscription_period"] = field
+
+    field = data.get("tags")
+    args["tags"] = field
 
     return Offer(**args)
 
