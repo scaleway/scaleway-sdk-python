@@ -241,12 +241,20 @@ class CreateTriggerRequestMnqNatsClientConfig:
 
     subject: str
 
+    mnq_project_id: str
+
+    mnq_region: str
+
 
 @dataclass
 class CreateTriggerRequestMnqSqsClientConfig:
     mnq_namespace_id: str
 
     queue: str
+
+    mnq_project_id: str
+
+    mnq_region: str
 
 
 @dataclass
@@ -602,12 +610,20 @@ class TriggerMnqNatsClientConfig:
 
     subject: str
 
+    mnq_project_id: str
+
+    mnq_region: str
+
 
 @dataclass
 class TriggerMnqSqsClientConfig:
     mnq_namespace_id: str
 
     queue: str
+
+    mnq_project_id: str
+
+    mnq_region: str
 
 
 @dataclass
@@ -627,12 +643,20 @@ class UpdateTriggerRequestMnqNatsClientConfig:
 
     subject: str
 
+    mnq_project_id: str
+
+    mnq_region: str
+
 
 @dataclass
 class UpdateTriggerRequestMnqSqsClientConfig:
     mnq_namespace_id: str
 
     queue: str
+
+    mnq_project_id: str
+
+    mnq_region: str
 
 
 @dataclass

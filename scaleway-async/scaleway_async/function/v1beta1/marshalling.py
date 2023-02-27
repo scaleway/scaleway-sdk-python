@@ -83,6 +83,12 @@ def unmarshal_TriggerMnqNatsClientConfig(data: Any) -> TriggerMnqNatsClientConfi
     field = data.get("mnq_namespace_id")
     args["mnq_namespace_id"] = field
 
+    field = data.get("mnq_project_id")
+    args["mnq_project_id"] = field
+
+    field = data.get("mnq_region")
+    args["mnq_region"] = field
+
     field = data.get("subject")
     args["subject"] = field
 
@@ -99,6 +105,12 @@ def unmarshal_TriggerMnqSqsClientConfig(data: Any) -> TriggerMnqSqsClientConfig:
 
     field = data.get("mnq_namespace_id")
     args["mnq_namespace_id"] = field
+
+    field = data.get("mnq_project_id")
+    args["mnq_project_id"] = field
+
+    field = data.get("mnq_region")
+    args["mnq_region"] = field
 
     field = data.get("queue")
     args["queue"] = field
@@ -634,6 +646,8 @@ def marshal_CreateTriggerRequestMnqNatsClientConfig(
 ) -> Dict[str, Any]:
     return {
         "mnq_namespace_id": request.mnq_namespace_id,
+        "mnq_project_id": request.mnq_project_id,
+        "mnq_region": request.mnq_region,
         "subject": request.subject,
     }
 
@@ -644,6 +658,8 @@ def marshal_CreateTriggerRequestMnqSqsClientConfig(
 ) -> Dict[str, Any]:
     return {
         "mnq_namespace_id": request.mnq_namespace_id,
+        "mnq_project_id": request.mnq_project_id,
+        "mnq_region": request.mnq_region,
         "queue": request.queue,
     }
 
@@ -676,6 +692,8 @@ def marshal_UpdateTriggerRequestMnqNatsClientConfig(
 ) -> Dict[str, Any]:
     return {
         "mnq_namespace_id": request.mnq_namespace_id,
+        "mnq_project_id": request.mnq_project_id,
+        "mnq_region": request.mnq_region,
         "subject": request.subject,
     }
 
@@ -686,6 +704,8 @@ def marshal_UpdateTriggerRequestMnqSqsClientConfig(
 ) -> Dict[str, Any]:
     return {
         "mnq_namespace_id": request.mnq_namespace_id,
+        "mnq_project_id": request.mnq_project_id,
+        "mnq_region": request.mnq_region,
         "queue": request.queue,
     }
 
