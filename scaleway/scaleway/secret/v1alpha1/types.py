@@ -240,6 +240,19 @@ class GetSecretRequest:
 
 
 @dataclass
+class GetSecretByNameRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config
+    """
+
+    secret_name: str
+    """
+    Name of the Secret
+    """
+
+
+@dataclass
 class UpdateSecretRequest:
     region: Optional[Region]
     """
@@ -282,6 +295,11 @@ class ListSecretsRequest:
     project_id: Optional[str]
     """
     ID of a project to filter on (optional)
+    """
+
+    name: Optional[str]
+    """
+    Secret name to filter on (optional)
     """
 
     tags: Optional[List[str]]
@@ -351,6 +369,24 @@ class GetSecretVersionRequest:
 
 
 @dataclass
+class GetSecretVersionByNameRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config
+    """
+
+    secret_name: str
+    """
+    Name of the Secret
+    """
+
+    revision: str
+    """
+    Revision of the SecretVersion (may be a number or "latest")
+    """
+
+
+@dataclass
 class UpdateSecretVersionRequest:
     region: Optional[Region]
     """
@@ -383,6 +419,28 @@ class ListSecretVersionsRequest:
     secret_id: str
     """
     ID of the Secret
+    """
+
+    page: Optional[int]
+
+    page_size: Optional[int]
+
+    status: Optional[List[SecretVersionStatus]]
+    """
+    Filter results by status
+    """
+
+
+@dataclass
+class ListSecretVersionsByNameRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config
+    """
+
+    secret_name: str
+    """
+    Name of the Secret
     """
 
     page: Optional[int]
@@ -459,6 +517,24 @@ class AccessSecretVersionRequest:
     secret_id: str
     """
     ID of the Secret
+    """
+
+    revision: str
+    """
+    Revision of the SecretVersion (may be a number or "latest")
+    """
+
+
+@dataclass
+class AccessSecretVersionByNameRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config
+    """
+
+    secret_name: str
+    """
+    Name of the Secret
     """
 
     revision: str
