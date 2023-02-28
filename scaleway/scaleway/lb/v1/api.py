@@ -65,6 +65,7 @@ from .types import (
     ListSubscriberResponse,
     PrivateNetwork,
     PrivateNetworkDHCPConfig,
+    PrivateNetworkIpamConfig,
     PrivateNetworkStaticConfig,
     Route,
     RouteMatch,
@@ -3025,6 +3026,7 @@ class LbV1API(API):
         region: Optional[Region] = None,
         static_config: Optional[PrivateNetworkStaticConfig] = None,
         dhcp_config: Optional[PrivateNetworkDHCPConfig] = None,
+        ipam_config: Optional[PrivateNetworkIpamConfig] = None,
     ) -> PrivateNetwork:
         """
         Add load balancer on instance private network
@@ -3033,10 +3035,13 @@ class LbV1API(API):
         :param private_network_id: Set your instance private network id
         :param static_config: Define two local ip address of your choice for each load balancer instance.
 
-        One-of ('config'): at most one of 'static_config', 'dhcp_config' could be set.
+        One-of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
         :param dhcp_config: Set to true if you want to let DHCP assign IP addresses.
 
-        One-of ('config'): at most one of 'static_config', 'dhcp_config' could be set.
+        One-of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
+        :param ipam_config: For internal use only.
+
+        One-of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
         :return: :class:`PrivateNetwork <PrivateNetwork>`
 
         Usage:
@@ -3066,6 +3071,7 @@ class LbV1API(API):
                     region=region,
                     static_config=static_config,
                     dhcp_config=dhcp_config,
+                    ipam_config=ipam_config,
                 ),
                 self.client,
             ),
@@ -5880,6 +5886,7 @@ class LbZonedV1API(API):
         zone: Optional[Zone] = None,
         static_config: Optional[PrivateNetworkStaticConfig] = None,
         dhcp_config: Optional[PrivateNetworkDHCPConfig] = None,
+        ipam_config: Optional[PrivateNetworkIpamConfig] = None,
     ) -> PrivateNetwork:
         """
         Add load balancer on instance private network
@@ -5888,10 +5895,13 @@ class LbZonedV1API(API):
         :param private_network_id: Set your instance private network id
         :param static_config: Define two local ip address of your choice for each load balancer instance.
 
-        One-of ('config'): at most one of 'static_config', 'dhcp_config' could be set.
+        One-of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
         :param dhcp_config: Set to true if you want to let DHCP assign IP addresses.
 
-        One-of ('config'): at most one of 'static_config', 'dhcp_config' could be set.
+        One-of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
+        :param ipam_config: For internal use only.
+
+        One-of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
         :return: :class:`PrivateNetwork <PrivateNetwork>`
 
         Usage:
@@ -5919,6 +5929,7 @@ class LbZonedV1API(API):
                     zone=zone,
                     static_config=static_config,
                     dhcp_config=dhcp_config,
+                    ipam_config=ipam_config,
                 ),
                 self.client,
             ),
