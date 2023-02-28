@@ -75,6 +75,14 @@ class ListPoliciesRequestOrderBy(str, Enum):
         return str(self.value)
 
 
+class ListQuotaRequestOrderBy(str, Enum):
+    NAME_ASC = "name_asc"
+    NAME_DESC = "name_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListSSHKeysRequestOrderBy(str, Enum):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
@@ -375,6 +383,23 @@ class ListPoliciesResponse:
 
 
 @dataclass
+class ListQuotaResponse:
+    """
+    List quota response
+    """
+
+    quota: List[Quotum]
+    """
+    List of quota
+    """
+
+    total_count: int
+    """
+    Total count of quota
+    """
+
+
+@dataclass
 class ListRulesResponse:
     """
     List rules response
@@ -539,6 +564,32 @@ class Policy:
     True when the policy do not belong to any principal.
     
     One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
+    """
+
+
+@dataclass
+class Quotum:
+    """
+    Quotum
+    """
+
+    name: str
+    """
+    Name of the quotum
+    """
+
+    limit: Optional[int]
+    """
+    Max limit of the quotum.
+    
+    One-of ('value'): at most one of 'limit', 'unlimited' could be set.
+    """
+
+    unlimited: Optional[bool]
+    """
+    Whether the quotum is unlimited or not.
+    
+    One-of ('value'): at most one of 'limit', 'unlimited' could be set.
     """
 
 
@@ -1455,4 +1506,40 @@ class DeleteAPIKeyRequest:
     access_key: str
     """
     Access key to delete
+    """
+
+
+@dataclass
+class ListQuotaRequest:
+    order_by: Optional[ListQuotaRequestOrderBy]
+    """
+    Criteria for sorting results
+    """
+
+    page_size: Optional[int]
+    """
+    Number of results per page. Value must be between 1 and 100
+    """
+
+    page: Optional[int]
+    """
+    Number of page. Value must be greater to 1
+    """
+
+    organization_id: Optional[str]
+    """
+    Filter by organization ID
+    """
+
+
+@dataclass
+class GetQuotumRequest:
+    quotum_name: str
+    """
+    Name of the quotum to get
+    """
+
+    organization_id: Optional[str]
+    """
+    ID of the organization
     """
