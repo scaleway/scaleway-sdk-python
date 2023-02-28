@@ -187,7 +187,7 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> Cockpit:
         """
-        Reset the Grafana your cockpit associated with the given project ID.
+        Reset the Grafana of your cockpit associated with the given project ID.
         :param project_id:
         :return: :class:`Cockpit <Cockpit>`
 
@@ -219,7 +219,7 @@ class CockpitV1Beta1API(API):
         scopes: Optional[TokenScopes] = None,
     ) -> Token:
         """
-        Create token associated with the given project ID.
+        Create a token associated with the given project ID.
         :param project_id:
         :param name:
         :param scopes:
