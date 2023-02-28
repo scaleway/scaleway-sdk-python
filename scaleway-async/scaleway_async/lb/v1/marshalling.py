@@ -56,6 +56,7 @@ from .types import (
     ListSubscriberResponse,
     PrivateNetwork,
     PrivateNetworkDHCPConfig,
+    PrivateNetworkIpamConfig,
     PrivateNetworkStaticConfig,
     Route,
     RouteMatch,
@@ -719,6 +720,17 @@ def unmarshal_PrivateNetworkDHCPConfig(data: Any) -> PrivateNetworkDHCPConfig:
     return PrivateNetworkDHCPConfig(**args)
 
 
+def unmarshal_PrivateNetworkIpamConfig(data: Any) -> PrivateNetworkIpamConfig:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'PrivateNetworkIpamConfig' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    return PrivateNetworkIpamConfig(**args)
+
+
 def unmarshal_PrivateNetworkStaticConfig(data: Any) -> PrivateNetworkStaticConfig:
     if type(data) is not dict:
         raise TypeError(
@@ -859,6 +871,11 @@ def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
     field = data.get("dhcp_config")
     args["dhcp_config"] = (
         unmarshal_PrivateNetworkDHCPConfig(field) if field is not None else None
+    )
+
+    field = data.get("ipam_config")
+    args["ipam_config"] = (
+        unmarshal_PrivateNetworkIpamConfig(field) if field is not None else None
     )
 
     field = data.get("lb")
@@ -1299,6 +1316,13 @@ def marshal_PrivateNetworkDHCPConfig(
     return {}
 
 
+def marshal_PrivateNetworkIpamConfig(
+    request: PrivateNetworkIpamConfig,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    return {}
+
+
 def marshal_PrivateNetworkStaticConfig(
     request: PrivateNetworkStaticConfig,
     defaults: ProfileDefaults,
@@ -1358,6 +1382,7 @@ def marshal_AttachPrivateNetworkRequest(
             [
                 OneOfPossibility("static_config", request.static_config),
                 OneOfPossibility("dhcp_config", request.dhcp_config),
+                OneOfPossibility("ipam_config", request.ipam_config),
             ]
         ),
     }
@@ -1724,6 +1749,7 @@ def marshal_ZonedApiAttachPrivateNetworkRequest(
             [
                 OneOfPossibility("static_config", request.static_config),
                 OneOfPossibility("dhcp_config", request.dhcp_config),
+                OneOfPossibility("ipam_config", request.ipam_config),
             ]
         ),
     }
