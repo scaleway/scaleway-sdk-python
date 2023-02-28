@@ -1344,14 +1344,21 @@ class PrivateNetwork:
     """
     Local ip address of load balancer instance.
     
-    One-of ('config'): at most one of 'static_config', 'dhcp_config' could be set.
+    One-of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
     """
 
     dhcp_config: Optional[PrivateNetworkDHCPConfig]
     """
     Value set to true if load balancer instance use a DHCP.
     
-    One-of ('config'): at most one of 'static_config', 'dhcp_config' could be set.
+    One-of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
+    """
+
+    ipam_config: Optional[PrivateNetworkIpamConfig]
+    """
+    Value set to true if load balancer instance use a DHCP.
+    
+    One-of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
     """
 
     private_network_id: str
@@ -2987,14 +2994,21 @@ class AttachPrivateNetworkRequest:
     """
     Define two local ip address of your choice for each load balancer instance.
     
-    One-of ('config'): at most one of 'static_config', 'dhcp_config' could be set.
+    One-of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
     """
 
     dhcp_config: Optional[PrivateNetworkDHCPConfig]
     """
     Set to true if you want to let DHCP assign IP addresses.
     
-    One-of ('config'): at most one of 'static_config', 'dhcp_config' could be set.
+    One-of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
+    """
+
+    ipam_config: Optional[PrivateNetworkIpamConfig]
+    """
+    For internal use only.
+    
+    One-of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
     """
 
 
@@ -4501,14 +4515,21 @@ class ZonedApiAttachPrivateNetworkRequest:
     """
     Define two local ip address of your choice for each load balancer instance.
     
-    One-of ('config'): at most one of 'static_config', 'dhcp_config' could be set.
+    One-of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
     """
 
     dhcp_config: Optional[PrivateNetworkDHCPConfig]
     """
     Set to true if you want to let DHCP assign IP addresses.
     
-    One-of ('config'): at most one of 'static_config', 'dhcp_config' could be set.
+    One-of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
+    """
+
+    ipam_config: Optional[PrivateNetworkIpamConfig]
+    """
+    For internal use only.
+    
+    One-of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
     """
 
 
