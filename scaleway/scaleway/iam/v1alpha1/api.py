@@ -19,6 +19,7 @@ from .types import (
     ListGroupsRequestOrderBy,
     ListPermissionSetsRequestOrderBy,
     ListPoliciesRequestOrderBy,
+    ListQuotaRequestOrderBy,
     ListSSHKeysRequestOrderBy,
     ListUsersRequestOrderBy,
     APIKey,
@@ -29,11 +30,13 @@ from .types import (
     ListGroupsResponse,
     ListPermissionSetsResponse,
     ListPoliciesResponse,
+    ListQuotaResponse,
     ListRulesResponse,
     ListSSHKeysResponse,
     ListUsersResponse,
     PermissionSet,
     Policy,
+    Quotum,
     Rule,
     RuleSpecs,
     SSHKey,
@@ -73,6 +76,7 @@ from .marshalling import (
     unmarshal_Application,
     unmarshal_Group,
     unmarshal_Policy,
+    unmarshal_Quotum,
     unmarshal_SSHKey,
     unmarshal_User,
     unmarshal_ListAPIKeysResponse,
@@ -80,6 +84,7 @@ from .marshalling import (
     unmarshal_ListGroupsResponse,
     unmarshal_ListPermissionSetsResponse,
     unmarshal_ListPoliciesResponse,
+    unmarshal_ListQuotaResponse,
     unmarshal_ListRulesResponse,
     unmarshal_ListSSHKeysResponse,
     unmarshal_ListUsersResponse,
@@ -1728,3 +1733,91 @@ class IamV1Alpha1API(API):
 
         self._throw_on_error(res)
         return None
+
+    def list_quota(
+        self,
+        *,
+        order_by: ListQuotaRequestOrderBy = ListQuotaRequestOrderBy.NAME_ASC,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        organization_id: Optional[str] = None,
+    ) -> ListQuotaResponse:
+        """
+
+        Usage:
+        ::
+
+            result = api.list_quota()
+        """
+
+        res = self._request(
+            "GET",
+            f"/iam/v1alpha1/quota",
+            params={
+                "order_by": order_by,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListQuotaResponse(res.json())
+
+    def list_quota_all(
+        self,
+        *,
+        order_by: Optional[ListQuotaRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        organization_id: Optional[str] = None,
+    ) -> List[Quotum]:
+        """
+        :return: :class:`List[ListQuotaResponse] <List[ListQuotaResponse]>`
+
+        Usage:
+        ::
+
+            result = api.list_quota_all()
+        """
+
+        return fetch_all_pages(
+            type=ListQuotaResponse,
+            key="quota",
+            fetcher=self.list_quota,
+            args={
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size,
+                "organization_id": organization_id,
+            },
+        )
+
+    def get_quotum(
+        self,
+        *,
+        quotum_name: str,
+        organization_id: Optional[str] = None,
+    ) -> Quotum:
+        """
+
+        Usage:
+        ::
+
+            result = api.get_quotum(quotum_name="example")
+        """
+
+        param_quotum_name = validate_path_param("quotum_name", quotum_name)
+
+        res = self._request(
+            "GET",
+            f"/iam/v1alpha1/quota/{param_quotum_name}",
+            params={
+                "organization_id": organization_id
+                or self.client.default_organization_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Quotum(res.json())

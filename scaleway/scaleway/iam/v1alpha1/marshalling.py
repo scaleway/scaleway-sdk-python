@@ -18,11 +18,13 @@ from .types import (
     ListGroupsResponse,
     ListPermissionSetsResponse,
     ListPoliciesResponse,
+    ListQuotaResponse,
     ListRulesResponse,
     ListSSHKeysResponse,
     ListUsersResponse,
     PermissionSet,
     Policy,
+    Quotum,
     Rule,
     RuleSpecs,
     SSHKey,
@@ -238,6 +240,26 @@ def unmarshal_Policy(data: Any) -> Policy:
     return Policy(**args)
 
 
+def unmarshal_Quotum(data: Any) -> Quotum:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'Quotum' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("limit")
+    args["limit"] = field
+
+    field = data.get("name")
+    args["name"] = field
+
+    field = data.get("unlimited")
+    args["unlimited"] = field
+
+    return Quotum(**args)
+
+
 def unmarshal_Rule(data: Any) -> Rule:
     if type(data) is not dict:
         raise TypeError(
@@ -431,6 +453,23 @@ def unmarshal_ListPoliciesResponse(data: Any) -> ListPoliciesResponse:
     args["total_count"] = field
 
     return ListPoliciesResponse(**args)
+
+
+def unmarshal_ListQuotaResponse(data: Any) -> ListQuotaResponse:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'ListQuotaResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("quota")
+    args["quota"] = [unmarshal_Quotum(v) for v in data["quota"]]
+
+    field = data.get("total_count")
+    args["total_count"] = field
+
+    return ListQuotaResponse(**args)
 
 
 def unmarshal_ListRulesResponse(data: Any) -> ListRulesResponse:

@@ -75,6 +75,14 @@ class ListPoliciesRequestOrderBy(str, Enum):
         return str(self.value)
 
 
+class ListQuotaRequestOrderBy(str, Enum):
+    NAME_ASC = "name_asc"
+    NAME_DESC = "name_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListSSHKeysRequestOrderBy(str, Enum):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
@@ -375,6 +383,13 @@ class ListPoliciesResponse:
 
 
 @dataclass
+class ListQuotaResponse:
+    quota: List[Quotum]
+
+    total_count: int
+
+
+@dataclass
 class ListRulesResponse:
     """
     List rules response
@@ -539,6 +554,21 @@ class Policy:
     True when the policy do not belong to any principal.
     
     One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
+    """
+
+
+@dataclass
+class Quotum:
+    name: str
+
+    limit: Optional[int]
+    """
+    One-of ('value'): at most one of 'limit', 'unlimited' could be set.
+    """
+
+    unlimited: Optional[bool]
+    """
+    One-of ('value'): at most one of 'limit', 'unlimited' could be set.
     """
 
 
@@ -1456,3 +1486,21 @@ class DeleteAPIKeyRequest:
     """
     Access key to delete
     """
+
+
+@dataclass
+class ListQuotaRequest:
+    order_by: Optional[ListQuotaRequestOrderBy]
+
+    page: Optional[int]
+
+    page_size: Optional[int]
+
+    organization_id: Optional[str]
+
+
+@dataclass
+class GetQuotumRequest:
+    quotum_name: str
+
+    organization_id: Optional[str]
