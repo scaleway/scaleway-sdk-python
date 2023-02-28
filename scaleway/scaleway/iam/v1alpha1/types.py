@@ -384,9 +384,19 @@ class ListPoliciesResponse:
 
 @dataclass
 class ListQuotaResponse:
+    """
+    List quota response
+    """
+
     quota: List[Quotum]
+    """
+    List of quota
+    """
 
     total_count: int
+    """
+    Total count of quota
+    """
 
 
 @dataclass
@@ -559,15 +569,26 @@ class Policy:
 
 @dataclass
 class Quotum:
+    """
+    Quotum
+    """
+
     name: str
+    """
+    Name of the quotum
+    """
 
     limit: Optional[int]
     """
+    Max limit of the quotum.
+    
     One-of ('value'): at most one of 'limit', 'unlimited' could be set.
     """
 
     unlimited: Optional[bool]
     """
+    Whether the quotum is unlimited or not.
+    
     One-of ('value'): at most one of 'limit', 'unlimited' could be set.
     """
 
@@ -1491,16 +1512,34 @@ class DeleteAPIKeyRequest:
 @dataclass
 class ListQuotaRequest:
     order_by: Optional[ListQuotaRequestOrderBy]
-
-    page: Optional[int]
+    """
+    Criteria for sorting results
+    """
 
     page_size: Optional[int]
+    """
+    Number of results per page. Value must be between 1 and 100
+    """
+
+    page: Optional[int]
+    """
+    Number of page. Value must be greater to 1
+    """
 
     organization_id: Optional[str]
+    """
+    Filter by organization ID
+    """
 
 
 @dataclass
 class GetQuotumRequest:
     quotum_name: str
+    """
+    Name of the quotum to get
+    """
 
     organization_id: Optional[str]
+    """
+    ID of the organization
+    """

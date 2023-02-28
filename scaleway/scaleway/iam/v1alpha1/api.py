@@ -1738,11 +1738,17 @@ class IamV1Alpha1API(API):
         self,
         *,
         order_by: ListQuotaRequestOrderBy = ListQuotaRequestOrderBy.NAME_ASC,
-        page: Optional[int] = None,
         page_size: Optional[int] = None,
+        page: Optional[int] = None,
         organization_id: Optional[str] = None,
     ) -> ListQuotaResponse:
         """
+        List all quota in the organization with the associated limit
+        :param order_by: Criteria for sorting results
+        :param page_size: Number of results per page. Value must be between 1 and 100
+        :param page: Number of page. Value must be greater to 1
+        :param organization_id: Filter by organization ID
+        :return: :class:`ListQuotaResponse <ListQuotaResponse>`
 
         Usage:
         ::
@@ -1769,11 +1775,16 @@ class IamV1Alpha1API(API):
         self,
         *,
         order_by: Optional[ListQuotaRequestOrderBy] = None,
-        page: Optional[int] = None,
         page_size: Optional[int] = None,
+        page: Optional[int] = None,
         organization_id: Optional[str] = None,
     ) -> List[Quotum]:
         """
+        List all quota in the organization with the associated limit
+        :param order_by: Criteria for sorting results
+        :param page_size: Number of results per page. Value must be between 1 and 100
+        :param page: Number of page. Value must be greater to 1
+        :param organization_id: Filter by organization ID
         :return: :class:`List[ListQuotaResponse] <List[ListQuotaResponse]>`
 
         Usage:
@@ -1788,8 +1799,8 @@ class IamV1Alpha1API(API):
             fetcher=self.list_quota,
             args={
                 "order_by": order_by,
-                "page": page,
                 "page_size": page_size,
+                "page": page,
                 "organization_id": organization_id,
             },
         )
@@ -1801,6 +1812,10 @@ class IamV1Alpha1API(API):
         organization_id: Optional[str] = None,
     ) -> Quotum:
         """
+        Get a quotum in the organization with the associated limit
+        :param quotum_name: Name of the quotum to get
+        :param organization_id: ID of the organization
+        :return: :class:`Quotum <Quotum>`
 
         Usage:
         ::
