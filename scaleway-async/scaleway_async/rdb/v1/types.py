@@ -2679,3 +2679,21 @@ class GetEndpointRequest:
     """
     UUID of the endpoint you want to get
     """
+
+
+@dataclass
+class MigrateEndpointRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config
+    """
+
+    endpoint_id: str
+    """
+    UUID of the endpoint you want to migrate
+    """
+
+    instance_id: str
+    """
+    UUID of the instance you want to attach the endpoint to
+    """

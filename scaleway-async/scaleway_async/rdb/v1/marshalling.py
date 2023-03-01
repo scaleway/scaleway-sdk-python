@@ -92,6 +92,7 @@ from .types import (
     UpdateSnapshotRequest,
     CreateInstanceFromSnapshotRequest,
     CreateEndpointRequest,
+    MigrateEndpointRequest,
 )
 
 
@@ -1412,6 +1413,15 @@ def marshal_DeleteInstanceSettingsRequest(
 ) -> Dict[str, Any]:
     return {
         "setting_names": request.setting_names,
+    }
+
+
+def marshal_MigrateEndpointRequest(
+    request: MigrateEndpointRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    return {
+        "instance_id": request.instance_id,
     }
 
 
