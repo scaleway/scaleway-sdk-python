@@ -88,6 +88,7 @@ from .types import (
     UpdateSnapshotRequest,
     CreateInstanceFromSnapshotRequest,
     CreateEndpointRequest,
+    MigrateEndpointRequest,
 )
 from .content import (
     DATABASE_BACKUP_TRANSIENT_STATUSES,
@@ -111,6 +112,7 @@ from .marshalling import (
     marshal_CreateUserRequest,
     marshal_DeleteInstanceACLRulesRequest,
     marshal_DeleteInstanceSettingsRequest,
+    marshal_MigrateEndpointRequest,
     marshal_PrepareInstanceLogsRequest,
     marshal_PurgeInstanceLogsRequest,
     marshal_RestoreDatabaseBackupRequest,
@@ -3026,6 +3028,50 @@ class RdbV1API(API):
         res = self._request(
             "GET",
             f"/rdb/v1/regions/{param_region}/endpoints/{param_endpoint_id}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Endpoint(res.json())
+
+    def migrate_endpoint(
+        self,
+        *,
+        endpoint_id: str,
+        instance_id: str,
+        region: Optional[Region] = None,
+    ) -> Endpoint:
+        """
+        Migrate an existing instance endpoint to another instance
+        :param region: Region to target. If none is passed will use default region from the config
+        :param endpoint_id: UUID of the endpoint you want to migrate
+        :param instance_id: UUID of the instance you want to attach the endpoint to
+        :return: :class:`Endpoint <Endpoint>`
+
+        Usage:
+        ::
+
+            result = api.migrate_endpoint(
+                endpoint_id="example",
+                instance_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_endpoint_id = validate_path_param("endpoint_id", endpoint_id)
+
+        res = self._request(
+            "POST",
+            f"/rdb/v1/regions/{param_region}/endpoints/{param_endpoint_id}/migrate",
+            body=marshal_MigrateEndpointRequest(
+                MigrateEndpointRequest(
+                    endpoint_id=endpoint_id,
+                    instance_id=instance_id,
+                    region=region,
+                ),
+                self.client,
+            ),
         )
 
         self._throw_on_error(res)
