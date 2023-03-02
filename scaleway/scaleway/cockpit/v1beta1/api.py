@@ -74,6 +74,9 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> Cockpit:
         """
+        Activate a cockpit associated with the given project ID.
+        :param project_id:
+        :return: :class:`Cockpit <Cockpit>`
 
         Usage:
         ::
@@ -160,6 +163,9 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> Cockpit:
         """
+        Deactivate a cockpit associated with the given project ID.
+        :param project_id:
+        :return: :class:`Cockpit <Cockpit>`
 
         Usage:
         ::
