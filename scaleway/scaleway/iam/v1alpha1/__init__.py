@@ -4,6 +4,7 @@ from .types import BearerType
 from .types import ListAPIKeysRequestOrderBy
 from .types import ListApplicationsRequestOrderBy
 from .types import ListGroupsRequestOrderBy
+from .types import ListJWTsRequestOrderBy
 from .types import ListPermissionSetsRequestOrderBy
 from .types import ListPoliciesRequestOrderBy
 from .types import ListQuotaRequestOrderBy
@@ -15,9 +16,11 @@ from .types import UserType
 from .types import APIKey
 from .types import Application
 from .types import Group
+from .types import JWT
 from .types import ListAPIKeysResponse
 from .types import ListApplicationsResponse
 from .types import ListGroupsResponse
+from .types import ListJWTsResponse
 from .types import ListPermissionSetsResponse
 from .types import ListPoliciesResponse
 from .types import ListQuotaResponse
@@ -39,6 +42,7 @@ __all__ = [
     "ListAPIKeysRequestOrderBy",
     "ListApplicationsRequestOrderBy",
     "ListGroupsRequestOrderBy",
+    "ListJWTsRequestOrderBy",
     "ListPermissionSetsRequestOrderBy",
     "ListPoliciesRequestOrderBy",
     "ListQuotaRequestOrderBy",
@@ -50,9 +54,11 @@ __all__ = [
     "APIKey",
     "Application",
     "Group",
+    "JWT",
     "ListAPIKeysResponse",
     "ListApplicationsResponse",
     "ListGroupsResponse",
+    "ListJWTsResponse",
     "ListPermissionSetsResponse",
     "ListPoliciesResponse",
     "ListQuotaResponse",

@@ -17,6 +17,7 @@ from .types import (
     ListAPIKeysRequestOrderBy,
     ListApplicationsRequestOrderBy,
     ListGroupsRequestOrderBy,
+    ListJWTsRequestOrderBy,
     ListPermissionSetsRequestOrderBy,
     ListPoliciesRequestOrderBy,
     ListQuotaRequestOrderBy,
@@ -25,9 +26,11 @@ from .types import (
     APIKey,
     Application,
     Group,
+    JWT,
     ListAPIKeysResponse,
     ListApplicationsResponse,
     ListGroupsResponse,
+    ListJWTsResponse,
     ListPermissionSetsResponse,
     ListPoliciesResponse,
     ListQuotaResponse,
@@ -75,6 +78,7 @@ from .marshalling import (
     unmarshal_APIKey,
     unmarshal_Application,
     unmarshal_Group,
+    unmarshal_JWT,
     unmarshal_Policy,
     unmarshal_Quotum,
     unmarshal_SSHKey,
@@ -82,6 +86,7 @@ from .marshalling import (
     unmarshal_ListAPIKeysResponse,
     unmarshal_ListApplicationsResponse,
     unmarshal_ListGroupsResponse,
+    unmarshal_ListJWTsResponse,
     unmarshal_ListPermissionSetsResponse,
     unmarshal_ListPoliciesResponse,
     unmarshal_ListQuotaResponse,
@@ -110,13 +115,13 @@ class IamV1Alpha1API(API):
     ) -> ListSSHKeysResponse:
         """
         List SSH keys
-        :param order_by: Sort order of SSH keys
-        :param page: Requested page number. Value must be greater or equals to 1
-        :param page_size: Number of items per page. Value must be between 1 and 100
-        :param organization_id: Filter by organization ID
-        :param name: Name of group to find
-        :param project_id: Filter by project ID
-        :param disabled: Filter out disabled SSH keys or not
+        :param order_by: Sort order of SSH keys.
+        :param page: Requested page number. Value must be greater or equals to 1.
+        :param page_size: Number of items per page. Value must be between 1 and 100.
+        :param organization_id: Filter by organization ID.
+        :param name: Name of group to find.
+        :param project_id: Filter by project ID.
+        :param disabled: Filter out disabled SSH keys or not.
         :return: :class:`ListSSHKeysResponse <ListSSHKeysResponse>`
 
         Usage:
@@ -156,13 +161,13 @@ class IamV1Alpha1API(API):
     ) -> List[SSHKey]:
         """
         List SSH keys
-        :param order_by: Sort order of SSH keys
-        :param page: Requested page number. Value must be greater or equals to 1
-        :param page_size: Number of items per page. Value must be between 1 and 100
-        :param organization_id: Filter by organization ID
-        :param name: Name of group to find
-        :param project_id: Filter by project ID
-        :param disabled: Filter out disabled SSH keys or not
+        :param order_by: Sort order of SSH keys.
+        :param page: Requested page number. Value must be greater or equals to 1.
+        :param page_size: Number of items per page. Value must be between 1 and 100.
+        :param organization_id: Filter by organization ID.
+        :param name: Name of group to find.
+        :param project_id: Filter by project ID.
+        :param disabled: Filter out disabled SSH keys or not.
         :return: :class:`List[ListSSHKeysResponse] <List[ListSSHKeysResponse]>`
 
         Usage:
@@ -195,9 +200,9 @@ class IamV1Alpha1API(API):
     ) -> SSHKey:
         """
         Create an SSH key
-        :param name: The name of the SSH key. Max length is 1000
-        :param public_key: SSH public key. Currently ssh-rsa, ssh-dss (DSA), ssh-ed25519 and ecdsa keys with NIST curves are supported. Max length is 65000
-        :param project_id: Project owning the resource
+        :param name: The name of the SSH key. Max length is 1000.
+        :param public_key: SSH public key. Currently ssh-rsa, ssh-dss (DSA), ssh-ed25519 and ecdsa keys with NIST curves are supported. Max length is 65000.
+        :param project_id: Project owning the resource.
         :return: :class:`SSHKey <SSHKey>`
 
         Usage:
@@ -229,7 +234,7 @@ class IamV1Alpha1API(API):
     ) -> SSHKey:
         """
         Get an SSH key
-        :param ssh_key_id: The ID of the SSH key
+        :param ssh_key_id: The ID of the SSH key.
         :return: :class:`SSHKey <SSHKey>`
 
         Usage:
@@ -258,8 +263,8 @@ class IamV1Alpha1API(API):
         """
         Update an SSH key
         :param ssh_key_id:
-        :param name: Name of the SSH key. Max length is 1000
-        :param disabled: Enable or disable the SSH key
+        :param name: Name of the SSH key. Max length is 1000.
+        :param disabled: Enable or disable the SSH key.
         :return: :class:`SSHKey <SSHKey>`
 
         Usage:
@@ -322,11 +327,11 @@ class IamV1Alpha1API(API):
     ) -> ListUsersResponse:
         """
         List users of an organization
-        :param order_by: Criteria for sorting results
-        :param page_size: Number of results per page. Value must be between 1 and 100
-        :param page: Number of page. Value must be greater or equals to 1
-        :param organization_id: ID of organization to filter
-        :param user_ids: Filter out by a list of ID
+        :param order_by: Criteria for sorting results.
+        :param page_size: Number of results per page. Value must be between 1 and 100.
+        :param page: Number of page. Value must be greater or equals to 1.
+        :param organization_id: ID of organization to filter.
+        :param user_ids: Filter out by a list of ID.
         :return: :class:`ListUsersResponse <ListUsersResponse>`
 
         Usage:
@@ -362,11 +367,11 @@ class IamV1Alpha1API(API):
     ) -> List[User]:
         """
         List users of an organization
-        :param order_by: Criteria for sorting results
-        :param page_size: Number of results per page. Value must be between 1 and 100
-        :param page: Number of page. Value must be greater or equals to 1
-        :param organization_id: ID of organization to filter
-        :param user_ids: Filter out by a list of ID
+        :param order_by: Criteria for sorting results.
+        :param page_size: Number of results per page. Value must be between 1 and 100.
+        :param page: Number of page. Value must be greater or equals to 1.
+        :param organization_id: ID of organization to filter.
+        :param user_ids: Filter out by a list of ID.
         :return: :class:`List[ListUsersResponse] <List[ListUsersResponse]>`
 
         Usage:
@@ -395,7 +400,7 @@ class IamV1Alpha1API(API):
     ) -> User:
         """
         Retrieve a user from its ID
-        :param user_id: ID of user to find
+        :param user_id: ID of user to find.
         :return: :class:`User <User>`
 
         Usage:
@@ -421,7 +426,7 @@ class IamV1Alpha1API(API):
     ) -> Optional[None]:
         """
         Delete a guest user from an organization
-        :param user_id: ID of user to delete
+        :param user_id: ID of user to delete.
 
         Usage:
         ::
@@ -452,13 +457,13 @@ class IamV1Alpha1API(API):
     ) -> ListApplicationsResponse:
         """
         List applications of an organization
-        :param order_by: Criteria for sorting results
-        :param page_size: Number of results per page. Value must be between 1 and 100
-        :param page: Number of page. Value must be greater to 1
-        :param name: Name of application to filter
-        :param organization_id: ID of organization to filter
-        :param editable: Filter out editable applications or not
-        :param application_ids: Filter out by a list of ID
+        :param order_by: Criteria for sorting results.
+        :param page_size: Number of results per page. Value must be between 1 and 100.
+        :param page: Number of page. Value must be greater to 1.
+        :param name: Name of application to filter.
+        :param organization_id: ID of organization to filter.
+        :param editable: Filter out editable applications or not.
+        :param application_ids: Filter out by a list of ID.
         :return: :class:`ListApplicationsResponse <ListApplicationsResponse>`
 
         Usage:
@@ -498,13 +503,13 @@ class IamV1Alpha1API(API):
     ) -> List[Application]:
         """
         List applications of an organization
-        :param order_by: Criteria for sorting results
-        :param page_size: Number of results per page. Value must be between 1 and 100
-        :param page: Number of page. Value must be greater to 1
-        :param name: Name of application to filter
-        :param organization_id: ID of organization to filter
-        :param editable: Filter out editable applications or not
-        :param application_ids: Filter out by a list of ID
+        :param order_by: Criteria for sorting results.
+        :param page_size: Number of results per page. Value must be between 1 and 100.
+        :param page: Number of page. Value must be greater to 1.
+        :param name: Name of application to filter.
+        :param organization_id: ID of organization to filter.
+        :param editable: Filter out editable applications or not.
+        :param application_ids: Filter out by a list of ID.
         :return: :class:`List[ListApplicationsResponse] <List[ListApplicationsResponse]>`
 
         Usage:
@@ -537,9 +542,9 @@ class IamV1Alpha1API(API):
     ) -> Application:
         """
         Create a new application
-        :param name: Name of application to create (max length is 64 chars)
-        :param organization_id: ID of organization
-        :param description: Description of application (max length is 200 chars)
+        :param name: Name of application to create (max length is 64 chars).
+        :param organization_id: ID of organization.
+        :param description: Description of application (max length is 200 chars).
         :return: :class:`Application <Application>`
 
         Usage:
@@ -571,7 +576,7 @@ class IamV1Alpha1API(API):
     ) -> Application:
         """
         Get an existing application
-        :param application_id: ID of application to find
+        :param application_id: ID of application to find.
         :return: :class:`Application <Application>`
 
         Usage:
@@ -599,9 +604,9 @@ class IamV1Alpha1API(API):
     ) -> Application:
         """
         Update an existing application
-        :param application_id: ID of application to update
-        :param name: New name of application (max length is 64 chars)
-        :param description: New description of application (max length is 200 chars)
+        :param application_id: ID of application to update.
+        :param name: New name of application (max length is 64 chars).
+        :param description: New description of application (max length is 200 chars).
         :return: :class:`Application <Application>`
 
         Usage:
@@ -635,7 +640,7 @@ class IamV1Alpha1API(API):
     ) -> Optional[None]:
         """
         Delete an application
-        :param application_id: ID of application to delete
+        :param application_id: ID of application to delete.
 
         Usage:
         ::
@@ -667,14 +672,14 @@ class IamV1Alpha1API(API):
     ) -> ListGroupsResponse:
         """
         List groups
-        :param order_by: Sort order of groups
-        :param page: Requested page number. Value must be greater or equals to 1
-        :param page_size: Number of items per page. Value must be between 1 and 100
-        :param organization_id: Filter by organization ID
-        :param name: Name of group to find
-        :param application_ids: Filter out by a list of application ID
-        :param user_ids: Filter out by a list of user ID
-        :param group_ids: Filter out by a list of group ID
+        :param order_by: Sort order of groups.
+        :param page: Requested page number. Value must be greater or equals to 1.
+        :param page_size: Number of items per page. Value must be between 1 and 100.
+        :param organization_id: Filter by organization ID.
+        :param name: Name of group to find.
+        :param application_ids: Filter out by a list of application ID.
+        :param user_ids: Filter out by a list of user ID.
+        :param group_ids: Filter out by a list of group ID.
         :return: :class:`ListGroupsResponse <ListGroupsResponse>`
 
         Usage:
@@ -716,14 +721,14 @@ class IamV1Alpha1API(API):
     ) -> List[Group]:
         """
         List groups
-        :param order_by: Sort order of groups
-        :param page: Requested page number. Value must be greater or equals to 1
-        :param page_size: Number of items per page. Value must be between 1 and 100
-        :param organization_id: Filter by organization ID
-        :param name: Name of group to find
-        :param application_ids: Filter out by a list of application ID
-        :param user_ids: Filter out by a list of user ID
-        :param group_ids: Filter out by a list of group ID
+        :param order_by: Sort order of groups.
+        :param page: Requested page number. Value must be greater or equals to 1.
+        :param page_size: Number of items per page. Value must be between 1 and 100.
+        :param organization_id: Filter by organization ID.
+        :param name: Name of group to find.
+        :param application_ids: Filter out by a list of application ID.
+        :param user_ids: Filter out by a list of user ID.
+        :param group_ids: Filter out by a list of group ID.
         :return: :class:`List[ListGroupsResponse] <List[ListGroupsResponse]>`
 
         Usage:
@@ -757,9 +762,9 @@ class IamV1Alpha1API(API):
     ) -> Group:
         """
         Create a new group
-        :param organization_id: ID of organization linked to the group
-        :param name: Name of the group to create (max length is 64 chars). MUST be unique inside an organization
-        :param description: Description of the group to create (max length is 200 chars)
+        :param organization_id: ID of organization linked to the group.
+        :param name: Name of the group to create (max length is 64 chars). MUST be unique inside an organization.
+        :param description: Description of the group to create (max length is 200 chars).
         :return: :class:`Group <Group>`
 
         Usage:
@@ -791,7 +796,7 @@ class IamV1Alpha1API(API):
     ) -> Group:
         """
         Get a group
-        :param group_id: ID of group
+        :param group_id: ID of group.
         :return: :class:`Group <Group>`
 
         Usage:
@@ -819,9 +824,9 @@ class IamV1Alpha1API(API):
     ) -> Group:
         """
         Update a group
-        :param group_id: ID of group to update
-        :param name: New name for the group (max length is 64 chars). MUST be unique inside an organization
-        :param description: New description for the group (max length is 200 chars)
+        :param group_id: ID of group to update.
+        :param name: New name for the group (max length is 64 chars). MUST be unique inside an organization.
+        :param description: New description for the group (max length is 200 chars).
         :return: :class:`Group <Group>`
 
         Usage:
@@ -899,7 +904,7 @@ class IamV1Alpha1API(API):
     ) -> Group:
         """
         Add a user of an application to a group
-        :param group_id: ID of group
+        :param group_id: ID of group.
         :param user_id: ID of the user to add.
 
         One-of ('member'): at most one of 'user_id', 'application_id' could be set.
@@ -941,7 +946,7 @@ class IamV1Alpha1API(API):
     ) -> Group:
         """
         Remove a user or an application from a group
-        :param group_id: ID of group
+        :param group_id: ID of group.
         :param user_id: ID of the user to remove.
 
         One-of ('member'): at most one of 'user_id', 'application_id' could be set.
@@ -981,7 +986,7 @@ class IamV1Alpha1API(API):
     ) -> Optional[None]:
         """
         Delete a group
-        :param group_id: ID of group to delete
+        :param group_id: ID of group to delete.
 
         Usage:
         ::
@@ -1015,16 +1020,16 @@ class IamV1Alpha1API(API):
     ) -> ListPoliciesResponse:
         """
         List policies of an organization
-        :param order_by: Criteria for sorting results
-        :param page_size: Number of results per page. Value must be between 1 and 100
-        :param page: Number of page. Value must be greater to 1
-        :param organization_id: ID of organization to filter
-        :param editable: Filter out editable policies or not
-        :param user_ids: Filter out by a list of user ID
-        :param group_ids: Filter out by a list of group ID
-        :param application_ids: Filter out by a list of application ID
-        :param no_principal: True when the policy do not belong to any principal
-        :param policy_name: Name of policy to fetch
+        :param order_by: Criteria for sorting results.
+        :param page_size: Number of results per page. Value must be between 1 and 100.
+        :param page: Number of page. Value must be greater to 1.
+        :param organization_id: ID of organization to filter.
+        :param editable: Filter out editable policies or not.
+        :param user_ids: Filter out by a list of user ID.
+        :param group_ids: Filter out by a list of group ID.
+        :param application_ids: Filter out by a list of application ID.
+        :param no_principal: True when the policy do not belong to any principal.
+        :param policy_name: Name of policy to fetch.
         :return: :class:`ListPoliciesResponse <ListPoliciesResponse>`
 
         Usage:
@@ -1070,16 +1075,16 @@ class IamV1Alpha1API(API):
     ) -> List[Policy]:
         """
         List policies of an organization
-        :param order_by: Criteria for sorting results
-        :param page_size: Number of results per page. Value must be between 1 and 100
-        :param page: Number of page. Value must be greater to 1
-        :param organization_id: ID of organization to filter
-        :param editable: Filter out editable policies or not
-        :param user_ids: Filter out by a list of user ID
-        :param group_ids: Filter out by a list of group ID
-        :param application_ids: Filter out by a list of application ID
-        :param no_principal: True when the policy do not belong to any principal
-        :param policy_name: Name of policy to fetch
+        :param order_by: Criteria for sorting results.
+        :param page_size: Number of results per page. Value must be between 1 and 100.
+        :param page: Number of page. Value must be greater to 1.
+        :param organization_id: ID of organization to filter.
+        :param editable: Filter out editable policies or not.
+        :param user_ids: Filter out by a list of user ID.
+        :param group_ids: Filter out by a list of group ID.
+        :param application_ids: Filter out by a list of application ID.
+        :param no_principal: True when the policy do not belong to any principal.
+        :param policy_name: Name of policy to fetch.
         :return: :class:`List[ListPoliciesResponse] <List[ListPoliciesResponse]>`
 
         Usage:
@@ -1120,10 +1125,10 @@ class IamV1Alpha1API(API):
     ) -> Policy:
         """
         Create a new policy
-        :param name: Name of policy to create (max length is 64 chars)
-        :param description: Description of policy to create (max length is 200 chars)
-        :param organization_id: ID of organization
-        :param rules: Rules of the policy to create
+        :param name: Name of policy to create (max length is 64 chars).
+        :param description: Description of policy to create (max length is 200 chars).
+        :param organization_id: ID of organization.
+        :param rules: Rules of the policy to create.
         :param user_id: ID of user, owner of the policy.
 
         One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
@@ -1172,7 +1177,7 @@ class IamV1Alpha1API(API):
     ) -> Policy:
         """
         Get an existing policy
-        :param policy_id: Id of policy to search
+        :param policy_id: Id of policy to search.
         :return: :class:`Policy <Policy>`
 
         Usage:
@@ -1204,9 +1209,9 @@ class IamV1Alpha1API(API):
     ) -> Policy:
         """
         Update an existing policy
-        :param policy_id: Id of policy to update
-        :param name: New name of policy (max length is 64 chars)
-        :param description: New description of policy (max length is 200 chars)
+        :param policy_id: Id of policy to update.
+        :param name: New name of policy (max length is 64 chars).
+        :param description: New description of policy (max length is 200 chars).
         :param user_id: New ID of user, owner of the policy.
 
         One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
@@ -1256,7 +1261,7 @@ class IamV1Alpha1API(API):
     ) -> Optional[None]:
         """
         Delete a policy
-        :param policy_id: Id of policy to delete
+        :param policy_id: Id of policy to delete.
 
         Usage:
         ::
@@ -1305,8 +1310,8 @@ class IamV1Alpha1API(API):
     ) -> SetRulesResponse:
         """
         Set rules of an existing policy
-        :param policy_id: Id of policy to update
-        :param rules: Rules of the policy to set
+        :param policy_id: Id of policy to update.
+        :param rules: Rules of the policy to set.
         :return: :class:`SetRulesResponse <SetRulesResponse>`
 
         Usage:
@@ -1342,9 +1347,9 @@ class IamV1Alpha1API(API):
     ) -> ListRulesResponse:
         """
         List rules of an existing policy
-        :param policy_id: Id of policy to search
-        :param page_size: Number of results per page. Value must be between 1 and 100
-        :param page: Number of page. Value must be greater to 1
+        :param policy_id: Id of policy to search.
+        :param page_size: Number of results per page. Value must be between 1 and 100.
+        :param page: Number of page. Value must be greater to 1.
         :return: :class:`ListRulesResponse <ListRulesResponse>`
 
         Usage:
@@ -1375,9 +1380,9 @@ class IamV1Alpha1API(API):
     ) -> List[Rule]:
         """
         List rules of an existing policy
-        :param policy_id: Id of policy to search
-        :param page_size: Number of results per page. Value must be between 1 and 100
-        :param page: Number of page. Value must be greater to 1
+        :param policy_id: Id of policy to search.
+        :param page_size: Number of results per page. Value must be between 1 and 100.
+        :param page: Number of page. Value must be greater to 1.
         :return: :class:`List[ListRulesResponse] <List[ListRulesResponse]>`
 
         Usage:
@@ -1407,10 +1412,10 @@ class IamV1Alpha1API(API):
     ) -> ListPermissionSetsResponse:
         """
         List permission sets
-        :param order_by: Criteria for sorting results
-        :param page_size: Number of results per page. Value must be between 1 and 100
-        :param page: Number of page. Value must be greater to 1
-        :param organization_id: Filter by organization ID
+        :param order_by: Criteria for sorting results.
+        :param page_size: Number of results per page. Value must be between 1 and 100.
+        :param page: Number of page. Value must be greater to 1.
+        :param organization_id: Filter by organization ID.
         :return: :class:`ListPermissionSetsResponse <ListPermissionSetsResponse>`
 
         Usage:
@@ -1444,10 +1449,10 @@ class IamV1Alpha1API(API):
     ) -> List[PermissionSet]:
         """
         List permission sets
-        :param order_by: Criteria for sorting results
-        :param page_size: Number of results per page. Value must be between 1 and 100
-        :param page: Number of page. Value must be greater to 1
-        :param organization_id: Filter by organization ID
+        :param order_by: Criteria for sorting results.
+        :param page_size: Number of results per page. Value must be between 1 and 100.
+        :param page: Number of page. Value must be greater to 1.
+        :param organization_id: Filter by organization ID.
         :return: :class:`List[ListPermissionSetsResponse] <List[ListPermissionSetsResponse]>`
 
         Usage:
@@ -1486,22 +1491,22 @@ class IamV1Alpha1API(API):
     ) -> ListAPIKeysResponse:
         """
         List API keys
-        :param order_by: Criteria for sorting results
-        :param page: Number of page. Value must be greater or equals to 1
-        :param page_size: Number of results per page. Value must be between 1 and 100
-        :param organization_id: ID of organization
+        :param order_by: Criteria for sorting results.
+        :param page: Number of page. Value must be greater or equals to 1.
+        :param page_size: Number of results per page. Value must be between 1 and 100.
+        :param organization_id: ID of organization.
         :param application_id: ID of an application bearer.
 
         One-of ('bearer'): at most one of 'application_id', 'user_id' could be set.
         :param user_id: ID of a user bearer.
 
         One-of ('bearer'): at most one of 'application_id', 'user_id' could be set.
-        :param editable: Filter out editable API keys or not
-        :param expired: Filter out expired API keys or not
-        :param access_key: Filter out by access key
-        :param description: Filter out by description
-        :param bearer_id: Filter out by bearer ID
-        :param bearer_type: Filter out by type of bearer
+        :param editable: Filter out editable API keys or not.
+        :param expired: Filter out expired API keys or not.
+        :param access_key: Filter out by access key.
+        :param description: Filter out by description.
+        :param bearer_id: Filter out by bearer ID.
+        :param bearer_type: Filter out by type of bearer.
         :return: :class:`ListAPIKeysResponse <ListAPIKeysResponse>`
 
         Usage:
@@ -1555,22 +1560,22 @@ class IamV1Alpha1API(API):
     ) -> List[APIKey]:
         """
         List API keys
-        :param order_by: Criteria for sorting results
-        :param page: Number of page. Value must be greater or equals to 1
-        :param page_size: Number of results per page. Value must be between 1 and 100
-        :param organization_id: ID of organization
+        :param order_by: Criteria for sorting results.
+        :param page: Number of page. Value must be greater or equals to 1.
+        :param page_size: Number of results per page. Value must be between 1 and 100.
+        :param organization_id: ID of organization.
         :param application_id: ID of an application bearer.
 
         One-of ('bearer'): at most one of 'application_id', 'user_id' could be set.
         :param user_id: ID of a user bearer.
 
         One-of ('bearer'): at most one of 'application_id', 'user_id' could be set.
-        :param editable: Filter out editable API keys or not
-        :param expired: Filter out expired API keys or not
-        :param access_key: Filter out by access key
-        :param description: Filter out by description
-        :param bearer_id: Filter out by bearer ID
-        :param bearer_type: Filter out by type of bearer
+        :param editable: Filter out editable API keys or not.
+        :param expired: Filter out expired API keys or not.
+        :param access_key: Filter out by access key.
+        :param description: Filter out by description.
+        :param bearer_id: Filter out by bearer ID.
+        :param bearer_type: Filter out by type of bearer.
         :return: :class:`List[ListAPIKeysResponse] <List[ListAPIKeysResponse]>`
 
         Usage:
@@ -1616,9 +1621,9 @@ class IamV1Alpha1API(API):
         :param user_id: ID of user principal.
 
         One-of ('bearer'): at most one of 'application_id', 'user_id' could be set.
-        :param expires_at: Expiration date of the API key
-        :param default_project_id: The default project ID to use with object storage
-        :param description: The description of the API key (max length is 200 chars)
+        :param expires_at: Expiration date of the API key.
+        :param default_project_id: The default project ID to use with object storage.
+        :param description: The description of the API key (max length is 200 chars).
         :return: :class:`APIKey <APIKey>`
 
         Usage:
@@ -1652,7 +1657,7 @@ class IamV1Alpha1API(API):
     ) -> APIKey:
         """
         Get an API key
-        :param access_key: Access key to search for
+        :param access_key: Access key to search for.
         :return: :class:`APIKey <APIKey>`
 
         Usage:
@@ -1680,9 +1685,9 @@ class IamV1Alpha1API(API):
     ) -> APIKey:
         """
         Update an API key
-        :param access_key: Access key to update
-        :param default_project_id: The new default project ID to set
-        :param description: The new description to update
+        :param access_key: Access key to update.
+        :param default_project_id: The new default project ID to set.
+        :param description: The new description to update.
         :return: :class:`APIKey <APIKey>`
 
         Usage:
@@ -1716,7 +1721,7 @@ class IamV1Alpha1API(API):
     ) -> Optional[None]:
         """
         Delete an API key
-        :param access_key: Access key to delete
+        :param access_key: Access key to delete.
 
         Usage:
         ::
@@ -1744,10 +1749,10 @@ class IamV1Alpha1API(API):
     ) -> ListQuotaResponse:
         """
         List all quota in the organization with the associated limit
-        :param order_by: Criteria for sorting results
-        :param page_size: Number of results per page. Value must be between 1 and 100
-        :param page: Number of page. Value must be greater to 1
-        :param organization_id: Filter by organization ID
+        :param order_by: Criteria for sorting results.
+        :param page_size: Number of results per page. Value must be between 1 and 100.
+        :param page: Number of page. Value must be greater to 1.
+        :param organization_id: Filter by organization ID.
         :return: :class:`ListQuotaResponse <ListQuotaResponse>`
 
         Usage:
@@ -1781,10 +1786,10 @@ class IamV1Alpha1API(API):
     ) -> List[Quotum]:
         """
         List all quota in the organization with the associated limit
-        :param order_by: Criteria for sorting results
-        :param page_size: Number of results per page. Value must be between 1 and 100
-        :param page: Number of page. Value must be greater to 1
-        :param organization_id: Filter by organization ID
+        :param order_by: Criteria for sorting results.
+        :param page_size: Number of results per page. Value must be between 1 and 100.
+        :param page: Number of page. Value must be greater to 1.
+        :param organization_id: Filter by organization ID.
         :return: :class:`List[ListQuotaResponse] <List[ListQuotaResponse]>`
 
         Usage:
@@ -1813,8 +1818,8 @@ class IamV1Alpha1API(API):
     ) -> Quotum:
         """
         Get a quotum in the organization with the associated limit
-        :param quotum_name: Name of the quotum to get
-        :param organization_id: ID of the organization
+        :param quotum_name: Name of the quotum to get.
+        :param organization_id: ID of the organization.
         :return: :class:`Quotum <Quotum>`
 
         Usage:
@@ -1836,3 +1841,130 @@ class IamV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Quotum(res.json())
+
+    async def list_jw_ts(
+        self,
+        *,
+        audience_id: str,
+        order_by: ListJWTsRequestOrderBy = ListJWTsRequestOrderBy.CREATED_AT_ASC,
+        page_size: Optional[int] = None,
+        page: Optional[int] = None,
+        expired: Optional[bool] = None,
+    ) -> ListJWTsResponse:
+        """
+        List JWTs
+        :param order_by: Criteria for sorting results.
+        :param audience_id: ID of the user to search.
+        :param page_size: Number of results per page. Value must be between 1 and 100.
+        :param page: Number of page. Value must be greater to 1.
+        :param expired: Filter out expired JWTs or not.
+        :return: :class:`ListJWTsResponse <ListJWTsResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_jw_ts(audience_id="example")
+        """
+
+        res = self._request(
+            "GET",
+            f"/iam/v1alpha1/jwts",
+            params={
+                "audience_id": audience_id,
+                "expired": expired,
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListJWTsResponse(res.json())
+
+    async def list_jw_ts_all(
+        self,
+        *,
+        audience_id: str,
+        order_by: Optional[ListJWTsRequestOrderBy] = None,
+        page_size: Optional[int] = None,
+        page: Optional[int] = None,
+        expired: Optional[bool] = None,
+    ) -> List[JWT]:
+        """
+        List JWTs
+        :param order_by: Criteria for sorting results.
+        :param audience_id: ID of the user to search.
+        :param page_size: Number of results per page. Value must be between 1 and 100.
+        :param page: Number of page. Value must be greater to 1.
+        :param expired: Filter out expired JWTs or not.
+        :return: :class:`List[ListJWTsResponse] <List[ListJWTsResponse]>`
+
+        Usage:
+        ::
+
+            result = await api.list_jw_ts_all(audience_id="example")
+        """
+
+        return await fetch_all_pages_async(
+            type=ListJWTsResponse,
+            key="jwts",
+            fetcher=self.list_jw_ts,
+            args={
+                "audience_id": audience_id,
+                "order_by": order_by,
+                "page_size": page_size,
+                "page": page,
+                "expired": expired,
+            },
+        )
+
+    async def get_jwt(
+        self,
+        *,
+        jti: str,
+    ) -> JWT:
+        """
+        Get a JWT
+        :param jti: JWT ID of the JWT to get.
+        :return: :class:`JWT <JWT>`
+
+        Usage:
+        ::
+
+            result = await api.get_jwt(jti="example")
+        """
+
+        param_jti = validate_path_param("jti", jti)
+
+        res = self._request(
+            "GET",
+            f"/iam/v1alpha1/jwts/{param_jti}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_JWT(res.json())
+
+    async def delete_jwt(
+        self,
+        *,
+        jti: str,
+    ) -> Optional[None]:
+        """
+        Delete a JWT
+        :param jti: JWT ID of the JWT to delete.
+
+        Usage:
+        ::
+
+            result = await api.delete_jwt(jti="example")
+        """
+
+        param_jti = validate_path_param("jti", jti)
+
+        res = self._request(
+            "DELETE",
+            f"/iam/v1alpha1/jwts/{param_jti}",
+        )
+
+        self._throw_on_error(res)
+        return None
