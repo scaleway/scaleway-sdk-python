@@ -45,132 +45,131 @@ class SecretVersionStatus(str, Enum):
 @dataclass
 class AccessSecretVersionResponse:
     """
-    Access secret version response
+    Access secret version response.
     """
 
     secret_id: str
     """
-    ID of the Secret
+    ID of the Secret.
     """
 
     revision: int
     """
-    Revision of the SecretVersion
+    Revision of the SecretVersion.
     """
 
     data: str
     """
-    The base64-encoded secret payload of the SecretVersion
+    The base64-encoded secret payload of the SecretVersion.
     """
 
 
 @dataclass
 class ListSecretVersionsResponse:
     """
-    List secret versions response
+    List secret versions response.
     """
 
     total_count: int
     """
-    Count of all SecretVersions
+    Count of all SecretVersions.
     """
 
     versions: List[SecretVersion]
     """
-    Single page of SecretVersions
+    Single page of SecretVersions.
     """
 
 
 @dataclass
 class ListSecretsResponse:
     """
-    List secrets response
+    List secrets response.
     """
 
     total_count: int
     """
-    Count of all Secrets matching the requested criteria
+    Count of all Secrets matching the requested criteria.
     """
 
     secrets: List[Secret]
     """
-    Single page of Secrets matching the requested criteria
+    Single page of Secrets matching the requested criteria.
     """
 
 
 @dataclass
 class Secret:
     """
-    Secret
+    Secret.
     """
 
     id: str
     """
-    ID of the Secret
+    ID of the Secret.
     """
 
     project_id: str
     """
-    ID of the project containing the Secret
+    ID of the project containing the Secret.
     """
 
     name: str
     """
-    Name of the Secret
+    Name of the Secret.
     """
 
     status: SecretStatus
     """
     * `ready`: the Secret is ready.
     * `locked`: the Secret is locked.
-    
     """
 
     created_at: Optional[datetime]
     """
-    The time at which the Secret was created
+    The time at which the Secret was created.
     """
 
     updated_at: Optional[datetime]
     """
-    The time at which the Secret was updated
+    The time at which the Secret was updated.
     """
 
     tags: List[str]
     """
-    List of tags associated to this Secret
+    List of tags associated to this Secret.
     """
 
     region: Region
     """
-    Region of the Secret
+    Region of the Secret.
     """
 
     version_count: int
     """
-    The number of versions for this Secret
+    The number of versions for this Secret.
     """
 
     description: Optional[str]
     """
-    Description of the Secret
+    Description of the Secret.
     """
 
 
 @dataclass
 class SecretVersion:
     """
-    Secret version
+    Secret version.
     """
 
     secret_id: str
     """
-    ID of the Secret
+    ID of the Secret.
     """
 
     revision: int
     """
-    Revision of the SecretVersion
+    Revision of the SecretVersion.
     """
 
     status: SecretVersionStatus
@@ -179,22 +178,21 @@ class SecretVersion:
     * `enabled`: the SecretVersion is accessible.
     * `disabled`: the SecretVersion is not accessible but can be enabled.
     * `destroyed`: the SecretVersion is permanently destroyed.
-    
     """
 
     created_at: Optional[datetime]
     """
-    The time at which the SecretVersion was created
+    The time at which the SecretVersion was created.
     """
 
     updated_at: Optional[datetime]
     """
-    The time at which the SecretVersion was updated
+    The time at which the SecretVersion was updated.
     """
 
     description: Optional[str]
     """
-    Description of the SecretVersion
+    Description of the SecretVersion.
     """
 
 
@@ -202,27 +200,27 @@ class SecretVersion:
 class CreateSecretRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     project_id: Optional[str]
     """
-    ID of the project containing the Secret
+    ID of the project containing the Secret.
     """
 
     name: str
     """
-    Name of the Secret
+    Name of the Secret.
     """
 
     tags: Optional[List[str]]
     """
-    List of tags associated to this Secret
+    List of tags associated to this Secret.
     """
 
     description: Optional[str]
     """
-    Description of the Secret
+    Description of the Secret.
     """
 
 
@@ -230,12 +228,12 @@ class CreateSecretRequest:
 class GetSecretRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     secret_id: str
     """
-    ID of the Secret
+    ID of the Secret.
     """
 
 
@@ -243,12 +241,12 @@ class GetSecretRequest:
 class GetSecretByNameRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     secret_name: str
     """
-    Name of the Secret
+    Name of the Secret.
     """
 
 
@@ -256,27 +254,27 @@ class GetSecretByNameRequest:
 class UpdateSecretRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     secret_id: str
     """
-    ID of the Secret
+    ID of the Secret.
     """
 
     name: Optional[str]
     """
-    New name of the Secret (optional)
+    New name of the Secret (optional).
     """
 
     tags: Optional[List[str]]
     """
-    New list of tags associated to this Secret (optional)
+    New list of tags associated to this Secret (optional).
     """
 
     description: Optional[str]
     """
-    Description of the Secret
+    Description of the Secret.
     """
 
 
@@ -284,27 +282,27 @@ class UpdateSecretRequest:
 class ListSecretsRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     organization_id: Optional[str]
     """
-    ID of an organization to filter on (optional)
+    ID of an organization to filter on (optional).
     """
 
     project_id: Optional[str]
     """
-    ID of a project to filter on (optional)
+    ID of a project to filter on (optional).
     """
 
     name: Optional[str]
     """
-    Secret name to filter on (optional)
+    Secret name to filter on (optional).
     """
 
     tags: Optional[List[str]]
     """
-    List of tags to filter on (optional)
+    List of tags to filter on (optional).
     """
 
     order_by: Optional[ListSecretsRequestOrderBy]
@@ -318,12 +316,12 @@ class ListSecretsRequest:
 class DeleteSecretRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     secret_id: str
     """
-    ID of the Secret
+    ID of the Secret.
     """
 
 
@@ -331,22 +329,22 @@ class DeleteSecretRequest:
 class CreateSecretVersionRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     secret_id: str
     """
-    ID of the Secret
+    ID of the Secret.
     """
 
     data: str
     """
-    The base64-encoded secret payload of the SecretVersion
+    The base64-encoded secret payload of the SecretVersion.
     """
 
     description: Optional[str]
     """
-    Description of the SecretVersion
+    Description of the SecretVersion.
     """
 
 
@@ -354,17 +352,17 @@ class CreateSecretVersionRequest:
 class GetSecretVersionRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     secret_id: str
     """
-    ID of the Secret
+    ID of the Secret.
     """
 
     revision: str
     """
-    Revision of the SecretVersion (may be a number or "latest")
+    Revision of the SecretVersion (may be a number or "latest").
     """
 
 
@@ -372,17 +370,17 @@ class GetSecretVersionRequest:
 class GetSecretVersionByNameRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     secret_name: str
     """
-    Name of the Secret
+    Name of the Secret.
     """
 
     revision: str
     """
-    Revision of the SecretVersion (may be a number or "latest")
+    Revision of the SecretVersion (may be a number or "latest").
     """
 
 
@@ -390,22 +388,22 @@ class GetSecretVersionByNameRequest:
 class UpdateSecretVersionRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     secret_id: str
     """
-    ID of the Secret
+    ID of the Secret.
     """
 
     revision: str
     """
-    Revision of the SecretVersion (may be a number or "latest")
+    Revision of the SecretVersion (may be a number or "latest").
     """
 
     description: Optional[str]
     """
-    Description of the SecretVersion
+    Description of the SecretVersion.
     """
 
 
@@ -413,12 +411,12 @@ class UpdateSecretVersionRequest:
 class ListSecretVersionsRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     secret_id: str
     """
-    ID of the Secret
+    ID of the Secret.
     """
 
     page: Optional[int]
@@ -427,7 +425,7 @@ class ListSecretVersionsRequest:
 
     status: Optional[List[SecretVersionStatus]]
     """
-    Filter results by status
+    Filter results by status.
     """
 
 
@@ -435,12 +433,12 @@ class ListSecretVersionsRequest:
 class ListSecretVersionsByNameRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     secret_name: str
     """
-    Name of the Secret
+    Name of the Secret.
     """
 
     page: Optional[int]
@@ -449,7 +447,7 @@ class ListSecretVersionsByNameRequest:
 
     status: Optional[List[SecretVersionStatus]]
     """
-    Filter results by status
+    Filter results by status.
     """
 
 
@@ -457,17 +455,17 @@ class ListSecretVersionsByNameRequest:
 class DestroySecretVersionRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     secret_id: str
     """
-    ID of the Secret
+    ID of the Secret.
     """
 
     revision: str
     """
-    Revision of the SecretVersion (may be a number or "latest")
+    Revision of the SecretVersion (may be a number or "latest").
     """
 
 
@@ -475,17 +473,17 @@ class DestroySecretVersionRequest:
 class EnableSecretVersionRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     secret_id: str
     """
-    ID of the Secret
+    ID of the Secret.
     """
 
     revision: str
     """
-    Revision of the SecretVersion (may be a number or "latest")
+    Revision of the SecretVersion (may be a number or "latest").
     """
 
 
@@ -493,17 +491,17 @@ class EnableSecretVersionRequest:
 class DisableSecretVersionRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     secret_id: str
     """
-    ID of the Secret
+    ID of the Secret.
     """
 
     revision: str
     """
-    Revision of the SecretVersion (may be a number or "latest")
+    Revision of the SecretVersion (may be a number or "latest").
     """
 
 
@@ -511,17 +509,17 @@ class DisableSecretVersionRequest:
 class AccessSecretVersionRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     secret_id: str
     """
-    ID of the Secret
+    ID of the Secret.
     """
 
     revision: str
     """
-    Revision of the SecretVersion (may be a number or "latest")
+    Revision of the SecretVersion (may be a number or "latest").
     """
 
 
@@ -529,15 +527,15 @@ class AccessSecretVersionRequest:
 class AccessSecretVersionByNameRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     secret_name: str
     """
-    Name of the Secret
+    Name of the Secret.
     """
 
     revision: str
     """
-    Revision of the SecretVersion (may be a number or "latest")
+    Revision of the SecretVersion (may be a number or "latest").
     """

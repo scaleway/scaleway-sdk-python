@@ -55,11 +55,11 @@ class SecretV1Alpha1API(API):
     ) -> Secret:
         """
         Create a Secret containing no versions
-        :param region: Region to target. If none is passed will use default region from the config
-        :param project_id: ID of the project containing the Secret
-        :param name: Name of the Secret
-        :param tags: List of tags associated to this Secret
-        :param description: Description of the Secret
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: ID of the project containing the Secret.
+        :param name: Name of the Secret.
+        :param tags: List of tags associated to this Secret.
+        :param description: Description of the Secret.
         :return: :class:`Secret <Secret>`
 
         Usage:
@@ -98,8 +98,8 @@ class SecretV1Alpha1API(API):
     ) -> Secret:
         """
         Get metadata of a Secret
-        :param region: Region to target. If none is passed will use default region from the config
-        :param secret_id: ID of the Secret
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param secret_id: ID of the Secret.
         :return: :class:`Secret <Secret>`
 
         Usage:
@@ -129,8 +129,8 @@ class SecretV1Alpha1API(API):
     ) -> Secret:
         """
         Get metadata of a Secret
-        :param region: Region to target. If none is passed will use default region from the config
-        :param secret_name: Name of the Secret
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param secret_name: Name of the Secret.
         :return: :class:`Secret <Secret>`
 
         Usage:
@@ -163,11 +163,11 @@ class SecretV1Alpha1API(API):
     ) -> Secret:
         """
         Update metadata of a Secret
-        :param region: Region to target. If none is passed will use default region from the config
-        :param secret_id: ID of the Secret
-        :param name: New name of the Secret (optional)
-        :param tags: New list of tags associated to this Secret (optional)
-        :param description: Description of the Secret
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param secret_id: ID of the Secret.
+        :param name: New name of the Secret (optional).
+        :param tags: New list of tags associated to this Secret (optional).
+        :param description: Description of the Secret.
         :return: :class:`Secret <Secret>`
 
         Usage:
@@ -213,11 +213,11 @@ class SecretV1Alpha1API(API):
     ) -> ListSecretsResponse:
         """
         List Secrets
-        :param region: Region to target. If none is passed will use default region from the config
-        :param organization_id: ID of an organization to filter on (optional)
-        :param project_id: ID of a project to filter on (optional)
-        :param name: Secret name to filter on (optional)
-        :param tags: List of tags to filter on (optional)
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param organization_id: ID of an organization to filter on (optional).
+        :param project_id: ID of a project to filter on (optional).
+        :param name: Secret name to filter on (optional).
+        :param tags: List of tags to filter on (optional).
         :param order_by:
         :param page:
         :param page_size:
@@ -265,11 +265,11 @@ class SecretV1Alpha1API(API):
     ) -> List[Secret]:
         """
         List Secrets
-        :param region: Region to target. If none is passed will use default region from the config
-        :param organization_id: ID of an organization to filter on (optional)
-        :param project_id: ID of a project to filter on (optional)
-        :param name: Secret name to filter on (optional)
-        :param tags: List of tags to filter on (optional)
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param organization_id: ID of an organization to filter on (optional).
+        :param project_id: ID of a project to filter on (optional).
+        :param name: Secret name to filter on (optional).
+        :param tags: List of tags to filter on (optional).
         :param order_by:
         :param page:
         :param page_size:
@@ -305,8 +305,8 @@ class SecretV1Alpha1API(API):
     ) -> Optional[None]:
         """
         Delete a secret
-        :param region: Region to target. If none is passed will use default region from the config
-        :param secret_id: ID of the Secret
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param secret_id: ID of the Secret.
 
         Usage:
         ::
@@ -337,10 +337,10 @@ class SecretV1Alpha1API(API):
     ) -> SecretVersion:
         """
         Create a SecretVersion
-        :param region: Region to target. If none is passed will use default region from the config
-        :param secret_id: ID of the Secret
-        :param data: The base64-encoded secret payload of the SecretVersion
-        :param description: Description of the SecretVersion
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param secret_id: ID of the Secret.
+        :param data: The base64-encoded secret payload of the SecretVersion.
+        :param description: Description of the SecretVersion.
         :return: :class:`SecretVersion <SecretVersion>`
 
         Usage:
@@ -383,9 +383,9 @@ class SecretV1Alpha1API(API):
     ) -> SecretVersion:
         """
         Get metadata of a SecretVersion
-        :param region: Region to target. If none is passed will use default region from the config
-        :param secret_id: ID of the Secret
-        :param revision: Revision of the SecretVersion (may be a number or "latest")
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param secret_id: ID of the Secret.
+        :param revision: Revision of the SecretVersion (may be a number or "latest").
         :return: :class:`SecretVersion <SecretVersion>`
 
         Usage:
@@ -420,9 +420,9 @@ class SecretV1Alpha1API(API):
     ) -> SecretVersion:
         """
         Get metadata of a SecretVersion
-        :param region: Region to target. If none is passed will use default region from the config
-        :param secret_name: Name of the Secret
-        :param revision: Revision of the SecretVersion (may be a number or "latest")
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param secret_name: Name of the Secret.
+        :param revision: Revision of the SecretVersion (may be a number or "latest").
         :return: :class:`SecretVersion <SecretVersion>`
 
         Usage:
@@ -458,10 +458,10 @@ class SecretV1Alpha1API(API):
     ) -> SecretVersion:
         """
         Update metadata of a SecretVersion
-        :param region: Region to target. If none is passed will use default region from the config
-        :param secret_id: ID of the Secret
-        :param revision: Revision of the SecretVersion (may be a number or "latest")
-        :param description: Description of the SecretVersion
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param secret_id: ID of the Secret.
+        :param revision: Revision of the SecretVersion (may be a number or "latest").
+        :param description: Description of the SecretVersion.
         :return: :class:`SecretVersion <SecretVersion>`
 
         Usage:
@@ -507,11 +507,11 @@ class SecretV1Alpha1API(API):
     ) -> ListSecretVersionsResponse:
         """
         List versions of a secret, not returning any sensitive data
-        :param region: Region to target. If none is passed will use default region from the config
-        :param secret_id: ID of the Secret
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param secret_id: ID of the Secret.
         :param page:
         :param page_size:
-        :param status: Filter results by status
+        :param status: Filter results by status.
         :return: :class:`ListSecretVersionsResponse <ListSecretVersionsResponse>`
 
         Usage:
@@ -549,11 +549,11 @@ class SecretV1Alpha1API(API):
     ) -> List[SecretVersion]:
         """
         List versions of a secret, not returning any sensitive data
-        :param region: Region to target. If none is passed will use default region from the config
-        :param secret_id: ID of the Secret
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param secret_id: ID of the Secret.
         :param page:
         :param page_size:
-        :param status: Filter results by status
+        :param status: Filter results by status.
         :return: :class:`List[ListSecretVersionsResponse] <List[ListSecretVersionsResponse]>`
 
         Usage:
@@ -586,11 +586,11 @@ class SecretV1Alpha1API(API):
     ) -> ListSecretVersionsResponse:
         """
         List versions of a secret, not returning any sensitive data
-        :param region: Region to target. If none is passed will use default region from the config
-        :param secret_name: Name of the Secret
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param secret_name: Name of the Secret.
         :param page:
         :param page_size:
-        :param status: Filter results by status
+        :param status: Filter results by status.
         :return: :class:`ListSecretVersionsResponse <ListSecretVersionsResponse>`
 
         Usage:
@@ -628,11 +628,11 @@ class SecretV1Alpha1API(API):
     ) -> List[SecretVersion]:
         """
         List versions of a secret, not returning any sensitive data
-        :param region: Region to target. If none is passed will use default region from the config
-        :param secret_name: Name of the Secret
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param secret_name: Name of the Secret.
         :param page:
         :param page_size:
-        :param status: Filter results by status
+        :param status: Filter results by status.
         :return: :class:`List[ListSecretVersionsResponse] <List[ListSecretVersionsResponse]>`
 
         Usage:
@@ -663,9 +663,9 @@ class SecretV1Alpha1API(API):
     ) -> SecretVersion:
         """
         Destroy a SecretVersion, permanently destroying the sensitive data
-        :param region: Region to target. If none is passed will use default region from the config
-        :param secret_id: ID of the Secret
-        :param revision: Revision of the SecretVersion (may be a number or "latest")
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param secret_id: ID of the Secret.
+        :param revision: Revision of the SecretVersion (may be a number or "latest").
         :return: :class:`SecretVersion <SecretVersion>`
 
         Usage:
@@ -700,9 +700,9 @@ class SecretV1Alpha1API(API):
     ) -> SecretVersion:
         """
         Enable a SecretVersion
-        :param region: Region to target. If none is passed will use default region from the config
-        :param secret_id: ID of the Secret
-        :param revision: Revision of the SecretVersion (may be a number or "latest")
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param secret_id: ID of the Secret.
+        :param revision: Revision of the SecretVersion (may be a number or "latest").
         :return: :class:`SecretVersion <SecretVersion>`
 
         Usage:
@@ -737,9 +737,9 @@ class SecretV1Alpha1API(API):
     ) -> SecretVersion:
         """
         Disable a SecretVersion
-        :param region: Region to target. If none is passed will use default region from the config
-        :param secret_id: ID of the Secret
-        :param revision: Revision of the SecretVersion (may be a number or "latest")
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param secret_id: ID of the Secret.
+        :param revision: Revision of the SecretVersion (may be a number or "latest").
         :return: :class:`SecretVersion <SecretVersion>`
 
         Usage:
@@ -774,9 +774,9 @@ class SecretV1Alpha1API(API):
     ) -> AccessSecretVersionResponse:
         """
         Access a SecretVersion, returning the sensitive data
-        :param region: Region to target. If none is passed will use default region from the config
-        :param secret_id: ID of the Secret
-        :param revision: Revision of the SecretVersion (may be a number or "latest")
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param secret_id: ID of the Secret.
+        :param revision: Revision of the SecretVersion (may be a number or "latest").
         :return: :class:`AccessSecretVersionResponse <AccessSecretVersionResponse>`
 
         Usage:
@@ -811,9 +811,9 @@ class SecretV1Alpha1API(API):
     ) -> AccessSecretVersionResponse:
         """
         Access a SecretVersion, returning the sensitive data
-        :param region: Region to target. If none is passed will use default region from the config
-        :param secret_name: Name of the Secret
-        :param revision: Revision of the SecretVersion (may be a number or "latest")
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param secret_name: Name of the Secret.
+        :param revision: Revision of the SecretVersion (may be a number or "latest").
         :return: :class:`AccessSecretVersionResponse <AccessSecretVersionResponse>`
 
         Usage:
