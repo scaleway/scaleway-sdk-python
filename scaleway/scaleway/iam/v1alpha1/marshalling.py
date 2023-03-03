@@ -13,9 +13,11 @@ from .types import (
     APIKey,
     Application,
     Group,
+    JWT,
     ListAPIKeysResponse,
     ListApplicationsResponse,
     ListGroupsResponse,
+    ListJWTsResponse,
     ListPermissionSetsResponse,
     ListPoliciesResponse,
     ListQuotaResponse,
@@ -159,6 +161,41 @@ def unmarshal_Group(data: Any) -> Group:
     args["user_ids"] = field
 
     return Group(**args)
+
+
+def unmarshal_JWT(data: Any) -> JWT:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'JWT' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("audience_id")
+    args["audience_id"] = field
+
+    field = data.get("created_at")
+    args["created_at"] = parser.isoparse(field) if type(field) is str else field
+
+    field = data.get("expires_at")
+    args["expires_at"] = parser.isoparse(field) if type(field) is str else field
+
+    field = data.get("ip")
+    args["ip"] = field
+
+    field = data.get("issuer_id")
+    args["issuer_id"] = field
+
+    field = data.get("jti")
+    args["jti"] = field
+
+    field = data.get("updated_at")
+    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
+
+    field = data.get("user_agent")
+    args["user_agent"] = field
+
+    return JWT(**args)
 
 
 def unmarshal_PermissionSet(data: Any) -> PermissionSet:
@@ -417,6 +454,23 @@ def unmarshal_ListGroupsResponse(data: Any) -> ListGroupsResponse:
     args["total_count"] = field
 
     return ListGroupsResponse(**args)
+
+
+def unmarshal_ListJWTsResponse(data: Any) -> ListJWTsResponse:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'ListJWTsResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("jwts")
+    args["jwts"] = [unmarshal_JWT(v) for v in data["jwts"]]
+
+    field = data.get("total_count")
+    args["total_count"] = field
+
+    return ListJWTsResponse(**args)
 
 
 def unmarshal_ListPermissionSetsResponse(data: Any) -> ListPermissionSetsResponse:
