@@ -117,7 +117,7 @@ from .content import VOLUME_TRANSIENT_STATUSES
 from .api import InstanceV1API
 
 try:
-    from .api_utils import InstanceV1APIUtils as InstanceV1API  # type: ignore
+    from .api_utils import InstanceV1APIUtils as InstanceV1API  # type: ignore[attr-defined]
 except ImportError:
     pass
 
