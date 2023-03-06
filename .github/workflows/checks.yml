@@ -56,7 +56,7 @@ jobs:
       - name: Install dependencies and library
         run: poetry install
       - name: Check typing
-        run: poetry run mypy --install-types --non-interactive --strict $(echo "${{ matrix.lib }}" | tr "-" "_")
+        run: poetry run mypy --install-types --non-interactive --strict --warn-unused-ignores $(echo "${{ matrix.lib }}" | tr "-" "_")
 
   security:
     runs-on: ubuntu-latest
