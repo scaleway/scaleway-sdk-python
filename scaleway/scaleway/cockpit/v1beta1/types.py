@@ -50,44 +50,44 @@ class ListTokensRequestOrderBy(str, Enum):
 @dataclass
 class Cockpit:
     """
-    Cockpit
+    Cockpit.
     """
 
     project_id: str
     """
-    Project ID
+    Project ID.
     """
 
     created_at: Optional[datetime]
     """
-    Created at
+    Created at.
     """
 
     updated_at: Optional[datetime]
     """
-    Updated at
+    Updated at.
     """
 
     endpoints: Optional[CockpitEndpoints]
     """
-    Endpoints
+    Endpoints.
     """
 
     status: CockpitStatus
     """
-    Status
+    Status.
     """
 
     managed_alerts_enabled: bool
     """
-    Managed alerts enabled
+    Managed alerts enabled.
     """
 
 
 @dataclass
 class CockpitEndpoints:
     """
-    Cockpit. endpoints
+    Cockpit. endpoints.
     """
 
     metrics_url: str
@@ -102,7 +102,7 @@ class CockpitEndpoints:
 @dataclass
 class ContactPoint:
     """
-    Alert contact point
+    Alert contact point.
     """
 
     email: Optional[ContactPointEmail]
@@ -121,7 +121,7 @@ class ContactPointEmail:
 @dataclass
 class GrafanaUser:
     """
-    Grafana user
+    Grafana user.
     """
 
     id: int
@@ -136,34 +136,34 @@ class GrafanaUser:
 @dataclass
 class ListContactPointsResponse:
     """
-    List contact points response
+    List contact points response.
     """
 
     total_count: int
     """
-    Total count of contact points
+    Total count of contact points.
     """
 
     contact_points: List[ContactPoint]
     """
-    Contact points array
+    Contact points array.
     """
 
     has_additional_receivers: bool
     """
-    Has receivers other than default
+    Has receivers other than default.
     """
 
     has_additional_contact_points: bool
     """
-    Has unmanaged contact points
+    Has unmanaged contact points.
     """
 
 
 @dataclass
 class ListGrafanaUsersResponse:
     """
-    List grafana users response
+    List grafana users response.
     """
 
     total_count: int
@@ -174,7 +174,7 @@ class ListGrafanaUsersResponse:
 @dataclass
 class ListTokensResponse:
     """
-    List tokens response
+    List tokens response.
     """
 
     total_count: int
@@ -185,7 +185,7 @@ class ListTokensResponse:
 @dataclass
 class Token:
     """
-    Token
+    Token.
     """
 
     id: str
@@ -206,7 +206,7 @@ class Token:
 @dataclass
 class TokenScopes:
     """
-    Token scopes
+    Token scopes.
     """
 
     query_metrics: bool
@@ -278,12 +278,12 @@ class DeleteTokenRequest:
 class CreateContactPointRequest:
     project_id: Optional[str]
     """
-    Project ID
+    Project ID.
     """
 
     contact_point: Optional[ContactPoint]
     """
-    Contact point to create
+    Contact point to create.
     """
 
 
@@ -291,17 +291,17 @@ class CreateContactPointRequest:
 class ListContactPointsRequest:
     page: Optional[int]
     """
-    Page number
+    Page number.
     """
 
     page_size: Optional[int]
     """
-    Page size
+    Page size.
     """
 
     project_id: Optional[str]
     """
-    Project ID
+    Project ID.
     """
 
 
@@ -311,7 +311,7 @@ class DeleteContactPointRequest:
 
     contact_point: Optional[ContactPoint]
     """
-    Contact point to delete
+    Contact point to delete.
     """
 
 
