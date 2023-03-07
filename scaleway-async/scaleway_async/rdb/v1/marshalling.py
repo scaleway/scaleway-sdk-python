@@ -32,6 +32,7 @@ from .types import (
     EndpointSpec,
     EndpointSpecLoadBalancer,
     EndpointSpecPrivateNetwork,
+    EndpointSpecPrivateNetworkIpamConfig,
     EngineSetting,
     EngineVersion,
     Instance,
@@ -61,6 +62,7 @@ from .types import (
     ReadReplicaEndpointSpec,
     ReadReplicaEndpointSpecDirectAccess,
     ReadReplicaEndpointSpecPrivateNetwork,
+    ReadReplicaEndpointSpecPrivateNetworkIpamConfig,
     SetInstanceACLRulesResponse,
     SetInstanceSettingsResponse,
     Snapshot,
@@ -1148,6 +1150,20 @@ def unmarshal_SetInstanceSettingsResponse(data: Any) -> SetInstanceSettingsRespo
     return SetInstanceSettingsResponse(**args)
 
 
+def marshal_EndpointSpecPrivateNetworkIpamConfig(
+    request: EndpointSpecPrivateNetworkIpamConfig,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    return {}
+
+
+def marshal_ReadReplicaEndpointSpecPrivateNetworkIpamConfig(
+    request: ReadReplicaEndpointSpecPrivateNetworkIpamConfig,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    return {}
+
+
 def marshal_EndpointSpecLoadBalancer(
     request: EndpointSpecLoadBalancer,
     defaults: ProfileDefaults,
@@ -1160,8 +1176,13 @@ def marshal_EndpointSpecPrivateNetwork(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
+        **resolve_one_of(
+            [
+                OneOfPossibility("service_ip", request.service_ip),
+                OneOfPossibility("ipam_config", request.ipam_config),
+            ]
+        ),
         "private_network_id": request.private_network_id,
-        "service_ip": request.service_ip,
     }
 
 
@@ -1177,8 +1198,13 @@ def marshal_ReadReplicaEndpointSpecPrivateNetwork(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
+        **resolve_one_of(
+            [
+                OneOfPossibility("service_ip", request.service_ip),
+                OneOfPossibility("ipam_config", request.ipam_config),
+            ]
+        ),
         "private_network_id": request.private_network_id,
-        "service_ip": request.service_ip,
     }
 
 

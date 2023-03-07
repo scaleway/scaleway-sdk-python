@@ -38,6 +38,7 @@ from .types import EndpointPrivateNetworkDetails
 from .types import EndpointSpec
 from .types import EndpointSpecLoadBalancer
 from .types import EndpointSpecPrivateNetwork
+from .types import EndpointSpecPrivateNetworkIpamConfig
 from .types import EngineSetting
 from .types import EngineVersion
 from .types import Instance
@@ -67,6 +68,7 @@ from .types import ReadReplica
 from .types import ReadReplicaEndpointSpec
 from .types import ReadReplicaEndpointSpecDirectAccess
 from .types import ReadReplicaEndpointSpecPrivateNetwork
+from .types import ReadReplicaEndpointSpecPrivateNetworkIpamConfig
 from .types import SetInstanceACLRulesResponse
 from .types import SetInstanceSettingsResponse
 from .types import Snapshot
@@ -120,6 +122,7 @@ __all__ = [
     "EndpointSpec",
     "EndpointSpecLoadBalancer",
     "EndpointSpecPrivateNetwork",
+    "EndpointSpecPrivateNetworkIpamConfig",
     "EngineSetting",
     "EngineVersion",
     "Instance",
@@ -149,6 +152,7 @@ __all__ = [
     "ReadReplicaEndpointSpec",
     "ReadReplicaEndpointSpecDirectAccess",
     "ReadReplicaEndpointSpecPrivateNetwork",
+    "ReadReplicaEndpointSpecPrivateNetworkIpamConfig",
     "SetInstanceACLRulesResponse",
     "SetInstanceSettingsResponse",
     "Snapshot",
