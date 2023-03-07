@@ -382,8 +382,8 @@ class CockpitV1Beta1API(API):
     ) -> ContactPoint:
         """
         Create an alert contact point for the default receiver.
-        :param project_id: Project ID
-        :param contact_point: Contact point to create
+        :param project_id: Project ID.
+        :param contact_point: Contact point to create.
         :return: :class:`ContactPoint <ContactPoint>`
 
         Usage:
@@ -416,9 +416,9 @@ class CockpitV1Beta1API(API):
     ) -> ListContactPointsResponse:
         """
         List alert contact points associated with the given cockpit ID.
-        :param page: Page number
-        :param page_size: Page size
-        :param project_id: Project ID
+        :param page: Page number.
+        :param page_size: Page size.
+        :param project_id: Project ID.
         :return: :class:`ListContactPointsResponse <ListContactPointsResponse>`
 
         Usage:
@@ -449,9 +449,9 @@ class CockpitV1Beta1API(API):
     ) -> List[ContactPoint]:
         """
         List alert contact points associated with the given cockpit ID.
-        :param page: Page number
-        :param page_size: Page size
-        :param project_id: Project ID
+        :param page: Page number.
+        :param page_size: Page size.
+        :param project_id: Project ID.
         :return: :class:`List[ListContactPointsResponse] <List[ListContactPointsResponse]>`
 
         Usage:
@@ -480,7 +480,7 @@ class CockpitV1Beta1API(API):
         """
         Delete an alert contact point for the default receiver.
         :param project_id:
-        :param contact_point: Contact point to delete
+        :param contact_point: Contact point to delete.
 
         Usage:
         ::
