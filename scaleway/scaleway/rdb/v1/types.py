@@ -209,7 +209,7 @@ class Permission(str, Enum):
 
 class ReadReplicaStatus(str, Enum):
     """
-    Read replica. status
+    Read replica. status.
     """
 
     UNKNOWN = "unknown"
@@ -274,24 +274,24 @@ class ACLRuleRequest:
 @dataclass
 class AddInstanceACLRulesResponse:
     """
-    Add instance acl rules response
+    Add instance acl rules response.
     """
 
     rules: List[ACLRule]
     """
-    Rules enabled on the instance
+    Rules enabled on the instance.
     """
 
 
 @dataclass
 class AddInstanceSettingsResponse:
     """
-    Add instance settings response
+    Add instance settings response.
     """
 
     settings: List[InstanceSetting]
     """
-    Settings available on the instance
+    Settings available on the instance.
     """
 
 
@@ -307,167 +307,167 @@ class BackupSchedule:
 @dataclass
 class Database:
     """
-    Database
+    Database.
     """
 
     name: str
     """
-    Name of the database
+    Name of the database.
     """
 
     owner: str
     """
-    Name of the owner of the database
+    Name of the owner of the database.
     """
 
     managed: bool
     """
-    Whether or not the database is managed or not
+    Whether or not the database is managed or not.
     """
 
     size: int
     """
-    Size of the database
+    Size of the database.
     """
 
 
 @dataclass
 class DatabaseBackup:
     """
-    Database backup
+    Database backup.
     """
 
     id: str
     """
-    UUID of the database backup
+    UUID of the database backup.
     """
 
     instance_id: str
     """
-    UUID of the instance
+    UUID of the instance.
     """
 
     database_name: str
     """
-    Name of the database of this backup
+    Name of the database of this backup.
     """
 
     name: str
     """
-    Name of the backup
+    Name of the backup.
     """
 
     status: DatabaseBackupStatus
     """
-    Status of the backup
+    Status of the backup.
     """
 
     size: Optional[int]
     """
-    Size of the database backup
+    Size of the database backup.
     """
 
     expires_at: Optional[datetime]
     """
-    Expiration date (Format ISO 8601)
+    Expiration date (Format ISO 8601).
     """
 
     created_at: Optional[datetime]
     """
-    Creation date (Format ISO 8601)
+    Creation date (Format ISO 8601).
     """
 
     updated_at: Optional[datetime]
     """
-    Updated date (Format ISO 8601)
+    Updated date (Format ISO 8601).
     """
 
     instance_name: str
     """
-    Name of the instance of the backup
+    Name of the instance of the backup.
     """
 
     download_url: Optional[str]
     """
-    URL you can download the backup from
+    URL you can download the backup from.
     """
 
     download_url_expires_at: Optional[datetime]
     """
-    Expiration date of the download link
+    Expiration date of the download link.
     """
 
     region: Region
     """
-    Region of this database backup
+    Region of this database backup.
     """
 
     same_region: bool
     """
-    Store logical backups in the same region as the source database instance
+    Store logical backups in the same region as the source database instance.
     """
 
 
 @dataclass
 class DatabaseEngine:
     """
-    Database engine
+    Database engine.
     """
 
     name: str
     """
-    Engine name
+    Engine name.
     """
 
     logo_url: str
     """
-    Engine logo URL
+    Engine logo URL.
     """
 
     versions: List[EngineVersion]
     """
-    Available versions
+    Available versions.
     """
 
     region: Region
     """
-    Region of this database engine
+    Region of this database engine.
     """
 
 
 @dataclass
 class DeleteInstanceACLRulesResponse:
     """
-    Delete instance acl rules response
+    Delete instance acl rules response.
     """
 
     rules: List[ACLRule]
     """
-    ACL rules present on the instance
+    ACL rules present on the instance.
     """
 
 
 @dataclass
 class DeleteInstanceSettingsResponse:
     """
-    Delete instance settings response
+    Delete instance settings response.
     """
 
     settings: List[InstanceSetting]
     """
-    Settings names to delete from the instance
+    Settings names to delete from the instance.
     """
 
 
 @dataclass
 class Endpoint:
     """
-    Endpoint
+    Endpoint.
     """
 
     id: str
     """
-    UUID of the endpoint
+    UUID of the endpoint.
     """
 
     ip: Optional[str]
@@ -479,12 +479,12 @@ class Endpoint:
 
     port: int
     """
-    TCP port of the endpoint
+    TCP port of the endpoint.
     """
 
     name: Optional[str]
     """
-    Name of the endpoint
+    Name of the endpoint.
     """
 
     private_network: Optional[EndpointPrivateNetworkDetails]
@@ -529,29 +529,29 @@ class EndpointLoadBalancerDetails:
 @dataclass
 class EndpointPrivateNetworkDetails:
     """
-    Endpoint. private network details
+    Endpoint. private network details.
     """
 
     private_network_id: str
     """
-    UUID of the private network
+    UUID of the private network.
     """
 
     service_ip: str
     """
-    CIDR notation of the endpoint IPv4 address
+    CIDR notation of the endpoint IPv4 address.
     """
 
     zone: Zone
     """
-    Private network zone
+    Private network zone.
     """
 
 
 @dataclass
 class EndpointSpec:
     """
-    Endpoint spec
+    Endpoint spec.
     """
 
     load_balancer: Optional[EndpointSpecLoadBalancer]
@@ -577,293 +577,307 @@ class EndpointSpecLoadBalancer:
 @dataclass
 class EndpointSpecPrivateNetwork:
     """
-    Endpoint spec. private network
+    Endpoint spec. private network.
     """
 
     private_network_id: str
     """
-    UUID of the private network to be connected to the database instance
+    UUID of the private network to be connected to the database instance.
     """
 
-    service_ip: str
+    service_ip: Optional[str]
     """
     Endpoint IPv4 adress with a CIDR notation. Check documentation about IP and subnet limitation.
+    
+    One-of ('config'): at most one of 'service_ip', 'ipam_config' could be set.
     """
+
+    ipam_config: Optional[EndpointSpecPrivateNetworkIpamConfig]
+    """
+    Automated configuration of your private network endpoint with Scaleway IPAM service. One at the most per RDB instance or read replica (an RDB instance and its read replica can have different private networks). Cannot be updated (has to be deleted and recreated).
+    
+    One-of ('config'): at most one of 'service_ip', 'ipam_config' could be set.
+    """
+
+
+@dataclass
+class EndpointSpecPrivateNetworkIpamConfig:
+    pass
 
 
 @dataclass
 class EngineSetting:
     """
-    Engine setting
+    Engine setting.
     """
 
     name: str
     """
-    Setting name from database engine
+    Setting name from database engine.
     """
 
     default_value: str
     """
-    Value set when not specified
+    Value set when not specified.
     """
 
     hot_configurable: bool
     """
-    Setting can be applied without restarting
+    Setting can be applied without restarting.
     """
 
     description: str
     """
-    Setting description
+    Setting description.
     """
 
     property_type: EngineSettingPropertyType
     """
-    Setting type
+    Setting type.
     """
 
     unit: Optional[str]
     """
-    Setting base unit
+    Setting base unit.
     """
 
     string_constraint: Optional[str]
     """
-    Validation regex for string type settings
+    Validation regex for string type settings.
     """
 
     int_min: Optional[int]
     """
-    Minimum value for int types
+    Minimum value for int types.
     """
 
     int_max: Optional[int]
     """
-    Maximum value for int types
+    Maximum value for int types.
     """
 
     float_min: Optional[float]
     """
-    Minimum value for float types
+    Minimum value for float types.
     """
 
     float_max: Optional[float]
     """
-    Maximum value for float types
+    Maximum value for float types.
     """
 
 
 @dataclass
 class EngineVersion:
     """
-    Engine version
+    Engine version.
     """
 
     version: str
     """
-    Database engine version
+    Database engine version.
     """
 
     name: str
     """
-    Database engine name
+    Database engine name.
     """
 
     end_of_life: Optional[datetime]
     """
-    End of life date
+    End of life date.
     """
 
     available_settings: List[EngineSetting]
     """
-    Engine settings available to be set
+    Engine settings available to be set.
     """
 
     disabled: bool
     """
-    Disabled versions cannot be created
+    Disabled versions cannot be created.
     """
 
     beta: bool
     """
-    Beta status of engine version
+    Beta status of engine version.
     """
 
     available_init_settings: List[EngineSetting]
     """
-    Engine settings available to be set at database initialisation
+    Engine settings available to be set at database initialisation.
     """
 
 
 @dataclass
 class Instance:
     """
-    Instance
+    Instance.
     """
 
     created_at: Optional[datetime]
     """
-    Creation date (Format ISO 8601)
+    Creation date (Format ISO 8601).
     """
 
     volume: Optional[Volume]
     """
-    Volumes of the instance
+    Volumes of the instance.
     """
 
     region: Region
     """
-    Region the instance is in
+    Region the instance is in.
     """
 
     id: str
     """
-    UUID of the instance
+    UUID of the instance.
     """
 
     name: str
     """
-    Name of the instance
+    Name of the instance.
     """
 
     organization_id: str
     """
-    Organization ID the instance belongs to
+    Organization ID the instance belongs to.
     """
 
     project_id: str
     """
-    Project ID the instance belongs to
+    Project ID the instance belongs to.
     """
 
     status: InstanceStatus
     """
-    Status of the instance
+    Status of the instance.
     """
 
     engine: str
     """
-    Database engine of the database (PostgreSQL, MySQL, ...)
+    Database engine of the database (PostgreSQL, MySQL, ...).
     """
 
     upgradable_version: List[UpgradableVersion]
     """
-    Available database engine versions for upgrade
+    Available database engine versions for upgrade.
     """
 
     endpoint: Optional[Endpoint]
     """
-    Endpoint of the instance
+    Endpoint of the instance.
     :deprecated
     """
 
     tags: List[str]
     """
-    List of tags applied to the instance
+    List of tags applied to the instance.
     """
 
     settings: List[InstanceSetting]
     """
-    Advanced settings of the instance
+    Advanced settings of the instance.
     """
 
     backup_schedule: Optional[BackupSchedule]
     """
-    Backup schedule of the instance
+    Backup schedule of the instance.
     """
 
     is_ha_cluster: bool
     """
-    Whether or not High-Availability is enabled
+    Whether or not High-Availability is enabled.
     """
 
     read_replicas: List[ReadReplica]
     """
-    Read replicas of the instance
+    Read replicas of the instance.
     """
 
     node_type: str
     """
-    Node type of the instance
+    Node type of the instance.
     """
 
     init_settings: List[InstanceSetting]
     """
-    List of engine settings to be set at database initialisation
+    List of engine settings to be set at database initialisation.
     """
 
     endpoints: List[Endpoint]
     """
-    List of instance endpoints
+    List of instance endpoints.
     """
 
     logs_policy: Optional[LogsPolicy]
     """
-    Logs policy of the instance
+    Logs policy of the instance.
     """
 
     backup_same_region: bool
     """
-    Store logical backups in the same region as the database instance
+    Store logical backups in the same region as the database instance.
     """
 
     maintenances: List[Maintenance]
     """
-    List of instance maintenances
+    List of instance maintenances.
     """
 
 
 @dataclass
 class InstanceLog:
     """
-    Instance log
+    Instance log.
     """
 
     download_url: Optional[str]
     """
-    Presigned S3 URL to download your log file
+    Presigned S3 URL to download your log file.
     """
 
     id: str
     """
-    UUID of the instance log
+    UUID of the instance log.
     """
 
     status: InstanceLogStatus
     """
-    Status of the logs in a given instance
+    Status of the logs in a given instance.
     """
 
     node_name: str
     """
-    Name of the undelying node
+    Name of the undelying node.
     """
 
     expires_at: Optional[datetime]
     """
-    Expiration date (Format ISO 8601)
+    Expiration date (Format ISO 8601).
     """
 
     created_at: Optional[datetime]
     """
-    Creation date (Format ISO 8601)
+    Creation date (Format ISO 8601).
     """
 
     region: Region
     """
-    Region the instance is in
+    Region the instance is in.
     """
 
 
 @dataclass
 class InstanceMetrics:
     """
-    Instance metrics
+    Instance metrics.
     """
 
     timeseries: List[TimeSeries]
     """
-    Time series of metrics of a given instance
+    Time series of metrics of a given instance.
     """
 
 
@@ -877,80 +891,80 @@ class InstanceSetting:
 @dataclass
 class ListDatabaseBackupsResponse:
     """
-    List database backups response
+    List database backups response.
     """
 
     database_backups: List[DatabaseBackup]
     """
-    List of database backups
+    List of database backups.
     """
 
     total_count: int
     """
-    Total count of database backups available
+    Total count of database backups available.
     """
 
 
 @dataclass
 class ListDatabaseEnginesResponse:
     """
-    List database engines response
+    List database engines response.
     """
 
     engines: List[DatabaseEngine]
     """
-    List of the available database engines
+    List of the available database engines.
     """
 
     total_count: int
     """
-    Total count of database engines available
+    Total count of database engines available.
     """
 
 
 @dataclass
 class ListDatabasesResponse:
     """
-    List databases response
+    List databases response.
     """
 
     databases: List[Database]
     """
-    List of the databases
+    List of the databases.
     """
 
     total_count: int
     """
-    Total count of databases present on a given instance
+    Total count of databases present on a given instance.
     """
 
 
 @dataclass
 class ListInstanceACLRulesResponse:
     """
-    List instance acl rules response
+    List instance acl rules response.
     """
 
     rules: List[ACLRule]
     """
-    List of the ACL rules present on a given instance
+    List of the ACL rules present on a given instance.
     """
 
     total_count: int
     """
-    Total count of ACL rules present on a given instance
+    Total count of ACL rules present on a given instance.
     """
 
 
 @dataclass
 class ListInstanceLogsDetailsResponse:
     """
-    List instance logs details response
+    List instance logs details response.
     """
 
     details: List[ListInstanceLogsDetailsResponseInstanceLogDetail]
     """
-    Remote instance logs details
+    Remote instance logs details.
     """
 
 
@@ -964,337 +978,337 @@ class ListInstanceLogsDetailsResponseInstanceLogDetail:
 @dataclass
 class ListInstanceLogsResponse:
     """
-    List instance logs response
+    List instance logs response.
     """
 
     instance_logs: List[InstanceLog]
     """
-    Available logs in a given instance
+    Available logs in a given instance.
     """
 
 
 @dataclass
 class ListInstancesResponse:
     """
-    List instances response
+    List instances response.
     """
 
     instances: List[Instance]
     """
-    List all instances available in a given organization/project
+    List all instances available in a given organization/project.
     """
 
     total_count: int
     """
-    Total count of instances available in a given organization/project
+    Total count of instances available in a given organization/project.
     """
 
 
 @dataclass
 class ListNodeTypesResponse:
     """
-    List node types response
+    List node types response.
     """
 
     node_types: List[NodeType]
     """
-    Types of the node
+    Types of the node.
     """
 
     total_count: int
     """
-    Total count of node-types available
+    Total count of node-types available.
     """
 
 
 @dataclass
 class ListPrivilegesResponse:
     """
-    List privileges response
+    List privileges response.
     """
 
     privileges: List[Privilege]
     """
-    Privileges of a given user in a given database in a given instance
+    Privileges of a given user in a given database in a given instance.
     """
 
     total_count: int
     """
-    Total count of privileges present on a given database
+    Total count of privileges present on a given database.
     """
 
 
 @dataclass
 class ListSnapshotsResponse:
     """
-    List snapshots response
+    List snapshots response.
     """
 
     snapshots: List[Snapshot]
     """
-    List of snapshots
+    List of snapshots.
     """
 
     total_count: int
     """
-    Total count of snapshots available
+    Total count of snapshots available.
     """
 
 
 @dataclass
 class ListUsersResponse:
     """
-    List users response
+    List users response.
     """
 
     users: List[User]
     """
-    List of users in a given instance
+    List of users in a given instance.
     """
 
     total_count: int
     """
-    Total count of users present on a given instance
+    Total count of users present on a given instance.
     """
 
 
 @dataclass
 class LogsPolicy:
     """
-    Logs policy
+    Logs policy.
     """
 
     max_age_retention: Optional[int]
     """
-    Max age (in day) of remote logs to keep on the database instance
+    Max age (in day) of remote logs to keep on the database instance.
     """
 
     total_disk_retention: Optional[int]
     """
-    Max disk size of remote logs to keep on the database instance
+    Max disk size of remote logs to keep on the database instance.
     """
 
 
 @dataclass
 class Maintenance:
     """
-    Maintenance
+    Maintenance.
     """
 
     starts_at: Optional[datetime]
     """
-    Start date of the maintenance window
+    Start date of the maintenance window.
     """
 
     stops_at: Optional[datetime]
     """
-    End date of the maintenance window
+    End date of the maintenance window.
     """
 
     closed_at: Optional[datetime]
     """
-    Closed maintenance date
+    Closed maintenance date.
     """
 
     reason: str
     """
-    Maintenance information message
+    Maintenance information message.
     """
 
     status: MaintenanceStatus
     """
-    Status of the maintenance
+    Status of the maintenance.
     """
 
 
 @dataclass
 class NodeType:
     """
-    Node type
+    Node type.
     """
 
     name: str
     """
-    Node Type name identifier
+    Node Type name identifier.
     """
 
     stock_status: NodeTypeStock
     """
-    Current stock status for the Node Type
+    Current stock status for the Node Type.
     """
 
     description: str
     """
-    Current specs of the offer
+    Current specs of the offer.
     """
 
     vcpus: int
     """
-    Number of virtual CPUs
+    Number of virtual CPUs.
     """
 
     memory: int
     """
-    Quantity of RAM
+    Quantity of RAM.
     """
 
     volume_constraint: Optional[NodeTypeVolumeConstraintSizes]
     """
-    [deprecated] Node Type volume constraints
+    [deprecated] Node Type volume constraints.
     :deprecated
     """
 
     is_bssd_compatible: Optional[bool]
     """
-    The Node Type is compliant with Block Storage
+    The Node Type is compliant with Block Storage.
     :deprecated
     """
 
     disabled: bool
     """
-    The Node Type is currently disabled
+    The Node Type is currently disabled.
     """
 
     beta: bool
     """
-    The Node Type is currently in beta
+    The Node Type is currently in beta.
     """
 
     available_volume_types: List[NodeTypeVolumeType]
     """
-    Available storage options for the Node Type
+    Available storage options for the Node Type.
     """
 
     is_ha_required: bool
     """
-    The Node Type can be used only with high availability option
+    The Node Type can be used only with high availability option.
     """
 
     generation: NodeTypeGeneration
     """
-    Generation associated the NodeType offer
+    Generation associated the NodeType offer.
     """
 
     region: Region
     """
-    Region the Node Type is in
+    Region the Node Type is in.
     """
 
 
 @dataclass
 class NodeTypeVolumeConstraintSizes:
     """
-    Node type. volume constraint sizes
+    Node type. volume constraint sizes.
     """
 
     min_size: int
     """
-    [deprecated] Mimimum size required for the Volume
+    [deprecated] Mimimum size required for the Volume.
     """
 
     max_size: int
     """
-    [deprecated] Maximum size required for the Volume
+    [deprecated] Maximum size required for the Volume.
     """
 
 
 @dataclass
 class NodeTypeVolumeType:
     """
-    Node type. volume type
+    Node type. volume type.
     """
 
     type_: VolumeType
     """
-    Volume Type
+    Volume Type.
     """
 
     description: str
     """
-    The description of the Volume
+    The description of the Volume.
     """
 
     min_size: int
     """
-    Mimimum size required for the Volume
+    Mimimum size required for the Volume.
     """
 
     max_size: int
     """
-    Maximum size required for the Volume
+    Maximum size required for the Volume.
     """
 
     chunk_size: int
     """
-    Minimum increment level for a Block Storage volume size
+    Minimum increment level for a Block Storage volume size.
     """
 
 
 @dataclass
 class PrepareInstanceLogsResponse:
     """
-    Prepare instance logs response
+    Prepare instance logs response.
     """
 
     instance_logs: List[InstanceLog]
     """
-    Instance logs for a given instance between a start and an end date
+    Instance logs for a given instance between a start and an end date.
     """
 
 
 @dataclass
 class Privilege:
     """
-    Privilege
+    Privilege.
     """
 
     permission: Permission
     """
-    Permission (Read, Read/Write, All, Custom)
+    Permission (Read, Read/Write, All, Custom).
     """
 
     database_name: str
     """
-    Name of the database
+    Name of the database.
     """
 
     user_name: str
     """
-    Name of the user
+    Name of the user.
     """
 
 
 @dataclass
 class ReadReplica:
     """
-    Read replica
+    Read replica.
     """
 
     id: str
     """
-    UUID of the read replica
+    UUID of the read replica.
     """
 
     endpoints: List[Endpoint]
     """
-    Display read replica connection information
+    Display read replica connection information.
     """
 
     status: ReadReplicaStatus
     """
-    Read replica status
+    Read replica status.
     """
 
     region: Region
     """
-    Region the read replica is in
+    Region the read replica is in.
     """
 
 
 @dataclass
 class ReadReplicaEndpointSpec:
     """
-    Read replica endpoint spec
+    Read replica endpoint spec.
     """
 
     direct_access: Optional[ReadReplicaEndpointSpecDirectAccess]
@@ -1320,103 +1334,117 @@ class ReadReplicaEndpointSpecDirectAccess:
 @dataclass
 class ReadReplicaEndpointSpecPrivateNetwork:
     """
-    Read replica endpoint spec. private network
+    Read replica endpoint spec. private network.
     """
 
     private_network_id: str
     """
-    UUID of the private network to be connected to the read replica
+    UUID of the private network to be connected to the read replica.
     """
 
-    service_ip: str
+    service_ip: Optional[str]
     """
     Endpoint IPv4 adress with a CIDR notation. Check documentation about IP and subnet limitations.
+    
+    One-of ('config'): at most one of 'service_ip', 'ipam_config' could be set.
     """
+
+    ipam_config: Optional[ReadReplicaEndpointSpecPrivateNetworkIpamConfig]
+    """
+    Automated configuration of your private network endpoint with Scaleway IPAM service. One at the most per RDB instance or read replica (an RDB instance and its read replica can have different private networks). Cannot be updated (has to be deleted and recreated).
+    
+    One-of ('config'): at most one of 'service_ip', 'ipam_config' could be set.
+    """
+
+
+@dataclass
+class ReadReplicaEndpointSpecPrivateNetworkIpamConfig:
+    pass
 
 
 @dataclass
 class SetInstanceACLRulesResponse:
     """
-    Set instance acl rules response
+    Set instance acl rules response.
     """
 
     rules: List[ACLRule]
     """
-    ACLs rules configured for an instance
+    ACLs rules configured for an instance.
     """
 
 
 @dataclass
 class SetInstanceSettingsResponse:
     """
-    Set instance settings response
+    Set instance settings response.
     """
 
     settings: List[InstanceSetting]
     """
-    Settings configured for a given instance
+    Settings configured for a given instance.
     """
 
 
 @dataclass
 class Snapshot:
     """
-    Snapshot
+    Snapshot.
     """
 
     id: str
     """
-    UUID of the snapshot
+    UUID of the snapshot.
     """
 
     instance_id: str
     """
-    UUID of the instance
+    UUID of the instance.
     """
 
     name: str
     """
-    Name of the snapshot
+    Name of the snapshot.
     """
 
     status: SnapshotStatus
     """
-    Status of the snapshot
+    Status of the snapshot.
     """
 
     size: Optional[int]
     """
-    Size of the snapshot
+    Size of the snapshot.
     """
 
     expires_at: Optional[datetime]
     """
-    Expiration date (Format ISO 8601)
+    Expiration date (Format ISO 8601).
     """
 
     created_at: Optional[datetime]
     """
-    Creation date (Format ISO 8601)
+    Creation date (Format ISO 8601).
     """
 
     updated_at: Optional[datetime]
     """
-    Updated date (Format ISO 8601)
+    Updated date (Format ISO 8601).
     """
 
     instance_name: str
     """
-    Name of the instance of the snapshot
+    Name of the instance of the snapshot.
     """
 
     node_type: str
     """
-    Source node type
+    Source node type.
     """
 
     region: Region
     """
-    Region of this snapshot
+    Region of this snapshot.
     """
 
 
@@ -1434,17 +1462,17 @@ class UpgradableVersion:
 @dataclass
 class User:
     """
-    User
+    User.
     """
 
     name: str
     """
-    Name of the user (Length must be between 1 and 63 characters, The max Length is 32 for MySQL engines, First character must be an alphabet character (a-zA-Z), Your Username cannot start with '_rdb', Only a-zA-Z0-9_$- characters are accepted)
+    Name of the user (Length must be between 1 and 63 characters, The max Length is 32 for MySQL engines, First character must be an alphabet character (a-zA-Z), Your Username cannot start with '_rdb', Only a-zA-Z0-9_$- characters are accepted).
     """
 
     is_admin: bool
     """
-    Whether or not a user got administrative privileges on the database instance
+    Whether or not a user got administrative privileges on the database instance.
     """
 
 
@@ -1459,17 +1487,17 @@ class Volume:
 class ListDatabaseEnginesRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     name: Optional[str]
     """
-    Name of the Database Engine
+    Name of the Database Engine.
     """
 
     version: Optional[str]
     """
-    Version of the Database Engine
+    Version of the Database Engine.
     """
 
     page: Optional[int]
@@ -1481,12 +1509,12 @@ class ListDatabaseEnginesRequest:
 class ListNodeTypesRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     include_disabled_types: bool
     """
-    Whether or not to include disabled types
+    Whether or not to include disabled types.
     """
 
     page: Optional[int]
@@ -1498,32 +1526,32 @@ class ListNodeTypesRequest:
 class ListDatabaseBackupsRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     name: Optional[str]
     """
-    Name of the database backups
+    Name of the database backups.
     """
 
     order_by: Optional[ListDatabaseBackupsRequestOrderBy]
     """
-    Criteria to use when ordering database backups listing
+    Criteria to use when ordering database backups listing.
     """
 
     instance_id: Optional[str]
     """
-    UUID of the instance
+    UUID of the instance.
     """
 
     organization_id: Optional[str]
     """
-    Organization ID the database backups belongs to
+    Organization ID the database backups belongs to.
     """
 
     project_id: Optional[str]
     """
-    Project ID the database backups belongs to
+    Project ID the database backups belongs to.
     """
 
     page: Optional[int]
@@ -1535,27 +1563,27 @@ class ListDatabaseBackupsRequest:
 class CreateDatabaseBackupRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     instance_id: str
     """
-    UUID of the instance
+    UUID of the instance.
     """
 
     database_name: str
     """
-    Name of the database you want to make a backup of
+    Name of the database you want to make a backup of.
     """
 
     name: Optional[str]
     """
-    Name of the backup
+    Name of the backup.
     """
 
     expires_at: Optional[datetime]
     """
-    Expiration date (Format ISO 8601)
+    Expiration date (Format ISO 8601).
     """
 
 
@@ -1563,12 +1591,12 @@ class CreateDatabaseBackupRequest:
 class GetDatabaseBackupRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     database_backup_id: str
     """
-    UUID of the database backup
+    UUID of the database backup.
     """
 
 
@@ -1576,22 +1604,22 @@ class GetDatabaseBackupRequest:
 class UpdateDatabaseBackupRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     database_backup_id: str
     """
-    UUID of the database backup to update
+    UUID of the database backup to update.
     """
 
     name: Optional[str]
     """
-    Name of the Database Backup
+    Name of the Database Backup.
     """
 
     expires_at: Optional[datetime]
     """
-    Expiration date (Format ISO 8601)
+    Expiration date (Format ISO 8601).
     """
 
 
@@ -1599,12 +1627,12 @@ class UpdateDatabaseBackupRequest:
 class DeleteDatabaseBackupRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     database_backup_id: str
     """
-    UUID of the database backup to delete
+    UUID of the database backup to delete.
     """
 
 
@@ -1612,22 +1640,22 @@ class DeleteDatabaseBackupRequest:
 class RestoreDatabaseBackupRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     database_backup_id: str
     """
-    Backup of a logical database
+    Backup of a logical database.
     """
 
     database_name: Optional[str]
     """
-    Defines the destination database in order to restore into a specified database, the default destination is set to the origin database of the backup
+    Defines the destination database in order to restore into a specified database, the default destination is set to the origin database of the backup.
     """
 
     instance_id: str
     """
-    Defines the rdb instance where the backup has to be restored
+    Defines the rdb instance where the backup has to be restored.
     """
 
 
@@ -1635,12 +1663,12 @@ class RestoreDatabaseBackupRequest:
 class ExportDatabaseBackupRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     database_backup_id: str
     """
-    UUID of the database backup you want to export
+    UUID of the database backup you want to export.
     """
 
 
@@ -1648,12 +1676,12 @@ class ExportDatabaseBackupRequest:
 class UpgradeInstanceRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     instance_id: str
     """
-    UUID of the instance you want to upgrade
+    UUID of the instance you want to upgrade.
     """
 
     node_type: Optional[str]
@@ -1696,32 +1724,32 @@ class UpgradeInstanceRequest:
 class ListInstancesRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     tags: Optional[List[str]]
     """
-    List instance that have a given tags
+    List instance that have a given tags.
     """
 
     name: Optional[str]
     """
-    List instance that match a given name pattern
+    List instance that match a given name pattern.
     """
 
     order_by: Optional[ListInstancesRequestOrderBy]
     """
-    Criteria to use when ordering instance listing
+    Criteria to use when ordering instance listing.
     """
 
     organization_id: Optional[str]
     """
-    Please use `project_id` instead
+    Please use `project_id` instead.
     """
 
     project_id: Optional[str]
     """
-    Project ID to list the instance of
+    Project ID to list the instance of.
     """
 
     page: Optional[int]
@@ -1733,12 +1761,12 @@ class ListInstancesRequest:
 class GetInstanceRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     instance_id: str
     """
-    UUID of the instance
+    UUID of the instance.
     """
 
 
@@ -1746,7 +1774,7 @@ class GetInstanceRequest:
 class CreateInstanceRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     organization_id: Optional[str]
@@ -1766,67 +1794,67 @@ class CreateInstanceRequest:
 
     name: Optional[str]
     """
-    Name of the instance
+    Name of the instance.
     """
 
     engine: str
     """
-    Database engine of the database (PostgreSQL, MySQL, ...)
+    Database engine of the database (PostgreSQL, MySQL, ...).
     """
 
     user_name: str
     """
-    Name of the user created when the instance is created
+    Name of the user created when the instance is created.
     """
 
     password: str
     """
-    Password of the user
+    Password of the user.
     """
 
     node_type: str
     """
-    Type of node to use for the instance
+    Type of node to use for the instance.
     """
 
     is_ha_cluster: bool
     """
-    Whether or not High-Availability is enabled
+    Whether or not High-Availability is enabled.
     """
 
     disable_backup: bool
     """
-    Whether or not backups are disabled
+    Whether or not backups are disabled.
     """
 
     tags: Optional[List[str]]
     """
-    Tags to apply to the instance
+    Tags to apply to the instance.
     """
 
     init_settings: Optional[List[InstanceSetting]]
     """
-    List of engine settings to be set at database initialisation
+    List of engine settings to be set at database initialisation.
     """
 
     volume_type: VolumeType
     """
-    Type of volume where data are stored (lssd, bssd, ...)
+    Type of volume where data are stored (lssd, bssd, ...).
     """
 
     volume_size: int
     """
-    Volume size when volume_type is not lssd
+    Volume size when volume_type is not lssd.
     """
 
     init_endpoints: Optional[List[EndpointSpec]]
     """
-    One or multiple EndpointSpec used to expose your database instance. A load_balancer public endpoint is systematically created
+    One or multiple EndpointSpec used to expose your database instance. A load_balancer public endpoint is systematically created.
     """
 
     backup_same_region: bool
     """
-    Store logical backups in the same region as the database instance
+    Store logical backups in the same region as the database instance.
     """
 
 
@@ -1834,47 +1862,47 @@ class CreateInstanceRequest:
 class UpdateInstanceRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     instance_id: str
     """
-    UUID of the instance to update
+    UUID of the instance to update.
     """
 
     backup_schedule_frequency: Optional[int]
     """
-    In hours
+    In hours.
     """
 
     backup_schedule_retention: Optional[int]
     """
-    In days
+    In days.
     """
 
     is_backup_schedule_disabled: Optional[bool]
     """
-    Whether or not the backup schedule is disabled
+    Whether or not the backup schedule is disabled.
     """
 
     name: Optional[str]
     """
-    Name of the instance
+    Name of the instance.
     """
 
     tags: Optional[List[str]]
     """
-    Tags of a given instance
+    Tags of a given instance.
     """
 
     logs_policy: Optional[LogsPolicy]
     """
-    Logs policy of the instance
+    Logs policy of the instance.
     """
 
     backup_same_region: Optional[bool]
     """
-    Store logical backups in the same region as the database instance
+    Store logical backups in the same region as the database instance.
     """
 
 
@@ -1882,12 +1910,12 @@ class UpdateInstanceRequest:
 class DeleteInstanceRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     instance_id: str
     """
-    UUID of the instance to delete
+    UUID of the instance to delete.
     """
 
 
@@ -1895,22 +1923,22 @@ class DeleteInstanceRequest:
 class CloneInstanceRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     instance_id: str
     """
-    UUID of the instance you want to clone
+    UUID of the instance you want to clone.
     """
 
     name: str
     """
-    Name of the clone instance
+    Name of the clone instance.
     """
 
     node_type: Optional[str]
     """
-    Node type of the clone
+    Node type of the clone.
     """
 
 
@@ -1918,12 +1946,12 @@ class CloneInstanceRequest:
 class RestartInstanceRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     instance_id: str
     """
-    UUID of the instance you want to restart
+    UUID of the instance you want to restart.
     """
 
 
@@ -1931,12 +1959,12 @@ class RestartInstanceRequest:
 class GetInstanceCertificateRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     instance_id: str
     """
-    UUID of the instance
+    UUID of the instance.
     """
 
 
@@ -1944,12 +1972,12 @@ class GetInstanceCertificateRequest:
 class RenewInstanceCertificateRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     instance_id: str
     """
-    UUID of the instance you want logs of
+    UUID of the instance you want logs of.
     """
 
 
@@ -1957,27 +1985,27 @@ class RenewInstanceCertificateRequest:
 class GetInstanceMetricsRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     instance_id: str
     """
-    UUID of the instance
+    UUID of the instance.
     """
 
     start_date: Optional[datetime]
     """
-    Start date to gather metrics from
+    Start date to gather metrics from.
     """
 
     end_date: Optional[datetime]
     """
-    End date to gather metrics from
+    End date to gather metrics from.
     """
 
     metric_name: Optional[str]
     """
-    Name of the metric to gather
+    Name of the metric to gather.
     """
 
 
@@ -1985,17 +2013,17 @@ class GetInstanceMetricsRequest:
 class CreateReadReplicaRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     instance_id: str
     """
-    UUID of the instance you want a read replica of
+    UUID of the instance you want a read replica of.
     """
 
     endpoint_spec: Optional[List[ReadReplicaEndpointSpec]]
     """
-    Specification of the endpoint you want to create
+    Specification of the endpoint you want to create.
     """
 
 
@@ -2003,12 +2031,12 @@ class CreateReadReplicaRequest:
 class GetReadReplicaRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     read_replica_id: str
     """
-    UUID of the read replica
+    UUID of the read replica.
     """
 
 
@@ -2016,12 +2044,12 @@ class GetReadReplicaRequest:
 class DeleteReadReplicaRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     read_replica_id: str
     """
-    UUID of the read replica
+    UUID of the read replica.
     """
 
 
@@ -2029,12 +2057,12 @@ class DeleteReadReplicaRequest:
 class ResetReadReplicaRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     read_replica_id: str
     """
-    UUID of the read replica
+    UUID of the read replica.
     """
 
 
@@ -2042,17 +2070,17 @@ class ResetReadReplicaRequest:
 class CreateReadReplicaEndpointRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     read_replica_id: str
     """
-    UUID of the read replica
+    UUID of the read replica.
     """
 
     endpoint_spec: List[ReadReplicaEndpointSpec]
     """
-    Specification of the endpoint you want to create
+    Specification of the endpoint you want to create.
     """
 
 
@@ -2060,22 +2088,22 @@ class CreateReadReplicaEndpointRequest:
 class PrepareInstanceLogsRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     instance_id: str
     """
-    UUID of the instance you want logs of
+    UUID of the instance you want logs of.
     """
 
     start_date: Optional[datetime]
     """
-    Start datetime of your log. Format: `{year}-{month}-{day}T{hour}:{min}:{sec}[.{frac_sec}]Z`
+    Start datetime of your log. Format: `{year}-{month}-{day}T{hour}:{min}:{sec}[.{frac_sec}]Z`.
     """
 
     end_date: Optional[datetime]
     """
-    End datetime of your log. Format: `{year}-{month}-{day}T{hour}:{min}:{sec}[.{frac_sec}]Z`
+    End datetime of your log. Format: `{year}-{month}-{day}T{hour}:{min}:{sec}[.{frac_sec}]Z`.
     """
 
 
@@ -2083,17 +2111,17 @@ class PrepareInstanceLogsRequest:
 class ListInstanceLogsRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     instance_id: str
     """
-    UUID of the instance you want logs of
+    UUID of the instance you want logs of.
     """
 
     order_by: ListInstanceLogsRequestOrderBy
     """
-    Criteria to use when ordering instance logs listing
+    Criteria to use when ordering instance logs listing.
     """
 
 
@@ -2101,12 +2129,12 @@ class ListInstanceLogsRequest:
 class GetInstanceLogRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     instance_log_id: str
     """
-    UUID of the instance_log you want
+    UUID of the instance_log you want.
     """
 
 
@@ -2114,17 +2142,17 @@ class GetInstanceLogRequest:
 class PurgeInstanceLogsRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     instance_id: str
     """
-    UUID of the instance you want logs of
+    UUID of the instance you want logs of.
     """
 
     log_name: Optional[str]
     """
-    Specific log name to purge
+    Specific log name to purge.
     """
 
 
@@ -2132,12 +2160,12 @@ class PurgeInstanceLogsRequest:
 class ListInstanceLogsDetailsRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     instance_id: str
     """
-    UUID of the instance you want logs of
+    UUID of the instance you want logs of.
     """
 
 
@@ -2145,17 +2173,17 @@ class ListInstanceLogsDetailsRequest:
 class AddInstanceSettingsRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     instance_id: str
     """
-    UUID of the instance you want to add settings to
+    UUID of the instance you want to add settings to.
     """
 
     settings: List[InstanceSetting]
     """
-    Settings to add on the instance
+    Settings to add on the instance.
     """
 
 
@@ -2163,17 +2191,17 @@ class AddInstanceSettingsRequest:
 class DeleteInstanceSettingsRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     instance_id: str
     """
-    UUID of the instance to delete settings from
+    UUID of the instance to delete settings from.
     """
 
     setting_names: List[str]
     """
-    Settings names to delete
+    Settings names to delete.
     """
 
 
@@ -2181,17 +2209,17 @@ class DeleteInstanceSettingsRequest:
 class SetInstanceSettingsRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     instance_id: str
     """
-    UUID of the instance where the settings has to be set
+    UUID of the instance where the settings has to be set.
     """
 
     settings: List[InstanceSetting]
     """
-    Settings to define for the instance
+    Settings to define for the instance.
     """
 
 
@@ -2199,12 +2227,12 @@ class SetInstanceSettingsRequest:
 class ListInstanceACLRulesRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     instance_id: str
     """
-    UUID of the instance
+    UUID of the instance.
     """
 
     page: Optional[int]
@@ -2216,17 +2244,17 @@ class ListInstanceACLRulesRequest:
 class AddInstanceACLRulesRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     instance_id: str
     """
-    UUID of the instance you want to add acl rules to
+    UUID of the instance you want to add acl rules to.
     """
 
     rules: List[ACLRuleRequest]
     """
-    ACLs rules to add to the instance
+    ACLs rules to add to the instance.
     """
 
 
@@ -2234,17 +2262,17 @@ class AddInstanceACLRulesRequest:
 class SetInstanceACLRulesRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     instance_id: str
     """
-    UUID of the instance where the ACL rules has to be set
+    UUID of the instance where the ACL rules has to be set.
     """
 
     rules: List[ACLRuleRequest]
     """
-    ACL rules to define for the instance
+    ACL rules to define for the instance.
     """
 
 
@@ -2252,17 +2280,17 @@ class SetInstanceACLRulesRequest:
 class DeleteInstanceACLRulesRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     instance_id: str
     """
-    UUID of the instance you want to delete an ACL rules from
+    UUID of the instance you want to delete an ACL rules from.
     """
 
     acl_rule_ips: List[str]
     """
-    ACL rules IP present on the instance
+    ACL rules IP present on the instance.
     """
 
 
@@ -2270,22 +2298,22 @@ class DeleteInstanceACLRulesRequest:
 class ListUsersRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     instance_id: str
     """
-    UUID of the instance
+    UUID of the instance.
     """
 
     name: Optional[str]
     """
-    Name of the user
+    Name of the user.
     """
 
     order_by: Optional[ListUsersRequestOrderBy]
     """
-    Criteria to use when ordering users listing
+    Criteria to use when ordering users listing.
     """
 
     page: Optional[int]
@@ -2297,27 +2325,27 @@ class ListUsersRequest:
 class CreateUserRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     instance_id: str
     """
-    UUID of the instance you want to create a user in
+    UUID of the instance you want to create a user in.
     """
 
     name: str
     """
-    Name of the user you want to create
+    Name of the user you want to create.
     """
 
     password: str
     """
-    Password of the user you want to create
+    Password of the user you want to create.
     """
 
     is_admin: bool
     """
-    Whether the user you want to create will have administrative privileges
+    Whether the user you want to create will have administrative privileges.
     """
 
 
@@ -2325,27 +2353,27 @@ class CreateUserRequest:
 class UpdateUserRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     instance_id: str
     """
-    UUID of the instance the user belongs to
+    UUID of the instance the user belongs to.
     """
 
     name: str
     """
-    Name of the database user
+    Name of the database user.
     """
 
     password: Optional[str]
     """
-    Password of the database user
+    Password of the database user.
     """
 
     is_admin: Optional[bool]
     """
-    Whether or not this user got administrative privileges
+    Whether or not this user got administrative privileges.
     """
 
 
@@ -2353,17 +2381,17 @@ class UpdateUserRequest:
 class DeleteUserRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     instance_id: str
     """
-    UUID of the instance to delete a user from
+    UUID of the instance to delete a user from.
     """
 
     name: str
     """
-    Name of the user
+    Name of the user.
     """
 
 
@@ -2371,32 +2399,32 @@ class DeleteUserRequest:
 class ListDatabasesRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     instance_id: str
     """
-    UUID of the instance to list database of
+    UUID of the instance to list database of.
     """
 
     name: Optional[str]
     """
-    Name of the database
+    Name of the database.
     """
 
     managed: Optional[bool]
     """
-    Whether or not the database is managed
+    Whether or not the database is managed.
     """
 
     owner: Optional[str]
     """
-    User that owns this database
+    User that owns this database.
     """
 
     order_by: Optional[ListDatabasesRequestOrderBy]
     """
-    Criteria to use when ordering database listing
+    Criteria to use when ordering database listing.
     """
 
     page: Optional[int]
@@ -2408,17 +2436,17 @@ class ListDatabasesRequest:
 class CreateDatabaseRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     instance_id: str
     """
-    UUID of the instance where to create the database
+    UUID of the instance where to create the database.
     """
 
     name: str
     """
-    Name of the database
+    Name of the database.
     """
 
 
@@ -2426,17 +2454,17 @@ class CreateDatabaseRequest:
 class DeleteDatabaseRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     instance_id: str
     """
-    UUID of the instance where to delete the database
+    UUID of the instance where to delete the database.
     """
 
     name: str
     """
-    Name of the database to delete
+    Name of the database to delete.
     """
 
 
@@ -2444,17 +2472,17 @@ class DeleteDatabaseRequest:
 class ListPrivilegesRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     instance_id: str
     """
-    UUID of the instance
+    UUID of the instance.
     """
 
     order_by: Optional[ListPrivilegesRequestOrderBy]
     """
-    Criteria to use when ordering privileges listing
+    Criteria to use when ordering privileges listing.
     """
 
     page: Optional[int]
@@ -2463,12 +2491,12 @@ class ListPrivilegesRequest:
 
     database_name: Optional[str]
     """
-    Name of the database
+    Name of the database.
     """
 
     user_name: Optional[str]
     """
-    Name of the user
+    Name of the user.
     """
 
 
@@ -2476,27 +2504,27 @@ class ListPrivilegesRequest:
 class SetPrivilegeRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     instance_id: str
     """
-    UUID of the instance
+    UUID of the instance.
     """
 
     database_name: str
     """
-    Name of the database
+    Name of the database.
     """
 
     user_name: str
     """
-    Name of the user
+    Name of the user.
     """
 
     permission: Permission
     """
-    Permission to set (Read, Read/Write, All, Custom)
+    Permission to set (Read, Read/Write, All, Custom).
     """
 
 
@@ -2504,32 +2532,32 @@ class SetPrivilegeRequest:
 class ListSnapshotsRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     name: Optional[str]
     """
-    Name of the snapshot
+    Name of the snapshot.
     """
 
     order_by: Optional[ListSnapshotsRequestOrderBy]
     """
-    Criteria to use when ordering snapshot listing
+    Criteria to use when ordering snapshot listing.
     """
 
     instance_id: Optional[str]
     """
-    UUID of the instance
+    UUID of the instance.
     """
 
     organization_id: Optional[str]
     """
-    Organization ID the snapshots belongs to
+    Organization ID the snapshots belongs to.
     """
 
     project_id: Optional[str]
     """
-    Project ID the snapshots belongs to
+    Project ID the snapshots belongs to.
     """
 
     page: Optional[int]
@@ -2541,12 +2569,12 @@ class ListSnapshotsRequest:
 class GetSnapshotRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     snapshot_id: str
     """
-    UUID of the snapshot
+    UUID of the snapshot.
     """
 
 
@@ -2554,22 +2582,22 @@ class GetSnapshotRequest:
 class CreateSnapshotRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     instance_id: str
     """
-    UUID of the instance
+    UUID of the instance.
     """
 
     name: Optional[str]
     """
-    Name of the snapshot
+    Name of the snapshot.
     """
 
     expires_at: Optional[datetime]
     """
-    Expiration date (Format ISO 8601)
+    Expiration date (Format ISO 8601).
     """
 
 
@@ -2577,22 +2605,22 @@ class CreateSnapshotRequest:
 class UpdateSnapshotRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     snapshot_id: str
     """
-    UUID of the snapshot to update
+    UUID of the snapshot to update.
     """
 
     name: Optional[str]
     """
-    Name of the snapshot
+    Name of the snapshot.
     """
 
     expires_at: Optional[datetime]
     """
-    Expiration date (Format ISO 8601)
+    Expiration date (Format ISO 8601).
     """
 
 
@@ -2600,12 +2628,12 @@ class UpdateSnapshotRequest:
 class DeleteSnapshotRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     snapshot_id: str
     """
-    UUID of the snapshot to delete
+    UUID of the snapshot to delete.
     """
 
 
@@ -2613,27 +2641,27 @@ class DeleteSnapshotRequest:
 class CreateInstanceFromSnapshotRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     snapshot_id: str
     """
-    Block snapshot of the instance
+    Block snapshot of the instance.
     """
 
     instance_name: str
     """
-    Name of the instance created with the snapshot
+    Name of the instance created with the snapshot.
     """
 
     is_ha_cluster: Optional[bool]
     """
-    Whether or not High-Availability is enabled on the new instance
+    Whether or not High-Availability is enabled on the new instance.
     """
 
     node_type: Optional[str]
     """
-    The node type used to restore the snapshot
+    The node type used to restore the snapshot.
     """
 
 
@@ -2641,17 +2669,17 @@ class CreateInstanceFromSnapshotRequest:
 class CreateEndpointRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     instance_id: str
     """
-    UUID of the instance you want to add endpoint to
+    UUID of the instance you want to add endpoint to.
     """
 
     endpoint_spec: Optional[EndpointSpec]
     """
-    Specification of the endpoint you want to create
+    Specification of the endpoint you want to create.
     """
 
 
@@ -2659,7 +2687,7 @@ class CreateEndpointRequest:
 class DeleteEndpointRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     endpoint_id: str
@@ -2672,12 +2700,12 @@ class DeleteEndpointRequest:
 class GetEndpointRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     endpoint_id: str
     """
-    UUID of the endpoint you want to get
+    UUID of the endpoint you want to get.
     """
 
 
@@ -2685,15 +2713,15 @@ class GetEndpointRequest:
 class MigrateEndpointRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     endpoint_id: str
     """
-    UUID of the endpoint you want to migrate
+    UUID of the endpoint you want to migrate.
     """
 
     instance_id: str
     """
-    UUID of the instance you want to attach the endpoint to
+    UUID of the instance you want to attach the endpoint to.
     """
