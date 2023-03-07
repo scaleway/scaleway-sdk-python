@@ -121,7 +121,7 @@ class API:
         additional_headers: Dict[str, str] = {}
 
         method = method.upper()
-        if method == "POST" or method == "PUT":
+        if method == "POST" or method == "PUT" or method == "PATCH":
             additional_headers["Content-Type"] = "application/json; charset=utf-8"
 
             if body is None:
