@@ -33,6 +33,7 @@ from .types import (
     UpdateGatewayRequest,
     CreateGatewayNetworkRequest,
     UpdateGatewayNetworkRequest,
+    CreateDHCPRequest,
     UpdateDHCPRequest,
     CreateDHCPEntryRequest,
     UpdateDHCPEntryRequest,
@@ -508,6 +509,28 @@ def unmarshal_SetPATRulesResponse(data: Any) -> SetPATRulesResponse:
     args["pat_rules"] = [unmarshal_PATRule(v) for v in data["pat_rules"]]
 
     return SetPATRulesResponse(**args)
+
+
+def marshal_CreateDHCPRequest(
+    request: CreateDHCPRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    return {
+        "address": request.address,
+        "dns_local_name": request.dns_local_name,
+        "dns_search": request.dns_search,
+        "dns_servers_override": request.dns_servers_override,
+        "enable_dynamic": request.enable_dynamic,
+        "pool_high": request.pool_high,
+        "pool_low": request.pool_low,
+        "project_id": request.project_id or defaults.default_project_id,
+        "push_default_route": request.push_default_route,
+        "push_dns_server": request.push_dns_server,
+        "rebind_timer": request.rebind_timer,
+        "renew_timer": request.renew_timer,
+        "subnet": request.subnet,
+        "valid_lifetime": request.valid_lifetime,
+    }
 
 
 def marshal_SetDHCPEntriesRequestEntry(

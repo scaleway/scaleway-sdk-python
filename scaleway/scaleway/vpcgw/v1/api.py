@@ -62,6 +62,7 @@ from .content import (
     GATEWAY_TRANSIENT_STATUSES,
 )
 from .marshalling import (
+    marshal_CreateDHCPRequest,
     marshal_CreateDHCPEntryRequest,
     marshal_CreateGatewayNetworkRequest,
     marshal_CreateGatewayRequest,
