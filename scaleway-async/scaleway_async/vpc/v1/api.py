@@ -47,15 +47,15 @@ class VpcV1API(API):
     ) -> ListPrivateNetworksResponse:
         """
         List private networks
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param order_by: The sort order of the returned private networks
-        :param page: The page number for the returned private networks
-        :param page_size: The maximum number of private networks per page
-        :param name: Filter private networks with names containing this string
-        :param tags: Filter private networks with one or more matching tags
-        :param organization_id: The organization ID on which to filter the returned private networks
-        :param project_id: The project ID on which to filter the returned private networks
-        :param private_network_ids: The PrivateNetwork IDs on which to filter the returned private networks
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param order_by: The sort order of the returned private networks.
+        :param page: The page number for the returned private networks.
+        :param page_size: The maximum number of private networks per page.
+        :param name: Filter private networks with names containing this string.
+        :param tags: Filter private networks with one or more matching tags.
+        :param organization_id: The organization ID on which to filter the returned private networks.
+        :param project_id: The project ID on which to filter the returned private networks.
+        :param private_network_ids: The PrivateNetwork IDs on which to filter the returned private networks.
         :return: :class:`ListPrivateNetworksResponse <ListPrivateNetworksResponse>`
 
         Usage:
@@ -100,15 +100,15 @@ class VpcV1API(API):
     ) -> List[PrivateNetwork]:
         """
         List private networks
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param order_by: The sort order of the returned private networks
-        :param page: The page number for the returned private networks
-        :param page_size: The maximum number of private networks per page
-        :param name: Filter private networks with names containing this string
-        :param tags: Filter private networks with one or more matching tags
-        :param organization_id: The organization ID on which to filter the returned private networks
-        :param project_id: The project ID on which to filter the returned private networks
-        :param private_network_ids: The PrivateNetwork IDs on which to filter the returned private networks
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param order_by: The sort order of the returned private networks.
+        :param page: The page number for the returned private networks.
+        :param page_size: The maximum number of private networks per page.
+        :param name: Filter private networks with names containing this string.
+        :param tags: Filter private networks with one or more matching tags.
+        :param organization_id: The organization ID on which to filter the returned private networks.
+        :param project_id: The project ID on which to filter the returned private networks.
+        :param private_network_ids: The PrivateNetwork IDs on which to filter the returned private networks.
         :return: :class:`List[ListPrivateNetworksResponse] <List[ListPrivateNetworksResponse]>`
 
         Usage:
@@ -145,11 +145,11 @@ class VpcV1API(API):
     ) -> PrivateNetwork:
         """
         Create a private network
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param name: The name of the private network
-        :param project_id: The project ID of the private network
-        :param tags: The private networks tags
-        :param subnets: Private network subnets CIDR
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param name: The name of the private network.
+        :param project_id: The project ID of the private network.
+        :param tags: The private networks tags.
+        :param subnets: Private network subnets CIDR.
         :return: :class:`PrivateNetwork <PrivateNetwork>`
 
         Usage:
@@ -186,8 +186,8 @@ class VpcV1API(API):
     ) -> PrivateNetwork:
         """
         Get a private network
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param private_network_id: The private network id
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param private_network_id: The private network id.
         :return: :class:`PrivateNetwork <PrivateNetwork>`
 
         Usage:
@@ -220,11 +220,11 @@ class VpcV1API(API):
     ) -> PrivateNetwork:
         """
         Update private network
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param private_network_id: The private network ID
-        :param name: The name of the private network
-        :param tags: The private networks tags
-        :param subnets: Private network subnets CIDR (deprecated)
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param private_network_id: The private network ID.
+        :param name: The name of the private network.
+        :param tags: The private networks tags.
+        :param subnets: Private network subnets CIDR (deprecated).
         :return: :class:`PrivateNetwork <PrivateNetwork>`
 
         Usage:
@@ -264,8 +264,8 @@ class VpcV1API(API):
     ) -> Optional[None]:
         """
         Delete a private network
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param private_network_id: The private network ID
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param private_network_id: The private network ID.
 
         Usage:
         ::
