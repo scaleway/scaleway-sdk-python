@@ -511,6 +511,28 @@ def unmarshal_SetPATRulesResponse(data: Any) -> SetPATRulesResponse:
     return SetPATRulesResponse(**args)
 
 
+def marshal_CreateDHCPRequest(
+    request: CreateDHCPRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    return {
+        "address": request.address,
+        "dns_local_name": request.dns_local_name,
+        "dns_search": request.dns_search,
+        "dns_servers_override": request.dns_servers_override,
+        "enable_dynamic": request.enable_dynamic,
+        "pool_high": request.pool_high,
+        "pool_low": request.pool_low,
+        "project_id": request.project_id or defaults.default_project_id,
+        "push_default_route": request.push_default_route,
+        "push_dns_server": request.push_dns_server,
+        "rebind_timer": request.rebind_timer,
+        "renew_timer": request.renew_timer,
+        "subnet": request.subnet,
+        "valid_lifetime": request.valid_lifetime,
+    }
+
+
 def marshal_SetDHCPEntriesRequestEntry(
     request: SetDHCPEntriesRequestEntry,
     defaults: ProfileDefaults,
@@ -544,28 +566,6 @@ def marshal_CreateDHCPEntryRequest(
     }
 
 
-def marshal_CreateDHCPRequest(
-    request: CreateDHCPRequest,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    return {
-        "address": request.address,
-        "dns_local_name": request.dns_local_name,
-        "dns_search": request.dns_search,
-        "dns_servers_override": request.dns_servers_override,
-        "enable_dynamic": request.enable_dynamic,
-        "pool_high": request.pool_high,
-        "pool_low": request.pool_low,
-        "project_id": request.project_id or defaults.default_project_id,
-        "push_default_route": request.push_default_route,
-        "push_dns_server": request.push_dns_server,
-        "rebind_timer": request.rebind_timer,
-        "renew_timer": request.renew_timer,
-        "subnet": request.subnet,
-        "valid_lifetime": request.valid_lifetime,
-    }
-
-
 def marshal_CreateGatewayNetworkRequest(
     request: CreateGatewayNetworkRequest,
     defaults: ProfileDefaults,
@@ -574,6 +574,7 @@ def marshal_CreateGatewayNetworkRequest(
         **resolve_one_of(
             [
                 OneOfPossibility("dhcp_id", request.dhcp_id),
+                OneOfPossibility("dhcp", request.dhcp),
                 OneOfPossibility("address", request.address),
             ]
         ),

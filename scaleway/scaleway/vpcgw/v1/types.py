@@ -131,640 +131,631 @@ class PATRuleProtocol(str, Enum):
 @dataclass
 class DHCP:
     """
-    Dhcp
+    Dhcp.
     """
 
     id: str
     """
-    ID of the DHCP config
+    ID of the DHCP config.
     """
 
     organization_id: str
     """
-    Owning organization
+    Owning organization.
     """
 
     project_id: str
     """
-    Owning project
+    Owning project.
     """
 
     created_at: Optional[datetime]
     """
-    Configuration creation date
+    Configuration creation date.
     """
 
     updated_at: Optional[datetime]
     """
-    Configuration last modification date
+    Configuration last modification date.
     """
 
     subnet: str
     """
-    Subnet for the DHCP server
+    Subnet for the DHCP server.
     """
 
     address: str
     """
     Address of the DHCP server. This will be the gateway's address in the private network. It must be part of config's subnet.
-    
     """
 
     pool_low: str
     """
-    Low IP (included) of the dynamic address pool. Must be in the config's subnet
+    Low IP (included) of the dynamic address pool. Must be in the config's subnet.
     """
 
     pool_high: str
     """
-    High IP (included) of the dynamic address pool. Must be in the config's subnet
+    High IP (included) of the dynamic address pool. Must be in the config's subnet.
     """
 
     enable_dynamic: bool
     """
     Whether to enable dynamic pooling of IPs. By turning the dynamic pool off, only pre-existing DHCP reservations will be handed out.
-    
     """
 
     valid_lifetime: Optional[str]
     """
-    How long, in seconds, DHCP entries will be valid for
+    How long, in seconds, DHCP entries will be valid for.
     """
 
     renew_timer: Optional[str]
     """
     After how long, in seconds, a renew will be attempted. Must be 30s lower than `rebind_timer`.
-    
     """
 
     rebind_timer: Optional[str]
     """
     After how long, in seconds, a DHCP client will query for a new lease if previous renews fail. Must be 30s lower than `valid_lifetime`.
-    
     """
 
     push_default_route: bool
     """
-    Whether the gateway should push a default route to DHCP clients or only hand out IPs
+    Whether the gateway should push a default route to DHCP clients or only hand out IPs.
     """
 
     push_dns_server: bool
     """
     Whether the gateway should push custom DNS servers to clients. This allows for instance hostname -> IP resolution.
-    
     """
 
     dns_servers_override: List[str]
     """
-    Override the DNS server list pushed to DHCP clients, instead of the gateway itself
+    Override the DNS server list pushed to DHCP clients, instead of the gateway itself.
     """
 
     dns_search: List[str]
     """
-    Add search paths to the pushed DNS configuration
+    Add search paths to the pushed DNS configuration.
     """
 
     dns_local_name: str
     """
     TLD given to hostnames in the Private Network. If an instance with hostname `foo` gets a lease, and this is set to `bar`, `foo.bar` will resolve.
-    
     """
 
     zone: Zone
     """
-    Zone this configuration is available in
+    Zone this configuration is available in.
     """
 
 
 @dataclass
 class DHCPEntry:
     """
-    Dhcp entry
+    Dhcp entry.
     """
 
     id: str
     """
-    Entry ID
+    Entry ID.
     """
 
     created_at: Optional[datetime]
     """
-    Configuration creation date
+    Configuration creation date.
     """
 
     updated_at: Optional[datetime]
     """
-    Configuration last modification date
+    Configuration last modification date.
     """
 
     gateway_network_id: str
     """
-    Owning GatewayNetwork
+    Owning GatewayNetwork.
     """
 
     mac_address: str
     """
-    MAC address of the client machine
+    MAC address of the client machine.
     """
 
     ip_address: str
     """
-    Assigned IP address
+    Assigned IP address.
     """
 
     hostname: str
     """
-    Hostname of the client machine
+    Hostname of the client machine.
     """
 
     type_: DHCPEntryType
     """
-    Entry type, either static (DHCP reservation) or dynamic (DHCP lease)
+    Entry type, either static (DHCP reservation) or dynamic (DHCP lease).
     """
 
     zone: Zone
     """
-    Zone this entry is available in
+    Zone this entry is available in.
     """
 
 
 @dataclass
 class Gateway:
     """
-    Gateway
+    Gateway.
     """
 
     id: str
     """
-    ID of the gateway
+    ID of the gateway.
     """
 
     organization_id: str
     """
-    Owning organization
+    Owning organization.
     """
 
     project_id: str
     """
-    Owning project
+    Owning project.
     """
 
     created_at: Optional[datetime]
     """
-    Gateway creation date
+    Gateway creation date.
     """
 
     updated_at: Optional[datetime]
     """
-    Gateway last modification date
+    Gateway last modification date.
     """
 
     type_: Optional[GatewayType]
     """
-    Gateway type
+    Gateway type.
     """
 
     status: GatewayStatus
     """
-    Gateway's current status
+    Gateway's current status.
     """
 
     name: str
     """
-    Name of the gateway
+    Name of the gateway.
     """
 
     tags: List[str]
     """
-    Tags of the gateway
+    Tags of the gateway.
     """
 
     ip: Optional[IP]
     """
-    Public IP of the gateway
+    Public IP of the gateway.
     """
 
     gateway_networks: List[GatewayNetwork]
     """
-    GatewayNetworks attached to the gateway
+    GatewayNetworks attached to the gateway.
     """
 
     upstream_dns_servers: List[str]
     """
-    Override the gateway's default recursive DNS servers
+    Override the gateway's default recursive DNS servers.
     """
 
     version: Optional[str]
     """
-    Version of the running gateway software
+    Version of the running gateway software.
     """
 
     can_upgrade_to: Optional[str]
     """
-    Newly available gateway software version that can be updated to
+    Newly available gateway software version that can be updated to.
     """
 
     bastion_enabled: bool
     """
-    Whether SSH bastion is enabled on the gateway
+    Whether SSH bastion is enabled on the gateway.
     """
 
     bastion_port: int
     """
-    Port of the SSH bastion
+    Port of the SSH bastion.
     """
 
     smtp_enabled: bool
     """
-    Whether SMTP traffic is allowed to pass through the gateway
+    Whether SMTP traffic is allowed to pass through the gateway.
     """
 
     zone: Zone
     """
-    Zone the gateway is available in
+    Zone the gateway is available in.
     """
 
 
 @dataclass
 class GatewayNetwork:
     """
-    Gateway network
+    Gateway network.
     """
 
     id: str
     """
-    ID of the connection
+    ID of the connection.
     """
 
     created_at: Optional[datetime]
     """
-    Connection creation date
+    Connection creation date.
     """
 
     updated_at: Optional[datetime]
     """
-    Connection last modification date
+    Connection last modification date.
     """
 
     gateway_id: str
     """
-    ID of the connected gateway
+    ID of the connected gateway.
     """
 
     private_network_id: str
     """
-    ID of the connected private network
+    ID of the connected private network.
     """
 
     mac_address: Optional[str]
     """
-    MAC address of the gateway in the network (if the gateway is up and running)
+    MAC address of the gateway in the network (if the gateway is up and running).
     """
 
     enable_masquerade: bool
     """
-    Whether the gateway masquerades traffic for this network
+    Whether the gateway masquerades traffic for this network.
     """
 
     status: GatewayNetworkStatus
     """
-    Current status of the gateway network connection
+    Current status of the gateway network connection.
     """
 
     dhcp: Optional[DHCP]
     """
-    DHCP configuration for the connected private network
+    DHCP configuration for the connected private network.
     """
 
     enable_dhcp: bool
     """
-    Whether DHCP is enabled on the connected Private Network
+    Whether DHCP is enabled on the connected Private Network.
     """
 
     address: Optional[str]
     """
-    Address of the Gateway in CIDR form to use when DHCP is not used
+    Address of the Gateway in CIDR form to use when DHCP is not used.
     """
 
     zone: Zone
     """
-    Zone the connection lives in
+    Zone the connection lives in.
     """
 
 
 @dataclass
 class GatewayType:
     """
-    Gateway type
+    Gateway type.
     """
 
     name: str
     """
-    Type name
+    Type name.
     """
 
     bandwidth: int
     """
     Bandwidth, in bps, the gateway has. This is the public bandwidth to the outer internet, and the internal bandwidth to each connected Private Networks.
-    
     """
 
     zone: Zone
     """
-    Zone the type is available in
+    Zone the type is available in.
     """
 
 
 @dataclass
 class IP:
     """
-    Ip
+    Ip.
     """
 
     id: str
     """
-    IP ID
+    IP ID.
     """
 
     organization_id: str
     """
-    Owning organization
+    Owning organization.
     """
 
     project_id: str
     """
-    Owning project
+    Owning project.
     """
 
     created_at: Optional[datetime]
     """
-    Configuration creation date
+    Configuration creation date.
     """
 
     updated_at: Optional[datetime]
     """
-    Configuration last modification date
+    Configuration last modification date.
     """
 
     tags: List[str]
     """
-    Tags associated with the IP
+    Tags associated with the IP.
     """
 
     address: str
     """
-    The IP itself
+    The IP itself.
     """
 
     reverse: Optional[str]
     """
-    Reverse domain name for the IP address
+    Reverse domain name for the IP address.
     """
 
     gateway_id: Optional[str]
     """
-    Gateway associated to the IP
+    Gateway associated to the IP.
     """
 
     zone: Zone
     """
-    Zone this IP is available in
+    Zone this IP is available in.
     """
 
 
 @dataclass
 class ListDHCPEntriesResponse:
     """
-    List dhcp entries response
+    List dhcp entries response.
     """
 
     dhcp_entries: List[DHCPEntry]
     """
-    DHCP entries in this page
+    DHCP entries in this page.
     """
 
     total_count: int
     """
-    Total DHCP entries matching the filter
+    Total DHCP entries matching the filter.
     """
 
 
 @dataclass
 class ListDHCPsResponse:
     """
-    List dhc ps response
+    List dhc ps response.
     """
 
     dhcps: List[DHCP]
     """
-    First page of DHCP configs
+    First page of DHCP configs.
     """
 
     total_count: int
     """
-    Total DHCP configs matching the filter
+    Total DHCP configs matching the filter.
     """
 
 
 @dataclass
 class ListGatewayNetworksResponse:
     """
-    List gateway networks response
+    List gateway networks response.
     """
 
     gateway_networks: List[GatewayNetwork]
     """
-    GatewayNetworks in this page
+    GatewayNetworks in this page.
     """
 
     total_count: int
     """
-    Total GatewayNetworks count matching the filter
+    Total GatewayNetworks count matching the filter.
     """
 
 
 @dataclass
 class ListGatewayTypesResponse:
     """
-    List gateway types response
+    List gateway types response.
     """
 
     types: List[GatewayType]
     """
-    Available types of gateway
+    Available types of gateway.
     """
 
 
 @dataclass
 class ListGatewaysResponse:
     """
-    List gateways response
+    List gateways response.
     """
 
     gateways: List[Gateway]
     """
-    Gateways in this page
+    Gateways in this page.
     """
 
     total_count: int
     """
-    Total count of gateways matching the filter
+    Total count of gateways matching the filter.
     """
 
 
 @dataclass
 class ListIPsResponse:
     """
-    List i ps response
+    List i ps response.
     """
 
     ips: List[IP]
     """
-    IPs in this page
+    IPs in this page.
     """
 
     total_count: int
     """
-    Total IP count matching the filter
+    Total IP count matching the filter.
     """
 
 
 @dataclass
 class ListPATRulesResponse:
     """
-    List pat rules response
+    List pat rules response.
     """
 
     pat_rules: List[PATRule]
     """
-    This page of PAT rules matching the filter
+    This page of PAT rules matching the filter.
     """
 
     total_count: int
     """
-    Total PAT rules matching the filter
+    Total PAT rules matching the filter.
     """
 
 
 @dataclass
 class PATRule:
     """
-    Pat rule
+    Pat rule.
     """
 
     id: str
     """
-    Rule ID
+    Rule ID.
     """
 
     gateway_id: str
     """
-    Gateway the PAT rule applies to
+    Gateway the PAT rule applies to.
     """
 
     created_at: Optional[datetime]
     """
-    Rule creation date
+    Rule creation date.
     """
 
     updated_at: Optional[datetime]
     """
-    Rule last modification date
+    Rule last modification date.
     """
 
     public_port: int
     """
-    Public port to listen on
+    Public port to listen on.
     """
 
     private_ip: str
     """
-    Private IP to forward data to
+    Private IP to forward data to.
     """
 
     private_port: int
     """
-    Private port to translate to
+    Private port to translate to.
     """
 
     protocol: PATRuleProtocol
     """
-    Protocol the rule applies to
+    Protocol the rule applies to.
     """
 
     zone: Zone
     """
-    Zone this rule is available in
+    Zone this rule is available in.
     """
 
 
 @dataclass
 class SetDHCPEntriesRequestEntry:
     """
-    Set dhcp entries request. entry
+    Set dhcp entries request. entry.
     """
 
     mac_address: str
     """
     MAC address to give a static entry to. A matching entry will be upgraded to a reservation, and a matching reservation will be updated.
-    
     """
 
     ip_address: str
     """
-    IP address to give to the machine
+    IP address to give to the machine.
     """
 
 
 @dataclass
 class SetDHCPEntriesResponse:
     """
-    Set dhcp entries response
+    Set dhcp entries response.
     """
 
     dhcp_entries: List[DHCPEntry]
     """
-    List of DHCP entries
+    List of DHCP entries.
     """
 
 
 @dataclass
 class SetPATRulesRequestRule:
     """
-    Set pat rules request. rule
+    Set pat rules request. rule.
     """
 
     public_port: int
     """
     Public port to listen on. Uniquely identifies the rule, and a matching rule will be updated with the new parameters.
-    
     """
 
     private_ip: str
     """
-    Private IP to forward data to
+    Private IP to forward data to.
     """
 
     private_port: int
     """
-    Private port to translate to
+    Private port to translate to.
     """
 
     protocol: PATRuleProtocol
     """
-    Protocol the rule should apply to
+    Protocol the rule should apply to.
     """
 
 
 @dataclass
 class SetPATRulesResponse:
     """
-    Set pat rules response
+    Set pat rules response.
     """
 
     pat_rules: List[PATRule]
     """
-    List of PAT rules
+    List of PAT rules.
     """
 
 
@@ -772,57 +763,57 @@ class SetPATRulesResponse:
 class ListGatewaysRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     order_by: Optional[ListGatewaysRequestOrderBy]
     """
-    Order in which to return results
+    Order in which to return results.
     """
 
     page: Optional[int]
     """
-    Page number
+    Page number.
     """
 
     page_size: Optional[int]
     """
-    Gateways per page
+    Gateways per page.
     """
 
     organization_id: Optional[str]
     """
-    Include only gateways in this organization
+    Include only gateways in this organization.
     """
 
     project_id: Optional[str]
     """
-    Include only gateways in this project
+    Include only gateways in this project.
     """
 
     name: Optional[str]
     """
-    Filter gateways including this name
+    Filter gateways including this name.
     """
 
     tags: Optional[List[str]]
     """
-    Filter gateways with these tags
+    Filter gateways with these tags.
     """
 
     type_: Optional[str]
     """
-    Filter gateways of this type
+    Filter gateways of this type.
     """
 
     status: Optional[GatewayStatus]
     """
-    Filter gateways in this status (unknown for any)
+    Filter gateways in this status (unknown for any).
     """
 
     private_network_id: Optional[str]
     """
-    Filter gateways attached to this private network
+    Filter gateways attached to this private network.
     """
 
 
@@ -830,12 +821,12 @@ class ListGatewaysRequest:
 class GetGatewayRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     gateway_id: str
     """
-    ID of the gateway to fetch
+    ID of the gateway to fetch.
     """
 
 
@@ -843,52 +834,52 @@ class GetGatewayRequest:
 class CreateGatewayRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     project_id: Optional[str]
     """
-    Project to create the gateway into
+    Project to create the gateway into.
     """
 
     name: Optional[str]
     """
-    Name of the gateway
+    Name of the gateway.
     """
 
     tags: Optional[List[str]]
     """
-    Tags for the gateway
+    Tags for the gateway.
     """
 
     type_: str
     """
-    Gateway type
+    Gateway type.
     """
 
     upstream_dns_servers: Optional[List[str]]
     """
-    Override the gateway's default recursive DNS servers, if DNS features are enabled
+    Override the gateway's default recursive DNS servers, if DNS features are enabled.
     """
 
     ip_id: Optional[str]
     """
-    Attach an existing IP to the gateway
+    Attach an existing IP to the gateway.
     """
 
     enable_smtp: bool
     """
-    Allow SMTP traffic to pass through the gateway
+    Allow SMTP traffic to pass through the gateway.
     """
 
     enable_bastion: bool
     """
-    Enable SSH bastion on the gateway
+    Enable SSH bastion on the gateway.
     """
 
     bastion_port: Optional[int]
     """
-    Port of the SSH bastion
+    Port of the SSH bastion.
     """
 
 
@@ -896,42 +887,42 @@ class CreateGatewayRequest:
 class UpdateGatewayRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     gateway_id: str
     """
-    ID of the gateway to update
+    ID of the gateway to update.
     """
 
     name: Optional[str]
     """
-    Name fo the gateway
+    Name fo the gateway.
     """
 
     tags: Optional[List[str]]
     """
-    Tags for the gateway
+    Tags for the gateway.
     """
 
     upstream_dns_servers: Optional[List[str]]
     """
-    Override the gateway's default recursive DNS servers, if DNS features are enabled
+    Override the gateway's default recursive DNS servers, if DNS features are enabled.
     """
 
     enable_bastion: Optional[bool]
     """
-    Enable SSH bastion on the gateway
+    Enable SSH bastion on the gateway.
     """
 
     bastion_port: Optional[int]
     """
-    Port of the SSH bastion
+    Port of the SSH bastion.
     """
 
     enable_smtp: Optional[bool]
     """
-    Allow SMTP traffic to pass through the gateway
+    Allow SMTP traffic to pass through the gateway.
     """
 
 
@@ -939,18 +930,17 @@ class UpdateGatewayRequest:
 class DeleteGatewayRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     gateway_id: str
     """
-    ID of the gateway to delete
+    ID of the gateway to delete.
     """
 
     cleanup_dhcp: bool
     """
     Whether to cleanup attached DHCP configurations (if any, and if not attached to another Gateway Network).
-    
     """
 
 
@@ -958,12 +948,12 @@ class DeleteGatewayRequest:
 class UpgradeGatewayRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     gateway_id: str
     """
-    ID of the gateway to upgrade
+    ID of the gateway to upgrade.
     """
 
 
@@ -971,47 +961,47 @@ class UpgradeGatewayRequest:
 class ListGatewayNetworksRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     order_by: Optional[ListGatewayNetworksRequestOrderBy]
     """
-    Order in which to return results
+    Order in which to return results.
     """
 
     page: Optional[int]
     """
-    Page number
+    Page number.
     """
 
     page_size: Optional[int]
     """
-    GatewayNetworks per page
+    GatewayNetworks per page.
     """
 
     gateway_id: Optional[str]
     """
-    Filter by gateway
+    Filter by gateway.
     """
 
     private_network_id: Optional[str]
     """
-    Filter by private network
+    Filter by private network.
     """
 
     enable_masquerade: Optional[bool]
     """
-    Filter by masquerade enablement
+    Filter by masquerade enablement.
     """
 
     dhcp_id: Optional[str]
     """
-    Filter by DHCP configuration
+    Filter by DHCP configuration.
     """
 
     status: Optional[GatewayNetworkStatus]
     """
-    Filter GatewayNetworks by this status (unknown for any)
+    Filter GatewayNetworks by this status (unknown for any).
     """
 
 
@@ -1019,12 +1009,12 @@ class ListGatewayNetworksRequest:
 class GetGatewayNetworkRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     gateway_network_id: str
     """
-    ID of the GatewayNetwork to fetch
+    ID of the GatewayNetwork to fetch.
     """
 
 
@@ -1032,42 +1022,48 @@ class GetGatewayNetworkRequest:
 class CreateGatewayNetworkRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     gateway_id: str
     """
-    Gateway to connect
+    Gateway to connect.
     """
 
     private_network_id: str
     """
-    Private Network to connect
+    Private Network to connect.
     """
 
     enable_masquerade: bool
     """
-    Whether to enable masquerade on this network
+    Whether to enable masquerade on this network.
     """
 
     dhcp_id: Optional[str]
     """
     Existing configuration.
     
-    One-of ('ip_config'): at most one of 'dhcp_id', 'address' could be set.
+    One-of ('ip_config'): at most one of 'dhcp_id', 'dhcp', 'address' could be set.
+    """
+
+    dhcp: Optional[CreateDHCPRequest]
+    """
+    New DHCP configuration.
+    
+    One-of ('ip_config'): at most one of 'dhcp_id', 'dhcp', 'address' could be set.
     """
 
     address: Optional[str]
     """
     Static IP address in CIDR format to to use without DHCP.
     
-    One-of ('ip_config'): at most one of 'dhcp_id', 'address' could be set.
+    One-of ('ip_config'): at most one of 'dhcp_id', 'dhcp', 'address' could be set.
     """
 
     enable_dhcp: Optional[bool]
     """
     Whether to enable DHCP on this Private Network. Defaults to `true` if either `dhcp_id` or `dhcp` short: are present. If set to `true`, requires that either `dhcp_id` or `dhcp` to be present.
-    
     """
 
 
@@ -1075,17 +1071,17 @@ class CreateGatewayNetworkRequest:
 class UpdateGatewayNetworkRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     gateway_network_id: str
     """
-    ID of the GatewayNetwork to update
+    ID of the GatewayNetwork to update.
     """
 
     enable_masquerade: Optional[bool]
     """
-    New masquerade enablement
+    New masquerade enablement.
     """
 
     dhcp_id: Optional[str]
@@ -1097,7 +1093,7 @@ class UpdateGatewayNetworkRequest:
 
     enable_dhcp: Optional[bool]
     """
-    Whether to enable DHCP on the connected Private Network
+    Whether to enable DHCP on the connected Private Network.
     """
 
     address: Optional[str]
@@ -1112,18 +1108,17 @@ class UpdateGatewayNetworkRequest:
 class DeleteGatewayNetworkRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     gateway_network_id: str
     """
-    GatewayNetwork to delete
+    GatewayNetwork to delete.
     """
 
     cleanup_dhcp: bool
     """
     Whether to cleanup the attached DHCP configuration (if any, and if not attached to another gateway_network).
-    
     """
 
 
@@ -1131,42 +1126,42 @@ class DeleteGatewayNetworkRequest:
 class ListDHCPsRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     order_by: Optional[ListDHCPsRequestOrderBy]
     """
-    Order in which to return results
+    Order in which to return results.
     """
 
     page: Optional[int]
     """
-    Page number
+    Page number.
     """
 
     page_size: Optional[int]
     """
-    DHCP configurations per page
+    DHCP configurations per page.
     """
 
     organization_id: Optional[str]
     """
-    Include only DHCPs in this organization
+    Include only DHCPs in this organization.
     """
 
     project_id: Optional[str]
     """
-    Include only DHCPs in this project
+    Include only DHCPs in this project.
     """
 
     address: Optional[str]
     """
-    Filter on gateway address
+    Filter on gateway address.
     """
 
     has_address: Optional[str]
     """
-    Filter on subnets containing address
+    Filter on subnets containing address.
     """
 
 
@@ -1174,12 +1169,12 @@ class ListDHCPsRequest:
 class GetDHCPRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     dhcp_id: str
     """
-    ID of the DHCP config to fetch
+    ID of the DHCP config to fetch.
     """
 
 
@@ -1187,22 +1182,22 @@ class GetDHCPRequest:
 class CreateDHCPRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     project_id: Optional[str]
     """
-    Project to create the DHCP configuration in
+    Project to create the DHCP configuration in.
     """
 
     subnet: str
     """
-    Subnet for the DHCP server
+    Subnet for the DHCP server.
     """
 
     address: Optional[str]
     """
-    Address of the DHCP server. This will be the gateway's address in the private network. Defaults to the first address of the subnet
+    Address of the DHCP server. This will be the gateway's address in the private network. Defaults to the first address of the subnet.
     """
 
     pool_low: Optional[str]
@@ -1218,7 +1213,6 @@ class CreateDHCPRequest:
     enable_dynamic: Optional[bool]
     """
     Whether to enable dynamic pooling of IPs. By turning the dynamic pool off, only pre-existing DHCP reservations will be handed out. Defaults to true.
-    
     """
 
     valid_lifetime: Optional[str]
@@ -1229,40 +1223,36 @@ class CreateDHCPRequest:
     renew_timer: Optional[str]
     """
     After how long, in seconds, a renew will be attempted. Must be 30s lower than `rebind_timer`. Defaults to 50m (3000s).
-    
     """
 
     rebind_timer: Optional[str]
     """
     After how long, in seconds, a DHCP client will query for a new lease if previous renews fail. Must be 30s lower than `valid_lifetime`. Defaults to 51m (3060s).
-    
     """
 
     push_default_route: Optional[bool]
     """
-    Whether the gateway should push a default route to DHCP clients or only hand out IPs. Defaults to true
+    Whether the gateway should push a default route to DHCP clients or only hand out IPs. Defaults to true.
     """
 
     push_dns_server: Optional[bool]
     """
     Whether the gateway should push custom DNS servers to clients. This allows for instance hostname -> IP resolution. Defaults to true.
-    
     """
 
     dns_servers_override: Optional[List[str]]
     """
-    Override the DNS server list pushed to DHCP clients, instead of the gateway itself
+    Override the DNS server list pushed to DHCP clients, instead of the gateway itself.
     """
 
     dns_search: Optional[List[str]]
     """
-    Additional DNS search paths
+    Additional DNS search paths.
     """
 
     dns_local_name: Optional[str]
     """
     TLD given to hostnames in the Private Network. Allowed characters are `a-z0-9-.`. Defaults to the slugified Private Network name if created along a GatewayNetwork, or else to `priv`.
-    
     """
 
 
@@ -1270,43 +1260,42 @@ class CreateDHCPRequest:
 class UpdateDHCPRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     dhcp_id: str
     """
-    DHCP config to update
+    DHCP config to update.
     """
 
     subnet: Optional[str]
     """
-    Subnet for the DHCP server
+    Subnet for the DHCP server.
     """
 
     address: Optional[str]
     """
-    Address of the DHCP server. This will be the gateway's address in the private network
+    Address of the DHCP server. This will be the gateway's address in the private network.
     """
 
     pool_low: Optional[str]
     """
-    Low IP (included) of the dynamic address pool
+    Low IP (included) of the dynamic address pool.
     """
 
     pool_high: Optional[str]
     """
-    High IP (included) of the dynamic address pool
+    High IP (included) of the dynamic address pool.
     """
 
     enable_dynamic: Optional[bool]
     """
     Whether to enable dynamic pooling of IPs. By turning the dynamic pool off, only pre-existing DHCP reservations will be handed out. Defaults to true.
-    
     """
 
     valid_lifetime: Optional[str]
     """
-    How long, in seconds, DHCP entries will be valid for
+    How long, in seconds, DHCP entries will be valid for.
     """
 
     renew_timer: Optional[str]
@@ -1317,28 +1306,26 @@ class UpdateDHCPRequest:
     rebind_timer: Optional[str]
     """
     After how long, in seconds, a DHCP client will query for a new lease if previous renews fail. Must be 30s lower than `valid_lifetime`.
-    
     """
 
     push_default_route: Optional[bool]
     """
-    Whether the gateway should push a default route to DHCP clients or only hand out IPs
+    Whether the gateway should push a default route to DHCP clients or only hand out IPs.
     """
 
     push_dns_server: Optional[bool]
     """
     Whether the gateway should push custom DNS servers to clients. This allows for instance hostname -> IP resolution.
-    
     """
 
     dns_servers_override: Optional[List[str]]
     """
-    Override the DNS server list pushed to DHCP clients, instead of the gateway itself
+    Override the DNS server list pushed to DHCP clients, instead of the gateway itself.
     """
 
     dns_search: Optional[List[str]]
     """
-    Additional DNS search paths
+    Additional DNS search paths.
     """
 
     dns_local_name: Optional[str]
@@ -1351,12 +1338,12 @@ class UpdateDHCPRequest:
 class DeleteDHCPRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     dhcp_id: str
     """
-    DHCP config id to delete
+    DHCP config id to delete.
     """
 
 
@@ -1364,47 +1351,47 @@ class DeleteDHCPRequest:
 class ListDHCPEntriesRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     order_by: Optional[ListDHCPEntriesRequestOrderBy]
     """
-    Order in which to return results
+    Order in which to return results.
     """
 
     page: Optional[int]
     """
-    Page number
+    Page number.
     """
 
     page_size: Optional[int]
     """
-    DHCP entries per page
+    DHCP entries per page.
     """
 
     gateway_network_id: Optional[str]
     """
-    Filter entries based on the gateway network they are on
+    Filter entries based on the gateway network they are on.
     """
 
     mac_address: Optional[str]
     """
-    Filter entries on their MAC address
+    Filter entries on their MAC address.
     """
 
     ip_address: Optional[str]
     """
-    Filter entries on their IP address
+    Filter entries on their IP address.
     """
 
     hostname: Optional[str]
     """
-    Filter entries on their hostname substring
+    Filter entries on their hostname substring.
     """
 
     type_: Optional[DHCPEntryType]
     """
-    Filter entries on their type
+    Filter entries on their type.
     """
 
 
@@ -1412,12 +1399,12 @@ class ListDHCPEntriesRequest:
 class GetDHCPEntryRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     dhcp_entry_id: str
     """
-    ID of the DHCP entry to fetch
+    ID of the DHCP entry to fetch.
     """
 
 
@@ -1425,22 +1412,22 @@ class GetDHCPEntryRequest:
 class CreateDHCPEntryRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     gateway_network_id: str
     """
-    GatewayNetwork on which to create a DHCP reservation
+    GatewayNetwork on which to create a DHCP reservation.
     """
 
     mac_address: str
     """
-    MAC address to give a static entry to
+    MAC address to give a static entry to.
     """
 
     ip_address: str
     """
-    IP address to give to the machine
+    IP address to give to the machine.
     """
 
 
@@ -1448,17 +1435,17 @@ class CreateDHCPEntryRequest:
 class UpdateDHCPEntryRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     dhcp_entry_id: str
     """
-    DHCP entry ID to update
+    DHCP entry ID to update.
     """
 
     ip_address: Optional[str]
     """
-    New IP address to give to the machine
+    New IP address to give to the machine.
     """
 
 
@@ -1466,17 +1453,17 @@ class UpdateDHCPEntryRequest:
 class SetDHCPEntriesRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     gateway_network_id: str
     """
-    Gateway Network on which to set DHCP reservation list
+    Gateway Network on which to set DHCP reservation list.
     """
 
     dhcp_entries: Optional[List[SetDHCPEntriesRequestEntry]]
     """
-    New list of DHCP reservations
+    New list of DHCP reservations.
     """
 
 
@@ -1484,12 +1471,12 @@ class SetDHCPEntriesRequest:
 class DeleteDHCPEntryRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     dhcp_entry_id: str
     """
-    DHCP entry ID to delete
+    DHCP entry ID to delete.
     """
 
 
@@ -1497,37 +1484,37 @@ class DeleteDHCPEntryRequest:
 class ListPATRulesRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     order_by: Optional[ListPATRulesRequestOrderBy]
     """
-    Order in which to return results
+    Order in which to return results.
     """
 
     page: Optional[int]
     """
-    Page number
+    Page number.
     """
 
     page_size: Optional[int]
     """
-    PAT rules per page
+    PAT rules per page.
     """
 
     gateway_id: Optional[str]
     """
-    Fetch rules for this gateway
+    Fetch rules for this gateway.
     """
 
     private_ip: Optional[str]
     """
-    Fetch rules targeting this private ip
+    Fetch rules targeting this private ip.
     """
 
     protocol: Optional[PATRuleProtocol]
     """
-    Fetch rules for this protocol
+    Fetch rules for this protocol.
     """
 
 
@@ -1535,12 +1522,12 @@ class ListPATRulesRequest:
 class GetPATRuleRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     pat_rule_id: str
     """
-    PAT rule to get
+    PAT rule to get.
     """
 
 
@@ -1548,32 +1535,32 @@ class GetPATRuleRequest:
 class CreatePATRuleRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     gateway_id: str
     """
-    Gateway on which to attach the rule to
+    Gateway on which to attach the rule to.
     """
 
     public_port: int
     """
-    Public port to listen on
+    Public port to listen on.
     """
 
     private_ip: str
     """
-    Private IP to forward data to
+    Private IP to forward data to.
     """
 
     private_port: int
     """
-    Private port to translate to
+    Private port to translate to.
     """
 
     protocol: PATRuleProtocol
     """
-    Protocol the rule should apply to
+    Protocol the rule should apply to.
     """
 
 
@@ -1581,32 +1568,32 @@ class CreatePATRuleRequest:
 class UpdatePATRuleRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     pat_rule_id: str
     """
-    PAT rule to update
+    PAT rule to update.
     """
 
     public_port: Optional[int]
     """
-    Public port to listen on
+    Public port to listen on.
     """
 
     private_ip: Optional[str]
     """
-    Private IP to forward data to
+    Private IP to forward data to.
     """
 
     private_port: Optional[int]
     """
-    Private port to translate to
+    Private port to translate to.
     """
 
     protocol: PATRuleProtocol
     """
-    Protocol the rule should apply to
+    Protocol the rule should apply to.
     """
 
 
@@ -1614,17 +1601,17 @@ class UpdatePATRuleRequest:
 class SetPATRulesRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     gateway_id: str
     """
-    Gateway on which to set the PAT rules
+    Gateway on which to set the PAT rules.
     """
 
     pat_rules: List[SetPATRulesRequestRule]
     """
-    New list of PAT rules
+    New list of PAT rules.
     """
 
 
@@ -1632,12 +1619,12 @@ class SetPATRulesRequest:
 class DeletePATRuleRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     pat_rule_id: str
     """
-    PAT rule to delete
+    PAT rule to delete.
     """
 
 
@@ -1645,7 +1632,7 @@ class DeletePATRuleRequest:
 class ListGatewayTypesRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
 
@@ -1653,47 +1640,47 @@ class ListGatewayTypesRequest:
 class ListIPsRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     order_by: Optional[ListIPsRequestOrderBy]
     """
-    Order in which to return results
+    Order in which to return results.
     """
 
     page: Optional[int]
     """
-    Page number
+    Page number.
     """
 
     page_size: Optional[int]
     """
-    IPs per page
+    IPs per page.
     """
 
     organization_id: Optional[str]
     """
-    Include only IPs in this organization
+    Include only IPs in this organization.
     """
 
     project_id: Optional[str]
     """
-    Include only IPs in this project
+    Include only IPs in this project.
     """
 
     tags: Optional[List[str]]
     """
-    Filter IPs with these tags
+    Filter IPs with these tags.
     """
 
     reverse: Optional[str]
     """
-    Filter by reverse containing this string
+    Filter by reverse containing this string.
     """
 
     is_free: Optional[bool]
     """
-    Filter whether the IP is attached to a gateway or not
+    Filter whether the IP is attached to a gateway or not.
     """
 
 
@@ -1701,12 +1688,12 @@ class ListIPsRequest:
 class GetIPRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     ip_id: str
     """
-    ID of the IP to get
+    ID of the IP to get.
     """
 
 
@@ -1714,17 +1701,17 @@ class GetIPRequest:
 class CreateIPRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     project_id: Optional[str]
     """
-    Project to create the IP into
+    Project to create the IP into.
     """
 
     tags: Optional[List[str]]
     """
-    Tags to give to the IP
+    Tags to give to the IP.
     """
 
 
@@ -1732,27 +1719,27 @@ class CreateIPRequest:
 class UpdateIPRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     ip_id: str
     """
-    ID of the IP to update
+    ID of the IP to update.
     """
 
     tags: Optional[List[str]]
     """
-    Tags to give to the IP
+    Tags to give to the IP.
     """
 
     reverse: Optional[str]
     """
-    Reverse to set on the IP. Empty string to unset
+    Reverse to set on the IP. Empty string to unset.
     """
 
     gateway_id: Optional[str]
     """
-    Gateway to attach the IP to. Empty string to detach
+    Gateway to attach the IP to. Empty string to detach.
     """
 
 
@@ -1760,12 +1747,12 @@ class UpdateIPRequest:
 class DeleteIPRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     ip_id: str
     """
-    ID of the IP to delete
+    ID of the IP to delete.
     """
 
 
@@ -1773,10 +1760,10 @@ class DeleteIPRequest:
 class RefreshSSHKeysRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     gateway_id: str
     """
-    ID of the gateway that needs fresh ssh keys
+    ID of the gateway that needs fresh ssh keys.
     """

@@ -62,8 +62,8 @@ from .content import (
     GATEWAY_TRANSIENT_STATUSES,
 )
 from .marshalling import (
-    marshal_CreateDHCPEntryRequest,
     marshal_CreateDHCPRequest,
+    marshal_CreateDHCPEntryRequest,
     marshal_CreateGatewayNetworkRequest,
     marshal_CreateGatewayRequest,
     marshal_CreateIPRequest,
@@ -116,17 +116,17 @@ class VpcgwV1API(API):
     ) -> ListGatewaysResponse:
         """
         List VPC Public Gateways
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param order_by: Order in which to return results
-        :param page: Page number
-        :param page_size: Gateways per page
-        :param organization_id: Include only gateways in this organization
-        :param project_id: Include only gateways in this project
-        :param name: Filter gateways including this name
-        :param tags: Filter gateways with these tags
-        :param type_: Filter gateways of this type
-        :param status: Filter gateways in this status (unknown for any)
-        :param private_network_id: Filter gateways attached to this private network
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param order_by: Order in which to return results.
+        :param page: Page number.
+        :param page_size: Gateways per page.
+        :param organization_id: Include only gateways in this organization.
+        :param project_id: Include only gateways in this project.
+        :param name: Filter gateways including this name.
+        :param tags: Filter gateways with these tags.
+        :param type_: Filter gateways of this type.
+        :param status: Filter gateways in this status (unknown for any).
+        :param private_network_id: Filter gateways attached to this private network.
         :return: :class:`ListGatewaysResponse <ListGatewaysResponse>`
 
         Usage:
@@ -175,17 +175,17 @@ class VpcgwV1API(API):
     ) -> List[Gateway]:
         """
         List VPC Public Gateways
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param order_by: Order in which to return results
-        :param page: Page number
-        :param page_size: Gateways per page
-        :param organization_id: Include only gateways in this organization
-        :param project_id: Include only gateways in this project
-        :param name: Filter gateways including this name
-        :param tags: Filter gateways with these tags
-        :param type_: Filter gateways of this type
-        :param status: Filter gateways in this status (unknown for any)
-        :param private_network_id: Filter gateways attached to this private network
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param order_by: Order in which to return results.
+        :param page: Page number.
+        :param page_size: Gateways per page.
+        :param organization_id: Include only gateways in this organization.
+        :param project_id: Include only gateways in this project.
+        :param name: Filter gateways including this name.
+        :param tags: Filter gateways with these tags.
+        :param type_: Filter gateways of this type.
+        :param status: Filter gateways in this status (unknown for any).
+        :param private_network_id: Filter gateways attached to this private network.
         :return: :class:`List[ListGatewaysResponse] <List[ListGatewaysResponse]>`
 
         Usage:
@@ -221,8 +221,8 @@ class VpcgwV1API(API):
     ) -> Gateway:
         """
         Get a VPC Public Gateway
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param gateway_id: ID of the gateway to fetch
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param gateway_id: ID of the gateway to fetch.
         :return: :class:`Gateway <Gateway>`
 
         Usage:
@@ -251,8 +251,8 @@ class VpcgwV1API(API):
     ) -> Gateway:
         """
         Waits for :class:`Gateway <Gateway>` to be in a final state.
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param gateway_id: ID of the gateway to fetch
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param gateway_id: ID of the gateway to fetch.
         :param options: The options for the waiter
         :return: :class:`Gateway <Gateway>`
 
@@ -293,16 +293,16 @@ class VpcgwV1API(API):
     ) -> Gateway:
         """
         Create a VPC Public Gateway
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param project_id: Project to create the gateway into
-        :param name: Name of the gateway
-        :param tags: Tags for the gateway
-        :param type_: Gateway type
-        :param upstream_dns_servers: Override the gateway's default recursive DNS servers, if DNS features are enabled
-        :param ip_id: Attach an existing IP to the gateway
-        :param enable_smtp: Allow SMTP traffic to pass through the gateway
-        :param enable_bastion: Enable SSH bastion on the gateway
-        :param bastion_port: Port of the SSH bastion
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param project_id: Project to create the gateway into.
+        :param name: Name of the gateway.
+        :param tags: Tags for the gateway.
+        :param type_: Gateway type.
+        :param upstream_dns_servers: Override the gateway's default recursive DNS servers, if DNS features are enabled.
+        :param ip_id: Attach an existing IP to the gateway.
+        :param enable_smtp: Allow SMTP traffic to pass through the gateway.
+        :param enable_bastion: Enable SSH bastion on the gateway.
+        :param bastion_port: Port of the SSH bastion.
         :return: :class:`Gateway <Gateway>`
 
         Usage:
@@ -354,14 +354,14 @@ class VpcgwV1API(API):
     ) -> Gateway:
         """
         Update a VPC Public Gateway
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param gateway_id: ID of the gateway to update
-        :param name: Name fo the gateway
-        :param tags: Tags for the gateway
-        :param upstream_dns_servers: Override the gateway's default recursive DNS servers, if DNS features are enabled
-        :param enable_bastion: Enable SSH bastion on the gateway
-        :param bastion_port: Port of the SSH bastion
-        :param enable_smtp: Allow SMTP traffic to pass through the gateway
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param gateway_id: ID of the gateway to update.
+        :param name: Name fo the gateway.
+        :param tags: Tags for the gateway.
+        :param upstream_dns_servers: Override the gateway's default recursive DNS servers, if DNS features are enabled.
+        :param enable_bastion: Enable SSH bastion on the gateway.
+        :param bastion_port: Port of the SSH bastion.
+        :param enable_smtp: Allow SMTP traffic to pass through the gateway.
         :return: :class:`Gateway <Gateway>`
 
         Usage:
@@ -403,10 +403,9 @@ class VpcgwV1API(API):
     ) -> Optional[None]:
         """
         Delete a VPC Public Gateway
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param gateway_id: ID of the gateway to delete
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param gateway_id: ID of the gateway to delete.
         :param cleanup_dhcp: Whether to cleanup attached DHCP configurations (if any, and if not attached to another Gateway Network).
-
 
         Usage:
         ::
@@ -439,8 +438,8 @@ class VpcgwV1API(API):
     ) -> Gateway:
         """
         Upgrade a VPC Public Gateway to the latest version
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param gateway_id: ID of the gateway to upgrade
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param gateway_id: ID of the gateway to upgrade.
         :return: :class:`Gateway <Gateway>`
 
         Usage:
@@ -475,15 +474,15 @@ class VpcgwV1API(API):
     ) -> ListGatewayNetworksResponse:
         """
         List gateway connections to Private Networks
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param order_by: Order in which to return results
-        :param page: Page number
-        :param page_size: GatewayNetworks per page
-        :param gateway_id: Filter by gateway
-        :param private_network_id: Filter by private network
-        :param enable_masquerade: Filter by masquerade enablement
-        :param dhcp_id: Filter by DHCP configuration
-        :param status: Filter GatewayNetworks by this status (unknown for any)
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param order_by: Order in which to return results.
+        :param page: Page number.
+        :param page_size: GatewayNetworks per page.
+        :param gateway_id: Filter by gateway.
+        :param private_network_id: Filter by private network.
+        :param enable_masquerade: Filter by masquerade enablement.
+        :param dhcp_id: Filter by DHCP configuration.
+        :param status: Filter GatewayNetworks by this status (unknown for any).
         :return: :class:`ListGatewayNetworksResponse <ListGatewayNetworksResponse>`
 
         Usage:
@@ -527,15 +526,15 @@ class VpcgwV1API(API):
     ) -> List[GatewayNetwork]:
         """
         List gateway connections to Private Networks
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param order_by: Order in which to return results
-        :param page: Page number
-        :param page_size: GatewayNetworks per page
-        :param gateway_id: Filter by gateway
-        :param private_network_id: Filter by private network
-        :param enable_masquerade: Filter by masquerade enablement
-        :param dhcp_id: Filter by DHCP configuration
-        :param status: Filter GatewayNetworks by this status (unknown for any)
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param order_by: Order in which to return results.
+        :param page: Page number.
+        :param page_size: GatewayNetworks per page.
+        :param gateway_id: Filter by gateway.
+        :param private_network_id: Filter by private network.
+        :param enable_masquerade: Filter by masquerade enablement.
+        :param dhcp_id: Filter by DHCP configuration.
+        :param status: Filter GatewayNetworks by this status (unknown for any).
         :return: :class:`List[ListGatewayNetworksResponse] <List[ListGatewayNetworksResponse]>`
 
         Usage:
@@ -569,8 +568,8 @@ class VpcgwV1API(API):
     ) -> GatewayNetwork:
         """
         Get a gateway connection to a Private Network
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param gateway_network_id: ID of the GatewayNetwork to fetch
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param gateway_network_id: ID of the GatewayNetwork to fetch.
         :return: :class:`GatewayNetwork <GatewayNetwork>`
 
         Usage:
@@ -601,8 +600,8 @@ class VpcgwV1API(API):
     ) -> GatewayNetwork:
         """
         Waits for :class:`GatewayNetwork <GatewayNetwork>` to be in a final state.
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param gateway_network_id: ID of the GatewayNetwork to fetch
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param gateway_network_id: ID of the GatewayNetwork to fetch.
         :param options: The options for the waiter
         :return: :class:`GatewayNetwork <GatewayNetwork>`
 
@@ -637,23 +636,26 @@ class VpcgwV1API(API):
         enable_masquerade: bool,
         zone: Optional[Zone] = None,
         dhcp_id: Optional[str] = None,
+        dhcp: Optional[CreateDHCPRequest] = None,
         address: Optional[str] = None,
         enable_dhcp: Optional[bool] = None,
     ) -> GatewayNetwork:
         """
         Attach a gateway to a Private Network
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param gateway_id: Gateway to connect
-        :param private_network_id: Private Network to connect
-        :param enable_masquerade: Whether to enable masquerade on this network
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param gateway_id: Gateway to connect.
+        :param private_network_id: Private Network to connect.
+        :param enable_masquerade: Whether to enable masquerade on this network.
         :param dhcp_id: Existing configuration.
 
-        One-of ('ip_config'): at most one of 'dhcp_id', 'address' could be set.
+        One-of ('ip_config'): at most one of 'dhcp_id', 'dhcp', 'address' could be set.
+        :param dhcp: New DHCP configuration.
+
+        One-of ('ip_config'): at most one of 'dhcp_id', 'dhcp', 'address' could be set.
         :param address: Static IP address in CIDR format to to use without DHCP.
 
-        One-of ('ip_config'): at most one of 'dhcp_id', 'address' could be set.
+        One-of ('ip_config'): at most one of 'dhcp_id', 'dhcp', 'address' could be set.
         :param enable_dhcp: Whether to enable DHCP on this Private Network. Defaults to `true` if either `dhcp_id` or `dhcp` short: are present. If set to `true`, requires that either `dhcp_id` or `dhcp` to be present.
-
         :return: :class:`GatewayNetwork <GatewayNetwork>`
 
         Usage:
@@ -678,6 +680,7 @@ class VpcgwV1API(API):
                     enable_masquerade=enable_masquerade,
                     zone=zone,
                     dhcp_id=dhcp_id,
+                    dhcp=dhcp,
                     address=address,
                     enable_dhcp=enable_dhcp,
                 ),
@@ -700,13 +703,13 @@ class VpcgwV1API(API):
     ) -> GatewayNetwork:
         """
         Update a gateway connection to a Private Network
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param gateway_network_id: ID of the GatewayNetwork to update
-        :param enable_masquerade: New masquerade enablement
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param gateway_network_id: ID of the GatewayNetwork to update.
+        :param enable_masquerade: New masquerade enablement.
         :param dhcp_id: New DHCP configuration.
 
         One-of ('ip_config'): at most one of 'dhcp_id', 'address' could be set.
-        :param enable_dhcp: Whether to enable DHCP on the connected Private Network
+        :param enable_dhcp: Whether to enable DHCP on the connected Private Network.
         :param address: New static IP address.
 
         One-of ('ip_config'): at most one of 'dhcp_id', 'address' could be set.
@@ -751,10 +754,9 @@ class VpcgwV1API(API):
     ) -> Optional[None]:
         """
         Detach a gateway from a Private Network
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param gateway_network_id: GatewayNetwork to delete
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param gateway_network_id: GatewayNetwork to delete.
         :param cleanup_dhcp: Whether to cleanup the attached DHCP configuration (if any, and if not attached to another gateway_network).
-
 
         Usage:
         ::
@@ -795,14 +797,14 @@ class VpcgwV1API(API):
     ) -> ListDHCPsResponse:
         """
         List DHCP configurations
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param order_by: Order in which to return results
-        :param page: Page number
-        :param page_size: DHCP configurations per page
-        :param organization_id: Include only DHCPs in this organization
-        :param project_id: Include only DHCPs in this project
-        :param address: Filter on gateway address
-        :param has_address: Filter on subnets containing address
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param order_by: Order in which to return results.
+        :param page: Page number.
+        :param page_size: DHCP configurations per page.
+        :param organization_id: Include only DHCPs in this organization.
+        :param project_id: Include only DHCPs in this project.
+        :param address: Filter on gateway address.
+        :param has_address: Filter on subnets containing address.
         :return: :class:`ListDHCPsResponse <ListDHCPsResponse>`
 
         Usage:
@@ -845,14 +847,14 @@ class VpcgwV1API(API):
     ) -> List[DHCP]:
         """
         List DHCP configurations
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param order_by: Order in which to return results
-        :param page: Page number
-        :param page_size: DHCP configurations per page
-        :param organization_id: Include only DHCPs in this organization
-        :param project_id: Include only DHCPs in this project
-        :param address: Filter on gateway address
-        :param has_address: Filter on subnets containing address
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param order_by: Order in which to return results.
+        :param page: Page number.
+        :param page_size: DHCP configurations per page.
+        :param organization_id: Include only DHCPs in this organization.
+        :param project_id: Include only DHCPs in this project.
+        :param address: Filter on gateway address.
+        :param has_address: Filter on subnets containing address.
         :return: :class:`List[ListDHCPsResponse] <List[ListDHCPsResponse]>`
 
         Usage:
@@ -885,8 +887,8 @@ class VpcgwV1API(API):
     ) -> DHCP:
         """
         Get a DHCP configuration
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param dhcp_id: ID of the DHCP config to fetch
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param dhcp_id: ID of the DHCP config to fetch.
         :return: :class:`DHCP <DHCP>`
 
         Usage:
@@ -927,26 +929,21 @@ class VpcgwV1API(API):
     ) -> DHCP:
         """
         Create a DHCP configuration
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param project_id: Project to create the DHCP configuration in
-        :param subnet: Subnet for the DHCP server
-        :param address: Address of the DHCP server. This will be the gateway's address in the private network. Defaults to the first address of the subnet
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param project_id: Project to create the DHCP configuration in.
+        :param subnet: Subnet for the DHCP server.
+        :param address: Address of the DHCP server. This will be the gateway's address in the private network. Defaults to the first address of the subnet.
         :param pool_low: Low IP (included) of the dynamic address pool. Defaults to the second address of the subnet.
         :param pool_high: High IP (included) of the dynamic address pool. Defaults to the last address of the subnet.
         :param enable_dynamic: Whether to enable dynamic pooling of IPs. By turning the dynamic pool off, only pre-existing DHCP reservations will be handed out. Defaults to true.
-
         :param valid_lifetime: For how long, in seconds, will DHCP entries will be valid. Defaults to 1h (3600s).
         :param renew_timer: After how long, in seconds, a renew will be attempted. Must be 30s lower than `rebind_timer`. Defaults to 50m (3000s).
-
         :param rebind_timer: After how long, in seconds, a DHCP client will query for a new lease if previous renews fail. Must be 30s lower than `valid_lifetime`. Defaults to 51m (3060s).
-
-        :param push_default_route: Whether the gateway should push a default route to DHCP clients or only hand out IPs. Defaults to true
+        :param push_default_route: Whether the gateway should push a default route to DHCP clients or only hand out IPs. Defaults to true.
         :param push_dns_server: Whether the gateway should push custom DNS servers to clients. This allows for instance hostname -> IP resolution. Defaults to true.
-
-        :param dns_servers_override: Override the DNS server list pushed to DHCP clients, instead of the gateway itself
-        :param dns_search: Additional DNS search paths
+        :param dns_servers_override: Override the DNS server list pushed to DHCP clients, instead of the gateway itself.
+        :param dns_search: Additional DNS search paths.
         :param dns_local_name: TLD given to hostnames in the Private Network. Allowed characters are `a-z0-9-.`. Defaults to the slugified Private Network name if created along a GatewayNetwork, or else to `priv`.
-
         :return: :class:`DHCP <DHCP>`
 
         Usage:
@@ -1006,23 +1003,20 @@ class VpcgwV1API(API):
     ) -> DHCP:
         """
         Update a DHCP configuration
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param dhcp_id: DHCP config to update
-        :param subnet: Subnet for the DHCP server
-        :param address: Address of the DHCP server. This will be the gateway's address in the private network
-        :param pool_low: Low IP (included) of the dynamic address pool
-        :param pool_high: High IP (included) of the dynamic address pool
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param dhcp_id: DHCP config to update.
+        :param subnet: Subnet for the DHCP server.
+        :param address: Address of the DHCP server. This will be the gateway's address in the private network.
+        :param pool_low: Low IP (included) of the dynamic address pool.
+        :param pool_high: High IP (included) of the dynamic address pool.
         :param enable_dynamic: Whether to enable dynamic pooling of IPs. By turning the dynamic pool off, only pre-existing DHCP reservations will be handed out. Defaults to true.
-
-        :param valid_lifetime: How long, in seconds, DHCP entries will be valid for
+        :param valid_lifetime: How long, in seconds, DHCP entries will be valid for.
         :param renew_timer: After how long, in seconds, a renew will be attempted. Must be 30s lower than `rebind_timer`.
         :param rebind_timer: After how long, in seconds, a DHCP client will query for a new lease if previous renews fail. Must be 30s lower than `valid_lifetime`.
-
-        :param push_default_route: Whether the gateway should push a default route to DHCP clients or only hand out IPs
+        :param push_default_route: Whether the gateway should push a default route to DHCP clients or only hand out IPs.
         :param push_dns_server: Whether the gateway should push custom DNS servers to clients. This allows for instance hostname -> IP resolution.
-
-        :param dns_servers_override: Override the DNS server list pushed to DHCP clients, instead of the gateway itself
-        :param dns_search: Additional DNS search paths
+        :param dns_servers_override: Override the DNS server list pushed to DHCP clients, instead of the gateway itself.
+        :param dns_search: Additional DNS search paths.
         :param dns_local_name: TLD given to hostnames in the Private Network. Allowed characters are `a-z0-9-.`.
         :return: :class:`DHCP <DHCP>`
 
@@ -1071,8 +1065,8 @@ class VpcgwV1API(API):
     ) -> Optional[None]:
         """
         Delete a DHCP configuration
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param dhcp_id: DHCP config id to delete
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param dhcp_id: DHCP config id to delete.
 
         Usage:
         ::
@@ -1106,15 +1100,15 @@ class VpcgwV1API(API):
     ) -> ListDHCPEntriesResponse:
         """
         List DHCP entries
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param order_by: Order in which to return results
-        :param page: Page number
-        :param page_size: DHCP entries per page
-        :param gateway_network_id: Filter entries based on the gateway network they are on
-        :param mac_address: Filter entries on their MAC address
-        :param ip_address: Filter entries on their IP address
-        :param hostname: Filter entries on their hostname substring
-        :param type_: Filter entries on their type
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param order_by: Order in which to return results.
+        :param page: Page number.
+        :param page_size: DHCP entries per page.
+        :param gateway_network_id: Filter entries based on the gateway network they are on.
+        :param mac_address: Filter entries on their MAC address.
+        :param ip_address: Filter entries on their IP address.
+        :param hostname: Filter entries on their hostname substring.
+        :param type_: Filter entries on their type.
         :return: :class:`ListDHCPEntriesResponse <ListDHCPEntriesResponse>`
 
         Usage:
@@ -1158,15 +1152,15 @@ class VpcgwV1API(API):
     ) -> List[DHCPEntry]:
         """
         List DHCP entries
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param order_by: Order in which to return results
-        :param page: Page number
-        :param page_size: DHCP entries per page
-        :param gateway_network_id: Filter entries based on the gateway network they are on
-        :param mac_address: Filter entries on their MAC address
-        :param ip_address: Filter entries on their IP address
-        :param hostname: Filter entries on their hostname substring
-        :param type_: Filter entries on their type
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param order_by: Order in which to return results.
+        :param page: Page number.
+        :param page_size: DHCP entries per page.
+        :param gateway_network_id: Filter entries based on the gateway network they are on.
+        :param mac_address: Filter entries on their MAC address.
+        :param ip_address: Filter entries on their IP address.
+        :param hostname: Filter entries on their hostname substring.
+        :param type_: Filter entries on their type.
         :return: :class:`List[ListDHCPEntriesResponse] <List[ListDHCPEntriesResponse]>`
 
         Usage:
@@ -1200,8 +1194,8 @@ class VpcgwV1API(API):
     ) -> DHCPEntry:
         """
         Get DHCP entries
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param dhcp_entry_id: ID of the DHCP entry to fetch
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param dhcp_entry_id: ID of the DHCP entry to fetch.
         :return: :class:`DHCPEntry <DHCPEntry>`
 
         Usage:
@@ -1231,10 +1225,10 @@ class VpcgwV1API(API):
     ) -> DHCPEntry:
         """
         Create a static DHCP reservation
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param gateway_network_id: GatewayNetwork on which to create a DHCP reservation
-        :param mac_address: MAC address to give a static entry to
-        :param ip_address: IP address to give to the machine
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param gateway_network_id: GatewayNetwork on which to create a DHCP reservation.
+        :param mac_address: MAC address to give a static entry to.
+        :param ip_address: IP address to give to the machine.
         :return: :class:`DHCPEntry <DHCPEntry>`
 
         Usage:
@@ -1275,9 +1269,9 @@ class VpcgwV1API(API):
     ) -> DHCPEntry:
         """
         Update a DHCP entry
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param dhcp_entry_id: DHCP entry ID to update
-        :param ip_address: New IP address to give to the machine
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param dhcp_entry_id: DHCP entry ID to update.
+        :param ip_address: New IP address to give to the machine.
         :return: :class:`DHCPEntry <DHCPEntry>`
 
         Usage:
@@ -1315,9 +1309,9 @@ class VpcgwV1API(API):
         """
         Set the list of DHCP reservations attached to a Gateway Network. Reservations are identified by their MAC address, and will sync the current DHCP entry list to the given list, creating, updating or deleting DHCP entries.
 
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param gateway_network_id: Gateway Network on which to set DHCP reservation list
-        :param dhcp_entries: New list of DHCP reservations
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param gateway_network_id: Gateway Network on which to set DHCP reservation list.
+        :param dhcp_entries: New list of DHCP reservations.
         :return: :class:`SetDHCPEntriesResponse <SetDHCPEntriesResponse>`
 
         Usage:
@@ -1352,8 +1346,8 @@ class VpcgwV1API(API):
     ) -> Optional[None]:
         """
         Delete a DHCP reservation
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param dhcp_entry_id: DHCP entry ID to delete
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param dhcp_entry_id: DHCP entry ID to delete.
 
         Usage:
         ::
@@ -1385,13 +1379,13 @@ class VpcgwV1API(API):
     ) -> ListPATRulesResponse:
         """
         List PAT rules
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param order_by: Order in which to return results
-        :param page: Page number
-        :param page_size: PAT rules per page
-        :param gateway_id: Fetch rules for this gateway
-        :param private_ip: Fetch rules targeting this private ip
-        :param protocol: Fetch rules for this protocol
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param order_by: Order in which to return results.
+        :param page: Page number.
+        :param page_size: PAT rules per page.
+        :param gateway_id: Fetch rules for this gateway.
+        :param private_ip: Fetch rules targeting this private ip.
+        :param protocol: Fetch rules for this protocol.
         :return: :class:`ListPATRulesResponse <ListPATRulesResponse>`
 
         Usage:
@@ -1431,13 +1425,13 @@ class VpcgwV1API(API):
     ) -> List[PATRule]:
         """
         List PAT rules
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param order_by: Order in which to return results
-        :param page: Page number
-        :param page_size: PAT rules per page
-        :param gateway_id: Fetch rules for this gateway
-        :param private_ip: Fetch rules targeting this private ip
-        :param protocol: Fetch rules for this protocol
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param order_by: Order in which to return results.
+        :param page: Page number.
+        :param page_size: PAT rules per page.
+        :param gateway_id: Fetch rules for this gateway.
+        :param private_ip: Fetch rules targeting this private ip.
+        :param protocol: Fetch rules for this protocol.
         :return: :class:`List[ListPATRulesResponse] <List[ListPATRulesResponse]>`
 
         Usage:
@@ -1469,8 +1463,8 @@ class VpcgwV1API(API):
     ) -> PATRule:
         """
         Get a PAT rule
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param pat_rule_id: PAT rule to get
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param pat_rule_id: PAT rule to get.
         :return: :class:`PATRule <PATRule>`
 
         Usage:
@@ -1502,12 +1496,12 @@ class VpcgwV1API(API):
     ) -> PATRule:
         """
         Create a PAT rule
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param gateway_id: Gateway on which to attach the rule to
-        :param public_port: Public port to listen on
-        :param private_ip: Private IP to forward data to
-        :param private_port: Private port to translate to
-        :param protocol: Protocol the rule should apply to
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param gateway_id: Gateway on which to attach the rule to.
+        :param public_port: Public port to listen on.
+        :param private_ip: Private IP to forward data to.
+        :param private_port: Private port to translate to.
+        :param protocol: Protocol the rule should apply to.
         :return: :class:`PATRule <PATRule>`
 
         Usage:
@@ -1555,12 +1549,12 @@ class VpcgwV1API(API):
     ) -> PATRule:
         """
         Update a PAT rule
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param pat_rule_id: PAT rule to update
-        :param public_port: Public port to listen on
-        :param private_ip: Private IP to forward data to
-        :param private_port: Private port to translate to
-        :param protocol: Protocol the rule should apply to
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param pat_rule_id: PAT rule to update.
+        :param public_port: Public port to listen on.
+        :param private_ip: Private IP to forward data to.
+        :param private_port: Private port to translate to.
+        :param protocol: Protocol the rule should apply to.
         :return: :class:`PATRule <PATRule>`
 
         Usage:
@@ -1604,9 +1598,9 @@ class VpcgwV1API(API):
         """
         Set the list of PAT rules attached to a Gateway. Rules are identified by their public port and protocol. This will sync the current PAT rule list with the givent list, creating, updating or deleting PAT rules.
 
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param gateway_id: Gateway on which to set the PAT rules
-        :param pat_rules: New list of PAT rules
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param gateway_id: Gateway on which to set the PAT rules.
+        :param pat_rules: New list of PAT rules.
         :return: :class:`SetPATRulesResponse <SetPATRulesResponse>`
 
         Usage:
@@ -1644,8 +1638,8 @@ class VpcgwV1API(API):
     ) -> Optional[None]:
         """
         Delete a PAT rule
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param pat_rule_id: PAT rule to delete
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param pat_rule_id: PAT rule to delete.
 
         Usage:
         ::
@@ -1671,7 +1665,7 @@ class VpcgwV1API(API):
     ) -> ListGatewayTypesResponse:
         """
         List VPC Public Gateway types
-        :param zone: Zone to target. If none is passed will use default zone from the config
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`ListGatewayTypesResponse <ListGatewayTypesResponse>`
 
         Usage:
@@ -1705,15 +1699,15 @@ class VpcgwV1API(API):
     ) -> ListIPsResponse:
         """
         List IPs
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param order_by: Order in which to return results
-        :param page: Page number
-        :param page_size: IPs per page
-        :param organization_id: Include only IPs in this organization
-        :param project_id: Include only IPs in this project
-        :param tags: Filter IPs with these tags
-        :param reverse: Filter by reverse containing this string
-        :param is_free: Filter whether the IP is attached to a gateway or not
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param order_by: Order in which to return results.
+        :param page: Page number.
+        :param page_size: IPs per page.
+        :param organization_id: Include only IPs in this organization.
+        :param project_id: Include only IPs in this project.
+        :param tags: Filter IPs with these tags.
+        :param reverse: Filter by reverse containing this string.
+        :param is_free: Filter whether the IP is attached to a gateway or not.
         :return: :class:`ListIPsResponse <ListIPsResponse>`
 
         Usage:
@@ -1758,15 +1752,15 @@ class VpcgwV1API(API):
     ) -> List[IP]:
         """
         List IPs
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param order_by: Order in which to return results
-        :param page: Page number
-        :param page_size: IPs per page
-        :param organization_id: Include only IPs in this organization
-        :param project_id: Include only IPs in this project
-        :param tags: Filter IPs with these tags
-        :param reverse: Filter by reverse containing this string
-        :param is_free: Filter whether the IP is attached to a gateway or not
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param order_by: Order in which to return results.
+        :param page: Page number.
+        :param page_size: IPs per page.
+        :param organization_id: Include only IPs in this organization.
+        :param project_id: Include only IPs in this project.
+        :param tags: Filter IPs with these tags.
+        :param reverse: Filter by reverse containing this string.
+        :param is_free: Filter whether the IP is attached to a gateway or not.
         :return: :class:`List[ListIPsResponse] <List[ListIPsResponse]>`
 
         Usage:
@@ -1800,8 +1794,8 @@ class VpcgwV1API(API):
     ) -> IP:
         """
         Get an IP
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param ip_id: ID of the IP to get
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param ip_id: ID of the IP to get.
         :return: :class:`IP <IP>`
 
         Usage:
@@ -1830,9 +1824,9 @@ class VpcgwV1API(API):
     ) -> IP:
         """
         Reserve an IP
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param project_id: Project to create the IP into
-        :param tags: Tags to give to the IP
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param project_id: Project to create the IP into.
+        :param tags: Tags to give to the IP.
         :return: :class:`IP <IP>`
 
         Usage:
@@ -1870,11 +1864,11 @@ class VpcgwV1API(API):
     ) -> IP:
         """
         Update an IP
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param ip_id: ID of the IP to update
-        :param tags: Tags to give to the IP
-        :param reverse: Reverse to set on the IP. Empty string to unset
-        :param gateway_id: Gateway to attach the IP to. Empty string to detach
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param ip_id: ID of the IP to update.
+        :param tags: Tags to give to the IP.
+        :param reverse: Reverse to set on the IP. Empty string to unset.
+        :param gateway_id: Gateway to attach the IP to. Empty string to detach.
         :return: :class:`IP <IP>`
 
         Usage:
@@ -1912,8 +1906,8 @@ class VpcgwV1API(API):
     ) -> Optional[None]:
         """
         Delete an IP
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param ip_id: ID of the IP to delete
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param ip_id: ID of the IP to delete.
 
         Usage:
         ::
@@ -1940,8 +1934,8 @@ class VpcgwV1API(API):
     ) -> Gateway:
         """
         Refresh SSH keys of a VPC Public Gateway
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param gateway_id: ID of the gateway that needs fresh ssh keys
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param gateway_id: ID of the gateway that needs fresh ssh keys.
         :return: :class:`Gateway <Gateway>`
 
         Usage:
