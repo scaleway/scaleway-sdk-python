@@ -39,9 +39,9 @@ class AccountV2API(API):
     ) -> Project:
         """
         Create project
-        :param name: The name of the project
-        :param organization_id: The organization ID of the project
-        :param description: The description of the project
+        :param name: The name of the project.
+        :param organization_id: The organization ID of the project.
+        :param description: The description of the project.
         :return: :class:`Project <Project>`
 
         Usage:
@@ -78,12 +78,12 @@ class AccountV2API(API):
     ) -> ListProjectsResponse:
         """
         List projects
-        :param organization_id: The organization ID of the project
-        :param name: The name of the project
-        :param page: The page number for the returned projects
-        :param page_size: The maximum number of project per page
-        :param order_by: The sort order of the returned projects
-        :param project_ids: Filter out by a list of project ID
+        :param organization_id: The organization ID of the project.
+        :param name: The name of the project.
+        :param page: The page number for the returned projects.
+        :param page_size: The maximum number of project per page.
+        :param order_by: The sort order of the returned projects.
+        :param project_ids: Filter out by a list of project ID.
         :return: :class:`ListProjectsResponse <ListProjectsResponse>`
 
         Usage:
@@ -121,12 +121,12 @@ class AccountV2API(API):
     ) -> List[Project]:
         """
         List projects
-        :param organization_id: The organization ID of the project
-        :param name: The name of the project
-        :param page: The page number for the returned projects
-        :param page_size: The maximum number of project per page
-        :param order_by: The sort order of the returned projects
-        :param project_ids: Filter out by a list of project ID
+        :param organization_id: The organization ID of the project.
+        :param name: The name of the project.
+        :param page: The page number for the returned projects.
+        :param page_size: The maximum number of project per page.
+        :param order_by: The sort order of the returned projects.
+        :param project_ids: Filter out by a list of project ID.
         :return: :class:`List[ListProjectsResponse] <List[ListProjectsResponse]>`
 
         Usage:
@@ -156,7 +156,7 @@ class AccountV2API(API):
     ) -> Project:
         """
         Get project
-        :param project_id: The project ID of the project
+        :param project_id: The project ID of the project.
         :return: :class:`Project <Project>`
 
         Usage:
@@ -184,7 +184,7 @@ class AccountV2API(API):
     ) -> Optional[None]:
         """
         Delete project
-        :param project_id: The project ID of the project
+        :param project_id: The project ID of the project.
 
         Usage:
         ::
@@ -213,9 +213,9 @@ class AccountV2API(API):
     ) -> Project:
         """
         Update project
-        :param project_id: The project ID of the project
-        :param name: The name of the project
-        :param description: The description of the project
+        :param project_id: The project ID of the project.
+        :param name: The name of the project.
+        :param description: The description of the project.
         :return: :class:`Project <Project>`
 
         Usage:

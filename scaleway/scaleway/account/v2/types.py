@@ -21,54 +21,54 @@ class ListProjectsRequestOrderBy(str, Enum):
 @dataclass
 class ListProjectsResponse:
     """
-    List projects response
+    List projects response.
     """
 
     total_count: int
     """
-    The total number of projects
+    The total number of projects.
     """
 
     projects: List[Project]
     """
-    The paginated returned projects
+    The paginated returned projects.
     """
 
 
 @dataclass
 class Project:
     """
-    Project
+    Project.
     """
 
     id: str
     """
-    The ID of the project
+    The ID of the project.
     """
 
     name: str
     """
-    The name of the project
+    The name of the project.
     """
 
     organization_id: str
     """
-    The organization ID of the project
+    The organization ID of the project.
     """
 
     created_at: Optional[datetime]
     """
-    The creation date of the project
+    The creation date of the project.
     """
 
     updated_at: Optional[datetime]
     """
-    The update date of the project
+    The update date of the project.
     """
 
     description: str
     """
-    The description of the project
+    The description of the project.
     """
 
 
@@ -76,17 +76,17 @@ class Project:
 class CreateProjectRequest:
     name: str
     """
-    The name of the project
+    The name of the project.
     """
 
     organization_id: Optional[str]
     """
-    The organization ID of the project
+    The organization ID of the project.
     """
 
     description: Optional[str]
     """
-    The description of the project
+    The description of the project.
     """
 
 
@@ -94,32 +94,32 @@ class CreateProjectRequest:
 class ListProjectsRequest:
     organization_id: Optional[str]
     """
-    The organization ID of the project
+    The organization ID of the project.
     """
 
     name: Optional[str]
     """
-    The name of the project
+    The name of the project.
     """
 
     page: Optional[int]
     """
-    The page number for the returned projects
+    The page number for the returned projects.
     """
 
     page_size: Optional[int]
     """
-    The maximum number of project per page
+    The maximum number of project per page.
     """
 
     order_by: Optional[ListProjectsRequestOrderBy]
     """
-    The sort order of the returned projects
+    The sort order of the returned projects.
     """
 
     project_ids: Optional[List[str]]
     """
-    Filter out by a list of project ID
+    Filter out by a list of project ID.
     """
 
 
@@ -127,7 +127,7 @@ class ListProjectsRequest:
 class GetProjectRequest:
     project_id: Optional[str]
     """
-    The project ID of the project
+    The project ID of the project.
     """
 
 
@@ -135,7 +135,7 @@ class GetProjectRequest:
 class DeleteProjectRequest:
     project_id: Optional[str]
     """
-    The project ID of the project
+    The project ID of the project.
     """
 
 
@@ -143,15 +143,15 @@ class DeleteProjectRequest:
 class UpdateProjectRequest:
     project_id: Optional[str]
     """
-    The project ID of the project
+    The project ID of the project.
     """
 
     name: Optional[str]
     """
-    The name of the project
+    The name of the project.
     """
 
     description: Optional[str]
     """
-    The description of the project
+    The description of the project.
     """
