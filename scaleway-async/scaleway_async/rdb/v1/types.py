@@ -279,7 +279,7 @@ class AddInstanceACLRulesResponse:
 
     rules: List[ACLRule]
     """
-    Rules enabled on the instance.
+    ACL Rules enabled for the Database Instance.
     """
 
 
@@ -291,7 +291,7 @@ class AddInstanceSettingsResponse:
 
     settings: List[InstanceSetting]
     """
-    Settings available on the instance.
+    Settings available on the Database Instance.
     """
 
 
@@ -317,12 +317,12 @@ class Database:
 
     owner: str
     """
-    Name of the owner of the database.
+    Name of the database owner.
     """
 
     managed: bool
     """
-    Whether or not the database is managed or not.
+    Defines whether the database is managed or not.
     """
 
     size: int
@@ -344,12 +344,12 @@ class DatabaseBackup:
 
     instance_id: str
     """
-    UUID of the instance.
+    UUID of the Database Instance.
     """
 
     database_name: str
     """
-    Name of the database of this backup.
+    Name of backed up database.
     """
 
     name: str
@@ -369,22 +369,22 @@ class DatabaseBackup:
 
     expires_at: Optional[datetime]
     """
-    Expiration date (Format ISO 8601).
+    Expiration date (must follow the ISO 8601 format).
     """
 
     created_at: Optional[datetime]
     """
-    Creation date (Format ISO 8601).
+    Creation date (must follow the ISO 8601 format).
     """
 
     updated_at: Optional[datetime]
     """
-    Updated date (Format ISO 8601).
+    Updated date (must follow the ISO 8601 format).
     """
 
     instance_name: str
     """
-    Name of the instance of the backup.
+    Name of the Database Instance of the backup.
     """
 
     download_url: Optional[str]
@@ -399,12 +399,12 @@ class DatabaseBackup:
 
     region: Region
     """
-    Region of this database backup.
+    Region of the database backup.
     """
 
     same_region: bool
     """
-    Store logical backups in the same region as the source database instance.
+    Store logical backups in the same region as the source Database Instance.
     """
 
 
@@ -431,7 +431,7 @@ class DatabaseEngine:
 
     region: Region
     """
-    Region of this database engine.
+    Region of this Database Instance.
     """
 
 
@@ -443,7 +443,7 @@ class DeleteInstanceACLRulesResponse:
 
     rules: List[ACLRule]
     """
-    ACL rules present on the instance.
+    IP addresses defined in the ACL rules of the Database Instance.
     """
 
 
@@ -455,7 +455,7 @@ class DeleteInstanceSettingsResponse:
 
     settings: List[InstanceSetting]
     """
-    Settings names to delete from the instance.
+    Settings names to delete from the Database Instance.
     """
 
 
@@ -489,21 +489,21 @@ class Endpoint:
 
     private_network: Optional[EndpointPrivateNetworkDetails]
     """
-    Private network details. One at the most per RDB instance or read replica (an RDB instance and its read replica can have different private networks). Cannot be updated (has to be deleted and recreated).
+    Private Network details. One maximum per Database Instance or Read Replica (a Database Instance and its Read Replica can have different Private Networks). Cannot be updated (has to be deleted and recreated).
     
     One-of ('details'): at most one of 'private_network', 'load_balancer', 'direct_access' could be set.
     """
 
     load_balancer: Optional[EndpointLoadBalancerDetails]
     """
-    Load balancer details. Public endpoint for RDB instances which is systematically present. One per RDB instance.
+    Load balancer details. Public endpoint for Database Instance which is systematically present. One per Database Instance.
     
     One-of ('details'): at most one of 'private_network', 'load_balancer', 'direct_access' could be set.
     """
 
     direct_access: Optional[EndpointDirectAccessDetails]
     """
-    Direct access details. Public endpoint reserved for read replicas. One per read replica.
+    Direct access details. Public endpoint reserved for Read Replicas. One per Read Replica.
     
     One-of ('details'): at most one of 'private_network', 'load_balancer', 'direct_access' could be set.
     """
@@ -556,14 +556,14 @@ class EndpointSpec:
 
     load_balancer: Optional[EndpointSpecLoadBalancer]
     """
-    Load balancer endpoint specifications. Public endpoint for RDB instances which is systematically present. One per RDB instance.
+    Load balancer endpoint specifications. Public endpoint for Database Instance which is systematically present. One per RDB instance.
     
     One-of ('spec'): at most one of 'load_balancer', 'private_network' could be set.
     """
 
     private_network: Optional[EndpointSpecPrivateNetwork]
     """
-    Private network endpoint specifications. One at the most per RDB instance or read replica (an RDB instance and its read replica can have different private networks). Cannot be updated (has to be deleted and recreated).
+    Private Network endpoint specifications. One maximum per Database Instance or Read Replica (a Database Instance and its Read Replica can have different Private Networks). Cannot be updated (has to be deleted and recreated).
     
     One-of ('spec'): at most one of 'load_balancer', 'private_network' could be set.
     """
@@ -582,19 +582,19 @@ class EndpointSpecPrivateNetwork:
 
     private_network_id: str
     """
-    UUID of the private network to be connected to the database instance.
+    UUID of the Private Network to be connected to the Database Instance.
     """
 
     service_ip: Optional[str]
     """
-    Endpoint IPv4 adress with a CIDR notation. Check documentation about IP and subnet limitation.
+    Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations.
     
     One-of ('config'): at most one of 'service_ip', 'ipam_config' could be set.
     """
 
     ipam_config: Optional[EndpointSpecPrivateNetworkIpamConfig]
     """
-    Automated configuration of your private network endpoint with Scaleway IPAM service. One at the most per RDB instance or read replica (an RDB instance and its read replica can have different private networks). Cannot be updated (has to be deleted and recreated).
+    Automated configuration of your Private Network endpoint with Scaleway IPAM service. One at the most per Database Instance or Read Replica (a Database Instance and its Read Replica can have different Private Networks). Cannot be updated (has to be deleted and recreated).
     
     One-of ('config'): at most one of 'service_ip', 'ipam_config' could be set.
     """
@@ -613,7 +613,7 @@ class EngineSetting:
 
     name: str
     """
-    Setting name from database engine.
+    Setting name from the database engine.
     """
 
     default_value: str
@@ -705,7 +705,7 @@ class EngineVersion:
 
     available_init_settings: List[EngineSetting]
     """
-    Engine settings available to be set at database initialisation.
+    Engine settings available to be set at database initialization.
     """
 
 
@@ -717,42 +717,42 @@ class Instance:
 
     created_at: Optional[datetime]
     """
-    Creation date (Format ISO 8601).
+    Creation date (must follow the ISO 8601 format).
     """
 
     volume: Optional[Volume]
     """
-    Volumes of the instance.
+    Volumes of the Database Instance.
     """
 
     region: Region
     """
-    Region the instance is in.
+    Region the Database Instance is in.
     """
 
     id: str
     """
-    UUID of the instance.
+    UUID of the Database Instance.
     """
 
     name: str
     """
-    Name of the instance.
+    Name of the Database Instance.
     """
 
     organization_id: str
     """
-    Organization ID the instance belongs to.
+    Organization ID the Database Instance belongs to.
     """
 
     project_id: str
     """
-    Project ID the instance belongs to.
+    Project ID the Database Instance belongs to.
     """
 
     status: InstanceStatus
     """
-    Status of the instance.
+    Status of the Database Instance.
     """
 
     engine: str
@@ -767,63 +767,63 @@ class Instance:
 
     endpoint: Optional[Endpoint]
     """
-    Endpoint of the instance.
+    Endpoint of the Database Instance.
     :deprecated
     """
 
     tags: List[str]
     """
-    List of tags applied to the instance.
+    List of tags applied to the Database Instance.
     """
 
     settings: List[InstanceSetting]
     """
-    Advanced settings of the instance.
+    Advanced settings of the Database Instance.
     """
 
     backup_schedule: Optional[BackupSchedule]
     """
-    Backup schedule of the instance.
+    Backup schedule of the Database Instance.
     """
 
     is_ha_cluster: bool
     """
-    Whether or not High-Availability is enabled.
+    Defines whether or not High-Availability is enabled.
     """
 
     read_replicas: List[ReadReplica]
     """
-    Read replicas of the instance.
+    Read Replicas of the Database Instance.
     """
 
     node_type: str
     """
-    Node type of the instance.
+    Node type of the Database Instance.
     """
 
     init_settings: List[InstanceSetting]
     """
-    List of engine settings to be set at database initialisation.
+    List of engine settings to be set at database initialization.
     """
 
     endpoints: List[Endpoint]
     """
-    List of instance endpoints.
+    List of Database Instance endpoints.
     """
 
     logs_policy: Optional[LogsPolicy]
     """
-    Logs policy of the instance.
+    Logs policy of the Database Instance.
     """
 
     backup_same_region: bool
     """
-    Store logical backups in the same region as the database instance.
+    Store logical backups in the same region as the Database Instance.
     """
 
     maintenances: List[Maintenance]
     """
-    List of instance maintenances.
+    List of Database Instance maintenance events.
     """
 
 
@@ -840,32 +840,32 @@ class InstanceLog:
 
     id: str
     """
-    UUID of the instance log.
+    UUID of the Database Instance log.
     """
 
     status: InstanceLogStatus
     """
-    Status of the logs in a given instance.
+    Status of the logs in a Database Instance.
     """
 
     node_name: str
     """
-    Name of the undelying node.
+    Name of the underlying node.
     """
 
     expires_at: Optional[datetime]
     """
-    Expiration date (Format ISO 8601).
+    Expiration date (must follow the ISO 8601 format).
     """
 
     created_at: Optional[datetime]
     """
-    Creation date (Format ISO 8601).
+    Creation date (must follow the ISO 8601 format).
     """
 
     region: Region
     """
-    Region the instance is in.
+    Region the Database Instance is in.
     """
 
 
@@ -877,7 +877,7 @@ class InstanceMetrics:
 
     timeseries: List[TimeSeries]
     """
-    Time series of metrics of a given instance.
+    Time series of metrics of a Database Instance.
     """
 
 
@@ -935,7 +935,7 @@ class ListDatabasesResponse:
 
     total_count: int
     """
-    Total count of databases present on a given instance.
+    Total count of databases present on a Database Instance.
     """
 
 
@@ -947,12 +947,12 @@ class ListInstanceACLRulesResponse:
 
     rules: List[ACLRule]
     """
-    List of the ACL rules present on a given instance.
+    List of ACL rules present on a Database Instance.
     """
 
     total_count: int
     """
-    Total count of ACL rules present on a given instance.
+    Total count of ACL rules present on a Database Instance.
     """
 
 
@@ -964,7 +964,7 @@ class ListInstanceLogsDetailsResponse:
 
     details: List[ListInstanceLogsDetailsResponseInstanceLogDetail]
     """
-    Remote instance logs details.
+    Remote Database Instance logs details.
     """
 
 
@@ -983,7 +983,7 @@ class ListInstanceLogsResponse:
 
     instance_logs: List[InstanceLog]
     """
-    Available logs in a given instance.
+    Available logs in a Database Instance.
     """
 
 
@@ -995,12 +995,12 @@ class ListInstancesResponse:
 
     instances: List[Instance]
     """
-    List all instances available in a given organization/project.
+    List of all Database Instances available in an Organization or Project.
     """
 
     total_count: int
     """
-    Total count of instances available in a given organization/project.
+    Total count of Database Instances available in a Organization or Project.
     """
 
 
@@ -1029,12 +1029,12 @@ class ListPrivilegesResponse:
 
     privileges: List[Privilege]
     """
-    Privileges of a given user in a given database in a given instance.
+    Privileges of a user in a database in a Database Instance.
     """
 
     total_count: int
     """
-    Total count of privileges present on a given database.
+    Total count of privileges present on a database.
     """
 
 
@@ -1063,12 +1063,12 @@ class ListUsersResponse:
 
     users: List[User]
     """
-    List of users in a given instance.
+    List of users in a Database Instance.
     """
 
     total_count: int
     """
-    Total count of users present on a given instance.
+    Total count of users present on a Database Instance.
     """
 
 
@@ -1080,12 +1080,12 @@ class LogsPolicy:
 
     max_age_retention: Optional[int]
     """
-    Max age (in day) of remote logs to keep on the database instance.
+    Max age (in days) of remote logs to keep on the Database Instance.
     """
 
     total_disk_retention: Optional[int]
     """
-    Max disk size of remote logs to keep on the database instance.
+    Max disk size of remote logs to keep on the Database Instance.
     """
 
 
@@ -1252,7 +1252,7 @@ class PrepareInstanceLogsResponse:
 
     instance_logs: List[InstanceLog]
     """
-    Instance logs for a given instance between a start and an end date.
+    Instance logs for a Database Instance between a start and an end date.
     """
 
 
@@ -1286,12 +1286,12 @@ class ReadReplica:
 
     id: str
     """
-    UUID of the read replica.
+    UUID of the Read Replica.
     """
 
     endpoints: List[Endpoint]
     """
-    Display read replica connection information.
+    Display Read Replica connection information.
     """
 
     status: ReadReplicaStatus
@@ -1301,7 +1301,7 @@ class ReadReplica:
 
     region: Region
     """
-    Region the read replica is in.
+    Region the Read Replica is in.
     """
 
 
@@ -1313,14 +1313,14 @@ class ReadReplicaEndpointSpec:
 
     direct_access: Optional[ReadReplicaEndpointSpecDirectAccess]
     """
-    Direct access endpoint specifications. Public endpoint reserved for read replicas. One per read replica.
+    Direct access endpoint specifications. Public endpoint reserved for Read Replicas. One per Read Replica.
     
     One-of ('spec'): at most one of 'direct_access', 'private_network' could be set.
     """
 
     private_network: Optional[ReadReplicaEndpointSpecPrivateNetwork]
     """
-    Private network endpoint specifications. One at the most per read replica. Cannot be updated (has to be deleted and recreated).
+    Private Network endpoint specifications. One at the most per Read Replica. Cannot be updated (has to be deleted and recreated).
     
     One-of ('spec'): at most one of 'direct_access', 'private_network' could be set.
     """
@@ -1339,19 +1339,19 @@ class ReadReplicaEndpointSpecPrivateNetwork:
 
     private_network_id: str
     """
-    UUID of the private network to be connected to the read replica.
+    UUID of the Private Network to be connected to the Read Replica.
     """
 
     service_ip: Optional[str]
     """
-    Endpoint IPv4 adress with a CIDR notation. Check documentation about IP and subnet limitations.
+    Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations.
     
     One-of ('config'): at most one of 'service_ip', 'ipam_config' could be set.
     """
 
     ipam_config: Optional[ReadReplicaEndpointSpecPrivateNetworkIpamConfig]
     """
-    Automated configuration of your private network endpoint with Scaleway IPAM service. One at the most per RDB instance or read replica (an RDB instance and its read replica can have different private networks). Cannot be updated (has to be deleted and recreated).
+    Automated configuration of your Private Network endpoint with Scaleway IPAM service. One at the most per Database Instance or Read Replica (a Database Instance and its Read Replica can have different private networks). Cannot be updated (has to be deleted and recreated).
     
     One-of ('config'): at most one of 'service_ip', 'ipam_config' could be set.
     """
@@ -1370,7 +1370,7 @@ class SetInstanceACLRulesResponse:
 
     rules: List[ACLRule]
     """
-    ACLs rules configured for an instance.
+    ACLs rules configured for a Database Instance.
     """
 
 
@@ -1382,7 +1382,7 @@ class SetInstanceSettingsResponse:
 
     settings: List[InstanceSetting]
     """
-    Settings configured for a given instance.
+    Settings configured for a Database Instance.
     """
 
 
@@ -1399,7 +1399,7 @@ class Snapshot:
 
     instance_id: str
     """
-    UUID of the instance.
+    UUID of the Database Instance.
     """
 
     name: str
@@ -1419,22 +1419,22 @@ class Snapshot:
 
     expires_at: Optional[datetime]
     """
-    Expiration date (Format ISO 8601).
+    Expiration date (must follow the ISO 8601 format).
     """
 
     created_at: Optional[datetime]
     """
-    Creation date (Format ISO 8601).
+    Creation date (must follow the ISO 8601 format).
     """
 
     updated_at: Optional[datetime]
     """
-    Updated date (Format ISO 8601).
+    Updated date (must follow the ISO 8601 format).
     """
 
     instance_name: str
     """
-    Name of the instance of the snapshot.
+    Name of the Database Instance of the snapshot.
     """
 
     node_type: str
@@ -1467,12 +1467,12 @@ class User:
 
     name: str
     """
-    Name of the user (Length must be between 1 and 63 characters, The max Length is 32 for MySQL engines, First character must be an alphabet character (a-zA-Z), Your Username cannot start with '_rdb', Only a-zA-Z0-9_$- characters are accepted).
+    Name of the user (Length must be between 1 and 63 characters for PostgreSQL and between 1 and 32 characters for MySQL. First character must be an alphabet character (a-zA-Z). Your username cannot start with '_rdb' or in PostgreSQL, 'pg_'. Only a-zA-Z0-9_$- characters are accepted).
     """
 
     is_admin: bool
     """
-    Whether or not a user got administrative privileges on the database instance.
+    Defines whether or not a user got administrative privileges on the Database Instance.
     """
 
 
@@ -1492,12 +1492,12 @@ class ListDatabaseEnginesRequest:
 
     name: Optional[str]
     """
-    Name of the Database Engine.
+    Name of the database engine.
     """
 
     version: Optional[str]
     """
-    Version of the Database Engine.
+    Version of the database engine.
     """
 
     page: Optional[int]
@@ -1514,7 +1514,7 @@ class ListNodeTypesRequest:
 
     include_disabled_types: bool
     """
-    Whether or not to include disabled types.
+    Defines whether or not to include disabled types.
     """
 
     page: Optional[int]
@@ -1541,17 +1541,17 @@ class ListDatabaseBackupsRequest:
 
     instance_id: Optional[str]
     """
-    UUID of the instance.
+    UUID of the Database Instance.
     """
 
     organization_id: Optional[str]
     """
-    Organization ID the database backups belongs to.
+    Organization ID of the Organization the database backups belong to.
     """
 
     project_id: Optional[str]
     """
-    Project ID the database backups belongs to.
+    Project ID of the Project the database backups belong to.
     """
 
     page: Optional[int]
@@ -1568,12 +1568,12 @@ class CreateDatabaseBackupRequest:
 
     instance_id: str
     """
-    UUID of the instance.
+    UUID of the Database Instance.
     """
 
     database_name: str
     """
-    Name of the database you want to make a backup of.
+    Name of the database you want to back up.
     """
 
     name: Optional[str]
@@ -1583,7 +1583,7 @@ class CreateDatabaseBackupRequest:
 
     expires_at: Optional[datetime]
     """
-    Expiration date (Format ISO 8601).
+    Expiration date (must follow the ISO 8601 format).
     """
 
 
@@ -1619,7 +1619,7 @@ class UpdateDatabaseBackupRequest:
 
     expires_at: Optional[datetime]
     """
-    Expiration date (Format ISO 8601).
+    Expiration date (must follow the ISO 8601 format).
     """
 
 
@@ -1650,12 +1650,12 @@ class RestoreDatabaseBackupRequest:
 
     database_name: Optional[str]
     """
-    Defines the destination database in order to restore into a specified database, the default destination is set to the origin database of the backup.
+    Defines the destination database to restore into a specified database (the default destination is set to the origin database of the backup).
     """
 
     instance_id: str
     """
-    Defines the rdb instance where the backup has to be restored.
+    Defines the Database Instance where the backup has to be restored.
     """
 
 
@@ -1681,19 +1681,19 @@ class UpgradeInstanceRequest:
 
     instance_id: str
     """
-    UUID of the instance you want to upgrade.
+    UUID of the Database Instance you want to upgrade.
     """
 
     node_type: Optional[str]
     """
-    Node type of the instance you want to upgrade to.
+    Node type of the Database Instance you want to upgrade to.
     
     One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id' could be set.
     """
 
     enable_ha: Optional[bool]
     """
-    Set to true to enable high availability on your instance.
+    Defines whether or not high availability should be enabled on the Database Instance.
     
     One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id' could be set.
     """
@@ -1707,14 +1707,14 @@ class UpgradeInstanceRequest:
 
     volume_type: Optional[VolumeType]
     """
-    Change your instance storage type.
+    Change your Database Instance storage type.
     
     One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id' could be set.
     """
 
     upgradable_version_id: Optional[str]
     """
-    This will create a new Database Instance with same instance specification as the current one and perform a Database Engine upgrade.
+    This will create a new Database Instance with same specifications as the current one and perform a Database Engine upgrade.
     
     One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id' could be set.
     """
@@ -1729,27 +1729,27 @@ class ListInstancesRequest:
 
     tags: Optional[List[str]]
     """
-    List instance that have a given tags.
+    List Database Instances that have a given tag.
     """
 
     name: Optional[str]
     """
-    List instance that match a given name pattern.
+    Lists Database Instances that match a name pattern.
     """
 
     order_by: Optional[ListInstancesRequestOrderBy]
     """
-    Criteria to use when ordering instance listing.
+    Criteria to use when ordering Database Instance listings.
     """
 
     organization_id: Optional[str]
     """
-    Please use `project_id` instead.
+    Please use project_id instead.
     """
 
     project_id: Optional[str]
     """
-    Project ID to list the instance of.
+    Project ID to list the Database Instance of.
     """
 
     page: Optional[int]
@@ -1766,7 +1766,7 @@ class GetInstanceRequest:
 
     instance_id: str
     """
-    UUID of the instance.
+    UUID of the Database Instance.
     """
 
 
@@ -1779,7 +1779,7 @@ class CreateInstanceRequest:
 
     organization_id: Optional[str]
     """
-    Please use `project_id` instead.
+    Please use project_id instead.
     
     One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
     :deprecated
@@ -1787,24 +1787,24 @@ class CreateInstanceRequest:
 
     project_id: Optional[str]
     """
-    The project ID on which to create the instance.
+    The Project ID on which the Database Instance will be created.
     
     One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
     """
 
     name: Optional[str]
     """
-    Name of the instance.
+    Name of the Database Instance.
     """
 
     engine: str
     """
-    Database engine of the database (PostgreSQL, MySQL, ...).
+    Database engine of the Database Instance (PostgreSQL, MySQL, ...).
     """
 
     user_name: str
     """
-    Name of the user created when the instance is created.
+    Username created when the Database Instance is created.
     """
 
     password: str
@@ -1814,32 +1814,32 @@ class CreateInstanceRequest:
 
     node_type: str
     """
-    Type of node to use for the instance.
+    Type of node to use for the Database Instance.
     """
 
     is_ha_cluster: bool
     """
-    Whether or not High-Availability is enabled.
+    Defines whether or not High-Availability is enabled.
     """
 
     disable_backup: bool
     """
-    Whether or not backups are disabled.
+    Defines whether or not backups are disabled.
     """
 
     tags: Optional[List[str]]
     """
-    Tags to apply to the instance.
+    Tags to apply to the Database Instance.
     """
 
     init_settings: Optional[List[InstanceSetting]]
     """
-    List of engine settings to be set at database initialisation.
+    List of engine settings to be set upon Database Instance initialization.
     """
 
     volume_type: VolumeType
     """
-    Type of volume where data are stored (lssd, bssd, ...).
+    Type of volume where data is stored (lssd, bssd, ...).
     """
 
     volume_size: int
@@ -1849,12 +1849,12 @@ class CreateInstanceRequest:
 
     init_endpoints: Optional[List[EndpointSpec]]
     """
-    One or multiple EndpointSpec used to expose your database instance. A load_balancer public endpoint is systematically created.
+    One or multiple EndpointSpec used to expose your Database Instance. A load_balancer public endpoint is systematically created.
     """
 
     backup_same_region: bool
     """
-    Store logical backups in the same region as the database instance.
+    Defines whether to or not to store logical backups in the same region as the Database Instance.
     """
 
 
@@ -1867,7 +1867,7 @@ class UpdateInstanceRequest:
 
     instance_id: str
     """
-    UUID of the instance to update.
+    UUID of the Database Instance to update.
     """
 
     backup_schedule_frequency: Optional[int]
@@ -1882,27 +1882,27 @@ class UpdateInstanceRequest:
 
     is_backup_schedule_disabled: Optional[bool]
     """
-    Whether or not the backup schedule is disabled.
+    Defines whether or not the backup schedule is disabled.
     """
 
     name: Optional[str]
     """
-    Name of the instance.
+    Name of the Database Instance.
     """
 
     tags: Optional[List[str]]
     """
-    Tags of a given instance.
+    Tags of a Database Instance.
     """
 
     logs_policy: Optional[LogsPolicy]
     """
-    Logs policy of the instance.
+    Logs policy of the Database Instance.
     """
 
     backup_same_region: Optional[bool]
     """
-    Store logical backups in the same region as the database instance.
+    Store logical backups in the same region as the Database Instance.
     """
 
 
@@ -1915,7 +1915,7 @@ class DeleteInstanceRequest:
 
     instance_id: str
     """
-    UUID of the instance to delete.
+    UUID of the Database Instance to delete.
     """
 
 
@@ -1928,12 +1928,12 @@ class CloneInstanceRequest:
 
     instance_id: str
     """
-    UUID of the instance you want to clone.
+    UUID of the Database Instance you want to clone.
     """
 
     name: str
     """
-    Name of the clone instance.
+    Name of the Database Instance clone.
     """
 
     node_type: Optional[str]
@@ -1951,7 +1951,7 @@ class RestartInstanceRequest:
 
     instance_id: str
     """
-    UUID of the instance you want to restart.
+    UUID of the Database Instance you want to restart.
     """
 
 
@@ -1964,7 +1964,7 @@ class GetInstanceCertificateRequest:
 
     instance_id: str
     """
-    UUID of the instance.
+    UUID of the Database Instance.
     """
 
 
@@ -1977,7 +1977,7 @@ class RenewInstanceCertificateRequest:
 
     instance_id: str
     """
-    UUID of the instance you want logs of.
+    UUID of the Database Instance you want logs of.
     """
 
 
@@ -1990,7 +1990,7 @@ class GetInstanceMetricsRequest:
 
     instance_id: str
     """
-    UUID of the instance.
+    UUID of the Database Instance.
     """
 
     start_date: Optional[datetime]
@@ -2018,7 +2018,7 @@ class CreateReadReplicaRequest:
 
     instance_id: str
     """
-    UUID of the instance you want a read replica of.
+    UUID of the Database Instance you want to create a Read Replica from.
     """
 
     endpoint_spec: Optional[List[ReadReplicaEndpointSpec]]
@@ -2036,7 +2036,7 @@ class GetReadReplicaRequest:
 
     read_replica_id: str
     """
-    UUID of the read replica.
+    UUID of the Read Replica.
     """
 
 
@@ -2049,7 +2049,7 @@ class DeleteReadReplicaRequest:
 
     read_replica_id: str
     """
-    UUID of the read replica.
+    UUID of the Read Replica.
     """
 
 
@@ -2062,7 +2062,7 @@ class ResetReadReplicaRequest:
 
     read_replica_id: str
     """
-    UUID of the read replica.
+    UUID of the Read Replica.
     """
 
 
@@ -2075,7 +2075,7 @@ class CreateReadReplicaEndpointRequest:
 
     read_replica_id: str
     """
-    UUID of the read replica.
+    UUID of the Read Replica.
     """
 
     endpoint_spec: List[ReadReplicaEndpointSpec]
@@ -2093,17 +2093,17 @@ class PrepareInstanceLogsRequest:
 
     instance_id: str
     """
-    UUID of the instance you want logs of.
+    UUID of the Database Instance you want logs of.
     """
 
     start_date: Optional[datetime]
     """
-    Start datetime of your log. Format: `{year}-{month}-{day}T{hour}:{min}:{sec}[.{frac_sec}]Z`.
+    Start datetime of your log. (RFC 3339 format).
     """
 
     end_date: Optional[datetime]
     """
-    End datetime of your log. Format: `{year}-{month}-{day}T{hour}:{min}:{sec}[.{frac_sec}]Z`.
+    End datetime of your log. (RFC 3339 format).
     """
 
 
@@ -2116,12 +2116,12 @@ class ListInstanceLogsRequest:
 
     instance_id: str
     """
-    UUID of the instance you want logs of.
+    UUID of the Database Instance you want logs of.
     """
 
     order_by: ListInstanceLogsRequestOrderBy
     """
-    Criteria to use when ordering instance logs listing.
+    Criteria to use when ordering Database Instance logs listing.
     """
 
 
@@ -2147,12 +2147,12 @@ class PurgeInstanceLogsRequest:
 
     instance_id: str
     """
-    UUID of the instance you want logs of.
+    UUID of the Database Instance you want logs of.
     """
 
     log_name: Optional[str]
     """
-    Specific log name to purge.
+    Given log name to purge.
     """
 
 
@@ -2165,7 +2165,7 @@ class ListInstanceLogsDetailsRequest:
 
     instance_id: str
     """
-    UUID of the instance you want logs of.
+    UUID of the Database Instance you want logs of.
     """
 
 
@@ -2178,12 +2178,12 @@ class AddInstanceSettingsRequest:
 
     instance_id: str
     """
-    UUID of the instance you want to add settings to.
+    UUID of the Database Instance you want to add settings to.
     """
 
     settings: List[InstanceSetting]
     """
-    Settings to add on the instance.
+    Settings to add to the Database Instance.
     """
 
 
@@ -2196,7 +2196,7 @@ class DeleteInstanceSettingsRequest:
 
     instance_id: str
     """
-    UUID of the instance to delete settings from.
+    UUID of the Database Instance to delete settings from.
     """
 
     setting_names: List[str]
@@ -2214,12 +2214,12 @@ class SetInstanceSettingsRequest:
 
     instance_id: str
     """
-    UUID of the instance where the settings has to be set.
+    UUID of the Database Instance where the settings must be set.
     """
 
     settings: List[InstanceSetting]
     """
-    Settings to define for the instance.
+    Settings to define for the Database Instance.
     """
 
 
@@ -2232,7 +2232,7 @@ class ListInstanceACLRulesRequest:
 
     instance_id: str
     """
-    UUID of the instance.
+    UUID of the Database Instance.
     """
 
     page: Optional[int]
@@ -2249,12 +2249,12 @@ class AddInstanceACLRulesRequest:
 
     instance_id: str
     """
-    UUID of the instance you want to add acl rules to.
+    UUID of the Database Instance you want to add ACL rules to.
     """
 
     rules: List[ACLRuleRequest]
     """
-    ACLs rules to add to the instance.
+    ACL rules to add to the Database Instance.
     """
 
 
@@ -2267,12 +2267,12 @@ class SetInstanceACLRulesRequest:
 
     instance_id: str
     """
-    UUID of the instance where the ACL rules has to be set.
+    UUID of the Database Instance where the ACL rules must be set.
     """
 
     rules: List[ACLRuleRequest]
     """
-    ACL rules to define for the instance.
+    ACL rules to define for the Database Instance.
     """
 
 
@@ -2285,12 +2285,12 @@ class DeleteInstanceACLRulesRequest:
 
     instance_id: str
     """
-    UUID of the instance you want to delete an ACL rules from.
+    UUID of the Database Instance you want to delete an ACL rule from.
     """
 
     acl_rule_ips: List[str]
     """
-    ACL rules IP present on the instance.
+    IP addresses defined in the ACL rules of the Database Instance.
     """
 
 
@@ -2303,7 +2303,7 @@ class ListUsersRequest:
 
     instance_id: str
     """
-    UUID of the instance.
+    UUID of the Database Instance.
     """
 
     name: Optional[str]
@@ -2313,7 +2313,7 @@ class ListUsersRequest:
 
     order_by: Optional[ListUsersRequestOrderBy]
     """
-    Criteria to use when ordering users listing.
+    Criteria to use when requesting user listing.
     """
 
     page: Optional[int]
@@ -2330,7 +2330,7 @@ class CreateUserRequest:
 
     instance_id: str
     """
-    UUID of the instance you want to create a user in.
+    UUID of the Database Instance in which you want to create a user.
     """
 
     name: str
@@ -2345,7 +2345,7 @@ class CreateUserRequest:
 
     is_admin: bool
     """
-    Whether the user you want to create will have administrative privileges.
+    Defines whether the user will have administrative privileges.
     """
 
 
@@ -2358,7 +2358,7 @@ class UpdateUserRequest:
 
     instance_id: str
     """
-    UUID of the instance the user belongs to.
+    UUID of the Database Instance the user belongs to.
     """
 
     name: str
@@ -2373,7 +2373,7 @@ class UpdateUserRequest:
 
     is_admin: Optional[bool]
     """
-    Whether or not this user got administrative privileges.
+    Defines whether or not this user got administrative privileges.
     """
 
 
@@ -2386,7 +2386,7 @@ class DeleteUserRequest:
 
     instance_id: str
     """
-    UUID of the instance to delete a user from.
+    UUID of the Database Instance to delete the user from.
     """
 
     name: str
@@ -2404,7 +2404,7 @@ class ListDatabasesRequest:
 
     instance_id: str
     """
-    UUID of the instance to list database of.
+    UUID of the Database Instance to list the databases of.
     """
 
     name: Optional[str]
@@ -2414,7 +2414,7 @@ class ListDatabasesRequest:
 
     managed: Optional[bool]
     """
-    Whether or not the database is managed.
+    Defines whether or not the database is managed.
     """
 
     owner: Optional[str]
@@ -2441,7 +2441,7 @@ class CreateDatabaseRequest:
 
     instance_id: str
     """
-    UUID of the instance where to create the database.
+    UUID of the Database Instance where to create the database.
     """
 
     name: str
@@ -2459,7 +2459,7 @@ class DeleteDatabaseRequest:
 
     instance_id: str
     """
-    UUID of the instance where to delete the database.
+    UUID of the Database Instance where to delete the database.
     """
 
     name: str
@@ -2477,7 +2477,7 @@ class ListPrivilegesRequest:
 
     instance_id: str
     """
-    UUID of the instance.
+    UUID of the Database Instance.
     """
 
     order_by: Optional[ListPrivilegesRequestOrderBy]
@@ -2509,7 +2509,7 @@ class SetPrivilegeRequest:
 
     instance_id: str
     """
-    UUID of the instance.
+    UUID of the Database Instance.
     """
 
     database_name: str
@@ -2547,7 +2547,7 @@ class ListSnapshotsRequest:
 
     instance_id: Optional[str]
     """
-    UUID of the instance.
+    UUID of the Database Instance.
     """
 
     organization_id: Optional[str]
@@ -2587,7 +2587,7 @@ class CreateSnapshotRequest:
 
     instance_id: str
     """
-    UUID of the instance.
+    UUID of the Database Instance.
     """
 
     name: Optional[str]
@@ -2597,7 +2597,7 @@ class CreateSnapshotRequest:
 
     expires_at: Optional[datetime]
     """
-    Expiration date (Format ISO 8601).
+    Expiration date (must follow the ISO 8601 format).
     """
 
 
@@ -2620,7 +2620,7 @@ class UpdateSnapshotRequest:
 
     expires_at: Optional[datetime]
     """
-    Expiration date (Format ISO 8601).
+    Expiration date (must follow the ISO 8601 format).
     """
 
 
@@ -2646,17 +2646,17 @@ class CreateInstanceFromSnapshotRequest:
 
     snapshot_id: str
     """
-    Block snapshot of the instance.
+    Block snapshot of the Database Instance.
     """
 
     instance_name: str
     """
-    Name of the instance created with the snapshot.
+    Name of the Database Instance created with the snapshot.
     """
 
     is_ha_cluster: Optional[bool]
     """
-    Whether or not High-Availability is enabled on the new instance.
+    Defines whether or not High-Availability is enabled on the new Database Instance.
     """
 
     node_type: Optional[str]
@@ -2674,7 +2674,7 @@ class CreateEndpointRequest:
 
     instance_id: str
     """
-    UUID of the instance you want to add endpoint to.
+    UUID of the Database Instance you to which you want to add an endpoint.
     """
 
     endpoint_spec: Optional[EndpointSpec]
@@ -2692,7 +2692,7 @@ class DeleteEndpointRequest:
 
     endpoint_id: str
     """
-    This endpoint can also be used to delete a read replica endpoint.
+    This endpoint can also be used to delete a Read Replica endpoint.
     """
 
 

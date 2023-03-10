@@ -102,19 +102,19 @@ class RedisV1API(API):
     ) -> Cluster:
         """
         Create a cluster
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param project_id: The project ID on which to create the cluster
-        :param name: Name of the cluster
-        :param version: Redis™ engine version of the cluster
-        :param tags: Tags to apply to the cluster
-        :param node_type: Type of node to use for the cluster
-        :param user_name: Name of the user created when the cluster is created
-        :param password: Password of the user
-        :param cluster_size: Number of nodes for the cluster
-        :param acl_rules: List of ACLRuleSpec used to secure your publicly exposed cluster
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param project_id: The project ID on which to create the cluster.
+        :param name: Name of the cluster.
+        :param version: Redis™ engine version of the cluster.
+        :param tags: Tags to apply to the cluster.
+        :param node_type: Type of node to use for the cluster.
+        :param user_name: Name of the user created when the cluster is created.
+        :param password: Password of the user.
+        :param cluster_size: Number of nodes for the cluster.
+        :param acl_rules: List of ACLRuleSpec used to secure your publicly exposed cluster.
         :param endpoints: Zero or multiple EndpointSpec used to expose your cluster publicly and inside private networks. If no EndpoindSpec is given the cluster will be publicly exposed by default.
-        :param tls_enabled: Whether or not TLS is enabled
-        :param cluster_settings: List of cluster settings to be set at cluster initialisation
+        :param tls_enabled: Whether or not TLS is enabled.
+        :param cluster_settings: List of cluster settings to be set at cluster initialisation.
         :return: :class:`Cluster <Cluster>`
 
         Usage:
@@ -169,12 +169,12 @@ class RedisV1API(API):
     ) -> Cluster:
         """
         Update a cluster
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param cluster_id: UUID of the cluster to update
-        :param name: Name of the cluster
-        :param tags: Tags of a given cluster
-        :param user_name: Name of the cluster user
-        :param password: Password of the cluster user
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param cluster_id: UUID of the cluster to update.
+        :param name: Name of the cluster.
+        :param tags: Tags of a given cluster.
+        :param user_name: Name of the cluster user.
+        :param password: Password of the cluster user.
         :return: :class:`Cluster <Cluster>`
 
         Usage:
@@ -213,8 +213,8 @@ class RedisV1API(API):
     ) -> Cluster:
         """
         Get a cluster
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param cluster_id: UUID of the cluster
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param cluster_id: UUID of the cluster.
         :return: :class:`Cluster <Cluster>`
 
         Usage:
@@ -243,8 +243,8 @@ class RedisV1API(API):
     ) -> Cluster:
         """
         Waits for :class:`Cluster <Cluster>` to be in a final state.
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param cluster_id: UUID of the cluster
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param cluster_id: UUID of the cluster.
         :param options: The options for the waiter
         :return: :class:`Cluster <Cluster>`
 
@@ -284,13 +284,13 @@ class RedisV1API(API):
     ) -> ListClustersResponse:
         """
         List clusters
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param tags: Tags of the clusters to filter upon
-        :param name: Name of the clusters to filter upon
-        :param order_by: Criteria to use when ordering cluster listing
-        :param project_id: Project ID to list the cluster of
-        :param organization_id: Organization ID to list the cluster of
-        :param version: Version of the clusters to filter upon
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param tags: Tags of the clusters to filter upon.
+        :param name: Name of the clusters to filter upon.
+        :param order_by: Criteria to use when ordering cluster listing.
+        :param project_id: Project ID to list the cluster of.
+        :param organization_id: Organization ID to list the cluster of.
+        :param version: Version of the clusters to filter upon.
         :param page:
         :param page_size:
         :return: :class:`ListClustersResponse <ListClustersResponse>`
@@ -337,13 +337,13 @@ class RedisV1API(API):
     ) -> List[Cluster]:
         """
         List clusters
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param tags: Tags of the clusters to filter upon
-        :param name: Name of the clusters to filter upon
-        :param order_by: Criteria to use when ordering cluster listing
-        :param project_id: Project ID to list the cluster of
-        :param organization_id: Organization ID to list the cluster of
-        :param version: Version of the clusters to filter upon
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param tags: Tags of the clusters to filter upon.
+        :param name: Name of the clusters to filter upon.
+        :param order_by: Criteria to use when ordering cluster listing.
+        :param project_id: Project ID to list the cluster of.
+        :param organization_id: Organization ID to list the cluster of.
+        :param version: Version of the clusters to filter upon.
         :param page:
         :param page_size:
         :return: :class:`List[ListClustersResponse] <List[ListClustersResponse]>`
@@ -382,8 +382,8 @@ class RedisV1API(API):
     ) -> Cluster:
         """
         Upgrade your Database for Redis® cluster to a new version or scale it vertically / horizontally. Please note: scaling horizontally your Database for Redis® cluster won't renew its TLS certificate. In order to refresh the SSL certificate, you have to use the dedicated api route.
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param cluster_id: UUID of the cluster to update
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param cluster_id: UUID of the cluster to update.
         :param version: Redis™ engine version of the cluster.
 
         One-of ('action'): at most one of 'version', 'node_type', 'cluster_size' could be set.
@@ -430,8 +430,8 @@ class RedisV1API(API):
     ) -> Cluster:
         """
         Delete a cluster
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param cluster_id: UUID of the cluster to delete
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param cluster_id: UUID of the cluster to delete.
         :return: :class:`Cluster <Cluster>`
 
         Usage:
@@ -462,11 +462,11 @@ class RedisV1API(API):
     ) -> ClusterMetricsResponse:
         """
         Get metrics of a cluster
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param cluster_id: UUID of the cluster
-        :param start_at: Start date to gather metrics from
-        :param end_at: End date to gather metrics from
-        :param metric_name: Name of the metric to gather
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param cluster_id: UUID of the cluster.
+        :param start_at: Start date to gather metrics from.
+        :param end_at: End date to gather metrics from.
+        :param metric_name: Name of the metric to gather.
         :return: :class:`ClusterMetricsResponse <ClusterMetricsResponse>`
 
         Usage:
@@ -501,8 +501,8 @@ class RedisV1API(API):
     ) -> ListNodeTypesResponse:
         """
         List available node types
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param include_disabled_types: Whether or not to include disabled types
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param include_disabled_types: Whether or not to include disabled types.
         :param page:
         :param page_size:
         :return: :class:`ListNodeTypesResponse <ListNodeTypesResponse>`
@@ -538,8 +538,8 @@ class RedisV1API(API):
     ) -> List[NodeType]:
         """
         List available node types
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param include_disabled_types: Whether or not to include disabled types
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param include_disabled_types: Whether or not to include disabled types.
         :param page:
         :param page_size:
         :return: :class:`List[ListNodeTypesResponse] <List[ListNodeTypesResponse]>`
@@ -575,11 +575,11 @@ class RedisV1API(API):
     ) -> ListClusterVersionsResponse:
         """
         List available Redis™ versions
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param include_disabled: Whether or not to include disabled Redis™ engine versions
-        :param include_beta: Whether or not to include beta Redis™ engine versions
-        :param include_deprecated: Whether or not to include deprecated Redis™ engine versions
-        :param version: List Redis™ engine versions that match a given name pattern
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param include_disabled: Whether or not to include disabled Redis™ engine versions.
+        :param include_beta: Whether or not to include beta Redis™ engine versions.
+        :param include_deprecated: Whether or not to include deprecated Redis™ engine versions.
+        :param version: List Redis™ engine versions that match a given name pattern.
         :param page:
         :param page_size:
         :return: :class:`ListClusterVersionsResponse <ListClusterVersionsResponse>`
@@ -625,11 +625,11 @@ class RedisV1API(API):
     ) -> List[ClusterVersion]:
         """
         List available Redis™ versions
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param include_disabled: Whether or not to include disabled Redis™ engine versions
-        :param include_beta: Whether or not to include beta Redis™ engine versions
-        :param include_deprecated: Whether or not to include deprecated Redis™ engine versions
-        :param version: List Redis™ engine versions that match a given name pattern
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param include_disabled: Whether or not to include disabled Redis™ engine versions.
+        :param include_beta: Whether or not to include beta Redis™ engine versions.
+        :param include_deprecated: Whether or not to include deprecated Redis™ engine versions.
+        :param version: List Redis™ engine versions that match a given name pattern.
         :param page:
         :param page_size:
         :return: :class:`List[ListClusterVersionsResponse] <List[ListClusterVersionsResponse]>`
@@ -667,8 +667,8 @@ class RedisV1API(API):
     ) -> Optional[ScwFile]:
         """
         Get the TLS certificate of a cluster
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param cluster_id: UUID of the cluster
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param cluster_id: UUID of the cluster.
         :return: :class:`Optional[ScwFile] <Optional[ScwFile]>`
 
         Usage:
@@ -697,8 +697,8 @@ class RedisV1API(API):
     ) -> Cluster:
         """
         Renew the TLS certificate of a cluster
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param cluster_id: UUID of the cluster
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param cluster_id: UUID of the cluster.
         :return: :class:`Cluster <Cluster>`
 
         Usage:
@@ -727,9 +727,9 @@ class RedisV1API(API):
     ) -> ClusterSettingsResponse:
         """
         Add cluster settings
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param cluster_id: UUID of the cluster you want to add settings to
-        :param settings: Settings to add on the cluster
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param cluster_id: UUID of the cluster you want to add settings to.
+        :param settings: Settings to add on the cluster.
         :return: :class:`ClusterSettingsResponse <ClusterSettingsResponse>`
 
         Usage:
@@ -769,9 +769,9 @@ class RedisV1API(API):
     ) -> Cluster:
         """
         Delete a cluster setting
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param cluster_id: UUID of the cluster where the settings has to be set
-        :param setting_name: Setting name to delete
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param cluster_id: UUID of the cluster where the settings has to be set.
+        :param setting_name: Setting name to delete.
         :return: :class:`Cluster <Cluster>`
 
         Usage:
@@ -804,9 +804,9 @@ class RedisV1API(API):
     ) -> ClusterSettingsResponse:
         """
         Set cluster settings
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param cluster_id: UUID of the cluster where the settings has to be set
-        :param settings: Settings to define for the cluster
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param cluster_id: UUID of the cluster where the settings has to be set.
+        :param settings: Settings to define for the cluster.
         :return: :class:`ClusterSettingsResponse <ClusterSettingsResponse>`
 
         Usage:
@@ -846,9 +846,9 @@ class RedisV1API(API):
     ) -> SetAclRulesResponse:
         """
         Set ACL rules for a given cluster
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param cluster_id: UUID of the cluster where the ACL rules has to be set
-        :param acl_rules: ACLs rules to define for the cluster
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param cluster_id: UUID of the cluster where the ACL rules has to be set.
+        :param acl_rules: ACLs rules to define for the cluster.
         :return: :class:`SetAclRulesResponse <SetAclRulesResponse>`
 
         Usage:
@@ -888,9 +888,9 @@ class RedisV1API(API):
     ) -> AddAclRulesResponse:
         """
         Add ACL rules for a given cluster
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param cluster_id: UUID of the cluster you want to add acl rules to
-        :param acl_rules: ACLs rules to add to the cluster
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param cluster_id: UUID of the cluster you want to add acl rules to.
+        :param acl_rules: ACLs rules to add to the cluster.
         :return: :class:`AddAclRulesResponse <AddAclRulesResponse>`
 
         Usage:
@@ -929,8 +929,8 @@ class RedisV1API(API):
     ) -> Cluster:
         """
         Delete an ACL rule for a given cluster
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param acl_id: UUID of the acl rule you want to delete
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param acl_id: UUID of the acl rule you want to delete.
         :return: :class:`Cluster <Cluster>`
 
         Usage:
@@ -958,8 +958,8 @@ class RedisV1API(API):
     ) -> ACLRule:
         """
         Get an ACL rule
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param acl_id: UUID of the acl rule you want to get
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param acl_id: UUID of the acl rule you want to get.
         :return: :class:`ACLRule <ACLRule>`
 
         Usage:
@@ -988,9 +988,9 @@ class RedisV1API(API):
     ) -> SetEndpointsResponse:
         """
         Set endpoints for a given cluster
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param cluster_id: UUID of the cluster where the endpoints has to be set
-        :param endpoints: Endpoints to define for the cluster
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param cluster_id: UUID of the cluster where the endpoints has to be set.
+        :param endpoints: Endpoints to define for the cluster.
         :return: :class:`SetEndpointsResponse <SetEndpointsResponse>`
 
         Usage:
@@ -1030,9 +1030,9 @@ class RedisV1API(API):
     ) -> AddEndpointsResponse:
         """
         Add endpoints for a given cluster
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param cluster_id: UUID of the cluster you want to add endpoints to
-        :param endpoints: Endpoints to add to the cluster
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param cluster_id: UUID of the cluster you want to add endpoints to.
+        :param endpoints: Endpoints to add to the cluster.
         :return: :class:`AddEndpointsResponse <AddEndpointsResponse>`
 
         Usage:
@@ -1071,8 +1071,8 @@ class RedisV1API(API):
     ) -> Cluster:
         """
         Delete an endpoint for a given cluster
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param endpoint_id: UUID of the endpoint you want to delete
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param endpoint_id: UUID of the endpoint you want to delete.
         :return: :class:`Cluster <Cluster>`
 
         Usage:
@@ -1100,8 +1100,8 @@ class RedisV1API(API):
     ) -> Endpoint:
         """
         Get an endpoint
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param endpoint_id: UUID of the endpoint you want to get
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param endpoint_id: UUID of the endpoint you want to get.
         :return: :class:`Endpoint <Endpoint>`
 
         Usage:
