@@ -62,297 +62,297 @@ class NodeTypeStock(str, Enum):
 @dataclass
 class ACLRule:
     """
-    Acl rule
+    Acl rule.
     """
 
     id: str
     """
-    ID of the rule
+    ID of the rule.
     """
 
     ip_cidr: Optional[str]
     """
-    IPv4 network address of the rule
+    IPv4 network address of the rule.
     """
 
     description: Optional[str]
     """
-    Description of the rule
+    Description of the rule.
     """
 
 
 @dataclass
 class ACLRuleSpec:
     """
-    Acl rule spec
+    Acl rule spec.
     """
 
     ip_cidr: str
     """
-    IPv4 network address of the rule
+    IPv4 network address of the rule.
     """
 
     description: str
     """
-    Description of the rule
+    Description of the rule.
     """
 
 
 @dataclass
 class AddAclRulesResponse:
     """
-    Add acl rules response
+    Add acl rules response.
     """
 
     acl_rules: List[ACLRule]
     """
-    ACL Rules enabled on the cluster
+    ACL Rules enabled on the cluster.
     """
 
     total_count: int
     """
-    Total count of acl rules of the cluster
+    Total count of acl rules of the cluster.
     """
 
 
 @dataclass
 class AddEndpointsResponse:
     """
-    Add endpoints response
+    Add endpoints response.
     """
 
     endpoints: List[Endpoint]
     """
-    Endpoints defined on the cluster
+    Endpoints defined on the cluster.
     """
 
     total_count: int
     """
-    Total count of endpoints of the cluster
+    Total count of endpoints of the cluster.
     """
 
 
 @dataclass
 class AvailableClusterSetting:
     """
-    Available cluster setting
+    Available cluster setting.
     """
 
     name: str
     """
-    Name of the setting
+    Name of the setting.
     """
 
     default_value: Optional[str]
     """
-    Default value of the setting
+    Default value of the setting.
     """
 
     type_: AvailableClusterSettingPropertyType
     """
-    Type of the setting
+    Type of the setting.
     """
 
     description: str
     """
-    Description of the setting
+    Description of the setting.
     """
 
     max_value: Optional[int]
     """
-    Optional maximum value of the setting
+    Optional maximum value of the setting.
     """
 
     min_value: Optional[int]
     """
-    Optional minimum value of the setting
+    Optional minimum value of the setting.
     """
 
     regex: Optional[str]
     """
-    Optional validation rule of the setting
+    Optional validation rule of the setting.
     """
 
     deprecated: bool
     """
-    Whether the setting is deprecated
+    Whether the setting is deprecated.
     """
 
 
 @dataclass
 class Cluster:
     """
-    Cluster
+    Cluster.
     """
 
     id: str
     """
-    UUID of the cluster
+    UUID of the cluster.
     """
 
     name: str
     """
-    Name of the cluster
+    Name of the cluster.
     """
 
     project_id: str
     """
-    Project ID the cluster belongs to
+    Project ID the cluster belongs to.
     """
 
     status: ClusterStatus
     """
-    Status of the cluster
+    Status of the cluster.
     """
 
     version: str
     """
-    Redis™ engine version of the cluster
+    Redis™ engine version of the cluster.
     """
 
     endpoints: List[Endpoint]
     """
-    List of cluster endpoints
+    List of cluster endpoints.
     """
 
     tags: List[str]
     """
-    List of tags applied to the cluster
+    List of tags applied to the cluster.
     """
 
     node_type: str
     """
-    Node type of the cluster
+    Node type of the cluster.
     """
 
     created_at: Optional[datetime]
     """
-    Creation date (Format ISO 8601)
+    Creation date (Format ISO 8601).
     """
 
     updated_at: Optional[datetime]
     """
-    Update date (Format ISO 8601)
+    Update date (Format ISO 8601).
     """
 
     tls_enabled: bool
     """
-    Whether or not TLS is enabled
+    Whether or not TLS is enabled.
     """
 
     cluster_settings: List[ClusterSetting]
     """
-    List of cluster settings
+    List of cluster settings.
     """
 
     acl_rules: List[ACLRule]
     """
-    List of acl rules
+    List of acl rules.
     """
 
     cluster_size: int
     """
-    Number of nodes of the cluster
+    Number of nodes of the cluster.
     """
 
     zone: Zone
     """
-    Zone of the cluster
+    Zone of the cluster.
     """
 
     user_name: str
     """
-    Name of the user associated to the cluster
+    Name of the user associated to the cluster.
     """
 
     upgradable_versions: List[str]
     """
-    List of versions the cluster can be migrated to
+    List of versions the cluster can be migrated to.
     """
 
 
 @dataclass
 class ClusterMetricsResponse:
     """
-    Cluster metrics response
+    Cluster metrics response.
     """
 
     timeseries: List[TimeSeries]
     """
-    Time series of metrics of a given cluster
+    Time series of metrics of a given cluster.
     """
 
 
 @dataclass
 class ClusterSetting:
     """
-    Cluster setting
+    Cluster setting.
     """
 
     value: str
     """
-    Value of the setting
+    Value of the setting.
     """
 
     name: str
     """
-    Name of the setting
+    Name of the setting.
     """
 
 
 @dataclass
 class ClusterSettingsResponse:
     """
-    Cluster settings response
+    Cluster settings response.
     """
 
     settings: List[ClusterSetting]
     """
-    Settings configured for a given cluster
+    Settings configured for a given cluster.
     """
 
 
 @dataclass
 class ClusterVersion:
     """
-    Cluster version
+    Cluster version.
     """
 
     version: str
     """
-    Redis™ engine version
+    Redis™ engine version.
     """
 
     end_of_life_at: Optional[datetime]
     """
-    End of life date
+    End of life date.
     """
 
     available_settings: List[AvailableClusterSetting]
     """
-    Cluster settings available to be set
+    Cluster settings available to be set.
     """
 
     logo_url: str
     """
-    Redis™ logo url
+    Redis™ logo url.
     """
 
     zone: Zone
     """
-    Zone of the Managed Database for Redis™
+    Zone of the Managed Database for Redis™.
     """
 
 
 @dataclass
 class Endpoint:
     """
-    Endpoint
+    Endpoint.
     """
 
     port: int
     """
-    TCP port of the endpoint
+    TCP port of the endpoint.
     """
 
     private_network: Optional[PrivateNetwork]
@@ -371,19 +371,19 @@ class Endpoint:
 
     ips: List[str]
     """
-    Lis of IPv4 address of the endpoint
+    Lis of IPv4 address of the endpoint.
     """
 
     id: str
     """
-    UUID of the endpoint
+    UUID of the endpoint.
     """
 
 
 @dataclass
 class EndpointSpec:
     """
-    Endpoint spec
+    Endpoint spec.
     """
 
     private_network: Optional[EndpointSpecPrivateNetworkSpec]
@@ -404,12 +404,12 @@ class EndpointSpec:
 @dataclass
 class EndpointSpecPrivateNetworkSpec:
     """
-    Endpoint spec. private network spec
+    Endpoint spec. private network spec.
     """
 
     id: str
     """
-    UUID of the private network to be connected to the cluster
+    UUID of the private network to be connected to the cluster.
     """
 
     service_ips: List[str]
@@ -421,127 +421,127 @@ class EndpointSpecPrivateNetworkSpec:
 @dataclass
 class EndpointSpecPublicNetworkSpec:
     """
-    Endpoint spec. public network spec
+    Endpoint spec. public network spec.
     """
 
 
 @dataclass
 class ListClusterVersionsResponse:
     """
-    List cluster versions response
+    List cluster versions response.
     """
 
     versions: List[ClusterVersion]
     """
-    List of the available Redis™ engine versions
+    List of the available Redis™ engine versions.
     """
 
     total_count: int
     """
-    Total count of available Redis™ engine versions
+    Total count of available Redis™ engine versions.
     """
 
 
 @dataclass
 class ListClustersResponse:
     """
-    List clusters response
+    List clusters response.
     """
 
     clusters: List[Cluster]
     """
-    List all clusters
+    List all clusters.
     """
 
     total_count: int
     """
-    Total count of clusters
+    Total count of clusters.
     """
 
 
 @dataclass
 class ListNodeTypesResponse:
     """
-    List node types response
+    List node types response.
     """
 
     node_types: List[NodeType]
     """
-    Types of the node
+    Types of the node.
     """
 
     total_count: int
     """
-    Total count of node-types available
+    Total count of node-types available.
     """
 
 
 @dataclass
 class NodeType:
     """
-    Node type
+    Node type.
     """
 
     name: str
     """
-    Node Type name identifier
+    Node Type name identifier.
     """
 
     stock_status: NodeTypeStock
     """
-    Current stock status for the Node Type
+    Current stock status for the Node Type.
     """
 
     description: str
     """
-    Current specs of the offer
+    Current specs of the offer.
     """
 
     vcpus: int
     """
-    Number of virtual CPUs
+    Number of virtual CPUs.
     """
 
     memory: int
     """
-    Quantity of RAM
+    Quantity of RAM.
     """
 
     disabled: bool
     """
-    The Node Type is currently disabled
+    The Node Type is currently disabled.
     """
 
     beta: bool
     """
-    The Node Type is currently in beta
+    The Node Type is currently in beta.
     """
 
     zone: Zone
     """
-    Zone the Node Type is in
+    Zone the Node Type is in.
     """
 
 
 @dataclass
 class PrivateNetwork:
     """
-    Private network
+    Private network.
     """
 
     id: str
     """
-    UUID of the private network
+    UUID of the private network.
     """
 
     service_ips: List[str]
     """
-    List of IPv4 CIDR notation addresses of the endpoint
+    List of IPv4 CIDR notation addresses of the endpoint.
     """
 
     zone: Zone
     """
-    Private network zone
+    Private network zone.
     """
 
 
@@ -553,24 +553,24 @@ class PublicNetwork:
 @dataclass
 class SetAclRulesResponse:
     """
-    Set acl rules response
+    Set acl rules response.
     """
 
     acl_rules: List[ACLRule]
     """
-    ACL Rules enabled on the cluster
+    ACL Rules enabled on the cluster.
     """
 
 
 @dataclass
 class SetEndpointsResponse:
     """
-    Set endpoints response
+    Set endpoints response.
     """
 
     endpoints: List[Endpoint]
     """
-    Endpoints defined on the cluster
+    Endpoints defined on the cluster.
     """
 
 
@@ -578,52 +578,52 @@ class SetEndpointsResponse:
 class CreateClusterRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     project_id: Optional[str]
     """
-    The project ID on which to create the cluster
+    The project ID on which to create the cluster.
     """
 
     name: Optional[str]
     """
-    Name of the cluster
+    Name of the cluster.
     """
 
     version: str
     """
-    Redis™ engine version of the cluster
+    Redis™ engine version of the cluster.
     """
 
     tags: Optional[List[str]]
     """
-    Tags to apply to the cluster
+    Tags to apply to the cluster.
     """
 
     node_type: str
     """
-    Type of node to use for the cluster
+    Type of node to use for the cluster.
     """
 
     user_name: str
     """
-    Name of the user created when the cluster is created
+    Name of the user created when the cluster is created.
     """
 
     password: str
     """
-    Password of the user
+    Password of the user.
     """
 
     cluster_size: Optional[int]
     """
-    Number of nodes for the cluster
+    Number of nodes for the cluster.
     """
 
     acl_rules: Optional[List[ACLRuleSpec]]
     """
-    List of ACLRuleSpec used to secure your publicly exposed cluster
+    List of ACLRuleSpec used to secure your publicly exposed cluster.
     """
 
     endpoints: Optional[List[EndpointSpec]]
@@ -633,12 +633,12 @@ class CreateClusterRequest:
 
     tls_enabled: bool
     """
-    Whether or not TLS is enabled
+    Whether or not TLS is enabled.
     """
 
     cluster_settings: Optional[List[ClusterSetting]]
     """
-    List of cluster settings to be set at cluster initialisation
+    List of cluster settings to be set at cluster initialisation.
     """
 
 
@@ -646,32 +646,32 @@ class CreateClusterRequest:
 class UpdateClusterRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     cluster_id: str
     """
-    UUID of the cluster to update
+    UUID of the cluster to update.
     """
 
     name: Optional[str]
     """
-    Name of the cluster
+    Name of the cluster.
     """
 
     tags: Optional[List[str]]
     """
-    Tags of a given cluster
+    Tags of a given cluster.
     """
 
     user_name: Optional[str]
     """
-    Name of the cluster user
+    Name of the cluster user.
     """
 
     password: Optional[str]
     """
-    Password of the cluster user
+    Password of the cluster user.
     """
 
 
@@ -679,12 +679,12 @@ class UpdateClusterRequest:
 class GetClusterRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     cluster_id: str
     """
-    UUID of the cluster
+    UUID of the cluster.
     """
 
 
@@ -692,37 +692,37 @@ class GetClusterRequest:
 class ListClustersRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     tags: Optional[List[str]]
     """
-    Tags of the clusters to filter upon
+    Tags of the clusters to filter upon.
     """
 
     name: Optional[str]
     """
-    Name of the clusters to filter upon
+    Name of the clusters to filter upon.
     """
 
     order_by: Optional[ListClustersRequestOrderBy]
     """
-    Criteria to use when ordering cluster listing
+    Criteria to use when ordering cluster listing.
     """
 
     project_id: Optional[str]
     """
-    Project ID to list the cluster of
+    Project ID to list the cluster of.
     """
 
     organization_id: Optional[str]
     """
-    Organization ID to list the cluster of
+    Organization ID to list the cluster of.
     """
 
     version: Optional[str]
     """
-    Version of the clusters to filter upon
+    Version of the clusters to filter upon.
     """
 
     page: Optional[int]
@@ -734,12 +734,12 @@ class ListClustersRequest:
 class MigrateClusterRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     cluster_id: str
     """
-    UUID of the cluster to update
+    UUID of the cluster to update.
     """
 
     version: Optional[str]
@@ -768,12 +768,12 @@ class MigrateClusterRequest:
 class DeleteClusterRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     cluster_id: str
     """
-    UUID of the cluster to delete
+    UUID of the cluster to delete.
     """
 
 
@@ -781,27 +781,27 @@ class DeleteClusterRequest:
 class GetClusterMetricsRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     cluster_id: str
     """
-    UUID of the cluster
+    UUID of the cluster.
     """
 
     start_at: Optional[datetime]
     """
-    Start date to gather metrics from
+    Start date to gather metrics from.
     """
 
     end_at: Optional[datetime]
     """
-    End date to gather metrics from
+    End date to gather metrics from.
     """
 
     metric_name: Optional[str]
     """
-    Name of the metric to gather
+    Name of the metric to gather.
     """
 
 
@@ -809,12 +809,12 @@ class GetClusterMetricsRequest:
 class ListNodeTypesRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     include_disabled_types: bool
     """
-    Whether or not to include disabled types
+    Whether or not to include disabled types.
     """
 
     page: Optional[int]
@@ -826,27 +826,27 @@ class ListNodeTypesRequest:
 class ListClusterVersionsRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     include_disabled: bool
     """
-    Whether or not to include disabled Redis™ engine versions
+    Whether or not to include disabled Redis™ engine versions.
     """
 
     include_beta: bool
     """
-    Whether or not to include beta Redis™ engine versions
+    Whether or not to include beta Redis™ engine versions.
     """
 
     include_deprecated: bool
     """
-    Whether or not to include deprecated Redis™ engine versions
+    Whether or not to include deprecated Redis™ engine versions.
     """
 
     version: Optional[str]
     """
-    List Redis™ engine versions that match a given name pattern
+    List Redis™ engine versions that match a given name pattern.
     """
 
     page: Optional[int]
@@ -858,12 +858,12 @@ class ListClusterVersionsRequest:
 class GetClusterCertificateRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     cluster_id: str
     """
-    UUID of the cluster
+    UUID of the cluster.
     """
 
 
@@ -871,12 +871,12 @@ class GetClusterCertificateRequest:
 class RenewClusterCertificateRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     cluster_id: str
     """
-    UUID of the cluster
+    UUID of the cluster.
     """
 
 
@@ -884,17 +884,17 @@ class RenewClusterCertificateRequest:
 class AddClusterSettingsRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     cluster_id: str
     """
-    UUID of the cluster you want to add settings to
+    UUID of the cluster you want to add settings to.
     """
 
     settings: List[ClusterSetting]
     """
-    Settings to add on the cluster
+    Settings to add on the cluster.
     """
 
 
@@ -902,17 +902,17 @@ class AddClusterSettingsRequest:
 class DeleteClusterSettingRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     cluster_id: str
     """
-    UUID of the cluster where the settings has to be set
+    UUID of the cluster where the settings has to be set.
     """
 
     setting_name: str
     """
-    Setting name to delete
+    Setting name to delete.
     """
 
 
@@ -920,17 +920,17 @@ class DeleteClusterSettingRequest:
 class SetClusterSettingsRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     cluster_id: str
     """
-    UUID of the cluster where the settings has to be set
+    UUID of the cluster where the settings has to be set.
     """
 
     settings: List[ClusterSetting]
     """
-    Settings to define for the cluster
+    Settings to define for the cluster.
     """
 
 
@@ -938,17 +938,17 @@ class SetClusterSettingsRequest:
 class SetAclRulesRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     cluster_id: str
     """
-    UUID of the cluster where the ACL rules has to be set
+    UUID of the cluster where the ACL rules has to be set.
     """
 
     acl_rules: List[ACLRuleSpec]
     """
-    ACLs rules to define for the cluster
+    ACLs rules to define for the cluster.
     """
 
 
@@ -956,17 +956,17 @@ class SetAclRulesRequest:
 class AddAclRulesRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     cluster_id: str
     """
-    UUID of the cluster you want to add acl rules to
+    UUID of the cluster you want to add acl rules to.
     """
 
     acl_rules: List[ACLRuleSpec]
     """
-    ACLs rules to add to the cluster
+    ACLs rules to add to the cluster.
     """
 
 
@@ -974,12 +974,12 @@ class AddAclRulesRequest:
 class DeleteAclRuleRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     acl_id: str
     """
-    UUID of the acl rule you want to delete
+    UUID of the acl rule you want to delete.
     """
 
 
@@ -987,12 +987,12 @@ class DeleteAclRuleRequest:
 class GetAclRuleRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     acl_id: str
     """
-    UUID of the acl rule you want to get
+    UUID of the acl rule you want to get.
     """
 
 
@@ -1000,17 +1000,17 @@ class GetAclRuleRequest:
 class SetEndpointsRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     cluster_id: str
     """
-    UUID of the cluster where the endpoints has to be set
+    UUID of the cluster where the endpoints has to be set.
     """
 
     endpoints: List[EndpointSpec]
     """
-    Endpoints to define for the cluster
+    Endpoints to define for the cluster.
     """
 
 
@@ -1018,17 +1018,17 @@ class SetEndpointsRequest:
 class AddEndpointsRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     cluster_id: str
     """
-    UUID of the cluster you want to add endpoints to
+    UUID of the cluster you want to add endpoints to.
     """
 
     endpoints: List[EndpointSpec]
     """
-    Endpoints to add to the cluster
+    Endpoints to add to the cluster.
     """
 
 
@@ -1036,12 +1036,12 @@ class AddEndpointsRequest:
 class DeleteEndpointRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     endpoint_id: str
     """
-    UUID of the endpoint you want to delete
+    UUID of the endpoint you want to delete.
     """
 
 
@@ -1049,12 +1049,12 @@ class DeleteEndpointRequest:
 class GetEndpointRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     endpoint_id: str
     """
-    UUID of the endpoint you want to get
+    UUID of the endpoint you want to get.
     """
 
 
@@ -1062,7 +1062,7 @@ class GetEndpointRequest:
 class UpdateEndpointRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     endpoint_id: str
