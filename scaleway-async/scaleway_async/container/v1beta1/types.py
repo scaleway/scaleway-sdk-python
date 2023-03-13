@@ -175,7 +175,7 @@ class TokenStatus(str, Enum):
 @dataclass
 class Container:
     """
-    Container
+    Container.
     """
 
     id: str
@@ -218,10 +218,9 @@ class Container:
 
     http_option: ContainerHttpOption
     """
-    possible values:
+    Possible values:
      - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
      - enabled: Serve both HTTP and HTTPS traffic.
-    
     """
 
     region: Region
@@ -230,7 +229,7 @@ class Container:
 @dataclass
 class Cron:
     """
-    Cron
+    Cron.
     """
 
     id: str
@@ -249,7 +248,7 @@ class Cron:
 @dataclass
 class Domain:
     """
-    Domain
+    Domain.
     """
 
     id: str
@@ -268,7 +267,7 @@ class Domain:
 @dataclass
 class ListContainersResponse:
     """
-    List containers response
+    List containers response.
     """
 
     containers: List[Container]
@@ -279,7 +278,7 @@ class ListContainersResponse:
 @dataclass
 class ListCronsResponse:
     """
-    List crons response
+    List crons response.
     """
 
     crons: List[Cron]
@@ -290,7 +289,7 @@ class ListCronsResponse:
 @dataclass
 class ListDomainsResponse:
     """
-    List domains response
+    List domains response.
     """
 
     domains: List[Domain]
@@ -301,7 +300,7 @@ class ListDomainsResponse:
 @dataclass
 class ListLogsResponse:
     """
-    List logs response
+    List logs response.
     """
 
     logs: List[Log]
@@ -312,7 +311,7 @@ class ListLogsResponse:
 @dataclass
 class ListNamespacesResponse:
     """
-    List namespaces response
+    List namespaces response.
     """
 
     namespaces: List[Namespace]
@@ -330,7 +329,7 @@ class ListTokensResponse:
 @dataclass
 class Log:
     """
-    Log
+    Log.
     """
 
     message: str
@@ -341,24 +340,24 @@ class Log:
 
     level: str
     """
-    Contains the severity of the log (info, debug, error, ...)
+    Contains the severity of the log (info, debug, error, ...).
     """
 
     source: str
     """
-    Source of the log (core runtime or user code)
+    Source of the log (core runtime or user code).
     """
 
     stream: LogStream
     """
-    Can be stdout or stderr
+    Can be stdout or stderr.
     """
 
 
 @dataclass
 class Namespace:
     """
-    Namespace
+    Namespace.
     """
 
     id: str
@@ -403,7 +402,7 @@ class SecretHashedValue:
 @dataclass
 class Token:
     """
-    Token
+    Token.
     """
 
     id: str
@@ -436,7 +435,7 @@ class Token:
 class ListNamespacesRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     page: Optional[int]
@@ -456,7 +455,7 @@ class ListNamespacesRequest:
 class GetNamespaceRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     namespace_id: str
@@ -466,7 +465,7 @@ class GetNamespaceRequest:
 class CreateNamespaceRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     name: Optional[str]
@@ -484,7 +483,7 @@ class CreateNamespaceRequest:
 class UpdateNamespaceRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     namespace_id: str
@@ -500,7 +499,7 @@ class UpdateNamespaceRequest:
 class DeleteNamespaceRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     namespace_id: str
@@ -510,7 +509,7 @@ class DeleteNamespaceRequest:
 class ListContainersRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     page: Optional[int]
@@ -532,7 +531,7 @@ class ListContainersRequest:
 class GetContainerRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     container_id: str
@@ -542,7 +541,7 @@ class GetContainerRequest:
 class CreateContainerRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     namespace_id: str
@@ -575,10 +574,9 @@ class CreateContainerRequest:
 
     http_option: ContainerHttpOption
     """
-    possible values:
+    Possible values:
      - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
      - enabled: Serve both HTTP and HTTPS traffic.
-    
     """
 
 
@@ -586,7 +584,7 @@ class CreateContainerRequest:
 class UpdateContainerRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     container_id: str
@@ -619,10 +617,9 @@ class UpdateContainerRequest:
 
     http_option: ContainerHttpOption
     """
-    possible values:
+    Possible values:
      - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
      - enabled: Serve both HTTP and HTTPS traffic.
-    
     """
 
 
@@ -630,7 +627,7 @@ class UpdateContainerRequest:
 class DeleteContainerRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     container_id: str
@@ -640,7 +637,7 @@ class DeleteContainerRequest:
 class DeployContainerRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     container_id: str
@@ -650,7 +647,7 @@ class DeployContainerRequest:
 class ListCronsRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     page: Optional[int]
@@ -666,7 +663,7 @@ class ListCronsRequest:
 class GetCronRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     cron_id: str
@@ -676,7 +673,7 @@ class GetCronRequest:
 class CreateCronRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     container_id: str
@@ -692,7 +689,7 @@ class CreateCronRequest:
 class UpdateCronRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     cron_id: str
@@ -710,7 +707,7 @@ class UpdateCronRequest:
 class DeleteCronRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     cron_id: str
@@ -720,7 +717,7 @@ class DeleteCronRequest:
 class ListLogsRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     container_id: str
@@ -736,7 +733,7 @@ class ListLogsRequest:
 class ListDomainsRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     page: Optional[int]
@@ -752,7 +749,7 @@ class ListDomainsRequest:
 class GetDomainRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     domain_id: str
@@ -762,7 +759,7 @@ class GetDomainRequest:
 class CreateDomainRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     hostname: str
@@ -774,7 +771,7 @@ class CreateDomainRequest:
 class DeleteDomainRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     domain_id: str
@@ -784,7 +781,7 @@ class DeleteDomainRequest:
 class IssueJWTRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     container_id: Optional[str]
@@ -804,7 +801,7 @@ class IssueJWTRequest:
 class CreateTokenRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     container_id: Optional[str]
@@ -826,7 +823,7 @@ class CreateTokenRequest:
 class GetTokenRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     token_id: str
@@ -836,7 +833,7 @@ class GetTokenRequest:
 class ListTokensRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     page: Optional[int]
@@ -854,7 +851,7 @@ class ListTokensRequest:
 class DeleteTokenRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     token_id: str

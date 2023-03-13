@@ -99,7 +99,7 @@ class ContainerV1Beta1API(API):
     ) -> ListNamespacesResponse:
         """
         List all your namespaces
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
         :param order_by:
@@ -148,7 +148,7 @@ class ContainerV1Beta1API(API):
     ) -> List[Namespace]:
         """
         List all your namespaces
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
         :param order_by:
@@ -186,7 +186,7 @@ class ContainerV1Beta1API(API):
     ) -> Namespace:
         """
         Get the namespace associated with the given id.
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param namespace_id:
         :return: :class:`Namespace <Namespace>`
 
@@ -220,7 +220,7 @@ class ContainerV1Beta1API(API):
     ) -> Namespace:
         """
         Waits for :class:`Namespace <Namespace>` to be in a final state.
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param namespace_id:
         :param options: The options for the waiter
         :return: :class:`Namespace <Namespace>`
@@ -258,7 +258,7 @@ class ContainerV1Beta1API(API):
     ) -> Namespace:
         """
         Create a new namespace
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param name:
         :param environment_variables:
         :param project_id:
@@ -306,7 +306,7 @@ class ContainerV1Beta1API(API):
     ) -> Namespace:
         """
         Update the space associated with the given id.
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param namespace_id:
         :param environment_variables:
         :param description:
@@ -350,7 +350,7 @@ class ContainerV1Beta1API(API):
     ) -> Namespace:
         """
         Delete the namespace associated with the given id.
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param namespace_id:
         :return: :class:`Namespace <Namespace>`
 
@@ -387,7 +387,7 @@ class ContainerV1Beta1API(API):
     ) -> ListContainersResponse:
         """
         List all your containers
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
         :param order_by:
@@ -439,7 +439,7 @@ class ContainerV1Beta1API(API):
     ) -> List[Container]:
         """
         List all your containers
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
         :param order_by:
@@ -479,7 +479,7 @@ class ContainerV1Beta1API(API):
     ) -> Container:
         """
         Get the container associated with the given id.
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param container_id:
         :return: :class:`Container <Container>`
 
@@ -513,7 +513,7 @@ class ContainerV1Beta1API(API):
     ) -> Container:
         """
         Waits for :class:`Container <Container>` to be in a final state.
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param container_id:
         :param options: The options for the waiter
         :return: :class:`Container <Container>`
@@ -561,7 +561,7 @@ class ContainerV1Beta1API(API):
     ) -> Container:
         """
         Create a new container
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param namespace_id:
         :param name:
         :param environment_variables:
@@ -576,10 +576,9 @@ class ContainerV1Beta1API(API):
         :param protocol:
         :param port:
         :param secret_environment_variables:
-        :param http_option: possible values:
+        :param http_option: Possible values:
          - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
          - enabled: Serve both HTTP and HTTPS traffic.
-
         :return: :class:`Container <Container>`
 
         Usage:
@@ -648,7 +647,7 @@ class ContainerV1Beta1API(API):
     ) -> Container:
         """
         Update the container associated with the given id.
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param container_id:
         :param environment_variables:
         :param min_scale:
@@ -663,10 +662,9 @@ class ContainerV1Beta1API(API):
         :param protocol:
         :param port:
         :param secret_environment_variables:
-        :param http_option: possible values:
+        :param http_option: Possible values:
          - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
          - enabled: Serve both HTTP and HTTPS traffic.
-
         :return: :class:`Container <Container>`
 
         Usage:
@@ -722,7 +720,7 @@ class ContainerV1Beta1API(API):
     ) -> Container:
         """
         Delete the container associated with the given id.
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param container_id:
         :return: :class:`Container <Container>`
 
@@ -753,7 +751,7 @@ class ContainerV1Beta1API(API):
     ) -> Container:
         """
         Deploy a container associated with the given id.
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param container_id:
         :return: :class:`Container <Container>`
 
@@ -787,7 +785,7 @@ class ContainerV1Beta1API(API):
     ) -> ListCronsResponse:
         """
         List all your crons
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
         :param order_by:
@@ -829,7 +827,7 @@ class ContainerV1Beta1API(API):
     ) -> List[Cron]:
         """
         List all your crons
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
         :param order_by:
@@ -863,7 +861,7 @@ class ContainerV1Beta1API(API):
     ) -> Cron:
         """
         Get the cron associated with the given id.
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param cron_id:
         :return: :class:`Cron <Cron>`
 
@@ -895,7 +893,7 @@ class ContainerV1Beta1API(API):
     ) -> Cron:
         """
         Waits for :class:`Cron <Cron>` to be in a final state.
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param cron_id:
         :param options: The options for the waiter
         :return: :class:`Cron <Cron>`
@@ -932,7 +930,7 @@ class ContainerV1Beta1API(API):
     ) -> Cron:
         """
         Create a new cron
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param container_id:
         :param schedule:
         :param args:
@@ -982,7 +980,7 @@ class ContainerV1Beta1API(API):
     ) -> Cron:
         """
         Update the cron associated with the given id.
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param cron_id:
         :param container_id:
         :param schedule:
@@ -1028,7 +1026,7 @@ class ContainerV1Beta1API(API):
     ) -> Cron:
         """
         Delete the cron associated with the given id.
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param cron_id:
         :return: :class:`Cron <Cron>`
 
@@ -1062,7 +1060,7 @@ class ContainerV1Beta1API(API):
     ) -> ListLogsResponse:
         """
         List your container logs
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param container_id:
         :param page:
         :param page_size:
@@ -1104,7 +1102,7 @@ class ContainerV1Beta1API(API):
     ) -> List[Log]:
         """
         List your container logs
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param container_id:
         :param page:
         :param page_size:
@@ -1141,7 +1139,7 @@ class ContainerV1Beta1API(API):
     ) -> ListDomainsResponse:
         """
         List all domain name bindings
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
         :param order_by:
@@ -1183,7 +1181,7 @@ class ContainerV1Beta1API(API):
     ) -> List[Domain]:
         """
         List all domain name bindings
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
         :param order_by:
@@ -1217,7 +1215,7 @@ class ContainerV1Beta1API(API):
     ) -> Domain:
         """
         Get a domain name binding
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param domain_id:
         :return: :class:`Domain <Domain>`
 
@@ -1249,7 +1247,7 @@ class ContainerV1Beta1API(API):
     ) -> Domain:
         """
         Waits for :class:`Domain <Domain>` to be in a final state.
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param domain_id:
         :param options: The options for the waiter
         :return: :class:`Domain <Domain>`
@@ -1284,7 +1282,7 @@ class ContainerV1Beta1API(API):
     ) -> Domain:
         """
         Create a domain name binding
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param hostname:
         :param container_id:
         :return: :class:`Domain <Domain>`
@@ -1326,7 +1324,7 @@ class ContainerV1Beta1API(API):
     ) -> Domain:
         """
         Delete a domain name binding
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param domain_id:
         :return: :class:`Domain <Domain>`
 
@@ -1398,7 +1396,7 @@ class ContainerV1Beta1API(API):
     ) -> Token:
         """
         Create a new revocable token
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param container_id: One-of ('scope'): at most one of 'container_id', 'namespace_id' could be set.
         :param namespace_id: One-of ('scope'): at most one of 'container_id', 'namespace_id' could be set.
         :param description:
@@ -1441,7 +1439,7 @@ class ContainerV1Beta1API(API):
     ) -> Token:
         """
         Get a token
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param token_id:
         :return: :class:`Token <Token>`
 
@@ -1473,7 +1471,7 @@ class ContainerV1Beta1API(API):
     ) -> Token:
         """
         Waits for :class:`Token <Token>` to be in a final state.
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param token_id:
         :param options: The options for the waiter
         :return: :class:`Token <Token>`
@@ -1511,7 +1509,7 @@ class ContainerV1Beta1API(API):
     ) -> ListTokensResponse:
         """
         List all tokens
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
         :param order_by:
@@ -1556,7 +1554,7 @@ class ContainerV1Beta1API(API):
     ) -> List[Token]:
         """
         List all tokens
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
         :param order_by:
@@ -1592,7 +1590,7 @@ class ContainerV1Beta1API(API):
     ) -> Token:
         """
         Delete a token
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param token_id:
         :return: :class:`Token <Token>`
 
