@@ -14,10 +14,10 @@ from scaleway_core.bridge import (
 class _GetClusterKubeConfigRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     cluster_id: str
     """
-    The ID of the cluster to download the kubeconfig from
+    ID of the cluster to download the kubeconfig from.
     """
