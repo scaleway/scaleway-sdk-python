@@ -232,14 +232,7 @@ class Protocol(str, Enum):
 
 class ProxyProtocol(str, Enum):
     """
-    The PROXY protocol informs the other end about the incoming connection, so that it can know the client's address or the public address it accessed to, whatever the upper layer protocol.
-
-    * `proxy_protocol_none` Disable proxy protocol.
-    * `proxy_protocol_v1` Version one (text format).
-    * `proxy_protocol_v2` Version two (binary format).
-    * `proxy_protocol_v2_ssl` Version two with SSL connection.
-    * `proxy_protocol_v2_ssl_cn` Version two with SSL connection and common name information.
-
+    PROXY protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. PROXY protocol must be supported by the backend servers' software. For more information on the different protocols available, see the [dedicated documentation](https://www.scaleway.com/en/docs/network/load-balancer/reference-content/configuring-load-balancer/#choosing-a-proxy-protocol).
     """
 
     PROXY_PROTOCOL_UNKNOWN = "proxy_protocol_unknown"
@@ -275,618 +268,609 @@ class StickySessionsType(str, Enum):
 @dataclass
 class Acl:
     """
-    The use of Access Control Lists (ACL) provide a flexible solution to perform a action generally consist in blocking or allow a request based on ip (and URL on HTTP)
+    Acl.
     """
 
     id: str
     """
-    ID of your ACL ressource
+    ACL ID.
     """
 
     name: str
     """
-    Name of you ACL ressource
+    ACL name.
     """
 
     match: Optional[AclMatch]
     """
-    The ACL match rule. At least `ip_subnet` or `http_filter` and `http_filter_value` are required
+    ACL match filter object. One of `ip_subnet` or `http_filter` & `http_filter_value` are required.
     """
 
     action: Optional[AclAction]
     """
-    Action to undertake when an ACL filter matches
+    Action to take when incoming traffic matches an ACL filter.
     """
 
     frontend: Optional[Frontend]
     """
-    See the Frontend object description
+    ACL is attached to this frontend object.
     """
 
     index: int
     """
-    Order between your Acls (ascending order, 0 is first acl executed)
+    Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
     """
 
     created_at: Optional[datetime]
     """
-    Date at which the ACL was created
+    Date on which the ACL was created.
     """
 
     updated_at: Optional[datetime]
     """
-    Date at which the ACL was last updated
+    Date on which the ACL was last updated.
     """
 
     description: str
     """
-    Description of your ACL ressource
+    ACL description.
     """
 
 
 @dataclass
 class AclAction:
     """
-    Acl action
+    Acl action.
     """
 
     type_: AclActionType
     """
-    The action type
+    Action to take when incoming traffic matches an ACL filter.
     """
 
     redirect: Optional[AclActionRedirect]
     """
-    Redirect parameters when using an ACL with `redirect` action
+    Redirection parameters when using an ACL with a `redirect` action.
     """
 
 
 @dataclass
 class AclActionRedirect:
     """
-    Acl action redirect
+    Acl action redirect.
     """
 
     type_: AclActionRedirectRedirectType
     """
-    Redirect type
+    Redirect type.
     """
 
     target: str
     """
-    An URL can be used in case of a location redirect (e.g. `https://scaleway.com` will redirect to this same URL).
-    A scheme name (e.g. `https`, `http`, `ftp`, `git`) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects.
-    Placeholders can be used when using a `location` redirect in order to insert original request's parts, these are:
-    - `{{ host }}` for the current request's Host header
-    - `{{ query }}` for the current request's query string
-    - `{{ path }}` for the current request's URL path
-    - `{{ scheme }}` for the current request's scheme
-    
+    Redirect target. For a location redirect, you can use a URL e.g. `https://scaleway.com`. Using a scheme name (e.g. `https`, `http`, `ftp`, `git`) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a `location` redirect to preserve parts of the original request in the redirection URL are {{ host }}, {{ query }}, {{ path }} and {{ scheme }}.
     """
 
     code: Optional[int]
     """
-    HTTP redirect code to use. Valid values are 301, 302, 303, 307 and 308. Default value is 302
+    HTTP redirect code to use. Valid values are 301, 302, 303, 307 and 308. Default value is 302.
     """
 
 
 @dataclass
 class AclMatch:
     """
-    Acl match
+    Acl match.
     """
 
     ip_subnet: List[str]
     """
-    A list of IPs or CIDR v4/v6 addresses of the client of the session to match
+    List of IPs or CIDR v4/v6 addresses to filter for from the client side.
     """
 
     http_filter: AclHttpFilter
     """
-    The HTTP filter to match. This filter is supported only if your backend supports HTTP forwarding.
-    It extracts the request's URL path, which starts at the first slash and ends before the question mark (without the host part).
-    
+    Type of HTTP filter to match. Extracts the request's URL path, which starts at the first slash and ends before the question mark (without the host part). Defines where to filter for the http_filter_value. Only supported for HTTP backends.
     """
 
     http_filter_value: List[str]
     """
-    A list of possible values to match for the given HTTP filter
+    List of values to filter for.
     """
 
     http_filter_option: Optional[str]
     """
-    A exra parameter. You can use this field with http_header_match acl type to set the header name to filter
+    Name of the HTTP header to filter on if `http_header_match` was selected in `http_filter`.
     """
 
     invert: bool
     """
-    If set to `true`, the ACL matching condition will be of type "UNLESS"
+    Defines whether to invert the match condition. If set to `true`, the ACL carries out its action when the condition DOES NOT match.
     """
 
 
 @dataclass
 class AclSpec:
     """
-    Acl spec
+    Acl spec.
     """
 
     name: str
     """
-    Name of your ACL resource
+    ACL name.
     """
 
     action: AclAction
     """
-    Action to undertake when an ACL filter matches
+    Action to take when incoming traffic matches an ACL filter.
     """
 
     match: Optional[AclMatch]
     """
-    The ACL match rule. At least `ip_subnet` or `http_filter` and `http_filter_value` are required
+    ACL match filter object. One of `ip_subnet` or `http_filter` and `http_filter_value` are required.
     """
 
     index: int
     """
-    Order between your Acls (ascending order, 0 is first acl executed)
+    Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
     """
 
     description: str
     """
-    Description of your ACL ressource
+    ACL description.
     """
 
 
 @dataclass
 class Backend:
     """
-    Backend
+    Backend.
     """
 
     id: str
     """
-    Load balancer Backend ID
+    Backend ID.
     """
 
     name: str
     """
-    Load balancer Backend name
+    Name of the backend.
     """
 
     forward_protocol: Protocol
     """
-    Type of backend protocol
+    Protocol used by the backend when forwarding traffic to backend servers.
     """
 
     forward_port: int
     """
-    User sessions will be forwarded to this port of backend servers
+    Port used by the backend when forwarding traffic to backend servers.
     """
 
     forward_port_algorithm: ForwardPortAlgorithm
     """
-    Load balancer algorithm used to select the backend server
+    Load balancing algorithm to use when determining which backend server to forward new traffic to.
     """
 
     sticky_sessions: StickySessionsType
     """
-    Enables cookie-based session persistence
+    Defines whether sticky sessions (binding a particular session to a particular backend server) are activated and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie to stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server.
     """
 
     sticky_sessions_cookie_name: str
     """
-    Cookie name for sticky sessions
+    Cookie name for cookie-based sticky sessions.
     """
 
     health_check: Optional[HealthCheck]
     """
-    Health Check used to verify backend servers status
+    Object defining the health check to be carried out by the backend when checking the status and health of backend servers.
     """
 
     pool: List[str]
     """
-    Servers IP addresses attached to the backend
+    List of IP addresses of backend servers attached to this backend.
     """
 
     lb: Optional[Lb]
     """
-    Load balancer the backend is attached to
+    Load Balancer the backend is attached to.
     """
 
     send_proxy_v2: Optional[bool]
     """
-    Deprecated in favor of proxy_protocol field
+    Deprecated in favor of proxy_protocol field.
     :deprecated
     """
 
     timeout_server: Optional[str]
     """
-    Maximum server connection inactivity time (allowed time the server has to process the request)
+    Maximum allowed time for a backend server to process a request.
     """
 
     timeout_connect: Optional[str]
     """
-    Maximum initial server connection establishment time
+    Maximum allowed time for establishing a connection to a backend server.
     """
 
     timeout_tunnel: Optional[str]
     """
-    Maximum tunnel inactivity time after Websocket is established (take precedence over client and server timeout)
+    Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout).
     """
 
     on_marked_down_action: OnMarkedDownAction
     """
-    Defines what occurs when a backend server is marked down
+    Action to take when a backend server is marked as down.
     """
 
     proxy_protocol: ProxyProtocol
     """
-    PROXY protocol, forward client's address (must be supported by backend servers software)
+    Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software.
     """
 
     created_at: Optional[datetime]
     """
-    Date at which the backend was created
+    Date at which the backend was created.
     """
 
     updated_at: Optional[datetime]
     """
-    Date at which the backend was updated
+    Date at which the backend was updated.
     """
 
     failover_host: Optional[str]
     """
-    Scaleway S3 bucket website to be served in case all backend servers are down
+    Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
     """
 
     ssl_bridging: Optional[bool]
     """
-    Enable SSL between load balancer and backend servers
+    Defines whether to enable SSL bridging between the Load Balancer and backend servers.
     """
 
     ignore_ssl_server_verify: Optional[bool]
     """
-    Whether or not the server certificate should be verified
+    Defines whether the server certificate verification should be ignored.
     """
 
 
 @dataclass
 class BackendServerStats:
     """
-    State and statistics of your backend server like last health check status, server uptime, result state of your backend server
+    Backend server stats.
     """
 
     instance_id: str
     """
-    ID of your Load balancer cluster server
+    ID of your Load Balancer's underlying Instance.
     """
 
     backend_id: str
     """
-    ID of your Backend
+    Backend ID.
     """
 
     ip: str
     """
-    IPv4 or IPv6 address of the server backend
+    IPv4 or IPv6 address of the backend server.
     """
 
     server_state: BackendServerStatsServerState
     """
-    Server operational state (stopped/starting/running/stopping)
+    Server operational state (stopped/starting/running/stopping).
     """
 
     server_state_changed_at: Optional[datetime]
     """
-    Time since last operational change
+    Time since last operational change.
     """
 
     last_health_check_status: BackendServerStatsHealthCheckStatus
     """
-    Last health check status (unknown/neutral/failed/passed/condpass)
+    Last health check status (unknown/neutral/failed/passed/condpass).
     """
 
 
 @dataclass
 class Certificate:
     """
-    SSL certificate
+    Certificate.
     """
 
     type_: CertificateType
     """
-    Type of certificate (Let's encrypt or custom)
+    Certificate type (Let's Encrypt or custom).
     """
 
     id: str
     """
-    Certificate ID
+    Certificate ID.
     """
 
     common_name: str
     """
-    Main domain name of certificate
+    Main domain name of certificate.
     """
 
     subject_alternative_name: List[str]
     """
-    Alternative domain names
+    Alternative domain names.
     """
 
     fingerprint: str
     """
-    Identifier (SHA-1) of the certificate
+    Identifier (SHA-1) of the certificate.
     """
 
     not_valid_before: Optional[datetime]
     """
-    Validity bounds
+    Lower validity bound.
     """
 
     not_valid_after: Optional[datetime]
     """
-    Validity bounds
+    Upper validity bound.
     """
 
     status: CertificateStatus
     """
-    Status of certificate
+    Certificate status.
     """
 
     lb: Optional[Lb]
     """
-    Load balancer object
+    Load Balancer object the certificate is attached to.
     """
 
     name: str
     """
-    Certificate name
+    Certificate name.
     """
 
     created_at: Optional[datetime]
     """
-    Date at which the certificate was created
+    Date on which the certificate was created.
     """
 
     updated_at: Optional[datetime]
     """
-    Date at which the certificate was last updated
+    Date on which the certificate was last updated.
     """
 
     status_details: Optional[str]
     """
-    Additional information on the status (e.g. in case of certificate generation failure)
+    Additional information about the certificate status (useful in case of certificate generation failure, for example).
     """
 
 
 @dataclass
 class CreateCertificateRequestCustomCertificate:
     """
-    Import a custom SSL certificate
+    Create certificate request. custom certificate.
     """
 
     certificate_chain: str
     """
-    The full PEM-formatted include an entire certificate chain including public key, private key, and optionally certificate authorities.
+    Full PEM-formatted certificate, consisting of the entire certificate chain including public key, private key, and (optionally) Certificate Authorities.
     """
 
 
 @dataclass
 class CreateCertificateRequestLetsencryptConfig:
     """
-    Generate a new SSL certificate using Let's Encrypt.
+    Create certificate request. letsencrypt config.
     """
 
     common_name: str
     """
-    Main domain name of certificate (make sure this domain exists and resolves to your load balancer HA IP)
+    Main domain name of certificate (this domain must exist and resolve to your Load Balancer IP address).
     """
 
     subject_alternative_name: List[str]
     """
-    Alternative domain names (make sure all domain names exists and resolves to your load balancer HA IP)
+    Alternative domain names (all domain names must exist and resolve to your Load Balancer IP address).
     """
 
 
 @dataclass
 class Frontend:
     """
-    Frontend
+    Frontend.
     """
 
     id: str
     """
-    Load balancer Frontend ID
+    Frontend ID.
     """
 
     name: str
     """
-    Load balancer Frontend name
+    Name of the frontend.
     """
 
     inbound_port: int
     """
-    TCP port to listen on the front side
+    Port the frontend listens on.
     """
 
     backend: Optional[Backend]
     """
-    Backend resource the Frontend is attached to
+    Backend object the frontend is attached to.
     """
 
     lb: Optional[Lb]
     """
-    Load balancer the frontend is attached to
+    Load Balancer object the frontend is attached to.
     """
 
     timeout_client: Optional[str]
     """
-    Maximum inactivity time on the client side
+    Maximum allowed inactivity time on the client side.
     """
 
     certificate: Optional[Certificate]
     """
-    Certificate, deprecated in favor of certificate_ids array
+    Certificate, deprecated in favor of certificate_ids array.
     :deprecated
     """
 
     certificate_ids: List[str]
     """
-    List of certificate IDs to bind on the frontend
+    List of SSL/TLS certificate IDs to bind to the frontend.
     """
 
     created_at: Optional[datetime]
     """
-    Date at which the frontend was created
+    Date on which the frontend was created.
     """
 
     updated_at: Optional[datetime]
     """
-    Date at which the frontend was updated
+    Date on which the frontend was last updated.
     """
 
     enable_http3: bool
     """
-    Whether or not HTTP3 protocol is enabled
+    Defines whether to enable HTTP/3 protocol on the frontend.
     """
 
 
 @dataclass
 class HealthCheck:
     """
-    Health check
+    Health check.
     """
 
     mysql_config: Optional[HealthCheckMysqlConfig]
     """
-    The check requires MySQL >=3.22, for older versions, use TCP check.
+    Object to configure a MySQL health check. The check requires MySQL >=3.22, for older versions, use a TCP health check.
     
     One-of ('config'): at most one of 'mysql_config', 'ldap_config', 'redis_config', 'tcp_config', 'pgsql_config', 'http_config', 'https_config' could be set.
     """
 
     ldap_config: Optional[HealthCheckLdapConfig]
     """
-    The response is analyzed to find an LDAPv3 response message.
+    Object to configure an LDAP health check. The response is analyzed to find the LDAPv3 response message.
     
     One-of ('config'): at most one of 'mysql_config', 'ldap_config', 'redis_config', 'tcp_config', 'pgsql_config', 'http_config', 'https_config' could be set.
     """
 
     redis_config: Optional[HealthCheckRedisConfig]
     """
-    The response is analyzed to find the +PONG response message.
+    Object to configure a Redis health check. The response is analyzed to find the +PONG response message.
     
     One-of ('config'): at most one of 'mysql_config', 'ldap_config', 'redis_config', 'tcp_config', 'pgsql_config', 'http_config', 'https_config' could be set.
     """
 
     check_max_retries: int
     """
-    Number of consecutive unsuccessful health checks, after which the server will be considered dead
+    Number of consecutive unsuccessful health checks after which the server will be considered dead.
     """
 
     tcp_config: Optional[HealthCheckTcpConfig]
     """
-    Basic TCP health check.
+    Object to configure a basic TCP health check.
     
     One-of ('config'): at most one of 'mysql_config', 'ldap_config', 'redis_config', 'tcp_config', 'pgsql_config', 'http_config', 'https_config' could be set.
     """
 
     pgsql_config: Optional[HealthCheckPgsqlConfig]
     """
-    PostgreSQL health check.
+    Object to configure a PostgreSQL health check.
     
     One-of ('config'): at most one of 'mysql_config', 'ldap_config', 'redis_config', 'tcp_config', 'pgsql_config', 'http_config', 'https_config' could be set.
     """
 
     http_config: Optional[HealthCheckHttpConfig]
     """
-    HTTP health check.
+    Object to configure an HTTP health check.
     
     One-of ('config'): at most one of 'mysql_config', 'ldap_config', 'redis_config', 'tcp_config', 'pgsql_config', 'http_config', 'https_config' could be set.
     """
 
     https_config: Optional[HealthCheckHttpsConfig]
     """
-    HTTPS health check.
+    Object to configure an HTTPS health check.
     
     One-of ('config'): at most one of 'mysql_config', 'ldap_config', 'redis_config', 'tcp_config', 'pgsql_config', 'http_config', 'https_config' could be set.
     """
 
     port: int
     """
-    TCP port to use for the backend server health check
+    Port to use for the backend server health check.
     """
 
     check_timeout: Optional[str]
     """
-    Maximum time a backend server has to reply to the health check
+    Maximum time a backend server has to reply to the health check.
     """
 
     check_delay: Optional[str]
     """
-    Time between two consecutive health checks
+    Time to wait between two consecutive health checks.
     """
 
     check_send_proxy: bool
     """
-    It defines whether the health check should be done considering the proxy protocol
+    Defines whether proxy protocol should be activated for the health check.
     """
 
 
 @dataclass
 class HealthCheckHttpConfig:
     """
-    Health check. http config
+    Health check. http config.
     """
 
     uri: str
     """
-    HTTP uri used for Healthcheck to the backend servers
+    The HTTP URI to use when performing a health check on backend servers.
     """
 
     method: str
     """
-    HTTP method used for Healthcheck to the backend servers
+    The HTTP method used when performing a health check on backend servers.
     """
 
     code: Optional[int]
     """
-    A health check response will be considered as valid if the response's status code match
+    The HTTP response code that should be returned for a health check to be considered successful.
     """
 
     host_header: str
     """
-    HTTP host header used with the request
+    The HTTP host header used when performing a health check on backend servers.
     """
 
 
 @dataclass
 class HealthCheckHttpsConfig:
     """
-    Health check. https config
+    Health check. https config.
     """
 
     uri: str
     """
-    HTTP uri used for Healthcheck to the backend servers
+    The HTTP URI to use when performing a health check on backend servers.
     """
 
     method: str
     """
-    HTTP method used for Healthcheck to the backend servers
+    The HTTP method used when performing a health check on backend servers.
     """
 
     code: Optional[int]
     """
-    A health check response will be considered as valid if the response's status code match
+    The HTTP response code that should be returned for a health check to be considered successful.
     """
 
     host_header: str
     """
-    HTTP host header used with the request
+    The HTTP host header used when performing a health check on backend servers.
     """
 
     sni: str
     """
-    Specifies the SNI to use to do health checks over SSL
+    The SNI value used when performing a health check on backend servers over SSL.
     """
 
 
@@ -918,211 +902,211 @@ class HealthCheckTcpConfig:
 @dataclass
 class Instance:
     """
-    Instance
+    Instance.
     """
 
     id: str
     """
-    Underlying Instance ID
+    Underlying Instance ID.
     """
 
     status: InstanceStatus
     """
-    Instance status
+    Instance status.
     """
 
     ip_address: str
     """
-    Instance IP address
+    Instance IP address.
     """
 
     created_at: Optional[datetime]
     """
-    Date at which the Instance was created
+    Date on which the Instance was created.
     """
 
     updated_at: Optional[datetime]
     """
-    Date at which the Instance was updated
+    Date on which the Instance was last updated.
     """
 
     region: Optional[Region]
     """
-    The region the instance is in
+    The region the Instance is in.
     :deprecated
     """
 
     zone: Zone
     """
-    The zone the instance is in
+    The zone the Instance is in.
     """
 
 
 @dataclass
 class Ip:
     """
-    Ip
+    Ip.
     """
 
     id: str
     """
-    Flexible IP ID
+    IP address ID.
     """
 
     ip_address: str
     """
-    IP address
+    IP address.
     """
 
     organization_id: str
     """
-    Organization ID
+    Organization ID of the Scaleway Organization the IP address is in.
     """
 
     project_id: str
     """
-    Project ID
+    Project ID of the Scaleway Project the IP address is in.
     """
 
     lb_id: Optional[str]
     """
-    Load balancer ID
+    Load Balancer ID.
     """
 
     reverse: str
     """
-    Reverse FQDN
+    Reverse DNS (domain name) of the IP address.
     """
 
     region: Optional[Region]
     """
-    The region the Flexible IP is in
+    The region the IP address is in.
     :deprecated
     """
 
     zone: Zone
     """
-    The zone the Flexible IP is in
+    The zone the IP address is in.
     """
 
 
 @dataclass
 class Lb:
     """
-    Lb
+    Lb.
     """
 
     id: str
     """
-    Underlying Instance ID
+    Underlying Instance ID.
     """
 
     name: str
     """
-    Load balancer name
+    Load Balancer name.
     """
 
     description: str
     """
-    Load balancer description
+    Load Balancer description.
     """
 
     status: LbStatus
     """
-    Load balancer status
+    Load Balancer status.
     """
 
     instances: List[Instance]
     """
-    List of underlying instances
+    List of underlying Instances.
     """
 
     organization_id: str
     """
-    Organization ID
+    Scaleway Organization ID.
     """
 
     project_id: str
     """
-    Project ID
+    Scaleway Project ID.
     """
 
     ip: List[Ip]
     """
-    List of IPs attached to the Load balancer
+    List of IP addresses attached to the Load Balancer.
     """
 
     tags: List[str]
     """
-    Load balancer tags
+    Load Balancer tags.
     """
 
     frontend_count: int
     """
-    Number of frontends the Load balancer has
+    Number of frontends the Load Balancer has.
     """
 
     backend_count: int
     """
-    Number of backends the Load balancer has
+    Number of backends the Load Balancer has.
     """
 
     type_: str
     """
-    Load balancer offer type
+    Load Balancer offer type.
     """
 
     subscriber: Optional[Subscriber]
     """
-    Subscriber information
+    Subscriber information.
     """
 
     ssl_compatibility_level: SSLCompatibilityLevel
     """
-    Determines the minimal SSL version which needs to be supported on client side
+    Determines the minimal SSL version which needs to be supported on client side.
     """
 
     created_at: Optional[datetime]
     """
-    Date at which the Load balancer was created
+    Date on which the Load Balancer was created.
     """
 
     updated_at: Optional[datetime]
     """
-    Date at which the Load balancer was updated
+    Date on which the Load Balancer was last updated.
     """
 
     private_network_count: int
     """
-    Number of private networks attached to the Load balancer
+    Number of Private Networks attached to the Load Balancer.
     """
 
     route_count: int
     """
-    Number of routes the Load balancer has
+    Number of routes configured on the Load Balancer.
     """
 
     region: Optional[Region]
     """
-    The region the Load balancer is in
+    The region the Load Balancer is in.
     :deprecated
     """
 
     zone: Zone
     """
-    The zone the Load balancer is in
+    The zone the Load Balancer is in.
     """
 
 
 @dataclass
 class LbStats:
     """
-    Lb stats
+    Lb stats.
     """
 
     backend_servers_stats: List[BackendServerStats]
     """
-    List stats object of your Load balancer
+    List of objects containing Load Balancer statistics.
     """
 
 
@@ -1145,240 +1129,240 @@ class LbType:
 @dataclass
 class ListAclResponse:
     """
-    List acl response
+    List acl response.
     """
 
     acls: List[Acl]
     """
-    List of Acl object (see Acl object description)
+    List of ACL objects.
     """
 
     total_count: int
     """
-    The total number of items
+    The total number of objects.
     """
 
 
 @dataclass
 class ListBackendStatsResponse:
     """
-    List backend stats response
+    List backend stats response.
     """
 
     backend_servers_stats: List[BackendServerStats]
     """
-    List backend stats object of your Load balancer
+    List of objects containing backend server statistics.
     """
 
     total_count: int
     """
-    The total number of items
+    The total number of objects.
     """
 
 
 @dataclass
 class ListBackendsResponse:
     """
-    List backends response
+    List backends response.
     """
 
     backends: List[Backend]
     """
-    List Backend objects of a load balancer
+    List of backend objects of a given Load Balancer.
     """
 
     total_count: int
     """
-    Total count, wihtout pagination
+    Total count of backend objects, without pagination.
     """
 
 
 @dataclass
 class ListCertificatesResponse:
     """
-    List certificates response
+    List certificates response.
     """
 
     certificates: List[Certificate]
     """
-    List of certificates
+    List of certificate objects.
     """
 
     total_count: int
     """
-    The total number of items
+    The total number of objects.
     """
 
 
 @dataclass
 class ListFrontendsResponse:
     """
-    List frontends response
+    List frontends response.
     """
 
     frontends: List[Frontend]
     """
-    List frontends object of your Load balancer
+    List of frontend objects of a given Load Balancer.
     """
 
     total_count: int
     """
-    Total count, wihtout pagination
+    Total count of frontend objects, without pagination.
     """
 
 
 @dataclass
 class ListIpsResponse:
     """
-    List ips response
+    List ips response.
     """
 
     ips: List[Ip]
     """
-    List IP address object
+    List of IP address objects.
     """
 
     total_count: int
     """
-    Total count, wihtout pagination
+    Total count of IP address objects, without pagination.
     """
 
 
 @dataclass
 class ListLbPrivateNetworksResponse:
     """
-    List lb private networks response
+    List lb private networks response.
     """
 
     private_network: List[PrivateNetwork]
     """
-    Private networks of a given load balancer
+    List of Private Network objects attached to the Load Balancer.
     """
 
     total_count: int
     """
-    The total number of items
+    Total number of objects in the response.
     """
 
 
 @dataclass
 class ListLbTypesResponse:
     """
-    List lb types response
+    List lb types response.
     """
 
     lb_types: List[LbType]
     """
-    Different types of LB
+    List of Load Balancer commercial offer type objects.
     """
 
     total_count: int
     """
-    The total number of items
+    Total number of Load Balancer offer type objects.
     """
 
 
 @dataclass
 class ListLbsResponse:
     """
-    Get list of Load balancers
+    List lbs response.
     """
 
     lbs: List[Lb]
     """
-    List of Load balancer
+    List of Load Balancer objects.
     """
 
     total_count: int
     """
-    The total number of items
+    The total number of Load Balancer objects.
     """
 
 
 @dataclass
 class ListRoutesResponse:
     """
-    List routes response
+    List routes response.
     """
 
     routes: List[Route]
     """
-    List of Routes object
+    List of route objects.
     """
 
     total_count: int
     """
-    The total number of items
+    The total number of route objects.
     """
 
 
 @dataclass
 class ListSubscriberResponse:
     """
-    List subscriber response
+    List subscriber response.
     """
 
     subscribers: List[Subscriber]
     """
-    List of Subscribers object
+    List of subscriber objects.
     """
 
     total_count: int
     """
-    The total number of items
+    The total number of objects.
     """
 
 
 @dataclass
 class PrivateNetwork:
     """
-    Private network
+    Private network.
     """
 
     lb: Optional[Lb]
     """
-    LoadBalancer object
+    Load Balancer object which is attached to the Private Network.
     """
 
     static_config: Optional[PrivateNetworkStaticConfig]
     """
-    Local ip address of load balancer instance.
+    Object containing an array of a local IP address for the Load Balancer on this Private Network.
     
     One-of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
     """
 
     dhcp_config: Optional[PrivateNetworkDHCPConfig]
     """
-    Value set to true if load balancer instance use a DHCP.
+    Defines whether to let DHCP assign IP addresses.
     
     One-of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
     """
 
     ipam_config: Optional[PrivateNetworkIpamConfig]
     """
-    Value set to true if load balancer instance use a DHCP.
+    For internal use only.
     
     One-of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
     """
 
     private_network_id: str
     """
-    Instance private network id
+    Private Network ID.
     """
 
     status: PrivateNetworkStatus
     """
-    Status (running, to create...) of private network connection
+    Status of Private Network connection.
     """
 
     created_at: Optional[datetime]
     """
-    Date at which the PN was created
+    Date on which the Private Network was created.
     """
 
     updated_at: Optional[datetime]
     """
-    Date at which the PN was last updated
+    Date on which the PN was last updated.
     """
 
 
@@ -1400,56 +1384,56 @@ class PrivateNetworkStaticConfig:
 @dataclass
 class Route:
     """
-    Route
+    Route.
     """
 
     id: str
     """
-    Id of match ressource
+    Route ID.
     """
 
     frontend_id: str
     """
-    Id of frontend
+    ID of the source frontend.
     """
 
     backend_id: str
     """
-    Id of backend
+    ID of the target backend.
     """
 
     match: Optional[RouteMatch]
     """
-    Value to match a redirection
+    Object defining the match condition for a route to be applied. If an incoming client session matches the specified condition (i.e. it has a matching SNI value or HTTP Host header value), it will be passed to the target backend.
     """
 
     created_at: Optional[datetime]
     """
-    Date at which the route was created
+    Date on which the route was created.
     """
 
     updated_at: Optional[datetime]
     """
-    Date at which the route was last updated
+    Date on which the route was last updated.
     """
 
 
 @dataclass
 class RouteMatch:
     """
-    Route. match
+    Route. match.
     """
 
     sni: Optional[str]
     """
-    Server Name Indication TLS extension (SNI) field from an incoming connection made via an SSL/TLS transport layer.
+    Value to match in the Server Name Indication TLS extension (SNI) field from an incoming connection made via an SSL/TLS transport layer. This field should be set for routes on TCP Load Balancers.
     
     One-of ('match_type'): at most one of 'sni', 'host_header' could be set.
     """
 
     host_header: Optional[str]
     """
-    The Host request header specifies the host of the server to which the request is being sent.
+    Value to match in the HTTP Host request header from an incoming connection. This field should be set for routes on HTTP Load Balancers.
     
     One-of ('match_type'): at most one of 'sni', 'host_header' could be set.
     """
@@ -1458,34 +1442,34 @@ class RouteMatch:
 @dataclass
 class SetAclsResponse:
     """
-    Set acls response
+    Set acls response.
     """
 
     acls: List[Acl]
     """
-    List of ACLs object (see ACL object description)
+    List of ACL objects.
     """
 
     total_count: int
     """
-    The total number of items
+    The total number of ACL objects.
     """
 
 
 @dataclass
 class Subscriber:
     """
-    Subscriber
+    Subscriber.
     """
 
     id: str
     """
-    Subscriber ID
+    Subscriber ID.
     """
 
     name: str
     """
-    Subscriber name
+    Subscriber name.
     """
 
     email_config: Optional[SubscriberEmailConfig]
@@ -1497,7 +1481,7 @@ class Subscriber:
 
     webhook_config: Optional[SubscriberWebhookConfig]
     """
-    WebHook URI of subscriber.
+    Webhook URI of subscriber.
     
     One-of ('config'): at most one of 'email_config', 'webhook_config' could be set.
     """
@@ -1506,24 +1490,24 @@ class Subscriber:
 @dataclass
 class SubscriberEmailConfig:
     """
-    Email alert of subscriber
+    Subscriber. email config.
     """
 
     email: str
     """
-    Email who receive alert
+    Email address to send alerts to.
     """
 
 
 @dataclass
 class SubscriberWebhookConfig:
     """
-    Webhook alert of subscriber
+    Webhook alert of subscriber.
     """
 
     uri: str
     """
-    URI who receive POST request
+    URI to receive POST requests.
     """
 
 
@@ -1531,37 +1515,37 @@ class SubscriberWebhookConfig:
 class ListLbsRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     name: Optional[str]
     """
-    Use this to search by name
+    Load Balancer name to filter for.
     """
 
     order_by: Optional[ListLbsRequestOrderBy]
     """
-    Response order
+    Sort order of Load Balancers in the response.
     """
 
     page_size: Optional[int]
     """
-    The number of items to return
+    Number of Load Balancers to return.
     """
 
     page: Optional[int]
     """
-    Page number
+    Page number to return, from the paginated results.
     """
 
     organization_id: Optional[str]
     """
-    Filter LBs by organization ID
+    Organization ID to filter for, only Load Balancers from this Organization will be returned.
     """
 
     project_id: Optional[str]
     """
-    Filter LBs by project ID
+    Project ID to filter for, only Load Balancers from this Project will be returned.
     """
 
 
@@ -1569,12 +1553,12 @@ class ListLbsRequest:
 class CreateLbRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     organization_id: Optional[str]
     """
-    Owner of resources.
+    Scaleway Organization to create the Load Balancer in.
     
     One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
     :deprecated
@@ -1582,43 +1566,39 @@ class CreateLbRequest:
 
     project_id: Optional[str]
     """
-    Assign the resource to a project ID.
+    Scaleway Project to create the Load Balancer in.
     
     One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
     """
 
     name: Optional[str]
     """
-    Resource names
+    Name for the Load Balancer.
     """
 
     description: str
     """
-    Resource description
+    Description for the Load Balancer.
     """
 
     ip_id: Optional[str]
     """
-    Just like for compute instances, when you destroy a load balancer, you can keep its highly available IP address and reuse it for another load balancer later
+    ID of an existing flexible IP address to attach to the Load Balancer.
     """
 
     tags: Optional[List[str]]
     """
-    List of keyword
+    List of tags for the Load Balancer.
     """
 
     type_: str
     """
-    Load balancer offer type
+    Load Balancer commercial offer type. Use the Load Balancer types endpoint to retrieve a list of available offer types.
     """
 
     ssl_compatibility_level: SSLCompatibilityLevel
     """
-    Enforces minimal SSL version (in SSL/TLS offloading context).
-    - `intermediate` General-purpose servers with a variety of clients, recommended for almost all systems (Supports Firefox 27, Android 4.4.2, Chrome 31, Edge, IE 11 on Windows 7, Java 8u31, OpenSSL 1.0.1, Opera 20, and Safari 9).
-    - `modern` Services with clients that support TLS 1.3 and don't need backward compatibility (Firefox 63, Android 10.0, Chrome 70, Edge 75, Java 11, OpenSSL 1.1.1, Opera 57, and Safari 12.1).
-    - `old` Compatible with a number of very old clients, and should be used only as a last resort (Firefox 1, Android 2.3, Chrome 1, Edge 12, IE8 on Windows XP, Java 6, OpenSSL 0.9.8, Opera 5, and Safari 1).
-    
+    Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort.
     """
 
 
@@ -1626,12 +1606,12 @@ class CreateLbRequest:
 class GetLbRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     lb_id: str
     """
-    Load balancer ID
+    Load Balancer ID.
     """
 
 
@@ -1639,36 +1619,32 @@ class GetLbRequest:
 class UpdateLbRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     lb_id: str
     """
-    Load balancer ID
+    Load Balancer ID.
     """
 
     name: str
     """
-    Resource name
+    Load Balancer name.
     """
 
     description: str
     """
-    Resource description
+    Load Balancer description.
     """
 
     tags: Optional[List[str]]
     """
-    List of keywords
+    List of tags for the Load Balancer.
     """
 
     ssl_compatibility_level: SSLCompatibilityLevel
     """
-    Enforces minimal SSL version (in SSL/TLS offloading context).
-    - `intermediate` General-purpose servers with a variety of clients, recommended for almost all systems (Supports Firefox 27, Android 4.4.2, Chrome 31, Edge, IE 11 on Windows 7, Java 8u31, OpenSSL 1.0.1, Opera 20, and Safari 9).
-    - `modern` Services with clients that support TLS 1.3 and don't need backward compatibility (Firefox 63, Android 10.0, Chrome 70, Edge 75, Java 11, OpenSSL 1.1.1, Opera 57, and Safari 12.1).
-    - `old` Compatible with a number of very old clients, and should be used only as a last resort (Firefox 1, Android 2.3, Chrome 1, Edge 12, IE8 on Windows XP, Java 6, OpenSSL 0.9.8, Opera 5, and Safari 1).
-    
+    Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and don't need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort.
     """
 
 
@@ -1676,17 +1652,17 @@ class UpdateLbRequest:
 class DeleteLbRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     lb_id: str
     """
-    Load balancer ID
+    ID of the Load Balancer to delete.
     """
 
     release_ip: bool
     """
-    Set true if you don't want to keep this IP address
+    Defines whether the Load Balancer's flexible IP should be deleted. Set to true to release the flexible IP, or false to keep it available in your account for future Load Balancers.
     """
 
 
@@ -1694,17 +1670,17 @@ class DeleteLbRequest:
 class MigrateLbRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     lb_id: str
     """
-    Load balancer ID
+    Load Balancer ID.
     """
 
     type_: str
     """
-    Load balancer type (check /lb-types to list all type)
+    Load Balancer type to migrate to (use the List all Load Balancer offer types endpoint to get a list of available offer types).
     """
 
 
@@ -1712,32 +1688,32 @@ class MigrateLbRequest:
 class ListIPsRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     page: Optional[int]
     """
-    Page number
+    The page number to return, from the paginated results.
     """
 
     page_size: Optional[int]
     """
-    The number of items to return
+    Number of IP addresses to return.
     """
 
     ip_address: Optional[str]
     """
-    Use this to search by IP address
+    IP address to filter for.
     """
 
     organization_id: Optional[str]
     """
-    Filter IPs by organization id
+    Organization ID to filter for, only Load Balancer IP addresses from this Organization will be returned.
     """
 
     project_id: Optional[str]
     """
-    Filter IPs by project ID
+    Project ID to filter for, only Load Balancer IP addresses from this Project will be returned.
     """
 
 
@@ -1745,12 +1721,12 @@ class ListIPsRequest:
 class CreateIpRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     organization_id: Optional[str]
     """
-    Owner of resources.
+    Organization ID of the Organization where the IP address should be created.
     
     One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
     :deprecated
@@ -1758,14 +1734,14 @@ class CreateIpRequest:
 
     project_id: Optional[str]
     """
-    Assign the resource to a project ID.
+    Project ID of the Project where the IP address should be created.
     
     One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
     """
 
     reverse: Optional[str]
     """
-    Reverse domain name
+    Reverse DNS (domain name) for the IP address.
     """
 
 
@@ -1773,12 +1749,12 @@ class CreateIpRequest:
 class GetIpRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     ip_id: str
     """
-    IP address ID
+    IP address ID.
     """
 
 
@@ -1786,12 +1762,12 @@ class GetIpRequest:
 class ReleaseIpRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     ip_id: str
     """
-    IP address ID
+    IP address ID.
     """
 
 
@@ -1799,17 +1775,17 @@ class ReleaseIpRequest:
 class UpdateIpRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     ip_id: str
     """
-    IP address ID
+    IP address ID.
     """
 
     reverse: Optional[str]
     """
-    Reverse DNS
+    Reverse DNS (domain name) for the IP address.
     """
 
 
@@ -1817,32 +1793,32 @@ class UpdateIpRequest:
 class ListBackendsRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     lb_id: str
     """
-    Load balancer ID
+    Load Balancer ID.
     """
 
     name: Optional[str]
     """
-    Use this to search by name
+    Name of the backend to filter for.
     """
 
     order_by: Optional[ListBackendsRequestOrderBy]
     """
-    Response order
+    Sort order of backends in the response.
     """
 
     page: Optional[int]
     """
-    Page number
+    The page number to return, from the paginated results.
     """
 
     page_size: Optional[int]
     """
-    The number of items to return
+    Number of backends to return.
     """
 
 
@@ -1850,107 +1826,98 @@ class ListBackendsRequest:
 class CreateBackendRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     lb_id: str
     """
-    Load balancer ID
+    Load Balancer ID.
     """
 
     name: Optional[str]
     """
-    Resource name
+    Name for the backend.
     """
 
     forward_protocol: Optional[Protocol]
     """
-    Backend protocol. TCP or HTTP
+    Protocol to be used by the backend when forwarding traffic to backend servers.
     """
 
     forward_port: int
     """
-    User sessions will be forwarded to this port of backend servers
+    Port to be used by the backend when forwarding traffic to backend servers.
     """
 
     forward_port_algorithm: Optional[ForwardPortAlgorithm]
     """
-    Load balancing algorithm
+    Load balancing algorithm to be used when determining which backend server to forward new traffic to.
     """
 
     sticky_sessions: Optional[StickySessionsType]
     """
-    Enables cookie-based session persistence
+    Defines whether to activate sticky sessions (binding a particular session to a particular backend server) and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie TO stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server.
     """
 
     sticky_sessions_cookie_name: str
     """
-    Cookie name for sticky sessions
+    Cookie name for cookie-based sticky sessions.
     """
 
     health_check: HealthCheck
     """
-    See the Healthcheck object description
+    Object defining the health check to be carried out by the backend when checking the status and health of backend servers.
     """
 
     server_ip: List[str]
     """
-    Backend server IP addresses list (IPv4 or IPv6)
+    List of backend server IP addresses (IPv4 or IPv6) the backend should forward traffic to.
     """
 
     send_proxy_v2: Optional[bool]
     """
-    Deprecated in favor of proxy_protocol field !
+    Deprecated in favor of proxy_protocol field.
     :deprecated
     """
 
     timeout_server: Optional[str]
     """
-    Maximum server connection inactivity time (allowed time the server has to process the request)
+    Maximum allowed time for a backend server to process a request.
     """
 
     timeout_connect: Optional[str]
     """
-    Maximum initial server connection establishment time
+    Maximum allowed time for establishing a connection to a backend server.
     """
 
     timeout_tunnel: Optional[str]
     """
-    Maximum tunnel inactivity time after Websocket is established (take precedence over client and server timeout)
+    Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout).
     """
 
     on_marked_down_action: OnMarkedDownAction
     """
-    Modify what occurs when a backend server is marked down
+    Action to take when a backend server is marked as down.
     """
 
     proxy_protocol: ProxyProtocol
     """
-    The PROXY protocol informs the other end about the incoming connection, so that it can know the client's address or the public address it accessed to, whatever the upper layer protocol.
-    
-    * `proxy_protocol_none` Disable proxy protocol.
-    * `proxy_protocol_v1` Version one (text format).
-    * `proxy_protocol_v2` Version two (binary format).
-    * `proxy_protocol_v2_ssl` Version two with SSL connection.
-    * `proxy_protocol_v2_ssl_cn` Version two with SSL connection and common name information.
-    
+    PROXY protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. PROXY protocol must be supported by the backend servers' software.
     """
 
     failover_host: Optional[str]
     """
-    Only the host part of the Scaleway S3 bucket website is expected.
-    E.g. `failover-website.s3-website.fr-par.scw.cloud` if your bucket website URL is `https://failover-website.s3-website.fr-par.scw.cloud/`.
-    
+    Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud. Do not include the scheme (eg https://).
     """
 
     ssl_bridging: Optional[bool]
     """
-    Enable SSL between load balancer and backend servers
+    Defines whether to enable SSL between the Load Balancer and backend servers.
     """
 
     ignore_ssl_server_verify: Optional[bool]
     """
-    Set to true to ignore server certificate verification
+    Defines whether the server certificate verification should be ignored.
     """
 
 
@@ -1958,12 +1925,12 @@ class CreateBackendRequest:
 class GetBackendRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     backend_id: str
     """
-    Backend ID
+    Backend ID.
     """
 
 
@@ -1971,97 +1938,88 @@ class GetBackendRequest:
 class UpdateBackendRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     backend_id: str
     """
-    Backend ID to update
+    Backend ID.
     """
 
     name: str
     """
-    Resource name
+    Backend name.
     """
 
     forward_protocol: Optional[Protocol]
     """
-    Backend protocol. TCP or HTTP
+    Protocol to be used by the backend when forwarding traffic to backend servers.
     """
 
     forward_port: int
     """
-    User sessions will be forwarded to this port of backend servers
+    Port to be used by the backend when forwarding traffic to backend servers.
     """
 
     forward_port_algorithm: Optional[ForwardPortAlgorithm]
     """
-    Load balancing algorithm
+    Load balancing algorithm to be used when determining which backend server to forward new traffic to.
     """
 
     sticky_sessions: Optional[StickySessionsType]
     """
-    Enable cookie-based session persistence
+    Defines whether to activate sticky sessions (binding a particular session to a particular backend server) and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie to stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server.
     """
 
     sticky_sessions_cookie_name: str
     """
-    Cookie name for sticky sessions
+    Cookie name for cookie-based sticky sessions.
     """
 
     send_proxy_v2: Optional[bool]
     """
-    Deprecated in favor of proxy_protocol field!
+    Deprecated in favor of proxy_protocol field.
     :deprecated
     """
 
     timeout_server: Optional[str]
     """
-    Maximum server connection inactivity time (allowed time the server has to process the request)
+    Maximum allowed time for a backend server to process a request.
     """
 
     timeout_connect: Optional[str]
     """
-    Maximum initial server connection establishment time
+    Maximum allowed time for establishing a connection to a backend server.
     """
 
     timeout_tunnel: Optional[str]
     """
-    Maximum tunnel inactivity time after Websocket is established (take precedence over client and server timeout)
+    Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout).
     """
 
     on_marked_down_action: OnMarkedDownAction
     """
-    Modify what occurs when a backend server is marked down
+    Action to take when a backend server is marked down.
     """
 
     proxy_protocol: ProxyProtocol
     """
-    The PROXY protocol informs the other end about the incoming connection, so that it can know the client's address or the public address it accessed to, whatever the upper layer protocol is.
-    
-    * `proxy_protocol_none` Disable proxy protocol.
-    * `proxy_protocol_v1` Version one (text format).
-    * `proxy_protocol_v2` Version two (binary format).
-    * `proxy_protocol_v2_ssl` Version two with SSL connection.
-    * `proxy_protocol_v2_ssl_cn` Version two with SSL connection and common name information.
-    
+    PROXY protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. PROXY protocol must be supported by the backend servers' software.
     """
 
     failover_host: Optional[str]
     """
-    Only the host part of the Scaleway S3 bucket website is expected.
-    Example: `failover-website.s3-website.fr-par.scw.cloud` if your bucket website URL is `https://failover-website.s3-website.fr-par.scw.cloud/`.
-    
+    Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud. Do not include the scheme (eg https://).
     """
 
     ssl_bridging: Optional[bool]
     """
-    Enable SSL between load balancer and backend servers
+    Defines whether to enable SSL bridging between the Load Balancer and backend servers.
     """
 
     ignore_ssl_server_verify: Optional[bool]
     """
-    Set to true to ignore server certificate verification
+    Defines whether the server certificate verification should be ignored.
     """
 
 
@@ -2069,12 +2027,12 @@ class UpdateBackendRequest:
 class DeleteBackendRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     backend_id: str
     """
-    ID of the backend to delete
+    ID of the backend to delete.
     """
 
 
@@ -2082,17 +2040,17 @@ class DeleteBackendRequest:
 class AddBackendServersRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     backend_id: str
     """
-    Backend ID
+    Backend ID.
     """
 
     server_ip: List[str]
     """
-    Set all IPs to add on your backend
+    List of IP addresses to add to backend servers.
     """
 
 
@@ -2100,17 +2058,17 @@ class AddBackendServersRequest:
 class RemoveBackendServersRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     backend_id: str
     """
-    Backend ID
+    Backend ID.
     """
 
     server_ip: List[str]
     """
-    Set all IPs to remove of your backend
+    List of IP addresses to remove from backend servers.
     """
 
 
@@ -2118,17 +2076,17 @@ class RemoveBackendServersRequest:
 class SetBackendServersRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     backend_id: str
     """
-    Backend ID
+    Backend ID.
     """
 
     server_ip: List[str]
     """
-    Set all IPs to add on your backend and remove all other
+    List of IP addresses for backend servers. Any other existing backend servers will be removed.
     """
 
 
@@ -2136,32 +2094,32 @@ class SetBackendServersRequest:
 class UpdateHealthCheckRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     backend_id: str
     """
-    Backend ID
+    Backend ID.
     """
 
     port: int
     """
-    Specify the port used to health check
+    Port to use for the backend server health check.
     """
 
     check_delay: str
     """
-    Time between two consecutive health checks
+    Time to wait between two consecutive health checks.
     """
 
     check_timeout: str
     """
-    Maximum time a backend server has to reply to the health check
+    Maximum time a backend server has to reply to the health check.
     """
 
     check_max_retries: int
     """
-    Number of consecutive unsuccessful health checks, after which the server will be considered dead
+    Number of consecutive unsuccessful health checks, after which the server will be considered dead.
     """
 
     mysql_config: Optional[HealthCheckMysqlConfig]
@@ -2215,7 +2173,7 @@ class UpdateHealthCheckRequest:
 
     check_send_proxy: bool
     """
-    It defines whether the health check should be done considering the proxy protocol
+    Defines whether proxy protocol should be activated for the health check.
     """
 
 
@@ -2223,32 +2181,32 @@ class UpdateHealthCheckRequest:
 class ListFrontendsRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     lb_id: str
     """
-    Load balancer ID
+    Load Balancer ID.
     """
 
     name: Optional[str]
     """
-    Use this to search by name
+    Name of the frontend to filter for.
     """
 
     order_by: Optional[ListFrontendsRequestOrderBy]
     """
-    Response order
+    Sort order of frontends in the response.
     """
 
     page: Optional[int]
     """
-    Page number
+    The page number to return, from the paginated results.
     """
 
     page_size: Optional[int]
     """
-    The number of items to return
+    Number of frontends to return.
     """
 
 
@@ -2256,48 +2214,48 @@ class ListFrontendsRequest:
 class CreateFrontendRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     lb_id: str
     """
-    Load balancer ID
+    Load Balancer ID (ID of the Load Balancer to attach the frontend to).
     """
 
     name: Optional[str]
     """
-    Resource name
+    Name for the frontend.
     """
 
     inbound_port: int
     """
-    TCP port to listen on the front side
+    Port the frontend should listen on.
     """
 
     backend_id: str
     """
-    Backend ID
+    Backend ID (ID of the backend the frontend should pass traffic to).
     """
 
     timeout_client: Optional[str]
     """
-    Set the maximum inactivity time on the client side
+    Maximum allowed inactivity time on the client side.
     """
 
     certificate_id: Optional[str]
     """
-    Certificate ID, deprecated in favor of certificate_ids array !
+    Certificate ID, deprecated in favor of certificate_ids array.
     :deprecated
     """
 
     certificate_ids: Optional[List[str]]
     """
-    List of certificate IDs to bind on the frontend
+    List of SSL/TLS certificate IDs to bind to the frontend.
     """
 
     enable_http3: bool
     """
-    Activate HTTP 3 protocol (beta)
+    Defines whether to enable HTTP/3 protocol on the frontend.
     """
 
 
@@ -2305,12 +2263,12 @@ class CreateFrontendRequest:
 class GetFrontendRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     frontend_id: str
     """
-    Frontend ID
+    Frontend ID.
     """
 
 
@@ -2318,48 +2276,48 @@ class GetFrontendRequest:
 class UpdateFrontendRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     frontend_id: str
     """
-    Frontend ID
+    Frontend ID.
     """
 
     name: str
     """
-    Resource name
+    Frontend name.
     """
 
     inbound_port: int
     """
-    TCP port to listen on the front side
+    Port the frontend should listen on.
     """
 
     backend_id: str
     """
-    Backend ID
+    Backend ID (ID of the backend the frontend should pass traffic to).
     """
 
     timeout_client: Optional[str]
     """
-    Client session maximum inactivity time
+    Maximum allowed inactivity time on the client side.
     """
 
     certificate_id: Optional[str]
     """
-    Certificate ID, deprecated in favor of `certificate_ids` array!
+    Certificate ID, deprecated in favor of certificate_ids array.
     :deprecated
     """
 
     certificate_ids: Optional[List[str]]
     """
-    List of certificate IDs to bind on the frontend
+    List of SSL/TLS certificate IDs to bind to the frontend.
     """
 
     enable_http3: bool
     """
-    Activate HTTP 3 protocol (beta)
+    Defines whether to enable HTTP/3 protocol on the frontend.
     """
 
 
@@ -2367,12 +2325,12 @@ class UpdateFrontendRequest:
 class DeleteFrontendRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     frontend_id: str
     """
-    Frontend ID to delete
+    ID of the frontend to delete.
     """
 
 
@@ -2380,22 +2338,22 @@ class DeleteFrontendRequest:
 class ListRoutesRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     order_by: Optional[ListRoutesRequestOrderBy]
     """
-    Response order
+    Sort order of routes in the response.
     """
 
     page_size: Optional[int]
     """
-    The number of items to return
+    The number of route objects to return.
     """
 
     page: Optional[int]
     """
-    Page number
+    The page number to return, from the paginated results.
     """
 
     frontend_id: Optional[str]
@@ -2405,22 +2363,22 @@ class ListRoutesRequest:
 class CreateRouteRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     frontend_id: str
     """
-    Origin of redirection
+    ID of the source frontend to create the route on.
     """
 
     backend_id: str
     """
-    Destination of destination
+    ID of the target backend for the route.
     """
 
     match: Optional[RouteMatch]
     """
-    Value to match a redirection
+    Object defining the match condition for a route to be applied. If an incoming client session matches the specified condition (i.e. it has a matching SNI value or HTTP Host header value), it will be passed to the target backend.
     """
 
 
@@ -2428,12 +2386,12 @@ class CreateRouteRequest:
 class GetRouteRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     route_id: str
     """
-    Id of route to get
+    Route ID.
     """
 
 
@@ -2441,22 +2399,22 @@ class GetRouteRequest:
 class UpdateRouteRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     route_id: str
     """
-    Route id to update
+    Route ID.
     """
 
     backend_id: str
     """
-    Backend id of redirection
+    ID of the target backend for the route.
     """
 
     match: Optional[RouteMatch]
     """
-    Value to match a redirection
+    Object defining the match condition for a route to be applied. If an incoming client session matches the specified condition (i.e. it has a matching SNI value or HTTP Host header value), it will be passed to the target backend.
     """
 
 
@@ -2464,12 +2422,12 @@ class UpdateRouteRequest:
 class DeleteRouteRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     route_id: str
     """
-    Route id to delete
+    Route ID.
     """
 
 
@@ -2477,12 +2435,12 @@ class DeleteRouteRequest:
 class GetLbStatsRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     lb_id: str
     """
-    Load balancer ID
+    Load Balancer ID.
     """
 
 
@@ -2490,22 +2448,22 @@ class GetLbStatsRequest:
 class ListBackendStatsRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     lb_id: str
     """
-    Load balancer ID
+    Load Balancer ID.
     """
 
     page: Optional[int]
     """
-    Page number
+    The page number to return, from the paginated results.
     """
 
     page_size: Optional[int]
     """
-    The number of items to return
+    Number of items to return.
     """
 
 
@@ -2513,32 +2471,32 @@ class ListBackendStatsRequest:
 class ListAclsRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     frontend_id: str
     """
-    ID of your frontend
+    Frontend ID (ACLs attached to this frontend will be returned in the response).
     """
 
     order_by: Optional[ListAclRequestOrderBy]
     """
-    Response order
+    Sort order of ACLs in the response.
     """
 
     page: Optional[int]
     """
-    Page number
+    The page number to return, from the paginated results.
     """
 
     page_size: Optional[int]
     """
-    The number of items to return
+    The number of ACLs to return.
     """
 
     name: Optional[str]
     """
-    Filter acl per name
+    ACL name to filter for.
     """
 
 
@@ -2546,42 +2504,37 @@ class ListAclsRequest:
 class CreateAclRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     frontend_id: str
     """
-    ID of your frontend
+    Frontend ID to attach the ACL to.
     """
 
     name: Optional[str]
     """
-    Name of your ACL ressource
+    ACL name.
     """
 
     action: AclAction
     """
-    Action to undertake when an ACL filter matches
+    Action to take when incoming traffic matches an ACL filter.
     """
 
     match: Optional[AclMatch]
     """
-    The ACL match rule. You can have one of those three cases:
-    
-      - `ip_subnet` is defined
-      - `http_filter` and `http_filter_value` are defined
-      - `ip_subnet`, `http_filter` and `http_filter_value` are defined
-    
+    ACL match filter object. One of `ip_subnet` or `http_filter` & `http_filter_value` are required.
     """
 
     index: int
     """
-    Order between your Acls (ascending order, 0 is first acl executed)
+    Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
     """
 
     description: str
     """
-    Description of your ACL ressource
+    ACL description.
     """
 
 
@@ -2589,12 +2542,12 @@ class CreateAclRequest:
 class GetAclRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     acl_id: str
     """
-    ID of your ACL ressource
+    ACL ID.
     """
 
 
@@ -2602,37 +2555,37 @@ class GetAclRequest:
 class UpdateAclRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     acl_id: str
     """
-    ID of your ACL ressource
+    ACL ID.
     """
 
     name: str
     """
-    Name of your ACL ressource
+    ACL name.
     """
 
     action: AclAction
     """
-    Action to undertake when an ACL filter matches
+    Action to take when incoming traffic matches an ACL filter.
     """
 
     match: Optional[AclMatch]
     """
-    The ACL match rule. At least `ip_subnet` or `http_filter` and `http_filter_value` are required
+    ACL match filter object. One of `ip_subnet` or `http_filter` & `http_filter_value` are required.
     """
 
     index: int
     """
-    Order between your Acls (ascending order, 0 is first acl executed)
+    Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
     """
 
     description: Optional[str]
     """
-    Description of your ACL ressource
+    ACL description.
     """
 
 
@@ -2640,12 +2593,12 @@ class UpdateAclRequest:
 class DeleteAclRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     acl_id: str
     """
-    ID of your ACL ressource
+    ACL ID.
     """
 
 
@@ -2653,29 +2606,29 @@ class DeleteAclRequest:
 class CreateCertificateRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     lb_id: str
     """
-    Load balancer ID
+    Load Balancer ID.
     """
 
     name: Optional[str]
     """
-    Certificate name
+    Name for the certificate.
     """
 
     letsencrypt: Optional[CreateCertificateRequestLetsencryptConfig]
     """
-    Let's Encrypt type.
+    Object to define a new Let's Encrypt certificate to be generated.
     
     One-of ('type_'): at most one of 'letsencrypt', 'custom_certificate' could be set.
     """
 
     custom_certificate: Optional[CreateCertificateRequestCustomCertificate]
     """
-    Custom import certificate.
+    Object to define an existing custom certificate to be imported.
     
     One-of ('type_'): at most one of 'letsencrypt', 'custom_certificate' could be set.
     """
@@ -2685,32 +2638,32 @@ class CreateCertificateRequest:
 class ListCertificatesRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     lb_id: str
     """
-    Load balancer ID
+    Load Balancer ID.
     """
 
     order_by: Optional[ListCertificatesRequestOrderBy]
     """
-    Response order
+    Sort order of certificates in the response.
     """
 
     page: Optional[int]
     """
-    Page number
+    The page number to return, from the paginated results.
     """
 
     page_size: Optional[int]
     """
-    The number of items to return
+    Number of certificates to return.
     """
 
     name: Optional[str]
     """
-    Use this to search by name
+    Certificate name to filter for, only certificates of this name will be returned.
     """
 
 
@@ -2718,12 +2671,12 @@ class ListCertificatesRequest:
 class GetCertificateRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     certificate_id: str
     """
-    Certificate ID
+    Certificate ID.
     """
 
 
@@ -2731,17 +2684,17 @@ class GetCertificateRequest:
 class UpdateCertificateRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     certificate_id: str
     """
-    Certificate ID
+    Certificate ID.
     """
 
     name: str
     """
-    Certificate name
+    Certificate name.
     """
 
 
@@ -2749,12 +2702,12 @@ class UpdateCertificateRequest:
 class DeleteCertificateRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     certificate_id: str
     """
-    Certificate ID
+    Certificate ID.
     """
 
 
@@ -2762,17 +2715,17 @@ class DeleteCertificateRequest:
 class ListLbTypesRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     page: Optional[int]
     """
-    Page number
+    The page number to return, from the paginated results.
     """
 
     page_size: Optional[int]
     """
-    The number of items to return
+    The number of items to return.
     """
 
 
@@ -2780,12 +2733,12 @@ class ListLbTypesRequest:
 class CreateSubscriberRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     name: str
     """
-    Subscriber name
+    Subscriber name.
     """
 
     email_config: Optional[SubscriberEmailConfig]
@@ -2804,7 +2757,7 @@ class CreateSubscriberRequest:
 
     organization_id: Optional[str]
     """
-    Owner of resources.
+    Organization ID to create the subscriber in.
     
     One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
     :deprecated
@@ -2812,7 +2765,7 @@ class CreateSubscriberRequest:
 
     project_id: Optional[str]
     """
-    Assign the resource to a project ID.
+    Project ID to create the subscriber in.
     
     One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
     """
@@ -2822,12 +2775,12 @@ class CreateSubscriberRequest:
 class GetSubscriberRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     subscriber_id: str
     """
-    Subscriber ID
+    Subscriber ID.
     """
 
 
@@ -2835,37 +2788,37 @@ class GetSubscriberRequest:
 class ListSubscriberRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     order_by: Optional[ListSubscriberRequestOrderBy]
     """
-    Response order
+    Sort order of subscribers in the response.
     """
 
     page: Optional[int]
     """
-    Page number
+    The page number to return, from the paginated results.
     """
 
     page_size: Optional[int]
     """
-    The number of items to return
+    The number of items to return.
     """
 
     name: str
     """
-    Use this to search by name
+    Subscriber name to search for.
     """
 
     organization_id: Optional[str]
     """
-    Filter Subscribers by organization ID
+    Filter subscribers by Organization ID.
     """
 
     project_id: Optional[str]
     """
-    Filter Subscribers by project ID
+    Filter subscribers by Project ID.
     """
 
 
@@ -2873,17 +2826,17 @@ class ListSubscriberRequest:
 class UpdateSubscriberRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     subscriber_id: str
     """
-    Assign the resource to a project IDs
+    Subscriber ID.
     """
 
     name: str
     """
-    Subscriber name
+    Subscriber name.
     """
 
     email_config: Optional[SubscriberEmailConfig]
@@ -2895,7 +2848,7 @@ class UpdateSubscriberRequest:
 
     webhook_config: Optional[SubscriberWebhookConfig]
     """
-    WebHook URI configuration.
+    Webhook URI configuration.
     
     One-of ('config'): at most one of 'email_config', 'webhook_config' could be set.
     """
@@ -2905,12 +2858,12 @@ class UpdateSubscriberRequest:
 class DeleteSubscriberRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     subscriber_id: str
     """
-    Subscriber ID
+    Subscriber ID.
     """
 
 
@@ -2918,17 +2871,17 @@ class DeleteSubscriberRequest:
 class SubscribeToLbRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     lb_id: str
     """
-    Load balancer ID
+    Load Balancer ID.
     """
 
     subscriber_id: str
     """
-    Subscriber ID
+    Subscriber ID.
     """
 
 
@@ -2936,12 +2889,12 @@ class SubscribeToLbRequest:
 class UnsubscribeFromLbRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     lb_id: str
     """
-    Load balancer ID
+    Load Balancer ID.
     """
 
 
@@ -2949,27 +2902,27 @@ class UnsubscribeFromLbRequest:
 class ListLbPrivateNetworksRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     lb_id: str
     """
-    Load balancer ID
+    Load Balancer ID.
     """
 
     order_by: Optional[ListPrivateNetworksRequestOrderBy]
     """
-    Response order
+    Sort order of Private Network objects in the response.
     """
 
     page_size: Optional[int]
     """
-    The number of items to return
+    Number of objects to return.
     """
 
     page: Optional[int]
     """
-    Page number
+    The page number to return, from the paginated results.
     """
 
 
@@ -2977,29 +2930,29 @@ class ListLbPrivateNetworksRequest:
 class AttachPrivateNetworkRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     lb_id: str
     """
-    Load balancer ID
+    Load Balancer ID.
     """
 
     private_network_id: str
     """
-    Set your instance private network id
+    Private Network ID.
     """
 
     static_config: Optional[PrivateNetworkStaticConfig]
     """
-    Define two local ip address of your choice for each load balancer instance.
+    Object containing an array of a local IP address for the Load Balancer on this Private Network.
     
     One-of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
     """
 
     dhcp_config: Optional[PrivateNetworkDHCPConfig]
     """
-    Set to true if you want to let DHCP assign IP addresses.
+    Defines whether to let DHCP assign IP addresses.
     
     One-of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
     """
@@ -3016,17 +2969,17 @@ class AttachPrivateNetworkRequest:
 class DetachPrivateNetworkRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     lb_id: str
     """
-    Load balancer ID
+    Load balancer ID.
     """
 
     private_network_id: str
     """
-    Set your instance private network id
+    Set your instance private network id.
     """
 
 
@@ -3034,37 +2987,37 @@ class DetachPrivateNetworkRequest:
 class ZonedApiListLbsRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     name: Optional[str]
     """
-    Use this to search by name
+    Load Balancer name to filter for.
     """
 
     order_by: Optional[ListLbsRequestOrderBy]
     """
-    Response order
+    Sort order of Load Balancers in the response.
     """
 
     page_size: Optional[int]
     """
-    The number of items to return
+    Number of Load Balancers to return.
     """
 
     page: Optional[int]
     """
-    Page number
+    Page number to return, from the paginated results.
     """
 
     organization_id: Optional[str]
     """
-    Filter LBs by organization ID
+    Organization ID to filter for, only Load Balancers from this Organization will be returned.
     """
 
     project_id: Optional[str]
     """
-    Filter LBs by project ID
+    Project ID to filter for, only Load Balancers from this Project will be returned.
     """
 
 
@@ -3072,12 +3025,12 @@ class ZonedApiListLbsRequest:
 class ZonedApiCreateLbRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     organization_id: Optional[str]
     """
-    Owner of resources.
+    Scaleway Organization to create the Load Balancer in.
     
     One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
     :deprecated
@@ -3085,43 +3038,39 @@ class ZonedApiCreateLbRequest:
 
     project_id: Optional[str]
     """
-    Assign the resource to a project ID.
+    Scaleway Project to create the Load Balancer in.
     
     One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
     """
 
     name: Optional[str]
     """
-    Resource names
+    Name for the Load Balancer.
     """
 
     description: str
     """
-    Resource description
+    Description for the Load Balancer.
     """
 
     ip_id: Optional[str]
     """
-    Just like for compute instances, when you destroy a load balancer, you can keep its highly available IP address and reuse it for another load balancer later
+    ID of an existing flexible IP address to attach to the Load Balancer.
     """
 
     tags: Optional[List[str]]
     """
-    List of keyword
+    List of tags for the Load Balancer.
     """
 
     type_: str
     """
-    Load balancer offer type
+    Load Balancer commercial offer type. Use the Load Balancer types endpoint to retrieve a list of available offer types.
     """
 
     ssl_compatibility_level: SSLCompatibilityLevel
     """
-    Enforces minimal SSL version (in SSL/TLS offloading context).
-    - `intermediate` General-purpose servers with a variety of clients, recommended for almost all systems (Supports Firefox 27, Android 4.4.2, Chrome 31, Edge, IE 11 on Windows 7, Java 8u31, OpenSSL 1.0.1, Opera 20, and Safari 9).
-    - `modern` Services with clients that support TLS 1.3 and don't need backward compatibility (Firefox 63, Android 10.0, Chrome 70, Edge 75, Java 11, OpenSSL 1.1.1, Opera 57, and Safari 12.1).
-    - `old` Compatible with a number of very old clients, and should be used only as a last resort (Firefox 1, Android 2.3, Chrome 1, Edge 12, IE8 on Windows XP, Java 6, OpenSSL 0.9.8, Opera 5, and Safari 1).
-    
+    Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort.
     """
 
 
@@ -3129,12 +3078,12 @@ class ZonedApiCreateLbRequest:
 class ZonedApiGetLbRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     lb_id: str
     """
-    Load balancer ID
+    Load Balancer ID.
     """
 
 
@@ -3142,36 +3091,32 @@ class ZonedApiGetLbRequest:
 class ZonedApiUpdateLbRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     lb_id: str
     """
-    Load balancer ID
+    Load Balancer ID.
     """
 
     name: str
     """
-    Resource name
+    Load Balancer name.
     """
 
     description: str
     """
-    Resource description
+    Load Balancer description.
     """
 
     tags: Optional[List[str]]
     """
-    List of keywords
+    List of tags for the Load Balancer.
     """
 
     ssl_compatibility_level: SSLCompatibilityLevel
     """
-    Enforces minimal SSL version (in SSL/TLS offloading context).
-    - `intermediate` General-purpose servers with a variety of clients, recommended for almost all systems (Supports Firefox 27, Android 4.4.2, Chrome 31, Edge, IE 11 on Windows 7, Java 8u31, OpenSSL 1.0.1, Opera 20, and Safari 9).
-    - `modern` Services with clients that support TLS 1.3 and don't need backward compatibility (Firefox 63, Android 10.0, Chrome 70, Edge 75, Java 11, OpenSSL 1.1.1, Opera 57, and Safari 12.1).
-    - `old` Compatible with a number of very old clients, and should be used only as a last resort (Firefox 1, Android 2.3, Chrome 1, Edge 12, IE8 on Windows XP, Java 6, OpenSSL 0.9.8, Opera 5, and Safari 1).
-    
+    Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and don't need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort.
     """
 
 
@@ -3179,17 +3124,17 @@ class ZonedApiUpdateLbRequest:
 class ZonedApiDeleteLbRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     lb_id: str
     """
-    Load balancer ID
+    ID of the Load Balancer to delete.
     """
 
     release_ip: bool
     """
-    Set true if you don't want to keep this IP address
+    Defines whether the Load Balancer's flexible IP should be deleted. Set to true to release the flexible IP, or false to keep it available in your account for future Load Balancers.
     """
 
 
@@ -3197,17 +3142,17 @@ class ZonedApiDeleteLbRequest:
 class ZonedApiMigrateLbRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     lb_id: str
     """
-    Load balancer ID
+    Load Balancer ID.
     """
 
     type_: str
     """
-    Load balancer type (check /lb-types to list all type)
+    Load Balancer type to migrate to (use the List all Load Balancer offer types endpoint to get a list of available offer types).
     """
 
 
@@ -3215,32 +3160,32 @@ class ZonedApiMigrateLbRequest:
 class ZonedApiListIPsRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     page: Optional[int]
     """
-    Page number
+    The page number to return, from the paginated results.
     """
 
     page_size: Optional[int]
     """
-    The number of items to return
+    Number of IP addresses to return.
     """
 
     ip_address: Optional[str]
     """
-    Use this to search by IP address
+    IP address to filter for.
     """
 
     organization_id: Optional[str]
     """
-    Filter IPs by organization id
+    Organization ID to filter for, only Load Balancer IP addresses from this Organization will be returned.
     """
 
     project_id: Optional[str]
     """
-    Filter IPs by project ID
+    Project ID to filter for, only Load Balancer IP addresses from this Project will be returned.
     """
 
 
@@ -3248,12 +3193,12 @@ class ZonedApiListIPsRequest:
 class ZonedApiCreateIpRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     organization_id: Optional[str]
     """
-    Owner of resources.
+    Organization ID of the Organization where the IP address should be created.
     
     One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
     :deprecated
@@ -3261,14 +3206,14 @@ class ZonedApiCreateIpRequest:
 
     project_id: Optional[str]
     """
-    Assign the resource to a project ID.
+    Project ID of the Project where the IP address should be created.
     
     One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
     """
 
     reverse: Optional[str]
     """
-    Reverse domain name
+    Reverse DNS (domain name) for the IP address.
     """
 
 
@@ -3276,12 +3221,12 @@ class ZonedApiCreateIpRequest:
 class ZonedApiGetIpRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     ip_id: str
     """
-    IP address ID
+    IP address ID.
     """
 
 
@@ -3289,12 +3234,12 @@ class ZonedApiGetIpRequest:
 class ZonedApiReleaseIpRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     ip_id: str
     """
-    IP address ID
+    IP address ID.
     """
 
 
@@ -3302,17 +3247,17 @@ class ZonedApiReleaseIpRequest:
 class ZonedApiUpdateIpRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     ip_id: str
     """
-    IP address ID
+    IP address ID.
     """
 
     reverse: Optional[str]
     """
-    Reverse DNS
+    Reverse DNS (domain name) for the IP address.
     """
 
 
@@ -3320,32 +3265,32 @@ class ZonedApiUpdateIpRequest:
 class ZonedApiListBackendsRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     lb_id: str
     """
-    Load balancer ID
+    Load Balancer ID.
     """
 
     name: Optional[str]
     """
-    Use this to search by name
+    Name of the backend to filter for.
     """
 
     order_by: Optional[ListBackendsRequestOrderBy]
     """
-    Response order
+    Sort order of backends in the response.
     """
 
     page: Optional[int]
     """
-    Page number
+    The page number to return, from the paginated results.
     """
 
     page_size: Optional[int]
     """
-    The number of items to return
+    Number of backends to return.
     """
 
 
@@ -3353,107 +3298,98 @@ class ZonedApiListBackendsRequest:
 class ZonedApiCreateBackendRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     lb_id: str
     """
-    Load balancer ID
+    Load Balancer ID.
     """
 
     name: Optional[str]
     """
-    Resource name
+    Name for the backend.
     """
 
     forward_protocol: Optional[Protocol]
     """
-    Backend protocol. TCP or HTTP
+    Protocol to be used by the backend when forwarding traffic to backend servers.
     """
 
     forward_port: int
     """
-    User sessions will be forwarded to this port of backend servers
+    Port to be used by the backend when forwarding traffic to backend servers.
     """
 
     forward_port_algorithm: Optional[ForwardPortAlgorithm]
     """
-    Load balancing algorithm
+    Load balancing algorithm to be used when determining which backend server to forward new traffic to.
     """
 
     sticky_sessions: Optional[StickySessionsType]
     """
-    Enables cookie-based session persistence
+    Defines whether to activate sticky sessions (binding a particular session to a particular backend server) and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie TO stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server.
     """
 
     sticky_sessions_cookie_name: str
     """
-    Cookie name for sticky sessions
+    Cookie name for cookie-based sticky sessions.
     """
 
     health_check: HealthCheck
     """
-    See the Healthcheck object description
+    Object defining the health check to be carried out by the backend when checking the status and health of backend servers.
     """
 
     server_ip: List[str]
     """
-    Backend server IP addresses list (IPv4 or IPv6)
+    List of backend server IP addresses (IPv4 or IPv6) the backend should forward traffic to.
     """
 
     send_proxy_v2: Optional[bool]
     """
-    Deprecated in favor of proxy_protocol field !
+    Deprecated in favor of proxy_protocol field.
     :deprecated
     """
 
     timeout_server: Optional[str]
     """
-    Maximum server connection inactivity time (allowed time the server has to process the request)
+    Maximum allowed time for a backend server to process a request.
     """
 
     timeout_connect: Optional[str]
     """
-    Maximum initial server connection establishment time
+    Maximum allowed time for establishing a connection to a backend server.
     """
 
     timeout_tunnel: Optional[str]
     """
-    Maximum tunnel inactivity time after Websocket is established (take precedence over client and server timeout)
+    Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout).
     """
 
     on_marked_down_action: OnMarkedDownAction
     """
-    Modify what occurs when a backend server is marked down
+    Action to take when a backend server is marked as down.
     """
 
     proxy_protocol: ProxyProtocol
     """
-    The PROXY protocol informs the other end about the incoming connection, so that it can know the client's address or the public address it accessed to, whatever the upper layer protocol.
-    
-    * `proxy_protocol_none` Disable proxy protocol.
-    * `proxy_protocol_v1` Version one (text format).
-    * `proxy_protocol_v2` Version two (binary format).
-    * `proxy_protocol_v2_ssl` Version two with SSL connection.
-    * `proxy_protocol_v2_ssl_cn` Version two with SSL connection and common name information.
-    
+    PROXY protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. PROXY protocol must be supported by the backend servers' software.
     """
 
     failover_host: Optional[str]
     """
-    Only the host part of the Scaleway S3 bucket website is expected.
-    E.g. `failover-website.s3-website.fr-par.scw.cloud` if your bucket website URL is `https://failover-website.s3-website.fr-par.scw.cloud/`.
-    
+    Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud. Do not include the scheme (eg https://).
     """
 
     ssl_bridging: Optional[bool]
     """
-    Enable SSL between load balancer and backend servers
+    Defines whether to enable SSL between the Load Balancer and backend servers.
     """
 
     ignore_ssl_server_verify: Optional[bool]
     """
-    Set to true to ignore server certificate verification
+    Defines whether the server certificate verification should be ignored.
     """
 
 
@@ -3461,12 +3397,12 @@ class ZonedApiCreateBackendRequest:
 class ZonedApiGetBackendRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     backend_id: str
     """
-    Backend ID
+    Backend ID.
     """
 
 
@@ -3474,97 +3410,88 @@ class ZonedApiGetBackendRequest:
 class ZonedApiUpdateBackendRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     backend_id: str
     """
-    Backend ID to update
+    Backend ID.
     """
 
     name: str
     """
-    Resource name
+    Backend name.
     """
 
     forward_protocol: Optional[Protocol]
     """
-    Backend protocol. TCP or HTTP
+    Protocol to be used by the backend when forwarding traffic to backend servers.
     """
 
     forward_port: int
     """
-    User sessions will be forwarded to this port of backend servers
+    Port to be used by the backend when forwarding traffic to backend servers.
     """
 
     forward_port_algorithm: Optional[ForwardPortAlgorithm]
     """
-    Load balancing algorithm
+    Load balancing algorithm to be used when determining which backend server to forward new traffic to.
     """
 
     sticky_sessions: Optional[StickySessionsType]
     """
-    Enable cookie-based session persistence
+    Defines whether to activate sticky sessions (binding a particular session to a particular backend server) and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie to stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server.
     """
 
     sticky_sessions_cookie_name: str
     """
-    Cookie name for sticky sessions
+    Cookie name for cookie-based sticky sessions.
     """
 
     send_proxy_v2: Optional[bool]
     """
-    Deprecated in favor of proxy_protocol field!
+    Deprecated in favor of proxy_protocol field.
     :deprecated
     """
 
     timeout_server: Optional[str]
     """
-    Maximum server connection inactivity time (allowed time the server has to process the request)
+    Maximum allowed time for a backend server to process a request.
     """
 
     timeout_connect: Optional[str]
     """
-    Maximum initial server connection establishment time
+    Maximum allowed time for establishing a connection to a backend server.
     """
 
     timeout_tunnel: Optional[str]
     """
-    Maximum tunnel inactivity time after Websocket is established (take precedence over client and server timeout)
+    Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout).
     """
 
     on_marked_down_action: OnMarkedDownAction
     """
-    Modify what occurs when a backend server is marked down
+    Action to take when a backend server is marked down.
     """
 
     proxy_protocol: ProxyProtocol
     """
-    The PROXY protocol informs the other end about the incoming connection, so that it can know the client's address or the public address it accessed to, whatever the upper layer protocol is.
-    
-    * `proxy_protocol_none` Disable proxy protocol.
-    * `proxy_protocol_v1` Version one (text format).
-    * `proxy_protocol_v2` Version two (binary format).
-    * `proxy_protocol_v2_ssl` Version two with SSL connection.
-    * `proxy_protocol_v2_ssl_cn` Version two with SSL connection and common name information.
-    
+    PROXY protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. PROXY protocol must be supported by the backend servers' software.
     """
 
     failover_host: Optional[str]
     """
-    Only the host part of the Scaleway S3 bucket website is expected.
-    Example: `failover-website.s3-website.fr-par.scw.cloud` if your bucket website URL is `https://failover-website.s3-website.fr-par.scw.cloud/`.
-    
+    Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud. Do not include the scheme (eg https://).
     """
 
     ssl_bridging: Optional[bool]
     """
-    Enable SSL between load balancer and backend servers
+    Defines whether to enable SSL bridging between the Load Balancer and backend servers.
     """
 
     ignore_ssl_server_verify: Optional[bool]
     """
-    Set to true to ignore server certificate verification
+    Defines whether the server certificate verification should be ignored.
     """
 
 
@@ -3572,12 +3499,12 @@ class ZonedApiUpdateBackendRequest:
 class ZonedApiDeleteBackendRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     backend_id: str
     """
-    ID of the backend to delete
+    ID of the backend to delete.
     """
 
 
@@ -3585,17 +3512,17 @@ class ZonedApiDeleteBackendRequest:
 class ZonedApiAddBackendServersRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     backend_id: str
     """
-    Backend ID
+    Backend ID.
     """
 
     server_ip: List[str]
     """
-    Set all IPs to add on your backend
+    List of IP addresses to add to backend servers.
     """
 
 
@@ -3603,17 +3530,17 @@ class ZonedApiAddBackendServersRequest:
 class ZonedApiRemoveBackendServersRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     backend_id: str
     """
-    Backend ID
+    Backend ID.
     """
 
     server_ip: List[str]
     """
-    Set all IPs to remove of your backend
+    List of IP addresses to remove from backend servers.
     """
 
 
@@ -3621,17 +3548,17 @@ class ZonedApiRemoveBackendServersRequest:
 class ZonedApiSetBackendServersRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     backend_id: str
     """
-    Backend ID
+    Backend ID.
     """
 
     server_ip: List[str]
     """
-    Set all IPs to add on your backend and remove all other
+    List of IP addresses for backend servers. Any other existing backend servers will be removed.
     """
 
 
@@ -3639,32 +3566,32 @@ class ZonedApiSetBackendServersRequest:
 class ZonedApiUpdateHealthCheckRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     backend_id: str
     """
-    Backend ID
+    Backend ID.
     """
 
     port: int
     """
-    Specify the port used to health check
+    Port to use for the backend server health check.
     """
 
     check_delay: str
     """
-    Time between two consecutive health checks
+    Time to wait between two consecutive health checks.
     """
 
     check_timeout: str
     """
-    Maximum time a backend server has to reply to the health check
+    Maximum time a backend server has to reply to the health check.
     """
 
     check_max_retries: int
     """
-    Number of consecutive unsuccessful health checks, after which the server will be considered dead
+    Number of consecutive unsuccessful health checks, after which the server will be considered dead.
     """
 
     mysql_config: Optional[HealthCheckMysqlConfig]
@@ -3718,7 +3645,7 @@ class ZonedApiUpdateHealthCheckRequest:
 
     check_send_proxy: bool
     """
-    It defines whether the health check should be done considering the proxy protocol
+    Defines whether proxy protocol should be activated for the health check.
     """
 
 
@@ -3726,32 +3653,32 @@ class ZonedApiUpdateHealthCheckRequest:
 class ZonedApiListFrontendsRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     lb_id: str
     """
-    Load balancer ID
+    Load Balancer ID.
     """
 
     name: Optional[str]
     """
-    Use this to search by name
+    Name of the frontend to filter for.
     """
 
     order_by: Optional[ListFrontendsRequestOrderBy]
     """
-    Response order
+    Sort order of frontends in the response.
     """
 
     page: Optional[int]
     """
-    Page number
+    The page number to return, from the paginated results.
     """
 
     page_size: Optional[int]
     """
-    The number of items to return
+    Number of frontends to return.
     """
 
 
@@ -3759,48 +3686,48 @@ class ZonedApiListFrontendsRequest:
 class ZonedApiCreateFrontendRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     lb_id: str
     """
-    Load balancer ID
+    Load Balancer ID (ID of the Load Balancer to attach the frontend to).
     """
 
     name: Optional[str]
     """
-    Resource name
+    Name for the frontend.
     """
 
     inbound_port: int
     """
-    TCP port to listen on the front side
+    Port the frontend should listen on.
     """
 
     backend_id: str
     """
-    Backend ID
+    Backend ID (ID of the backend the frontend should pass traffic to).
     """
 
     timeout_client: Optional[str]
     """
-    Set the maximum inactivity time on the client side
+    Maximum allowed inactivity time on the client side.
     """
 
     certificate_id: Optional[str]
     """
-    Certificate ID, deprecated in favor of certificate_ids array !
+    Certificate ID, deprecated in favor of certificate_ids array.
     :deprecated
     """
 
     certificate_ids: Optional[List[str]]
     """
-    List of certificate IDs to bind on the frontend
+    List of SSL/TLS certificate IDs to bind to the frontend.
     """
 
     enable_http3: bool
     """
-    Activate HTTP 3 protocol (beta)
+    Defines whether to enable HTTP/3 protocol on the frontend.
     """
 
 
@@ -3808,12 +3735,12 @@ class ZonedApiCreateFrontendRequest:
 class ZonedApiGetFrontendRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     frontend_id: str
     """
-    Frontend ID
+    Frontend ID.
     """
 
 
@@ -3821,48 +3748,48 @@ class ZonedApiGetFrontendRequest:
 class ZonedApiUpdateFrontendRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     frontend_id: str
     """
-    Frontend ID
+    Frontend ID.
     """
 
     name: str
     """
-    Resource name
+    Frontend name.
     """
 
     inbound_port: int
     """
-    TCP port to listen on the front side
+    Port the frontend should listen on.
     """
 
     backend_id: str
     """
-    Backend ID
+    Backend ID (ID of the backend the frontend should pass traffic to).
     """
 
     timeout_client: Optional[str]
     """
-    Client session maximum inactivity time
+    Maximum allowed inactivity time on the client side.
     """
 
     certificate_id: Optional[str]
     """
-    Certificate ID, deprecated in favor of `certificate_ids` array!
+    Certificate ID, deprecated in favor of certificate_ids array.
     :deprecated
     """
 
     certificate_ids: Optional[List[str]]
     """
-    List of certificate IDs to bind on the frontend
+    List of SSL/TLS certificate IDs to bind to the frontend.
     """
 
     enable_http3: bool
     """
-    Activate HTTP 3 protocol (beta)
+    Defines whether to enable HTTP/3 protocol on the frontend.
     """
 
 
@@ -3870,12 +3797,12 @@ class ZonedApiUpdateFrontendRequest:
 class ZonedApiDeleteFrontendRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     frontend_id: str
     """
-    Frontend ID to delete
+    ID of the frontend to delete.
     """
 
 
@@ -3883,22 +3810,22 @@ class ZonedApiDeleteFrontendRequest:
 class ZonedApiListRoutesRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     order_by: Optional[ListRoutesRequestOrderBy]
     """
-    Response order
+    Sort order of routes in the response.
     """
 
     page_size: Optional[int]
     """
-    The number of items to return
+    The number of route objects to return.
     """
 
     page: Optional[int]
     """
-    Page number
+    The page number to return, from the paginated results.
     """
 
     frontend_id: Optional[str]
@@ -3908,22 +3835,22 @@ class ZonedApiListRoutesRequest:
 class ZonedApiCreateRouteRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     frontend_id: str
     """
-    Origin of redirection
+    ID of the source frontend to create the route on.
     """
 
     backend_id: str
     """
-    Destination of destination
+    ID of the target backend for the route.
     """
 
     match: Optional[RouteMatch]
     """
-    Value to match a redirection
+    Object defining the match condition for a route to be applied. If an incoming client session matches the specified condition (i.e. it has a matching SNI value or HTTP Host header value), it will be passed to the target backend.
     """
 
 
@@ -3931,12 +3858,12 @@ class ZonedApiCreateRouteRequest:
 class ZonedApiGetRouteRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     route_id: str
     """
-    Id of route to get
+    Route ID.
     """
 
 
@@ -3944,22 +3871,22 @@ class ZonedApiGetRouteRequest:
 class ZonedApiUpdateRouteRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     route_id: str
     """
-    Route id to update
+    Route ID.
     """
 
     backend_id: str
     """
-    Backend id of redirection
+    ID of the target backend for the route.
     """
 
     match: Optional[RouteMatch]
     """
-    Value to match a redirection
+    Object defining the match condition for a route to be applied. If an incoming client session matches the specified condition (i.e. it has a matching SNI value or HTTP Host header value), it will be passed to the target backend.
     """
 
 
@@ -3967,12 +3894,12 @@ class ZonedApiUpdateRouteRequest:
 class ZonedApiDeleteRouteRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     route_id: str
     """
-    Route id to delete
+    Route ID.
     """
 
 
@@ -3980,12 +3907,12 @@ class ZonedApiDeleteRouteRequest:
 class ZonedApiGetLbStatsRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     lb_id: str
     """
-    Load balancer ID
+    Load Balancer ID.
     """
 
 
@@ -3993,22 +3920,22 @@ class ZonedApiGetLbStatsRequest:
 class ZonedApiListBackendStatsRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     lb_id: str
     """
-    Load balancer ID
+    Load Balancer ID.
     """
 
     page: Optional[int]
     """
-    Page number
+    The page number to return, from the paginated results.
     """
 
     page_size: Optional[int]
     """
-    The number of items to return
+    Number of items to return.
     """
 
 
@@ -4016,32 +3943,32 @@ class ZonedApiListBackendStatsRequest:
 class ZonedApiListAclsRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     frontend_id: str
     """
-    ID of your frontend
+    Frontend ID (ACLs attached to this frontend will be returned in the response).
     """
 
     order_by: Optional[ListAclRequestOrderBy]
     """
-    Response order
+    Sort order of ACLs in the response.
     """
 
     page: Optional[int]
     """
-    Page number
+    The page number to return, from the paginated results.
     """
 
     page_size: Optional[int]
     """
-    The number of items to return
+    The number of ACLs to return.
     """
 
     name: Optional[str]
     """
-    Filter acl per name
+    ACL name to filter for.
     """
 
 
@@ -4049,42 +3976,37 @@ class ZonedApiListAclsRequest:
 class ZonedApiCreateAclRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     frontend_id: str
     """
-    ID of your frontend
+    Frontend ID to attach the ACL to.
     """
 
     name: Optional[str]
     """
-    Name of your ACL ressource
+    ACL name.
     """
 
     action: AclAction
     """
-    Action to undertake when an ACL filter matches
+    Action to take when incoming traffic matches an ACL filter.
     """
 
     match: Optional[AclMatch]
     """
-    The ACL match rule. You can have one of those three cases:
-    
-      - `ip_subnet` is defined
-      - `http_filter` and `http_filter_value` are defined
-      - `ip_subnet`, `http_filter` and `http_filter_value` are defined
-    
+    ACL match filter object. One of `ip_subnet` or `http_filter` & `http_filter_value` are required.
     """
 
     index: int
     """
-    Order between your Acls (ascending order, 0 is first acl executed)
+    Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
     """
 
     description: str
     """
-    Description of your ACL ressource
+    ACL description.
     """
 
 
@@ -4092,12 +4014,12 @@ class ZonedApiCreateAclRequest:
 class ZonedApiGetAclRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     acl_id: str
     """
-    ID of your ACL ressource
+    ACL ID.
     """
 
 
@@ -4105,37 +4027,37 @@ class ZonedApiGetAclRequest:
 class ZonedApiUpdateAclRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     acl_id: str
     """
-    ID of your ACL ressource
+    ACL ID.
     """
 
     name: str
     """
-    Name of your ACL ressource
+    ACL name.
     """
 
     action: AclAction
     """
-    Action to undertake when an ACL filter matches
+    Action to take when incoming traffic matches an ACL filter.
     """
 
     match: Optional[AclMatch]
     """
-    The ACL match rule. At least `ip_subnet` or `http_filter` and `http_filter_value` are required
+    ACL match filter object. One of `ip_subnet` or `http_filter` & `http_filter_value` are required.
     """
 
     index: int
     """
-    Order between your Acls (ascending order, 0 is first acl executed)
+    Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
     """
 
     description: Optional[str]
     """
-    Description of your ACL ressource
+    ACL description.
     """
 
 
@@ -4143,12 +4065,12 @@ class ZonedApiUpdateAclRequest:
 class ZonedApiDeleteAclRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     acl_id: str
     """
-    ID of your ACL ressource
+    ACL ID.
     """
 
 
@@ -4156,17 +4078,17 @@ class ZonedApiDeleteAclRequest:
 class ZonedApiSetAclsRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     frontend_id: str
     """
-    The Frontend to change ACL to
+    Frontend ID.
     """
 
     acls: List[AclSpec]
     """
-    Array of ACLs to erease the existing ACLs
+    List of ACLs for this frontend. Any other existing ACLs on this frontend will be removed.
     """
 
 
@@ -4174,29 +4096,29 @@ class ZonedApiSetAclsRequest:
 class ZonedApiCreateCertificateRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     lb_id: str
     """
-    Load balancer ID
+    Load Balancer ID.
     """
 
     name: Optional[str]
     """
-    Certificate name
+    Name for the certificate.
     """
 
     letsencrypt: Optional[CreateCertificateRequestLetsencryptConfig]
     """
-    Let's Encrypt type.
+    Object to define a new Let's Encrypt certificate to be generated.
     
     One-of ('type_'): at most one of 'letsencrypt', 'custom_certificate' could be set.
     """
 
     custom_certificate: Optional[CreateCertificateRequestCustomCertificate]
     """
-    Custom import certificate.
+    Object to define an existing custom certificate to be imported.
     
     One-of ('type_'): at most one of 'letsencrypt', 'custom_certificate' could be set.
     """
@@ -4206,32 +4128,32 @@ class ZonedApiCreateCertificateRequest:
 class ZonedApiListCertificatesRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     lb_id: str
     """
-    Load balancer ID
+    Load Balancer ID.
     """
 
     order_by: Optional[ListCertificatesRequestOrderBy]
     """
-    Response order
+    Sort order of certificates in the response.
     """
 
     page: Optional[int]
     """
-    Page number
+    The page number to return, from the paginated results.
     """
 
     page_size: Optional[int]
     """
-    The number of items to return
+    Number of certificates to return.
     """
 
     name: Optional[str]
     """
-    Use this to search by name
+    Certificate name to filter for, only certificates of this name will be returned.
     """
 
 
@@ -4239,12 +4161,12 @@ class ZonedApiListCertificatesRequest:
 class ZonedApiGetCertificateRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     certificate_id: str
     """
-    Certificate ID
+    Certificate ID.
     """
 
 
@@ -4252,17 +4174,17 @@ class ZonedApiGetCertificateRequest:
 class ZonedApiUpdateCertificateRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     certificate_id: str
     """
-    Certificate ID
+    Certificate ID.
     """
 
     name: str
     """
-    Certificate name
+    Certificate name.
     """
 
 
@@ -4270,12 +4192,12 @@ class ZonedApiUpdateCertificateRequest:
 class ZonedApiDeleteCertificateRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     certificate_id: str
     """
-    Certificate ID
+    Certificate ID.
     """
 
 
@@ -4283,17 +4205,17 @@ class ZonedApiDeleteCertificateRequest:
 class ZonedApiListLbTypesRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     page: Optional[int]
     """
-    Page number
+    The page number to return, from the paginated results.
     """
 
     page_size: Optional[int]
     """
-    The number of items to return
+    The number of items to return.
     """
 
 
@@ -4301,12 +4223,12 @@ class ZonedApiListLbTypesRequest:
 class ZonedApiCreateSubscriberRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     name: str
     """
-    Subscriber name
+    Subscriber name.
     """
 
     email_config: Optional[SubscriberEmailConfig]
@@ -4325,7 +4247,7 @@ class ZonedApiCreateSubscriberRequest:
 
     organization_id: Optional[str]
     """
-    Owner of resources.
+    Organization ID to create the subscriber in.
     
     One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
     :deprecated
@@ -4333,7 +4255,7 @@ class ZonedApiCreateSubscriberRequest:
 
     project_id: Optional[str]
     """
-    Assign the resource to a project ID.
+    Project ID to create the subscriber in.
     
     One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
     """
@@ -4343,12 +4265,12 @@ class ZonedApiCreateSubscriberRequest:
 class ZonedApiGetSubscriberRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     subscriber_id: str
     """
-    Subscriber ID
+    Subscriber ID.
     """
 
 
@@ -4356,37 +4278,37 @@ class ZonedApiGetSubscriberRequest:
 class ZonedApiListSubscriberRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     order_by: Optional[ListSubscriberRequestOrderBy]
     """
-    Response order
+    Sort order of subscribers in the response.
     """
 
     page: Optional[int]
     """
-    Page number
+    The page number to return, from the paginated results.
     """
 
     page_size: Optional[int]
     """
-    The number of items to return
+    The number of items to return.
     """
 
     name: str
     """
-    Use this to search by name
+    Subscriber name to search for.
     """
 
     organization_id: Optional[str]
     """
-    Filter Subscribers by organization ID
+    Filter subscribers by Organization ID.
     """
 
     project_id: Optional[str]
     """
-    Filter Subscribers by project ID
+    Filter subscribers by Project ID.
     """
 
 
@@ -4394,17 +4316,17 @@ class ZonedApiListSubscriberRequest:
 class ZonedApiUpdateSubscriberRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     subscriber_id: str
     """
-    Assign the resource to a project IDs
+    Subscriber ID.
     """
 
     name: str
     """
-    Subscriber name
+    Subscriber name.
     """
 
     email_config: Optional[SubscriberEmailConfig]
@@ -4416,7 +4338,7 @@ class ZonedApiUpdateSubscriberRequest:
 
     webhook_config: Optional[SubscriberWebhookConfig]
     """
-    WebHook URI configuration.
+    Webhook URI configuration.
     
     One-of ('config'): at most one of 'email_config', 'webhook_config' could be set.
     """
@@ -4426,12 +4348,12 @@ class ZonedApiUpdateSubscriberRequest:
 class ZonedApiDeleteSubscriberRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     subscriber_id: str
     """
-    Subscriber ID
+    Subscriber ID.
     """
 
 
@@ -4439,17 +4361,17 @@ class ZonedApiDeleteSubscriberRequest:
 class ZonedApiSubscribeToLbRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     lb_id: str
     """
-    Load balancer ID
+    Load Balancer ID.
     """
 
     subscriber_id: str
     """
-    Subscriber ID
+    Subscriber ID.
     """
 
 
@@ -4457,12 +4379,12 @@ class ZonedApiSubscribeToLbRequest:
 class ZonedApiUnsubscribeFromLbRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     lb_id: str
     """
-    Load balancer ID
+    Load Balancer ID.
     """
 
 
@@ -4470,27 +4392,27 @@ class ZonedApiUnsubscribeFromLbRequest:
 class ZonedApiListLbPrivateNetworksRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     lb_id: str
     """
-    Load balancer ID
+    Load Balancer ID.
     """
 
     order_by: Optional[ListPrivateNetworksRequestOrderBy]
     """
-    Response order
+    Sort order of Private Network objects in the response.
     """
 
     page_size: Optional[int]
     """
-    The number of items to return
+    Number of objects to return.
     """
 
     page: Optional[int]
     """
-    Page number
+    The page number to return, from the paginated results.
     """
 
 
@@ -4498,29 +4420,29 @@ class ZonedApiListLbPrivateNetworksRequest:
 class ZonedApiAttachPrivateNetworkRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     lb_id: str
     """
-    Load balancer ID
+    Load Balancer ID.
     """
 
     private_network_id: str
     """
-    Set your instance private network id
+    Private Network ID.
     """
 
     static_config: Optional[PrivateNetworkStaticConfig]
     """
-    Define two local ip address of your choice for each load balancer instance.
+    Object containing an array of a local IP address for the Load Balancer on this Private Network.
     
     One-of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
     """
 
     dhcp_config: Optional[PrivateNetworkDHCPConfig]
     """
-    Set to true if you want to let DHCP assign IP addresses.
+    Defines whether to let DHCP assign IP addresses.
     
     One-of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
     """
@@ -4537,15 +4459,15 @@ class ZonedApiAttachPrivateNetworkRequest:
 class ZonedApiDetachPrivateNetworkRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     lb_id: str
     """
-    Load balancer ID
+    Load balancer ID.
     """
 
     private_network_id: str
     """
-    Set your instance private network id
+    Set your instance private network id.
     """
