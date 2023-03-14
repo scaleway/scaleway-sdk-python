@@ -26,12 +26,12 @@ class ListProjectsResponse:
 
     total_count: int
     """
-    The total number of projects.
+    Total number of Projects.
     """
 
     projects: List[Project]
     """
-    The paginated returned projects.
+    Paginated returned Projects.
     """
 
 
@@ -43,32 +43,32 @@ class Project:
 
     id: str
     """
-    The ID of the project.
+    ID of the Project.
     """
 
     name: str
     """
-    The name of the project.
+    Name of the Project.
     """
 
     organization_id: str
     """
-    The organization ID of the project.
+    Organization ID of the Project.
     """
 
     created_at: Optional[datetime]
     """
-    The creation date of the project.
+    Creation date of the Project.
     """
 
     updated_at: Optional[datetime]
     """
-    The update date of the project.
+    Update date of the Project.
     """
 
     description: str
     """
-    The description of the project.
+    Description of the Project.
     """
 
 
@@ -76,17 +76,17 @@ class Project:
 class CreateProjectRequest:
     name: str
     """
-    The name of the project.
+    Name of the Project.
     """
 
     organization_id: Optional[str]
     """
-    The organization ID of the project.
+    Organization ID of the Project.
     """
 
     description: Optional[str]
     """
-    The description of the project.
+    Description of the Project.
     """
 
 
@@ -94,32 +94,32 @@ class CreateProjectRequest:
 class ListProjectsRequest:
     organization_id: Optional[str]
     """
-    The organization ID of the project.
+    Organization ID of the Project.
     """
 
     name: Optional[str]
     """
-    The name of the project.
+    Name of the Project.
     """
 
     page: Optional[int]
     """
-    The page number for the returned projects.
+    Page number for the returned Projects.
     """
 
     page_size: Optional[int]
     """
-    The maximum number of project per page.
+    Maximum number of Project per page.
     """
 
     order_by: Optional[ListProjectsRequestOrderBy]
     """
-    The sort order of the returned projects.
+    Sort order of the returned Projects.
     """
 
     project_ids: Optional[List[str]]
     """
-    Filter out by a list of project ID.
+    Project IDs to filter for. The results will be limited to any Projects with an ID in this array.
     """
 
 
@@ -127,7 +127,7 @@ class ListProjectsRequest:
 class GetProjectRequest:
     project_id: Optional[str]
     """
-    The project ID of the project.
+    Project ID of the Project.
     """
 
 
@@ -135,7 +135,7 @@ class GetProjectRequest:
 class DeleteProjectRequest:
     project_id: Optional[str]
     """
-    The project ID of the project.
+    Project ID of the Project.
     """
 
 
@@ -143,15 +143,15 @@ class DeleteProjectRequest:
 class UpdateProjectRequest:
     project_id: Optional[str]
     """
-    The project ID of the project.
+    Project ID of the Project.
     """
 
     name: Optional[str]
     """
-    The name of the project.
+    Name of the Project.
     """
 
     description: Optional[str]
     """
-    The description of the project.
+    Description of the Project.
     """
