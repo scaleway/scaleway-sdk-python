@@ -204,6 +204,7 @@ class LbV1API(API):
     Load balancer API.
 
     This API allows you to manage your load balancer service.
+    Load balancer API.
     """
 
     async def list_lbs(
@@ -218,7 +219,7 @@ class LbV1API(API):
         project_id: Optional[str] = None,
     ) -> ListLbsResponse:
         """
-        List load balancers
+        List load balancers.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Load Balancer name to filter for.
         :param order_by: Sort order of Load Balancers in the response.
@@ -267,7 +268,7 @@ class LbV1API(API):
         project_id: Optional[str] = None,
     ) -> List[Lb]:
         """
-        List load balancers
+        List load balancers.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Load Balancer name to filter for.
         :param order_by: Sort order of Load Balancers in the response.
@@ -312,7 +313,7 @@ class LbV1API(API):
         tags: Optional[List[str]] = None,
     ) -> Lb:
         """
-        Create a load balancer
+        Create a load balancer.
         :param region: Region to target. If none is passed will use default region from the config.
         :param organization_id: Scaleway Organization to create the Load Balancer in.
 
@@ -371,7 +372,7 @@ class LbV1API(API):
         region: Optional[Region] = None,
     ) -> Lb:
         """
-        Get a load balancer
+        Get a load balancer.
         :param region: Region to target. If none is passed will use default region from the config.
         :param lb_id: Load Balancer ID.
         :return: :class:`Lb <Lb>`
@@ -441,7 +442,7 @@ class LbV1API(API):
         tags: Optional[List[str]] = None,
     ) -> Lb:
         """
-        Update a load balancer
+        Update a load balancer.
         :param region: Region to target. If none is passed will use default region from the config.
         :param lb_id: Load Balancer ID.
         :param name: Load Balancer name.
@@ -493,7 +494,7 @@ class LbV1API(API):
         region: Optional[Region] = None,
     ) -> Optional[None]:
         """
-        Delete a load balancer
+        Delete a load balancer.
         :param region: Region to target. If none is passed will use default region from the config.
         :param lb_id: ID of the Load Balancer to delete.
         :param release_ip: Defines whether the Load Balancer's flexible IP should be deleted. Set to true to release the flexible IP, or false to keep it available in your account for future Load Balancers.
@@ -531,7 +532,7 @@ class LbV1API(API):
         region: Optional[Region] = None,
     ) -> Lb:
         """
-        Migrate a load balancer
+        Migrate a load balancer.
         :param region: Region to target. If none is passed will use default region from the config.
         :param lb_id: Load Balancer ID.
         :param type_: Load Balancer type to migrate to (use the List all Load Balancer offer types endpoint to get a list of available offer types).
@@ -578,7 +579,7 @@ class LbV1API(API):
         project_id: Optional[str] = None,
     ) -> ListIpsResponse:
         """
-        List IPs
+        List IPs.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: The page number to return, from the paginated results.
         :param page_size: Number of IP addresses to return.
@@ -624,7 +625,7 @@ class LbV1API(API):
         project_id: Optional[str] = None,
     ) -> List[Ip]:
         """
-        List IPs
+        List IPs.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: The page number to return, from the paginated results.
         :param page_size: Number of IP addresses to return.
@@ -662,7 +663,7 @@ class LbV1API(API):
         reverse: Optional[str] = None,
     ) -> Ip:
         """
-        Create an IP
+        Create an IP.
         :param region: Region to target. If none is passed will use default region from the config.
         :param organization_id: Organization ID of the Organization where the IP address should be created.
 
@@ -707,7 +708,7 @@ class LbV1API(API):
         region: Optional[Region] = None,
     ) -> Ip:
         """
-        Get an IP
+        Get an IP.
         :param region: Region to target. If none is passed will use default region from the config.
         :param ip_id: IP address ID.
         :return: :class:`Ip <Ip>`
@@ -738,7 +739,7 @@ class LbV1API(API):
         region: Optional[Region] = None,
     ) -> Optional[None]:
         """
-        Delete an IP
+        Delete an IP.
         :param region: Region to target. If none is passed will use default region from the config.
         :param ip_id: IP address ID.
 
@@ -769,7 +770,7 @@ class LbV1API(API):
         reverse: Optional[str] = None,
     ) -> Ip:
         """
-        Update an IP
+        Update an IP.
         :param region: Region to target. If none is passed will use default region from the config.
         :param ip_id: IP address ID.
         :param reverse: Reverse DNS (domain name) for the IP address.
@@ -813,7 +814,7 @@ class LbV1API(API):
         page_size: Optional[int] = None,
     ) -> ListBackendsResponse:
         """
-        List backends in a given load balancer
+        List backends in a given load balancer.
         :param region: Region to target. If none is passed will use default region from the config.
         :param lb_id: Load Balancer ID.
         :param name: Name of the backend to filter for.
@@ -858,7 +859,7 @@ class LbV1API(API):
         page_size: Optional[int] = None,
     ) -> List[Backend]:
         """
-        List backends in a given load balancer
+        List backends in a given load balancer.
         :param region: Region to target. If none is passed will use default region from the config.
         :param lb_id: Load Balancer ID.
         :param name: Name of the backend to filter for.
@@ -911,7 +912,7 @@ class LbV1API(API):
         ignore_ssl_server_verify: Optional[bool] = None,
     ) -> Backend:
         """
-        Create a backend in a given load balancer
+        Create a backend in a given load balancer.
         :param region: Region to target. If none is passed will use default region from the config.
         :param lb_id: Load Balancer ID.
         :param name: Name for the backend.
@@ -991,7 +992,7 @@ class LbV1API(API):
         region: Optional[Region] = None,
     ) -> Backend:
         """
-        Get a backend in a given load balancer
+        Get a backend in a given load balancer.
         :param region: Region to target. If none is passed will use default region from the config.
         :param backend_id: Backend ID.
         :return: :class:`Backend <Backend>`
@@ -1037,7 +1038,7 @@ class LbV1API(API):
         ignore_ssl_server_verify: Optional[bool] = None,
     ) -> Backend:
         """
-        Update a backend in a given load balancer
+        Update a backend in a given load balancer.
         :param region: Region to target. If none is passed will use default region from the config.
         :param backend_id: Backend ID.
         :param name: Backend name.
@@ -1112,7 +1113,7 @@ class LbV1API(API):
         region: Optional[Region] = None,
     ) -> Optional[None]:
         """
-        Delete a backend in a given load balancer
+        Delete a backend in a given load balancer.
         :param region: Region to target. If none is passed will use default region from the config.
         :param backend_id: ID of the backend to delete.
 
@@ -1143,7 +1144,7 @@ class LbV1API(API):
         region: Optional[Region] = None,
     ) -> Backend:
         """
-        Add a set of servers in a given backend
+        Add a set of servers in a given backend.
         :param region: Region to target. If none is passed will use default region from the config.
         :param backend_id: Backend ID.
         :param server_ip: List of IP addresses to add to backend servers.
@@ -1187,7 +1188,7 @@ class LbV1API(API):
         region: Optional[Region] = None,
     ) -> Backend:
         """
-        Remove a set of servers for a given backend
+        Remove a set of servers for a given backend.
         :param region: Region to target. If none is passed will use default region from the config.
         :param backend_id: Backend ID.
         :param server_ip: List of IP addresses to remove from backend servers.
@@ -1231,7 +1232,7 @@ class LbV1API(API):
         region: Optional[Region] = None,
     ) -> Backend:
         """
-        Define all servers in a given backend
+        Define all servers in a given backend.
         :param region: Region to target. If none is passed will use default region from the config.
         :param backend_id: Backend ID.
         :param server_ip: List of IP addresses for backend servers. Any other existing backend servers will be removed.
@@ -1286,7 +1287,7 @@ class LbV1API(API):
         https_config: Optional[HealthCheckHttpsConfig] = None,
     ) -> HealthCheck:
         """
-        Update an health check for a given backend
+        Update an health check for a given backend.
         :param region: Region to target. If none is passed will use default region from the config.
         :param backend_id: Backend ID.
         :param port: Port to use for the backend server health check.
@@ -1373,7 +1374,7 @@ class LbV1API(API):
         page_size: Optional[int] = None,
     ) -> ListFrontendsResponse:
         """
-        List frontends in a given load balancer
+        List frontends in a given load balancer.
         :param region: Region to target. If none is passed will use default region from the config.
         :param lb_id: Load Balancer ID.
         :param name: Name of the frontend to filter for.
@@ -1418,7 +1419,7 @@ class LbV1API(API):
         page_size: Optional[int] = None,
     ) -> List[Frontend]:
         """
-        List frontends in a given load balancer
+        List frontends in a given load balancer.
         :param region: Region to target. If none is passed will use default region from the config.
         :param lb_id: Load Balancer ID.
         :param name: Name of the frontend to filter for.
@@ -1461,7 +1462,7 @@ class LbV1API(API):
         certificate_ids: Optional[List[str]] = None,
     ) -> Frontend:
         """
-        Create a frontend in a given load balancer
+        Create a frontend in a given load balancer.
         :param region: Region to target. If none is passed will use default region from the config.
         :param lb_id: Load Balancer ID (ID of the Load Balancer to attach the frontend to).
         :param name: Name for the frontend.
@@ -1518,7 +1519,7 @@ class LbV1API(API):
         region: Optional[Region] = None,
     ) -> Frontend:
         """
-        Get a frontend
+        Get a frontend.
         :param region: Region to target. If none is passed will use default region from the config.
         :param frontend_id: Frontend ID.
         :return: :class:`Frontend <Frontend>`
@@ -1556,7 +1557,7 @@ class LbV1API(API):
         certificate_ids: Optional[List[str]] = None,
     ) -> Frontend:
         """
-        Update a frontend
+        Update a frontend.
         :param region: Region to target. If none is passed will use default region from the config.
         :param frontend_id: Frontend ID.
         :param name: Frontend name.
@@ -1614,7 +1615,7 @@ class LbV1API(API):
         region: Optional[Region] = None,
     ) -> Optional[None]:
         """
-        Delete a frontend
+        Delete a frontend.
         :param region: Region to target. If none is passed will use default region from the config.
         :param frontend_id: ID of the frontend to delete.
 
@@ -1647,7 +1648,7 @@ class LbV1API(API):
         frontend_id: Optional[str] = None,
     ) -> ListRoutesResponse:
         """
-        List all backend redirections
+        List all backend redirections.
         :param region: Region to target. If none is passed will use default region from the config.
         :param order_by: Sort order of routes in the response.
         :param page_size: The number of route objects to return.
@@ -1689,7 +1690,7 @@ class LbV1API(API):
         frontend_id: Optional[str] = None,
     ) -> List[Route]:
         """
-        List all backend redirections
+        List all backend redirections.
         :param region: Region to target. If none is passed will use default region from the config.
         :param order_by: Sort order of routes in the response.
         :param page_size: The number of route objects to return.
@@ -1725,7 +1726,7 @@ class LbV1API(API):
         match: Optional[RouteMatch] = None,
     ) -> Route:
         """
-        Create a backend redirection
+        Create a backend redirection.
         :param region: Region to target. If none is passed will use default region from the config.
         :param frontend_id: ID of the source frontend to create the route on.
         :param backend_id: ID of the target backend for the route.
@@ -1769,7 +1770,7 @@ class LbV1API(API):
         region: Optional[Region] = None,
     ) -> Route:
         """
-        Get single backend redirection
+        Get single backend redirection.
         :param region: Region to target. If none is passed will use default region from the config.
         :param route_id: Route ID.
         :return: :class:`Route <Route>`
@@ -1802,7 +1803,7 @@ class LbV1API(API):
         match: Optional[RouteMatch] = None,
     ) -> Route:
         """
-        Edit a backend redirection
+        Edit a backend redirection.
         :param region: Region to target. If none is passed will use default region from the config.
         :param route_id: Route ID.
         :param backend_id: ID of the target backend for the route.
@@ -1847,7 +1848,7 @@ class LbV1API(API):
         region: Optional[Region] = None,
     ) -> Optional[None]:
         """
-        Delete a backend redirection
+        Delete a backend redirection.
         :param region: Region to target. If none is passed will use default region from the config.
         :param route_id: Route ID.
 
@@ -1877,7 +1878,7 @@ class LbV1API(API):
         region: Optional[Region] = None,
     ) -> LbStats:
         """
-        Get usage statistics of a given load balancer
+        Get usage statistics of a given load balancer.
         :param region: Region to target. If none is passed will use default region from the config.
         :param lb_id: Load Balancer ID.
         :return: :class:`LbStats <LbStats>`
@@ -1975,7 +1976,7 @@ class LbV1API(API):
         name: Optional[str] = None,
     ) -> ListAclResponse:
         """
-        List ACL for a given frontend
+        List ACL for a given frontend.
         :param region: Region to target. If none is passed will use default region from the config.
         :param frontend_id: Frontend ID (ACLs attached to this frontend will be returned in the response).
         :param order_by: Sort order of ACLs in the response.
@@ -2020,7 +2021,7 @@ class LbV1API(API):
         name: Optional[str] = None,
     ) -> List[Acl]:
         """
-        List ACL for a given frontend
+        List ACL for a given frontend.
         :param region: Region to target. If none is passed will use default region from the config.
         :param frontend_id: Frontend ID (ACLs attached to this frontend will be returned in the response).
         :param order_by: Sort order of ACLs in the response.
@@ -2061,7 +2062,7 @@ class LbV1API(API):
         match: Optional[AclMatch] = None,
     ) -> Acl:
         """
-        Create an ACL for a given frontend
+        Create an ACL for a given frontend.
         :param region: Region to target. If none is passed will use default region from the config.
         :param frontend_id: Frontend ID to attach the ACL to.
         :param name: ACL name.
@@ -2114,7 +2115,7 @@ class LbV1API(API):
         region: Optional[Region] = None,
     ) -> Acl:
         """
-        Get an ACL
+        Get an ACL.
         :param region: Region to target. If none is passed will use default region from the config.
         :param acl_id: ACL ID.
         :return: :class:`Acl <Acl>`
@@ -2150,7 +2151,7 @@ class LbV1API(API):
         description: Optional[str] = None,
     ) -> Acl:
         """
-        Update an ACL
+        Update an ACL.
         :param region: Region to target. If none is passed will use default region from the config.
         :param acl_id: ACL ID.
         :param name: ACL name.
@@ -2203,7 +2204,7 @@ class LbV1API(API):
         region: Optional[Region] = None,
     ) -> Optional[None]:
         """
-        Delete an ACL
+        Delete an ACL.
         :param region: Region to target. If none is passed will use default region from the config.
         :param acl_id: ACL ID.
 
@@ -2236,6 +2237,7 @@ class LbV1API(API):
         custom_certificate: Optional[CreateCertificateRequestCustomCertificate] = None,
     ) -> Certificate:
         """
+        Create a TLS certificate.
         Generate a new TLS certificate using Let's Encrypt or import your certificate.
         :param region: Region to target. If none is passed will use default region from the config.
         :param lb_id: Load Balancer ID.
@@ -2288,7 +2290,7 @@ class LbV1API(API):
         name: Optional[str] = None,
     ) -> ListCertificatesResponse:
         """
-        List all TLS certificates on a given load balancer
+        List all TLS certificates on a given load balancer.
         :param region: Region to target. If none is passed will use default region from the config.
         :param lb_id: Load Balancer ID.
         :param order_by: Sort order of certificates in the response.
@@ -2333,7 +2335,7 @@ class LbV1API(API):
         name: Optional[str] = None,
     ) -> List[Certificate]:
         """
-        List all TLS certificates on a given load balancer
+        List all TLS certificates on a given load balancer.
         :param region: Region to target. If none is passed will use default region from the config.
         :param lb_id: Load Balancer ID.
         :param order_by: Sort order of certificates in the response.
@@ -2369,7 +2371,7 @@ class LbV1API(API):
         region: Optional[Region] = None,
     ) -> Certificate:
         """
-        Get a TLS certificate
+        Get a TLS certificate.
         :param region: Region to target. If none is passed will use default region from the config.
         :param certificate_id: Certificate ID.
         :return: :class:`Certificate <Certificate>`
@@ -2438,7 +2440,7 @@ class LbV1API(API):
         region: Optional[Region] = None,
     ) -> Certificate:
         """
-        Update a TLS certificate
+        Update a TLS certificate.
         :param region: Region to target. If none is passed will use default region from the config.
         :param certificate_id: Certificate ID.
         :param name: Certificate name.
@@ -2481,7 +2483,7 @@ class LbV1API(API):
         region: Optional[Region] = None,
     ) -> Optional[None]:
         """
-        Delete a TLS certificate
+        Delete a TLS certificate.
         :param region: Region to target. If none is passed will use default region from the config.
         :param certificate_id: Certificate ID.
 
@@ -2512,7 +2514,7 @@ class LbV1API(API):
         page_size: Optional[int] = None,
     ) -> ListLbTypesResponse:
         """
-        List all load balancer offer type
+        List all load balancer offer type.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: The page number to return, from the paginated results.
         :param page_size: The number of items to return.
@@ -2548,7 +2550,7 @@ class LbV1API(API):
         page_size: Optional[int] = None,
     ) -> List[LbType]:
         """
-        List all load balancer offer type
+        List all load balancer offer type.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: The page number to return, from the paginated results.
         :param page_size: The number of items to return.
@@ -2582,7 +2584,7 @@ class LbV1API(API):
         project_id: Optional[str] = None,
     ) -> Subscriber:
         """
-        Create a subscriber, webhook or email
+        Create a subscriber, webhook or email.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Subscriber name.
         :param email_config: Email address configuration.
@@ -2635,7 +2637,7 @@ class LbV1API(API):
         region: Optional[Region] = None,
     ) -> Subscriber:
         """
-        Get a subscriber
+        Get a subscriber.
         :param region: Region to target. If none is passed will use default region from the config.
         :param subscriber_id: Subscriber ID.
         :return: :class:`Subscriber <Subscriber>`
@@ -2671,7 +2673,7 @@ class LbV1API(API):
         project_id: Optional[str] = None,
     ) -> ListSubscriberResponse:
         """
-        List all subscriber
+        List all subscriber.
         :param region: Region to target. If none is passed will use default region from the config.
         :param order_by: Sort order of subscribers in the response.
         :param page: The page number to return, from the paginated results.
@@ -2720,7 +2722,7 @@ class LbV1API(API):
         project_id: Optional[str] = None,
     ) -> List[Subscriber]:
         """
-        List all subscriber
+        List all subscriber.
         :param region: Region to target. If none is passed will use default region from the config.
         :param order_by: Sort order of subscribers in the response.
         :param page: The page number to return, from the paginated results.
@@ -2761,7 +2763,7 @@ class LbV1API(API):
         webhook_config: Optional[SubscriberWebhookConfig] = None,
     ) -> Subscriber:
         """
-        Update a subscriber
+        Update a subscriber.
         :param region: Region to target. If none is passed will use default region from the config.
         :param subscriber_id: Subscriber ID.
         :param name: Subscriber name.
@@ -2812,7 +2814,7 @@ class LbV1API(API):
         region: Optional[Region] = None,
     ) -> Optional[None]:
         """
-        Delete a subscriber
+        Delete a subscriber.
         :param region: Region to target. If none is passed will use default region from the config.
         :param subscriber_id: Subscriber ID.
 
@@ -2843,7 +2845,7 @@ class LbV1API(API):
         region: Optional[Region] = None,
     ) -> Lb:
         """
-        Subscribe a subscriber to a given load balancer
+        Subscribe a subscriber to a given load balancer.
         :param region: Region to target. If none is passed will use default region from the config.
         :param lb_id: Load Balancer ID.
         :param subscriber_id: Subscriber ID.
@@ -2886,7 +2888,7 @@ class LbV1API(API):
         region: Optional[Region] = None,
     ) -> Lb:
         """
-        Unsubscribe a subscriber from a given load balancer
+        Unsubscribe a subscriber from a given load balancer.
         :param region: Region to target. If none is passed will use default region from the config.
         :param lb_id: Load Balancer ID.
         :return: :class:`Lb <Lb>`
@@ -2920,7 +2922,7 @@ class LbV1API(API):
         page: Optional[int] = None,
     ) -> ListLbPrivateNetworksResponse:
         """
-        List attached private network of load balancer
+        List attached private network of load balancer.
         :param region: Region to target. If none is passed will use default region from the config.
         :param lb_id: Load Balancer ID.
         :param order_by: Sort order of Private Network objects in the response.
@@ -2962,7 +2964,7 @@ class LbV1API(API):
         page: Optional[int] = None,
     ) -> List[PrivateNetwork]:
         """
-        List attached private network of load balancer
+        List attached private network of load balancer.
         :param region: Region to target. If none is passed will use default region from the config.
         :param lb_id: Load Balancer ID.
         :param order_by: Sort order of Private Network objects in the response.
@@ -3000,7 +3002,7 @@ class LbV1API(API):
         ipam_config: Optional[PrivateNetworkIpamConfig] = None,
     ) -> PrivateNetwork:
         """
-        Add load balancer on instance private network
+        Add load balancer on instance private network.
         :param region: Region to target. If none is passed will use default region from the config.
         :param lb_id: Load Balancer ID.
         :param private_network_id: Private Network ID.
@@ -3059,7 +3061,7 @@ class LbV1API(API):
         region: Optional[Region] = None,
     ) -> Optional[None]:
         """
-        Remove load balancer of private network
+        Remove load balancer of private network.
         :param region: Region to target. If none is passed will use default region from the config.
         :param lb_id: Load balancer ID.
         :param private_network_id: Set your instance private network id.
@@ -3095,6 +3097,7 @@ class LbZonedV1API(API):
     Load Balancer API.
 
     This API allows you to manage your Scaleway Load Balancer services.
+    Load Balancer API.
     """
 
     async def list_lbs(
@@ -3109,6 +3112,7 @@ class LbZonedV1API(API):
         project_id: Optional[str] = None,
     ) -> ListLbsResponse:
         """
+        List Load Balancers.
         List all Load Balancers in the specified zone, for a Scaleway Organization or Scaleway Project. By default, the Load Balancers returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: Load Balancer name to filter for.
@@ -3156,6 +3160,7 @@ class LbZonedV1API(API):
         project_id: Optional[str] = None,
     ) -> List[Lb]:
         """
+        List Load Balancers.
         List all Load Balancers in the specified zone, for a Scaleway Organization or Scaleway Project. By default, the Load Balancers returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: Load Balancer name to filter for.
@@ -3201,6 +3206,7 @@ class LbZonedV1API(API):
         tags: Optional[List[str]] = None,
     ) -> Lb:
         """
+        Create a Load Balancer.
         Create a new Load Balancer. Note that the Load Balancer will be created without frontends or backends; these must be created separately via the dedicated endpoints.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param organization_id: Scaleway Organization to create the Load Balancer in.
@@ -3258,6 +3264,7 @@ class LbZonedV1API(API):
         zone: Optional[Zone] = None,
     ) -> Lb:
         """
+        Get a Load Balancer.
         Retrieve information about an existing Load Balancer, specified by its Load Balancer ID. Its full details, including name, status and IP address, are returned in the response object.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param lb_id: Load Balancer ID.
@@ -3326,6 +3333,7 @@ class LbZonedV1API(API):
         tags: Optional[List[str]] = None,
     ) -> Lb:
         """
+        Update a Load Balancer.
         Update the parameters of an existing Load Balancer, specified by its Load Balancer ID. Note that the request type is PUT and not PATCH. You must set all parameters.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param lb_id: Load Balancer ID.
@@ -3376,6 +3384,7 @@ class LbZonedV1API(API):
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
         """
+        Delete a Load Balancer.
         Delete an existing Load Balancer, specified by its Load Balancer ID. Deleting a Load Balancer is permanent, and cannot be undone. The Load Balancer's flexible IP address can either be deleted with the Load Balancer, or kept in your account for future use.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param lb_id: ID of the Load Balancer to delete.
@@ -3412,6 +3421,7 @@ class LbZonedV1API(API):
         zone: Optional[Zone] = None,
     ) -> Lb:
         """
+        Migrate a Load Balancer.
         Migrate an existing Load Balancer from one commercial type to another. Allows you to scale your Load Balancer up or down in terms of bandwidth or multi-cloud provision.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param lb_id: Load Balancer ID.
@@ -3457,6 +3467,7 @@ class LbZonedV1API(API):
         project_id: Optional[str] = None,
     ) -> ListIpsResponse:
         """
+        List IP addresses.
         List the Load Balancer flexible IP addresses held in the account (filtered by Organization ID or Project ID). It is also possible to search for a specific IP address.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param page: The page number to return, from the paginated results.
@@ -3501,6 +3512,7 @@ class LbZonedV1API(API):
         project_id: Optional[str] = None,
     ) -> List[Ip]:
         """
+        List IP addresses.
         List the Load Balancer flexible IP addresses held in the account (filtered by Organization ID or Project ID). It is also possible to search for a specific IP address.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param page: The page number to return, from the paginated results.
@@ -3539,6 +3551,7 @@ class LbZonedV1API(API):
         reverse: Optional[str] = None,
     ) -> Ip:
         """
+        Create an IP address.
         Create a new Load Balancer flexible IP address, in the specified Scaleway Project. This can be attached to new Load Balancers created in the future.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param organization_id: Organization ID of the Organization where the IP address should be created.
@@ -3582,6 +3595,7 @@ class LbZonedV1API(API):
         zone: Optional[Zone] = None,
     ) -> Ip:
         """
+        Get an IP address.
         Retrieve the full details of a Load Balancer flexible IP address.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param ip_id: IP address ID.
@@ -3611,6 +3625,7 @@ class LbZonedV1API(API):
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
         """
+        Delete an IP address.
         Delete a Load Balancer flexible IP address. This action is irreversible, and cannot be undone.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param ip_id: IP address ID.
@@ -3640,6 +3655,7 @@ class LbZonedV1API(API):
         reverse: Optional[str] = None,
     ) -> Ip:
         """
+        Update an IP address.
         Update the reverse DNS of a Load Balancer flexible IP address.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param ip_id: IP address ID.
@@ -3682,6 +3698,7 @@ class LbZonedV1API(API):
         page_size: Optional[int] = None,
     ) -> ListBackendsResponse:
         """
+        List the backends of a given Load Balancer.
         List all the backends of a Load Balancer, specified by its Load Balancer ID. By default, results are returned in ascending order by the creation date of each backend. The response is an array of backend objects, containing full details of each one including their configuration parameters such as protocol, port and forwarding algorithm.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param lb_id: Load Balancer ID.
@@ -3725,6 +3742,7 @@ class LbZonedV1API(API):
         page_size: Optional[int] = None,
     ) -> List[Backend]:
         """
+        List the backends of a given Load Balancer.
         List all the backends of a Load Balancer, specified by its Load Balancer ID. By default, results are returned in ascending order by the creation date of each backend. The response is an array of backend objects, containing full details of each one including their configuration parameters such as protocol, port and forwarding algorithm.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param lb_id: Load Balancer ID.
@@ -3778,6 +3796,7 @@ class LbZonedV1API(API):
         ignore_ssl_server_verify: Optional[bool] = None,
     ) -> Backend:
         """
+        Create a backend for a given Load Balancer.
         Create a new backend for a given Load Balancer, specifying its full configuration including protocol, port and forwarding algorithm.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param lb_id: Load Balancer ID.
@@ -3856,6 +3875,7 @@ class LbZonedV1API(API):
         zone: Optional[Zone] = None,
     ) -> Backend:
         """
+        Get a backend of a given Load Balancer.
         Get the full details of a given backend, specified by its backend ID. The response contains the backend's full configuration parameters including protocol, port and forwarding algorithm.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param backend_id: Backend ID.
@@ -3900,6 +3920,7 @@ class LbZonedV1API(API):
         ignore_ssl_server_verify: Optional[bool] = None,
     ) -> Backend:
         """
+        Update a backend of a given Load Balancer.
         Update a backend of a given Load Balancer, specified by its backend ID. Note that the request type is PUT and not PATCH. You must set all parameters.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param backend_id: Backend ID.
@@ -3973,6 +3994,7 @@ class LbZonedV1API(API):
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
         """
+        Delete a backend of a given Load Balancer.
         Delete a backend of a given Load Balancer, specified by its backend ID. This action is irreversible and cannot be undone.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param backend_id: ID of the backend to delete.
@@ -4002,6 +4024,7 @@ class LbZonedV1API(API):
         zone: Optional[Zone] = None,
     ) -> Backend:
         """
+        Add a set of backend servers to a given backend.
         For a given backend specified by its backend ID, add a set of backend servers (identified by their IP addresses) it should forward traffic to. These will be appended to any existing set of backend servers for this backend.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param backend_id: Backend ID.
@@ -4044,6 +4067,7 @@ class LbZonedV1API(API):
         zone: Optional[Zone] = None,
     ) -> Backend:
         """
+        Remove a set of servers for a given backend.
         For a given backend specified by its backend ID, remove the specified backend servers (identified by their IP addresses) so that it no longer forwards traffic to them.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param backend_id: Backend ID.
@@ -4086,6 +4110,7 @@ class LbZonedV1API(API):
         zone: Optional[Zone] = None,
     ) -> Backend:
         """
+        Define all backend servers for a given backend.
         For a given backend specified by its backend ID, define the set of backend servers (identified by their IP addresses) that it should forward traffic to. Any existing backend servers configured for this backend will be removed.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param backend_id: Backend ID.
@@ -4139,6 +4164,7 @@ class LbZonedV1API(API):
         https_config: Optional[HealthCheckHttpsConfig] = None,
     ) -> HealthCheck:
         """
+        Update a health check for a given backend.
         Update the configuration of the health check performed by a given backend to verify the health of its backend servers, identified by its backend ID. Note that the request type is PUT and not PATCH. You must set all parameters.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param backend_id: Backend ID.
@@ -4224,6 +4250,7 @@ class LbZonedV1API(API):
         page_size: Optional[int] = None,
     ) -> ListFrontendsResponse:
         """
+        List frontends of a given Load Balancer.
         List all the frontends of a Load Balancer, specified by its Load Balancer ID. By default, results are returned in ascending order by the creation date of each frontend. The response is an array of frontend objects, containing full details of each one including the port they listen on and the backend they are attached to.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param lb_id: Load Balancer ID.
@@ -4267,6 +4294,7 @@ class LbZonedV1API(API):
         page_size: Optional[int] = None,
     ) -> List[Frontend]:
         """
+        List frontends of a given Load Balancer.
         List all the frontends of a Load Balancer, specified by its Load Balancer ID. By default, results are returned in ascending order by the creation date of each frontend. The response is an array of frontend objects, containing full details of each one including the port they listen on and the backend they are attached to.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param lb_id: Load Balancer ID.
@@ -4310,6 +4338,7 @@ class LbZonedV1API(API):
         certificate_ids: Optional[List[str]] = None,
     ) -> Frontend:
         """
+        Create a frontend in a given Load Balancer.
         Create a new frontend for a given Load Balancer, specifying its configuration including the port it should listen on and the backend to attach it to.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param lb_id: Load Balancer ID (ID of the Load Balancer to attach the frontend to).
@@ -4365,6 +4394,7 @@ class LbZonedV1API(API):
         zone: Optional[Zone] = None,
     ) -> Frontend:
         """
+        Get a frontend.
         Get the full details of a given frontend, specified by its frontend ID. The response contains the frontend's full configuration parameters including the backend it is attached to, the port it listens on, and any certificates it has.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param frontend_id: Frontend ID.
@@ -4401,6 +4431,7 @@ class LbZonedV1API(API):
         certificate_ids: Optional[List[str]] = None,
     ) -> Frontend:
         """
+        Update a frontend.
         Update a given frontend, specified by its frontend ID. You can update configuration parameters including its name and the port it listens on. Note that the request type is PUT and not PATCH. You must set all parameters.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param frontend_id: Frontend ID.
@@ -4457,6 +4488,7 @@ class LbZonedV1API(API):
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
         """
+        Delete a frontend.
         Delete a given frontend, specified by its frontend ID. This action is irreversible and cannot be undone.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param frontend_id: ID of the frontend to delete.
@@ -4488,6 +4520,7 @@ class LbZonedV1API(API):
         frontend_id: Optional[str] = None,
     ) -> ListRoutesResponse:
         """
+        List all routes.
         List all routes for a given frontend. The response is an array of routes, each one  with a specified backend to direct to if a certain condition is matched (based on the value of the SNI field or HTTP Host header).
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param order_by: Sort order of routes in the response.
@@ -4528,6 +4561,7 @@ class LbZonedV1API(API):
         frontend_id: Optional[str] = None,
     ) -> List[Route]:
         """
+        List all routes.
         List all routes for a given frontend. The response is an array of routes, each one  with a specified backend to direct to if a certain condition is matched (based on the value of the SNI field or HTTP Host header).
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param order_by: Sort order of routes in the response.
@@ -4564,6 +4598,7 @@ class LbZonedV1API(API):
         match: Optional[RouteMatch] = None,
     ) -> Route:
         """
+        Create a route.
         Create a new route on a given frontend. To configure a route, specify the backend to direct to if a certain condition is matched (based on the value of the SNI field or HTTP Host header).
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param frontend_id: ID of the source frontend to create the route on.
@@ -4606,6 +4641,7 @@ class LbZonedV1API(API):
         zone: Optional[Zone] = None,
     ) -> Route:
         """
+        Get a route.
         Retrieve information about an existing route, specified by its route ID. Its full details, origin frontend, target backend and match condition, are returned in the response object.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param route_id: Route ID.
@@ -4637,6 +4673,7 @@ class LbZonedV1API(API):
         match: Optional[RouteMatch] = None,
     ) -> Route:
         """
+        Update a route.
         Update the configuration of an existing route, specified by its route ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param route_id: Route ID.
@@ -4680,6 +4717,7 @@ class LbZonedV1API(API):
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
         """
+        Delete a route.
         Delete an existing route, specified by its route ID. Deleting a route is permanent, and cannot be undone.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param route_id: Route ID.
@@ -4708,7 +4746,7 @@ class LbZonedV1API(API):
         zone: Optional[Zone] = None,
     ) -> LbStats:
         """
-        Get usage statistics of a given Load Balancer
+        Get usage statistics of a given Load Balancer.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param lb_id: Load Balancer ID.
         :return: :class:`LbStats <LbStats>`
@@ -4740,6 +4778,7 @@ class LbZonedV1API(API):
         page_size: Optional[int] = None,
     ) -> ListBackendStatsResponse:
         """
+        List backend server statistics.
         List information about your backend servers, including their state and the result of their last health check.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param lb_id: Load Balancer ID.
@@ -4777,6 +4816,7 @@ class LbZonedV1API(API):
         page_size: Optional[int] = None,
     ) -> List[BackendServerStats]:
         """
+        List backend server statistics.
         List information about your backend servers, including their state and the result of their last health check.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param lb_id: Load Balancer ID.
@@ -4813,6 +4853,7 @@ class LbZonedV1API(API):
         name: Optional[str] = None,
     ) -> ListAclResponse:
         """
+        List ACLs for a given frontend.
         List the ACLs for a given frontend, specified by its frontend ID. The response is an array of ACL objects, each one representing an ACL that denies or allows traffic based on certain conditions.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param frontend_id: Frontend ID (ACLs attached to this frontend will be returned in the response).
@@ -4856,6 +4897,7 @@ class LbZonedV1API(API):
         name: Optional[str] = None,
     ) -> List[Acl]:
         """
+        List ACLs for a given frontend.
         List the ACLs for a given frontend, specified by its frontend ID. The response is an array of ACL objects, each one representing an ACL that denies or allows traffic based on certain conditions.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param frontend_id: Frontend ID (ACLs attached to this frontend will be returned in the response).
@@ -4897,6 +4939,7 @@ class LbZonedV1API(API):
         match: Optional[AclMatch] = None,
     ) -> Acl:
         """
+        Create an ACL for a given frontend.
         Create a new ACL for a given frontend. Each ACL must have a name, an action to perform (allow or deny), and a match rule (the action is carried out when the incoming traffic matches the rule).
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param frontend_id: Frontend ID to attach the ACL to.
@@ -4948,6 +4991,7 @@ class LbZonedV1API(API):
         zone: Optional[Zone] = None,
     ) -> Acl:
         """
+        Get an ACL.
         Get information for a particular ACL, specified by its ACL ID. The response returns full details of the ACL, including its name, action, match rule and frontend.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param acl_id: ACL ID.
@@ -4982,6 +5026,7 @@ class LbZonedV1API(API):
         description: Optional[str] = None,
     ) -> Acl:
         """
+        Update an ACL.
         Update a particular ACL, specified by its ACL ID. You can update details including its name, action and match rule.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param acl_id: ACL ID.
@@ -5033,6 +5078,7 @@ class LbZonedV1API(API):
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
         """
+        Delete an ACL.
         Delete an ACL, specified by its ACL ID. Deleting an ACL is irreversible and cannot be undone.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param acl_id: ACL ID.
@@ -5062,6 +5108,7 @@ class LbZonedV1API(API):
         zone: Optional[Zone] = None,
     ) -> SetAclsResponse:
         """
+        Define all ACLs for a given frontend.
         For a given frontend specified by its frontend ID, define and add the complete set of ACLS for that frontend. Any existing ACLs on this frontend will be removed.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param frontend_id: Frontend ID.
@@ -5106,6 +5153,7 @@ class LbZonedV1API(API):
         custom_certificate: Optional[CreateCertificateRequestCustomCertificate] = None,
     ) -> Certificate:
         """
+        Create an SSL/TLS certificate.
         Generate a new SSL/TLS certificate for a given Load Balancer. You can choose to create a Let's Encrypt certificate, or import a custom certificate.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param lb_id: Load Balancer ID.
@@ -5156,6 +5204,7 @@ class LbZonedV1API(API):
         name: Optional[str] = None,
     ) -> ListCertificatesResponse:
         """
+        List all SSL/TLS certificates on a given Load Balancer.
         List all the SSL/TLS certificates on a given Load Balancer. The response is an array of certificate objects, which are by default listed in ascending order of creation date.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param lb_id: Load Balancer ID.
@@ -5199,6 +5248,7 @@ class LbZonedV1API(API):
         name: Optional[str] = None,
     ) -> List[Certificate]:
         """
+        List all SSL/TLS certificates on a given Load Balancer.
         List all the SSL/TLS certificates on a given Load Balancer. The response is an array of certificate objects, which are by default listed in ascending order of creation date.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param lb_id: Load Balancer ID.
@@ -5235,6 +5285,7 @@ class LbZonedV1API(API):
         zone: Optional[Zone] = None,
     ) -> Certificate:
         """
+        Get an SSL/TLS certificate.
         Get information for a particular SSL/TLS certificate, specified by its certificate ID. The response returns full details of the certificate, including its type, main domain name, and alternative domain names.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param certificate_id: Certificate ID.
@@ -5302,6 +5353,7 @@ class LbZonedV1API(API):
         zone: Optional[Zone] = None,
     ) -> Certificate:
         """
+        Update an SSL/TLS certificate.
         Update the name of a particular SSL/TLS certificate, specified by its certificate ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param certificate_id: Certificate ID.
@@ -5343,6 +5395,7 @@ class LbZonedV1API(API):
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
         """
+        Delete an SSL/TLS certificate.
         Delete an SSL/TLS certificate, specified by its certificate ID. Deleting a certificate is irreversible and cannot be undone.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param certificate_id: Certificate ID.
@@ -5372,6 +5425,7 @@ class LbZonedV1API(API):
         page_size: Optional[int] = None,
     ) -> ListLbTypesResponse:
         """
+        List all Load Balancer offer types.
         List all the different commercial Load Balancer types. The response includes an array of offer types, each with a name, description, and information about its stock availability.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param page: The page number to return, from the paginated results.
@@ -5406,6 +5460,7 @@ class LbZonedV1API(API):
         page_size: Optional[int] = None,
     ) -> List[LbType]:
         """
+        List all Load Balancer offer types.
         List all the different commercial Load Balancer types. The response includes an array of offer types, each with a name, description, and information about its stock availability.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param page: The page number to return, from the paginated results.
@@ -5440,6 +5495,7 @@ class LbZonedV1API(API):
         project_id: Optional[str] = None,
     ) -> Subscriber:
         """
+        Create a subscriber.
         Create a new subscriber, either with an email configuration or a webhook configuration, for a specified Scaleway Project.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: Subscriber name.
@@ -5491,6 +5547,7 @@ class LbZonedV1API(API):
         zone: Optional[Zone] = None,
     ) -> Subscriber:
         """
+        Get a subscriber.
         Retrieve information about an existing subscriber, specified by its subscriber ID. Its full details, including name and email/webhook configuration, are returned in the response object.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param subscriber_id: Subscriber ID.
@@ -5525,6 +5582,7 @@ class LbZonedV1API(API):
         project_id: Optional[str] = None,
     ) -> ListSubscriberResponse:
         """
+        List all subscribers.
         List all subscribers to Load Balancer alerts. By default, returns all subscribers to Load Balancer alerts for the Organization associated with the authentication token used for the request.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param order_by: Sort order of subscribers in the response.
@@ -5572,6 +5630,7 @@ class LbZonedV1API(API):
         project_id: Optional[str] = None,
     ) -> List[Subscriber]:
         """
+        List all subscribers.
         List all subscribers to Load Balancer alerts. By default, returns all subscribers to Load Balancer alerts for the Organization associated with the authentication token used for the request.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param order_by: Sort order of subscribers in the response.
@@ -5613,6 +5672,7 @@ class LbZonedV1API(API):
         webhook_config: Optional[SubscriberWebhookConfig] = None,
     ) -> Subscriber:
         """
+        Update a subscriber.
         Update the parameters of a given subscriber (e.g. name, webhook configuration, email configuration), specified by its subscriber ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param subscriber_id: Subscriber ID.
@@ -5662,6 +5722,7 @@ class LbZonedV1API(API):
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
         """
+        Delete a subscriber.
         Delete an existing subscriber, specified by its subscriber ID. Deleting a subscriber is permanent, and cannot be undone.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param subscriber_id: Subscriber ID.
@@ -5691,6 +5752,7 @@ class LbZonedV1API(API):
         zone: Optional[Zone] = None,
     ) -> Lb:
         """
+        Subscribe a subscriber to alerts for a given Load Balancer.
         Subscribe an existing subscriber to alerts for a given Load Balancer.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param lb_id: Load Balancer ID.
@@ -5732,6 +5794,7 @@ class LbZonedV1API(API):
         zone: Optional[Zone] = None,
     ) -> Lb:
         """
+        Unsubscribe a subscriber from alerts for a given Load Balancer.
         Unsubscribe a subscriber from alerts for a given Load Balancer. The subscriber is not deleted, and can be resubscribed in the future if necessary.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param lb_id: Load Balancer ID.
@@ -5764,6 +5827,7 @@ class LbZonedV1API(API):
         page: Optional[int] = None,
     ) -> ListLbPrivateNetworksResponse:
         """
+        List Private Networks attached to a Load Balancer.
         List the Private Networks attached to a given Load Balancer, specified by its Load Balancer ID. The response is an array of Private Network objects, giving information including the status, configuration, name and creation date of each Private Network.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param lb_id: Load Balancer ID.
@@ -5804,6 +5868,7 @@ class LbZonedV1API(API):
         page: Optional[int] = None,
     ) -> List[PrivateNetwork]:
         """
+        List Private Networks attached to a Load Balancer.
         List the Private Networks attached to a given Load Balancer, specified by its Load Balancer ID. The response is an array of Private Network objects, giving information including the status, configuration, name and creation date of each Private Network.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param lb_id: Load Balancer ID.
@@ -5842,6 +5907,7 @@ class LbZonedV1API(API):
         ipam_config: Optional[PrivateNetworkIpamConfig] = None,
     ) -> PrivateNetwork:
         """
+        Attach a Load Balancer to a Private Network.
         Attach a specified Load Balancer to a specified Private Network, defining a static or DHCP configuration for the Load Balancer on the network.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param lb_id: Load Balancer ID.
@@ -5899,6 +5965,7 @@ class LbZonedV1API(API):
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
         """
+        Detach Load Balancer from Private Network.
         Detach a specified Load Balancer from a specified Private Network.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param lb_id: Load balancer ID.

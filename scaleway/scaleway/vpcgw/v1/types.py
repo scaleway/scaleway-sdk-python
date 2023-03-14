@@ -699,6 +699,7 @@ class SetDHCPEntriesRequestEntry:
 
     mac_address: str
     """
+    MAC address to give a static entry to.
     MAC address to give a static entry to. A matching entry will be upgraded to a reservation, and a matching reservation will be updated.
     """
 
@@ -728,6 +729,7 @@ class SetPATRulesRequestRule:
 
     public_port: int
     """
+    Public port to listen on.
     Public port to listen on. Uniquely identifies the rule, and a matching rule will be updated with the new parameters.
     """
 

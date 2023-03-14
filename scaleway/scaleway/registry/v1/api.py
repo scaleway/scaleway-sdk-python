@@ -52,6 +52,7 @@ class RegistryV1API(API):
     Registry API.
 
     Container registry API.
+    Registry API.
     """
 
     def list_namespaces(
@@ -66,7 +67,7 @@ class RegistryV1API(API):
         name: Optional[str] = None,
     ) -> ListNamespacesResponse:
         """
-        List all your namespaces
+        List all your namespaces.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: A positive integer to choose the page to display.
         :param page_size: A positive integer lower or equal to 100 to select the number of items to display.
@@ -115,7 +116,7 @@ class RegistryV1API(API):
         name: Optional[str] = None,
     ) -> List[Namespace]:
         """
-        List all your namespaces
+        List all your namespaces.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: A positive integer to choose the page to display.
         :param page_size: A positive integer lower or equal to 100 to select the number of items to display.
@@ -153,6 +154,7 @@ class RegistryV1API(API):
         region: Optional[Region] = None,
     ) -> Namespace:
         """
+        Get a namespace.
         Get the namespace associated with the given id.
         :param region: Region to target. If none is passed will use default region from the config.
         :param namespace_id: The unique ID of the Namespace.
@@ -223,7 +225,7 @@ class RegistryV1API(API):
         project_id: Optional[str] = None,
     ) -> Namespace:
         """
-        Create a new namespace
+        Create a new namespace.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Define a namespace name.
         :param description: Define a description.
@@ -277,6 +279,7 @@ class RegistryV1API(API):
         is_public: Optional[bool] = None,
     ) -> Namespace:
         """
+        Update an existing namespace.
         Update the namespace associated with the given id.
         :param region: Region to target. If none is passed will use default region from the config.
         :param namespace_id: Namespace ID to update.
@@ -319,6 +322,7 @@ class RegistryV1API(API):
         region: Optional[Region] = None,
     ) -> Namespace:
         """
+        Delete an existing namespace.
         Delete the namespace associated with the given id.
         :param region: Region to target. If none is passed will use default region from the config.
         :param namespace_id: The unique ID of the Namespace.
@@ -356,7 +360,7 @@ class RegistryV1API(API):
         project_id: Optional[str] = None,
     ) -> ListImagesResponse:
         """
-        List all your images
+        List all your images.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: A positive integer to choose the page to display.
         :param page_size: A positive integer lower or equal to 100 to select the number of items to display.
@@ -408,7 +412,7 @@ class RegistryV1API(API):
         project_id: Optional[str] = None,
     ) -> List[Image]:
         """
-        List all your images
+        List all your images.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: A positive integer to choose the page to display.
         :param page_size: A positive integer lower or equal to 100 to select the number of items to display.
@@ -448,6 +452,7 @@ class RegistryV1API(API):
         region: Optional[Region] = None,
     ) -> Image:
         """
+        Get a image.
         Get the image associated with the given id.
         :param region: Region to target. If none is passed will use default region from the config.
         :param image_id: The unique ID of the Image.
@@ -515,6 +520,7 @@ class RegistryV1API(API):
         region: Optional[Region] = None,
     ) -> Image:
         """
+        Update an existing image.
         Update the image associated with the given id.
         :param region: Region to target. If none is passed will use default region from the config.
         :param image_id: Image ID to update.
@@ -558,6 +564,7 @@ class RegistryV1API(API):
         region: Optional[Region] = None,
     ) -> Image:
         """
+        Delete an image.
         Delete the image associated with the given id.
         :param region: Region to target. If none is passed will use default region from the config.
         :param image_id: The unique ID of the Image.
@@ -593,7 +600,7 @@ class RegistryV1API(API):
         name: Optional[str] = None,
     ) -> ListTagsResponse:
         """
-        List all your tags
+        List all your tags.
         :param region: Region to target. If none is passed will use default region from the config.
         :param image_id: The unique ID of the image.
         :param page: A positive integer to choose the page to display.
@@ -638,7 +645,7 @@ class RegistryV1API(API):
         name: Optional[str] = None,
     ) -> List[Tag]:
         """
-        List all your tags
+        List all your tags.
         :param region: Region to target. If none is passed will use default region from the config.
         :param image_id: The unique ID of the image.
         :param page: A positive integer to choose the page to display.
@@ -674,6 +681,7 @@ class RegistryV1API(API):
         region: Optional[Region] = None,
     ) -> Tag:
         """
+        Get a tag.
         Get the tag associated with the given id.
         :param region: Region to target. If none is passed will use default region from the config.
         :param tag_id: The unique ID of the Tag.
@@ -741,6 +749,7 @@ class RegistryV1API(API):
         region: Optional[Region] = None,
     ) -> Tag:
         """
+        Delete a tag.
         Delete the tag associated with the given id.
         :param region: Region to target. If none is passed will use default region from the config.
         :param tag_id: The unique ID of the tag.

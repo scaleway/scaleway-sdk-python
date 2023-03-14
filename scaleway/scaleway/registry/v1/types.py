@@ -125,6 +125,7 @@ class Image:
 
     size: int
     """
+    Image size in bytes, calculated from the size of image layers.
     Image size in bytes, calculated from the size of image layers. One layer used in two tags of the same image is counted once but one layer used in two images is counted twice.
     """
 

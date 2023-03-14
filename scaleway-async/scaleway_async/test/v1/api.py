@@ -37,6 +37,7 @@ class TestV1API(API):
     """
     Fake API.
 
+    No Auth Service for end-to-end testing.
     Test is a fake service that aim to manage fake humans. It is used for internal and public end-to-end tests.
 
     This service don't use the Scaleway authentication service but a fake one.
@@ -52,10 +53,10 @@ class TestV1API(API):
         username: str,
     ) -> RegisterResponse:
         """
+        Register a user.
         Register a human and return a access-key and a secret-key that must be used in all other commands.
 
         Hint: you can use other test commands by setting the SCW_SECRET_KEY env variable.
-
         :param username:
         :return: :class:`RegisterResponse <RegisterResponse>`
 
@@ -89,7 +90,7 @@ class TestV1API(API):
         project_id: Optional[str] = None,
     ) -> ListHumansResponse:
         """
-        List all your humans
+        List all your humans.
         :param page:
         :param page_size:
         :param order_by:
@@ -129,7 +130,7 @@ class TestV1API(API):
         project_id: Optional[str] = None,
     ) -> List[Human]:
         """
-        List all your humans
+        List all your humans.
         :param page:
         :param page_size:
         :param order_by:
@@ -162,6 +163,7 @@ class TestV1API(API):
         human_id: str,
     ) -> Human:
         """
+        Get human details.
         Get the human details associated with the given id.
         :param human_id: UUID of the human you want to get.
         :return: :class:`Human <Human>`
@@ -230,7 +232,7 @@ class TestV1API(API):
         project_id: Optional[str] = None,
     ) -> Human:
         """
-        Create a new human
+        Create a new human.
         :param height:
         :param shoe_size:
         :param altitude_in_meter:
@@ -299,6 +301,7 @@ class TestV1API(API):
         name: Optional[str] = None,
     ) -> Human:
         """
+        Update an existing human.
         Update the human associated with the given id.
         :param human_id: UUID of the human you want to update.
         :param height:
@@ -352,6 +355,7 @@ class TestV1API(API):
         human_id: str,
     ) -> Human:
         """
+        Delete an existing human.
         Delete the human associated with the given id.
         :param human_id: UUID of the human you want to delete.
         :return: :class:`Human <Human>`
@@ -378,6 +382,7 @@ class TestV1API(API):
         human_id: str,
     ) -> Human:
         """
+        Start a 1h running for the given human.
         Start a one hour running for the given human.
         :param human_id: UUID of the human you want to make run.
         :return: :class:`Human <Human>`

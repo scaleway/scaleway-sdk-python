@@ -100,6 +100,8 @@ from .marshalling import (
 class IamV1Alpha1API(API):
     """
     IAM API.
+
+    IAM API.
     """
 
     def list_ssh_keys(
@@ -114,6 +116,7 @@ class IamV1Alpha1API(API):
         disabled: Optional[bool] = None,
     ) -> ListSSHKeysResponse:
         """
+        List SSH keys.
         List SSH keys. By default, the SSH keys listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You can define additional parameters for your query such as `organization_id`, `name`, `project_id` and `disabled`.
         :param order_by: Sort order of the SSH keys.
         :param page: Requested page number. Value must be greater or equal to 1.
@@ -160,6 +163,7 @@ class IamV1Alpha1API(API):
         disabled: Optional[bool] = None,
     ) -> List[SSHKey]:
         """
+        List SSH keys.
         List SSH keys. By default, the SSH keys listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You can define additional parameters for your query such as `organization_id`, `name`, `project_id` and `disabled`.
         :param order_by: Sort order of the SSH keys.
         :param page: Requested page number. Value must be greater or equal to 1.
@@ -199,6 +203,7 @@ class IamV1Alpha1API(API):
         project_id: Optional[str] = None,
     ) -> SSHKey:
         """
+        Create an SSH key.
         Add a new SSH key to a Scaleway Project. You must specify the `name`, `public_key` and `project_id`.
         :param name: The name of the SSH key. Max length is 1000.
         :param public_key: SSH public key. Currently only the ssh-rsa, ssh-dss (DSA), ssh-ed25519 and ecdsa keys with NIST curves are supported. Max length is 65000.
@@ -233,6 +238,7 @@ class IamV1Alpha1API(API):
         ssh_key_id: str,
     ) -> SSHKey:
         """
+        Get an SSH key.
         Retrieve information about a given SSH key, specified by the `ssh_key_id` parameter. The SSH key's full details, including `id`, `name`, `public_key`, and `project_id` are returned in the response.
         :param ssh_key_id: The ID of the SSH key.
         :return: :class:`SSHKey <SSHKey>`
@@ -261,6 +267,7 @@ class IamV1Alpha1API(API):
         disabled: Optional[bool] = None,
     ) -> SSHKey:
         """
+        Update an SSH key.
         Update the parameters of an SSH key, including `name` and `disable`.
         :param ssh_key_id:
         :param name: Name of the SSH key. Max length is 1000.
@@ -297,6 +304,7 @@ class IamV1Alpha1API(API):
         ssh_key_id: str,
     ) -> Optional[None]:
         """
+        Delete an SSH key.
         Delete a given SSH key, specified by the `ssh_key_id`. Deleting an SSH is permanent, and cannot be undone. Note that you might need to update any configurations that used the SSH key.
         :param ssh_key_id:
 
@@ -326,6 +334,7 @@ class IamV1Alpha1API(API):
         user_ids: Optional[List[str]] = None,
     ) -> ListUsersResponse:
         """
+        List users of an Organization.
         List the users of an Organization. By default, the users listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You must define the `organization_id` in the query path of your request. You can also define additional parameters for your query such as `user_ids`.
         :param order_by: Criteria for sorting results.
         :param page_size: Number of results per page. Value must be between 1 and 100.
@@ -366,6 +375,7 @@ class IamV1Alpha1API(API):
         user_ids: Optional[List[str]] = None,
     ) -> List[User]:
         """
+        List users of an Organization.
         List the users of an Organization. By default, the users listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You must define the `organization_id` in the query path of your request. You can also define additional parameters for your query such as `user_ids`.
         :param order_by: Criteria for sorting results.
         :param page_size: Number of results per page. Value must be between 1 and 100.
@@ -399,6 +409,7 @@ class IamV1Alpha1API(API):
         user_id: str,
     ) -> User:
         """
+        Get a given user.
         Retrieve information about a user, specified by the `user_id` parameter. The user's full details, including `id`, `email`, `organization_id`, `status` and `two_factor_enabled` are returned in the response.
         :param user_id: ID of the user to find.
         :return: :class:`User <User>`
@@ -425,6 +436,7 @@ class IamV1Alpha1API(API):
         user_id: str,
     ) -> Optional[None]:
         """
+        Delete a guest user from an Organization.
         Remove a user from an Organization in which they are a guest. You must define the `user_id` in your request. Note that removing a user from an Organization automatically deletes their API keys, and any policies directly attached to them become orphaned.
         :param user_id: ID of the user to delete.
 
@@ -456,6 +468,7 @@ class IamV1Alpha1API(API):
         application_ids: Optional[List[str]] = None,
     ) -> ListApplicationsResponse:
         """
+        List applications of an Organization.
         List the applications of an Organization. By default, the applications listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You must define the `organization_id` in the query path of your request. You can also define additional parameters for your query such as `application_ids`.
         :param order_by: Criteria for sorting results.
         :param page_size: Number of results per page. Value must be between 1 and 100.
@@ -502,6 +515,7 @@ class IamV1Alpha1API(API):
         application_ids: Optional[List[str]] = None,
     ) -> List[Application]:
         """
+        List applications of an Organization.
         List the applications of an Organization. By default, the applications listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You must define the `organization_id` in the query path of your request. You can also define additional parameters for your query such as `application_ids`.
         :param order_by: Criteria for sorting results.
         :param page_size: Number of results per page. Value must be between 1 and 100.
@@ -541,6 +555,7 @@ class IamV1Alpha1API(API):
         organization_id: Optional[str] = None,
     ) -> Application:
         """
+        Create a new application.
         Create a new application. You must define the `name` parameter in the request.
         :param name: Name of the application to create (max length is 64 characters).
         :param organization_id: ID of the Organization.
@@ -575,6 +590,7 @@ class IamV1Alpha1API(API):
         application_id: str,
     ) -> Application:
         """
+        Get a given application.
         Retrieve information about an application, specified by the `application_id` parameter. The application's full details, including `id`, `email`, `organization_id`, `status` and `two_factor_enabled` are returned in the response.
         :param application_id: ID of the application to find.
         :return: :class:`Application <Application>`
@@ -603,6 +619,7 @@ class IamV1Alpha1API(API):
         description: Optional[str] = None,
     ) -> Application:
         """
+        Update an application.
         Update the parameters of an application, including `name` and `description`.
         :param application_id: ID of the application to update.
         :param name: New name for the application (max length is 64 chars).
@@ -639,6 +656,7 @@ class IamV1Alpha1API(API):
         application_id: str,
     ) -> Optional[None]:
         """
+        Delete an application.
         Delete an application. Note that this action is irreversible and will automatically delete the application's API keys. Policies attached to users and applications via this group will no longer apply.
         :param application_id: ID of the application to delete.
 
@@ -671,6 +689,7 @@ class IamV1Alpha1API(API):
         group_ids: Optional[List[str]] = None,
     ) -> ListGroupsResponse:
         """
+        List groups.
         List groups. By default, the groups listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You can define additional parameters to filter your query. Use `user_ids` or `application_ids` to list all groups certain users or applications belong to.
         :param order_by: Sort order of groups.
         :param page: Requested page number. Value must be greater or equal to 1.
@@ -720,6 +739,7 @@ class IamV1Alpha1API(API):
         group_ids: Optional[List[str]] = None,
     ) -> List[Group]:
         """
+        List groups.
         List groups. By default, the groups listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You can define additional parameters to filter your query. Use `user_ids` or `application_ids` to list all groups certain users or applications belong to.
         :param order_by: Sort order of groups.
         :param page: Requested page number. Value must be greater or equal to 1.
@@ -761,6 +781,7 @@ class IamV1Alpha1API(API):
         name: Optional[str] = None,
     ) -> Group:
         """
+        Create a group.
         Create a new group. You must define the `name` and `organization_id` parameters in the request.
         :param organization_id: ID of Organization linked to the group.
         :param name: Name of the group to create (max length is 64 chars). MUST be unique inside an Organization.
@@ -795,6 +816,7 @@ class IamV1Alpha1API(API):
         group_id: str,
     ) -> Group:
         """
+        Get a group.
         Retrive information about a given group, specified by the `group_id` parameter. The group's full details, including `user_ids` and `application_ids` are returned in the response.
         :param group_id: ID of the group.
         :return: :class:`Group <Group>`
@@ -823,6 +845,7 @@ class IamV1Alpha1API(API):
         description: Optional[str] = None,
     ) -> Group:
         """
+        Update a group.
         Update the parameters of group, including `name` and `description`.
         :param group_id: ID of the group to update.
         :param name: New name for the group (max length is 64 chars). MUST be unique inside an Organization.
@@ -861,6 +884,7 @@ class IamV1Alpha1API(API):
         application_ids: List[str],
     ) -> Group:
         """
+        Overwrite users and applications of a group.
         Overwrite users and applications configuration in a group. Any information that you add using this command will overwrite the previous configuration.
         :param group_id:
         :param user_ids:
@@ -903,6 +927,7 @@ class IamV1Alpha1API(API):
         application_id: Optional[str] = None,
     ) -> Group:
         """
+        Add a user or an application to a group.
         Add a user or an application to a group. You can specify a `user_id` and and `application_id` in the body of your request. Note that you can only add one of each per request.
         :param group_id: ID of the group.
         :param user_id: ID of the user to add.
@@ -945,6 +970,7 @@ class IamV1Alpha1API(API):
         application_id: Optional[str] = None,
     ) -> Group:
         """
+        Remove a user or an application from a group.
         Remove a user or an application from a group. You can specify a `user_id` and and `application_id` in the body of your request. Note that you can only remove one of each per request. Removing a user from a group means that any permissions given to them via the group (i.e. from an attached policy) will no longer apply. Be sure you want to remove these permissions from the user before proceeding.
         :param group_id: ID of the group.
         :param user_id: ID of the user to remove.
@@ -985,6 +1011,7 @@ class IamV1Alpha1API(API):
         group_id: str,
     ) -> Optional[None]:
         """
+        Delete a group.
         Delete a group. Note that this action is irreversible and could delete permissions for group members. Policies attached to users and applications via this group will no longer apply.
         :param group_id: ID of the group to delete.
 
@@ -1019,6 +1046,7 @@ class IamV1Alpha1API(API):
         policy_name: Optional[str] = None,
     ) -> ListPoliciesResponse:
         """
+        List policies of an Organization.
         List the policies of an Organization. By default, the policies listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You must define the `organization_id` in the query path of your request. You can also define additional parameters to filter your query, such as `user_ids`, `groups_ids`, `application_ids`, and `policy_name`.
         :param order_by: Criteria for sorting results.
         :param page_size: Number of results per page. Value must be between 1 and 100.
@@ -1074,6 +1102,7 @@ class IamV1Alpha1API(API):
         policy_name: Optional[str] = None,
     ) -> List[Policy]:
         """
+        List policies of an Organization.
         List the policies of an Organization. By default, the policies listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You must define the `organization_id` in the query path of your request. You can also define additional parameters to filter your query, such as `user_ids`, `groups_ids`, `application_ids`, and `policy_name`.
         :param order_by: Criteria for sorting results.
         :param page_size: Number of results per page. Value must be between 1 and 100.
@@ -1124,6 +1153,7 @@ class IamV1Alpha1API(API):
         no_principal: Optional[bool] = None,
     ) -> Policy:
         """
+        Create a new policy.
         Create a new application. You must define the `name` parameter in the request. You can specify parameters such as `user_id`, `groups_id`, `application_id`, `no_principal`, `rules` and its child attributes.
         :param name: Name of the policy to create (max length is 64 characters).
         :param description: Description of the policy to create (max length is 200 characters).
@@ -1176,6 +1206,7 @@ class IamV1Alpha1API(API):
         policy_id: str,
     ) -> Policy:
         """
+        Get an existing policy.
         Retrieve information about a policy, speficified by the `policy_id` parameter. The policy's full details, including `id`, `name`, `organization_id`, `nb_rules` and `nb_scopes`, `nb_permission_sets` are returned in the response.
         :param policy_id: Id of policy to search.
         :return: :class:`Policy <Policy>`
@@ -1208,6 +1239,7 @@ class IamV1Alpha1API(API):
         no_principal: Optional[bool] = None,
     ) -> Policy:
         """
+        Update an existing policy.
         Update the parameters of a policy, including `name`, `description`, `user_id`, `group_id`, `application_id` and `no_principal`.
         :param policy_id: Id of policy to update.
         :param name: New name for the policy (max length is 64 characters).
@@ -1260,6 +1292,7 @@ class IamV1Alpha1API(API):
         policy_id: str,
     ) -> Optional[None]:
         """
+        Delete a policy.
         Delete a policy. You must define specify the `policy_id` parameter in your request. Note that when deleting a policy, all permissions it gives to its principal (user, group or application) will be revoked.
         :param policy_id: Id of policy to delete.
 
@@ -1309,6 +1342,7 @@ class IamV1Alpha1API(API):
         rules: List[RuleSpecs],
     ) -> SetRulesResponse:
         """
+        Set rules of a given policy.
         Overwrite the rules of a given policy. Any information that you add using this command will overwrite the previous configuration. If you include some of the rules you already had in your previous configuration in your new one, but you change their order, the new order of display will apply. While policy rules are ordered, they have no impact on the access logic of IAM because rules are allow-only.
         :param policy_id: Id of policy to update.
         :param rules: Rules of the policy to set.
@@ -1346,6 +1380,7 @@ class IamV1Alpha1API(API):
         page: Optional[int] = None,
     ) -> ListRulesResponse:
         """
+        List rules of a given policy.
         List the rules of a given policy. By default, the rules listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You must define the `policy_id` in the query path of your request.
         :param policy_id: Id of policy to search.
         :param page_size: Number of results per page. Value must be between 1 and 100.
@@ -1379,6 +1414,7 @@ class IamV1Alpha1API(API):
         page: Optional[int] = None,
     ) -> List[Rule]:
         """
+        List rules of a given policy.
         List the rules of a given policy. By default, the rules listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You must define the `policy_id` in the query path of your request.
         :param policy_id: Id of policy to search.
         :param page_size: Number of results per page. Value must be between 1 and 100.
@@ -1411,6 +1447,7 @@ class IamV1Alpha1API(API):
         organization_id: Optional[str] = None,
     ) -> ListPermissionSetsResponse:
         """
+        List permission sets.
         List permission sets available for given Organization. You must define the `organization_id` in the query path of your request.
         :param order_by: Criteria for sorting results.
         :param page_size: Number of results per page. Value must be between 1 and 100.
@@ -1448,6 +1485,7 @@ class IamV1Alpha1API(API):
         organization_id: Optional[str] = None,
     ) -> List[PermissionSet]:
         """
+        List permission sets.
         List permission sets available for given Organization. You must define the `organization_id` in the query path of your request.
         :param order_by: Criteria for sorting results.
         :param page_size: Number of results per page. Value must be between 1 and 100.
@@ -1490,6 +1528,7 @@ class IamV1Alpha1API(API):
         bearer_type: BearerType = BearerType.UNKNOWN_BEARER_TYPE,
     ) -> ListAPIKeysResponse:
         """
+        List API keys.
         List API keys. By default, the API keys listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You can define additional parameters for your query such as `editable`, `expired`, `access_key` and `bearer_id`.
         :param order_by: Criteria for sorting results.
         :param page: Page number. Value must be greater or equal to 1.
@@ -1559,6 +1598,7 @@ class IamV1Alpha1API(API):
         bearer_type: Optional[BearerType] = None,
     ) -> List[APIKey]:
         """
+        List API keys.
         List API keys. By default, the API keys listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You can define additional parameters for your query such as `editable`, `expired`, `access_key` and `bearer_id`.
         :param order_by: Criteria for sorting results.
         :param page: Page number. Value must be greater or equal to 1.
@@ -1614,6 +1654,7 @@ class IamV1Alpha1API(API):
         default_project_id: Optional[str] = None,
     ) -> APIKey:
         """
+        Create an API key.
         Create an API key. You must specify the `application_id` or the `user_id` and the description. You can also specify the `default_project_id` which is the Project ID of your preferred Project, to use with Object Storage. The `access_key` and `secret_key` values are returned in the response. Note that he secret key is only showed once. Make sure that you copy and store both keys somewhere safe.
         :param application_id: ID of the application.
 
@@ -1656,6 +1697,7 @@ class IamV1Alpha1API(API):
         access_key: str,
     ) -> APIKey:
         """
+        Get an API key.
         Retrive information about an API key, specified by the `access_key` parameter. The API key's details, including either the `user_id` or `application_id` of its bearer are returned in the response. Note that the string value for the `secret_key` is nullable, and therefore is not displayed in the response. The `secret_key` value is only displayed upon API key creation.
         :param access_key: Access key to search for.
         :return: :class:`APIKey <APIKey>`
@@ -1684,6 +1726,7 @@ class IamV1Alpha1API(API):
         description: Optional[str] = None,
     ) -> APIKey:
         """
+        Update an API key.
         Update the parameters of an API key, including `default_project_id` and `description`.
         :param access_key: Access key to update.
         :param default_project_id: The new default Project ID to set.
@@ -1720,6 +1763,7 @@ class IamV1Alpha1API(API):
         access_key: str,
     ) -> Optional[None]:
         """
+        Delete an API key.
         Delete an API key. Note that this action is irreversible and cannot be undone. Make sure you update any configurations using the API keys you delete.
         :param access_key: Access key to delete.
 
@@ -1748,6 +1792,7 @@ class IamV1Alpha1API(API):
         organization_id: Optional[str] = None,
     ) -> ListQuotaResponse:
         """
+        List all quotas in the Organization.
         List all product and features quota for an Organization, with their associated limits. By default, the quota listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You must define the `organization_id` in the query path of your request.
         :param order_by: Criteria for sorting results.
         :param page_size: Number of results per page. Value must be between 1 and 100.
@@ -1785,6 +1830,7 @@ class IamV1Alpha1API(API):
         organization_id: Optional[str] = None,
     ) -> List[Quotum]:
         """
+        List all quotas in the Organization.
         List all product and features quota for an Organization, with their associated limits. By default, the quota listed are ordered by creation date in ascending order. This can be modified via the `order_by` field. You must define the `organization_id` in the query path of your request.
         :param order_by: Criteria for sorting results.
         :param page_size: Number of results per page. Value must be between 1 and 100.
@@ -1817,6 +1863,7 @@ class IamV1Alpha1API(API):
         organization_id: Optional[str] = None,
     ) -> Quotum:
         """
+        Get a quota in the Organization.
         Retrieve information about a resource quota, speficified by the `quotum_name` parameter. The quota's `limit`, or whether it is unlimited, is returned in the response.
         :param quotum_name: Name of the quota to get.
         :param organization_id: ID of the Organization.
@@ -1852,7 +1899,7 @@ class IamV1Alpha1API(API):
         expired: Optional[bool] = None,
     ) -> ListJWTsResponse:
         """
-        List JWTs
+        List JWTs.
         :param order_by: Criteria for sorting results.
         :param audience_id: ID of the user to search.
         :param page_size: Number of results per page. Value must be between 1 and 100.
@@ -1891,7 +1938,7 @@ class IamV1Alpha1API(API):
         expired: Optional[bool] = None,
     ) -> List[JWT]:
         """
-        List JWTs
+        List JWTs.
         :param order_by: Criteria for sorting results.
         :param audience_id: ID of the user to search.
         :param page_size: Number of results per page. Value must be between 1 and 100.
@@ -1924,7 +1971,7 @@ class IamV1Alpha1API(API):
         jti: str,
     ) -> JWT:
         """
-        Get a JWT
+        Get a JWT.
         :param jti: JWT ID of the JWT to get.
         :return: :class:`JWT <JWT>`
 
@@ -1950,7 +1997,7 @@ class IamV1Alpha1API(API):
         jti: str,
     ) -> Optional[None]:
         """
-        Delete a JWT
+        Delete a JWT.
         :param jti: JWT ID of the JWT to delete.
 
         Usage:

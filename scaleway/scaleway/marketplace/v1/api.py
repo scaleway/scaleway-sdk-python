@@ -26,6 +26,8 @@ from .marshalling import (
 class MarketplaceV1API(API):
     """
     Marketplace API.
+
+    Marketplace API.
     """
 
     def list_images(
@@ -35,7 +37,7 @@ class MarketplaceV1API(API):
         page: Optional[int] = None,
     ) -> ListImagesResponse:
         """
-        List marketplace images
+        List marketplace images.
         :param per_page: A positive integer lower or equal to 100 to select the number of items to display.
         :param page: A positive integer to choose the page to display.
         :return: :class:`ListImagesResponse <ListImagesResponse>`
@@ -65,7 +67,7 @@ class MarketplaceV1API(API):
         page: Optional[int] = None,
     ) -> List[Image]:
         """
-        List marketplace images
+        List marketplace images.
         :param per_page: A positive integer lower or equal to 100 to select the number of items to display.
         :param page: A positive integer to choose the page to display.
         :return: :class:`List[ListImagesResponse] <List[ListImagesResponse]>`
@@ -92,7 +94,7 @@ class MarketplaceV1API(API):
         image_id: str,
     ) -> GetImageResponse:
         """
-        Get a specific marketplace image
+        Get a specific marketplace image.
         :param image_id: Display the image name.
         :return: :class:`GetImageResponse <GetImageResponse>`
 

@@ -30,6 +30,8 @@ from .marshalling import (
 class VpcV1API(API):
     """
     VPC API.
+
+    VPC API.
     """
 
     async def list_private_networks(
@@ -46,7 +48,7 @@ class VpcV1API(API):
         private_network_ids: Optional[List[str]] = None,
     ) -> ListPrivateNetworksResponse:
         """
-        List private networks
+        List private networks.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param order_by: The sort order of the returned private networks.
         :param page: The page number for the returned private networks.
@@ -99,7 +101,7 @@ class VpcV1API(API):
         private_network_ids: Optional[List[str]] = None,
     ) -> List[PrivateNetwork]:
         """
-        List private networks
+        List private networks.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param order_by: The sort order of the returned private networks.
         :param page: The page number for the returned private networks.
@@ -144,7 +146,7 @@ class VpcV1API(API):
         subnets: Optional[List[str]] = None,
     ) -> PrivateNetwork:
         """
-        Create a private network
+        Create a private network.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: The name of the private network.
         :param project_id: The project ID of the private network.
@@ -185,7 +187,7 @@ class VpcV1API(API):
         zone: Optional[Zone] = None,
     ) -> PrivateNetwork:
         """
-        Get a private network
+        Get a private network.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param private_network_id: The private network id.
         :return: :class:`PrivateNetwork <PrivateNetwork>`
@@ -219,7 +221,7 @@ class VpcV1API(API):
         subnets: Optional[List[str]] = None,
     ) -> PrivateNetwork:
         """
-        Update private network
+        Update private network.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param private_network_id: The private network ID.
         :param name: The name of the private network.
@@ -263,7 +265,7 @@ class VpcV1API(API):
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
         """
-        Delete a private network
+        Delete a private network.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param private_network_id: The private network ID.
 

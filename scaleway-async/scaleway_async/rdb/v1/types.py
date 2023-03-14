@@ -1714,6 +1714,7 @@ class UpgradeInstanceRequest:
 
     upgradable_version_id: Optional[str]
     """
+    Update your database engine to a newer version.
     This will create a new Database Instance with same specifications as the current one and perform a Database Engine upgrade.
     
     One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id' could be set.
@@ -2692,6 +2693,7 @@ class DeleteEndpointRequest:
 
     endpoint_id: str
     """
+    UUID of the endpoint you want to delete.
     This endpoint can also be used to delete a Read Replica endpoint.
     """
 

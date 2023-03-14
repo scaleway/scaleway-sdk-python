@@ -69,6 +69,7 @@ class Image:
 
     label: str
     """
+    Label of this image.
     Typically an identifier for a distribution (ex. "ubuntu_focal").
     """
 
@@ -107,6 +108,7 @@ class LocalImage:
 
     id: str
     """
+    UUID of this local image.
     Version you will typically use to define an image in an API call.
     """
 

@@ -41,6 +41,8 @@ from .marshalling import (
 class MarketplaceV2API(API):
     """
     Marketplace API.
+
+    Marketplace API.
     """
 
     def list_images(
@@ -54,7 +56,7 @@ class MarketplaceV2API(API):
         category: Optional[str] = None,
     ) -> ListImagesResponse:
         """
-        List marketplace images
+        List marketplace images.
         :param page_size: A positive integer lower or equal to 100 to select the number of items to display.
         :param page: A positive integer to choose the page to display.
         :param order_by: Ordering to use.
@@ -96,7 +98,7 @@ class MarketplaceV2API(API):
         category: Optional[str] = None,
     ) -> List[Image]:
         """
-        List marketplace images
+        List marketplace images.
         :param page_size: A positive integer lower or equal to 100 to select the number of items to display.
         :param page: A positive integer to choose the page to display.
         :param order_by: Ordering to use.
@@ -131,7 +133,7 @@ class MarketplaceV2API(API):
         image_id: str,
     ) -> Image:
         """
-        Get a specific marketplace image
+        Get a specific marketplace image.
         :param image_id: Display the image name.
         :return: :class:`Image <Image>`
 
@@ -245,7 +247,7 @@ class MarketplaceV2API(API):
         zone: Optional[Zone] = None,
     ) -> ListLocalImagesResponse:
         """
-        List local images from a specific image or version
+        List local images from a specific image or version.
         :param image_id: One-of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
         :param version_id: One-of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
         :param page_size:
@@ -294,7 +296,7 @@ class MarketplaceV2API(API):
         zone: Optional[Zone] = None,
     ) -> List[LocalImage]:
         """
-        List local images from a specific image or version
+        List local images from a specific image or version.
         :param image_id: One-of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
         :param version_id: One-of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
         :param page_size:

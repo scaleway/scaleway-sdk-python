@@ -81,6 +81,8 @@ from .marshalling import (
 class RedisV1API(API):
     """
     Managed Database for Redis™ API.
+
+    Managed Database for Redis™ API.
     """
 
     async def create_cluster(
@@ -101,7 +103,7 @@ class RedisV1API(API):
         cluster_settings: Optional[List[ClusterSetting]] = None,
     ) -> Cluster:
         """
-        Create a cluster
+        Create a cluster.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param project_id: The project ID on which to create the cluster.
         :param name: Name of the cluster.
@@ -112,7 +114,8 @@ class RedisV1API(API):
         :param password: Password of the user.
         :param cluster_size: Number of nodes for the cluster.
         :param acl_rules: List of ACLRuleSpec used to secure your publicly exposed cluster.
-        :param endpoints: Zero or multiple EndpointSpec used to expose your cluster publicly and inside private networks. If no EndpoindSpec is given the cluster will be publicly exposed by default.
+        :param endpoints: Zero or multiple EndpointSpec used to expose your cluster publicly and inside private networks.
+        Zero or multiple EndpointSpec used to expose your cluster publicly and inside private networks. If no EndpoindSpec is given the cluster will be publicly exposed by default.
         :param tls_enabled: Whether or not TLS is enabled.
         :param cluster_settings: List of cluster settings to be set at cluster initialisation.
         :return: :class:`Cluster <Cluster>`
@@ -168,7 +171,7 @@ class RedisV1API(API):
         password: Optional[str] = None,
     ) -> Cluster:
         """
-        Update a cluster
+        Update a cluster.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param cluster_id: UUID of the cluster to update.
         :param name: Name of the cluster.
@@ -212,7 +215,7 @@ class RedisV1API(API):
         zone: Optional[Zone] = None,
     ) -> Cluster:
         """
-        Get a cluster
+        Get a cluster.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param cluster_id: UUID of the cluster.
         :return: :class:`Cluster <Cluster>`
@@ -283,7 +286,7 @@ class RedisV1API(API):
         page_size: Optional[int] = None,
     ) -> ListClustersResponse:
         """
-        List clusters
+        List clusters.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param tags: Tags of the clusters to filter upon.
         :param name: Name of the clusters to filter upon.
@@ -336,7 +339,7 @@ class RedisV1API(API):
         page_size: Optional[int] = None,
     ) -> List[Cluster]:
         """
-        List clusters
+        List clusters.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param tags: Tags of the clusters to filter upon.
         :param name: Name of the clusters to filter upon.
@@ -381,6 +384,7 @@ class RedisV1API(API):
         cluster_size: Optional[int] = None,
     ) -> Cluster:
         """
+        Migrate your cluster architecture.
         Upgrade your Database for Redis® cluster to a new version or scale it vertically / horizontally. Please note: scaling horizontally your Database for Redis® cluster won't renew its TLS certificate. In order to refresh the SSL certificate, you have to use the dedicated api route.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param cluster_id: UUID of the cluster to update.
@@ -429,7 +433,7 @@ class RedisV1API(API):
         zone: Optional[Zone] = None,
     ) -> Cluster:
         """
-        Delete a cluster
+        Delete a cluster.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param cluster_id: UUID of the cluster to delete.
         :return: :class:`Cluster <Cluster>`
@@ -461,7 +465,7 @@ class RedisV1API(API):
         metric_name: Optional[str] = None,
     ) -> ClusterMetricsResponse:
         """
-        Get metrics of a cluster
+        Get metrics of a cluster.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param cluster_id: UUID of the cluster.
         :param start_at: Start date to gather metrics from.
@@ -500,7 +504,7 @@ class RedisV1API(API):
         page_size: Optional[int] = None,
     ) -> ListNodeTypesResponse:
         """
-        List available node types
+        List available node types.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param include_disabled_types: Whether or not to include disabled types.
         :param page:
@@ -537,7 +541,7 @@ class RedisV1API(API):
         page_size: Optional[int] = None,
     ) -> List[NodeType]:
         """
-        List available node types
+        List available node types.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param include_disabled_types: Whether or not to include disabled types.
         :param page:
@@ -574,7 +578,7 @@ class RedisV1API(API):
         page_size: Optional[int] = None,
     ) -> ListClusterVersionsResponse:
         """
-        List available Redis™ versions
+        List available Redis™ versions.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param include_disabled: Whether or not to include disabled Redis™ engine versions.
         :param include_beta: Whether or not to include beta Redis™ engine versions.
@@ -624,7 +628,7 @@ class RedisV1API(API):
         page_size: Optional[int] = None,
     ) -> List[ClusterVersion]:
         """
-        List available Redis™ versions
+        List available Redis™ versions.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param include_disabled: Whether or not to include disabled Redis™ engine versions.
         :param include_beta: Whether or not to include beta Redis™ engine versions.
@@ -666,7 +670,7 @@ class RedisV1API(API):
         zone: Optional[Zone] = None,
     ) -> Optional[ScwFile]:
         """
-        Get the TLS certificate of a cluster
+        Get the TLS certificate of a cluster.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param cluster_id: UUID of the cluster.
         :return: :class:`Optional[ScwFile] <Optional[ScwFile]>`
@@ -696,7 +700,7 @@ class RedisV1API(API):
         zone: Optional[Zone] = None,
     ) -> Cluster:
         """
-        Renew the TLS certificate of a cluster
+        Renew the TLS certificate of a cluster.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param cluster_id: UUID of the cluster.
         :return: :class:`Cluster <Cluster>`
@@ -726,7 +730,7 @@ class RedisV1API(API):
         zone: Optional[Zone] = None,
     ) -> ClusterSettingsResponse:
         """
-        Add cluster settings
+        Add cluster settings.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param cluster_id: UUID of the cluster you want to add settings to.
         :param settings: Settings to add on the cluster.
@@ -768,7 +772,7 @@ class RedisV1API(API):
         zone: Optional[Zone] = None,
     ) -> Cluster:
         """
-        Delete a cluster setting
+        Delete a cluster setting.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param cluster_id: UUID of the cluster where the settings has to be set.
         :param setting_name: Setting name to delete.
@@ -803,7 +807,7 @@ class RedisV1API(API):
         zone: Optional[Zone] = None,
     ) -> ClusterSettingsResponse:
         """
-        Set cluster settings
+        Set cluster settings.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param cluster_id: UUID of the cluster where the settings has to be set.
         :param settings: Settings to define for the cluster.
@@ -845,7 +849,7 @@ class RedisV1API(API):
         zone: Optional[Zone] = None,
     ) -> SetAclRulesResponse:
         """
-        Set ACL rules for a given cluster
+        Set ACL rules for a given cluster.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param cluster_id: UUID of the cluster where the ACL rules has to be set.
         :param acl_rules: ACLs rules to define for the cluster.
@@ -887,7 +891,7 @@ class RedisV1API(API):
         zone: Optional[Zone] = None,
     ) -> AddAclRulesResponse:
         """
-        Add ACL rules for a given cluster
+        Add ACL rules for a given cluster.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param cluster_id: UUID of the cluster you want to add acl rules to.
         :param acl_rules: ACLs rules to add to the cluster.
@@ -928,7 +932,7 @@ class RedisV1API(API):
         zone: Optional[Zone] = None,
     ) -> Cluster:
         """
-        Delete an ACL rule for a given cluster
+        Delete an ACL rule for a given cluster.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param acl_id: UUID of the acl rule you want to delete.
         :return: :class:`Cluster <Cluster>`
@@ -957,7 +961,7 @@ class RedisV1API(API):
         zone: Optional[Zone] = None,
     ) -> ACLRule:
         """
-        Get an ACL rule
+        Get an ACL rule.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param acl_id: UUID of the acl rule you want to get.
         :return: :class:`ACLRule <ACLRule>`
@@ -987,7 +991,7 @@ class RedisV1API(API):
         zone: Optional[Zone] = None,
     ) -> SetEndpointsResponse:
         """
-        Set endpoints for a given cluster
+        Set endpoints for a given cluster.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param cluster_id: UUID of the cluster where the endpoints has to be set.
         :param endpoints: Endpoints to define for the cluster.
@@ -1029,7 +1033,7 @@ class RedisV1API(API):
         zone: Optional[Zone] = None,
     ) -> AddEndpointsResponse:
         """
-        Add endpoints for a given cluster
+        Add endpoints for a given cluster.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param cluster_id: UUID of the cluster you want to add endpoints to.
         :param endpoints: Endpoints to add to the cluster.
@@ -1070,7 +1074,7 @@ class RedisV1API(API):
         zone: Optional[Zone] = None,
     ) -> Cluster:
         """
-        Delete an endpoint for a given cluster
+        Delete an endpoint for a given cluster.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param endpoint_id: UUID of the endpoint you want to delete.
         :return: :class:`Cluster <Cluster>`
@@ -1099,7 +1103,7 @@ class RedisV1API(API):
         zone: Optional[Zone] = None,
     ) -> Endpoint:
         """
-        Get an endpoint
+        Get an endpoint.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param endpoint_id: UUID of the endpoint you want to get.
         :return: :class:`Endpoint <Endpoint>`

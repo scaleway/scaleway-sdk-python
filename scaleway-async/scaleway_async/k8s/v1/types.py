@@ -295,6 +295,7 @@ class Cluster:
 
     open_id_connect_config: Optional[ClusterOpenIDConnectConfig]
     """
+    ALPHA - The OpenID Connect configuration of the cluster.
     This feature is in ALPHA state, it may be deleted or modified. This configuration is the [OpenID Connect configuration](https://kubernetes.io/docs/reference/access-authn-authz/authentication/#openid-connect-tokens) of the Kubernetes API server.
     """
 
@@ -359,6 +360,7 @@ class ClusterAutoscalerConfig:
 
     expendable_pods_priority_cutoff: int
     """
+    Pods with priority below cutoff will be expendable.
     Pods with priority below cutoff will be expendable. They can be killed without any consideration during scale down and they don't cause scale up. Pods with null priority (PodPriority disabled) are non expendable.
     """
 
@@ -386,6 +388,7 @@ class ClusterOpenIDConnectConfig:
 
     issuer_url: str
     """
+    URL of the provider which allows the API server to discover public signing keys.
     URL of the provider which allows the API server to discover public signing keys. Only URLs which use the `https://` scheme are accepted. This is typically the provider's discovery URL without a path, for example "https://accounts.google.com" or "https://login.salesforce.com". This URL should point to the level below .well-known/openid-configuration.
     """
 
@@ -396,11 +399,13 @@ class ClusterOpenIDConnectConfig:
 
     username_claim: str
     """
+    JWT claim to use as the user name.
     JWT claim to use as the user name. By default `sub`, which is expected to be a unique identifier of the end user. Admins can choose other claims, such as `email` or `name`, depending on their provider. However, claims other than `email` will be prefixed with the issuer URL to prevent naming clashes with other plugins.
     """
 
     username_prefix: str
     """
+    Prefix prepended to username.
     Prefix prepended to username claims to prevent clashes with existing names (such as `system:` users). For example, the value `oidc:` will create usernames like `oidc:jane.doe`. If this flag isn't provided and `username_claim` is a value other than `email` the prefix defaults to `( Issuer URL )#` where `( Issuer URL )` is the value of `issuer_url`. The value `-` can be used to disable all prefixing.
     """
 
@@ -411,11 +416,13 @@ class ClusterOpenIDConnectConfig:
 
     groups_prefix: str
     """
+    Prefix prepended to group claims.
     Prefix prepended to group claims to prevent clashes with existing names (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra`.
     """
 
     required_claim: List[str]
     """
+    Multiple key=value pairs that describes a required claim in the ID token.
     Multiple key=value pairs that describes a required claim in the ID token. If set, the claims are verified to be present in the ID token with a matching value.
     """
 
@@ -475,6 +482,7 @@ class CreateClusterRequestAutoscalerConfig:
 
     expendable_pods_priority_cutoff: Optional[int]
     """
+    Pods with priority below cutoff will be expendable.
     Pods with priority below cutoff will be expendable. They can be killed without any consideration during scale down and they don't cause scale up. Pods with null priority (PodPriority disabled) are non expendable.
     """
 
@@ -502,6 +510,7 @@ class CreateClusterRequestOpenIDConnectConfig:
 
     issuer_url: str
     """
+    URL of the provider which allows the API server to discover public signing keys.
     URL of the provider which allows the API server to discover public signing keys. Only URLs which use the `https://` scheme are accepted. This is typically the provider's discovery URL without a path, for example "https://accounts.google.com" or "https://login.salesforce.com". This URL should point to the level below .well-known/openid-configuration.
     """
 
@@ -512,11 +521,13 @@ class CreateClusterRequestOpenIDConnectConfig:
 
     username_claim: Optional[str]
     """
+    JWT claim to use as the user name.
     JWT claim to use as the user name. By default `sub`, which is expected to be a unique identifier of the end user. Admins can choose other claims, such as `email` or `name`, depending on their provider. However, claims other than `email` will be prefixed with the issuer URL to prevent naming clashes with other plugins.
     """
 
     username_prefix: Optional[str]
     """
+    Prefix prepended to username.
     Prefix prepended to username claims to prevent clashes with existing names (such as `system:` users). For example, the value `oidc:` will create usernames like `oidc:jane.doe`. If this flag isn't provided and `username_claim` is a value other than `email` the prefix defaults to `( Issuer URL )#` where `( Issuer URL )` is the value of `issuer_url`. The value `-` can be used to disable all prefixing.
     """
 
@@ -527,11 +538,13 @@ class CreateClusterRequestOpenIDConnectConfig:
 
     groups_prefix: Optional[str]
     """
+    Prefix prepended to group claims.
     Prefix prepended to group claims to prevent clashes with existing names (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra`.
     """
 
     required_claim: Optional[List[str]]
     """
+    Multiple key=value pairs that describes a required claim in the ID token.
     Multiple key=value pairs that describes a required claim in the ID token. If set, the claims are verified to be present in the ID token with a matching value.
     """
 
@@ -549,6 +562,7 @@ class CreateClusterRequestPoolConfig:
 
     node_type: str
     """
+    Node type is the type of Scaleway Instance wanted for the pool.
     Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers.
     """
 
@@ -569,16 +583,19 @@ class CreateClusterRequestPoolConfig:
 
     min_size: Optional[int]
     """
+    Minimum size of the pool.
     Defines the minimum size of the pool. Note that this field will be used only when autoscaling is enabled.
     """
 
     max_size: Optional[int]
     """
+    Maximum size of the pool.
     Defines the maximum size of the pool. Note that this field will be used only when autoscaling is enabled.
     """
 
     container_runtime: Runtime
     """
+    Container runtime for the nodes of the pool.
     Customization of the container runtime is available for each pool. Note that `docker` is deprecated since 1.20 and will be removed in 1.24.
     """
 
@@ -609,6 +626,7 @@ class CreateClusterRequestPoolConfig:
 
     root_volume_type: PoolVolumeType
     """
+    System volume disk type.
     Defines the system volume disk type, we provide two different types of volume (`volume_type`): `l_ssd` is a local block storage: your system is stored locally on the hypervisor of your node. `b_ssd` is a remote block storage: your system is stored on a centralised and resilient cluster.
     """
 
@@ -774,6 +792,7 @@ class Node:
 
     provider_id: str
     """
+    Underlying instance ID.
     It is prefixed by instance type and location information (see https://pkg.go.dev/k8s.io/api/core/v1#NodeSpec.ProviderID).
     """
 
@@ -801,6 +820,7 @@ class Node:
 
     conditions: Optional[Dict[str, str]]
     """
+    Conditions of the node.
     These conditions contains the Node Problem Detector conditions, as well as some in house conditions.
     :deprecated
     """
@@ -869,6 +889,7 @@ class Pool:
 
     node_type: str
     """
+    Node type is the type of Scaleway Instance wanted for the pool.
     Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers.
     """
 
@@ -884,16 +905,19 @@ class Pool:
 
     min_size: int
     """
+    Minimum size of the pool.
     Defines the minimum size of the pool. Note that this field will be used only when autoscaling is enabled.
     """
 
     max_size: int
     """
+    Maximum size of the pool.
     Defines the maximum size of the pool. Note that this field will be used only when autoscaling is enabled.
     """
 
     container_runtime: Runtime
     """
+    Container runtime for the nodes of the pool.
     Customization of the container runtime is available for each pool. Note that `docker` is deprecated since 1.20 and will be removed in 1.24.
     """
 
@@ -929,6 +953,7 @@ class Pool:
 
     root_volume_type: PoolVolumeType
     """
+    System volume disk type.
     Defines the system volume disk type, we provide two different types of volume (`volume_type`): `l_ssd` is a local block storage: your system is stored locally on the hypervisor of your node. `b_ssd` is a remote block storage: your system is stored on a centralised and resilient cluster.
     """
 
@@ -1005,6 +1030,7 @@ class UpdateClusterRequestAutoscalerConfig:
 
     expendable_pods_priority_cutoff: Optional[int]
     """
+    Pods with priority below cutoff will be expendable.
     Pods with priority below cutoff will be expendable. They can be killed without any consideration during scale down and they don't cause scale up. Pods with null priority (PodPriority disabled) are non expendable.
     """
 
@@ -1032,6 +1058,7 @@ class UpdateClusterRequestOpenIDConnectConfig:
 
     issuer_url: Optional[str]
     """
+    URL of the provider which allows the API server to discover public signing keys.
     URL of the provider which allows the API server to discover public signing keys. Only URLs which use the `https://` scheme are accepted. This is typically the provider's discovery URL without a path, for example "https://accounts.google.com" or "https://login.salesforce.com". This URL should point to the level below .well-known/openid-configuration.
     """
 
@@ -1042,11 +1069,13 @@ class UpdateClusterRequestOpenIDConnectConfig:
 
     username_claim: Optional[str]
     """
+    JWT claim to use as the user name.
     JWT claim to use as the user name. By default `sub`, which is expected to be a unique identifier of the end user. Admins can choose other claims, such as `email` or `name`, depending on their provider. However, claims other than `email` will be prefixed with the issuer URL to prevent naming clashes with other plugins.
     """
 
     username_prefix: Optional[str]
     """
+    Prefix prepended to username.
     Prefix prepended to username claims to prevent clashes with existing names (such as `system:` users). For example, the value `oidc:` will create usernames like `oidc:jane.doe`. If this flag isn't provided and `username_claim` is a value other than `email` the prefix defaults to `( Issuer URL )#` where `( Issuer URL )` is the value of `issuer_url`. The value `-` can be used to disable all prefixing.
     """
 
@@ -1057,11 +1086,13 @@ class UpdateClusterRequestOpenIDConnectConfig:
 
     groups_prefix: Optional[str]
     """
+    Prefix prepended to group claims.
     Prefix prepended to group claims to prevent clashes with existing names (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra`.
     """
 
     required_claim: Optional[List[str]]
     """
+    Multiple key=value pairs that describes a required claim in the ID token.
     Multiple key=value pairs that describes a required claim in the ID token. If set, the claims are verified to be present in the ID token with a matching value.
     """
 
@@ -1198,6 +1229,7 @@ class CreateClusterRequest:
 
     type_: str
     """
+    Type of the cluster.
     Type of the cluster (possible values are kapsule, multicloud).
     """
 
@@ -1245,11 +1277,13 @@ class CreateClusterRequest:
 
     autoscaler_config: Optional[CreateClusterRequestAutoscalerConfig]
     """
+    Autoscaler config for the cluster.
     This field allows to specify some configuration for the autoscaler, which is an implementation of the [cluster-autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler/).
     """
 
     auto_upgrade: Optional[CreateClusterRequestAutoUpgrade]
     """
+    Auto upgrade configuration of the cluster.
     This configuration enables to set a specific 2-hour time window in which the cluster can be automatically updated to the latest patch version in the current minor one.
     """
 
@@ -1265,6 +1299,7 @@ class CreateClusterRequest:
 
     open_id_connect_config: Optional[CreateClusterRequestOpenIDConnectConfig]
     """
+    ALPHA - OpenID Connect configuration of the cluster.
     This feature is in ALPHA state, it may be deleted or modified. This configuration enables to set the [OpenID Connect configuration](https://kubernetes.io/docs/reference/access-authn-authz/authentication/#openid-connect-tokens) of the Kubernetes API server.
     """
 
@@ -1316,6 +1351,7 @@ class UpdateClusterRequest:
 
     autoscaler_config: Optional[UpdateClusterRequestAutoscalerConfig]
     """
+    New autoscaler config for the cluster.
     Object defining the configuration for the autoscaler, which is an implementation of the [cluster-autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler/).
     """
 
@@ -1333,6 +1369,7 @@ class UpdateClusterRequest:
 
     auto_upgrade: Optional[UpdateClusterRequestAutoUpgrade]
     """
+    New auto upgrade configuration of the cluster.
     New auto upgrade configuration of the cluster. Note that all fields need to be set.
     """
 
@@ -1348,6 +1385,7 @@ class UpdateClusterRequest:
 
     open_id_connect_config: Optional[UpdateClusterRequestOpenIDConnectConfig]
     """
+    ALPHA - New OpenID Connect configuration of the cluster.
     This feature is in ALPHA state, it may be deleted or modified. This configuration enables to update the [OpenID Connect configuration](https://kubernetes.io/docs/reference/access-authn-authz/authentication/#openid-connect-tokens) of the Kubernetes API server.
     """
 
@@ -1389,11 +1427,13 @@ class UpgradeClusterRequest:
 
     version: str
     """
+    New Kubernetes version of the cluster.
     New Kubernetes version of the cluster. Note that the version shoud either be a higher patch version of the same minor version or the direct minor version after the current one.
     """
 
     upgrade_pools: bool
     """
+    Enablement of the pools upgrade.
     This field makes the upgrade upgrades the pool once the Kubernetes master in upgrade.
     """
 
@@ -1481,6 +1521,7 @@ class CreatePoolRequest:
 
     node_type: str
     """
+    Node type is the type of Scaleway Instance wanted for the pool.
     Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers.
     """
 
@@ -1501,16 +1542,19 @@ class CreatePoolRequest:
 
     min_size: Optional[int]
     """
+    Minimum size of the pool.
     Defines the minimum size of the pool. Note that this field will be used only when autoscaling is enabled.
     """
 
     max_size: Optional[int]
     """
+    Maximum size of the pool.
     Defines the maximum size of the pool. Note that this field will be used only when autoscaling is enabled.
     """
 
     container_runtime: Runtime
     """
+    Container runtime for the nodes of the pool.
     Customization of the container runtime is available for each pool. Note that `docker` is deprecated since 1.20 and will be removed in 1.24.
     """
 
@@ -1541,6 +1585,7 @@ class CreatePoolRequest:
 
     root_volume_type: PoolVolumeType
     """
+    System volume disk type.
     Defines the system volume disk type, we provide two different types of volume (`volume_type`): `l_ssd` is a local block storage: your system is stored locally on the hypervisor of your node. `b_ssd` is a remote block storage: your system is stored on a centralised and resilient cluster.
     """
 

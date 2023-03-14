@@ -628,6 +628,7 @@ class CreateClusterRequest:
 
     endpoints: Optional[List[EndpointSpec]]
     """
+    Zero or multiple EndpointSpec used to expose your cluster publicly and inside private networks.
     Zero or multiple EndpointSpec used to expose your cluster publicly and inside private networks. If no EndpoindSpec is given the cluster will be publicly exposed by default.
     """
 

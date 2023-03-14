@@ -92,6 +92,7 @@ class BaremetalV1API(API):
     Elastic Metal API.
 
     This API allows to manage your Elastic Metal server.
+    Elastic Metal API.
     """
 
     async def list_servers(
@@ -109,6 +110,7 @@ class BaremetalV1API(API):
         option_id: Optional[str] = None,
     ) -> ListServersResponse:
         """
+        List Elastic Metal servers for an organization.
         List Elastic Metal servers for a specific organization.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param page: Page number.
@@ -165,6 +167,7 @@ class BaremetalV1API(API):
         option_id: Optional[str] = None,
     ) -> List[Server]:
         """
+        List Elastic Metal servers for an organization.
         List Elastic Metal servers for a specific organization.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param page: Page number.
@@ -209,6 +212,7 @@ class BaremetalV1API(API):
         zone: Optional[Zone] = None,
     ) -> Server:
         """
+        Get a specific Elastic Metal server.
         Get full details of an existing Elastic Metal server associated with the ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_id: ID of the server.
@@ -280,6 +284,7 @@ class BaremetalV1API(API):
         option_ids: Optional[List[str]] = None,
     ) -> Server:
         """
+        Create an Elastic Metal server.
         Create a new Elastic Metal server. Once the server is created, proceed with the [installation of an OS](#post-3e949e).
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param offer_id: Offer ID of the new server.
@@ -340,6 +345,7 @@ class BaremetalV1API(API):
         tags: Optional[List[str]] = None,
     ) -> Server:
         """
+        Update an Elastic Metal server.
         Update the server associated with the ID. You can update parameters such as the server's name, tags and description. Any parameters left null in the request body are not updated.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_id: ID of the server to update.
@@ -389,6 +395,7 @@ class BaremetalV1API(API):
         service_password: Optional[str] = None,
     ) -> Server:
         """
+        Install an Elastic Metal server.
         Install an Operating System (OS) on the Elastic Metal server with a specific ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_id: Server ID to install.
@@ -444,6 +451,7 @@ class BaremetalV1API(API):
         zone: Optional[Zone] = None,
     ) -> GetServerMetricsResponse:
         """
+        Return server metrics.
         Get the ping status of the server associated with the ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_id: Server ID to get the metrics.
@@ -473,6 +481,7 @@ class BaremetalV1API(API):
         zone: Optional[Zone] = None,
     ) -> Server:
         """
+        Delete an Elastic Metal server.
         Delete the server associated with the ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_id: ID of the server to delete.
@@ -503,6 +512,7 @@ class BaremetalV1API(API):
         zone: Optional[Zone] = None,
     ) -> Server:
         """
+        Reboot an Elastic Metal server.
         Reboot the Elastic Metal server associated with the ID, use the `boot_type` `rescue` to reboot the server in rescue mode.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_id: ID of the server to reboot.
@@ -545,6 +555,7 @@ class BaremetalV1API(API):
         zone: Optional[Zone] = None,
     ) -> Server:
         """
+        Start an Elastic Metal server.
         Start the server associated with the ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_id: ID of the server to start.
@@ -586,6 +597,7 @@ class BaremetalV1API(API):
         zone: Optional[Zone] = None,
     ) -> Server:
         """
+        Stop an Elastic Metal server.
         Stop the server associated with the ID. The server remains allocated to your account and all data remains on the local storage of the server.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_id: ID of the server to stop.
@@ -618,6 +630,7 @@ class BaremetalV1API(API):
         order_by: ListServerEventsRequestOrderBy = ListServerEventsRequestOrderBy.CREATED_AT_ASC,
     ) -> ListServerEventsResponse:
         """
+        List server events.
         List event (i.e. start/stop/reboot) associated to the server ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_id: ID of the server events searched.
@@ -658,6 +671,7 @@ class BaremetalV1API(API):
         order_by: Optional[ListServerEventsRequestOrderBy] = None,
     ) -> List[ServerEvent]:
         """
+        List server events.
         List event (i.e. start/stop/reboot) associated to the server ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_id: ID of the server events searched.
@@ -693,11 +707,11 @@ class BaremetalV1API(API):
         zone: Optional[Zone] = None,
     ) -> BMCAccess:
         """
+        Start BMC access.
         Start BMC (Baseboard Management Controller) access associated with the ID.
         The BMC (Baseboard Management Controller) access is available one hour after the installation of the server.
         You need first to create an option Remote Access. You will find the ID and the price with a call to listOffers (https://developers.scaleway.com/en/products/baremetal/api/#get-78db92). Then add the option https://developers.scaleway.com/en/products/baremetal/api/#post-b14abd.
         After adding the BMC option, you need to Get Remote Access to get the login/password https://developers.scaleway.com/en/products/baremetal/api/#get-cefc0f. Do not forget to delete the Option after use.
-
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_id: ID of the server.
         :param ip: The IP authorized to connect to the server.
@@ -738,6 +752,7 @@ class BaremetalV1API(API):
         zone: Optional[Zone] = None,
     ) -> BMCAccess:
         """
+        Get BMC access.
         Get the BMC (Baseboard Management Controller) access associated with the ID, including the URL and login information needed to connect.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_id: ID of the server.
@@ -767,6 +782,7 @@ class BaremetalV1API(API):
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
         """
+        Stop BMC access.
         Stop BMC (Baseboard Management Controller) access associated with the ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_id: ID of the server.
@@ -797,6 +813,7 @@ class BaremetalV1API(API):
         reverse: Optional[str] = None,
     ) -> IP:
         """
+        Update IP.
         Configure the IP address associated with the server ID and IP ID. You can use this method to set a reverse DNS for an IP address.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_id: ID of the server.
@@ -843,6 +860,7 @@ class BaremetalV1API(API):
         expires_at: Optional[datetime] = None,
     ) -> Server:
         """
+        Add server option.
         Add an option, such as Private Networks, to a specific server.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_id: ID of the server.
@@ -888,6 +906,7 @@ class BaremetalV1API(API):
         zone: Optional[Zone] = None,
     ) -> Server:
         """
+        Delete server option.
         Delete an option from a specific server.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_id: ID of the server.
@@ -924,6 +943,7 @@ class BaremetalV1API(API):
         subscription_period: OfferSubscriptionPeriod = OfferSubscriptionPeriod.UNKNOWN_SUBSCRIPTION_PERIOD,
     ) -> ListOffersResponse:
         """
+        List offers.
         List all available Elastic Metal server configurations.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param page: Page number.
@@ -961,6 +981,7 @@ class BaremetalV1API(API):
         subscription_period: Optional[OfferSubscriptionPeriod] = None,
     ) -> List[Offer]:
         """
+        List offers.
         List all available Elastic Metal server configurations.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param page: Page number.
@@ -993,6 +1014,7 @@ class BaremetalV1API(API):
         zone: Optional[Zone] = None,
     ) -> Offer:
         """
+        Get offer.
         Get details of an offer identified by its offer ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param offer_id: ID of the researched Offer.
@@ -1022,6 +1044,7 @@ class BaremetalV1API(API):
         zone: Optional[Zone] = None,
     ) -> Option:
         """
+        Get option.
         Return specific option for the ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param option_id: ID of the option.
@@ -1054,6 +1077,7 @@ class BaremetalV1API(API):
         name: Optional[str] = None,
     ) -> ListOptionsResponse:
         """
+        List options.
         List all options matching with filters.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param page: Page number.
@@ -1094,6 +1118,7 @@ class BaremetalV1API(API):
         name: Optional[str] = None,
     ) -> List[Option]:
         """
+        List options.
         List all options matching with filters.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param page: Page number.
@@ -1131,6 +1156,7 @@ class BaremetalV1API(API):
         project_id: Optional[str] = None,
     ) -> ListSettingsResponse:
         """
+        List all settings.
         Return all settings for a project ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param page: Page number.
@@ -1171,6 +1197,7 @@ class BaremetalV1API(API):
         project_id: Optional[str] = None,
     ) -> List[Setting]:
         """
+        List all settings.
         Return all settings for a project ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param page: Page number.
@@ -1206,6 +1233,7 @@ class BaremetalV1API(API):
         enabled: Optional[bool] = None,
     ) -> Setting:
         """
+        Update setting.
         Update a setting for a project ID (enable or disable).
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param setting_id: ID of the setting.
@@ -1246,6 +1274,7 @@ class BaremetalV1API(API):
         offer_id: Optional[str] = None,
     ) -> ListOSResponse:
         """
+        List available OSes.
         List all OSes that are available for installation on Elastic Metal servers.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param page: Page number.
@@ -1283,6 +1312,7 @@ class BaremetalV1API(API):
         offer_id: Optional[str] = None,
     ) -> List[OS]:
         """
+        List available OSes.
         List all OSes that are available for installation on Elastic Metal servers.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param page: Page number.
@@ -1315,6 +1345,7 @@ class BaremetalV1API(API):
         zone: Optional[Zone] = None,
     ) -> OS:
         """
+        Get an OS with an ID.
         Return specific OS for the ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param os_id: ID of the OS.
@@ -1341,6 +1372,8 @@ class BaremetalV1API(API):
 class BaremetalPrivateNetworkV1API(API):
     """
     Elastic Metal Private Network API.
+
+    Elastic Metal Private Network API.
     """
 
     async def add_server_private_network(
@@ -1351,7 +1384,7 @@ class BaremetalPrivateNetworkV1API(API):
         zone: Optional[Zone] = None,
     ) -> ServerPrivateNetwork:
         """
-        Add a server to a Private Network
+        Add a server to a Private Network.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_id: The ID of the server.
         :param private_network_id: The ID of the Private Network.
@@ -1393,7 +1426,7 @@ class BaremetalPrivateNetworkV1API(API):
         zone: Optional[Zone] = None,
     ) -> SetServerPrivateNetworksResponse:
         """
-        Set multiple Private Networks on a server
+        Set multiple Private Networks on a server.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_id: The ID of the server.
         :param private_network_ids: The IDs of the Private Networks.
@@ -1440,7 +1473,7 @@ class BaremetalPrivateNetworkV1API(API):
         project_id: Optional[str] = None,
     ) -> ListServerPrivateNetworksResponse:
         """
-        List the Private Networks of a server
+        List the Private Networks of a server.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param order_by: The sort order for the returned Private Networks.
         :param page: The page number for the returned Private Networks.
@@ -1490,7 +1523,7 @@ class BaremetalPrivateNetworkV1API(API):
         project_id: Optional[str] = None,
     ) -> List[ServerPrivateNetwork]:
         """
-        List the Private Networks of a server
+        List the Private Networks of a server.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param order_by: The sort order for the returned Private Networks.
         :param page: The page number for the returned Private Networks.
@@ -1531,7 +1564,7 @@ class BaremetalPrivateNetworkV1API(API):
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
         """
-        Delete a Private Network
+        Delete a Private Network.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_id: The ID of the server.
         :param private_network_id: The ID of the Private Network.

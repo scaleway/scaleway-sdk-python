@@ -27,6 +27,7 @@ class AccountV2API(API):
     """
     Account API.
 
+    User related data.
     This API allows you to manage projects.
     """
 
@@ -38,6 +39,7 @@ class AccountV2API(API):
         description: Optional[str] = None,
     ) -> Project:
         """
+        Create a new Project for an Organization.
         Generate a new Project for an Organization, specifying its configuration including name and description.
         :param name: Name of the Project.
         :param organization_id: Organization ID of the Project.
@@ -77,6 +79,7 @@ class AccountV2API(API):
         project_ids: Optional[List[str]] = None,
     ) -> ListProjectsResponse:
         """
+        List all Projects of an Organization.
         List all Projects of an Organization. The response will include the total number of Projects as well as their associated Organizations, names and IDs. Other information include the creation and update date of the Project.
         :param organization_id: Organization ID of the Project.
         :param name: Name of the Project.
@@ -120,6 +123,7 @@ class AccountV2API(API):
         project_ids: Optional[List[str]] = None,
     ) -> List[Project]:
         """
+        List all Projects of an Organization.
         List all Projects of an Organization. The response will include the total number of Projects as well as their associated Organizations, names and IDs. Other information include the creation and update date of the Project.
         :param organization_id: Organization ID of the Project.
         :param name: Name of the Project.
@@ -155,6 +159,7 @@ class AccountV2API(API):
         project_id: Optional[str] = None,
     ) -> Project:
         """
+        Get an existing Project.
         Retrieve information about an existing Project, specified by its Project ID. Its full details, including ID, name and description, are returned in the response object.
         :param project_id: Project ID of the Project.
         :return: :class:`Project <Project>`
@@ -183,6 +188,7 @@ class AccountV2API(API):
         project_id: Optional[str] = None,
     ) -> Optional[None]:
         """
+        Delete an existing Project.
         Delete an existing Project, specified by its Project ID. The Project needs to be empty (meaning there are no resources left in it) to be deleted effectively. Note that deleting a Project is permanent, and cannot be undone.
         :param project_id: Project ID of the Project.
 
@@ -212,6 +218,7 @@ class AccountV2API(API):
         description: Optional[str] = None,
     ) -> Project:
         """
+        Update Project.
         Update the parameters of an existing Project, specified by its Project ID. These parameters include the name and description.
         :param project_id: Project ID of the Project.
         :param name: Name of the Project.

@@ -42,6 +42,7 @@ class SecretV1Alpha1API(API):
     Secret API (beta).
 
     This API allows you to conveniently store, access and share sensitive data.
+    Secret API (beta).
     """
 
     def create_secret(
@@ -54,7 +55,7 @@ class SecretV1Alpha1API(API):
         description: Optional[str] = None,
     ) -> Secret:
         """
-        Create a Secret containing no versions
+        Create a Secret containing no versions.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the project containing the Secret.
         :param name: Name of the Secret.
@@ -97,7 +98,7 @@ class SecretV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> Secret:
         """
-        Get metadata of a Secret
+        Get metadata of a Secret.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the Secret.
         :return: :class:`Secret <Secret>`
@@ -128,7 +129,7 @@ class SecretV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> Secret:
         """
-        Get metadata of a Secret
+        Get metadata of a Secret.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_name: Name of the Secret.
         :return: :class:`Secret <Secret>`
@@ -162,7 +163,7 @@ class SecretV1Alpha1API(API):
         description: Optional[str] = None,
     ) -> Secret:
         """
-        Update metadata of a Secret
+        Update metadata of a Secret.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the Secret.
         :param name: New name of the Secret (optional).
@@ -212,7 +213,7 @@ class SecretV1Alpha1API(API):
         page_size: Optional[int] = None,
     ) -> ListSecretsResponse:
         """
-        List Secrets
+        List Secrets.
         :param region: Region to target. If none is passed will use default region from the config.
         :param organization_id: ID of an organization to filter on (optional).
         :param project_id: ID of a project to filter on (optional).
@@ -264,7 +265,7 @@ class SecretV1Alpha1API(API):
         page_size: Optional[int] = None,
     ) -> List[Secret]:
         """
-        List Secrets
+        List Secrets.
         :param region: Region to target. If none is passed will use default region from the config.
         :param organization_id: ID of an organization to filter on (optional).
         :param project_id: ID of a project to filter on (optional).
@@ -304,7 +305,7 @@ class SecretV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> Optional[None]:
         """
-        Delete a secret
+        Delete a secret.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the Secret.
 
@@ -336,7 +337,7 @@ class SecretV1Alpha1API(API):
         description: Optional[str] = None,
     ) -> SecretVersion:
         """
-        Create a SecretVersion
+        Create a SecretVersion.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the Secret.
         :param data: The base64-encoded secret payload of the SecretVersion.
@@ -382,7 +383,7 @@ class SecretV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> SecretVersion:
         """
-        Get metadata of a SecretVersion
+        Get metadata of a SecretVersion.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the Secret.
         :param revision: Revision of the SecretVersion (may be a number or "latest").
@@ -419,7 +420,7 @@ class SecretV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> SecretVersion:
         """
-        Get metadata of a SecretVersion
+        Get metadata of a SecretVersion.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_name: Name of the Secret.
         :param revision: Revision of the SecretVersion (may be a number or "latest").
@@ -457,7 +458,7 @@ class SecretV1Alpha1API(API):
         description: Optional[str] = None,
     ) -> SecretVersion:
         """
-        Update metadata of a SecretVersion
+        Update metadata of a SecretVersion.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the Secret.
         :param revision: Revision of the SecretVersion (may be a number or "latest").
@@ -506,7 +507,7 @@ class SecretV1Alpha1API(API):
         status: Optional[List[SecretVersionStatus]] = None,
     ) -> ListSecretVersionsResponse:
         """
-        List versions of a secret, not returning any sensitive data
+        List versions of a secret, not returning any sensitive data.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the Secret.
         :param page:
@@ -548,7 +549,7 @@ class SecretV1Alpha1API(API):
         status: Optional[List[SecretVersionStatus]] = None,
     ) -> List[SecretVersion]:
         """
-        List versions of a secret, not returning any sensitive data
+        List versions of a secret, not returning any sensitive data.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the Secret.
         :param page:
@@ -585,7 +586,7 @@ class SecretV1Alpha1API(API):
         status: Optional[List[SecretVersionStatus]] = None,
     ) -> ListSecretVersionsResponse:
         """
-        List versions of a secret, not returning any sensitive data
+        List versions of a secret, not returning any sensitive data.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_name: Name of the Secret.
         :param page:
@@ -627,7 +628,7 @@ class SecretV1Alpha1API(API):
         status: Optional[List[SecretVersionStatus]] = None,
     ) -> List[SecretVersion]:
         """
-        List versions of a secret, not returning any sensitive data
+        List versions of a secret, not returning any sensitive data.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_name: Name of the Secret.
         :param page:
@@ -662,7 +663,7 @@ class SecretV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> SecretVersion:
         """
-        Destroy a SecretVersion, permanently destroying the sensitive data
+        Destroy a SecretVersion, permanently destroying the sensitive data.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the Secret.
         :param revision: Revision of the SecretVersion (may be a number or "latest").
@@ -699,7 +700,7 @@ class SecretV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> SecretVersion:
         """
-        Enable a SecretVersion
+        Enable a SecretVersion.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the Secret.
         :param revision: Revision of the SecretVersion (may be a number or "latest").
@@ -736,7 +737,7 @@ class SecretV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> SecretVersion:
         """
-        Disable a SecretVersion
+        Disable a SecretVersion.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the Secret.
         :param revision: Revision of the SecretVersion (may be a number or "latest").
@@ -773,7 +774,7 @@ class SecretV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> AccessSecretVersionResponse:
         """
-        Access a SecretVersion, returning the sensitive data
+        Access a SecretVersion, returning the sensitive data.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the Secret.
         :param revision: Revision of the SecretVersion (may be a number or "latest").
@@ -810,7 +811,7 @@ class SecretV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> AccessSecretVersionResponse:
         """
-        Access a SecretVersion, returning the sensitive data
+        Access a SecretVersion, returning the sensitive data.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_name: Name of the Secret.
         :param revision: Revision of the SecretVersion (may be a number or "latest").

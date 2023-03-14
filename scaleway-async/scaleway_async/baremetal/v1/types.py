@@ -671,7 +671,7 @@ class OfferOptionOffer:
 
     enabled: bool
     """
-    If true the option is enabled and included by default in the offer
+    If true the option is enabled and included by default in the offer.
     If false the option is available for the offer but not included by default.
     """
 
