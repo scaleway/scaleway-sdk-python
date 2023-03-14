@@ -155,24 +155,24 @@ class APIKey:
 
     access_key: str
     """
-    Access key of API key.
+    Access key of the API key.
     """
 
     secret_key: Optional[str]
     """
-    Secret key of API Key.
+    Secret key of the API Key.
     """
 
     application_id: Optional[str]
     """
-    ID of application bearer.
+    ID of application that bears the API key.
     
     One-of ('bearer'): at most one of 'application_id', 'user_id' could be set.
     """
 
     user_id: Optional[str]
     """
-    ID of user bearer.
+    ID of user that bears the API key.
     
     One-of ('bearer'): at most one of 'application_id', 'user_id' could be set.
     """
@@ -184,22 +184,22 @@ class APIKey:
 
     created_at: Optional[datetime]
     """
-    Creation date and time of API key.
+    Date and time of API key creation.
     """
 
     updated_at: Optional[datetime]
     """
-    Last update date and time of API key.
+    Date and time of last API key update.
     """
 
     expires_at: Optional[datetime]
     """
-    Expiration date and time of API key.
+    Date and time of API key expiration.
     """
 
     default_project_id: str
     """
-    The default project ID specified for this API key.
+    The default Project ID specified for this API key.
     """
 
     editable: bool
@@ -209,7 +209,7 @@ class APIKey:
 
     creation_ip: str
     """
-    IP Address of the device which created the API key.
+    IP address of the device that created the API key.
     """
 
 
@@ -221,12 +221,12 @@ class Application:
 
     id: str
     """
-    ID of application.
+    ID of the application.
     """
 
     name: str
     """
-    Name of application.
+    Name of the application.
     """
 
     description: str
@@ -236,17 +236,17 @@ class Application:
 
     created_at: Optional[datetime]
     """
-    Creation date of application.
+    Date and time application was created.
     """
 
     updated_at: Optional[datetime]
     """
-    Last update date of application.
+    Date and time of last application update.
     """
 
     organization_id: str
     """
-    ID of organization.
+    ID of the Organization.
     """
 
     editable: bool
@@ -256,7 +256,7 @@ class Application:
 
     nb_api_keys: int
     """
-    Number of API keys owned by the application.
+    Number of API keys attributed to the application.
     """
 
 
@@ -268,27 +268,27 @@ class Group:
 
     id: str
     """
-    ID of group.
+    ID of the group.
     """
 
     created_at: Optional[datetime]
     """
-    Creation date and time of group.
+    Date and time of group creation.
     """
 
     updated_at: Optional[datetime]
     """
-    Last update date and time of group.
+    Date and time of last group update.
     """
 
     organization_id: str
     """
-    ID of organization linked to the group.
+    ID of Organization linked to the group.
     """
 
     name: str
     """
-    Name of group.
+    Name of the group.
     """
 
     description: str
@@ -522,27 +522,27 @@ class PermissionSet:
 
     id: str
     """
-    Id of permission set.
+    Id of the permission set.
     """
 
     name: str
     """
-    Name of permission set.
+    Name of the permission set.
     """
 
     scope_type: PermissionSetScopeType
     """
-    Scope of permission set.
+    Scope of the permission set.
     """
 
     description: str
     """
-    Description of permission set.
+    Description of the permission set.
     """
 
     categories: Optional[List[str]]
     """
-    Categories of permission set.
+    Categories of the permission set.
     """
 
 
@@ -554,78 +554,78 @@ class Policy:
 
     id: str
     """
-    Id of policy.
+    Id of the policy.
     """
 
     name: str
     """
-    Name of policy.
+    Name of the policy.
     """
 
     description: str
     """
-    Description of policy.
+    Description of the policy.
     """
 
     organization_id: str
     """
-    Organization ID of policy.
+    Organization ID of the policy.
     """
 
     created_at: Optional[datetime]
     """
-    Creation date and time of policy.
+    Date and time of policy creation.
     """
 
     updated_at: Optional[datetime]
     """
-    Last update date and time of policy.
+    Date and time of last policy update.
     """
 
     editable: bool
     """
-    Editable status of policy.
+    Whether or not a policy is editable.
     """
 
     nb_rules: int
     """
-    Number of rules of policy.
+    Number of rules of the policy.
     """
 
     nb_scopes: int
     """
-    Number of scopes of policy.
+    Number of policy scopes.
     """
 
     nb_permission_sets: int
     """
-    Number of permission sets of policy.
+    Number of permission sets of the policy.
     """
 
     user_id: Optional[str]
     """
-    ID of user, owner of the policy.
+    ID of the user attributed to the policy.
     
     One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
     """
 
     group_id: Optional[str]
     """
-    ID of group, owner of the policy.
+    ID of the group attributed to the policy.
     
     One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
     """
 
     application_id: Optional[str]
     """
-    ID of application, owner of the policy.
+    ID of the application attributed to the policy.
     
     One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
     """
 
     no_principal: Optional[bool]
     """
-    True when the policy do not belong to any principal.
+    Whether or not a policy is attributed to a principal.
     
     One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
     """
@@ -639,19 +639,19 @@ class Quotum:
 
     name: str
     """
-    Name of the quotum.
+    Name of the quota.
     """
 
     limit: Optional[int]
     """
-    Max limit of the quotum.
+    Maximum limit of the quota.
     
     One-of ('value'): at most one of 'limit', 'unlimited' could be set.
     """
 
     unlimited: Optional[bool]
     """
-    Whether the quotum is unlimited or not.
+    Whether or not the quota is unlimited.
     
     One-of ('value'): at most one of 'limit', 'unlimited' could be set.
     """
@@ -680,21 +680,21 @@ class Rule:
 
     project_ids: Optional[List[str]]
     """
-    List of project IDs scoped to the rule.
+    List of Project IDs the rule is scoped to.
     
     One-of ('scope'): at most one of 'project_ids', 'organization_id', 'account_root_user_id' could be set.
     """
 
     organization_id: Optional[str]
     """
-    ID of organization scoped to the rule.
+    ID of Organization the rule is scoped to.
     
     One-of ('scope'): at most one of 'project_ids', 'organization_id', 'account_root_user_id' could be set.
     """
 
     account_root_user_id: Optional[str]
     """
-    ID of account root user scoped to the rule.
+    ID of account root user the rule is scoped to.
     
     One-of ('scope'): at most one of 'project_ids', 'organization_id', 'account_root_user_id' could be set.
     """
@@ -713,14 +713,14 @@ class RuleSpecs:
 
     project_ids: Optional[List[str]]
     """
-    List of project IDs scoped to the rule.
+    List of Project IDs the rule is scoped to.
     
     One-of ('scope'): at most one of 'project_ids', 'organization_id' could be set.
     """
 
     organization_id: Optional[str]
     """
-    ID of organization scoped to the rule.
+    ID of Organization the rule is scoped to.
     
     One-of ('scope'): at most one of 'project_ids', 'organization_id' could be set.
     """
@@ -749,7 +749,7 @@ class SSHKey:
 
     fingerprint: str
     """
-    Fingerprint of SSH key.
+    Fingerprint of the SSH key.
     """
 
     created_at: Optional[datetime]
@@ -764,12 +764,12 @@ class SSHKey:
 
     organization_id: str
     """
-    ID of organization linked to the SSH key.
+    ID of Organization linked to the SSH key.
     """
 
     project_id: str
     """
-    ID of project linked to the SSH key.
+    ID of Project linked to the SSH key.
     """
 
     disabled: bool
@@ -786,7 +786,7 @@ class SetRulesResponse:
 
     rules: List[Rule]
     """
-    Rules of policy.
+    Rules of the policy.
     """
 
 
@@ -808,42 +808,42 @@ class User:
 
     created_at: Optional[datetime]
     """
-    Creation date of user.
+    Date user was created.
     """
 
     updated_at: Optional[datetime]
     """
-    Last update date of user.
+    Date of last user update.
     """
 
     organization_id: str
     """
-    ID of organization.
+    ID of the Organization.
     """
 
     deletable: bool
     """
-    Deletion status of user. Owner user cannot be deleted.
+    Deletion status of user. Owners cannot be deleted.
     """
 
     last_login_at: Optional[datetime]
     """
-    Last login date.
+    Date of the last login.
     """
 
     type_: UserType
     """
-    Type of the user.
+    Type of user.
     """
 
     two_factor_enabled: bool
     """
-    2FA enabled.
+    Whether MFA is enabled.
     """
 
     status: UserStatus
     """
-    Status of invitation for the user.
+    Status of user invitation.
     """
 
 
@@ -851,12 +851,12 @@ class User:
 class ListSSHKeysRequest:
     order_by: Optional[ListSSHKeysRequestOrderBy]
     """
-    Sort order of SSH keys.
+    Sort order of the SSH keys.
     """
 
     page: Optional[int]
     """
-    Requested page number. Value must be greater or equals to 1.
+    Requested page number. Value must be greater or equal to 1.
     """
 
     page_size: Optional[int]
@@ -866,7 +866,7 @@ class ListSSHKeysRequest:
 
     organization_id: Optional[str]
     """
-    Filter by organization ID.
+    Filter by Organization ID.
     """
 
     name: Optional[str]
@@ -876,12 +876,12 @@ class ListSSHKeysRequest:
 
     project_id: Optional[str]
     """
-    Filter by project ID.
+    Filter by Project ID.
     """
 
     disabled: Optional[bool]
     """
-    Filter out disabled SSH keys or not.
+    Whether to include disabled SSH keys or not.
     """
 
 
@@ -894,12 +894,12 @@ class CreateSSHKeyRequest:
 
     public_key: str
     """
-    SSH public key. Currently ssh-rsa, ssh-dss (DSA), ssh-ed25519 and ecdsa keys with NIST curves are supported. Max length is 65000.
+    SSH public key. Currently only the ssh-rsa, ssh-dss (DSA), ssh-ed25519 and ecdsa keys with NIST curves are supported. Max length is 65000.
     """
 
     project_id: Optional[str]
     """
-    Project owning the resource.
+    Project the resource is attributed to.
     """
 
 
@@ -945,17 +945,17 @@ class ListUsersRequest:
 
     page: Optional[int]
     """
-    Number of page. Value must be greater or equals to 1.
+    Page number. Value must be greater or equal to 1.
     """
 
     organization_id: Optional[str]
     """
-    ID of organization to filter.
+    ID of the Organization to filter.
     """
 
     user_ids: Optional[List[str]]
     """
-    Filter out by a list of ID.
+    Filter by list of IDs.
     """
 
 
@@ -963,7 +963,7 @@ class ListUsersRequest:
 class GetUserRequest:
     user_id: str
     """
-    ID of user to find.
+    ID of the user to find.
     """
 
 
@@ -971,7 +971,7 @@ class GetUserRequest:
 class DeleteUserRequest:
     user_id: str
     """
-    ID of user to delete.
+    ID of the user to delete.
     """
 
 
@@ -989,27 +989,27 @@ class ListApplicationsRequest:
 
     page: Optional[int]
     """
-    Number of page. Value must be greater to 1.
+    Page number. Value must be greater than 1.
     """
 
     name: Optional[str]
     """
-    Name of application to filter.
+    Name of the application to filter.
     """
 
     organization_id: Optional[str]
     """
-    ID of organization to filter.
+    ID of the Organization to filter.
     """
 
     editable: Optional[bool]
     """
-    Filter out editable applications or not.
+    Whether to filter out editable applications or not.
     """
 
     application_ids: Optional[List[str]]
     """
-    Filter out by a list of ID.
+    Filter by list of IDs.
     """
 
 
@@ -1017,17 +1017,17 @@ class ListApplicationsRequest:
 class CreateApplicationRequest:
     name: Optional[str]
     """
-    Name of application to create (max length is 64 chars).
+    Name of the application to create (max length is 64 characters).
     """
 
     organization_id: Optional[str]
     """
-    ID of organization.
+    ID of the Organization.
     """
 
     description: str
     """
-    Description of application (max length is 200 chars).
+    Description of the application (max length is 200 characters).
     """
 
 
@@ -1035,7 +1035,7 @@ class CreateApplicationRequest:
 class GetApplicationRequest:
     application_id: str
     """
-    ID of application to find.
+    ID of the application to find.
     """
 
 
@@ -1043,17 +1043,17 @@ class GetApplicationRequest:
 class UpdateApplicationRequest:
     application_id: str
     """
-    ID of application to update.
+    ID of the application to update.
     """
 
     name: Optional[str]
     """
-    New name of application (max length is 64 chars).
+    New name for the application (max length is 64 chars).
     """
 
     description: Optional[str]
     """
-    New description of application (max length is 200 chars).
+    New description for the application (max length is 200 chars).
     """
 
 
@@ -1061,7 +1061,7 @@ class UpdateApplicationRequest:
 class DeleteApplicationRequest:
     application_id: str
     """
-    ID of application to delete.
+    ID of the application to delete.
     """
 
 
@@ -1074,7 +1074,7 @@ class ListGroupsRequest:
 
     page: Optional[int]
     """
-    Requested page number. Value must be greater or equals to 1.
+    Requested page number. Value must be greater or equal to 1.
     """
 
     page_size: Optional[int]
@@ -1084,7 +1084,7 @@ class ListGroupsRequest:
 
     organization_id: Optional[str]
     """
-    Filter by organization ID.
+    Filter by Organization ID.
     """
 
     name: Optional[str]
@@ -1094,17 +1094,17 @@ class ListGroupsRequest:
 
     application_ids: Optional[List[str]]
     """
-    Filter out by a list of application ID.
+    Filter by a list of application IDs.
     """
 
     user_ids: Optional[List[str]]
     """
-    Filter out by a list of user ID.
+    Filter by a list of user IDs.
     """
 
     group_ids: Optional[List[str]]
     """
-    Filter out by a list of group ID.
+    Filter by a list of group IDs.
     """
 
 
@@ -1112,12 +1112,12 @@ class ListGroupsRequest:
 class CreateGroupRequest:
     organization_id: Optional[str]
     """
-    ID of organization linked to the group.
+    ID of Organization linked to the group.
     """
 
     name: Optional[str]
     """
-    Name of the group to create (max length is 64 chars). MUST be unique inside an organization.
+    Name of the group to create (max length is 64 chars). MUST be unique inside an Organization.
     """
 
     description: str
@@ -1130,7 +1130,7 @@ class CreateGroupRequest:
 class GetGroupRequest:
     group_id: str
     """
-    ID of group.
+    ID of the group.
     """
 
 
@@ -1138,12 +1138,12 @@ class GetGroupRequest:
 class UpdateGroupRequest:
     group_id: str
     """
-    ID of group to update.
+    ID of the group to update.
     """
 
     name: Optional[str]
     """
-    New name for the group (max length is 64 chars). MUST be unique inside an organization.
+    New name for the group (max length is 64 chars). MUST be unique inside an Organization.
     """
 
     description: Optional[str]
@@ -1165,7 +1165,7 @@ class SetGroupMembersRequest:
 class AddGroupMemberRequest:
     group_id: str
     """
-    ID of group.
+    ID of the group.
     """
 
     user_id: Optional[str]
@@ -1187,7 +1187,7 @@ class AddGroupMemberRequest:
 class RemoveGroupMemberRequest:
     group_id: str
     """
-    ID of group.
+    ID of the group.
     """
 
     user_id: Optional[str]
@@ -1209,7 +1209,7 @@ class RemoveGroupMemberRequest:
 class DeleteGroupRequest:
     group_id: str
     """
-    ID of group to delete.
+    ID of the group to delete.
     """
 
 
@@ -1227,42 +1227,42 @@ class ListPoliciesRequest:
 
     page: Optional[int]
     """
-    Number of page. Value must be greater to 1.
+    Page number. Value must be greater than 1.
     """
 
     organization_id: Optional[str]
     """
-    ID of organization to filter.
+    ID of the Organization to filter.
     """
 
     editable: Optional[bool]
     """
-    Filter out editable policies or not.
+    Whether or not filter out editable policies.
     """
 
     user_ids: Optional[List[str]]
     """
-    Filter out by a list of user ID.
+    Whether or not to filter by list of user IDs.
     """
 
     group_ids: Optional[List[str]]
     """
-    Filter out by a list of group ID.
+    Whether or not to filter by list of group IDs.
     """
 
     application_ids: Optional[List[str]]
     """
-    Filter out by a list of application ID.
+    Filter by a list of application IDs.
     """
 
     no_principal: Optional[bool]
     """
-    True when the policy do not belong to any principal.
+    Whether or not the policy is attributed to a principal.
     """
 
     policy_name: Optional[str]
     """
-    Name of policy to fetch.
+    Name of the policy to fetch.
     """
 
 
@@ -1270,17 +1270,17 @@ class ListPoliciesRequest:
 class CreatePolicyRequest:
     name: Optional[str]
     """
-    Name of policy to create (max length is 64 chars).
+    Name of the policy to create (max length is 64 characters).
     """
 
     description: str
     """
-    Description of policy to create (max length is 200 chars).
+    Description of the policy to create (max length is 200 characters).
     """
 
     organization_id: Optional[str]
     """
-    ID of organization.
+    ID of the Organization.
     """
 
     rules: Optional[List[RuleSpecs]]
@@ -1290,28 +1290,28 @@ class CreatePolicyRequest:
 
     user_id: Optional[str]
     """
-    ID of user, owner of the policy.
+    ID of user attributed to the policy.
     
     One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
     """
 
     group_id: Optional[str]
     """
-    ID of group, owner of the policy.
+    ID of group attributed to the policy.
     
     One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
     """
 
     application_id: Optional[str]
     """
-    ID of application, owner of the policy.
+    ID of application attributed to the policy.
     
     One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
     """
 
     no_principal: Optional[bool]
     """
-    True when the policy do not belong to any principal.
+    Whether or not a policy is attributed to a principal.
     
     One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
     """
@@ -1334,38 +1334,38 @@ class UpdatePolicyRequest:
 
     name: Optional[str]
     """
-    New name of policy (max length is 64 chars).
+    New name for the policy (max length is 64 characters).
     """
 
     description: Optional[str]
     """
-    New description of policy (max length is 200 chars).
+    New description of policy (max length is 200 characters).
     """
 
     user_id: Optional[str]
     """
-    New ID of user, owner of the policy.
+    New ID of user attributed to the policy.
     
     One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
     """
 
     group_id: Optional[str]
     """
-    New ID of group, owner of the policy.
+    New ID of group attributed to the policy.
     
     One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
     """
 
     application_id: Optional[str]
     """
-    New ID of application, owner of the policy.
+    New ID of application attributed to the policy.
     
     One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
     """
 
     no_principal: Optional[bool]
     """
-    True when the policy do not belong to any principal.
+    Whether or not the policy is attributed to a principal.
     
     One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
     """
@@ -1411,7 +1411,7 @@ class ListRulesRequest:
 
     page: Optional[int]
     """
-    Number of page. Value must be greater to 1.
+    Page number. Value must be greater than 1.
     """
 
 
@@ -1429,12 +1429,12 @@ class ListPermissionSetsRequest:
 
     page: Optional[int]
     """
-    Number of page. Value must be greater to 1.
+    Page number. Value must be greater than 1.
     """
 
     organization_id: Optional[str]
     """
-    Filter by organization ID.
+    Filter by Organization ID.
     """
 
 
@@ -1447,7 +1447,7 @@ class ListAPIKeysRequest:
 
     page: Optional[int]
     """
-    Number of page. Value must be greater or equals to 1.
+    Page number. Value must be greater or equal to 1.
     """
 
     page_size: Optional[int]
@@ -1457,12 +1457,12 @@ class ListAPIKeysRequest:
 
     organization_id: Optional[str]
     """
-    ID of organization.
+    ID of Organization.
     """
 
     application_id: Optional[str]
     """
-    ID of an application bearer.
+    ID of application that bears the API key.
     
     One-of ('bearer'): at most one of 'application_id', 'user_id' could be set.
     :deprecated
@@ -1470,7 +1470,7 @@ class ListAPIKeysRequest:
 
     user_id: Optional[str]
     """
-    ID of a user bearer.
+    ID of user that bears the API key.
     
     One-of ('bearer'): at most one of 'application_id', 'user_id' could be set.
     :deprecated
@@ -1478,32 +1478,32 @@ class ListAPIKeysRequest:
 
     editable: Optional[bool]
     """
-    Filter out editable API keys or not.
+    Whether to filter out editable API keys or not.
     """
 
     expired: Optional[bool]
     """
-    Filter out expired API keys or not.
+    Whether to filter out expired API keys or not.
     """
 
     access_key: Optional[str]
     """
-    Filter out by access key.
+    Filter by access key.
     """
 
     description: Optional[str]
     """
-    Filter out by description.
+    Filter by description.
     """
 
     bearer_id: Optional[str]
     """
-    Filter out by bearer ID.
+    Filter by bearer ID.
     """
 
     bearer_type: Optional[BearerType]
     """
-    Filter out by type of bearer.
+    Filter by type of bearer.
     """
 
 
@@ -1511,14 +1511,14 @@ class ListAPIKeysRequest:
 class CreateAPIKeyRequest:
     application_id: Optional[str]
     """
-    ID of application principal.
+    ID of the application.
     
     One-of ('bearer'): at most one of 'application_id', 'user_id' could be set.
     """
 
     user_id: Optional[str]
     """
-    ID of user principal.
+    ID of the user.
     
     One-of ('bearer'): at most one of 'application_id', 'user_id' could be set.
     """
@@ -1530,12 +1530,12 @@ class CreateAPIKeyRequest:
 
     default_project_id: Optional[str]
     """
-    The default project ID to use with object storage.
+    The default Project ID to use with Object Storage.
     """
 
     description: str
     """
-    The description of the API key (max length is 200 chars).
+    The description of the API key (max length is 200 characters).
     """
 
 
@@ -1556,7 +1556,7 @@ class UpdateAPIKeyRequest:
 
     default_project_id: Optional[str]
     """
-    The new default project ID to set.
+    The new default Project ID to set.
     """
 
     description: Optional[str]
@@ -1587,12 +1587,12 @@ class ListQuotaRequest:
 
     page: Optional[int]
     """
-    Number of page. Value must be greater to 1.
+    Page number. Value must be greater than 1.
     """
 
     organization_id: Optional[str]
     """
-    Filter by organization ID.
+    Filter by Organization ID.
     """
 
 
@@ -1600,12 +1600,12 @@ class ListQuotaRequest:
 class GetQuotumRequest:
     quotum_name: str
     """
-    Name of the quotum to get.
+    Name of the quota to get.
     """
 
     organization_id: Optional[str]
     """
-    ID of the organization.
+    ID of the Organization.
     """
 
 
@@ -1628,7 +1628,7 @@ class ListJWTsRequest:
 
     page: Optional[int]
     """
-    Number of page. Value must be greater to 1.
+    Page number. Value must be greater to 1.
     """
 
     expired: Optional[bool]
