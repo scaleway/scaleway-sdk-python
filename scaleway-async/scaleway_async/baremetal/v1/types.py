@@ -202,12 +202,12 @@ class CPU:
 
     core_count: int
     """
-    Number of cores of the CPU.
+    Number of CPU cores.
     """
 
     thread_count: int
     """
-    Number of threads of the CPU.
+    Number CPU threads.
     """
 
     frequency: int
@@ -229,7 +229,7 @@ class CreateServerRequestInstall:
 
     os_id: str
     """
-    ID of the OS to install on the server.
+    ID of the OS to installation on the server.
     """
 
     hostname: str
@@ -244,17 +244,17 @@ class CreateServerRequestInstall:
 
     user: Optional[str]
     """
-    User used for the installation.
+    User for the installation.
     """
 
     password: Optional[str]
     """
-    Password used for the installation.
+    Password for the installation.
     """
 
     service_user: Optional[str]
     """
-    User used for the service to install.
+    Regular user that runs the service to be installed on the server.
     """
 
     service_password: Optional[str]
@@ -288,7 +288,7 @@ class GetServerMetricsResponse:
 
     pings: Optional[TimeSeries]
     """
-    Timeseries of ping on the server.
+    Timeseries object representing pings on the server.
     """
 
 
@@ -325,7 +325,7 @@ class IP:
 
     reverse_status_message: str
     """
-    A message related to the reverse status, in case of an error for example.
+    A message related to the reverse status, e.g. in case of an error.
     """
 
 
@@ -417,7 +417,7 @@ class ListServersResponse:
 
     servers: List[Server]
     """
-    Servers that match filters.
+    Array of Elastic Metal server objects matching the filters in the request.
     """
 
 
@@ -429,7 +429,7 @@ class ListSettingsResponse:
 
     total_count: int
     """
-    Total count of matching sttings.
+    Total count of matching settings.
     """
 
     settings: List[Setting]
@@ -488,32 +488,32 @@ class OS:
 
     logo_url: str
     """
-    URL of this os's logo.
+    URL of this OS's logo.
     """
 
     ssh: Optional[OSOSField]
     """
-    Define the SSH requirements to install the OS.
+    Object defining the SSH requirements to install the OS.
     """
 
     user: Optional[OSOSField]
     """
-    Define the username requirements to install the OS.
+    Object defining the username requirements to install the OS.
     """
 
     password: Optional[OSOSField]
     """
-    Define the password requirements to install the OS.
+    Object defining the password requirements to install the OS.
     """
 
     service_user: Optional[OSOSField]
     """
-    Define the username requirements to install the service.
+    Object defining the username requirements to install the service.
     """
 
     service_password: Optional[OSOSField]
     """
-    Define the password requirements to install the service.
+    Object defining the password requirements to install the service.
     """
 
     enabled: bool
@@ -559,7 +559,7 @@ class Offer:
 
     bandwidth: int
     """
-    Public Bandwidth available in bits/s with the offer.
+    Public bandwidth available (in bits/s) with the offer.
     """
 
     commercial_range: str
@@ -574,7 +574,7 @@ class Offer:
 
     price_per_month: Optional[Money]
     """
-    Price of the offer per months.
+    Monthly price of the offer, if subscribing on a monthly basis.
     """
 
     disks: List[Disk]
@@ -584,7 +584,7 @@ class Offer:
 
     enable: bool
     """
-    True if the offer is currently available.
+    Defines whether the offer is currently available.
     """
 
     cpus: List[CPU]
@@ -614,7 +614,7 @@ class Offer:
 
     incompatible_os_ids: List[str]
     """
-    Array of incompatible OS ids.
+    Array of OS images IDs incompatible with the server.
     """
 
     subscription_period: OfferSubscriptionPeriod
@@ -629,12 +629,12 @@ class Offer:
 
     fee: Optional[Money]
     """
-    Fee to pay on order.
+    One time fee invoiced by Scaleway for the setup and activation of the server.
     """
 
     options: List[OfferOptionOffer]
     """
-    Options available on offer.
+    Available options for customization of the server.
     """
 
     private_bandwidth: int
@@ -644,7 +644,7 @@ class Offer:
 
     shared_bandwidth: bool
     """
-    The offer is shared or not.
+    Defines whether the offer's bandwidth is shared or not.
     """
 
     tags: List[str]
@@ -714,7 +714,7 @@ class Option:
 
     manageable: bool
     """
-    Is false if the option could not be added or removed.
+    Defines whether the option is manageable (could be added or removed).
     """
 
 
@@ -780,12 +780,12 @@ class Server:
 
     updated_at: Optional[datetime]
     """
-    Date of last modification of the server.
+    Last modification date of the server.
     """
 
     created_at: Optional[datetime]
     """
-    Date of creation of the server.
+    Creation date of the server.
     """
 
     status: ServerStatus
@@ -805,7 +805,7 @@ class Server:
 
     tags: List[str]
     """
-    Array of customs tags attached to the server.
+    Array of custom tags attached to the server.
     """
 
     ips: List[IP]
@@ -825,22 +825,22 @@ class Server:
 
     zone: Zone
     """
-    The zone in which is the server.
+    Zone in which is the server located.
     """
 
     install: Optional[ServerInstall]
     """
-    Configuration of installation.
+    Configuration of the installation.
     """
 
     ping_status: ServerPingStatus
     """
-    Server status of ping.
+    Status of server ping.
     """
 
     options: List[ServerOption]
     """
-    Options enabled on server.
+    Options enabled on the server.
     """
 
     rescue_server: Optional[ServerRescueServer]
@@ -857,7 +857,7 @@ class ServerEvent:
 
     id: str
     """
-    ID of the server for whom the action will be applied.
+    ID of the server to which the action will be applied.
     """
 
     action: str
@@ -889,32 +889,32 @@ class ServerInstall:
 
     hostname: str
     """
-    Host defined in the server install.
+    Host defined during the server installation.
     """
 
     ssh_key_ids: List[str]
     """
-    SSH public key IDs defined in the server install.
+    SSH public key IDs defined during server installation.
     """
 
     status: ServerInstallStatus
     """
-    Status of the server install.
+    Status of the server installation.
     """
 
     user: str
     """
-    User defined in the server install or the default one if none were specified.
+    User defined in the server installation, or the default user if none were specified.
     """
 
     service_user: str
     """
-    Service user defined in the server install or the default one if none were specified.
+    Service user defined in the server installation, or the default user if none were specified.
     """
 
     service_url: str
     """
-    The address of the installed service.
+    Address of the installed service.
     """
 
 
@@ -936,12 +936,12 @@ class ServerOption:
 
     status: ServerOptionOptionStatus
     """
-    Status of the option.
+    Status of the option on this server.
     """
 
     manageable: bool
     """
-    Is false if the option could not be added or removed.
+    Defines whether the option can be managed (added or removed).
     """
 
     expires_at: Optional[datetime]
@@ -958,12 +958,12 @@ class ServerPrivateNetwork:
 
     id: str
     """
-    The private network ID.
+    The Private Network ID.
     """
 
     project_id: str
     """
-    The private network project ID.
+    The Private Network Project ID.
     """
 
     server_id: str
@@ -973,27 +973,27 @@ class ServerPrivateNetwork:
 
     private_network_id: str
     """
-    The private network ID.
+    The Private Network ID.
     """
 
     vlan: Optional[int]
     """
-    The VLAN ID associated to the private network.
+    The VLAN ID associated to the Private Network.
     """
 
     status: ServerPrivateNetworkStatus
     """
-    The configuration status of the private network.
+    The configuration status of the Private Network.
     """
 
     created_at: Optional[datetime]
     """
-    The private network creation date.
+    The Private Network creation date.
     """
 
     updated_at: Optional[datetime]
     """
-    The date the private network was last modified.
+    The date the Private Network was last modified.
     """
 
 
@@ -1042,7 +1042,7 @@ class Setting:
 
     enabled: bool
     """
-    The setting is enable or disable.
+    Defines whether the setting is enabled.
     """
 
 
@@ -1060,7 +1060,7 @@ class ListServersRequest:
 
     page_size: Optional[int]
     """
-    Number of server per page.
+    Number of servers per page.
     """
 
     order_by: Optional[ListServersRequestOrderBy]
@@ -1070,32 +1070,32 @@ class ListServersRequest:
 
     tags: Optional[List[str]]
     """
-    Filter by tags.
+    Tags to filter for.
     """
 
     status: Optional[List[str]]
     """
-    Filter by status.
+    Status to filter for.
     """
 
     name: Optional[str]
     """
-    Filter by name.
+    Names to filter for.
     """
 
     organization_id: Optional[str]
     """
-    Filter by organization ID.
+    Organization ID to filter for.
     """
 
     project_id: Optional[str]
     """
-    Filter by project ID.
+    Project ID to filter for.
     """
 
     option_id: Optional[str]
     """
-    Filter by option ID.
+    Option ID to filter for.
     """
 
 
@@ -1146,7 +1146,7 @@ class CreateServerRequest:
 
     description: str
     """
-    Description associated to the server, max 255 characters.
+    Description associated with the server, max 255 characters.
     """
 
     tags: Optional[List[str]]
@@ -1156,7 +1156,7 @@ class CreateServerRequest:
 
     install: Optional[CreateServerRequestInstall]
     """
-    Configuration of installation.
+    Object describing the configuration details of the OS installation on the server.
     """
 
     option_ids: Optional[List[str]]
@@ -1184,12 +1184,12 @@ class UpdateServerRequest:
 
     description: Optional[str]
     """
-    Description associated to the server, max 255 characters, not updated if null.
+    Description associated with the server, max 255 characters, not updated if null.
     """
 
     tags: Optional[List[str]]
     """
-    Tags associated to the server, not updated if null.
+    Tags associated with the server, not updated if null.
     """
 
 
@@ -1207,7 +1207,7 @@ class InstallServerRequest:
 
     os_id: str
     """
-    ID of the OS to install on the server.
+    ID of the OS to installation on the server.
     """
 
     hostname: str
@@ -1358,7 +1358,7 @@ class StartBMCAccessRequest:
 
     ip: str
     """
-    The IP authorized to connect to the given server.
+    The IP authorized to connect to the server.
     """
 
 
@@ -1471,7 +1471,7 @@ class ListOffersRequest:
 
     subscription_period: Optional[OfferSubscriptionPeriod]
     """
-    Period of subscription to filter offers.
+    Subscription period type to filter offers by.
     """
 
 
@@ -1520,12 +1520,12 @@ class ListOptionsRequest:
 
     offer_id: Optional[str]
     """
-    Filter options by offer_id.
+    Offer ID to filter options for.
     """
 
     name: Optional[str]
     """
-    Filter options by name.
+    Name to filter options for.
     """
 
 
@@ -1548,7 +1548,7 @@ class ListSettingsRequest:
 
     order_by: Optional[ListSettingsRequestOrderBy]
     """
-    Order the response.
+    Sort order for items in the response.
     """
 
     project_id: Optional[str]
@@ -1571,7 +1571,7 @@ class UpdateSettingRequest:
 
     enabled: Optional[bool]
     """
-    Enable/Disable the setting.
+    Defines whether the setting is enabled.
     """
 
 
@@ -1594,7 +1594,7 @@ class ListOSRequest:
 
     offer_id: Optional[str]
     """
-    Filter OS by offer ID.
+    Offer IDs to filter OSes for.
     """
 
 
@@ -1625,7 +1625,7 @@ class PrivateNetworkApiAddServerPrivateNetworkRequest:
 
     private_network_id: str
     """
-    The ID of the private network.
+    The ID of the Private Network.
     """
 
 
@@ -1643,7 +1643,7 @@ class PrivateNetworkApiSetServerPrivateNetworksRequest:
 
     private_network_ids: List[str]
     """
-    The IDs of the private networks.
+    The IDs of the Private Networks.
     """
 
 
@@ -1656,37 +1656,37 @@ class PrivateNetworkApiListServerPrivateNetworksRequest:
 
     order_by: Optional[ListServerPrivateNetworksRequestOrderBy]
     """
-    The sort order for the returned private networks.
+    The sort order for the returned Private Networks.
     """
 
     page: Optional[int]
     """
-    The page number for the returned private networks.
+    The page number for the returned Private Networks.
     """
 
     page_size: Optional[int]
     """
-    The maximum number of private networks per page.
+    The maximum number of Private Networks per page.
     """
 
     server_id: Optional[str]
     """
-    Filter private networks by server ID.
+    Filter Private Networks by server ID.
     """
 
     private_network_id: Optional[str]
     """
-    Filter private networks by private network ID.
+    Filter Private Networks by Private Network ID.
     """
 
     organization_id: Optional[str]
     """
-    Filter private networks by organization ID.
+    Filter Private Networks by Organization ID.
     """
 
     project_id: Optional[str]
     """
-    Filter private networks by project ID.
+    Filter Private Networks by Project ID.
     """
 
 
@@ -1704,5 +1704,5 @@ class PrivateNetworkApiDeleteServerPrivateNetworkRequest:
 
     private_network_id: str
     """
-    The ID of the private network.
+    The ID of the Private Network.
     """
