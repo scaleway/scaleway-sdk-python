@@ -160,6 +160,9 @@ def unmarshal_Email(data: Any) -> Email:
     field = data.get("status_details")
     args["status_details"] = field
 
+    field = data.get("subject")
+    args["subject"] = field
+
     field = data.get("try_count")
     args["try_count"] = field
 
@@ -272,6 +275,7 @@ def marshal_CreateDomainRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
+        "accept_tos": request.accept_tos,
         "domain_name": request.domain_name,
         "project_id": request.project_id or defaults.default_project_id,
     }
