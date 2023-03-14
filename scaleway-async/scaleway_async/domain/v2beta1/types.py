@@ -58,6 +58,7 @@ class ContactExtensionNLLegalForm(str, Enum):
     FOUNDATION = "foundation"
     ASSOCIATION = "association"
     TRADING_PARTNERSHIP = "trading_partnership"
+    NATURAL_PERSON = "natural_person"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -341,7 +342,7 @@ class AvailableDomain:
 @dataclass
 class CheckContactsCompatibilityResponse:
     """
-    Check contacts compatibility response
+    Check contacts compatibility response.
     """
 
     compatible: bool
@@ -367,14 +368,14 @@ class CheckContactsCompatibilityResponseContactCheckResult:
 @dataclass
 class ClearDNSZoneRecordsResponse:
     """
-    Clear dns zone records response
+    Clear dns zone records response.
     """
 
 
 @dataclass
 class Contact:
     """
-    Contact
+    Contact.
     """
 
     id: str
@@ -587,28 +588,28 @@ class DSRecordPublicKey:
 @dataclass
 class DeleteDNSZoneResponse:
     """
-    Delete dns zone response
+    Delete dns zone response.
     """
 
 
 @dataclass
 class DeleteExternalDomainResponse:
     """
-    Delete external domain response
+    Delete external domain response.
     """
 
 
 @dataclass
 class DeleteSSLCertificateResponse:
     """
-    Delete ssl certificate response
+    Delete ssl certificate response.
     """
 
 
 @dataclass
 class Domain:
     """
-    Domain
+    Domain.
     """
 
     domain: str
@@ -807,7 +808,7 @@ class DomainSummary:
 @dataclass
 class GetDNSZoneTsigKeyResponse:
     """
-    Get dns zone tsig key response
+    Get dns zone tsig key response.
     """
 
     name: str
@@ -820,7 +821,7 @@ class GetDNSZoneTsigKeyResponse:
 @dataclass
 class GetDNSZoneVersionDiffResponse:
     """
-    Get dns zone version diff response
+    Get dns zone version diff response.
     """
 
     changes: List[RecordChange]
@@ -829,7 +830,7 @@ class GetDNSZoneVersionDiffResponse:
 @dataclass
 class GetDomainAuthCodeResponse:
     """
-    Get domain auth code response
+    Get domain auth code response.
     """
 
     auth_code: str
@@ -854,7 +855,7 @@ class ImportProviderDNSZoneRequestOnlineV1:
 @dataclass
 class ImportProviderDNSZoneResponse:
     """
-    Import provider dns zone response
+    Import provider dns zone response.
     """
 
     records: List[DomainRecord]
@@ -884,7 +885,7 @@ class ImportRawDNSZoneRequestTsigKey:
 @dataclass
 class ImportRawDNSZoneResponse:
     """
-    Import raw dns zone response
+    Import raw dns zone response.
     """
 
     records: List[DomainRecord]
@@ -893,7 +894,7 @@ class ImportRawDNSZoneResponse:
 @dataclass
 class ListContactsResponse:
     """
-    List contacts response
+    List contacts response.
     """
 
     total_count: int
@@ -904,41 +905,41 @@ class ListContactsResponse:
 @dataclass
 class ListDNSZoneNameserversResponse:
     """
-    List dns zone nameservers response
+    List dns zone nameservers response.
     """
 
     ns: List[Nameserver]
     """
-    The returned DNS zone nameservers
+    The returned DNS zone nameservers.
     """
 
 
 @dataclass
 class ListDNSZoneRecordsResponse:
     """
-    List dns zone records response
+    List dns zone records response.
     """
 
     total_count: int
     """
-    The total number of DNS zone records
+    The total number of DNS zone records.
     """
 
     records: List[DomainRecord]
     """
-    The paginated returned DNS zone records
+    The paginated returned DNS zone records.
     """
 
 
 @dataclass
 class ListDNSZoneVersionRecordsResponse:
     """
-    List dns zone version records response
+    List dns zone version records response.
     """
 
     total_count: int
     """
-    The total number of DNS zones versions records
+    The total number of DNS zones versions records.
     """
 
     records: List[DomainRecord]
@@ -947,12 +948,12 @@ class ListDNSZoneVersionRecordsResponse:
 @dataclass
 class ListDNSZoneVersionsResponse:
     """
-    List dns zone versions response
+    List dns zone versions response.
     """
 
     total_count: int
     """
-    The total number of DNS zones versions
+    The total number of DNS zones versions.
     """
 
     versions: List[DNSZoneVersion]
@@ -961,24 +962,24 @@ class ListDNSZoneVersionsResponse:
 @dataclass
 class ListDNSZonesResponse:
     """
-    List dns zones response
+    List dns zones response.
     """
 
     total_count: int
     """
-    The total number of DNS zones
+    The total number of DNS zones.
     """
 
     dns_zones: List[DNSZone]
     """
-    The paginated returned DNS zones
+    The paginated returned DNS zones.
     """
 
 
 @dataclass
 class ListDomainHostsResponse:
     """
-    List domain hosts response
+    List domain hosts response.
     """
 
     total_count: int
@@ -989,7 +990,7 @@ class ListDomainHostsResponse:
 @dataclass
 class ListDomainsResponse:
     """
-    List domains response
+    List domains response.
     """
 
     total_count: int
@@ -1000,7 +1001,7 @@ class ListDomainsResponse:
 @dataclass
 class ListRenewableDomainsResponse:
     """
-    List renewable domains response
+    List renewable domains response.
     """
 
     total_count: int
@@ -1011,7 +1012,7 @@ class ListRenewableDomainsResponse:
 @dataclass
 class ListSSLCertificatesResponse:
     """
-    List ssl certificates response
+    List ssl certificates response.
     """
 
     total_count: int
@@ -1022,7 +1023,7 @@ class ListSSLCertificatesResponse:
 @dataclass
 class ListTasksResponse:
     """
-    List tasks response
+    List tasks response.
     """
 
     total_count: int
@@ -1177,12 +1178,12 @@ class RecordIdentifier:
 @dataclass
 class RefreshDNSZoneResponse:
     """
-    Refresh dns zone response
+    Refresh dns zone response.
     """
 
     dns_zones: List[DNSZone]
     """
-    The returned DNS zones
+    The returned DNS zones.
     """
 
 
@@ -1225,7 +1226,7 @@ class RenewableDomain:
 @dataclass
 class RestoreDNSZoneVersionResponse:
     """
-    Restore dns zone version response
+    Restore dns zone version response.
     """
 
 
@@ -1249,12 +1250,12 @@ class SSLCertificate:
 @dataclass
 class SearchAvailableDomainsResponse:
     """
-    Search available domains response
+    Search available domains response.
     """
 
     available_domains: List[AvailableDomain]
     """
-    Array of available domains
+    Array of available domains.
     """
 
 
@@ -1322,24 +1323,24 @@ class UpdateContactRequestQuestion:
 @dataclass
 class UpdateDNSZoneNameserversResponse:
     """
-    Update dns zone nameservers response
+    Update dns zone nameservers response.
     """
 
     ns: List[Nameserver]
     """
-    The returned DNS zone nameservers
+    The returned DNS zone nameservers.
     """
 
 
 @dataclass
 class UpdateDNSZoneRecordsResponse:
     """
-    Update dns zone records response
+    Update dns zone records response.
     """
 
     records: List[DomainRecord]
     """
-    The returned DNS zone records
+    The returned DNS zone records.
     """
 
 
@@ -1347,37 +1348,37 @@ class UpdateDNSZoneRecordsResponse:
 class ListDNSZonesRequest:
     organization_id: Optional[str]
     """
-    The organization ID on which to filter the returned DNS zones
+    The organization ID on which to filter the returned DNS zones.
     """
 
     project_id: Optional[str]
     """
-    The project ID on which to filter the returned DNS zones
+    The project ID on which to filter the returned DNS zones.
     """
 
     order_by: Optional[ListDNSZonesRequestOrderBy]
     """
-    The sort order of the returned DNS zones
+    The sort order of the returned DNS zones.
     """
 
     page: Optional[int]
     """
-    The page number for the returned DNS zones
+    The page number for the returned DNS zones.
     """
 
     page_size: Optional[int]
     """
-    The maximum number of DNS zones per page
+    The maximum number of DNS zones per page.
     """
 
     domain: str
     """
-    The domain on which to filter the returned DNS zones
+    The domain on which to filter the returned DNS zones.
     """
 
     dns_zone: str
     """
-    The DNS zone on which to filter the returned DNS zones
+    The DNS zone on which to filter the returned DNS zones.
     """
 
 
@@ -1385,17 +1386,17 @@ class ListDNSZonesRequest:
 class CreateDNSZoneRequest:
     domain: str
     """
-    The domain of the DNS zone to create
+    The domain of the DNS zone to create.
     """
 
     subdomain: str
     """
-    The subdomain of the DNS zone to create
+    The subdomain of the DNS zone to create.
     """
 
     project_id: Optional[str]
     """
-    The project ID where the DNS zone will be created
+    The project ID where the DNS zone will be created.
     """
 
 
@@ -1403,17 +1404,17 @@ class CreateDNSZoneRequest:
 class UpdateDNSZoneRequest:
     dns_zone: str
     """
-    The DNS zone to update
+    The DNS zone to update.
     """
 
     new_dns_zone: str
     """
-    The new DNS zone
+    The new DNS zone.
     """
 
     project_id: Optional[str]
     """
-    The project ID of the new DNS zone
+    The project ID of the new DNS zone.
     """
 
 
@@ -1421,22 +1422,22 @@ class UpdateDNSZoneRequest:
 class CloneDNSZoneRequest:
     dns_zone: str
     """
-    The DNS zone to clone
+    The DNS zone to clone.
     """
 
     dest_dns_zone: str
     """
-    The destinaton DNS zone
+    The destinaton DNS zone.
     """
 
     overwrite: bool
     """
-    Whether or not the destination DNS zone will be overwritten
+    Whether or not the destination DNS zone will be overwritten.
     """
 
     project_id: Optional[str]
     """
-    The project ID of the destination DNS zone
+    The project ID of the destination DNS zone.
     """
 
 
@@ -1444,12 +1445,12 @@ class CloneDNSZoneRequest:
 class DeleteDNSZoneRequest:
     dns_zone: str
     """
-    The DNS zone to delete
+    The DNS zone to delete.
     """
 
     project_id: Optional[str]
     """
-    The project ID of the DNS zone to delete
+    The project ID of the DNS zone to delete.
     """
 
 
@@ -1457,42 +1458,42 @@ class DeleteDNSZoneRequest:
 class ListDNSZoneRecordsRequest:
     dns_zone: str
     """
-    The DNS zone on which to filter the returned DNS zone records
+    The DNS zone on which to filter the returned DNS zone records.
     """
 
     project_id: Optional[str]
     """
-    The project ID on which to filter the returned DNS zone records
+    The project ID on which to filter the returned DNS zone records.
     """
 
     order_by: Optional[ListDNSZoneRecordsRequestOrderBy]
     """
-    The sort order of the returned DNS zone records
+    The sort order of the returned DNS zone records.
     """
 
     page: Optional[int]
     """
-    The page number for the returned DNS zone records
+    The page number for the returned DNS zone records.
     """
 
     page_size: Optional[int]
     """
-    The maximum number of DNS zone records per page
+    The maximum number of DNS zone records per page.
     """
 
     name: str
     """
-    The name on which to filter the returned DNS zone records
+    The name on which to filter the returned DNS zone records.
     """
 
     type_: Optional[DomainRecordType]
     """
-    The record type on which to filter the returned DNS zone records
+    The record type on which to filter the returned DNS zone records.
     """
 
     id: Optional[str]
     """
-    The record ID on which to filter the returned DNS zone records
+    The record ID on which to filter the returned DNS zone records.
     """
 
 
@@ -1500,27 +1501,27 @@ class ListDNSZoneRecordsRequest:
 class UpdateDNSZoneRecordsRequest:
     dns_zone: str
     """
-    The DNS zone where the DNS zone records will be updated
+    The DNS zone where the DNS zone records will be updated.
     """
 
     changes: List[RecordChange]
     """
-    The changes made to the records
+    The changes made to the records.
     """
 
     return_all_records: Optional[bool]
     """
-    Whether or not to return all the records
+    Whether or not to return all the records.
     """
 
     disallow_new_zone_creation: bool
     """
-    Forbid the creation of the target zone if not existing (default action is yes)
+    Forbid the creation of the target zone if not existing (default action is yes).
     """
 
     serial: Optional[int]
     """
-    Don't use the autoincremenent serial but the provided one (0 to keep the same)
+    Don't use the autoincremenent serial but the provided one (0 to keep the same).
     """
 
 
@@ -1528,12 +1529,12 @@ class UpdateDNSZoneRecordsRequest:
 class ListDNSZoneNameserversRequest:
     dns_zone: str
     """
-    The DNS zone on which to filter the returned DNS zone nameservers
+    The DNS zone on which to filter the returned DNS zone nameservers.
     """
 
     project_id: Optional[str]
     """
-    The project ID on which to filter the returned DNS zone nameservers
+    The project ID on which to filter the returned DNS zone nameservers.
     """
 
 
@@ -1541,12 +1542,12 @@ class ListDNSZoneNameserversRequest:
 class UpdateDNSZoneNameserversRequest:
     dns_zone: str
     """
-    The DNS zone where the DNS zone nameservers will be updated
+    The DNS zone where the DNS zone nameservers will be updated.
     """
 
     ns: List[Nameserver]
     """
-    The new DNS zone nameservers
+    The new DNS zone nameservers.
     """
 
 
@@ -1554,7 +1555,7 @@ class UpdateDNSZoneNameserversRequest:
 class ClearDNSZoneRecordsRequest:
     dns_zone: str
     """
-    The DNS zone to clear
+    The DNS zone to clear.
     """
 
 
@@ -1562,12 +1563,12 @@ class ClearDNSZoneRecordsRequest:
 class ExportRawDNSZoneRequest:
     dns_zone: str
     """
-    The DNS zone to export
+    The DNS zone to export.
     """
 
     format: RawFormat
     """
-    Format for DNS zone
+    Format for DNS zone.
     """
 
 
@@ -1575,7 +1576,7 @@ class ExportRawDNSZoneRequest:
 class ImportRawDNSZoneRequest:
     dns_zone: str
     """
-    The DNS zone to import
+    The DNS zone to import.
     """
 
     content: Optional[str]
@@ -1619,17 +1620,17 @@ class ImportProviderDNSZoneRequest:
 class RefreshDNSZoneRequest:
     dns_zone: str
     """
-    The DNS zone to refresh
+    The DNS zone to refresh.
     """
 
     recreate_dns_zone: bool
     """
-    Whether or not to recreate the DNS zone
+    Whether or not to recreate the DNS zone.
     """
 
     recreate_sub_dns_zone: bool
     """
-    Whether or not to recreate the sub DNS zone
+    Whether or not to recreate the sub DNS zone.
     """
 
 
@@ -1639,12 +1640,12 @@ class ListDNSZoneVersionsRequest:
 
     page: Optional[int]
     """
-    The page number for the returned DNS zones versions
+    The page number for the returned DNS zones versions.
     """
 
     page_size: Optional[int]
     """
-    The maximum number of DNS zones versions per page
+    The maximum number of DNS zones versions per page.
     """
 
 
@@ -1654,12 +1655,12 @@ class ListDNSZoneVersionRecordsRequest:
 
     page: Optional[int]
     """
-    The page number for the returned DNS zones versions records
+    The page number for the returned DNS zones versions records.
     """
 
     page_size: Optional[int]
     """
-    The maximum number of DNS zones versions records per page
+    The maximum number of DNS zones versions records per page.
     """
 
 
@@ -2060,17 +2061,17 @@ class RegistrarApiDisableDomainDNSSECRequest:
 class RegistrarApiSearchAvailableDomainsRequest:
     domains: List[str]
     """
-    A list of domain to search, TLD is optional
+    A list of domain to search, TLD is optional.
     """
 
     tlds: Optional[List[str]]
     """
-    Array of tlds to search on
+    Array of tlds to search on.
     """
 
     strict_search: bool
     """
-    Search exact match
+    Search exact match.
     """
 
 

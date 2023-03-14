@@ -89,6 +89,16 @@ class NameserverStatus(str, Enum):
         return str(self.value)
 
 
+class OfferQuotaWarning(str, Enum):
+    UNKNOWN_QUOTA_WARNING = "unknown_quota_warning"
+    EMAIL_COUNT_EXCEEDED = "email_count_exceeded"
+    DATABASE_COUNT_EXCEEDED = "database_count_exceeded"
+    DISK_USAGE_EXCEEDED = "disk_usage_exceeded"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 @dataclass
 class DnsRecord:
     """
@@ -341,6 +351,16 @@ class Offer:
     Offer price.
     """
 
+    available: bool
+    """
+    If offer is available for a specific hosting.
+    """
+
+    quota_warnings: List[OfferQuotaWarning]
+    """
+    If not available, return quota warnings.
+    """
+
 
 @dataclass
 class OfferProduct:
@@ -564,4 +584,9 @@ class ListOffersRequest:
     only_options: bool
     """
     Select only options.
+    """
+
+    hosting_id: Optional[str]
+    """
+    Define a specific hosting id (optional).
     """

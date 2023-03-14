@@ -24,47 +24,47 @@ class GetVersionResponse:
 @dataclass
 class Image:
     """
-    Image
+    Image.
     """
 
     id: str
     """
-    UUID of this image
+    UUID of this image.
     """
 
     name: str
     """
-    Name of the image
+    Name of the image.
     """
 
     description: str
     """
-    Text description of this image
+    Text description of this image.
     """
 
     logo: str
     """
-    URL of this image's logo
+    URL of this image's logo.
     """
 
     categories: List[str]
     """
-    List of categories this image belongs to
+    List of categories this image belongs to.
     """
 
     creation_date: Optional[datetime]
     """
-    Creation date of this image
+    Creation date of this image.
     """
 
     modification_date: Optional[datetime]
     """
-    Date of the last modification of this image
+    Date of the last modification of this image.
     """
 
     valid_until: Optional[datetime]
     """
-    Expiration date of this image
+    Expiration date of this image.
     """
 
     label: str
@@ -74,12 +74,12 @@ class Image:
 
     versions: List[Version]
     """
-    List of versions of this image
+    List of versions of this image.
     """
 
     organization: Optional[Organization]
     """
-    Organization this image belongs to
+    Organization this image belongs to.
     """
 
     current_public_version: str
@@ -102,7 +102,7 @@ class ListVersionsResponse:
 @dataclass
 class LocalImage:
     """
-    Local image
+    Local image.
     """
 
     id: str
@@ -112,17 +112,17 @@ class LocalImage:
 
     compatible_commercial_types: List[str]
     """
-    List of all commercial types that are compatible with this local image
+    List of all commercial types that are compatible with this local image.
     """
 
     arch: str
     """
-    Supported architecture for this local image
+    Supported architecture for this local image.
     """
 
     zone: Zone
     """
-    Availability Zone where this local image is available
+    Availability Zone where this local image is available.
     """
 
 
@@ -136,32 +136,32 @@ class Organization:
 @dataclass
 class Version:
     """
-    Version
+    Version.
     """
 
     id: str
     """
-    UUID of this version
+    UUID of this version.
     """
 
     name: str
     """
-    Name of this version
+    Name of this version.
     """
 
     creation_date: Optional[datetime]
     """
-    Creation date of this image version
+    Creation date of this image version.
     """
 
     modification_date: Optional[datetime]
     """
-    Date of the last modification of this version
+    Date of the last modification of this version.
     """
 
     local_images: List[LocalImage]
     """
-    List of local images available in this version
+    List of local images available in this version.
     """
 
 
@@ -169,12 +169,12 @@ class Version:
 class ListImagesRequest:
     per_page: Optional[int]
     """
-    A positive integer lower or equal to 100 to select the number of items to display
+    A positive integer lower or equal to 100 to select the number of items to display.
     """
 
     page: Optional[int]
     """
-    A positive integer to choose the page to display
+    A positive integer to choose the page to display.
     """
 
 
@@ -182,7 +182,7 @@ class ListImagesRequest:
 class GetImageRequest:
     image_id: str
     """
-    Display the image name
+    Display the image name.
     """
 
 

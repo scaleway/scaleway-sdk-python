@@ -163,7 +163,7 @@ class TestV1API(API):
     ) -> Human:
         """
         Get the human details associated with the given id.
-        :param human_id: UUID of the human you want to get
+        :param human_id: UUID of the human you want to get.
         :return: :class:`Human <Human>`
 
         Usage:
@@ -190,7 +190,7 @@ class TestV1API(API):
     ) -> Human:
         """
         Waits for :class:`Human <Human>` to be in a final state.
-        :param human_id: UUID of the human you want to get
+        :param human_id: UUID of the human you want to get.
         :param options: The options for the waiter
         :return: :class:`Human <Human>`
 
@@ -300,7 +300,7 @@ class TestV1API(API):
     ) -> Human:
         """
         Update the human associated with the given id.
-        :param human_id: UUID of the human you want to update
+        :param human_id: UUID of the human you want to update.
         :param height:
         :param shoe_size:
         :param altitude_in_meter:
@@ -353,7 +353,7 @@ class TestV1API(API):
     ) -> Human:
         """
         Delete the human associated with the given id.
-        :param human_id: UUID of the human you want to delete
+        :param human_id: UUID of the human you want to delete.
         :return: :class:`Human <Human>`
 
         Usage:
@@ -379,7 +379,7 @@ class TestV1API(API):
     ) -> Human:
         """
         Start a one hour running for the given human.
-        :param human_id: UUID of the human you want to make run
+        :param human_id: UUID of the human you want to make run.
         :return: :class:`Human <Human>`
 
         Usage:
@@ -405,7 +405,7 @@ class TestV1API(API):
     ) -> Human:
         """
         Make a human smoke.
-        :param human_id: UUID of the human you want to make smoking
+        :param human_id: UUID of the human you want to make smoking.
         :return: :class:`Human <Human>`
         :deprecated
 

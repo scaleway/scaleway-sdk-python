@@ -52,53 +52,52 @@ class Category:
 @dataclass
 class Image:
     """
-    Image
+    Image.
     """
 
     id: str
     """
-    UUID of this image
+    UUID of this image.
     """
 
     name: str
     """
-    Name of the image
+    Name of the image.
     """
 
     description: str
     """
-    Text description of this image
+    Text description of this image.
     """
 
     logo: str
     """
-    URL of this image's logo
+    URL of this image's logo.
     """
 
     categories: List[str]
     """
-    List of categories this image belongs to
+    List of categories this image belongs to.
     """
 
     created_at: Optional[datetime]
     """
-    Creation date of this image
+    Creation date of this image.
     """
 
     updated_at: Optional[datetime]
     """
-    Date of the last modification of this image
+    Date of the last modification of this image.
     """
 
     valid_until: Optional[datetime]
     """
-    Expiration date of this image
+    Expiration date of this image.
     """
 
     label: str
     """
     Typically an identifier for a distribution (ex. "ubuntu_focal").
-    
     """
 
 
@@ -133,65 +132,64 @@ class ListVersionsResponse:
 @dataclass
 class LocalImage:
     """
-    Local image
+    Local image.
     """
 
     id: str
     """
     Version you will typically use to define an image in an API call.
-    
     """
 
     compatible_commercial_types: List[str]
     """
-    List of all commercial types that are compatible with this local image
+    List of all commercial types that are compatible with this local image.
     """
 
     arch: str
     """
-    Supported architecture for this local image
+    Supported architecture for this local image.
     """
 
     zone: Zone
     """
-    Availability Zone where this local image is available
+    Availability Zone where this local image is available.
     """
 
     label: str
     """
-    Image label this image belongs to
+    Image label this image belongs to.
     """
 
 
 @dataclass
 class Version:
     """
-    Version
+    Version.
     """
 
     id: str
     """
-    UUID of this version
+    UUID of this version.
     """
 
     name: str
     """
-    Name of this version
+    Name of this version.
     """
 
     created_at: Optional[datetime]
     """
-    Creation date of this image version
+    Creation date of this image version.
     """
 
     updated_at: Optional[datetime]
     """
-    Date of the last modification of this version
+    Date of the last modification of this version.
     """
 
     published_at: Optional[datetime]
     """
-    Date this version was officially published
+    Date this version was officially published.
     """
 
 
@@ -199,32 +197,32 @@ class Version:
 class ListImagesRequest:
     page_size: Optional[int]
     """
-    A positive integer lower or equal to 100 to select the number of items to display
+    A positive integer lower or equal to 100 to select the number of items to display.
     """
 
     page: Optional[int]
     """
-    A positive integer to choose the page to display
+    A positive integer to choose the page to display.
     """
 
     order_by: Optional[ListImagesRequestOrderBy]
     """
-    Ordering to use
+    Ordering to use.
     """
 
     arch: Optional[str]
     """
-    Choose for which machine architecture to return images
+    Choose for which machine architecture to return images.
     """
 
     category: Optional[str]
     """
-    Choose the category of images to get
+    Choose the category of images to get.
     """
 
     include_eol: bool
     """
-    Choose to include end-of-life images
+    Choose to include end-of-life images.
     """
 
 
@@ -232,7 +230,7 @@ class ListImagesRequest:
 class GetImageRequest:
     image_id: str
     """
-    Display the image name
+    Display the image name.
     """
 
 

@@ -165,235 +165,235 @@ class SettingType(str, Enum):
 @dataclass
 class BMCAccess:
     """
-    Bmc access
+    Bmc access.
     """
 
     url: str
     """
-    URL to access to the server console
+    URL to access to the server console.
     """
 
     login: str
     """
-    The login to use for the BMC (Baseboard Management Controller) access authentification
+    The login to use for the BMC (Baseboard Management Controller) access authentification.
     """
 
     password: str
     """
-    The password to use for the BMC (Baseboard Management Controller) access authentification
+    The password to use for the BMC (Baseboard Management Controller) access authentification.
     """
 
     expires_at: Optional[datetime]
     """
-    The date after which the BMC (Baseboard Management Controller) access will be closed
+    The date after which the BMC (Baseboard Management Controller) access will be closed.
     """
 
 
 @dataclass
 class CPU:
     """
-    Cpu
+    Cpu.
     """
 
     name: str
     """
-    Name of the CPU
+    Name of the CPU.
     """
 
     core_count: int
     """
-    Number of cores of the CPU
+    Number of cores of the CPU.
     """
 
     thread_count: int
     """
-    Number of threads of the CPU
+    Number of threads of the CPU.
     """
 
     frequency: int
     """
-    Frequency of the CPU in MHz
+    Frequency of the CPU in MHz.
     """
 
     benchmark: str
     """
-    Benchmark of the CPU
+    Benchmark of the CPU.
     """
 
 
 @dataclass
 class CreateServerRequestInstall:
     """
-    Create server request. install
+    Create server request. install.
     """
 
     os_id: str
     """
-    ID of the OS to install on the server
+    ID of the OS to install on the server.
     """
 
     hostname: str
     """
-    Hostname of the server
+    Hostname of the server.
     """
 
     ssh_key_ids: List[str]
     """
-    SSH key IDs authorized on the server
+    SSH key IDs authorized on the server.
     """
 
     user: Optional[str]
     """
-    User used for the installation
+    User used for the installation.
     """
 
     password: Optional[str]
     """
-    Password used for the installation
+    Password used for the installation.
     """
 
     service_user: Optional[str]
     """
-    User used for the service to install
+    User used for the service to install.
     """
 
     service_password: Optional[str]
     """
-    Password used for the service to install
+    Password used for the service to install.
     """
 
 
 @dataclass
 class Disk:
     """
-    Disk
+    Disk.
     """
 
     capacity: int
     """
-    Capacity of the disk in bytes
+    Capacity of the disk in bytes.
     """
 
     type_: str
     """
-    Type of the disk
+    Type of the disk.
     """
 
 
 @dataclass
 class GetServerMetricsResponse:
     """
-    Get server metrics response
+    Get server metrics response.
     """
 
     pings: Optional[TimeSeries]
     """
-    Timeseries of ping on the server
+    Timeseries of ping on the server.
     """
 
 
 @dataclass
 class IP:
     """
-    Ip
+    Ip.
     """
 
     id: str
     """
-    ID of the IP
+    ID of the IP.
     """
 
     address: str
     """
-    Address of the IP
+    Address of the IP.
     """
 
     reverse: str
     """
-    Reverse IP value
+    Reverse IP value.
     """
 
     version: IPVersion
     """
-    Version of IP (v4 or v6)
+    Version of IP (v4 or v6).
     """
 
     reverse_status: IPReverseStatus
     """
-    Status of the reverse
+    Status of the reverse.
     """
 
     reverse_status_message: str
     """
-    A message related to the reverse status, in case of an error for example
+    A message related to the reverse status, in case of an error for example.
     """
 
 
 @dataclass
 class ListOSResponse:
     """
-    List os response
+    List os response.
     """
 
     total_count: int
     """
-    Total count of matching OS
+    Total count of matching OS.
     """
 
     os: List[OS]
     """
-    OS that match filters
+    OS that match filters.
     """
 
 
 @dataclass
 class ListOffersResponse:
     """
-    List offers response
+    List offers response.
     """
 
     total_count: int
     """
-    Total count of matching offers
+    Total count of matching offers.
     """
 
     offers: List[Offer]
     """
-    Offers that match filters
+    Offers that match filters.
     """
 
 
 @dataclass
 class ListOptionsResponse:
     """
-    List options response
+    List options response.
     """
 
     total_count: int
     """
-    Total count of matching options
+    Total count of matching options.
     """
 
     options: List[Option]
     """
-    Options that match filters
+    Options that match filters.
     """
 
 
 @dataclass
 class ListServerEventsResponse:
     """
-    List server events response
+    List server events response.
     """
 
     total_count: int
     """
-    Total count of matching events
+    Total count of matching events.
     """
 
     events: List[ServerEvent]
     """
-    Server events that match filters
+    Server events that match filters.
     """
 
 
@@ -407,123 +407,123 @@ class ListServerPrivateNetworksResponse:
 @dataclass
 class ListServersResponse:
     """
-    List servers response
+    List servers response.
     """
 
     total_count: int
     """
-    Total count of matching servers
+    Total count of matching servers.
     """
 
     servers: List[Server]
     """
-    Servers that match filters
+    Servers that match filters.
     """
 
 
 @dataclass
 class ListSettingsResponse:
     """
-    List settings response
+    List settings response.
     """
 
     total_count: int
     """
-    Total count of matching sttings
+    Total count of matching sttings.
     """
 
     settings: List[Setting]
     """
-    Settings that match filters
+    Settings that match filters.
     """
 
 
 @dataclass
 class Memory:
     """
-    Memory
+    Memory.
     """
 
     capacity: int
     """
-    Capacity of the memory in bytes
+    Capacity of the memory in bytes.
     """
 
     type_: str
     """
-    Type of the memory
+    Type of the memory.
     """
 
     frequency: int
     """
-    Frequency of the memory in MHz
+    Frequency of the memory in MHz.
     """
 
     is_ecc: bool
     """
-    True if the memory is an error-correcting code memory
+    True if the memory is an error-correcting code memory.
     """
 
 
 @dataclass
 class OS:
     """
-    Os
+    Os.
     """
 
     id: str
     """
-    ID of the OS
+    ID of the OS.
     """
 
     name: str
     """
-    Name of the OS
+    Name of the OS.
     """
 
     version: str
     """
-    Version of the OS
+    Version of the OS.
     """
 
     logo_url: str
     """
-    URL of this os's logo
+    URL of this os's logo.
     """
 
     ssh: Optional[OSOSField]
     """
-    Define the SSH requirements to install the OS
+    Define the SSH requirements to install the OS.
     """
 
     user: Optional[OSOSField]
     """
-    Define the username requirements to install the OS
+    Define the username requirements to install the OS.
     """
 
     password: Optional[OSOSField]
     """
-    Define the password requirements to install the OS
+    Define the password requirements to install the OS.
     """
 
     service_user: Optional[OSOSField]
     """
-    Define the username requirements to install the service
+    Define the username requirements to install the service.
     """
 
     service_password: Optional[OSOSField]
     """
-    Define the password requirements to install the service
+    Define the password requirements to install the service.
     """
 
     enabled: bool
     """
-    State of OS
+    State of OS.
     """
 
     license_required: bool
     """
-    License required (check server options for pricing details)
+    License required (check server options for pricing details).
     """
 
 
@@ -539,205 +539,204 @@ class OSOSField:
 @dataclass
 class Offer:
     """
-    Offer
+    Offer.
     """
 
     id: str
     """
-    ID of the offer
+    ID of the offer.
     """
 
     name: str
     """
-    Name of the offer
+    Name of the offer.
     """
 
     stock: OfferStock
     """
-    Stock level
+    Stock level.
     """
 
     bandwidth: int
     """
-    Public Bandwidth available in bits/s with the offer
+    Public Bandwidth available in bits/s with the offer.
     """
 
     commercial_range: str
     """
-    Commercial range of the offer
+    Commercial range of the offer.
     """
 
     price_per_hour: Optional[Money]
     """
-    Price of the offer for the next 60 minutes (a server order at 11h32 will be payed until 12h32)
+    Price of the offer for the next 60 minutes (a server order at 11h32 will be payed until 12h32).
     """
 
     price_per_month: Optional[Money]
     """
-    Price of the offer per months
+    Price of the offer per months.
     """
 
     disks: List[Disk]
     """
-    Disks specifications of the offer
+    Disks specifications of the offer.
     """
 
     enable: bool
     """
-    True if the offer is currently available
+    True if the offer is currently available.
     """
 
     cpus: List[CPU]
     """
-    CPU specifications of the offer
+    CPU specifications of the offer.
     """
 
     memories: List[Memory]
     """
-    Memory specifications of the offer
+    Memory specifications of the offer.
     """
 
     quota_name: str
     """
-    Name of the quota associated to the offer
+    Name of the quota associated to the offer.
     """
 
     persistent_memories: List[PersistentMemory]
     """
-    Persistent memory specifications of the offer
+    Persistent memory specifications of the offer.
     """
 
     raid_controllers: List[RaidController]
     """
-    Raid controller specifications of the offer
+    Raid controller specifications of the offer.
     """
 
     incompatible_os_ids: List[str]
     """
-    Array of incompatible OS ids
+    Array of incompatible OS ids.
     """
 
     subscription_period: OfferSubscriptionPeriod
     """
-    Period of subscription for the offer
+    Period of subscription for the offer.
     """
 
     operation_path: str
     """
-    Operation path of the service
+    Operation path of the service.
     """
 
     fee: Optional[Money]
     """
-    Fee to pay on order
+    Fee to pay on order.
     """
 
     options: List[OfferOptionOffer]
     """
-    Options available on offer
+    Options available on offer.
     """
 
     private_bandwidth: int
     """
-    Private bandwidth available in bits/s with the offer
+    Private bandwidth available in bits/s with the offer.
     """
 
     shared_bandwidth: bool
     """
-    The offer is shared or not
+    The offer is shared or not.
     """
 
     tags: List[str]
     """
-    Array of tags attached to the offer
+    Array of tags attached to the offer.
     """
 
 
 @dataclass
 class OfferOptionOffer:
     """
-    Offer. option offer
+    Offer. option offer.
     """
 
     id: str
     """
-    ID of the option
+    ID of the option.
     """
 
     name: str
     """
-    Name of the option
+    Name of the option.
     """
 
     enabled: bool
     """
     If true the option is enabled and included by default in the offer
-    If false the option is available for the offer but not included by default
-    
+    If false the option is available for the offer but not included by default.
     """
 
     subscription_period: OfferSubscriptionPeriod
     """
-    Period of subscription for the offer
+    Period of subscription for the offer.
     """
 
     price: Optional[Money]
     """
-    Price of the option
+    Price of the option.
     """
 
     manageable: bool
     """
-    Boolean to know if option could be managed
+    Boolean to know if option could be managed.
     """
 
     os_id: Optional[str]
     """
-    ID of the OS linked to the option
+    ID of the OS linked to the option.
     """
 
 
 @dataclass
 class Option:
     """
-    Option
+    Option.
     """
 
     id: str
     """
-    ID of the option
+    ID of the option.
     """
 
     name: str
     """
-    Name of the option
+    Name of the option.
     """
 
     manageable: bool
     """
-    Is false if the option could not be added or removed
+    Is false if the option could not be added or removed.
     """
 
 
 @dataclass
 class PersistentMemory:
     """
-    Persistent memory
+    Persistent memory.
     """
 
     capacity: int
     """
-    Capacity of the memory in bytes
+    Capacity of the memory in bytes.
     """
 
     type_: str
     """
-    Type of the memory
+    Type of the memory.
     """
 
     frequency: int
     """
-    Frequency of the memory in MHz
+    Frequency of the memory in MHz.
     """
 
 
@@ -751,267 +750,267 @@ class RaidController:
 @dataclass
 class Server:
     """
-    Server
+    Server.
     """
 
     id: str
     """
-    ID of the server
+    ID of the server.
     """
 
     organization_id: str
     """
-    Organization ID the server is attached to
+    Organization ID the server is attached to.
     """
 
     project_id: str
     """
-    Project ID the server is attached to
+    Project ID the server is attached to.
     """
 
     name: str
     """
-    Name of the server
+    Name of the server.
     """
 
     description: str
     """
-    Description of the server
+    Description of the server.
     """
 
     updated_at: Optional[datetime]
     """
-    Date of last modification of the server
+    Date of last modification of the server.
     """
 
     created_at: Optional[datetime]
     """
-    Date of creation of the server
+    Date of creation of the server.
     """
 
     status: ServerStatus
     """
-    Status of the server
+    Status of the server.
     """
 
     offer_id: str
     """
-    Offer ID of the server
+    Offer ID of the server.
     """
 
     offer_name: str
     """
-    Offer name of the server
+    Offer name of the server.
     """
 
     tags: List[str]
     """
-    Array of customs tags attached to the server
+    Array of customs tags attached to the server.
     """
 
     ips: List[IP]
     """
-    Array of IPs attached to the server
+    Array of IPs attached to the server.
     """
 
     domain: str
     """
-    Domain of the server
+    Domain of the server.
     """
 
     boot_type: ServerBootType
     """
-    Boot type of the server
+    Boot type of the server.
     """
 
     zone: Zone
     """
-    The zone in which is the server
+    The zone in which is the server.
     """
 
     install: Optional[ServerInstall]
     """
-    Configuration of installation
+    Configuration of installation.
     """
 
     ping_status: ServerPingStatus
     """
-    Server status of ping
+    Server status of ping.
     """
 
     options: List[ServerOption]
     """
-    Options enabled on server
+    Options enabled on server.
     """
 
     rescue_server: Optional[ServerRescueServer]
     """
-    Configuration of rescue boot
+    Configuration of rescue boot.
     """
 
 
 @dataclass
 class ServerEvent:
     """
-    Server event
+    Server event.
     """
 
     id: str
     """
-    ID of the server for whom the action will be applied
+    ID of the server for whom the action will be applied.
     """
 
     action: str
     """
-    The action that will be applied to the server
+    The action that will be applied to the server.
     """
 
     updated_at: Optional[datetime]
     """
-    Date of last modification of the action
+    Date of last modification of the action.
     """
 
     created_at: Optional[datetime]
     """
-    Date of creation of the action
+    Date of creation of the action.
     """
 
 
 @dataclass
 class ServerInstall:
     """
-    Server. install
+    Server. install.
     """
 
     os_id: str
     """
-    ID of the OS
+    ID of the OS.
     """
 
     hostname: str
     """
-    Host defined in the server install
+    Host defined in the server install.
     """
 
     ssh_key_ids: List[str]
     """
-    SSH public key IDs defined in the server install
+    SSH public key IDs defined in the server install.
     """
 
     status: ServerInstallStatus
     """
-    Status of the server install
+    Status of the server install.
     """
 
     user: str
     """
-    User defined in the server install or the default one if none were specified
+    User defined in the server install or the default one if none were specified.
     """
 
     service_user: str
     """
-    Service user defined in the server install or the default one if none were specified
+    Service user defined in the server install or the default one if none were specified.
     """
 
     service_url: str
     """
-    The address of the installed service
+    The address of the installed service.
     """
 
 
 @dataclass
 class ServerOption:
     """
-    Server. option
+    Server. option.
     """
 
     id: str
     """
-    ID of the option
+    ID of the option.
     """
 
     name: str
     """
-    Name of the option
+    Name of the option.
     """
 
     status: ServerOptionOptionStatus
     """
-    Status of the option
+    Status of the option.
     """
 
     manageable: bool
     """
-    Is false if the option could not be added or removed
+    Is false if the option could not be added or removed.
     """
 
     expires_at: Optional[datetime]
     """
-    Auto expiration date for compatible options
+    Auto expiration date for compatible options.
     """
 
 
 @dataclass
 class ServerPrivateNetwork:
     """
-    Server private network
+    Server private network.
     """
 
     id: str
     """
-    The private network ID
+    The private network ID.
     """
 
     project_id: str
     """
-    The private network project ID
+    The private network project ID.
     """
 
     server_id: str
     """
-    The server ID
+    The server ID.
     """
 
     private_network_id: str
     """
-    The private network ID
+    The private network ID.
     """
 
     vlan: Optional[int]
     """
-    The VLAN ID associated to the private network
+    The VLAN ID associated to the private network.
     """
 
     status: ServerPrivateNetworkStatus
     """
-    The configuration status of the private network
+    The configuration status of the private network.
     """
 
     created_at: Optional[datetime]
     """
-    The private network creation date
+    The private network creation date.
     """
 
     updated_at: Optional[datetime]
     """
-    The date the private network was last modified
+    The date the private network was last modified.
     """
 
 
 @dataclass
 class ServerRescueServer:
     """
-    Server. rescue server
+    Server. rescue server.
     """
 
     user: str
     """
-    Rescue user name
+    Rescue user name.
     """
 
     password: str
     """
-    Rescue password
+    Rescue password.
     """
 
 
@@ -1023,27 +1022,27 @@ class SetServerPrivateNetworksResponse:
 @dataclass
 class Setting:
     """
-    Setting
+    Setting.
     """
 
     id: str
     """
-    ID of the setting
+    ID of the setting.
     """
 
     type_: SettingType
     """
-    Type of the setting
+    Type of the setting.
     """
 
     project_id: str
     """
-    ID of the project ID
+    ID of the project ID.
     """
 
     enabled: bool
     """
-    The setting is enable or disable
+    The setting is enable or disable.
     """
 
 
@@ -1051,52 +1050,52 @@ class Setting:
 class ListServersRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     page: Optional[int]
     """
-    Page number
+    Page number.
     """
 
     page_size: Optional[int]
     """
-    Number of server per page
+    Number of server per page.
     """
 
     order_by: Optional[ListServersRequestOrderBy]
     """
-    Order of the servers
+    Order of the servers.
     """
 
     tags: Optional[List[str]]
     """
-    Filter by tags
+    Filter by tags.
     """
 
     status: Optional[List[str]]
     """
-    Filter by status
+    Filter by status.
     """
 
     name: Optional[str]
     """
-    Filter by name
+    Filter by name.
     """
 
     organization_id: Optional[str]
     """
-    Filter by organization ID
+    Filter by organization ID.
     """
 
     project_id: Optional[str]
     """
-    Filter by project ID
+    Filter by project ID.
     """
 
     option_id: Optional[str]
     """
-    Filter by option ID
+    Filter by option ID.
     """
 
 
@@ -1104,12 +1103,12 @@ class ListServersRequest:
 class GetServerRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     server_id: str
     """
-    ID of the server
+    ID of the server.
     """
 
 
@@ -1117,12 +1116,12 @@ class GetServerRequest:
 class CreateServerRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     offer_id: str
     """
-    Offer ID of the new server
+    Offer ID of the new server.
     """
 
     organization_id: Optional[str]
@@ -1142,27 +1141,27 @@ class CreateServerRequest:
 
     name: str
     """
-    Name of the server (≠hostname)
+    Name of the server (≠hostname).
     """
 
     description: str
     """
-    Description associated to the server, max 255 characters
+    Description associated to the server, max 255 characters.
     """
 
     tags: Optional[List[str]]
     """
-    Tags to associate to the server
+    Tags to associate to the server.
     """
 
     install: Optional[CreateServerRequestInstall]
     """
-    Configuration of installation
+    Configuration of installation.
     """
 
     option_ids: Optional[List[str]]
     """
-    IDs of options to enable on server
+    IDs of options to enable on server.
     """
 
 
@@ -1170,27 +1169,27 @@ class CreateServerRequest:
 class UpdateServerRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     server_id: str
     """
-    ID of the server to update
+    ID of the server to update.
     """
 
     name: Optional[str]
     """
-    Name of the server (≠hostname), not updated if null
+    Name of the server (≠hostname), not updated if null.
     """
 
     description: Optional[str]
     """
-    Description associated to the server, max 255 characters, not updated if null
+    Description associated to the server, max 255 characters, not updated if null.
     """
 
     tags: Optional[List[str]]
     """
-    Tags associated to the server, not updated if null
+    Tags associated to the server, not updated if null.
     """
 
 
@@ -1198,47 +1197,47 @@ class UpdateServerRequest:
 class InstallServerRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     server_id: str
     """
-    Server ID to install
+    Server ID to install.
     """
 
     os_id: str
     """
-    ID of the OS to install on the server
+    ID of the OS to install on the server.
     """
 
     hostname: str
     """
-    Hostname of the server
+    Hostname of the server.
     """
 
     ssh_key_ids: List[str]
     """
-    SSH key IDs authorized on the server
+    SSH key IDs authorized on the server.
     """
 
     user: Optional[str]
     """
-    User used for the installation
+    User used for the installation.
     """
 
     password: Optional[str]
     """
-    Password used for the installation
+    Password used for the installation.
     """
 
     service_user: Optional[str]
     """
-    User used for the service to install
+    User used for the service to install.
     """
 
     service_password: Optional[str]
     """
-    Password used for the service to install
+    Password used for the service to install.
     """
 
 
@@ -1246,12 +1245,12 @@ class InstallServerRequest:
 class GetServerMetricsRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     server_id: str
     """
-    Server ID to get the metrics
+    Server ID to get the metrics.
     """
 
 
@@ -1259,12 +1258,12 @@ class GetServerMetricsRequest:
 class DeleteServerRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     server_id: str
     """
-    ID of the server to delete
+    ID of the server to delete.
     """
 
 
@@ -1272,17 +1271,17 @@ class DeleteServerRequest:
 class RebootServerRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     server_id: str
     """
-    ID of the server to reboot
+    ID of the server to reboot.
     """
 
     boot_type: ServerBootType
     """
-    The type of boot
+    The type of boot.
     """
 
 
@@ -1290,17 +1289,17 @@ class RebootServerRequest:
 class StartServerRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     server_id: str
     """
-    ID of the server to start
+    ID of the server to start.
     """
 
     boot_type: ServerBootType
     """
-    The type of boot
+    The type of boot.
     """
 
 
@@ -1308,12 +1307,12 @@ class StartServerRequest:
 class StopServerRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     server_id: str
     """
-    ID of the server to stop
+    ID of the server to stop.
     """
 
 
@@ -1321,27 +1320,27 @@ class StopServerRequest:
 class ListServerEventsRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     server_id: str
     """
-    ID of the server events searched
+    ID of the server events searched.
     """
 
     page: Optional[int]
     """
-    Page number
+    Page number.
     """
 
     page_size: Optional[int]
     """
-    Number of server events per page
+    Number of server events per page.
     """
 
     order_by: Optional[ListServerEventsRequestOrderBy]
     """
-    Order of the server events
+    Order of the server events.
     """
 
 
@@ -1349,17 +1348,17 @@ class ListServerEventsRequest:
 class StartBMCAccessRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     server_id: str
     """
-    ID of the server
+    ID of the server.
     """
 
     ip: str
     """
-    The IP authorized to connect to the given server
+    The IP authorized to connect to the given server.
     """
 
 
@@ -1367,12 +1366,12 @@ class StartBMCAccessRequest:
 class GetBMCAccessRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     server_id: str
     """
-    ID of the server
+    ID of the server.
     """
 
 
@@ -1380,12 +1379,12 @@ class GetBMCAccessRequest:
 class StopBMCAccessRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     server_id: str
     """
-    ID of the server
+    ID of the server.
     """
 
 
@@ -1393,22 +1392,22 @@ class StopBMCAccessRequest:
 class UpdateIPRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     server_id: str
     """
-    ID of the server
+    ID of the server.
     """
 
     ip_id: str
     """
-    ID of the IP to update
+    ID of the IP to update.
     """
 
     reverse: Optional[str]
     """
-    New reverse IP to update, not updated if null
+    New reverse IP to update, not updated if null.
     """
 
 
@@ -1416,22 +1415,22 @@ class UpdateIPRequest:
 class AddOptionServerRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     server_id: str
     """
-    ID of the server
+    ID of the server.
     """
 
     option_id: str
     """
-    ID of the option to add
+    ID of the option to add.
     """
 
     expires_at: Optional[datetime]
     """
-    Auto expire the option after this date
+    Auto expire the option after this date.
     """
 
 
@@ -1439,17 +1438,17 @@ class AddOptionServerRequest:
 class DeleteOptionServerRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     server_id: str
     """
-    ID of the server
+    ID of the server.
     """
 
     option_id: str
     """
-    ID of the option to delete
+    ID of the option to delete.
     """
 
 
@@ -1457,22 +1456,22 @@ class DeleteOptionServerRequest:
 class ListOffersRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     page: Optional[int]
     """
-    Page number
+    Page number.
     """
 
     page_size: Optional[int]
     """
-    Number of offers per page
+    Number of offers per page.
     """
 
     subscription_period: Optional[OfferSubscriptionPeriod]
     """
-    Period of subscription to filter offers
+    Period of subscription to filter offers.
     """
 
 
@@ -1480,12 +1479,12 @@ class ListOffersRequest:
 class GetOfferRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     offer_id: str
     """
-    ID of the researched Offer
+    ID of the researched Offer.
     """
 
 
@@ -1493,12 +1492,12 @@ class GetOfferRequest:
 class GetOptionRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     option_id: str
     """
-    ID of the option
+    ID of the option.
     """
 
 
@@ -1506,27 +1505,27 @@ class GetOptionRequest:
 class ListOptionsRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     page: Optional[int]
     """
-    Page number
+    Page number.
     """
 
     page_size: Optional[int]
     """
-    Number of options per page
+    Number of options per page.
     """
 
     offer_id: Optional[str]
     """
-    Filter options by offer_id
+    Filter options by offer_id.
     """
 
     name: Optional[str]
     """
-    Filter options by name
+    Filter options by name.
     """
 
 
@@ -1534,27 +1533,27 @@ class ListOptionsRequest:
 class ListSettingsRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     page: Optional[int]
     """
-    Page number
+    Page number.
     """
 
     page_size: Optional[int]
     """
-    Set the maximum list size
+    Set the maximum list size.
     """
 
     order_by: Optional[ListSettingsRequestOrderBy]
     """
-    Order the response
+    Order the response.
     """
 
     project_id: Optional[str]
     """
-    ID of the project
+    ID of the project.
     """
 
 
@@ -1562,17 +1561,17 @@ class ListSettingsRequest:
 class UpdateSettingRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     setting_id: str
     """
-    ID of the setting
+    ID of the setting.
     """
 
     enabled: Optional[bool]
     """
-    Enable/Disable the setting
+    Enable/Disable the setting.
     """
 
 
@@ -1580,22 +1579,22 @@ class UpdateSettingRequest:
 class ListOSRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     page: Optional[int]
     """
-    Page number
+    Page number.
     """
 
     page_size: Optional[int]
     """
-    Number of OS per page
+    Number of OS per page.
     """
 
     offer_id: Optional[str]
     """
-    Filter OS by offer ID
+    Filter OS by offer ID.
     """
 
 
@@ -1603,12 +1602,12 @@ class ListOSRequest:
 class GetOSRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     os_id: str
     """
-    ID of the OS
+    ID of the OS.
     """
 
 
@@ -1616,17 +1615,17 @@ class GetOSRequest:
 class PrivateNetworkApiAddServerPrivateNetworkRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     server_id: str
     """
-    The ID of the server
+    The ID of the server.
     """
 
     private_network_id: str
     """
-    The ID of the private network
+    The ID of the private network.
     """
 
 
@@ -1634,17 +1633,17 @@ class PrivateNetworkApiAddServerPrivateNetworkRequest:
 class PrivateNetworkApiSetServerPrivateNetworksRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     server_id: str
     """
-    The ID of the server
+    The ID of the server.
     """
 
     private_network_ids: List[str]
     """
-    The IDs of the private networks
+    The IDs of the private networks.
     """
 
 
@@ -1652,42 +1651,42 @@ class PrivateNetworkApiSetServerPrivateNetworksRequest:
 class PrivateNetworkApiListServerPrivateNetworksRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     order_by: Optional[ListServerPrivateNetworksRequestOrderBy]
     """
-    The sort order for the returned private networks
+    The sort order for the returned private networks.
     """
 
     page: Optional[int]
     """
-    The page number for the returned private networks
+    The page number for the returned private networks.
     """
 
     page_size: Optional[int]
     """
-    The maximum number of private networks per page
+    The maximum number of private networks per page.
     """
 
     server_id: Optional[str]
     """
-    Filter private networks by server ID
+    Filter private networks by server ID.
     """
 
     private_network_id: Optional[str]
     """
-    Filter private networks by private network ID
+    Filter private networks by private network ID.
     """
 
     organization_id: Optional[str]
     """
-    Filter private networks by organization ID
+    Filter private networks by organization ID.
     """
 
     project_id: Optional[str]
     """
-    Filter private networks by project ID
+    Filter private networks by project ID.
     """
 
 
@@ -1695,15 +1694,15 @@ class PrivateNetworkApiListServerPrivateNetworksRequest:
 class PrivateNetworkApiDeleteServerPrivateNetworkRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     server_id: str
     """
-    The ID of the server
+    The ID of the server.
     """
 
     private_network_id: str
     """
-    The ID of the private network
+    The ID of the private network.
     """

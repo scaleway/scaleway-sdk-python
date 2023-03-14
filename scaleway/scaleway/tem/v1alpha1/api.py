@@ -68,17 +68,17 @@ class TemV1Alpha1API(API):
     ) -> CreateEmailResponse:
         """
         Send an email
-        :param region: Region to target. If none is passed will use default region from the config
-        :param from_: Sender information (must be from a checked domain declared in the project)
-        :param to: Array of recipient information (limited to 1 recipient)
-        :param cc: Array of recipient information (unimplemented)
-        :param bcc: Array of recipient information (unimplemented)
-        :param subject: Message subject
-        :param text: Text content
-        :param html: HTML content
-        :param project_id: ID of the project in which to create the email
-        :param attachments: Array of attachments
-        :param send_before: Maximum date to deliver mail
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param from_: Sender information (must be from a checked domain declared in the project).
+        :param to: Array of recipient information (limited to 1 recipient).
+        :param cc: Array of recipient information (unimplemented).
+        :param bcc: Array of recipient information (unimplemented).
+        :param subject: Message subject.
+        :param text: Text content.
+        :param html: HTML content.
+        :param project_id: ID of the project in which to create the email.
+        :param attachments: Array of attachments.
+        :param send_before: Maximum date to deliver mail.
         :return: :class:`CreateEmailResponse <CreateEmailResponse>`
 
         Usage:
@@ -127,8 +127,8 @@ class TemV1Alpha1API(API):
     ) -> Email:
         """
         Get information about an email
-        :param region: Region to target. If none is passed will use default region from the config
-        :param email_id: ID of the email to retrieve
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param email_id: ID of the email to retrieve.
         :return: :class:`Email <Email>`
 
         Usage:
@@ -159,8 +159,8 @@ class TemV1Alpha1API(API):
     ) -> Email:
         """
         Waits for :class:`Email <Email>` to be in a final state.
-        :param region: Region to target. If none is passed will use default region from the config
-        :param email_id: ID of the email to retrieve
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param email_id: ID of the email to retrieve.
         :param options: The options for the waiter
         :return: :class:`Email <Email>`
 
@@ -202,17 +202,17 @@ class TemV1Alpha1API(API):
     ) -> ListEmailsResponse:
         """
         List emails sent from a domain and/or for a project and/or for an organization
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
-        :param project_id: Optional ID of the project in which to list the emails
-        :param domain_id: Optional ID of the domain for which to list the emails
-        :param message_id: Optional ID of the message for which to list the emails
-        :param since: Optional, list emails created after this date
-        :param until: Optional, list emails created before this date
-        :param mail_from: Optional, list emails sent with this `mail_from` sender's address
-        :param mail_to: Optional, list emails sent with this `mail_to` recipient's address
-        :param statuses: Optional, list emails having any of this status
+        :param project_id: Optional ID of the project in which to list the emails.
+        :param domain_id: Optional ID of the domain for which to list the emails.
+        :param message_id: Optional ID of the message for which to list the emails.
+        :param since: Optional, list emails created after this date.
+        :param until: Optional, list emails created before this date.
+        :param mail_from: Optional, list emails sent with this `mail_from` sender's address.
+        :param mail_to: Optional, list emails sent with this `mail_to` recipient's address.
+        :param statuses: Optional, list emails having any of this status.
         :return: :class:`ListEmailsResponse <ListEmailsResponse>`
 
         Usage:
@@ -262,17 +262,17 @@ class TemV1Alpha1API(API):
     ) -> List[Email]:
         """
         List emails sent from a domain and/or for a project and/or for an organization
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
-        :param project_id: Optional ID of the project in which to list the emails
-        :param domain_id: Optional ID of the domain for which to list the emails
-        :param message_id: Optional ID of the message for which to list the emails
-        :param since: Optional, list emails created after this date
-        :param until: Optional, list emails created before this date
-        :param mail_from: Optional, list emails sent with this `mail_from` sender's address
-        :param mail_to: Optional, list emails sent with this `mail_to` recipient's address
-        :param statuses: Optional, list emails having any of this status
+        :param project_id: Optional ID of the project in which to list the emails.
+        :param domain_id: Optional ID of the domain for which to list the emails.
+        :param message_id: Optional ID of the message for which to list the emails.
+        :param since: Optional, list emails created after this date.
+        :param until: Optional, list emails created before this date.
+        :param mail_from: Optional, list emails sent with this `mail_from` sender's address.
+        :param mail_to: Optional, list emails sent with this `mail_to` recipient's address.
+        :param statuses: Optional, list emails having any of this status.
         :return: :class:`List[ListEmailsResponse] <List[ListEmailsResponse]>`
 
         Usage:
@@ -312,12 +312,12 @@ class TemV1Alpha1API(API):
     ) -> Statistics:
         """
         Get statistics on the email statuses
-        :param region: Region to target. If none is passed will use default region from the config
-        :param project_id: Optional, count emails for this project
-        :param domain_id: Optional, count emails send from this domain (must be coherent with the `project_id` and the `organization_id`)
-        :param since: Optional, count emails created after this date
-        :param until: Optional, count emails created before this date
-        :param mail_from: Optional, count emails sent with this `mail_from` sender's address
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: Optional, count emails for this project.
+        :param domain_id: Optional, count emails send from this domain (must be coherent with the `project_id` and the `organization_id`).
+        :param since: Optional, count emails created after this date.
+        :param until: Optional, count emails created before this date.
+        :param mail_from: Optional, count emails sent with this `mail_from` sender's address.
         :return: :class:`Statistics <Statistics>`
 
         Usage:
@@ -353,8 +353,8 @@ class TemV1Alpha1API(API):
     ) -> Email:
         """
         Try to cancel an email if it has not yet been sent
-        :param region: Region to target. If none is passed will use default region from the config
-        :param email_id: ID of the email to cancel
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param email_id: ID of the email to cancel.
         :return: :class:`Email <Email>`
 
         Usage:
@@ -385,7 +385,7 @@ class TemV1Alpha1API(API):
     ) -> Domain:
         """
         Register a domain in a project
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param project_id:
         :param domain_name:
         :return: :class:`Domain <Domain>`
@@ -424,8 +424,8 @@ class TemV1Alpha1API(API):
     ) -> Domain:
         """
         Get information about a domain
-        :param region: Region to target. If none is passed will use default region from the config
-        :param domain_id: ID of the domain
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param domain_id: ID of the domain.
         :return: :class:`Domain <Domain>`
 
         Usage:
@@ -456,8 +456,8 @@ class TemV1Alpha1API(API):
     ) -> Domain:
         """
         Waits for :class:`Domain <Domain>` to be in a final state.
-        :param region: Region to target. If none is passed will use default region from the config
-        :param domain_id: ID of the domain
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param domain_id: ID of the domain.
         :param options: The options for the waiter
         :return: :class:`Domain <Domain>`
 
@@ -495,9 +495,9 @@ class TemV1Alpha1API(API):
     ) -> ListDomainsResponse:
         """
         List domains in a project and/or in an organization
-        :param region: Region to target. If none is passed will use default region from the config
-        :param page: Page number (1 for the first page)
-        :param page_size: Page size
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page: Page number (1 for the first page).
+        :param page_size: Page size.
         :param project_id:
         :param status:
         :param organization_id:
@@ -544,9 +544,9 @@ class TemV1Alpha1API(API):
     ) -> List[Domain]:
         """
         List domains in a project and/or in an organization
-        :param region: Region to target. If none is passed will use default region from the config
-        :param page: Page number (1 for the first page)
-        :param page_size: Page size
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page: Page number (1 for the first page).
+        :param page_size: Page size.
         :param project_id:
         :param status:
         :param organization_id:
@@ -582,8 +582,8 @@ class TemV1Alpha1API(API):
     ) -> Domain:
         """
         Revoke a domain
-        :param region: Region to target. If none is passed will use default region from the config
-        :param domain_id: ID of the domain to revoke
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param domain_id: ID of the domain to revoke.
         :return: :class:`Domain <Domain>`
 
         Usage:
@@ -613,8 +613,8 @@ class TemV1Alpha1API(API):
     ) -> Domain:
         """
         Ask for an immediate check of a domain (DNS check)
-        :param region: Region to target. If none is passed will use default region from the config
-        :param domain_id: ID of the domain to check
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param domain_id: ID of the domain to check.
         :return: :class:`Domain <Domain>`
 
         Usage:

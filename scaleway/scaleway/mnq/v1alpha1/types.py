@@ -50,27 +50,27 @@ class NamespaceProtocol(str, Enum):
 @dataclass
 class Credential:
     """
-    Credential
+    Credential.
     """
 
     id: str
     """
-    Credential ID
+    Credential ID.
     """
 
     name: str
     """
-    Credential name
+    Credential name.
     """
 
     namespace_id: str
     """
-    Namespace containing the Credential
+    Namespace containing the Credential.
     """
 
     protocol: NamespaceProtocol
     """
-    Protocol associated to the Credential
+    Protocol associated to the Credential.
     """
 
     nats_credentials: Optional[CredentialNATSCredsFile]
@@ -91,61 +91,61 @@ class Credential:
 @dataclass
 class CredentialNATSCredsFile:
     """
-    Credential.nats creds file
+    Credential.nats creds file.
     """
 
     content: str
     """
-    Raw content of the NATS credentials file
+    Raw content of the NATS credentials file.
     """
 
 
 @dataclass
 class CredentialSQSSNSCreds:
     """
-    Credential.sqssns creds
+    Credential.sqssns creds.
     """
 
     access_key: str
     """
-    ID of the key
+    ID of the key.
     """
 
     secret_key: Optional[str]
     """
-    Secret value of the key
+    Secret value of the key.
     """
 
     permissions: Optional[Permissions]
     """
-    List of permissions associated to this Credential
+    List of permissions associated to this Credential.
     """
 
 
 @dataclass
 class CredentialSummary:
     """
-    Credential summary
+    Credential summary.
     """
 
     id: str
     """
-    Credential ID
+    Credential ID.
     """
 
     name: str
     """
-    Credential name
+    Credential name.
     """
 
     namespace_id: str
     """
-    Namespace containing the Credential
+    Namespace containing the Credential.
     """
 
     protocol: NamespaceProtocol
     """
-    Protocol associated to the Credential
+    Protocol associated to the Credential.
     """
 
     sqs_sns_credentials: Optional[CredentialSummarySQSSNSCreds]
@@ -159,120 +159,120 @@ class CredentialSummary:
 @dataclass
 class CredentialSummarySQSSNSCreds:
     """
-    Credential summary.sqssns creds
+    Credential summary.sqssns creds.
     """
 
     access_key: str
     """
-    ID of the key
+    ID of the key.
     """
 
     permissions: Optional[Permissions]
     """
-    List of permissions associated to this Credential
+    List of permissions associated to this Credential.
     """
 
 
 @dataclass
 class ListCredentialsResponse:
     """
-    List credentials response
+    List credentials response.
     """
 
     total_count: int
     """
-    Total number of existing Credentials
+    Total number of existing Credentials.
     """
 
     credentials: List[CredentialSummary]
     """
-    A page of Credentials
+    A page of Credentials.
     """
 
 
 @dataclass
 class ListNamespacesResponse:
     """
-    List namespaces response
+    List namespaces response.
     """
 
     total_count: int
     """
-    Total number of existing Namespaces
+    Total number of existing Namespaces.
     """
 
     namespaces: List[Namespace]
     """
-    A page of Namespaces
+    A page of Namespaces.
     """
 
 
 @dataclass
 class Namespace:
     """
-    Namespace
+    Namespace.
     """
 
     id: str
     """
-    Namespace ID
+    Namespace ID.
     """
 
     name: str
     """
-    Namespace name
+    Namespace name.
     """
 
     endpoint: str
     """
-    Endpoint of the service matching the Namespace protocol
+    Endpoint of the service matching the Namespace protocol.
     """
 
     protocol: NamespaceProtocol
     """
-    Namespace protocol
+    Namespace protocol.
     """
 
     project_id: str
     """
-    Project containing the Namespace
+    Project containing the Namespace.
     """
 
     region: Region
     """
-    Region where the Namespace is deployed
+    Region where the Namespace is deployed.
     """
 
     created_at: Optional[datetime]
     """
-    Namespace creation date
+    Namespace creation date.
     """
 
     updated_at: Optional[datetime]
     """
-    Namespace last modification date
+    Namespace last modification date.
     """
 
 
 @dataclass
 class Permissions:
     """
-    Permissions
+    Permissions.
     """
 
     can_publish: Optional[bool]
     """
-    Defines if user can publish messages to the service
+    Defines if user can publish messages to the service.
     """
 
     can_receive: Optional[bool]
     """
-    Defines if user can receive messages from the service
+    Defines if user can receive messages from the service.
     """
 
     can_manage: Optional[bool]
     """
-    Defines if user can manage the associated resource(s)
+    Defines if user can manage the associated resource(s).
     """
 
 
@@ -280,32 +280,32 @@ class Permissions:
 class ListNamespacesRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     organization_id: Optional[str]
     """
-    Will list only the Namespaces owned by the specified organization
+    Will list only the Namespaces owned by the specified organization.
     """
 
     project_id: Optional[str]
     """
-    Will list only the Namespaces contained into the specified project
+    Will list only the Namespaces contained into the specified project.
     """
 
     page: Optional[int]
     """
-    Indicate the page number of results to be returned
+    Indicate the page number of results to be returned.
     """
 
     page_size: Optional[int]
     """
-    Maximum number of results returned by page
+    Maximum number of results returned by page.
     """
 
     order_by: Optional[ListNamespacesRequestOrderBy]
     """
-    Field used for sorting results
+    Field used for sorting results.
     """
 
 
@@ -313,22 +313,22 @@ class ListNamespacesRequest:
 class CreateNamespaceRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     name: Optional[str]
     """
-    Namespace name
+    Namespace name.
     """
 
     protocol: Optional[NamespaceProtocol]
     """
-    Namespace protocol
+    Namespace protocol.
     """
 
     project_id: Optional[str]
     """
-    Project containing the Namespace
+    Project containing the Namespace.
     """
 
 
@@ -336,17 +336,17 @@ class CreateNamespaceRequest:
 class UpdateNamespaceRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     namespace_id: str
     """
-    ID of the Namespace to update
+    ID of the Namespace to update.
     """
 
     name: Optional[str]
     """
-    Namespace name
+    Namespace name.
     """
 
 
@@ -354,12 +354,12 @@ class UpdateNamespaceRequest:
 class GetNamespaceRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     namespace_id: str
     """
-    ID of the Namespace to get
+    ID of the Namespace to get.
     """
 
 
@@ -367,12 +367,12 @@ class GetNamespaceRequest:
 class DeleteNamespaceRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     namespace_id: str
     """
-    ID of the Namespace to delete
+    ID of the Namespace to delete.
     """
 
 
@@ -380,17 +380,17 @@ class DeleteNamespaceRequest:
 class CreateCredentialRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     namespace_id: str
     """
-    Namespace containing the Credential
+    Namespace containing the Credential.
     """
 
     name: Optional[str]
     """
-    Credential name
+    Credential name.
     """
 
     permissions: Optional[Permissions]
@@ -405,12 +405,12 @@ class CreateCredentialRequest:
 class DeleteCredentialRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     credential_id: str
     """
-    ID of the Credential to delete
+    ID of the Credential to delete.
     """
 
 
@@ -418,27 +418,27 @@ class DeleteCredentialRequest:
 class ListCredentialsRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     namespace_id: Optional[str]
     """
-    Namespace containing the Credential
+    Namespace containing the Credential.
     """
 
     page: Optional[int]
     """
-    Indicate the page number of results to be returned
+    Indicate the page number of results to be returned.
     """
 
     page_size: Optional[int]
     """
-    Maximum number of results returned by page
+    Maximum number of results returned by page.
     """
 
     order_by: Optional[ListCredentialsRequestOrderBy]
     """
-    Field used for sorting results
+    Field used for sorting results.
     """
 
 
@@ -446,17 +446,17 @@ class ListCredentialsRequest:
 class UpdateCredentialRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     credential_id: str
     """
-    ID of the Credential to update
+    ID of the Credential to update.
     """
 
     name: Optional[str]
     """
-    Credential name
+    Credential name.
     """
 
     permissions: Optional[Permissions]
@@ -471,10 +471,10 @@ class UpdateCredentialRequest:
 class GetCredentialRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     credential_id: str
     """
-    ID of the Credential to get
+    ID of the Credential to get.
     """
