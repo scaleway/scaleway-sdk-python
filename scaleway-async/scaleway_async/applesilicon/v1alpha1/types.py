@@ -54,7 +54,7 @@ class ListOSResponse:
 
     total_count: int
     """
-    Total number of os.
+    Total number of OS.
     """
 
     os: List[OS]
@@ -71,7 +71,7 @@ class ListServerTypesResponse:
 
     server_types: List[ServerType]
     """
-    The available server types.
+    Available server types.
     """
 
 
@@ -83,12 +83,12 @@ class ListServersResponse:
 
     total_count: int
     """
-    The total number of servers.
+    Total number of servers.
     """
 
     servers: List[Server]
     """
-    The paginated returned servers.
+    Paginated returned servers.
     """
 
 
@@ -100,17 +100,17 @@ class OS:
 
     id: str
     """
-    The OS unique ID.
+    Unique ID of the OS.
     """
 
     name: str
     """
-    The OS name.
+    OS name.
     """
 
     label: str
     """
-    The OS name as it should be displayed.
+    OS name as it should be displayed.
     """
 
     image_url: str
@@ -172,22 +172,22 @@ class Server:
 
     created_at: Optional[datetime]
     """
-    The date at which the server was created.
+    Date on which the server was created.
     """
 
     updated_at: Optional[datetime]
     """
-    The date at which the server was last updated.
+    Date on which the server was last updated.
     """
 
     deletable_at: Optional[datetime]
     """
-    The date at which the server was last deleted.
+    Date on which the server was last deleted.
     """
 
     zone: Zone
     """
-    The zone of the server.
+    Zone of the server.
     """
 
 
@@ -302,27 +302,27 @@ class ListServersRequest:
 
     order_by: Optional[ListServersRequestOrderBy]
     """
-    The sort order of the returned servers.
+    Sort order of the returned servers.
     """
 
     project_id: Optional[str]
     """
-    List only servers of this project ID.
+    Only list servers of this project ID.
     """
 
     organization_id: Optional[str]
     """
-    List only servers of this organization ID.
+    Only list servers of this Organization ID.
     """
 
     page: Optional[int]
     """
-    A positive integer to choose the page to return.
+    Positive integer to choose the page to return.
     """
 
     page_size: Optional[int]
     """
-    A positive integer lower or equal to 100 to select the number of items to return.
+    Positive integer lower or equal to 100 to select the number of items to return.
     """
 
 
@@ -335,22 +335,22 @@ class ListOSRequest:
 
     page: Optional[int]
     """
-    A positive integer to choose the page to return.
+    Positive integer to choose the page to return.
     """
 
     page_size: Optional[int]
     """
-    A positive integer lower or equal to 100 to select the number of items to return.
+    Positive integer lower or equal to 100 to select the number of items to return.
     """
 
     server_type: Optional[str]
     """
-    List of compatible server type.
+    List of compatible server types.
     """
 
     name: Optional[str]
     """
-    Filter os by name (for eg. "11.1" will return "11.1.2" and "11.1" but not "12").
+    Filter OS by name (note that "11.1" will return "11.1.2" and "11.1" but not "12")).
     """
 
 
