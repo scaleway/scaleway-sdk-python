@@ -38,10 +38,10 @@ class AccountV2API(API):
         description: Optional[str] = None,
     ) -> Project:
         """
-        Create project
-        :param name: The name of the project.
-        :param organization_id: The organization ID of the project.
-        :param description: The description of the project.
+        Generate a new Project for an Organization, specifying its configuration including name and description.
+        :param name: Name of the Project.
+        :param organization_id: Organization ID of the Project.
+        :param description: Description of the Project.
         :return: :class:`Project <Project>`
 
         Usage:
@@ -77,13 +77,13 @@ class AccountV2API(API):
         project_ids: Optional[List[str]] = None,
     ) -> ListProjectsResponse:
         """
-        List projects
-        :param organization_id: The organization ID of the project.
-        :param name: The name of the project.
-        :param page: The page number for the returned projects.
-        :param page_size: The maximum number of project per page.
-        :param order_by: The sort order of the returned projects.
-        :param project_ids: Filter out by a list of project ID.
+        List all Projects of an Organization. The response will include the total number of Projects as well as their associated Organizations, names and IDs. Other information include the creation and update date of the Project.
+        :param organization_id: Organization ID of the Project.
+        :param name: Name of the Project.
+        :param page: Page number for the returned Projects.
+        :param page_size: Maximum number of Project per page.
+        :param order_by: Sort order of the returned Projects.
+        :param project_ids: Project IDs to filter for. The results will be limited to any Projects with an ID in this array.
         :return: :class:`ListProjectsResponse <ListProjectsResponse>`
 
         Usage:
@@ -120,13 +120,13 @@ class AccountV2API(API):
         project_ids: Optional[List[str]] = None,
     ) -> List[Project]:
         """
-        List projects
-        :param organization_id: The organization ID of the project.
-        :param name: The name of the project.
-        :param page: The page number for the returned projects.
-        :param page_size: The maximum number of project per page.
-        :param order_by: The sort order of the returned projects.
-        :param project_ids: Filter out by a list of project ID.
+        List all Projects of an Organization. The response will include the total number of Projects as well as their associated Organizations, names and IDs. Other information include the creation and update date of the Project.
+        :param organization_id: Organization ID of the Project.
+        :param name: Name of the Project.
+        :param page: Page number for the returned Projects.
+        :param page_size: Maximum number of Project per page.
+        :param order_by: Sort order of the returned Projects.
+        :param project_ids: Project IDs to filter for. The results will be limited to any Projects with an ID in this array.
         :return: :class:`List[ListProjectsResponse] <List[ListProjectsResponse]>`
 
         Usage:
@@ -155,8 +155,8 @@ class AccountV2API(API):
         project_id: Optional[str] = None,
     ) -> Project:
         """
-        Get project
-        :param project_id: The project ID of the project.
+        Retrieve information about an existing Project, specified by its Project ID. Its full details, including ID, name and description, are returned in the response object.
+        :param project_id: Project ID of the Project.
         :return: :class:`Project <Project>`
 
         Usage:
@@ -183,8 +183,8 @@ class AccountV2API(API):
         project_id: Optional[str] = None,
     ) -> Optional[None]:
         """
-        Delete project
-        :param project_id: The project ID of the project.
+        Delete an existing Project, specified by its Project ID. The Project needs to be empty (meaning there are no resources left in it) to be deleted effectively. Note that deleting a Project is permanent, and cannot be undone.
+        :param project_id: Project ID of the Project.
 
         Usage:
         ::
@@ -212,10 +212,10 @@ class AccountV2API(API):
         description: Optional[str] = None,
     ) -> Project:
         """
-        Update project
-        :param project_id: The project ID of the project.
-        :param name: The name of the project.
-        :param description: The description of the project.
+        Update the parameters of an existing Project, specified by its Project ID. These parameters include the name and description.
+        :param project_id: Project ID of the Project.
+        :param name: Name of the Project.
+        :param description: Description of the Project.
         :return: :class:`Project <Project>`
 
         Usage:
