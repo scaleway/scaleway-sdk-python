@@ -213,15 +213,15 @@ class K8SV1API(API):
         apiserver_cert_sans: Optional[List[str]] = None,
     ) -> Cluster:
         """
-        Creates a new Kubernetes cluster on a Scaleway account.
+        Create a new Kubernetes cluster on a Scaleway account.
         :param region: Region to target. If none is passed will use default region from the config.
         :param organization_id: Organization ID in which the cluster will be created.
 
         One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
-        :param project_id: Poject ID in which the cluster will be created.
+        :param project_id: Project ID in which the cluster will be created.
 
         One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
-        :param type_: The type of the cluster (possible values are kapsule, multicloud).
+        :param type_: Type of the cluster (possible values are kapsule, multicloud).
         :param name: Name of the cluster.
         :param description: Description of the cluster.
         :param tags: Tags associated with the cluster.
@@ -430,7 +430,7 @@ class K8SV1API(API):
         region: Optional[Region] = None,
     ) -> Cluster:
         """
-        Deletes a specific cluster and all its associated pools and nodes. Note that this method will not delete any Load Balancers or Block Volumes that are associated with the cluster.
+        Delete a specific cluster and all its associated pools and nodes. Note that this method will not delete any Load Balancers or Block Volumes that are associated with the cluster.
         :param region: Region to target. If none is passed will use default region from the config.
         :param cluster_id: ID of the cluster to delete.
         :param with_additional_resources: Set true if you want to delete all volumes (including retain volume type) and loadbalancers whose name start with cluster ID.
@@ -470,7 +470,7 @@ class K8SV1API(API):
         region: Optional[Region] = None,
     ) -> Cluster:
         """
-        Upgrades a specific Kubernetes cluster and/or its associated pools to a specific and supported Kubernetes version.
+        Upgrade a specific Kubernetes cluster and/or its associated pools to a specific and supported Kubernetes version.
         :param region: Region to target. If none is passed will use default region from the config.
         :param cluster_id: ID of the cluster to upgrade.
         :param version: New Kubernetes version of the cluster. Note that the version shoud either be a higher patch version of the same minor version or the direct minor version after the current one.
