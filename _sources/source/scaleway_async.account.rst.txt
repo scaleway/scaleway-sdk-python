@@ -1,0 +1,18 @@
+scaleway\_async.account package
+===============================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway_async.account.v2
+
+Module contents
+---------------
+
+.. automodule:: scaleway_async.account
+   :members:
+   :undoc-members:
+   :show-inheritance:

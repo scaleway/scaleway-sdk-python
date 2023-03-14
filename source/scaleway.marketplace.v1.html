@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scaleway.marketplace.v1 package &mdash; Scaleway Python SDK  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Scaleway Python SDK
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">scaleway.marketplace.v1 package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-scaleway.marketplace.v1.api">scaleway.marketplace.v1.api module</a><ul>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.api.MarketplaceV1API"><code class="docutils literal notranslate"><span class="pre">MarketplaceV1API</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.api.MarketplaceV1API.get_image"><code class="docutils literal notranslate"><span class="pre">MarketplaceV1API.get_image()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.api.MarketplaceV1API.get_version"><code class="docutils literal notranslate"><span class="pre">MarketplaceV1API.get_version()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.api.MarketplaceV1API.list_images"><code class="docutils literal notranslate"><span class="pre">MarketplaceV1API.list_images()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.api.MarketplaceV1API.list_images_all"><code class="docutils literal notranslate"><span class="pre">MarketplaceV1API.list_images_all()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.api.MarketplaceV1API.list_versions"><code class="docutils literal notranslate"><span class="pre">MarketplaceV1API.list_versions()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-scaleway.marketplace.v1.marshalling">scaleway.marketplace.v1.marshalling module</a><ul>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.marshalling.unmarshal_GetImageResponse"><code class="docutils literal notranslate"><span class="pre">unmarshal_GetImageResponse()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.marshalling.unmarshal_GetVersionResponse"><code class="docutils literal notranslate"><span class="pre">unmarshal_GetVersionResponse()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.marshalling.unmarshal_Image"><code class="docutils literal notranslate"><span class="pre">unmarshal_Image()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.marshalling.unmarshal_ListImagesResponse"><code class="docutils literal notranslate"><span class="pre">unmarshal_ListImagesResponse()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.marshalling.unmarshal_ListVersionsResponse"><code class="docutils literal notranslate"><span class="pre">unmarshal_ListVersionsResponse()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.marshalling.unmarshal_LocalImage"><code class="docutils literal notranslate"><span class="pre">unmarshal_LocalImage()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.marshalling.unmarshal_Organization"><code class="docutils literal notranslate"><span class="pre">unmarshal_Organization()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.marshalling.unmarshal_Version"><code class="docutils literal notranslate"><span class="pre">unmarshal_Version()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-scaleway.marketplace.v1.types">scaleway.marketplace.v1.types module</a><ul>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.GetImageRequest"><code class="docutils literal notranslate"><span class="pre">GetImageRequest</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.GetImageRequest.image_id"><code class="docutils literal notranslate"><span class="pre">GetImageRequest.image_id</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.GetImageResponse"><code class="docutils literal notranslate"><span class="pre">GetImageResponse</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.GetImageResponse.image"><code class="docutils literal notranslate"><span class="pre">GetImageResponse.image</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.GetVersionRequest"><code class="docutils literal notranslate"><span class="pre">GetVersionRequest</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.GetVersionRequest.image_id"><code class="docutils literal notranslate"><span class="pre">GetVersionRequest.image_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.GetVersionRequest.version_id"><code class="docutils literal notranslate"><span class="pre">GetVersionRequest.version_id</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.GetVersionResponse"><code class="docutils literal notranslate"><span class="pre">GetVersionResponse</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.GetVersionResponse.version"><code class="docutils literal notranslate"><span class="pre">GetVersionResponse.version</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.Image"><code class="docutils literal notranslate"><span class="pre">Image</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.Image.categories"><code class="docutils literal notranslate"><span class="pre">Image.categories</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.Image.creation_date"><code class="docutils literal notranslate"><span class="pre">Image.creation_date</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.Image.current_public_version"><code class="docutils literal notranslate"><span class="pre">Image.current_public_version</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.Image.description"><code class="docutils literal notranslate"><span class="pre">Image.description</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.Image.id"><code class="docutils literal notranslate"><span class="pre">Image.id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.Image.label"><code class="docutils literal notranslate"><span class="pre">Image.label</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.Image.logo"><code class="docutils literal notranslate"><span class="pre">Image.logo</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.Image.modification_date"><code class="docutils literal notranslate"><span class="pre">Image.modification_date</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.Image.name"><code class="docutils literal notranslate"><span class="pre">Image.name</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.Image.organization"><code class="docutils literal notranslate"><span class="pre">Image.organization</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.Image.valid_until"><code class="docutils literal notranslate"><span class="pre">Image.valid_until</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.Image.versions"><code class="docutils literal notranslate"><span class="pre">Image.versions</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.ListImagesRequest"><code class="docutils literal notranslate"><span class="pre">ListImagesRequest</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.ListImagesRequest.page"><code class="docutils literal notranslate"><span class="pre">ListImagesRequest.page</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.ListImagesRequest.per_page"><code class="docutils literal notranslate"><span class="pre">ListImagesRequest.per_page</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.ListImagesResponse"><code class="docutils literal notranslate"><span class="pre">ListImagesResponse</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.ListImagesResponse.images"><code class="docutils literal notranslate"><span class="pre">ListImagesResponse.images</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.ListImagesResponse.total_count"><code class="docutils literal notranslate"><span class="pre">ListImagesResponse.total_count</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.ListVersionsRequest"><code class="docutils literal notranslate"><span class="pre">ListVersionsRequest</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.ListVersionsRequest.image_id"><code class="docutils literal notranslate"><span class="pre">ListVersionsRequest.image_id</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.ListVersionsResponse"><code class="docutils literal notranslate"><span class="pre">ListVersionsResponse</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.ListVersionsResponse.total_count"><code class="docutils literal notranslate"><span class="pre">ListVersionsResponse.total_count</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.ListVersionsResponse.versions"><code class="docutils literal notranslate"><span class="pre">ListVersionsResponse.versions</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.LocalImage"><code class="docutils literal notranslate"><span class="pre">LocalImage</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.LocalImage.arch"><code class="docutils literal notranslate"><span class="pre">LocalImage.arch</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.LocalImage.compatible_commercial_types"><code class="docutils literal notranslate"><span class="pre">LocalImage.compatible_commercial_types</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.LocalImage.id"><code class="docutils literal notranslate"><span class="pre">LocalImage.id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.LocalImage.zone"><code class="docutils literal notranslate"><span class="pre">LocalImage.zone</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.Organization"><code class="docutils literal notranslate"><span class="pre">Organization</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.Organization.id"><code class="docutils literal notranslate"><span class="pre">Organization.id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.Organization.name"><code class="docutils literal notranslate"><span class="pre">Organization.name</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.Version"><code class="docutils literal notranslate"><span class="pre">Version</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.Version.creation_date"><code class="docutils literal notranslate"><span class="pre">Version.creation_date</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.Version.id"><code class="docutils literal notranslate"><span class="pre">Version.id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.Version.local_images"><code class="docutils literal notranslate"><span class="pre">Version.local_images</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.Version.modification_date"><code class="docutils literal notranslate"><span class="pre">Version.modification_date</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.types.Version.name"><code class="docutils literal notranslate"><span class="pre">Version.name</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-scaleway.marketplace.v1">Module contents</a><ul>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.GetImageResponse"><code class="docutils literal notranslate"><span class="pre">GetImageResponse</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.GetImageResponse.image"><code class="docutils literal notranslate"><span class="pre">GetImageResponse.image</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.GetVersionResponse"><code class="docutils literal notranslate"><span class="pre">GetVersionResponse</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.GetVersionResponse.version"><code class="docutils literal notranslate"><span class="pre">GetVersionResponse.version</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.Image"><code class="docutils literal notranslate"><span class="pre">Image</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.Image.categories"><code class="docutils literal notranslate"><span class="pre">Image.categories</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.Image.creation_date"><code class="docutils literal notranslate"><span class="pre">Image.creation_date</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.Image.current_public_version"><code class="docutils literal notranslate"><span class="pre">Image.current_public_version</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.Image.description"><code class="docutils literal notranslate"><span class="pre">Image.description</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.Image.id"><code class="docutils literal notranslate"><span class="pre">Image.id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.Image.label"><code class="docutils literal notranslate"><span class="pre">Image.label</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.Image.logo"><code class="docutils literal notranslate"><span class="pre">Image.logo</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.Image.modification_date"><code class="docutils literal notranslate"><span class="pre">Image.modification_date</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.Image.name"><code class="docutils literal notranslate"><span class="pre">Image.name</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.Image.organization"><code class="docutils literal notranslate"><span class="pre">Image.organization</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.Image.valid_until"><code class="docutils literal notranslate"><span class="pre">Image.valid_until</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.Image.versions"><code class="docutils literal notranslate"><span class="pre">Image.versions</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.ListImagesResponse"><code class="docutils literal notranslate"><span class="pre">ListImagesResponse</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.ListImagesResponse.images"><code class="docutils literal notranslate"><span class="pre">ListImagesResponse.images</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.ListImagesResponse.total_count"><code class="docutils literal notranslate"><span class="pre">ListImagesResponse.total_count</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.ListVersionsResponse"><code class="docutils literal notranslate"><span class="pre">ListVersionsResponse</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.ListVersionsResponse.total_count"><code class="docutils literal notranslate"><span class="pre">ListVersionsResponse.total_count</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.ListVersionsResponse.versions"><code class="docutils literal notranslate"><span class="pre">ListVersionsResponse.versions</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.LocalImage"><code class="docutils literal notranslate"><span class="pre">LocalImage</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.LocalImage.arch"><code class="docutils literal notranslate"><span class="pre">LocalImage.arch</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.LocalImage.compatible_commercial_types"><code class="docutils literal notranslate"><span class="pre">LocalImage.compatible_commercial_types</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.LocalImage.id"><code class="docutils literal notranslate"><span class="pre">LocalImage.id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.LocalImage.zone"><code class="docutils literal notranslate"><span class="pre">LocalImage.zone</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.MarketplaceV1API"><code class="docutils literal notranslate"><span class="pre">MarketplaceV1API</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.MarketplaceV1API.get_image"><code class="docutils literal notranslate"><span class="pre">MarketplaceV1API.get_image()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.MarketplaceV1API.get_version"><code class="docutils literal notranslate"><span class="pre">MarketplaceV1API.get_version()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.MarketplaceV1API.list_images"><code class="docutils literal notranslate"><span class="pre">MarketplaceV1API.list_images()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.MarketplaceV1API.list_images_all"><code class="docutils literal notranslate"><span class="pre">MarketplaceV1API.list_images_all()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.MarketplaceV1API.list_versions"><code class="docutils literal notranslate"><span class="pre">MarketplaceV1API.list_versions()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.Organization"><code class="docutils literal notranslate"><span class="pre">Organization</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.Organization.id"><code class="docutils literal notranslate"><span class="pre">Organization.id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.Organization.name"><code class="docutils literal notranslate"><span class="pre">Organization.name</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.Version"><code class="docutils literal notranslate"><span class="pre">Version</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.Version.creation_date"><code class="docutils literal notranslate"><span class="pre">Version.creation_date</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.Version.id"><code class="docutils literal notranslate"><span class="pre">Version.id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.Version.local_images"><code class="docutils literal notranslate"><span class="pre">Version.local_images</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.Version.modification_date"><code class="docutils literal notranslate"><span class="pre">Version.modification_date</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.marketplace.v1.Version.name"><code class="docutils literal notranslate"><span class="pre">Version.name</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scaleway Python SDK</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">scaleway.marketplace.v1 package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/source/scaleway.marketplace.v1.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="scaleway-marketplace-v1-package">
+<h1>scaleway.marketplace.v1 package<a class="headerlink" href="#scaleway-marketplace-v1-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-scaleway.marketplace.v1.api">
+<span id="scaleway-marketplace-v1-api-module"></span><h2>scaleway.marketplace.v1.api module<a class="headerlink" href="#module-scaleway.marketplace.v1.api" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.api.MarketplaceV1API">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.marketplace.v1.api.</span></span><span class="sig-name descname"><span class="pre">MarketplaceV1API</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scaleway_core.html#scaleway_core.client.Client" title="scaleway_core.client.Client"><span class="pre">Client</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bypass_validation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.marketplace.v1.api.MarketplaceV1API" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scaleway_core.html#scaleway_core.api.API" title="scaleway_core.api.API"><code class="xref py py-class docutils literal notranslate"><span class="pre">API</span></code></a></p>
+<p>Marketplace API.</p>
+<p>Marketplace API.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.api.MarketplaceV1API.get_image">
+<span class="sig-name descname"><span class="pre">get_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway.marketplace.v1.types.GetImageResponse" title="scaleway.marketplace.v1.types.GetImageResponse"><span class="pre">GetImageResponse</span></a></span></span><a class="headerlink" href="#scaleway.marketplace.v1.api.MarketplaceV1API.get_image" title="Permalink to this definition"></a></dt>
+<dd><p>Get a specific marketplace image.
+:param image_id: Display the image name.
+:return: <code class="xref py py-class docutils literal notranslate"><span class="pre">GetImageResponse</span></code></p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="n">image_id</span><span class="o">=</span><span class="s2">&quot;example&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.api.MarketplaceV1API.get_version">
+<span class="sig-name descname"><span class="pre">get_version</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway.marketplace.v1.types.GetVersionResponse" title="scaleway.marketplace.v1.types.GetVersionResponse"><span class="pre">GetVersionResponse</span></a></span></span><a class="headerlink" href="#scaleway.marketplace.v1.api.MarketplaceV1API.get_version" title="Permalink to this definition"></a></dt>
+<dd><p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">get_version</span><span class="p">(</span>
+    <span class="n">image_id</span><span class="o">=</span><span class="s2">&quot;example&quot;</span><span class="p">,</span>
+    <span class="n">version_id</span><span class="o">=</span><span class="s2">&quot;example&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.api.MarketplaceV1API.list_images">
+<span class="sig-name descname"><span class="pre">list_images</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">per_page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway.marketplace.v1.types.ListImagesResponse" title="scaleway.marketplace.v1.types.ListImagesResponse"><span class="pre">ListImagesResponse</span></a></span></span><a class="headerlink" href="#scaleway.marketplace.v1.api.MarketplaceV1API.list_images" title="Permalink to this definition"></a></dt>
+<dd><p>List marketplace images.
+:param per_page: A positive integer lower or equal to 100 to select the number of items to display.
+:param page: A positive integer to choose the page to display.
+:return: <code class="xref py py-class docutils literal notranslate"><span class="pre">ListImagesResponse</span></code></p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">list_images</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.api.MarketplaceV1API.list_images_all">
+<span class="sig-name descname"><span class="pre">list_images_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">per_page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.marketplace.v1.types.Image" title="scaleway.marketplace.v1.types.Image"><span class="pre">Image</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scaleway.marketplace.v1.api.MarketplaceV1API.list_images_all" title="Permalink to this definition"></a></dt>
+<dd><p>List marketplace images.
+:param per_page: A positive integer lower or equal to 100 to select the number of items to display.
+:param page: A positive integer to choose the page to display.
+:return: <code class="xref py py-class docutils literal notranslate"><span class="pre">List[ListImagesResponse]</span></code></p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">list_images_all</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.api.MarketplaceV1API.list_versions">
+<span class="sig-name descname"><span class="pre">list_versions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway.marketplace.v1.types.ListVersionsResponse" title="scaleway.marketplace.v1.types.ListVersionsResponse"><span class="pre">ListVersionsResponse</span></a></span></span><a class="headerlink" href="#scaleway.marketplace.v1.api.MarketplaceV1API.list_versions" title="Permalink to this definition"></a></dt>
+<dd><p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">list_versions</span><span class="p">(</span><span class="n">image_id</span><span class="o">=</span><span class="s2">&quot;example&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-scaleway.marketplace.v1.marshalling">
+<span id="scaleway-marketplace-v1-marshalling-module"></span><h2>scaleway.marketplace.v1.marshalling module<a class="headerlink" href="#module-scaleway.marketplace.v1.marshalling" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.marshalling.unmarshal_GetImageResponse">
+<span class="sig-prename descclassname"><span class="pre">scaleway.marketplace.v1.marshalling.</span></span><span class="sig-name descname"><span class="pre">unmarshal_GetImageResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway.marketplace.v1.types.GetImageResponse" title="scaleway.marketplace.v1.types.GetImageResponse"><span class="pre">GetImageResponse</span></a></span></span><a class="headerlink" href="#scaleway.marketplace.v1.marshalling.unmarshal_GetImageResponse" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.marshalling.unmarshal_GetVersionResponse">
+<span class="sig-prename descclassname"><span class="pre">scaleway.marketplace.v1.marshalling.</span></span><span class="sig-name descname"><span class="pre">unmarshal_GetVersionResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway.marketplace.v1.types.GetVersionResponse" title="scaleway.marketplace.v1.types.GetVersionResponse"><span class="pre">GetVersionResponse</span></a></span></span><a class="headerlink" href="#scaleway.marketplace.v1.marshalling.unmarshal_GetVersionResponse" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.marshalling.unmarshal_Image">
+<span class="sig-prename descclassname"><span class="pre">scaleway.marketplace.v1.marshalling.</span></span><span class="sig-name descname"><span class="pre">unmarshal_Image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway.marketplace.v1.types.Image" title="scaleway.marketplace.v1.types.Image"><span class="pre">Image</span></a></span></span><a class="headerlink" href="#scaleway.marketplace.v1.marshalling.unmarshal_Image" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.marshalling.unmarshal_ListImagesResponse">
+<span class="sig-prename descclassname"><span class="pre">scaleway.marketplace.v1.marshalling.</span></span><span class="sig-name descname"><span class="pre">unmarshal_ListImagesResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway.marketplace.v1.types.ListImagesResponse" title="scaleway.marketplace.v1.types.ListImagesResponse"><span class="pre">ListImagesResponse</span></a></span></span><a class="headerlink" href="#scaleway.marketplace.v1.marshalling.unmarshal_ListImagesResponse" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.marshalling.unmarshal_ListVersionsResponse">
+<span class="sig-prename descclassname"><span class="pre">scaleway.marketplace.v1.marshalling.</span></span><span class="sig-name descname"><span class="pre">unmarshal_ListVersionsResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway.marketplace.v1.types.ListVersionsResponse" title="scaleway.marketplace.v1.types.ListVersionsResponse"><span class="pre">ListVersionsResponse</span></a></span></span><a class="headerlink" href="#scaleway.marketplace.v1.marshalling.unmarshal_ListVersionsResponse" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.marshalling.unmarshal_LocalImage">
+<span class="sig-prename descclassname"><span class="pre">scaleway.marketplace.v1.marshalling.</span></span><span class="sig-name descname"><span class="pre">unmarshal_LocalImage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway.marketplace.v1.types.LocalImage" title="scaleway.marketplace.v1.types.LocalImage"><span class="pre">LocalImage</span></a></span></span><a class="headerlink" href="#scaleway.marketplace.v1.marshalling.unmarshal_LocalImage" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.marshalling.unmarshal_Organization">
+<span class="sig-prename descclassname"><span class="pre">scaleway.marketplace.v1.marshalling.</span></span><span class="sig-name descname"><span class="pre">unmarshal_Organization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway.marketplace.v1.types.Organization" title="scaleway.marketplace.v1.types.Organization"><span class="pre">Organization</span></a></span></span><a class="headerlink" href="#scaleway.marketplace.v1.marshalling.unmarshal_Organization" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.marshalling.unmarshal_Version">
+<span class="sig-prename descclassname"><span class="pre">scaleway.marketplace.v1.marshalling.</span></span><span class="sig-name descname"><span class="pre">unmarshal_Version</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway.marketplace.v1.types.Version" title="scaleway.marketplace.v1.types.Version"><span class="pre">Version</span></a></span></span><a class="headerlink" href="#scaleway.marketplace.v1.marshalling.unmarshal_Version" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-scaleway.marketplace.v1.types">
+<span id="scaleway-marketplace-v1-types-module"></span><h2>scaleway.marketplace.v1.types module<a class="headerlink" href="#module-scaleway.marketplace.v1.types" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.GetImageRequest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.marketplace.v1.types.</span></span><span class="sig-name descname"><span class="pre">GetImageRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.marketplace.v1.types.GetImageRequest" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.GetImageRequest.image_id">
+<span class="sig-name descname"><span class="pre">image_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.marketplace.v1.types.GetImageRequest.image_id" title="Permalink to this definition"></a></dt>
+<dd><p>Display the image name.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.GetImageResponse">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.marketplace.v1.types.</span></span><span class="sig-name descname"><span class="pre">GetImageResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[Image]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.marketplace.v1.types.GetImageResponse" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.GetImageResponse.image">
+<span class="sig-name descname"><span class="pre">image</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.marketplace.v1.types.Image" title="scaleway.marketplace.v1.types.Image"><span class="pre">Image</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.marketplace.v1.types.GetImageResponse.image" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.GetVersionRequest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.marketplace.v1.types.</span></span><span class="sig-name descname"><span class="pre">GetVersionRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.marketplace.v1.types.GetVersionRequest" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.GetVersionRequest.image_id">
+<span class="sig-name descname"><span class="pre">image_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.marketplace.v1.types.GetVersionRequest.image_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.GetVersionRequest.version_id">
+<span class="sig-name descname"><span class="pre">version_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.marketplace.v1.types.GetVersionRequest.version_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.GetVersionResponse">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.marketplace.v1.types.</span></span><span class="sig-name descname"><span class="pre">GetVersionResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[Version]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.marketplace.v1.types.GetVersionResponse" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.GetVersionResponse.version">
+<span class="sig-name descname"><span class="pre">version</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.marketplace.v1.types.Version" title="scaleway.marketplace.v1.types.Version"><span class="pre">Version</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.marketplace.v1.types.GetVersionResponse.version" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.Image">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.marketplace.v1.types.</span></span><span class="sig-name descname"><span class="pre">Image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categories</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">creation_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modification_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valid_until</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">versions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.marketplace.v1.types.Version" title="scaleway.marketplace.v1.types.Version"><span class="pre">Version</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">organization</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.marketplace.v1.types.Organization" title="scaleway.marketplace.v1.types.Organization"><span class="pre">Organization</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_public_version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.marketplace.v1.types.Image" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Image.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.Image.categories">
+<span class="sig-name descname"><span class="pre">categories</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.marketplace.v1.types.Image.categories" title="Permalink to this definition"></a></dt>
+<dd><p>List of categories this image belongs to.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.Image.creation_date">
+<span class="sig-name descname"><span class="pre">creation_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.marketplace.v1.types.Image.creation_date" title="Permalink to this definition"></a></dt>
+<dd><p>Creation date of this image.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.Image.current_public_version">
+<span class="sig-name descname"><span class="pre">current_public_version</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.marketplace.v1.types.Image.current_public_version" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.Image.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.marketplace.v1.types.Image.description" title="Permalink to this definition"></a></dt>
+<dd><p>Text description of this image.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.Image.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.marketplace.v1.types.Image.id" title="Permalink to this definition"></a></dt>
+<dd><p>UUID of this image.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.Image.label">
+<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.marketplace.v1.types.Image.label" title="Permalink to this definition"></a></dt>
+<dd><p>Label of this image.
+Typically an identifier for a distribution (ex. “ubuntu_focal”).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.Image.logo">
+<span class="sig-name descname"><span class="pre">logo</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.marketplace.v1.types.Image.logo" title="Permalink to this definition"></a></dt>
+<dd><p>URL of this image’s logo.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.Image.modification_date">
+<span class="sig-name descname"><span class="pre">modification_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.marketplace.v1.types.Image.modification_date" title="Permalink to this definition"></a></dt>
+<dd><p>Date of the last modification of this image.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.Image.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.marketplace.v1.types.Image.name" title="Permalink to this definition"></a></dt>
+<dd><p>Name of the image.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.Image.organization">
+<span class="sig-name descname"><span class="pre">organization</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.marketplace.v1.types.Organization" title="scaleway.marketplace.v1.types.Organization"><span class="pre">Organization</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.marketplace.v1.types.Image.organization" title="Permalink to this definition"></a></dt>
+<dd><p>Organization this image belongs to.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.Image.valid_until">
+<span class="sig-name descname"><span class="pre">valid_until</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.marketplace.v1.types.Image.valid_until" title="Permalink to this definition"></a></dt>
+<dd><p>Expiration date of this image.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.Image.versions">
+<span class="sig-name descname"><span class="pre">versions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.marketplace.v1.types.Version" title="scaleway.marketplace.v1.types.Version"><span class="pre">Version</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.marketplace.v1.types.Image.versions" title="Permalink to this definition"></a></dt>
+<dd><p>List of versions of this image.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.ListImagesRequest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.marketplace.v1.types.</span></span><span class="sig-name descname"><span class="pre">ListImagesRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">per_page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[int]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[int]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.marketplace.v1.types.ListImagesRequest" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.ListImagesRequest.page">
+<span class="sig-name descname"><span class="pre">page</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.marketplace.v1.types.ListImagesRequest.page" title="Permalink to this definition"></a></dt>
+<dd><p>A positive integer to choose the page to display.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.ListImagesRequest.per_page">
+<span class="sig-name descname"><span class="pre">per_page</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.marketplace.v1.types.ListImagesRequest.per_page" title="Permalink to this definition"></a></dt>
+<dd><p>A positive integer lower or equal to 100 to select the number of items to display.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.ListImagesResponse">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.marketplace.v1.types.</span></span><span class="sig-name descname"><span class="pre">ListImagesResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">images</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'List[Image]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'int'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.marketplace.v1.types.ListImagesResponse" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.ListImagesResponse.images">
+<span class="sig-name descname"><span class="pre">images</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.marketplace.v1.types.Image" title="scaleway.marketplace.v1.types.Image"><span class="pre">Image</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.marketplace.v1.types.ListImagesResponse.images" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.ListImagesResponse.total_count">
+<span class="sig-name descname"><span class="pre">total_count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#scaleway.marketplace.v1.types.ListImagesResponse.total_count" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.ListVersionsRequest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.marketplace.v1.types.</span></span><span class="sig-name descname"><span class="pre">ListVersionsRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.marketplace.v1.types.ListVersionsRequest" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.ListVersionsRequest.image_id">
+<span class="sig-name descname"><span class="pre">image_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.marketplace.v1.types.ListVersionsRequest.image_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.ListVersionsResponse">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.marketplace.v1.types.</span></span><span class="sig-name descname"><span class="pre">ListVersionsResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">versions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'List[Version]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'int'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.marketplace.v1.types.ListVersionsResponse" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.ListVersionsResponse.total_count">
+<span class="sig-name descname"><span class="pre">total_count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#scaleway.marketplace.v1.types.ListVersionsResponse.total_count" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.ListVersionsResponse.versions">
+<span class="sig-name descname"><span class="pre">versions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.marketplace.v1.types.Version" title="scaleway.marketplace.v1.types.Version"><span class="pre">Version</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.marketplace.v1.types.ListVersionsResponse.versions" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.LocalImage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.marketplace.v1.types.</span></span><span class="sig-name descname"><span class="pre">LocalImage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compatible_commercial_types</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.marketplace.v1.types.LocalImage" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Local image.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.LocalImage.arch">
+<span class="sig-name descname"><span class="pre">arch</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.marketplace.v1.types.LocalImage.arch" title="Permalink to this definition"></a></dt>
+<dd><p>Supported architecture for this local image.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.LocalImage.compatible_commercial_types">
+<span class="sig-name descname"><span class="pre">compatible_commercial_types</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.marketplace.v1.types.LocalImage.compatible_commercial_types" title="Permalink to this definition"></a></dt>
+<dd><p>List of all commercial types that are compatible with this local image.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.LocalImage.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.marketplace.v1.types.LocalImage.id" title="Permalink to this definition"></a></dt>
+<dd><p>UUID of this local image.
+Version you will typically use to define an image in an API call.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.LocalImage.zone">
+<span class="sig-name descname"><span class="pre">zone</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.marketplace.v1.types.LocalImage.zone" title="Permalink to this definition"></a></dt>
+<dd><p>Availability Zone where this local image is available.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.Organization">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.marketplace.v1.types.</span></span><span class="sig-name descname"><span class="pre">Organization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.marketplace.v1.types.Organization" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.Organization.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.marketplace.v1.types.Organization.id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.Organization.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.marketplace.v1.types.Organization.name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.Version">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.marketplace.v1.types.</span></span><span class="sig-name descname"><span class="pre">Version</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">creation_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modification_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_images</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.marketplace.v1.types.LocalImage" title="scaleway.marketplace.v1.types.LocalImage"><span class="pre">LocalImage</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.marketplace.v1.types.Version" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Version.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.Version.creation_date">
+<span class="sig-name descname"><span class="pre">creation_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.marketplace.v1.types.Version.creation_date" title="Permalink to this definition"></a></dt>
+<dd><p>Creation date of this image version.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.Version.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.marketplace.v1.types.Version.id" title="Permalink to this definition"></a></dt>
+<dd><p>UUID of this version.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.Version.local_images">
+<span class="sig-name descname"><span class="pre">local_images</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.marketplace.v1.types.LocalImage" title="scaleway.marketplace.v1.types.LocalImage"><span class="pre">LocalImage</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.marketplace.v1.types.Version.local_images" title="Permalink to this definition"></a></dt>
+<dd><p>List of local images available in this version.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.Version.modification_date">
+<span class="sig-name descname"><span class="pre">modification_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.marketplace.v1.types.Version.modification_date" title="Permalink to this definition"></a></dt>
+<dd><p>Date of the last modification of this version.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.types.Version.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.marketplace.v1.types.Version.name" title="Permalink to this definition"></a></dt>
+<dd><p>Name of this version.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-scaleway.marketplace.v1">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-scaleway.marketplace.v1" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.GetImageResponse">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.marketplace.v1.</span></span><span class="sig-name descname"><span class="pre">GetImageResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[Image]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.marketplace.v1.GetImageResponse" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.GetImageResponse.image">
+<span class="sig-name descname"><span class="pre">image</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.marketplace.v1.types.Image" title="scaleway.marketplace.v1.types.Image"><span class="pre">Image</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.marketplace.v1.GetImageResponse.image" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.GetVersionResponse">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.marketplace.v1.</span></span><span class="sig-name descname"><span class="pre">GetVersionResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[Version]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.marketplace.v1.GetVersionResponse" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.GetVersionResponse.version">
+<span class="sig-name descname"><span class="pre">version</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.marketplace.v1.types.Version" title="scaleway.marketplace.v1.types.Version"><span class="pre">Version</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.marketplace.v1.GetVersionResponse.version" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.Image">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.marketplace.v1.</span></span><span class="sig-name descname"><span class="pre">Image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categories</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">creation_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modification_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valid_until</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">versions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.marketplace.v1.types.Version" title="scaleway.marketplace.v1.types.Version"><span class="pre">Version</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">organization</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.marketplace.v1.types.Organization" title="scaleway.marketplace.v1.types.Organization"><span class="pre">Organization</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_public_version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.marketplace.v1.Image" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Image.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.Image.categories">
+<span class="sig-name descname"><span class="pre">categories</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.marketplace.v1.Image.categories" title="Permalink to this definition"></a></dt>
+<dd><p>List of categories this image belongs to.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.Image.creation_date">
+<span class="sig-name descname"><span class="pre">creation_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.marketplace.v1.Image.creation_date" title="Permalink to this definition"></a></dt>
+<dd><p>Creation date of this image.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.Image.current_public_version">
+<span class="sig-name descname"><span class="pre">current_public_version</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.marketplace.v1.Image.current_public_version" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.Image.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.marketplace.v1.Image.description" title="Permalink to this definition"></a></dt>
+<dd><p>Text description of this image.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.Image.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.marketplace.v1.Image.id" title="Permalink to this definition"></a></dt>
+<dd><p>UUID of this image.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.Image.label">
+<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.marketplace.v1.Image.label" title="Permalink to this definition"></a></dt>
+<dd><p>Label of this image.
+Typically an identifier for a distribution (ex. “ubuntu_focal”).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.Image.logo">
+<span class="sig-name descname"><span class="pre">logo</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.marketplace.v1.Image.logo" title="Permalink to this definition"></a></dt>
+<dd><p>URL of this image’s logo.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.Image.modification_date">
+<span class="sig-name descname"><span class="pre">modification_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.marketplace.v1.Image.modification_date" title="Permalink to this definition"></a></dt>
+<dd><p>Date of the last modification of this image.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.Image.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.marketplace.v1.Image.name" title="Permalink to this definition"></a></dt>
+<dd><p>Name of the image.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.Image.organization">
+<span class="sig-name descname"><span class="pre">organization</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.marketplace.v1.types.Organization" title="scaleway.marketplace.v1.types.Organization"><span class="pre">Organization</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.marketplace.v1.Image.organization" title="Permalink to this definition"></a></dt>
+<dd><p>Organization this image belongs to.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.Image.valid_until">
+<span class="sig-name descname"><span class="pre">valid_until</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.marketplace.v1.Image.valid_until" title="Permalink to this definition"></a></dt>
+<dd><p>Expiration date of this image.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.Image.versions">
+<span class="sig-name descname"><span class="pre">versions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.marketplace.v1.types.Version" title="scaleway.marketplace.v1.types.Version"><span class="pre">Version</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.marketplace.v1.Image.versions" title="Permalink to this definition"></a></dt>
+<dd><p>List of versions of this image.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.ListImagesResponse">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.marketplace.v1.</span></span><span class="sig-name descname"><span class="pre">ListImagesResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">images</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'List[Image]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'int'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.marketplace.v1.ListImagesResponse" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.ListImagesResponse.images">
+<span class="sig-name descname"><span class="pre">images</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.marketplace.v1.types.Image" title="scaleway.marketplace.v1.types.Image"><span class="pre">Image</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.marketplace.v1.ListImagesResponse.images" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.ListImagesResponse.total_count">
+<span class="sig-name descname"><span class="pre">total_count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#scaleway.marketplace.v1.ListImagesResponse.total_count" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.ListVersionsResponse">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.marketplace.v1.</span></span><span class="sig-name descname"><span class="pre">ListVersionsResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">versions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'List[Version]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'int'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.marketplace.v1.ListVersionsResponse" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.ListVersionsResponse.total_count">
+<span class="sig-name descname"><span class="pre">total_count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#scaleway.marketplace.v1.ListVersionsResponse.total_count" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.ListVersionsResponse.versions">
+<span class="sig-name descname"><span class="pre">versions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.marketplace.v1.types.Version" title="scaleway.marketplace.v1.types.Version"><span class="pre">Version</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.marketplace.v1.ListVersionsResponse.versions" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.LocalImage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.marketplace.v1.</span></span><span class="sig-name descname"><span class="pre">LocalImage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compatible_commercial_types</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.marketplace.v1.LocalImage" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Local image.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.LocalImage.arch">
+<span class="sig-name descname"><span class="pre">arch</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.marketplace.v1.LocalImage.arch" title="Permalink to this definition"></a></dt>
+<dd><p>Supported architecture for this local image.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.LocalImage.compatible_commercial_types">
+<span class="sig-name descname"><span class="pre">compatible_commercial_types</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.marketplace.v1.LocalImage.compatible_commercial_types" title="Permalink to this definition"></a></dt>
+<dd><p>List of all commercial types that are compatible with this local image.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.LocalImage.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.marketplace.v1.LocalImage.id" title="Permalink to this definition"></a></dt>
+<dd><p>UUID of this local image.
+Version you will typically use to define an image in an API call.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.LocalImage.zone">
+<span class="sig-name descname"><span class="pre">zone</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.marketplace.v1.LocalImage.zone" title="Permalink to this definition"></a></dt>
+<dd><p>Availability Zone where this local image is available.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.MarketplaceV1API">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.marketplace.v1.</span></span><span class="sig-name descname"><span class="pre">MarketplaceV1API</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scaleway_core.html#scaleway_core.client.Client" title="scaleway_core.client.Client"><span class="pre">Client</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bypass_validation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.marketplace.v1.MarketplaceV1API" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scaleway_core.html#scaleway_core.api.API" title="scaleway_core.api.API"><code class="xref py py-class docutils literal notranslate"><span class="pre">API</span></code></a></p>
+<p>Marketplace API.</p>
+<p>Marketplace API.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.MarketplaceV1API.get_image">
+<span class="sig-name descname"><span class="pre">get_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway.marketplace.v1.types.GetImageResponse" title="scaleway.marketplace.v1.types.GetImageResponse"><span class="pre">GetImageResponse</span></a></span></span><a class="headerlink" href="#scaleway.marketplace.v1.MarketplaceV1API.get_image" title="Permalink to this definition"></a></dt>
+<dd><p>Get a specific marketplace image.
+:param image_id: Display the image name.
+:return: <a class="reference internal" href="#scaleway.marketplace.v1.GetImageResponse" title="scaleway.marketplace.v1.GetImageResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">GetImageResponse</span></code></a></p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="n">image_id</span><span class="o">=</span><span class="s2">&quot;example&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.MarketplaceV1API.get_version">
+<span class="sig-name descname"><span class="pre">get_version</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway.marketplace.v1.types.GetVersionResponse" title="scaleway.marketplace.v1.types.GetVersionResponse"><span class="pre">GetVersionResponse</span></a></span></span><a class="headerlink" href="#scaleway.marketplace.v1.MarketplaceV1API.get_version" title="Permalink to this definition"></a></dt>
+<dd><p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">get_version</span><span class="p">(</span>
+    <span class="n">image_id</span><span class="o">=</span><span class="s2">&quot;example&quot;</span><span class="p">,</span>
+    <span class="n">version_id</span><span class="o">=</span><span class="s2">&quot;example&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.MarketplaceV1API.list_images">
+<span class="sig-name descname"><span class="pre">list_images</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">per_page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway.marketplace.v1.types.ListImagesResponse" title="scaleway.marketplace.v1.types.ListImagesResponse"><span class="pre">ListImagesResponse</span></a></span></span><a class="headerlink" href="#scaleway.marketplace.v1.MarketplaceV1API.list_images" title="Permalink to this definition"></a></dt>
+<dd><p>List marketplace images.
+:param per_page: A positive integer lower or equal to 100 to select the number of items to display.
+:param page: A positive integer to choose the page to display.
+:return: <a class="reference internal" href="#scaleway.marketplace.v1.ListImagesResponse" title="scaleway.marketplace.v1.ListImagesResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">ListImagesResponse</span></code></a></p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">list_images</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.MarketplaceV1API.list_images_all">
+<span class="sig-name descname"><span class="pre">list_images_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">per_page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.marketplace.v1.types.Image" title="scaleway.marketplace.v1.types.Image"><span class="pre">Image</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scaleway.marketplace.v1.MarketplaceV1API.list_images_all" title="Permalink to this definition"></a></dt>
+<dd><p>List marketplace images.
+:param per_page: A positive integer lower or equal to 100 to select the number of items to display.
+:param page: A positive integer to choose the page to display.
+:return: <code class="xref py py-class docutils literal notranslate"><span class="pre">List[ListImagesResponse]</span></code></p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">list_images_all</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.MarketplaceV1API.list_versions">
+<span class="sig-name descname"><span class="pre">list_versions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway.marketplace.v1.types.ListVersionsResponse" title="scaleway.marketplace.v1.types.ListVersionsResponse"><span class="pre">ListVersionsResponse</span></a></span></span><a class="headerlink" href="#scaleway.marketplace.v1.MarketplaceV1API.list_versions" title="Permalink to this definition"></a></dt>
+<dd><p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">list_versions</span><span class="p">(</span><span class="n">image_id</span><span class="o">=</span><span class="s2">&quot;example&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.Organization">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.marketplace.v1.</span></span><span class="sig-name descname"><span class="pre">Organization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.marketplace.v1.Organization" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.Organization.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.marketplace.v1.Organization.id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.Organization.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.marketplace.v1.Organization.name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.Version">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.marketplace.v1.</span></span><span class="sig-name descname"><span class="pre">Version</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">creation_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modification_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_images</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.marketplace.v1.types.LocalImage" title="scaleway.marketplace.v1.types.LocalImage"><span class="pre">LocalImage</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.marketplace.v1.Version" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Version.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.Version.creation_date">
+<span class="sig-name descname"><span class="pre">creation_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.marketplace.v1.Version.creation_date" title="Permalink to this definition"></a></dt>
+<dd><p>Creation date of this image version.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.Version.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.marketplace.v1.Version.id" title="Permalink to this definition"></a></dt>
+<dd><p>UUID of this version.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.Version.local_images">
+<span class="sig-name descname"><span class="pre">local_images</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.marketplace.v1.types.LocalImage" title="scaleway.marketplace.v1.types.LocalImage"><span class="pre">LocalImage</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.marketplace.v1.Version.local_images" title="Permalink to this definition"></a></dt>
+<dd><p>List of local images available in this version.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.Version.modification_date">
+<span class="sig-name descname"><span class="pre">modification_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.marketplace.v1.Version.modification_date" title="Permalink to this definition"></a></dt>
+<dd><p>Date of the last modification of this version.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.marketplace.v1.Version.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.marketplace.v1.Version.name" title="Permalink to this definition"></a></dt>
+<dd><p>Name of this version.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Scaleway.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
