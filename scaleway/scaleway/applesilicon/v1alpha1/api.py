@@ -44,6 +44,7 @@ class ApplesiliconV1Alpha1API(API):
     """
     Apple silicon.
 
+    Apple Mac mini as a service.
     Scaleway Apple silicon as-a-Service is built using the latest generation of Apple Mac mini hardware (fifth generation).
 
     These dedicated Mac mini M1s are designed for developing, building, testing, and signing applications for Apple devices, including iPhones, iPads, Mac computers and much more.
@@ -63,6 +64,7 @@ class ApplesiliconV1Alpha1API(API):
         zone: Optional[Zone] = None,
     ) -> ListServerTypesResponse:
         """
+        List server types.
         List all technical details about Apple silicon server types available in the specified zone. Since there is only one Availability Zone for Apple silicon servers, the targeted value is `fr-par-3`.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`ListServerTypesResponse <ListServerTypesResponse>`
@@ -90,6 +92,7 @@ class ApplesiliconV1Alpha1API(API):
         zone: Optional[Zone] = None,
     ) -> ServerType:
         """
+        Get a server type.
         Get a server technical details.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_type: Server type identifier.
@@ -121,6 +124,7 @@ class ApplesiliconV1Alpha1API(API):
         project_id: Optional[str] = None,
     ) -> Server:
         """
+        Create a server.
         Create a new server in the targeted zone, specifying its configuration including name and type.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: Create a server with this given name.
@@ -164,6 +168,7 @@ class ApplesiliconV1Alpha1API(API):
         page_size: Optional[int] = None,
     ) -> ListServersResponse:
         """
+        List all servers.
         List all servers in the specified zone. By default, returned servers in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param order_by: Sort order of the returned servers.
@@ -208,6 +213,7 @@ class ApplesiliconV1Alpha1API(API):
         page_size: Optional[int] = None,
     ) -> List[Server]:
         """
+        List all servers.
         List all servers in the specified zone. By default, returned servers in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param order_by: Sort order of the returned servers.
@@ -247,6 +253,7 @@ class ApplesiliconV1Alpha1API(API):
         name: Optional[str] = None,
     ) -> ListOSResponse:
         """
+        List all Operating System (OS).
         List all Operating System (OS). The response will include the total number of OS as well as their associated IDs, names and labels.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param page: Positive integer to choose the page to return.
@@ -287,6 +294,7 @@ class ApplesiliconV1Alpha1API(API):
         name: Optional[str] = None,
     ) -> List[OS]:
         """
+        List all Operating System (OS).
         List all Operating System (OS). The response will include the total number of OS as well as their associated IDs, names and labels.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param page: Positive integer to choose the page to return.
@@ -321,6 +329,7 @@ class ApplesiliconV1Alpha1API(API):
         zone: Optional[Zone] = None,
     ) -> OS:
         """
+        Get an Operating System (OS).
         Get an Operating System (OS).  The response will include the OS's unique ID as well as its name and label.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param os_id: UUID of the OS you want to get.
@@ -350,6 +359,7 @@ class ApplesiliconV1Alpha1API(API):
         zone: Optional[Zone] = None,
     ) -> Server:
         """
+        Get a server.
         Retrieve information about an existing Apple silicon server, specified by its server ID. Its full details, including name, status and IP address, are returned in the response object.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_id: UUID of the server you want to get.
@@ -415,6 +425,7 @@ class ApplesiliconV1Alpha1API(API):
         zone: Optional[Zone] = None,
     ) -> Server:
         """
+        Update a server.
         Update the parameters of an existing Apple silicon server, specified by its server ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_id: UUID of the server you want to update.
@@ -456,6 +467,7 @@ class ApplesiliconV1Alpha1API(API):
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
         """
+        Delete a server.
         Delete an existing Apple silicon server, specified by its server ID. Deleting a server is permanent, and cannot be undone. Note that the minimum allocation period for Apple silicon-as-a-service is 24 hours, meaning you cannot delete your server prior to that.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_id: UUID of the server you want to delete.
@@ -484,6 +496,7 @@ class ApplesiliconV1Alpha1API(API):
         zone: Optional[Zone] = None,
     ) -> Server:
         """
+        Reboot a server.
         Reboot an existing Apple silicon server, specified by its server ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_id: UUID of the server you want to reboot.
@@ -513,6 +526,7 @@ class ApplesiliconV1Alpha1API(API):
         zone: Optional[Zone] = None,
     ) -> Server:
         """
+        Reinstall a server.
         Reinstall an existing Apple silicon server (specified by its server ID) from a new image (OS). All the data on the disk is deleted and all configuration is reset to the defailt configuration values of the image (OS).
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_id: UUID of the server you want to reinstall.

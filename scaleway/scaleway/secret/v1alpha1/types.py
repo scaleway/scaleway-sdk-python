@@ -121,6 +121,7 @@ class Secret:
 
     status: SecretStatus
     """
+    Current status of the Secret.
     * `ready`: the Secret is ready.
     * `locked`: the Secret is locked.
     """
@@ -174,6 +175,7 @@ class SecretVersion:
 
     status: SecretVersionStatus
     """
+    Current status of the SecretVersion.
     * `unknown`: the SecretVersion is in an invalid state.
     * `enabled`: the SecretVersion is accessible.
     * `disabled`: the SecretVersion is not accessible but can be enabled.

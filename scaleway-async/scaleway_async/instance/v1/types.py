@@ -1095,6 +1095,7 @@ class ServerActionRequestVolumeBackupTemplate:
 
     volume_type: SnapshotVolumeType
     """
+    The snapshot's volume type.
     Overrides the volume_type of the snapshot for this volume.
     If omitted, the volume type of the original volume will be used.
     """
@@ -1944,11 +1945,13 @@ class ServerActionRequest:
     name: Optional[str]
     """
     The name of the backup you want to create.
+    The name of the backup you want to create.
     This field should only be specified when performing a backup action.
     """
 
     volumes: Optional[Dict[str, ServerActionRequestVolumeBackupTemplate]]
     """
+    For each volume UUID, the snapshot parameters of the volume.
     For each volume UUID, the snapshot parameters of the volume.
     This field should only be specified when performing a backup action.
     """
@@ -2153,6 +2156,7 @@ class CreateSnapshotRequest:
 
     volume_type: SnapshotVolumeType
     """
+    The volume type of the snapshot.
     Overrides the volume_type of the snapshot.
     If omitted, the volume type of the original volume will be used.
     """

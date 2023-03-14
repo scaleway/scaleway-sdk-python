@@ -132,6 +132,7 @@ class FlexibleIP:
 
     status: FlexibleIPStatus
     """
+    Status of the Flexible IP.
     - ready : Flexible IP is created and ready to be attached to a server or to have a virtual MAC generated.
     - updating: Flexible IP is being attached to a server or a virtual MAC operation is ongoing
     - attached: Flexible IP is attached to a server
@@ -374,6 +375,7 @@ class AttachFlexibleIPRequest:
 
     fips_ids: List[str]
     """
+    A list of Flexible IP IDs to attach.
     Multiple IDs can be provided as long as Flexible IPs belong to the same MAC groups (see details about MAC groups).
     """
 
@@ -392,6 +394,7 @@ class DetachFlexibleIPRequest:
 
     fips_ids: List[str]
     """
+    A list of Flexible IP IDs to detach.
     Multiple IDs can be provided as long as Flexible IPs belong to the same MAC groups (see details about MAC groups).
     """
 
@@ -423,11 +426,13 @@ class DuplicateMACAddrRequest:
 
     fip_id: str
     """
+    Flexible IP ID on which to duplicate the Virtual MAC.
     Flexible IPs need to be attached to the same server.
     """
 
     duplicate_from_fip_id: str
     """
+    Flexible IP ID to duplicate the Virtual MAC from.
     Flexible IPs need to be attached to the same server.
     """
 
@@ -453,5 +458,6 @@ class DeleteMACAddrRequest:
 
     fip_id: str
     """
+    Flexible IP ID from which to delete the Virtual MAC.
     If the Flexible IP belongs to a MAC group, the MAC will be removed from the MAC group and from the Flexible IP.
     """

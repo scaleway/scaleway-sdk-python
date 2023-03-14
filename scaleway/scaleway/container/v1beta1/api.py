@@ -84,6 +84,7 @@ class ContainerV1Beta1API(API):
     Containers API.
 
     Serverless Containers API.
+    Containers API.
     """
 
     def list_namespaces(
@@ -98,7 +99,7 @@ class ContainerV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> ListNamespacesResponse:
         """
-        List all your namespaces
+        List all your namespaces.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
@@ -147,7 +148,7 @@ class ContainerV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> List[Namespace]:
         """
-        List all your namespaces
+        List all your namespaces.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
@@ -185,6 +186,7 @@ class ContainerV1Beta1API(API):
         region: Optional[Region] = None,
     ) -> Namespace:
         """
+        Get a namespace.
         Get the namespace associated with the given id.
         :param region: Region to target. If none is passed will use default region from the config.
         :param namespace_id:
@@ -255,7 +257,7 @@ class ContainerV1Beta1API(API):
         secret_environment_variables: Optional[List[Secret]] = None,
     ) -> Namespace:
         """
-        Create a new namespace
+        Create a new namespace.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name:
         :param environment_variables:
@@ -303,6 +305,7 @@ class ContainerV1Beta1API(API):
         secret_environment_variables: Optional[List[Secret]] = None,
     ) -> Namespace:
         """
+        Update an existing namespace.
         Update the space associated with the given id.
         :param region: Region to target. If none is passed will use default region from the config.
         :param namespace_id:
@@ -347,6 +350,7 @@ class ContainerV1Beta1API(API):
         region: Optional[Region] = None,
     ) -> Namespace:
         """
+        Delete an existing namespace.
         Delete the namespace associated with the given id.
         :param region: Region to target. If none is passed will use default region from the config.
         :param namespace_id:
@@ -384,7 +388,7 @@ class ContainerV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> ListContainersResponse:
         """
-        List all your containers
+        List all your containers.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
@@ -436,7 +440,7 @@ class ContainerV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> List[Container]:
         """
-        List all your containers
+        List all your containers.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
@@ -476,6 +480,7 @@ class ContainerV1Beta1API(API):
         region: Optional[Region] = None,
     ) -> Container:
         """
+        Get a container.
         Get the container associated with the given id.
         :param region: Region to target. If none is passed will use default region from the config.
         :param container_id:
@@ -556,7 +561,7 @@ class ContainerV1Beta1API(API):
         secret_environment_variables: Optional[List[Secret]] = None,
     ) -> Container:
         """
-        Create a new container
+        Create a new container.
         :param region: Region to target. If none is passed will use default region from the config.
         :param namespace_id:
         :param name:
@@ -572,7 +577,8 @@ class ContainerV1Beta1API(API):
         :param protocol:
         :param port:
         :param secret_environment_variables:
-        :param http_option: Possible values:
+        :param http_option: Configure how HTTP and HTTPS requests are handled.
+        Possible values:
          - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
          - enabled: Serve both HTTP and HTTPS traffic.
         :return: :class:`Container <Container>`
@@ -642,6 +648,7 @@ class ContainerV1Beta1API(API):
         secret_environment_variables: Optional[List[Secret]] = None,
     ) -> Container:
         """
+        Update an existing container.
         Update the container associated with the given id.
         :param region: Region to target. If none is passed will use default region from the config.
         :param container_id:
@@ -658,7 +665,8 @@ class ContainerV1Beta1API(API):
         :param protocol:
         :param port:
         :param secret_environment_variables:
-        :param http_option: Possible values:
+        :param http_option: Configure how HTTP and HTTPS requests are handled.
+        Possible values:
          - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
          - enabled: Serve both HTTP and HTTPS traffic.
         :return: :class:`Container <Container>`
@@ -715,6 +723,7 @@ class ContainerV1Beta1API(API):
         region: Optional[Region] = None,
     ) -> Container:
         """
+        Delete a container.
         Delete the container associated with the given id.
         :param region: Region to target. If none is passed will use default region from the config.
         :param container_id:
@@ -746,6 +755,7 @@ class ContainerV1Beta1API(API):
         region: Optional[Region] = None,
     ) -> Container:
         """
+        Deploy a container.
         Deploy a container associated with the given id.
         :param region: Region to target. If none is passed will use default region from the config.
         :param container_id:
@@ -780,7 +790,7 @@ class ContainerV1Beta1API(API):
         order_by: ListCronsRequestOrderBy = ListCronsRequestOrderBy.CREATED_AT_ASC,
     ) -> ListCronsResponse:
         """
-        List all your crons
+        List all your crons.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
@@ -822,7 +832,7 @@ class ContainerV1Beta1API(API):
         order_by: Optional[ListCronsRequestOrderBy] = None,
     ) -> List[Cron]:
         """
-        List all your crons
+        List all your crons.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
@@ -856,6 +866,7 @@ class ContainerV1Beta1API(API):
         region: Optional[Region] = None,
     ) -> Cron:
         """
+        Get a cron.
         Get the cron associated with the given id.
         :param region: Region to target. If none is passed will use default region from the config.
         :param cron_id:
@@ -925,7 +936,7 @@ class ContainerV1Beta1API(API):
         name: Optional[str] = None,
     ) -> Cron:
         """
-        Create a new cron
+        Create a new cron.
         :param region: Region to target. If none is passed will use default region from the config.
         :param container_id:
         :param schedule:
@@ -975,6 +986,7 @@ class ContainerV1Beta1API(API):
         name: Optional[str] = None,
     ) -> Cron:
         """
+        Update an existing cron.
         Update the cron associated with the given id.
         :param region: Region to target. If none is passed will use default region from the config.
         :param cron_id:
@@ -1021,6 +1033,7 @@ class ContainerV1Beta1API(API):
         region: Optional[Region] = None,
     ) -> Cron:
         """
+        Delete an existing cron.
         Delete the cron associated with the given id.
         :param region: Region to target. If none is passed will use default region from the config.
         :param cron_id:
@@ -1055,7 +1068,7 @@ class ContainerV1Beta1API(API):
         order_by: ListLogsRequestOrderBy = ListLogsRequestOrderBy.TIMESTAMP_DESC,
     ) -> ListLogsResponse:
         """
-        List your container logs
+        List your container logs.
         :param region: Region to target. If none is passed will use default region from the config.
         :param container_id:
         :param page:
@@ -1097,7 +1110,7 @@ class ContainerV1Beta1API(API):
         order_by: Optional[ListLogsRequestOrderBy] = None,
     ) -> List[Log]:
         """
-        List your container logs
+        List your container logs.
         :param region: Region to target. If none is passed will use default region from the config.
         :param container_id:
         :param page:
@@ -1134,7 +1147,7 @@ class ContainerV1Beta1API(API):
         order_by: ListDomainsRequestOrderBy = ListDomainsRequestOrderBy.CREATED_AT_ASC,
     ) -> ListDomainsResponse:
         """
-        List all domain name bindings
+        List all domain name bindings.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
@@ -1176,7 +1189,7 @@ class ContainerV1Beta1API(API):
         order_by: Optional[ListDomainsRequestOrderBy] = None,
     ) -> List[Domain]:
         """
-        List all domain name bindings
+        List all domain name bindings.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
@@ -1210,7 +1223,7 @@ class ContainerV1Beta1API(API):
         region: Optional[Region] = None,
     ) -> Domain:
         """
-        Get a domain name binding
+        Get a domain name binding.
         :param region: Region to target. If none is passed will use default region from the config.
         :param domain_id:
         :return: :class:`Domain <Domain>`
@@ -1277,7 +1290,7 @@ class ContainerV1Beta1API(API):
         region: Optional[Region] = None,
     ) -> Domain:
         """
-        Create a domain name binding
+        Create a domain name binding.
         :param region: Region to target. If none is passed will use default region from the config.
         :param hostname:
         :param container_id:
@@ -1319,7 +1332,7 @@ class ContainerV1Beta1API(API):
         region: Optional[Region] = None,
     ) -> Domain:
         """
-        Delete a domain name binding
+        Delete a domain name binding.
         :param region: Region to target. If none is passed will use default region from the config.
         :param domain_id:
         :return: :class:`Domain <Domain>`
@@ -1391,7 +1404,7 @@ class ContainerV1Beta1API(API):
         expires_at: Optional[datetime] = None,
     ) -> Token:
         """
-        Create a new revocable token
+        Create a new revocable token.
         :param region: Region to target. If none is passed will use default region from the config.
         :param container_id: One-of ('scope'): at most one of 'container_id', 'namespace_id' could be set.
         :param namespace_id: One-of ('scope'): at most one of 'container_id', 'namespace_id' could be set.
@@ -1434,7 +1447,7 @@ class ContainerV1Beta1API(API):
         region: Optional[Region] = None,
     ) -> Token:
         """
-        Get a token
+        Get a token.
         :param region: Region to target. If none is passed will use default region from the config.
         :param token_id:
         :return: :class:`Token <Token>`
@@ -1504,7 +1517,7 @@ class ContainerV1Beta1API(API):
         namespace_id: Optional[str] = None,
     ) -> ListTokensResponse:
         """
-        List all tokens
+        List all tokens.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
@@ -1549,7 +1562,7 @@ class ContainerV1Beta1API(API):
         namespace_id: Optional[str] = None,
     ) -> List[Token]:
         """
-        List all tokens
+        List all tokens.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
@@ -1585,7 +1598,7 @@ class ContainerV1Beta1API(API):
         region: Optional[Region] = None,
     ) -> Token:
         """
-        Delete a token
+        Delete a token.
         :param region: Region to target. If none is passed will use default region from the config.
         :param token_id:
         :return: :class:`Token <Token>`

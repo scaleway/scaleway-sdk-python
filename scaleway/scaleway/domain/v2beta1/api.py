@@ -163,6 +163,7 @@ class DomainV2Beta1API(API):
     """
     DNS API.
 
+    DNS API.
     Manage your DNS zones and records.
     """
 
@@ -178,9 +179,9 @@ class DomainV2Beta1API(API):
         page_size: Optional[int] = None,
     ) -> ListDNSZonesResponse:
         """
+        List DNS zones.
         Returns a list of manageable DNS zones.
         You can filter the DNS zones by domain name.
-
         :param organization_id: The organization ID on which to filter the returned DNS zones.
         :param project_id: The project ID on which to filter the returned DNS zones.
         :param order_by: The sort order of the returned DNS zones.
@@ -229,9 +230,9 @@ class DomainV2Beta1API(API):
         page_size: Optional[int] = None,
     ) -> List[DNSZone]:
         """
+        List DNS zones.
         Returns a list of manageable DNS zones.
         You can filter the DNS zones by domain name.
-
         :param organization_id: The organization ID on which to filter the returned DNS zones.
         :param project_id: The project ID on which to filter the returned DNS zones.
         :param order_by: The sort order of the returned DNS zones.
@@ -273,6 +274,7 @@ class DomainV2Beta1API(API):
         project_id: Optional[str] = None,
     ) -> DNSZone:
         """
+        Create a DNS zone.
         Create a new DNS zone.
         :param domain: The domain of the DNS zone to create.
         :param subdomain: The subdomain of the DNS zone to create.
@@ -312,6 +314,7 @@ class DomainV2Beta1API(API):
         project_id: Optional[str] = None,
     ) -> DNSZone:
         """
+        Update a DNS zone.
         Update the name and/or the organizations for a DNS zone.
         :param dns_zone: The DNS zone to update.
         :param new_dns_zone: The new DNS zone.
@@ -354,6 +357,7 @@ class DomainV2Beta1API(API):
         project_id: Optional[str] = None,
     ) -> DNSZone:
         """
+        Clone a DNS zone.
         Clone an existed DNS zone with all its records into a new one.
         :param dns_zone: The DNS zone to clone.
         :param dest_dns_zone: The destinaton DNS zone.
@@ -397,6 +401,7 @@ class DomainV2Beta1API(API):
         project_id: Optional[str] = None,
     ) -> DeleteDNSZoneResponse:
         """
+        Delete DNS zone.
         Delete a DNS zone and all it's records.
         :param dns_zone: The DNS zone to delete.
         :param project_id: The project ID of the DNS zone to delete.
@@ -434,9 +439,9 @@ class DomainV2Beta1API(API):
         id: Optional[str] = None,
     ) -> ListDNSZoneRecordsResponse:
         """
+        List DNS zone records.
         Returns a list of DNS records of a DNS zone with default NS.
         You can filter the records by type and name.
-
         :param dns_zone: The DNS zone on which to filter the returned DNS zone records.
         :param project_id: The project ID on which to filter the returned DNS zone records.
         :param order_by: The sort order of the returned DNS zone records.
@@ -488,9 +493,9 @@ class DomainV2Beta1API(API):
         id: Optional[str] = None,
     ) -> List[DomainRecord]:
         """
+        List DNS zone records.
         Returns a list of DNS records of a DNS zone with default NS.
         You can filter the records by type and name.
-
         :param dns_zone: The DNS zone on which to filter the returned DNS zone records.
         :param project_id: The project ID on which to filter the returned DNS zone records.
         :param order_by: The sort order of the returned DNS zone records.
@@ -536,6 +541,7 @@ class DomainV2Beta1API(API):
         serial: Optional[int] = None,
     ) -> UpdateDNSZoneRecordsResponse:
         """
+        Update DNS zone records.
         Only available with default NS.<br/>
         Send a list of actions and records.
 
@@ -553,7 +559,6 @@ class DomainV2Beta1API(API):
           - Delete all records from a DNS zone
 
         All edits will be versioned.
-
         :param dns_zone: The DNS zone where the DNS zone records will be updated.
         :param changes: The changes made to the records.
         :param return_all_records: Whether or not to return all the records.
@@ -598,6 +603,7 @@ class DomainV2Beta1API(API):
         project_id: Optional[str] = None,
     ) -> ListDNSZoneNameserversResponse:
         """
+        List DNS zone nameservers.
         Returns a list of Nameservers and their optional glue records for a DNS zone.
         :param dns_zone: The DNS zone on which to filter the returned DNS zone nameservers.
         :param project_id: The project ID on which to filter the returned DNS zone nameservers.
@@ -629,6 +635,7 @@ class DomainV2Beta1API(API):
         ns: List[Nameserver],
     ) -> UpdateDNSZoneNameserversResponse:
         """
+        Update DNS zone nameservers.
         Update DNS zone nameservers and set optional glue records.
         :param dns_zone: The DNS zone where the DNS zone nameservers will be updated.
         :param ns: The new DNS zone nameservers.
@@ -666,10 +673,10 @@ class DomainV2Beta1API(API):
         dns_zone: str,
     ) -> ClearDNSZoneRecordsResponse:
         """
+        Clear DNS zone records.
         Only available with default NS.<br/>
         Delete all the records from a DNS zone.
         All edits will be versioned.
-
         :param dns_zone: The DNS zone to clear.
         :return: :class:`ClearDNSZoneRecordsResponse <ClearDNSZoneRecordsResponse>`
 
@@ -696,6 +703,7 @@ class DomainV2Beta1API(API):
         format: RawFormat,
     ) -> Optional[ScwFile]:
         """
+        Export raw DNS zone.
         Get a DNS zone in a given format with default NS.
         :param dns_zone: The DNS zone to export.
         :param format: Format for DNS zone.
@@ -735,6 +743,7 @@ class DomainV2Beta1API(API):
         axfr_source: Optional[ImportRawDNSZoneRequestAXFRSource] = None,
     ) -> ImportRawDNSZoneResponse:
         """
+        Import raw DNS zone.
         Import and replace records from a given provider format with default NS.
         :param dns_zone: The DNS zone to import.
         :param content:
@@ -782,6 +791,7 @@ class DomainV2Beta1API(API):
         online_v1: Optional[ImportProviderDNSZoneRequestOnlineV1] = None,
     ) -> ImportProviderDNSZoneResponse:
         """
+        Import provider DNS zone.
         Import and replace records from a given provider format with default NS.
         :param dns_zone:
         :param online_v1: One-of ('provider'): at most one of 'online_v1' could be set.
@@ -818,9 +828,9 @@ class DomainV2Beta1API(API):
         recreate_sub_dns_zone: bool,
     ) -> RefreshDNSZoneResponse:
         """
+        Refresh DNS zone.
         Refresh SOA DNS zone.
         You can recreate the given DNS zone and its sub DNS zone if needed.
-
         :param dns_zone: The DNS zone to refresh.
         :param recreate_dns_zone: Whether or not to recreate the DNS zone.
         :param recreate_sub_dns_zone: Whether or not to recreate the sub DNS zone.
@@ -862,10 +872,10 @@ class DomainV2Beta1API(API):
         page_size: Optional[int] = None,
     ) -> ListDNSZoneVersionsResponse:
         """
+        List DNS zone versions.
         Get a list of DNS zone versions.<br/>
         The maximum version count is 100.<br/>
         If the count reaches this limit, the oldest version will be deleted after each new modification.
-
         :param dns_zone:
         :param page: The page number for the returned DNS zones versions.
         :param page_size: The maximum number of DNS zones versions per page.
@@ -899,10 +909,10 @@ class DomainV2Beta1API(API):
         page_size: Optional[int] = None,
     ) -> List[DNSZoneVersion]:
         """
+        List DNS zone versions.
         Get a list of DNS zone versions.<br/>
         The maximum version count is 100.<br/>
         If the count reaches this limit, the oldest version will be deleted after each new modification.
-
         :param dns_zone:
         :param page: The page number for the returned DNS zones versions.
         :param page_size: The maximum number of DNS zones versions per page.
@@ -933,6 +943,7 @@ class DomainV2Beta1API(API):
         page_size: Optional[int] = None,
     ) -> ListDNSZoneVersionRecordsResponse:
         """
+        List DNS zone version records.
         Get a list of records from a previous DNS zone version.
         :param dns_zone_version_id:
         :param page: The page number for the returned DNS zones versions records.
@@ -969,6 +980,7 @@ class DomainV2Beta1API(API):
         page_size: Optional[int] = None,
     ) -> List[DomainRecord]:
         """
+        List DNS zone version records.
         Get a list of records from a previous DNS zone version.
         :param dns_zone_version_id:
         :param page: The page number for the returned DNS zones versions records.
@@ -998,6 +1010,7 @@ class DomainV2Beta1API(API):
         dns_zone_version_id: str,
     ) -> GetDNSZoneVersionDiffResponse:
         """
+        Get DNS zone version diff.
         Get all differences from a previous DNS zone version.
         :param dns_zone_version_id:
         :return: :class:`GetDNSZoneVersionDiffResponse <GetDNSZoneVersionDiffResponse>`
@@ -1026,6 +1039,7 @@ class DomainV2Beta1API(API):
         dns_zone_version_id: str,
     ) -> RestoreDNSZoneVersionResponse:
         """
+        Restore DNS zone version.
         Restore and activate a previous DNS zone version.
         :param dns_zone_version_id:
         :return: :class:`RestoreDNSZoneVersionResponse <RestoreDNSZoneVersionResponse>`
@@ -1054,7 +1068,7 @@ class DomainV2Beta1API(API):
         dns_zone: str,
     ) -> SSLCertificate:
         """
-        Get the zone TLS certificate if it exists
+        Get the zone TLS certificate if it exists.
         :param dns_zone:
         :return: :class:`SSLCertificate <SSLCertificate>`
 
@@ -1115,7 +1129,7 @@ class DomainV2Beta1API(API):
         alternative_dns_zones: Optional[List[str]] = None,
     ) -> SSLCertificate:
         """
-        Create or return the zone TLS certificate
+        Create or return the zone TLS certificate.
         :param dns_zone:
         :param alternative_dns_zones:
         :return: :class:`SSLCertificate <SSLCertificate>`
@@ -1150,7 +1164,7 @@ class DomainV2Beta1API(API):
         project_id: Optional[str] = None,
     ) -> ListSSLCertificatesResponse:
         """
-        List all user TLS certificates
+        List all user TLS certificates.
         :param dns_zone:
         :param page:
         :param page_size:
@@ -1186,7 +1200,7 @@ class DomainV2Beta1API(API):
         project_id: Optional[str] = None,
     ) -> List[SSLCertificate]:
         """
-        List all user TLS certificates
+        List all user TLS certificates.
         :param dns_zone:
         :param page:
         :param page_size:
@@ -1217,7 +1231,7 @@ class DomainV2Beta1API(API):
         dns_zone: str,
     ) -> DeleteSSLCertificateResponse:
         """
-        Delete an TLS certificate
+        Delete an TLS certificate.
         :param dns_zone:
         :return: :class:`DeleteSSLCertificateResponse <DeleteSSLCertificateResponse>`
 
@@ -1243,6 +1257,7 @@ class DomainV2Beta1API(API):
         dns_zone: str,
     ) -> GetDNSZoneTsigKeyResponse:
         """
+        Get the DNS zone TSIG Key.
         Get the DNS zone TSIG Key to allow AXFR request.
         :param dns_zone:
         :return: :class:`GetDNSZoneTsigKeyResponse <GetDNSZoneTsigKeyResponse>`
@@ -1269,7 +1284,7 @@ class DomainV2Beta1API(API):
         dns_zone: str,
     ) -> Optional[None]:
         """
-        Delete the DNS zone TSIG Key
+        Delete the DNS zone TSIG Key.
         :param dns_zone:
 
         Usage:
@@ -1293,6 +1308,7 @@ class DomainRegistrarV2Beta1API(API):
     """
     Domains registrar API.
 
+    Domains registrar API.
     Manage your domains and contacts.
     """
 
@@ -1309,9 +1325,9 @@ class DomainRegistrarV2Beta1API(API):
         order_by: ListTasksRequestOrderBy = ListTasksRequestOrderBy.DOMAIN_DESC,
     ) -> ListTasksResponse:
         """
+        List tasks.
         List all account tasks.
         You can filter the list by domain name.
-
         :param page:
         :param page_size:
         :param project_id:
@@ -1360,9 +1376,9 @@ class DomainRegistrarV2Beta1API(API):
         order_by: Optional[ListTasksRequestOrderBy] = None,
     ) -> List[Task]:
         """
+        List tasks.
         List all account tasks.
         You can filter the list by domain name.
-
         :param page:
         :param page_size:
         :param project_id:
@@ -1409,9 +1425,9 @@ class DomainRegistrarV2Beta1API(API):
         technical_contact: Optional[NewContact] = None,
     ) -> OrderResponse:
         """
+        Buy one or more domains.
         Request the registration of domain names.
         You can provide an already existing domain's contact or a new contact.
-
         :param domains:
         :param duration_in_years:
         :param project_id:
@@ -1462,8 +1478,8 @@ class DomainRegistrarV2Beta1API(API):
         force_late_renewal: Optional[bool] = None,
     ) -> OrderResponse:
         """
+        Renew one or more domains.
         Request the renewal of domain names.
-
         :param domains:
         :param duration_in_years:
         :param force_late_renewal:
@@ -1507,8 +1523,8 @@ class DomainRegistrarV2Beta1API(API):
         technical_contact: Optional[NewContact] = None,
     ) -> OrderResponse:
         """
+        Transfer a domain.
         Request the transfer from another registrar domain to Scaleway.
-
         :param domains:
         :param project_id:
         :param owner_contact_id: One-of ('owner_contact_type'): at most one of 'owner_contact_id', 'owner_contact' could be set.
@@ -1555,11 +1571,11 @@ class DomainRegistrarV2Beta1API(API):
         new_owner_contact: Optional[NewContact] = None,
     ) -> OrderResponse:
         """
+        Trade a domain contact.
         Request a trade for the contact owner.<br/>
         If an `organization_id` is given, the change is from the current Scaleway account to another Scaleway account.<br/>
         If no contact is given, the first contact of the other Scaleway account is taken.<br/>
         If the other Scaleway account has no contact. An error occurs.
-
         :param domain:
         :param project_id:
         :param new_owner_contact_id: One-of ('new_owner_contact_type'): at most one of 'new_owner_contact_id', 'new_owner_contact' could be set.
@@ -1598,8 +1614,8 @@ class DomainRegistrarV2Beta1API(API):
         project_id: Optional[str] = None,
     ) -> RegisterExternalDomainResponse:
         """
+        Register an external domain.
         Request the registration of an external domain name.
-
         :param domain:
         :param project_id:
         :return: :class:`RegisterExternalDomainResponse <RegisterExternalDomainResponse>`
@@ -1631,8 +1647,8 @@ class DomainRegistrarV2Beta1API(API):
         domain: str,
     ) -> DeleteExternalDomainResponse:
         """
+        Delete an external domain.
         Delete an external domain name.
-
         :param domain:
         :return: :class:`DeleteExternalDomainResponse <DeleteExternalDomainResponse>`
 
@@ -1666,8 +1682,8 @@ class DomainRegistrarV2Beta1API(API):
     ) -> CheckContactsCompatibilityResponse:
         """
         Check if contacts are compatible against a domain or a tld.
+        Check if contacts are compatible against a domain or a tld.
         If not, it will return the information requiring a correction.
-
         :param domains:
         :param tlds:
         :param owner_contact_id: One-of ('owner_contact_type'): at most one of 'owner_contact_id', 'owner_contact' could be set.
@@ -1715,9 +1731,9 @@ class DomainRegistrarV2Beta1API(API):
         organization_id: Optional[str] = None,
     ) -> ListContactsResponse:
         """
+        List contacts.
         Return a list of contacts with their domains and roles.
         You can filter the list by domain name.
-
         :param page:
         :param page_size:
         :param domain:
@@ -1757,9 +1773,9 @@ class DomainRegistrarV2Beta1API(API):
         organization_id: Optional[str] = None,
     ) -> List[ContactRoles]:
         """
+        List contacts.
         Return a list of contacts with their domains and roles.
         You can filter the list by domain name.
-
         :param page:
         :param page_size:
         :param domain:
@@ -1792,6 +1808,7 @@ class DomainRegistrarV2Beta1API(API):
         contact_id: str,
     ) -> Contact:
         """
+        Get a contact.
         Return a contact details retrieved from the registrar using a given contact ID.
         :param contact_id:
         :return: :class:`Contact <Contact>`
@@ -1837,6 +1854,7 @@ class DomainRegistrarV2Beta1API(API):
         extension_nl: Optional[ContactExtensionNL] = None,
     ) -> Contact:
         """
+        Update contact.
         You can edit the contact coordinates.
         :param contact_id:
         :param email:
@@ -1918,6 +1936,7 @@ class DomainRegistrarV2Beta1API(API):
         domain: Optional[str] = None,
     ) -> ListDomainsResponse:
         """
+        List domains.
         Returns a list of domains owned by the user.
         :param page:
         :param page_size:
@@ -1970,6 +1989,7 @@ class DomainRegistrarV2Beta1API(API):
         domain: Optional[str] = None,
     ) -> List[DomainSummary]:
         """
+        List domains.
         Returns a list of domains owned by the user.
         :param page:
         :param page_size:
@@ -2015,6 +2035,7 @@ class DomainRegistrarV2Beta1API(API):
         organization_id: Optional[str] = None,
     ) -> ListRenewableDomainsResponse:
         """
+        List scaleway domains that can or not be renewed.
         Returns a list of domains owned by the user with a renew status and if renewable, the maximum renew duration in years.
         :param page:
         :param page_size:
@@ -2055,6 +2076,7 @@ class DomainRegistrarV2Beta1API(API):
         organization_id: Optional[str] = None,
     ) -> List[RenewableDomain]:
         """
+        List scaleway domains that can or not be renewed.
         Returns a list of domains owned by the user with a renew status and if renewable, the maximum renew duration in years.
         :param page:
         :param page_size:
@@ -2088,6 +2110,7 @@ class DomainRegistrarV2Beta1API(API):
         domain: str,
     ) -> Domain:
         """
+        Get domain.
         Returns a the domain with more informations.
         :param domain:
         :return: :class:`Domain <Domain>`
@@ -2152,9 +2175,9 @@ class DomainRegistrarV2Beta1API(API):
         administrative_contact: Optional[NewContact] = None,
     ) -> Domain:
         """
+        Update a domain.
         Update the domain contacts or create a new one.<br/>
         If you add the same contact for multiple roles. Only one ID will be created and used for all of them.
-
         :param domain:
         :param technical_contact_id: One-of ('technical_contact_info'): at most one of 'technical_contact_id', 'technical_contact' could be set.
         :param technical_contact: One-of ('technical_contact_info'): at most one of 'technical_contact_id', 'technical_contact' could be set.
@@ -2198,8 +2221,8 @@ class DomainRegistrarV2Beta1API(API):
         domain: str,
     ) -> Domain:
         """
+        Lock domain transfer.
         Lock domain transfer. A locked domain transfer can't be transferred and the auth code can't be requested.
-
         :param domain:
         :return: :class:`Domain <Domain>`
 
@@ -2225,8 +2248,8 @@ class DomainRegistrarV2Beta1API(API):
         domain: str,
     ) -> Domain:
         """
+        Unlock domain transfer.
         Unlock domain transfer. An unlocked domain can be transferred and the auth code can be requested for this.
-
         :param domain:
         :return: :class:`Domain <Domain>`
 
@@ -2252,7 +2275,7 @@ class DomainRegistrarV2Beta1API(API):
         domain: str,
     ) -> Domain:
         """
-        Enable domain auto renew
+        Enable domain auto renew.
         :param domain:
         :return: :class:`Domain <Domain>`
 
@@ -2278,7 +2301,7 @@ class DomainRegistrarV2Beta1API(API):
         domain: str,
     ) -> Domain:
         """
-        Disable domain auto renew
+        Disable domain auto renew.
         :param domain:
         :return: :class:`Domain <Domain>`
 
@@ -2304,9 +2327,9 @@ class DomainRegistrarV2Beta1API(API):
         domain: str,
     ) -> GetDomainAuthCodeResponse:
         """
+        Return domain auth code.
         If possible, return the auth code for an unlocked domain transfer, or an error if the domain is locked.
         Some TLD may have a different procedure to retrieve the auth code, in that case, the information is given in the message field.
-
         :param domain:
         :return: :class:`GetDomainAuthCodeResponse <GetDomainAuthCodeResponse>`
 
@@ -2333,6 +2356,7 @@ class DomainRegistrarV2Beta1API(API):
         ds_record: Optional[DSRecord] = None,
     ) -> Domain:
         """
+        Update domain DNSSEC.
         If your domain has the default Scaleway NS and uses another registrar, you have to update the DS record manually.
         For the algorithm, here are the code numbers for each type:
           - 1: RSAMD5
@@ -2352,7 +2376,6 @@ class DomainRegistrarV2Beta1API(API):
           - 2: SHA_256
           - 3: GOST_R_34_11_94
           - 4: SHA_384
-
         :param domain:
         :param ds_record:
         :return: :class:`Domain <Domain>`
@@ -2386,7 +2409,7 @@ class DomainRegistrarV2Beta1API(API):
         domain: str,
     ) -> Domain:
         """
-        Disable domain DNSSEC
+        Disable domain DNSSEC.
         :param domain:
         :return: :class:`Domain <Domain>`
 
@@ -2414,10 +2437,10 @@ class DomainRegistrarV2Beta1API(API):
         tlds: Optional[List[str]] = None,
     ) -> SearchAvailableDomainsResponse:
         """
+        Search available domains.
         Search a domain (or at maximum, 10 domains).
 
         If the TLD list is empty or not set the search returns the results from the most popular TLDs.
-
         :param domains: A list of domain to search, TLD is optional.
         :param tlds: Array of tlds to search on.
         :param strict_search: Search exact match.
@@ -2453,7 +2476,7 @@ class DomainRegistrarV2Beta1API(API):
         ips: Optional[List[str]] = None,
     ) -> Host:
         """
-        Create domain hostname with glue IPs
+        Create domain hostname with glue IPs.
         :param domain:
         :param name:
         :param ips:
@@ -2494,7 +2517,7 @@ class DomainRegistrarV2Beta1API(API):
         page_size: Optional[int] = None,
     ) -> ListDomainHostsResponse:
         """
-        List domain hostnames with they glue IPs
+        List domain hostnames with they glue IPs.
         :param domain:
         :param page:
         :param page_size:
@@ -2528,7 +2551,7 @@ class DomainRegistrarV2Beta1API(API):
         page_size: Optional[int] = None,
     ) -> List[Host]:
         """
-        List domain hostnames with they glue IPs
+        List domain hostnames with they glue IPs.
         :param domain:
         :param page:
         :param page_size:
@@ -2559,7 +2582,7 @@ class DomainRegistrarV2Beta1API(API):
         ips: Optional[List[str]] = None,
     ) -> Host:
         """
-        Update domain hostname with glue IPs
+        Update domain hostname with glue IPs.
         :param domain:
         :param name:
         :param ips:
@@ -2600,7 +2623,7 @@ class DomainRegistrarV2Beta1API(API):
         name: str,
     ) -> Host:
         """
-        Delete domain hostname
+        Delete domain hostname.
         :param domain:
         :param name:
         :return: :class:`Host <Host>`

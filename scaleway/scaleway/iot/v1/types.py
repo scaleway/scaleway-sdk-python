@@ -306,6 +306,7 @@ class Device:
 
     has_custom_certificate: bool
     """
+    Whether the device was assigned a custom certificate.
     Assigning a custom certificate allows a device to authenticate using that specific certificate without checking the hub's CA certificate.
     """
 
@@ -345,6 +346,7 @@ class DeviceMessageFiltersRule:
 
     policy: DeviceMessageFiltersRulePolicy
     """
+    How to use the topic list.
     If accept, the set will accept all topics in the topics list, but no other.
     If reject, the set will deny all topics in the topics list, but all others will be allowed.
     """
@@ -444,6 +446,7 @@ class Hub:
 
     endpoint: str
     """
+    Host to connect your devices to.
     Devices should be connected to this host, port may be 1883 (MQTT), 8883 (MQTT over TLS), 80 (MQTT over Websocket) or 443 (MQTT over Websocket over TLS).
     """
 
@@ -484,11 +487,13 @@ class Hub:
 
     enable_device_auto_provisioning: bool
     """
+    Enable device auto provisioning.
     When an unknown device connects to your hub using a valid certificate chain, it will be automatically provisioned inside your hub. The hub uses the common name of the device certifcate to find out if a device with the same name already exists. This setting can only be enabled on a hub with a custom certificate authority.
     """
 
     has_custom_ca: bool
     """
+    Whether the hub is using a custom certificate authority.
     After creating a hub, this flag is set to False as the hub certificates are managed by Scaleway. Once a custom certificate authority is installed, this flag will be set to true.
     """
 
@@ -635,6 +640,7 @@ class Network:
 
     topic_prefix: str
     """
+    Topic prefix for the Network.
     This prefix will be prepended to all topics for this Network.
     """
 
@@ -1140,6 +1146,7 @@ class SetHubCARequest:
 
     challenge_cert_pem: str
     """
+    Proof of possession PEM-encoded certificate.
     The challenge is a PEM-encoded certificate to prove the possession of the CA. It must be signed by the CA, and have a Common Name equal to the Hub ID.
     """
 
@@ -1663,11 +1670,13 @@ class PutTwinDocumentRequest:
 
     version: Optional[int]
     """
+    The version of the document to update.
     If set, ensures that the document's current version matches before persisting the update.
     """
 
     data: Optional[Dict[str, Any]]
     """
+    New document data.
     The new data that will replace the contents of the document.
     """
 
@@ -1691,11 +1700,13 @@ class PatchTwinDocumentRequest:
 
     version: Optional[int]
     """
+    The version of the document to update.
     If set, ensures that the document's current version matches before persisting the update.
     """
 
     data: Optional[Dict[str, Any]]
     """
+    Patch data.
     A json data that will be applied on the document's current data.
     Patching rules:
     * The patch goes recursively through the patch objects.

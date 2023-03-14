@@ -40,6 +40,8 @@ from .marshalling import (
 class WebhostingV1Alpha1API(API):
     """
     Webhosting API.
+
+    Webhosting API.
     """
 
     async def create_hosting(
@@ -54,7 +56,7 @@ class WebhostingV1Alpha1API(API):
         option_ids: Optional[List[str]] = None,
     ) -> Hosting:
         """
-        Create a hosting
+        Create a hosting.
         :param region: Region to target. If none is passed will use default region from the config.
         :param offer_id: ID of the selected offer for the hosting.
         :param project_id: Project ID of the hosting.
@@ -111,7 +113,7 @@ class WebhostingV1Alpha1API(API):
         organization_id: Optional[str] = None,
     ) -> ListHostingsResponse:
         """
-        List all hostings
+        List all hostings.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: A positive integer to choose the page to return.
         :param page_size: A positive integer lower or equal to 100 to select the number of items to return.
@@ -166,7 +168,7 @@ class WebhostingV1Alpha1API(API):
         organization_id: Optional[str] = None,
     ) -> List[Hosting]:
         """
-        List all hostings
+        List all hostings.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: A positive integer to choose the page to return.
         :param page_size: A positive integer lower or equal to 100 to select the number of items to return.
@@ -208,6 +210,7 @@ class WebhostingV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> Hosting:
         """
+        Get a hosting.
         Get the details of a Hosting with the given ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :param hosting_id: Hosting ID.
@@ -278,7 +281,7 @@ class WebhostingV1Alpha1API(API):
         offer_id: Optional[str] = None,
     ) -> Hosting:
         """
-        Update a hosting
+        Update a hosting.
         :param region: Region to target. If none is passed will use default region from the config.
         :param hosting_id: Hosting ID.
         :param email: New contact email for the hosting.
@@ -324,6 +327,7 @@ class WebhostingV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> Hosting:
         """
+        Delete a hosting.
         Delete a hosting with the given ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :param hosting_id: Hosting ID.
@@ -355,6 +359,7 @@ class WebhostingV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> Hosting:
         """
+        Retore a hosting.
         Restore a hosting with the given ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :param hosting_id: Hosting ID.
@@ -386,6 +391,7 @@ class WebhostingV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> DnsRecords:
         """
+        Get the DNS records.
         Get the DNS records of a specified domain.
         :param region: Region to target. If none is passed will use default region from the config.
         :param domain: Domain associated to the DNS records.
@@ -420,7 +426,7 @@ class WebhostingV1Alpha1API(API):
         hosting_id: Optional[str] = None,
     ) -> ListOffersResponse:
         """
-        List all offers
+        List all offers.
         :param region: Region to target. If none is passed will use default region from the config.
         :param order_by: Define the order of the returned hostings.
         :param without_options: Select only offers, no options.

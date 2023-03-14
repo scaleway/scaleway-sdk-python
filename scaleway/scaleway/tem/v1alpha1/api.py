@@ -49,6 +49,7 @@ class TemV1Alpha1API(API):
     Transactional Email API.
 
     Tem.
+    Transactional Email API.
     """
 
     def create_email(
@@ -67,7 +68,7 @@ class TemV1Alpha1API(API):
         send_before: Optional[datetime] = None,
     ) -> CreateEmailResponse:
         """
-        Send an email
+        Send an email.
         :param region: Region to target. If none is passed will use default region from the config.
         :param from_: Sender information (must be from a checked domain declared in the project).
         :param to: Array of recipient information (limited to 1 recipient).
@@ -126,7 +127,7 @@ class TemV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> Email:
         """
-        Get information about an email
+        Get information about an email.
         :param region: Region to target. If none is passed will use default region from the config.
         :param email_id: ID of the email to retrieve.
         :return: :class:`Email <Email>`
@@ -202,7 +203,7 @@ class TemV1Alpha1API(API):
         subject: Optional[str] = None,
     ) -> ListEmailsResponse:
         """
-        List emails sent from a domain and/or for a project and/or for an organization
+        List emails sent from a domain and/or for a project and/or for an organization.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
@@ -265,7 +266,7 @@ class TemV1Alpha1API(API):
         subject: Optional[str] = None,
     ) -> List[Email]:
         """
-        List emails sent from a domain and/or for a project and/or for an organization
+        List emails sent from a domain and/or for a project and/or for an organization.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
@@ -317,7 +318,7 @@ class TemV1Alpha1API(API):
         mail_from: Optional[str] = None,
     ) -> Statistics:
         """
-        Get statistics on the email statuses
+        Get statistics on the email statuses.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: Optional, count emails for this project.
         :param domain_id: Optional, count emails send from this domain (must be coherent with the `project_id` and the `organization_id`).
@@ -358,7 +359,7 @@ class TemV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> Email:
         """
-        Try to cancel an email if it has not yet been sent
+        Try to cancel an email if it has not yet been sent.
         :param region: Region to target. If none is passed will use default region from the config.
         :param email_id: ID of the email to cancel.
         :return: :class:`Email <Email>`
@@ -391,7 +392,7 @@ class TemV1Alpha1API(API):
         project_id: Optional[str] = None,
     ) -> Domain:
         """
-        Register a domain in a project
+        Register a domain in a project.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the project to which the domain belongs.
         :param domain_name: Fully qualified domain dame.
@@ -435,7 +436,7 @@ class TemV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> Domain:
         """
-        Get information about a domain
+        Get information about a domain.
         :param region: Region to target. If none is passed will use default region from the config.
         :param domain_id: ID of the domain.
         :return: :class:`Domain <Domain>`
@@ -506,7 +507,7 @@ class TemV1Alpha1API(API):
         name: Optional[str] = None,
     ) -> ListDomainsResponse:
         """
-        List domains in a project and/or in an organization
+        List domains in a project and/or in an organization.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number (1 for the first page).
         :param page_size: Page size.
@@ -555,7 +556,7 @@ class TemV1Alpha1API(API):
         name: Optional[str] = None,
     ) -> List[Domain]:
         """
-        List domains in a project and/or in an organization
+        List domains in a project and/or in an organization.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number (1 for the first page).
         :param page_size: Page size.
@@ -593,7 +594,7 @@ class TemV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> Domain:
         """
-        Revoke a domain
+        Revoke a domain.
         :param region: Region to target. If none is passed will use default region from the config.
         :param domain_id: ID of the domain to revoke.
         :return: :class:`Domain <Domain>`
@@ -624,7 +625,7 @@ class TemV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> Domain:
         """
-        Ask for an immediate check of a domain (DNS check)
+        Ask for an immediate check of a domain (DNS check).
         :param region: Region to target. If none is passed will use default region from the config.
         :param domain_id: ID of the domain to check.
         :return: :class:`Domain <Domain>`

@@ -233,6 +233,7 @@ class Protocol(str, Enum):
 class ProxyProtocol(str, Enum):
     """
     PROXY protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. PROXY protocol must be supported by the backend servers' software. For more information on the different protocols available, see the [dedicated documentation](https://www.scaleway.com/en/docs/network/load-balancer/reference-content/configuring-load-balancer/#choosing-a-proxy-protocol).
+    Proxy protocol.
     """
 
     PROXY_PROTOCOL_UNKNOWN = "proxy_protocol_unknown"
@@ -823,21 +824,25 @@ class HealthCheckHttpConfig:
 
     uri: str
     """
+    HTTP URI used for the health check.
     The HTTP URI to use when performing a health check on backend servers.
     """
 
     method: str
     """
+    HTTP method used for the health check.
     The HTTP method used when performing a health check on backend servers.
     """
 
     code: Optional[int]
     """
+    HTTP response code expected for a successful health check.
     The HTTP response code that should be returned for a health check to be considered successful.
     """
 
     host_header: str
     """
+    HTTP host header used for the health check.
     The HTTP host header used when performing a health check on backend servers.
     """
 
@@ -850,26 +855,31 @@ class HealthCheckHttpsConfig:
 
     uri: str
     """
+    HTTP URI used for the health check.
     The HTTP URI to use when performing a health check on backend servers.
     """
 
     method: str
     """
+    HTTP method used for the health check.
     The HTTP method used when performing a health check on backend servers.
     """
 
     code: Optional[int]
     """
+    HTTP response code expected for a successful health check.
     The HTTP response code that should be returned for a health check to be considered successful.
     """
 
     host_header: str
     """
+    HTTP host header used for the health check.
     The HTTP host header used when performing a health check on backend servers.
     """
 
     sni: str
     """
+    SNI used for SSL health checks.
     The SNI value used when performing a health check on backend servers over SSL.
     """
 
@@ -1426,6 +1436,7 @@ class RouteMatch:
 
     sni: Optional[str]
     """
+    Server Name Indication (SNI) value to match.
     Value to match in the Server Name Indication TLS extension (SNI) field from an incoming connection made via an SSL/TLS transport layer. This field should be set for routes on TCP Load Balancers.
     
     One-of ('match_type'): at most one of 'sni', 'host_header' could be set.
@@ -1433,6 +1444,7 @@ class RouteMatch:
 
     host_header: Optional[str]
     """
+    HTTP host header to match.
     Value to match in the HTTP Host request header from an incoming connection. This field should be set for routes on HTTP Load Balancers.
     
     One-of ('match_type'): at most one of 'sni', 'host_header' could be set.
@@ -1503,6 +1515,7 @@ class SubscriberEmailConfig:
 class SubscriberWebhookConfig:
     """
     Webhook alert of subscriber.
+    Subscriber. webhook config.
     """
 
     uri: str

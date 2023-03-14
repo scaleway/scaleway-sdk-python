@@ -103,6 +103,7 @@ class IotV1API(API):
     IoT API.
 
     This API allows you to manage IoT hubs and devices.
+    IoT API.
     """
 
     async def list_hubs(
@@ -117,7 +118,7 @@ class IotV1API(API):
         name: Optional[str] = None,
     ) -> ListHubsResponse:
         """
-        List hubs
+        List hubs.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number.
         :param page_size: Page size. The maximum value is 100.
@@ -166,7 +167,7 @@ class IotV1API(API):
         name: Optional[str] = None,
     ) -> List[Hub]:
         """
-        List hubs
+        List hubs.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number.
         :param page_size: Page size. The maximum value is 100.
@@ -209,7 +210,7 @@ class IotV1API(API):
         twins_graphite_config: Optional[HubTwinsGraphiteConfig] = None,
     ) -> Hub:
         """
-        Create a hub
+        Create a hub.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Hub name (up to 255 characters).
         :param project_id: Organization/project owning the resource.
@@ -258,7 +259,7 @@ class IotV1API(API):
         region: Optional[Region] = None,
     ) -> Hub:
         """
-        Get a hub
+        Get a hub.
         :param region: Region to target. If none is passed will use default region from the config.
         :param hub_id: Hub ID.
         :return: :class:`Hub <Hub>`
@@ -330,7 +331,7 @@ class IotV1API(API):
         twins_graphite_config: Optional[HubTwinsGraphiteConfig] = None,
     ) -> Hub:
         """
-        Update a hub
+        Update a hub.
         :param region: Region to target. If none is passed will use default region from the config.
         :param hub_id: Hub ID.
         :param name: Hub name (up to 255 characters).
@@ -385,7 +386,7 @@ class IotV1API(API):
         region: Optional[Region] = None,
     ) -> Hub:
         """
-        Enable a hub
+        Enable a hub.
         :param region: Region to target. If none is passed will use default region from the config.
         :param hub_id: Hub ID.
         :return: :class:`Hub <Hub>`
@@ -416,7 +417,7 @@ class IotV1API(API):
         region: Optional[Region] = None,
     ) -> Hub:
         """
-        Disable a hub
+        Disable a hub.
         :param region: Region to target. If none is passed will use default region from the config.
         :param hub_id: Hub ID.
         :return: :class:`Hub <Hub>`
@@ -448,7 +449,7 @@ class IotV1API(API):
         delete_devices: Optional[bool] = None,
     ) -> Optional[None]:
         """
-        Delete a hub
+        Delete a hub.
         :param region: Region to target. If none is passed will use default region from the config.
         :param hub_id: Hub ID.
         :param delete_devices: Force deletion of devices added to this hub instead of rejecting operation.
@@ -483,7 +484,7 @@ class IotV1API(API):
         region: Optional[Region] = None,
     ) -> GetHubMetricsResponse:
         """
-        Get a hub's metrics
+        Get a hub's metrics.
         :param region: Region to target. If none is passed will use default region from the config.
         :param hub_id: Hub ID.
         :param start_date: Start date used to compute the best scale for the returned metrics.
@@ -524,11 +525,12 @@ class IotV1API(API):
         region: Optional[Region] = None,
     ) -> Hub:
         """
-        Set the certificate authority of a hub
+        Set the certificate authority of a hub.
         :param region: Region to target. If none is passed will use default region from the config.
         :param hub_id: Hub ID.
         :param ca_cert_pem: The CA's PEM-encoded certificate.
-        :param challenge_cert_pem: The challenge is a PEM-encoded certificate to prove the possession of the CA. It must be signed by the CA, and have a Common Name equal to the Hub ID.
+        :param challenge_cert_pem: Proof of possession PEM-encoded certificate.
+        The challenge is a PEM-encoded certificate to prove the possession of the CA. It must be signed by the CA, and have a Common Name equal to the Hub ID.
         :return: :class:`Hub <Hub>`
 
         Usage:
@@ -570,7 +572,7 @@ class IotV1API(API):
         region: Optional[Region] = None,
     ) -> GetHubCAResponse:
         """
-        Get the certificate authority of a hub
+        Get the certificate authority of a hub.
         :param region: Region to target. If none is passed will use default region from the config.
         :param hub_id:
         :return: :class:`GetHubCAResponse <GetHubCAResponse>`
@@ -607,7 +609,7 @@ class IotV1API(API):
         status: DeviceStatus = DeviceStatus.UNKNOWN,
     ) -> ListDevicesResponse:
         """
-        List devices
+        List devices.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number.
         :param page_size: Page size. The maximum value is 100.
@@ -658,7 +660,7 @@ class IotV1API(API):
         status: Optional[DeviceStatus] = None,
     ) -> List[Device]:
         """
-        List devices
+        List devices.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number.
         :param page_size: Page size. The maximum value is 100.
@@ -703,7 +705,7 @@ class IotV1API(API):
         description: Optional[str] = None,
     ) -> CreateDeviceResponse:
         """
-        Add a device
+        Add a device.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Device name.
         :param hub_id: ID of the device's hub.
@@ -754,7 +756,7 @@ class IotV1API(API):
         region: Optional[Region] = None,
     ) -> Device:
         """
-        Get a device
+        Get a device.
         :param region: Region to target. If none is passed will use default region from the config.
         :param device_id: Device ID.
         :return: :class:`Device <Device>`
@@ -790,7 +792,7 @@ class IotV1API(API):
         hub_id: Optional[str] = None,
     ) -> Device:
         """
-        Update a device
+        Update a device.
         :param region: Region to target. If none is passed will use default region from the config.
         :param device_id: Device ID.
         :param description: Device description.
@@ -838,7 +840,7 @@ class IotV1API(API):
         region: Optional[Region] = None,
     ) -> Device:
         """
-        Enable a device
+        Enable a device.
         :param region: Region to target. If none is passed will use default region from the config.
         :param device_id: Device ID.
         :return: :class:`Device <Device>`
@@ -869,7 +871,7 @@ class IotV1API(API):
         region: Optional[Region] = None,
     ) -> Device:
         """
-        Disable a device
+        Disable a device.
         :param region: Region to target. If none is passed will use default region from the config.
         :param device_id: Device ID.
         :return: :class:`Device <Device>`
@@ -900,7 +902,7 @@ class IotV1API(API):
         region: Optional[Region] = None,
     ) -> RenewDeviceCertificateResponse:
         """
-        Renew a device certificate
+        Renew a device certificate.
         :param region: Region to target. If none is passed will use default region from the config.
         :param device_id: Device ID.
         :return: :class:`RenewDeviceCertificateResponse <RenewDeviceCertificateResponse>`
@@ -932,7 +934,7 @@ class IotV1API(API):
         region: Optional[Region] = None,
     ) -> SetDeviceCertificateResponse:
         """
-        Set a custom certificate on a device
+        Set a custom certificate on a device.
         :param region: Region to target. If none is passed will use default region from the config.
         :param device_id: Device ID.
         :param certificate_pem: The PEM-encoded custom certificate.
@@ -975,7 +977,7 @@ class IotV1API(API):
         region: Optional[Region] = None,
     ) -> GetDeviceCertificateResponse:
         """
-        Get a device's certificate
+        Get a device's certificate.
         :param region: Region to target. If none is passed will use default region from the config.
         :param device_id: Device ID.
         :return: :class:`GetDeviceCertificateResponse <GetDeviceCertificateResponse>`
@@ -1006,7 +1008,7 @@ class IotV1API(API):
         region: Optional[Region] = None,
     ) -> Optional[None]:
         """
-        Remove a device
+        Remove a device.
         :param region: Region to target. If none is passed will use default region from the config.
         :param device_id: Device ID.
 
@@ -1037,7 +1039,7 @@ class IotV1API(API):
         region: Optional[Region] = None,
     ) -> GetDeviceMetricsResponse:
         """
-        Get a device's metrics
+        Get a device's metrics.
         :param region: Region to target. If none is passed will use default region from the config.
         :param device_id: Device ID.
         :param start_date: Start date used to compute the best scale for the returned metrics.
@@ -1080,7 +1082,7 @@ class IotV1API(API):
         name: Optional[str] = None,
     ) -> ListRoutesResponse:
         """
-        List routes
+        List routes.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number.
         :param page_size: Page size. The maximum value is 100.
@@ -1125,7 +1127,7 @@ class IotV1API(API):
         name: Optional[str] = None,
     ) -> List[RouteSummary]:
         """
-        List routes
+        List routes.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number.
         :param page_size: Page size. The maximum value is 100.
@@ -1166,6 +1168,7 @@ class IotV1API(API):
         rest_config: Optional[CreateRouteRequestRestConfig] = None,
     ) -> Route:
         """
+        Create a route.
         Multiple route kinds can be created:
         - Database Route.
           Create a route that will record subscribed MQTT messages into your database.
@@ -1176,7 +1179,6 @@ class IotV1API(API):
           Create a route that will put subscribed MQTT messages into an S3 bucket.
           You need to create the bucket yourself and grant us write access.
           The grant can be done with s3cmd (`s3cmd setacl s3://<my-bucket> --acl-grant=write:555c69c3-87d0-4bf8-80f1-99a2f757d031:555c69c3-87d0-4bf8-80f1-99a2f757d031`).
-
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Route name.
         :param hub_id: ID of the route's hub.
@@ -1237,7 +1239,7 @@ class IotV1API(API):
         rest_config: Optional[UpdateRouteRequestRestConfig] = None,
     ) -> Route:
         """
-        Update a route
+        Update a route.
         :param region: Region to target. If none is passed will use default region from the config.
         :param route_id: Route id.
         :param name: Route name.
@@ -1291,7 +1293,7 @@ class IotV1API(API):
         region: Optional[Region] = None,
     ) -> Route:
         """
-        Get a route
+        Get a route.
         :param region: Region to target. If none is passed will use default region from the config.
         :param route_id: Route ID.
         :return: :class:`Route <Route>`
@@ -1322,7 +1324,7 @@ class IotV1API(API):
         region: Optional[Region] = None,
     ) -> Optional[None]:
         """
-        Delete a route
+        Delete a route.
         :param region: Region to target. If none is passed will use default region from the config.
         :param route_id: Route ID.
 
@@ -1357,7 +1359,7 @@ class IotV1API(API):
         topic_prefix: Optional[str] = None,
     ) -> ListNetworksResponse:
         """
-        List the Networks
+        List the Networks.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number.
         :param page_size: Page size. The maximum value is 100.
@@ -1405,7 +1407,7 @@ class IotV1API(API):
         topic_prefix: Optional[str] = None,
     ) -> List[Network]:
         """
-        List the Networks
+        List the Networks.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number.
         :param page_size: Page size. The maximum value is 100.
@@ -1446,7 +1448,7 @@ class IotV1API(API):
         type_: NetworkNetworkType = NetworkNetworkType.UNKNOWN,
     ) -> CreateNetworkResponse:
         """
-        Create a new Network
+        Create a new Network.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Network name.
         :param type_: Type of network to connect with.
@@ -1492,7 +1494,7 @@ class IotV1API(API):
         region: Optional[Region] = None,
     ) -> Network:
         """
-        Retrieve a specific Network
+        Retrieve a specific Network.
         :param region: Region to target. If none is passed will use default region from the config.
         :param network_id: Network ID.
         :return: :class:`Network <Network>`
@@ -1523,7 +1525,7 @@ class IotV1API(API):
         region: Optional[Region] = None,
     ) -> Optional[None]:
         """
-        Delete a Network
+        Delete a Network.
         :param region: Region to target. If none is passed will use default region from the config.
         :param network_id: Network ID.
 
@@ -1554,7 +1556,7 @@ class IotV1API(API):
         region: Optional[Region] = None,
     ) -> TwinDocument:
         """
-        BETA - Get a Cloud Twin Document
+        BETA - Get a Cloud Twin Document.
         :param region: Region to target. If none is passed will use default region from the config.
         :param twin_id: Twin ID.
         :param document_name: Document name.
@@ -1593,12 +1595,14 @@ class IotV1API(API):
         data: Optional[Dict[str, Any]] = None,
     ) -> TwinDocument:
         """
-        BETA - Update a Cloud Twin Document
+        BETA - Update a Cloud Twin Document.
         :param region: Region to target. If none is passed will use default region from the config.
         :param twin_id: Twin ID.
         :param document_name: Document name.
-        :param version: If set, ensures that the document's current version matches before persisting the update.
-        :param data: The new data that will replace the contents of the document.
+        :param version: The version of the document to update.
+        If set, ensures that the document's current version matches before persisting the update.
+        :param data: New document data.
+        The new data that will replace the contents of the document.
         :return: :class:`TwinDocument <TwinDocument>`
 
         Usage:
@@ -1644,12 +1648,14 @@ class IotV1API(API):
         data: Optional[Dict[str, Any]] = None,
     ) -> TwinDocument:
         """
-        BETA - Patch a Cloud Twin Document
+        BETA - Patch a Cloud Twin Document.
         :param region: Region to target. If none is passed will use default region from the config.
         :param twin_id: Twin ID.
         :param document_name: Document name.
-        :param version: If set, ensures that the document's current version matches before persisting the update.
-        :param data: A json data that will be applied on the document's current data.
+        :param version: The version of the document to update.
+        If set, ensures that the document's current version matches before persisting the update.
+        :param data: Patch data.
+        A json data that will be applied on the document's current data.
         Patching rules:
         * The patch goes recursively through the patch objects.
         * If the patch object property is null, then it is removed from the final object.
@@ -1698,7 +1704,7 @@ class IotV1API(API):
         region: Optional[Region] = None,
     ) -> Optional[None]:
         """
-        BETA - Delete a Cloud Twin Document
+        BETA - Delete a Cloud Twin Document.
         :param region: Region to target. If none is passed will use default region from the config.
         :param twin_id: Twin ID.
         :param document_name: Document name.
@@ -1733,7 +1739,7 @@ class IotV1API(API):
         region: Optional[Region] = None,
     ) -> ListTwinDocumentsResponse:
         """
-        BETA - List the documents of a Cloud Twin
+        BETA - List the documents of a Cloud Twin.
         :param region: Region to target. If none is passed will use default region from the config.
         :param twin_id: Twin ID.
         :return: :class:`ListTwinDocumentsResponse <ListTwinDocumentsResponse>`
@@ -1764,7 +1770,7 @@ class IotV1API(API):
         region: Optional[Region] = None,
     ) -> Optional[None]:
         """
-        BETA - Delete all the documents of a Cloud Twin
+        BETA - Delete all the documents of a Cloud Twin.
         :param region: Region to target. If none is passed will use default region from the config.
         :param twin_id: Twin ID.
 

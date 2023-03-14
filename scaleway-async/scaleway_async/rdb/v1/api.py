@@ -158,6 +158,8 @@ from .marshalling import (
 class RdbV1API(API):
     """
     Managed Database for PostgreSQL and MySQL API.
+
+    Managed Database for PostgreSQL and MySQL API.
     """
 
     async def list_database_engines(
@@ -170,6 +172,7 @@ class RdbV1API(API):
         page_size: Optional[int] = None,
     ) -> ListDatabaseEnginesResponse:
         """
+        List available database engines.
         List the PostgreSQL and MySQL database engines available at Scaleway.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the database engine.
@@ -212,6 +215,7 @@ class RdbV1API(API):
         page_size: Optional[int] = None,
     ) -> List[DatabaseEngine]:
         """
+        List available database engines.
         List the PostgreSQL and MySQL database engines available at Scaleway.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the database engine.
@@ -248,6 +252,7 @@ class RdbV1API(API):
         page_size: Optional[int] = None,
     ) -> ListNodeTypesResponse:
         """
+        List available node types.
         List all available node types. By default, the databases returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
         :param region: Region to target. If none is passed will use default region from the config.
         :param include_disabled_types: Defines whether or not to include disabled types.
@@ -287,6 +292,7 @@ class RdbV1API(API):
         page_size: Optional[int] = None,
     ) -> List[NodeType]:
         """
+        List available node types.
         List all available node types. By default, the databases returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
         :param region: Region to target. If none is passed will use default region from the config.
         :param include_disabled_types: Defines whether or not to include disabled types.
@@ -325,6 +331,7 @@ class RdbV1API(API):
         page_size: Optional[int] = None,
     ) -> ListDatabaseBackupsResponse:
         """
+        List database backups.
         List all backups in a specified zone, for a given Scaleway Organization or Scaleway Project. By default, the backups listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the database backups.
@@ -377,6 +384,7 @@ class RdbV1API(API):
         page_size: Optional[int] = None,
     ) -> List[DatabaseBackup]:
         """
+        List database backups.
         List all backups in a specified zone, for a given Scaleway Organization or Scaleway Project. By default, the backups listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the database backups.
@@ -420,6 +428,7 @@ class RdbV1API(API):
         expires_at: Optional[datetime] = None,
     ) -> DatabaseBackup:
         """
+        Create a database backup.
         Create a new backup. You must set the `instance_id`, `database_name`, `name` and `expires_at` parameters.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance.
@@ -466,6 +475,7 @@ class RdbV1API(API):
         region: Optional[Region] = None,
     ) -> DatabaseBackup:
         """
+        Get a database backup.
         Retrieve information about a given backup, specified by its database backup ID and region. Full details about the backup, like size, URL and expiration date, are returned in the response.
         :param region: Region to target. If none is passed will use default region from the config.
         :param database_backup_id: UUID of the database backup.
@@ -540,6 +550,7 @@ class RdbV1API(API):
         expires_at: Optional[datetime] = None,
     ) -> DatabaseBackup:
         """
+        Update a database backup.
         Update the parameters of a backup, including name and expiration date.
         :param region: Region to target. If none is passed will use default region from the config.
         :param database_backup_id: UUID of the database backup to update.
@@ -584,6 +595,7 @@ class RdbV1API(API):
         region: Optional[Region] = None,
     ) -> DatabaseBackup:
         """
+        Delete a database backup.
         Delete a backup, specified by its database backup ID and region. Deleting a backup is permanent, and cannot be undone.
         :param region: Region to target. If none is passed will use default region from the config.
         :param database_backup_id: UUID of the database backup to delete.
@@ -619,6 +631,7 @@ class RdbV1API(API):
         database_name: Optional[str] = None,
     ) -> DatabaseBackup:
         """
+        Restore a database backup.
         Launch the process of restoring database backup. You must specify the `instance_id` of the Database Instance of destination, where the backup will be restored. Note that large database backups can take up to several hours to restore.
         :param region: Region to target. If none is passed will use default region from the config.
         :param database_backup_id: Backup of a logical database.
@@ -666,6 +679,7 @@ class RdbV1API(API):
         region: Optional[Region] = None,
     ) -> DatabaseBackup:
         """
+        Export a database backup.
         Export a backup, specified by the `database_backup_id` and the `region` parameters. The download URL is returned in the response.
         :param region: Region to target. If none is passed will use default region from the config.
         :param database_backup_id: UUID of the database backup you want to export.
@@ -704,6 +718,7 @@ class RdbV1API(API):
         upgradable_version_id: Optional[str] = None,
     ) -> Instance:
         """
+        Upgrade a Database Instance.
         Upgrade your current Database Instance specifications like node type, high availability, volume, or the database engine version. Note that upon upgrade the `enable_ha` parameter can only be set to `true`.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance you want to upgrade.
@@ -719,7 +734,8 @@ class RdbV1API(API):
         :param volume_type: Change your Database Instance storage type.
 
         One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id' could be set.
-        :param upgradable_version_id: This will create a new Database Instance with same specifications as the current one and perform a Database Engine upgrade.
+        :param upgradable_version_id: Update your database engine to a newer version.
+        This will create a new Database Instance with same specifications as the current one and perform a Database Engine upgrade.
 
         One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id' could be set.
         :return: :class:`Instance <Instance>`
@@ -768,6 +784,7 @@ class RdbV1API(API):
         page_size: Optional[int] = None,
     ) -> ListInstancesResponse:
         """
+        List Database Instances.
         List all Database Instances in the specified zone, for a given Scaleway Organization or Scaleway Project. By default, the Database Instances returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `tags` and `name`. For the `name` parameter, the value you include will be checked against the whole name string to see if it includes the string you put in the parameter.
         :param region: Region to target. If none is passed will use default region from the config.
         :param tags: List Database Instances that have a given tag.
@@ -820,6 +837,7 @@ class RdbV1API(API):
         page_size: Optional[int] = None,
     ) -> List[Instance]:
         """
+        List Database Instances.
         List all Database Instances in the specified zone, for a given Scaleway Organization or Scaleway Project. By default, the Database Instances returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `tags` and `name`. For the `name` parameter, the value you include will be checked against the whole name string to see if it includes the string you put in the parameter.
         :param region: Region to target. If none is passed will use default region from the config.
         :param tags: List Database Instances that have a given tag.
@@ -860,6 +878,7 @@ class RdbV1API(API):
         region: Optional[Region] = None,
     ) -> Instance:
         """
+        Get a Database Instance.
         Retrieve information about a given Database Instance, specified by the `region` and `instance_id` parameters. Its full details, including name, status, IP address and port, are returned in the response object.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance.
@@ -942,6 +961,7 @@ class RdbV1API(API):
         init_endpoints: Optional[List[EndpointSpec]] = None,
     ) -> Instance:
         """
+        Create a Database Instance.
         Create a new Database Instance. You must set the `engine`, `user_name`, `password` and `node_type` parameters. Optionally, you can specify the volume type and size.
         :param region: Region to target. If none is passed will use default region from the config.
         :param organization_id: Please use project_id instead.
@@ -1028,6 +1048,7 @@ class RdbV1API(API):
         backup_same_region: Optional[bool] = None,
     ) -> Instance:
         """
+        Update a Database Instance.
         Update the parameters of a Database Instance, including name, tags and backup schedule details.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance to update.
@@ -1080,6 +1101,7 @@ class RdbV1API(API):
         region: Optional[Region] = None,
     ) -> Instance:
         """
+        Delete a Database Instance.
         Delete a given Database Instance, specified by the `region` and `instance_id` parameters. Deleting a Database Instance is permanent, and cannot be undone. Note that upon deletion all your data will be lost.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance to delete.
@@ -1113,6 +1135,7 @@ class RdbV1API(API):
         node_type: Optional[str] = None,
     ) -> Instance:
         """
+        Clone a Database Instance.
         Clone a given Database Instance, specified by the `region` and `instance_id` parameters. The clone feature allows you to create a new Database Instance from an existing one. The clone includes all existing databases, users and permissions. You can create a clone on a Database Instance bigger than your current one.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance you want to clone.
@@ -1158,6 +1181,7 @@ class RdbV1API(API):
         region: Optional[Region] = None,
     ) -> Instance:
         """
+        Restart Database Instance.
         Restart a given Database Instance, specified by the `region` and `instance_id` parameters. The status of the Database Instance returned in the response.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance you want to restart.
@@ -1189,6 +1213,7 @@ class RdbV1API(API):
         region: Optional[Region] = None,
     ) -> Optional[ScwFile]:
         """
+        Get the TLS certificate of a Database Instance.
         Retrieve information about the TLS certificate of a given Database Instance. Details like name and content are returned in the response.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance.
@@ -1221,6 +1246,7 @@ class RdbV1API(API):
         region: Optional[Region] = None,
     ) -> Optional[None]:
         """
+        Renew the TLS certificate of a Database Instance.
         Renew a TLS for a Database Instance. Renewing a certificate means that you will not be able to connect to your Database Instance using the previous certificate. You will also need to download and update the new certificate for all database clients.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance you want logs of.
@@ -1254,6 +1280,7 @@ class RdbV1API(API):
         metric_name: Optional[str] = None,
     ) -> InstanceMetrics:
         """
+        Get Database Instance metrics.
         Retrieve the time series metrics of a give Database Instance. You can define the period from which to retrieve metrics by specifying the `start_date` and `end_date`.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance.
@@ -1294,6 +1321,7 @@ class RdbV1API(API):
         endpoint_spec: Optional[List[ReadReplicaEndpointSpec]] = None,
     ) -> ReadReplica:
         """
+        Create a Read Replica.
         Create a new Read Replica of a Database Instance. You must specify the `region` and the `instance_id`. You can only create a maximum of 3 Read Replicas per Database Instance.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance you want to create a Read Replica from.
@@ -1333,6 +1361,7 @@ class RdbV1API(API):
         region: Optional[Region] = None,
     ) -> ReadReplica:
         """
+        Get a Read Replica.
         Retrieve information about a Database Instance Read Replica. Full details about the Read Replica, like `endpoints`, `status`  and `region` are returned in the response.
         :param region: Region to target. If none is passed will use default region from the config.
         :param read_replica_id: UUID of the Read Replica.
@@ -1401,6 +1430,7 @@ class RdbV1API(API):
         region: Optional[Region] = None,
     ) -> ReadReplica:
         """
+        Delete a Read Replica.
         Delete a Read Replica of a Database Instance. You must specify the `region` and `read_replica_id` parameters of the Read Replica you want to delete.
         :param region: Region to target. If none is passed will use default region from the config.
         :param read_replica_id: UUID of the Read Replica.
@@ -1432,9 +1462,9 @@ class RdbV1API(API):
         region: Optional[Region] = None,
     ) -> ReadReplica:
         """
+        Resync a Read Replica.
         When you resync a Read Replica, first it is reset, then its data is resynchronized from the primary node. Your Read Replica remains unavailable during the resync process. The duration of this process is proportional to the size of your Database Instance.
         The configured endpoints do not change.
-
         :param region: Region to target. If none is passed will use default region from the config.
         :param read_replica_id: UUID of the Read Replica.
         :return: :class:`ReadReplica <ReadReplica>`
@@ -1466,6 +1496,7 @@ class RdbV1API(API):
         region: Optional[Region] = None,
     ) -> ReadReplica:
         """
+        Create an endpoint for a Read Replica.
         Create a new endpoint for a Read Replica. Read Replicas can have at most one direct access and one Private Network endpoint.
         :param region: Region to target. If none is passed will use default region from the config.
         :param read_replica_id: UUID of the Read Replica.
@@ -1511,6 +1542,7 @@ class RdbV1API(API):
         end_date: Optional[datetime] = None,
     ) -> PrepareInstanceLogsResponse:
         """
+        Prepare logs of a Database Instance.
         Prepare your Database Instance logs. You can define the `start_date` and `end_date` parameters for your query. The download URL is returned in the response. Logs are recorded from 00h00 to 23h59 and then aggregated in a `.log` file once a day. Therefore, even if you specify a timeframe from which you want to get the logs, you will receive logs from the full 24 hours.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance you want logs of.
@@ -1554,6 +1586,7 @@ class RdbV1API(API):
         region: Optional[Region] = None,
     ) -> ListInstanceLogsResponse:
         """
+        List available logs of a Database Instance.
         List the available logs of a Database Instance. By default, the logs returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance you want logs of.
@@ -1592,6 +1625,7 @@ class RdbV1API(API):
         region: Optional[Region] = None,
     ) -> InstanceLog:
         """
+        Get given logs of a Database Instance.
         Retrieve information about the logs of a Database Instance. Specify the `instance_log_id` and `region` in your request to get information such as `download_url`, `status`, `expires_at` and `created_at` about your logs in the response.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_log_id: UUID of the instance_log you want.
@@ -1661,6 +1695,7 @@ class RdbV1API(API):
         log_name: Optional[str] = None,
     ) -> Optional[None]:
         """
+        Purge remote Database Instance logs.
         Purge a given remote log from a Database Instance. You can specify the `log_name` of the log you wish to clean from your Database Instance.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance you want logs of.
@@ -1700,6 +1735,7 @@ class RdbV1API(API):
         region: Optional[Region] = None,
     ) -> ListInstanceLogsDetailsResponse:
         """
+        List remote Database Instance logs details.
         List remote log details. By default, the details returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance you want logs of.
@@ -1732,6 +1768,7 @@ class RdbV1API(API):
         region: Optional[Region] = None,
     ) -> AddInstanceSettingsResponse:
         """
+        Add Database Instance advanced settings.
         Add an advanced setting to a Database Instance. You must set the `name` and the `value` of each setting.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance you want to add settings to.
@@ -1776,6 +1813,7 @@ class RdbV1API(API):
         region: Optional[Region] = None,
     ) -> DeleteInstanceSettingsResponse:
         """
+        Delete Database Instance advanced settings.
         Delete an advanced setting in a Database Instance. You must specify the names of the settings you want to delete in the request.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance to delete settings from.
@@ -1820,6 +1858,7 @@ class RdbV1API(API):
         region: Optional[Region] = None,
     ) -> SetInstanceSettingsResponse:
         """
+        Set Database Instance advanced settings.
         Update an advanced setting for a Database Instance. Settings added upon database engine initalization can only be defined once, and cannot, therefore, be updated.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance where the settings must be set.
@@ -1865,6 +1904,7 @@ class RdbV1API(API):
         page_size: Optional[int] = None,
     ) -> ListInstanceACLRulesResponse:
         """
+        List ACL rules of a Database Instance.
         List the ACL rules for a given Database Instance. The response is an array of ACL objects, each one representing an ACL that denies, allows or redirects traffic based on certain conditions.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance.
@@ -1904,6 +1944,7 @@ class RdbV1API(API):
         page_size: Optional[int] = None,
     ) -> List[ACLRule]:
         """
+        List ACL rules of a Database Instance.
         List the ACL rules for a given Database Instance. The response is an array of ACL objects, each one representing an ACL that denies, allows or redirects traffic based on certain conditions.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance.
@@ -1937,6 +1978,7 @@ class RdbV1API(API):
         region: Optional[Region] = None,
     ) -> AddInstanceACLRulesResponse:
         """
+        Add an ACL rule to a Database Instance.
         Add an additional ACL rule to a Database Instance.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance you want to add ACL rules to.
@@ -1981,6 +2023,7 @@ class RdbV1API(API):
         region: Optional[Region] = None,
     ) -> SetInstanceACLRulesResponse:
         """
+        Set ACL rules for a Database Instance.
         Replace all the ACL rules of a Database Instance.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance where the ACL rules must be set.
@@ -2025,6 +2068,7 @@ class RdbV1API(API):
         region: Optional[Region] = None,
     ) -> DeleteInstanceACLRulesResponse:
         """
+        Delete ACL rules of a Database Instance.
         Delete one or more ACL rules of a Database Instance.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance you want to delete an ACL rule from.
@@ -2072,6 +2116,7 @@ class RdbV1API(API):
         page_size: Optional[int] = None,
     ) -> ListUsersResponse:
         """
+        List users of a Database Instance.
         List all users of a given Database Instance. By default, the users returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance.
@@ -2117,6 +2162,7 @@ class RdbV1API(API):
         page_size: Optional[int] = None,
     ) -> List[User]:
         """
+        List users of a Database Instance.
         List all users of a given Database Instance. By default, the users returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance.
@@ -2156,6 +2202,7 @@ class RdbV1API(API):
         region: Optional[Region] = None,
     ) -> User:
         """
+        Create a user for a Database Instance.
         Create a new user for a Database Instance. You must define the `name`, `password` and `is_admin` parameters.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance in which you want to create a user.
@@ -2208,6 +2255,7 @@ class RdbV1API(API):
         is_admin: Optional[bool] = None,
     ) -> User:
         """
+        Update a user on a Database Instance.
         Update the parameters of a user on a Database Instance. You can update the `password` and `is_admin` parameters, but you cannot change the name of the user.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance the user belongs to.
@@ -2257,6 +2305,7 @@ class RdbV1API(API):
         region: Optional[Region] = None,
     ) -> Optional[None]:
         """
+        Delete a user on a Database Instance.
         Delete a given user on a Database Instance. You must specify, in the endpoint,  the `region`, `instance_id` and `name` parameters of the user you want to delete.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance to delete the user from.
@@ -2298,6 +2347,7 @@ class RdbV1API(API):
         page_size: Optional[int] = None,
     ) -> ListDatabasesResponse:
         """
+        List databases in a Database Instance.
         List all databases of a given Database Instance. By default, the databases returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `name`, `managed` and `owner`.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance to list the databases of.
@@ -2349,6 +2399,7 @@ class RdbV1API(API):
         page_size: Optional[int] = None,
     ) -> List[Database]:
         """
+        List databases in a Database Instance.
         List all databases of a given Database Instance. By default, the databases returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `name`, `managed` and `owner`.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance to list the databases of.
@@ -2390,6 +2441,7 @@ class RdbV1API(API):
         region: Optional[Region] = None,
     ) -> Database:
         """
+        Create a database in a Database Instance.
         Create a new database. You must define the `name` parameter in the request.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance where to create the database.
@@ -2434,6 +2486,7 @@ class RdbV1API(API):
         region: Optional[Region] = None,
     ) -> Optional[None]:
         """
+        Delete a database in a Database Instance.
         Delete a given database on a Database Instance. You must specify, in the endpoint, the `region`, `instance_id` and `name` parameters of the database you want to delete.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance where to delete the database.
@@ -2474,6 +2527,7 @@ class RdbV1API(API):
         user_name: Optional[str] = None,
     ) -> ListPrivilegesResponse:
         """
+        List user privileges for a database.
         List privileges of a user on a database. By default, the details returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `database_name` and `user_name`.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance.
@@ -2522,6 +2576,7 @@ class RdbV1API(API):
         user_name: Optional[str] = None,
     ) -> List[Privilege]:
         """
+        List user privileges for a database.
         List privileges of a user on a database. By default, the details returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `database_name` and `user_name`.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance.
@@ -2563,6 +2618,7 @@ class RdbV1API(API):
         region: Optional[Region] = None,
     ) -> Privilege:
         """
+        Set user privileges for a database.
         Set the privileges of a user on a database. You must define `database_name`, `user_name` and `permission` in the request body.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance.
@@ -2618,6 +2674,7 @@ class RdbV1API(API):
         page_size: Optional[int] = None,
     ) -> ListSnapshotsResponse:
         """
+        List snapshots.
         List snapshots. You can include the `instance_id` or `project_id` in your query to get the list of snaphots for specific Database Instances and/or Projects. By default, the details returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the snapshot.
@@ -2670,6 +2727,7 @@ class RdbV1API(API):
         page_size: Optional[int] = None,
     ) -> List[Snapshot]:
         """
+        List snapshots.
         List snapshots. You can include the `instance_id` or `project_id` in your query to get the list of snaphots for specific Database Instances and/or Projects. By default, the details returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the snapshot.
@@ -2710,6 +2768,7 @@ class RdbV1API(API):
         region: Optional[Region] = None,
     ) -> Snapshot:
         """
+        Get a Database Instance snapshot.
         Retrieve information about a given snapshot, specified by its `snapshot_id` and `region`. Full details about the snapshot, like size and expiration date, are returned in the response.
         :param region: Region to target. If none is passed will use default region from the config.
         :param snapshot_id: UUID of the snapshot.
@@ -2780,6 +2839,7 @@ class RdbV1API(API):
         expires_at: Optional[datetime] = None,
     ) -> Snapshot:
         """
+        Create a Database Instance snapshot.
         Create a new snapshot of a Database Instance. You must define the `name` parameter in the request.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance.
@@ -2824,6 +2884,7 @@ class RdbV1API(API):
         expires_at: Optional[datetime] = None,
     ) -> Snapshot:
         """
+        Update a Database Instance snapshot.
         Update the parameters of a snapshot of a Database Instance. You can update the `name` and `expires_at` parameters.
         :param region: Region to target. If none is passed will use default region from the config.
         :param snapshot_id: UUID of the snapshot to update.
@@ -2866,6 +2927,7 @@ class RdbV1API(API):
         region: Optional[Region] = None,
     ) -> Snapshot:
         """
+        Delete a Database Instance snapshot.
         Delete a given snapshot of a Database Instance. You must specify, in the endpoint,  the `region` and `snapshot_id` parameters of the snapshot you want to delete.
         :param region: Region to target. If none is passed will use default region from the config.
         :param snapshot_id: UUID of the snapshot to delete.
@@ -2900,6 +2962,7 @@ class RdbV1API(API):
         node_type: Optional[str] = None,
     ) -> Instance:
         """
+        Create a new Database Instance from a snapshot.
         Restore a snapshot. When you restore a snapshot, a new Instance is created and billed to your account. Note that is possible to select a larger node type for your new Database Instance. However, the Block volume size will be the same as the size of the restored snapshot. All Instance settings will be restored if you chose a node type with the same or more memory size than the initial Instance. Settings will be reset to the default if your node type has less memory.
         :param region: Region to target. If none is passed will use default region from the config.
         :param snapshot_id: Block snapshot of the Database Instance.
@@ -2948,6 +3011,7 @@ class RdbV1API(API):
         endpoint_spec: Optional[EndpointSpec] = None,
     ) -> Endpoint:
         """
+        Create a new Database Instance endpoint.
         Create a new endpoint for a Database Instance. You can add `load_balacer` and `private_network` specifications to the body of the request. Note that this action replaces your current endpoint, which means you might need to update any environment configurations that point to the old endpoint.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance you to which you want to add an endpoint.
@@ -2988,9 +3052,11 @@ class RdbV1API(API):
         region: Optional[Region] = None,
     ) -> Optional[None]:
         """
+        Delete a Database Instance endpoint.
         Delete the endpoint of a Database Instance. You must specify the `region` and `endpoint_id` parameters of the endpoint you want to delete. Note that might need to update any environment configurations that point to the deleted endpoint.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param endpoint_id: This endpoint can also be used to delete a Read Replica endpoint.
+        :param endpoint_id: UUID of the endpoint you want to delete.
+        This endpoint can also be used to delete a Read Replica endpoint.
 
         Usage:
         ::
@@ -3018,6 +3084,7 @@ class RdbV1API(API):
         region: Optional[Region] = None,
     ) -> Endpoint:
         """
+        Get a Database Instance endpoint.
         Retrieve information about a Database Instance endpoint. Full details about the endpoint, like `ip`, `port`, `private_network` and `load_balancer` specifications are returned in the response.
         :param region: Region to target. If none is passed will use default region from the config.
         :param endpoint_id: UUID of the endpoint you want to get.
@@ -3050,7 +3117,7 @@ class RdbV1API(API):
         region: Optional[Region] = None,
     ) -> Endpoint:
         """
-        Migrate an existing instance endpoint to another instance
+        Migrate an existing instance endpoint to another instance.
         :param region: Region to target. If none is passed will use default region from the config.
         :param endpoint_id: UUID of the endpoint you want to migrate.
         :param instance_id: UUID of the instance you want to attach the endpoint to.

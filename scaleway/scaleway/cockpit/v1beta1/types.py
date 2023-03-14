@@ -103,6 +103,7 @@ class CockpitEndpoints:
 class ContactPoint:
     """
     Alert contact point.
+    Contact point.
     """
 
     email: Optional[ContactPointEmail]

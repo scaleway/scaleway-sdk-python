@@ -66,6 +66,7 @@ class CockpitV1Beta1API(API):
     Cockpit API.
 
     This API allows to manage Cockpits.
+    Cockpit API.
     """
 
     def activate_cockpit(
@@ -74,6 +75,7 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> Cockpit:
         """
+        Activate a cockpit.
         Activate a cockpit associated with the given project ID.
         :param project_id:
         :return: :class:`Cockpit <Cockpit>`
@@ -104,6 +106,7 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> Cockpit:
         """
+        Get cockpit.
         Get the cockpit associated with the given project ID.
         :param project_id:
         :return: :class:`Cockpit <Cockpit>`
@@ -163,6 +166,7 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> Cockpit:
         """
+        Deactivate a cockpit.
         Deactivate a cockpit associated with the given project ID.
         :param project_id:
         :return: :class:`Cockpit <Cockpit>`
@@ -193,6 +197,7 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> Cockpit:
         """
+        Reset Grafana.
         Reset the Grafana of your cockpit associated with the given project ID.
         :param project_id:
         :return: :class:`Cockpit <Cockpit>`
@@ -225,6 +230,7 @@ class CockpitV1Beta1API(API):
         scopes: Optional[TokenScopes] = None,
     ) -> Token:
         """
+        Create a token.
         Create a token associated with the given project ID.
         :param project_id:
         :param name:
@@ -262,6 +268,7 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> ListTokensResponse:
         """
+        List tokens.
         List tokens associated with the given project ID.
         :param page:
         :param page_size:
@@ -298,6 +305,7 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> List[Token]:
         """
+        List tokens.
         List tokens associated with the given project ID.
         :param page:
         :param page_size:
@@ -329,6 +337,7 @@ class CockpitV1Beta1API(API):
         token_id: str,
     ) -> Token:
         """
+        Get token.
         Get the token associated with the given ID.
         :param token_id:
         :return: :class:`Token <Token>`
@@ -355,6 +364,7 @@ class CockpitV1Beta1API(API):
         token_id: str,
     ) -> Optional[None]:
         """
+        Delete token.
         Delete the token associated with the given ID.
         :param token_id:
 
@@ -381,6 +391,7 @@ class CockpitV1Beta1API(API):
         contact_point: Optional[ContactPoint] = None,
     ) -> ContactPoint:
         """
+        Create an alert contact point.
         Create an alert contact point for the default receiver.
         :param project_id: Project ID.
         :param contact_point: Contact point to create.
@@ -415,6 +426,7 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> ListContactPointsResponse:
         """
+        List alert contact points.
         List alert contact points associated with the given cockpit ID.
         :param page: Page number.
         :param page_size: Page size.
@@ -448,6 +460,7 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> List[ContactPoint]:
         """
+        List alert contact points.
         List alert contact points associated with the given cockpit ID.
         :param page: Page number.
         :param page_size: Page size.
@@ -478,6 +491,7 @@ class CockpitV1Beta1API(API):
         contact_point: Optional[ContactPoint] = None,
     ) -> Optional[None]:
         """
+        Delete an alert contact point.
         Delete an alert contact point for the default receiver.
         :param project_id:
         :param contact_point: Contact point to delete.
@@ -567,6 +581,7 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> Optional[None]:
         """
+        Trigger a test alert.
         Trigger a test alert to all receivers.
         :param project_id:
 
@@ -598,6 +613,7 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> GrafanaUser:
         """
+        Create a grafana user.
         Create a grafana user for your grafana instance.
         :param project_id:
         :param login:
@@ -638,6 +654,7 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> ListGrafanaUsersResponse:
         """
+        List grafana users.
         List grafana users who are able to connect to your grafana instance.
         :param page:
         :param page_size:
@@ -674,6 +691,7 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> List[GrafanaUser]:
         """
+        List grafana users.
         List grafana users who are able to connect to your grafana instance.
         :param page:
         :param page_size:
@@ -706,6 +724,7 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> Optional[None]:
         """
+        Delete a grafana user.
         Delete a grafana user from your grafana instance.
         :param grafana_user_id:
         :param project_id:
@@ -740,6 +759,7 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> GrafanaUser:
         """
+        Reset Grafana user password.
         Reset the Grafana user password from your grafana instance.
         :param grafana_user_id:
         :param project_id:

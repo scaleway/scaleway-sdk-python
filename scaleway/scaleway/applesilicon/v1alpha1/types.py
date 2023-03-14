@@ -224,6 +224,7 @@ class ServerType:
 
     minimum_lease_duration: Optional[str]
     """
+    Minimum duration of the lease in seconds.
     Minimum duration of the lease in seconds (example. 3.4s).
     """
 

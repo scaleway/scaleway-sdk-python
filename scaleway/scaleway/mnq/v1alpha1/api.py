@@ -44,6 +44,7 @@ class MnqV1Alpha1API(API):
     MnQ API (beta).
 
     This API allows you to manage Messaging or Queueing brokers.
+    MnQ API (beta).
     """
 
     def list_namespaces(
@@ -57,7 +58,7 @@ class MnqV1Alpha1API(API):
         order_by: ListNamespacesRequestOrderBy = ListNamespacesRequestOrderBy.CREATED_AT_ASC,
     ) -> ListNamespacesResponse:
         """
-        List namespaces
+        List namespaces.
         :param region: Region to target. If none is passed will use default region from the config.
         :param organization_id: Will list only the Namespaces owned by the specified organization.
         :param project_id: Will list only the Namespaces contained into the specified project.
@@ -103,7 +104,7 @@ class MnqV1Alpha1API(API):
         order_by: Optional[ListNamespacesRequestOrderBy] = None,
     ) -> List[Namespace]:
         """
-        List namespaces
+        List namespaces.
         :param region: Region to target. If none is passed will use default region from the config.
         :param organization_id: Will list only the Namespaces owned by the specified organization.
         :param project_id: Will list only the Namespaces contained into the specified project.
@@ -141,7 +142,7 @@ class MnqV1Alpha1API(API):
         project_id: Optional[str] = None,
     ) -> Namespace:
         """
-        Create a namespace
+        Create a namespace.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Namespace name.
         :param protocol: Namespace protocol.
@@ -183,7 +184,7 @@ class MnqV1Alpha1API(API):
         name: Optional[str] = None,
     ) -> Namespace:
         """
-        Update the name of a namespace
+        Update the name of a namespace.
         :param region: Region to target. If none is passed will use default region from the config.
         :param namespace_id: ID of the Namespace to update.
         :param name: Namespace name.
@@ -222,7 +223,7 @@ class MnqV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> Namespace:
         """
-        Get a namespace
+        Get a namespace.
         :param region: Region to target. If none is passed will use default region from the config.
         :param namespace_id: ID of the Namespace to get.
         :return: :class:`Namespace <Namespace>`
@@ -253,7 +254,7 @@ class MnqV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> Optional[None]:
         """
-        Delete a namespace
+        Delete a namespace.
         :param region: Region to target. If none is passed will use default region from the config.
         :param namespace_id: ID of the Namespace to delete.
 
@@ -285,6 +286,7 @@ class MnqV1Alpha1API(API):
         permissions: Optional[Permissions] = None,
     ) -> Credential:
         """
+        Create a set of credentials.
         Create a set of credentials for a specific namespace.
         :param region: Region to target. If none is passed will use default region from the config.
         :param namespace_id: Namespace containing the Credential.
@@ -328,7 +330,7 @@ class MnqV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> Optional[None]:
         """
-        Delete credentials
+        Delete credentials.
         :param region: Region to target. If none is passed will use default region from the config.
         :param credential_id: ID of the Credential to delete.
 
@@ -361,7 +363,7 @@ class MnqV1Alpha1API(API):
         order_by: ListCredentialsRequestOrderBy = ListCredentialsRequestOrderBy.ID_ASC,
     ) -> ListCredentialsResponse:
         """
-        List credentials
+        List credentials.
         :param region: Region to target. If none is passed will use default region from the config.
         :param namespace_id: Namespace containing the Credential.
         :param page: Indicate the page number of results to be returned.
@@ -403,7 +405,7 @@ class MnqV1Alpha1API(API):
         order_by: Optional[ListCredentialsRequestOrderBy] = None,
     ) -> List[CredentialSummary]:
         """
-        List credentials
+        List credentials.
         :param region: Region to target. If none is passed will use default region from the config.
         :param namespace_id: Namespace containing the Credential.
         :param page: Indicate the page number of results to be returned.
@@ -483,7 +485,7 @@ class MnqV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> Credential:
         """
-        Get a set of credentials
+        Get a set of credentials.
         :param region: Region to target. If none is passed will use default region from the config.
         :param credential_id: ID of the Credential to get.
         :return: :class:`Credential <Credential>`
