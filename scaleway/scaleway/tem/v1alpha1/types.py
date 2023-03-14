@@ -219,6 +219,11 @@ class Email:
     Type of the recipient.
     """
 
+    subject: str
+    """
+    Subject of the email.
+    """
+
     created_at: Optional[datetime]
     """
     Creation date of the email object.
@@ -467,6 +472,11 @@ class ListEmailsRequest:
     Optional, list emails having any of this status.
     """
 
+    subject: Optional[str]
+    """
+    Optional, list emails having this subject.
+    """
+
 
 @dataclass
 class GetStatisticsRequest:
@@ -522,8 +532,19 @@ class CreateDomainRequest:
     """
 
     project_id: Optional[str]
+    """
+    ID of the project to which the domain belongs.
+    """
 
     domain_name: str
+    """
+    Fully qualified domain dame.
+    """
+
+    accept_tos: bool
+    """
+    Accept the Scaleway Terms of Service.
+    """
 
 
 @dataclass

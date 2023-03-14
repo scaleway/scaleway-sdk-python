@@ -199,6 +199,7 @@ class TemV1Alpha1API(API):
         mail_from: Optional[str] = None,
         mail_to: Optional[str] = None,
         statuses: Optional[List[EmailStatus]] = None,
+        subject: Optional[str] = None,
     ) -> ListEmailsResponse:
         """
         List emails sent from a domain and/or for a project and/or for an organization
@@ -213,6 +214,7 @@ class TemV1Alpha1API(API):
         :param mail_from: Optional, list emails sent with this `mail_from` sender's address.
         :param mail_to: Optional, list emails sent with this `mail_to` recipient's address.
         :param statuses: Optional, list emails having any of this status.
+        :param subject: Optional, list emails having this subject.
         :return: :class:`ListEmailsResponse <ListEmailsResponse>`
 
         Usage:
@@ -238,6 +240,7 @@ class TemV1Alpha1API(API):
                 "project_id": project_id or self.client.default_project_id,
                 "since": since,
                 "statuses": statuses,
+                "subject": subject,
                 "until": until,
             },
         )
@@ -259,6 +262,7 @@ class TemV1Alpha1API(API):
         mail_from: Optional[str] = None,
         mail_to: Optional[str] = None,
         statuses: Optional[List[EmailStatus]] = None,
+        subject: Optional[str] = None,
     ) -> List[Email]:
         """
         List emails sent from a domain and/or for a project and/or for an organization
@@ -273,6 +277,7 @@ class TemV1Alpha1API(API):
         :param mail_from: Optional, list emails sent with this `mail_from` sender's address.
         :param mail_to: Optional, list emails sent with this `mail_to` recipient's address.
         :param statuses: Optional, list emails having any of this status.
+        :param subject: Optional, list emails having this subject.
         :return: :class:`List[ListEmailsResponse] <List[ListEmailsResponse]>`
 
         Usage:
@@ -297,6 +302,7 @@ class TemV1Alpha1API(API):
                 "mail_from": mail_from,
                 "mail_to": mail_to,
                 "statuses": statuses,
+                "subject": subject,
             },
         )
 
@@ -380,20 +386,25 @@ class TemV1Alpha1API(API):
         self,
         *,
         domain_name: str,
+        accept_tos: bool,
         region: Optional[Region] = None,
         project_id: Optional[str] = None,
     ) -> Domain:
         """
         Register a domain in a project
         :param region: Region to target. If none is passed will use default region from the config.
-        :param project_id:
-        :param domain_name:
+        :param project_id: ID of the project to which the domain belongs.
+        :param domain_name: Fully qualified domain dame.
+        :param accept_tos: Accept the Scaleway Terms of Service.
         :return: :class:`Domain <Domain>`
 
         Usage:
         ::
 
-            result = await api.create_domain(domain_name="example")
+            result = await api.create_domain(
+                domain_name="example",
+                accept_tos=True,
+            )
         """
 
         param_region = validate_path_param(
@@ -406,6 +417,7 @@ class TemV1Alpha1API(API):
             body=marshal_CreateDomainRequest(
                 CreateDomainRequest(
                     domain_name=domain_name,
+                    accept_tos=accept_tos,
                     region=region,
                     project_id=project_id,
                 ),
