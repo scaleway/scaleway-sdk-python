@@ -8,6 +8,7 @@ from .types import HostingStatus
 from .types import ListHostingsRequestOrderBy
 from .types import ListOffersRequestOrderBy
 from .types import NameserverStatus
+from .types import OfferQuotaWarning
 from .types import DnsRecord
 from .types import DnsRecords
 from .types import Hosting
@@ -30,6 +31,7 @@ __all__ = [
     "ListHostingsRequestOrderBy",
     "ListOffersRequestOrderBy",
     "NameserverStatus",
+    "OfferQuotaWarning",
     "DnsRecord",
     "DnsRecords",
     "Hosting",

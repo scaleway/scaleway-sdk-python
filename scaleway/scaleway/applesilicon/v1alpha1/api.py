@@ -64,7 +64,7 @@ class ApplesiliconV1Alpha1API(API):
     ) -> ListServerTypesResponse:
         """
         List all server types technical details.
-        :param zone: Zone to target. If none is passed will use default zone from the config
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`ListServerTypesResponse <ListServerTypesResponse>`
 
         Usage:
@@ -91,8 +91,8 @@ class ApplesiliconV1Alpha1API(API):
     ) -> ServerType:
         """
         Get a server technical details.
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param server_type: Server type identifier
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param server_type: Server type identifier.
         :return: :class:`ServerType <ServerType>`
 
         Usage:
@@ -122,10 +122,10 @@ class ApplesiliconV1Alpha1API(API):
     ) -> Server:
         """
         Create a server.
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param name: Create a server with this given name
-        :param project_id: Create a server in the given project ID
-        :param type_: Create a server of the given type
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param name: Create a server with this given name.
+        :param project_id: Create a server in the given project ID.
+        :param type_: Create a server of the given type.
         :return: :class:`Server <Server>`
 
         Usage:
@@ -165,12 +165,12 @@ class ApplesiliconV1Alpha1API(API):
     ) -> ListServersResponse:
         """
         List all servers.
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param order_by: The sort order of the returned servers
-        :param project_id: List only servers of this project ID
-        :param organization_id: List only servers of this organization ID
-        :param page: A positive integer to choose the page to return
-        :param page_size: A positive integer lower or equal to 100 to select the number of items to return
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param order_by: The sort order of the returned servers.
+        :param project_id: List only servers of this project ID.
+        :param organization_id: List only servers of this organization ID.
+        :param page: A positive integer to choose the page to return.
+        :param page_size: A positive integer lower or equal to 100 to select the number of items to return.
         :return: :class:`ListServersResponse <ListServersResponse>`
 
         Usage:
@@ -209,12 +209,12 @@ class ApplesiliconV1Alpha1API(API):
     ) -> List[Server]:
         """
         List all servers.
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param order_by: The sort order of the returned servers
-        :param project_id: List only servers of this project ID
-        :param organization_id: List only servers of this organization ID
-        :param page: A positive integer to choose the page to return
-        :param page_size: A positive integer lower or equal to 100 to select the number of items to return
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param order_by: The sort order of the returned servers.
+        :param project_id: List only servers of this project ID.
+        :param organization_id: List only servers of this organization ID.
+        :param page: A positive integer to choose the page to return.
+        :param page_size: A positive integer lower or equal to 100 to select the number of items to return.
         :return: :class:`List[ListServersResponse] <List[ListServersResponse]>`
 
         Usage:
@@ -248,11 +248,11 @@ class ApplesiliconV1Alpha1API(API):
     ) -> ListOSResponse:
         """
         List all Operating System (OS).
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param page: A positive integer to choose the page to return
-        :param page_size: A positive integer lower or equal to 100 to select the number of items to return
-        :param server_type: List of compatible server type
-        :param name: Filter os by name (for eg. "11.1" will return "11.1.2" and "11.1" but not "12")
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param page: A positive integer to choose the page to return.
+        :param page_size: A positive integer lower or equal to 100 to select the number of items to return.
+        :param server_type: List of compatible server type.
+        :param name: Filter os by name (for eg. "11.1" will return "11.1.2" and "11.1" but not "12").
         :return: :class:`ListOSResponse <ListOSResponse>`
 
         Usage:
@@ -288,11 +288,11 @@ class ApplesiliconV1Alpha1API(API):
     ) -> List[OS]:
         """
         List all Operating System (OS).
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param page: A positive integer to choose the page to return
-        :param page_size: A positive integer lower or equal to 100 to select the number of items to return
-        :param server_type: List of compatible server type
-        :param name: Filter os by name (for eg. "11.1" will return "11.1.2" and "11.1" but not "12")
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param page: A positive integer to choose the page to return.
+        :param page_size: A positive integer lower or equal to 100 to select the number of items to return.
+        :param server_type: List of compatible server type.
+        :param name: Filter os by name (for eg. "11.1" will return "11.1.2" and "11.1" but not "12").
         :return: :class:`List[ListOSResponse] <List[ListOSResponse]>`
 
         Usage:
@@ -322,8 +322,8 @@ class ApplesiliconV1Alpha1API(API):
     ) -> OS:
         """
         Get an Operating System (OS).
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param os_id: UUID of the OS you want to get
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param os_id: UUID of the OS you want to get.
         :return: :class:`OS <OS>`
 
         Usage:
@@ -351,8 +351,8 @@ class ApplesiliconV1Alpha1API(API):
     ) -> Server:
         """
         Get a server.
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param server_id: UUID of the server you want to get
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param server_id: UUID of the server you want to get.
         :return: :class:`Server <Server>`
 
         Usage:
@@ -381,8 +381,8 @@ class ApplesiliconV1Alpha1API(API):
     ) -> Server:
         """
         Waits for :class:`Server <Server>` to be in a final state.
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param server_id: UUID of the server you want to get
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param server_id: UUID of the server you want to get.
         :param options: The options for the waiter
         :return: :class:`Server <Server>`
 
@@ -416,9 +416,9 @@ class ApplesiliconV1Alpha1API(API):
     ) -> Server:
         """
         Update a server.
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param server_id: UUID of the server you want to update
-        :param name: Updated name for your server
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param server_id: UUID of the server you want to update.
+        :param name: Updated name for your server.
         :return: :class:`Server <Server>`
 
         Usage:
@@ -457,8 +457,8 @@ class ApplesiliconV1Alpha1API(API):
     ) -> Optional[None]:
         """
         Delete a server.
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param server_id: UUID of the server you want to delete
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param server_id: UUID of the server you want to delete.
 
         Usage:
         ::
@@ -485,8 +485,8 @@ class ApplesiliconV1Alpha1API(API):
     ) -> Server:
         """
         Reboot a server.
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param server_id: UUID of the server you want to reboot
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param server_id: UUID of the server you want to reboot.
         :return: :class:`Server <Server>`
 
         Usage:
@@ -514,8 +514,8 @@ class ApplesiliconV1Alpha1API(API):
     ) -> Server:
         """
         Reinstall a server.
-        :param zone: Zone to target. If none is passed will use default zone from the config
-        :param server_id: UUID of the server you want to reinstall
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param server_id: UUID of the server you want to reinstall.
         :return: :class:`Server <Server>`
 
         Usage:

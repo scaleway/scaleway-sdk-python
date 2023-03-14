@@ -121,7 +121,7 @@ class FunctionV1Beta1API(API):
     ) -> ListNamespacesResponse:
         """
         List all your namespaces
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
         :param order_by:
@@ -170,7 +170,7 @@ class FunctionV1Beta1API(API):
     ) -> List[Namespace]:
         """
         List all your namespaces
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
         :param order_by:
@@ -208,7 +208,7 @@ class FunctionV1Beta1API(API):
     ) -> Namespace:
         """
         Get the namespace associated with the given id.
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param namespace_id:
         :return: :class:`Namespace <Namespace>`
 
@@ -242,7 +242,7 @@ class FunctionV1Beta1API(API):
     ) -> Namespace:
         """
         Waits for :class:`Namespace <Namespace>` to be in a final state.
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param namespace_id:
         :param options: The options for the waiter
         :return: :class:`Namespace <Namespace>`
@@ -280,7 +280,7 @@ class FunctionV1Beta1API(API):
     ) -> Namespace:
         """
         Create a new namespace
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param name:
         :param environment_variables:
         :param project_id:
@@ -328,7 +328,7 @@ class FunctionV1Beta1API(API):
     ) -> Namespace:
         """
         Update the space associated with the given id.
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param namespace_id:
         :param environment_variables:
         :param description:
@@ -372,7 +372,7 @@ class FunctionV1Beta1API(API):
     ) -> Namespace:
         """
         Delete the namespace associated with the given id.
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param namespace_id:
         :return: :class:`Namespace <Namespace>`
 
@@ -409,7 +409,7 @@ class FunctionV1Beta1API(API):
     ) -> ListFunctionsResponse:
         """
         List all your functions
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
         :param order_by:
@@ -461,7 +461,7 @@ class FunctionV1Beta1API(API):
     ) -> List[Function]:
         """
         List all your functions
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
         :param order_by:
@@ -501,7 +501,7 @@ class FunctionV1Beta1API(API):
     ) -> Function:
         """
         Get the function associated with the given id.
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param function_id:
         :return: :class:`Function <Function>`
 
@@ -535,7 +535,7 @@ class FunctionV1Beta1API(API):
     ) -> Function:
         """
         Waits for :class:`Function <Function>` to be in a final state.
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param function_id:
         :param options: The options for the waiter
         :return: :class:`Function <Function>`
@@ -581,7 +581,7 @@ class FunctionV1Beta1API(API):
     ) -> Function:
         """
         Create a new function
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param name:
         :param namespace_id:
         :param environment_variables:
@@ -594,10 +594,9 @@ class FunctionV1Beta1API(API):
         :param privacy:
         :param description:
         :param secret_environment_variables:
-        :param http_option: possible values:
+        :param http_option: Possible values:
          - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
          - enabled: Serve both HTTP and HTTPS traffic.
-
         :return: :class:`Function <Function>`
 
         Usage:
@@ -662,7 +661,7 @@ class FunctionV1Beta1API(API):
     ) -> Function:
         """
         Update the function associated with the given id.
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param function_id:
         :param environment_variables:
         :param min_scale:
@@ -675,10 +674,9 @@ class FunctionV1Beta1API(API):
         :param privacy:
         :param description:
         :param secret_environment_variables:
-        :param http_option: possible values:
+        :param http_option: Possible values:
          - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
          - enabled: Serve both HTTP and HTTPS traffic.
-
         :return: :class:`Function <Function>`
 
         Usage:
@@ -732,7 +730,7 @@ class FunctionV1Beta1API(API):
     ) -> Function:
         """
         Delete the function associated with the given id.
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param function_id:
         :return: :class:`Function <Function>`
 
@@ -763,7 +761,7 @@ class FunctionV1Beta1API(API):
     ) -> Function:
         """
         Deploy a function associated with the given id.
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param function_id:
         :return: :class:`Function <Function>`
 
@@ -793,7 +791,7 @@ class FunctionV1Beta1API(API):
     ) -> ListFunctionRuntimesResponse:
         """
         List available function runtimes.
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`ListFunctionRuntimesResponse <ListFunctionRuntimesResponse>`
 
         Usage:
@@ -823,7 +821,7 @@ class FunctionV1Beta1API(API):
     ) -> UploadURL:
         """
         Get an upload URL of a function associated with the given id.
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param function_id:
         :param content_length:
         :return: :class:`UploadURL <UploadURL>`
@@ -861,7 +859,7 @@ class FunctionV1Beta1API(API):
     ) -> DownloadURL:
         """
         Get a download URL for a function associated with the given id.
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param function_id:
         :return: :class:`DownloadURL <DownloadURL>`
 
@@ -895,7 +893,7 @@ class FunctionV1Beta1API(API):
     ) -> ListCronsResponse:
         """
         List all your crons
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
         :param order_by:
@@ -937,7 +935,7 @@ class FunctionV1Beta1API(API):
     ) -> List[Cron]:
         """
         List all your crons
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
         :param order_by:
@@ -971,7 +969,7 @@ class FunctionV1Beta1API(API):
     ) -> Cron:
         """
         Get the cron associated with the given id.
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param cron_id:
         :return: :class:`Cron <Cron>`
 
@@ -1003,7 +1001,7 @@ class FunctionV1Beta1API(API):
     ) -> Cron:
         """
         Waits for :class:`Cron <Cron>` to be in a final state.
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param cron_id:
         :param options: The options for the waiter
         :return: :class:`Cron <Cron>`
@@ -1040,7 +1038,7 @@ class FunctionV1Beta1API(API):
     ) -> Cron:
         """
         Create a new cron
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param function_id:
         :param schedule:
         :param args:
@@ -1090,7 +1088,7 @@ class FunctionV1Beta1API(API):
     ) -> Cron:
         """
         Update the cron associated with the given id.
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param cron_id:
         :param function_id:
         :param schedule:
@@ -1136,7 +1134,7 @@ class FunctionV1Beta1API(API):
     ) -> Cron:
         """
         Delete the cron associated with the given id.
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param cron_id:
         :return: :class:`Cron <Cron>`
 
@@ -1170,7 +1168,7 @@ class FunctionV1Beta1API(API):
     ) -> ListLogsResponse:
         """
         List your application logs
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param function_id:
         :param page:
         :param page_size:
@@ -1212,7 +1210,7 @@ class FunctionV1Beta1API(API):
     ) -> List[Log]:
         """
         List your application logs
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param function_id:
         :param page:
         :param page_size:
@@ -1249,7 +1247,7 @@ class FunctionV1Beta1API(API):
     ) -> ListDomainsResponse:
         """
         List all domain name bindings
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
         :param order_by:
@@ -1291,7 +1289,7 @@ class FunctionV1Beta1API(API):
     ) -> List[Domain]:
         """
         List all domain name bindings
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
         :param order_by:
@@ -1325,7 +1323,7 @@ class FunctionV1Beta1API(API):
     ) -> Domain:
         """
         Get a domain name binding
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param domain_id:
         :return: :class:`Domain <Domain>`
 
@@ -1357,7 +1355,7 @@ class FunctionV1Beta1API(API):
     ) -> Domain:
         """
         Waits for :class:`Domain <Domain>` to be in a final state.
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param domain_id:
         :param options: The options for the waiter
         :return: :class:`Domain <Domain>`
@@ -1392,7 +1390,7 @@ class FunctionV1Beta1API(API):
     ) -> Domain:
         """
         Create a domain name binding
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param hostname:
         :param function_id:
         :return: :class:`Domain <Domain>`
@@ -1434,7 +1432,7 @@ class FunctionV1Beta1API(API):
     ) -> Domain:
         """
         Delete a domain name binding
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param domain_id:
         :return: :class:`Domain <Domain>`
 
@@ -1506,7 +1504,7 @@ class FunctionV1Beta1API(API):
     ) -> Token:
         """
         Create a new revocable token
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param function_id: One-of ('scope'): at most one of 'function_id', 'namespace_id' could be set.
         :param namespace_id: One-of ('scope'): at most one of 'function_id', 'namespace_id' could be set.
         :param description:
@@ -1549,7 +1547,7 @@ class FunctionV1Beta1API(API):
     ) -> Token:
         """
         Get a token
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param token_id:
         :return: :class:`Token <Token>`
 
@@ -1581,7 +1579,7 @@ class FunctionV1Beta1API(API):
     ) -> Token:
         """
         Waits for :class:`Token <Token>` to be in a final state.
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param token_id:
         :param options: The options for the waiter
         :return: :class:`Token <Token>`
@@ -1619,7 +1617,7 @@ class FunctionV1Beta1API(API):
     ) -> ListTokensResponse:
         """
         List all tokens
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
         :param order_by:
@@ -1664,7 +1662,7 @@ class FunctionV1Beta1API(API):
     ) -> List[Token]:
         """
         List all tokens
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
         :param order_by:
@@ -1700,7 +1698,7 @@ class FunctionV1Beta1API(API):
     ) -> Token:
         """
         Delete a token
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param token_id:
         :return: :class:`Token <Token>`
 
@@ -1806,7 +1804,7 @@ class FunctionV1Beta1API(API):
     ) -> Trigger:
         """
         Waits for :class:`Trigger <Trigger>` to be in a final state.
-        :param region: Region to target. If none is passed will use default region from the config
+        :param region: Region to target. If none is passed will use default region from the config.
         :param trigger_id:
         :param options: The options for the waiter
         :return: :class:`Trigger <Trigger>`

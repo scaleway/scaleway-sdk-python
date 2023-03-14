@@ -181,13 +181,13 @@ class DomainV2Beta1API(API):
         Returns a list of manageable DNS zones.
         You can filter the DNS zones by domain name.
 
-        :param organization_id: The organization ID on which to filter the returned DNS zones
-        :param project_id: The project ID on which to filter the returned DNS zones
-        :param order_by: The sort order of the returned DNS zones
-        :param page: The page number for the returned DNS zones
-        :param page_size: The maximum number of DNS zones per page
-        :param domain: The domain on which to filter the returned DNS zones
-        :param dns_zone: The DNS zone on which to filter the returned DNS zones
+        :param organization_id: The organization ID on which to filter the returned DNS zones.
+        :param project_id: The project ID on which to filter the returned DNS zones.
+        :param order_by: The sort order of the returned DNS zones.
+        :param page: The page number for the returned DNS zones.
+        :param page_size: The maximum number of DNS zones per page.
+        :param domain: The domain on which to filter the returned DNS zones.
+        :param dns_zone: The DNS zone on which to filter the returned DNS zones.
         :return: :class:`ListDNSZonesResponse <ListDNSZonesResponse>`
 
         Usage:
@@ -232,13 +232,13 @@ class DomainV2Beta1API(API):
         Returns a list of manageable DNS zones.
         You can filter the DNS zones by domain name.
 
-        :param organization_id: The organization ID on which to filter the returned DNS zones
-        :param project_id: The project ID on which to filter the returned DNS zones
-        :param order_by: The sort order of the returned DNS zones
-        :param page: The page number for the returned DNS zones
-        :param page_size: The maximum number of DNS zones per page
-        :param domain: The domain on which to filter the returned DNS zones
-        :param dns_zone: The DNS zone on which to filter the returned DNS zones
+        :param organization_id: The organization ID on which to filter the returned DNS zones.
+        :param project_id: The project ID on which to filter the returned DNS zones.
+        :param order_by: The sort order of the returned DNS zones.
+        :param page: The page number for the returned DNS zones.
+        :param page_size: The maximum number of DNS zones per page.
+        :param domain: The domain on which to filter the returned DNS zones.
+        :param dns_zone: The DNS zone on which to filter the returned DNS zones.
         :return: :class:`List[ListDNSZonesResponse] <List[ListDNSZonesResponse]>`
 
         Usage:
@@ -274,9 +274,9 @@ class DomainV2Beta1API(API):
     ) -> DNSZone:
         """
         Create a new DNS zone.
-        :param domain: The domain of the DNS zone to create
-        :param subdomain: The subdomain of the DNS zone to create
-        :param project_id: The project ID where the DNS zone will be created
+        :param domain: The domain of the DNS zone to create.
+        :param subdomain: The subdomain of the DNS zone to create.
+        :param project_id: The project ID where the DNS zone will be created.
         :return: :class:`DNSZone <DNSZone>`
 
         Usage:
@@ -313,9 +313,9 @@ class DomainV2Beta1API(API):
     ) -> DNSZone:
         """
         Update the name and/or the organizations for a DNS zone.
-        :param dns_zone: The DNS zone to update
-        :param new_dns_zone: The new DNS zone
-        :param project_id: The project ID of the new DNS zone
+        :param dns_zone: The DNS zone to update.
+        :param new_dns_zone: The new DNS zone.
+        :param project_id: The project ID of the new DNS zone.
         :return: :class:`DNSZone <DNSZone>`
 
         Usage:
@@ -355,10 +355,10 @@ class DomainV2Beta1API(API):
     ) -> DNSZone:
         """
         Clone an existed DNS zone with all its records into a new one.
-        :param dns_zone: The DNS zone to clone
-        :param dest_dns_zone: The destinaton DNS zone
-        :param overwrite: Whether or not the destination DNS zone will be overwritten
-        :param project_id: The project ID of the destination DNS zone
+        :param dns_zone: The DNS zone to clone.
+        :param dest_dns_zone: The destinaton DNS zone.
+        :param overwrite: Whether or not the destination DNS zone will be overwritten.
+        :param project_id: The project ID of the destination DNS zone.
         :return: :class:`DNSZone <DNSZone>`
 
         Usage:
@@ -398,8 +398,8 @@ class DomainV2Beta1API(API):
     ) -> DeleteDNSZoneResponse:
         """
         Delete a DNS zone and all it's records.
-        :param dns_zone: The DNS zone to delete
-        :param project_id: The project ID of the DNS zone to delete
+        :param dns_zone: The DNS zone to delete.
+        :param project_id: The project ID of the DNS zone to delete.
         :return: :class:`DeleteDNSZoneResponse <DeleteDNSZoneResponse>`
 
         Usage:
@@ -437,14 +437,14 @@ class DomainV2Beta1API(API):
         Returns a list of DNS records of a DNS zone with default NS.
         You can filter the records by type and name.
 
-        :param dns_zone: The DNS zone on which to filter the returned DNS zone records
-        :param project_id: The project ID on which to filter the returned DNS zone records
-        :param order_by: The sort order of the returned DNS zone records
-        :param page: The page number for the returned DNS zone records
-        :param page_size: The maximum number of DNS zone records per page
-        :param name: The name on which to filter the returned DNS zone records
-        :param type_: The record type on which to filter the returned DNS zone records
-        :param id: The record ID on which to filter the returned DNS zone records
+        :param dns_zone: The DNS zone on which to filter the returned DNS zone records.
+        :param project_id: The project ID on which to filter the returned DNS zone records.
+        :param order_by: The sort order of the returned DNS zone records.
+        :param page: The page number for the returned DNS zone records.
+        :param page_size: The maximum number of DNS zone records per page.
+        :param name: The name on which to filter the returned DNS zone records.
+        :param type_: The record type on which to filter the returned DNS zone records.
+        :param id: The record ID on which to filter the returned DNS zone records.
         :return: :class:`ListDNSZoneRecordsResponse <ListDNSZoneRecordsResponse>`
 
         Usage:
@@ -491,14 +491,14 @@ class DomainV2Beta1API(API):
         Returns a list of DNS records of a DNS zone with default NS.
         You can filter the records by type and name.
 
-        :param dns_zone: The DNS zone on which to filter the returned DNS zone records
-        :param project_id: The project ID on which to filter the returned DNS zone records
-        :param order_by: The sort order of the returned DNS zone records
-        :param page: The page number for the returned DNS zone records
-        :param page_size: The maximum number of DNS zone records per page
-        :param name: The name on which to filter the returned DNS zone records
-        :param type_: The record type on which to filter the returned DNS zone records
-        :param id: The record ID on which to filter the returned DNS zone records
+        :param dns_zone: The DNS zone on which to filter the returned DNS zone records.
+        :param project_id: The project ID on which to filter the returned DNS zone records.
+        :param order_by: The sort order of the returned DNS zone records.
+        :param page: The page number for the returned DNS zone records.
+        :param page_size: The maximum number of DNS zone records per page.
+        :param name: The name on which to filter the returned DNS zone records.
+        :param type_: The record type on which to filter the returned DNS zone records.
+        :param id: The record ID on which to filter the returned DNS zone records.
         :return: :class:`List[ListDNSZoneRecordsResponse] <List[ListDNSZoneRecordsResponse]>`
 
         Usage:
@@ -554,11 +554,11 @@ class DomainV2Beta1API(API):
 
         All edits will be versioned.
 
-        :param dns_zone: The DNS zone where the DNS zone records will be updated
-        :param changes: The changes made to the records
-        :param return_all_records: Whether or not to return all the records
-        :param disallow_new_zone_creation: Forbid the creation of the target zone if not existing (default action is yes)
-        :param serial: Don't use the autoincremenent serial but the provided one (0 to keep the same)
+        :param dns_zone: The DNS zone where the DNS zone records will be updated.
+        :param changes: The changes made to the records.
+        :param return_all_records: Whether or not to return all the records.
+        :param disallow_new_zone_creation: Forbid the creation of the target zone if not existing (default action is yes).
+        :param serial: Don't use the autoincremenent serial but the provided one (0 to keep the same).
         :return: :class:`UpdateDNSZoneRecordsResponse <UpdateDNSZoneRecordsResponse>`
 
         Usage:
@@ -599,8 +599,8 @@ class DomainV2Beta1API(API):
     ) -> ListDNSZoneNameserversResponse:
         """
         Returns a list of Nameservers and their optional glue records for a DNS zone.
-        :param dns_zone: The DNS zone on which to filter the returned DNS zone nameservers
-        :param project_id: The project ID on which to filter the returned DNS zone nameservers
+        :param dns_zone: The DNS zone on which to filter the returned DNS zone nameservers.
+        :param project_id: The project ID on which to filter the returned DNS zone nameservers.
         :return: :class:`ListDNSZoneNameserversResponse <ListDNSZoneNameserversResponse>`
 
         Usage:
@@ -630,8 +630,8 @@ class DomainV2Beta1API(API):
     ) -> UpdateDNSZoneNameserversResponse:
         """
         Update DNS zone nameservers and set optional glue records.
-        :param dns_zone: The DNS zone where the DNS zone nameservers will be updated
-        :param ns: The new DNS zone nameservers
+        :param dns_zone: The DNS zone where the DNS zone nameservers will be updated.
+        :param ns: The new DNS zone nameservers.
         :return: :class:`UpdateDNSZoneNameserversResponse <UpdateDNSZoneNameserversResponse>`
 
         Usage:
@@ -670,7 +670,7 @@ class DomainV2Beta1API(API):
         Delete all the records from a DNS zone.
         All edits will be versioned.
 
-        :param dns_zone: The DNS zone to clear
+        :param dns_zone: The DNS zone to clear.
         :return: :class:`ClearDNSZoneRecordsResponse <ClearDNSZoneRecordsResponse>`
 
         Usage:
@@ -697,8 +697,8 @@ class DomainV2Beta1API(API):
     ) -> Optional[ScwFile]:
         """
         Get a DNS zone in a given format with default NS.
-        :param dns_zone: The DNS zone to export
-        :param format: Format for DNS zone
+        :param dns_zone: The DNS zone to export.
+        :param format: Format for DNS zone.
         :return: :class:`Optional[ScwFile] <Optional[ScwFile]>`
 
         Usage:
@@ -736,7 +736,7 @@ class DomainV2Beta1API(API):
     ) -> ImportRawDNSZoneResponse:
         """
         Import and replace records from a given provider format with default NS.
-        :param dns_zone: The DNS zone to import
+        :param dns_zone: The DNS zone to import.
         :param content:
         :param project_id:
         :param format:
@@ -821,9 +821,9 @@ class DomainV2Beta1API(API):
         Refresh SOA DNS zone.
         You can recreate the given DNS zone and its sub DNS zone if needed.
 
-        :param dns_zone: The DNS zone to refresh
-        :param recreate_dns_zone: Whether or not to recreate the DNS zone
-        :param recreate_sub_dns_zone: Whether or not to recreate the sub DNS zone
+        :param dns_zone: The DNS zone to refresh.
+        :param recreate_dns_zone: Whether or not to recreate the DNS zone.
+        :param recreate_sub_dns_zone: Whether or not to recreate the sub DNS zone.
         :return: :class:`RefreshDNSZoneResponse <RefreshDNSZoneResponse>`
 
         Usage:
@@ -867,8 +867,8 @@ class DomainV2Beta1API(API):
         If the count reaches this limit, the oldest version will be deleted after each new modification.
 
         :param dns_zone:
-        :param page: The page number for the returned DNS zones versions
-        :param page_size: The maximum number of DNS zones versions per page
+        :param page: The page number for the returned DNS zones versions.
+        :param page_size: The maximum number of DNS zones versions per page.
         :return: :class:`ListDNSZoneVersionsResponse <ListDNSZoneVersionsResponse>`
 
         Usage:
@@ -904,8 +904,8 @@ class DomainV2Beta1API(API):
         If the count reaches this limit, the oldest version will be deleted after each new modification.
 
         :param dns_zone:
-        :param page: The page number for the returned DNS zones versions
-        :param page_size: The maximum number of DNS zones versions per page
+        :param page: The page number for the returned DNS zones versions.
+        :param page_size: The maximum number of DNS zones versions per page.
         :return: :class:`List[ListDNSZoneVersionsResponse] <List[ListDNSZoneVersionsResponse]>`
 
         Usage:
@@ -935,8 +935,8 @@ class DomainV2Beta1API(API):
         """
         Get a list of records from a previous DNS zone version.
         :param dns_zone_version_id:
-        :param page: The page number for the returned DNS zones versions records
-        :param page_size: The maximum number of DNS zones versions records per page
+        :param page: The page number for the returned DNS zones versions records.
+        :param page_size: The maximum number of DNS zones versions records per page.
         :return: :class:`ListDNSZoneVersionRecordsResponse <ListDNSZoneVersionRecordsResponse>`
 
         Usage:
@@ -971,8 +971,8 @@ class DomainV2Beta1API(API):
         """
         Get a list of records from a previous DNS zone version.
         :param dns_zone_version_id:
-        :param page: The page number for the returned DNS zones versions records
-        :param page_size: The maximum number of DNS zones versions records per page
+        :param page: The page number for the returned DNS zones versions records.
+        :param page_size: The maximum number of DNS zones versions records per page.
         :return: :class:`List[ListDNSZoneVersionRecordsResponse] <List[ListDNSZoneVersionRecordsResponse]>`
 
         Usage:
@@ -2418,9 +2418,9 @@ class DomainRegistrarV2Beta1API(API):
 
         If the TLD list is empty or not set the search returns the results from the most popular TLDs.
 
-        :param domains: A list of domain to search, TLD is optional
-        :param tlds: Array of tlds to search on
-        :param strict_search: Search exact match
+        :param domains: A list of domain to search, TLD is optional.
+        :param tlds: Array of tlds to search on.
+        :param strict_search: Search exact match.
         :return: :class:`SearchAvailableDomainsResponse <SearchAvailableDomainsResponse>`
 
         Usage:

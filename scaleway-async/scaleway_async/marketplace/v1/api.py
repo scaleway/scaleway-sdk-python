@@ -36,8 +36,8 @@ class MarketplaceV1API(API):
     ) -> ListImagesResponse:
         """
         List marketplace images
-        :param per_page: A positive integer lower or equal to 100 to select the number of items to display
-        :param page: A positive integer to choose the page to display
+        :param per_page: A positive integer lower or equal to 100 to select the number of items to display.
+        :param page: A positive integer to choose the page to display.
         :return: :class:`ListImagesResponse <ListImagesResponse>`
 
         Usage:
@@ -66,8 +66,8 @@ class MarketplaceV1API(API):
     ) -> List[Image]:
         """
         List marketplace images
-        :param per_page: A positive integer lower or equal to 100 to select the number of items to display
-        :param page: A positive integer to choose the page to display
+        :param per_page: A positive integer lower or equal to 100 to select the number of items to display.
+        :param page: A positive integer to choose the page to display.
         :return: :class:`List[ListImagesResponse] <List[ListImagesResponse]>`
 
         Usage:
@@ -93,7 +93,7 @@ class MarketplaceV1API(API):
     ) -> GetImageResponse:
         """
         Get a specific marketplace image
-        :param image_id: Display the image name
+        :param image_id: Display the image name.
         :return: :class:`GetImageResponse <GetImageResponse>`
 
         Usage:

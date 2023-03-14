@@ -271,7 +271,7 @@ class CreateTriggerRequestSqsClientConfig:
 @dataclass
 class Cron:
     """
-    Cron
+    Cron.
     """
 
     id: str
@@ -290,7 +290,7 @@ class Cron:
 @dataclass
 class Domain:
     """
-    Domain
+    Domain.
     """
 
     id: str
@@ -316,7 +316,7 @@ class DownloadURL:
 @dataclass
 class Function:
     """
-    Function
+    Function.
     """
 
     id: str
@@ -357,10 +357,9 @@ class Function:
 
     http_option: FunctionHttpOption
     """
-    possible values:
+    Possible values:
      - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
      - enabled: Serve both HTTP and HTTPS traffic.
-    
     """
 
     runtime_message: str
@@ -369,7 +368,7 @@ class Function:
 @dataclass
 class ListCronsResponse:
     """
-    List crons response
+    List crons response.
     """
 
     crons: List[Cron]
@@ -380,7 +379,7 @@ class ListCronsResponse:
 @dataclass
 class ListDomainsResponse:
     """
-    List domains response
+    List domains response.
     """
 
     domains: List[Domain]
@@ -391,7 +390,7 @@ class ListDomainsResponse:
 @dataclass
 class ListFunctionRuntimesResponse:
     """
-    List function runtimes response
+    List function runtimes response.
     """
 
     runtimes: List[Runtime]
@@ -402,7 +401,7 @@ class ListFunctionRuntimesResponse:
 @dataclass
 class ListFunctionsResponse:
     """
-    List functions response
+    List functions response.
     """
 
     functions: List[Function]
@@ -413,7 +412,7 @@ class ListFunctionsResponse:
 @dataclass
 class ListLogsResponse:
     """
-    List logs response
+    List logs response.
     """
 
     logs: List[Log]
@@ -424,7 +423,7 @@ class ListLogsResponse:
 @dataclass
 class ListNamespacesResponse:
     """
-    List namespaces response
+    List namespaces response.
     """
 
     namespaces: List[Namespace]
@@ -449,7 +448,7 @@ class ListTriggersResponse:
 @dataclass
 class Log:
     """
-    Log
+    Log.
     """
 
     message: str
@@ -460,24 +459,24 @@ class Log:
 
     level: str
     """
-    Contains the severity of the log (info, debug, error, ...)
+    Contains the severity of the log (info, debug, error, ...).
     """
 
     source: str
     """
-    Source of the log (core runtime or user code)
+    Source of the log (core runtime or user code).
     """
 
     stream: LogStream
     """
-    Can be stdout or stderr
+    Can be stdout or stderr.
     """
 
 
 @dataclass
 class Namespace:
     """
-    Namespace
+    Namespace.
     """
 
     id: str
@@ -543,7 +542,7 @@ class SecretHashedValue:
 @dataclass
 class Token:
     """
-    Token
+    Token.
     """
 
     id: str
@@ -673,7 +672,7 @@ class UpdateTriggerRequestSqsClientConfig:
 @dataclass
 class UploadURL:
     """
-    Upload url
+    Upload url.
     """
 
     url: str
@@ -685,7 +684,7 @@ class UploadURL:
 class ListNamespacesRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     page: Optional[int]
@@ -705,7 +704,7 @@ class ListNamespacesRequest:
 class GetNamespaceRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     namespace_id: str
@@ -715,7 +714,7 @@ class GetNamespaceRequest:
 class CreateNamespaceRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     name: Optional[str]
@@ -733,7 +732,7 @@ class CreateNamespaceRequest:
 class UpdateNamespaceRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     namespace_id: str
@@ -749,7 +748,7 @@ class UpdateNamespaceRequest:
 class DeleteNamespaceRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     namespace_id: str
@@ -759,7 +758,7 @@ class DeleteNamespaceRequest:
 class ListFunctionsRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     page: Optional[int]
@@ -781,7 +780,7 @@ class ListFunctionsRequest:
 class GetFunctionRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     function_id: str
@@ -791,7 +790,7 @@ class GetFunctionRequest:
 class CreateFunctionRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     name: Optional[str]
@@ -820,10 +819,9 @@ class CreateFunctionRequest:
 
     http_option: FunctionHttpOption
     """
-    possible values:
+    Possible values:
      - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
      - enabled: Serve both HTTP and HTTPS traffic.
-    
     """
 
 
@@ -831,7 +829,7 @@ class CreateFunctionRequest:
 class UpdateFunctionRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     function_id: str
@@ -860,10 +858,9 @@ class UpdateFunctionRequest:
 
     http_option: FunctionHttpOption
     """
-    possible values:
+    Possible values:
      - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
      - enabled: Serve both HTTP and HTTPS traffic.
-    
     """
 
 
@@ -871,7 +868,7 @@ class UpdateFunctionRequest:
 class DeleteFunctionRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     function_id: str
@@ -881,7 +878,7 @@ class DeleteFunctionRequest:
 class DeployFunctionRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     function_id: str
@@ -891,7 +888,7 @@ class DeployFunctionRequest:
 class ListFunctionRuntimesRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
 
@@ -899,7 +896,7 @@ class ListFunctionRuntimesRequest:
 class GetFunctionUploadURLRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     function_id: str
@@ -911,7 +908,7 @@ class GetFunctionUploadURLRequest:
 class GetFunctionDownloadURLRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     function_id: str
@@ -921,7 +918,7 @@ class GetFunctionDownloadURLRequest:
 class ListCronsRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     page: Optional[int]
@@ -937,7 +934,7 @@ class ListCronsRequest:
 class GetCronRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     cron_id: str
@@ -947,7 +944,7 @@ class GetCronRequest:
 class CreateCronRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     function_id: str
@@ -963,7 +960,7 @@ class CreateCronRequest:
 class UpdateCronRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     cron_id: str
@@ -981,7 +978,7 @@ class UpdateCronRequest:
 class DeleteCronRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     cron_id: str
@@ -991,7 +988,7 @@ class DeleteCronRequest:
 class ListLogsRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     function_id: str
@@ -1007,7 +1004,7 @@ class ListLogsRequest:
 class ListDomainsRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     page: Optional[int]
@@ -1023,7 +1020,7 @@ class ListDomainsRequest:
 class GetDomainRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     domain_id: str
@@ -1033,7 +1030,7 @@ class GetDomainRequest:
 class CreateDomainRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     hostname: str
@@ -1045,7 +1042,7 @@ class CreateDomainRequest:
 class DeleteDomainRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     domain_id: str
@@ -1055,7 +1052,7 @@ class DeleteDomainRequest:
 class IssueJWTRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     function_id: Optional[str]
@@ -1075,7 +1072,7 @@ class IssueJWTRequest:
 class CreateTokenRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     function_id: Optional[str]
@@ -1097,7 +1094,7 @@ class CreateTokenRequest:
 class GetTokenRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     token_id: str
@@ -1107,7 +1104,7 @@ class GetTokenRequest:
 class ListTokensRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     page: Optional[int]
@@ -1125,7 +1122,7 @@ class ListTokensRequest:
 class DeleteTokenRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     token_id: str
@@ -1135,7 +1132,7 @@ class DeleteTokenRequest:
 class CreateTriggerRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     name: str
@@ -1164,7 +1161,7 @@ class CreateTriggerRequest:
 class GetTriggerRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     trigger_id: str
@@ -1174,7 +1171,7 @@ class GetTriggerRequest:
 class ListTriggersRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     page: Optional[int]
@@ -1203,7 +1200,7 @@ class ListTriggersRequest:
 class UpdateTriggerRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     trigger_id: str
@@ -1232,7 +1229,7 @@ class UpdateTriggerRequest:
 class DeleteTriggerRequest:
     region: Optional[Region]
     """
-    Region to target. If none is passed will use default region from the config
+    Region to target. If none is passed will use default region from the config.
     """
 
     trigger_id: str

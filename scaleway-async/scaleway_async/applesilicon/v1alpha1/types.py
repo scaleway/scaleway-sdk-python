@@ -49,177 +49,177 @@ class ServerTypeStock(str, Enum):
 @dataclass
 class ListOSResponse:
     """
-    List os response
+    List os response.
     """
 
     total_count: int
     """
-    Total number of os
+    Total number of os.
     """
 
     os: List[OS]
     """
-    List of OS
+    List of OS.
     """
 
 
 @dataclass
 class ListServerTypesResponse:
     """
-    List server types response
+    List server types response.
     """
 
     server_types: List[ServerType]
     """
-    The available server types
+    The available server types.
     """
 
 
 @dataclass
 class ListServersResponse:
     """
-    List servers response
+    List servers response.
     """
 
     total_count: int
     """
-    The total number of servers
+    The total number of servers.
     """
 
     servers: List[Server]
     """
-    The paginated returned servers
+    The paginated returned servers.
     """
 
 
 @dataclass
 class OS:
     """
-    Os
+    Os.
     """
 
     id: str
     """
-    The OS unique ID
+    The OS unique ID.
     """
 
     name: str
     """
-    The OS name
+    The OS name.
     """
 
     label: str
     """
-    The OS name as it should be displayed
+    The OS name as it should be displayed.
     """
 
     image_url: str
     """
-    URL of the image
+    URL of the image.
     """
 
     compatible_server_types: List[str]
     """
-    List of compatible server types
+    List of compatible server types.
     """
 
 
 @dataclass
 class Server:
     """
-    Server
+    Server.
     """
 
     id: str
     """
-    UUID of the server
+    UUID of the server.
     """
 
     type_: str
     """
-    Type of the server
+    Type of the server.
     """
 
     name: str
     """
-    Name of the server
+    Name of the server.
     """
 
     project_id: str
     """
-    Project this server is associated with
+    Project this server is associated with.
     """
 
     organization_id: str
     """
-    Organization this server is associated with
+    Organization this server is associated with.
     """
 
     ip: str
     """
-    IPv4 address of the server
+    IPv4 address of the server.
     """
 
     vnc_url: str
     """
-    URL of the VNC
+    URL of the VNC.
     """
 
     status: ServerStatus
     """
-    Current status of the server
+    Current status of the server.
     """
 
     created_at: Optional[datetime]
     """
-    The date at which the server was created
+    The date at which the server was created.
     """
 
     updated_at: Optional[datetime]
     """
-    The date at which the server was last updated
+    The date at which the server was last updated.
     """
 
     deletable_at: Optional[datetime]
     """
-    The date at which the server was last deleted
+    The date at which the server was last deleted.
     """
 
     zone: Zone
     """
-    The zone of the server
+    The zone of the server.
     """
 
 
 @dataclass
 class ServerType:
     """
-    Server type
+    Server type.
     """
 
     cpu: Optional[ServerTypeCPU]
     """
-    CPU description
+    CPU description.
     """
 
     disk: Optional[ServerTypeDisk]
     """
-    Size of the local disk of the server
+    Size of the local disk of the server.
     """
 
     name: str
     """
-    Name of the type
+    Name of the type.
     """
 
     memory: Optional[ServerTypeMemory]
     """
-    Size of memory available
+    Size of memory available.
     """
 
     stock: ServerTypeStock
     """
-    Current stock
+    Current stock.
     """
 
     minimum_lease_duration: Optional[str]
@@ -253,7 +253,7 @@ class ServerTypeMemory:
 class ListServerTypesRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
 
@@ -261,12 +261,12 @@ class ListServerTypesRequest:
 class GetServerTypeRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     server_type: str
     """
-    Server type identifier
+    Server type identifier.
     """
 
 
@@ -274,22 +274,22 @@ class GetServerTypeRequest:
 class CreateServerRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     name: Optional[str]
     """
-    Create a server with this given name
+    Create a server with this given name.
     """
 
     project_id: Optional[str]
     """
-    Create a server in the given project ID
+    Create a server in the given project ID.
     """
 
     type_: str
     """
-    Create a server of the given type
+    Create a server of the given type.
     """
 
 
@@ -297,32 +297,32 @@ class CreateServerRequest:
 class ListServersRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     order_by: Optional[ListServersRequestOrderBy]
     """
-    The sort order of the returned servers
+    The sort order of the returned servers.
     """
 
     project_id: Optional[str]
     """
-    List only servers of this project ID
+    List only servers of this project ID.
     """
 
     organization_id: Optional[str]
     """
-    List only servers of this organization ID
+    List only servers of this organization ID.
     """
 
     page: Optional[int]
     """
-    A positive integer to choose the page to return
+    A positive integer to choose the page to return.
     """
 
     page_size: Optional[int]
     """
-    A positive integer lower or equal to 100 to select the number of items to return
+    A positive integer lower or equal to 100 to select the number of items to return.
     """
 
 
@@ -330,27 +330,27 @@ class ListServersRequest:
 class ListOSRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     page: Optional[int]
     """
-    A positive integer to choose the page to return
+    A positive integer to choose the page to return.
     """
 
     page_size: Optional[int]
     """
-    A positive integer lower or equal to 100 to select the number of items to return
+    A positive integer lower or equal to 100 to select the number of items to return.
     """
 
     server_type: Optional[str]
     """
-    List of compatible server type
+    List of compatible server type.
     """
 
     name: Optional[str]
     """
-    Filter os by name (for eg. "11.1" will return "11.1.2" and "11.1" but not "12")
+    Filter os by name (for eg. "11.1" will return "11.1.2" and "11.1" but not "12").
     """
 
 
@@ -358,12 +358,12 @@ class ListOSRequest:
 class GetOSRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     os_id: str
     """
-    UUID of the OS you want to get
+    UUID of the OS you want to get.
     """
 
 
@@ -371,12 +371,12 @@ class GetOSRequest:
 class GetServerRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     server_id: str
     """
-    UUID of the server you want to get
+    UUID of the server you want to get.
     """
 
 
@@ -384,17 +384,17 @@ class GetServerRequest:
 class UpdateServerRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     server_id: str
     """
-    UUID of the server you want to update
+    UUID of the server you want to update.
     """
 
     name: str
     """
-    Updated name for your server
+    Updated name for your server.
     """
 
 
@@ -402,12 +402,12 @@ class UpdateServerRequest:
 class DeleteServerRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     server_id: str
     """
-    UUID of the server you want to delete
+    UUID of the server you want to delete.
     """
 
 
@@ -415,12 +415,12 @@ class DeleteServerRequest:
 class RebootServerRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     server_id: str
     """
-    UUID of the server you want to reboot
+    UUID of the server you want to reboot.
     """
 
 
@@ -428,10 +428,10 @@ class RebootServerRequest:
 class ReinstallServerRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     server_id: str
     """
-    UUID of the server you want to reinstall
+    UUID of the server you want to reinstall.
     """

@@ -228,67 +228,67 @@ class VolumeVolumeType(str, Enum):
 @dataclass
 class Bootscript:
     """
-    Bootscript
+    Bootscript.
     """
 
     bootcmdargs: str
     """
-    The bootscript arguments
+    The bootscript arguments.
     """
 
     default: bool
     """
-    Dispmay if the bootscript is the default bootscript if no other boot option is configured
+    Dispmay if the bootscript is the default bootscript if no other boot option is configured.
     """
 
     dtb: str
     """
-    Provide information regarding a Device Tree Binary (dtb) for use with C1 servers
+    Provide information regarding a Device Tree Binary (dtb) for use with C1 servers.
     """
 
     id: str
     """
-    The bootscript ID
+    The bootscript ID.
     """
 
     initrd: str
     """
-    The initrd (initial ramdisk) configuration
+    The initrd (initial ramdisk) configuration.
     """
 
     kernel: str
     """
-    The server kernel version
+    The server kernel version.
     """
 
     organization: str
     """
-    The bootscript organization ID
+    The bootscript organization ID.
     """
 
     project: str
     """
-    The bootscript project ID
+    The bootscript project ID.
     """
 
     public: bool
     """
-    Provide information if the bootscript is public
+    Provide information if the bootscript is public.
     """
 
     title: str
     """
-    The bootscript title
+    The bootscript title.
     """
 
     arch: Arch
     """
-    The bootscript arch
+    The bootscript arch.
     """
 
     zone: Zone
     """
-    The zone in which is the bootscript
+    The zone in which is the bootscript.
     """
 
 
@@ -505,68 +505,68 @@ class Ip:
 @dataclass
 class ListBootscriptsResponse:
     """
-    List bootscripts response
+    List bootscripts response.
     """
 
     total_count: int
     """
-    Total number of bootscripts
+    Total number of bootscripts.
     """
 
     bootscripts: List[Bootscript]
     """
-    List of bootscripts
+    List of bootscripts.
     """
 
 
 @dataclass
 class ListImagesResponse:
     """
-    List images response
+    List images response.
     """
 
     total_count: int
     """
-    Total number of images
+    Total number of images.
     """
 
     images: List[Image]
     """
-    List of images
+    List of images.
     """
 
 
 @dataclass
 class ListIpsResponse:
     """
-    List ips response
+    List ips response.
     """
 
     total_count: int
     """
-    Total number of ips
+    Total number of ips.
     """
 
     ips: List[Ip]
     """
-    List of ips
+    List of ips.
     """
 
 
 @dataclass
 class ListPlacementGroupsResponse:
     """
-    List placement groups response
+    List placement groups response.
     """
 
     total_count: int
     """
-    Total number of placement groups
+    Total number of placement groups.
     """
 
     placement_groups: List[PlacementGroup]
     """
-    List of placement groups
+    List of placement groups.
     """
 
 
@@ -580,34 +580,34 @@ class ListPrivateNICsResponse:
 @dataclass
 class ListSecurityGroupRulesResponse:
     """
-    List security group rules response
+    List security group rules response.
     """
 
     total_count: int
     """
-    Total number of security groups
+    Total number of security groups.
     """
 
     rules: List[SecurityGroupRule]
     """
-    List of security rules
+    List of security rules.
     """
 
 
 @dataclass
 class ListSecurityGroupsResponse:
     """
-    List security groups response
+    List security groups response.
     """
 
     total_count: int
     """
-    Total number of security groups
+    Total number of security groups.
     """
 
     security_groups: List[SecurityGroup]
     """
-    List of security groups
+    List of security groups.
     """
 
 
@@ -624,137 +624,137 @@ class ListServerUserDataResponse:
 @dataclass
 class ListServersResponse:
     """
-    List servers response
+    List servers response.
     """
 
     total_count: int
     """
-    Total number of servers
+    Total number of servers.
     """
 
     servers: List[Server]
     """
-    List of servers
+    List of servers.
     """
 
 
 @dataclass
 class ListServersTypesResponse:
     """
-    List servers types response
+    List servers types response.
     """
 
     total_count: int
     """
-    Total number of server types
+    Total number of server types.
     """
 
     servers: Dict[str, ServerType]
     """
-    List of server types
+    List of server types.
     """
 
 
 @dataclass
 class ListSnapshotsResponse:
     """
-    List snapshots response
+    List snapshots response.
     """
 
     total_count: int
     """
-    Total number of snapshots
+    Total number of snapshots.
     """
 
     snapshots: List[Snapshot]
     """
-    List of snapshots
+    List of snapshots.
     """
 
 
 @dataclass
 class ListVolumesResponse:
     """
-    List volumes response
+    List volumes response.
     """
 
     total_count: int
     """
-    Total number of volumes
+    Total number of volumes.
     """
 
     volumes: List[Volume]
     """
-    List of volumes
+    List of volumes.
     """
 
 
 @dataclass
 class ListVolumesTypesResponse:
     """
-    List volumes types response
+    List volumes types response.
     """
 
     total_count: int
     """
-    Total number of volume types
+    Total number of volume types.
     """
 
     volumes: Dict[str, VolumeType]
     """
-    Map of volume types
+    Map of volume types.
     """
 
 
 @dataclass
 class PlacementGroup:
     """
-    Placement group
+    Placement group.
     """
 
     id: str
     """
-    The placement group unique ID
+    The placement group unique ID.
     """
 
     name: str
     """
-    The placement group name
+    The placement group name.
     """
 
     organization: str
     """
-    The placement group organization ID
+    The placement group organization ID.
     """
 
     project: str
     """
-    The placement group project ID
+    The placement group project ID.
     """
 
     tags: List[str]
     """
-    The placement group tags
+    The placement group tags.
     """
 
     policy_mode: PlacementGroupPolicyMode
     """
-    Select the failling mode when the placement cannot be respected, either optional or enforced
+    Select the failling mode when the placement cannot be respected, either optional or enforced.
     """
 
     policy_type: PlacementGroupPolicyType
     """
-    Select the behavior of the placement group, either low_latency (group) or max_availability (spread)
+    Select the behavior of the placement group, either low_latency (group) or max_availability (spread).
     """
 
     policy_respected: bool
     """
-    Returns true if the policy is respected, false otherwise
+    Returns true if the policy is respected, false otherwise.
     """
 
     zone: Zone
     """
-    The zone in which is the placement group
+    The zone in which is the placement group.
     """
 
 
@@ -770,130 +770,130 @@ class PlacementGroupServer:
 @dataclass
 class PrivateNIC:
     """
-    Private nic
+    Private nic.
     """
 
     id: str
     """
-    The private NIC unique ID
+    The private NIC unique ID.
     """
 
     server_id: str
     """
-    The server the private NIC is attached to
+    The server the private NIC is attached to.
     """
 
     private_network_id: str
     """
-    The private network where the private NIC is attached
+    The private network where the private NIC is attached.
     """
 
     mac_address: str
     """
-    The private NIC MAC address
+    The private NIC MAC address.
     """
 
     state: PrivateNICState
     """
-    The private NIC state
+    The private NIC state.
     """
 
     tags: List[str]
     """
-    The private NIC tags
+    The private NIC tags.
     """
 
 
 @dataclass
 class SecurityGroup:
     """
-    Security group
+    Security group.
     """
 
     id: str
     """
-    The security groups' unique ID
+    The security groups' unique ID.
     """
 
     name: str
     """
-    The security groups name
+    The security groups name.
     """
 
     description: str
     """
-    The security groups description
+    The security groups description.
     """
 
     enable_default_security: bool
     """
-    True if SMTP is blocked on IPv4 and IPv6
+    True if SMTP is blocked on IPv4 and IPv6.
     """
 
     inbound_default_policy: SecurityGroupPolicy
     """
-    The default inbound policy
+    The default inbound policy.
     """
 
     outbound_default_policy: SecurityGroupPolicy
     """
-    The default outbound policy
+    The default outbound policy.
     """
 
     organization: str
     """
-    The security groups organization ID
+    The security groups organization ID.
     """
 
     project: str
     """
-    The security group project ID
+    The security group project ID.
     """
 
     tags: List[str]
     """
-    The security group tags
+    The security group tags.
     """
 
     organization_default: Optional[bool]
     """
-    True if it is your default security group for this organization ID
+    True if it is your default security group for this organization ID.
     :deprecated
     """
 
     project_default: bool
     """
-    True if it is your default security group for this project ID
+    True if it is your default security group for this project ID.
     """
 
     creation_date: Optional[datetime]
     """
-    The security group creation date
+    The security group creation date.
     """
 
     modification_date: Optional[datetime]
     """
-    The security group modification date
+    The security group modification date.
     """
 
     servers: List[ServerSummary]
     """
-    List of servers attached to this security group
+    List of servers attached to this security group.
     """
 
     stateful: bool
     """
-    True if the security group is stateful
+    True if the security group is stateful.
     """
 
     state: SecurityGroupState
     """
-    Security group state
+    Security group state.
     """
 
     zone: Zone
     """
-    The zone in which is the security group
+    The zone in which is the security group.
     """
 
 
@@ -937,167 +937,166 @@ class SecurityGroupTemplate:
 @dataclass
 class Server:
     """
-    Server
+    Server.
     """
 
     id: str
     """
-    The server unique ID
+    The server unique ID.
     """
 
     name: str
     """
-    The server name
+    The server name.
     """
 
     organization: str
     """
-    The server organization ID
+    The server organization ID.
     """
 
     project: str
     """
-    The server project ID
+    The server project ID.
     """
 
     allowed_actions: List[ServerAction]
     """
-    Provide as list of allowed actions on the server
+    Provide as list of allowed actions on the server.
     """
 
     tags: List[str]
     """
-    The server associated tags
+    The server associated tags.
     """
 
     commercial_type: str
     """
-    The server commercial type (eg. GP1-M)
+    The server commercial type (eg. GP1-M).
     """
 
     creation_date: Optional[datetime]
     """
-    The server creation date
+    The server creation date.
     """
 
     dynamic_ip_required: bool
     """
-    True if a dynamic IP is required
+    True if a dynamic IP is required.
     """
 
     enable_ipv6: bool
     """
-    True if IPv6 is enabled
+    True if IPv6 is enabled.
     """
 
     hostname: str
     """
-    The server host name
+    The server host name.
     """
 
     image: Optional[Image]
     """
-    Provide information on the server image
+    Provide information on the server image.
     """
 
     protected: bool
     """
-    The server protection option is activated
+    The server protection option is activated.
     """
 
     private_ip: Optional[str]
     """
-    The server private IP address
+    The server private IP address.
     """
 
     public_ip: Optional[ServerIp]
     """
-    Information about the public IP
+    Information about the public IP.
     """
 
     modification_date: Optional[datetime]
     """
-    The server modification date
+    The server modification date.
     """
 
     state: ServerState
     """
-    The server state
+    The server state.
     """
 
     location: Optional[ServerLocation]
     """
-    The server location
+    The server location.
     """
 
     ipv6: Optional[ServerIpv6]
     """
-    The server IPv6 address
+    The server IPv6 address.
     """
 
     bootscript: Optional[Bootscript]
     """
-    The server bootscript
+    The server bootscript.
     :deprecated
     """
 
     boot_type: BootType
     """
-    The server boot type
+    The server boot type.
     """
 
     volumes: Dict[str, VolumeServer]
     """
-    The server volumes
+    The server volumes.
     """
 
     security_group: Optional[SecurityGroupSummary]
     """
-    The server security group
+    The server security group.
     """
 
     maintenances: List[ServerMaintenance]
     """
-    The server planned maintenances
+    The server planned maintenances.
     """
 
     state_detail: str
     """
-    The server state_detail
+    The server state_detail.
     """
 
     arch: Arch
     """
-    The server arch
+    The server arch.
     """
 
     placement_group: Optional[PlacementGroup]
     """
-    The server placement group
+    The server placement group.
     """
 
     private_nics: List[PrivateNIC]
     """
-    The server private NICs
+    The server private NICs.
     """
 
     zone: Zone
     """
-    The zone in which is the server
+    The zone in which is the server.
     """
 
 
 @dataclass
 class ServerActionRequestVolumeBackupTemplate:
     """
-    Server action request. volume backup template
+    Server action request. volume backup template.
     """
 
     volume_type: SnapshotVolumeType
     """
     Overrides the volume_type of the snapshot for this volume.
     If omitted, the volume type of the original volume will be used.
-    
     """
 
 
@@ -1109,44 +1108,44 @@ class ServerActionResponse:
 @dataclass
 class ServerIp:
     """
-    Server. ip
+    Server. ip.
     """
 
     id: str
     """
-    The unique ID of the IP address
+    The unique ID of the IP address.
     """
 
     address: str
     """
-    The server public IPv4 IP-Address
+    The server public IPv4 IP-Address.
     """
 
     dynamic: bool
     """
-    True if the IP address is dynamic
+    True if the IP address is dynamic.
     """
 
 
 @dataclass
 class ServerIpv6:
     """
-    Server. ipv6
+    Server. ipv6.
     """
 
     address: str
     """
-    The server IPv6 IP-Address
+    The server IPv6 IP-Address.
     """
 
     gateway: str
     """
-    The IPv6 IP-addresses gateway
+    The IPv6 IP-addresses gateway.
     """
 
     netmask: str
     """
-    The IPv6 IP-addresses CIDR netmask
+    The IPv6 IP-addresses CIDR netmask.
     """
 
 
@@ -1178,158 +1177,158 @@ class ServerSummary:
 @dataclass
 class ServerType:
     """
-    Server type
+    Server type.
     """
 
     monthly_price: Optional[float]
     """
-    Estimated monthly price, for a 30 days month, in Euro
+    Estimated monthly price, for a 30 days month, in Euro.
     :deprecated
     """
 
     hourly_price: float
     """
-    Hourly price in Euro
+    Hourly price in Euro.
     """
 
     alt_names: List[str]
     """
-    Alternative instance name if any
+    Alternative instance name if any.
     """
 
     per_volume_constraint: Optional[ServerTypeVolumeConstraintsByType]
     """
-    Additional volume constraints
+    Additional volume constraints.
     """
 
     volumes_constraint: Optional[ServerTypeVolumeConstraintSizes]
     """
-    Initial volume constraints
+    Initial volume constraints.
     """
 
     ncpus: int
     """
-    Number of CPU
+    Number of CPU.
     """
 
     gpu: Optional[int]
     """
-    Number of GPU
+    Number of GPU.
     """
 
     ram: int
     """
-    Available RAM in bytes
+    Available RAM in bytes.
     """
 
     arch: Arch
     """
-    CPU architecture
+    CPU architecture.
     """
 
     baremetal: bool
     """
-    True if it is a baremetal instance
+    True if it is a baremetal instance.
     """
 
     network: Optional[ServerTypeNetwork]
     """
-    Network available for the instance
+    Network available for the instance.
     """
 
     capabilities: Optional[ServerTypeCapabilities]
     """
-    Capabilities
+    Capabilities.
     """
 
 
 @dataclass
 class ServerTypeCapabilities:
     """
-    Server type. capabilities
+    Server type. capabilities.
     """
 
     block_storage: Optional[bool]
     """
-    True if server supports block storage
+    True if server supports block storage.
     """
 
     boot_types: List[BootType]
     """
-    List of supported boot types
+    List of supported boot types.
     """
 
 
 @dataclass
 class ServerTypeNetwork:
     """
-    Server type. network
+    Server type. network.
     """
 
     interfaces: List[ServerTypeNetworkInterface]
     """
-    List of available network interfaces
+    List of available network interfaces.
     """
 
     sum_internal_bandwidth: Optional[int]
     """
-    Total maximum internal bandwidth in bits per seconds
+    Total maximum internal bandwidth in bits per seconds.
     """
 
     sum_internet_bandwidth: Optional[int]
     """
-    Total maximum internet bandwidth in bits per seconds
+    Total maximum internet bandwidth in bits per seconds.
     """
 
     ipv6_support: bool
     """
-    True if IPv6 is enabled
+    True if IPv6 is enabled.
     """
 
 
 @dataclass
 class ServerTypeNetworkInterface:
     """
-    Server type. network. interface
+    Server type. network. interface.
     """
 
     internal_bandwidth: Optional[int]
     """
-    Maximum internal bandwidth in bits per seconds
+    Maximum internal bandwidth in bits per seconds.
     """
 
     internet_bandwidth: Optional[int]
     """
-    Maximum internet bandwidth in bits per seconds
+    Maximum internet bandwidth in bits per seconds.
     """
 
 
 @dataclass
 class ServerTypeVolumeConstraintSizes:
     """
-    Server type. volume constraint sizes
+    Server type. volume constraint sizes.
     """
 
     min_size: int
     """
-    Minimum volume size in bytes
+    Minimum volume size in bytes.
     """
 
     max_size: int
     """
-    Maximum volume size in bytes
+    Maximum volume size in bytes.
     """
 
 
 @dataclass
 class ServerTypeVolumeConstraintsByType:
     """
-    Server type. volume constraints by type
+    Server type. volume constraints by type.
     """
 
     l_ssd: Optional[ServerTypeVolumeConstraintSizes]
     """
-    Local SSD volumes
+    Local SSD volumes.
     """
 
 
@@ -1346,57 +1345,57 @@ class SetPlacementGroupServersResponse:
 @dataclass
 class SetSecurityGroupRulesRequestRule:
     """
-    Set security group rules request. rule
+    Set security group rules request. rule.
     """
 
     id: Optional[str]
     """
-    UUID of the security rule to update. If no value is provided, a new rule will be created
+    UUID of the security rule to update. If no value is provided, a new rule will be created.
     """
 
     action: SecurityGroupRuleAction
     """
-    Action to apply when the rule matches a packet
+    Action to apply when the rule matches a packet.
     """
 
     protocol: SecurityGroupRuleProtocol
     """
-    Protocol family this rule applies to
+    Protocol family this rule applies to.
     """
 
     direction: SecurityGroupRuleDirection
     """
-    Direction the rule applies to
+    Direction the rule applies to.
     """
 
     ip_range: str
     """
-    The range of IP address this rules applies to
+    The range of IP address this rules applies to.
     """
 
     dest_port_from: Optional[int]
     """
-    Beginning of the range of ports this rule applies to (inclusive). This value will be set to null if protocol is ICMP or ANY
+    Beginning of the range of ports this rule applies to (inclusive). This value will be set to null if protocol is ICMP or ANY.
     """
 
     dest_port_to: Optional[int]
     """
-    End of the range of ports this rule applies to (inclusive). This value will be set to null if protocol is ICMP or ANY, or if it is equal to dest_port_from
+    End of the range of ports this rule applies to (inclusive). This value will be set to null if protocol is ICMP or ANY, or if it is equal to dest_port_from.
     """
 
     position: int
     """
-    Position of this rule in the security group rules list. If several rules are passed with the same position, the resulting order is undefined
+    Position of this rule in the security group rules list. If several rules are passed with the same position, the resulting order is undefined.
     """
 
     editable: Optional[bool]
     """
-    Indicates if this rule is editable. Rules with the value false will be ignored
+    Indicates if this rule is editable. Rules with the value false will be ignored.
     """
 
     zone: Zone
     """
-    Zone of the rule. This field is ignored
+    Zone of the rule. This field is ignored.
     """
 
 
@@ -1408,126 +1407,126 @@ class SetSecurityGroupRulesResponse:
 @dataclass
 class Snapshot:
     """
-    Snapshot
+    Snapshot.
     """
 
     id: str
     """
-    The snapshot ID
+    The snapshot ID.
     """
 
     name: str
     """
-    The snapshot name
+    The snapshot name.
     """
 
     organization: str
     """
-    The snapshot organization ID
+    The snapshot organization ID.
     """
 
     project: str
     """
-    The snapshot project ID
+    The snapshot project ID.
     """
 
     tags: List[str]
     """
-    The snapshot tags
+    The snapshot tags.
     """
 
     volume_type: VolumeVolumeType
     """
-    The snapshot volume type
+    The snapshot volume type.
     """
 
     size: int
     """
-    The snapshot size
+    The snapshot size.
     """
 
     state: SnapshotState
     """
-    The snapshot state
+    The snapshot state.
     """
 
     base_volume: Optional[SnapshotBaseVolume]
     """
-    The volume on which the snapshot is based on
+    The volume on which the snapshot is based on.
     """
 
     creation_date: Optional[datetime]
     """
-    The snapshot creation date
+    The snapshot creation date.
     """
 
     modification_date: Optional[datetime]
     """
-    The snapshot modification date
+    The snapshot modification date.
     """
 
     zone: Zone
     """
-    The snapshot zone
+    The snapshot zone.
     """
 
     error_reason: Optional[str]
     """
-    The reason for the failed snapshot import
+    The reason for the failed snapshot import.
     """
 
 
 @dataclass
 class SnapshotBaseVolume:
     """
-    Snapshot. base volume
+    Snapshot. base volume.
     """
 
     id: str
     """
-    The volume ID on which the snapshot is based on
+    The volume ID on which the snapshot is based on.
     """
 
     name: str
     """
-    The volume name on which the snapshot is based on
+    The volume name on which the snapshot is based on.
     """
 
 
 @dataclass
 class Task:
     """
-    Task
+    Task.
     """
 
     id: str
     """
-    The unique ID of the task
+    The unique ID of the task.
     """
 
     description: str
     """
-    The description of the task
+    The description of the task.
     """
 
     progress: int
     """
-    The progress of the task in percent
+    The progress of the task in percent.
     """
 
     started_at: Optional[datetime]
     """
-    The task start date
+    The task start date.
     """
 
     terminated_at: Optional[datetime]
     """
-    The task end date
+    The task end date.
     """
 
     status: TaskStatus
     """
-    The task status
+    The task status.
     """
 
     href_from: str
@@ -1536,7 +1535,7 @@ class Task:
 
     zone: Zone
     """
-    The zone in which is the task
+    The zone in which is the task.
     """
 
 
@@ -1568,73 +1567,73 @@ class UpdateVolumeResponse:
 @dataclass
 class Volume:
     """
-    Volume
+    Volume.
     """
 
     id: str
     """
-    The volume unique ID
+    The volume unique ID.
     """
 
     name: str
     """
-    The volume name
+    The volume name.
     """
 
     export_uri: Optional[str]
     """
-    Show the volume NBD export URI
+    Show the volume NBD export URI.
     :deprecated
     """
 
     size: int
     """
-    The volume disk size
+    The volume disk size.
     """
 
     volume_type: VolumeVolumeType
     """
-    The volume type
+    The volume type.
     """
 
     creation_date: Optional[datetime]
     """
-    The volume creation date
+    The volume creation date.
     """
 
     modification_date: Optional[datetime]
     """
-    The volume modification date
+    The volume modification date.
     """
 
     organization: str
     """
-    The volume organization ID
+    The volume organization ID.
     """
 
     project: str
     """
-    The volume project ID
+    The volume project ID.
     """
 
     tags: List[str]
     """
-    The volume tags
+    The volume tags.
     """
 
     server: Optional[ServerSummary]
     """
-    The server attached to the volume
+    The server attached to the volume.
     """
 
     state: VolumeState
     """
-    The volume state
+    The volume state.
     """
 
     zone: Zone
     """
-    The zone in which is the volume
+    The zone in which is the volume.
     """
 
 
@@ -1670,47 +1669,47 @@ class VolumeServer:
 @dataclass
 class VolumeServerTemplate:
     """
-    Volume server template
+    Volume server template.
     """
 
     id: str
     """
-    UUID of the volume
+    UUID of the volume.
     """
 
     boot: bool
     """
-    Force the server to boot on this volume
+    Force the server to boot on this volume.
     """
 
     name: str
     """
-    Name of the volume
+    Name of the volume.
     """
 
     size: int
     """
-    Disk size of the volume, must be a multiple of 512
+    Disk size of the volume, must be a multiple of 512.
     """
 
     volume_type: VolumeVolumeType
     """
-    Type of the volume
+    Type of the volume.
     """
 
     base_snapshot: str
     """
-    The ID of the snapshot on which this volume will be based
+    The ID of the snapshot on which this volume will be based.
     """
 
     organization: str
     """
-    Organization ID of the volume
+    Organization ID of the volume.
     """
 
     project: str
     """
-    Project ID of the volume
+    Project ID of the volume.
     """
 
 
@@ -1728,27 +1727,27 @@ class VolumeSummary:
 @dataclass
 class VolumeTemplate:
     """
-    Volume template
+    Volume template.
     """
 
     id: str
     """
-    UUID of the volume
+    UUID of the volume.
     """
 
     name: str
     """
-    Name of the volume
+    Name of the volume.
     """
 
     size: int
     """
-    Disk size of the volume, must be a multiple of 512
+    Disk size of the volume, must be a multiple of 512.
     """
 
     volume_type: VolumeVolumeType
     """
-    Type of the volume
+    Type of the volume.
     """
 
     organization: Optional[str]
@@ -1792,7 +1791,7 @@ class VolumeTypeConstraints:
 class GetServerTypesAvailabilityRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     per_page: Optional[int]
@@ -1804,7 +1803,7 @@ class GetServerTypesAvailabilityRequest:
 class ListServersTypesRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     per_page: Optional[int]
@@ -1816,7 +1815,7 @@ class ListServersTypesRequest:
 class ListVolumesTypesRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     per_page: Optional[int]
@@ -1828,67 +1827,67 @@ class ListVolumesTypesRequest:
 class ListServersRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     per_page: Optional[int]
     """
-    A positive integer lower or equal to 100 to select the number of items to return
+    A positive integer lower or equal to 100 to select the number of items to return.
     """
 
     page: Optional[int]
     """
-    A positive integer to choose the page to return
+    A positive integer to choose the page to return.
     """
 
     organization: Optional[str]
     """
-    List only servers of this organization ID
+    List only servers of this organization ID.
     """
 
     project: Optional[str]
     """
-    List only servers of this project ID
+    List only servers of this project ID.
     """
 
     name: Optional[str]
     """
-    Filter servers by name (for eg. "server1" will return "server100" and "server1" but not "foo")
+    Filter servers by name (for eg. "server1" will return "server100" and "server1" but not "foo").
     """
 
     private_ip: Optional[str]
     """
-    List servers by private_ip
+    List servers by private_ip.
     """
 
     without_ip: Optional[bool]
     """
-    List servers that are not attached to a public IP
+    List servers that are not attached to a public IP.
     """
 
     commercial_type: Optional[str]
     """
-    List servers of this commercial type
+    List servers of this commercial type.
     """
 
     state: Optional[ServerState]
     """
-    List servers in this state
+    List servers in this state.
     """
 
     tags: Optional[List[str]]
     """
-    List servers with these exact tags (to filter with several tags, use commas to separate them)
+    List servers with these exact tags (to filter with several tags, use commas to separate them).
     """
 
     private_network: Optional[str]
     """
-    List servers in this Private Network
+    List servers in this Private Network.
     """
 
     order: Optional[ListServersRequestOrder]
     """
-    Define the order of the returned servers
+    Define the order of the returned servers.
     """
 
 
@@ -1896,7 +1895,7 @@ class ListServersRequest:
 class DeleteServerRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     server_id: str
@@ -1906,12 +1905,12 @@ class DeleteServerRequest:
 class GetServerRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     server_id: str
     """
-    UUID of the server you want to get
+    UUID of the server you want to get.
     """
 
 
@@ -1919,7 +1918,7 @@ class GetServerRequest:
 class ListServerActionsRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     server_id: str
@@ -1929,31 +1928,29 @@ class ListServerActionsRequest:
 class ServerActionRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     server_id: str
     """
-    UUID of the server
+    UUID of the server.
     """
 
     action: ServerAction
     """
-    The action to perform on the server
+    The action to perform on the server.
     """
 
     name: Optional[str]
     """
     The name of the backup you want to create.
     This field should only be specified when performing a backup action.
-    
     """
 
     volumes: Optional[Dict[str, ServerActionRequestVolumeBackupTemplate]]
     """
     For each volume UUID, the snapshot parameters of the volume.
     This field should only be specified when performing a backup action.
-    
     """
 
 
@@ -1961,12 +1958,12 @@ class ServerActionRequest:
 class ListServerUserDataRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     server_id: str
     """
-    UUID of the server
+    UUID of the server.
     """
 
 
@@ -1974,17 +1971,17 @@ class ListServerUserDataRequest:
 class DeleteServerUserDataRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     server_id: str
     """
-    UUID of the server
+    UUID of the server.
     """
 
     key: str
     """
-    Key of the user data to delete
+    Key of the user data to delete.
     """
 
 
@@ -1992,7 +1989,7 @@ class DeleteServerUserDataRequest:
 class ListImagesRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     organization: Optional[str]
@@ -2016,12 +2013,12 @@ class ListImagesRequest:
 class GetImageRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     image_id: str
     """
-    UUID of the image you want to get
+    UUID of the image you want to get.
     """
 
 
@@ -2029,33 +2026,33 @@ class GetImageRequest:
 class CreateImageRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     name: Optional[str]
     """
-    Name of the image
+    Name of the image.
     """
 
     root_volume: str
     """
-    UUID of the snapshot
+    UUID of the snapshot.
     """
 
     arch: Optional[Arch]
     """
-    Architecture of the image
+    Architecture of the image.
     """
 
     default_bootscript: Optional[str]
     """
-    Default bootscript of the image
+    Default bootscript of the image.
     :deprecated
     """
 
     extra_volumes: Optional[Dict[str, VolumeTemplate]]
     """
-    Additional volumes of the image
+    Additional volumes of the image.
     """
 
     organization: Optional[str]
@@ -2075,12 +2072,12 @@ class CreateImageRequest:
 
     tags: Optional[List[str]]
     """
-    The tags of the image
+    The tags of the image.
     """
 
     public: Optional[bool]
     """
-    True to create a public image
+    True to create a public image.
     """
 
 
@@ -2088,12 +2085,12 @@ class CreateImageRequest:
 class DeleteImageRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     image_id: str
     """
-    UUID of the image you want to delete
+    UUID of the image you want to delete.
     """
 
 
@@ -2101,7 +2098,7 @@ class DeleteImageRequest:
 class ListSnapshotsRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     organization: Optional[str]
@@ -2121,22 +2118,22 @@ class ListSnapshotsRequest:
 class CreateSnapshotRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     name: Optional[str]
     """
-    Name of the snapshot
+    Name of the snapshot.
     """
 
     volume_id: Optional[str]
     """
-    UUID of the volume
+    UUID of the volume.
     """
 
     tags: Optional[List[str]]
     """
-    The tags of the snapshot
+    The tags of the snapshot.
     """
 
     organization: Optional[str]
@@ -2158,22 +2155,21 @@ class CreateSnapshotRequest:
     """
     Overrides the volume_type of the snapshot.
     If omitted, the volume type of the original volume will be used.
-    
     """
 
     bucket: Optional[str]
     """
-    Bucket name for snapshot imports
+    Bucket name for snapshot imports.
     """
 
     key: Optional[str]
     """
-    Object key for snapshot imports
+    Object key for snapshot imports.
     """
 
     size: Optional[int]
     """
-    Imported snapshot size, must be a multiple of 512
+    Imported snapshot size, must be a multiple of 512.
     """
 
 
@@ -2181,12 +2177,12 @@ class CreateSnapshotRequest:
 class GetSnapshotRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     snapshot_id: str
     """
-    UUID of the snapshot you want to get
+    UUID of the snapshot you want to get.
     """
 
 
@@ -2194,12 +2190,12 @@ class GetSnapshotRequest:
 class DeleteSnapshotRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     snapshot_id: str
     """
-    UUID of the snapshot you want to delete
+    UUID of the snapshot you want to delete.
     """
 
 
@@ -2207,22 +2203,22 @@ class DeleteSnapshotRequest:
 class ExportSnapshotRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     snapshot_id: str
     """
-    The snapshot ID
+    The snapshot ID.
     """
 
     bucket: str
     """
-    S3 bucket name
+    S3 bucket name.
     """
 
     key: str
     """
-    S3 object key
+    S3 object key.
     """
 
 
@@ -2230,42 +2226,42 @@ class ExportSnapshotRequest:
 class ListVolumesRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     volume_type: Optional[VolumeVolumeType]
     """
-    Filter by volume type
+    Filter by volume type.
     """
 
     per_page: Optional[int]
     """
-    A positive integer lower or equal to 100 to select the number of items to return
+    A positive integer lower or equal to 100 to select the number of items to return.
     """
 
     page: Optional[int]
     """
-    A positive integer to choose the page to return
+    A positive integer to choose the page to return.
     """
 
     organization: Optional[str]
     """
-    Filter volume by organization ID
+    Filter volume by organization ID.
     """
 
     project: Optional[str]
     """
-    Filter volume by project ID
+    Filter volume by project ID.
     """
 
     tags: Optional[List[str]]
     """
-    Filter volumes with these exact tags (to filter with several tags, use commas to separate them)
+    Filter volumes with these exact tags (to filter with several tags, use commas to separate them).
     """
 
     name: Optional[str]
     """
-    Filter volume by name (for eg. "vol" will return "myvolume" but not "data")
+    Filter volume by name (for eg. "vol" will return "myvolume" but not "data").
     """
 
 
@@ -2273,12 +2269,12 @@ class ListVolumesRequest:
 class CreateVolumeRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     name: Optional[str]
     """
-    The volume name
+    The volume name.
     """
 
     organization: Optional[str]
@@ -2298,12 +2294,12 @@ class CreateVolumeRequest:
 
     tags: Optional[List[str]]
     """
-    The volume tags
+    The volume tags.
     """
 
     volume_type: VolumeVolumeType
     """
-    The volume type
+    The volume type.
     """
 
     size: Optional[int]
@@ -2332,12 +2328,12 @@ class CreateVolumeRequest:
 class GetVolumeRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     volume_id: str
     """
-    UUID of the volume you want to get
+    UUID of the volume you want to get.
     """
 
 
@@ -2345,27 +2341,27 @@ class GetVolumeRequest:
 class UpdateVolumeRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     volume_id: str
     """
-    UUID of the volume
+    UUID of the volume.
     """
 
     name: Optional[str]
     """
-    The volume name
+    The volume name.
     """
 
     tags: Optional[List[str]]
     """
-    The tags of the volume
+    The tags of the volume.
     """
 
     size: Optional[int]
     """
-    The volume disk size, must be a multiple of 512
+    The volume disk size, must be a multiple of 512.
     """
 
 
@@ -2373,12 +2369,12 @@ class UpdateVolumeRequest:
 class DeleteVolumeRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     volume_id: str
     """
-    UUID of the volume you want to delete
+    UUID of the volume you want to delete.
     """
 
 
@@ -2386,42 +2382,42 @@ class DeleteVolumeRequest:
 class ListSecurityGroupsRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     name: Optional[str]
     """
-    Name of the security group
+    Name of the security group.
     """
 
     organization: Optional[str]
     """
-    The security group organization ID
+    The security group organization ID.
     """
 
     project: Optional[str]
     """
-    The security group project ID
+    The security group project ID.
     """
 
     tags: Optional[List[str]]
     """
-    List security groups with these exact tags (to filter with several tags, use commas to separate them)
+    List security groups with these exact tags (to filter with several tags, use commas to separate them).
     """
 
     project_default: Optional[bool]
     """
-    Filter security groups with this value for project_default
+    Filter security groups with this value for project_default.
     """
 
     per_page: Optional[int]
     """
-    A positive integer lower or equal to 100 to select the number of items to return
+    A positive integer lower or equal to 100 to select the number of items to return.
     """
 
     page: Optional[int]
     """
-    A positive integer to choose the page to return
+    A positive integer to choose the page to return.
     """
 
 
@@ -2429,17 +2425,17 @@ class ListSecurityGroupsRequest:
 class CreateSecurityGroupRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     name: Optional[str]
     """
-    Name of the security group
+    Name of the security group.
     """
 
     description: str
     """
-    Description of the security group
+    Description of the security group.
     """
 
     organization: Optional[str]
@@ -2459,7 +2455,7 @@ class CreateSecurityGroupRequest:
 
     tags: Optional[List[str]]
     """
-    The tags of the security group
+    The tags of the security group.
     """
 
     organization_default: Optional[bool]
@@ -2479,22 +2475,22 @@ class CreateSecurityGroupRequest:
 
     stateful: bool
     """
-    Whether the security group is stateful or not
+    Whether the security group is stateful or not.
     """
 
     inbound_default_policy: SecurityGroupPolicy
     """
-    Default policy for inbound rules
+    Default policy for inbound rules.
     """
 
     outbound_default_policy: SecurityGroupPolicy
     """
-    Default policy for outbound rules
+    Default policy for outbound rules.
     """
 
     enable_default_security: Optional[bool]
     """
-    True to block SMTP on IPv4 and IPv6
+    True to block SMTP on IPv4 and IPv6.
     """
 
 
@@ -2502,12 +2498,12 @@ class CreateSecurityGroupRequest:
 class GetSecurityGroupRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     security_group_id: str
     """
-    UUID of the security group you want to get
+    UUID of the security group you want to get.
     """
 
 
@@ -2515,12 +2511,12 @@ class GetSecurityGroupRequest:
 class DeleteSecurityGroupRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     security_group_id: str
     """
-    UUID of the security group you want to delete
+    UUID of the security group you want to delete.
     """
 
 
@@ -2528,7 +2524,7 @@ class DeleteSecurityGroupRequest:
 class ListDefaultSecurityGroupRulesRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
 
@@ -2536,22 +2532,22 @@ class ListDefaultSecurityGroupRulesRequest:
 class ListSecurityGroupRulesRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     security_group_id: str
     """
-    UUID of the security group
+    UUID of the security group.
     """
 
     per_page: Optional[int]
     """
-    A positive integer lower or equal to 100 to select the number of items to return
+    A positive integer lower or equal to 100 to select the number of items to return.
     """
 
     page: Optional[int]
     """
-    A positive integer to choose the page to return
+    A positive integer to choose the page to return.
     """
 
 
@@ -2559,12 +2555,12 @@ class ListSecurityGroupRulesRequest:
 class CreateSecurityGroupRuleRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     security_group_id: str
     """
-    UUID of the security group
+    UUID of the security group.
     """
 
     protocol: Optional[SecurityGroupRuleProtocol]
@@ -2577,22 +2573,22 @@ class CreateSecurityGroupRuleRequest:
 
     dest_port_from: Optional[int]
     """
-    The beginning of the range of ports to apply this rule to (inclusive)
+    The beginning of the range of ports to apply this rule to (inclusive).
     """
 
     dest_port_to: Optional[int]
     """
-    The end of the range of ports to apply this rule to (inclusive)
+    The end of the range of ports to apply this rule to (inclusive).
     """
 
     position: int
     """
-    The position of this rule in the security group rules list
+    The position of this rule in the security group rules list.
     """
 
     editable: bool
     """
-    Indicates if this rule is editable (will be ignored)
+    Indicates if this rule is editable (will be ignored).
     """
 
 
@@ -2600,17 +2596,17 @@ class CreateSecurityGroupRuleRequest:
 class SetSecurityGroupRulesRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     security_group_id: str
     """
-    UUID of the security group to update the rules on
+    UUID of the security group to update the rules on.
     """
 
     rules: Optional[List[SetSecurityGroupRulesRequestRule]]
     """
-    List of rules to update in the security group
+    List of rules to update in the security group.
     """
 
 
@@ -2618,7 +2614,7 @@ class SetSecurityGroupRulesRequest:
 class DeleteSecurityGroupRuleRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     security_group_id: str
@@ -2630,7 +2626,7 @@ class DeleteSecurityGroupRuleRequest:
 class GetSecurityGroupRuleRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     security_group_id: str
@@ -2642,37 +2638,37 @@ class GetSecurityGroupRuleRequest:
 class ListPlacementGroupsRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     per_page: Optional[int]
     """
-    A positive integer lower or equal to 100 to select the number of items to return
+    A positive integer lower or equal to 100 to select the number of items to return.
     """
 
     page: Optional[int]
     """
-    A positive integer to choose the page to return
+    A positive integer to choose the page to return.
     """
 
     organization: Optional[str]
     """
-    List only placement groups of this organization ID
+    List only placement groups of this organization ID.
     """
 
     project: Optional[str]
     """
-    List only placement groups of this project ID
+    List only placement groups of this project ID.
     """
 
     tags: Optional[List[str]]
     """
-    List placement groups with these exact tags (to filter with several tags, use commas to separate them)
+    List placement groups with these exact tags (to filter with several tags, use commas to separate them).
     """
 
     name: Optional[str]
     """
-    Filter placement groups by name (for eg. "cluster1" will return "cluster100" and "cluster1" but not "foo")
+    Filter placement groups by name (for eg. "cluster1" will return "cluster100" and "cluster1" but not "foo").
     """
 
 
@@ -2680,12 +2676,12 @@ class ListPlacementGroupsRequest:
 class CreatePlacementGroupRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     name: Optional[str]
     """
-    Name of the placement group
+    Name of the placement group.
     """
 
     organization: Optional[str]
@@ -2705,17 +2701,17 @@ class CreatePlacementGroupRequest:
 
     tags: Optional[List[str]]
     """
-    The tags of the placement group
+    The tags of the placement group.
     """
 
     policy_mode: PlacementGroupPolicyMode
     """
-    The operating mode of the placement group
+    The operating mode of the placement group.
     """
 
     policy_type: PlacementGroupPolicyType
     """
-    The policy type of the placement group
+    The policy type of the placement group.
     """
 
 
@@ -2723,12 +2719,12 @@ class CreatePlacementGroupRequest:
 class GetPlacementGroupRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     placement_group_id: str
     """
-    UUID of the placement group you want to get
+    UUID of the placement group you want to get.
     """
 
 
@@ -2736,7 +2732,7 @@ class GetPlacementGroupRequest:
 class SetPlacementGroupRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     placement_group_id: str
@@ -2758,32 +2754,32 @@ class SetPlacementGroupRequest:
 class UpdatePlacementGroupRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     placement_group_id: str
     """
-    UUID of the placement group
+    UUID of the placement group.
     """
 
     name: Optional[str]
     """
-    Name of the placement group
+    Name of the placement group.
     """
 
     tags: Optional[List[str]]
     """
-    The tags of the placement group
+    The tags of the placement group.
     """
 
     policy_mode: Optional[PlacementGroupPolicyMode]
     """
-    The operating mode of the placement group
+    The operating mode of the placement group.
     """
 
     policy_type: Optional[PlacementGroupPolicyType]
     """
-    The policy type of the placement group
+    The policy type of the placement group.
     """
 
 
@@ -2791,12 +2787,12 @@ class UpdatePlacementGroupRequest:
 class DeletePlacementGroupRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     placement_group_id: str
     """
-    UUID of the placement group you want to delete
+    UUID of the placement group you want to delete.
     """
 
 
@@ -2804,7 +2800,7 @@ class DeletePlacementGroupRequest:
 class GetPlacementGroupServersRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     placement_group_id: str
@@ -2814,7 +2810,7 @@ class GetPlacementGroupServersRequest:
 class SetPlacementGroupServersRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     placement_group_id: str
@@ -2826,12 +2822,12 @@ class SetPlacementGroupServersRequest:
 class UpdatePlacementGroupServersRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     placement_group_id: str
     """
-    UUID of the placement group
+    UUID of the placement group.
     """
 
     servers: List[str]
@@ -2841,37 +2837,37 @@ class UpdatePlacementGroupServersRequest:
 class ListIpsRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     project: Optional[str]
     """
-    The project ID the IPs are reserved in
+    The project ID the IPs are reserved in.
     """
 
     organization: Optional[str]
     """
-    The organization ID the IPs are reserved in
+    The organization ID the IPs are reserved in.
     """
 
     tags: Optional[List[str]]
     """
-    Filter IPs with these exact tags (to filter with several tags, use commas to separate them)
+    Filter IPs with these exact tags (to filter with several tags, use commas to separate them).
     """
 
     name: Optional[str]
     """
-    Filter on the IP address (Works as a LIKE operation on the IP address)
+    Filter on the IP address (Works as a LIKE operation on the IP address).
     """
 
     per_page: Optional[int]
     """
-    A positive integer lower or equal to 100 to select the number of items to return
+    A positive integer lower or equal to 100 to select the number of items to return.
     """
 
     page: Optional[int]
     """
-    A positive integer to choose the page to return
+    A positive integer to choose the page to return.
     """
 
 
@@ -2879,7 +2875,7 @@ class ListIpsRequest:
 class CreateIpRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     organization: Optional[str]
@@ -2899,12 +2895,12 @@ class CreateIpRequest:
 
     tags: Optional[List[str]]
     """
-    The tags of the IP
+    The tags of the IP.
     """
 
     server: Optional[str]
     """
-    UUID of the server you want to attach the IP to
+    UUID of the server you want to attach the IP to.
     """
 
 
@@ -2912,12 +2908,12 @@ class CreateIpRequest:
 class GetIpRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     ip: str
     """
-    The IP ID or address to get
+    The IP ID or address to get.
     """
 
 
@@ -2925,22 +2921,22 @@ class GetIpRequest:
 class UpdateIpRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     ip: str
     """
-    IP ID or IP address
+    IP ID or IP address.
     """
 
     reverse: Optional[str]
     """
-    Reverse domain name
+    Reverse domain name.
     """
 
     tags: Optional[List[str]]
     """
-    An array of keywords you want to tag this IP with
+    An array of keywords you want to tag this IP with.
     """
 
     server: Optional[str]
@@ -2950,12 +2946,12 @@ class UpdateIpRequest:
 class DeleteIpRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     ip: str
     """
-    The ID or the address of the IP to delete
+    The ID or the address of the IP to delete.
     """
 
 
@@ -2963,27 +2959,27 @@ class DeleteIpRequest:
 class ListPrivateNICsRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     server_id: str
     """
-    The server the private NIC is attached to
+    The server the private NIC is attached to.
     """
 
     tags: Optional[List[str]]
     """
-    The private NIC tags
+    The private NIC tags.
     """
 
     per_page: Optional[int]
     """
-    A positive integer lower or equal to 100 to select the number of items to return
+    A positive integer lower or equal to 100 to select the number of items to return.
     """
 
     page: Optional[int]
     """
-    A positive integer to choose the page to return
+    A positive integer to choose the page to return.
     """
 
 
@@ -2991,22 +2987,22 @@ class ListPrivateNICsRequest:
 class CreatePrivateNICRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     server_id: str
     """
-    UUID of the server the private NIC will be attached to
+    UUID of the server the private NIC will be attached to.
     """
 
     private_network_id: str
     """
-    UUID of the private network where the private NIC will be attached
+    UUID of the private network where the private NIC will be attached.
     """
 
     tags: Optional[List[str]]
     """
-    The private NIC tags
+    The private NIC tags.
     """
 
 
@@ -3014,17 +3010,17 @@ class CreatePrivateNICRequest:
 class GetPrivateNICRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     server_id: str
     """
-    The server the private NIC is attached to
+    The server the private NIC is attached to.
     """
 
     private_nic_id: str
     """
-    The private NIC unique ID
+    The private NIC unique ID.
     """
 
 
@@ -3032,22 +3028,22 @@ class GetPrivateNICRequest:
 class UpdatePrivateNICRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     server_id: str
     """
-    UUID of the server the private NIC will be attached to
+    UUID of the server the private NIC will be attached to.
     """
 
     private_nic_id: str
     """
-    The private NIC unique ID
+    The private NIC unique ID.
     """
 
     tags: Optional[List[str]]
     """
-    Tags used to select private NIC/s
+    Tags used to select private NIC/s.
     """
 
 
@@ -3055,17 +3051,17 @@ class UpdatePrivateNICRequest:
 class DeletePrivateNICRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     server_id: str
     """
-    The server the private NIC is attached to
+    The server the private NIC is attached to.
     """
 
     private_nic_id: str
     """
-    The private NIC unique ID
+    The private NIC unique ID.
     """
 
 
@@ -3073,7 +3069,7 @@ class DeletePrivateNICRequest:
 class ListBootscriptsRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     arch: Optional[str]
@@ -3093,7 +3089,7 @@ class ListBootscriptsRequest:
 class GetBootscriptRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     bootscript_id: str
@@ -3103,7 +3099,7 @@ class GetBootscriptRequest:
 class GetDashboardRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     organization: Optional[str]

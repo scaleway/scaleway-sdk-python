@@ -55,12 +55,12 @@ class MarketplaceV2API(API):
     ) -> ListImagesResponse:
         """
         List marketplace images
-        :param page_size: A positive integer lower or equal to 100 to select the number of items to display
-        :param page: A positive integer to choose the page to display
-        :param order_by: Ordering to use
-        :param arch: Choose for which machine architecture to return images
-        :param category: Choose the category of images to get
-        :param include_eol: Choose to include end-of-life images
+        :param page_size: A positive integer lower or equal to 100 to select the number of items to display.
+        :param page: A positive integer to choose the page to display.
+        :param order_by: Ordering to use.
+        :param arch: Choose for which machine architecture to return images.
+        :param category: Choose the category of images to get.
+        :param include_eol: Choose to include end-of-life images.
         :return: :class:`ListImagesResponse <ListImagesResponse>`
 
         Usage:
@@ -97,12 +97,12 @@ class MarketplaceV2API(API):
     ) -> List[Image]:
         """
         List marketplace images
-        :param page_size: A positive integer lower or equal to 100 to select the number of items to display
-        :param page: A positive integer to choose the page to display
-        :param order_by: Ordering to use
-        :param arch: Choose for which machine architecture to return images
-        :param category: Choose the category of images to get
-        :param include_eol: Choose to include end-of-life images
+        :param page_size: A positive integer lower or equal to 100 to select the number of items to display.
+        :param page: A positive integer to choose the page to display.
+        :param order_by: Ordering to use.
+        :param arch: Choose for which machine architecture to return images.
+        :param category: Choose the category of images to get.
+        :param include_eol: Choose to include end-of-life images.
         :return: :class:`List[ListImagesResponse] <List[ListImagesResponse]>`
 
         Usage:
@@ -132,7 +132,7 @@ class MarketplaceV2API(API):
     ) -> Image:
         """
         Get a specific marketplace image
-        :param image_id: Display the image name
+        :param image_id: Display the image name.
         :return: :class:`Image <Image>`
 
         Usage:

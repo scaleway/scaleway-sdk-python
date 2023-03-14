@@ -113,7 +113,7 @@ class ListHumansRequest:
 class GetHumanRequest:
     human_id: str
     """
-    UUID of the human you want to get
+    UUID of the human you want to get.
     """
 
 
@@ -153,7 +153,7 @@ class CreateHumanRequest:
 class UpdateHumanRequest:
     human_id: str
     """
-    UUID of the human you want to update
+    UUID of the human you want to update.
     """
 
     height: Optional[float]
@@ -179,7 +179,7 @@ class UpdateHumanRequest:
 class DeleteHumanRequest:
     human_id: str
     """
-    UUID of the human you want to delete
+    UUID of the human you want to delete.
     """
 
 
@@ -187,7 +187,7 @@ class DeleteHumanRequest:
 class RunHumanRequest:
     human_id: str
     """
-    UUID of the human you want to make run
+    UUID of the human you want to make run.
     """
 
 
@@ -195,6 +195,6 @@ class RunHumanRequest:
 class SmokeHumanRequest:
     human_id: Optional[str]
     """
-    UUID of the human you want to make smoking
+    UUID of the human you want to make smoking.
     :deprecated
     """

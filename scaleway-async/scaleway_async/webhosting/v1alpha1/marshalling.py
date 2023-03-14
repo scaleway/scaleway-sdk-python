@@ -217,6 +217,9 @@ def unmarshal_Offer(data: Any) -> Offer:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("available")
+    args["available"] = field
+
     field = data.get("billing_operation_path")
     args["billing_operation_path"] = field
 
@@ -228,6 +231,9 @@ def unmarshal_Offer(data: Any) -> Offer:
 
     field = data.get("product")
     args["product"] = unmarshal_OfferProduct(field) if field is not None else None
+
+    field = data.get("quota_warnings")
+    args["quota_warnings"] = field
 
     return Offer(**args)
 
