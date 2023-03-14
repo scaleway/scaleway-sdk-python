@@ -193,7 +193,7 @@ class Cluster:
 
     name: str
     """
-    Nqme of the cluster.
+    Name of the cluster.
     """
 
     status: ClusterStatus
@@ -1191,14 +1191,14 @@ class CreateClusterRequest:
 
     project_id: Optional[str]
     """
-    Poject ID in which the cluster will be created.
+    Project ID in which the cluster will be created.
     
     One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
     """
 
     type_: str
     """
-    The type of the cluster (possible values are kapsule, multicloud).
+    Type of the cluster (possible values are kapsule, multicloud).
     """
 
     name: Optional[str]
