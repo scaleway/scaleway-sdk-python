@@ -1434,7 +1434,26 @@ class UpgradeClusterRequest:
     upgrade_pools: bool
     """
     Enablement of the pools upgrade.
-    This field makes the upgrade upgrades the pool once the Kubernetes master in upgrade.
+    This field also trigger pools upgrade once the control plane is upgraded.
+    """
+
+
+@dataclass
+class SetClusterTypeRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    cluster_id: str
+    """
+    ID of the cluster to migrate from one type to another.
+    """
+
+    type_: str
+    """
+    Type of the cluster.
+    Type of the cluster. Note that some migrations are not possible (please refer to product documentation).
     """
 
 

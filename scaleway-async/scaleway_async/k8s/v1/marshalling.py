@@ -45,6 +45,7 @@ from .types import (
     CreateClusterRequest,
     UpdateClusterRequest,
     UpgradeClusterRequest,
+    SetClusterTypeRequest,
     CreatePoolRequest,
     UpgradePoolRequest,
     UpdatePoolRequest,
@@ -788,6 +789,15 @@ def marshal_CreatePoolRequest(
         if request.upgrade_policy is not None
         else None,
         "zone": request.zone or defaults.default_zone,
+    }
+
+
+def marshal_SetClusterTypeRequest(
+    request: SetClusterTypeRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    return {
+        "type": request.type_,
     }
 
 

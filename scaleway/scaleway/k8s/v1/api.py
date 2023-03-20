@@ -50,6 +50,7 @@ from .types import (
     CreateClusterRequest,
     UpdateClusterRequest,
     UpgradeClusterRequest,
+    SetClusterTypeRequest,
     CreatePoolRequest,
     UpgradePoolRequest,
     UpdatePoolRequest,
@@ -62,6 +63,7 @@ from .content import (
 from .marshalling import (
     marshal_CreateClusterRequest,
     marshal_CreatePoolRequest,
+    marshal_SetClusterTypeRequest,
     marshal_UpdateClusterRequest,
     marshal_UpdatePoolRequest,
     marshal_UpgradeClusterRequest,
@@ -492,7 +494,7 @@ class K8SV1API(API):
         :param version: New Kubernetes version of the cluster.
         New Kubernetes version of the cluster. Note that the version shoud either be a higher patch version of the same minor version or the direct minor version after the current one.
         :param upgrade_pools: Enablement of the pools upgrade.
-        This field makes the upgrade upgrades the pool once the Kubernetes master in upgrade.
+        This field also trigger pools upgrade once the control plane is upgraded.
         :return: :class:`Cluster <Cluster>`
 
         Usage:
@@ -518,6 +520,52 @@ class K8SV1API(API):
                     cluster_id=cluster_id,
                     version=version,
                     upgrade_pools=upgrade_pools,
+                    region=region,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Cluster(res.json())
+
+    def set_cluster_type(
+        self,
+        *,
+        cluster_id: str,
+        type_: str,
+        region: Optional[Region] = None,
+    ) -> Cluster:
+        """
+        Change type of a cluster.
+        Change type of a specific Kubernetes cluster.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param cluster_id: ID of the cluster to migrate from one type to another.
+        :param type_: Type of the cluster.
+        Type of the cluster. Note that some migrations are not possible (please refer to product documentation).
+        :return: :class:`Cluster <Cluster>`
+
+        Usage:
+        ::
+
+            result = api.set_cluster_type(
+                cluster_id="example",
+                type_="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_cluster_id = validate_path_param("cluster_id", cluster_id)
+
+        res = self._request(
+            "POST",
+            f"/k8s/v1/regions/{param_region}/clusters/{param_cluster_id}/set-type",
+            body=marshal_SetClusterTypeRequest(
+                SetClusterTypeRequest(
+                    cluster_id=cluster_id,
+                    type_=type_,
                     region=region,
                 ),
                 self.client,
