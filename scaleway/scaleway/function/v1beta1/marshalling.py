@@ -80,6 +80,9 @@ def unmarshal_TriggerMnqNatsClientConfig(data: Any) -> TriggerMnqNatsClientConfi
 
     args: Dict[str, Any] = {}
 
+    field = data.get("mnq_credential_id")
+    args["mnq_credential_id"] = field
+
     field = data.get("mnq_namespace_id")
     args["mnq_namespace_id"] = field
 
@@ -102,6 +105,9 @@ def unmarshal_TriggerMnqSqsClientConfig(data: Any) -> TriggerMnqSqsClientConfig:
         )
 
     args: Dict[str, Any] = {}
+
+    field = data.get("mnq_credential_id")
+    args["mnq_credential_id"] = field
 
     field = data.get("mnq_namespace_id")
     args["mnq_namespace_id"] = field

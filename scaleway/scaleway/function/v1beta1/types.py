@@ -614,6 +614,8 @@ class TriggerMnqNatsClientConfig:
 
     mnq_region: str
 
+    mnq_credential_id: Optional[str]
+
 
 @dataclass
 class TriggerMnqSqsClientConfig:
@@ -624,6 +626,8 @@ class TriggerMnqSqsClientConfig:
     mnq_project_id: str
 
     mnq_region: str
+
+    mnq_credential_id: Optional[str]
 
 
 @dataclass
