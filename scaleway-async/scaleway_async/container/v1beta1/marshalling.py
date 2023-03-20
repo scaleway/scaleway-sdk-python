@@ -487,8 +487,14 @@ def marshal_CreateTokenRequest(
     return {
         **resolve_one_of(
             [
-                OneOfPossibility("container_id", request.container_id),
-                OneOfPossibility("namespace_id", request.namespace_id),
+                OneOfPossibility(
+                    "container_id",
+                    request.container_id if request.container_id is not None else None,
+                ),
+                OneOfPossibility(
+                    "namespace_id",
+                    request.namespace_id if request.namespace_id is not None else None,
+                ),
             ]
         ),
         "description": request.description,

@@ -2238,11 +2238,13 @@ def marshal_VolumeTemplate(
         **resolve_one_of(
             [
                 OneOfPossibility(
-                    "project", request.project, defaults.default_project_id
+                    "project",
+                    request.project if request.project is not None else None,
+                    defaults.default_project_id,
                 ),
                 OneOfPossibility(
                     "organization",
-                    request.organization,
+                    request.organization if request.organization is not None else None,
                     defaults.default_organization_id,
                 ),
             ]
@@ -2262,11 +2264,17 @@ def marshal_CreateImageRequest(
         **resolve_one_of(
             [
                 OneOfPossibility(
-                    "project", request.project, defaults.default_project_id
+                    "project",
+                    request.project or defaults.default_project_id
+                    if request.project is not None
+                    else None,
+                    defaults.default_project_id,
                 ),
                 OneOfPossibility(
                     "organization",
-                    request.organization,
+                    request.organization or defaults.default_organization_id
+                    if request.organization is not None
+                    else None,
                     defaults.default_organization_id,
                 ),
             ]
@@ -2294,11 +2302,17 @@ def marshal_CreateIpRequest(
         **resolve_one_of(
             [
                 OneOfPossibility(
-                    "project", request.project, defaults.default_project_id
+                    "project",
+                    request.project or defaults.default_project_id
+                    if request.project is not None
+                    else None,
+                    defaults.default_project_id,
                 ),
                 OneOfPossibility(
                     "organization",
-                    request.organization,
+                    request.organization or defaults.default_organization_id
+                    if request.organization is not None
+                    else None,
                     defaults.default_organization_id,
                 ),
             ]
@@ -2316,11 +2330,17 @@ def marshal_CreatePlacementGroupRequest(
         **resolve_one_of(
             [
                 OneOfPossibility(
-                    "project", request.project, defaults.default_project_id
+                    "project",
+                    request.project or defaults.default_project_id
+                    if request.project is not None
+                    else None,
+                    defaults.default_project_id,
                 ),
                 OneOfPossibility(
                     "organization",
-                    request.organization,
+                    request.organization or defaults.default_organization_id
+                    if request.organization is not None
+                    else None,
                     defaults.default_organization_id,
                 ),
             ]
@@ -2349,18 +2369,34 @@ def marshal_CreateSecurityGroupRequest(
     return {
         **resolve_one_of(
             [
-                OneOfPossibility("organization_default", request.organization_default),
-                OneOfPossibility("project_default", request.project_default),
+                OneOfPossibility(
+                    "organization_default",
+                    request.organization_default
+                    if request.organization_default is not None
+                    else None,
+                ),
+                OneOfPossibility(
+                    "project_default",
+                    request.project_default
+                    if request.project_default is not None
+                    else None,
+                ),
             ]
         ),
         **resolve_one_of(
             [
                 OneOfPossibility(
-                    "project", request.project, defaults.default_project_id
+                    "project",
+                    request.project or defaults.default_project_id
+                    if request.project is not None
+                    else None,
+                    defaults.default_project_id,
                 ),
                 OneOfPossibility(
                     "organization",
-                    request.organization,
+                    request.organization or defaults.default_organization_id
+                    if request.organization is not None
+                    else None,
                     defaults.default_organization_id,
                 ),
             ]
@@ -2405,11 +2441,17 @@ def marshal_CreateSnapshotRequest(
         **resolve_one_of(
             [
                 OneOfPossibility(
-                    "project", request.project, defaults.default_project_id
+                    "project",
+                    request.project or defaults.default_project_id
+                    if request.project is not None
+                    else None,
+                    defaults.default_project_id,
                 ),
                 OneOfPossibility(
                     "organization",
-                    request.organization,
+                    request.organization or defaults.default_organization_id
+                    if request.organization is not None
+                    else None,
                     defaults.default_organization_id,
                 ),
             ]
@@ -2432,20 +2474,36 @@ def marshal_CreateVolumeRequest(
         **resolve_one_of(
             [
                 OneOfPossibility(
-                    "project", request.project, defaults.default_project_id
+                    "project",
+                    request.project or defaults.default_project_id
+                    if request.project is not None
+                    else None,
+                    defaults.default_project_id,
                 ),
                 OneOfPossibility(
                     "organization",
-                    request.organization,
+                    request.organization or defaults.default_organization_id
+                    if request.organization is not None
+                    else None,
                     defaults.default_organization_id,
                 ),
             ]
         ),
         **resolve_one_of(
             [
-                OneOfPossibility("size", request.size),
-                OneOfPossibility("base_volume", request.base_volume),
-                OneOfPossibility("base_snapshot", request.base_snapshot),
+                OneOfPossibility(
+                    "size", request.size if request.size is not None else None
+                ),
+                OneOfPossibility(
+                    "base_volume",
+                    request.base_volume if request.base_volume is not None else None,
+                ),
+                OneOfPossibility(
+                    "base_snapshot",
+                    request.base_snapshot
+                    if request.base_snapshot is not None
+                    else None,
+                ),
             ]
         ),
         "name": request.name,
@@ -2580,11 +2638,17 @@ def marshal__CreateServerRequest(
         **resolve_one_of(
             [
                 OneOfPossibility(
-                    "project", request.project, defaults.default_project_id
+                    "project",
+                    request.project or defaults.default_project_id
+                    if request.project is not None
+                    else None,
+                    defaults.default_project_id,
                 ),
                 OneOfPossibility(
                     "organization",
-                    request.organization,
+                    request.organization or defaults.default_organization_id
+                    if request.organization is not None
+                    else None,
                     defaults.default_organization_id,
                 ),
             ]

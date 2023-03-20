@@ -598,10 +598,15 @@ def marshal_RuleSpecs(
     return {
         **resolve_one_of(
             [
-                OneOfPossibility("project_ids", request.project_ids),
+                OneOfPossibility(
+                    "project_ids",
+                    request.project_ids if request.project_ids is not None else None,
+                ),
                 OneOfPossibility(
                     "organization_id",
-                    request.organization_id,
+                    request.organization_id
+                    if request.organization_id is not None
+                    else None,
                     defaults.default_organization_id,
                 ),
             ]
@@ -617,8 +622,15 @@ def marshal_AddGroupMemberRequest(
     return {
         **resolve_one_of(
             [
-                OneOfPossibility("user_id", request.user_id),
-                OneOfPossibility("application_id", request.application_id),
+                OneOfPossibility(
+                    "user_id", request.user_id if request.user_id is not None else None
+                ),
+                OneOfPossibility(
+                    "application_id",
+                    request.application_id
+                    if request.application_id is not None
+                    else None,
+                ),
             ]
         ),
     }
@@ -631,8 +643,15 @@ def marshal_CreateAPIKeyRequest(
     return {
         **resolve_one_of(
             [
-                OneOfPossibility("application_id", request.application_id),
-                OneOfPossibility("user_id", request.user_id),
+                OneOfPossibility(
+                    "application_id",
+                    request.application_id
+                    if request.application_id is not None
+                    else None,
+                ),
+                OneOfPossibility(
+                    "user_id", request.user_id if request.user_id is not None else None
+                ),
             ]
         ),
         "default_project_id": request.default_project_id,
@@ -670,10 +689,23 @@ def marshal_CreatePolicyRequest(
     return {
         **resolve_one_of(
             [
-                OneOfPossibility("user_id", request.user_id),
-                OneOfPossibility("group_id", request.group_id),
-                OneOfPossibility("application_id", request.application_id),
-                OneOfPossibility("no_principal", request.no_principal),
+                OneOfPossibility(
+                    "user_id", request.user_id if request.user_id is not None else None
+                ),
+                OneOfPossibility(
+                    "group_id",
+                    request.group_id if request.group_id is not None else None,
+                ),
+                OneOfPossibility(
+                    "application_id",
+                    request.application_id
+                    if request.application_id is not None
+                    else None,
+                ),
+                OneOfPossibility(
+                    "no_principal",
+                    request.no_principal if request.no_principal is not None else None,
+                ),
             ]
         ),
         "description": request.description,
@@ -703,8 +735,15 @@ def marshal_RemoveGroupMemberRequest(
     return {
         **resolve_one_of(
             [
-                OneOfPossibility("user_id", request.user_id),
-                OneOfPossibility("application_id", request.application_id),
+                OneOfPossibility(
+                    "user_id", request.user_id if request.user_id is not None else None
+                ),
+                OneOfPossibility(
+                    "application_id",
+                    request.application_id
+                    if request.application_id is not None
+                    else None,
+                ),
             ]
         ),
     }
@@ -767,10 +806,23 @@ def marshal_UpdatePolicyRequest(
     return {
         **resolve_one_of(
             [
-                OneOfPossibility("user_id", request.user_id),
-                OneOfPossibility("group_id", request.group_id),
-                OneOfPossibility("application_id", request.application_id),
-                OneOfPossibility("no_principal", request.no_principal),
+                OneOfPossibility(
+                    "user_id", request.user_id if request.user_id is not None else None
+                ),
+                OneOfPossibility(
+                    "group_id",
+                    request.group_id if request.group_id is not None else None,
+                ),
+                OneOfPossibility(
+                    "application_id",
+                    request.application_id
+                    if request.application_id is not None
+                    else None,
+                ),
+                OneOfPossibility(
+                    "no_principal",
+                    request.no_principal if request.no_principal is not None else None,
+                ),
             ]
         ),
         "description": request.description,

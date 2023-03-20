@@ -493,8 +493,22 @@ def marshal_EndpointSpec(
     return {
         **resolve_one_of(
             [
-                OneOfPossibility("private_network", request.private_network),
-                OneOfPossibility("public_network", request.public_network),
+                OneOfPossibility(
+                    "private_network",
+                    marshal_EndpointSpecPrivateNetworkSpec(
+                        request.private_network, defaults
+                    )
+                    if request.private_network is not None
+                    else None,
+                ),
+                OneOfPossibility(
+                    "public_network",
+                    marshal_EndpointSpecPublicNetworkSpec(
+                        request.public_network, defaults
+                    )
+                    if request.public_network is not None
+                    else None,
+                ),
             ]
         ),
     }
@@ -562,9 +576,17 @@ def marshal_MigrateClusterRequest(
     return {
         **resolve_one_of(
             [
-                OneOfPossibility("version", request.version),
-                OneOfPossibility("node_type", request.node_type),
-                OneOfPossibility("cluster_size", request.cluster_size),
+                OneOfPossibility(
+                    "version", request.version if request.version is not None else None
+                ),
+                OneOfPossibility(
+                    "node_type",
+                    request.node_type if request.node_type is not None else None,
+                ),
+                OneOfPossibility(
+                    "cluster_size",
+                    request.cluster_size if request.cluster_size is not None else None,
+                ),
             ]
         ),
     }
@@ -616,8 +638,22 @@ def marshal_UpdateEndpointRequest(
     return {
         **resolve_one_of(
             [
-                OneOfPossibility("private_network", request.private_network),
-                OneOfPossibility("public_network", request.public_network),
+                OneOfPossibility(
+                    "private_network",
+                    marshal_EndpointSpecPrivateNetworkSpec(
+                        request.private_network, defaults
+                    )
+                    if request.private_network is not None
+                    else None,
+                ),
+                OneOfPossibility(
+                    "public_network",
+                    marshal_EndpointSpecPublicNetworkSpec(
+                        request.public_network, defaults
+                    )
+                    if request.public_network is not None
+                    else None,
+                ),
             ]
         ),
     }
