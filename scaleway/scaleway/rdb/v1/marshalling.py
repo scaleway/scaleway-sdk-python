@@ -1178,8 +1178,18 @@ def marshal_EndpointSpecPrivateNetwork(
     return {
         **resolve_one_of(
             [
-                OneOfPossibility("service_ip", request.service_ip),
-                OneOfPossibility("ipam_config", request.ipam_config),
+                OneOfPossibility(
+                    "service_ip",
+                    request.service_ip if request.service_ip is not None else None,
+                ),
+                OneOfPossibility(
+                    "ipam_config",
+                    marshal_EndpointSpecPrivateNetworkIpamConfig(
+                        request.ipam_config, defaults
+                    )
+                    if request.ipam_config is not None
+                    else None,
+                ),
             ]
         ),
         "private_network_id": request.private_network_id,
@@ -1200,8 +1210,18 @@ def marshal_ReadReplicaEndpointSpecPrivateNetwork(
     return {
         **resolve_one_of(
             [
-                OneOfPossibility("service_ip", request.service_ip),
-                OneOfPossibility("ipam_config", request.ipam_config),
+                OneOfPossibility(
+                    "service_ip",
+                    request.service_ip if request.service_ip is not None else None,
+                ),
+                OneOfPossibility(
+                    "ipam_config",
+                    marshal_ReadReplicaEndpointSpecPrivateNetworkIpamConfig(
+                        request.ipam_config, defaults
+                    )
+                    if request.ipam_config is not None
+                    else None,
+                ),
             ]
         ),
         "private_network_id": request.private_network_id,
@@ -1225,8 +1245,20 @@ def marshal_EndpointSpec(
     return {
         **resolve_one_of(
             [
-                OneOfPossibility("load_balancer", request.load_balancer),
-                OneOfPossibility("private_network", request.private_network),
+                OneOfPossibility(
+                    "load_balancer",
+                    marshal_EndpointSpecLoadBalancer(request.load_balancer, defaults)
+                    if request.load_balancer is not None
+                    else None,
+                ),
+                OneOfPossibility(
+                    "private_network",
+                    marshal_EndpointSpecPrivateNetwork(
+                        request.private_network, defaults
+                    )
+                    if request.private_network is not None
+                    else None,
+                ),
             ]
         ),
     }
@@ -1259,8 +1291,22 @@ def marshal_ReadReplicaEndpointSpec(
     return {
         **resolve_one_of(
             [
-                OneOfPossibility("direct_access", request.direct_access),
-                OneOfPossibility("private_network", request.private_network),
+                OneOfPossibility(
+                    "direct_access",
+                    marshal_ReadReplicaEndpointSpecDirectAccess(
+                        request.direct_access, defaults
+                    )
+                    if request.direct_access is not None
+                    else None,
+                ),
+                OneOfPossibility(
+                    "private_network",
+                    marshal_ReadReplicaEndpointSpecPrivateNetwork(
+                        request.private_network, defaults
+                    )
+                    if request.private_network is not None
+                    else None,
+                ),
             ]
         ),
     }
@@ -1345,11 +1391,17 @@ def marshal_CreateInstanceRequest(
         **resolve_one_of(
             [
                 OneOfPossibility(
-                    "project_id", request.project_id, defaults.default_project_id
+                    "project_id",
+                    request.project_id or defaults.default_project_id
+                    if request.project_id is not None
+                    else None,
+                    defaults.default_project_id,
                 ),
                 OneOfPossibility(
                     "organization_id",
-                    request.organization_id,
+                    request.organization_id or defaults.default_organization_id
+                    if request.organization_id is not None
+                    else None,
                     defaults.default_organization_id,
                 ),
             ]
@@ -1563,12 +1615,29 @@ def marshal_UpgradeInstanceRequest(
     return {
         **resolve_one_of(
             [
-                OneOfPossibility("node_type", request.node_type),
-                OneOfPossibility("enable_ha", request.enable_ha),
-                OneOfPossibility("volume_size", request.volume_size),
-                OneOfPossibility("volume_type", request.volume_type),
                 OneOfPossibility(
-                    "upgradable_version_id", request.upgradable_version_id
+                    "node_type",
+                    request.node_type if request.node_type is not None else None,
+                ),
+                OneOfPossibility(
+                    "enable_ha",
+                    request.enable_ha if request.enable_ha is not None else None,
+                ),
+                OneOfPossibility(
+                    "volume_size",
+                    request.volume_size if request.volume_size is not None else None,
+                ),
+                OneOfPossibility(
+                    "volume_type",
+                    VolumeType(request.volume_type)
+                    if request.volume_type is not None
+                    else None,
+                ),
+                OneOfPossibility(
+                    "upgradable_version_id",
+                    request.upgradable_version_id
+                    if request.upgradable_version_id is not None
+                    else None,
                 ),
             ]
         ),

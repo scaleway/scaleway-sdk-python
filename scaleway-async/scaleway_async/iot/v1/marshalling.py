@@ -825,7 +825,12 @@ def marshal_CreateHubRequest(
         **resolve_one_of(
             [
                 OneOfPossibility(
-                    "twins_graphite_config", request.twins_graphite_config
+                    "twins_graphite_config",
+                    marshal_HubTwinsGraphiteConfig(
+                        request.twins_graphite_config, defaults
+                    )
+                    if request.twins_graphite_config is not None
+                    else None,
                 ),
             ]
         ),
@@ -860,9 +865,26 @@ def marshal_CreateRouteRequest(
     return {
         **resolve_one_of(
             [
-                OneOfPossibility("s3_config", request.s3_config),
-                OneOfPossibility("db_config", request.db_config),
-                OneOfPossibility("rest_config", request.rest_config),
+                OneOfPossibility(
+                    "s3_config",
+                    marshal_CreateRouteRequestS3Config(request.s3_config, defaults)
+                    if request.s3_config is not None
+                    else None,
+                ),
+                OneOfPossibility(
+                    "db_config",
+                    marshal_CreateRouteRequestDatabaseConfig(
+                        request.db_config, defaults
+                    )
+                    if request.db_config is not None
+                    else None,
+                ),
+                OneOfPossibility(
+                    "rest_config",
+                    marshal_CreateRouteRequestRestConfig(request.rest_config, defaults)
+                    if request.rest_config is not None
+                    else None,
+                ),
             ]
         ),
         "hub_id": request.hub_id,
@@ -935,7 +957,12 @@ def marshal_UpdateHubRequest(
         **resolve_one_of(
             [
                 OneOfPossibility(
-                    "twins_graphite_config", request.twins_graphite_config
+                    "twins_graphite_config",
+                    marshal_HubTwinsGraphiteConfig(
+                        request.twins_graphite_config, defaults
+                    )
+                    if request.twins_graphite_config is not None
+                    else None,
                 ),
             ]
         ),
@@ -954,9 +981,26 @@ def marshal_UpdateRouteRequest(
     return {
         **resolve_one_of(
             [
-                OneOfPossibility("s3_config", request.s3_config),
-                OneOfPossibility("db_config", request.db_config),
-                OneOfPossibility("rest_config", request.rest_config),
+                OneOfPossibility(
+                    "s3_config",
+                    marshal_UpdateRouteRequestS3Config(request.s3_config, defaults)
+                    if request.s3_config is not None
+                    else None,
+                ),
+                OneOfPossibility(
+                    "db_config",
+                    marshal_UpdateRouteRequestDatabaseConfig(
+                        request.db_config, defaults
+                    )
+                    if request.db_config is not None
+                    else None,
+                ),
+                OneOfPossibility(
+                    "rest_config",
+                    marshal_UpdateRouteRequestRestConfig(request.rest_config, defaults)
+                    if request.rest_config is not None
+                    else None,
+                ),
             ]
         ),
         "name": request.name,

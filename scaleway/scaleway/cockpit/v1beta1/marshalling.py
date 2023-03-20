@@ -276,7 +276,12 @@ def marshal_ContactPoint(
     return {
         **resolve_one_of(
             [
-                OneOfPossibility("email", request.email),
+                OneOfPossibility(
+                    "email",
+                    marshal_ContactPointEmail(request.email, defaults)
+                    if request.email is not None
+                    else None,
+                ),
             ]
         ),
     }

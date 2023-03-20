@@ -793,8 +793,14 @@ def marshal_CreateTokenRequest(
     return {
         **resolve_one_of(
             [
-                OneOfPossibility("function_id", request.function_id),
-                OneOfPossibility("namespace_id", request.namespace_id),
+                OneOfPossibility(
+                    "function_id",
+                    request.function_id if request.function_id is not None else None,
+                ),
+                OneOfPossibility(
+                    "namespace_id",
+                    request.namespace_id if request.namespace_id is not None else None,
+                ),
             ]
         ),
         "description": request.description,
@@ -809,9 +815,30 @@ def marshal_CreateTriggerRequest(
     return {
         **resolve_one_of(
             [
-                OneOfPossibility("scw_sqs_config", request.scw_sqs_config),
-                OneOfPossibility("sqs_config", request.sqs_config),
-                OneOfPossibility("scw_nats_config", request.scw_nats_config),
+                OneOfPossibility(
+                    "scw_sqs_config",
+                    marshal_CreateTriggerRequestMnqSqsClientConfig(
+                        request.scw_sqs_config, defaults
+                    )
+                    if request.scw_sqs_config is not None
+                    else None,
+                ),
+                OneOfPossibility(
+                    "sqs_config",
+                    marshal_CreateTriggerRequestSqsClientConfig(
+                        request.sqs_config, defaults
+                    )
+                    if request.sqs_config is not None
+                    else None,
+                ),
+                OneOfPossibility(
+                    "scw_nats_config",
+                    marshal_CreateTriggerRequestMnqNatsClientConfig(
+                        request.scw_nats_config, defaults
+                    )
+                    if request.scw_nats_config is not None
+                    else None,
+                ),
             ]
         ),
         "description": request.description,
@@ -878,9 +905,30 @@ def marshal_UpdateTriggerRequest(
     return {
         **resolve_one_of(
             [
-                OneOfPossibility("scw_sqs_config", request.scw_sqs_config),
-                OneOfPossibility("sqs_config", request.sqs_config),
-                OneOfPossibility("scw_nats_config", request.scw_nats_config),
+                OneOfPossibility(
+                    "scw_sqs_config",
+                    marshal_UpdateTriggerRequestMnqSqsClientConfig(
+                        request.scw_sqs_config, defaults
+                    )
+                    if request.scw_sqs_config is not None
+                    else None,
+                ),
+                OneOfPossibility(
+                    "sqs_config",
+                    marshal_UpdateTriggerRequestSqsClientConfig(
+                        request.sqs_config, defaults
+                    )
+                    if request.sqs_config is not None
+                    else None,
+                ),
+                OneOfPossibility(
+                    "scw_nats_config",
+                    marshal_UpdateTriggerRequestMnqNatsClientConfig(
+                        request.scw_nats_config, defaults
+                    )
+                    if request.scw_nats_config is not None
+                    else None,
+                ),
             ]
         ),
         "description": request.description,

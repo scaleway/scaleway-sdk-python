@@ -573,9 +573,18 @@ def marshal_CreateGatewayNetworkRequest(
     return {
         **resolve_one_of(
             [
-                OneOfPossibility("dhcp_id", request.dhcp_id),
-                OneOfPossibility("dhcp", request.dhcp),
-                OneOfPossibility("address", request.address),
+                OneOfPossibility(
+                    "dhcp_id", request.dhcp_id if request.dhcp_id is not None else None
+                ),
+                OneOfPossibility(
+                    "dhcp",
+                    marshal_CreateDHCPRequest(request.dhcp, defaults)
+                    if request.dhcp is not None
+                    else None,
+                ),
+                OneOfPossibility(
+                    "address", request.address if request.address is not None else None
+                ),
             ]
         ),
         "enable_dhcp": request.enable_dhcp,
@@ -689,8 +698,12 @@ def marshal_UpdateGatewayNetworkRequest(
     return {
         **resolve_one_of(
             [
-                OneOfPossibility("dhcp_id", request.dhcp_id),
-                OneOfPossibility("address", request.address),
+                OneOfPossibility(
+                    "dhcp_id", request.dhcp_id if request.dhcp_id is not None else None
+                ),
+                OneOfPossibility(
+                    "address", request.address if request.address is not None else None
+                ),
             ]
         ),
         "enable_dhcp": request.enable_dhcp,

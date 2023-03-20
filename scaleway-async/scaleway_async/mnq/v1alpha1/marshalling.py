@@ -246,7 +246,12 @@ def marshal_CreateCredentialRequest(
     return {
         **resolve_one_of(
             [
-                OneOfPossibility("permissions", request.permissions),
+                OneOfPossibility(
+                    "permissions",
+                    marshal_Permissions(request.permissions, defaults)
+                    if request.permissions is not None
+                    else None,
+                ),
             ]
         ),
         "name": request.name,
@@ -274,7 +279,12 @@ def marshal_UpdateCredentialRequest(
     return {
         **resolve_one_of(
             [
-                OneOfPossibility("permissions", request.permissions),
+                OneOfPossibility(
+                    "permissions",
+                    marshal_Permissions(request.permissions, defaults)
+                    if request.permissions is not None
+                    else None,
+                ),
             ]
         ),
         "name": request.name,
