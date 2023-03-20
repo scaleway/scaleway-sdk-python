@@ -7,11 +7,10 @@ from dataclasses import dataclass
 from typing import Optional, Type, TypeVar
 
 import yaml
-
 from scaleway_core import __version__
 from scaleway_core.profile.file import CONFIG_PROPERTIES_TO_PROFILE
 
-from .env import ENV_KEY_SCW_CONFIG_PATH, ENV_VARIABLES_TO_PROFILE
+from .env import ENV_KEY_SCW_CONFIG_PATH, ENV_KEY_SCW_PROFILE, ENV_VARIABLES_TO_PROFILE
 
 
 @dataclass
@@ -176,7 +175,7 @@ class Profile(ProfileDefaults, ProfileConfig):
     def from_config_file_and_env(
         cls: Type[ProfileSelf],
         filepath: Optional[str] = None,
-        profile_name: Optional[str] = "default",
+        profile_name: Optional[str] = os.environ.get(ENV_KEY_SCW_PROFILE, "default"),
     ) -> ProfileSelf:
         """
         Loads profile from a config file and environment variables.
