@@ -253,7 +253,7 @@ class RdbV1API(API):
     ) -> ListNodeTypesResponse:
         """
         List available node types.
-        List all available node types. By default, the databases returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
+        List all available node types. By default, the node types returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
         :param region: Region to target. If none is passed will use default region from the config.
         :param include_disabled_types: Defines whether or not to include disabled types.
         :param page:
@@ -293,7 +293,7 @@ class RdbV1API(API):
     ) -> List[NodeType]:
         """
         List available node types.
-        List all available node types. By default, the databases returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
+        List all available node types. By default, the node types returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
         :param region: Region to target. If none is passed will use default region from the config.
         :param include_disabled_types: Defines whether or not to include disabled types.
         :param page:
@@ -332,7 +332,7 @@ class RdbV1API(API):
     ) -> ListDatabaseBackupsResponse:
         """
         List database backups.
-        List all backups in a specified zone, for a given Scaleway Organization or Scaleway Project. By default, the backups listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.
+        List all backups in a specified region, for a given Scaleway Organization or Scaleway Project. By default, the backups listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the database backups.
         :param order_by: Criteria to use when ordering database backups listing.
@@ -385,7 +385,7 @@ class RdbV1API(API):
     ) -> List[DatabaseBackup]:
         """
         List database backups.
-        List all backups in a specified zone, for a given Scaleway Organization or Scaleway Project. By default, the backups listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.
+        List all backups in a specified region, for a given Scaleway Organization or Scaleway Project. By default, the backups listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the database backups.
         :param order_by: Criteria to use when ordering database backups listing.
@@ -785,7 +785,7 @@ class RdbV1API(API):
     ) -> ListInstancesResponse:
         """
         List Database Instances.
-        List all Database Instances in the specified zone, for a given Scaleway Organization or Scaleway Project. By default, the Database Instances returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `tags` and `name`. For the `name` parameter, the value you include will be checked against the whole name string to see if it includes the string you put in the parameter.
+        List all Database Instances in the specified region, for a given Scaleway Organization or Scaleway Project. By default, the Database Instances returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `tags` and `name`. For the `name` parameter, the value you include will be checked against the whole name string to see if it includes the string you put in the parameter.
         :param region: Region to target. If none is passed will use default region from the config.
         :param tags: List Database Instances that have a given tag.
         :param name: Lists Database Instances that match a name pattern.
@@ -838,7 +838,7 @@ class RdbV1API(API):
     ) -> List[Instance]:
         """
         List Database Instances.
-        List all Database Instances in the specified zone, for a given Scaleway Organization or Scaleway Project. By default, the Database Instances returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `tags` and `name`. For the `name` parameter, the value you include will be checked against the whole name string to see if it includes the string you put in the parameter.
+        List all Database Instances in the specified region, for a given Scaleway Organization or Scaleway Project. By default, the Database Instances returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `tags` and `name`. For the `name` parameter, the value you include will be checked against the whole name string to see if it includes the string you put in the parameter.
         :param region: Region to target. If none is passed will use default region from the config.
         :param tags: List Database Instances that have a given tag.
         :param name: Lists Database Instances that match a name pattern.
@@ -1281,7 +1281,7 @@ class RdbV1API(API):
     ) -> InstanceMetrics:
         """
         Get Database Instance metrics.
-        Retrieve the time series metrics of a give Database Instance. You can define the period from which to retrieve metrics by specifying the `start_date` and `end_date`.
+        Retrieve the time series metrics of a given Database Instance. You can define the period from which to retrieve metrics by specifying the `start_date` and `end_date`.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance.
         :param start_date: Start date to gather metrics from.
@@ -2675,7 +2675,7 @@ class RdbV1API(API):
     ) -> ListSnapshotsResponse:
         """
         List snapshots.
-        List snapshots. You can include the `instance_id` or `project_id` in your query to get the list of snaphots for specific Database Instances and/or Projects. By default, the details returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
+        List snapshots. You can include the `instance_id` or `project_id` in your query to get the list of snapshots for specific Database Instances and/or Projects. By default, the details returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the snapshot.
         :param order_by: Criteria to use when ordering snapshot listing.
@@ -2728,7 +2728,7 @@ class RdbV1API(API):
     ) -> List[Snapshot]:
         """
         List snapshots.
-        List snapshots. You can include the `instance_id` or `project_id` in your query to get the list of snaphots for specific Database Instances and/or Projects. By default, the details returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
+        List snapshots. You can include the `instance_id` or `project_id` in your query to get the list of snapshots for specific Database Instances and/or Projects. By default, the details returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the snapshot.
         :param order_by: Criteria to use when ordering snapshot listing.
@@ -3012,7 +3012,7 @@ class RdbV1API(API):
     ) -> Endpoint:
         """
         Create a new Database Instance endpoint.
-        Create a new endpoint for a Database Instance. You can add `load_balacer` and `private_network` specifications to the body of the request. Note that this action replaces your current endpoint, which means you might need to update any environment configurations that point to the old endpoint.
+        Create a new endpoint for a Database Instance. You can add `load_balancer` and `private_network` specifications to the body of the request. Note that this action replaces your current endpoint, which means you might need to update any environment configurations that point to the old endpoint.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance you to which you want to add an endpoint.
         :param endpoint_spec: Specification of the endpoint you want to create.

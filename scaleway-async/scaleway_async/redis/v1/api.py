@@ -103,21 +103,22 @@ class RedisV1API(API):
         cluster_settings: Optional[List[ClusterSetting]] = None,
     ) -> Cluster:
         """
-        Create a cluster.
+        Create a Redis™ Database Instance.
+        Create a new Redis™ Database Instance (Redis™ cluster). You must set the `zone`, `project_id`, `version`, `node_type`, `user_name` and `password` parameters. Optionally you can define `acl_rules`, `endpoints`, `tls_enabled` and `cluster_settings`.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param project_id: The project ID on which to create the cluster.
-        :param name: Name of the cluster.
-        :param version: Redis™ engine version of the cluster.
-        :param tags: Tags to apply to the cluster.
-        :param node_type: Type of node to use for the cluster.
-        :param user_name: Name of the user created when the cluster is created.
+        :param project_id: The Project ID in which to create the Database Instance.
+        :param name: Name of the Database Instance.
+        :param version: Redis™ engine version of the Database Instance.
+        :param tags: Tags to apply to the Database Instance.
+        :param node_type: Type of node to use for the Database Instance.
+        :param user_name: Name of the user created upon Database Instance creation.
         :param password: Password of the user.
-        :param cluster_size: Number of nodes for the cluster.
+        :param cluster_size: Number of nodes in the Redis™ cluster.
         :param acl_rules: List of ACLRuleSpec used to secure your publicly exposed cluster.
-        :param endpoints: Zero or multiple EndpointSpec used to expose your cluster publicly and inside private networks.
+        :param endpoints: Zero or multiple EndpointSpec used to expose your cluster publicly and inside Private Networks.
         Zero or multiple EndpointSpec used to expose your cluster publicly and inside private networks. If no EndpoindSpec is given the cluster will be publicly exposed by default.
         :param tls_enabled: Whether or not TLS is enabled.
-        :param cluster_settings: List of cluster settings to be set at cluster initialisation.
+        :param cluster_settings: List of advanced settings to be set upon Database Instance initialization.
         :return: :class:`Cluster <Cluster>`
 
         Usage:
@@ -171,13 +172,14 @@ class RedisV1API(API):
         password: Optional[str] = None,
     ) -> Cluster:
         """
-        Update a cluster.
+        Update a Redis™ Database Instance.
+        Update the parameters of a Redis™ Database Instance (Redis™ cluster), including `name`, `tags`, `user_name` and `password`.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param cluster_id: UUID of the cluster to update.
-        :param name: Name of the cluster.
-        :param tags: Tags of a given cluster.
-        :param user_name: Name of the cluster user.
-        :param password: Password of the cluster user.
+        :param cluster_id: UUID of the Database Instance to update.
+        :param name: Name of the Database Instance.
+        :param tags: Database Instance tags.
+        :param user_name: Name of the Database Instance user.
+        :param password: Password of the Database Instance user.
         :return: :class:`Cluster <Cluster>`
 
         Usage:
@@ -215,7 +217,8 @@ class RedisV1API(API):
         zone: Optional[Zone] = None,
     ) -> Cluster:
         """
-        Get a cluster.
+        Get a Redis™ Database Instance.
+        Retrieve information about a Redis™ Database Instance (Redis™ cluster). Specify the `cluster_id` and `region` in your request to get information such as `id`, `status`, `version`, `tls_enabled`, `cluster_settings`, `upgradable_versions` and `endpoints` about your cluster in the response.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param cluster_id: UUID of the cluster.
         :return: :class:`Cluster <Cluster>`
@@ -286,14 +289,15 @@ class RedisV1API(API):
         page_size: Optional[int] = None,
     ) -> ListClustersResponse:
         """
-        List clusters.
+        List Redis™ Database Instances.
+        List all Redis™ Database Instances (Redis™ cluster) in the specified zone. By default, the Database Instances returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `tags`, `name`, `organization_id` and `version`.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param tags: Tags of the clusters to filter upon.
-        :param name: Name of the clusters to filter upon.
-        :param order_by: Criteria to use when ordering cluster listing.
-        :param project_id: Project ID to list the cluster of.
-        :param organization_id: Organization ID to list the cluster of.
-        :param version: Version of the clusters to filter upon.
+        :param tags: Filter by Database Instance tags.
+        :param name: Filter by Database Instance names.
+        :param order_by: Criteria to use when ordering the list.
+        :param project_id: Filter by Project ID.
+        :param organization_id: Filter by Organization ID.
+        :param version: Filter by Redis™ engine version.
         :param page:
         :param page_size:
         :return: :class:`ListClustersResponse <ListClustersResponse>`
@@ -339,14 +343,15 @@ class RedisV1API(API):
         page_size: Optional[int] = None,
     ) -> List[Cluster]:
         """
-        List clusters.
+        List Redis™ Database Instances.
+        List all Redis™ Database Instances (Redis™ cluster) in the specified zone. By default, the Database Instances returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `tags`, `name`, `organization_id` and `version`.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param tags: Tags of the clusters to filter upon.
-        :param name: Name of the clusters to filter upon.
-        :param order_by: Criteria to use when ordering cluster listing.
-        :param project_id: Project ID to list the cluster of.
-        :param organization_id: Organization ID to list the cluster of.
-        :param version: Version of the clusters to filter upon.
+        :param tags: Filter by Database Instance tags.
+        :param name: Filter by Database Instance names.
+        :param order_by: Criteria to use when ordering the list.
+        :param project_id: Filter by Project ID.
+        :param organization_id: Filter by Organization ID.
+        :param version: Filter by Redis™ engine version.
         :param page:
         :param page_size:
         :return: :class:`List[ListClustersResponse] <List[ListClustersResponse]>`
@@ -384,17 +389,17 @@ class RedisV1API(API):
         cluster_size: Optional[int] = None,
     ) -> Cluster:
         """
-        Migrate your cluster architecture.
-        Upgrade your Database for Redis® cluster to a new version or scale it vertically / horizontally. Please note: scaling horizontally your Database for Redis® cluster won't renew its TLS certificate. In order to refresh the SSL certificate, you have to use the dedicated api route.
+        Scale up a Redis™ Database Instance.
+        Upgrade your standalone Redis™ Database Instance node, either by upgrading to a bigger node type (vertical scaling) or by adding more nodes to your Database Instance to increase your number of endpoints and distribute cache (horizontal scaling). Note that scaling horizontally your Redis™ Database Instance will not renew its TLS certificate. In order to refresh the TLS certificate, you must use the Renew TLS certificate endpoint.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param cluster_id: UUID of the cluster to update.
-        :param version: Redis™ engine version of the cluster.
+        :param cluster_id: UUID of the Database Instance to update.
+        :param version: Redis™ engine version of the Database Instance.
 
         One-of ('action'): at most one of 'version', 'node_type', 'cluster_size' could be set.
-        :param node_type: Type of node to use for the cluster.
+        :param node_type: Type of node to use for the Database Instance.
 
         One-of ('action'): at most one of 'version', 'node_type', 'cluster_size' could be set.
-        :param cluster_size: Number of nodes for the cluster.
+        :param cluster_size: Number of nodes for the Database Instance.
 
         One-of ('action'): at most one of 'version', 'node_type', 'cluster_size' could be set.
         :return: :class:`Cluster <Cluster>`
@@ -433,9 +438,10 @@ class RedisV1API(API):
         zone: Optional[Zone] = None,
     ) -> Cluster:
         """
-        Delete a cluster.
+        Delete a Redis™ Database Instance.
+        Delete a Redis™ Database Instance (Redis™ cluster), specified by the `region` and `cluster_id` parameters. Deleting a Database Instance is permanent, and cannot be undone. Note that upon deletion all your data will be lost.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param cluster_id: UUID of the cluster to delete.
+        :param cluster_id: UUID of the Database Instance to delete.
         :return: :class:`Cluster <Cluster>`
 
         Usage:
@@ -465,11 +471,12 @@ class RedisV1API(API):
         metric_name: Optional[str] = None,
     ) -> ClusterMetricsResponse:
         """
-        Get metrics of a cluster.
+        Get metrics of a Redis™ Database Instance.
+        Retrieve the metrics of a Redis™ Database Instance (Redis™ cluster). You can define the period from which to retrieve metrics by specifying the `start_date` and `end_date`.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param cluster_id: UUID of the cluster.
-        :param start_at: Start date to gather metrics from.
-        :param end_at: End date to gather metrics from.
+        :param start_at: Start date.
+        :param end_at: End date.
         :param metric_name: Name of the metric to gather.
         :return: :class:`ClusterMetricsResponse <ClusterMetricsResponse>`
 
@@ -505,6 +512,7 @@ class RedisV1API(API):
     ) -> ListNodeTypesResponse:
         """
         List available node types.
+        List all available node types. By default, the node types returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param include_disabled_types: Whether or not to include disabled types.
         :param page:
@@ -542,6 +550,7 @@ class RedisV1API(API):
     ) -> List[NodeType]:
         """
         List available node types.
+        List all available node types. By default, the node types returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param include_disabled_types: Whether or not to include disabled types.
         :param page:
@@ -579,6 +588,7 @@ class RedisV1API(API):
     ) -> ListClusterVersionsResponse:
         """
         List available Redis™ versions.
+        List the Redis™ database engine versions available. You can define additional parameters for your query, such as `include_disabled`, `include_beta`, `include_deprecated` and `version`.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param include_disabled: Whether or not to include disabled Redis™ engine versions.
         :param include_beta: Whether or not to include beta Redis™ engine versions.
@@ -629,6 +639,7 @@ class RedisV1API(API):
     ) -> List[ClusterVersion]:
         """
         List available Redis™ versions.
+        List the Redis™ database engine versions available. You can define additional parameters for your query, such as `include_disabled`, `include_beta`, `include_deprecated` and `version`.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param include_disabled: Whether or not to include disabled Redis™ engine versions.
         :param include_beta: Whether or not to include beta Redis™ engine versions.
@@ -671,6 +682,7 @@ class RedisV1API(API):
     ) -> Optional[ScwFile]:
         """
         Get the TLS certificate of a cluster.
+        Retrieve information about the TLS certificate of a Redis™ Database Instance (Redis™ cluster). Details like name and content are returned in the response.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param cluster_id: UUID of the cluster.
         :return: :class:`Optional[ScwFile] <Optional[ScwFile]>`
@@ -701,6 +713,7 @@ class RedisV1API(API):
     ) -> Cluster:
         """
         Renew the TLS certificate of a cluster.
+        Renew a TLS certificate for a Redis™ Database Instance (Redis™ cluster). Renewing a certificate means that you will not be able to connect to your Database Instance using the previous certificate. You will also need to download and update the new certificate for all database clients.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param cluster_id: UUID of the cluster.
         :return: :class:`Cluster <Cluster>`
@@ -730,10 +743,11 @@ class RedisV1API(API):
         zone: Optional[Zone] = None,
     ) -> ClusterSettingsResponse:
         """
-        Add cluster settings.
+        Add advanced settings.
+        Add an advanced setting to a Redis™ Database Instance (Redis™ cluster). You must set the `name` and the `value` of each setting.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param cluster_id: UUID of the cluster you want to add settings to.
-        :param settings: Settings to add on the cluster.
+        :param cluster_id: UUID of the Database Instance you want to add settings to.
+        :param settings: Settings to add to the cluster.
         :return: :class:`ClusterSettingsResponse <ClusterSettingsResponse>`
 
         Usage:
@@ -772,9 +786,10 @@ class RedisV1API(API):
         zone: Optional[Zone] = None,
     ) -> Cluster:
         """
-        Delete a cluster setting.
+        Delete advanced setting.
+        Delete an advanced setting in a Redis™ Database Instance (Redis™ cluster). You must specify the names of the settings you want to delete in the request body.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param cluster_id: UUID of the cluster where the settings has to be set.
+        :param cluster_id: UUID of the Database Instance where the settings must be set.
         :param setting_name: Setting name to delete.
         :return: :class:`Cluster <Cluster>`
 
@@ -807,10 +822,11 @@ class RedisV1API(API):
         zone: Optional[Zone] = None,
     ) -> ClusterSettingsResponse:
         """
-        Set cluster settings.
+        Set advanced settings.
+        Update an advanced setting for a Redis™ Database Instance (Redis™ cluster). Settings added upon database engine initalization can only be defined once, and cannot, therefore, be updated.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param cluster_id: UUID of the cluster where the settings has to be set.
-        :param settings: Settings to define for the cluster.
+        :param cluster_id: UUID of the Database Instance where the settings must be set.
+        :param settings: Settings to define for the Database Instance.
         :return: :class:`ClusterSettingsResponse <ClusterSettingsResponse>`
 
         Usage:
@@ -849,9 +865,10 @@ class RedisV1API(API):
         zone: Optional[Zone] = None,
     ) -> SetAclRulesResponse:
         """
-        Set ACL rules for a given cluster.
+        Set ACL rules for a cluster.
+        Replace all the ACL rules of a Redis™ Database Instance (Redis™ cluster).
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param cluster_id: UUID of the cluster where the ACL rules has to be set.
+        :param cluster_id: UUID of the Database Instance where the ACL rules have to be set.
         :param acl_rules: ACLs rules to define for the cluster.
         :return: :class:`SetAclRulesResponse <SetAclRulesResponse>`
 
@@ -891,9 +908,10 @@ class RedisV1API(API):
         zone: Optional[Zone] = None,
     ) -> AddAclRulesResponse:
         """
-        Add ACL rules for a given cluster.
+        Add ACL rules for a cluster.
+        Add an additional ACL rule to a Redis™ Database Instance (Redis™ cluster).
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param cluster_id: UUID of the cluster you want to add acl rules to.
+        :param cluster_id: UUID of the Database Instance you want to add ACL rules to.
         :param acl_rules: ACLs rules to add to the cluster.
         :return: :class:`AddAclRulesResponse <AddAclRulesResponse>`
 
@@ -932,9 +950,10 @@ class RedisV1API(API):
         zone: Optional[Zone] = None,
     ) -> Cluster:
         """
-        Delete an ACL rule for a given cluster.
+        Delete an ACL rule for a cluster.
+        Delete an ACL rule of a Redis™ Database Instance (Redis™ cluster). You must specify the `acl_id` of the rule you want to delete in your request.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param acl_id: UUID of the acl rule you want to delete.
+        :param acl_id: UUID of the ACL rule you want to delete.
         :return: :class:`Cluster <Cluster>`
 
         Usage:
@@ -962,8 +981,9 @@ class RedisV1API(API):
     ) -> ACLRule:
         """
         Get an ACL rule.
+        Retrieve information about an ACL rule of a Redis™ Database Instance (Redis™ cluster). You must specify the `acl_id` of the rule in your request.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param acl_id: UUID of the acl rule you want to get.
+        :param acl_id: UUID of the ACL rule you want to get.
         :return: :class:`ACLRule <ACLRule>`
 
         Usage:
@@ -991,10 +1011,11 @@ class RedisV1API(API):
         zone: Optional[Zone] = None,
     ) -> SetEndpointsResponse:
         """
-        Set endpoints for a given cluster.
+        Set endpoints for a cluster.
+        Update an endpoint for a Redis™ Database Instance (Redis™ cluster). You must specify the `cluster_id` and the `endpoints` parameters in your request.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param cluster_id: UUID of the cluster where the endpoints has to be set.
-        :param endpoints: Endpoints to define for the cluster.
+        :param cluster_id: UUID of the Database Instance where the endpoints have to be set.
+        :param endpoints: Endpoints to define for the Database Instance.
         :return: :class:`SetEndpointsResponse <SetEndpointsResponse>`
 
         Usage:
@@ -1033,10 +1054,11 @@ class RedisV1API(API):
         zone: Optional[Zone] = None,
     ) -> AddEndpointsResponse:
         """
-        Add endpoints for a given cluster.
+        Add endpoints for a cluster.
+        Add a new endpoint for a Redis™ Database Instance (Redis™ cluster). You can add `private_network` or `public_network` specifications to the body of the request.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param cluster_id: UUID of the cluster you want to add endpoints to.
-        :param endpoints: Endpoints to add to the cluster.
+        :param cluster_id: UUID of the Database Instance you want to add endpoints to.
+        :param endpoints: Endpoints to add to the Database Instance.
         :return: :class:`AddEndpointsResponse <AddEndpointsResponse>`
 
         Usage:
@@ -1074,7 +1096,8 @@ class RedisV1API(API):
         zone: Optional[Zone] = None,
     ) -> Cluster:
         """
-        Delete an endpoint for a given cluster.
+        Delete an endpoint for a cluster.
+        Delete the endpoint of a Redis™ Database Instance (Redis™ cluster). You must specify the `region` and `endpoint_id` parameters of the endpoint you want to delete. Note that might need to update any environment configurations that point to the deleted endpoint.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param endpoint_id: UUID of the endpoint you want to delete.
         :return: :class:`Cluster <Cluster>`
@@ -1104,6 +1127,7 @@ class RedisV1API(API):
     ) -> Endpoint:
         """
         Get an endpoint.
+        Retrieve information about a Redis™ Database Instance (Redis™ cluster) endpoint. Full details about the endpoint, like `ips`, `port`, `private_network` and `public_network` specifications are returned in the response.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param endpoint_id: UUID of the endpoint you want to get.
         :return: :class:`Endpoint <Endpoint>`

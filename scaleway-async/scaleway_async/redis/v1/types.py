@@ -106,12 +106,12 @@ class AddAclRulesResponse:
 
     acl_rules: List[ACLRule]
     """
-    ACL Rules enabled on the cluster.
+    ACL Rules enabled for the Database Instance.
     """
 
     total_count: int
     """
-    Total count of acl rules of the cluster.
+    Total count of ACL rules of the Database Instance.
     """
 
 
@@ -123,12 +123,12 @@ class AddEndpointsResponse:
 
     endpoints: List[Endpoint]
     """
-    Endpoints defined on the cluster.
+    Endpoints defined on the Database Instance.
     """
 
     total_count: int
     """
-    Total count of endpoints of the cluster.
+    Total count of endpoints of the Database Instance.
     """
 
 
@@ -150,7 +150,7 @@ class AvailableClusterSetting:
 
     type_: AvailableClusterSettingPropertyType
     """
-    Type of the setting.
+    Type of setting.
     """
 
     description: str
@@ -175,7 +175,7 @@ class AvailableClusterSetting:
 
     deprecated: bool
     """
-    Whether the setting is deprecated.
+    Whether or not the setting is deprecated.
     """
 
 
@@ -187,42 +187,42 @@ class Cluster:
 
     id: str
     """
-    UUID of the cluster.
+    UUID of the Database Instance.
     """
 
     name: str
     """
-    Name of the cluster.
+    Name of the Database Instance.
     """
 
     project_id: str
     """
-    Project ID the cluster belongs to.
+    Project ID the Database Instance belongs to.
     """
 
     status: ClusterStatus
     """
-    Status of the cluster.
+    Status of the Database Instance.
     """
 
     version: str
     """
-    Redis™ engine version of the cluster.
+    Redis™ engine version of the Database Instance.
     """
 
     endpoints: List[Endpoint]
     """
-    List of cluster endpoints.
+    List of Database Instance endpoints.
     """
 
     tags: List[str]
     """
-    List of tags applied to the cluster.
+    List of tags applied to the Database Instance.
     """
 
     node_type: str
     """
-    Node type of the cluster.
+    Node type of the Database Instance.
     """
 
     created_at: Optional[datetime]
@@ -242,22 +242,22 @@ class Cluster:
 
     cluster_settings: List[ClusterSetting]
     """
-    List of cluster settings.
+    List of Database Instance settings.
     """
 
     acl_rules: List[ACLRule]
     """
-    List of acl rules.
+    List of ACL rules.
     """
 
     cluster_size: int
     """
-    Number of nodes of the cluster.
+    Number of nodes of the Database Instance cluster.
     """
 
     zone: Zone
     """
-    Zone of the cluster.
+    Zone of the Database Instance.
     """
 
     user_name: str
@@ -267,7 +267,7 @@ class Cluster:
 
     upgradable_versions: List[str]
     """
-    List of versions the cluster can be migrated to.
+    List of engine versions the Database Instance can upgrade to.
     """
 
 
@@ -308,7 +308,7 @@ class ClusterSettingsResponse:
 
     settings: List[ClusterSetting]
     """
-    Settings configured for a given cluster.
+    Settings configured for a given Database Instance.
     """
 
 
@@ -325,12 +325,12 @@ class ClusterVersion:
 
     end_of_life_at: Optional[datetime]
     """
-    End of life date.
+    Date of End of Life.
     """
 
     available_settings: List[AvailableClusterSetting]
     """
-    Cluster settings available to be set.
+    Cluster settings available to be updated.
     """
 
     logo_url: str
@@ -340,7 +340,7 @@ class ClusterVersion:
 
     zone: Zone
     """
-    Zone of the Managed Database for Redis™.
+    Zone of the Redis™ Database Instance.
     """
 
 
@@ -357,7 +357,7 @@ class Endpoint:
 
     private_network: Optional[PrivateNetwork]
     """
-    Private network details.
+    Private Network details.
     
     One-of ('details'): at most one of 'private_network', 'public_network' could be set.
     """
@@ -371,7 +371,7 @@ class Endpoint:
 
     ips: List[str]
     """
-    Lis of IPv4 address of the endpoint.
+    List of IPv4 addresses of the endpoint.
     """
 
     id: str
@@ -388,14 +388,14 @@ class EndpointSpec:
 
     private_network: Optional[EndpointSpecPrivateNetworkSpec]
     """
-    Private network spec details.
+    Private Network specification details.
     
     One-of ('endpoint_type'): at most one of 'private_network', 'public_network' could be set.
     """
 
     public_network: Optional[EndpointSpecPublicNetworkSpec]
     """
-    Public network spec details.
+    Public network specification details.
     
     One-of ('endpoint_type'): at most one of 'private_network', 'public_network' could be set.
     """
@@ -409,12 +409,12 @@ class EndpointSpecPrivateNetworkSpec:
 
     id: str
     """
-    UUID of the private network to be connected to the cluster.
+    UUID of the Private Network to connect to the Database Instance.
     """
 
     service_ips: List[str]
     """
-    Endpoint IPv4 adress with a CIDR notation. You must provide at least one IPv4 per node. Check documentation about IP and subnet limitation.
+    Endpoint IPv4 address with a CIDR notation. You must provide at least one IPv4 per node.
     """
 
 
@@ -433,7 +433,7 @@ class ListClusterVersionsResponse:
 
     versions: List[ClusterVersion]
     """
-    List of the available Redis™ engine versions.
+    List of available Redis™ engine versions.
     """
 
     total_count: int
@@ -450,12 +450,12 @@ class ListClustersResponse:
 
     clusters: List[Cluster]
     """
-    List all clusters.
+    List all Database Instances.
     """
 
     total_count: int
     """
-    Total count of clusters.
+    Total count of Database Instances.
     """
 
 
@@ -467,12 +467,12 @@ class ListNodeTypesResponse:
 
     node_types: List[NodeType]
     """
-    Types of the node.
+    Types of node.
     """
 
     total_count: int
     """
-    Total count of node-types available.
+    Total count of node types available.
     """
 
 
@@ -484,17 +484,17 @@ class NodeType:
 
     name: str
     """
-    Node Type name identifier.
+    Node type name.
     """
 
     stock_status: NodeTypeStock
     """
-    Current stock status for the Node Type.
+    Current stock status of the node type.
     """
 
     description: str
     """
-    Current specs of the offer.
+    Current specifications of the offer.
     """
 
     vcpus: int
@@ -509,17 +509,17 @@ class NodeType:
 
     disabled: bool
     """
-    The Node Type is currently disabled.
+    The node type is currently disabled.
     """
 
     beta: bool
     """
-    The Node Type is currently in beta.
+    The node type is currently in beta.
     """
 
     zone: Zone
     """
-    Zone the Node Type is in.
+    Zone of the node type.
     """
 
 
@@ -531,7 +531,7 @@ class PrivateNetwork:
 
     id: str
     """
-    UUID of the private network.
+    UUID of the Private Network.
     """
 
     service_ips: List[str]
@@ -541,7 +541,7 @@ class PrivateNetwork:
 
     zone: Zone
     """
-    Private network zone.
+    Zone of the Private Network.
     """
 
 
@@ -558,7 +558,7 @@ class SetAclRulesResponse:
 
     acl_rules: List[ACLRule]
     """
-    ACL Rules enabled on the cluster.
+    ACL Rules enabled for the Database Instance.
     """
 
 
@@ -570,7 +570,7 @@ class SetEndpointsResponse:
 
     endpoints: List[Endpoint]
     """
-    Endpoints defined on the cluster.
+    Endpoints defined on the Database Instance.
     """
 
 
@@ -583,32 +583,32 @@ class CreateClusterRequest:
 
     project_id: Optional[str]
     """
-    The project ID on which to create the cluster.
+    The Project ID in which to create the Database Instance.
     """
 
     name: Optional[str]
     """
-    Name of the cluster.
+    Name of the Database Instance.
     """
 
     version: str
     """
-    Redis™ engine version of the cluster.
+    Redis™ engine version of the Database Instance.
     """
 
     tags: Optional[List[str]]
     """
-    Tags to apply to the cluster.
+    Tags to apply to the Database Instance.
     """
 
     node_type: str
     """
-    Type of node to use for the cluster.
+    Type of node to use for the Database Instance.
     """
 
     user_name: str
     """
-    Name of the user created when the cluster is created.
+    Name of the user created upon Database Instance creation.
     """
 
     password: str
@@ -618,7 +618,7 @@ class CreateClusterRequest:
 
     cluster_size: Optional[int]
     """
-    Number of nodes for the cluster.
+    Number of nodes in the Redis™ cluster.
     """
 
     acl_rules: Optional[List[ACLRuleSpec]]
@@ -628,7 +628,7 @@ class CreateClusterRequest:
 
     endpoints: Optional[List[EndpointSpec]]
     """
-    Zero or multiple EndpointSpec used to expose your cluster publicly and inside private networks.
+    Zero or multiple EndpointSpec used to expose your cluster publicly and inside Private Networks.
     Zero or multiple EndpointSpec used to expose your cluster publicly and inside private networks. If no EndpoindSpec is given the cluster will be publicly exposed by default.
     """
 
@@ -639,7 +639,7 @@ class CreateClusterRequest:
 
     cluster_settings: Optional[List[ClusterSetting]]
     """
-    List of cluster settings to be set at cluster initialisation.
+    List of advanced settings to be set upon Database Instance initialization.
     """
 
 
@@ -652,27 +652,27 @@ class UpdateClusterRequest:
 
     cluster_id: str
     """
-    UUID of the cluster to update.
+    UUID of the Database Instance to update.
     """
 
     name: Optional[str]
     """
-    Name of the cluster.
+    Name of the Database Instance.
     """
 
     tags: Optional[List[str]]
     """
-    Tags of a given cluster.
+    Database Instance tags.
     """
 
     user_name: Optional[str]
     """
-    Name of the cluster user.
+    Name of the Database Instance user.
     """
 
     password: Optional[str]
     """
-    Password of the cluster user.
+    Password of the Database Instance user.
     """
 
 
@@ -698,32 +698,32 @@ class ListClustersRequest:
 
     tags: Optional[List[str]]
     """
-    Tags of the clusters to filter upon.
+    Filter by Database Instance tags.
     """
 
     name: Optional[str]
     """
-    Name of the clusters to filter upon.
+    Filter by Database Instance names.
     """
 
     order_by: Optional[ListClustersRequestOrderBy]
     """
-    Criteria to use when ordering cluster listing.
+    Criteria to use when ordering the list.
     """
 
     project_id: Optional[str]
     """
-    Project ID to list the cluster of.
+    Filter by Project ID.
     """
 
     organization_id: Optional[str]
     """
-    Organization ID to list the cluster of.
+    Filter by Organization ID.
     """
 
     version: Optional[str]
     """
-    Version of the clusters to filter upon.
+    Filter by Redis™ engine version.
     """
 
     page: Optional[int]
@@ -740,26 +740,26 @@ class MigrateClusterRequest:
 
     cluster_id: str
     """
-    UUID of the cluster to update.
+    UUID of the Database Instance to update.
     """
 
     version: Optional[str]
     """
-    Redis™ engine version of the cluster.
+    Redis™ engine version of the Database Instance.
     
     One-of ('action'): at most one of 'version', 'node_type', 'cluster_size' could be set.
     """
 
     node_type: Optional[str]
     """
-    Type of node to use for the cluster.
+    Type of node to use for the Database Instance.
     
     One-of ('action'): at most one of 'version', 'node_type', 'cluster_size' could be set.
     """
 
     cluster_size: Optional[int]
     """
-    Number of nodes for the cluster.
+    Number of nodes for the Database Instance.
     
     One-of ('action'): at most one of 'version', 'node_type', 'cluster_size' could be set.
     """
@@ -774,7 +774,7 @@ class DeleteClusterRequest:
 
     cluster_id: str
     """
-    UUID of the cluster to delete.
+    UUID of the Database Instance to delete.
     """
 
 
@@ -792,12 +792,12 @@ class GetClusterMetricsRequest:
 
     start_at: Optional[datetime]
     """
-    Start date to gather metrics from.
+    Start date.
     """
 
     end_at: Optional[datetime]
     """
-    End date to gather metrics from.
+    End date.
     """
 
     metric_name: Optional[str]
@@ -890,12 +890,12 @@ class AddClusterSettingsRequest:
 
     cluster_id: str
     """
-    UUID of the cluster you want to add settings to.
+    UUID of the Database Instance you want to add settings to.
     """
 
     settings: List[ClusterSetting]
     """
-    Settings to add on the cluster.
+    Settings to add to the cluster.
     """
 
 
@@ -908,7 +908,7 @@ class DeleteClusterSettingRequest:
 
     cluster_id: str
     """
-    UUID of the cluster where the settings has to be set.
+    UUID of the Database Instance where the settings must be set.
     """
 
     setting_name: str
@@ -926,12 +926,12 @@ class SetClusterSettingsRequest:
 
     cluster_id: str
     """
-    UUID of the cluster where the settings has to be set.
+    UUID of the Database Instance where the settings must be set.
     """
 
     settings: List[ClusterSetting]
     """
-    Settings to define for the cluster.
+    Settings to define for the Database Instance.
     """
 
 
@@ -944,7 +944,7 @@ class SetAclRulesRequest:
 
     cluster_id: str
     """
-    UUID of the cluster where the ACL rules has to be set.
+    UUID of the Database Instance where the ACL rules have to be set.
     """
 
     acl_rules: List[ACLRuleSpec]
@@ -962,7 +962,7 @@ class AddAclRulesRequest:
 
     cluster_id: str
     """
-    UUID of the cluster you want to add acl rules to.
+    UUID of the Database Instance you want to add ACL rules to.
     """
 
     acl_rules: List[ACLRuleSpec]
@@ -980,7 +980,7 @@ class DeleteAclRuleRequest:
 
     acl_id: str
     """
-    UUID of the acl rule you want to delete.
+    UUID of the ACL rule you want to delete.
     """
 
 
@@ -993,7 +993,7 @@ class GetAclRuleRequest:
 
     acl_id: str
     """
-    UUID of the acl rule you want to get.
+    UUID of the ACL rule you want to get.
     """
 
 
@@ -1006,12 +1006,12 @@ class SetEndpointsRequest:
 
     cluster_id: str
     """
-    UUID of the cluster where the endpoints has to be set.
+    UUID of the Database Instance where the endpoints have to be set.
     """
 
     endpoints: List[EndpointSpec]
     """
-    Endpoints to define for the cluster.
+    Endpoints to define for the Database Instance.
     """
 
 
@@ -1024,12 +1024,12 @@ class AddEndpointsRequest:
 
     cluster_id: str
     """
-    UUID of the cluster you want to add endpoints to.
+    UUID of the Database Instance you want to add endpoints to.
     """
 
     endpoints: List[EndpointSpec]
     """
-    Endpoints to add to the cluster.
+    Endpoints to add to the Database Instance.
     """
 
 
