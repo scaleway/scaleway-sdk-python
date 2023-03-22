@@ -50,17 +50,17 @@ class AccessSecretVersionResponse:
 
     secret_id: str
     """
-    ID of the Secret.
+    ID of the secret.
     """
 
     revision: int
     """
-    Revision of the SecretVersion.
+    Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1.
     """
 
     data: str
     """
-    The base64-encoded secret payload of the SecretVersion.
+    The base64-encoded secret payload of the version.
     """
 
 
@@ -72,12 +72,12 @@ class ListSecretVersionsResponse:
 
     total_count: int
     """
-    Count of all SecretVersions.
+    Number of versions.
     """
 
     versions: List[SecretVersion]
     """
-    Single page of SecretVersions.
+    Single page of versions.
     """
 
 
@@ -89,12 +89,12 @@ class ListSecretsResponse:
 
     total_count: int
     """
-    Count of all Secrets matching the requested criteria.
+    Count of all secrets matching the requested criteria.
     """
 
     secrets: List[Secret]
     """
-    Single page of Secrets matching the requested criteria.
+    Single page of secrets matching the requested criteria.
     """
 
 
@@ -106,54 +106,54 @@ class Secret:
 
     id: str
     """
-    ID of the Secret.
+    ID of the secret.
     """
 
     project_id: str
     """
-    ID of the project containing the Secret.
+    ID of the Project containing the secret.
     """
 
     name: str
     """
-    Name of the Secret.
+    Name of the secret.
     """
 
     status: SecretStatus
     """
-    Current status of the Secret.
-    * `ready`: the Secret is ready.
-    * `locked`: the Secret is locked.
+    Current status of the secret.
+    * `ready`: the secret is ready.
+    * `locked`: the secret is locked.
     """
 
     created_at: Optional[datetime]
     """
-    The time at which the Secret was created.
+    Date and time of the secret's creation.
     """
 
     updated_at: Optional[datetime]
     """
-    The time at which the Secret was updated.
+    Last update of the secret.
     """
 
     tags: List[str]
     """
-    List of tags associated to this Secret.
+    List of the secret's tags.
     """
 
     region: Region
     """
-    Region of the Secret.
+    Region of the secret.
     """
 
     version_count: int
     """
-    The number of versions for this Secret.
+    Number of versions for this secret.
     """
 
     description: Optional[str]
     """
-    Description of the Secret.
+    Updated description of the secret.
     """
 
 
@@ -165,36 +165,36 @@ class SecretVersion:
 
     secret_id: str
     """
-    ID of the Secret.
+    ID of the secret.
     """
 
     revision: int
     """
-    Revision of the SecretVersion.
+    Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1.
     """
 
     status: SecretVersionStatus
     """
-    Current status of the SecretVersion.
-    * `unknown`: the SecretVersion is in an invalid state.
-    * `enabled`: the SecretVersion is accessible.
-    * `disabled`: the SecretVersion is not accessible but can be enabled.
-    * `destroyed`: the SecretVersion is permanently destroyed.
+    Current status of the version.
+    * `unknown`: the version is in an invalid state.
+    * `enabled`: the version is accessible.
+    * `disabled`: the version is not accessible but can be enabled.
+    * `destroyed`: the version is permanently deleted. It is not possible to recover it.
     """
 
     created_at: Optional[datetime]
     """
-    The time at which the SecretVersion was created.
+    Date and time of the version's creation.
     """
 
     updated_at: Optional[datetime]
     """
-    The time at which the SecretVersion was updated.
+    Last update of the version.
     """
 
     description: Optional[str]
     """
-    Description of the SecretVersion.
+    Description of the version.
     """
 
 
@@ -207,22 +207,22 @@ class CreateSecretRequest:
 
     project_id: Optional[str]
     """
-    ID of the project containing the Secret.
+    ID of the Project containing the secret.
     """
 
     name: str
     """
-    Name of the Secret.
+    Name of the secret.
     """
 
     tags: Optional[List[str]]
     """
-    List of tags associated to this Secret.
+    List of the secret's tags.
     """
 
     description: Optional[str]
     """
-    Description of the Secret.
+    Description of the secret.
     """
 
 
@@ -235,7 +235,7 @@ class GetSecretRequest:
 
     secret_id: str
     """
-    ID of the Secret.
+    ID of the secret.
     """
 
 
@@ -248,7 +248,7 @@ class GetSecretByNameRequest:
 
     secret_name: str
     """
-    Name of the Secret.
+    Name of the secret.
     """
 
 
@@ -261,22 +261,22 @@ class UpdateSecretRequest:
 
     secret_id: str
     """
-    ID of the Secret.
+    ID of the secret.
     """
 
     name: Optional[str]
     """
-    New name of the Secret (optional).
+    Secret's updated name (optional).
     """
 
     tags: Optional[List[str]]
     """
-    New list of tags associated to this Secret (optional).
+    Secret's updated list of tags (optional).
     """
 
     description: Optional[str]
     """
-    Description of the Secret.
+    Description of the secret.
     """
 
 
@@ -289,17 +289,17 @@ class ListSecretsRequest:
 
     organization_id: Optional[str]
     """
-    ID of an organization to filter on (optional).
+    Filter by Organization ID (optional).
     """
 
     project_id: Optional[str]
     """
-    ID of a project to filter on (optional).
+    Filter by Project ID (optional).
     """
 
     name: Optional[str]
     """
-    Secret name to filter on (optional).
+    Filter by secret name (optional).
     """
 
     tags: Optional[List[str]]
@@ -323,7 +323,7 @@ class DeleteSecretRequest:
 
     secret_id: str
     """
-    ID of the Secret.
+    ID of the secret.
     """
 
 
@@ -336,17 +336,17 @@ class CreateSecretVersionRequest:
 
     secret_id: str
     """
-    ID of the Secret.
+    ID of the secret.
     """
 
     data: str
     """
-    The base64-encoded secret payload of the SecretVersion.
+    The base64-encoded secret payload of the version.
     """
 
     description: Optional[str]
     """
-    Description of the SecretVersion.
+    Description of the version.
     """
 
 
@@ -359,12 +359,12 @@ class GetSecretVersionRequest:
 
     secret_id: str
     """
-    ID of the Secret.
+    ID of the secret.
     """
 
     revision: str
     """
-    Revision of the SecretVersion (may be a number or "latest").
+    Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
     """
 
 
@@ -377,12 +377,12 @@ class GetSecretVersionByNameRequest:
 
     secret_name: str
     """
-    Name of the Secret.
+    Name of the secret.
     """
 
     revision: str
     """
-    Revision of the SecretVersion (may be a number or "latest").
+    Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
     """
 
 
@@ -395,17 +395,17 @@ class UpdateSecretVersionRequest:
 
     secret_id: str
     """
-    ID of the Secret.
+    ID of the secret.
     """
 
     revision: str
     """
-    Revision of the SecretVersion (may be a number or "latest").
+    Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
     """
 
     description: Optional[str]
     """
-    Description of the SecretVersion.
+    Description of the version.
     """
 
 
@@ -418,7 +418,7 @@ class ListSecretVersionsRequest:
 
     secret_id: str
     """
-    ID of the Secret.
+    ID of the secret.
     """
 
     page: Optional[int]
@@ -440,7 +440,7 @@ class ListSecretVersionsByNameRequest:
 
     secret_name: str
     """
-    Name of the Secret.
+    Name of the secret.
     """
 
     page: Optional[int]
@@ -462,12 +462,12 @@ class DestroySecretVersionRequest:
 
     secret_id: str
     """
-    ID of the Secret.
+    ID of the secret.
     """
 
     revision: str
     """
-    Revision of the SecretVersion (may be a number or "latest").
+    Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
     """
 
 
@@ -480,12 +480,12 @@ class EnableSecretVersionRequest:
 
     secret_id: str
     """
-    ID of the Secret.
+    ID of the secret.
     """
 
     revision: str
     """
-    Revision of the SecretVersion (may be a number or "latest").
+    Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
     """
 
 
@@ -498,12 +498,12 @@ class DisableSecretVersionRequest:
 
     secret_id: str
     """
-    ID of the Secret.
+    ID of the secret.
     """
 
     revision: str
     """
-    Revision of the SecretVersion (may be a number or "latest").
+    Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
     """
 
 
@@ -516,12 +516,12 @@ class AccessSecretVersionRequest:
 
     secret_id: str
     """
-    ID of the Secret.
+    ID of the secret.
     """
 
     revision: str
     """
-    Revision of the SecretVersion (may be a number or "latest").
+    Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
     """
 
 
@@ -534,10 +534,10 @@ class AccessSecretVersionByNameRequest:
 
     secret_name: str
     """
-    Name of the Secret.
+    Name of the secret.
     """
 
     revision: str
     """
-    Revision of the SecretVersion (may be a number or "latest").
+    Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
     """
