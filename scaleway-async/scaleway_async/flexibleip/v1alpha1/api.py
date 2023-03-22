@@ -518,6 +518,12 @@ class FlexibleipV1Alpha1API(API):
         zone: Optional[Zone] = None,
     ) -> FlexibleIP:
         """
+        Move a virtual MAC.
+        Move a Virtual MAC from a given Flexible IP onto another Flexible IP.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param fip_id:
+        :param dst_fip_id:
+        :return: :class:`FlexibleIP <FlexibleIP>`
 
         Usage:
         ::
