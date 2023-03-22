@@ -240,6 +240,9 @@ def unmarshal_Cluster(data: Any) -> Cluster:
     field = data.get("organization_id")
     args["organization_id"] = field
 
+    field = data.get("private_network_id")
+    args["private_network_id"] = field
+
     field = data.get("project_id")
     args["project_id"] = field
 
@@ -759,6 +762,7 @@ def marshal_CreateClusterRequest(
         ]
         if request.pools is not None
         else None,
+        "private_network_id": request.private_network_id,
         "tags": request.tags,
         "type": request.type_,
         "version": request.version,

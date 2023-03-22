@@ -217,6 +217,7 @@ class K8SV1API(API):
             CreateClusterRequestOpenIDConnectConfig
         ] = None,
         apiserver_cert_sans: Optional[List[str]] = None,
+        private_network_id: Optional[str] = None,
     ) -> Cluster:
         """
         Create a new cluster.
@@ -247,6 +248,7 @@ class K8SV1API(API):
         :param open_id_connect_config: ALPHA - OpenID Connect configuration of the cluster.
         This feature is in ALPHA state, it may be deleted or modified. This configuration enables to set the [OpenID Connect configuration](https://kubernetes.io/docs/reference/access-authn-authz/authentication/#openid-connect-tokens) of the Kubernetes API server.
         :param apiserver_cert_sans: Additional Subject Alternative Names for the Kubernetes API server certificate.
+        :param private_network_id: Private network ID for internal cluster communication (cannot be changed later).
         :return: :class:`Cluster <Cluster>`
 
         Usage:
@@ -286,6 +288,7 @@ class K8SV1API(API):
                     admission_plugins=admission_plugins,
                     open_id_connect_config=open_id_connect_config,
                     apiserver_cert_sans=apiserver_cert_sans,
+                    private_network_id=private_network_id,
                 ),
                 self.client,
             ),
