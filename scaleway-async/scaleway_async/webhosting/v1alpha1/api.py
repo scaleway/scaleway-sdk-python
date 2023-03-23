@@ -359,7 +359,7 @@ class WebhostingV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> Hosting:
         """
-        Retore a hosting.
+        Restore a hosting.
         Restore a hosting with the given ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :param hosting_id: Hosting ID.
@@ -392,7 +392,7 @@ class WebhostingV1Alpha1API(API):
     ) -> DnsRecords:
         """
         Get the DNS records.
-        Get the DNS records of a specified domain.
+        The set of DNS record of a specific domain associated to a hosting.
         :param region: Region to target. If none is passed will use default region from the config.
         :param domain: Domain associated to the DNS records.
         :return: :class:`DnsRecords <DnsRecords>`
