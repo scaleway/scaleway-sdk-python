@@ -304,6 +304,11 @@ class Cluster:
     Additional Subject Alternative Names for the Kubernetes API server certificate.
     """
 
+    private_network_id: Optional[str]
+    """
+    Private network ID for internal cluster communication.
+    """
+
 
 @dataclass
 class ClusterAutoUpgrade:
@@ -1306,6 +1311,11 @@ class CreateClusterRequest:
     apiserver_cert_sans: Optional[List[str]]
     """
     Additional Subject Alternative Names for the Kubernetes API server certificate.
+    """
+
+    private_network_id: Optional[str]
+    """
+    Private network ID for internal cluster communication (cannot be changed later).
     """
 
 
