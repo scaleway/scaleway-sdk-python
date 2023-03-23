@@ -1318,6 +1318,10 @@ class IamV1Alpha1API(API):
         policy_id: str,
     ) -> Policy:
         """
+        Clone a policy.
+        Clone a policy. You must define specify the `policy_id` parameter in your request.
+        :param policy_id:
+        :return: :class:`Policy <Policy>`
 
         Usage:
         ::
