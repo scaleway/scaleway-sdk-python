@@ -525,6 +525,8 @@ class Runtime:
 
     implementation: str
 
+    logo_url: str
+
 
 @dataclass
 class Secret:

@@ -379,6 +379,9 @@ def unmarshal_Runtime(data: Any) -> Runtime:
     field = data.get("language")
     args["language"] = field
 
+    field = data.get("logo_url")
+    args["logo_url"] = field
+
     field = data.get("name")
     args["name"] = field
 
