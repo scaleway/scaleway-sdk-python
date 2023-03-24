@@ -249,7 +249,7 @@ class ResetCockpitGrafanaRequest:
 class CreateTokenRequest:
     project_id: Optional[str]
 
-    name: str
+    name: Optional[str]
 
     scopes: Optional[TokenScopes]
 

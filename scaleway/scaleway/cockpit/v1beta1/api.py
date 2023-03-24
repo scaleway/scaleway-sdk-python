@@ -7,6 +7,7 @@ from scaleway_core.api import API
 from scaleway_core.utils import (
     WaitForOptions,
     fetch_all_pages,
+    random_name,
     validate_path_param,
     wait_for_resource,
 )
@@ -225,8 +226,8 @@ class CockpitV1Beta1API(API):
     def create_token(
         self,
         *,
-        name: str,
         project_id: Optional[str] = None,
+        name: Optional[str] = None,
         scopes: Optional[TokenScopes] = None,
     ) -> Token:
         """
@@ -240,7 +241,7 @@ class CockpitV1Beta1API(API):
         Usage:
         ::
 
-            result = api.create_token(name="example")
+            result = api.create_token()
         """
 
         res = self._request(
@@ -248,8 +249,8 @@ class CockpitV1Beta1API(API):
             f"/cockpit/v1beta1/tokens",
             body=marshal_CreateTokenRequest(
                 CreateTokenRequest(
-                    name=name,
                     project_id=project_id,
+                    name=name or random_name(prefix="token"),
                     scopes=scopes,
                 ),
                 self.client,
