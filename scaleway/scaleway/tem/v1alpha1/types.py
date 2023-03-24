@@ -60,7 +60,7 @@ class CreateEmailRequestAddress:
 
     name: Optional[str]
     """
-    Optional display name.
+    (Optional) Name displayed.
     """
 
 
@@ -77,12 +77,12 @@ class CreateEmailRequestAttachment:
 
     type_: str
     """
-    MIME type of the attachment (Currently only allow, text files, pdf and html files).
+    MIME type of the attachment.
     """
 
     content: str
     """
-    Content of the attachment, encoded in base64.
+    Content of the attachment encoded in base64.
     """
 
 
@@ -111,12 +111,12 @@ class Domain:
 
     organization_id: str
     """
-    ID of the organization to which the domain belongs.
+    ID of the domain's Organization.
     """
 
     project_id: str
     """
-    ID of the project.
+    ID of the domain's Project.
     """
 
     name: str
@@ -131,7 +131,7 @@ class Domain:
 
     created_at: Optional[datetime]
     """
-    Date and time of domain's creation.
+    Date and time of domain creation.
     """
 
     next_check_at: Optional[datetime]
@@ -141,27 +141,27 @@ class Domain:
 
     last_valid_at: Optional[datetime]
     """
-    Date and time the domain was last found to be valid.
+    Date and time the domain was last valid.
     """
 
     revoked_at: Optional[datetime]
     """
-    Date and time of the revocation of the domain.
+    Date and time of the domain's deletion.
     """
 
     last_error: Optional[str]
     """
-    Error message if the last check failed.
+    Error message returned if the last check failed.
     """
 
     spf_config: str
     """
-    Snippet of the SPF record that should be registered in the DNS zone.
+    Snippet of the SPF record to register in the DNS zone.
     """
 
     dkim_config: str
     """
-    DKIM public key, as should be recorded in the DNS zone.
+    DKIM public key to record in the DNS zone.
     """
 
     statistics: Optional[DomainStatistics]
@@ -196,12 +196,12 @@ class Email:
 
     message_id: str
     """
-    MessageID of the email.
+    Message ID of the email.
     """
 
     project_id: str
     """
-    ID of the project to which the email belongs.
+    ID of the Project to which the email belongs.
     """
 
     mail_from: str
@@ -216,7 +216,7 @@ class Email:
 
     rcpt_type: EmailRcptType
     """
-    Type of the recipient.
+    Type of recipient.
     """
 
     subject: str
@@ -231,7 +231,7 @@ class Email:
 
     updated_at: Optional[datetime]
     """
-    Last update time of the email object.
+    Last update of the email object.
     """
 
     status: EmailStatus
@@ -241,17 +241,17 @@ class Email:
 
     status_details: Optional[str]
     """
-    Additional information on the status.
+    Additional status information.
     """
 
     try_count: int
     """
-    Total number of attempts to send the email.
+    Number of attempts to send the email.
     """
 
     last_tries: List[EmailTry]
     """
-    Informations about the latest three attempts to send the email.
+    Information about the last three attempts to send the email.
     """
 
 
@@ -268,7 +268,7 @@ class EmailTry:
 
     tried_at: Optional[datetime]
     """
-    Date of the attempt.
+    Date of the attempt to send the email.
     """
 
     code: int
@@ -278,7 +278,7 @@ class EmailTry:
 
     message: str
     """
-    The SMTP message received, if any. If the attempt did not reach an SMTP server, the message says why.
+    The SMTP message received. If the attempt did not reach an SMTP server, the message returned explains what happened.
     """
 
 
@@ -290,7 +290,7 @@ class ListDomainsResponse:
 
     total_count: int
     """
-    Total number of domains matching the request (without pagination).
+    Number of domains that match the request (without pagination).
     """
 
     domains: List[Domain]
@@ -321,32 +321,32 @@ class Statistics:
 
     total_count: int
     """
-    Total number of emails matching the request criteria.
+    Total number of emails matching the requested criteria.
     """
 
     new_count: int
     """
-    Number of emails still in the `new` transient state (received from the API, not yet processed).
+    Number of emails still in the `new` transient state. This means emails received from the API but not yet processed.
     """
 
     sending_count: int
     """
-    Number of emails still in the `sending` transient state (received from the API, not yet in their final status).
+    Number of emails still in the `sending` transient state. This means emails received from the API but not yet in their final status.
     """
 
     sent_count: int
     """
-    Number of emails in the final `sent` state (have been delivered to the target mail system).
+    Number of emails in the final `sent` state. This means emails that have been delivered to the target mail system.
     """
 
     failed_count: int
     """
-    Number of emails in the final `failed` state (refused by the target mail system with a final error status).
+    Number of emails in the final `failed` state. This means emails that have been refused by the target mail system with a final error status.
     """
 
     canceled_count: int
     """
-    Number of emails in the final `canceled` state (canceled by customer's request).
+    Number of emails in the final `canceled` state. This meanns emails that have been canceled upon request.
     """
 
 
@@ -359,7 +359,7 @@ class CreateEmailRequest:
 
     from_: Optional[CreateEmailRequestAddress]
     """
-    Sender information (must be from a checked domain declared in the project).
+    Sender information. Must be from a checked domain declared in the Project.
     """
 
     to: Optional[List[CreateEmailRequestAddress]]
@@ -379,7 +379,7 @@ class CreateEmailRequest:
 
     subject: str
     """
-    Message subject.
+    Subject of the email.
     """
 
     text: str
@@ -394,7 +394,7 @@ class CreateEmailRequest:
 
     project_id: Optional[str]
     """
-    ID of the project in which to create the email.
+    ID of the Project in which to create the email.
     """
 
     attachments: Optional[List[CreateEmailRequestAttachment]]
@@ -404,7 +404,7 @@ class CreateEmailRequest:
 
     send_before: Optional[datetime]
     """
-    Maximum date to deliver mail.
+    Maximum date to deliver the email.
     """
 
 
@@ -434,47 +434,47 @@ class ListEmailsRequest:
 
     project_id: Optional[str]
     """
-    Optional ID of the project in which to list the emails.
+    ID of the Project in which to list the emails (optional).
     """
 
     domain_id: Optional[str]
     """
-    Optional ID of the domain for which to list the emails.
+    ID of the domain for which to list the emails (optional).
     """
 
     message_id: Optional[str]
     """
-    Optional ID of the message for which to list the emails.
-    """
-
-    since: Optional[datetime]
-    """
-    Optional, list emails created after this date.
-    """
-
-    until: Optional[datetime]
-    """
-    Optional, list emails created before this date.
-    """
-
-    mail_from: Optional[str]
-    """
-    Optional, list emails sent with this `mail_from` sender's address.
-    """
-
-    mail_to: Optional[str]
-    """
-    Optional, list emails sent with this `mail_to` recipient's address.
-    """
-
-    statuses: Optional[List[EmailStatus]]
-    """
-    Optional, list emails having any of this status.
+    ID of the message for which to list the emails (optional).
     """
 
     subject: Optional[str]
     """
-    Optional, list emails having this subject.
+    Subject of the email.
+    """
+
+    since: Optional[datetime]
+    """
+    List emails created after this date (optional).
+    """
+
+    until: Optional[datetime]
+    """
+    List emails created before this date (optional).
+    """
+
+    mail_from: Optional[str]
+    """
+    List emails sent with this `mail_from` sender's address (optional).
+    """
+
+    mail_to: Optional[str]
+    """
+    List emails sent with this `mail_to` recipient's address (optional).
+    """
+
+    statuses: Optional[List[EmailStatus]]
+    """
+    List emails having any of this status (optional).
     """
 
 
@@ -487,27 +487,27 @@ class GetStatisticsRequest:
 
     project_id: Optional[str]
     """
-    Optional, count emails for this project.
+    Number of emails for this Project (optional).
     """
 
     domain_id: Optional[str]
     """
-    Optional, count emails send from this domain (must be coherent with the `project_id` and the `organization_id`).
+    Number of emails sent from this domain (must be coherent with the `project_id` and the `organization_id`) (optional).
     """
 
     since: Optional[datetime]
     """
-    Optional, count emails created after this date.
+    Number of emails created after this date (optional).
     """
 
     until: Optional[datetime]
     """
-    Optional, count emails created before this date.
+    Number of emails created before this date (optional).
     """
 
     mail_from: Optional[str]
     """
-    Optional, count emails sent with this `mail_from` sender's address.
+    Number of emails sent with this `mail_from` sender's address (optional).
     """
 
 
@@ -543,7 +543,7 @@ class CreateDomainRequest:
 
     accept_tos: bool
     """
-    Accept the Scaleway Terms of Service.
+    Accept Scaleway's Terms of Service.
     """
 
 
@@ -569,7 +569,7 @@ class ListDomainsRequest:
 
     page: Optional[int]
     """
-    Page number (1 for the first page).
+    Requested page number. Value must be greater or equal to 1.
     """
 
     page_size: Optional[int]
@@ -595,7 +595,7 @@ class RevokeDomainRequest:
 
     domain_id: str
     """
-    ID of the domain to revoke.
+    ID of the domain to delete.
     """
 
 
