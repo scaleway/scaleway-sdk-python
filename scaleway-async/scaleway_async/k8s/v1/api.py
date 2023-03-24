@@ -399,8 +399,8 @@ class K8SV1API(API):
         New auto upgrade configuration of the cluster. Note that all fields need to be set.
         :param feature_gates: List of feature gates to enable.
         :param admission_plugins: List of admission plugins to enable.
-        :param open_id_connect_config: ALPHA - New OpenID Connect configuration of the cluster.
-        This feature is in ALPHA state, it may be deleted or modified. This configuration enables to update the [OpenID Connect configuration](https://kubernetes.io/docs/reference/access-authn-authz/authentication/#openid-connect-tokens) of the Kubernetes API server.
+        :param open_id_connect_config: OpenID Connect configuration of the cluster.
+        This configuration enables to update the OpenID Connect configuration of the Kubernetes API server.
         :param apiserver_cert_sans: Additional Subject Alternative Names for the Kubernetes API server certificate.
         :return: :class:`Cluster <Cluster>`
 

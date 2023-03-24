@@ -1395,8 +1395,8 @@ class UpdateClusterRequest:
 
     open_id_connect_config: Optional[UpdateClusterRequestOpenIDConnectConfig]
     """
-    ALPHA - New OpenID Connect configuration of the cluster.
-    This feature is in ALPHA state, it may be deleted or modified. This configuration enables to update the [OpenID Connect configuration](https://kubernetes.io/docs/reference/access-authn-authz/authentication/#openid-connect-tokens) of the Kubernetes API server.
+    OpenID Connect configuration of the cluster.
+    This configuration enables to update the OpenID Connect configuration of the Kubernetes API server.
     """
 
     apiserver_cert_sans: Optional[List[str]]
