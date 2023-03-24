@@ -46,10 +46,10 @@ from .marshalling import (
 
 class TemV1Alpha1API(API):
     """
-    Transactional Email API.
+    Transactional Email API documentation.
 
     Tem.
-    Transactional Email API.
+    Transactional Email API documentation.
     """
 
     def create_email(
@@ -69,17 +69,18 @@ class TemV1Alpha1API(API):
     ) -> CreateEmailResponse:
         """
         Send an email.
+        You must specify the `region`, the sender and the recipient's information and the `project_id` to send an email from a checked domain. The subject of the email must contain at least 6 characters.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param from_: Sender information (must be from a checked domain declared in the project).
+        :param from_: Sender information. Must be from a checked domain declared in the Project.
         :param to: Array of recipient information (limited to 1 recipient).
         :param cc: Array of recipient information (unimplemented).
         :param bcc: Array of recipient information (unimplemented).
-        :param subject: Message subject.
+        :param subject: Subject of the email.
         :param text: Text content.
         :param html: HTML content.
-        :param project_id: ID of the project in which to create the email.
+        :param project_id: ID of the Project in which to create the email.
         :param attachments: Array of attachments.
-        :param send_before: Maximum date to deliver mail.
+        :param send_before: Maximum date to deliver the email.
         :return: :class:`CreateEmailResponse <CreateEmailResponse>`
 
         Usage:
@@ -127,7 +128,8 @@ class TemV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> Email:
         """
-        Get information about an email.
+        Get an email.
+        Retrieve information about a specific email using the `email_id` and `region` parameters.
         :param region: Region to target. If none is passed will use default region from the config.
         :param email_id: ID of the email to retrieve.
         :return: :class:`Email <Email>`
@@ -195,27 +197,28 @@ class TemV1Alpha1API(API):
         project_id: Optional[str] = None,
         domain_id: Optional[str] = None,
         message_id: Optional[str] = None,
+        subject: Optional[str] = None,
         since: Optional[datetime] = None,
         until: Optional[datetime] = None,
         mail_from: Optional[str] = None,
         mail_to: Optional[str] = None,
         statuses: Optional[List[EmailStatus]] = None,
-        subject: Optional[str] = None,
     ) -> ListEmailsResponse:
         """
-        List emails sent from a domain and/or for a project and/or for an organization.
+        List emails.
+        Retrieve the list of emails sent from a specific domain or for a specific Project or Organization. You must specify the `region`.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
-        :param project_id: Optional ID of the project in which to list the emails.
-        :param domain_id: Optional ID of the domain for which to list the emails.
-        :param message_id: Optional ID of the message for which to list the emails.
-        :param since: Optional, list emails created after this date.
-        :param until: Optional, list emails created before this date.
-        :param mail_from: Optional, list emails sent with this `mail_from` sender's address.
-        :param mail_to: Optional, list emails sent with this `mail_to` recipient's address.
-        :param statuses: Optional, list emails having any of this status.
-        :param subject: Optional, list emails having this subject.
+        :param project_id: ID of the Project in which to list the emails (optional).
+        :param domain_id: ID of the domain for which to list the emails (optional).
+        :param message_id: ID of the message for which to list the emails (optional).
+        :param subject: Subject of the email.
+        :param since: List emails created after this date (optional).
+        :param until: List emails created before this date (optional).
+        :param mail_from: List emails sent with this `mail_from` sender's address (optional).
+        :param mail_to: List emails sent with this `mail_to` recipient's address (optional).
+        :param statuses: List emails having any of this status (optional).
         :return: :class:`ListEmailsResponse <ListEmailsResponse>`
 
         Usage:
@@ -258,27 +261,28 @@ class TemV1Alpha1API(API):
         project_id: Optional[str] = None,
         domain_id: Optional[str] = None,
         message_id: Optional[str] = None,
+        subject: Optional[str] = None,
         since: Optional[datetime] = None,
         until: Optional[datetime] = None,
         mail_from: Optional[str] = None,
         mail_to: Optional[str] = None,
         statuses: Optional[List[EmailStatus]] = None,
-        subject: Optional[str] = None,
     ) -> List[Email]:
         """
-        List emails sent from a domain and/or for a project and/or for an organization.
+        List emails.
+        Retrieve the list of emails sent from a specific domain or for a specific Project or Organization. You must specify the `region`.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
-        :param project_id: Optional ID of the project in which to list the emails.
-        :param domain_id: Optional ID of the domain for which to list the emails.
-        :param message_id: Optional ID of the message for which to list the emails.
-        :param since: Optional, list emails created after this date.
-        :param until: Optional, list emails created before this date.
-        :param mail_from: Optional, list emails sent with this `mail_from` sender's address.
-        :param mail_to: Optional, list emails sent with this `mail_to` recipient's address.
-        :param statuses: Optional, list emails having any of this status.
-        :param subject: Optional, list emails having this subject.
+        :param project_id: ID of the Project in which to list the emails (optional).
+        :param domain_id: ID of the domain for which to list the emails (optional).
+        :param message_id: ID of the message for which to list the emails (optional).
+        :param subject: Subject of the email.
+        :param since: List emails created after this date (optional).
+        :param until: List emails created before this date (optional).
+        :param mail_from: List emails sent with this `mail_from` sender's address (optional).
+        :param mail_to: List emails sent with this `mail_to` recipient's address (optional).
+        :param statuses: List emails having any of this status (optional).
         :return: :class:`List[ListEmailsResponse] <List[ListEmailsResponse]>`
 
         Usage:
@@ -298,12 +302,12 @@ class TemV1Alpha1API(API):
                 "project_id": project_id,
                 "domain_id": domain_id,
                 "message_id": message_id,
+                "subject": subject,
                 "since": since,
                 "until": until,
                 "mail_from": mail_from,
                 "mail_to": mail_to,
                 "statuses": statuses,
-                "subject": subject,
             },
         )
 
@@ -318,13 +322,14 @@ class TemV1Alpha1API(API):
         mail_from: Optional[str] = None,
     ) -> Statistics:
         """
-        Get statistics on the email statuses.
+        Email statuses.
+        Get information on your emails' statuses.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param project_id: Optional, count emails for this project.
-        :param domain_id: Optional, count emails send from this domain (must be coherent with the `project_id` and the `organization_id`).
-        :param since: Optional, count emails created after this date.
-        :param until: Optional, count emails created before this date.
-        :param mail_from: Optional, count emails sent with this `mail_from` sender's address.
+        :param project_id: Number of emails for this Project (optional).
+        :param domain_id: Number of emails sent from this domain (must be coherent with the `project_id` and the `organization_id`) (optional).
+        :param since: Number of emails created after this date (optional).
+        :param until: Number of emails created before this date (optional).
+        :param mail_from: Number of emails sent with this `mail_from` sender's address (optional).
         :return: :class:`Statistics <Statistics>`
 
         Usage:
@@ -359,7 +364,8 @@ class TemV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> Email:
         """
-        Try to cancel an email if it has not yet been sent.
+        Cancel an email.
+        You can cancel the sending of an email if it has not been sent yet. You must specify the `region` and the `email_id` of the email you want to cancel.
         :param region: Region to target. If none is passed will use default region from the config.
         :param email_id: ID of the email to cancel.
         :return: :class:`Email <Email>`
@@ -393,10 +399,11 @@ class TemV1Alpha1API(API):
     ) -> Domain:
         """
         Register a domain in a project.
+        You must specify the `region`, `project_id` and `domain_name` to register a domain in a specific Project.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the project to which the domain belongs.
         :param domain_name: Fully qualified domain dame.
-        :param accept_tos: Accept the Scaleway Terms of Service.
+        :param accept_tos: Accept Scaleway's Terms of Service.
         :return: :class:`Domain <Domain>`
 
         Usage:
@@ -437,6 +444,7 @@ class TemV1Alpha1API(API):
     ) -> Domain:
         """
         Get information about a domain.
+        Retrieve information about a specific domain using the `region` and `domain_id` parameters.
         :param region: Region to target. If none is passed will use default region from the config.
         :param domain_id: ID of the domain.
         :return: :class:`Domain <Domain>`
@@ -507,9 +515,10 @@ class TemV1Alpha1API(API):
         name: Optional[str] = None,
     ) -> ListDomainsResponse:
         """
-        List domains in a project and/or in an organization.
+        List domains.
+        Retrieve domains in a specific project or in a specific Organization using the `region` parameter.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page: Page number (1 for the first page).
+        :param page: Requested page number. Value must be greater or equal to 1.
         :param page_size: Page size.
         :param project_id:
         :param status:
@@ -556,9 +565,10 @@ class TemV1Alpha1API(API):
         name: Optional[str] = None,
     ) -> List[Domain]:
         """
-        List domains in a project and/or in an organization.
+        List domains.
+        Retrieve domains in a specific project or in a specific Organization using the `region` parameter.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page: Page number (1 for the first page).
+        :param page: Requested page number. Value must be greater or equal to 1.
         :param page_size: Page size.
         :param project_id:
         :param status:
@@ -594,9 +604,10 @@ class TemV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> Domain:
         """
-        Revoke a domain.
+        Delete a domain.
+        You must specify the domain you want to delete by the `region` and `domain_id`. Deleting a domain is permanent and cannot be undone.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param domain_id: ID of the domain to revoke.
+        :param domain_id: ID of the domain to delete.
         :return: :class:`Domain <Domain>`
 
         Usage:
@@ -625,7 +636,8 @@ class TemV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> Domain:
         """
-        Ask for an immediate check of a domain (DNS check).
+        Domain DNS check.
+        Perform an immediate DNS check of a domain using the `region` and `domain_id` parameters.
         :param region: Region to target. If none is passed will use default region from the config.
         :param domain_id: ID of the domain to check.
         :return: :class:`Domain <Domain>`
