@@ -404,6 +404,9 @@ def unmarshal_HealthCheck(data: Any) -> HealthCheck:
         unmarshal_HealthCheckTcpConfig(field) if field is not None else None
     )
 
+    field = data.get("transient_check_delay")
+    args["transient_check_delay"] = field
+
     return HealthCheck(**args)
 
 
@@ -533,6 +536,9 @@ def unmarshal_Backend(data: Any) -> Backend:
     field = data.get("lb")
     args["lb"] = unmarshal_Lb(field) if field is not None else None
 
+    field = data.get("max_retries")
+    args["max_retries"] = field
+
     field = data.get("name")
     args["name"] = field
 
@@ -544,6 +550,9 @@ def unmarshal_Backend(data: Any) -> Backend:
 
     field = data.get("proxy_protocol")
     args["proxy_protocol"] = field
+
+    field = data.get("redispatch_attempt_count")
+    args["redispatch_attempt_count"] = field
 
     field = data.get("send_proxy_v2")
     args["send_proxy_v2"] = field
@@ -1341,6 +1350,7 @@ def marshal_HealthCheck(
         "check_send_proxy": request.check_send_proxy,
         "check_timeout": request.check_timeout,
         "port": request.port,
+        "transient_check_delay": request.transient_check_delay,
     }
 
 
@@ -1473,9 +1483,11 @@ def marshal_CreateBackendRequest(
         else None,
         "health_check": marshal_HealthCheck(request.health_check, defaults),
         "ignore_ssl_server_verify": request.ignore_ssl_server_verify,
+        "max_retries": request.max_retries,
         "name": request.name,
         "on_marked_down_action": OnMarkedDownAction(request.on_marked_down_action),
         "proxy_protocol": ProxyProtocol(request.proxy_protocol),
+        "redispatch_attempt_count": request.redispatch_attempt_count,
         "send_proxy_v2": request.send_proxy_v2,
         "server_ip": request.server_ip,
         "ssl_bridging": request.ssl_bridging,
@@ -1715,9 +1727,11 @@ def marshal_UpdateBackendRequest(
         if request.forward_protocol is not None
         else None,
         "ignore_ssl_server_verify": request.ignore_ssl_server_verify,
+        "max_retries": request.max_retries,
         "name": request.name,
         "on_marked_down_action": OnMarkedDownAction(request.on_marked_down_action),
         "proxy_protocol": ProxyProtocol(request.proxy_protocol),
+        "redispatch_attempt_count": request.redispatch_attempt_count,
         "send_proxy_v2": request.send_proxy_v2,
         "ssl_bridging": request.ssl_bridging,
         "sticky_sessions": StickySessionsType(request.sticky_sessions)
@@ -1810,6 +1824,7 @@ def marshal_UpdateHealthCheckRequest(
         "check_send_proxy": request.check_send_proxy,
         "check_timeout": request.check_timeout,
         "port": request.port,
+        "transient_check_delay": request.transient_check_delay,
     }
 
 
@@ -1942,9 +1957,11 @@ def marshal_ZonedApiCreateBackendRequest(
         else None,
         "health_check": marshal_HealthCheck(request.health_check, defaults),
         "ignore_ssl_server_verify": request.ignore_ssl_server_verify,
+        "max_retries": request.max_retries,
         "name": request.name,
         "on_marked_down_action": OnMarkedDownAction(request.on_marked_down_action),
         "proxy_protocol": ProxyProtocol(request.proxy_protocol),
+        "redispatch_attempt_count": request.redispatch_attempt_count,
         "send_proxy_v2": request.send_proxy_v2,
         "server_ip": request.server_ip,
         "ssl_bridging": request.ssl_bridging,
@@ -2193,9 +2210,11 @@ def marshal_ZonedApiUpdateBackendRequest(
         if request.forward_protocol is not None
         else None,
         "ignore_ssl_server_verify": request.ignore_ssl_server_verify,
+        "max_retries": request.max_retries,
         "name": request.name,
         "on_marked_down_action": OnMarkedDownAction(request.on_marked_down_action),
         "proxy_protocol": ProxyProtocol(request.proxy_protocol),
+        "redispatch_attempt_count": request.redispatch_attempt_count,
         "send_proxy_v2": request.send_proxy_v2,
         "ssl_bridging": request.ssl_bridging,
         "sticky_sessions": StickySessionsType(request.sticky_sessions)
@@ -2288,6 +2307,7 @@ def marshal_ZonedApiUpdateHealthCheckRequest(
         "check_send_proxy": request.check_send_proxy,
         "check_timeout": request.check_timeout,
         "port": request.port,
+        "transient_check_delay": request.transient_check_delay,
     }
 
 

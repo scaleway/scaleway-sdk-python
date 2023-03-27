@@ -910,6 +910,8 @@ class LbV1API(API):
         failover_host: Optional[str] = None,
         ssl_bridging: Optional[bool] = None,
         ignore_ssl_server_verify: Optional[bool] = None,
+        redispatch_attempt_count: Optional[int] = None,
+        max_retries: Optional[int] = None,
     ) -> Backend:
         """
         Create a backend in a given load balancer.
@@ -932,6 +934,8 @@ class LbV1API(API):
         :param failover_host: Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud. Do not include the scheme (eg https://).
         :param ssl_bridging: Defines whether to enable SSL between the Load Balancer and backend servers.
         :param ignore_ssl_server_verify: Defines whether the server certificate verification should be ignored.
+        :param redispatch_attempt_count: Whether to use another backend server on each attempt.
+        :param max_retries: Number of retries when a backend server connection failed.
         :return: :class:`Backend <Backend>`
 
         Usage:
@@ -977,6 +981,8 @@ class LbV1API(API):
                     failover_host=failover_host,
                     ssl_bridging=ssl_bridging,
                     ignore_ssl_server_verify=ignore_ssl_server_verify,
+                    redispatch_attempt_count=redispatch_attempt_count,
+                    max_retries=max_retries,
                 ),
                 self.client,
             ),
@@ -1036,6 +1042,8 @@ class LbV1API(API):
         failover_host: Optional[str] = None,
         ssl_bridging: Optional[bool] = None,
         ignore_ssl_server_verify: Optional[bool] = None,
+        redispatch_attempt_count: Optional[int] = None,
+        max_retries: Optional[int] = None,
     ) -> Backend:
         """
         Update a backend in a given load balancer.
@@ -1056,6 +1064,8 @@ class LbV1API(API):
         :param failover_host: Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud. Do not include the scheme (eg https://).
         :param ssl_bridging: Defines whether to enable SSL bridging between the Load Balancer and backend servers.
         :param ignore_ssl_server_verify: Defines whether the server certificate verification should be ignored.
+        :param redispatch_attempt_count: Whether to use another backend server on each retries.
+        :param max_retries: Number of retries when a backend server connection failed.
         :return: :class:`Backend <Backend>`
 
         Usage:
@@ -1098,6 +1108,8 @@ class LbV1API(API):
                     failover_host=failover_host,
                     ssl_bridging=ssl_bridging,
                     ignore_ssl_server_verify=ignore_ssl_server_verify,
+                    redispatch_attempt_count=redispatch_attempt_count,
+                    max_retries=max_retries,
                 ),
                 self.client,
             ),
@@ -1285,6 +1297,7 @@ class LbV1API(API):
         tcp_config: Optional[HealthCheckTcpConfig] = None,
         http_config: Optional[HealthCheckHttpConfig] = None,
         https_config: Optional[HealthCheckHttpsConfig] = None,
+        transient_check_delay: Optional[str] = None,
     ) -> HealthCheck:
         """
         Update an health check for a given backend.
@@ -1316,6 +1329,7 @@ class LbV1API(API):
 
         One-of ('config'): at most one of 'mysql_config', 'ldap_config', 'redis_config', 'pgsql_config', 'tcp_config', 'http_config', 'https_config' could be set.
         :param check_send_proxy: Defines whether proxy protocol should be activated for the health check.
+        :param transient_check_delay: Time to wait between two consecutive health checks when a backend server is in a transient state (going UP or DOWN).
         :return: :class:`HealthCheck <HealthCheck>`
 
         Usage:
@@ -1355,6 +1369,7 @@ class LbV1API(API):
                     tcp_config=tcp_config,
                     http_config=http_config,
                     https_config=https_config,
+                    transient_check_delay=transient_check_delay,
                 ),
                 self.client,
             ),
@@ -3792,6 +3807,8 @@ class LbZonedV1API(API):
         failover_host: Optional[str] = None,
         ssl_bridging: Optional[bool] = None,
         ignore_ssl_server_verify: Optional[bool] = None,
+        redispatch_attempt_count: Optional[int] = None,
+        max_retries: Optional[int] = None,
     ) -> Backend:
         """
         Create a backend for a given Load Balancer.
@@ -3815,6 +3832,8 @@ class LbZonedV1API(API):
         :param failover_host: Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud. Do not include the scheme (eg https://).
         :param ssl_bridging: Defines whether to enable SSL between the Load Balancer and backend servers.
         :param ignore_ssl_server_verify: Defines whether the server certificate verification should be ignored.
+        :param redispatch_attempt_count: Whether to use another backend server on each attempt.
+        :param max_retries: Number of retries when a backend server connection failed.
         :return: :class:`Backend <Backend>`
 
         Usage:
@@ -3858,6 +3877,8 @@ class LbZonedV1API(API):
                     failover_host=failover_host,
                     ssl_bridging=ssl_bridging,
                     ignore_ssl_server_verify=ignore_ssl_server_verify,
+                    redispatch_attempt_count=redispatch_attempt_count,
+                    max_retries=max_retries,
                 ),
                 self.client,
             ),
@@ -3916,6 +3937,8 @@ class LbZonedV1API(API):
         failover_host: Optional[str] = None,
         ssl_bridging: Optional[bool] = None,
         ignore_ssl_server_verify: Optional[bool] = None,
+        redispatch_attempt_count: Optional[int] = None,
+        max_retries: Optional[int] = None,
     ) -> Backend:
         """
         Update a backend of a given Load Balancer.
@@ -3937,6 +3960,8 @@ class LbZonedV1API(API):
         :param failover_host: Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud. Do not include the scheme (eg https://).
         :param ssl_bridging: Defines whether to enable SSL bridging between the Load Balancer and backend servers.
         :param ignore_ssl_server_verify: Defines whether the server certificate verification should be ignored.
+        :param redispatch_attempt_count: Whether to use another backend server on each retries.
+        :param max_retries: Number of retries when a backend server connection failed.
         :return: :class:`Backend <Backend>`
 
         Usage:
@@ -3977,6 +4002,8 @@ class LbZonedV1API(API):
                     failover_host=failover_host,
                     ssl_bridging=ssl_bridging,
                     ignore_ssl_server_verify=ignore_ssl_server_verify,
+                    redispatch_attempt_count=redispatch_attempt_count,
+                    max_retries=max_retries,
                 ),
                 self.client,
             ),
@@ -4160,6 +4187,7 @@ class LbZonedV1API(API):
         tcp_config: Optional[HealthCheckTcpConfig] = None,
         http_config: Optional[HealthCheckHttpConfig] = None,
         https_config: Optional[HealthCheckHttpsConfig] = None,
+        transient_check_delay: Optional[str] = None,
     ) -> HealthCheck:
         """
         Update a health check for a given backend.
@@ -4192,6 +4220,7 @@ class LbZonedV1API(API):
 
         One-of ('config'): at most one of 'mysql_config', 'ldap_config', 'redis_config', 'pgsql_config', 'tcp_config', 'http_config', 'https_config' could be set.
         :param check_send_proxy: Defines whether proxy protocol should be activated for the health check.
+        :param transient_check_delay: Time to wait between two consecutive health checks when a backend server is in a transient state (going UP or DOWN).
         :return: :class:`HealthCheck <HealthCheck>`
 
         Usage:
@@ -4229,6 +4258,7 @@ class LbZonedV1API(API):
                     tcp_config=tcp_config,
                     http_config=http_config,
                     https_config=https_config,
+                    transient_check_delay=transient_check_delay,
                 ),
                 self.client,
             ),

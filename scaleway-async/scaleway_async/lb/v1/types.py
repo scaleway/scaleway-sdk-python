@@ -533,6 +533,16 @@ class Backend:
     Defines whether the server certificate verification should be ignored.
     """
 
+    redispatch_attempt_count: Optional[int]
+    """
+    Whether to use another backend server on each attempt.
+    """
+
+    max_retries: Optional[int]
+    """
+    Number of retries when a backend server connection failed.
+    """
+
 
 @dataclass
 class BackendServerStats:
@@ -813,6 +823,11 @@ class HealthCheck:
     check_send_proxy: bool
     """
     Defines whether proxy protocol should be activated for the health check.
+    """
+
+    transient_check_delay: Optional[str]
+    """
+    Time to wait between two consecutive health checks when a backend server is in a transient state (going UP or DOWN).
     """
 
 
@@ -1933,6 +1948,16 @@ class CreateBackendRequest:
     Defines whether the server certificate verification should be ignored.
     """
 
+    redispatch_attempt_count: Optional[int]
+    """
+    Whether to use another backend server on each attempt.
+    """
+
+    max_retries: Optional[int]
+    """
+    Number of retries when a backend server connection failed.
+    """
+
 
 @dataclass
 class GetBackendRequest:
@@ -2033,6 +2058,16 @@ class UpdateBackendRequest:
     ignore_ssl_server_verify: Optional[bool]
     """
     Defines whether the server certificate verification should be ignored.
+    """
+
+    redispatch_attempt_count: Optional[int]
+    """
+    Whether to use another backend server on each retries.
+    """
+
+    max_retries: Optional[int]
+    """
+    Number of retries when a backend server connection failed.
     """
 
 
@@ -2187,6 +2222,11 @@ class UpdateHealthCheckRequest:
     check_send_proxy: bool
     """
     Defines whether proxy protocol should be activated for the health check.
+    """
+
+    transient_check_delay: Optional[str]
+    """
+    Time to wait between two consecutive health checks when a backend server is in a transient state (going UP or DOWN).
     """
 
 
@@ -3405,6 +3445,16 @@ class ZonedApiCreateBackendRequest:
     Defines whether the server certificate verification should be ignored.
     """
 
+    redispatch_attempt_count: Optional[int]
+    """
+    Whether to use another backend server on each attempt.
+    """
+
+    max_retries: Optional[int]
+    """
+    Number of retries when a backend server connection failed.
+    """
+
 
 @dataclass
 class ZonedApiGetBackendRequest:
@@ -3505,6 +3555,16 @@ class ZonedApiUpdateBackendRequest:
     ignore_ssl_server_verify: Optional[bool]
     """
     Defines whether the server certificate verification should be ignored.
+    """
+
+    redispatch_attempt_count: Optional[int]
+    """
+    Whether to use another backend server on each retries.
+    """
+
+    max_retries: Optional[int]
+    """
+    Number of retries when a backend server connection failed.
     """
 
 
@@ -3659,6 +3719,11 @@ class ZonedApiUpdateHealthCheckRequest:
     check_send_proxy: bool
     """
     Defines whether proxy protocol should be activated for the health check.
+    """
+
+    transient_check_delay: Optional[str]
+    """
+    Time to wait between two consecutive health checks when a backend server is in a transient state (going UP or DOWN).
     """
 
 
