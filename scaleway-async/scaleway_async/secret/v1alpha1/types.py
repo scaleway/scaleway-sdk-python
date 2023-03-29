@@ -99,6 +99,38 @@ class ListSecretsResponse:
 
 
 @dataclass
+class PasswordGenerationParams:
+    """
+    Password generation params.
+    """
+
+    length: int
+    """
+    Length of the password to generate (between 1 and 1024).
+    """
+
+    no_lowercase_letters: bool
+    """
+    Do not include lower case letters by default in the alphabet.
+    """
+
+    no_uppercase_letters: bool
+    """
+    Do not include upper case letters by default in the alphabet.
+    """
+
+    no_digits: bool
+    """
+    Do not include digits by default in the alphabet.
+    """
+
+    additional_chars: str
+    """
+    Additional ascii characters to be included in the alphabet.
+    """
+
+
+@dataclass
 class Secret:
     """
     Secret.
@@ -353,6 +385,16 @@ class CreateSecretVersionRequest:
     """
     Disable the previous secret version.
     If there is no previous version or if the previous version was already disabled, does nothing.
+    """
+
+    password_generation: Optional[PasswordGenerationParams]
+    """
+    Options to generate a password.
+    If specified, a random password will be generated. The data field must be empty.
+    By default, the generator will use upper and lower case letters, and digits.
+    This behavior can be tuned using the generation params.
+    
+    One-of ('_password_generation'): at most one of 'password_generation' could be set.
     """
 
 
