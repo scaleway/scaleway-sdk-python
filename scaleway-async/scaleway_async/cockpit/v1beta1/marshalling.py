@@ -22,7 +22,10 @@ from .types import (
     GrafanaUser,
     ListContactPointsResponse,
     ListGrafanaUsersResponse,
+    ListPlansResponse,
     ListTokensResponse,
+    Plan,
+    SelectPlanResponse,
     Token,
     TokenScopes,
     ActivateCockpitRequest,
@@ -37,6 +40,7 @@ from .types import (
     CreateGrafanaUserRequest,
     DeleteGrafanaUserRequest,
     ResetGrafanaUserPasswordRequest,
+    SelectPlanRequest,
 )
 
 
@@ -146,6 +150,38 @@ def unmarshal_GrafanaUser(data: Any) -> GrafanaUser:
     return GrafanaUser(**args)
 
 
+def unmarshal_Plan(data: Any) -> Plan:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'Plan' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id")
+    args["id"] = field
+
+    field = data.get("logs_ingestion_price")
+    args["logs_ingestion_price"] = field
+
+    field = data.get("name")
+    args["name"] = field
+
+    field = data.get("retention_logs_interval")
+    args["retention_logs_interval"] = field
+
+    field = data.get("retention_metrics_interval")
+    args["retention_metrics_interval"] = field
+
+    field = data.get("retention_price")
+    args["retention_price"] = field
+
+    field = data.get("sample_ingestion_price")
+    args["sample_ingestion_price"] = field
+
+    return Plan(**args)
+
+
 def unmarshal_Token(data: Any) -> Token:
     if type(data) is not dict:
         raise TypeError(
@@ -194,6 +230,9 @@ def unmarshal_Cockpit(data: Any) -> Cockpit:
 
     field = data.get("managed_alerts_enabled")
     args["managed_alerts_enabled"] = field
+
+    field = data.get("plan")
+    args["plan"] = unmarshal_Plan(field) if field is not None else None
 
     field = data.get("project_id")
     args["project_id"] = field
@@ -261,6 +300,23 @@ def unmarshal_ListGrafanaUsersResponse(data: Any) -> ListGrafanaUsersResponse:
     return ListGrafanaUsersResponse(**args)
 
 
+def unmarshal_ListPlansResponse(data: Any) -> ListPlansResponse:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'ListPlansResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("plans")
+    args["plans"] = [unmarshal_Plan(v) for v in data["plans"]]
+
+    field = data.get("total_count")
+    args["total_count"] = field
+
+    return ListPlansResponse(**args)
+
+
 def unmarshal_ListTokensResponse(data: Any) -> ListTokensResponse:
     if type(data) is not dict:
         raise TypeError(
@@ -276,6 +332,17 @@ def unmarshal_ListTokensResponse(data: Any) -> ListTokensResponse:
     args["total_count"] = field
 
     return ListTokensResponse(**args)
+
+
+def unmarshal_SelectPlanResponse(data: Any) -> SelectPlanResponse:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'SelectPlanResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    return SelectPlanResponse(**args)
 
 
 def marshal_ContactPointEmail(
@@ -427,6 +494,16 @@ def marshal_ResetGrafanaUserPasswordRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
+        "project_id": request.project_id or defaults.default_project_id,
+    }
+
+
+def marshal_SelectPlanRequest(
+    request: SelectPlanRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    return {
+        "plan_id": request.plan_id,
         "project_id": request.project_id or defaults.default_project_id,
     }
 
