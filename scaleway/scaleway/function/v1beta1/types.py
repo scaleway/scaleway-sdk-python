@@ -644,33 +644,7 @@ class TriggerSqsClientConfig:
 
 
 @dataclass
-class UpdateTriggerRequestMnqNatsClientConfig:
-    mnq_namespace_id: str
-
-    subject: str
-
-    mnq_project_id: str
-
-    mnq_region: str
-
-
-@dataclass
-class UpdateTriggerRequestMnqSqsClientConfig:
-    mnq_namespace_id: str
-
-    queue: str
-
-    mnq_project_id: str
-
-    mnq_region: str
-
-
-@dataclass
 class UpdateTriggerRequestSqsClientConfig:
-    endpoint: str
-
-    queue_url: str
-
     access_key: str
 
     secret_key: str
@@ -1218,19 +1192,9 @@ class UpdateTriggerRequest:
 
     description: Optional[str]
 
-    scw_sqs_config: Optional[UpdateTriggerRequestMnqSqsClientConfig]
-    """
-    One-of ('config'): at most one of 'scw_sqs_config', 'sqs_config', 'scw_nats_config' could be set.
-    """
-
     sqs_config: Optional[UpdateTriggerRequestSqsClientConfig]
     """
-    One-of ('config'): at most one of 'scw_sqs_config', 'sqs_config', 'scw_nats_config' could be set.
-    """
-
-    scw_nats_config: Optional[UpdateTriggerRequestMnqNatsClientConfig]
-    """
-    One-of ('config'): at most one of 'scw_sqs_config', 'sqs_config', 'scw_nats_config' could be set.
+    One-of ('config'): at most one of 'sqs_config' could be set.
     """
 
 

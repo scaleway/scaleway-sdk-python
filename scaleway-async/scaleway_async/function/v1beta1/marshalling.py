@@ -38,8 +38,6 @@ from .types import (
     TriggerMnqNatsClientConfig,
     TriggerMnqSqsClientConfig,
     TriggerSqsClientConfig,
-    UpdateTriggerRequestMnqNatsClientConfig,
-    UpdateTriggerRequestMnqSqsClientConfig,
     UpdateTriggerRequestSqsClientConfig,
     UploadURL,
     CreateNamespaceRequest,
@@ -695,38 +693,12 @@ def marshal_Secret(
     }
 
 
-def marshal_UpdateTriggerRequestMnqNatsClientConfig(
-    request: UpdateTriggerRequestMnqNatsClientConfig,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    return {
-        "mnq_namespace_id": request.mnq_namespace_id,
-        "mnq_project_id": request.mnq_project_id,
-        "mnq_region": request.mnq_region,
-        "subject": request.subject,
-    }
-
-
-def marshal_UpdateTriggerRequestMnqSqsClientConfig(
-    request: UpdateTriggerRequestMnqSqsClientConfig,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    return {
-        "mnq_namespace_id": request.mnq_namespace_id,
-        "mnq_project_id": request.mnq_project_id,
-        "mnq_region": request.mnq_region,
-        "queue": request.queue,
-    }
-
-
 def marshal_UpdateTriggerRequestSqsClientConfig(
     request: UpdateTriggerRequestSqsClientConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
         "access_key": request.access_key,
-        "endpoint": request.endpoint,
-        "queue_url": request.queue_url,
         "secret_key": request.secret_key,
     }
 
@@ -915,27 +887,11 @@ def marshal_UpdateTriggerRequest(
         **resolve_one_of(
             [
                 OneOfPossibility(
-                    "scw_sqs_config",
-                    marshal_UpdateTriggerRequestMnqSqsClientConfig(
-                        request.scw_sqs_config, defaults
-                    )
-                    if request.scw_sqs_config is not None
-                    else None,
-                ),
-                OneOfPossibility(
                     "sqs_config",
                     marshal_UpdateTriggerRequestSqsClientConfig(
                         request.sqs_config, defaults
                     )
                     if request.sqs_config is not None
-                    else None,
-                ),
-                OneOfPossibility(
-                    "scw_nats_config",
-                    marshal_UpdateTriggerRequestMnqNatsClientConfig(
-                        request.scw_nats_config, defaults
-                    )
-                    if request.scw_nats_config is not None
                     else None,
                 ),
             ]

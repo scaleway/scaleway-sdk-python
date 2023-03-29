@@ -48,8 +48,6 @@ from .types import (
     Secret,
     Token,
     Trigger,
-    UpdateTriggerRequestMnqNatsClientConfig,
-    UpdateTriggerRequestMnqSqsClientConfig,
     UpdateTriggerRequestSqsClientConfig,
     UploadURL,
     CreateNamespaceRequest,
@@ -1933,9 +1931,7 @@ class FunctionV1Beta1API(API):
         region: Optional[Region] = None,
         name: Optional[str] = None,
         description: Optional[str] = None,
-        scw_sqs_config: Optional[UpdateTriggerRequestMnqSqsClientConfig] = None,
         sqs_config: Optional[UpdateTriggerRequestSqsClientConfig] = None,
-        scw_nats_config: Optional[UpdateTriggerRequestMnqNatsClientConfig] = None,
     ) -> Trigger:
         """
 
@@ -1959,9 +1955,7 @@ class FunctionV1Beta1API(API):
                     region=region,
                     name=name,
                     description=description,
-                    scw_sqs_config=scw_sqs_config,
                     sqs_config=sqs_config,
-                    scw_nats_config=scw_nats_config,
                 ),
                 self.client,
             ),

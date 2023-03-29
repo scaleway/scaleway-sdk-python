@@ -45,8 +45,6 @@ from .types import Trigger
 from .types import TriggerMnqNatsClientConfig
 from .types import TriggerMnqSqsClientConfig
 from .types import TriggerSqsClientConfig
-from .types import UpdateTriggerRequestMnqNatsClientConfig
-from .types import UpdateTriggerRequestMnqSqsClientConfig
 from .types import UpdateTriggerRequestSqsClientConfig
 from .types import UploadURL
 from .content import CRON_TRANSIENT_STATUSES
@@ -103,8 +101,6 @@ __all__ = [
     "TriggerMnqNatsClientConfig",
     "TriggerMnqSqsClientConfig",
     "TriggerSqsClientConfig",
-    "UpdateTriggerRequestMnqNatsClientConfig",
-    "UpdateTriggerRequestMnqSqsClientConfig",
     "UpdateTriggerRequestSqsClientConfig",
     "UploadURL",
     "CRON_TRANSIENT_STATUSES",
