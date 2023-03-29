@@ -228,7 +228,7 @@ class InstanceV1API(API):
     ) -> GetServerTypesAvailabilityResponse:
         """
         Get availability.
-        Get availability for all server types.
+        Get availability for all Instance types.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param per_page:
         :param page:
@@ -262,8 +262,8 @@ class InstanceV1API(API):
         page: Optional[int] = None,
     ) -> ListServersTypesResponse:
         """
-        List server types.
-        Get server types technical details.
+        List Instance types.
+        List available Instance types and their technical details.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param per_page:
         :param page:
@@ -298,7 +298,7 @@ class InstanceV1API(API):
     ) -> ListVolumesTypesResponse:
         """
         List volumes types.
-        Get volumes technical details.
+        List all volume types and their technical details.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param per_page:
         :param page:
@@ -342,19 +342,20 @@ class InstanceV1API(API):
         order: ListServersRequestOrder = ListServersRequestOrder.CREATION_DATE_DESC,
     ) -> ListServersResponse:
         """
-        List all servers.
+        List all Instances.
+        List all Instances in a specified Availability Zone, e.g. `fr-par-1`.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param per_page: A positive integer lower or equal to 100 to select the number of items to return.
         :param page: A positive integer to choose the page to return.
-        :param organization: List only servers of this organization ID.
-        :param project: List only servers of this project ID.
-        :param name: Filter servers by name (for eg. "server1" will return "server100" and "server1" but not "foo").
-        :param private_ip: List servers by private_ip.
-        :param without_ip: List servers that are not attached to a public IP.
-        :param commercial_type: List servers of this commercial type.
-        :param state: List servers in this state.
-        :param tags: List servers with these exact tags (to filter with several tags, use commas to separate them).
-        :param private_network: List servers in this Private Network.
+        :param organization: List only Instances of this Organization ID.
+        :param project: List only Instances of this Project ID.
+        :param name: Filter Instances by name (eg. "server1" will return "server100" and "server1" but not "foo").
+        :param private_ip: List Instances by private_ip.
+        :param without_ip: List Instances that are not attached to a public IP.
+        :param commercial_type: List Instances of this commercial type.
+        :param state: List Instances in this state.
+        :param tags: List Instances with these exact tags (to filter with several tags, use commas to separate them).
+        :param private_network: List Instances in this Private Network.
         :param order: Define the order of the returned servers.
         :return: :class:`ListServersResponse <ListServersResponse>`
 
@@ -406,19 +407,20 @@ class InstanceV1API(API):
         order: Optional[ListServersRequestOrder] = None,
     ) -> List[Server]:
         """
-        List all servers.
+        List all Instances.
+        List all Instances in a specified Availability Zone, e.g. `fr-par-1`.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param per_page: A positive integer lower or equal to 100 to select the number of items to return.
         :param page: A positive integer to choose the page to return.
-        :param organization: List only servers of this organization ID.
-        :param project: List only servers of this project ID.
-        :param name: Filter servers by name (for eg. "server1" will return "server100" and "server1" but not "foo").
-        :param private_ip: List servers by private_ip.
-        :param without_ip: List servers that are not attached to a public IP.
-        :param commercial_type: List servers of this commercial type.
-        :param state: List servers in this state.
-        :param tags: List servers with these exact tags (to filter with several tags, use commas to separate them).
-        :param private_network: List servers in this Private Network.
+        :param organization: List only Instances of this Organization ID.
+        :param project: List only Instances of this Project ID.
+        :param name: Filter Instances by name (eg. "server1" will return "server100" and "server1" but not "foo").
+        :param private_ip: List Instances by private_ip.
+        :param without_ip: List Instances that are not attached to a public IP.
+        :param commercial_type: List Instances of this commercial type.
+        :param state: List Instances in this state.
+        :param tags: List Instances with these exact tags (to filter with several tags, use commas to separate them).
+        :param private_network: List Instances in this Private Network.
         :param order: Define the order of the returned servers.
         :return: :class:`List[ListServersResponse] <List[ListServersResponse]>`
 
@@ -469,44 +471,28 @@ class InstanceV1API(API):
         placement_group: Optional[str] = None,
     ) -> CreateServerResponse:
         """
-        Create a server.
-        The `volumes` key is a dictionary composed of the volume position as key and the volume parameters as value.
-        Depending of the volume parameters, you can achieve different behaviours :
-
-        Create a volume from a snapshot of an image :
-        Optional : `volume_type`, `size`, `boot`.
-        If the `size` parameter is not set, the size of the volume will equal the size of the corresponding snapshot of the image.
-
-        Attach an existing volume :
-        Required : `id`, `name`.
-        Optional : `boot`.
-
-        Create an empty volume :
-        Required : `name`, `volume_type`, `size`.
-        Optional : `organization`, `project`, `boot`.
-
-        Create a volume from a snapshot :
-        Required : `base_snapshot`, `name`, `volume_type`.
-        Optional : `organization`, `project`, `boot`.
+        Create an Instance.
+        Create a new Instance of the specified commercial type in the specified zone. Pay attention to the volumes parameter, which takes an object which can be used in different ways to achieve different behaviors.
+        Get more information in the [Technical Information](#technical-information) section of the introduction.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param name: The server name.
-        :param dynamic_ip_required: Define if a dynamic IP is required for the instance.
-        :param commercial_type: Define the server commercial type (i.e. GP1-S).
-        :param image: The server image ID or label.
-        :param volumes: The volumes attached to the server.
+        :param name: Instance name.
+        :param dynamic_ip_required: Define if a dynamic IP is required for the Instance.
+        :param commercial_type: Define the Instance commercial type (i.e. GP1-S).
+        :param image: Instance image ID or label.
+        :param volumes: Volumes attached to the server.
         :param enable_ipv6: True if IPv6 is enabled on the server.
-        :param public_ip: The ID of the reserved IP to attach to the server.
-        :param boot_type: The boot type to use.
-        :param bootscript: The bootscript ID to use when `boot_type` is set to `bootscript`.
-        :param organization: The server organization ID.
+        :param public_ip: ID of the reserved IP to attach to the server.
+        :param boot_type: Boot type to use.
+        :param bootscript: Bootscript ID to use when `boot_type` is set to `bootscript`.
+        :param organization: Instance Organization ID.
 
         One-of ('project_identifier'): at most one of 'organization', 'project' could be set.
-        :param project: The server project ID.
+        :param project: Instance Project ID.
 
         One-of ('project_identifier'): at most one of 'organization', 'project' could be set.
-        :param tags: The server tags.
-        :param security_group: The security group ID.
-        :param placement_group: Placement group ID if server must be part of a placement group.
+        :param tags: Instance tags.
+        :param security_group: Security group ID.
+        :param placement_group: Placement group ID if Instance must be part of a placement group.
         :return: :class:`CreateServerResponse <CreateServerResponse>`
 
         Usage:
@@ -556,8 +542,8 @@ class InstanceV1API(API):
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
         """
-        Delete a server.
-        Delete a server with the given ID.
+        Delete an Instance.
+        Delete the Instance with the specified ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_id:
 
@@ -585,10 +571,10 @@ class InstanceV1API(API):
         zone: Optional[Zone] = None,
     ) -> GetServerResponse:
         """
-        Get a server.
-        Get the details of a specified Server.
+        Get an Instance.
+        Get the details of a specified Instance.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param server_id: UUID of the server you want to get.
+        :param server_id: UUID of the Instance you want to get.
         :return: :class:`GetServerResponse <GetServerResponse>`
 
         Usage:
@@ -724,20 +710,21 @@ class InstanceV1API(API):
         private_nics: Optional[List[PrivateNIC]] = None,
     ) -> UpdateServerResponse:
         """
-        Update a server.
+        Update an Instance.
+        Update the Instance information, such as name, boot mode, or tags.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param server_id: UUID of the server.
-        :param name: Name of the server.
+        :param server_id: UUID of the Instance.
+        :param name: Name of the Instance.
         :param boot_type:
-        :param tags: Tags of the server.
+        :param tags: Tags of the Instance.
         :param volumes:
         :param bootscript:
         :param dynamic_ip_required:
         :param enable_ipv6:
         :param protected:
         :param security_group:
-        :param placement_group: Placement group ID if server must be part of a placement group.
-        :param private_nics: The server private NICs.
+        :param placement_group: Placement group ID if Instance must be part of a placement group.
+        :param private_nics: Instance private NICs.
         :return: :class:`UpdateServerResponse <UpdateServerResponse>`
 
         Usage:
@@ -782,8 +769,8 @@ class InstanceV1API(API):
         zone: Optional[Zone] = None,
     ) -> ListServerActionsResponse:
         """
-        List server actions.
-        List all actions that can currently be performed on a server.
+        List Instance actions.
+        List all actions (e.g. power on, power off, reboot) that can currently be performed on an Instance.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_id:
         :return: :class:`ListServerActionsResponse <ListServerActionsResponse>`
@@ -816,12 +803,23 @@ class InstanceV1API(API):
     ) -> ServerActionResponse:
         """
         Perform action.
-        Perform power related actions on a server. Be wary that when terminating a server, all the attached volumes (local *and* block storage) are deleted. So, if you want to keep your local volumes, you must use the `archive` action instead of `terminate`. And if you want to keep block-storage volumes, **you must** detach it beforehand you issue the `terminate` call.  For more information, read the [Volumes](#volumes-7e8a39) documentation.
+        Perform an action on an Instance.
+        Available actions are:
+        * `poweron`: Start a stopped Instance.
+        * `poweroff`: Fully stop the Instance and release the hypervisor slot.
+        * `stop_in_place`: Stop the Instance, but keep the slot on the hypervisor.
+        * `reboot`: Stop the instance and restart it.
+        * `backup`:  Create an image with all the volumes of an Instance.
+        * `terminate`: Delete the Instance along with all attached volumes.
+
+        Keep in mind that terminating an Instance will result in the deletion of all attached volumes, including local and block storage.
+        If you want to preserve your local volumes, you should use the `archive` action instead of `terminate`. Similarly, if you want to keep your block storage volumes, you must first detach them before issuing the `terminate` command.
+        For more information, read the [Volumes](#volumes-7e8a39) documentation.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param server_id: UUID of the server.
-        :param action: The action to perform on the server.
-        :param name: The name of the backup you want to create.
-        The name of the backup you want to create.
+        :param server_id: UUID of the Instance.
+        :param action: Action to perform on the Instance.
+        :param name: Name of the backup you want to create.
+        Name of the backup you want to create.
         This field should only be specified when performing a backup action.
         :param volumes: For each volume UUID, the snapshot parameters of the volume.
         For each volume UUID, the snapshot parameters of the volume.
@@ -866,9 +864,9 @@ class InstanceV1API(API):
     ) -> ListServerUserDataResponse:
         """
         List user data.
-        List all user data keys registered on a given server.
+        List all user data keys registered on a specified Instance.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param server_id: UUID of the server.
+        :param server_id: UUID of the Instance.
         :return: :class:`ListServerUserDataResponse <ListServerUserDataResponse>`
 
         Usage:
@@ -897,9 +895,9 @@ class InstanceV1API(API):
     ) -> Optional[None]:
         """
         Delete user data.
-        Delete the given key from a server user data.
+        Delete the specified key from an Instance's user data.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param server_id: UUID of the server.
+        :param server_id: UUID of the Instance.
         :param key: Key of the user data to delete.
 
         Usage:
@@ -937,8 +935,8 @@ class InstanceV1API(API):
         tags: Optional[str] = None,
     ) -> ListImagesResponse:
         """
-        List instance images.
-        List all images available in an account.
+        List Instance images.
+        List all existing Instance images.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param organization:
         :param per_page:
@@ -990,8 +988,8 @@ class InstanceV1API(API):
         tags: Optional[str] = None,
     ) -> List[Image]:
         """
-        List instance images.
-        List all images available in an account.
+        List Instance images.
+        List all existing Instance images.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param organization:
         :param per_page:
@@ -1033,8 +1031,8 @@ class InstanceV1API(API):
         zone: Optional[Zone] = None,
     ) -> GetImageResponse:
         """
-        Get an instance image.
-        Get details of an image with the given ID.
+        Get an Instance image.
+        Get details of an image with the specified ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param image_id: UUID of the image you want to get.
         :return: :class:`GetImageResponse <GetImageResponse>`
@@ -1071,7 +1069,8 @@ class InstanceV1API(API):
         public: Optional[bool] = None,
     ) -> CreateImageResponse:
         """
-        Create an instance image.
+        Create an Instance image.
+        Create an Instance image from the specified snapshot ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: Name of the image.
         :param root_volume: UUID of the snapshot.
@@ -1084,7 +1083,7 @@ class InstanceV1API(API):
         :param project: Project ID of the image.
 
         One-of ('project_identifier'): at most one of 'organization', 'project' could be set.
-        :param tags: The tags of the image.
+        :param tags: Tags of the image.
         :param public: True to create a public image.
         :return: :class:`CreateImageResponse <CreateImageResponse>`
 
@@ -1209,8 +1208,8 @@ class InstanceV1API(API):
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
         """
-        Delete an instance image.
-        Delete the image with the given ID.
+        Delete an Instance image.
+        Delete the image with the specified ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param image_id: UUID of the image you want to delete.
 
@@ -1244,6 +1243,7 @@ class InstanceV1API(API):
     ) -> ListSnapshotsResponse:
         """
         List snapshots.
+        List all snapshots of an Organization in a specified Availability Zone.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param organization:
         :param per_page:
@@ -1290,6 +1290,7 @@ class InstanceV1API(API):
     ) -> List[Snapshot]:
         """
         List snapshots.
+        List all snapshots of an Organization in a specified Availability Zone.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param organization:
         :param per_page:
@@ -1335,18 +1336,19 @@ class InstanceV1API(API):
         size: Optional[int] = None,
     ) -> CreateSnapshotResponse:
         """
-        Create a snapshot from a given volume or from a QCOW2 file.
+        Create a snapshot from a specified volume or from a QCOW2 file.
+        Create a snapshot from a specified volume or from a QCOW2 file in a specified Availability Zone.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: Name of the snapshot.
         :param volume_id: UUID of the volume.
-        :param tags: The tags of the snapshot.
+        :param tags: Tags of the snapshot.
         :param organization: Organization ID of the snapshot.
 
         One-of ('project_identifier'): at most one of 'organization', 'project' could be set.
         :param project: Project ID of the snapshot.
 
         One-of ('project_identifier'): at most one of 'organization', 'project' could be set.
-        :param volume_type: The volume type of the snapshot.
+        :param volume_type: Volume type of the snapshot.
         Overrides the volume_type of the snapshot.
         If omitted, the volume type of the original volume will be used.
         :param bucket: Bucket name for snapshot imports.
@@ -1393,7 +1395,7 @@ class InstanceV1API(API):
     ) -> GetSnapshotResponse:
         """
         Get a snapshot.
-        Get details of a snapshot with the given ID.
+        Get details of a snapshot with the specified ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param snapshot_id: UUID of the snapshot you want to get.
         :return: :class:`GetSnapshotResponse <GetSnapshotResponse>`
@@ -1500,7 +1502,7 @@ class InstanceV1API(API):
     ) -> Optional[None]:
         """
         Delete a snapshot.
-        Delete the snapshot with the given ID.
+        Delete the snapshot with the specified ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param snapshot_id: UUID of the snapshot you want to delete.
 
@@ -1531,9 +1533,9 @@ class InstanceV1API(API):
     ) -> ExportSnapshotResponse:
         """
         Export a snapshot.
-        Export a snapshot to a given S3 bucket in the same region.
+        Export a snapshot to a specified S3 bucket in the same region.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param snapshot_id: The snapshot ID.
+        :param snapshot_id: Snapshot ID.
         :param bucket: S3 bucket name.
         :param key: S3 object key.
         :return: :class:`ExportSnapshotResponse <ExportSnapshotResponse>`
@@ -1582,12 +1584,13 @@ class InstanceV1API(API):
     ) -> ListVolumesResponse:
         """
         List volumes.
+        List volumes in the specified Availability Zone. You can filter the output by volume type.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param volume_type: Filter by volume type.
         :param per_page: A positive integer lower or equal to 100 to select the number of items to return.
         :param page: A positive integer to choose the page to return.
-        :param organization: Filter volume by organization ID.
-        :param project: Filter volume by project ID.
+        :param organization: Filter volume by Organization ID.
+        :param project: Filter volume by Project ID.
         :param tags: Filter volumes with these exact tags (to filter with several tags, use commas to separate them).
         :param name: Filter volume by name (for eg. "vol" will return "myvolume" but not "data").
         :return: :class:`ListVolumesResponse <ListVolumesResponse>`
@@ -1631,12 +1634,13 @@ class InstanceV1API(API):
     ) -> List[Volume]:
         """
         List volumes.
+        List volumes in the specified Availability Zone. You can filter the output by volume type.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param volume_type: Filter by volume type.
         :param per_page: A positive integer lower or equal to 100 to select the number of items to return.
         :param page: A positive integer to choose the page to return.
-        :param organization: Filter volume by organization ID.
-        :param project: Filter volume by project ID.
+        :param organization: Filter volume by Organization ID.
+        :param project: Filter volume by Project ID.
         :param tags: Filter volumes with these exact tags (to filter with several tags, use commas to separate them).
         :param name: Filter volume by name (for eg. "vol" will return "myvolume" but not "data").
         :return: :class:`List[ListVolumesResponse] <List[ListVolumesResponse]>`
@@ -1678,23 +1682,24 @@ class InstanceV1API(API):
     ) -> CreateVolumeResponse:
         """
         Create a volume.
+        Create a volume of a specified type in an Availability Zone.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param name: The volume name.
-        :param organization: The volume organization ID.
+        :param name: Volume name.
+        :param organization: Volume Organization ID.
 
         One-of ('project_identifier'): at most one of 'organization', 'project' could be set.
-        :param project: The volume project ID.
+        :param project: Volume Project ID.
 
         One-of ('project_identifier'): at most one of 'organization', 'project' could be set.
-        :param tags: The volume tags.
-        :param volume_type: The volume type.
-        :param size: The volume disk size, must be a multiple of 512.
+        :param tags: Volume tags.
+        :param volume_type: Volume type.
+        :param size: Volume disk size, must be a multiple of 512.
 
         One-of ('from_'): at most one of 'size', 'base_volume', 'base_snapshot' could be set.
-        :param base_volume: The ID of the volume on which this volume will be based.
+        :param base_volume: ID of the volume on which this volume will be based.
 
         One-of ('from_'): at most one of 'size', 'base_volume', 'base_snapshot' could be set.
-        :param base_snapshot: The ID of the snapshot on which this volume will be based.
+        :param base_snapshot: ID of the snapshot on which this volume will be based.
 
         One-of ('from_'): at most one of 'size', 'base_volume', 'base_snapshot' could be set.
         :return: :class:`CreateVolumeResponse <CreateVolumeResponse>`
@@ -1737,7 +1742,7 @@ class InstanceV1API(API):
     ) -> GetVolumeResponse:
         """
         Get a volume.
-        Get details of a volume with the given ID.
+        Get details of a volume with the specified ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param volume_id: UUID of the volume you want to get.
         :return: :class:`GetVolumeResponse <GetVolumeResponse>`
@@ -1770,12 +1775,12 @@ class InstanceV1API(API):
     ) -> UpdateVolumeResponse:
         """
         Update a volume.
-        Replace name and/or size properties of given ID volume with the given value(s). Any volume name can be changed while, for now, only `b_ssd` volume growing is supported.
+        Replace the name and/or size properties of a volume specified by its ID, with the specified value(s). Any volume name can be changed, however only `b_ssd` volumes can currently be increased in size.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param volume_id: UUID of the volume.
-        :param name: The volume name.
-        :param tags: The tags of the volume.
-        :param size: The volume disk size, must be a multiple of 512.
+        :param name: Volume name.
+        :param tags: Tags of the volume.
+        :param size: Volume disk size, must be a multiple of 512.
         :return: :class:`UpdateVolumeResponse <UpdateVolumeResponse>`
 
         Usage:
@@ -1813,7 +1818,7 @@ class InstanceV1API(API):
     ) -> Optional[None]:
         """
         Delete a volume.
-        Delete the volume with the given ID.
+        Delete the volume with the specified ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param volume_id: UUID of the volume you want to delete.
 
@@ -1848,11 +1853,11 @@ class InstanceV1API(API):
     ) -> ListSecurityGroupsResponse:
         """
         List security groups.
-        List all security groups available in an account.
+        List all existing security groups.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: Name of the security group.
-        :param organization: The security group organization ID.
-        :param project: The security group project ID.
+        :param organization: Security group Organization ID.
+        :param project: Security group Project ID.
         :param tags: List security groups with these exact tags (to filter with several tags, use commas to separate them).
         :param project_default: Filter security groups with this value for project_default.
         :param per_page: A positive integer lower or equal to 100 to select the number of items to return.
@@ -1898,11 +1903,11 @@ class InstanceV1API(API):
     ) -> List[SecurityGroup]:
         """
         List security groups.
-        List all security groups available in an account.
+        List all existing security groups.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: Name of the security group.
-        :param organization: The security group organization ID.
-        :param project: The security group project ID.
+        :param organization: Security group Organization ID.
+        :param project: Security group Project ID.
         :param tags: List security groups with these exact tags (to filter with several tags, use commas to separate them).
         :param project_default: Filter security groups with this value for project_default.
         :param per_page: A positive integer lower or equal to 100 to select the number of items to return.
@@ -1949,6 +1954,7 @@ class InstanceV1API(API):
     ) -> CreateSecurityGroupResponse:
         """
         Create a security group.
+        Create a security group with a specified name and description.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: Name of the security group.
         :param description: Description of the security group.
@@ -1958,11 +1964,11 @@ class InstanceV1API(API):
         :param project: Project ID the security group belong to.
 
         One-of ('project_identifier'): at most one of 'organization', 'project' could be set.
-        :param tags: The tags of the security group.
-        :param organization_default: Whether this security group becomes the default security group for new instances.
+        :param tags: Tags of the security group.
+        :param organization_default: Defines whether this security group becomes the default security group for new Instances.
 
         One-of ('default_identifier'): at most one of 'organization_default', 'project_default' could be set.
-        :param project_default: Whether this security group becomes the default security group for new instances.
+        :param project_default: Whether this security group becomes the default security group for new Instances.
 
         One-of ('default_identifier'): at most one of 'organization_default', 'project_default' could be set.
         :param stateful: Whether the security group is stateful or not.
@@ -2017,7 +2023,7 @@ class InstanceV1API(API):
     ) -> GetSecurityGroupResponse:
         """
         Get a security group.
-        Get the details of a Security Group with the given ID.
+        Get the details of a security group with the specified ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param security_group_id: UUID of the security group you want to get.
         :return: :class:`GetSecurityGroupResponse <GetSecurityGroupResponse>`
@@ -2049,6 +2055,7 @@ class InstanceV1API(API):
     ) -> Optional[None]:
         """
         Delete a security group.
+        Delete a security group with the specified ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param security_group_id: UUID of the security group you want to delete.
 
@@ -2095,20 +2102,20 @@ class InstanceV1API(API):
         Update a security group.
         Replace all security group properties with a security group message.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param id: The ID of the security group (will be ignored).
-        :param name: The name of the security group.
-        :param tags: The tags of the security group.
-        :param creation_date: The creation date of the security group (will be ignored).
-        :param modification_date: The modification date of the security group (will be ignored).
-        :param description: The description of the security group.
+        :param id: ID of the security group (will be ignored).
+        :param name: Name of the security group.
+        :param tags: Tags of the security group.
+        :param creation_date: Creation date of the security group (will be ignored).
+        :param modification_date: Modification date of the security group (will be ignored).
+        :param description: Description of the security group.
         :param enable_default_security: True to block SMTP on IPv4 and IPv6.
-        :param inbound_default_policy: The default inbound policy.
-        :param outbound_default_policy: The default outbound policy.
-        :param organization: The security groups organization ID.
-        :param project: The security group project ID.
+        :param inbound_default_policy: Default inbound policy.
+        :param outbound_default_policy: Default outbound policy.
+        :param organization: Security groups Organization ID.
+        :param project: Security group Project ID.
         :param organization_default: Please use project_default instead.
-        :param project_default: True use this security group for future instances created in this project.
-        :param servers: The servers attached to this security group.
+        :param project_default: True use this security group for future Instances created in this project.
+        :param servers: Instances attached to this security group.
         :param stateful: True to set the security group as stateful.
         :return: :class:`_SetSecurityGroupResponse <_SetSecurityGroupResponse>`
 
@@ -2196,6 +2203,7 @@ class InstanceV1API(API):
     ) -> ListSecurityGroupRulesResponse:
         """
         List rules.
+        List the rules of the a specified security group ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param security_group_id: UUID of the security group.
         :param per_page: A positive integer lower or equal to 100 to select the number of items to return.
@@ -2235,6 +2243,7 @@ class InstanceV1API(API):
     ) -> List[SecurityGroupRule]:
         """
         List rules.
+        List the rules of the a specified security group ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param security_group_id: UUID of the security group.
         :param per_page: A positive integer lower or equal to 100 to select the number of items to return.
@@ -2275,15 +2284,16 @@ class InstanceV1API(API):
     ) -> CreateSecurityGroupRuleResponse:
         """
         Create rule.
+        Create a rule in the specified security group ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param security_group_id: UUID of the security group.
         :param protocol:
         :param direction:
         :param action:
         :param ip_range:
-        :param dest_port_from: The beginning of the range of ports to apply this rule to (inclusive).
-        :param dest_port_to: The end of the range of ports to apply this rule to (inclusive).
-        :param position: The position of this rule in the security group rules list.
+        :param dest_port_from: Beginning of the range of ports to apply this rule to (inclusive).
+        :param dest_port_to: End of the range of ports to apply this rule to (inclusive).
+        :param position: Position of this rule in the security group rules list.
         :param editable: Indicates if this rule is editable (will be ignored).
         :return: :class:`CreateSecurityGroupRuleResponse <CreateSecurityGroupRuleResponse>`
 
@@ -2335,7 +2345,7 @@ class InstanceV1API(API):
     ) -> SetSecurityGroupRulesResponse:
         """
         Update all the rules of a security group.
-        Replaces the rules of the security group with the rules provided. This endpoint supports the update of existing rules, creation of new rules and deletion of existing rules when they are not passed in the request.
+        Replaces the existing rules of the security group with the rules provided. This endpoint supports the update of existing rules, creation of new rules and deletion of existing rules when they are not passed in the request.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param security_group_id: UUID of the security group to update the rules on.
         :param rules: List of rules to update in the security group.
@@ -2377,7 +2387,7 @@ class InstanceV1API(API):
     ) -> Optional[None]:
         """
         Delete rule.
-        Delete a security group rule with the given ID.
+        Delete a security group rule with the specified ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param security_group_id:
         :param security_group_rule_id:
@@ -2416,7 +2426,7 @@ class InstanceV1API(API):
     ) -> GetSecurityGroupRuleResponse:
         """
         Get rule.
-        Get details of a security group rule with the given ID.
+        Get details of a security group rule with the specified ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param security_group_id:
         :param security_group_rule_id:
@@ -2465,6 +2475,7 @@ class InstanceV1API(API):
     ) -> _SetSecurityGroupRuleResponse:
         """
         Update security group rule.
+        Update the rule of a specified security group ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param security_group_id:
         :param security_group_rule_id:
@@ -2541,12 +2552,12 @@ class InstanceV1API(API):
     ) -> ListPlacementGroupsResponse:
         """
         List placement groups.
-        List all placement groups.
+        List all placement groups in a specified Availability Zone.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param per_page: A positive integer lower or equal to 100 to select the number of items to return.
         :param page: A positive integer to choose the page to return.
-        :param organization: List only placement groups of this organization ID.
-        :param project: List only placement groups of this project ID.
+        :param organization: List only placement groups of this Organization ID.
+        :param project: List only placement groups of this Project ID.
         :param tags: List placement groups with these exact tags (to filter with several tags, use commas to separate them).
         :param name: Filter placement groups by name (for eg. "cluster1" will return "cluster100" and "cluster1" but not "foo").
         :return: :class:`ListPlacementGroupsResponse <ListPlacementGroupsResponse>`
@@ -2588,12 +2599,12 @@ class InstanceV1API(API):
     ) -> List[PlacementGroup]:
         """
         List placement groups.
-        List all placement groups.
+        List all placement groups in a specified Availability Zone.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param per_page: A positive integer lower or equal to 100 to select the number of items to return.
         :param page: A positive integer to choose the page to return.
-        :param organization: List only placement groups of this organization ID.
-        :param project: List only placement groups of this project ID.
+        :param organization: List only placement groups of this Organization ID.
+        :param project: List only placement groups of this Project ID.
         :param tags: List placement groups with these exact tags (to filter with several tags, use commas to separate them).
         :param name: Filter placement groups by name (for eg. "cluster1" will return "cluster100" and "cluster1" but not "foo").
         :return: :class:`List[ListPlacementGroupsResponse] <List[ListPlacementGroupsResponse]>`
@@ -2632,7 +2643,7 @@ class InstanceV1API(API):
     ) -> CreatePlacementGroupResponse:
         """
         Create a placement group.
-        Create a new placement group.
+        Create a new placement group in a specified Availability Zone.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: Name of the placement group.
         :param organization: Organization ID of the placement group.
@@ -2641,9 +2652,9 @@ class InstanceV1API(API):
         :param project: Project ID of the placement group.
 
         One-of ('project_identifier'): at most one of 'organization', 'project' could be set.
-        :param tags: The tags of the placement group.
-        :param policy_mode: The operating mode of the placement group.
-        :param policy_type: The policy type of the placement group.
+        :param tags: Tags of the placement group.
+        :param policy_mode: Operating mode of the placement group.
+        :param policy_type: Policy type of the placement group.
         :return: :class:`CreatePlacementGroupResponse <CreatePlacementGroupResponse>`
 
         Usage:
@@ -2685,7 +2696,7 @@ class InstanceV1API(API):
     ) -> GetPlacementGroupResponse:
         """
         Get a placement group.
-        Get the given placement group.
+        Get the specified placement group.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param placement_group_id: UUID of the placement group you want to get.
         :return: :class:`GetPlacementGroupResponse <GetPlacementGroupResponse>`
@@ -2723,7 +2734,7 @@ class InstanceV1API(API):
     ) -> SetPlacementGroupResponse:
         """
         Set placement group.
-        Set all parameters of the given placement group.
+        Set all parameters of the specified placement group.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param placement_group_id:
         :param name:
@@ -2783,13 +2794,13 @@ class InstanceV1API(API):
     ) -> UpdatePlacementGroupResponse:
         """
         Update a placement group.
-        Update one or more parameter of the given placement group.
+        Update one or more parameter of the specified placement group.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param placement_group_id: UUID of the placement group.
         :param name: Name of the placement group.
-        :param tags: The tags of the placement group.
-        :param policy_mode: The operating mode of the placement group.
-        :param policy_type: The policy type of the placement group.
+        :param tags: Tags of the placement group.
+        :param policy_mode: Operating mode of the placement group.
+        :param policy_type: Policy type of the placement group.
         :return: :class:`UpdatePlacementGroupResponse <UpdatePlacementGroupResponse>`
 
         Usage:
@@ -2829,7 +2840,7 @@ class InstanceV1API(API):
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
         """
-        Delete the given placement group.
+        Delete the specified placement group.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param placement_group_id: UUID of the placement group you want to delete.
 
@@ -2860,9 +2871,9 @@ class InstanceV1API(API):
     ) -> GetPlacementGroupServersResponse:
         """
         Get placement group servers.
-        Get all servers belonging to the given placement group.
+        Get all Instances belonging to the specified placement group.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param placement_group_id:
+        :param placement_group_id: UUID of the placement group you want to get.
         :return: :class:`GetPlacementGroupServersResponse <GetPlacementGroupServersResponse>`
 
         Usage:
@@ -2888,21 +2899,24 @@ class InstanceV1API(API):
         self,
         *,
         placement_group_id: str,
+        servers: List[str],
         zone: Optional[Zone] = None,
-        servers: Optional[List[str]] = None,
     ) -> SetPlacementGroupServersResponse:
         """
         Set placement group servers.
-        Set all servers belonging to the given placement group.
+        Set all Instances belonging to the specified placement group.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param placement_group_id:
-        :param servers:
+        :param placement_group_id: UUID of the placement group you want to set.
+        :param servers: An array of the Instances' UUIDs you want to configure.
         :return: :class:`SetPlacementGroupServersResponse <SetPlacementGroupServersResponse>`
 
         Usage:
         ::
 
-            result = await api.set_placement_group_servers(placement_group_id="example")
+            result = await api.set_placement_group_servers(
+                placement_group_id="example",
+                servers=["example"],
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -2916,8 +2930,8 @@ class InstanceV1API(API):
             body=marshal_SetPlacementGroupServersRequest(
                 SetPlacementGroupServersRequest(
                     placement_group_id=placement_group_id,
-                    zone=zone,
                     servers=servers,
+                    zone=zone,
                 ),
                 self.client,
             ),
@@ -2935,10 +2949,10 @@ class InstanceV1API(API):
     ) -> UpdatePlacementGroupServersResponse:
         """
         Update placement group servers.
-        Update all servers belonging to the given placement group.
+        Update all Instances belonging to the specified placement group.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param placement_group_id: UUID of the placement group.
-        :param servers:
+        :param placement_group_id: UUID of the placement group you want to update.
+        :param servers: An array of the Instances' UUIDs you want to configure.
         :return: :class:`UpdatePlacementGroupServersResponse <UpdatePlacementGroupServersResponse>`
 
         Usage:
@@ -2984,9 +2998,10 @@ class InstanceV1API(API):
     ) -> ListIpsResponse:
         """
         List all flexible IPs.
+        List all flexible IPs in a specified zone.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param project: The project ID the IPs are reserved in.
-        :param organization: The organization ID the IPs are reserved in.
+        :param project: Project ID in which the IPs are reserved.
+        :param organization: Organization ID in which the IPs are reserved.
         :param tags: Filter IPs with these exact tags (to filter with several tags, use commas to separate them).
         :param name: Filter on the IP address (Works as a LIKE operation on the IP address).
         :param per_page: A positive integer lower or equal to 100 to select the number of items to return.
@@ -3030,9 +3045,10 @@ class InstanceV1API(API):
     ) -> List[Ip]:
         """
         List all flexible IPs.
+        List all flexible IPs in a specified zone.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param project: The project ID the IPs are reserved in.
-        :param organization: The organization ID the IPs are reserved in.
+        :param project: Project ID in which the IPs are reserved.
+        :param organization: Organization ID in which the IPs are reserved.
         :param tags: Filter IPs with these exact tags (to filter with several tags, use commas to separate them).
         :param name: Filter on the IP address (Works as a LIKE operation on the IP address).
         :param per_page: A positive integer lower or equal to 100 to select the number of items to return.
@@ -3071,15 +3087,16 @@ class InstanceV1API(API):
     ) -> CreateIpResponse:
         """
         Reserve a flexible IP.
+        Reserve a flexible IP and attach it to the specified Instance.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param organization: The organization ID the IP is reserved in.
+        :param organization: Organization ID in which the IP is reserved.
 
         One-of ('project_identifier'): at most one of 'organization', 'project' could be set.
-        :param project: The project ID the IP is reserved in.
+        :param project: Project ID in which the IP is reserved.
 
         One-of ('project_identifier'): at most one of 'organization', 'project' could be set.
-        :param tags: The tags of the IP.
-        :param server: UUID of the server you want to attach the IP to.
+        :param tags: Tags of the IP.
+        :param server: UUID of the Instance you want to attach the IP to.
         :return: :class:`CreateIpResponse <CreateIpResponse>`
 
         Usage:
@@ -3116,9 +3133,9 @@ class InstanceV1API(API):
     ) -> GetIpResponse:
         """
         Get a flexible IP.
-        Get details of an IP with the given ID or address.
+        Get details of an IP with the specified ID or address.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param ip: The IP ID or address to get.
+        :param ip: IP ID or address to get.
         :return: :class:`GetIpResponse <GetIpResponse>`
 
         Usage:
@@ -3149,6 +3166,7 @@ class InstanceV1API(API):
     ) -> UpdateIpResponse:
         """
         Update a flexible IP.
+        Update a flexible IP in the specified zone with the specified ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param ip: IP ID or IP address.
         :param reverse: Reverse domain name.
@@ -3191,9 +3209,9 @@ class InstanceV1API(API):
     ) -> Optional[None]:
         """
         Delete a flexible IP.
-        Delete the IP with the given ID.
+        Delete the IP with the specified ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param ip: The ID or the address of the IP to delete.
+        :param ip: ID or address of the IP to delete.
 
         Usage:
         ::
@@ -3223,10 +3241,10 @@ class InstanceV1API(API):
     ) -> ListPrivateNICsResponse:
         """
         List all private NICs.
-        List all private NICs of a given server.
+        List all private NICs of a specified Instance.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param server_id: The server the private NIC is attached to.
-        :param tags: The private NIC tags.
+        :param server_id: Instance to which the private NIC is attached.
+        :param tags: Private NIC tags.
         :param per_page: A positive integer lower or equal to 100 to select the number of items to return.
         :param page: A positive integer to choose the page to return.
         :return: :class:`ListPrivateNICsResponse <ListPrivateNICsResponse>`
@@ -3264,10 +3282,10 @@ class InstanceV1API(API):
     ) -> List[PrivateNIC]:
         """
         List all private NICs.
-        List all private NICs of a given server.
+        List all private NICs of a specified Instance.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param server_id: The server the private NIC is attached to.
-        :param tags: The private NIC tags.
+        :param server_id: Instance to which the private NIC is attached.
+        :param tags: Private NIC tags.
         :param per_page: A positive integer lower or equal to 100 to select the number of items to return.
         :param page: A positive integer to choose the page to return.
         :return: :class:`List[ListPrivateNICsResponse] <List[ListPrivateNICsResponse]>`
@@ -3300,11 +3318,11 @@ class InstanceV1API(API):
         tags: Optional[List[str]] = None,
     ) -> CreatePrivateNICResponse:
         """
-        Create a private NIC connecting a server to a private network.
+        Create a private NIC connecting an Instance to a Private Network.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param server_id: UUID of the server the private NIC will be attached to.
+        :param server_id: UUID of the Instance the private NIC will be attached to.
         :param private_network_id: UUID of the private network where the private NIC will be attached.
-        :param tags: The private NIC tags.
+        :param tags: Private NIC tags.
         :return: :class:`CreatePrivateNICResponse <CreatePrivateNICResponse>`
 
         Usage:
@@ -3347,8 +3365,8 @@ class InstanceV1API(API):
         Get a private NIC.
         Get private NIC properties.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param server_id: The server the private NIC is attached to.
-        :param private_nic_id: The private NIC unique ID.
+        :param server_id: Instance to which the private NIC is attached.
+        :param private_nic_id: Private NIC unique ID.
         :return: :class:`GetPrivateNICResponse <GetPrivateNICResponse>`
 
         Usage:
@@ -3382,10 +3400,10 @@ class InstanceV1API(API):
     ) -> PrivateNIC:
         """
         Update a private NIC.
-        Update one or more parameter/s to a given private NIC.
+        Update one or more parameter(s) of a specified private NIC.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param server_id: UUID of the server the private NIC will be attached to.
-        :param private_nic_id: The private NIC unique ID.
+        :param server_id: UUID of the Instance the private NIC will be attached to.
+        :param private_nic_id: Private NIC unique ID.
         :param tags: Tags used to select private NIC/s.
         :return: :class:`PrivateNIC <PrivateNIC>`
 
@@ -3429,8 +3447,8 @@ class InstanceV1API(API):
         """
         Delete a private NIC.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param server_id: The server the private NIC is attached to.
-        :param private_nic_id: The private NIC unique ID.
+        :param server_id: Instance to which the private NIC is attached.
+        :param private_nic_id: Private NIC unique ID.
 
         Usage:
         ::
@@ -3552,7 +3570,7 @@ class InstanceV1API(API):
     ) -> GetBootscriptResponse:
         """
         Get bootscripts.
-        Get details of a bootscript with the given ID.
+        Get details of a bootscript with the specified ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param bootscript_id:
         :return: :class:`GetBootscriptResponse <GetBootscriptResponse>`
