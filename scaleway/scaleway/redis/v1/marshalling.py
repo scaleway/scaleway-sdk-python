@@ -26,6 +26,7 @@ from .types import (
     Endpoint,
     EndpointSpec,
     EndpointSpecPrivateNetworkSpec,
+    EndpointSpecPrivateNetworkSpecIpamConfig,
     EndpointSpecPublicNetworkSpec,
     ListClusterVersionsResponse,
     ListClustersResponse,
@@ -449,12 +450,24 @@ def unmarshal_SetEndpointsResponse(data: Any) -> SetEndpointsResponse:
     return SetEndpointsResponse(**args)
 
 
+def marshal_EndpointSpecPrivateNetworkSpecIpamConfig(
+    request: EndpointSpecPrivateNetworkSpecIpamConfig,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    return {}
+
+
 def marshal_EndpointSpecPrivateNetworkSpec(
     request: EndpointSpecPrivateNetworkSpec,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
         "id": request.id,
+        "ipam_config": marshal_EndpointSpecPrivateNetworkSpecIpamConfig(
+            request.ipam_config, defaults
+        )
+        if request.ipam_config is not None
+        else None,
         "service_ips": request.service_ips,
     }
 

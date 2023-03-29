@@ -17,6 +17,7 @@ from .types import ClusterVersion
 from .types import Endpoint
 from .types import EndpointSpec
 from .types import EndpointSpecPrivateNetworkSpec
+from .types import EndpointSpecPrivateNetworkSpecIpamConfig
 from .types import EndpointSpecPublicNetworkSpec
 from .types import ListClusterVersionsResponse
 from .types import ListClustersResponse
@@ -47,6 +48,7 @@ __all__ = [
     "Endpoint",
     "EndpointSpec",
     "EndpointSpecPrivateNetworkSpec",
+    "EndpointSpecPrivateNetworkSpecIpamConfig",
     "EndpointSpecPublicNetworkSpec",
     "ListClusterVersionsResponse",
     "ListClustersResponse",
