@@ -7,6 +7,10 @@ from datetime import datetime
 from enum import Enum
 from typing import List, Optional
 
+from scaleway_core.bridge import (
+    TimeSeries,
+)
+
 
 class CockpitStatus(str, Enum):
     UNKNOWN_STATUS = "unknown_status"
@@ -97,6 +101,18 @@ class CockpitEndpoints:
     alertmanager_url: str
 
     grafana_url: str
+
+
+@dataclass
+class CockpitMetrics:
+    """
+    Cockpit metrics.
+    """
+
+    timeseries: List[TimeSeries]
+    """
+    Timeseries array.
+    """
 
 
 @dataclass
@@ -233,6 +249,29 @@ class ActivateCockpitRequest:
 @dataclass
 class GetCockpitRequest:
     project_id: Optional[str]
+
+
+@dataclass
+class GetCockpitMetricsRequest:
+    project_id: Optional[str]
+    """
+    Project ID.
+    """
+
+    start_date: Optional[datetime]
+    """
+    Start date.
+    """
+
+    end_date: Optional[datetime]
+    """
+    End date.
+    """
+
+    metric_name: Optional[str]
+    """
+    Metric name.
+    """
 
 
 @dataclass

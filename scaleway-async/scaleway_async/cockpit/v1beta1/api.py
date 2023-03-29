@@ -1,6 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
+from datetime import datetime
 from typing import Awaitable, List, Optional, Union
 
 from scaleway_core.api import API
@@ -16,6 +17,7 @@ from .types import (
     ListGrafanaUsersRequestOrderBy,
     ListTokensRequestOrderBy,
     Cockpit,
+    CockpitMetrics,
     ContactPoint,
     GrafanaUser,
     ListContactPointsResponse,
@@ -56,6 +58,7 @@ from .marshalling import (
     unmarshal_GrafanaUser,
     unmarshal_Token,
     unmarshal_Cockpit,
+    unmarshal_CockpitMetrics,
     unmarshal_ListContactPointsResponse,
     unmarshal_ListGrafanaUsersResponse,
     unmarshal_ListTokensResponse,
@@ -160,6 +163,43 @@ class CockpitV1Beta1API(API):
                 "project_id": project_id,
             },
         )
+
+    async def get_cockpit_metrics(
+        self,
+        *,
+        project_id: Optional[str] = None,
+        start_date: Optional[datetime] = None,
+        end_date: Optional[datetime] = None,
+        metric_name: Optional[str] = None,
+    ) -> CockpitMetrics:
+        """
+        Get cockpit metrics.
+        Get the cockpit metrics with the given project ID.
+        :param project_id: Project ID.
+        :param start_date: Start date.
+        :param end_date: End date.
+        :param metric_name: Metric name.
+        :return: :class:`CockpitMetrics <CockpitMetrics>`
+
+        Usage:
+        ::
+
+            result = await api.get_cockpit_metrics()
+        """
+
+        res = self._request(
+            "GET",
+            f"/cockpit/v1beta1/cockpit/metrics",
+            params={
+                "end_date": end_date,
+                "metric_name": metric_name,
+                "project_id": project_id or self.client.default_project_id,
+                "start_date": start_date,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_CockpitMetrics(res.json())
 
     async def deactivate_cockpit(
         self,
