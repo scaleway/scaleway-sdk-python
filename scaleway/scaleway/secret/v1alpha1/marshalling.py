@@ -161,6 +161,7 @@ def marshal_CreateSecretVersionRequest(
     return {
         "data": request.data,
         "description": request.description,
+        "disable_previous": request.disable_previous,
     }
 
 

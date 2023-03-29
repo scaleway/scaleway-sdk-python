@@ -340,6 +340,7 @@ class SecretV1Alpha1API(API):
         *,
         secret_id: str,
         data: str,
+        disable_previous: bool,
         region: Optional[Region] = None,
         description: Optional[str] = None,
     ) -> SecretVersion:
@@ -350,6 +351,8 @@ class SecretV1Alpha1API(API):
         :param secret_id: ID of the secret.
         :param data: The base64-encoded secret payload of the version.
         :param description: Description of the version.
+        :param disable_previous: Disable the previous secret version.
+        If there is no previous version or if the previous version was already disabled, does nothing.
         :return: :class:`SecretVersion <SecretVersion>`
 
         Usage:
@@ -358,6 +361,7 @@ class SecretV1Alpha1API(API):
             result = await api.create_secret_version(
                 secret_id="example",
                 data="example",
+                disable_previous=True,
             )
         """
 
@@ -373,6 +377,7 @@ class SecretV1Alpha1API(API):
                 CreateSecretVersionRequest(
                     secret_id=secret_id,
                     data=data,
+                    disable_previous=disable_previous,
                     region=region,
                     description=description,
                 ),

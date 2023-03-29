@@ -349,6 +349,12 @@ class CreateSecretVersionRequest:
     Description of the version.
     """
 
+    disable_previous: bool
+    """
+    Disable the previous secret version.
+    If there is no previous version or if the previous version was already disabled, does nothing.
+    """
+
 
 @dataclass
 class GetSecretVersionRequest:
