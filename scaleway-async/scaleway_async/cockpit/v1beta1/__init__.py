@@ -6,6 +6,7 @@ from .types import ListGrafanaUsersRequestOrderBy
 from .types import ListTokensRequestOrderBy
 from .types import Cockpit
 from .types import CockpitEndpoints
+from .types import CockpitMetrics
 from .types import ContactPoint
 from .types import ContactPointEmail
 from .types import GrafanaUser
@@ -24,6 +25,7 @@ __all__ = [
     "ListTokensRequestOrderBy",
     "Cockpit",
     "CockpitEndpoints",
+    "CockpitMetrics",
     "ContactPoint",
     "ContactPointEmail",
     "GrafanaUser",

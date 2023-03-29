@@ -4,6 +4,9 @@
 from typing import Any, Dict
 
 from scaleway_core.profile import ProfileDefaults
+from scaleway_core.bridge import (
+    unmarshal_TimeSeries,
+)
 from scaleway_core.utils import (
     OneOfPossibility,
     resolve_one_of,
@@ -13,6 +16,7 @@ from .types import (
     GrafanaUserRole,
     Cockpit,
     CockpitEndpoints,
+    CockpitMetrics,
     ContactPoint,
     ContactPointEmail,
     GrafanaUser,
@@ -201,6 +205,20 @@ def unmarshal_Cockpit(data: Any) -> Cockpit:
     args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
     return Cockpit(**args)
+
+
+def unmarshal_CockpitMetrics(data: Any) -> CockpitMetrics:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'CockpitMetrics' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("timeseries")
+    args["timeseries"] = [unmarshal_TimeSeries(v) for v in data["timeseries"]]
+
+    return CockpitMetrics(**args)
 
 
 def unmarshal_ListContactPointsResponse(data: Any) -> ListContactPointsResponse:
