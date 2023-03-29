@@ -17,6 +17,7 @@ from .types import (
     AccessSecretVersionResponse,
     ListSecretVersionsResponse,
     ListSecretsResponse,
+    PasswordGenerationParams,
     Secret,
     SecretVersion,
     CreateSecretRequest,
@@ -343,6 +344,7 @@ class SecretV1Alpha1API(API):
         disable_previous: bool,
         region: Optional[Region] = None,
         description: Optional[str] = None,
+        password_generation: Optional[PasswordGenerationParams] = None,
     ) -> SecretVersion:
         """
         Create a version.
@@ -353,6 +355,12 @@ class SecretV1Alpha1API(API):
         :param description: Description of the version.
         :param disable_previous: Disable the previous secret version.
         If there is no previous version or if the previous version was already disabled, does nothing.
+        :param password_generation: Options to generate a password.
+        If specified, a random password will be generated. The data field must be empty.
+        By default, the generator will use upper and lower case letters, and digits.
+        This behavior can be tuned using the generation params.
+
+        One-of ('_password_generation'): at most one of 'password_generation' could be set.
         :return: :class:`SecretVersion <SecretVersion>`
 
         Usage:
@@ -380,6 +388,7 @@ class SecretV1Alpha1API(API):
                     disable_previous=disable_previous,
                     region=region,
                     description=description,
+                    password_generation=password_generation,
                 ),
                 self.client,
             ),
