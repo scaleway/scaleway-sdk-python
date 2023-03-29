@@ -46,6 +46,7 @@ class VpcV1API(API):
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         private_network_ids: Optional[List[str]] = None,
+        include_regional: Optional[bool] = None,
     ) -> ListPrivateNetworksResponse:
         """
         List private networks.
@@ -58,6 +59,7 @@ class VpcV1API(API):
         :param organization_id: The organization ID on which to filter the returned private networks.
         :param project_id: The project ID on which to filter the returned private networks.
         :param private_network_ids: The PrivateNetwork IDs on which to filter the returned private networks.
+        :param include_regional: Include regional Private Networks.
         :return: :class:`ListPrivateNetworksResponse <ListPrivateNetworksResponse>`
 
         Usage:
@@ -72,6 +74,7 @@ class VpcV1API(API):
             "GET",
             f"/vpc/v1/zones/{param_zone}/private-networks",
             params={
+                "include_regional": include_regional,
                 "name": name,
                 "order_by": order_by,
                 "organization_id": organization_id
@@ -99,6 +102,7 @@ class VpcV1API(API):
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         private_network_ids: Optional[List[str]] = None,
+        include_regional: Optional[bool] = None,
     ) -> List[PrivateNetwork]:
         """
         List private networks.
@@ -111,6 +115,7 @@ class VpcV1API(API):
         :param organization_id: The organization ID on which to filter the returned private networks.
         :param project_id: The project ID on which to filter the returned private networks.
         :param private_network_ids: The PrivateNetwork IDs on which to filter the returned private networks.
+        :param include_regional: Include regional Private Networks.
         :return: :class:`List[ListPrivateNetworksResponse] <List[ListPrivateNetworksResponse]>`
 
         Usage:
@@ -133,6 +138,7 @@ class VpcV1API(API):
                 "organization_id": organization_id,
                 "project_id": project_id,
                 "private_network_ids": private_network_ids,
+                "include_regional": include_regional,
             },
         )
 

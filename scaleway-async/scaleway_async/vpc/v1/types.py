@@ -128,6 +128,11 @@ class ListPrivateNetworksRequest:
     The PrivateNetwork IDs on which to filter the returned private networks.
     """
 
+    include_regional: Optional[bool]
+    """
+    Include regional Private Networks.
+    """
+
 
 @dataclass
 class CreatePrivateNetworkRequest:
