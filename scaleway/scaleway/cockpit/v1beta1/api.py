@@ -15,6 +15,7 @@ from scaleway_core.utils import (
 from .types import (
     GrafanaUserRole,
     ListGrafanaUsersRequestOrderBy,
+    ListPlansRequestOrderBy,
     ListTokensRequestOrderBy,
     Cockpit,
     CockpitMetrics,
@@ -22,7 +23,10 @@ from .types import (
     GrafanaUser,
     ListContactPointsResponse,
     ListGrafanaUsersResponse,
+    ListPlansResponse,
     ListTokensResponse,
+    Plan,
+    SelectPlanResponse,
     Token,
     TokenScopes,
     ActivateCockpitRequest,
@@ -37,6 +41,7 @@ from .types import (
     CreateGrafanaUserRequest,
     DeleteGrafanaUserRequest,
     ResetGrafanaUserPasswordRequest,
+    SelectPlanRequest,
 )
 from .content import (
     COCKPIT_TRANSIENT_STATUSES,
@@ -53,6 +58,7 @@ from .marshalling import (
     marshal_EnableManagedAlertsRequest,
     marshal_ResetCockpitGrafanaRequest,
     marshal_ResetGrafanaUserPasswordRequest,
+    marshal_SelectPlanRequest,
     marshal_TriggerTestAlertRequest,
     unmarshal_ContactPoint,
     unmarshal_GrafanaUser,
@@ -61,7 +67,9 @@ from .marshalling import (
     unmarshal_CockpitMetrics,
     unmarshal_ListContactPointsResponse,
     unmarshal_ListGrafanaUsersResponse,
+    unmarshal_ListPlansResponse,
     unmarshal_ListTokensResponse,
+    unmarshal_SelectPlanResponse,
 )
 
 
@@ -828,3 +836,103 @@ class CockpitV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_GrafanaUser(res.json())
+
+    def list_plans(
+        self,
+        *,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        order_by: ListPlansRequestOrderBy = ListPlansRequestOrderBy.NAME_ASC,
+    ) -> ListPlansResponse:
+        """
+        List plans.
+        List all pricing plans.
+        :param page:
+        :param page_size:
+        :param order_by:
+        :return: :class:`ListPlansResponse <ListPlansResponse>`
+
+        Usage:
+        ::
+
+            result = api.list_plans()
+        """
+
+        res = self._request(
+            "GET",
+            f"/cockpit/v1beta1/plans",
+            params={
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListPlansResponse(res.json())
+
+    def list_plans_all(
+        self,
+        *,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        order_by: Optional[ListPlansRequestOrderBy] = None,
+    ) -> List[Plan]:
+        """
+        List plans.
+        List all pricing plans.
+        :param page:
+        :param page_size:
+        :param order_by:
+        :return: :class:`List[ListPlansResponse] <List[ListPlansResponse]>`
+
+        Usage:
+        ::
+
+            result = api.list_plans_all()
+        """
+
+        return fetch_all_pages(
+            type=ListPlansResponse,
+            key="plans",
+            fetcher=self.list_plans,
+            args={
+                "page": page,
+                "page_size": page_size,
+                "order_by": order_by,
+            },
+        )
+
+    def select_plan(
+        self,
+        *,
+        plan_id: str,
+        project_id: Optional[str] = None,
+    ) -> SelectPlanResponse:
+        """
+        Select pricing plan.
+        Select the wanted pricing plan.
+        :param project_id:
+        :param plan_id:
+        :return: :class:`SelectPlanResponse <SelectPlanResponse>`
+
+        Usage:
+        ::
+
+            result = api.select_plan(plan_id="example")
+        """
+
+        res = self._request(
+            "POST",
+            f"/cockpit/v1beta1/select-plan",
+            body=marshal_SelectPlanRequest(
+                SelectPlanRequest(
+                    plan_id=plan_id,
+                    project_id=project_id,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_SelectPlanResponse(res.json())

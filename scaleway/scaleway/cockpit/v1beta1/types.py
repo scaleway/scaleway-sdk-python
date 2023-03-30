@@ -41,11 +41,29 @@ class ListGrafanaUsersRequestOrderBy(str, Enum):
         return str(self.value)
 
 
+class ListPlansRequestOrderBy(str, Enum):
+    NAME_ASC = "name_asc"
+    NAME_DESC = "name_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListTokensRequestOrderBy(str, Enum):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     NAME_ASC = "name_asc"
     NAME_DESC = "name_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class PlanName(str, Enum):
+    UNKNOWN_NAME = "unknown_name"
+    FREE = "free"
+    PREMIUM = "premium"
+    CUSTOM = "custom"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -85,6 +103,11 @@ class Cockpit:
     managed_alerts_enabled: bool
     """
     Managed alerts enabled.
+    """
+
+    plan: Optional[Plan]
+    """
+    Pricing plan.
     """
 
 
@@ -189,6 +212,18 @@ class ListGrafanaUsersResponse:
 
 
 @dataclass
+class ListPlansResponse:
+    """
+    List all pricing plans response.
+    List plans response.
+    """
+
+    total_count: int
+
+    plans: List[Plan]
+
+
+@dataclass
 class ListTokensResponse:
     """
     List tokens response.
@@ -197,6 +232,56 @@ class ListTokensResponse:
     total_count: int
 
     tokens: List[Token]
+
+
+@dataclass
+class Plan:
+    """
+    Plan.
+    """
+
+    id: str
+    """
+    Plan id.
+    """
+
+    name: PlanName
+    """
+    Plan name.
+    """
+
+    retention_metrics_interval: Optional[str]
+    """
+    Retention for metrics.
+    """
+
+    retention_logs_interval: Optional[str]
+    """
+    Retention for logs.
+    """
+
+    sample_ingestion_price: int
+    """
+    Ingestion price for 1million samples in cents.
+    """
+
+    logs_ingestion_price: int
+    """
+    Ingestion price in cents for 1 Go of logs.
+    """
+
+    retention_price: int
+    """
+    Retention price in euros per month.
+    """
+
+
+@dataclass
+class SelectPlanResponse:
+    """
+    Select pricing plan response.
+    Select plan response.
+    """
 
 
 @dataclass
@@ -402,3 +487,19 @@ class ResetGrafanaUserPasswordRequest:
     grafana_user_id: int
 
     project_id: Optional[str]
+
+
+@dataclass
+class ListPlansRequest:
+    page: Optional[int]
+
+    page_size: Optional[int]
+
+    order_by: Optional[ListPlansRequestOrderBy]
+
+
+@dataclass
+class SelectPlanRequest:
+    project_id: Optional[str]
+
+    plan_id: str
