@@ -233,42 +233,42 @@ class Bootscript:
 
     bootcmdargs: str
     """
-    The bootscript arguments.
+    Bootscript arguments.
     """
 
     default: bool
     """
-    Dispmay if the bootscript is the default bootscript if no other boot option is configured.
+    Display if the bootscript is the default bootscript (if no other boot option is configured).
     """
 
     dtb: str
     """
-    Provide information regarding a Device Tree Binary (dtb) for use with C1 servers.
+    Provide information regarding a Device Tree Binary (DTB) for use with C1 servers.
     """
 
     id: str
     """
-    The bootscript ID.
+    Bootscript ID.
     """
 
     initrd: str
     """
-    The initrd (initial ramdisk) configuration.
+    Initrd (initial ramdisk) configuration.
     """
 
     kernel: str
     """
-    The server kernel version.
+    Instance kernel version.
     """
 
     organization: str
     """
-    The bootscript organization ID.
+    Bootscript Organization ID.
     """
 
     project: str
     """
-    The bootscript project ID.
+    Bootscript Project ID.
     """
 
     public: bool
@@ -278,17 +278,17 @@ class Bootscript:
 
     title: str
     """
-    The bootscript title.
+    Bootscript title.
     """
 
     arch: Arch
     """
-    The bootscript arch.
+    Bootscript architecture.
     """
 
     zone: Zone
     """
-    The zone in which is the bootscript.
+    Zone in which the bootscript is located.
     """
 
 
@@ -404,7 +404,14 @@ class GetPlacementGroupResponse:
 
 @dataclass
 class GetPlacementGroupServersResponse:
+    """
+    Get placement group servers response.
+    """
+
     servers: List[PlacementGroupServer]
+    """
+    Instances attached to the placement group.
+    """
 
 
 @dataclass
@@ -629,12 +636,12 @@ class ListServersResponse:
 
     total_count: int
     """
-    Total number of servers.
+    Total number of Instances.
     """
 
     servers: List[Server]
     """
-    List of servers.
+    List of Instances.
     """
 
 
@@ -646,12 +653,12 @@ class ListServersTypesResponse:
 
     total_count: int
     """
-    Total number of server types.
+    Total number of Instance types.
     """
 
     servers: Dict[str, ServerType]
     """
-    List of server types.
+    List of Instance types.
     """
 
 
@@ -714,32 +721,32 @@ class PlacementGroup:
 
     id: str
     """
-    The placement group unique ID.
+    Placement group unique ID.
     """
 
     name: str
     """
-    The placement group name.
+    Placement group name.
     """
 
     organization: str
     """
-    The placement group organization ID.
+    Placement group Organization ID.
     """
 
     project: str
     """
-    The placement group project ID.
+    Placement group Project ID.
     """
 
     tags: List[str]
     """
-    The placement group tags.
+    Placement group tags.
     """
 
     policy_mode: PlacementGroupPolicyMode
     """
-    Select the failling mode when the placement cannot be respected, either optional or enforced.
+    Select the failure mode when the placement cannot be respected, either optional or enforced.
     """
 
     policy_type: PlacementGroupPolicyType
@@ -754,17 +761,30 @@ class PlacementGroup:
 
     zone: Zone
     """
-    The zone in which is the placement group.
+    Zone in which the placement group is located.
     """
 
 
 @dataclass
 class PlacementGroupServer:
+    """
+    Placement group server.
+    """
+
     id: str
+    """
+    Instance UUID.
+    """
 
     name: str
+    """
+    Instance name.
+    """
 
     policy_respected: bool
+    """
+    Defines whether the placement group policy is respected (either 1 or 0).
+    """
 
 
 @dataclass
@@ -775,32 +795,32 @@ class PrivateNIC:
 
     id: str
     """
-    The private NIC unique ID.
+    Private NIC unique ID.
     """
 
     server_id: str
     """
-    The server the private NIC is attached to.
+    Instance to which the private NIC is attached.
     """
 
     private_network_id: str
     """
-    The private network where the private NIC is attached.
+    Private Network the private NIC is attached to.
     """
 
     mac_address: str
     """
-    The private NIC MAC address.
+    Private NIC MAC address.
     """
 
     state: PrivateNICState
     """
-    The private NIC state.
+    Private NIC state.
     """
 
     tags: List[str]
     """
-    The private NIC tags.
+    Private NIC tags.
     """
 
 
@@ -812,17 +832,17 @@ class SecurityGroup:
 
     id: str
     """
-    The security groups' unique ID.
+    Security group unique ID.
     """
 
     name: str
     """
-    The security groups name.
+    Security group name.
     """
 
     description: str
     """
-    The security groups description.
+    Security group description.
     """
 
     enable_default_security: bool
@@ -832,58 +852,58 @@ class SecurityGroup:
 
     inbound_default_policy: SecurityGroupPolicy
     """
-    The default inbound policy.
+    Default inbound policy.
     """
 
     outbound_default_policy: SecurityGroupPolicy
     """
-    The default outbound policy.
+    Default outbound policy.
     """
 
     organization: str
     """
-    The security groups organization ID.
+    Security group Organization ID.
     """
 
     project: str
     """
-    The security group project ID.
+    Security group Project ID.
     """
 
     tags: List[str]
     """
-    The security group tags.
+    Security group tags.
     """
 
     organization_default: Optional[bool]
     """
-    True if it is your default security group for this organization ID.
+    True if it is your default security group for this Organization ID.
     :deprecated
     """
 
     project_default: bool
     """
-    True if it is your default security group for this project ID.
+    True if it is your default security group for this Project ID.
     """
 
     creation_date: Optional[datetime]
     """
-    The security group creation date.
+    Security group creation date.
     """
 
     modification_date: Optional[datetime]
     """
-    The security group modification date.
+    Security group modification date.
     """
 
     servers: List[ServerSummary]
     """
-    List of servers attached to this security group.
+    List of Instances attached to this security group.
     """
 
     stateful: bool
     """
-    True if the security group is stateful.
+    Defines whether the security group is stateful.
     """
 
     state: SecurityGroupState
@@ -893,7 +913,7 @@ class SecurityGroup:
 
     zone: Zone
     """
-    The zone in which is the security group.
+    Zone in which the security group is located.
     """
 
 
@@ -942,42 +962,42 @@ class Server:
 
     id: str
     """
-    The server unique ID.
+    Instance unique ID.
     """
 
     name: str
     """
-    The server name.
+    Instance name.
     """
 
     organization: str
     """
-    The server organization ID.
+    Instance Organization ID.
     """
 
     project: str
     """
-    The server project ID.
+    Instance Project ID.
     """
 
     allowed_actions: List[ServerAction]
     """
-    Provide as list of allowed actions on the server.
+    List of allowed actions on the Instance.
     """
 
     tags: List[str]
     """
-    The server associated tags.
+    Tags associated with the Instance.
     """
 
     commercial_type: str
     """
-    The server commercial type (eg. GP1-M).
+    Instance commercial type (eg. GP1-M).
     """
 
     creation_date: Optional[datetime]
     """
-    The server creation date.
+    Instance creation date.
     """
 
     dynamic_ip_required: bool
@@ -992,22 +1012,22 @@ class Server:
 
     hostname: str
     """
-    The server host name.
+    Instance host name.
     """
 
     image: Optional[Image]
     """
-    Provide information on the server image.
+    Information about the Instance image.
     """
 
     protected: bool
     """
-    The server protection option is activated.
+    Defines whether the Instance protection option is activated.
     """
 
     private_ip: Optional[str]
     """
-    The server private IP address.
+    Private IP address of the Instance.
     """
 
     public_ip: Optional[ServerIp]
@@ -1017,73 +1037,73 @@ class Server:
 
     modification_date: Optional[datetime]
     """
-    The server modification date.
+    Instance modification date.
     """
 
     state: ServerState
     """
-    The server state.
+    Instance state.
     """
 
     location: Optional[ServerLocation]
     """
-    The server location.
+    Instance location.
     """
 
     ipv6: Optional[ServerIpv6]
     """
-    The server IPv6 address.
+    Instance IPv6 address.
     """
 
     bootscript: Optional[Bootscript]
     """
-    The server bootscript.
+    Instance bootscript.
     :deprecated
     """
 
     boot_type: BootType
     """
-    The server boot type.
+    Instance boot type.
     """
 
     volumes: Dict[str, VolumeServer]
     """
-    The server volumes.
+    Instance volumes.
     """
 
     security_group: Optional[SecurityGroupSummary]
     """
-    The server security group.
+    Instance security group.
     """
 
     maintenances: List[ServerMaintenance]
     """
-    The server planned maintenances.
+    Instance planned maintenance.
     """
 
     state_detail: str
     """
-    The server state_detail.
+    Detailed information about the Instance state.
     """
 
     arch: Arch
     """
-    The server arch.
+    Instance architecture.
     """
 
     placement_group: Optional[PlacementGroup]
     """
-    The server placement group.
+    Instance placement group.
     """
 
     private_nics: List[PrivateNIC]
     """
-    The server private NICs.
+    Instance private NICs.
     """
 
     zone: Zone
     """
-    The zone in which is the server.
+    Zone in which the Instance is located.
     """
 
 
@@ -1095,8 +1115,8 @@ class ServerActionRequestVolumeBackupTemplate:
 
     volume_type: SnapshotVolumeType
     """
-    The snapshot's volume type.
-    Overrides the volume_type of the snapshot for this volume.
+    Snapshot's volume type.
+    Overrides the `volume_type` of the snapshot for this volume.
     If omitted, the volume type of the original volume will be used.
     """
 
@@ -1114,12 +1134,12 @@ class ServerIp:
 
     id: str
     """
-    The unique ID of the IP address.
+    Unique ID of the IP address.
     """
 
     address: str
     """
-    The server public IPv4 IP-Address.
+    Instance public IPv4 IP-Address.
     """
 
     dynamic: bool
@@ -1136,17 +1156,17 @@ class ServerIpv6:
 
     address: str
     """
-    The server IPv6 IP-Address.
+    Instance IPv6 IP-Address.
     """
 
     gateway: str
     """
-    The IPv6 IP-addresses gateway.
+    IPv6 IP-addresses gateway.
     """
 
     netmask: str
     """
-    The IPv6 IP-addresses CIDR netmask.
+    IPv6 IP-addresses CIDR netmask.
     """
 
 
@@ -1194,7 +1214,7 @@ class ServerType:
 
     alt_names: List[str]
     """
-    Alternative instance name if any.
+    Alternative Instance name, if any.
     """
 
     per_volume_constraint: Optional[ServerTypeVolumeConstraintsByType]
@@ -1229,12 +1249,12 @@ class ServerType:
 
     baremetal: bool
     """
-    True if it is a baremetal instance.
+    True if it is a baremetal Instance.
     """
 
     network: Optional[ServerTypeNetwork]
     """
-    Network available for the instance.
+    Network available for the Instance.
     """
 
     capabilities: Optional[ServerTypeCapabilities]
@@ -1251,7 +1271,7 @@ class ServerTypeCapabilities:
 
     block_storage: Optional[bool]
     """
-    True if server supports block storage.
+    Defines whether the Instance supports block storage.
     """
 
     boot_types: List[BootType]
@@ -1340,7 +1360,14 @@ class SetPlacementGroupResponse:
 
 @dataclass
 class SetPlacementGroupServersResponse:
+    """
+    Set placement group servers response.
+    """
+
     servers: List[PlacementGroupServer]
+    """
+    Instances attached to the placement group.
+    """
 
 
 @dataclass
@@ -1371,7 +1398,7 @@ class SetSecurityGroupRulesRequestRule:
 
     ip_range: str
     """
-    The range of IP address this rules applies to.
+    Range of IP addresses these rules apply to.
     """
 
     dest_port_from: Optional[int]
@@ -1413,67 +1440,67 @@ class Snapshot:
 
     id: str
     """
-    The snapshot ID.
+    Snapshot ID.
     """
 
     name: str
     """
-    The snapshot name.
+    Snapshot name.
     """
 
     organization: str
     """
-    The snapshot organization ID.
+    Snapshot Organization ID.
     """
 
     project: str
     """
-    The snapshot project ID.
+    Snapshot Project ID.
     """
 
     tags: List[str]
     """
-    The snapshot tags.
+    Snapshot tags.
     """
 
     volume_type: VolumeVolumeType
     """
-    The snapshot volume type.
+    Snapshot volume type.
     """
 
     size: int
     """
-    The snapshot size.
+    Snapshot size.
     """
 
     state: SnapshotState
     """
-    The snapshot state.
+    Snapshot state.
     """
 
     base_volume: Optional[SnapshotBaseVolume]
     """
-    The volume on which the snapshot is based on.
+    Volume on which the snapshot is based on.
     """
 
     creation_date: Optional[datetime]
     """
-    The snapshot creation date.
+    Snapshot creation date.
     """
 
     modification_date: Optional[datetime]
     """
-    The snapshot modification date.
+    Snapshot modification date.
     """
 
     zone: Zone
     """
-    The snapshot zone.
+    Snapshot zone.
     """
 
     error_reason: Optional[str]
     """
-    The reason for the failed snapshot import.
+    Reason for the failed snapshot import.
     """
 
 
@@ -1485,12 +1512,12 @@ class SnapshotBaseVolume:
 
     id: str
     """
-    The volume ID on which the snapshot is based on.
+    Volume ID on which the snapshot is based.
     """
 
     name: str
     """
-    The volume name on which the snapshot is based on.
+    Volume name on which the snapshot is based on.
     """
 
 
@@ -1502,32 +1529,32 @@ class Task:
 
     id: str
     """
-    The unique ID of the task.
+    Unique ID of the task.
     """
 
     description: str
     """
-    The description of the task.
+    Description of the task.
     """
 
     progress: int
     """
-    The progress of the task in percent.
+    Progress of the task in percent.
     """
 
     started_at: Optional[datetime]
     """
-    The task start date.
+    Task start date.
     """
 
     terminated_at: Optional[datetime]
     """
-    The task end date.
+    Task end date.
     """
 
     status: TaskStatus
     """
-    The task status.
+    Task status.
     """
 
     href_from: str
@@ -1536,7 +1563,7 @@ class Task:
 
     zone: Zone
     """
-    The zone in which is the task.
+    Zone in which the task is excecuted.
     """
 
 
@@ -1552,7 +1579,14 @@ class UpdatePlacementGroupResponse:
 
 @dataclass
 class UpdatePlacementGroupServersResponse:
+    """
+    Update placement group servers response.
+    """
+
     servers: List[PlacementGroupServer]
+    """
+    Instances attached to the placement group.
+    """
 
 
 @dataclass
@@ -1573,12 +1607,12 @@ class Volume:
 
     id: str
     """
-    The volume unique ID.
+    Volume unique ID.
     """
 
     name: str
     """
-    The volume name.
+    Volume name.
     """
 
     export_uri: Optional[str]
@@ -1589,52 +1623,52 @@ class Volume:
 
     size: int
     """
-    The volume disk size.
+    Volume disk size.
     """
 
     volume_type: VolumeVolumeType
     """
-    The volume type.
+    Volume type.
     """
 
     creation_date: Optional[datetime]
     """
-    The volume creation date.
+    Volume creation date.
     """
 
     modification_date: Optional[datetime]
     """
-    The volume modification date.
+    Volume modification date.
     """
 
     organization: str
     """
-    The volume organization ID.
+    Volume Organization ID.
     """
 
     project: str
     """
-    The volume project ID.
+    Volume Project ID.
     """
 
     tags: List[str]
     """
-    The volume tags.
+    Volume tags.
     """
 
     server: Optional[ServerSummary]
     """
-    The server attached to the volume.
+    Instance attached to the volume.
     """
 
     state: VolumeState
     """
-    The volume state.
+    Volume state.
     """
 
     zone: Zone
     """
-    The zone in which is the volume.
+    Zone in which the volume is located.
     """
 
 
@@ -1680,7 +1714,7 @@ class VolumeServerTemplate:
 
     boot: bool
     """
-    Force the server to boot on this volume.
+    Force the Instance to boot on this volume.
     """
 
     name: str
@@ -1700,7 +1734,7 @@ class VolumeServerTemplate:
 
     base_snapshot: str
     """
-    The ID of the snapshot on which this volume will be based.
+    ID of the snapshot on which this volume will be based.
     """
 
     organization: str
@@ -1843,47 +1877,47 @@ class ListServersRequest:
 
     organization: Optional[str]
     """
-    List only servers of this organization ID.
+    List only Instances of this Organization ID.
     """
 
     project: Optional[str]
     """
-    List only servers of this project ID.
+    List only Instances of this Project ID.
     """
 
     name: Optional[str]
     """
-    Filter servers by name (for eg. "server1" will return "server100" and "server1" but not "foo").
+    Filter Instances by name (eg. "server1" will return "server100" and "server1" but not "foo").
     """
 
     private_ip: Optional[str]
     """
-    List servers by private_ip.
+    List Instances by private_ip.
     """
 
     without_ip: Optional[bool]
     """
-    List servers that are not attached to a public IP.
+    List Instances that are not attached to a public IP.
     """
 
     commercial_type: Optional[str]
     """
-    List servers of this commercial type.
+    List Instances of this commercial type.
     """
 
     state: Optional[ServerState]
     """
-    List servers in this state.
+    List Instances in this state.
     """
 
     tags: Optional[List[str]]
     """
-    List servers with these exact tags (to filter with several tags, use commas to separate them).
+    List Instances with these exact tags (to filter with several tags, use commas to separate them).
     """
 
     private_network: Optional[str]
     """
-    List servers in this Private Network.
+    List Instances in this Private Network.
     """
 
     order: Optional[ListServersRequestOrder]
@@ -1911,7 +1945,7 @@ class GetServerRequest:
 
     server_id: str
     """
-    UUID of the server you want to get.
+    UUID of the Instance you want to get.
     """
 
 
@@ -1934,18 +1968,18 @@ class ServerActionRequest:
 
     server_id: str
     """
-    UUID of the server.
+    UUID of the Instance.
     """
 
     action: ServerAction
     """
-    The action to perform on the server.
+    Action to perform on the Instance.
     """
 
     name: Optional[str]
     """
-    The name of the backup you want to create.
-    The name of the backup you want to create.
+    Name of the backup you want to create.
+    Name of the backup you want to create.
     This field should only be specified when performing a backup action.
     """
 
@@ -1966,7 +2000,7 @@ class ListServerUserDataRequest:
 
     server_id: str
     """
-    UUID of the server.
+    UUID of the Instance.
     """
 
 
@@ -1979,7 +2013,7 @@ class DeleteServerUserDataRequest:
 
     server_id: str
     """
-    UUID of the server.
+    UUID of the Instance.
     """
 
     key: str
@@ -2075,7 +2109,7 @@ class CreateImageRequest:
 
     tags: Optional[List[str]]
     """
-    The tags of the image.
+    Tags of the image.
     """
 
     public: Optional[bool]
@@ -2136,7 +2170,7 @@ class CreateSnapshotRequest:
 
     tags: Optional[List[str]]
     """
-    The tags of the snapshot.
+    Tags of the snapshot.
     """
 
     organization: Optional[str]
@@ -2156,7 +2190,7 @@ class CreateSnapshotRequest:
 
     volume_type: SnapshotVolumeType
     """
-    The volume type of the snapshot.
+    Volume type of the snapshot.
     Overrides the volume_type of the snapshot.
     If omitted, the volume type of the original volume will be used.
     """
@@ -2212,7 +2246,7 @@ class ExportSnapshotRequest:
 
     snapshot_id: str
     """
-    The snapshot ID.
+    Snapshot ID.
     """
 
     bucket: str
@@ -2250,12 +2284,12 @@ class ListVolumesRequest:
 
     organization: Optional[str]
     """
-    Filter volume by organization ID.
+    Filter volume by Organization ID.
     """
 
     project: Optional[str]
     """
-    Filter volume by project ID.
+    Filter volume by Project ID.
     """
 
     tags: Optional[List[str]]
@@ -2278,12 +2312,12 @@ class CreateVolumeRequest:
 
     name: Optional[str]
     """
-    The volume name.
+    Volume name.
     """
 
     organization: Optional[str]
     """
-    The volume organization ID.
+    Volume Organization ID.
     
     One-of ('project_identifier'): at most one of 'organization', 'project' could be set.
     :deprecated
@@ -2291,38 +2325,38 @@ class CreateVolumeRequest:
 
     project: Optional[str]
     """
-    The volume project ID.
+    Volume Project ID.
     
     One-of ('project_identifier'): at most one of 'organization', 'project' could be set.
     """
 
     tags: Optional[List[str]]
     """
-    The volume tags.
+    Volume tags.
     """
 
     volume_type: VolumeVolumeType
     """
-    The volume type.
+    Volume type.
     """
 
     size: Optional[int]
     """
-    The volume disk size, must be a multiple of 512.
+    Volume disk size, must be a multiple of 512.
     
     One-of ('from_'): at most one of 'size', 'base_volume', 'base_snapshot' could be set.
     """
 
     base_volume: Optional[str]
     """
-    The ID of the volume on which this volume will be based.
+    ID of the volume on which this volume will be based.
     
     One-of ('from_'): at most one of 'size', 'base_volume', 'base_snapshot' could be set.
     """
 
     base_snapshot: Optional[str]
     """
-    The ID of the snapshot on which this volume will be based.
+    ID of the snapshot on which this volume will be based.
     
     One-of ('from_'): at most one of 'size', 'base_volume', 'base_snapshot' could be set.
     """
@@ -2355,17 +2389,17 @@ class UpdateVolumeRequest:
 
     name: Optional[str]
     """
-    The volume name.
+    Volume name.
     """
 
     tags: Optional[List[str]]
     """
-    The tags of the volume.
+    Tags of the volume.
     """
 
     size: Optional[int]
     """
-    The volume disk size, must be a multiple of 512.
+    Volume disk size, must be a multiple of 512.
     """
 
 
@@ -2396,12 +2430,12 @@ class ListSecurityGroupsRequest:
 
     organization: Optional[str]
     """
-    The security group organization ID.
+    Security group Organization ID.
     """
 
     project: Optional[str]
     """
-    The security group project ID.
+    Security group Project ID.
     """
 
     tags: Optional[List[str]]
@@ -2459,12 +2493,12 @@ class CreateSecurityGroupRequest:
 
     tags: Optional[List[str]]
     """
-    The tags of the security group.
+    Tags of the security group.
     """
 
     organization_default: Optional[bool]
     """
-    Whether this security group becomes the default security group for new instances.
+    Defines whether this security group becomes the default security group for new Instances.
     
     One-of ('default_identifier'): at most one of 'organization_default', 'project_default' could be set.
     :deprecated
@@ -2472,7 +2506,7 @@ class CreateSecurityGroupRequest:
 
     project_default: Optional[bool]
     """
-    Whether this security group becomes the default security group for new instances.
+    Whether this security group becomes the default security group for new Instances.
     
     One-of ('default_identifier'): at most one of 'organization_default', 'project_default' could be set.
     """
@@ -2577,17 +2611,17 @@ class CreateSecurityGroupRuleRequest:
 
     dest_port_from: Optional[int]
     """
-    The beginning of the range of ports to apply this rule to (inclusive).
+    Beginning of the range of ports to apply this rule to (inclusive).
     """
 
     dest_port_to: Optional[int]
     """
-    The end of the range of ports to apply this rule to (inclusive).
+    End of the range of ports to apply this rule to (inclusive).
     """
 
     position: int
     """
-    The position of this rule in the security group rules list.
+    Position of this rule in the security group rules list.
     """
 
     editable: bool
@@ -2657,12 +2691,12 @@ class ListPlacementGroupsRequest:
 
     organization: Optional[str]
     """
-    List only placement groups of this organization ID.
+    List only placement groups of this Organization ID.
     """
 
     project: Optional[str]
     """
-    List only placement groups of this project ID.
+    List only placement groups of this Project ID.
     """
 
     tags: Optional[List[str]]
@@ -2705,17 +2739,17 @@ class CreatePlacementGroupRequest:
 
     tags: Optional[List[str]]
     """
-    The tags of the placement group.
+    Tags of the placement group.
     """
 
     policy_mode: PlacementGroupPolicyMode
     """
-    The operating mode of the placement group.
+    Operating mode of the placement group.
     """
 
     policy_type: PlacementGroupPolicyType
     """
-    The policy type of the placement group.
+    Policy type of the placement group.
     """
 
 
@@ -2773,17 +2807,17 @@ class UpdatePlacementGroupRequest:
 
     tags: Optional[List[str]]
     """
-    The tags of the placement group.
+    Tags of the placement group.
     """
 
     policy_mode: Optional[PlacementGroupPolicyMode]
     """
-    The operating mode of the placement group.
+    Operating mode of the placement group.
     """
 
     policy_type: Optional[PlacementGroupPolicyType]
     """
-    The policy type of the placement group.
+    Policy type of the placement group.
     """
 
 
@@ -2808,6 +2842,9 @@ class GetPlacementGroupServersRequest:
     """
 
     placement_group_id: str
+    """
+    UUID of the placement group you want to get.
+    """
 
 
 @dataclass
@@ -2818,8 +2855,14 @@ class SetPlacementGroupServersRequest:
     """
 
     placement_group_id: str
+    """
+    UUID of the placement group you want to set.
+    """
 
-    servers: Optional[List[str]]
+    servers: List[str]
+    """
+    An array of the Instances' UUIDs you want to configure.
+    """
 
 
 @dataclass
@@ -2831,10 +2874,13 @@ class UpdatePlacementGroupServersRequest:
 
     placement_group_id: str
     """
-    UUID of the placement group.
+    UUID of the placement group you want to update.
     """
 
     servers: List[str]
+    """
+    An array of the Instances' UUIDs you want to configure.
+    """
 
 
 @dataclass
@@ -2846,12 +2892,12 @@ class ListIpsRequest:
 
     project: Optional[str]
     """
-    The project ID the IPs are reserved in.
+    Project ID in which the IPs are reserved.
     """
 
     organization: Optional[str]
     """
-    The organization ID the IPs are reserved in.
+    Organization ID in which the IPs are reserved.
     """
 
     tags: Optional[List[str]]
@@ -2884,7 +2930,7 @@ class CreateIpRequest:
 
     organization: Optional[str]
     """
-    The organization ID the IP is reserved in.
+    Organization ID in which the IP is reserved.
     
     One-of ('project_identifier'): at most one of 'organization', 'project' could be set.
     :deprecated
@@ -2892,19 +2938,19 @@ class CreateIpRequest:
 
     project: Optional[str]
     """
-    The project ID the IP is reserved in.
+    Project ID in which the IP is reserved.
     
     One-of ('project_identifier'): at most one of 'organization', 'project' could be set.
     """
 
     tags: Optional[List[str]]
     """
-    The tags of the IP.
+    Tags of the IP.
     """
 
     server: Optional[str]
     """
-    UUID of the server you want to attach the IP to.
+    UUID of the Instance you want to attach the IP to.
     """
 
 
@@ -2917,7 +2963,7 @@ class GetIpRequest:
 
     ip: str
     """
-    The IP ID or address to get.
+    IP ID or address to get.
     """
 
 
@@ -2955,7 +3001,7 @@ class DeleteIpRequest:
 
     ip: str
     """
-    The ID or the address of the IP to delete.
+    ID or address of the IP to delete.
     """
 
 
@@ -2968,12 +3014,12 @@ class ListPrivateNICsRequest:
 
     server_id: str
     """
-    The server the private NIC is attached to.
+    Instance to which the private NIC is attached.
     """
 
     tags: Optional[List[str]]
     """
-    The private NIC tags.
+    Private NIC tags.
     """
 
     per_page: Optional[int]
@@ -2996,7 +3042,7 @@ class CreatePrivateNICRequest:
 
     server_id: str
     """
-    UUID of the server the private NIC will be attached to.
+    UUID of the Instance the private NIC will be attached to.
     """
 
     private_network_id: str
@@ -3006,7 +3052,7 @@ class CreatePrivateNICRequest:
 
     tags: Optional[List[str]]
     """
-    The private NIC tags.
+    Private NIC tags.
     """
 
 
@@ -3019,12 +3065,12 @@ class GetPrivateNICRequest:
 
     server_id: str
     """
-    The server the private NIC is attached to.
+    Instance to which the private NIC is attached.
     """
 
     private_nic_id: str
     """
-    The private NIC unique ID.
+    Private NIC unique ID.
     """
 
 
@@ -3037,12 +3083,12 @@ class UpdatePrivateNICRequest:
 
     server_id: str
     """
-    UUID of the server the private NIC will be attached to.
+    UUID of the Instance the private NIC will be attached to.
     """
 
     private_nic_id: str
     """
-    The private NIC unique ID.
+    Private NIC unique ID.
     """
 
     tags: Optional[List[str]]
@@ -3060,12 +3106,12 @@ class DeletePrivateNICRequest:
 
     server_id: str
     """
-    The server the private NIC is attached to.
+    Instance to which the private NIC is attached.
     """
 
     private_nic_id: str
     """
-    The private NIC unique ID.
+    Private NIC unique ID.
     """
 
 
