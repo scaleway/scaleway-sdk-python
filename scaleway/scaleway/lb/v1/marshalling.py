@@ -1302,9 +1302,21 @@ def marshal_HealthCheck(
         **resolve_one_of(
             [
                 OneOfPossibility(
+                    "tcp_config",
+                    marshal_HealthCheckTcpConfig(request.tcp_config, defaults)
+                    if request.tcp_config is not None
+                    else None,
+                ),
+                OneOfPossibility(
                     "mysql_config",
                     marshal_HealthCheckMysqlConfig(request.mysql_config, defaults)
                     if request.mysql_config is not None
+                    else None,
+                ),
+                OneOfPossibility(
+                    "pgsql_config",
+                    marshal_HealthCheckPgsqlConfig(request.pgsql_config, defaults)
+                    if request.pgsql_config is not None
                     else None,
                 ),
                 OneOfPossibility(
@@ -1317,18 +1329,6 @@ def marshal_HealthCheck(
                     "redis_config",
                     marshal_HealthCheckRedisConfig(request.redis_config, defaults)
                     if request.redis_config is not None
-                    else None,
-                ),
-                OneOfPossibility(
-                    "tcp_config",
-                    marshal_HealthCheckTcpConfig(request.tcp_config, defaults)
-                    if request.tcp_config is not None
-                    else None,
-                ),
-                OneOfPossibility(
-                    "pgsql_config",
-                    marshal_HealthCheckPgsqlConfig(request.pgsql_config, defaults)
-                    if request.pgsql_config is not None
                     else None,
                 ),
                 OneOfPossibility(
@@ -1776,9 +1776,21 @@ def marshal_UpdateHealthCheckRequest(
         **resolve_one_of(
             [
                 OneOfPossibility(
+                    "tcp_config",
+                    marshal_HealthCheckTcpConfig(request.tcp_config, defaults)
+                    if request.tcp_config is not None
+                    else None,
+                ),
+                OneOfPossibility(
                     "mysql_config",
                     marshal_HealthCheckMysqlConfig(request.mysql_config, defaults)
                     if request.mysql_config is not None
+                    else None,
+                ),
+                OneOfPossibility(
+                    "pgsql_config",
+                    marshal_HealthCheckPgsqlConfig(request.pgsql_config, defaults)
+                    if request.pgsql_config is not None
                     else None,
                 ),
                 OneOfPossibility(
@@ -1791,18 +1803,6 @@ def marshal_UpdateHealthCheckRequest(
                     "redis_config",
                     marshal_HealthCheckRedisConfig(request.redis_config, defaults)
                     if request.redis_config is not None
-                    else None,
-                ),
-                OneOfPossibility(
-                    "pgsql_config",
-                    marshal_HealthCheckPgsqlConfig(request.pgsql_config, defaults)
-                    if request.pgsql_config is not None
-                    else None,
-                ),
-                OneOfPossibility(
-                    "tcp_config",
-                    marshal_HealthCheckTcpConfig(request.tcp_config, defaults)
-                    if request.tcp_config is not None
                     else None,
                 ),
                 OneOfPossibility(
@@ -2259,9 +2259,21 @@ def marshal_ZonedApiUpdateHealthCheckRequest(
         **resolve_one_of(
             [
                 OneOfPossibility(
+                    "tcp_config",
+                    marshal_HealthCheckTcpConfig(request.tcp_config, defaults)
+                    if request.tcp_config is not None
+                    else None,
+                ),
+                OneOfPossibility(
                     "mysql_config",
                     marshal_HealthCheckMysqlConfig(request.mysql_config, defaults)
                     if request.mysql_config is not None
+                    else None,
+                ),
+                OneOfPossibility(
+                    "pgsql_config",
+                    marshal_HealthCheckPgsqlConfig(request.pgsql_config, defaults)
+                    if request.pgsql_config is not None
                     else None,
                 ),
                 OneOfPossibility(
@@ -2274,18 +2286,6 @@ def marshal_ZonedApiUpdateHealthCheckRequest(
                     "redis_config",
                     marshal_HealthCheckRedisConfig(request.redis_config, defaults)
                     if request.redis_config is not None
-                    else None,
-                ),
-                OneOfPossibility(
-                    "pgsql_config",
-                    marshal_HealthCheckPgsqlConfig(request.pgsql_config, defaults)
-                    if request.pgsql_config is not None
-                    else None,
-                ),
-                OneOfPossibility(
-                    "tcp_config",
-                    marshal_HealthCheckTcpConfig(request.tcp_config, defaults)
-                    if request.tcp_config is not None
                     else None,
                 ),
                 OneOfPossibility(

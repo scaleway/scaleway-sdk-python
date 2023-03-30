@@ -930,9 +930,9 @@ class LbV1API(API):
         :param timeout_connect: Maximum allowed time for establishing a connection to a backend server.
         :param timeout_tunnel: Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout).
         :param on_marked_down_action: Action to take when a backend server is marked as down.
-        :param proxy_protocol: PROXY protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. PROXY protocol must be supported by the backend servers' software.
-        :param failover_host: Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud. Do not include the scheme (eg https://).
-        :param ssl_bridging: Defines whether to enable SSL between the Load Balancer and backend servers.
+        :param proxy_protocol: Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software.
+        :param failover_host: Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
+        :param ssl_bridging: Defines whether to enable SSL bridging between the Load Balancer and backend servers.
         :param ignore_ssl_server_verify: Defines whether the server certificate verification should be ignored.
         :param redispatch_attempt_count: Whether to use another backend server on each attempt.
         :param max_retries: Number of retries when a backend server connection failed.
@@ -1059,12 +1059,12 @@ class LbV1API(API):
         :param timeout_server: Maximum allowed time for a backend server to process a request.
         :param timeout_connect: Maximum allowed time for establishing a connection to a backend server.
         :param timeout_tunnel: Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout).
-        :param on_marked_down_action: Action to take when a backend server is marked down.
-        :param proxy_protocol: PROXY protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. PROXY protocol must be supported by the backend servers' software.
-        :param failover_host: Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud. Do not include the scheme (eg https://).
+        :param on_marked_down_action: Action to take when a backend server is marked as down.
+        :param proxy_protocol: Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software.
+        :param failover_host: Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
         :param ssl_bridging: Defines whether to enable SSL bridging between the Load Balancer and backend servers.
         :param ignore_ssl_server_verify: Defines whether the server certificate verification should be ignored.
-        :param redispatch_attempt_count: Whether to use another backend server on each retries.
+        :param redispatch_attempt_count: Whether to use another backend server on each attempt.
         :param max_retries: Number of retries when a backend server connection failed.
         :return: :class:`Backend <Backend>`
 
@@ -1290,11 +1290,11 @@ class LbV1API(API):
         check_max_retries: int,
         check_send_proxy: bool,
         region: Optional[Region] = None,
+        tcp_config: Optional[HealthCheckTcpConfig] = None,
         mysql_config: Optional[HealthCheckMysqlConfig] = None,
+        pgsql_config: Optional[HealthCheckPgsqlConfig] = None,
         ldap_config: Optional[HealthCheckLdapConfig] = None,
         redis_config: Optional[HealthCheckRedisConfig] = None,
-        pgsql_config: Optional[HealthCheckPgsqlConfig] = None,
-        tcp_config: Optional[HealthCheckTcpConfig] = None,
         http_config: Optional[HealthCheckHttpConfig] = None,
         https_config: Optional[HealthCheckHttpsConfig] = None,
         transient_check_delay: Optional[str] = None,
@@ -1306,29 +1306,29 @@ class LbV1API(API):
         :param port: Port to use for the backend server health check.
         :param check_delay: Time to wait between two consecutive health checks.
         :param check_timeout: Maximum time a backend server has to reply to the health check.
-        :param check_max_retries: Number of consecutive unsuccessful health checks, after which the server will be considered dead.
-        :param mysql_config: The check requires MySQL >=3.22, for older version, please use TCP check.
-
-        One-of ('config'): at most one of 'mysql_config', 'ldap_config', 'redis_config', 'pgsql_config', 'tcp_config', 'http_config', 'https_config' could be set.
-        :param ldap_config: The response is analyzed to find an LDAPv3 response message.
-
-        One-of ('config'): at most one of 'mysql_config', 'ldap_config', 'redis_config', 'pgsql_config', 'tcp_config', 'http_config', 'https_config' could be set.
-        :param redis_config: The response is analyzed to find the +PONG response message.
-
-        One-of ('config'): at most one of 'mysql_config', 'ldap_config', 'redis_config', 'pgsql_config', 'tcp_config', 'http_config', 'https_config' could be set.
-        :param pgsql_config: PostgreSQL health check.
-
-        One-of ('config'): at most one of 'mysql_config', 'ldap_config', 'redis_config', 'pgsql_config', 'tcp_config', 'http_config', 'https_config' could be set.
-        :param tcp_config: Basic TCP health check.
-
-        One-of ('config'): at most one of 'mysql_config', 'ldap_config', 'redis_config', 'pgsql_config', 'tcp_config', 'http_config', 'https_config' could be set.
-        :param http_config: HTTP health check.
-
-        One-of ('config'): at most one of 'mysql_config', 'ldap_config', 'redis_config', 'pgsql_config', 'tcp_config', 'http_config', 'https_config' could be set.
-        :param https_config: HTTPS health check.
-
-        One-of ('config'): at most one of 'mysql_config', 'ldap_config', 'redis_config', 'pgsql_config', 'tcp_config', 'http_config', 'https_config' could be set.
+        :param check_max_retries: Number of consecutive unsuccessful health checks after which the server will be considered dead.
         :param check_send_proxy: Defines whether proxy protocol should be activated for the health check.
+        :param tcp_config: Object to configure a basic TCP health check.
+
+        One-of ('config'): at most one of 'tcp_config', 'mysql_config', 'pgsql_config', 'ldap_config', 'redis_config', 'http_config', 'https_config' could be set.
+        :param mysql_config: Object to configure a MySQL health check. The check requires MySQL >=3.22, for older versions, use a TCP health check.
+
+        One-of ('config'): at most one of 'tcp_config', 'mysql_config', 'pgsql_config', 'ldap_config', 'redis_config', 'http_config', 'https_config' could be set.
+        :param pgsql_config: Object to configure a PostgreSQL health check.
+
+        One-of ('config'): at most one of 'tcp_config', 'mysql_config', 'pgsql_config', 'ldap_config', 'redis_config', 'http_config', 'https_config' could be set.
+        :param ldap_config: Object to configure an LDAP health check. The response is analyzed to find the LDAPv3 response message.
+
+        One-of ('config'): at most one of 'tcp_config', 'mysql_config', 'pgsql_config', 'ldap_config', 'redis_config', 'http_config', 'https_config' could be set.
+        :param redis_config: Object to configure a Redis health check. The response is analyzed to find the +PONG response message.
+
+        One-of ('config'): at most one of 'tcp_config', 'mysql_config', 'pgsql_config', 'ldap_config', 'redis_config', 'http_config', 'https_config' could be set.
+        :param http_config: Object to configure an HTTP health check.
+
+        One-of ('config'): at most one of 'tcp_config', 'mysql_config', 'pgsql_config', 'ldap_config', 'redis_config', 'http_config', 'https_config' could be set.
+        :param https_config: Object to configure an HTTPS health check.
+
+        One-of ('config'): at most one of 'tcp_config', 'mysql_config', 'pgsql_config', 'ldap_config', 'redis_config', 'http_config', 'https_config' could be set.
         :param transient_check_delay: Time to wait between two consecutive health checks when a backend server is in a transient state (going UP or DOWN).
         :return: :class:`HealthCheck <HealthCheck>`
 
@@ -1362,11 +1362,11 @@ class LbV1API(API):
                     check_max_retries=check_max_retries,
                     check_send_proxy=check_send_proxy,
                     region=region,
+                    tcp_config=tcp_config,
                     mysql_config=mysql_config,
+                    pgsql_config=pgsql_config,
                     ldap_config=ldap_config,
                     redis_config=redis_config,
-                    pgsql_config=pgsql_config,
-                    tcp_config=tcp_config,
                     http_config=http_config,
                     https_config=https_config,
                     transient_check_delay=transient_check_delay,
@@ -1668,7 +1668,7 @@ class LbV1API(API):
         :param order_by: Sort order of routes in the response.
         :param page_size: The number of route objects to return.
         :param page: The page number to return, from the paginated results.
-        :param frontend_id:
+        :param frontend_id: Frontend ID to filter for, only Routes from this Frontend will be returned.
         :return: :class:`ListRoutesResponse <ListRoutesResponse>`
 
         Usage:
@@ -1710,7 +1710,7 @@ class LbV1API(API):
         :param order_by: Sort order of routes in the response.
         :param page_size: The number of route objects to return.
         :param page: The page number to return, from the paginated results.
-        :param frontend_id:
+        :param frontend_id: Frontend ID to filter for, only Routes from this Frontend will be returned.
         :return: :class:`List[ListRoutesResponse] <List[ListRoutesResponse]>`
 
         Usage:
@@ -3828,9 +3828,9 @@ class LbZonedV1API(API):
         :param timeout_connect: Maximum allowed time for establishing a connection to a backend server.
         :param timeout_tunnel: Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout).
         :param on_marked_down_action: Action to take when a backend server is marked as down.
-        :param proxy_protocol: PROXY protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. PROXY protocol must be supported by the backend servers' software.
-        :param failover_host: Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud. Do not include the scheme (eg https://).
-        :param ssl_bridging: Defines whether to enable SSL between the Load Balancer and backend servers.
+        :param proxy_protocol: Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software.
+        :param failover_host: Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
+        :param ssl_bridging: Defines whether to enable SSL bridging between the Load Balancer and backend servers.
         :param ignore_ssl_server_verify: Defines whether the server certificate verification should be ignored.
         :param redispatch_attempt_count: Whether to use another backend server on each attempt.
         :param max_retries: Number of retries when a backend server connection failed.
@@ -3955,12 +3955,12 @@ class LbZonedV1API(API):
         :param timeout_server: Maximum allowed time for a backend server to process a request.
         :param timeout_connect: Maximum allowed time for establishing a connection to a backend server.
         :param timeout_tunnel: Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout).
-        :param on_marked_down_action: Action to take when a backend server is marked down.
-        :param proxy_protocol: PROXY protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. PROXY protocol must be supported by the backend servers' software.
-        :param failover_host: Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud. Do not include the scheme (eg https://).
+        :param on_marked_down_action: Action to take when a backend server is marked as down.
+        :param proxy_protocol: Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software.
+        :param failover_host: Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
         :param ssl_bridging: Defines whether to enable SSL bridging between the Load Balancer and backend servers.
         :param ignore_ssl_server_verify: Defines whether the server certificate verification should be ignored.
-        :param redispatch_attempt_count: Whether to use another backend server on each retries.
+        :param redispatch_attempt_count: Whether to use another backend server on each attempt.
         :param max_retries: Number of retries when a backend server connection failed.
         :return: :class:`Backend <Backend>`
 
@@ -4180,11 +4180,11 @@ class LbZonedV1API(API):
         check_max_retries: int,
         check_send_proxy: bool,
         zone: Optional[Zone] = None,
+        tcp_config: Optional[HealthCheckTcpConfig] = None,
         mysql_config: Optional[HealthCheckMysqlConfig] = None,
+        pgsql_config: Optional[HealthCheckPgsqlConfig] = None,
         ldap_config: Optional[HealthCheckLdapConfig] = None,
         redis_config: Optional[HealthCheckRedisConfig] = None,
-        pgsql_config: Optional[HealthCheckPgsqlConfig] = None,
-        tcp_config: Optional[HealthCheckTcpConfig] = None,
         http_config: Optional[HealthCheckHttpConfig] = None,
         https_config: Optional[HealthCheckHttpsConfig] = None,
         transient_check_delay: Optional[str] = None,
@@ -4197,29 +4197,29 @@ class LbZonedV1API(API):
         :param port: Port to use for the backend server health check.
         :param check_delay: Time to wait between two consecutive health checks.
         :param check_timeout: Maximum time a backend server has to reply to the health check.
-        :param check_max_retries: Number of consecutive unsuccessful health checks, after which the server will be considered dead.
-        :param mysql_config: The check requires MySQL >=3.22, for older version, please use TCP check.
-
-        One-of ('config'): at most one of 'mysql_config', 'ldap_config', 'redis_config', 'pgsql_config', 'tcp_config', 'http_config', 'https_config' could be set.
-        :param ldap_config: The response is analyzed to find an LDAPv3 response message.
-
-        One-of ('config'): at most one of 'mysql_config', 'ldap_config', 'redis_config', 'pgsql_config', 'tcp_config', 'http_config', 'https_config' could be set.
-        :param redis_config: The response is analyzed to find the +PONG response message.
-
-        One-of ('config'): at most one of 'mysql_config', 'ldap_config', 'redis_config', 'pgsql_config', 'tcp_config', 'http_config', 'https_config' could be set.
-        :param pgsql_config: PostgreSQL health check.
-
-        One-of ('config'): at most one of 'mysql_config', 'ldap_config', 'redis_config', 'pgsql_config', 'tcp_config', 'http_config', 'https_config' could be set.
-        :param tcp_config: Basic TCP health check.
-
-        One-of ('config'): at most one of 'mysql_config', 'ldap_config', 'redis_config', 'pgsql_config', 'tcp_config', 'http_config', 'https_config' could be set.
-        :param http_config: HTTP health check.
-
-        One-of ('config'): at most one of 'mysql_config', 'ldap_config', 'redis_config', 'pgsql_config', 'tcp_config', 'http_config', 'https_config' could be set.
-        :param https_config: HTTPS health check.
-
-        One-of ('config'): at most one of 'mysql_config', 'ldap_config', 'redis_config', 'pgsql_config', 'tcp_config', 'http_config', 'https_config' could be set.
+        :param check_max_retries: Number of consecutive unsuccessful health checks after which the server will be considered dead.
         :param check_send_proxy: Defines whether proxy protocol should be activated for the health check.
+        :param tcp_config: Object to configure a basic TCP health check.
+
+        One-of ('config'): at most one of 'tcp_config', 'mysql_config', 'pgsql_config', 'ldap_config', 'redis_config', 'http_config', 'https_config' could be set.
+        :param mysql_config: Object to configure a MySQL health check. The check requires MySQL >=3.22, for older versions, use a TCP health check.
+
+        One-of ('config'): at most one of 'tcp_config', 'mysql_config', 'pgsql_config', 'ldap_config', 'redis_config', 'http_config', 'https_config' could be set.
+        :param pgsql_config: Object to configure a PostgreSQL health check.
+
+        One-of ('config'): at most one of 'tcp_config', 'mysql_config', 'pgsql_config', 'ldap_config', 'redis_config', 'http_config', 'https_config' could be set.
+        :param ldap_config: Object to configure an LDAP health check. The response is analyzed to find the LDAPv3 response message.
+
+        One-of ('config'): at most one of 'tcp_config', 'mysql_config', 'pgsql_config', 'ldap_config', 'redis_config', 'http_config', 'https_config' could be set.
+        :param redis_config: Object to configure a Redis health check. The response is analyzed to find the +PONG response message.
+
+        One-of ('config'): at most one of 'tcp_config', 'mysql_config', 'pgsql_config', 'ldap_config', 'redis_config', 'http_config', 'https_config' could be set.
+        :param http_config: Object to configure an HTTP health check.
+
+        One-of ('config'): at most one of 'tcp_config', 'mysql_config', 'pgsql_config', 'ldap_config', 'redis_config', 'http_config', 'https_config' could be set.
+        :param https_config: Object to configure an HTTPS health check.
+
+        One-of ('config'): at most one of 'tcp_config', 'mysql_config', 'pgsql_config', 'ldap_config', 'redis_config', 'http_config', 'https_config' could be set.
         :param transient_check_delay: Time to wait between two consecutive health checks when a backend server is in a transient state (going UP or DOWN).
         :return: :class:`HealthCheck <HealthCheck>`
 
@@ -4251,11 +4251,11 @@ class LbZonedV1API(API):
                     check_max_retries=check_max_retries,
                     check_send_proxy=check_send_proxy,
                     zone=zone,
+                    tcp_config=tcp_config,
                     mysql_config=mysql_config,
+                    pgsql_config=pgsql_config,
                     ldap_config=ldap_config,
                     redis_config=redis_config,
-                    pgsql_config=pgsql_config,
-                    tcp_config=tcp_config,
                     http_config=http_config,
                     https_config=https_config,
                     transient_check_delay=transient_check_delay,
@@ -4554,7 +4554,7 @@ class LbZonedV1API(API):
         :param order_by: Sort order of routes in the response.
         :param page_size: The number of route objects to return.
         :param page: The page number to return, from the paginated results.
-        :param frontend_id:
+        :param frontend_id: Frontend ID to filter for, only Routes from this Frontend will be returned.
         :return: :class:`ListRoutesResponse <ListRoutesResponse>`
 
         Usage:
@@ -4595,7 +4595,7 @@ class LbZonedV1API(API):
         :param order_by: Sort order of routes in the response.
         :param page_size: The number of route objects to return.
         :param page: The page number to return, from the paginated results.
-        :param frontend_id:
+        :param frontend_id: Frontend ID to filter for, only Routes from this Frontend will be returned.
         :return: :class:`List[ListRoutesResponse] <List[ListRoutesResponse]>`
 
         Usage:
