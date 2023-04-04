@@ -342,6 +342,7 @@ class SecretV1Alpha1API(API):
         secret_id: str,
         data: str,
         disable_previous: bool,
+        data_crc32: int,
         region: Optional[Region] = None,
         description: Optional[str] = None,
         password_generation: Optional[PasswordGenerationParams] = None,
@@ -356,11 +357,11 @@ class SecretV1Alpha1API(API):
         :param disable_previous: Disable the previous secret version.
         If there is no previous version or if the previous version was already disabled, does nothing.
         :param password_generation: Options to generate a password.
-        If specified, a random password will be generated. The data field must be empty.
-        By default, the generator will use upper and lower case letters, and digits.
-        This behavior can be tuned using the generation params.
+        If specified, a random password will be generated. The data field must be empty. By default, the generator will use upper and lower case letters, and digits. This behavior can be tuned using the generation parameters.
 
         One-of ('_password_generation'): at most one of 'password_generation' could be set.
+        :param data_crc32: The CRC32 checksum of the data as a base-10 integer.
+        This field is optional and can be set to 0. If greater than 0, the Secret Manager will verify the integrity of the data received against the given CRC32. An error is returned if the CRC32 does not match. Otherwise, the CRC32 will be stored and returned along with the SecretVersion on futur accesses.
         :return: :class:`SecretVersion <SecretVersion>`
 
         Usage:
@@ -370,6 +371,7 @@ class SecretV1Alpha1API(API):
                 secret_id="example",
                 data="example",
                 disable_previous=True,
+                data_crc32=1,
             )
         """
 
@@ -386,6 +388,7 @@ class SecretV1Alpha1API(API):
                     secret_id=secret_id,
                     data=data,
                     disable_previous=disable_previous,
+                    data_crc32=data_crc32,
                     region=region,
                     description=description,
                     password_generation=password_generation,
@@ -409,7 +412,8 @@ class SecretV1Alpha1API(API):
         Retrieve the metadata of a secret's given version specified by the `region`, `secret_id` and `revision` parameters.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the secret.
-        :param revision: Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+        :param revision: Version number.
+        The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
         :return: :class:`SecretVersion <SecretVersion>`
 
         Usage:
@@ -447,7 +451,8 @@ class SecretV1Alpha1API(API):
         Retrieve the metadata of a secret's given version specified by the `region`, `secret_name` and `revision` parameters.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_name: Name of the secret.
-        :param revision: Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+        :param revision: Version number.
+        The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
         :return: :class:`SecretVersion <SecretVersion>`
 
         Usage:
@@ -486,7 +491,8 @@ class SecretV1Alpha1API(API):
         Edit the metadata of a secret's given version, specified by the `region`, `secret_id` and `revision` parameters.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the secret.
-        :param revision: Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+        :param revision: Version number.
+        The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
         :param description: Description of the version.
         :return: :class:`SecretVersion <SecretVersion>`
 
@@ -696,7 +702,8 @@ class SecretV1Alpha1API(API):
         Delete a secret's version and the sensitive data contained in it. Deleting a version is permanent and cannot be undone.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the secret.
-        :param revision: Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+        :param revision: Version number.
+        The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
         :return: :class:`SecretVersion <SecretVersion>`
 
         Usage:
@@ -734,7 +741,8 @@ class SecretV1Alpha1API(API):
         Make a specific version accessible. You must specify the `region`, `secret_id` and `revision` parameters.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the secret.
-        :param revision: Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+        :param revision: Version number.
+        The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
         :return: :class:`SecretVersion <SecretVersion>`
 
         Usage:
@@ -772,7 +780,8 @@ class SecretV1Alpha1API(API):
         Make a specific version inaccessible. You must specify the `region`, `secret_id` and `revision` parameters.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the secret.
-        :param revision: Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+        :param revision: Version number.
+        The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
         :return: :class:`SecretVersion <SecretVersion>`
 
         Usage:
@@ -810,7 +819,8 @@ class SecretV1Alpha1API(API):
         Access sensitive data in a secret's version specified by the `region`, `secret_id` and `revision` parameters.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the secret.
-        :param revision: Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+        :param revision: Version number.
+        The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
         :return: :class:`AccessSecretVersionResponse <AccessSecretVersionResponse>`
 
         Usage:
@@ -848,7 +858,8 @@ class SecretV1Alpha1API(API):
         Access sensitive data in a secret's version specified by the `region`, `secret_name` and `revision` parameters.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_name: Name of the secret.
-        :param revision: Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+        :param revision: Version number.
+        The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
         :return: :class:`AccessSecretVersionResponse <AccessSecretVersionResponse>`
 
         Usage:
