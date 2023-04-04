@@ -55,7 +55,8 @@ class AccessSecretVersionResponse:
 
     revision: int
     """
-    Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1.
+    Version number.
+    The first version of the secret is numbered 1, and all subsequent revisions augment by 1.
     """
 
     data: str
@@ -390,9 +391,7 @@ class CreateSecretVersionRequest:
     password_generation: Optional[PasswordGenerationParams]
     """
     Options to generate a password.
-    If specified, a random password will be generated. The data field must be empty.
-    By default, the generator will use upper and lower case letters, and digits.
-    This behavior can be tuned using the generation params.
+    If specified, a random password will be generated. The data field must be empty. By default, the generator will use upper and lower case letters, and digits. This behavior can be tuned using the generation parameters.
     
     One-of ('_password_generation'): at most one of 'password_generation' could be set.
     """
@@ -412,7 +411,8 @@ class GetSecretVersionRequest:
 
     revision: str
     """
-    Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+    Version number.
+    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
     """
 
 
@@ -430,7 +430,8 @@ class GetSecretVersionByNameRequest:
 
     revision: str
     """
-    Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+    Version number.
+    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
     """
 
 
@@ -448,7 +449,8 @@ class UpdateSecretVersionRequest:
 
     revision: str
     """
-    Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+    Version number.
+    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
     """
 
     description: Optional[str]
@@ -515,7 +517,8 @@ class DestroySecretVersionRequest:
 
     revision: str
     """
-    Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+    Version number.
+    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
     """
 
 
@@ -533,7 +536,8 @@ class EnableSecretVersionRequest:
 
     revision: str
     """
-    Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+    Version number.
+    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
     """
 
 
@@ -551,7 +555,8 @@ class DisableSecretVersionRequest:
 
     revision: str
     """
-    Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+    Version number.
+    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
     """
 
 
@@ -569,7 +574,8 @@ class AccessSecretVersionRequest:
 
     revision: str
     """
-    Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+    Version number.
+    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
     """
 
 
@@ -587,5 +593,6 @@ class AccessSecretVersionByNameRequest:
 
     revision: str
     """
-    Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+    Version number.
+    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
     """
