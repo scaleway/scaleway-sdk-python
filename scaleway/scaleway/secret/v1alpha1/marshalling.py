@@ -104,6 +104,9 @@ def unmarshal_AccessSecretVersionResponse(data: Any) -> AccessSecretVersionRespo
     field = data.get("data")
     args["data"] = field
 
+    field = data.get("data_crc32")
+    args["data_crc32"] = field
+
     field = data.get("revision")
     args["revision"] = field
 
@@ -190,6 +193,7 @@ def marshal_CreateSecretVersionRequest(
             ]
         ),
         "data": request.data,
+        "data_crc32": request.data_crc32,
         "description": request.description,
         "disable_previous": request.disable_previous,
     }
