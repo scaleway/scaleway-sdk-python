@@ -645,9 +645,9 @@ class TriggerSqsClientConfig:
 
 @dataclass
 class UpdateTriggerRequestSqsClientConfig:
-    access_key: str
+    access_key: Optional[str]
 
-    secret_key: str
+    secret_key: Optional[str]
 
 
 @dataclass
@@ -1120,7 +1120,7 @@ class CreateTriggerRequest:
 
     name: str
 
-    description: str
+    description: Optional[str]
 
     function_id: str
 
