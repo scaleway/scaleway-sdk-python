@@ -8,6 +8,16 @@ from enum import Enum
 from typing import List, Optional
 
 
+class CaptchaProviderName(str, Enum):
+    UNKNOWN_NAME = "unknown_name"
+    RECAPTCHA_V2 = "recaptcha_v2"
+    FRIENDLY_CAPTCHA = "friendly_captcha"
+    HCAPTCHA = "hcaptcha"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListProjectsRequestOrderBy(str, Enum):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
@@ -16,6 +26,11 @@ class ListProjectsRequestOrderBy(str, Enum):
 
     def __str__(self) -> str:
         return str(self.value)
+
+
+@dataclass
+class CaptchaProvider:
+    name: CaptchaProviderName
 
 
 @dataclass

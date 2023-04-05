@@ -6,6 +6,7 @@ from typing import Any, Dict
 from scaleway_core.profile import ProfileDefaults
 from dateutil import parser
 from .types import (
+    CaptchaProvider,
     ListProjectsResponse,
     Project,
     CreateProjectRequest,
@@ -40,6 +41,20 @@ def unmarshal_Project(data: Any) -> Project:
     args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
     return Project(**args)
+
+
+def unmarshal_CaptchaProvider(data: Any) -> CaptchaProvider:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'CaptchaProvider' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("name")
+    args["name"] = field
+
+    return CaptchaProvider(**args)
 
 
 def unmarshal_ListProjectsResponse(data: Any) -> ListProjectsResponse:
