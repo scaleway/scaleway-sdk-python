@@ -275,16 +275,34 @@ class Cron:
     """
 
     id: str
+    """
+    UUID of the cron.
+    """
 
     function_id: str
+    """
+    UUID of the function the cron applies to.
+    """
 
     schedule: str
+    """
+    Schedule of the cron.
+    """
 
     args: Optional[Dict[str, Any]]
+    """
+    Arguments to pass with the cron.
+    """
 
     status: CronStatus
+    """
+    Status of the cron.
+    """
 
     name: str
+    """
+    Name of the cron.
+    """
 
 
 @dataclass
@@ -294,16 +312,34 @@ class Domain:
     """
 
     id: str
+    """
+    UUID of the domain.
+    """
 
     hostname: str
+    """
+    Hostname associated with the function.
+    """
 
     function_id: str
+    """
+    UUID of the function the domain is associated with.
+    """
 
     url: str
+    """
+    URL of the function.
+    """
 
     status: DomainStatus
+    """
+    State of the doamin.
+    """
 
     error_message: Optional[str]
+    """
+    Error message if the domain is in "error" state.
+    """
 
 
 @dataclass
@@ -320,44 +356,98 @@ class Function:
     """
 
     id: str
+    """
+    UUID of the function.
+    """
 
     name: str
+    """
+    Name of the function.
+    """
 
     namespace_id: str
+    """
+    UUID of the namespace the function belongs to.
+    """
 
     status: FunctionStatus
+    """
+    Status of the function.
+    """
 
     environment_variables: Dict[str, str]
+    """
+    Environment variables of the function.
+    """
 
     min_scale: int
+    """
+    Minimum number of instances to scale the function to.
+    """
 
     max_scale: int
+    """
+    Maximum number of instances to scale the function to.
+    """
 
     runtime: FunctionRuntime
+    """
+    Runtime of the function.
+    """
 
     memory_limit: int
+    """
+    Memory limit of the function in MB.
+    """
 
     cpu_limit: int
+    """
+    CPU limit of the function.
+    """
 
     timeout: Optional[str]
+    """
+    Request processing time limit for the function.
+    """
 
     handler: str
+    """
+    Handler to use for the function.
+    """
 
     error_message: Optional[str]
+    """
+    Error message if the function is in "error" state.
+    """
 
     privacy: FunctionPrivacy
+    """
+    Privacy setting of the function.
+    """
 
     description: Optional[str]
+    """
+    Description of the function.
+    """
 
     domain_name: str
+    """
+    Domain name associated with the function.
+    """
 
     secret_environment_variables: List[SecretHashedValue]
+    """
+    Secret environment variables of the function.
+    """
 
     region: Region
+    """
+    Region in which the function is deployed.
+    """
 
     http_option: FunctionHttpOption
     """
-    Configure how HTTP and HTTPS requests are handled.
+    Configuration for handling of HTTP and HTTPS requests.
     Possible values:
      - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
      - enabled: Serve both HTTP and HTTPS traffic.
@@ -373,8 +463,14 @@ class ListCronsResponse:
     """
 
     crons: List[Cron]
+    """
+    Array of crons.
+    """
 
     total_count: int
+    """
+    Total number of crons.
+    """
 
 
 @dataclass
@@ -384,8 +480,14 @@ class ListDomainsResponse:
     """
 
     domains: List[Domain]
+    """
+    Array of domains.
+    """
 
     total_count: int
+    """
+    Total number of domains.
+    """
 
 
 @dataclass
@@ -395,8 +497,14 @@ class ListFunctionRuntimesResponse:
     """
 
     runtimes: List[Runtime]
+    """
+    Array of runtimes available.
+    """
 
     total_count: int
+    """
+    Total number of runtimes.
+    """
 
 
 @dataclass
@@ -406,8 +514,14 @@ class ListFunctionsResponse:
     """
 
     functions: List[Function]
+    """
+    Array of functions.
+    """
 
     total_count: int
+    """
+    Total number of functions.
+    """
 
 
 @dataclass
@@ -417,8 +531,14 @@ class ListLogsResponse:
     """
 
     logs: List[Log]
+    """
+    Array of logs.
+    """
 
     total_count: int
+    """
+    Total number of logs.
+    """
 
 
 @dataclass
@@ -430,6 +550,9 @@ class ListNamespacesResponse:
     namespaces: List[Namespace]
 
     total_count: int
+    """
+    Total number of namespaces.
+    """
 
 
 @dataclass
@@ -453,14 +576,23 @@ class Log:
     """
 
     message: str
+    """
+    Message of the log.
+    """
 
     timestamp: Optional[datetime]
+    """
+    Timestamp of the log.
+    """
 
     id: str
+    """
+    UUID of the log.
+    """
 
     level: str
     """
-    Contains the severity of the log (info, debug, error, ...).
+    Severity of the log (info, debug, error etc.).
     """
 
     source: str
@@ -481,28 +613,64 @@ class Namespace:
     """
 
     id: str
+    """
+    UUID of the namespace.
+    """
 
     name: str
+    """
+    Name of the namespace.
+    """
 
     environment_variables: Dict[str, str]
+    """
+    Environment variables of the namespace.
+    """
 
     organization_id: str
+    """
+    UUID of the Organization the namespace belongs to.
+    """
 
     project_id: str
+    """
+    UUID of the Project the namespace belongs to.
+    """
 
     status: NamespaceStatus
+    """
+    Status of the namespace.
+    """
 
     registry_namespace_id: str
+    """
+    UUID of the registry namespace.
+    """
 
     error_message: Optional[str]
+    """
+    Error message if the namespace is in "error" state.
+    """
 
     registry_endpoint: str
+    """
+    Registry endpoint of the namespace.
+    """
 
     description: Optional[str]
+    """
+    Description of the namespace.
+    """
 
     secret_environment_variables: List[SecretHashedValue]
+    """
+    Secret environment variables of the namespace.
+    """
 
     region: Region
+    """
+    Region in which the namespace is located.
+    """
 
 
 @dataclass
@@ -549,29 +717,49 @@ class Token:
     """
 
     id: str
+    """
+    UUID of the token.
+    """
 
     token: str
+    """
+    String of the token.
+    """
 
     function_id: Optional[str]
     """
+    UUID of the function the token is associated with.
+    
     One-of ('scope'): at most one of 'function_id', 'namespace_id' could be set.
     """
 
     namespace_id: Optional[str]
     """
+    UUID of the namespace the token is assoicated with.
+    
     One-of ('scope'): at most one of 'function_id', 'namespace_id' could be set.
     """
 
     public_key: Optional[str]
     """
+    Public key of the token.
     :deprecated
     """
 
     status: TokenStatus
+    """
+    Status of the token.
+    """
 
     description: Optional[str]
+    """
+    Description of the token.
+    """
 
     expires_at: Optional[datetime]
+    """
+    Date on which the token expires.
+    """
 
 
 @dataclass
@@ -657,8 +845,14 @@ class UploadURL:
     """
 
     url: str
+    """
+    Upload URL to upload the function to.
+    """
 
     headers: Dict[str, List[str]]
+    """
+    HTTP headers.
+    """
 
 
 @dataclass
@@ -669,16 +863,34 @@ class ListNamespacesRequest:
     """
 
     page: Optional[int]
+    """
+    Page number.
+    """
 
     page_size: Optional[int]
+    """
+    Number of namespaces per page.
+    """
 
     order_by: Optional[ListNamespacesRequestOrderBy]
+    """
+    Order of the namespaces.
+    """
 
     name: Optional[str]
+    """
+    Name of the namespace.
+    """
 
     organization_id: Optional[str]
+    """
+    UUID of the Organization the namespace belongs to.
+    """
 
     project_id: Optional[str]
+    """
+    UUID of the Project the namespace belongs to.
+    """
 
 
 @dataclass
@@ -689,6 +901,9 @@ class GetNamespaceRequest:
     """
 
     namespace_id: str
+    """
+    UUID of the namespace.
+    """
 
 
 @dataclass
@@ -701,12 +916,24 @@ class CreateNamespaceRequest:
     name: Optional[str]
 
     environment_variables: Optional[Dict[str, str]]
+    """
+    Environment variables of the namespace.
+    """
 
     project_id: Optional[str]
+    """
+    UUID of the project in which the namespace will be created.
+    """
 
     description: Optional[str]
+    """
+    Description of the namespace.
+    """
 
     secret_environment_variables: Optional[List[Secret]]
+    """
+    Secret environment variables of the namespace.
+    """
 
 
 @dataclass
@@ -717,12 +944,24 @@ class UpdateNamespaceRequest:
     """
 
     namespace_id: str
+    """
+    UUID of the namespapce.
+    """
 
     environment_variables: Optional[Dict[str, str]]
+    """
+    Environment variables of the namespace.
+    """
 
     description: Optional[str]
+    """
+    Description of the namespace.
+    """
 
     secret_environment_variables: Optional[List[Secret]]
+    """
+    Secret environment variables of the namespace.
+    """
 
 
 @dataclass
@@ -733,6 +972,9 @@ class DeleteNamespaceRequest:
     """
 
     namespace_id: str
+    """
+    UUID of the namespace.
+    """
 
 
 @dataclass
@@ -743,18 +985,39 @@ class ListFunctionsRequest:
     """
 
     page: Optional[int]
+    """
+    Page number.
+    """
 
     page_size: Optional[int]
+    """
+    Number of functions per page.
+    """
 
     order_by: Optional[ListFunctionsRequestOrderBy]
+    """
+    Order of the functions.
+    """
 
     namespace_id: str
+    """
+    UUID of the namespace the function belongs to.
+    """
 
     name: Optional[str]
+    """
+    Name of the function.
+    """
 
     organization_id: Optional[str]
+    """
+    UUID of the Organziation the function belongs to.
+    """
 
     project_id: Optional[str]
+    """
+    UUID of the Project the function belongs to.
+    """
 
 
 @dataclass
@@ -765,6 +1028,9 @@ class GetFunctionRequest:
     """
 
     function_id: str
+    """
+    UUID of the function.
+    """
 
 
 @dataclass
@@ -775,26 +1041,59 @@ class CreateFunctionRequest:
     """
 
     name: Optional[str]
+    """
+    Name of the function to create.
+    """
 
     namespace_id: str
+    """
+    UUID of the namespace the function will be created in.
+    """
 
     environment_variables: Optional[Dict[str, str]]
+    """
+    Environment variables of the function.
+    """
 
     min_scale: Optional[int]
+    """
+    Minumum number of instances to scale the function to.
+    """
 
     max_scale: Optional[int]
+    """
+    Maximum number of instances to scale the function to.
+    """
 
     runtime: FunctionRuntime
+    """
+    Runtime to use with the function.
+    """
 
     memory_limit: Optional[int]
+    """
+    Memory limit of the function in MB.
+    """
 
     timeout: Optional[str]
+    """
+    Request processing time limit for the function.
+    """
 
     handler: Optional[str]
+    """
+    Handler to use with the function.
+    """
 
     privacy: FunctionPrivacy
+    """
+    Privacy setting of the function.
+    """
 
     description: Optional[str]
+    """
+    Description of the function.
+    """
 
     secret_environment_variables: Optional[List[Secret]]
 
@@ -815,28 +1114,64 @@ class UpdateFunctionRequest:
     """
 
     function_id: str
+    """
+    UUID of the function to update.
+    """
 
     environment_variables: Optional[Dict[str, str]]
+    """
+    Environment variables of the function to update.
+    """
 
     min_scale: Optional[int]
+    """
+    Minumum number of instances to scale the function to.
+    """
 
     max_scale: Optional[int]
+    """
+    Maximum number of instances to scale the function to.
+    """
 
     runtime: FunctionRuntime
+    """
+    Runtime to use with the function.
+    """
 
     memory_limit: Optional[int]
+    """
+    Memory limit of the function in MB.
+    """
 
     timeout: Optional[str]
+    """
+    Processing time limit for the function.
+    """
 
     redeploy: Optional[bool]
+    """
+    Redeploy failed function.
+    """
 
     handler: Optional[str]
+    """
+    Handler to use with the function.
+    """
 
     privacy: FunctionPrivacy
+    """
+    Privacy setting of the function.
+    """
 
     description: Optional[str]
+    """
+    Description of the function.
+    """
 
     secret_environment_variables: Optional[List[Secret]]
+    """
+    Secret environment variables of the function.
+    """
 
     http_option: FunctionHttpOption
     """
@@ -855,6 +1190,9 @@ class DeleteFunctionRequest:
     """
 
     function_id: str
+    """
+    UUID of the function to delete.
+    """
 
 
 @dataclass
@@ -865,6 +1203,9 @@ class DeployFunctionRequest:
     """
 
     function_id: str
+    """
+    UUID of the function to deploy.
+    """
 
 
 @dataclass
@@ -883,6 +1224,9 @@ class GetFunctionUploadURLRequest:
     """
 
     function_id: str
+    """
+    UUID of the function to get the upload URL for.
+    """
 
     content_length: int
 
@@ -895,6 +1239,9 @@ class GetFunctionDownloadURLRequest:
     """
 
     function_id: str
+    """
+    UUID of the function to get the the download URL for.
+    """
 
 
 @dataclass
@@ -905,12 +1252,24 @@ class ListCronsRequest:
     """
 
     page: Optional[int]
+    """
+    Page number.
+    """
 
     page_size: Optional[int]
+    """
+    Number of crons per page.
+    """
 
     order_by: Optional[ListCronsRequestOrderBy]
+    """
+    Order of the crons.
+    """
 
     function_id: str
+    """
+    UUID of the function.
+    """
 
 
 @dataclass
@@ -921,6 +1280,9 @@ class GetCronRequest:
     """
 
     cron_id: str
+    """
+    UUID of the cron to get.
+    """
 
 
 @dataclass
@@ -931,12 +1293,24 @@ class CreateCronRequest:
     """
 
     function_id: str
+    """
+    UUID of the function to use the cron with.
+    """
 
     schedule: str
+    """
+    Schedule of the cron in UNIX cron format.
+    """
 
     args: Optional[Dict[str, Any]]
+    """
+    Arguments to use with the cron.
+    """
 
     name: Optional[str]
+    """
+    Name of the cron.
+    """
 
 
 @dataclass
@@ -947,14 +1321,29 @@ class UpdateCronRequest:
     """
 
     cron_id: str
+    """
+    UUID of the cron to update.
+    """
 
     function_id: Optional[str]
+    """
+    UUID of the function to use the cron with.
+    """
 
     schedule: Optional[str]
+    """
+    Schedule of the cron in UNIX cron format.
+    """
 
     args: Optional[Dict[str, Any]]
+    """
+    Arguments to use with the cron.
+    """
 
     name: Optional[str]
+    """
+    Name of the cron.
+    """
 
 
 @dataclass
@@ -965,6 +1354,9 @@ class DeleteCronRequest:
     """
 
     cron_id: str
+    """
+    UUID of the cron to delete.
+    """
 
 
 @dataclass
@@ -975,12 +1367,24 @@ class ListLogsRequest:
     """
 
     function_id: str
+    """
+    UUID of the function to get the logs for.
+    """
 
     page: Optional[int]
+    """
+    Page number.
+    """
 
     page_size: Optional[int]
+    """
+    Number of logs per page.
+    """
 
     order_by: Optional[ListLogsRequestOrderBy]
+    """
+    Order of the logs.
+    """
 
 
 @dataclass
@@ -991,12 +1395,24 @@ class ListDomainsRequest:
     """
 
     page: Optional[int]
+    """
+    Page number.
+    """
 
     page_size: Optional[int]
+    """
+    Number of domains per page.
+    """
 
     order_by: Optional[ListDomainsRequestOrderBy]
+    """
+    Order of the domains.
+    """
 
     function_id: str
+    """
+    UUID of the function the domain is assoicated with.
+    """
 
 
 @dataclass
@@ -1007,6 +1423,9 @@ class GetDomainRequest:
     """
 
     domain_id: str
+    """
+    UUID of the domain to get.
+    """
 
 
 @dataclass
@@ -1017,8 +1436,14 @@ class CreateDomainRequest:
     """
 
     hostname: str
+    """
+    Hostame to create.
+    """
 
     function_id: str
+    """
+    UUID of the function to associate the domain with.
+    """
 
 
 @dataclass
@@ -1029,6 +1454,9 @@ class DeleteDomainRequest:
     """
 
     domain_id: str
+    """
+    UUID of the domain to delete.
+    """
 
 
 @dataclass
@@ -1060,17 +1488,27 @@ class CreateTokenRequest:
 
     function_id: Optional[str]
     """
+    UUID of the function to associate the token with.
+    
     One-of ('scope'): at most one of 'function_id', 'namespace_id' could be set.
     """
 
     namespace_id: Optional[str]
     """
+    UUID of the namespace to associate the token with.
+    
     One-of ('scope'): at most one of 'function_id', 'namespace_id' could be set.
     """
 
     description: Optional[str]
+    """
+    Description of the token.
+    """
 
     expires_at: Optional[datetime]
+    """
+    Date on which the token expires.
+    """
 
 
 @dataclass
@@ -1081,6 +1519,9 @@ class GetTokenRequest:
     """
 
     token_id: str
+    """
+    UUID of the token to get.
+    """
 
 
 @dataclass
@@ -1091,14 +1532,29 @@ class ListTokensRequest:
     """
 
     page: Optional[int]
+    """
+    Page number.
+    """
 
     page_size: Optional[int]
+    """
+    Number of tokens per page.
+    """
 
     order_by: Optional[ListTokensRequestOrderBy]
+    """
+    Sort order for the tokens.
+    """
 
     function_id: Optional[str]
+    """
+    UUID of the function the token is assoicated with.
+    """
 
     namespace_id: Optional[str]
+    """
+    UUID of the namespace the token is associated with.
+    """
 
 
 @dataclass
@@ -1109,6 +1565,9 @@ class DeleteTokenRequest:
     """
 
     token_id: str
+    """
+    UUID of the token to delete.
+    """
 
 
 @dataclass
