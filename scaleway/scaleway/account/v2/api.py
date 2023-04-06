@@ -10,7 +10,6 @@ from scaleway_core.utils import (
 )
 from .types import (
     ListProjectsRequestOrderBy,
-    CaptchaProvider,
     ListProjectsResponse,
     Project,
     CreateProjectRequest,
@@ -20,7 +19,6 @@ from .marshalling import (
     marshal_CreateProjectRequest,
     marshal_UpdateProjectRequest,
     unmarshal_Project,
-    unmarshal_CaptchaProvider,
     unmarshal_ListProjectsResponse,
 )
 
@@ -252,24 +250,3 @@ class AccountV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_Project(res.json())
-
-    def get_captcha_provider(
-        self,
-    ) -> CaptchaProvider:
-        """
-        Get a Captcha provider.
-        :return: :class:`CaptchaProvider <CaptchaProvider>`
-
-        Usage:
-        ::
-
-            result = api.get_captcha_provider()
-        """
-
-        res = self._request(
-            "GET",
-            f"/account/v2/captcha-provider",
-        )
-
-        self._throw_on_error(res)
-        return unmarshal_CaptchaProvider(res.json())
