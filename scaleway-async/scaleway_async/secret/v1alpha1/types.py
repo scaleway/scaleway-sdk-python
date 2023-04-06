@@ -221,6 +221,11 @@ class SecretVersion:
     * `destroyed`: the version is permanently deleted. It is not possible to recover it.
     """
 
+    is_latest: bool
+    """
+    True if the version is the latest one.
+    """
+
     created_at: Optional[datetime]
     """
     Date and time of the version's creation.
