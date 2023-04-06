@@ -1735,9 +1735,9 @@ class FunctionV1Beta1API(API):
         self,
         *,
         name: str,
-        description: str,
         function_id: str,
         region: Optional[Region] = None,
+        description: Optional[str] = None,
         scw_sqs_config: Optional[CreateTriggerRequestMnqSqsClientConfig] = None,
         sqs_config: Optional[CreateTriggerRequestSqsClientConfig] = None,
         scw_nats_config: Optional[CreateTriggerRequestMnqNatsClientConfig] = None,
@@ -1749,7 +1749,6 @@ class FunctionV1Beta1API(API):
 
             result = api.create_trigger(
                 name="example",
-                description="example",
                 function_id="example",
             )
         """
@@ -1764,9 +1763,9 @@ class FunctionV1Beta1API(API):
             body=marshal_CreateTriggerRequest(
                 CreateTriggerRequest(
                     name=name,
-                    description=description,
                     function_id=function_id,
                     region=region,
+                    description=description,
                     scw_sqs_config=scw_sqs_config,
                     sqs_config=sqs_config,
                     scw_nats_config=scw_nats_config,
