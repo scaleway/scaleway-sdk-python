@@ -179,52 +179,112 @@ class Container:
     """
 
     id: str
+    """
+    UUID of the container.
+    """
 
     name: str
+    """
+    Name of the container.
+    """
 
     namespace_id: str
+    """
+    UUID of the namespace the container belongs to.
+    """
 
     status: ContainerStatus
+    """
+    Status of the container.
+    """
 
     environment_variables: Dict[str, str]
+    """
+    Environment variables of the container.
+    """
 
     min_scale: int
+    """
+    Minimum number of instances to scale the container to.
+    """
 
     max_scale: int
+    """
+    Maximum number of instances to scale the container to.
+    """
 
     memory_limit: int
+    """
+    Memory limit of the container in MB.
+    """
 
     cpu_limit: int
+    """
+    CPU limit of the container.
+    """
 
     timeout: Optional[str]
+    """
+    Processing time limit for the container.
+    """
 
     error_message: Optional[str]
+    """
+    Last error message of the container.
+    """
 
     privacy: ContainerPrivacy
+    """
+    Privacy setting of the container.
+    """
 
     description: Optional[str]
+    """
+    Description of the container.
+    """
 
     registry_image: str
+    """
+    Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag").
+    """
 
     max_concurrency: int
+    """
+    Number of maximum concurrent executions of the container.
+    """
 
     domain_name: str
+    """
+    Domain name attributed to the contaioner.
+    """
 
     protocol: ContainerProtocol
+    """
+    Protocol the container uses.
+    """
 
     port: int
+    """
+    Port the container listens on.
+    """
 
     secret_environment_variables: List[SecretHashedValue]
+    """
+    Secret environment variables of the container.
+    """
 
     http_option: ContainerHttpOption
     """
-    Configure how HTTP and HTTPS requests are handled.
+    Configuration for the handling of HTTP and HTTPS requests.
     Possible values:
      - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
      - enabled: Serve both HTTP and HTTPS traffic.
     """
 
     region: Region
+    """
+    Region in which the container will be deployed.
+    """
 
 
 @dataclass
@@ -234,16 +294,34 @@ class Cron:
     """
 
     id: str
+    """
+    UUID of the cron.
+    """
 
     container_id: str
+    """
+    UUID of the container invoked by this cron.
+    """
 
     schedule: str
+    """
+    UNIX cron shedule.
+    """
 
     args: Optional[Dict[str, Any]]
+    """
+    Arguments to pass with the cron.
+    """
 
     status: CronStatus
+    """
+    Status of the cron.
+    """
 
     name: str
+    """
+    Name of the cron.
+    """
 
 
 @dataclass
@@ -253,16 +331,34 @@ class Domain:
     """
 
     id: str
+    """
+    UUID of the domain.
+    """
 
     hostname: str
+    """
+    Domain assigned to the container.
+    """
 
     container_id: str
+    """
+    UUID of the container.
+    """
 
     url: str
+    """
+    URL (TBD).
+    """
 
     status: DomainStatus
+    """
+    Status of the domain.
+    """
 
     error_message: Optional[str]
+    """
+    Last error message of the domain.
+    """
 
 
 @dataclass
@@ -272,8 +368,14 @@ class ListContainersResponse:
     """
 
     containers: List[Container]
+    """
+    Array of containers.
+    """
 
     total_count: int
+    """
+    Total number of containers.
+    """
 
 
 @dataclass
@@ -283,8 +385,14 @@ class ListCronsResponse:
     """
 
     crons: List[Cron]
+    """
+    Array of crons.
+    """
 
     total_count: int
+    """
+    Total number of crons.
+    """
 
 
 @dataclass
@@ -294,8 +402,14 @@ class ListDomainsResponse:
     """
 
     domains: List[Domain]
+    """
+    Array of domains.
+    """
 
     total_count: int
+    """
+    Total number of domains.
+    """
 
 
 @dataclass
@@ -316,8 +430,14 @@ class ListNamespacesResponse:
     """
 
     namespaces: List[Namespace]
+    """
+    Array of the namespaces.
+    """
 
     total_count: int
+    """
+    Total number of namespaces.
+    """
 
 
 @dataclass
@@ -362,28 +482,64 @@ class Namespace:
     """
 
     id: str
+    """
+    UUID of the namespace.
+    """
 
     name: str
+    """
+    Name of the namespace.
+    """
 
     environment_variables: Dict[str, str]
+    """
+    Environment variables of the namespace.
+    """
 
     organization_id: str
+    """
+    UUID of the Organization the namespace belongs to.
+    """
 
     project_id: str
+    """
+    UUID of the Project the namespace belongs to.
+    """
 
     status: NamespaceStatus
+    """
+    Status of the namespace.
+    """
 
     registry_namespace_id: str
+    """
+    UUID of the registry namespace.
+    """
 
     error_message: Optional[str]
+    """
+    Last error message of the namesace.
+    """
 
     registry_endpoint: str
+    """
+    Registry endpoint of the namespace.
+    """
 
     description: Optional[str]
+    """
+    Description of the endpoint.
+    """
 
     secret_environment_variables: List[SecretHashedValue]
+    """
+    Secret environment variables of the namespace.
+    """
 
     region: Region
+    """
+    Region in which the namespace will be created.
+    """
 
 
 @dataclass
@@ -407,29 +563,49 @@ class Token:
     """
 
     id: str
+    """
+    UUID of the token.
+    """
 
     token: str
+    """
+    Identifier of the token.
+    """
 
     container_id: Optional[str]
     """
+    UUID of the container the token belongs to.
+    
     One-of ('scope'): at most one of 'container_id', 'namespace_id' could be set.
     """
 
     namespace_id: Optional[str]
     """
+    UUID of the namespace the token belongs to.
+    
     One-of ('scope'): at most one of 'container_id', 'namespace_id' could be set.
     """
 
     public_key: Optional[str]
     """
+    Public key of the token.
     :deprecated
     """
 
     status: TokenStatus
+    """
+    Status of the token.
+    """
 
     description: Optional[str]
+    """
+    Description of the token.
+    """
 
     expires_at: Optional[datetime]
+    """
+    Expiry date of the token.
+    """
 
 
 @dataclass
@@ -440,16 +616,34 @@ class ListNamespacesRequest:
     """
 
     page: Optional[int]
+    """
+    Page number.
+    """
 
     page_size: Optional[int]
+    """
+    Number of namespaces per page.
+    """
 
     order_by: Optional[ListNamespacesRequestOrderBy]
+    """
+    Order of the namespaces.
+    """
 
     name: Optional[str]
+    """
+    Name of the namespaces.
+    """
 
     organization_id: Optional[str]
+    """
+    UUID of the Organization the namespace belongs to.
+    """
 
     project_id: Optional[str]
+    """
+    UUID of the Project the namespace belongs to.
+    """
 
 
 @dataclass
@@ -460,6 +654,9 @@ class GetNamespaceRequest:
     """
 
     namespace_id: str
+    """
+    UUID of the namespace to get.
+    """
 
 
 @dataclass
@@ -470,14 +667,29 @@ class CreateNamespaceRequest:
     """
 
     name: Optional[str]
+    """
+    Name of the namespace to create.
+    """
 
     environment_variables: Optional[Dict[str, str]]
+    """
+    Environment variables of the namespace to create.
+    """
 
     project_id: Optional[str]
+    """
+    UUID of the Project in which the namespace will be created.
+    """
 
     description: Optional[str]
+    """
+    Description of the namespace to create.
+    """
 
     secret_environment_variables: Optional[List[Secret]]
+    """
+    Secret environment variables of the namespace to create.
+    """
 
 
 @dataclass
@@ -488,12 +700,24 @@ class UpdateNamespaceRequest:
     """
 
     namespace_id: str
+    """
+    UUID of the namespace to update.
+    """
 
     environment_variables: Optional[Dict[str, str]]
+    """
+    Environment variables of the namespace to update.
+    """
 
     description: Optional[str]
+    """
+    Description of the namespace to update.
+    """
 
     secret_environment_variables: Optional[List[Secret]]
+    """
+    Secret environment variables of the namespace to update.
+    """
 
 
 @dataclass
@@ -504,6 +728,9 @@ class DeleteNamespaceRequest:
     """
 
     namespace_id: str
+    """
+    UUID of the namespace to delete.
+    """
 
 
 @dataclass
@@ -514,18 +741,39 @@ class ListContainersRequest:
     """
 
     page: Optional[int]
+    """
+    Page number.
+    """
 
     page_size: Optional[int]
+    """
+    Number of containers per page.
+    """
 
     order_by: Optional[ListContainersRequestOrderBy]
+    """
+    Order of the containers.
+    """
 
     namespace_id: str
+    """
+    UUID of the namespace the container belongs to.
+    """
 
     name: Optional[str]
+    """
+    Name of the container.
+    """
 
     organization_id: Optional[str]
+    """
+    UUID of the Organization the container belongs to.
+    """
 
     project_id: Optional[str]
+    """
+    UUID of the Project the container belongs to.
+    """
 
 
 @dataclass
@@ -536,6 +784,9 @@ class GetContainerRequest:
     """
 
     container_id: str
+    """
+    UUID of the container to get.
+    """
 
 
 @dataclass
@@ -546,32 +797,74 @@ class CreateContainerRequest:
     """
 
     namespace_id: str
+    """
+    UUID of the namespace the container belongs to.
+    """
 
-    name: Optional[str]
+    name: str
+    """
+    Name of the container.
+    """
 
     environment_variables: Optional[Dict[str, str]]
+    """
+    Environment variables of the container.
+    """
 
     min_scale: Optional[int]
+    """
+    Minimum number of instances to scale the container to.
+    """
 
     max_scale: Optional[int]
+    """
+    Maximum number of instances to scale the container to.
+    """
 
     memory_limit: Optional[int]
+    """
+    Memory limit of the container in MB.
+    """
 
     timeout: Optional[str]
+    """
+    Processing time limit for the container.
+    """
 
     privacy: ContainerPrivacy
+    """
+    Privacy setting of the container.
+    """
 
     description: Optional[str]
+    """
+    Description of the container.
+    """
 
     registry_image: Optional[str]
+    """
+    Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag").
+    """
 
     max_concurrency: Optional[int]
+    """
+    Number of maximum concurrent executions of the container.
+    """
 
     protocol: ContainerProtocol
+    """
+    Protocol the container uses.
+    """
 
     port: Optional[int]
+    """
+    Port the container listens on.
+    """
 
     secret_environment_variables: Optional[List[Secret]]
+    """
+    Secret environment variables of the container.
+    """
 
     http_option: ContainerHttpOption
     """
@@ -590,26 +883,59 @@ class UpdateContainerRequest:
     """
 
     container_id: str
+    """
+    UUID of the container to update.
+    """
 
     environment_variables: Optional[Dict[str, str]]
+    """
+    Environment variables of the container.
+    """
 
     min_scale: Optional[int]
+    """
+    Minimum number of instances to scale the container to.
+    """
 
     max_scale: Optional[int]
+    """
+    Maximum number of instances to scale the container to.
+    """
 
     memory_limit: Optional[int]
+    """
+    Memory limit of the container in MB.
+    """
 
     timeout: Optional[str]
+    """
+    Processing time limit for the container.
+    """
 
     redeploy: Optional[bool]
+    """
+    Defines whether to redeploy failed containers.
+    """
 
     privacy: ContainerPrivacy
+    """
+    Privacy settings of the container.
+    """
 
     description: Optional[str]
+    """
+    Description of the container.
+    """
 
     registry_image: Optional[str]
+    """
+    Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag").
+    """
 
     max_concurrency: Optional[int]
+    """
+    Number of maximum concurrent executions of the container.
+    """
 
     protocol: ContainerProtocol
 
@@ -634,6 +960,9 @@ class DeleteContainerRequest:
     """
 
     container_id: str
+    """
+    UUID of the container to delete.
+    """
 
 
 @dataclass
@@ -644,6 +973,9 @@ class DeployContainerRequest:
     """
 
     container_id: str
+    """
+    UUID of the container to deploy.
+    """
 
 
 @dataclass
@@ -654,12 +986,24 @@ class ListCronsRequest:
     """
 
     page: Optional[int]
+    """
+    Page number.
+    """
 
     page_size: Optional[int]
+    """
+    Number of crons per page.
+    """
 
     order_by: Optional[ListCronsRequestOrderBy]
+    """
+    Order of the crons.
+    """
 
     container_id: str
+    """
+    UUID of the container invoked by the cron.
+    """
 
 
 @dataclass
@@ -670,6 +1014,9 @@ class GetCronRequest:
     """
 
     cron_id: str
+    """
+    UUID of the cron to get.
+    """
 
 
 @dataclass
@@ -680,12 +1027,24 @@ class CreateCronRequest:
     """
 
     container_id: str
+    """
+    UUID of the container to invoke by the cron.
+    """
 
     schedule: str
+    """
+    UNIX cron shedule.
+    """
 
     args: Optional[Dict[str, Any]]
+    """
+    Arguments to pass with the cron.
+    """
 
     name: Optional[str]
+    """
+    Name of the cron to create.
+    """
 
 
 @dataclass
@@ -696,14 +1055,29 @@ class UpdateCronRequest:
     """
 
     cron_id: str
+    """
+    UUID of the cron to update.
+    """
 
     container_id: Optional[str]
+    """
+    UUID of the container invoked by the cron.
+    """
 
     schedule: Optional[str]
+    """
+    UNIX cron schedule.
+    """
 
     args: Optional[Dict[str, Any]]
+    """
+    Arguments to pass with the cron.
+    """
 
     name: Optional[str]
+    """
+    Name of the cron.
+    """
 
 
 @dataclass
@@ -714,6 +1088,9 @@ class DeleteCronRequest:
     """
 
     cron_id: str
+    """
+    UUID of the cron to delete.
+    """
 
 
 @dataclass
@@ -724,12 +1101,24 @@ class ListLogsRequest:
     """
 
     container_id: str
+    """
+    UUID of the container.
+    """
 
     page: Optional[int]
+    """
+    Page number.
+    """
 
     page_size: Optional[int]
+    """
+    Number of logs per page.
+    """
 
     order_by: Optional[ListLogsRequestOrderBy]
+    """
+    Order of the logs.
+    """
 
 
 @dataclass
@@ -740,12 +1129,24 @@ class ListDomainsRequest:
     """
 
     page: Optional[int]
+    """
+    Page number.
+    """
 
     page_size: Optional[int]
+    """
+    Number of domains per page.
+    """
 
     order_by: Optional[ListDomainsRequestOrderBy]
+    """
+    Order of the domains.
+    """
 
     container_id: str
+    """
+    UUID of the container the domain belongs to.
+    """
 
 
 @dataclass
@@ -756,6 +1157,9 @@ class GetDomainRequest:
     """
 
     domain_id: str
+    """
+    UUID of the domain to get.
+    """
 
 
 @dataclass
@@ -766,8 +1170,14 @@ class CreateDomainRequest:
     """
 
     hostname: str
+    """
+    Domain to assign.
+    """
 
     container_id: str
+    """
+    UUID of the container to assign the domain to.
+    """
 
 
 @dataclass
@@ -778,6 +1188,9 @@ class DeleteDomainRequest:
     """
 
     domain_id: str
+    """
+    UUID of the domain to delete.
+    """
 
 
 @dataclass
@@ -809,17 +1222,27 @@ class CreateTokenRequest:
 
     container_id: Optional[str]
     """
+    UUID of the container to create the token for.
+    
     One-of ('scope'): at most one of 'container_id', 'namespace_id' could be set.
     """
 
     namespace_id: Optional[str]
     """
+    UUID of the namespace to create the token for.
+    
     One-of ('scope'): at most one of 'container_id', 'namespace_id' could be set.
     """
 
     description: Optional[str]
+    """
+    Description of the token.
+    """
 
     expires_at: Optional[datetime]
+    """
+    Expiry date of the token.
+    """
 
 
 @dataclass
@@ -830,6 +1253,9 @@ class GetTokenRequest:
     """
 
     token_id: str
+    """
+    UUID of the token to get.
+    """
 
 
 @dataclass
@@ -840,14 +1266,29 @@ class ListTokensRequest:
     """
 
     page: Optional[int]
+    """
+    Page number.
+    """
 
     page_size: Optional[int]
+    """
+    Number of tokens per page.
+    """
 
     order_by: Optional[ListTokensRequestOrderBy]
+    """
+    Order of the tokens.
+    """
 
     container_id: Optional[str]
+    """
+    UUID of the container the token belongs to.
+    """
 
     namespace_id: Optional[str]
+    """
+    UUID of the namespace the token belongs to.
+    """
 
 
 @dataclass
@@ -858,3 +1299,6 @@ class DeleteTokenRequest:
     """
 
     token_id: str
+    """
+    UUID of the token to delete.
+    """

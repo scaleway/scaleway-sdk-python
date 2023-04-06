@@ -100,13 +100,14 @@ class ContainerV1Beta1API(API):
     ) -> ListNamespacesResponse:
         """
         List all your namespaces.
+        List all namespaces in a specified region.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page:
-        :param page_size:
-        :param order_by:
-        :param name:
-        :param organization_id:
-        :param project_id:
+        :param page: Page number.
+        :param page_size: Number of namespaces per page.
+        :param order_by: Order of the namespaces.
+        :param name: Name of the namespaces.
+        :param organization_id: UUID of the Organization the namespace belongs to.
+        :param project_id: UUID of the Project the namespace belongs to.
         :return: :class:`ListNamespacesResponse <ListNamespacesResponse>`
 
         Usage:
@@ -149,13 +150,14 @@ class ContainerV1Beta1API(API):
     ) -> List[Namespace]:
         """
         List all your namespaces.
+        List all namespaces in a specified region.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page:
-        :param page_size:
-        :param order_by:
-        :param name:
-        :param organization_id:
-        :param project_id:
+        :param page: Page number.
+        :param page_size: Number of namespaces per page.
+        :param order_by: Order of the namespaces.
+        :param name: Name of the namespaces.
+        :param organization_id: UUID of the Organization the namespace belongs to.
+        :param project_id: UUID of the Project the namespace belongs to.
         :return: :class:`List[ListNamespacesResponse] <List[ListNamespacesResponse]>`
 
         Usage:
@@ -187,9 +189,9 @@ class ContainerV1Beta1API(API):
     ) -> Namespace:
         """
         Get a namespace.
-        Get the namespace associated with the given id.
+        Get the namespace associated with the specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param namespace_id:
+        :param namespace_id: UUID of the namespace to get.
         :return: :class:`Namespace <Namespace>`
 
         Usage:
@@ -221,7 +223,7 @@ class ContainerV1Beta1API(API):
         """
         Waits for :class:`Namespace <Namespace>` to be in a final state.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param namespace_id:
+        :param namespace_id: UUID of the namespace to get.
         :param options: The options for the waiter
         :return: :class:`Namespace <Namespace>`
 
@@ -258,12 +260,13 @@ class ContainerV1Beta1API(API):
     ) -> Namespace:
         """
         Create a new namespace.
+        Create a new namespace in a specified region.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param name:
-        :param environment_variables:
-        :param project_id:
-        :param description:
-        :param secret_environment_variables:
+        :param name: Name of the namespace to create.
+        :param environment_variables: Environment variables of the namespace to create.
+        :param project_id: UUID of the Project in which the namespace will be created.
+        :param description: Description of the namespace to create.
+        :param secret_environment_variables: Secret environment variables of the namespace to create.
         :return: :class:`Namespace <Namespace>`
 
         Usage:
@@ -306,12 +309,12 @@ class ContainerV1Beta1API(API):
     ) -> Namespace:
         """
         Update an existing namespace.
-        Update the space associated with the given id.
+        Update the space associated with the specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param namespace_id:
-        :param environment_variables:
-        :param description:
-        :param secret_environment_variables:
+        :param namespace_id: UUID of the namespace to update.
+        :param environment_variables: Environment variables of the namespace to update.
+        :param description: Description of the namespace to update.
+        :param secret_environment_variables: Secret environment variables of the namespace to update.
         :return: :class:`Namespace <Namespace>`
 
         Usage:
@@ -351,9 +354,9 @@ class ContainerV1Beta1API(API):
     ) -> Namespace:
         """
         Delete an existing namespace.
-        Delete the namespace associated with the given id.
+        Delete the namespace associated with the specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param namespace_id:
+        :param namespace_id: UUID of the namespace to delete.
         :return: :class:`Namespace <Namespace>`
 
         Usage:
@@ -389,14 +392,15 @@ class ContainerV1Beta1API(API):
     ) -> ListContainersResponse:
         """
         List all your containers.
+        List all containers for a specified region.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page:
-        :param page_size:
-        :param order_by:
-        :param namespace_id:
-        :param name:
-        :param organization_id:
-        :param project_id:
+        :param page: Page number.
+        :param page_size: Number of containers per page.
+        :param order_by: Order of the containers.
+        :param namespace_id: UUID of the namespace the container belongs to.
+        :param name: Name of the container.
+        :param organization_id: UUID of the Organization the container belongs to.
+        :param project_id: UUID of the Project the container belongs to.
         :return: :class:`ListContainersResponse <ListContainersResponse>`
 
         Usage:
@@ -441,14 +445,15 @@ class ContainerV1Beta1API(API):
     ) -> List[Container]:
         """
         List all your containers.
+        List all containers for a specified region.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page:
-        :param page_size:
-        :param order_by:
-        :param namespace_id:
-        :param name:
-        :param organization_id:
-        :param project_id:
+        :param page: Page number.
+        :param page_size: Number of containers per page.
+        :param order_by: Order of the containers.
+        :param namespace_id: UUID of the namespace the container belongs to.
+        :param name: Name of the container.
+        :param organization_id: UUID of the Organization the container belongs to.
+        :param project_id: UUID of the Project the container belongs to.
         :return: :class:`List[ListContainersResponse] <List[ListContainersResponse]>`
 
         Usage:
@@ -481,9 +486,9 @@ class ContainerV1Beta1API(API):
     ) -> Container:
         """
         Get a container.
-        Get the container associated with the given id.
+        Get the container associated with the specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param container_id:
+        :param container_id: UUID of the container to get.
         :return: :class:`Container <Container>`
 
         Usage:
@@ -515,7 +520,7 @@ class ContainerV1Beta1API(API):
         """
         Waits for :class:`Container <Container>` to be in a final state.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param container_id:
+        :param container_id: UUID of the container to get.
         :param options: The options for the waiter
         :return: :class:`Container <Container>`
 
@@ -544,11 +549,11 @@ class ContainerV1Beta1API(API):
         self,
         *,
         namespace_id: str,
+        name: str,
         privacy: ContainerPrivacy,
         protocol: ContainerProtocol,
         http_option: ContainerHttpOption,
         region: Optional[Region] = None,
-        name: Optional[str] = None,
         environment_variables: Optional[Dict[str, str]] = None,
         min_scale: Optional[int] = None,
         max_scale: Optional[int] = None,
@@ -562,21 +567,22 @@ class ContainerV1Beta1API(API):
     ) -> Container:
         """
         Create a new container.
+        Create a new container in the specified region.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param namespace_id:
-        :param name:
-        :param environment_variables:
-        :param min_scale:
-        :param max_scale:
-        :param memory_limit:
-        :param timeout:
-        :param privacy:
-        :param description:
-        :param registry_image:
-        :param max_concurrency:
-        :param protocol:
-        :param port:
-        :param secret_environment_variables:
+        :param namespace_id: UUID of the namespace the container belongs to.
+        :param name: Name of the container.
+        :param environment_variables: Environment variables of the container.
+        :param min_scale: Minimum number of instances to scale the container to.
+        :param max_scale: Maximum number of instances to scale the container to.
+        :param memory_limit: Memory limit of the container in MB.
+        :param timeout: Processing time limit for the container.
+        :param privacy: Privacy setting of the container.
+        :param description: Description of the container.
+        :param registry_image: Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag").
+        :param max_concurrency: Number of maximum concurrent executions of the container.
+        :param protocol: Protocol the container uses.
+        :param port: Port the container listens on.
+        :param secret_environment_variables: Secret environment variables of the container.
         :param http_option: Configure how HTTP and HTTPS requests are handled.
         Possible values:
          - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
@@ -588,6 +594,7 @@ class ContainerV1Beta1API(API):
 
             result = api.create_container(
                 namespace_id="example",
+                name="example",
                 privacy=unknown_privacy,
                 protocol=unknown_protocol,
                 http_option=unknown_http_option,
@@ -604,11 +611,11 @@ class ContainerV1Beta1API(API):
             body=marshal_CreateContainerRequest(
                 CreateContainerRequest(
                     namespace_id=namespace_id,
+                    name=name,
                     privacy=privacy,
                     protocol=protocol,
                     http_option=http_option,
                     region=region,
-                    name=name or random_name(prefix="ctnr"),
                     environment_variables=environment_variables,
                     min_scale=min_scale,
                     max_scale=max_scale,
@@ -649,19 +656,19 @@ class ContainerV1Beta1API(API):
     ) -> Container:
         """
         Update an existing container.
-        Update the container associated with the given id.
+        Update the container associated with the specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param container_id:
-        :param environment_variables:
-        :param min_scale:
-        :param max_scale:
-        :param memory_limit:
-        :param timeout:
-        :param redeploy:
-        :param privacy:
-        :param description:
-        :param registry_image:
-        :param max_concurrency:
+        :param container_id: UUID of the container to update.
+        :param environment_variables: Environment variables of the container.
+        :param min_scale: Minimum number of instances to scale the container to.
+        :param max_scale: Maximum number of instances to scale the container to.
+        :param memory_limit: Memory limit of the container in MB.
+        :param timeout: Processing time limit for the container.
+        :param redeploy: Defines whether to redeploy failed containers.
+        :param privacy: Privacy settings of the container.
+        :param description: Description of the container.
+        :param registry_image: Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag").
+        :param max_concurrency: Number of maximum concurrent executions of the container.
         :param protocol:
         :param port:
         :param secret_environment_variables:
@@ -724,9 +731,9 @@ class ContainerV1Beta1API(API):
     ) -> Container:
         """
         Delete a container.
-        Delete the container associated with the given id.
+        Delete the container associated with the specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param container_id:
+        :param container_id: UUID of the container to delete.
         :return: :class:`Container <Container>`
 
         Usage:
@@ -756,9 +763,9 @@ class ContainerV1Beta1API(API):
     ) -> Container:
         """
         Deploy a container.
-        Deploy a container associated with the given id.
+        Deploy a container associated with the specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param container_id:
+        :param container_id: UUID of the container to deploy.
         :return: :class:`Container <Container>`
 
         Usage:
@@ -792,10 +799,10 @@ class ContainerV1Beta1API(API):
         """
         List all your crons.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page:
-        :param page_size:
-        :param order_by:
-        :param container_id:
+        :param page: Page number.
+        :param page_size: Number of crons per page.
+        :param order_by: Order of the crons.
+        :param container_id: UUID of the container invoked by the cron.
         :return: :class:`ListCronsResponse <ListCronsResponse>`
 
         Usage:
@@ -834,10 +841,10 @@ class ContainerV1Beta1API(API):
         """
         List all your crons.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page:
-        :param page_size:
-        :param order_by:
-        :param container_id:
+        :param page: Page number.
+        :param page_size: Number of crons per page.
+        :param order_by: Order of the crons.
+        :param container_id: UUID of the container invoked by the cron.
         :return: :class:`List[ListCronsResponse] <List[ListCronsResponse]>`
 
         Usage:
@@ -867,9 +874,9 @@ class ContainerV1Beta1API(API):
     ) -> Cron:
         """
         Get a cron.
-        Get the cron associated with the given id.
+        Get the cron associated with the specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param cron_id:
+        :param cron_id: UUID of the cron to get.
         :return: :class:`Cron <Cron>`
 
         Usage:
@@ -901,7 +908,7 @@ class ContainerV1Beta1API(API):
         """
         Waits for :class:`Cron <Cron>` to be in a final state.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param cron_id:
+        :param cron_id: UUID of the cron to get.
         :param options: The options for the waiter
         :return: :class:`Cron <Cron>`
 
@@ -938,10 +945,10 @@ class ContainerV1Beta1API(API):
         """
         Create a new cron.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param container_id:
-        :param schedule:
-        :param args:
-        :param name:
+        :param container_id: UUID of the container to invoke by the cron.
+        :param schedule: UNIX cron shedule.
+        :param args: Arguments to pass with the cron.
+        :param name: Name of the cron to create.
         :return: :class:`Cron <Cron>`
 
         Usage:
@@ -987,13 +994,13 @@ class ContainerV1Beta1API(API):
     ) -> Cron:
         """
         Update an existing cron.
-        Update the cron associated with the given id.
+        Update the cron associated with the specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param cron_id:
-        :param container_id:
-        :param schedule:
-        :param args:
-        :param name:
+        :param cron_id: UUID of the cron to update.
+        :param container_id: UUID of the container invoked by the cron.
+        :param schedule: UNIX cron schedule.
+        :param args: Arguments to pass with the cron.
+        :param name: Name of the cron.
         :return: :class:`Cron <Cron>`
 
         Usage:
@@ -1034,9 +1041,9 @@ class ContainerV1Beta1API(API):
     ) -> Cron:
         """
         Delete an existing cron.
-        Delete the cron associated with the given id.
+        Delete the cron associated with the specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param cron_id:
+        :param cron_id: UUID of the cron to delete.
         :return: :class:`Cron <Cron>`
 
         Usage:
@@ -1069,11 +1076,12 @@ class ContainerV1Beta1API(API):
     ) -> ListLogsResponse:
         """
         List your container logs.
+        List the logs of the container with the specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param container_id:
-        :param page:
-        :param page_size:
-        :param order_by:
+        :param container_id: UUID of the container.
+        :param page: Page number.
+        :param page_size: Number of logs per page.
+        :param order_by: Order of the logs.
         :return: :class:`ListLogsResponse <ListLogsResponse>`
 
         Usage:
@@ -1111,11 +1119,12 @@ class ContainerV1Beta1API(API):
     ) -> List[Log]:
         """
         List your container logs.
+        List the logs of the container with the specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param container_id:
-        :param page:
-        :param page_size:
-        :param order_by:
+        :param container_id: UUID of the container.
+        :param page: Page number.
+        :param page_size: Number of logs per page.
+        :param order_by: Order of the logs.
         :return: :class:`List[ListLogsResponse] <List[ListLogsResponse]>`
 
         Usage:
@@ -1148,11 +1157,12 @@ class ContainerV1Beta1API(API):
     ) -> ListDomainsResponse:
         """
         List all domain name bindings.
+        List all domain name bindings in a specified region.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page:
-        :param page_size:
-        :param order_by:
-        :param container_id:
+        :param page: Page number.
+        :param page_size: Number of domains per page.
+        :param order_by: Order of the domains.
+        :param container_id: UUID of the container the domain belongs to.
         :return: :class:`ListDomainsResponse <ListDomainsResponse>`
 
         Usage:
@@ -1190,11 +1200,12 @@ class ContainerV1Beta1API(API):
     ) -> List[Domain]:
         """
         List all domain name bindings.
+        List all domain name bindings in a specified region.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page:
-        :param page_size:
-        :param order_by:
-        :param container_id:
+        :param page: Page number.
+        :param page_size: Number of domains per page.
+        :param order_by: Order of the domains.
+        :param container_id: UUID of the container the domain belongs to.
         :return: :class:`List[ListDomainsResponse] <List[ListDomainsResponse]>`
 
         Usage:
@@ -1224,8 +1235,9 @@ class ContainerV1Beta1API(API):
     ) -> Domain:
         """
         Get a domain name binding.
+        Get a domain name binding for the container with the specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param domain_id:
+        :param domain_id: UUID of the domain to get.
         :return: :class:`Domain <Domain>`
 
         Usage:
@@ -1257,7 +1269,7 @@ class ContainerV1Beta1API(API):
         """
         Waits for :class:`Domain <Domain>` to be in a final state.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param domain_id:
+        :param domain_id: UUID of the domain to get.
         :param options: The options for the waiter
         :return: :class:`Domain <Domain>`
 
@@ -1291,9 +1303,10 @@ class ContainerV1Beta1API(API):
     ) -> Domain:
         """
         Create a domain name binding.
+        Create a domain name binding for the container with the specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param hostname:
-        :param container_id:
+        :param hostname: Domain to assign.
+        :param container_id: UUID of the container to assign the domain to.
         :return: :class:`Domain <Domain>`
 
         Usage:
@@ -1333,8 +1346,9 @@ class ContainerV1Beta1API(API):
     ) -> Domain:
         """
         Delete a domain name binding.
+        Delete the domain name binding with the specific ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param domain_id:
+        :param domain_id: UUID of the domain to delete.
         :return: :class:`Domain <Domain>`
 
         Usage:
@@ -1406,10 +1420,14 @@ class ContainerV1Beta1API(API):
         """
         Create a new revocable token.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param container_id: One-of ('scope'): at most one of 'container_id', 'namespace_id' could be set.
-        :param namespace_id: One-of ('scope'): at most one of 'container_id', 'namespace_id' could be set.
-        :param description:
-        :param expires_at:
+        :param container_id: UUID of the container to create the token for.
+
+        One-of ('scope'): at most one of 'container_id', 'namespace_id' could be set.
+        :param namespace_id: UUID of the namespace to create the token for.
+
+        One-of ('scope'): at most one of 'container_id', 'namespace_id' could be set.
+        :param description: Description of the token.
+        :param expires_at: Expiry date of the token.
         :return: :class:`Token <Token>`
 
         Usage:
@@ -1448,8 +1466,9 @@ class ContainerV1Beta1API(API):
     ) -> Token:
         """
         Get a token.
+        Get a token with a specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param token_id:
+        :param token_id: UUID of the token to get.
         :return: :class:`Token <Token>`
 
         Usage:
@@ -1481,7 +1500,7 @@ class ContainerV1Beta1API(API):
         """
         Waits for :class:`Token <Token>` to be in a final state.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param token_id:
+        :param token_id: UUID of the token to get.
         :param options: The options for the waiter
         :return: :class:`Token <Token>`
 
@@ -1518,12 +1537,13 @@ class ContainerV1Beta1API(API):
     ) -> ListTokensResponse:
         """
         List all tokens.
+        List all tokens belonging to a specified Organization or Project.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page:
-        :param page_size:
-        :param order_by:
-        :param container_id:
-        :param namespace_id:
+        :param page: Page number.
+        :param page_size: Number of tokens per page.
+        :param order_by: Order of the tokens.
+        :param container_id: UUID of the container the token belongs to.
+        :param namespace_id: UUID of the namespace the token belongs to.
         :return: :class:`ListTokensResponse <ListTokensResponse>`
 
         Usage:
@@ -1563,12 +1583,13 @@ class ContainerV1Beta1API(API):
     ) -> List[Token]:
         """
         List all tokens.
+        List all tokens belonging to a specified Organization or Project.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page:
-        :param page_size:
-        :param order_by:
-        :param container_id:
-        :param namespace_id:
+        :param page: Page number.
+        :param page_size: Number of tokens per page.
+        :param order_by: Order of the tokens.
+        :param container_id: UUID of the container the token belongs to.
+        :param namespace_id: UUID of the namespace the token belongs to.
         :return: :class:`List[ListTokensResponse] <List[ListTokensResponse]>`
 
         Usage:
@@ -1599,8 +1620,9 @@ class ContainerV1Beta1API(API):
     ) -> Token:
         """
         Delete a token.
+        Delete a token with a specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param token_id:
+        :param token_id: UUID of the token to delete.
         :return: :class:`Token <Token>`
 
         Usage:
