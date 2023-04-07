@@ -78,6 +78,9 @@ def unmarshal_SecretVersion(data: Any) -> SecretVersion:
     field = data.get("description")
     args["description"] = field
 
+    field = data.get("is_latest")
+    args["is_latest"] = field
+
     field = data.get("revision")
     args["revision"] = field
 
