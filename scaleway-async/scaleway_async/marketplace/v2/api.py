@@ -57,6 +57,7 @@ class MarketplaceV2API(API):
     ) -> ListImagesResponse:
         """
         List marketplace images.
+        List all available images on the marketplace, their UUID, CPU architecture and description.
         :param page_size: A positive integer lower or equal to 100 to select the number of items to display.
         :param page: A positive integer to choose the page to display.
         :param order_by: Ordering to use.
@@ -99,6 +100,7 @@ class MarketplaceV2API(API):
     ) -> List[Image]:
         """
         List marketplace images.
+        List all available images on the marketplace, their UUID, CPU architecture and description.
         :param page_size: A positive integer lower or equal to 100 to select the number of items to display.
         :param page: A positive integer to choose the page to display.
         :param order_by: Ordering to use.
@@ -134,6 +136,7 @@ class MarketplaceV2API(API):
     ) -> Image:
         """
         Get a specific marketplace image.
+        Get detailed information about a marketplace image, specified by its `image_id` (UUID format).
         :param image_id: Display the image name.
         :return: :class:`Image <Image>`
 
@@ -162,6 +165,13 @@ class MarketplaceV2API(API):
         order_by: ListVersionsRequestOrderBy = ListVersionsRequestOrderBy.CREATED_AT_ASC,
     ) -> ListVersionsResponse:
         """
+        List versions of an Image.
+        Get a list of all available version of an image, specified by its `image_id` (UUID format).
+        :param image_id:
+        :param page_size:
+        :param page:
+        :param order_by:
+        :return: :class:`ListVersionsResponse <ListVersionsResponse>`
 
         Usage:
         ::
@@ -192,6 +202,12 @@ class MarketplaceV2API(API):
         order_by: Optional[ListVersionsRequestOrderBy] = None,
     ) -> List[Version]:
         """
+        List versions of an Image.
+        Get a list of all available version of an image, specified by its `image_id` (UUID format).
+        :param image_id:
+        :param page_size:
+        :param page:
+        :param order_by:
         :return: :class:`List[ListVersionsResponse] <List[ListVersionsResponse]>`
 
         Usage:
@@ -218,6 +234,10 @@ class MarketplaceV2API(API):
         version_id: str,
     ) -> Version:
         """
+        Get a specific image version.
+        Get information such as the name, creation date, last update and published date for an image version specified by its `version_id` (UUID format).
+        :param version_id:
+        :return: :class:`Version <Version>`
 
         Usage:
         ::
@@ -248,6 +268,7 @@ class MarketplaceV2API(API):
     ) -> ListLocalImagesResponse:
         """
         List local images from a specific image or version.
+        List information about local images in a specific Availability Zone, specified by its `image_id` (UUID format), `version_id` (UUID format) or `image_label`. Only one of these three parameters may be set.
         :param image_id: One-of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
         :param version_id: One-of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
         :param page_size:
@@ -297,6 +318,7 @@ class MarketplaceV2API(API):
     ) -> List[LocalImage]:
         """
         List local images from a specific image or version.
+        List information about local images in a specific Availability Zone, specified by its `image_id` (UUID format), `version_id` (UUID format) or `image_label`. Only one of these three parameters may be set.
         :param image_id: One-of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
         :param version_id: One-of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
         :param page_size:
@@ -333,6 +355,10 @@ class MarketplaceV2API(API):
         local_image_id: str,
     ) -> LocalImage:
         """
+        Get a specific local image by ID.
+        Get detailed information about a local image, including compatible commercial types, supported architecture, labels and the Availability Zone of the image, specified by its `local_image_id` (UUID format).
+        :param local_image_id:
+        :return: :class:`LocalImage <LocalImage>`
 
         Usage:
         ::
@@ -357,6 +383,11 @@ class MarketplaceV2API(API):
         page: Optional[int] = None,
     ) -> ListCategoriesResponse:
         """
+        List existing image categories.
+        Get a list of all existing categories. The output can be paginated.
+        :param page_size:
+        :param page:
+        :return: :class:`ListCategoriesResponse <ListCategoriesResponse>`
 
         Usage:
         ::
@@ -383,6 +414,10 @@ class MarketplaceV2API(API):
         page: Optional[int] = None,
     ) -> List[Category]:
         """
+        List existing image categories.
+        Get a list of all existing categories. The output can be paginated.
+        :param page_size:
+        :param page:
         :return: :class:`List[ListCategoriesResponse] <List[ListCategoriesResponse]>`
 
         Usage:
@@ -407,6 +442,10 @@ class MarketplaceV2API(API):
         category_id: str,
     ) -> Category:
         """
+        Get a specific category.
+        Get information about a specific category of the marketplace catalog, specified by its `category_id` (UUID format).
+        :param category_id:
+        :return: :class:`Category <Category>`
 
         Usage:
         ::
