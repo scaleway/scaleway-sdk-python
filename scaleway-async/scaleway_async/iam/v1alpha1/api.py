@@ -332,6 +332,7 @@ class IamV1Alpha1API(API):
         page: Optional[int] = None,
         organization_id: Optional[str] = None,
         user_ids: Optional[List[str]] = None,
+        mfa: Optional[bool] = None,
     ) -> ListUsersResponse:
         """
         List users of an Organization.
@@ -341,6 +342,7 @@ class IamV1Alpha1API(API):
         :param page: Page number. Value must be greater or equal to 1.
         :param organization_id: ID of the Organization to filter.
         :param user_ids: Filter by list of IDs.
+        :param mfa: Filter by MFA status.
         :return: :class:`ListUsersResponse <ListUsersResponse>`
 
         Usage:
@@ -353,6 +355,7 @@ class IamV1Alpha1API(API):
             "GET",
             f"/iam/v1alpha1/users",
             params={
+                "mfa": mfa,
                 "order_by": order_by,
                 "organization_id": organization_id
                 or self.client.default_organization_id,
@@ -373,6 +376,7 @@ class IamV1Alpha1API(API):
         page: Optional[int] = None,
         organization_id: Optional[str] = None,
         user_ids: Optional[List[str]] = None,
+        mfa: Optional[bool] = None,
     ) -> List[User]:
         """
         List users of an Organization.
@@ -382,6 +386,7 @@ class IamV1Alpha1API(API):
         :param page: Page number. Value must be greater or equal to 1.
         :param organization_id: ID of the Organization to filter.
         :param user_ids: Filter by list of IDs.
+        :param mfa: Filter by MFA status.
         :return: :class:`List[ListUsersResponse] <List[ListUsersResponse]>`
 
         Usage:
@@ -400,6 +405,7 @@ class IamV1Alpha1API(API):
                 "page": page,
                 "organization_id": organization_id,
                 "user_ids": user_ids,
+                "mfa": mfa,
             },
         )
 
@@ -410,7 +416,7 @@ class IamV1Alpha1API(API):
     ) -> User:
         """
         Get a given user.
-        Retrieve information about a user, specified by the `user_id` parameter. The user's full details, including `id`, `email`, `organization_id`, `status` and `two_factor_enabled` are returned in the response.
+        Retrieve information about a user, specified by the `user_id` parameter. The user's full details, including `id`, `email`, `organization_id`, `status` and `mfa` are returned in the response.
         :param user_id: ID of the user to find.
         :return: :class:`User <User>`
 

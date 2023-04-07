@@ -387,6 +387,9 @@ def unmarshal_User(data: Any) -> User:
     field = data.get("last_login_at")
     args["last_login_at"] = parser.isoparse(field) if type(field) is str else field
 
+    field = data.get("mfa")
+    args["mfa"] = field
+
     field = data.get("organization_id")
     args["organization_id"] = field
 
