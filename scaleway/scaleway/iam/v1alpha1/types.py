@@ -836,14 +836,20 @@ class User:
     Type of user.
     """
 
-    two_factor_enabled: bool
+    two_factor_enabled: Optional[bool]
     """
-    Whether MFA is enabled.
+    Deprecated, use "mfa" instead.
+    :deprecated
     """
 
     status: UserStatus
     """
     Status of user invitation.
+    """
+
+    mfa: bool
+    """
+    Whether MFA is enabled.
     """
 
 
@@ -956,6 +962,11 @@ class ListUsersRequest:
     user_ids: Optional[List[str]]
     """
     Filter by list of IDs.
+    """
+
+    mfa: Optional[bool]
+    """
+    Filter by MFA status.
     """
 
 
