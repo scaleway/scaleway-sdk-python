@@ -120,13 +120,14 @@ class FunctionV1Beta1API(API):
     ) -> ListNamespacesResponse:
         """
         List all your namespaces.
+        List all existing namespaces in the specified region.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page:
-        :param page_size:
-        :param order_by:
-        :param name:
-        :param organization_id:
-        :param project_id:
+        :param page: Page number.
+        :param page_size: Number of namespaces per page.
+        :param order_by: Order of the namespaces.
+        :param name: Name of the namespace.
+        :param organization_id: UUID of the Organization the namespace belongs to.
+        :param project_id: UUID of the Project the namespace belongs to.
         :return: :class:`ListNamespacesResponse <ListNamespacesResponse>`
 
         Usage:
@@ -169,13 +170,14 @@ class FunctionV1Beta1API(API):
     ) -> List[Namespace]:
         """
         List all your namespaces.
+        List all existing namespaces in the specified region.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page:
-        :param page_size:
-        :param order_by:
-        :param name:
-        :param organization_id:
-        :param project_id:
+        :param page: Page number.
+        :param page_size: Number of namespaces per page.
+        :param order_by: Order of the namespaces.
+        :param name: Name of the namespace.
+        :param organization_id: UUID of the Organization the namespace belongs to.
+        :param project_id: UUID of the Project the namespace belongs to.
         :return: :class:`List[ListNamespacesResponse] <List[ListNamespacesResponse]>`
 
         Usage:
@@ -207,9 +209,9 @@ class FunctionV1Beta1API(API):
     ) -> Namespace:
         """
         Get a namespace.
-        Get the namespace associated with the given id.
+        Get the namespace associated with the specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param namespace_id:
+        :param namespace_id: UUID of the namespace.
         :return: :class:`Namespace <Namespace>`
 
         Usage:
@@ -243,7 +245,7 @@ class FunctionV1Beta1API(API):
         """
         Waits for :class:`Namespace <Namespace>` to be in a final state.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param namespace_id:
+        :param namespace_id: UUID of the namespace.
         :param options: The options for the waiter
         :return: :class:`Namespace <Namespace>`
 
@@ -280,12 +282,13 @@ class FunctionV1Beta1API(API):
     ) -> Namespace:
         """
         Create a new namespace.
+        Create a new namespace in a specified Organization or Proejct.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name:
-        :param environment_variables:
-        :param project_id:
-        :param description:
-        :param secret_environment_variables:
+        :param environment_variables: Environment variables of the namespace.
+        :param project_id: UUID of the project in which the namespace will be created.
+        :param description: Description of the namespace.
+        :param secret_environment_variables: Secret environment variables of the namespace.
         :return: :class:`Namespace <Namespace>`
 
         Usage:
@@ -328,12 +331,12 @@ class FunctionV1Beta1API(API):
     ) -> Namespace:
         """
         Update an existing namespace.
-        Update the space associated with the given id.
+        Update the namespace associated with the specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param namespace_id:
-        :param environment_variables:
-        :param description:
-        :param secret_environment_variables:
+        :param namespace_id: UUID of the namespapce.
+        :param environment_variables: Environment variables of the namespace.
+        :param description: Description of the namespace.
+        :param secret_environment_variables: Secret environment variables of the namespace.
         :return: :class:`Namespace <Namespace>`
 
         Usage:
@@ -373,9 +376,9 @@ class FunctionV1Beta1API(API):
     ) -> Namespace:
         """
         Delete an existing namespace.
-        Delete the namespace associated with the given id.
+        Delete the namespace associated with the specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param namespace_id:
+        :param namespace_id: UUID of the namespace.
         :return: :class:`Namespace <Namespace>`
 
         Usage:
@@ -412,13 +415,13 @@ class FunctionV1Beta1API(API):
         """
         List all your functions.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page:
-        :param page_size:
-        :param order_by:
-        :param namespace_id:
-        :param name:
-        :param organization_id:
-        :param project_id:
+        :param page: Page number.
+        :param page_size: Number of functions per page.
+        :param order_by: Order of the functions.
+        :param namespace_id: UUID of the namespace the function belongs to.
+        :param name: Name of the function.
+        :param organization_id: UUID of the Organziation the function belongs to.
+        :param project_id: UUID of the Project the function belongs to.
         :return: :class:`ListFunctionsResponse <ListFunctionsResponse>`
 
         Usage:
@@ -464,13 +467,13 @@ class FunctionV1Beta1API(API):
         """
         List all your functions.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page:
-        :param page_size:
-        :param order_by:
-        :param namespace_id:
-        :param name:
-        :param organization_id:
-        :param project_id:
+        :param page: Page number.
+        :param page_size: Number of functions per page.
+        :param order_by: Order of the functions.
+        :param namespace_id: UUID of the namespace the function belongs to.
+        :param name: Name of the function.
+        :param organization_id: UUID of the Organziation the function belongs to.
+        :param project_id: UUID of the Project the function belongs to.
         :return: :class:`List[ListFunctionsResponse] <List[ListFunctionsResponse]>`
 
         Usage:
@@ -503,9 +506,9 @@ class FunctionV1Beta1API(API):
     ) -> Function:
         """
         Get a function.
-        Get the function associated with the given id.
+        Get the function associated with the specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param function_id:
+        :param function_id: UUID of the function.
         :return: :class:`Function <Function>`
 
         Usage:
@@ -539,7 +542,7 @@ class FunctionV1Beta1API(API):
         """
         Waits for :class:`Function <Function>` to be in a final state.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param function_id:
+        :param function_id: UUID of the function.
         :param options: The options for the waiter
         :return: :class:`Function <Function>`
 
@@ -584,18 +587,19 @@ class FunctionV1Beta1API(API):
     ) -> Function:
         """
         Create a new function.
+        Create a new function in the specified region for a specified Organization or Project.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param name:
-        :param namespace_id:
-        :param environment_variables:
-        :param min_scale:
-        :param max_scale:
-        :param runtime:
-        :param memory_limit:
-        :param timeout:
-        :param handler:
-        :param privacy:
-        :param description:
+        :param name: Name of the function to create.
+        :param namespace_id: UUID of the namespace the function will be created in.
+        :param environment_variables: Environment variables of the function.
+        :param min_scale: Minumum number of instances to scale the function to.
+        :param max_scale: Maximum number of instances to scale the function to.
+        :param runtime: Runtime to use with the function.
+        :param memory_limit: Memory limit of the function in MB.
+        :param timeout: Request processing time limit for the function.
+        :param handler: Handler to use with the function.
+        :param privacy: Privacy setting of the function.
+        :param description: Description of the function.
         :param secret_environment_variables:
         :param http_option: Configure how HTTP and HTTPS requests are handled.
         Possible values:
@@ -665,20 +669,20 @@ class FunctionV1Beta1API(API):
     ) -> Function:
         """
         Update an existing function.
-        Update the function associated with the given id.
+        Update the function associated with the specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param function_id:
-        :param environment_variables:
-        :param min_scale:
-        :param max_scale:
-        :param runtime:
-        :param memory_limit:
-        :param timeout:
-        :param redeploy:
-        :param handler:
-        :param privacy:
-        :param description:
-        :param secret_environment_variables:
+        :param function_id: UUID of the function to update.
+        :param environment_variables: Environment variables of the function to update.
+        :param min_scale: Minumum number of instances to scale the function to.
+        :param max_scale: Maximum number of instances to scale the function to.
+        :param runtime: Runtime to use with the function.
+        :param memory_limit: Memory limit of the function in MB.
+        :param timeout: Processing time limit for the function.
+        :param redeploy: Redeploy failed function.
+        :param handler: Handler to use with the function.
+        :param privacy: Privacy setting of the function.
+        :param description: Description of the function.
+        :param secret_environment_variables: Secret environment variables of the function.
         :param http_option: Configure how HTTP and HTTPS requests are handled.
         Possible values:
          - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
@@ -736,9 +740,9 @@ class FunctionV1Beta1API(API):
     ) -> Function:
         """
         Delete a function.
-        Delete the function associated with the given id.
+        Delete the function associated with the specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param function_id:
+        :param function_id: UUID of the function to delete.
         :return: :class:`Function <Function>`
 
         Usage:
@@ -768,9 +772,9 @@ class FunctionV1Beta1API(API):
     ) -> Function:
         """
         Deploy a function.
-        Deploy a function associated with the given id.
+        Deploy a function associated with the specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param function_id:
+        :param function_id: UUID of the function to deploy.
         :return: :class:`Function <Function>`
 
         Usage:
@@ -830,9 +834,9 @@ class FunctionV1Beta1API(API):
     ) -> UploadURL:
         """
         Get an upload URL of a function.
-        Get an upload URL of a function associated with the given id.
+        Get an upload URL of a function associated with the specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param function_id:
+        :param function_id: UUID of the function to get the upload URL for.
         :param content_length:
         :return: :class:`UploadURL <UploadURL>`
 
@@ -869,9 +873,9 @@ class FunctionV1Beta1API(API):
     ) -> DownloadURL:
         """
         Get a download URL of a function.
-        Get a download URL for a function associated with the given id.
+        Get a download URL for a function associated with the specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param function_id:
+        :param function_id: UUID of the function to get the the download URL for.
         :return: :class:`DownloadURL <DownloadURL>`
 
         Usage:
@@ -903,12 +907,13 @@ class FunctionV1Beta1API(API):
         order_by: ListCronsRequestOrderBy = ListCronsRequestOrderBy.CREATED_AT_ASC,
     ) -> ListCronsResponse:
         """
-        List all your crons.
+        List all crons.
+        List all the cronjobs in a specified region.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page:
-        :param page_size:
-        :param order_by:
-        :param function_id:
+        :param page: Page number.
+        :param page_size: Number of crons per page.
+        :param order_by: Order of the crons.
+        :param function_id: UUID of the function.
         :return: :class:`ListCronsResponse <ListCronsResponse>`
 
         Usage:
@@ -945,12 +950,13 @@ class FunctionV1Beta1API(API):
         order_by: Optional[ListCronsRequestOrderBy] = None,
     ) -> List[Cron]:
         """
-        List all your crons.
+        List all crons.
+        List all the cronjobs in a specified region.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page:
-        :param page_size:
-        :param order_by:
-        :param function_id:
+        :param page: Page number.
+        :param page_size: Number of crons per page.
+        :param order_by: Order of the crons.
+        :param function_id: UUID of the function.
         :return: :class:`List[ListCronsResponse] <List[ListCronsResponse]>`
 
         Usage:
@@ -980,9 +986,9 @@ class FunctionV1Beta1API(API):
     ) -> Cron:
         """
         Get a cron.
-        Get the cron associated with the given id.
+        Get the cron associated with the specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param cron_id:
+        :param cron_id: UUID of the cron to get.
         :return: :class:`Cron <Cron>`
 
         Usage:
@@ -1014,7 +1020,7 @@ class FunctionV1Beta1API(API):
         """
         Waits for :class:`Cron <Cron>` to be in a final state.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param cron_id:
+        :param cron_id: UUID of the cron to get.
         :param options: The options for the waiter
         :return: :class:`Cron <Cron>`
 
@@ -1050,11 +1056,12 @@ class FunctionV1Beta1API(API):
     ) -> Cron:
         """
         Create a new cron.
+        Create a new cronjob for a function with the specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param function_id:
-        :param schedule:
-        :param args:
-        :param name:
+        :param function_id: UUID of the function to use the cron with.
+        :param schedule: Schedule of the cron in UNIX cron format.
+        :param args: Arguments to use with the cron.
+        :param name: Name of the cron.
         :return: :class:`Cron <Cron>`
 
         Usage:
@@ -1100,13 +1107,13 @@ class FunctionV1Beta1API(API):
     ) -> Cron:
         """
         Update an existing cron.
-        Update the cron associated with the given id.
+        Update the cron associated with the specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param cron_id:
-        :param function_id:
-        :param schedule:
-        :param args:
-        :param name:
+        :param cron_id: UUID of the cron to update.
+        :param function_id: UUID of the function to use the cron with.
+        :param schedule: Schedule of the cron in UNIX cron format.
+        :param args: Arguments to use with the cron.
+        :param name: Name of the cron.
         :return: :class:`Cron <Cron>`
 
         Usage:
@@ -1147,9 +1154,9 @@ class FunctionV1Beta1API(API):
     ) -> Cron:
         """
         Delete an existing cron.
-        Delete the cron associated with the given id.
+        Delete the cron associated with the specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param cron_id:
+        :param cron_id: UUID of the cron to delete.
         :return: :class:`Cron <Cron>`
 
         Usage:
@@ -1181,12 +1188,13 @@ class FunctionV1Beta1API(API):
         order_by: ListLogsRequestOrderBy = ListLogsRequestOrderBy.TIMESTAMP_DESC,
     ) -> ListLogsResponse:
         """
-        List your application logs.
+        List application logs.
+        List the application logs of the function with the specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param function_id:
-        :param page:
-        :param page_size:
-        :param order_by:
+        :param function_id: UUID of the function to get the logs for.
+        :param page: Page number.
+        :param page_size: Number of logs per page.
+        :param order_by: Order of the logs.
         :return: :class:`ListLogsResponse <ListLogsResponse>`
 
         Usage:
@@ -1223,12 +1231,13 @@ class FunctionV1Beta1API(API):
         order_by: Optional[ListLogsRequestOrderBy] = None,
     ) -> List[Log]:
         """
-        List your application logs.
+        List application logs.
+        List the application logs of the function with the specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param function_id:
-        :param page:
-        :param page_size:
-        :param order_by:
+        :param function_id: UUID of the function to get the logs for.
+        :param page: Page number.
+        :param page_size: Number of logs per page.
+        :param order_by: Order of the logs.
         :return: :class:`List[ListLogsResponse] <List[ListLogsResponse]>`
 
         Usage:
@@ -1261,11 +1270,12 @@ class FunctionV1Beta1API(API):
     ) -> ListDomainsResponse:
         """
         List all domain name bindings.
+        List all domain name bindings in a specified region.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page:
-        :param page_size:
-        :param order_by:
-        :param function_id:
+        :param page: Page number.
+        :param page_size: Number of domains per page.
+        :param order_by: Order of the domains.
+        :param function_id: UUID of the function the domain is assoicated with.
         :return: :class:`ListDomainsResponse <ListDomainsResponse>`
 
         Usage:
@@ -1303,11 +1313,12 @@ class FunctionV1Beta1API(API):
     ) -> List[Domain]:
         """
         List all domain name bindings.
+        List all domain name bindings in a specified region.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page:
-        :param page_size:
-        :param order_by:
-        :param function_id:
+        :param page: Page number.
+        :param page_size: Number of domains per page.
+        :param order_by: Order of the domains.
+        :param function_id: UUID of the function the domain is assoicated with.
         :return: :class:`List[ListDomainsResponse] <List[ListDomainsResponse]>`
 
         Usage:
@@ -1337,8 +1348,9 @@ class FunctionV1Beta1API(API):
     ) -> Domain:
         """
         Get a domain name binding.
+        Get a domain name binding for the function with the specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param domain_id:
+        :param domain_id: UUID of the domain to get.
         :return: :class:`Domain <Domain>`
 
         Usage:
@@ -1370,7 +1382,7 @@ class FunctionV1Beta1API(API):
         """
         Waits for :class:`Domain <Domain>` to be in a final state.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param domain_id:
+        :param domain_id: UUID of the domain to get.
         :param options: The options for the waiter
         :return: :class:`Domain <Domain>`
 
@@ -1404,9 +1416,10 @@ class FunctionV1Beta1API(API):
     ) -> Domain:
         """
         Create a domain name binding.
+        Create a domain name binding for the function with the specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param hostname:
-        :param function_id:
+        :param hostname: Hostame to create.
+        :param function_id: UUID of the function to associate the domain with.
         :return: :class:`Domain <Domain>`
 
         Usage:
@@ -1446,8 +1459,9 @@ class FunctionV1Beta1API(API):
     ) -> Domain:
         """
         Delete a domain name binding.
+        Delete a domain name binding for the function with the specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param domain_id:
+        :param domain_id: UUID of the domain to delete.
         :return: :class:`Domain <Domain>`
 
         Usage:
@@ -1519,10 +1533,14 @@ class FunctionV1Beta1API(API):
         """
         Create a new revocable token.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param function_id: One-of ('scope'): at most one of 'function_id', 'namespace_id' could be set.
-        :param namespace_id: One-of ('scope'): at most one of 'function_id', 'namespace_id' could be set.
-        :param description:
-        :param expires_at:
+        :param function_id: UUID of the function to associate the token with.
+
+        One-of ('scope'): at most one of 'function_id', 'namespace_id' could be set.
+        :param namespace_id: UUID of the namespace to associate the token with.
+
+        One-of ('scope'): at most one of 'function_id', 'namespace_id' could be set.
+        :param description: Description of the token.
+        :param expires_at: Date on which the token expires.
         :return: :class:`Token <Token>`
 
         Usage:
@@ -1562,7 +1580,7 @@ class FunctionV1Beta1API(API):
         """
         Get a token.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param token_id:
+        :param token_id: UUID of the token to get.
         :return: :class:`Token <Token>`
 
         Usage:
@@ -1594,7 +1612,7 @@ class FunctionV1Beta1API(API):
         """
         Waits for :class:`Token <Token>` to be in a final state.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param token_id:
+        :param token_id: UUID of the token to get.
         :param options: The options for the waiter
         :return: :class:`Token <Token>`
 
@@ -1632,11 +1650,11 @@ class FunctionV1Beta1API(API):
         """
         List all tokens.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page:
-        :param page_size:
-        :param order_by:
-        :param function_id:
-        :param namespace_id:
+        :param page: Page number.
+        :param page_size: Number of tokens per page.
+        :param order_by: Sort order for the tokens.
+        :param function_id: UUID of the function the token is assoicated with.
+        :param namespace_id: UUID of the namespace the token is associated with.
         :return: :class:`ListTokensResponse <ListTokensResponse>`
 
         Usage:
@@ -1677,11 +1695,11 @@ class FunctionV1Beta1API(API):
         """
         List all tokens.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page:
-        :param page_size:
-        :param order_by:
-        :param function_id:
-        :param namespace_id:
+        :param page: Page number.
+        :param page_size: Number of tokens per page.
+        :param order_by: Sort order for the tokens.
+        :param function_id: UUID of the function the token is assoicated with.
+        :param namespace_id: UUID of the namespace the token is associated with.
         :return: :class:`List[ListTokensResponse] <List[ListTokensResponse]>`
 
         Usage:
@@ -1713,7 +1731,7 @@ class FunctionV1Beta1API(API):
         """
         Delete a token.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param token_id:
+        :param token_id: UUID of the token to delete.
         :return: :class:`Token <Token>`
 
         Usage:
