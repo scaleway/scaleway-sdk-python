@@ -55,34 +55,34 @@ class Credential:
 
     id: str
     """
-    Credential ID.
+    ID of the credentials.
     """
 
     name: str
     """
-    Credential name.
+    Name of the credentials.
     """
 
     namespace_id: str
     """
-    Namespace containing the Credential.
+    Namespace containing the credentials.
     """
 
     protocol: NamespaceProtocol
     """
-    Protocol associated to the Credential.
+    Protocol associated with the credentials.
     """
 
     nats_credentials: Optional[CredentialNATSCredsFile]
     """
-    Credentials file used to connect to the NATS service.
+    Object containing the credentials, if the credentials are for a NATS namespace.
     
     One-of ('credential_type'): at most one of 'nats_credentials', 'sqs_sns_credentials' could be set.
     """
 
     sqs_sns_credentials: Optional[CredentialSQSSNSCreds]
     """
-    Credential used to connect to the SQS/SNS service.
+    Object containing the credentials and their metadata, if the credentials are for an SQS/SNS namespace.
     
     One-of ('credential_type'): at most one of 'nats_credentials', 'sqs_sns_credentials' could be set.
     """
@@ -108,17 +108,17 @@ class CredentialSQSSNSCreds:
 
     access_key: str
     """
-    ID of the key.
+    Access key ID.
     """
 
     secret_key: Optional[str]
     """
-    Secret value of the key.
+    Secret key ID.
     """
 
     permissions: Optional[Permissions]
     """
-    List of permissions associated to this Credential.
+    Permissions associated with these credentials.
     """
 
 
@@ -130,27 +130,27 @@ class CredentialSummary:
 
     id: str
     """
-    Credential ID.
+    ID of the credentials.
     """
 
     name: str
     """
-    Credential name.
+    Name of the credentials.
     """
 
     namespace_id: str
     """
-    Namespace containing the Credential.
+    Namespace containing the credentials.
     """
 
     protocol: NamespaceProtocol
     """
-    Protocol associated to the Credential.
+    Protocol associated with the credentials.
     """
 
     sqs_sns_credentials: Optional[CredentialSummarySQSSNSCreds]
     """
-    Credential used to connect to the SQS/SNS service.
+    Object containing the credentials and their metadata, if the credentials are for an SQS/SNS namespace.
     
     One-of ('credential_type'): at most one of 'sqs_sns_credentials' could be set.
     """
@@ -164,12 +164,12 @@ class CredentialSummarySQSSNSCreds:
 
     access_key: str
     """
-    ID of the key.
+    Access key ID.
     """
 
     permissions: Optional[Permissions]
     """
-    List of permissions associated to this Credential.
+    Permissions associated with these credentials.
     """
 
 
@@ -181,12 +181,12 @@ class ListCredentialsResponse:
 
     total_count: int
     """
-    Total number of existing Credentials.
+    Total count of existing credentials (matching any filters specified).
     """
 
     credentials: List[CredentialSummary]
     """
-    A page of Credentials.
+    Credentials on this page.
     """
 
 
@@ -198,12 +198,12 @@ class ListNamespacesResponse:
 
     total_count: int
     """
-    Total number of existing Namespaces.
+    Total count of existing namespaces (matching any filters specified).
     """
 
     namespaces: List[Namespace]
     """
-    A page of Namespaces.
+    Namespaces on this page.
     """
 
 
@@ -225,7 +225,7 @@ class Namespace:
 
     endpoint: str
     """
-    Endpoint of the service matching the Namespace protocol.
+    Endpoint of the service matching the namespace's protocol.
     """
 
     protocol: NamespaceProtocol
@@ -235,12 +235,12 @@ class Namespace:
 
     project_id: str
     """
-    Project containing the Namespace.
+    Project ID of the Project containing the namespace.
     """
 
     region: Region
     """
-    Region where the Namespace is deployed.
+    Region where the namespace is deployed.
     """
 
     created_at: Optional[datetime]
@@ -262,17 +262,17 @@ class Permissions:
 
     can_publish: Optional[bool]
     """
-    Defines if user can publish messages to the service.
+    Defines whether the credentials bearer can publish messages to the service (send messages to SQS queues or publish to SNS topics).
     """
 
     can_receive: Optional[bool]
     """
-    Defines if user can receive messages from the service.
+    Defines whether the credentials bearer can receive messages from the service.
     """
 
     can_manage: Optional[bool]
     """
-    Defines if user can manage the associated resource(s).
+    Defines whether the credentials bearer can manage the associated resources (SQS queues or SNS topics or subscriptions).
     """
 
 
@@ -285,27 +285,27 @@ class ListNamespacesRequest:
 
     organization_id: Optional[str]
     """
-    Will list only the Namespaces owned by the specified organization.
+    Include only namespaces in this Organization.
     """
 
     project_id: Optional[str]
     """
-    Will list only the Namespaces contained into the specified project.
+    Include only namespaces in this Project.
     """
 
     page: Optional[int]
     """
-    Indicate the page number of results to be returned.
+    Page number to return.
     """
 
     page_size: Optional[int]
     """
-    Maximum number of results returned by page.
+    Maximum number of namespaces to return per page.
     """
 
     order_by: Optional[ListNamespacesRequestOrderBy]
     """
-    Field used for sorting results.
+    Order in which to return results.
     """
 
 
@@ -323,7 +323,7 @@ class CreateNamespaceRequest:
 
     protocol: Optional[NamespaceProtocol]
     """
-    Namespace protocol.
+    Namespace protocol. You must specify a valid protocol (and not `unknown`) to avoid an error.
     """
 
     project_id: Optional[str]
@@ -372,7 +372,7 @@ class DeleteNamespaceRequest:
 
     namespace_id: str
     """
-    ID of the Namespace to delete.
+    ID of the namespace to delete.
     """
 
 
@@ -385,17 +385,17 @@ class CreateCredentialRequest:
 
     namespace_id: str
     """
-    Namespace containing the Credential.
+    Namespace containing the credentials.
     """
 
     name: Optional[str]
     """
-    Credential name.
+    Name of the credentials.
     """
 
     permissions: Optional[Permissions]
     """
-    List of permissions associated to this Credential.
+    Permissions associated with these credentials.
     
     One-of ('optional_permissions'): at most one of 'permissions' could be set.
     """
@@ -410,7 +410,7 @@ class DeleteCredentialRequest:
 
     credential_id: str
     """
-    ID of the Credential to delete.
+    ID of the credentials to delete.
     """
 
 
@@ -423,22 +423,22 @@ class ListCredentialsRequest:
 
     namespace_id: Optional[str]
     """
-    Namespace containing the Credential.
+    Namespace containing the credentials.
     """
 
     page: Optional[int]
     """
-    Indicate the page number of results to be returned.
+    Page number to return.
     """
 
     page_size: Optional[int]
     """
-    Maximum number of results returned by page.
+    Maximum number of credentials to return per page.
     """
 
     order_by: Optional[ListCredentialsRequestOrderBy]
     """
-    Field used for sorting results.
+    Order in which to return results.
     """
 
 
@@ -451,17 +451,17 @@ class UpdateCredentialRequest:
 
     credential_id: str
     """
-    ID of the Credential to update.
+    ID of the credentials to update.
     """
 
     name: Optional[str]
     """
-    Credential name.
+    Name of the credentials.
     """
 
     permissions: Optional[Permissions]
     """
-    List of permissions associated to this Credential.
+    Permissions associated with these credentials.
     
     One-of ('optional_permissions'): at most one of 'permissions' could be set.
     """
@@ -476,5 +476,5 @@ class GetCredentialRequest:
 
     credential_id: str
     """
-    ID of the Credential to get.
+    ID of the credentials to get.
     """
