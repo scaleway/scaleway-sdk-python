@@ -185,7 +185,9 @@ class CockpitV1Beta1API(API):
         Get the cockpit metrics with the given project ID.
         :param project_id: Project ID.
         :param start_date: Start date.
+        Start date, if omited, query will be instant query and End Date will be used as query time.
         :param end_date: End date.
+        End date, if omited set to now.
         :param metric_name: Metric name.
         :return: :class:`CockpitMetrics <CockpitMetrics>`
 

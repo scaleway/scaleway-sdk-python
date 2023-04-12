@@ -346,11 +346,13 @@ class GetCockpitMetricsRequest:
     start_date: Optional[datetime]
     """
     Start date.
+    Start date, if omited, query will be instant query and End Date will be used as query time.
     """
 
     end_date: Optional[datetime]
     """
     End date.
+    End date, if omited set to now.
     """
 
     metric_name: Optional[str]
