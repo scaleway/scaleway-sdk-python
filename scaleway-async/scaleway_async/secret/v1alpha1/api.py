@@ -22,10 +22,12 @@ from .types import (
     SecretVersion,
     CreateSecretRequest,
     UpdateSecretRequest,
+    AddSecretOwnerRequest,
     CreateSecretVersionRequest,
     UpdateSecretVersionRequest,
 )
 from .marshalling import (
+    marshal_AddSecretOwnerRequest,
     marshal_CreateSecretRequest,
     marshal_CreateSecretVersionRequest,
     marshal_UpdateSecretRequest,
@@ -205,6 +207,49 @@ class SecretV1Alpha1API(API):
         self._throw_on_error(res)
         return unmarshal_Secret(res.json())
 
+    async def add_secret_owner(
+        self,
+        *,
+        secret_id: str,
+        product_name: str,
+        region: Optional[Region] = None,
+    ) -> Optional[None]:
+        """
+        Allow another product to use the secret.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param secret_id: ID of the secret.
+        :param product_name: Name of the product to add.
+
+        Usage:
+        ::
+
+            result = await api.add_secret_owner(
+                secret_id="example",
+                product_name="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_secret_id = validate_path_param("secret_id", secret_id)
+
+        res = self._request(
+            "POST",
+            f"/secret-manager/v1alpha1/regions/{param_region}/secrets/{param_secret_id}/add-owner",
+            body=marshal_AddSecretOwnerRequest(
+                AddSecretOwnerRequest(
+                    secret_id=secret_id,
+                    product_name=product_name,
+                    region=region,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return None
+
     async def list_secrets(
         self,
         *,
@@ -213,6 +258,7 @@ class SecretV1Alpha1API(API):
         project_id: Optional[str] = None,
         name: Optional[str] = None,
         tags: Optional[List[str]] = None,
+        is_managed: Optional[bool] = None,
         order_by: ListSecretsRequestOrderBy = ListSecretsRequestOrderBy.NAME_ASC,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -225,6 +271,7 @@ class SecretV1Alpha1API(API):
         :param project_id: Filter by Project ID (optional).
         :param name: Filter by secret name (optional).
         :param tags: List of tags to filter on (optional).
+        :param is_managed: Filter by managed / not managed (optional).
         :param order_by:
         :param page:
         :param page_size:
@@ -244,6 +291,7 @@ class SecretV1Alpha1API(API):
             "GET",
             f"/secret-manager/v1alpha1/regions/{param_region}/secrets",
             params={
+                "is_managed": is_managed,
                 "name": name,
                 "order_by": order_by,
                 "organization_id": organization_id
@@ -266,6 +314,7 @@ class SecretV1Alpha1API(API):
         project_id: Optional[str] = None,
         name: Optional[str] = None,
         tags: Optional[List[str]] = None,
+        is_managed: Optional[bool] = None,
         order_by: Optional[ListSecretsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -278,6 +327,7 @@ class SecretV1Alpha1API(API):
         :param project_id: Filter by Project ID (optional).
         :param name: Filter by secret name (optional).
         :param tags: List of tags to filter on (optional).
+        :param is_managed: Filter by managed / not managed (optional).
         :param order_by:
         :param page:
         :param page_size:
@@ -299,6 +349,7 @@ class SecretV1Alpha1API(API):
                 "project_id": project_id,
                 "name": name,
                 "tags": tags,
+                "is_managed": is_managed,
                 "order_by": order_by,
                 "page": page,
                 "page_size": page_size,
