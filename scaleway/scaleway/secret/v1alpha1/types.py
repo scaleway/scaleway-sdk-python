@@ -64,7 +64,7 @@ class AccessSecretVersionResponse:
     The base64-encoded secret payload of the version.
     """
 
-    data_crc32: int
+    data_crc32: Optional[int]
     """
     The CRC32 checksum of the data as a base-10 integer.
     This field is present only if a CRC32 was supplied during the creation of the version.
@@ -77,14 +77,14 @@ class ListSecretVersionsResponse:
     List secret versions response.
     """
 
-    total_count: int
-    """
-    Number of versions.
-    """
-
     versions: List[SecretVersion]
     """
     Single page of versions.
+    """
+
+    total_count: int
+    """
+    Number of versions.
     """
 
 
@@ -94,14 +94,14 @@ class ListSecretsResponse:
     List secrets response.
     """
 
-    total_count: int
-    """
-    Count of all secrets matching the requested criteria.
-    """
-
     secrets: List[Secret]
     """
     Single page of secrets matching the requested criteria.
+    """
+
+    total_count: int
+    """
+    Count of all secrets matching the requested criteria.
     """
 
 
@@ -180,11 +180,6 @@ class Secret:
     List of the secret's tags.
     """
 
-    region: Region
-    """
-    Region of the secret.
-    """
-
     version_count: int
     """
     Number of versions for this secret.
@@ -195,6 +190,16 @@ class Secret:
     Updated description of the secret.
     """
 
+    is_managed: bool
+    """
+    True for secrets that are managed by another product.
+    """
+
+    region: Region
+    """
+    Region of the secret.
+    """
+
 
 @dataclass
 class SecretVersion:
@@ -202,14 +207,15 @@ class SecretVersion:
     Secret version.
     """
 
+    revision: int
+    """
+    Version number.
+    The first version of the secret is numbered 1, and all subsequent revisions augment by 1.
+    """
+
     secret_id: str
     """
     ID of the secret.
-    """
-
-    revision: int
-    """
-    Version number. The first version of the secret is numbered 1, and all subsequent revisions augment by 1.
     """
 
     status: SecretVersionStatus
@@ -219,11 +225,6 @@ class SecretVersion:
     * `enabled`: the version is accessible.
     * `disabled`: the version is not accessible but can be enabled.
     * `destroyed`: the version is permanently deleted. It is not possible to recover it.
-    """
-
-    is_latest: bool
-    """
-    True if the version is the latest one.
     """
 
     created_at: Optional[datetime]
@@ -239,6 +240,11 @@ class SecretVersion:
     description: Optional[str]
     """
     Description of the version.
+    """
+
+    is_latest: bool
+    """
+    True if the version is the latest one.
     """
 
 
@@ -341,21 +347,26 @@ class ListSecretsRequest:
     Filter by Project ID (optional).
     """
 
-    name: Optional[str]
-    """
-    Filter by secret name (optional).
-    """
+    order_by: Optional[ListSecretsRequestOrderBy]
+
+    page: Optional[int]
+
+    page_size: Optional[int]
 
     tags: Optional[List[str]]
     """
     List of tags to filter on (optional).
     """
 
-    order_by: Optional[ListSecretsRequestOrderBy]
+    name: Optional[str]
+    """
+    Filter by secret name (optional).
+    """
 
-    page: Optional[int]
-
-    page_size: Optional[int]
+    is_managed: Optional[bool]
+    """
+    Filter by managed / not managed (optional).
+    """
 
 
 @dataclass
@@ -368,6 +379,24 @@ class DeleteSecretRequest:
     secret_id: str
     """
     ID of the secret.
+    """
+
+
+@dataclass
+class AddSecretOwnerRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    secret_id: str
+    """
+    ID of the secret.
+    """
+
+    product_name: str
+    """
+    Name of the product to add.
     """
 
 
@@ -393,24 +422,24 @@ class CreateSecretVersionRequest:
     Description of the version.
     """
 
-    disable_previous: bool
+    disable_previous: Optional[bool]
     """
     Disable the previous secret version.
-    If there is no previous version or if the previous version was already disabled, does nothing.
+    Optional. If there is no previous version or if the previous version was already disabled, does nothing.
     """
 
     password_generation: Optional[PasswordGenerationParams]
     """
     Options to generate a password.
-    If specified, a random password will be generated. The data field must be empty. By default, the generator will use upper and lower case letters, and digits. This behavior can be tuned using the generation parameters.
+    Optional. If specified, a random password will be generated. The data and data_crc32 fields must be empty. By default, the generator will use upper and lower case letters, and digits. This behavior can be tuned using the generation parameters.
     
     One-of ('_password_generation'): at most one of 'password_generation' could be set.
     """
 
-    data_crc32: int
+    data_crc32: Optional[int]
     """
     The CRC32 checksum of the data as a base-10 integer.
-    This field is optional and can be set to 0. If greater than 0, the Secret Manager will verify the integrity of the data received against the given CRC32. An error is returned if the CRC32 does not match. Otherwise, the CRC32 will be stored and returned along with the SecretVersion on futur accesses.
+    Optional. If specified, the Secret Manager will verify the integrity of the data received against the given CRC32. An error is returned if the CRC32 does not match. Otherwise, the CRC32 will be stored and returned along with the SecretVersion on futur accesses.
     """
 
 
@@ -521,25 +550,6 @@ class ListSecretVersionsByNameRequest:
 
 
 @dataclass
-class DestroySecretVersionRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    secret_id: str
-    """
-    ID of the secret.
-    """
-
-    revision: str
-    """
-    Version number.
-    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
-    """
-
-
-@dataclass
 class EnableSecretVersionRequest:
     region: Optional[Region]
     """
@@ -606,6 +616,25 @@ class AccessSecretVersionByNameRequest:
     secret_name: str
     """
     Name of the secret.
+    """
+
+    revision: str
+    """
+    Version number.
+    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+    """
+
+
+@dataclass
+class DestroySecretVersionRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    secret_id: str
+    """
+    ID of the secret.
     """
 
     revision: str

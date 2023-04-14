@@ -22,10 +22,12 @@ from .types import (
     SecretVersion,
     CreateSecretRequest,
     UpdateSecretRequest,
+    AddSecretOwnerRequest,
     CreateSecretVersionRequest,
     UpdateSecretVersionRequest,
 )
 from .marshalling import (
+    marshal_AddSecretOwnerRequest,
     marshal_CreateSecretRequest,
     marshal_CreateSecretVersionRequest,
     marshal_UpdateSecretRequest,
@@ -211,11 +213,12 @@ class SecretV1Alpha1API(API):
         region: Optional[Region] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
-        name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
         order_by: ListSecretsRequestOrderBy = ListSecretsRequestOrderBy.NAME_ASC,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
+        tags: Optional[List[str]] = None,
+        name: Optional[str] = None,
+        is_managed: Optional[bool] = None,
     ) -> ListSecretsResponse:
         """
         List secrets.
@@ -223,11 +226,12 @@ class SecretV1Alpha1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param organization_id: Filter by Organization ID (optional).
         :param project_id: Filter by Project ID (optional).
-        :param name: Filter by secret name (optional).
-        :param tags: List of tags to filter on (optional).
         :param order_by:
         :param page:
         :param page_size:
+        :param tags: List of tags to filter on (optional).
+        :param name: Filter by secret name (optional).
+        :param is_managed: Filter by managed / not managed (optional).
         :return: :class:`ListSecretsResponse <ListSecretsResponse>`
 
         Usage:
@@ -244,6 +248,7 @@ class SecretV1Alpha1API(API):
             "GET",
             f"/secret-manager/v1alpha1/regions/{param_region}/secrets",
             params={
+                "is_managed": is_managed,
                 "name": name,
                 "order_by": order_by,
                 "organization_id": organization_id
@@ -264,11 +269,12 @@ class SecretV1Alpha1API(API):
         region: Optional[Region] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
-        name: Optional[str] = None,
-        tags: Optional[List[str]] = None,
         order_by: Optional[ListSecretsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
+        tags: Optional[List[str]] = None,
+        name: Optional[str] = None,
+        is_managed: Optional[bool] = None,
     ) -> List[Secret]:
         """
         List secrets.
@@ -276,11 +282,12 @@ class SecretV1Alpha1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param organization_id: Filter by Organization ID (optional).
         :param project_id: Filter by Project ID (optional).
-        :param name: Filter by secret name (optional).
-        :param tags: List of tags to filter on (optional).
         :param order_by:
         :param page:
         :param page_size:
+        :param tags: List of tags to filter on (optional).
+        :param name: Filter by secret name (optional).
+        :param is_managed: Filter by managed / not managed (optional).
         :return: :class:`List[ListSecretsResponse] <List[ListSecretsResponse]>`
 
         Usage:
@@ -297,11 +304,12 @@ class SecretV1Alpha1API(API):
                 "region": region,
                 "organization_id": organization_id,
                 "project_id": project_id,
-                "name": name,
-                "tags": tags,
                 "order_by": order_by,
                 "page": page,
                 "page_size": page_size,
+                "tags": tags,
+                "name": name,
+                "is_managed": is_managed,
             },
         )
 
@@ -336,16 +344,59 @@ class SecretV1Alpha1API(API):
         self._throw_on_error(res)
         return None
 
+    def add_secret_owner(
+        self,
+        *,
+        secret_id: str,
+        product_name: str,
+        region: Optional[Region] = None,
+    ) -> Optional[None]:
+        """
+        Allow a product to use the secret.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param secret_id: ID of the secret.
+        :param product_name: Name of the product to add.
+
+        Usage:
+        ::
+
+            result = api.add_secret_owner(
+                secret_id="example",
+                product_name="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_secret_id = validate_path_param("secret_id", secret_id)
+
+        res = self._request(
+            "POST",
+            f"/secret-manager/v1alpha1/regions/{param_region}/secrets/{param_secret_id}/add-owner",
+            body=marshal_AddSecretOwnerRequest(
+                AddSecretOwnerRequest(
+                    secret_id=secret_id,
+                    product_name=product_name,
+                    region=region,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return None
+
     def create_secret_version(
         self,
         *,
         secret_id: str,
         data: str,
-        disable_previous: bool,
-        data_crc32: int,
         region: Optional[Region] = None,
         description: Optional[str] = None,
+        disable_previous: Optional[bool] = None,
         password_generation: Optional[PasswordGenerationParams] = None,
+        data_crc32: Optional[int] = None,
     ) -> SecretVersion:
         """
         Create a version.
@@ -355,13 +406,13 @@ class SecretV1Alpha1API(API):
         :param data: The base64-encoded secret payload of the version.
         :param description: Description of the version.
         :param disable_previous: Disable the previous secret version.
-        If there is no previous version or if the previous version was already disabled, does nothing.
+        Optional. If there is no previous version or if the previous version was already disabled, does nothing.
         :param password_generation: Options to generate a password.
-        If specified, a random password will be generated. The data field must be empty. By default, the generator will use upper and lower case letters, and digits. This behavior can be tuned using the generation parameters.
+        Optional. If specified, a random password will be generated. The data and data_crc32 fields must be empty. By default, the generator will use upper and lower case letters, and digits. This behavior can be tuned using the generation parameters.
 
         One-of ('_password_generation'): at most one of 'password_generation' could be set.
         :param data_crc32: The CRC32 checksum of the data as a base-10 integer.
-        This field is optional and can be set to 0. If greater than 0, the Secret Manager will verify the integrity of the data received against the given CRC32. An error is returned if the CRC32 does not match. Otherwise, the CRC32 will be stored and returned along with the SecretVersion on futur accesses.
+        Optional. If specified, the Secret Manager will verify the integrity of the data received against the given CRC32. An error is returned if the CRC32 does not match. Otherwise, the CRC32 will be stored and returned along with the SecretVersion on futur accesses.
         :return: :class:`SecretVersion <SecretVersion>`
 
         Usage:
@@ -370,8 +421,6 @@ class SecretV1Alpha1API(API):
             result = api.create_secret_version(
                 secret_id="example",
                 data="example",
-                disable_previous=True,
-                data_crc32=1,
             )
         """
 
@@ -387,11 +436,11 @@ class SecretV1Alpha1API(API):
                 CreateSecretVersionRequest(
                     secret_id=secret_id,
                     data=data,
-                    disable_previous=disable_previous,
-                    data_crc32=data_crc32,
                     region=region,
                     description=description,
+                    disable_previous=disable_previous,
                     password_generation=password_generation,
+                    data_crc32=data_crc32,
                 ),
                 self.client,
             ),
@@ -690,45 +739,6 @@ class SecretV1Alpha1API(API):
             },
         )
 
-    def destroy_secret_version(
-        self,
-        *,
-        secret_id: str,
-        revision: str,
-        region: Optional[Region] = None,
-    ) -> SecretVersion:
-        """
-        Delete a version.
-        Delete a secret's version and the sensitive data contained in it. Deleting a version is permanent and cannot be undone.
-        :param region: Region to target. If none is passed will use default region from the config.
-        :param secret_id: ID of the secret.
-        :param revision: Version number.
-        The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
-        :return: :class:`SecretVersion <SecretVersion>`
-
-        Usage:
-        ::
-
-            result = api.destroy_secret_version(
-                secret_id="example",
-                revision="example",
-            )
-        """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-        param_secret_id = validate_path_param("secret_id", secret_id)
-        param_revision = validate_path_param("revision", revision)
-
-        res = self._request(
-            "POST",
-            f"/secret-manager/v1alpha1/regions/{param_region}/secrets/{param_secret_id}/versions/{param_revision}/destroy",
-        )
-
-        self._throw_on_error(res)
-        return unmarshal_SecretVersion(res.json())
-
     def enable_secret_version(
         self,
         *,
@@ -884,3 +894,42 @@ class SecretV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_AccessSecretVersionResponse(res.json())
+
+    def destroy_secret_version(
+        self,
+        *,
+        secret_id: str,
+        revision: str,
+        region: Optional[Region] = None,
+    ) -> SecretVersion:
+        """
+        Delete a version.
+        Delete a secret's version and the sensitive data contained in it. Deleting a version is permanent and cannot be undone.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param secret_id: ID of the secret.
+        :param revision: Version number.
+        The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+        :return: :class:`SecretVersion <SecretVersion>`
+
+        Usage:
+        ::
+
+            result = api.destroy_secret_version(
+                secret_id="example",
+                revision="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_secret_id = validate_path_param("secret_id", secret_id)
+        param_revision = validate_path_param("revision", revision)
+
+        res = self._request(
+            "POST",
+            f"/secret-manager/v1alpha1/regions/{param_region}/secrets/{param_secret_id}/versions/{param_revision}/destroy",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_SecretVersion(res.json())
