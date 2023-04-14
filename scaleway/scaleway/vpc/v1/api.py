@@ -49,17 +49,18 @@ class VpcV1API(API):
         include_regional: Optional[bool] = None,
     ) -> ListPrivateNetworksResponse:
         """
-        List private networks.
+        List Private Networks.
+        List existing Private Networks in a specified Availability Zone. By default, the Private Networks returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param order_by: The sort order of the returned private networks.
-        :param page: The page number for the returned private networks.
-        :param page_size: The maximum number of private networks per page.
-        :param name: Filter private networks with names containing this string.
-        :param tags: Filter private networks with one or more matching tags.
-        :param organization_id: The organization ID on which to filter the returned private networks.
-        :param project_id: The project ID on which to filter the returned private networks.
-        :param private_network_ids: The PrivateNetwork IDs on which to filter the returned private networks.
-        :param include_regional: Include regional Private Networks.
+        :param order_by: Sort order of the returned Private Networks.
+        :param page: Page number to return, from the paginated results.
+        :param page_size: Maximum number of Private Networks to return per page.
+        :param name: Name to filter for. Only Private Networks with names containing this string will be returned.
+        :param tags: Tags to filter for. Only Private Networks with one or more matching tags will be returned.
+        :param organization_id: Organization ID to filter for. Only Private Networks belonging to this Organization will be returned.
+        :param project_id: Project ID to filter for. Only Private Networks belonging to this Project will be returned.
+        :param private_network_ids: Private Network IDs to filter for. Only Private Networks with one of these IDs will be returned.
+        :param include_regional: Defines whether to include regional Private Networks in the response.
         :return: :class:`ListPrivateNetworksResponse <ListPrivateNetworksResponse>`
 
         Usage:
@@ -105,17 +106,18 @@ class VpcV1API(API):
         include_regional: Optional[bool] = None,
     ) -> List[PrivateNetwork]:
         """
-        List private networks.
+        List Private Networks.
+        List existing Private Networks in a specified Availability Zone. By default, the Private Networks returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param order_by: The sort order of the returned private networks.
-        :param page: The page number for the returned private networks.
-        :param page_size: The maximum number of private networks per page.
-        :param name: Filter private networks with names containing this string.
-        :param tags: Filter private networks with one or more matching tags.
-        :param organization_id: The organization ID on which to filter the returned private networks.
-        :param project_id: The project ID on which to filter the returned private networks.
-        :param private_network_ids: The PrivateNetwork IDs on which to filter the returned private networks.
-        :param include_regional: Include regional Private Networks.
+        :param order_by: Sort order of the returned Private Networks.
+        :param page: Page number to return, from the paginated results.
+        :param page_size: Maximum number of Private Networks to return per page.
+        :param name: Name to filter for. Only Private Networks with names containing this string will be returned.
+        :param tags: Tags to filter for. Only Private Networks with one or more matching tags will be returned.
+        :param organization_id: Organization ID to filter for. Only Private Networks belonging to this Organization will be returned.
+        :param project_id: Project ID to filter for. Only Private Networks belonging to this Project will be returned.
+        :param private_network_ids: Private Network IDs to filter for. Only Private Networks with one of these IDs will be returned.
+        :param include_regional: Defines whether to include regional Private Networks in the response.
         :return: :class:`List[ListPrivateNetworksResponse] <List[ListPrivateNetworksResponse]>`
 
         Usage:
@@ -152,12 +154,13 @@ class VpcV1API(API):
         subnets: Optional[List[str]] = None,
     ) -> PrivateNetwork:
         """
-        Create a private network.
+        Create a Private Network.
+        Create a new Private Network. Once created, you can attach Scaleway resources in the same Availability Zone.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param name: The name of the private network.
-        :param project_id: The project ID of the private network.
-        :param tags: The private networks tags.
-        :param subnets: Private network subnets CIDR.
+        :param name: Name for the Private Network.
+        :param project_id: Scaleway Project in which to create the Private Network.
+        :param tags: Tags for the Private Network.
+        :param subnets: Private Network subnets CIDR.
         :return: :class:`PrivateNetwork <PrivateNetwork>`
 
         Usage:
@@ -193,9 +196,10 @@ class VpcV1API(API):
         zone: Optional[Zone] = None,
     ) -> PrivateNetwork:
         """
-        Get a private network.
+        Get a Private Network.
+        Retrieve information about an existing Private Network, specified by its Private Network ID. Its full details are returned in the response object.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param private_network_id: The private network id.
+        :param private_network_id: Private Network ID.
         :return: :class:`PrivateNetwork <PrivateNetwork>`
 
         Usage:
@@ -227,12 +231,13 @@ class VpcV1API(API):
         subnets: Optional[List[str]] = None,
     ) -> PrivateNetwork:
         """
-        Update private network.
+        Update Private Network.
+        Update parameters (such as name or tags) of an existing Private Network, specified by its Private Network ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param private_network_id: The private network ID.
-        :param name: The name of the private network.
-        :param tags: The private networks tags.
-        :param subnets: Private network subnets CIDR (deprecated).
+        :param private_network_id: Private Network ID.
+        :param name: Name of the private network.
+        :param tags: Tags for the Private Network.
+        :param subnets: Private Network subnets CIDR (deprecated).
         :return: :class:`PrivateNetwork <PrivateNetwork>`
 
         Usage:
@@ -271,9 +276,10 @@ class VpcV1API(API):
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
         """
-        Delete a private network.
+        Delete a Private Network.
+        Delete an existing Private Network. Note that you must first detach all resources from the network, in order to delete it.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param private_network_id: The private network ID.
+        :param private_network_id: Private Network ID.
 
         Usage:
         ::

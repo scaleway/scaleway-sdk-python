@@ -37,47 +37,47 @@ class PrivateNetwork:
 
     id: str
     """
-    The private network ID.
+    Private Network ID.
     """
 
     name: str
     """
-    The private network name.
+    Private Network name.
     """
 
     organization_id: str
     """
-    The private network organization.
+    Scaleway Organization the Private Network belongs to.
     """
 
     project_id: str
     """
-    The private network project ID.
+    Scaleway Project the Private Network belongs to.
     """
 
     zone: Zone
     """
-    The zone in which the private network is available.
+    Availability Zone in which the Private Network is available.
     """
 
     tags: List[str]
     """
-    The private network tags.
+    Tags of the Private Network.
     """
 
     created_at: Optional[datetime]
     """
-    The private network creation date.
+    Date the Private Network was created.
     """
 
     updated_at: Optional[datetime]
     """
-    The last private network modification date.
+    Date the Private Network was last modified.
     """
 
     subnets: List[str]
     """
-    Private network subnets CIDR.
+    Private Network subnets CIDR.
     """
 
 
@@ -90,47 +90,47 @@ class ListPrivateNetworksRequest:
 
     order_by: Optional[ListPrivateNetworksRequestOrderBy]
     """
-    The sort order of the returned private networks.
+    Sort order of the returned Private Networks.
     """
 
     page: Optional[int]
     """
-    The page number for the returned private networks.
+    Page number to return, from the paginated results.
     """
 
     page_size: Optional[int]
     """
-    The maximum number of private networks per page.
+    Maximum number of Private Networks to return per page.
     """
 
     name: Optional[str]
     """
-    Filter private networks with names containing this string.
+    Name to filter for. Only Private Networks with names containing this string will be returned.
     """
 
     tags: Optional[List[str]]
     """
-    Filter private networks with one or more matching tags.
+    Tags to filter for. Only Private Networks with one or more matching tags will be returned.
     """
 
     organization_id: Optional[str]
     """
-    The organization ID on which to filter the returned private networks.
+    Organization ID to filter for. Only Private Networks belonging to this Organization will be returned.
     """
 
     project_id: Optional[str]
     """
-    The project ID on which to filter the returned private networks.
+    Project ID to filter for. Only Private Networks belonging to this Project will be returned.
     """
 
     private_network_ids: Optional[List[str]]
     """
-    The PrivateNetwork IDs on which to filter the returned private networks.
+    Private Network IDs to filter for. Only Private Networks with one of these IDs will be returned.
     """
 
     include_regional: Optional[bool]
     """
-    Include regional Private Networks.
+    Defines whether to include regional Private Networks in the response.
     """
 
 
@@ -143,22 +143,22 @@ class CreatePrivateNetworkRequest:
 
     name: Optional[str]
     """
-    The name of the private network.
+    Name for the Private Network.
     """
 
     project_id: Optional[str]
     """
-    The project ID of the private network.
+    Scaleway Project in which to create the Private Network.
     """
 
     tags: Optional[List[str]]
     """
-    The private networks tags.
+    Tags for the Private Network.
     """
 
     subnets: Optional[List[str]]
     """
-    Private network subnets CIDR.
+    Private Network subnets CIDR.
     """
 
 
@@ -171,7 +171,7 @@ class GetPrivateNetworkRequest:
 
     private_network_id: str
     """
-    The private network id.
+    Private Network ID.
     """
 
 
@@ -184,22 +184,22 @@ class UpdatePrivateNetworkRequest:
 
     private_network_id: str
     """
-    The private network ID.
+    Private Network ID.
     """
 
     name: Optional[str]
     """
-    The name of the private network.
+    Name of the private network.
     """
 
     tags: Optional[List[str]]
     """
-    The private networks tags.
+    Tags for the Private Network.
     """
 
     subnets: Optional[List[str]]
     """
-    Private network subnets CIDR (deprecated).
+    Private Network subnets CIDR (deprecated).
     :deprecated
     """
 
@@ -213,5 +213,5 @@ class DeletePrivateNetworkRequest:
 
     private_network_id: str
     """
-    The private network ID.
+    Private Network ID.
     """
