@@ -18,6 +18,7 @@ from .types import (
     SecretVersion,
     CreateSecretRequest,
     UpdateSecretRequest,
+    AddSecretOwnerRequest,
     CreateSecretVersionRequest,
     UpdateSecretVersionRequest,
 )
@@ -39,6 +40,9 @@ def unmarshal_Secret(data: Any) -> Secret:
 
     field = data.get("id")
     args["id"] = field
+
+    field = data.get("is_managed")
+    args["is_managed"] = field
 
     field = data.get("name")
     args["name"] = field
@@ -163,6 +167,15 @@ def marshal_PasswordGenerationParams(
         "no_digits": request.no_digits,
         "no_lowercase_letters": request.no_lowercase_letters,
         "no_uppercase_letters": request.no_uppercase_letters,
+    }
+
+
+def marshal_AddSecretOwnerRequest(
+    request: AddSecretOwnerRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    return {
+        "product_name": request.product_name,
     }
 
 

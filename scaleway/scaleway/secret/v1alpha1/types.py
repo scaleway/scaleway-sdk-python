@@ -195,6 +195,11 @@ class Secret:
     Updated description of the secret.
     """
 
+    is_managed: bool
+    """
+    True for secrets that are managed by another product.
+    """
+
 
 @dataclass
 class SecretVersion:
@@ -325,6 +330,24 @@ class UpdateSecretRequest:
 
 
 @dataclass
+class AddSecretOwnerRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    secret_id: str
+    """
+    ID of the secret.
+    """
+
+    product_name: str
+    """
+    Name of the product to add.
+    """
+
+
+@dataclass
 class ListSecretsRequest:
     region: Optional[Region]
     """
@@ -349,6 +372,11 @@ class ListSecretsRequest:
     tags: Optional[List[str]]
     """
     List of tags to filter on (optional).
+    """
+
+    is_managed: Optional[bool]
+    """
+    Filter by managed / not managed (optional).
     """
 
     order_by: Optional[ListSecretsRequestOrderBy]
