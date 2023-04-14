@@ -420,6 +420,11 @@ class Function:
     Error message if the function is in "error" state.
     """
 
+    build_message: Optional[str]
+    """
+    Description of the current build step.
+    """
+
     privacy: FunctionPrivacy
     """
     Privacy setting of the function.
