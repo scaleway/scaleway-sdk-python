@@ -211,6 +211,9 @@ def unmarshal_Function(data: Any) -> Function:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("build_message")
+    args["build_message"] = field
+
     field = data.get("cpu_limit")
     args["cpu_limit"] = field
 
