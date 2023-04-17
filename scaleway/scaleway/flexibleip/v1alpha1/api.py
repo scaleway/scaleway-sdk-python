@@ -66,14 +66,15 @@ class FlexibleipV1Alpha1API(API):
         reverse: Optional[str] = None,
     ) -> FlexibleIP:
         """
-        Create a Flexible IP.
+        Create a new flexible IP.
+        Generate a new flexible IP within a given zone, specifying its configuration including Project ID and description.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param project_id: ID of the project to associate with the Flexible IP.
-        :param description: Description to associate with the Flexible IP, max 255 characters.
-        :param tags: Tags to associate to the Flexible IP.
-        :param server_id: Server ID on which to attach the created Flexible IP.
-        :param reverse: Reverse DNS value.
-        :param is_ipv6: If true, creates a Flexible IP with an ipv6 address.
+        :param description: Flexible IP description (max. of 255 characters).
+        :param tags: Tags to associate to the flexible IP.
+        :param server_id: ID of the server to which the newly created flexible IP will be attached.
+        :param reverse: Value of the reverse DNS.
+        :param is_ipv6: Defines whether the flexible IP has an IPv6 address.
         :return: :class:`FlexibleIP <FlexibleIP>`
 
         Usage:
@@ -114,9 +115,10 @@ class FlexibleipV1Alpha1API(API):
         zone: Optional[Zone] = None,
     ) -> FlexibleIP:
         """
-        Get a Flexible IP.
+        Get an existing flexible IP.
+        Retrieve information about an existing flexible IP, specified by its ID and zone. Its full details, including Project ID, description and status, are returned in the response object.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param fip_id: Flexible IP ID.
+        :param fip_id: ID of the flexible IP.
         :return: :class:`FlexibleIP <FlexibleIP>`
 
         Usage:
@@ -146,7 +148,7 @@ class FlexibleipV1Alpha1API(API):
         """
         Waits for :class:`FlexibleIP <FlexibleIP>` to be in a final state.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param fip_id: Flexible IP ID.
+        :param fip_id: ID of the flexible IP.
         :param options: The options for the waiter
         :return: :class:`FlexibleIP <FlexibleIP>`
 
@@ -185,16 +187,17 @@ class FlexibleipV1Alpha1API(API):
         project_id: Optional[str] = None,
     ) -> ListFlexibleIPsResponse:
         """
-        List Flexible IPs.
+        List flexible IPs.
+        List all flexible IPs within a given zone.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param order_by: The sort order of the returned Flexible IPs.
-        :param page: The page number for the returned Flexible IPs.
-        :param page_size: The maximum number of Flexible IPs per page.
-        :param tags: Filter Flexible IPs with one or more matching tags.
-        :param status: Filter Flexible IPs by status.
-        :param server_ids: Filter Flexible IPs by server IDs.
-        :param organization_id: Filter Flexible IPs by organization ID.
-        :param project_id: Filter Flexible IPs by project ID.
+        :param order_by: Sort order of the returned flexible IPs.
+        :param page: Page number.
+        :param page_size: Maximum number of flexible IPs per page.
+        :param tags: Filter by tag, only flexible IPs with one or more matching tags will be returned.
+        :param status: Filter by status, only flexible IPs with this status will be returned.
+        :param server_ids: Filter by server IDs, only flexible IPs with these server IDs will be returned.
+        :param organization_id: Filter by Organization ID, only flexible IPs from this Organization will be returned.
+        :param project_id: Filter by Project ID, only flexible IPs from this Project will be returned.
         :return: :class:`ListFlexibleIPsResponse <ListFlexibleIPsResponse>`
 
         Usage:
@@ -238,16 +241,17 @@ class FlexibleipV1Alpha1API(API):
         project_id: Optional[str] = None,
     ) -> List[FlexibleIP]:
         """
-        List Flexible IPs.
+        List flexible IPs.
+        List all flexible IPs within a given zone.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param order_by: The sort order of the returned Flexible IPs.
-        :param page: The page number for the returned Flexible IPs.
-        :param page_size: The maximum number of Flexible IPs per page.
-        :param tags: Filter Flexible IPs with one or more matching tags.
-        :param status: Filter Flexible IPs by status.
-        :param server_ids: Filter Flexible IPs by server IDs.
-        :param organization_id: Filter Flexible IPs by organization ID.
-        :param project_id: Filter Flexible IPs by project ID.
+        :param order_by: Sort order of the returned flexible IPs.
+        :param page: Page number.
+        :param page_size: Maximum number of flexible IPs per page.
+        :param tags: Filter by tag, only flexible IPs with one or more matching tags will be returned.
+        :param status: Filter by status, only flexible IPs with this status will be returned.
+        :param server_ids: Filter by server IDs, only flexible IPs with these server IDs will be returned.
+        :param organization_id: Filter by Organization ID, only flexible IPs from this Organization will be returned.
+        :param project_id: Filter by Project ID, only flexible IPs from this Project will be returned.
         :return: :class:`List[ListFlexibleIPsResponse] <List[ListFlexibleIPsResponse]>`
 
         Usage:
@@ -283,12 +287,13 @@ class FlexibleipV1Alpha1API(API):
         reverse: Optional[str] = None,
     ) -> FlexibleIP:
         """
-        Update a Flexible IP.
+        Update an existing flexible IP.
+        Update the parameters of an existing flexible IP, specified by its ID and zone. These parameters include tags and description.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param fip_id: ID of the Flexible IP to update.
-        :param description: Description to associate with the Flexible IP, max 255 characters.
-        :param tags: Tags to associate with the Flexible IP.
-        :param reverse: Reverse DNS value.
+        :param fip_id: ID of the flexible IP to update.
+        :param description: Flexible IP description (max. 255 characters).
+        :param tags: Tags associated with the flexible IP.
+        :param reverse: Value of the reverse DNS.
         :return: :class:`FlexibleIP <FlexibleIP>`
 
         Usage:
@@ -325,9 +330,10 @@ class FlexibleipV1Alpha1API(API):
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
         """
-        Delete a Flexible IP.
+        Delete an existing flexible IP.
+        Delete an existing flexible IP, specified by its ID and zone. Note that deleting a flexible IP is permanent and cannot be undone.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param fip_id: ID of the Flexible IP to delete.
+        :param fip_id: ID of the flexible IP to delete.
 
         Usage:
         ::
@@ -354,11 +360,12 @@ class FlexibleipV1Alpha1API(API):
         zone: Optional[Zone] = None,
     ) -> AttachFlexibleIPsResponse:
         """
-        Attach a Flexible IP to a server.
+        Attach an existing flexible IP to a server.
+        Attach an existing flexible IP to a specified Elastic Metal server.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param fips_ids: A list of Flexible IP IDs to attach.
-        Multiple IDs can be provided as long as Flexible IPs belong to the same MAC groups (see details about MAC groups).
-        :param server_id: A server ID on which to attach the Flexible IPs.
+        :param fips_ids: List of flexible IP IDs to attach to a server.
+        Multiple IDs can be provided, but note that flexible IPs must belong to the same MAC group (see details about MAC groups).
+        :param server_id: ID of the server on which to attach the flexible IPs.
         :return: :class:`AttachFlexibleIPsResponse <AttachFlexibleIPsResponse>`
 
         Usage:
@@ -395,10 +402,10 @@ class FlexibleipV1Alpha1API(API):
         zone: Optional[Zone] = None,
     ) -> DetachFlexibleIPsResponse:
         """
-        Detach a Flexible IP from a server.
+        Detach an existing flexible IP from a server.
+        Detach an existing flexible IP from a specified Elastic Metal server.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param fips_ids: A list of Flexible IP IDs to detach.
-        Multiple IDs can be provided as long as Flexible IPs belong to the same MAC groups (see details about MAC groups).
+        :param fips_ids: List of flexible IP IDs to detach from a server. Multiple IDs can be provided. Note that flexible IPs must belong to the same MAC group.
         :return: :class:`DetachFlexibleIPsResponse <DetachFlexibleIPsResponse>`
 
         Usage:
@@ -432,9 +439,10 @@ class FlexibleipV1Alpha1API(API):
         mac_type: MACAddressType = MACAddressType.UNKNOWN_TYPE,
     ) -> FlexibleIP:
         """
-        Generate a virtual MAC on a given Flexible IP.
+        Generate a virtual MAC address on an existing flexible IP.
+        Generate a virtual MAC (Media Access Control) address on an existing flexible IP.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param fip_id: Flexible IP ID on which to generate a Virtual MAC.
+        :param fip_id: ID of the flexible IP for which to generate a virtual MAC.
         :param mac_type: TODO.
         :return: :class:`FlexibleIP <FlexibleIP>`
 
@@ -471,13 +479,13 @@ class FlexibleipV1Alpha1API(API):
         zone: Optional[Zone] = None,
     ) -> FlexibleIP:
         """
-        Duplicate a Virtual MAC.
-        Duplicate a Virtual MAC from a given Flexible IP onto another attached on the same server.
+        Duplicate a virtual MAC address to another flexible IP.
+        Duplicate a virtual MAC address from a given flexible IP to another flexible IP attached to the same server.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param fip_id: Flexible IP ID on which to duplicate the Virtual MAC.
-        Flexible IPs need to be attached to the same server.
-        :param duplicate_from_fip_id: Flexible IP ID to duplicate the Virtual MAC from.
-        Flexible IPs need to be attached to the same server.
+        :param fip_id: ID of the flexible IP on which to duplicate the virtual MAC.
+        Note that the flexible IPs need to be attached to the same server.
+        :param duplicate_from_fip_id: ID of the flexible IP to duplicate the Virtual MAC from.
+        Note that flexible IPs need to be attached to the same server.
         :return: :class:`FlexibleIP <FlexibleIP>`
 
         Usage:
@@ -516,8 +524,8 @@ class FlexibleipV1Alpha1API(API):
         zone: Optional[Zone] = None,
     ) -> FlexibleIP:
         """
-        Move a virtual MAC.
-        Move a Virtual MAC from a given Flexible IP onto another Flexible IP.
+        Relocate an existing virtual MAC address to a different flexible IP.
+        Relocate a virtual MAC (Media Access Control) address from an existing flexible IP to a different flexible IP.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param fip_id:
         :param dst_fip_id:
@@ -558,10 +566,11 @@ class FlexibleipV1Alpha1API(API):
         zone: Optional[Zone] = None,
     ) -> Optional[None]:
         """
-        Remove a virtual MAC from a Flexible IP.
+        Detach a given virtual MAC address from an existing flexible IP.
+        Detach a given MAC (Media Access Control) address from an existing flexible IP.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param fip_id: Flexible IP ID from which to delete the Virtual MAC.
-        If the Flexible IP belongs to a MAC group, the MAC will be removed from the MAC group and from the Flexible IP.
+        :param fip_id: ID of the flexible IP from which to delete the virtual MAC.
+        If the flexible IP belongs to a MAC group, the MAC will be removed from both the MAC group and flexible IP.
 
         Usage:
         ::

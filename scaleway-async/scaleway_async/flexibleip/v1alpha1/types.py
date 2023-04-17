@@ -63,12 +63,12 @@ class AttachFlexibleIPsResponse:
 
     total_count: int
     """
-    Total count of Flexible IPs being updated.
+    Total count of flexible IPs that are being updated.
     """
 
     flexible_ips: List[FlexibleIP]
     """
-    Listing of Flexible IPs in updating state.
+    List of flexible IPs in an updating state.
     """
 
 
@@ -80,12 +80,12 @@ class DetachFlexibleIPsResponse:
 
     total_count: int
     """
-    Total count of Flexible IPs being detached.
+    Total count of flexible IPs that are being detached.
     """
 
     flexible_ips: List[FlexibleIP]
     """
-    Listing of Flexible IPs in detaching state.
+    List of flexible IPs in a detaching state.
     """
 
 
@@ -97,63 +97,63 @@ class FlexibleIP:
 
     id: str
     """
-    ID of the Flexible IP.
+    ID of the flexible IP.
     """
 
     organization_id: str
     """
-    Organization ID the Flexible IP is attached to.
+    ID of the Organization the flexible IP is attached to.
     """
 
     project_id: str
     """
-    Project ID the Flexible IP is attached to.
+    ID of the Project the flexible IP is attached to.
     """
 
     description: str
     """
-    Description of the Flexible IP.
+    Flexible IP description.
     """
 
     tags: List[str]
     """
-    Tags associated with the Flexible IP.
+    Flexible IP tags.
     """
 
     updated_at: Optional[datetime]
     """
-    Date of last update of the Flexible IP.
+    Date on which the flexible IP was last updated.
     """
 
     created_at: Optional[datetime]
     """
-    Date of creation of the Flexible IP.
+    Date on which the flexible IP was created.
     """
 
     status: FlexibleIPStatus
     """
-    Status of the Flexible IP.
-    - ready : Flexible IP is created and ready to be attached to a server or to have a virtual MAC generated.
-    - updating: Flexible IP is being attached to a server or a virtual MAC operation is ongoing
-    - attached: Flexible IP is attached to a server
-    - error: a Flexible IP operation resulted in an error
-    - detaching: Flexible IP is being detached from a server
-    - locked: Flexible IP resource is locked.
+    Flexible IP status.
+    - ready : flexible IP is created and ready to be attached to a server or to be associated with a virtual MAC.
+    - updating: flexible IP is being attached to a server or a virtual MAC operation is ongoing
+    - attached: flexible IP is attached to a server
+    - error: a flexible IP operation resulted in an error
+    - detaching: flexible IP is being detached from a server
+    - locked: the resource of the flexible IP is locked.
     """
 
     ip_address: str
     """
-    IP of the Flexible IP.
+    IP of the flexible IP.
     """
 
     mac_address: Optional[MACAddress]
     """
-    MAC address of the Flexible IP.
+    MAC address of the flexible IP.
     """
 
     server_id: Optional[str]
     """
-    ID of the server linked to the Flexible IP.
+    ID of the server linked to the flexible IP.
     """
 
     reverse: str
@@ -163,7 +163,7 @@ class FlexibleIP:
 
     zone: Zone
     """
-    Flexible IP Availability Zone.
+    Availability Zone of the flexible IP.
     """
 
 
@@ -175,12 +175,12 @@ class ListFlexibleIPsResponse:
 
     total_count: int
     """
-    Total count of matching Flexible IPs.
+    Total count of matching flexible IPs.
     """
 
     flexible_ips: List[FlexibleIP]
     """
-    Listing of Flexible IPs.
+    List of all flexible IPs.
     """
 
 
@@ -192,7 +192,7 @@ class MACAddress:
 
     id: str
     """
-    ID of the Flexible IP.
+    ID of the flexible IP.
     """
 
     mac_address: str
@@ -202,27 +202,27 @@ class MACAddress:
 
     mac_type: MACAddressType
     """
-    Virtual MAC type.
+    Type of virtual MAC.
     """
 
     status: MACAddressStatus
     """
-    Virtual MAC status.
+    Status of virtual MAC.
     """
 
     updated_at: Optional[datetime]
     """
-    Date of last update of the Virtual MAC.
+    Date on which the virtual MAC was last updated.
     """
 
     created_at: Optional[datetime]
     """
-    Date of creation of the Virtual MAC.
+    Date on which the virtual MAC was created.
     """
 
     zone: Zone
     """
-    MAC Addr IP Availability Zone.
+    MAC address IP Availability Zone.
     """
 
 
@@ -240,27 +240,27 @@ class CreateFlexibleIPRequest:
 
     description: str
     """
-    Description to associate with the Flexible IP, max 255 characters.
+    Flexible IP description (max. of 255 characters).
     """
 
     tags: Optional[List[str]]
     """
-    Tags to associate to the Flexible IP.
+    Tags to associate to the flexible IP.
     """
 
     server_id: Optional[str]
     """
-    Server ID on which to attach the created Flexible IP.
+    ID of the server to which the newly created flexible IP will be attached.
     """
 
     reverse: Optional[str]
     """
-    Reverse DNS value.
+    Value of the reverse DNS.
     """
 
     is_ipv6: bool
     """
-    If true, creates a Flexible IP with an ipv6 address.
+    Defines whether the flexible IP has an IPv6 address.
     """
 
 
@@ -273,7 +273,7 @@ class GetFlexibleIPRequest:
 
     fip_id: str
     """
-    Flexible IP ID.
+    ID of the flexible IP.
     """
 
 
@@ -286,42 +286,42 @@ class ListFlexibleIPsRequest:
 
     order_by: Optional[ListFlexibleIPsRequestOrderBy]
     """
-    The sort order of the returned Flexible IPs.
+    Sort order of the returned flexible IPs.
     """
 
     page: Optional[int]
     """
-    The page number for the returned Flexible IPs.
+    Page number.
     """
 
     page_size: Optional[int]
     """
-    The maximum number of Flexible IPs per page.
+    Maximum number of flexible IPs per page.
     """
 
     tags: Optional[List[str]]
     """
-    Filter Flexible IPs with one or more matching tags.
+    Filter by tag, only flexible IPs with one or more matching tags will be returned.
     """
 
     status: Optional[List[FlexibleIPStatus]]
     """
-    Filter Flexible IPs by status.
+    Filter by status, only flexible IPs with this status will be returned.
     """
 
     server_ids: Optional[List[str]]
     """
-    Filter Flexible IPs by server IDs.
+    Filter by server IDs, only flexible IPs with these server IDs will be returned.
     """
 
     organization_id: Optional[str]
     """
-    Filter Flexible IPs by organization ID.
+    Filter by Organization ID, only flexible IPs from this Organization will be returned.
     """
 
     project_id: Optional[str]
     """
-    Filter Flexible IPs by project ID.
+    Filter by Project ID, only flexible IPs from this Project will be returned.
     """
 
 
@@ -334,22 +334,22 @@ class UpdateFlexibleIPRequest:
 
     fip_id: str
     """
-    ID of the Flexible IP to update.
+    ID of the flexible IP to update.
     """
 
     description: Optional[str]
     """
-    Description to associate with the Flexible IP, max 255 characters.
+    Flexible IP description (max. 255 characters).
     """
 
     tags: Optional[List[str]]
     """
-    Tags to associate with the Flexible IP.
+    Tags associated with the flexible IP.
     """
 
     reverse: Optional[str]
     """
-    Reverse DNS value.
+    Value of the reverse DNS.
     """
 
 
@@ -362,7 +362,7 @@ class DeleteFlexibleIPRequest:
 
     fip_id: str
     """
-    ID of the Flexible IP to delete.
+    ID of the flexible IP to delete.
     """
 
 
@@ -375,13 +375,13 @@ class AttachFlexibleIPRequest:
 
     fips_ids: List[str]
     """
-    A list of Flexible IP IDs to attach.
-    Multiple IDs can be provided as long as Flexible IPs belong to the same MAC groups (see details about MAC groups).
+    List of flexible IP IDs to attach to a server.
+    Multiple IDs can be provided, but note that flexible IPs must belong to the same MAC group (see details about MAC groups).
     """
 
     server_id: str
     """
-    A server ID on which to attach the Flexible IPs.
+    ID of the server on which to attach the flexible IPs.
     """
 
 
@@ -394,8 +394,7 @@ class DetachFlexibleIPRequest:
 
     fips_ids: List[str]
     """
-    A list of Flexible IP IDs to detach.
-    Multiple IDs can be provided as long as Flexible IPs belong to the same MAC groups (see details about MAC groups).
+    List of flexible IP IDs to detach from a server. Multiple IDs can be provided. Note that flexible IPs must belong to the same MAC group.
     """
 
 
@@ -408,7 +407,7 @@ class GenerateMACAddrRequest:
 
     fip_id: str
     """
-    Flexible IP ID on which to generate a Virtual MAC.
+    ID of the flexible IP for which to generate a virtual MAC.
     """
 
     mac_type: Optional[MACAddressType]
@@ -426,14 +425,14 @@ class DuplicateMACAddrRequest:
 
     fip_id: str
     """
-    Flexible IP ID on which to duplicate the Virtual MAC.
-    Flexible IPs need to be attached to the same server.
+    ID of the flexible IP on which to duplicate the virtual MAC.
+    Note that the flexible IPs need to be attached to the same server.
     """
 
     duplicate_from_fip_id: str
     """
-    Flexible IP ID to duplicate the Virtual MAC from.
-    Flexible IPs need to be attached to the same server.
+    ID of the flexible IP to duplicate the Virtual MAC from.
+    Note that flexible IPs need to be attached to the same server.
     """
 
 
@@ -458,6 +457,6 @@ class DeleteMACAddrRequest:
 
     fip_id: str
     """
-    Flexible IP ID from which to delete the Virtual MAC.
-    If the Flexible IP belongs to a MAC group, the MAC will be removed from the MAC group and from the Flexible IP.
+    ID of the flexible IP from which to delete the virtual MAC.
+    If the flexible IP belongs to a MAC group, the MAC will be removed from both the MAC group and flexible IP.
     """
