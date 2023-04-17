@@ -910,7 +910,7 @@ class ListDNSZoneNameserversResponse:
 
     ns: List[Nameserver]
     """
-    The returned DNS zone nameservers.
+    DNS zone name servers returned.
     """
 
 
@@ -922,12 +922,12 @@ class ListDNSZoneRecordsResponse:
 
     total_count: int
     """
-    The total number of DNS zone records.
+    Total number of DNS zone records.
     """
 
     records: List[DomainRecord]
     """
-    The paginated returned DNS zone records.
+    Paginated returned DNS zone records.
     """
 
 
@@ -939,7 +939,7 @@ class ListDNSZoneVersionRecordsResponse:
 
     total_count: int
     """
-    The total number of DNS zones versions records.
+    Total number of DNS zones versions records.
     """
 
     records: List[DomainRecord]
@@ -953,7 +953,7 @@ class ListDNSZoneVersionsResponse:
 
     total_count: int
     """
-    The total number of DNS zones versions.
+    Total number of DNS zones versions.
     """
 
     versions: List[DNSZoneVersion]
@@ -967,12 +967,12 @@ class ListDNSZonesResponse:
 
     total_count: int
     """
-    The total number of DNS zones.
+    Total number of DNS zones matching the requested criteria.
     """
 
     dns_zones: List[DNSZone]
     """
-    The paginated returned DNS zones.
+    Paginated returned DNS zones.
     """
 
 
@@ -1183,7 +1183,7 @@ class RefreshDNSZoneResponse:
 
     dns_zones: List[DNSZone]
     """
-    The returned DNS zones.
+    DNS zones returned.
     """
 
 
@@ -1328,7 +1328,7 @@ class UpdateDNSZoneNameserversResponse:
 
     ns: List[Nameserver]
     """
-    The returned DNS zone nameservers.
+    DNS zone name servers returned.
     """
 
 
@@ -1340,7 +1340,7 @@ class UpdateDNSZoneRecordsResponse:
 
     records: List[DomainRecord]
     """
-    The returned DNS zone records.
+    DNS zone records returned.
     """
 
 
@@ -1348,37 +1348,37 @@ class UpdateDNSZoneRecordsResponse:
 class ListDNSZonesRequest:
     organization_id: Optional[str]
     """
-    The organization ID on which to filter the returned DNS zones.
+    Organization ID on which to filter the returned DNS zones.
     """
 
     project_id: Optional[str]
     """
-    The project ID on which to filter the returned DNS zones.
+    Project ID on which to filter the returned DNS zones.
     """
 
     order_by: Optional[ListDNSZonesRequestOrderBy]
     """
-    The sort order of the returned DNS zones.
+    Sort order of the returned DNS zones.
     """
 
     page: Optional[int]
     """
-    The page number for the returned DNS zones.
+    Page number to return, from the paginated results.
     """
 
     page_size: Optional[int]
     """
-    The maximum number of DNS zones per page.
+    Maximum number of DNS zones to return per page.
     """
 
     domain: str
     """
-    The domain on which to filter the returned DNS zones.
+    Domain on which to filter the returned DNS zones.
     """
 
     dns_zone: str
     """
-    The DNS zone on which to filter the returned DNS zones.
+    DNS zone on which to filter the returned DNS zones.
     """
 
 
@@ -1386,17 +1386,17 @@ class ListDNSZonesRequest:
 class CreateDNSZoneRequest:
     domain: str
     """
-    The domain of the DNS zone to create.
+    Domain in which to crreate the DNS zone.
     """
 
     subdomain: str
     """
-    The subdomain of the DNS zone to create.
+    Subdomain of the DNS zone to create.
     """
 
     project_id: Optional[str]
     """
-    The project ID where the DNS zone will be created.
+    Project ID in which to create the DNS zone.
     """
 
 
@@ -1404,17 +1404,17 @@ class CreateDNSZoneRequest:
 class UpdateDNSZoneRequest:
     dns_zone: str
     """
-    The DNS zone to update.
+    DNS zone to update.
     """
 
     new_dns_zone: str
     """
-    The new DNS zone.
+    Name of the new DNS zone to create.
     """
 
     project_id: Optional[str]
     """
-    The project ID of the new DNS zone.
+    Project ID in which to create the new DNS zone.
     """
 
 
@@ -1422,22 +1422,22 @@ class UpdateDNSZoneRequest:
 class CloneDNSZoneRequest:
     dns_zone: str
     """
-    The DNS zone to clone.
+    DNS zone to clone.
     """
 
     dest_dns_zone: str
     """
-    The destinaton DNS zone.
+    Destination DNS zone in which to clone the chosen DNS zone.
     """
 
     overwrite: bool
     """
-    Whether or not the destination DNS zone will be overwritten.
+    Specifies whether or not the destination DNS zone will be overwritten.
     """
 
     project_id: Optional[str]
     """
-    The project ID of the destination DNS zone.
+    Project ID of the destination DNS zone.
     """
 
 
@@ -1445,12 +1445,12 @@ class CloneDNSZoneRequest:
 class DeleteDNSZoneRequest:
     dns_zone: str
     """
-    The DNS zone to delete.
+    DNS zone to delete.
     """
 
     project_id: Optional[str]
     """
-    The project ID of the DNS zone to delete.
+    Project ID of the DNS zone to delete.
     """
 
 
@@ -1458,42 +1458,42 @@ class DeleteDNSZoneRequest:
 class ListDNSZoneRecordsRequest:
     dns_zone: str
     """
-    The DNS zone on which to filter the returned DNS zone records.
+    DNS zone on which to filter the returned DNS zone records.
     """
 
     project_id: Optional[str]
     """
-    The project ID on which to filter the returned DNS zone records.
+    Project ID on which to filter the returned DNS zone records.
     """
 
     order_by: Optional[ListDNSZoneRecordsRequestOrderBy]
     """
-    The sort order of the returned DNS zone records.
+    Sort order of the returned DNS zone records.
     """
 
     page: Optional[int]
     """
-    The page number for the returned DNS zone records.
+    Page number to return, from the paginated results.
     """
 
     page_size: Optional[int]
     """
-    The maximum number of DNS zone records per page.
+    Maximum number of DNS zone records per page.
     """
 
     name: str
     """
-    The name on which to filter the returned DNS zone records.
+    Name on which to filter the returned DNS zone records.
     """
 
     type_: Optional[DomainRecordType]
     """
-    The record type on which to filter the returned DNS zone records.
+    Record type on which to filter the returned DNS zone records.
     """
 
     id: Optional[str]
     """
-    The record ID on which to filter the returned DNS zone records.
+    Record ID on which to filter the returned DNS zone records.
     """
 
 
@@ -1501,27 +1501,27 @@ class ListDNSZoneRecordsRequest:
 class UpdateDNSZoneRecordsRequest:
     dns_zone: str
     """
-    The DNS zone where the DNS zone records will be updated.
+    DNS zone in which to update the DNS zone records.
     """
 
     changes: List[RecordChange]
     """
-    The changes made to the records.
+    Changes made to the records.
     """
 
     return_all_records: Optional[bool]
     """
-    Whether or not to return all the records.
+    Specifies whether or not to return all the records.
     """
 
     disallow_new_zone_creation: bool
     """
-    Forbid the creation of the target zone if not existing (default action is yes).
+    Disable the creation of the target zone if it does not exist. Target zone creation is disabled by default.
     """
 
     serial: Optional[int]
     """
-    Don't use the autoincremenent serial but the provided one (0 to keep the same).
+    Use the provided serial (0) instead of the auto-increment serial.
     """
 
 
@@ -1529,12 +1529,12 @@ class UpdateDNSZoneRecordsRequest:
 class ListDNSZoneNameserversRequest:
     dns_zone: str
     """
-    The DNS zone on which to filter the returned DNS zone nameservers.
+    DNS zone on which to filter the returned DNS zone name servers.
     """
 
     project_id: Optional[str]
     """
-    The project ID on which to filter the returned DNS zone nameservers.
+    Project ID on which to filter the returned DNS zone name servers.
     """
 
 
@@ -1542,12 +1542,12 @@ class ListDNSZoneNameserversRequest:
 class UpdateDNSZoneNameserversRequest:
     dns_zone: str
     """
-    The DNS zone where the DNS zone nameservers will be updated.
+    DNS zone in which to update the DNS zone name servers.
     """
 
     ns: List[Nameserver]
     """
-    The new DNS zone nameservers.
+    New DNS zone name servers.
     """
 
 
@@ -1555,7 +1555,7 @@ class UpdateDNSZoneNameserversRequest:
 class ClearDNSZoneRecordsRequest:
     dns_zone: str
     """
-    The DNS zone to clear.
+    DNS zone to clear.
     """
 
 
@@ -1563,12 +1563,12 @@ class ClearDNSZoneRecordsRequest:
 class ExportRawDNSZoneRequest:
     dns_zone: str
     """
-    The DNS zone to export.
+    DNS zone to export.
     """
 
     format: RawFormat
     """
-    Format for DNS zone.
+    DNS zone format.
     """
 
 
@@ -1576,7 +1576,7 @@ class ExportRawDNSZoneRequest:
 class ImportRawDNSZoneRequest:
     dns_zone: str
     """
-    The DNS zone to import.
+    DNS zone to import.
     """
 
     content: Optional[str]
@@ -1600,7 +1600,7 @@ class ImportRawDNSZoneRequest:
 
     axfr_source: Optional[ImportRawDNSZoneRequestAXFRSource]
     """
-    Import from the nameserver given with tsig use or not.
+    Import from the name server given with TSIG, to use or not.
     
     One-of ('source'): at most one of 'bind_source', 'axfr_source' could be set.
     """
@@ -1620,17 +1620,17 @@ class ImportProviderDNSZoneRequest:
 class RefreshDNSZoneRequest:
     dns_zone: str
     """
-    The DNS zone to refresh.
+    DNS zone to refresh.
     """
 
     recreate_dns_zone: bool
     """
-    Whether or not to recreate the DNS zone.
+    Specifies whether or not to recreate the DNS zone.
     """
 
     recreate_sub_dns_zone: bool
     """
-    Whether or not to recreate the sub DNS zone.
+    Specifies whether or not to recreate the sub DNS zone.
     """
 
 
@@ -1640,12 +1640,12 @@ class ListDNSZoneVersionsRequest:
 
     page: Optional[int]
     """
-    The page number for the returned DNS zones versions.
+    Page number to return, from the paginated results.
     """
 
     page_size: Optional[int]
     """
-    The maximum number of DNS zones versions per page.
+    Maximum number of DNS zones versions per page.
     """
 
 
@@ -1655,12 +1655,12 @@ class ListDNSZoneVersionRecordsRequest:
 
     page: Optional[int]
     """
-    The page number for the returned DNS zones versions records.
+    Page number to return, from the paginated results.
     """
 
     page_size: Optional[int]
     """
-    The maximum number of DNS zones versions records per page.
+    Maximum number of DNS zones versions records per page.
     """
 
 

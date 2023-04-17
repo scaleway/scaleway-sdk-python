@@ -161,10 +161,10 @@ from .marshalling import (
 
 class DomainV2Beta1API(API):
     """
-    DNS API.
+    Domains and DNS API documentation.
 
-    DNS API.
-    Manage your DNS zones and records.
+    Domains and DNS API documetation.
+    Manage your domains, DNS zones and records with the Domains and DNS API.
     """
 
     async def list_dns_zones(
@@ -180,15 +180,14 @@ class DomainV2Beta1API(API):
     ) -> ListDNSZonesResponse:
         """
         List DNS zones.
-        Returns a list of manageable DNS zones.
-        You can filter the DNS zones by domain name.
-        :param organization_id: The organization ID on which to filter the returned DNS zones.
-        :param project_id: The project ID on which to filter the returned DNS zones.
-        :param order_by: The sort order of the returned DNS zones.
-        :param page: The page number for the returned DNS zones.
-        :param page_size: The maximum number of DNS zones per page.
-        :param domain: The domain on which to filter the returned DNS zones.
-        :param dns_zone: The DNS zone on which to filter the returned DNS zones.
+        Retrieve the list of DNS zones you can manage and filter DNS zones associated with specific domain names.
+        :param organization_id: Organization ID on which to filter the returned DNS zones.
+        :param project_id: Project ID on which to filter the returned DNS zones.
+        :param order_by: Sort order of the returned DNS zones.
+        :param page: Page number to return, from the paginated results.
+        :param page_size: Maximum number of DNS zones to return per page.
+        :param domain: Domain on which to filter the returned DNS zones.
+        :param dns_zone: DNS zone on which to filter the returned DNS zones.
         :return: :class:`ListDNSZonesResponse <ListDNSZonesResponse>`
 
         Usage:
@@ -231,15 +230,14 @@ class DomainV2Beta1API(API):
     ) -> List[DNSZone]:
         """
         List DNS zones.
-        Returns a list of manageable DNS zones.
-        You can filter the DNS zones by domain name.
-        :param organization_id: The organization ID on which to filter the returned DNS zones.
-        :param project_id: The project ID on which to filter the returned DNS zones.
-        :param order_by: The sort order of the returned DNS zones.
-        :param page: The page number for the returned DNS zones.
-        :param page_size: The maximum number of DNS zones per page.
-        :param domain: The domain on which to filter the returned DNS zones.
-        :param dns_zone: The DNS zone on which to filter the returned DNS zones.
+        Retrieve the list of DNS zones you can manage and filter DNS zones associated with specific domain names.
+        :param organization_id: Organization ID on which to filter the returned DNS zones.
+        :param project_id: Project ID on which to filter the returned DNS zones.
+        :param order_by: Sort order of the returned DNS zones.
+        :param page: Page number to return, from the paginated results.
+        :param page_size: Maximum number of DNS zones to return per page.
+        :param domain: Domain on which to filter the returned DNS zones.
+        :param dns_zone: DNS zone on which to filter the returned DNS zones.
         :return: :class:`List[ListDNSZonesResponse] <List[ListDNSZonesResponse]>`
 
         Usage:
@@ -275,10 +273,10 @@ class DomainV2Beta1API(API):
     ) -> DNSZone:
         """
         Create a DNS zone.
-        Create a new DNS zone.
-        :param domain: The domain of the DNS zone to create.
-        :param subdomain: The subdomain of the DNS zone to create.
-        :param project_id: The project ID where the DNS zone will be created.
+        Create a new DNS zone specified by the domain name, the subdomain and the Project ID.
+        :param domain: Domain in which to crreate the DNS zone.
+        :param subdomain: Subdomain of the DNS zone to create.
+        :param project_id: Project ID in which to create the DNS zone.
         :return: :class:`DNSZone <DNSZone>`
 
         Usage:
@@ -315,10 +313,10 @@ class DomainV2Beta1API(API):
     ) -> DNSZone:
         """
         Update a DNS zone.
-        Update the name and/or the organizations for a DNS zone.
-        :param dns_zone: The DNS zone to update.
-        :param new_dns_zone: The new DNS zone.
-        :param project_id: The project ID of the new DNS zone.
+        Update the name and/or the Organizations for a DNS zone.
+        :param dns_zone: DNS zone to update.
+        :param new_dns_zone: Name of the new DNS zone to create.
+        :param project_id: Project ID in which to create the new DNS zone.
         :return: :class:`DNSZone <DNSZone>`
 
         Usage:
@@ -358,11 +356,11 @@ class DomainV2Beta1API(API):
     ) -> DNSZone:
         """
         Clone a DNS zone.
-        Clone an existed DNS zone with all its records into a new one.
-        :param dns_zone: The DNS zone to clone.
-        :param dest_dns_zone: The destinaton DNS zone.
-        :param overwrite: Whether or not the destination DNS zone will be overwritten.
-        :param project_id: The project ID of the destination DNS zone.
+        Clone an existing DNS zone with all its records into a new DNS zone.
+        :param dns_zone: DNS zone to clone.
+        :param dest_dns_zone: Destination DNS zone in which to clone the chosen DNS zone.
+        :param overwrite: Specifies whether or not the destination DNS zone will be overwritten.
+        :param project_id: Project ID of the destination DNS zone.
         :return: :class:`DNSZone <DNSZone>`
 
         Usage:
@@ -401,10 +399,10 @@ class DomainV2Beta1API(API):
         project_id: Optional[str] = None,
     ) -> DeleteDNSZoneResponse:
         """
-        Delete DNS zone.
-        Delete a DNS zone and all it's records.
-        :param dns_zone: The DNS zone to delete.
-        :param project_id: The project ID of the DNS zone to delete.
+        Delete a DNS zone.
+        Delete a DNS zone and all its records.
+        :param dns_zone: DNS zone to delete.
+        :param project_id: Project ID of the DNS zone to delete.
         :return: :class:`DeleteDNSZoneResponse <DeleteDNSZoneResponse>`
 
         Usage:
@@ -439,17 +437,17 @@ class DomainV2Beta1API(API):
         id: Optional[str] = None,
     ) -> ListDNSZoneRecordsResponse:
         """
-        List DNS zone records.
-        Returns a list of DNS records of a DNS zone with default NS.
-        You can filter the records by type and name.
-        :param dns_zone: The DNS zone on which to filter the returned DNS zone records.
-        :param project_id: The project ID on which to filter the returned DNS zone records.
-        :param order_by: The sort order of the returned DNS zone records.
-        :param page: The page number for the returned DNS zone records.
-        :param page_size: The maximum number of DNS zone records per page.
-        :param name: The name on which to filter the returned DNS zone records.
-        :param type_: The record type on which to filter the returned DNS zone records.
-        :param id: The record ID on which to filter the returned DNS zone records.
+        List records within a DNS zone.
+        Retrieve a list of DNS records within a DNS zone that has default name servers.
+        You can filter records by type and name.
+        :param dns_zone: DNS zone on which to filter the returned DNS zone records.
+        :param project_id: Project ID on which to filter the returned DNS zone records.
+        :param order_by: Sort order of the returned DNS zone records.
+        :param page: Page number to return, from the paginated results.
+        :param page_size: Maximum number of DNS zone records per page.
+        :param name: Name on which to filter the returned DNS zone records.
+        :param type_: Record type on which to filter the returned DNS zone records.
+        :param id: Record ID on which to filter the returned DNS zone records.
         :return: :class:`ListDNSZoneRecordsResponse <ListDNSZoneRecordsResponse>`
 
         Usage:
@@ -493,17 +491,17 @@ class DomainV2Beta1API(API):
         id: Optional[str] = None,
     ) -> List[DomainRecord]:
         """
-        List DNS zone records.
-        Returns a list of DNS records of a DNS zone with default NS.
-        You can filter the records by type and name.
-        :param dns_zone: The DNS zone on which to filter the returned DNS zone records.
-        :param project_id: The project ID on which to filter the returned DNS zone records.
-        :param order_by: The sort order of the returned DNS zone records.
-        :param page: The page number for the returned DNS zone records.
-        :param page_size: The maximum number of DNS zone records per page.
-        :param name: The name on which to filter the returned DNS zone records.
-        :param type_: The record type on which to filter the returned DNS zone records.
-        :param id: The record ID on which to filter the returned DNS zone records.
+        List records within a DNS zone.
+        Retrieve a list of DNS records within a DNS zone that has default name servers.
+        You can filter records by type and name.
+        :param dns_zone: DNS zone on which to filter the returned DNS zone records.
+        :param project_id: Project ID on which to filter the returned DNS zone records.
+        :param order_by: Sort order of the returned DNS zone records.
+        :param page: Page number to return, from the paginated results.
+        :param page_size: Maximum number of DNS zone records per page.
+        :param name: Name on which to filter the returned DNS zone records.
+        :param type_: Record type on which to filter the returned DNS zone records.
+        :param id: Record ID on which to filter the returned DNS zone records.
         :return: :class:`List[ListDNSZoneRecordsResponse] <List[ListDNSZoneRecordsResponse]>`
 
         Usage:
@@ -541,29 +539,21 @@ class DomainV2Beta1API(API):
         serial: Optional[int] = None,
     ) -> UpdateDNSZoneRecordsResponse:
         """
-        Update DNS zone records.
-        Only available with default NS.<br/>
-        Send a list of actions and records.
+        Update records within a DNS zone.
+        Update records within a DNS zone that has default name servers and perform several actions on your records.
 
-        Action can be:
-         - add:
-          - Add new record
-          - Can be more specific and add a new IP to an existing A record for example
-         - set:
-          - Edit a record
-          - Can be more specific and edit an IP from an existing A record for example
-         - delete:
-          - Delete a record
-          - Can be more specific and delete an IP from an existing A record for example
-         - clear:
-          - Delete all records from a DNS zone
+        Actions include:
+         - add: allows you to add a new record or add a new IP to an existing A record, for example
+         - set: allows you to edit a record or edit an IP from an existing A record, for example
+         - delete: allows you to delete a record or delete an IP from an existing A record, for example
+         - clear: allows you to delete all records from a DNS zone
 
         All edits will be versioned.
-        :param dns_zone: The DNS zone where the DNS zone records will be updated.
-        :param changes: The changes made to the records.
-        :param return_all_records: Whether or not to return all the records.
-        :param disallow_new_zone_creation: Forbid the creation of the target zone if not existing (default action is yes).
-        :param serial: Don't use the autoincremenent serial but the provided one (0 to keep the same).
+        :param dns_zone: DNS zone in which to update the DNS zone records.
+        :param changes: Changes made to the records.
+        :param return_all_records: Specifies whether or not to return all the records.
+        :param disallow_new_zone_creation: Disable the creation of the target zone if it does not exist. Target zone creation is disabled by default.
+        :param serial: Use the provided serial (0) instead of the auto-increment serial.
         :return: :class:`UpdateDNSZoneRecordsResponse <UpdateDNSZoneRecordsResponse>`
 
         Usage:
@@ -603,10 +593,10 @@ class DomainV2Beta1API(API):
         project_id: Optional[str] = None,
     ) -> ListDNSZoneNameserversResponse:
         """
-        List DNS zone nameservers.
-        Returns a list of Nameservers and their optional glue records for a DNS zone.
-        :param dns_zone: The DNS zone on which to filter the returned DNS zone nameservers.
-        :param project_id: The project ID on which to filter the returned DNS zone nameservers.
+        List name servers within a DNS zone.
+        Retrieve a list of name servers within a DNS zone and their optional glue records.
+        :param dns_zone: DNS zone on which to filter the returned DNS zone name servers.
+        :param project_id: Project ID on which to filter the returned DNS zone name servers.
         :return: :class:`ListDNSZoneNameserversResponse <ListDNSZoneNameserversResponse>`
 
         Usage:
@@ -635,10 +625,10 @@ class DomainV2Beta1API(API):
         ns: List[Nameserver],
     ) -> UpdateDNSZoneNameserversResponse:
         """
-        Update DNS zone nameservers.
-        Update DNS zone nameservers and set optional glue records.
-        :param dns_zone: The DNS zone where the DNS zone nameservers will be updated.
-        :param ns: The new DNS zone nameservers.
+        Update name servers within a DNS zone.
+        Update name servers within a DNS zone and set optional glue records.
+        :param dns_zone: DNS zone in which to update the DNS zone name servers.
+        :param ns: New DNS zone name servers.
         :return: :class:`UpdateDNSZoneNameserversResponse <UpdateDNSZoneNameserversResponse>`
 
         Usage:
@@ -673,11 +663,10 @@ class DomainV2Beta1API(API):
         dns_zone: str,
     ) -> ClearDNSZoneRecordsResponse:
         """
-        Clear DNS zone records.
-        Only available with default NS.<br/>
-        Delete all the records from a DNS zone.
+        Clear records within a DNS zone.
+        Delete all records within a DNS zone that has default name servers.<br/>
         All edits will be versioned.
-        :param dns_zone: The DNS zone to clear.
+        :param dns_zone: DNS zone to clear.
         :return: :class:`ClearDNSZoneRecordsResponse <ClearDNSZoneRecordsResponse>`
 
         Usage:
@@ -703,10 +692,10 @@ class DomainV2Beta1API(API):
         format: RawFormat,
     ) -> Optional[ScwFile]:
         """
-        Export raw DNS zone.
-        Get a DNS zone in a given format with default NS.
-        :param dns_zone: The DNS zone to export.
-        :param format: Format for DNS zone.
+        Export a raw DNS zone.
+        Export a DNS zone with default name servers, in a specific format.
+        :param dns_zone: DNS zone to export.
+        :param format: DNS zone format.
         :return: :class:`Optional[ScwFile] <Optional[ScwFile]>`
 
         Usage:
@@ -743,16 +732,16 @@ class DomainV2Beta1API(API):
         axfr_source: Optional[ImportRawDNSZoneRequestAXFRSource] = None,
     ) -> ImportRawDNSZoneResponse:
         """
-        Import raw DNS zone.
-        Import and replace records from a given provider format with default NS.
-        :param dns_zone: The DNS zone to import.
+        Import a raw DNS zone.
+        Import and replace the format of records from a given provider, with default name servers.
+        :param dns_zone: DNS zone to import.
         :param content:
         :param project_id:
         :param format:
         :param bind_source: Import a bind file format.
 
         One-of ('source'): at most one of 'bind_source', 'axfr_source' could be set.
-        :param axfr_source: Import from the nameserver given with tsig use or not.
+        :param axfr_source: Import from the name server given with TSIG, to use or not.
 
         One-of ('source'): at most one of 'bind_source', 'axfr_source' could be set.
         :return: :class:`ImportRawDNSZoneResponse <ImportRawDNSZoneResponse>`
@@ -791,8 +780,8 @@ class DomainV2Beta1API(API):
         online_v1: Optional[ImportProviderDNSZoneRequestOnlineV1] = None,
     ) -> ImportProviderDNSZoneResponse:
         """
-        Import provider DNS zone.
-        Import and replace records from a given provider format with default NS.
+        Import a DNS zone from another provider.
+        Import and replace the format of records from a given provider, with default name servers.
         :param dns_zone:
         :param online_v1: One-of ('provider'): at most one of 'online_v1' could be set.
         :return: :class:`ImportProviderDNSZoneResponse <ImportProviderDNSZoneResponse>`
@@ -828,12 +817,12 @@ class DomainV2Beta1API(API):
         recreate_sub_dns_zone: bool,
     ) -> RefreshDNSZoneResponse:
         """
-        Refresh DNS zone.
-        Refresh SOA DNS zone.
+        Refresh a DNS zone.
+        Refresh an SOA DNS zone to reload the records in the DNS zone and update the SOA serial.
         You can recreate the given DNS zone and its sub DNS zone if needed.
-        :param dns_zone: The DNS zone to refresh.
-        :param recreate_dns_zone: Whether or not to recreate the DNS zone.
-        :param recreate_sub_dns_zone: Whether or not to recreate the sub DNS zone.
+        :param dns_zone: DNS zone to refresh.
+        :param recreate_dns_zone: Specifies whether or not to recreate the DNS zone.
+        :param recreate_sub_dns_zone: Specifies whether or not to recreate the sub DNS zone.
         :return: :class:`RefreshDNSZoneResponse <RefreshDNSZoneResponse>`
 
         Usage:
@@ -872,13 +861,12 @@ class DomainV2Beta1API(API):
         page_size: Optional[int] = None,
     ) -> ListDNSZoneVersionsResponse:
         """
-        List DNS zone versions.
-        Get a list of DNS zone versions.<br/>
-        The maximum version count is 100.<br/>
-        If the count reaches this limit, the oldest version will be deleted after each new modification.
+        List versions of a DNS zone.
+        Retrieve a list of a DNS zone's versions.<br/>
+        The maximum version count is 100. If the count reaches this limit, the oldest version will be deleted after each new modification.
         :param dns_zone:
-        :param page: The page number for the returned DNS zones versions.
-        :param page_size: The maximum number of DNS zones versions per page.
+        :param page: Page number to return, from the paginated results.
+        :param page_size: Maximum number of DNS zones versions per page.
         :return: :class:`ListDNSZoneVersionsResponse <ListDNSZoneVersionsResponse>`
 
         Usage:
@@ -909,13 +897,12 @@ class DomainV2Beta1API(API):
         page_size: Optional[int] = None,
     ) -> List[DNSZoneVersion]:
         """
-        List DNS zone versions.
-        Get a list of DNS zone versions.<br/>
-        The maximum version count is 100.<br/>
-        If the count reaches this limit, the oldest version will be deleted after each new modification.
+        List versions of a DNS zone.
+        Retrieve a list of a DNS zone's versions.<br/>
+        The maximum version count is 100. If the count reaches this limit, the oldest version will be deleted after each new modification.
         :param dns_zone:
-        :param page: The page number for the returned DNS zones versions.
-        :param page_size: The maximum number of DNS zones versions per page.
+        :param page: Page number to return, from the paginated results.
+        :param page_size: Maximum number of DNS zones versions per page.
         :return: :class:`List[ListDNSZoneVersionsResponse] <List[ListDNSZoneVersionsResponse]>`
 
         Usage:
@@ -943,11 +930,11 @@ class DomainV2Beta1API(API):
         page_size: Optional[int] = None,
     ) -> ListDNSZoneVersionRecordsResponse:
         """
-        List DNS zone version records.
-        Get a list of records from a previous DNS zone version.
+        List records from a given version of a specific DNS zone.
+        Retrieve a list of records from a specific DNS zone version.
         :param dns_zone_version_id:
-        :param page: The page number for the returned DNS zones versions records.
-        :param page_size: The maximum number of DNS zones versions records per page.
+        :param page: Page number to return, from the paginated results.
+        :param page_size: Maximum number of DNS zones versions records per page.
         :return: :class:`ListDNSZoneVersionRecordsResponse <ListDNSZoneVersionRecordsResponse>`
 
         Usage:
@@ -980,11 +967,11 @@ class DomainV2Beta1API(API):
         page_size: Optional[int] = None,
     ) -> List[DomainRecord]:
         """
-        List DNS zone version records.
-        Get a list of records from a previous DNS zone version.
+        List records from a given version of a specific DNS zone.
+        Retrieve a list of records from a specific DNS zone version.
         :param dns_zone_version_id:
-        :param page: The page number for the returned DNS zones versions records.
-        :param page_size: The maximum number of DNS zones versions records per page.
+        :param page: Page number to return, from the paginated results.
+        :param page_size: Maximum number of DNS zones versions records per page.
         :return: :class:`List[ListDNSZoneVersionRecordsResponse] <List[ListDNSZoneVersionRecordsResponse]>`
 
         Usage:
@@ -1010,8 +997,8 @@ class DomainV2Beta1API(API):
         dns_zone_version_id: str,
     ) -> GetDNSZoneVersionDiffResponse:
         """
-        Get DNS zone version diff.
-        Get all differences from a previous DNS zone version.
+        Access differences from a specific DNS zone version.
+        Access a previous DNS zone version to see the differences from another specific version.
         :param dns_zone_version_id:
         :return: :class:`GetDNSZoneVersionDiffResponse <GetDNSZoneVersionDiffResponse>`
 
@@ -1039,8 +1026,8 @@ class DomainV2Beta1API(API):
         dns_zone_version_id: str,
     ) -> RestoreDNSZoneVersionResponse:
         """
-        Restore DNS zone version.
-        Restore and activate a previous DNS zone version.
+        Restore a DNS zone version.
+        Restore and activate a version of a specific DNS zone.
         :param dns_zone_version_id:
         :return: :class:`RestoreDNSZoneVersionResponse <RestoreDNSZoneVersionResponse>`
 
@@ -1068,7 +1055,8 @@ class DomainV2Beta1API(API):
         dns_zone: str,
     ) -> SSLCertificate:
         """
-        Get the zone TLS certificate if it exists.
+        Get a DNS zone's TLS certificate.
+        Get the DNS zone's TLS certificate. If you do not have a certificate, the ouptut returns `no certificate found`.
         :param dns_zone:
         :return: :class:`SSLCertificate <SSLCertificate>`
 
@@ -1131,7 +1119,8 @@ class DomainV2Beta1API(API):
         alternative_dns_zones: Optional[List[str]] = None,
     ) -> SSLCertificate:
         """
-        Create or return the zone TLS certificate.
+        Create or get the DNS zone's TLS certificate.
+        Create a new TLS certificate or retrieve information about an existing TLS certificate.
         :param dns_zone:
         :param alternative_dns_zones:
         :return: :class:`SSLCertificate <SSLCertificate>`
@@ -1166,7 +1155,8 @@ class DomainV2Beta1API(API):
         project_id: Optional[str] = None,
     ) -> ListSSLCertificatesResponse:
         """
-        List all user TLS certificates.
+        List a user's TLS certificates.
+        List all the TLS certificates a user has created, specified by the user's Project ID and the DNS zone.
         :param dns_zone:
         :param page:
         :param page_size:
@@ -1202,7 +1192,8 @@ class DomainV2Beta1API(API):
         project_id: Optional[str] = None,
     ) -> List[SSLCertificate]:
         """
-        List all user TLS certificates.
+        List a user's TLS certificates.
+        List all the TLS certificates a user has created, specified by the user's Project ID and the DNS zone.
         :param dns_zone:
         :param page:
         :param page_size:
@@ -1233,7 +1224,8 @@ class DomainV2Beta1API(API):
         dns_zone: str,
     ) -> DeleteSSLCertificateResponse:
         """
-        Delete an TLS certificate.
+        Delete a TLS certificate.
+        Delete an existing TLS certificate specified by its DNS zone. Deleting a TLS certificate is permanent and cannot be undone.
         :param dns_zone:
         :return: :class:`DeleteSSLCertificateResponse <DeleteSSLCertificateResponse>`
 
@@ -1259,8 +1251,8 @@ class DomainV2Beta1API(API):
         dns_zone: str,
     ) -> GetDNSZoneTsigKeyResponse:
         """
-        Get the DNS zone TSIG Key.
-        Get the DNS zone TSIG Key to allow AXFR request.
+        Get the DNS zone's TSIG key.
+        Retrieve information about the TSIG key of a given DNS zone to allow AXFR requests.
         :param dns_zone:
         :return: :class:`GetDNSZoneTsigKeyResponse <GetDNSZoneTsigKeyResponse>`
 
@@ -1286,7 +1278,8 @@ class DomainV2Beta1API(API):
         dns_zone: str,
     ) -> Optional[None]:
         """
-        Delete the DNS zone TSIG Key.
+        Delete the DNS zone's TSIG key.
+        Delete an existing TSIG key specified by its DNS zone. Deleting a TSIG key is permanent and cannot be undone.
         :param dns_zone:
 
         Usage:
