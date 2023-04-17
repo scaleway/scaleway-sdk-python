@@ -95,17 +95,17 @@ class Image:
 
     id: str
     """
-    The unique ID of the Image.
+    The UUID of the image.
     """
 
     name: str
     """
-    The Image name, unique in a namespace.
+    The name of the image, it must be unique within the namespace.
     """
 
     namespace_id: str
     """
-    The unique ID of the Namespace the image belongs to.
+    The UUID of the namespace the image belongs to.
     """
 
     status: ImageStatus
@@ -120,7 +120,7 @@ class Image:
 
     visibility: ImageVisibility
     """
-    A `public` image is pullable from internet without authentication, opposed to a `private` image. `inherit` will use the namespace `is_public` parameter.
+    Set to `public` to allow the image to be pulled without authentication. Else, set to  `private`. Set to `inherit` to keep the same visibility configuration as the namespace.
     """
 
     size: int
@@ -131,12 +131,12 @@ class Image:
 
     created_at: Optional[datetime]
     """
-    Creation date.
+    Date and time of image creation.
     """
 
     updated_at: Optional[datetime]
     """
-    Last modification date, from the user or the service.
+    Date and time of last update.
     """
 
     tags: List[str]
@@ -153,12 +153,12 @@ class ListImagesResponse:
 
     images: List[Image]
     """
-    Paginated list of images matching filters.
+    Paginated list of images that match the selected filters.
     """
 
     total_count: int
     """
-    Total number of images matching filters.
+    Total number of images that match the selected filters.
     """
 
 
@@ -170,12 +170,12 @@ class ListNamespacesResponse:
 
     namespaces: List[Namespace]
     """
-    Paginated list of namespaces matching filters.
+    Paginated list of namespaces that match the selected filters.
     """
 
     total_count: int
     """
-    Total number of namespaces matching filters.
+    Total number of namespaces that match the selected filters.
     """
 
 
@@ -187,12 +187,12 @@ class ListTagsResponse:
 
     tags: List[Tag]
     """
-    Paginated list of tags matching filters.
+    Paginated list of tags that match the selected filters.
     """
 
     total_count: int
     """
-    Total number of tags matching filters.
+    Total number of tags that match the selected filters.
     """
 
 
@@ -204,7 +204,7 @@ class Namespace:
 
     id: str
     """
-    The unique ID of the namespace.
+    The UUID of the namespace.
     """
 
     name: str
@@ -244,7 +244,7 @@ class Namespace:
 
     is_public: bool
     """
-    Namespace visibility policy.
+    Whether or not namespace is public.
     """
 
     size: int
@@ -254,12 +254,12 @@ class Namespace:
 
     created_at: Optional[datetime]
     """
-    Creation date.
+    Date and time of creation.
     """
 
     updated_at: Optional[datetime]
     """
-    Last modification date, from the user or the service.
+    Date and time of last update.
     """
 
     image_count: int
@@ -281,17 +281,17 @@ class Tag:
 
     id: str
     """
-    The unique ID of the tag.
+    The UUID of the tag.
     """
 
     name: str
     """
-    Tag name, unique for an image.
+    Tag name, unique to an image.
     """
 
     image_id: str
     """
-    Image ID this tag belongs to.
+    Image ID the of the image the tag belongs to.
     """
 
     status: TagStatus
@@ -301,17 +301,17 @@ class Tag:
 
     digest: str
     """
-    Hash of the tag actual content. Several tags of a same image may have the same digest.
+    Hash of the tag content. Several tags of a same image may have the same digest.
     """
 
     created_at: Optional[datetime]
     """
-    Creation date.
+    Date and time of creation.
     """
 
     updated_at: Optional[datetime]
     """
-    Last modification date, from the user or the service.
+    Date and time of last update.
     """
 
 
@@ -334,7 +334,7 @@ class ListNamespacesRequest:
 
     order_by: Optional[ListNamespacesRequestOrderBy]
     """
-    Field by which to order the display of Images.
+    Criteria to use when ordering namespace listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`.
     """
 
     organization_id: Optional[str]
@@ -362,7 +362,7 @@ class GetNamespaceRequest:
 
     namespace_id: str
     """
-    The unique ID of the Namespace.
+    The UUID of the namespace.
     """
 
 
@@ -375,17 +375,17 @@ class CreateNamespaceRequest:
 
     name: Optional[str]
     """
-    Define a namespace name.
+    Name of the namespace.
     """
 
     description: str
     """
-    Define a description.
+    Description of the namespace.
     """
 
     organization_id: Optional[str]
     """
-    Assign the namespace owner (deprecated).
+    Namespace owner (deprecated).
     
     One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
     :deprecated
@@ -393,14 +393,14 @@ class CreateNamespaceRequest:
 
     project_id: Optional[str]
     """
-    Assign the namespace to a project ID.
+    Project ID on which the namespace will be created.
     
     One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
     """
 
     is_public: bool
     """
-    Define the default visibility policy.
+    Whether or not namespace is public.
     """
 
 
@@ -413,17 +413,17 @@ class UpdateNamespaceRequest:
 
     namespace_id: str
     """
-    Namespace ID to update.
+    ID of the namespace to update.
     """
 
     description: Optional[str]
     """
-    Define a description.
+    Namespace description.
     """
 
     is_public: Optional[bool]
     """
-    Define the default visibility policy.
+    Whether or not the namespace is public.
     """
 
 
@@ -436,7 +436,7 @@ class DeleteNamespaceRequest:
 
     namespace_id: str
     """
-    The unique ID of the Namespace.
+    The UUID of the namespace.
     """
 
 
@@ -459,17 +459,17 @@ class ListImagesRequest:
 
     order_by: Optional[ListImagesRequestOrderBy]
     """
-    Field by which to order the display of Images.
+    Criteria to use when ordering image listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`.
     """
 
     namespace_id: Optional[str]
     """
-    Filter by the Namespace ID.
+    Filter by the namespace ID.
     """
 
     name: Optional[str]
     """
-    Filter by the Image name (exact match).
+    Filter by the image name (exact match).
     """
 
     organization_id: Optional[str]
@@ -492,7 +492,7 @@ class GetImageRequest:
 
     image_id: str
     """
-    The unique ID of the Image.
+    The UUID of the image.
     """
 
 
@@ -505,12 +505,12 @@ class UpdateImageRequest:
 
     image_id: str
     """
-    Image ID to update.
+    ID of the image to update.
     """
 
     visibility: ImageVisibility
     """
-    A `public` image is pullable from internet without authentication, opposed to a `private` image. `inherit` will use the namespace `is_public` parameter.
+    Set to `public` to allow the image to be pulled without authentication. Else, set to  `private`. Set to `inherit` to keep the same visibility configuration as the namespace.
     """
 
 
@@ -523,7 +523,7 @@ class DeleteImageRequest:
 
     image_id: str
     """
-    The unique ID of the Image.
+    The UUID of the image.
     """
 
 
@@ -536,7 +536,7 @@ class ListTagsRequest:
 
     image_id: str
     """
-    The unique ID of the image.
+    The UUID of the image.
     """
 
     page: Optional[int]
@@ -551,7 +551,7 @@ class ListTagsRequest:
 
     order_by: Optional[ListTagsRequestOrderBy]
     """
-    Field by which to order the display of Images.
+    Criteria to use when ordering tag listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`.
     """
 
     name: Optional[str]
@@ -569,7 +569,7 @@ class GetTagRequest:
 
     tag_id: str
     """
-    The unique ID of the Tag.
+    The UUID of the tag.
     """
 
 
@@ -582,7 +582,7 @@ class DeleteTagRequest:
 
     tag_id: str
     """
-    The unique ID of the tag.
+    The UUID of the tag.
     """
 
     force: bool

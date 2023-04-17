@@ -49,10 +49,9 @@ from .marshalling import (
 
 class RegistryV1API(API):
     """
-    Registry API.
+    Container Registry API.
 
-    Container registry API.
-    Registry API.
+    Container Registry API.
     """
 
     def list_namespaces(
@@ -67,11 +66,12 @@ class RegistryV1API(API):
         name: Optional[str] = None,
     ) -> ListNamespacesResponse:
         """
-        List all your namespaces.
+        List namespaces.
+        List all namespaces in a specified region. By default, the namespaces listed are ordered by creation date in ascending order. This can be modified via the order_by field. You can also define additional parameters for your query, such as the `instance_id` and `project_id` parameters.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: A positive integer to choose the page to display.
         :param page_size: A positive integer lower or equal to 100 to select the number of items to display.
-        :param order_by: Field by which to order the display of Images.
+        :param order_by: Criteria to use when ordering namespace listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`.
         :param organization_id: Filter by Organization ID.
         :param project_id: Filter by Project ID.
         :param name: Filter by the namespace name (exact match).
@@ -116,11 +116,12 @@ class RegistryV1API(API):
         name: Optional[str] = None,
     ) -> List[Namespace]:
         """
-        List all your namespaces.
+        List namespaces.
+        List all namespaces in a specified region. By default, the namespaces listed are ordered by creation date in ascending order. This can be modified via the order_by field. You can also define additional parameters for your query, such as the `instance_id` and `project_id` parameters.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: A positive integer to choose the page to display.
         :param page_size: A positive integer lower or equal to 100 to select the number of items to display.
-        :param order_by: Field by which to order the display of Images.
+        :param order_by: Criteria to use when ordering namespace listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`.
         :param organization_id: Filter by Organization ID.
         :param project_id: Filter by Project ID.
         :param name: Filter by the namespace name (exact match).
@@ -155,9 +156,9 @@ class RegistryV1API(API):
     ) -> Namespace:
         """
         Get a namespace.
-        Get the namespace associated with the given id.
+        Retrieve information about a given namespace, specified by its `namespace_id` and region. Full details about the namespace, such as `description`, `project_id`, `status`, `endpoint`, `is_public`, `size`, and `image_count` are returned in the response.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param namespace_id: The unique ID of the Namespace.
+        :param namespace_id: The UUID of the namespace.
         :return: :class:`Namespace <Namespace>`
 
         Usage:
@@ -189,7 +190,7 @@ class RegistryV1API(API):
         """
         Waits for :class:`Namespace <Namespace>` to be in a final state.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param namespace_id: The unique ID of the Namespace.
+        :param namespace_id: The UUID of the namespace.
         :param options: The options for the waiter
         :return: :class:`Namespace <Namespace>`
 
@@ -225,17 +226,18 @@ class RegistryV1API(API):
         project_id: Optional[str] = None,
     ) -> Namespace:
         """
-        Create a new namespace.
+        Create a namespace.
+        Create a new Container Registry namespace. You must specify the namespace name and region in which you want it to be created. Optionally, you can specify the `project_id` and `is_public` in the request payload.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param name: Define a namespace name.
-        :param description: Define a description.
-        :param organization_id: Assign the namespace owner (deprecated).
+        :param name: Name of the namespace.
+        :param description: Description of the namespace.
+        :param organization_id: Namespace owner (deprecated).
 
         One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
-        :param project_id: Assign the namespace to a project ID.
+        :param project_id: Project ID on which the namespace will be created.
 
         One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
-        :param is_public: Define the default visibility policy.
+        :param is_public: Whether or not namespace is public.
         :return: :class:`Namespace <Namespace>`
 
         Usage:
@@ -279,12 +281,12 @@ class RegistryV1API(API):
         is_public: Optional[bool] = None,
     ) -> Namespace:
         """
-        Update an existing namespace.
-        Update the namespace associated with the given id.
+        Update a namespace.
+        Update the parameters of a given namespace, specified by its `namespace_id` and `region`. You can update the `description` and `is_public` parameters.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param namespace_id: Namespace ID to update.
-        :param description: Define a description.
-        :param is_public: Define the default visibility policy.
+        :param namespace_id: ID of the namespace to update.
+        :param description: Namespace description.
+        :param is_public: Whether or not the namespace is public.
         :return: :class:`Namespace <Namespace>`
 
         Usage:
@@ -322,10 +324,10 @@ class RegistryV1API(API):
         region: Optional[Region] = None,
     ) -> Namespace:
         """
-        Delete an existing namespace.
-        Delete the namespace associated with the given id.
+        Delete a namespace.
+        Delete a given namespace. You must specify, in the endpoint, the `region` and `namespace_id` parameters of the namespace you want to delete.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param namespace_id: The unique ID of the Namespace.
+        :param namespace_id: The UUID of the namespace.
         :return: :class:`Namespace <Namespace>`
 
         Usage:
@@ -360,13 +362,14 @@ class RegistryV1API(API):
         project_id: Optional[str] = None,
     ) -> ListImagesResponse:
         """
-        List all your images.
+        List images.
+        List all images in a specified region. By default, the images listed are ordered by creation date in ascending order. This can be modified via the order_by field. You can also define additional parameters for your query, such as the `namespace_id` and `project_id` parameters.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: A positive integer to choose the page to display.
         :param page_size: A positive integer lower or equal to 100 to select the number of items to display.
-        :param order_by: Field by which to order the display of Images.
-        :param namespace_id: Filter by the Namespace ID.
-        :param name: Filter by the Image name (exact match).
+        :param order_by: Criteria to use when ordering image listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`.
+        :param namespace_id: Filter by the namespace ID.
+        :param name: Filter by the image name (exact match).
         :param organization_id: Filter by Organization ID.
         :param project_id: Filter by Project ID.
         :return: :class:`ListImagesResponse <ListImagesResponse>`
@@ -412,13 +415,14 @@ class RegistryV1API(API):
         project_id: Optional[str] = None,
     ) -> List[Image]:
         """
-        List all your images.
+        List images.
+        List all images in a specified region. By default, the images listed are ordered by creation date in ascending order. This can be modified via the order_by field. You can also define additional parameters for your query, such as the `namespace_id` and `project_id` parameters.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: A positive integer to choose the page to display.
         :param page_size: A positive integer lower or equal to 100 to select the number of items to display.
-        :param order_by: Field by which to order the display of Images.
-        :param namespace_id: Filter by the Namespace ID.
-        :param name: Filter by the Image name (exact match).
+        :param order_by: Criteria to use when ordering image listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`.
+        :param namespace_id: Filter by the namespace ID.
+        :param name: Filter by the image name (exact match).
         :param organization_id: Filter by Organization ID.
         :param project_id: Filter by Project ID.
         :return: :class:`List[ListImagesResponse] <List[ListImagesResponse]>`
@@ -452,10 +456,10 @@ class RegistryV1API(API):
         region: Optional[Region] = None,
     ) -> Image:
         """
-        Get a image.
-        Get the image associated with the given id.
+        Get an image.
+        Retrieve information about a given container image, specified by its `image_id` and region. Full details about the image, such as `name`, `namespace_id`, `status`, `visibility`, and `size` are returned in the response.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param image_id: The unique ID of the Image.
+        :param image_id: The UUID of the image.
         :return: :class:`Image <Image>`
 
         Usage:
@@ -487,7 +491,7 @@ class RegistryV1API(API):
         """
         Waits for :class:`Image <Image>` to be in a final state.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param image_id: The unique ID of the Image.
+        :param image_id: The UUID of the image.
         :param options: The options for the waiter
         :return: :class:`Image <Image>`
 
@@ -520,11 +524,11 @@ class RegistryV1API(API):
         region: Optional[Region] = None,
     ) -> Image:
         """
-        Update an existing image.
-        Update the image associated with the given id.
+        Update an image.
+        Update the parameters of a given image, specified by its `image_id` and `region`. You can update the `visibility` parameter.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param image_id: Image ID to update.
-        :param visibility: A `public` image is pullable from internet without authentication, opposed to a `private` image. `inherit` will use the namespace `is_public` parameter.
+        :param image_id: ID of the image to update.
+        :param visibility: Set to `public` to allow the image to be pulled without authentication. Else, set to  `private`. Set to `inherit` to keep the same visibility configuration as the namespace.
         :return: :class:`Image <Image>`
 
         Usage:
@@ -565,9 +569,9 @@ class RegistryV1API(API):
     ) -> Image:
         """
         Delete an image.
-        Delete the image associated with the given id.
+        Delete a given image. You must specify, in the endpoint, the `region` and `image_id` parameters of the image you want to delete.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param image_id: The unique ID of the Image.
+        :param image_id: The UUID of the image.
         :return: :class:`Image <Image>`
 
         Usage:
@@ -600,12 +604,13 @@ class RegistryV1API(API):
         name: Optional[str] = None,
     ) -> ListTagsResponse:
         """
-        List all your tags.
+        List tags.
+        List all tags for a given image, specified by region. By default, the tags listed are ordered by creation date in ascending order. This can be modified via the order_by field. You can also define additional parameters for your query, such as the `name`.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param image_id: The unique ID of the image.
+        :param image_id: The UUID of the image.
         :param page: A positive integer to choose the page to display.
         :param page_size: A positive integer lower or equal to 100 to select the number of items to display.
-        :param order_by: Field by which to order the display of Images.
+        :param order_by: Criteria to use when ordering tag listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`.
         :param name: Filter by the tag name (exact match).
         :return: :class:`ListTagsResponse <ListTagsResponse>`
 
@@ -645,12 +650,13 @@ class RegistryV1API(API):
         name: Optional[str] = None,
     ) -> List[Tag]:
         """
-        List all your tags.
+        List tags.
+        List all tags for a given image, specified by region. By default, the tags listed are ordered by creation date in ascending order. This can be modified via the order_by field. You can also define additional parameters for your query, such as the `name`.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param image_id: The unique ID of the image.
+        :param image_id: The UUID of the image.
         :param page: A positive integer to choose the page to display.
         :param page_size: A positive integer lower or equal to 100 to select the number of items to display.
-        :param order_by: Field by which to order the display of Images.
+        :param order_by: Criteria to use when ordering tag listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`.
         :param name: Filter by the tag name (exact match).
         :return: :class:`List[ListTagsResponse] <List[ListTagsResponse]>`
 
@@ -682,9 +688,9 @@ class RegistryV1API(API):
     ) -> Tag:
         """
         Get a tag.
-        Get the tag associated with the given id.
+        Retrieve information about a given image tag, specified by its `tag_id` and region. Full details about the tag, such as `name`, `image_id`, `status`, and `digest` are returned in the response.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param tag_id: The unique ID of the Tag.
+        :param tag_id: The UUID of the tag.
         :return: :class:`Tag <Tag>`
 
         Usage:
@@ -716,7 +722,7 @@ class RegistryV1API(API):
         """
         Waits for :class:`Tag <Tag>` to be in a final state.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param tag_id: The unique ID of the Tag.
+        :param tag_id: The UUID of the tag.
         :param options: The options for the waiter
         :return: :class:`Tag <Tag>`
 
@@ -750,9 +756,9 @@ class RegistryV1API(API):
     ) -> Tag:
         """
         Delete a tag.
-        Delete the tag associated with the given id.
+        Delete a given image tag. You must specify, in the endpoint, the `region` and `tag_id` parameters of the tag you want to delete.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param tag_id: The unique ID of the tag.
+        :param tag_id: The UUID of the tag.
         :param force: If two tags share the same digest the deletion will fail unless this parameter is set to true.
         :return: :class:`Tag <Tag>`
 
