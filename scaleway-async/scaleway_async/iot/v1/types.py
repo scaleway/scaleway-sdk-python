@@ -185,7 +185,7 @@ class CreateDeviceResponse:
 
     device: Optional[Device]
     """
-    Created device information.
+    Information related to the created device.
     """
 
     certificate: Optional[Certificate]
@@ -202,7 +202,7 @@ class CreateNetworkResponse:
 
     network: Optional[Network]
     """
-    Created network.
+    Information related to the created network.
     """
 
     secret: str
@@ -256,7 +256,7 @@ class Device:
 
     id: str
     """
-    Device ID, also used as MQTT Client ID or Username.
+    Device ID, also used as MQTT Client ID or username.
     """
 
     name: str
@@ -281,22 +281,22 @@ class Device:
 
     last_activity_at: Optional[datetime]
     """
-    Device last connection/activity date.
+    Last connection/activity date of a device.
     """
 
     is_connected: bool
     """
-    Whether the device is connected to the Hub or not.
+    Defines whether the device is connected to the Hub.
     """
 
     allow_insecure: bool
     """
-    Whether to allow device to connect without TLS mutual authentication.
+    Defines whether to allow the device to connect to the Hub without TLS mutual authentication.
     """
 
     allow_multiple_connections: bool
     """
-    Whether to allow multiple physical devices to connect with this device's credentials.
+    Defines whether to allow multiple physical devices to connect to the Hub with this device's credentials.
     """
 
     message_filters: Optional[DeviceMessageFilters]
@@ -306,18 +306,18 @@ class Device:
 
     has_custom_certificate: bool
     """
-    Whether the device was assigned a custom certificate.
-    Assigning a custom certificate allows a device to authenticate using that specific certificate without checking the hub's CA certificate.
+    Defines whether the device was assigned a custom certificate.
+    Assigning a custom certificate allows a device to authenticate using that specific certificate without checking the Hub's CA certificate.
     """
 
     created_at: Optional[datetime]
     """
-    Device add date.
+    Date at which the device was added.
     """
 
     updated_at: Optional[datetime]
     """
-    Device last modification date.
+    Date at which the device was last modified.
     """
 
 
@@ -347,8 +347,8 @@ class DeviceMessageFiltersRule:
     policy: DeviceMessageFiltersRulePolicy
     """
     How to use the topic list.
-    If accept, the set will accept all topics in the topics list, but no other.
-    If reject, the set will deny all topics in the topics list, but all others will be allowed.
+    If set to `accept`, all topics in the topics list will be allowed, with all other topics being denied.
+    If set to `reject`, all topics in the topics list will be denied, with all other topics being allowed.
     """
 
     topics: Optional[List[str]]
@@ -365,7 +365,7 @@ class GetDeviceCertificateResponse:
 
     device: Optional[Device]
     """
-    Created device information.
+    Information related to the created device.
     """
 
     certificate_pem: str
@@ -399,7 +399,7 @@ class GetHubMetricsResponse:
 
     metrics: List[TimeSeries]
     """
-    Metrics for a hub over the requested period.
+    Metrics for a Hub over the requested period.
     """
 
 
@@ -431,7 +431,7 @@ class Hub:
 
     enabled: bool
     """
-    Whether the hub has been enabled.
+    Defines whether the hub has been enabled.
     """
 
     device_count: int
@@ -447,12 +447,12 @@ class Hub:
     endpoint: str
     """
     Host to connect your devices to.
-    Devices should be connected to this host, port may be 1883 (MQTT), 8883 (MQTT over TLS), 80 (MQTT over Websocket) or 443 (MQTT over Websocket over TLS).
+    Devices should be connected to this host. Port may be 1883 (MQTT), 8883 (MQTT over TLS), 80 (MQTT over Websocket) or 443 (MQTT over Websocket over TLS).
     """
 
     disable_events: bool
     """
-    Disable Hub events.
+    Defines whether to disable Hub events.
     """
 
     events_topic_prefix: str
@@ -487,14 +487,14 @@ class Hub:
 
     enable_device_auto_provisioning: bool
     """
-    Enable device auto provisioning.
-    When an unknown device connects to your hub using a valid certificate chain, it will be automatically provisioned inside your hub. The hub uses the common name of the device certifcate to find out if a device with the same name already exists. This setting can only be enabled on a hub with a custom certificate authority.
+    Defines whether to enable device auto provisioning.
+    When an unknown device connects to your hub using a valid certificate chain, it will be automatically provisioned inside your Hub. The Hub uses the common name of the device certifcate to find out if a device with the same name already exists. This setting can only be enabled on a hub with a custom certificate authority.
     """
 
     has_custom_ca: bool
     """
-    Whether the hub is using a custom certificate authority.
-    After creating a hub, this flag is set to False as the hub certificates are managed by Scaleway. Once a custom certificate authority is installed, this flag will be set to true.
+    Defines whether the hub is using a custom certificate authority.
+    Flag is automatically set to `false` after Hub creation, as Hub certificates are managed by Scaleway. Once a custom certificate authority is set, the flag will be set to `true`.
     """
 
     twins_graphite_config: Optional[HubTwinsGraphiteConfig]
@@ -523,7 +523,7 @@ class ListDevicesResponse:
 
     devices: List[Device]
     """
-    A page of devices.
+    Page of devices.
     """
 
 
@@ -535,7 +535,7 @@ class ListHubsResponse:
 
     total_count: int
     """
-    Total number of hubs.
+    Total number of Hubs.
     """
 
     hubs: List[Hub]
@@ -557,7 +557,7 @@ class ListNetworksResponse:
 
     networks: List[Network]
     """
-    A page of networks.
+    Page of networks.
     """
 
 
@@ -574,7 +574,7 @@ class ListRoutesResponse:
 
     routes: List[RouteSummary]
     """
-    A page of routes.
+    Page of routes.
     """
 
 
@@ -586,7 +586,7 @@ class ListTwinDocumentsResponse:
 
     documents: List[ListTwinDocumentsResponseDocumentSummary]
     """
-    Twin's document list.
+    List of the twin document.
     """
 
 
@@ -598,7 +598,7 @@ class ListTwinDocumentsResponseDocumentSummary:
 
     document_name: str
     """
-    Document's name.
+    Name of the document.
     """
 
 
@@ -635,7 +635,7 @@ class Network:
 
     created_at: Optional[datetime]
     """
-    Network creation date.
+    Date at which the network was created.
     """
 
     topic_prefix: str
@@ -653,7 +653,7 @@ class RenewDeviceCertificateResponse:
 
     device: Optional[Device]
     """
-    Created device information.
+    Information related to the created device.
     """
 
     certificate: Optional[Certificate]
@@ -680,7 +680,7 @@ class Route:
 
     hub_id: str
     """
-    ID of the route's hub.
+    Hub ID of the route.
     """
 
     topic: str
@@ -695,7 +695,7 @@ class Route:
 
     created_at: Optional[datetime]
     """
-    Route creation date.
+    Date at which the route was created.
     """
 
     s3_config: Optional[RouteS3Config]
@@ -721,7 +721,7 @@ class Route:
 
     updated_at: Optional[datetime]
     """
-    Route last update date.
+    Date at which the route was last updated.
     """
 
 
@@ -733,7 +733,7 @@ class RouteDatabaseConfig:
 
     engine: RouteDatabaseConfigEngine
     """
-    Database engine the route will connect to. If not specified, will default to 'PostgreSQL'.
+    Database engine the route will connect to. If not specified, the default database will be 'PostgreSQL'.
     """
 
     host: str
@@ -775,7 +775,7 @@ class RouteRestConfig:
 
     verb: RouteRestConfigHttpVerb
     """
-    HTTP Verb used to call REST URI.
+    HTTP verb used to call REST URI.
     """
 
     uri: str
@@ -797,12 +797,12 @@ class RouteS3Config:
 
     bucket_region: str
     """
-    Region of the S3 route's destination bucket (eg 'fr-par').
+    Region of the S3 route's destination bucket (e.g., 'fr-par').
     """
 
     bucket_name: str
     """
-    Name of the S3 route's destination bucket.
+    Destination bucket name of the S3 route.
     """
 
     object_prefix: str
@@ -834,7 +834,7 @@ class RouteSummary:
 
     hub_id: str
     """
-    ID of the route's hub.
+    Hub ID of the route.
     """
 
     topic: str
@@ -849,12 +849,12 @@ class RouteSummary:
 
     created_at: Optional[datetime]
     """
-    Route creation date.
+    Date at which the route was created.
     """
 
     updated_at: Optional[datetime]
     """
-    Route last update date.
+    Date at which the route was last updated.
     """
 
 
@@ -873,22 +873,22 @@ class TwinDocument:
 
     twin_id: str
     """
-    Document's parent twin ID.
+    Parent twin ID of the document.
     """
 
     document_name: str
     """
-    Document's name.
+    Name of the document.
     """
 
     version: int
     """
-    Document's new version.
+    New version of the document.
     """
 
     data: Optional[Dict[str, Any]]
     """
-    Document's new data.
+    New data related to the document.
     """
 
 
@@ -938,32 +938,32 @@ class ListHubsRequest:
 
     page: Optional[int]
     """
-    Page number.
+    Page number to return, from the paginated results.
     """
 
     page_size: Optional[int]
     """
-    Page size. The maximum value is 100.
+    Number of Hubs to return within a page. Maximum value is 100.
     """
 
     order_by: Optional[ListHubsRequestOrderBy]
     """
-    Ordering of requested hub.
+    Sort order of Hubs in the response.
     """
 
     project_id: Optional[str]
     """
-    Filter on project.
+    Only list Hubs of this Project ID.
     """
 
     organization_id: Optional[str]
     """
-    Filter on the organization.
+    Only list Hubs of this Organization ID.
     """
 
     name: Optional[str]
     """
-    Filter on the name.
+    Hub name.
     """
 
 
@@ -981,12 +981,12 @@ class CreateHubRequest:
 
     project_id: Optional[str]
     """
-    Organization/project owning the resource.
+    Project/Organization ID to filter for, only Hubs from this Project/Organization will be returned.
     """
 
     product_plan: Optional[HubProductPlan]
     """
-    Hub feature set.
+    Hub product plan.
     """
 
     disable_events: Optional[bool]
@@ -996,7 +996,7 @@ class CreateHubRequest:
 
     events_topic_prefix: Optional[str]
     """
-    Hub events topic prefix (default '$SCW/events').
+    Topic prefix (default '$SCW/events') of Hub events.
     """
 
     twins_graphite_config: Optional[HubTwinsGraphiteConfig]
@@ -1029,7 +1029,7 @@ class UpdateHubRequest:
 
     hub_id: str
     """
-    Hub ID.
+    ID of the Hub you want to update.
     """
 
     name: Optional[str]
@@ -1039,7 +1039,7 @@ class UpdateHubRequest:
 
     product_plan: HubProductPlan
     """
-    Hub feature set.
+    Hub product plan.
     """
 
     disable_events: Optional[bool]
@@ -1049,7 +1049,7 @@ class UpdateHubRequest:
 
     events_topic_prefix: Optional[str]
     """
-    Hub events topic prefix.
+    Topic prefix of Hub events.
     """
 
     enable_device_auto_provisioning: Optional[bool]
@@ -1105,7 +1105,7 @@ class DeleteHubRequest:
 
     delete_devices: Optional[bool]
     """
-    Force deletion of devices added to this hub instead of rejecting operation.
+    Defines whether to force the deletion of devices added to this Hub or reject the operation.
     """
 
 
@@ -1123,7 +1123,7 @@ class GetHubMetricsRequest:
 
     start_date: datetime
     """
-    Start date used to compute the best scale for the returned metrics.
+    Start date used to compute the best scale for returned metrics.
     """
 
 
@@ -1141,13 +1141,13 @@ class SetHubCARequest:
 
     ca_cert_pem: str
     """
-    The CA's PEM-encoded certificate.
+    CA's PEM-encoded certificate.
     """
 
     challenge_cert_pem: str
     """
-    Proof of possession PEM-encoded certificate.
-    The challenge is a PEM-encoded certificate to prove the possession of the CA. It must be signed by the CA, and have a Common Name equal to the Hub ID.
+    Proof of possession of PEM-encoded certificate.
+    Challenge is a PEM-encoded certificate that acts as proof of possession of the CA. It must be signed by the CA, and have a Common Name equal to the Hub ID.
     """
 
 
@@ -1170,12 +1170,12 @@ class ListDevicesRequest:
 
     page: Optional[int]
     """
-    Page number.
+    Page number to return, from the paginated results.
     """
 
     page_size: Optional[int]
     """
-    Page size. The maximum value is 100.
+    Number of devices to return within a page. Maximum value is 100.
     """
 
     order_by: Optional[ListDevicesRequestOrderBy]
@@ -1185,17 +1185,17 @@ class ListDevicesRequest:
 
     name: Optional[str]
     """
-    Filter on the name.
+    Name to filter for, only devices with this name will be returned.
     """
 
     hub_id: Optional[str]
     """
-    Filter on the hub.
+    Hub ID to filter for, only devices attached to this Hub will be returned.
     """
 
     allow_insecure: Optional[bool]
     """
-    Filter on the allow_insecure flag.
+    Defines wheter to filter the allow_insecure flag.
     """
 
     status: Optional[DeviceStatus]
@@ -1218,17 +1218,17 @@ class CreateDeviceRequest:
 
     hub_id: str
     """
-    ID of the device's hub.
+    Hub ID of the device.
     """
 
     allow_insecure: bool
     """
-    Allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones.
+    Defines whether to allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones.
     """
 
     allow_multiple_connections: bool
     """
-    Allow multiple physical devices to connect with this device's credentials.
+    Defines whether to allow multiple physical devices to connect with this device's credentials.
     """
 
     message_filters: Optional[DeviceMessageFilters]
@@ -1269,17 +1269,17 @@ class UpdateDeviceRequest:
 
     description: Optional[str]
     """
-    Device description.
+    Description for the device.
     """
 
     allow_insecure: Optional[bool]
     """
-    Allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones.
+    Defines whether to allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones.
     """
 
     allow_multiple_connections: Optional[bool]
     """
-    Allow multiple physical devices to connect with this device's credentials.
+    Defines whether to allow multiple physical devices to connect with this device's credentials.
     """
 
     message_filters: Optional[DeviceMessageFilters]
@@ -1346,7 +1346,7 @@ class SetDeviceCertificateRequest:
 
     certificate_pem: str
     """
-    The PEM-encoded custom certificate.
+    PEM-encoded custom certificate.
     """
 
 
@@ -1403,12 +1403,12 @@ class ListRoutesRequest:
 
     page: Optional[int]
     """
-    Page number.
+    Page number to return, from the paginated results.
     """
 
     page_size: Optional[int]
     """
-    Page size. The maximum value is 100.
+    Number of routes to return within a page. Maximum value is 100.
     """
 
     order_by: Optional[ListRoutesRequestOrderBy]
@@ -1418,12 +1418,12 @@ class ListRoutesRequest:
 
     hub_id: Optional[str]
     """
-    Filter on the hub.
+    Hub ID to filter for.
     """
 
     name: Optional[str]
     """
-    Filter on route's name.
+    Route name to filter for.
     """
 
 
@@ -1441,7 +1441,7 @@ class CreateRouteRequest:
 
     hub_id: str
     """
-    ID of the route's hub.
+    Hub ID of the route.
     """
 
     topic: str
@@ -1550,12 +1550,12 @@ class ListNetworksRequest:
 
     page: Optional[int]
     """
-    Page number.
+    Page number to return, from the paginated results.
     """
 
     page_size: Optional[int]
     """
-    Page size. The maximum value is 100.
+    Number of networks to return. The maximum value is 100.
     """
 
     order_by: Optional[ListNetworksRequestOrderBy]
@@ -1565,17 +1565,17 @@ class ListNetworksRequest:
 
     name: Optional[str]
     """
-    Filter on Network name.
+    Network name to filter for.
     """
 
     hub_id: Optional[str]
     """
-    Filter on the hub.
+    Hub ID to filter for.
     """
 
     topic_prefix: Optional[str]
     """
-    Filter on the topic prefix.
+    Topic prefix to filter for.
     """
 
 
@@ -1647,7 +1647,7 @@ class GetTwinDocumentRequest:
 
     document_name: str
     """
-    Document name.
+    Name of the document.
     """
 
 
@@ -1665,19 +1665,19 @@ class PutTwinDocumentRequest:
 
     document_name: str
     """
-    Document name.
+    Name of the document.
     """
 
     version: Optional[int]
     """
-    The version of the document to update.
-    If set, ensures that the document's current version matches before persisting the update.
+    Version of the document to update.
+    If set, ensures that the current version of the document matches before persisting the update.
     """
 
     data: Optional[Dict[str, Any]]
     """
-    New document data.
-    The new data that will replace the contents of the document.
+    Data of the new document.
+    New data that will replace the contents of the document.
     """
 
 
@@ -1695,13 +1695,13 @@ class PatchTwinDocumentRequest:
 
     document_name: str
     """
-    Document name.
+    Name of the document.
     """
 
     version: Optional[int]
     """
     The version of the document to update.
-    If set, ensures that the document's current version matches before persisting the update.
+    If set, ensures that the current version of the document matches before persisting the update.
     """
 
     data: Optional[Dict[str, Any]]
@@ -1710,7 +1710,7 @@ class PatchTwinDocumentRequest:
     A json data that will be applied on the document's current data.
     Patching rules:
     * The patch goes recursively through the patch objects.
-    * If the patch object property is null, then it is removed from the final object.
+    * If the patch object property is null, it is removed from the final object.
     * If the patch object property is a value (number, strings, bool, arrays), it is replaced.
     * If the patch object property is an object, the previous rules will be applied recursively on it.
     """
@@ -1730,7 +1730,7 @@ class DeleteTwinDocumentRequest:
 
     document_name: str
     """
-    Document name.
+    Name of the document.
     """
 
 

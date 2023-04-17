@@ -119,13 +119,14 @@ class IotV1API(API):
     ) -> ListHubsResponse:
         """
         List hubs.
+        List all Hubs in the specified zone. By default, returned Hubs are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page: Page number.
-        :param page_size: Page size. The maximum value is 100.
-        :param order_by: Ordering of requested hub.
-        :param project_id: Filter on project.
-        :param organization_id: Filter on the organization.
-        :param name: Filter on the name.
+        :param page: Page number to return, from the paginated results.
+        :param page_size: Number of Hubs to return within a page. Maximum value is 100.
+        :param order_by: Sort order of Hubs in the response.
+        :param project_id: Only list Hubs of this Project ID.
+        :param organization_id: Only list Hubs of this Organization ID.
+        :param name: Hub name.
         :return: :class:`ListHubsResponse <ListHubsResponse>`
 
         Usage:
@@ -168,13 +169,14 @@ class IotV1API(API):
     ) -> List[Hub]:
         """
         List hubs.
+        List all Hubs in the specified zone. By default, returned Hubs are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page: Page number.
-        :param page_size: Page size. The maximum value is 100.
-        :param order_by: Ordering of requested hub.
-        :param project_id: Filter on project.
-        :param organization_id: Filter on the organization.
-        :param name: Filter on the name.
+        :param page: Page number to return, from the paginated results.
+        :param page_size: Number of Hubs to return within a page. Maximum value is 100.
+        :param order_by: Sort order of Hubs in the response.
+        :param project_id: Only list Hubs of this Project ID.
+        :param organization_id: Only list Hubs of this Organization ID.
+        :param name: Hub name.
         :return: :class:`List[ListHubsResponse] <List[ListHubsResponse]>`
 
         Usage:
@@ -211,12 +213,13 @@ class IotV1API(API):
     ) -> Hub:
         """
         Create a hub.
+        Create a new Hub in the targeted region, specifying its configuration including name and product plan.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Hub name (up to 255 characters).
-        :param project_id: Organization/project owning the resource.
-        :param product_plan: Hub feature set.
+        :param project_id: Project/Organization ID to filter for, only Hubs from this Project/Organization will be returned.
+        :param product_plan: Hub product plan.
         :param disable_events: Disable Hub events.
-        :param events_topic_prefix: Hub events topic prefix (default '$SCW/events').
+        :param events_topic_prefix: Topic prefix (default '$SCW/events') of Hub events.
         :param twins_graphite_config: BETA - not implemented yet.
 
         One-of ('twins_db_config'): at most one of 'twins_graphite_config' could be set.
@@ -260,6 +263,7 @@ class IotV1API(API):
     ) -> Hub:
         """
         Get a hub.
+        Retrieve information about an existing IoT Hub, specified by its Hub ID. Its full details, including name, status and endpoint, are returned in the response object.
         :param region: Region to target. If none is passed will use default region from the config.
         :param hub_id: Hub ID.
         :return: :class:`Hub <Hub>`
@@ -332,12 +336,13 @@ class IotV1API(API):
     ) -> Hub:
         """
         Update a hub.
+        Update the parameters of an existing IoT Hub, specified by its Hub ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param hub_id: Hub ID.
+        :param hub_id: ID of the Hub you want to update.
         :param name: Hub name (up to 255 characters).
-        :param product_plan: Hub feature set.
+        :param product_plan: Hub product plan.
         :param disable_events: Disable Hub events.
-        :param events_topic_prefix: Hub events topic prefix.
+        :param events_topic_prefix: Topic prefix of Hub events.
         :param enable_device_auto_provisioning: Enable device auto provisioning.
         :param twins_graphite_config: BETA - not implemented yet.
 
@@ -387,6 +392,7 @@ class IotV1API(API):
     ) -> Hub:
         """
         Enable a hub.
+        Enable an existing IoT Hub, specified by its Hub ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :param hub_id: Hub ID.
         :return: :class:`Hub <Hub>`
@@ -418,6 +424,7 @@ class IotV1API(API):
     ) -> Hub:
         """
         Disable a hub.
+        Disable an existing IoT Hub, specified by its Hub ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :param hub_id: Hub ID.
         :return: :class:`Hub <Hub>`
@@ -450,9 +457,10 @@ class IotV1API(API):
     ) -> Optional[None]:
         """
         Delete a hub.
+        Delete an existing IoT Hub, specified by its Hub ID. Deleting a Hub is permanent, and cannot be undone.
         :param region: Region to target. If none is passed will use default region from the config.
         :param hub_id: Hub ID.
-        :param delete_devices: Force deletion of devices added to this hub instead of rejecting operation.
+        :param delete_devices: Defines whether to force the deletion of devices added to this Hub or reject the operation.
 
         Usage:
         ::
@@ -487,7 +495,7 @@ class IotV1API(API):
         Get a hub's metrics.
         :param region: Region to target. If none is passed will use default region from the config.
         :param hub_id: Hub ID.
-        :param start_date: Start date used to compute the best scale for the returned metrics.
+        :param start_date: Start date used to compute the best scale for returned metrics.
         :return: :class:`GetHubMetricsResponse <GetHubMetricsResponse>`
         :deprecated
 
@@ -526,11 +534,12 @@ class IotV1API(API):
     ) -> Hub:
         """
         Set the certificate authority of a hub.
+        Set a particular PEM-encoded certificate, specified by the Hub ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :param hub_id: Hub ID.
-        :param ca_cert_pem: The CA's PEM-encoded certificate.
-        :param challenge_cert_pem: Proof of possession PEM-encoded certificate.
-        The challenge is a PEM-encoded certificate to prove the possession of the CA. It must be signed by the CA, and have a Common Name equal to the Hub ID.
+        :param ca_cert_pem: CA's PEM-encoded certificate.
+        :param challenge_cert_pem: Proof of possession of PEM-encoded certificate.
+        Challenge is a PEM-encoded certificate that acts as proof of possession of the CA. It must be signed by the CA, and have a Common Name equal to the Hub ID.
         :return: :class:`Hub <Hub>`
 
         Usage:
@@ -573,6 +582,7 @@ class IotV1API(API):
     ) -> GetHubCAResponse:
         """
         Get the certificate authority of a hub.
+        Get information for a particular PEM-encoded certificate, specified by the Hub ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :param hub_id:
         :return: :class:`GetHubCAResponse <GetHubCAResponse>`
@@ -610,13 +620,14 @@ class IotV1API(API):
     ) -> ListDevicesResponse:
         """
         List devices.
+        List all devices in the specified region. By default, returned devices are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page: Page number.
-        :param page_size: Page size. The maximum value is 100.
+        :param page: Page number to return, from the paginated results.
+        :param page_size: Number of devices to return within a page. Maximum value is 100.
         :param order_by: Ordering of requested devices.
-        :param name: Filter on the name.
-        :param hub_id: Filter on the hub.
-        :param allow_insecure: Filter on the allow_insecure flag.
+        :param name: Name to filter for, only devices with this name will be returned.
+        :param hub_id: Hub ID to filter for, only devices attached to this Hub will be returned.
+        :param allow_insecure: Defines wheter to filter the allow_insecure flag.
         :param status: Device status (enabled, disabled, etc.).
         :return: :class:`ListDevicesResponse <ListDevicesResponse>`
 
@@ -661,13 +672,14 @@ class IotV1API(API):
     ) -> List[Device]:
         """
         List devices.
+        List all devices in the specified region. By default, returned devices are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page: Page number.
-        :param page_size: Page size. The maximum value is 100.
+        :param page: Page number to return, from the paginated results.
+        :param page_size: Number of devices to return within a page. Maximum value is 100.
         :param order_by: Ordering of requested devices.
-        :param name: Filter on the name.
-        :param hub_id: Filter on the hub.
-        :param allow_insecure: Filter on the allow_insecure flag.
+        :param name: Name to filter for, only devices with this name will be returned.
+        :param hub_id: Hub ID to filter for, only devices attached to this Hub will be returned.
+        :param allow_insecure: Defines wheter to filter the allow_insecure flag.
         :param status: Device status (enabled, disabled, etc.).
         :return: :class:`List[ListDevicesResponse] <List[ListDevicesResponse]>`
 
@@ -706,11 +718,12 @@ class IotV1API(API):
     ) -> CreateDeviceResponse:
         """
         Add a device.
+        Attach a device to a given Hub.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Device name.
-        :param hub_id: ID of the device's hub.
-        :param allow_insecure: Allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones.
-        :param allow_multiple_connections: Allow multiple physical devices to connect with this device's credentials.
+        :param hub_id: Hub ID of the device.
+        :param allow_insecure: Defines whether to allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones.
+        :param allow_multiple_connections: Defines whether to allow multiple physical devices to connect with this device's credentials.
         :param message_filters: Filter-sets to authorize or deny the device to publish/subscribe to specific topics.
         :param description: Device description.
         :return: :class:`CreateDeviceResponse <CreateDeviceResponse>`
@@ -757,6 +770,7 @@ class IotV1API(API):
     ) -> Device:
         """
         Get a device.
+        Retrieve information about an existing device, specified by its device ID. Its full details, including name, status and ID, are returned in the response object.
         :param region: Region to target. If none is passed will use default region from the config.
         :param device_id: Device ID.
         :return: :class:`Device <Device>`
@@ -793,11 +807,12 @@ class IotV1API(API):
     ) -> Device:
         """
         Update a device.
+        Update the parameters of an existing device, specified by its device ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :param device_id: Device ID.
-        :param description: Device description.
-        :param allow_insecure: Allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones.
-        :param allow_multiple_connections: Allow multiple physical devices to connect with this device's credentials.
+        :param description: Description for the device.
+        :param allow_insecure: Defines whether to allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones.
+        :param allow_multiple_connections: Defines whether to allow multiple physical devices to connect with this device's credentials.
         :param message_filters: Filter-sets to restrict the topics the device can publish/subscribe to.
         :param hub_id: Change Hub for this device, additional fees may apply, see IoT Hub pricing.
         :return: :class:`Device <Device>`
@@ -841,6 +856,7 @@ class IotV1API(API):
     ) -> Device:
         """
         Enable a device.
+        Enable a specific device, specified by its device ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :param device_id: Device ID.
         :return: :class:`Device <Device>`
@@ -872,6 +888,7 @@ class IotV1API(API):
     ) -> Device:
         """
         Disable a device.
+        Disable an existing device, specified by its device ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :param device_id: Device ID.
         :return: :class:`Device <Device>`
@@ -903,6 +920,7 @@ class IotV1API(API):
     ) -> RenewDeviceCertificateResponse:
         """
         Renew a device certificate.
+        Renew the certificate of an existing device, specified by its device ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :param device_id: Device ID.
         :return: :class:`RenewDeviceCertificateResponse <RenewDeviceCertificateResponse>`
@@ -935,9 +953,10 @@ class IotV1API(API):
     ) -> SetDeviceCertificateResponse:
         """
         Set a custom certificate on a device.
+        Switch the existing certificate of a given device with an EM-encoded custom certificate.
         :param region: Region to target. If none is passed will use default region from the config.
         :param device_id: Device ID.
-        :param certificate_pem: The PEM-encoded custom certificate.
+        :param certificate_pem: PEM-encoded custom certificate.
         :return: :class:`SetDeviceCertificateResponse <SetDeviceCertificateResponse>`
 
         Usage:
@@ -978,6 +997,7 @@ class IotV1API(API):
     ) -> GetDeviceCertificateResponse:
         """
         Get a device's certificate.
+        Get information for a particular PEM-encoded certificate, specified by the device ID. The response returns full details of the device, including its type of certificate.
         :param region: Region to target. If none is passed will use default region from the config.
         :param device_id: Device ID.
         :return: :class:`GetDeviceCertificateResponse <GetDeviceCertificateResponse>`
@@ -1009,6 +1029,7 @@ class IotV1API(API):
     ) -> Optional[None]:
         """
         Remove a device.
+        Remove a specific device from the specific Hub it is attached to.
         :param region: Region to target. If none is passed will use default region from the config.
         :param device_id: Device ID.
 
@@ -1083,12 +1104,13 @@ class IotV1API(API):
     ) -> ListRoutesResponse:
         """
         List routes.
+        List all routes in the specified region. By default, returned routes are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page: Page number.
-        :param page_size: Page size. The maximum value is 100.
+        :param page: Page number to return, from the paginated results.
+        :param page_size: Number of routes to return within a page. Maximum value is 100.
         :param order_by: Ordering of requested routes.
-        :param hub_id: Filter on the hub.
-        :param name: Filter on route's name.
+        :param hub_id: Hub ID to filter for.
+        :param name: Route name to filter for.
         :return: :class:`ListRoutesResponse <ListRoutesResponse>`
 
         Usage:
@@ -1128,12 +1150,13 @@ class IotV1API(API):
     ) -> List[RouteSummary]:
         """
         List routes.
+        List all routes in the specified region. By default, returned routes are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page: Page number.
-        :param page_size: Page size. The maximum value is 100.
+        :param page: Page number to return, from the paginated results.
+        :param page_size: Number of routes to return within a page. Maximum value is 100.
         :param order_by: Ordering of requested routes.
-        :param hub_id: Filter on the hub.
-        :param name: Filter on route's name.
+        :param hub_id: Hub ID to filter for.
+        :param name: Route name to filter for.
         :return: :class:`List[ListRoutesResponse] <List[ListRoutesResponse]>`
 
         Usage:
@@ -1169,19 +1192,19 @@ class IotV1API(API):
     ) -> Route:
         """
         Create a route.
-        Multiple route kinds can be created:
-        - Database Route.
+        Multiple kinds of routes can be created, such as:
+        - Database Route
           Create a route that will record subscribed MQTT messages into your database.
           <b>You need to manage the database by yourself</b>.
         - REST Route.
           Create a route that will call a REST API on received subscribed MQTT messages.
         - S3 Routes.
           Create a route that will put subscribed MQTT messages into an S3 bucket.
-          You need to create the bucket yourself and grant us write access.
-          The grant can be done with s3cmd (`s3cmd setacl s3://<my-bucket> --acl-grant=write:555c69c3-87d0-4bf8-80f1-99a2f757d031:555c69c3-87d0-4bf8-80f1-99a2f757d031`).
+          You need to create the bucket yourself and grant write access.
+          Granting can be done with s3cmd (`s3cmd setacl s3://<my-bucket> --acl-grant=write:555c69c3-87d0-4bf8-80f1-99a2f757d031:555c69c3-87d0-4bf8-80f1-99a2f757d031`).
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Route name.
-        :param hub_id: ID of the route's hub.
+        :param hub_id: Hub ID of the route.
         :param topic: Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters.
         :param s3_config: If creating S3 Route, S3-specific configuration fields.
 
@@ -1240,6 +1263,7 @@ class IotV1API(API):
     ) -> Route:
         """
         Update a route.
+        Update the parameters of an existing route, specified by its route ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :param route_id: Route id.
         :param name: Route name.
@@ -1294,6 +1318,7 @@ class IotV1API(API):
     ) -> Route:
         """
         Get a route.
+        Get information for a particular route, specified by the route ID. The response returns full details of the route, including its type, the topic it subscribes to and its configuration.
         :param region: Region to target. If none is passed will use default region from the config.
         :param route_id: Route ID.
         :return: :class:`Route <Route>`
@@ -1325,6 +1350,7 @@ class IotV1API(API):
     ) -> Optional[None]:
         """
         Delete a route.
+        Delete an existing route, specified by its route ID. Deleting a route is permanent, and cannot be undone.
         :param region: Region to target. If none is passed will use default region from the config.
         :param route_id: Route ID.
 
@@ -1361,12 +1387,12 @@ class IotV1API(API):
         """
         List the Networks.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page: Page number.
-        :param page_size: Page size. The maximum value is 100.
+        :param page: Page number to return, from the paginated results.
+        :param page_size: Number of networks to return. The maximum value is 100.
         :param order_by: Ordering of requested routes.
-        :param name: Filter on Network name.
-        :param hub_id: Filter on the hub.
-        :param topic_prefix: Filter on the topic prefix.
+        :param name: Network name to filter for.
+        :param hub_id: Hub ID to filter for.
+        :param topic_prefix: Topic prefix to filter for.
         :return: :class:`ListNetworksResponse <ListNetworksResponse>`
 
         Usage:
@@ -1409,12 +1435,12 @@ class IotV1API(API):
         """
         List the Networks.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page: Page number.
-        :param page_size: Page size. The maximum value is 100.
+        :param page: Page number to return, from the paginated results.
+        :param page_size: Number of networks to return. The maximum value is 100.
         :param order_by: Ordering of requested routes.
-        :param name: Filter on Network name.
-        :param hub_id: Filter on the hub.
-        :param topic_prefix: Filter on the topic prefix.
+        :param name: Network name to filter for.
+        :param hub_id: Hub ID to filter for.
+        :param topic_prefix: Topic prefix to filter for.
         :return: :class:`List[ListNetworksResponse] <List[ListNetworksResponse]>`
 
         Usage:
@@ -1559,7 +1585,7 @@ class IotV1API(API):
         BETA - Get a Cloud Twin Document.
         :param region: Region to target. If none is passed will use default region from the config.
         :param twin_id: Twin ID.
-        :param document_name: Document name.
+        :param document_name: Name of the document.
         :return: :class:`TwinDocument <TwinDocument>`
 
         Usage:
@@ -1598,11 +1624,11 @@ class IotV1API(API):
         BETA - Update a Cloud Twin Document.
         :param region: Region to target. If none is passed will use default region from the config.
         :param twin_id: Twin ID.
-        :param document_name: Document name.
-        :param version: The version of the document to update.
-        If set, ensures that the document's current version matches before persisting the update.
-        :param data: New document data.
-        The new data that will replace the contents of the document.
+        :param document_name: Name of the document.
+        :param version: Version of the document to update.
+        If set, ensures that the current version of the document matches before persisting the update.
+        :param data: Data of the new document.
+        New data that will replace the contents of the document.
         :return: :class:`TwinDocument <TwinDocument>`
 
         Usage:
@@ -1651,14 +1677,14 @@ class IotV1API(API):
         BETA - Patch a Cloud Twin Document.
         :param region: Region to target. If none is passed will use default region from the config.
         :param twin_id: Twin ID.
-        :param document_name: Document name.
+        :param document_name: Name of the document.
         :param version: The version of the document to update.
-        If set, ensures that the document's current version matches before persisting the update.
+        If set, ensures that the current version of the document matches before persisting the update.
         :param data: Patch data.
         A json data that will be applied on the document's current data.
         Patching rules:
         * The patch goes recursively through the patch objects.
-        * If the patch object property is null, then it is removed from the final object.
+        * If the patch object property is null, it is removed from the final object.
         * If the patch object property is a value (number, strings, bool, arrays), it is replaced.
         * If the patch object property is an object, the previous rules will be applied recursively on it.
         :return: :class:`TwinDocument <TwinDocument>`
@@ -1707,7 +1733,7 @@ class IotV1API(API):
         BETA - Delete a Cloud Twin Document.
         :param region: Region to target. If none is passed will use default region from the config.
         :param twin_id: Twin ID.
-        :param document_name: Document name.
+        :param document_name: Name of the document.
 
         Usage:
         ::
