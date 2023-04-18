@@ -419,6 +419,7 @@ def marshal_CreateContainerRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
+        "cpu_limit": request.cpu_limit,
         "description": request.description,
         "environment_variables": request.environment_variables,
         "http_option": ContainerHttpOption(request.http_option),
@@ -507,6 +508,7 @@ def marshal_UpdateContainerRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
+        "cpu_limit": request.cpu_limit,
         "description": request.description,
         "environment_variables": request.environment_variables,
         "http_option": ContainerHttpOption(request.http_option),

@@ -558,6 +558,7 @@ class ContainerV1Beta1API(API):
         min_scale: Optional[int] = None,
         max_scale: Optional[int] = None,
         memory_limit: Optional[int] = None,
+        cpu_limit: Optional[int] = None,
         timeout: Optional[str] = None,
         description: Optional[str] = None,
         registry_image: Optional[str] = None,
@@ -575,6 +576,7 @@ class ContainerV1Beta1API(API):
         :param min_scale: Minimum number of instances to scale the container to.
         :param max_scale: Maximum number of instances to scale the container to.
         :param memory_limit: Memory limit of the container in MB.
+        :param cpu_limit: CPU limit of the container in mvCPU.
         :param timeout: Processing time limit for the container.
         :param privacy: Privacy setting of the container.
         :param description: Description of the container.
@@ -620,6 +622,7 @@ class ContainerV1Beta1API(API):
                     min_scale=min_scale,
                     max_scale=max_scale,
                     memory_limit=memory_limit,
+                    cpu_limit=cpu_limit,
                     timeout=timeout,
                     description=description,
                     registry_image=registry_image,
@@ -646,6 +649,7 @@ class ContainerV1Beta1API(API):
         min_scale: Optional[int] = None,
         max_scale: Optional[int] = None,
         memory_limit: Optional[int] = None,
+        cpu_limit: Optional[int] = None,
         timeout: Optional[str] = None,
         redeploy: Optional[bool] = None,
         description: Optional[str] = None,
@@ -663,6 +667,7 @@ class ContainerV1Beta1API(API):
         :param min_scale: Minimum number of instances to scale the container to.
         :param max_scale: Maximum number of instances to scale the container to.
         :param memory_limit: Memory limit of the container in MB.
+        :param cpu_limit: CPU limit of the container in mvCPU.
         :param timeout: Processing time limit for the container.
         :param redeploy: Defines whether to redeploy failed containers.
         :param privacy: Privacy settings of the container.
@@ -708,6 +713,7 @@ class ContainerV1Beta1API(API):
                     min_scale=min_scale,
                     max_scale=max_scale,
                     memory_limit=memory_limit,
+                    cpu_limit=cpu_limit,
                     timeout=timeout,
                     redeploy=redeploy,
                     description=description,
