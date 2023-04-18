@@ -396,8 +396,6 @@ class CreateCredentialRequest:
     permissions: Optional[Permissions]
     """
     Permissions associated with these credentials.
-    
-    One-of ('optional_permissions'): at most one of 'permissions' could be set.
     """
 
 
@@ -462,8 +460,6 @@ class UpdateCredentialRequest:
     permissions: Optional[Permissions]
     """
     Permissions associated with these credentials.
-    
-    One-of ('optional_permissions'): at most one of 'permissions' could be set.
     """
 
 

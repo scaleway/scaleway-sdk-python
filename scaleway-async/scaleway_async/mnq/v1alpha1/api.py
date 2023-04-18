@@ -298,8 +298,6 @@ class MnqV1Alpha1API(API):
         :param namespace_id: Namespace containing the credentials.
         :param name: Name of the credentials.
         :param permissions: Permissions associated with these credentials.
-
-        One-of ('optional_permissions'): at most one of 'permissions' could be set.
         :return: :class:`Credential <Credential>`
 
         Usage:
@@ -456,8 +454,6 @@ class MnqV1Alpha1API(API):
         :param credential_id: ID of the credentials to update.
         :param name: Name of the credentials.
         :param permissions: Permissions associated with these credentials.
-
-        One-of ('optional_permissions'): at most one of 'permissions' could be set.
         :return: :class:`Credential <Credential>`
 
         Usage:

@@ -4,10 +4,6 @@
 from typing import Any, Dict
 
 from scaleway_core.profile import ProfileDefaults
-from scaleway_core.utils import (
-    OneOfPossibility,
-    resolve_one_of,
-)
 from dateutil import parser
 from .types import (
     NamespaceProtocol,
@@ -244,18 +240,11 @@ def marshal_CreateCredentialRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "permissions",
-                    marshal_Permissions(request.permissions, defaults)
-                    if request.permissions is not None
-                    else None,
-                ),
-            ]
-        ),
         "name": request.name,
         "namespace_id": request.namespace_id,
+        "permissions": marshal_Permissions(request.permissions, defaults)
+        if request.permissions is not None
+        else None,
     }
 
 
@@ -277,17 +266,10 @@ def marshal_UpdateCredentialRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
-        **resolve_one_of(
-            [
-                OneOfPossibility(
-                    "permissions",
-                    marshal_Permissions(request.permissions, defaults)
-                    if request.permissions is not None
-                    else None,
-                ),
-            ]
-        ),
         "name": request.name,
+        "permissions": marshal_Permissions(request.permissions, defaults)
+        if request.permissions is not None
+        else None,
     }
 
 
