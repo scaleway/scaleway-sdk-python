@@ -220,7 +220,7 @@ class Container:
 
     cpu_limit: int
     """
-    CPU limit of the container.
+    CPU limit of the container in mvCPU.
     """
 
     timeout: Optional[str]
@@ -826,6 +826,11 @@ class CreateContainerRequest:
     Memory limit of the container in MB.
     """
 
+    cpu_limit: Optional[int]
+    """
+    CPU limit of the container in mvCPU.
+    """
+
     timeout: Optional[str]
     """
     Processing time limit for the container.
@@ -905,6 +910,11 @@ class UpdateContainerRequest:
     memory_limit: Optional[int]
     """
     Memory limit of the container in MB.
+    """
+
+    cpu_limit: Optional[int]
+    """
+    CPU limit of the container in mvCPU.
     """
 
     timeout: Optional[str]
