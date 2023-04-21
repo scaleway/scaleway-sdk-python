@@ -106,7 +106,7 @@ class RedisV1API(API):
         Create a Redis™ Database Instance.
         Create a new Redis™ Database Instance (Redis™ cluster). You must set the `zone`, `project_id`, `version`, `node_type`, `user_name` and `password` parameters. Optionally you can define `acl_rules`, `endpoints`, `tls_enabled` and `cluster_settings`.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param project_id: The Project ID in which to create the Database Instance.
+        :param project_id: Project ID in which to create the Database Instance.
         :param name: Name of the Database Instance.
         :param version: Redis™ engine version of the Database Instance.
         :param tags: Tags to apply to the Database Instance.
@@ -117,7 +117,7 @@ class RedisV1API(API):
         :param acl_rules: List of ACLRuleSpec used to secure your publicly exposed cluster.
         :param endpoints: Zero or multiple EndpointSpec used to expose your cluster publicly and inside Private Networks.
         Zero or multiple EndpointSpec used to expose your cluster publicly and inside private networks. If no EndpoindSpec is given the cluster will be publicly exposed by default.
-        :param tls_enabled: Whether or not TLS is enabled.
+        :param tls_enabled: Defines whether or not TLS is enabled.
         :param cluster_settings: List of advanced settings to be set upon Database Instance initialization.
         :return: :class:`Cluster <Cluster>`
 
@@ -514,7 +514,7 @@ class RedisV1API(API):
         List available node types.
         List all available node types. By default, the node types returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param include_disabled_types: Whether or not to include disabled types.
+        :param include_disabled_types: Defines whether or not to include disabled types.
         :param page:
         :param page_size:
         :return: :class:`ListNodeTypesResponse <ListNodeTypesResponse>`
@@ -552,7 +552,7 @@ class RedisV1API(API):
         List available node types.
         List all available node types. By default, the node types returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param include_disabled_types: Whether or not to include disabled types.
+        :param include_disabled_types: Defines whether or not to include disabled types.
         :param page:
         :param page_size:
         :return: :class:`List[ListNodeTypesResponse] <List[ListNodeTypesResponse]>`
@@ -590,9 +590,9 @@ class RedisV1API(API):
         List available Redis™ versions.
         List the Redis™ database engine versions available. You can define additional parameters for your query, such as `include_disabled`, `include_beta`, `include_deprecated` and `version`.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param include_disabled: Whether or not to include disabled Redis™ engine versions.
-        :param include_beta: Whether or not to include beta Redis™ engine versions.
-        :param include_deprecated: Whether or not to include deprecated Redis™ engine versions.
+        :param include_disabled: Defines whether or not to include disabled Redis™ engine versions.
+        :param include_beta: Defines whether or not to include beta Redis™ engine versions.
+        :param include_deprecated: Defines whether or not to include deprecated Redis™ engine versions.
         :param version: List Redis™ engine versions that match a given name pattern.
         :param page:
         :param page_size:
@@ -641,9 +641,9 @@ class RedisV1API(API):
         List available Redis™ versions.
         List the Redis™ database engine versions available. You can define additional parameters for your query, such as `include_disabled`, `include_beta`, `include_deprecated` and `version`.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param include_disabled: Whether or not to include disabled Redis™ engine versions.
-        :param include_beta: Whether or not to include beta Redis™ engine versions.
-        :param include_deprecated: Whether or not to include deprecated Redis™ engine versions.
+        :param include_disabled: Defines whether or not to include disabled Redis™ engine versions.
+        :param include_beta: Defines whether or not to include beta Redis™ engine versions.
+        :param include_deprecated: Defines whether or not to include deprecated Redis™ engine versions.
         :param version: List Redis™ engine versions that match a given name pattern.
         :param page:
         :param page_size:
