@@ -100,10 +100,10 @@ from .marshalling import (
 
 class IotV1API(API):
     """
-    IoT API.
+    IoT Hub API.
 
     This API allows you to manage IoT hubs and devices.
-    IoT API.
+    IoT Hub API.
     """
 
     def list_hubs(
@@ -493,6 +493,7 @@ class IotV1API(API):
     ) -> GetHubMetricsResponse:
         """
         Get a hub's metrics.
+        Get the metrics of an existing IoT Hub, specified by its Hub ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :param hub_id: Hub ID.
         :param start_date: Start date used to compute the best scale for returned metrics.
@@ -1061,6 +1062,7 @@ class IotV1API(API):
     ) -> GetDeviceMetricsResponse:
         """
         Get a device's metrics.
+        Get the metrics of an existing device, specified by its device ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :param device_id: Device ID.
         :param start_date: Start date used to compute the best scale for the returned metrics.
@@ -1385,7 +1387,7 @@ class IotV1API(API):
         topic_prefix: Optional[str] = None,
     ) -> ListNetworksResponse:
         """
-        List the Networks.
+        List the networks.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number to return, from the paginated results.
         :param page_size: Number of networks to return. The maximum value is 100.
@@ -1433,7 +1435,7 @@ class IotV1API(API):
         topic_prefix: Optional[str] = None,
     ) -> List[Network]:
         """
-        List the Networks.
+        List the networks.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number to return, from the paginated results.
         :param page_size: Number of networks to return. The maximum value is 100.
@@ -1474,7 +1476,8 @@ class IotV1API(API):
         type_: NetworkNetworkType = NetworkNetworkType.UNKNOWN,
     ) -> CreateNetworkResponse:
         """
-        Create a new Network.
+        Create a new network.
+        Create a new network for an existing hub.  Beside the default network, you can add networks for different data providers. Possible network types are Sigfox and REST.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Network name.
         :param type_: Type of network to connect with.
@@ -1520,7 +1523,8 @@ class IotV1API(API):
         region: Optional[Region] = None,
     ) -> Network:
         """
-        Retrieve a specific Network.
+        Retrieve a specific network.
+        Retrieve an existing network, specified by its network ID.  The response returns full details of the network, including its type, the topic prefix and its endpoint.
         :param region: Region to target. If none is passed will use default region from the config.
         :param network_id: Network ID.
         :return: :class:`Network <Network>`
@@ -1552,6 +1556,7 @@ class IotV1API(API):
     ) -> Optional[None]:
         """
         Delete a Network.
+        Delete an existing network, specified by its network ID. Deleting a network is permanent, and cannot be undone.
         :param region: Region to target. If none is passed will use default region from the config.
         :param network_id: Network ID.
 
