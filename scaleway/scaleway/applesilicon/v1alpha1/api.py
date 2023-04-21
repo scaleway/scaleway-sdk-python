@@ -42,7 +42,7 @@ from .marshalling import (
 
 class ApplesiliconV1Alpha1API(API):
     """
-    Apple silicon.
+    Apple silicon API.
 
     Apple Mac mini as a service.
     Scaleway Apple silicon as-a-Service is built using the latest generation of Apple Mac mini hardware (fifth generation).
@@ -93,7 +93,7 @@ class ApplesiliconV1Alpha1API(API):
     ) -> ServerType:
         """
         Get a server type.
-        Get a server technical details.
+        Get technical details (CPU, disk size etc.) of a server type.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_type: Server type identifier.
         :return: :class:`ServerType <ServerType>`
@@ -253,8 +253,8 @@ class ApplesiliconV1Alpha1API(API):
         name: Optional[str] = None,
     ) -> ListOSResponse:
         """
-        List all Operating System (OS).
-        List all Operating System (OS). The response will include the total number of OS as well as their associated IDs, names and labels.
+        List all Operating Systems (OS).
+        List all Operating Systems (OS). The response will include the total number of OS as well as their associated IDs, names and labels.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param page: Positive integer to choose the page to return.
         :param page_size: Positive integer lower or equal to 100 to select the number of items to return.
@@ -294,8 +294,8 @@ class ApplesiliconV1Alpha1API(API):
         name: Optional[str] = None,
     ) -> List[OS]:
         """
-        List all Operating System (OS).
-        List all Operating System (OS). The response will include the total number of OS as well as their associated IDs, names and labels.
+        List all Operating Systems (OS).
+        List all Operating Systems (OS). The response will include the total number of OS as well as their associated IDs, names and labels.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param page: Positive integer to choose the page to return.
         :param page_size: Positive integer lower or equal to 100 to select the number of items to return.
