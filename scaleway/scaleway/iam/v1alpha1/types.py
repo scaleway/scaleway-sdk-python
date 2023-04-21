@@ -199,12 +199,12 @@ class APIKey:
 
     default_project_id: str
     """
-    The default Project ID specified for this API key.
+    Default Project ID specified for this API key.
     """
 
     editable: bool
     """
-    Whether or not the API key is editable.
+    Defines whether or not the API key is editable.
     """
 
     creation_ip: str
@@ -251,7 +251,7 @@ class Application:
 
     editable: bool
     """
-    Whether or not the application is editable.
+    Defines whether or not the application is editable.
     """
 
     nb_api_keys: int
@@ -584,7 +584,7 @@ class Policy:
 
     editable: bool
     """
-    Whether or not a policy is editable.
+    Defines whether or not a policy is editable.
     """
 
     nb_rules: int
@@ -625,7 +625,7 @@ class Policy:
 
     no_principal: Optional[bool]
     """
-    Whether or not a policy is attributed to a principal.
+    Defines whether or not a policy is attributed to a principal.
     
     One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
     """
@@ -651,7 +651,7 @@ class Quotum:
 
     unlimited: Optional[bool]
     """
-    Whether or not the quota is unlimited.
+    Defines whether or not the quota is unlimited.
     
     One-of ('value'): at most one of 'limit', 'unlimited' could be set.
     """
@@ -849,7 +849,7 @@ class User:
 
     mfa: bool
     """
-    Whether MFA is enabled.
+    Defines whether MFA is enabled.
     """
 
 
@@ -887,7 +887,7 @@ class ListSSHKeysRequest:
 
     disabled: Optional[bool]
     """
-    Whether to include disabled SSH keys or not.
+    Defines whether to include disabled SSH keys or not.
     """
 
 
@@ -895,7 +895,7 @@ class ListSSHKeysRequest:
 class CreateSSHKeyRequest:
     name: Optional[str]
     """
-    The name of the SSH key. Max length is 1000.
+    Name of the SSH key. Max length is 1000.
     """
 
     public_key: str
@@ -913,7 +913,7 @@ class CreateSSHKeyRequest:
 class GetSSHKeyRequest:
     ssh_key_id: str
     """
-    The ID of the SSH key.
+    ID of the SSH key.
     """
 
 
@@ -1015,7 +1015,7 @@ class ListApplicationsRequest:
 
     editable: Optional[bool]
     """
-    Whether to filter out editable applications or not.
+    Defines whether to filter out editable applications or not.
     """
 
     application_ids: Optional[List[str]]
@@ -1248,17 +1248,17 @@ class ListPoliciesRequest:
 
     editable: Optional[bool]
     """
-    Whether or not filter out editable policies.
+    Defines whether or not filter out editable policies.
     """
 
     user_ids: Optional[List[str]]
     """
-    Whether or not to filter by list of user IDs.
+    Defines whether or not to filter by list of user IDs.
     """
 
     group_ids: Optional[List[str]]
     """
-    Whether or not to filter by list of group IDs.
+    Defines whether or not to filter by list of group IDs.
     """
 
     application_ids: Optional[List[str]]
@@ -1268,7 +1268,7 @@ class ListPoliciesRequest:
 
     no_principal: Optional[bool]
     """
-    Whether or not the policy is attributed to a principal.
+    Defines whether or not the policy is attributed to a principal.
     """
 
     policy_name: Optional[str]
@@ -1322,7 +1322,7 @@ class CreatePolicyRequest:
 
     no_principal: Optional[bool]
     """
-    Whether or not a policy is attributed to a principal.
+    Defines whether or not a policy is attributed to a principal.
     
     One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
     """
@@ -1376,7 +1376,7 @@ class UpdatePolicyRequest:
 
     no_principal: Optional[bool]
     """
-    Whether or not the policy is attributed to a principal.
+    Defines whether or not the policy is attributed to a principal.
     
     One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
     """
@@ -1489,12 +1489,12 @@ class ListAPIKeysRequest:
 
     editable: Optional[bool]
     """
-    Whether to filter out editable API keys or not.
+    Defines whether to filter out editable API keys or not.
     """
 
     expired: Optional[bool]
     """
-    Whether to filter out expired API keys or not.
+    Defines whether to filter out expired API keys or not.
     """
 
     access_key: Optional[str]
@@ -1541,12 +1541,12 @@ class CreateAPIKeyRequest:
 
     default_project_id: Optional[str]
     """
-    The default Project ID to use with Object Storage.
+    Default Project ID to use with Object Storage.
     """
 
     description: str
     """
-    The description of the API key (max length is 200 characters).
+    Description of the API key (max length is 200 characters).
     """
 
 
@@ -1567,12 +1567,12 @@ class UpdateAPIKeyRequest:
 
     default_project_id: Optional[str]
     """
-    The new default Project ID to set.
+    New default Project ID to set.
     """
 
     description: Optional[str]
     """
-    The new description to update.
+    New description to update.
     """
 
 

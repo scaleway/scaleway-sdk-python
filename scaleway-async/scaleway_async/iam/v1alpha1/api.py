@@ -124,7 +124,7 @@ class IamV1Alpha1API(API):
         :param organization_id: Filter by Organization ID.
         :param name: Name of group to find.
         :param project_id: Filter by Project ID.
-        :param disabled: Whether to include disabled SSH keys or not.
+        :param disabled: Defines whether to include disabled SSH keys or not.
         :return: :class:`ListSSHKeysResponse <ListSSHKeysResponse>`
 
         Usage:
@@ -171,7 +171,7 @@ class IamV1Alpha1API(API):
         :param organization_id: Filter by Organization ID.
         :param name: Name of group to find.
         :param project_id: Filter by Project ID.
-        :param disabled: Whether to include disabled SSH keys or not.
+        :param disabled: Defines whether to include disabled SSH keys or not.
         :return: :class:`List[ListSSHKeysResponse] <List[ListSSHKeysResponse]>`
 
         Usage:
@@ -205,7 +205,7 @@ class IamV1Alpha1API(API):
         """
         Create an SSH key.
         Add a new SSH key to a Scaleway Project. You must specify the `name`, `public_key` and `project_id`.
-        :param name: The name of the SSH key. Max length is 1000.
+        :param name: Name of the SSH key. Max length is 1000.
         :param public_key: SSH public key. Currently only the ssh-rsa, ssh-dss (DSA), ssh-ed25519 and ecdsa keys with NIST curves are supported. Max length is 65000.
         :param project_id: Project the resource is attributed to.
         :return: :class:`SSHKey <SSHKey>`
@@ -240,7 +240,7 @@ class IamV1Alpha1API(API):
         """
         Get an SSH key.
         Retrieve information about a given SSH key, specified by the `ssh_key_id` parameter. The SSH key's full details, including `id`, `name`, `public_key`, and `project_id` are returned in the response.
-        :param ssh_key_id: The ID of the SSH key.
+        :param ssh_key_id: ID of the SSH key.
         :return: :class:`SSHKey <SSHKey>`
 
         Usage:
@@ -481,7 +481,7 @@ class IamV1Alpha1API(API):
         :param page: Page number. Value must be greater than 1.
         :param name: Name of the application to filter.
         :param organization_id: ID of the Organization to filter.
-        :param editable: Whether to filter out editable applications or not.
+        :param editable: Defines whether to filter out editable applications or not.
         :param application_ids: Filter by list of IDs.
         :return: :class:`ListApplicationsResponse <ListApplicationsResponse>`
 
@@ -528,7 +528,7 @@ class IamV1Alpha1API(API):
         :param page: Page number. Value must be greater than 1.
         :param name: Name of the application to filter.
         :param organization_id: ID of the Organization to filter.
-        :param editable: Whether to filter out editable applications or not.
+        :param editable: Defines whether to filter out editable applications or not.
         :param application_ids: Filter by list of IDs.
         :return: :class:`List[ListApplicationsResponse] <List[ListApplicationsResponse]>`
 
@@ -1058,11 +1058,11 @@ class IamV1Alpha1API(API):
         :param page_size: Number of results per page. Value must be between 1 and 100.
         :param page: Page number. Value must be greater than 1.
         :param organization_id: ID of the Organization to filter.
-        :param editable: Whether or not filter out editable policies.
-        :param user_ids: Whether or not to filter by list of user IDs.
-        :param group_ids: Whether or not to filter by list of group IDs.
+        :param editable: Defines whether or not filter out editable policies.
+        :param user_ids: Defines whether or not to filter by list of user IDs.
+        :param group_ids: Defines whether or not to filter by list of group IDs.
         :param application_ids: Filter by a list of application IDs.
-        :param no_principal: Whether or not the policy is attributed to a principal.
+        :param no_principal: Defines whether or not the policy is attributed to a principal.
         :param policy_name: Name of the policy to fetch.
         :return: :class:`ListPoliciesResponse <ListPoliciesResponse>`
 
@@ -1114,11 +1114,11 @@ class IamV1Alpha1API(API):
         :param page_size: Number of results per page. Value must be between 1 and 100.
         :param page: Page number. Value must be greater than 1.
         :param organization_id: ID of the Organization to filter.
-        :param editable: Whether or not filter out editable policies.
-        :param user_ids: Whether or not to filter by list of user IDs.
-        :param group_ids: Whether or not to filter by list of group IDs.
+        :param editable: Defines whether or not filter out editable policies.
+        :param user_ids: Defines whether or not to filter by list of user IDs.
+        :param group_ids: Defines whether or not to filter by list of group IDs.
         :param application_ids: Filter by a list of application IDs.
-        :param no_principal: Whether or not the policy is attributed to a principal.
+        :param no_principal: Defines whether or not the policy is attributed to a principal.
         :param policy_name: Name of the policy to fetch.
         :return: :class:`List[ListPoliciesResponse] <List[ListPoliciesResponse]>`
 
@@ -1174,7 +1174,7 @@ class IamV1Alpha1API(API):
         :param application_id: ID of application attributed to the policy.
 
         One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
-        :param no_principal: Whether or not a policy is attributed to a principal.
+        :param no_principal: Defines whether or not a policy is attributed to a principal.
 
         One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
         :return: :class:`Policy <Policy>`
@@ -1259,7 +1259,7 @@ class IamV1Alpha1API(API):
         :param application_id: New ID of application attributed to the policy.
 
         One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
-        :param no_principal: Whether or not the policy is attributed to a principal.
+        :param no_principal: Defines whether or not the policy is attributed to a principal.
 
         One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
         :return: :class:`Policy <Policy>`
@@ -1550,8 +1550,8 @@ class IamV1Alpha1API(API):
         :param user_id: ID of user that bears the API key.
 
         One-of ('bearer'): at most one of 'application_id', 'user_id' could be set.
-        :param editable: Whether to filter out editable API keys or not.
-        :param expired: Whether to filter out expired API keys or not.
+        :param editable: Defines whether to filter out editable API keys or not.
+        :param expired: Defines whether to filter out expired API keys or not.
         :param access_key: Filter by access key.
         :param description: Filter by description.
         :param bearer_id: Filter by bearer ID.
@@ -1620,8 +1620,8 @@ class IamV1Alpha1API(API):
         :param user_id: ID of user that bears the API key.
 
         One-of ('bearer'): at most one of 'application_id', 'user_id' could be set.
-        :param editable: Whether to filter out editable API keys or not.
-        :param expired: Whether to filter out expired API keys or not.
+        :param editable: Defines whether to filter out editable API keys or not.
+        :param expired: Defines whether to filter out expired API keys or not.
         :param access_key: Filter by access key.
         :param description: Filter by description.
         :param bearer_id: Filter by bearer ID.
@@ -1673,8 +1673,8 @@ class IamV1Alpha1API(API):
 
         One-of ('bearer'): at most one of 'application_id', 'user_id' could be set.
         :param expires_at: Expiration date of the API key.
-        :param default_project_id: The default Project ID to use with Object Storage.
-        :param description: The description of the API key (max length is 200 characters).
+        :param default_project_id: Default Project ID to use with Object Storage.
+        :param description: Description of the API key (max length is 200 characters).
         :return: :class:`APIKey <APIKey>`
 
         Usage:
@@ -1739,8 +1739,8 @@ class IamV1Alpha1API(API):
         Update an API key.
         Update the parameters of an API key, including `default_project_id` and `description`.
         :param access_key: Access key to update.
-        :param default_project_id: The new default Project ID to set.
-        :param description: The new description to update.
+        :param default_project_id: New default Project ID to set.
+        :param description: New description to update.
         :return: :class:`APIKey <APIKey>`
 
         Usage:
