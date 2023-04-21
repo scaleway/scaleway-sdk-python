@@ -41,10 +41,10 @@ from .marshalling import (
 
 class MnqV1Alpha1API(API):
     """
-    MnQ API (beta).
+    Messaging and Queuing API.
 
     This API allows you to manage Scaleway Messaging and Queueing brokers.
-    MnQ API (beta).
+    Messaging and Queuing API.
     """
 
     async def list_namespaces(
