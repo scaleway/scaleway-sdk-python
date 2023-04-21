@@ -175,7 +175,7 @@ class AvailableClusterSetting:
 
     deprecated: bool
     """
-    Whether or not the setting is deprecated.
+    Defines whether or not the setting is deprecated.
     """
 
 
@@ -237,7 +237,7 @@ class Cluster:
 
     tls_enabled: bool
     """
-    Whether or not TLS is enabled.
+    Defines whether or not TLS is enabled.
     """
 
     cluster_settings: List[ClusterSetting]
@@ -519,12 +519,12 @@ class NodeType:
 
     disabled: bool
     """
-    The node type is currently disabled.
+    Defines whether node type is currently disabled or not.
     """
 
     beta: bool
     """
-    The node type is currently in beta.
+    Defines whether node type is currently in beta.
     """
 
     zone: Zone
@@ -593,7 +593,7 @@ class CreateClusterRequest:
 
     project_id: Optional[str]
     """
-    The Project ID in which to create the Database Instance.
+    Project ID in which to create the Database Instance.
     """
 
     name: Optional[str]
@@ -644,7 +644,7 @@ class CreateClusterRequest:
 
     tls_enabled: bool
     """
-    Whether or not TLS is enabled.
+    Defines whether or not TLS is enabled.
     """
 
     cluster_settings: Optional[List[ClusterSetting]]
@@ -825,7 +825,7 @@ class ListNodeTypesRequest:
 
     include_disabled_types: bool
     """
-    Whether or not to include disabled types.
+    Defines whether or not to include disabled types.
     """
 
     page: Optional[int]
@@ -842,17 +842,17 @@ class ListClusterVersionsRequest:
 
     include_disabled: bool
     """
-    Whether or not to include disabled Redis™ engine versions.
+    Defines whether or not to include disabled Redis™ engine versions.
     """
 
     include_beta: bool
     """
-    Whether or not to include beta Redis™ engine versions.
+    Defines whether or not to include beta Redis™ engine versions.
     """
 
     include_deprecated: bool
     """
-    Whether or not to include deprecated Redis™ engine versions.
+    Defines whether or not to include deprecated Redis™ engine versions.
     """
 
     version: Optional[str]
