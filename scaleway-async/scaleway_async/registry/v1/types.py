@@ -95,22 +95,22 @@ class Image:
 
     id: str
     """
-    The UUID of the image.
+    UUID of the image.
     """
 
     name: str
     """
-    The name of the image, it must be unique within the namespace.
+    Name of the image, it must be unique within the namespace.
     """
 
     namespace_id: str
     """
-    The UUID of the namespace the image belongs to.
+    UUID of the namespace the image belongs to.
     """
 
     status: ImageStatus
     """
-    The status of the image.
+    Status of the image.
     """
 
     status_message: Optional[str]
@@ -204,12 +204,12 @@ class Namespace:
 
     id: str
     """
-    The UUID of the namespace.
+    UUID of the namespace.
     """
 
     name: str
     """
-    The name of the namespace, unique in a region accross all organizations.
+    Name of the namespace, unique in a region accross all organizations.
     """
 
     description: str
@@ -244,7 +244,7 @@ class Namespace:
 
     is_public: bool
     """
-    Whether or not namespace is public.
+    Defines whether or not namespace is public.
     """
 
     size: int
@@ -281,7 +281,7 @@ class Tag:
 
     id: str
     """
-    The UUID of the tag.
+    UUID of the tag.
     """
 
     name: str
@@ -362,7 +362,7 @@ class GetNamespaceRequest:
 
     namespace_id: str
     """
-    The UUID of the namespace.
+    UUID of the namespace.
     """
 
 
@@ -400,7 +400,7 @@ class CreateNamespaceRequest:
 
     is_public: bool
     """
-    Whether or not namespace is public.
+    Defines whether or not namespace is public.
     """
 
 
@@ -423,7 +423,7 @@ class UpdateNamespaceRequest:
 
     is_public: Optional[bool]
     """
-    Whether or not the namespace is public.
+    Defines whether or not the namespace is public.
     """
 
 
@@ -436,7 +436,7 @@ class DeleteNamespaceRequest:
 
     namespace_id: str
     """
-    The UUID of the namespace.
+    UUID of the namespace.
     """
 
 
@@ -492,7 +492,7 @@ class GetImageRequest:
 
     image_id: str
     """
-    The UUID of the image.
+    UUID of the image.
     """
 
 
@@ -523,7 +523,7 @@ class DeleteImageRequest:
 
     image_id: str
     """
-    The UUID of the image.
+    UUID of the image.
     """
 
 
@@ -536,7 +536,7 @@ class ListTagsRequest:
 
     image_id: str
     """
-    The UUID of the image.
+    UUID of the image.
     """
 
     page: Optional[int]
@@ -569,7 +569,7 @@ class GetTagRequest:
 
     tag_id: str
     """
-    The UUID of the tag.
+    UUID of the tag.
     """
 
 
@@ -582,7 +582,7 @@ class DeleteTagRequest:
 
     tag_id: str
     """
-    The UUID of the tag.
+    UUID of the tag.
     """
 
     force: bool
