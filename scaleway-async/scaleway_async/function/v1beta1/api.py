@@ -101,10 +101,9 @@ from .marshalling import (
 
 class FunctionV1Beta1API(API):
     """
-    Functions API.
+    Serverless Functions API.
 
-    Serverless functions API.
-    Functions API.
+    Serverless Functions API.
     """
 
     async def list_namespaces(
