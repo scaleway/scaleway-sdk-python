@@ -1283,7 +1283,7 @@ class CreateClusterRequest:
     autoscaler_config: Optional[CreateClusterRequestAutoscalerConfig]
     """
     Autoscaler config for the cluster.
-    This field allows to specify some configuration for the autoscaler, which is an implementation of the [cluster-autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler/).
+    This field allows to specify some configuration for the autoscaler, which is an implementation of the cluster-autoscaler (https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler/).
     """
 
     auto_upgrade: Optional[CreateClusterRequestAutoUpgrade]
