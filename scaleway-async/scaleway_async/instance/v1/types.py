@@ -847,7 +847,7 @@ class SecurityGroup:
 
     enable_default_security: bool
     """
-    True if SMTP is blocked on IPv4 and IPv6.
+    True if SMTP is blocked on IPv4 and IPv6. This feature is read only, please open a support ticket if you need to make it configurable.
     """
 
     inbound_default_policy: SecurityGroupPolicy
@@ -2528,7 +2528,7 @@ class CreateSecurityGroupRequest:
 
     enable_default_security: Optional[bool]
     """
-    True to block SMTP on IPv4 and IPv6.
+    True to block SMTP on IPv4 and IPv6. This feature is read only, please open a support ticket if you need to make it configurable.
     """
 
 
