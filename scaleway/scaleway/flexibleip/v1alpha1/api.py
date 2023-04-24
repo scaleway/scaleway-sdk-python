@@ -49,9 +49,9 @@ from .marshalling import (
 
 class FlexibleipV1Alpha1API(API):
     """
-    Flexible IP API.
+    Elastic Metal - Flexible IP API.
 
-    Flexible IP API.
+    Elastic Metal - Flexible IP API.
     """
 
     def create_flexible_ip(
