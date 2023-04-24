@@ -46,10 +46,9 @@ from .marshalling import (
 
 class TemV1Alpha1API(API):
     """
-    Transactional Email API documentation.
+    Transactional Email API.
 
-    Tem.
-    Transactional Email API documentation.
+    Transactional Email API.
     """
 
     def create_email(

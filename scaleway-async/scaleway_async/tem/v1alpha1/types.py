@@ -346,7 +346,7 @@ class Statistics:
 
     canceled_count: int
     """
-    Number of emails in the final `canceled` state. This meanns emails that have been canceled upon request.
+    Number of emails in the final `canceled` state. This means emails that have been canceled upon request.
     """
 
 
