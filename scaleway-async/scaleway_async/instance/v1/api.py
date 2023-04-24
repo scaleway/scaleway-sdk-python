@@ -297,7 +297,7 @@ class InstanceV1API(API):
         page: Optional[int] = None,
     ) -> ListVolumesTypesResponse:
         """
-        List volumes types.
+        List volume types.
         List all volume types and their technical details.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param per_page:
@@ -814,7 +814,7 @@ class InstanceV1API(API):
 
         Keep in mind that terminating an Instance will result in the deletion of all attached volumes, including local and block storage.
         If you want to preserve your local volumes, you should use the `archive` action instead of `terminate`. Similarly, if you want to keep your block storage volumes, you must first detach them before issuing the `terminate` command.
-        For more information, read the [Volumes](#volumes-7e8a39) documentation.
+        For more information, read the [Volumes](#path-volumes-list-volumes) documentation.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_id: UUID of the Instance.
         :param action: Action to perform on the Instance.
@@ -1974,7 +1974,7 @@ class InstanceV1API(API):
         :param stateful: Whether the security group is stateful or not.
         :param inbound_default_policy: Default policy for inbound rules.
         :param outbound_default_policy: Default policy for outbound rules.
-        :param enable_default_security: True to block SMTP on IPv4 and IPv6.
+        :param enable_default_security: True to block SMTP on IPv4 and IPv6. This feature is read only, please open a support ticket if you need to make it configurable.
         :return: :class:`CreateSecurityGroupResponse <CreateSecurityGroupResponse>`
 
         Usage:
@@ -2108,7 +2108,7 @@ class InstanceV1API(API):
         :param creation_date: Creation date of the security group (will be ignored).
         :param modification_date: Modification date of the security group (will be ignored).
         :param description: Description of the security group.
-        :param enable_default_security: True to block SMTP on IPv4 and IPv6.
+        :param enable_default_security: True to block SMTP on IPv4 and IPv6. This feature is read only, please open a support ticket if you need to make it configurable.
         :param inbound_default_policy: Default inbound policy.
         :param outbound_default_policy: Default outbound policy.
         :param organization: Security groups Organization ID.
