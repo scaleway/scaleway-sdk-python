@@ -83,9 +83,9 @@ from .marshalling import (
 
 class K8SV1API(API):
     """
-    Kapsule API.
+    Kubernetes API.
 
-    Kapsule API.
+    Kubernetes API.
     """
 
     def list_clusters(
@@ -240,7 +240,7 @@ class K8SV1API(API):
         :param ingress: Ingress Controller that will run in the cluster.
         :param pools: Pools to be created along with the cluster.
         :param autoscaler_config: Autoscaler config for the cluster.
-        This field allows to specify some configuration for the autoscaler, which is an implementation of the [cluster-autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler/).
+        This field allows to specify some configuration for the autoscaler, which is an implementation of the cluster-autoscaler (https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler/).
         :param auto_upgrade: Auto upgrade configuration of the cluster.
         This configuration enables to set a specific 2-hour time window in which the cluster can be automatically updated to the latest patch version in the current minor one.
         :param feature_gates: List of feature gates to enable.
