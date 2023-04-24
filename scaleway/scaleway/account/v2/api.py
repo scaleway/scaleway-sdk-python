@@ -6,6 +6,7 @@ from typing import List, Optional
 from scaleway_core.api import API
 from scaleway_core.utils import (
     fetch_all_pages,
+    random_name,
     validate_path_param,
 )
 from .types import (
@@ -34,7 +35,7 @@ class AccountV2API(API):
     def create_project(
         self,
         *,
-        name: str,
+        name: Optional[str] = None,
         organization_id: Optional[str] = None,
         description: Optional[str] = None,
     ) -> Project:
@@ -49,7 +50,7 @@ class AccountV2API(API):
         Usage:
         ::
 
-            result = api.create_project(name="example")
+            result = api.create_project()
         """
 
         res = self._request(
@@ -57,7 +58,7 @@ class AccountV2API(API):
             f"/account/v2/projects",
             body=marshal_CreateProjectRequest(
                 CreateProjectRequest(
-                    name=name,
+                    name=name or random_name(prefix="proj"),
                     organization_id=organization_id,
                     description=description,
                 ),

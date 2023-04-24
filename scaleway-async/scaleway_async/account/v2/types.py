@@ -74,7 +74,7 @@ class Project:
 
 @dataclass
 class CreateProjectRequest:
-    name: str
+    name: Optional[str]
     """
     Name of the Project.
     """
