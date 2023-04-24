@@ -1037,7 +1037,7 @@ class Setting:
 
     project_id: str
     """
-    ID of the project ID.
+    ID of the Project ID.
     """
 
     enabled: bool
@@ -1553,7 +1553,7 @@ class ListSettingsRequest:
 
     project_id: Optional[str]
     """
-    ID of the project.
+    ID of the Project.
     """
 
 

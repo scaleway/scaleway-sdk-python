@@ -110,8 +110,8 @@ class BaremetalV1API(API):
         option_id: Optional[str] = None,
     ) -> ListServersResponse:
         """
-        List Elastic Metal servers for an organization.
-        List Elastic Metal servers for a specific organization.
+        List Elastic Metal servers for an Organization.
+        List Elastic Metal servers for a specific Organization.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param page: Page number.
         :param page_size: Number of servers per page.
@@ -167,8 +167,8 @@ class BaremetalV1API(API):
         option_id: Optional[str] = None,
     ) -> List[Server]:
         """
-        List Elastic Metal servers for an organization.
-        List Elastic Metal servers for a specific organization.
+        List Elastic Metal servers for an Organization.
+        List Elastic Metal servers for a specific Organization.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param page: Page number.
         :param page_size: Number of servers per page.
@@ -1157,12 +1157,12 @@ class BaremetalV1API(API):
     ) -> ListSettingsResponse:
         """
         List all settings.
-        Return all settings for a project ID.
+        Return all settings for a Project ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param page: Page number.
         :param page_size: Set the maximum list size.
         :param order_by: Sort order for items in the response.
-        :param project_id: ID of the project.
+        :param project_id: ID of the Project.
         :return: :class:`ListSettingsResponse <ListSettingsResponse>`
 
         Usage:
@@ -1198,12 +1198,12 @@ class BaremetalV1API(API):
     ) -> List[Setting]:
         """
         List all settings.
-        Return all settings for a project ID.
+        Return all settings for a Project ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param page: Page number.
         :param page_size: Set the maximum list size.
         :param order_by: Sort order for items in the response.
-        :param project_id: ID of the project.
+        :param project_id: ID of the Project.
         :return: :class:`List[ListSettingsResponse] <List[ListSettingsResponse]>`
 
         Usage:
@@ -1234,7 +1234,7 @@ class BaremetalV1API(API):
     ) -> Setting:
         """
         Update setting.
-        Update a setting for a project ID (enable or disable).
+        Update a setting for a Project ID (enable or disable).
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param setting_id: ID of the setting.
         :param enabled: Defines whether the setting is enabled.
@@ -1345,8 +1345,8 @@ class BaremetalV1API(API):
         zone: Optional[Zone] = None,
     ) -> OS:
         """
-        Get an OS with an ID.
-        Return specific OS for the ID.
+        Get OS with an ID.
+        Return the specific OS for the ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param os_id: ID of the OS.
         :return: :class:`OS <OS>`
