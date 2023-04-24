@@ -81,10 +81,9 @@ from .marshalling import (
 
 class ContainerV1Beta1API(API):
     """
-    Containers API.
+    Serverless Containers API.
 
     Serverless Containers API.
-    Containers API.
     """
 
     def list_namespaces(
