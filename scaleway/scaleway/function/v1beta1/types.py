@@ -79,6 +79,7 @@ class FunctionRuntime(str, Enum):
     PHP82 = "php82"
     NODE19 = "node19"
     GO120 = "go120"
+    NODE20 = "node20"
 
     def __str__(self) -> str:
         return str(self.value)
