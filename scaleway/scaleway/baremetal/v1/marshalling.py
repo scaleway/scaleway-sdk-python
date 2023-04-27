@@ -325,6 +325,9 @@ def unmarshal_OS(data: Any) -> OS:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("allowed")
+    args["allowed"] = field
+
     field = data.get("enabled")
     args["enabled"] = field
 

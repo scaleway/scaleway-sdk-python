@@ -518,12 +518,17 @@ class OS:
 
     enabled: bool
     """
-    State of OS.
+    Defines if the operating system is enabled or not.
     """
 
     license_required: bool
     """
     License required (check server options for pricing details).
+    """
+
+    allowed: bool
+    """
+    Defines if a specific Organization is allowed to install this OS type.
     """
 
 
