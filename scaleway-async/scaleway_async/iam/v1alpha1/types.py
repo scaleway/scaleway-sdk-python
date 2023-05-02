@@ -852,6 +852,11 @@ class User:
     Defines whether MFA is enabled.
     """
 
+    account_root_user_id: str
+    """
+    ID of the account root user associated with the user.
+    """
+
 
 @dataclass
 class ListSSHKeysRequest:

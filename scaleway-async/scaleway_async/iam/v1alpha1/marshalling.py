@@ -372,6 +372,9 @@ def unmarshal_User(data: Any) -> User:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("account_root_user_id")
+    args["account_root_user_id"] = field
+
     field = data.get("created_at")
     args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
