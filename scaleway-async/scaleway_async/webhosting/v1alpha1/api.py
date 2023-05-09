@@ -39,9 +39,9 @@ from .marshalling import (
 
 class WebhostingV1Alpha1API(API):
     """
-    Webhosting API.
+    Web Hosting API.
 
-    Webhosting API.
+    Web Hosting API.
     """
 
     async def create_hosting(
@@ -56,14 +56,15 @@ class WebhostingV1Alpha1API(API):
         option_ids: Optional[List[str]] = None,
     ) -> Hosting:
         """
-        Create a hosting.
+        Order a Web Hosting plan.
+        Order a Web Hosting plan, specifying the offer type required via the `offer_id` parameter.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param offer_id: ID of the selected offer for the hosting.
-        :param project_id: Project ID of the hosting.
-        :param email: Contact email of the client for the hosting.
-        :param tags: The tags of the hosting.
-        :param domain: The domain name of the hosting.
-        :param option_ids: IDs of the selected options for the hosting.
+        :param offer_id: ID of the selected offer for the Web Hosting plan.
+        :param project_id: ID of the Scaleway Project in which to create the Web Hosting plan.
+        :param email: Contact email for the Web Hosting client.
+        :param tags: List of tags for the Web Hosting plan.
+        :param domain: Domain name to link to the Web Hosting plan. You must already own this domain name, and have completed the DNS validation process beforehand.
+        :param option_ids: IDs of any selected additional options for the Web Hosting plan.
         :return: :class:`Hosting <Hosting>`
 
         Usage:
@@ -113,16 +114,17 @@ class WebhostingV1Alpha1API(API):
         organization_id: Optional[str] = None,
     ) -> ListHostingsResponse:
         """
-        List all hostings.
+        List all Web Hosting plans.
+        List all of your existing Web Hosting plans. Various filters are available to limit the results, including filtering by domain, status, tag and Project ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page: A positive integer to choose the page to return.
-        :param page_size: A positive integer lower or equal to 100 to select the number of items to return.
-        :param order_by: Define the order of the returned hostings.
-        :param tags: Return hostings with these tags.
-        :param statuses: Return hostings with these statuses.
-        :param domain: Return hostings with this domain.
-        :param project_id: Return hostings from this project ID.
-        :param organization_id: Return hostings from this organization ID.
+        :param page: Page number to return, from the paginated results (must be a positive integer).
+        :param page_size: Number of Web Hosting plans to return (must be a positive integer lower or equal to 100).
+        :param order_by: Sort order for Web Hosting plans in the response.
+        :param tags: Tags to filter for, only Web Hosting plans with matching tags will be returned.
+        :param statuses: Statuses to filter for, only Web Hosting plans with matching statuses will be returned.
+        :param domain: Domain to filter for, only Web Hosting plans associated with this domain will be returned.
+        :param project_id: Project ID to filter for, only Web Hosting plans from this Project will be returned.
+        :param organization_id: Organization ID to filter for, only Web Hosting plans from this Organization will be returned.
         :return: :class:`ListHostingsResponse <ListHostingsResponse>`
 
         Usage:
@@ -168,16 +170,17 @@ class WebhostingV1Alpha1API(API):
         organization_id: Optional[str] = None,
     ) -> List[Hosting]:
         """
-        List all hostings.
+        List all Web Hosting plans.
+        List all of your existing Web Hosting plans. Various filters are available to limit the results, including filtering by domain, status, tag and Project ID.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page: A positive integer to choose the page to return.
-        :param page_size: A positive integer lower or equal to 100 to select the number of items to return.
-        :param order_by: Define the order of the returned hostings.
-        :param tags: Return hostings with these tags.
-        :param statuses: Return hostings with these statuses.
-        :param domain: Return hostings with this domain.
-        :param project_id: Return hostings from this project ID.
-        :param organization_id: Return hostings from this organization ID.
+        :param page: Page number to return, from the paginated results (must be a positive integer).
+        :param page_size: Number of Web Hosting plans to return (must be a positive integer lower or equal to 100).
+        :param order_by: Sort order for Web Hosting plans in the response.
+        :param tags: Tags to filter for, only Web Hosting plans with matching tags will be returned.
+        :param statuses: Statuses to filter for, only Web Hosting plans with matching statuses will be returned.
+        :param domain: Domain to filter for, only Web Hosting plans associated with this domain will be returned.
+        :param project_id: Project ID to filter for, only Web Hosting plans from this Project will be returned.
+        :param organization_id: Organization ID to filter for, only Web Hosting plans from this Organization will be returned.
         :return: :class:`List[ListHostingsResponse] <List[ListHostingsResponse]>`
 
         Usage:
@@ -210,8 +213,8 @@ class WebhostingV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> Hosting:
         """
-        Get a hosting.
-        Get the details of a Hosting with the given ID.
+        Get a Web Hosting plan.
+        Get the details of one of your existing Web Hosting plans, specified by its `hosting_id`.
         :param region: Region to target. If none is passed will use default region from the config.
         :param hosting_id: Hosting ID.
         :return: :class:`Hosting <Hosting>`
@@ -281,13 +284,14 @@ class WebhostingV1Alpha1API(API):
         offer_id: Optional[str] = None,
     ) -> Hosting:
         """
-        Update a hosting.
+        Update a Web Hosting plan.
+        Update the details of one of your existing Web Hosting plans, specified by its `hosting_id`. You can update parameters including the contact email address, tags, options and offer.
         :param region: Region to target. If none is passed will use default region from the config.
         :param hosting_id: Hosting ID.
-        :param email: New contact email for the hosting.
-        :param tags: New tags for the hosting.
-        :param option_ids: New options IDs for the hosting.
-        :param offer_id: New offer ID for the hosting.
+        :param email: New contact email for the Web Hosting plan.
+        :param tags: New tags for the Web Hosting plan.
+        :param option_ids: IDs of the new options for the Web Hosting plan.
+        :param offer_id: ID of the new offer for the Web Hosting plan.
         :return: :class:`Hosting <Hosting>`
 
         Usage:
@@ -327,8 +331,8 @@ class WebhostingV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> Hosting:
         """
-        Delete a hosting.
-        Delete a hosting with the given ID.
+        Delete a Web Hosting plan.
+        Delete a Web Hosting plan, specified by its `hosting_id`. Note that deletion is not immediate: it will take place at the end of the calendar month, after which time your Web Hosting plan and all its data (files and emails) will be irreversibly lost.
         :param region: Region to target. If none is passed will use default region from the config.
         :param hosting_id: Hosting ID.
         :return: :class:`Hosting <Hosting>`
@@ -359,8 +363,8 @@ class WebhostingV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> Hosting:
         """
-        Restore a hosting.
-        Restore a hosting with the given ID.
+        Restore a Web Hosting plan.
+        When you [delete a Web Hosting plan](#path-hostings-delete-a-hosting), definitive deletion does not take place until the end of the calendar month. In the time between initiating the deletion, and definitive deletion at the end of the month, you can choose to **restore** the Web Hosting plan, using this endpoint and specifying its `hosting_id`.
         :param region: Region to target. If none is passed will use default region from the config.
         :param hosting_id: Hosting ID.
         :return: :class:`Hosting <Hosting>`
@@ -391,10 +395,10 @@ class WebhostingV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> DnsRecords:
         """
-        Get the DNS records.
-        The set of DNS record of a specific domain associated to a hosting.
+        Get DNS records.
+        Get the set of DNS records of a specified domain associated with a Web Hosting plan.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param domain: Domain associated to the DNS records.
+        :param domain: Domain associated with the DNS records.
         :return: :class:`DnsRecords <DnsRecords>`
 
         Usage:
@@ -427,11 +431,12 @@ class WebhostingV1Alpha1API(API):
     ) -> ListOffersResponse:
         """
         List all offers.
+        List the different Web Hosting offers, and their options, available to order from Scaleway.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param order_by: Define the order of the returned hostings.
-        :param without_options: Select only offers, no options.
-        :param only_options: Select only options.
-        :param hosting_id: Define a specific hosting id (optional).
+        :param order_by: Sort order of offers in the response.
+        :param without_options: Defines whether the response should consist of offers only, without options.
+        :param only_options: Defines whether the response should consist of options only, without offers.
+        :param hosting_id: ID of a Web Hosting plan, to check compatibility with returned offers (in case of wanting to update the plan).
         :return: :class:`ListOffersResponse <ListOffersResponse>`
 
         Usage:
