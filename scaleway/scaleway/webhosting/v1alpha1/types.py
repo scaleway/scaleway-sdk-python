@@ -117,7 +117,7 @@ class DnsRecord:
 
     ttl: int
     """
-    Record time to live.
+    Record time-to-live.
     """
 
     value: str
@@ -166,32 +166,32 @@ class Hosting:
 
     id: str
     """
-    ID of the hosting.
+    ID of the Web Hosting plan.
     """
 
     organization_id: str
     """
-    Organization ID of the hosting.
+    ID of the Scaleway Organization the Web Hosting plan belongs to.
     """
 
     project_id: str
     """
-    Project ID of the hosting.
+    ID of the Scaleway Project the Web Hosting plan belongs to.
     """
 
     updated_at: Optional[datetime]
     """
-    Last update date.
+    Date on which the Web Hosting plan was last updated.
     """
 
     created_at: Optional[datetime]
     """
-    Creation date.
+    Date on which the Web Hosting plan was created.
     """
 
     status: HostingStatus
     """
-    The hosting status.
+    Status of the Web Hosting plan.
     """
 
     platform_hostname: str
@@ -206,47 +206,47 @@ class Hosting:
 
     offer_id: str
     """
-    ID of the active offer.
+    ID of the active offer for the Web Hosting plan.
     """
 
     offer_name: str
     """
-    Name of the active offer.
+    Name of the active offer for the Web Hosting plan.
     """
 
     domain: str
     """
-    Main domain of the hosting.
+    Main domain associated with the Web Hosting plan.
     """
 
     tags: List[str]
     """
-    Tags of the hosting.
+    List of tags associated with the Web Hosting plan.
     """
 
     options: List[HostingOption]
     """
-    Active options of the hosting.
+    Array of any options activated for the Web Hosting plan.
     """
 
     dns_status: HostingDnsStatus
     """
-    DNS status of the hosting.
+    DNS status of the Web Hosting plan.
     """
 
     cpanel_urls: Optional[HostingCpanelUrls]
     """
-    URL to connect to cPanel Dashboard and to Webmail interface.
+    URL to connect to cPanel dashboard and to Webmail interface.
     """
 
     username: str
     """
-    Main hosting cPanel username.
+    Main Web Hosting cPanel username.
     """
 
     region: Region
     """
-    Region of the hosting.
+    Region where the Web Hosting plan is hosted.
     """
 
 
@@ -282,12 +282,12 @@ class ListHostingsResponse:
 
     total_count: int
     """
-    Number of returned hostings.
+    Number of Web Hosting plans returned.
     """
 
     hostings: List[Hosting]
     """
-    List of hostings.
+    List of Web Hosting plans.
     """
 
 
@@ -299,7 +299,7 @@ class ListOffersResponse:
 
     offers: List[Offer]
     """
-    List of returned offers.
+    List of offers.
     """
 
 
@@ -321,7 +321,7 @@ class Nameserver:
 
     is_default: bool
     """
-    If the nameserver is the default.
+    Defines whether the nameserver is the default one.
     """
 
 
@@ -343,22 +343,22 @@ class Offer:
 
     product: Optional[OfferProduct]
     """
-    Offer product.
+    Product constituting this offer.
     """
 
     price: Optional[Money]
     """
-    Offer price.
+    Price of this offer.
     """
 
     available: bool
     """
-    If offer is available for a specific hosting.
+    If a hosting_id was specified in the call, defines whether this offer is available for that Web Hosting plan to migrate (update) to.
     """
 
     quota_warnings: List[OfferQuotaWarning]
     """
-    If not available, return quota warnings.
+    Quota warnings, if the offer is not available for the specified hosting_id.
     """
 
 
@@ -402,32 +402,32 @@ class CreateHostingRequest:
 
     offer_id: str
     """
-    ID of the selected offer for the hosting.
+    ID of the selected offer for the Web Hosting plan.
     """
 
     project_id: Optional[str]
     """
-    Project ID of the hosting.
+    ID of the Scaleway Project in which to create the Web Hosting plan.
     """
 
     email: Optional[str]
     """
-    Contact email of the client for the hosting.
+    Contact email for the Web Hosting client.
     """
 
     tags: Optional[List[str]]
     """
-    The tags of the hosting.
+    List of tags for the Web Hosting plan.
     """
 
     domain: str
     """
-    The domain name of the hosting.
+    Domain name to link to the Web Hosting plan. You must already own this domain name, and have completed the DNS validation process beforehand.
     """
 
     option_ids: Optional[List[str]]
     """
-    IDs of the selected options for the hosting.
+    IDs of any selected additional options for the Web Hosting plan.
     """
 
 
@@ -440,42 +440,42 @@ class ListHostingsRequest:
 
     page: Optional[int]
     """
-    A positive integer to choose the page to return.
+    Page number to return, from the paginated results (must be a positive integer).
     """
 
     page_size: Optional[int]
     """
-    A positive integer lower or equal to 100 to select the number of items to return.
+    Number of Web Hosting plans to return (must be a positive integer lower or equal to 100).
     """
 
     order_by: Optional[ListHostingsRequestOrderBy]
     """
-    Define the order of the returned hostings.
+    Sort order for Web Hosting plans in the response.
     """
 
     tags: Optional[List[str]]
     """
-    Return hostings with these tags.
+    Tags to filter for, only Web Hosting plans with matching tags will be returned.
     """
 
     statuses: Optional[List[HostingStatus]]
     """
-    Return hostings with these statuses.
+    Statuses to filter for, only Web Hosting plans with matching statuses will be returned.
     """
 
     domain: Optional[str]
     """
-    Return hostings with this domain.
+    Domain to filter for, only Web Hosting plans associated with this domain will be returned.
     """
 
     project_id: Optional[str]
     """
-    Return hostings from this project ID.
+    Project ID to filter for, only Web Hosting plans from this Project will be returned.
     """
 
     organization_id: Optional[str]
     """
-    Return hostings from this organization ID.
+    Organization ID to filter for, only Web Hosting plans from this Organization will be returned.
     """
 
 
@@ -506,22 +506,22 @@ class UpdateHostingRequest:
 
     email: Optional[str]
     """
-    New contact email for the hosting.
+    New contact email for the Web Hosting plan.
     """
 
     tags: Optional[List[str]]
     """
-    New tags for the hosting.
+    New tags for the Web Hosting plan.
     """
 
     option_ids: Optional[List[str]]
     """
-    New options IDs for the hosting.
+    IDs of the new options for the Web Hosting plan.
     """
 
     offer_id: Optional[str]
     """
-    New offer ID for the hosting.
+    ID of the new offer for the Web Hosting plan.
     """
 
 
@@ -560,7 +560,7 @@ class GetDomainDnsRecordsRequest:
 
     domain: str
     """
-    Domain associated to the DNS records.
+    Domain associated with the DNS records.
     """
 
 
@@ -573,20 +573,20 @@ class ListOffersRequest:
 
     order_by: ListOffersRequestOrderBy
     """
-    Define the order of the returned hostings.
+    Sort order of offers in the response.
     """
 
     without_options: bool
     """
-    Select only offers, no options.
+    Defines whether the response should consist of offers only, without options.
     """
 
     only_options: bool
     """
-    Select only options.
+    Defines whether the response should consist of options only, without offers.
     """
 
     hosting_id: Optional[str]
     """
-    Define a specific hosting id (optional).
+    ID of a Web Hosting plan, to check compatibility with returned offers (in case of wanting to update the plan).
     """
