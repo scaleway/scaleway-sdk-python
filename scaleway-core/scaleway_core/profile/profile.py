@@ -95,7 +95,7 @@ class Profile(ProfileDefaults, ProfileConfig):
                 setattr(self, field.name, getattr(other, field.name))
 
     @classmethod
-    def from_env(cls: Type[ProfileSelf], force_none = False) -> ProfileSelf:
+    def from_env(cls: Type[ProfileSelf], force_none: bool = False) -> ProfileSelf:
         """
         Loads profile from environment variables.
         """
@@ -133,7 +133,7 @@ class Profile(ProfileDefaults, ProfileConfig):
         cls: Type[ProfileSelf],
         filepath: Optional[str] = None,
         profile_name: Optional[str] = "default",
-        force_none = False,
+        force_none: bool = False,
     ) -> ProfileSelf:
         filepath = cls.get_default_config_file_path(filepath)
 
