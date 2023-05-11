@@ -191,12 +191,16 @@ class Profile(ProfileDefaults, ProfileConfig):
           - If config file is not found, the profile is still loaded from environment variables.
           - If you want it to throw an error in case of missing or invalid config file, use `Profile.from_config_file` and `Profile.from_env` instead.
         """
-        profile = cls.from_env(force_none=True)
 
+        has_config_profile = False
         try:
-            a = cls.from_config_file(filepath, profile_name)
-            profile.merge(a)
+            config_profile = cls.from_config_file(filepath, profile_name)
+            has_config_profile = True
         except Exception as e:
             print(e)
 
-        return profile
+        env_profile = cls.from_env(force_none=has_config_profile)
+        if has_config_profile:
+            env_profile.merge(config_profile)
+
+        return env_profile
