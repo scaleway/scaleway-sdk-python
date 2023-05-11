@@ -95,7 +95,7 @@ class Profile(ProfileDefaults, ProfileConfig):
                 setattr(self, field.name, getattr(other, field.name))
 
     @classmethod
-    def from_env(cls: Type[ProfileSelf]) -> ProfileSelf:
+    def from_env(cls: Type[ProfileSelf], force_none: bool = False) -> ProfileSelf:
         """
         Loads profile from environment variables.
         """
@@ -104,6 +104,8 @@ class Profile(ProfileDefaults, ProfileConfig):
             value = os.environ.get(env_variable)
             if value is not None:
                 setattr(profile, profile_property, value)
+            elif force_none:
+                setattr(profile, profile_property, None)
 
         return profile
 
@@ -131,6 +133,7 @@ class Profile(ProfileDefaults, ProfileConfig):
         cls: Type[ProfileSelf],
         filepath: Optional[str] = None,
         profile_name: Optional[str] = "default",
+        force_none: bool = False,
     ) -> ProfileSelf:
         filepath = cls.get_default_config_file_path(filepath)
 
@@ -145,6 +148,8 @@ class Profile(ProfileDefaults, ProfileConfig):
                 value = config.get(file_property)
                 if value is not None:
                     setattr(profile, profile_property, value)
+                elif force_none:
+                    setattr(profile, profile_property, None)
 
             if profile_name is not None and profile_name != "default":
                 has_profile = (
@@ -168,6 +173,8 @@ class Profile(ProfileDefaults, ProfileConfig):
                     value = overrides.get(file_property)
                     if value is not None:
                         setattr(profile, profile_property, value)
+                    elif force_none:
+                        setattr(profile, profile_property, None)
 
             return profile
 
@@ -184,12 +191,16 @@ class Profile(ProfileDefaults, ProfileConfig):
           - If config file is not found, the profile is still loaded from environment variables.
           - If you want it to throw an error in case of missing or invalid config file, use `Profile.from_config_file` and `Profile.from_env` instead.
         """
-        profile = cls.from_env()
 
+        has_config_profile = False
         try:
-            a = cls.from_config_file(filepath, profile_name)
-            profile.merge(a)
+            config_profile = cls.from_config_file(filepath, profile_name)
+            has_config_profile = True
         except Exception as e:
             print(e)
 
-        return profile
+        env_profile = cls.from_env(force_none=has_config_profile)
+        if has_config_profile:
+            env_profile.merge(config_profile)
+
+        return env_profile
