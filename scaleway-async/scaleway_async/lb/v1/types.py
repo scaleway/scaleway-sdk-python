@@ -543,6 +543,16 @@ class Backend:
     Number of retries when a backend server connection failed.
     """
 
+    max_connections: Optional[int]
+    """
+    Maximum number of connections allowed per backend server.
+    """
+
+    timeout_queue: Optional[str]
+    """
+    Maximum time for a request to be left pending in queue when `max_connections` is reached.
+    """
+
 
 @dataclass
 class BackendServerStats:
@@ -1996,6 +2006,16 @@ class CreateBackendRequest:
     Number of retries when a backend server connection failed.
     """
 
+    max_connections: Optional[int]
+    """
+    Maximum number of connections allowed per backend server.
+    """
+
+    timeout_queue: Optional[str]
+    """
+    Maximum time for a request to be left pending in queue when `max_connections` is reached.
+    """
+
 
 @dataclass
 class GetBackendRequest:
@@ -2106,6 +2126,16 @@ class UpdateBackendRequest:
     max_retries: Optional[int]
     """
     Number of retries when a backend server connection failed.
+    """
+
+    max_connections: Optional[int]
+    """
+    Maximum number of connections allowed per backend server.
+    """
+
+    timeout_queue: Optional[str]
+    """
+    Maximum time for a request to be left pending in queue when `max_connections` is reached.
     """
 
 
@@ -3496,6 +3526,16 @@ class ZonedApiCreateBackendRequest:
     Number of retries when a backend server connection failed.
     """
 
+    max_connections: Optional[int]
+    """
+    Maximum number of connections allowed per backend server.
+    """
+
+    timeout_queue: Optional[str]
+    """
+    Maximum time for a request to be left pending in queue when `max_connections` is reached.
+    """
+
 
 @dataclass
 class ZonedApiGetBackendRequest:
@@ -3606,6 +3646,16 @@ class ZonedApiUpdateBackendRequest:
     max_retries: Optional[int]
     """
     Number of retries when a backend server connection failed.
+    """
+
+    max_connections: Optional[int]
+    """
+    Maximum number of connections allowed per backend server.
+    """
+
+    timeout_queue: Optional[str]
+    """
+    Maximum time for a request to be left pending in queue when `max_connections` is reached.
     """
 
 

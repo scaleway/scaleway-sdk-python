@@ -536,6 +536,9 @@ def unmarshal_Backend(data: Any) -> Backend:
     field = data.get("lb")
     args["lb"] = unmarshal_Lb(field) if field is not None else None
 
+    field = data.get("max_connections")
+    args["max_connections"] = field
+
     field = data.get("max_retries")
     args["max_retries"] = field
 
@@ -568,6 +571,9 @@ def unmarshal_Backend(data: Any) -> Backend:
 
     field = data.get("timeout_connect")
     args["timeout_connect"] = field
+
+    field = data.get("timeout_queue")
+    args["timeout_queue"] = field
 
     field = data.get("timeout_server")
     args["timeout_server"] = field
@@ -1483,6 +1489,7 @@ def marshal_CreateBackendRequest(
         else None,
         "health_check": marshal_HealthCheck(request.health_check, defaults),
         "ignore_ssl_server_verify": request.ignore_ssl_server_verify,
+        "max_connections": request.max_connections,
         "max_retries": request.max_retries,
         "name": request.name,
         "on_marked_down_action": OnMarkedDownAction(request.on_marked_down_action),
@@ -1496,6 +1503,7 @@ def marshal_CreateBackendRequest(
         else None,
         "sticky_sessions_cookie_name": request.sticky_sessions_cookie_name,
         "timeout_connect": request.timeout_connect,
+        "timeout_queue": request.timeout_queue,
         "timeout_server": request.timeout_server,
         "timeout_tunnel": request.timeout_tunnel,
     }
@@ -1727,6 +1735,7 @@ def marshal_UpdateBackendRequest(
         if request.forward_protocol is not None
         else None,
         "ignore_ssl_server_verify": request.ignore_ssl_server_verify,
+        "max_connections": request.max_connections,
         "max_retries": request.max_retries,
         "name": request.name,
         "on_marked_down_action": OnMarkedDownAction(request.on_marked_down_action),
@@ -1739,6 +1748,7 @@ def marshal_UpdateBackendRequest(
         else None,
         "sticky_sessions_cookie_name": request.sticky_sessions_cookie_name,
         "timeout_connect": request.timeout_connect,
+        "timeout_queue": request.timeout_queue,
         "timeout_server": request.timeout_server,
         "timeout_tunnel": request.timeout_tunnel,
     }
@@ -1957,6 +1967,7 @@ def marshal_ZonedApiCreateBackendRequest(
         else None,
         "health_check": marshal_HealthCheck(request.health_check, defaults),
         "ignore_ssl_server_verify": request.ignore_ssl_server_verify,
+        "max_connections": request.max_connections,
         "max_retries": request.max_retries,
         "name": request.name,
         "on_marked_down_action": OnMarkedDownAction(request.on_marked_down_action),
@@ -1970,6 +1981,7 @@ def marshal_ZonedApiCreateBackendRequest(
         else None,
         "sticky_sessions_cookie_name": request.sticky_sessions_cookie_name,
         "timeout_connect": request.timeout_connect,
+        "timeout_queue": request.timeout_queue,
         "timeout_server": request.timeout_server,
         "timeout_tunnel": request.timeout_tunnel,
     }
@@ -2210,6 +2222,7 @@ def marshal_ZonedApiUpdateBackendRequest(
         if request.forward_protocol is not None
         else None,
         "ignore_ssl_server_verify": request.ignore_ssl_server_verify,
+        "max_connections": request.max_connections,
         "max_retries": request.max_retries,
         "name": request.name,
         "on_marked_down_action": OnMarkedDownAction(request.on_marked_down_action),
@@ -2222,6 +2235,7 @@ def marshal_ZonedApiUpdateBackendRequest(
         else None,
         "sticky_sessions_cookie_name": request.sticky_sessions_cookie_name,
         "timeout_connect": request.timeout_connect,
+        "timeout_queue": request.timeout_queue,
         "timeout_server": request.timeout_server,
         "timeout_tunnel": request.timeout_tunnel,
     }
