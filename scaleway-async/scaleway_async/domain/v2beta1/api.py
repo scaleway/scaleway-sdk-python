@@ -1301,9 +1301,9 @@ class DomainV2Beta1API(API):
 
 class DomainRegistrarV2Beta1API(API):
     """
-    Domains registrar API.
+    Domains and DNS - Registrar API.
 
-    Domains registrar API.
+    Domains and DNS - Registrar API.
     Manage your domains and contacts.
     """
 
