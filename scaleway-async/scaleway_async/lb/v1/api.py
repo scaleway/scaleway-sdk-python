@@ -912,6 +912,8 @@ class LbV1API(API):
         ignore_ssl_server_verify: Optional[bool] = None,
         redispatch_attempt_count: Optional[int] = None,
         max_retries: Optional[int] = None,
+        max_connections: Optional[int] = None,
+        timeout_queue: Optional[str] = None,
     ) -> Backend:
         """
         Create a backend in a given load balancer.
@@ -936,6 +938,8 @@ class LbV1API(API):
         :param ignore_ssl_server_verify: Defines whether the server certificate verification should be ignored.
         :param redispatch_attempt_count: Whether to use another backend server on each attempt.
         :param max_retries: Number of retries when a backend server connection failed.
+        :param max_connections: Maximum number of connections allowed per backend server.
+        :param timeout_queue: Maximum time for a request to be left pending in queue when `max_connections` is reached.
         :return: :class:`Backend <Backend>`
 
         Usage:
@@ -983,6 +987,8 @@ class LbV1API(API):
                     ignore_ssl_server_verify=ignore_ssl_server_verify,
                     redispatch_attempt_count=redispatch_attempt_count,
                     max_retries=max_retries,
+                    max_connections=max_connections,
+                    timeout_queue=timeout_queue,
                 ),
                 self.client,
             ),
@@ -1044,6 +1050,8 @@ class LbV1API(API):
         ignore_ssl_server_verify: Optional[bool] = None,
         redispatch_attempt_count: Optional[int] = None,
         max_retries: Optional[int] = None,
+        max_connections: Optional[int] = None,
+        timeout_queue: Optional[str] = None,
     ) -> Backend:
         """
         Update a backend in a given load balancer.
@@ -1066,6 +1074,8 @@ class LbV1API(API):
         :param ignore_ssl_server_verify: Defines whether the server certificate verification should be ignored.
         :param redispatch_attempt_count: Whether to use another backend server on each attempt.
         :param max_retries: Number of retries when a backend server connection failed.
+        :param max_connections: Maximum number of connections allowed per backend server.
+        :param timeout_queue: Maximum time for a request to be left pending in queue when `max_connections` is reached.
         :return: :class:`Backend <Backend>`
 
         Usage:
@@ -1110,6 +1120,8 @@ class LbV1API(API):
                     ignore_ssl_server_verify=ignore_ssl_server_verify,
                     redispatch_attempt_count=redispatch_attempt_count,
                     max_retries=max_retries,
+                    max_connections=max_connections,
+                    timeout_queue=timeout_queue,
                 ),
                 self.client,
             ),
@@ -3811,6 +3823,8 @@ class LbZonedV1API(API):
         ignore_ssl_server_verify: Optional[bool] = None,
         redispatch_attempt_count: Optional[int] = None,
         max_retries: Optional[int] = None,
+        max_connections: Optional[int] = None,
+        timeout_queue: Optional[str] = None,
     ) -> Backend:
         """
         Create a backend for a given Load Balancer.
@@ -3836,6 +3850,8 @@ class LbZonedV1API(API):
         :param ignore_ssl_server_verify: Defines whether the server certificate verification should be ignored.
         :param redispatch_attempt_count: Whether to use another backend server on each attempt.
         :param max_retries: Number of retries when a backend server connection failed.
+        :param max_connections: Maximum number of connections allowed per backend server.
+        :param timeout_queue: Maximum time for a request to be left pending in queue when `max_connections` is reached.
         :return: :class:`Backend <Backend>`
 
         Usage:
@@ -3881,6 +3897,8 @@ class LbZonedV1API(API):
                     ignore_ssl_server_verify=ignore_ssl_server_verify,
                     redispatch_attempt_count=redispatch_attempt_count,
                     max_retries=max_retries,
+                    max_connections=max_connections,
+                    timeout_queue=timeout_queue,
                 ),
                 self.client,
             ),
@@ -3941,6 +3959,8 @@ class LbZonedV1API(API):
         ignore_ssl_server_verify: Optional[bool] = None,
         redispatch_attempt_count: Optional[int] = None,
         max_retries: Optional[int] = None,
+        max_connections: Optional[int] = None,
+        timeout_queue: Optional[str] = None,
     ) -> Backend:
         """
         Update a backend of a given Load Balancer.
@@ -3964,6 +3984,8 @@ class LbZonedV1API(API):
         :param ignore_ssl_server_verify: Defines whether the server certificate verification should be ignored.
         :param redispatch_attempt_count: Whether to use another backend server on each attempt.
         :param max_retries: Number of retries when a backend server connection failed.
+        :param max_connections: Maximum number of connections allowed per backend server.
+        :param timeout_queue: Maximum time for a request to be left pending in queue when `max_connections` is reached.
         :return: :class:`Backend <Backend>`
 
         Usage:
@@ -4006,6 +4028,8 @@ class LbZonedV1API(API):
                     ignore_ssl_server_verify=ignore_ssl_server_verify,
                     redispatch_attempt_count=redispatch_attempt_count,
                     max_retries=max_retries,
+                    max_connections=max_connections,
+                    timeout_queue=timeout_queue,
                 ),
                 self.client,
             ),
