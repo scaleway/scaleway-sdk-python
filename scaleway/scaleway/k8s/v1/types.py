@@ -1234,7 +1234,6 @@ class CreateClusterRequest:
 
     type_: str
     """
-    Type of the cluster.
     Type of the cluster (possible values are kapsule, multicloud).
     """
 
@@ -1462,7 +1461,6 @@ class SetClusterTypeRequest:
 
     type_: str
     """
-    Type of the cluster.
     Type of the cluster. Note that some migrations are not possible (please refer to product documentation).
     """
 

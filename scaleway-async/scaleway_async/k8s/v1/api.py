@@ -229,8 +229,7 @@ class K8SV1API(API):
         :param project_id: Project ID in which the cluster will be created.
 
         One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
-        :param type_: Type of the cluster.
-        Type of the cluster (possible values are kapsule, multicloud).
+        :param type_: Type of the cluster (possible values are kapsule, multicloud).
         :param name: Name of the cluster.
         :param description: Description of the cluster.
         :param tags: Tags associated with the cluster.
@@ -544,8 +543,7 @@ class K8SV1API(API):
         Change type of a specific Kubernetes cluster.
         :param region: Region to target. If none is passed will use default region from the config.
         :param cluster_id: ID of the cluster to migrate from one type to another.
-        :param type_: Type of the cluster.
-        Type of the cluster. Note that some migrations are not possible (please refer to product documentation).
+        :param type_: Type of the cluster. Note that some migrations are not possible (please refer to product documentation).
         :return: :class:`Cluster <Cluster>`
 
         Usage:
