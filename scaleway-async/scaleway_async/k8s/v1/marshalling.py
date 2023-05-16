@@ -451,8 +451,8 @@ def unmarshal_ExternalNode(data: Any) -> ExternalNode:
     field = data.get("cluster_url")
     args["cluster_url"] = field
 
-    field = data.get("cluster_version")
-    args["cluster_version"] = field
+    field = data.get("external_ip")
+    args["external_ip"] = field
 
     field = data.get("id")
     args["id"] = field
@@ -465,6 +465,9 @@ def unmarshal_ExternalNode(data: Any) -> ExternalNode:
 
     field = data.get("name")
     args["name"] = field
+
+    field = data.get("pool_version")
+    args["pool_version"] = field
 
     return ExternalNode(**args)
 
