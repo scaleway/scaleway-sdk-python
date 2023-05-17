@@ -47,6 +47,24 @@ class EmailStatus(str, Enum):
         return str(self.value)
 
 
+class ListEmailsRequestOrderBy(str, Enum):
+    CREATED_AT_DESC = "created_at_desc"
+    CREATED_AT_ASC = "created_at_asc"
+    UPDATED_AT_DESC = "updated_at_desc"
+    UPDATED_AT_ASC = "updated_at_asc"
+    STATUS_DESC = "status_desc"
+    STATUS_ASC = "status_asc"
+    MAIL_FROM_DESC = "mail_from_desc"
+    MAIL_FROM_ASC = "mail_from_asc"
+    MAIL_RCPT_DESC = "mail_rcpt_desc"
+    MAIL_RCPT_ASC = "mail_rcpt_asc"
+    SUBJECT_DESC = "subject_desc"
+    SUBJECT_ASC = "subject_asc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 @dataclass
 class CreateEmailRequestAddress:
     """
@@ -209,7 +227,13 @@ class Email:
     Email address of the sender.
     """
 
-    rcpt_to: str
+    rcpt_to: Optional[str]
+    """
+    (Deprecated) Email address of the recipient.
+    :deprecated
+    """
+
+    mail_rcpt: str
     """
     Email address of the recipient.
     """
@@ -304,7 +328,7 @@ class ListEmailsResponse:
 
     total_count: int
     """
-    Count of all emails matching the requested criteria.
+    Number of emails matching the requested criteria.
     """
 
     emails: List[Email]
@@ -434,47 +458,65 @@ class ListEmailsRequest:
 
     project_id: Optional[str]
     """
-    ID of the Project in which to list the emails (optional).
+    (Optional) ID of the Project in which to list the emails.
     """
 
     domain_id: Optional[str]
     """
-    ID of the domain for which to list the emails (optional).
+    (Optional) ID of the domain for which to list the emails.
     """
 
     message_id: Optional[str]
     """
-    ID of the message for which to list the emails (optional).
-    """
-
-    subject: Optional[str]
-    """
-    Subject of the email.
+    (Optional) ID of the message for which to list the emails.
     """
 
     since: Optional[datetime]
     """
-    List emails created after this date (optional).
+    (Optional) List emails created after this date.
     """
 
     until: Optional[datetime]
     """
-    List emails created before this date (optional).
+    (Optional) List emails created before this date.
     """
 
     mail_from: Optional[str]
     """
-    List emails sent with this `mail_from` sender's address (optional).
+    (Optional) List emails sent with this sender's email address.
     """
 
     mail_to: Optional[str]
     """
-    List emails sent with this `mail_to` recipient's address (optional).
+    (Deprecated) List emails sent to this recipient's email address.
+    :deprecated
+    """
+
+    mail_rcpt: Optional[str]
+    """
+    (Optional) List emails sent to this recipient's email address.
     """
 
     statuses: Optional[List[EmailStatus]]
     """
-    List emails having any of this status (optional).
+    (Optional) List emails with any of these statuses.
+    """
+
+    subject: Optional[str]
+    """
+    (Optional) List emails with this subject.
+    """
+
+    order_by: Optional[ListEmailsRequestOrderBy]
+    """
+    (Optional) List emails corresponding to specific criteria.
+    You can filter your emails in ascending or descending order using:
+      - created_at
+      - updated_at
+      - status
+      - mail_from
+      - mail_rcpt
+      - subject.
     """
 
 
@@ -487,27 +529,27 @@ class GetStatisticsRequest:
 
     project_id: Optional[str]
     """
-    Number of emails for this Project (optional).
+    (Optional) Number of emails for this Project.
     """
 
     domain_id: Optional[str]
     """
-    Number of emails sent from this domain (must be coherent with the `project_id` and the `organization_id`) (optional).
+    (Optional) Number of emails sent from this domain (must be coherent with the `project_id` and the `organization_id`).
     """
 
     since: Optional[datetime]
     """
-    Number of emails created after this date (optional).
+    (Optional) Number of emails created after this date.
     """
 
     until: Optional[datetime]
     """
-    Number of emails created before this date (optional).
+    (Optional) Number of emails created before this date.
     """
 
     mail_from: Optional[str]
     """
-    Number of emails sent with this `mail_from` sender's address (optional).
+    (Optional) Number of emails sent with this sender's email address.
     """
 
 

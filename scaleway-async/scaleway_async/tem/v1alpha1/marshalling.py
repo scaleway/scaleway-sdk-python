@@ -142,6 +142,9 @@ def unmarshal_Email(data: Any) -> Email:
     field = data.get("mail_from")
     args["mail_from"] = field
 
+    field = data.get("mail_rcpt")
+    args["mail_rcpt"] = field
+
     field = data.get("message_id")
     args["message_id"] = field
 
