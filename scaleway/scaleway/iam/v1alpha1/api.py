@@ -53,6 +53,7 @@ from .types import (
     UpdateGroupRequest,
     SetGroupMembersRequest,
     AddGroupMemberRequest,
+    AddGroupMembersRequest,
     RemoveGroupMemberRequest,
     CreatePolicyRequest,
     UpdatePolicyRequest,
@@ -62,6 +63,7 @@ from .types import (
 )
 from .marshalling import (
     marshal_AddGroupMemberRequest,
+    marshal_AddGroupMembersRequest,
     marshal_CreateAPIKeyRequest,
     marshal_CreateApplicationRequest,
     marshal_CreateGroupRequest,
@@ -960,6 +962,45 @@ class IamV1Alpha1API(API):
                     group_id=group_id,
                     user_id=user_id,
                     application_id=application_id,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Group(res.json())
+
+    def add_group_members(
+        self,
+        *,
+        group_id: str,
+        user_ids: Optional[List[str]] = None,
+        application_ids: Optional[List[str]] = None,
+    ) -> Group:
+        """
+        Add multiple users and applications to a group.
+        Add multiple users and applications to a group in a single call. You can specify an array of `user_id`s and `application_id`s. Note that any existing users and applications in the group will remain. To add new users/applications and delete pre-existing ones, use the [Overwrite users and applications of a group](#path-groups-overwrite-users-and-applications-of-a-group) method.
+        :param group_id: ID of the group.
+        :param user_ids: IDs of the users to add.
+        :param application_ids: IDs of the applications to add.
+        :return: :class:`Group <Group>`
+
+        Usage:
+        ::
+
+            result = api.add_group_members(group_id="example")
+        """
+
+        param_group_id = validate_path_param("group_id", group_id)
+
+        res = self._request(
+            "POST",
+            f"/iam/v1alpha1/groups/{param_group_id}/add-members",
+            body=marshal_AddGroupMembersRequest(
+                AddGroupMembersRequest(
+                    group_id=group_id,
+                    user_ids=user_ids,
+                    application_ids=application_ids,
                 ),
                 self.client,
             ),

@@ -40,6 +40,7 @@ from .types import (
     UpdateGroupRequest,
     SetGroupMembersRequest,
     AddGroupMemberRequest,
+    AddGroupMembersRequest,
     RemoveGroupMemberRequest,
     CreatePolicyRequest,
     UpdatePolicyRequest,
@@ -639,6 +640,16 @@ def marshal_AddGroupMemberRequest(
                 ),
             ]
         ),
+    }
+
+
+def marshal_AddGroupMembersRequest(
+    request: AddGroupMembersRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    return {
+        "application_ids": request.application_ids,
+        "user_ids": request.user_ids,
     }
 
 

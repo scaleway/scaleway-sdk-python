@@ -1200,6 +1200,24 @@ class AddGroupMemberRequest:
 
 
 @dataclass
+class AddGroupMembersRequest:
+    group_id: str
+    """
+    ID of the group.
+    """
+
+    user_ids: Optional[List[str]]
+    """
+    IDs of the users to add.
+    """
+
+    application_ids: Optional[List[str]]
+    """
+    IDs of the applications to add.
+    """
+
+
+@dataclass
 class RemoveGroupMemberRequest:
     group_id: str
     """
