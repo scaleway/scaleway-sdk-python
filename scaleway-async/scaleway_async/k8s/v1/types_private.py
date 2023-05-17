@@ -19,5 +19,5 @@ class _GetClusterKubeConfigRequest:
 
     cluster_id: str
     """
-    ID of the cluster to download the kubeconfig from.
+    Cluster ID for which to download the kubeconfig.
     """

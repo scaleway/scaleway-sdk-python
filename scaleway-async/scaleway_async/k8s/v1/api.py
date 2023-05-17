@@ -102,17 +102,17 @@ class K8SV1API(API):
         type_: Optional[str] = None,
     ) -> ListClustersResponse:
         """
-        List all clusters.
-        List all the existing Kubernetes clusters in a specific Region.
+        List Clusters.
+        List all existing Kubernetes clusters in a specific region.
         :param region: Region to target. If none is passed will use default region from the config.
         :param organization_id: Organization ID on which to filter the returned clusters.
         :param project_id: Project ID on which to filter the returned clusters.
-        :param order_by: Sort order of the returned clusters.
-        :param page: Page number for the returned clusters.
+        :param order_by: Sort order of returned clusters.
+        :param page: Page number to return for clusters, from the paginated results.
         :param page_size: Maximum number of clusters per page.
-        :param name: Name on which to filter the returned clusters.
-        :param status: Status on which to filter the returned clusters.
-        :param type_: Type on which to filter the returned clusters.
+        :param name: Name to filter on, only clusters containing this substring in their name will be returned.
+        :param status: Status to filter on, only clusters with this status will be returned.
+        :param type_: Type to filter on, only clusters with this type will be returned.
         :return: :class:`ListClustersResponse <ListClustersResponse>`
 
         Usage:
@@ -158,17 +158,17 @@ class K8SV1API(API):
         type_: Optional[str] = None,
     ) -> List[Cluster]:
         """
-        List all clusters.
-        List all the existing Kubernetes clusters in a specific Region.
+        List Clusters.
+        List all existing Kubernetes clusters in a specific region.
         :param region: Region to target. If none is passed will use default region from the config.
         :param organization_id: Organization ID on which to filter the returned clusters.
         :param project_id: Project ID on which to filter the returned clusters.
-        :param order_by: Sort order of the returned clusters.
-        :param page: Page number for the returned clusters.
+        :param order_by: Sort order of returned clusters.
+        :param page: Page number to return for clusters, from the paginated results.
         :param page_size: Maximum number of clusters per page.
-        :param name: Name on which to filter the returned clusters.
-        :param status: Status on which to filter the returned clusters.
-        :param type_: Type on which to filter the returned clusters.
+        :param name: Name to filter on, only clusters containing this substring in their name will be returned.
+        :param status: Status to filter on, only clusters with this status will be returned.
+        :param type_: Type to filter on, only clusters with this type will be returned.
         :return: :class:`List[ListClustersResponse] <List[ListClustersResponse]>`
 
         Usage:
@@ -220,8 +220,8 @@ class K8SV1API(API):
         private_network_id: Optional[str] = None,
     ) -> Cluster:
         """
-        Create a new cluster.
-        Create a new Kubernetes cluster on a Scaleway account.
+        Create a new Cluster.
+        Create a new Kubernetes cluster in a Scaleway region.
         :param region: Region to target. If none is passed will use default region from the config.
         :param organization_id: Organization ID in which the cluster will be created.
 
@@ -229,23 +229,20 @@ class K8SV1API(API):
         :param project_id: Project ID in which the cluster will be created.
 
         One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
-        :param type_: Type of the cluster (possible values are kapsule, multicloud).
-        :param name: Name of the cluster.
-        :param description: Description of the cluster.
+        :param type_: Type of the cluster (possible values are kapsule, multicloud, kapsule-dedicated-8, kapsule-dedicated-16).
+        :param name: Cluster name.
+        :param description: Cluster description.
         :param tags: Tags associated with the cluster.
         :param version: Kubernetes version of the cluster.
-        :param cni: Container Network Interface (CNI) plugin that will run in the cluster.
-        :param enable_dashboard: Defines if the Kubernetes Dashboard is enabled in the cluster.
-        :param ingress: Ingress Controller that will run in the cluster.
-        :param pools: Pools to be created along with the cluster.
-        :param autoscaler_config: Autoscaler config for the cluster.
-        This field allows to specify some configuration for the autoscaler, which is an implementation of the cluster-autoscaler (https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler/).
-        :param auto_upgrade: Auto upgrade configuration of the cluster.
-        This configuration enables to set a specific 2-hour time window in which the cluster can be automatically updated to the latest patch version in the current minor one.
+        :param cni: Container Network Interface (CNI) plugin running in the cluster.
+        :param enable_dashboard: Defines whether the Kubernetes Dashboard is enabled in the cluster.
+        :param ingress: Ingress Controller running in the cluster (deprecated feature).
+        :param pools: Pools created along with the cluster.
+        :param autoscaler_config: Autoscaler configuration for the cluster. It allows you to set (to an extent) your preferred autoscaler configuration, which is an implementation of the cluster-autoscaler (https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler/).
+        :param auto_upgrade: Auto upgrade configuration of the cluster. This configuration enables to set a specific 2-hour time window in which the cluster can be automatically updated to the latest patch version.
         :param feature_gates: List of feature gates to enable.
         :param admission_plugins: List of admission plugins to enable.
-        :param open_id_connect_config: OpenID Connect configuration of the cluster.
-        This configuration enables to update the OpenID Connect configuration of the Kubernetes API server.
+        :param open_id_connect_config: OpenID Connect configuration of the cluster. This configuration enables to update the OpenID Connect configuration of the Kubernetes API server.
         :param apiserver_cert_sans: Additional Subject Alternative Names for the Kubernetes API server certificate.
         :param private_network_id: Private network ID for internal cluster communication (cannot be changed later).
         :return: :class:`Cluster <Cluster>`
@@ -303,10 +300,10 @@ class K8SV1API(API):
         region: Optional[Region] = None,
     ) -> Cluster:
         """
-        Get specific cluster information.
-        Get details about a specific Kubernetes cluster.
+        Get a Cluster.
+        Retrieve information about a specific Kubernetes cluster.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param cluster_id: The ID of the requested cluster.
+        :param cluster_id: ID of the requested cluster.
         :return: :class:`Cluster <Cluster>`
 
         Usage:
@@ -338,7 +335,7 @@ class K8SV1API(API):
         """
         Waits for :class:`Cluster <Cluster>` to be in a final state.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param cluster_id: The ID of the requested cluster.
+        :param cluster_id: ID of the requested cluster.
         :param options: The options for the waiter
         :return: :class:`Cluster <Cluster>`
 
@@ -383,23 +380,20 @@ class K8SV1API(API):
         apiserver_cert_sans: Optional[List[str]] = None,
     ) -> Cluster:
         """
-        Update a cluster.
-        Update a specific Kubernetes cluster. Note that this method is designed to update details such as name, description, tags and configuration. However, you cannot upgrade a cluster with this method. To do so, use the dedicated endpoint.
+        Update a Cluster.
+        Update information on a specific Kubernetes cluster. You can update details such as its name, description, tags and configuration. To upgrade a cluster, you will need to use the dedicated endpoint.
         :param region: Region to target. If none is passed will use default region from the config.
         :param cluster_id: ID of the cluster to update.
-        :param name: New external name of the cluster.
-        :param description: New description of the cluster.
+        :param name: New external name for the cluster.
+        :param description: New description for the cluster.
         :param tags: New tags associated with the cluster.
         :param autoscaler_config: New autoscaler config for the cluster.
-        Object defining the configuration for the autoscaler, which is an implementation of the [cluster-autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler/).
-        :param enable_dashboard: New value of the Kubernetes Dashboard enablement.
-        :param ingress: New Ingress Controller for the cluster.
-        :param auto_upgrade: New auto upgrade configuration of the cluster.
-        New auto upgrade configuration of the cluster. Note that all fields need to be set.
+        :param enable_dashboard: New value for the Kubernetes Dashboard enablement.
+        :param ingress: New Ingress Controller for the cluster (deprecated feature).
+        :param auto_upgrade: New auto upgrade configuration for the cluster. Note that all fields need to be set.
         :param feature_gates: List of feature gates to enable.
         :param admission_plugins: List of admission plugins to enable.
-        :param open_id_connect_config: OpenID Connect configuration of the cluster.
-        This configuration enables to update the OpenID Connect configuration of the Kubernetes API server.
+        :param open_id_connect_config: OpenID Connect configuration of the cluster. This configuration enables to update the OpenID Connect configuration of the Kubernetes API server.
         :param apiserver_cert_sans: Additional Subject Alternative Names for the Kubernetes API server certificate.
         :return: :class:`Cluster <Cluster>`
 
@@ -448,11 +442,11 @@ class K8SV1API(API):
         region: Optional[Region] = None,
     ) -> Cluster:
         """
-        Delete a cluster.
-        Delete a specific cluster and all its associated pools and nodes. Note that this method will not delete any Load Balancers or Block Volumes that are associated with the cluster.
+        Delete a Cluster.
+        Delete a specific Kubernetes cluster and all its associated pools and nodes. Note that this method will not delete any Load Balancer or Block Volume that are associated with the cluster.
         :param region: Region to target. If none is passed will use default region from the config.
         :param cluster_id: ID of the cluster to delete.
-        :param with_additional_resources: Set true if you want to delete all volumes (including retain volume type) and loadbalancers whose name start with cluster ID.
+        :param with_additional_resources: Defines whether all volumes (including retain volume type) and Load Balancers with a name starting with the cluster ID will also be deleted.
         :return: :class:`Cluster <Cluster>`
 
         Usage:
@@ -489,14 +483,12 @@ class K8SV1API(API):
         region: Optional[Region] = None,
     ) -> Cluster:
         """
-        Upgrade a cluster.
-        Upgrade a specific Kubernetes cluster and/or its associated pools to a specific and supported Kubernetes version.
+        Upgrade a Cluster.
+        Upgrade a specific Kubernetes cluster and possibly its associated pools to a specific and supported Kubernetes version.
         :param region: Region to target. If none is passed will use default region from the config.
         :param cluster_id: ID of the cluster to upgrade.
-        :param version: New Kubernetes version of the cluster.
-        New Kubernetes version of the cluster. Note that the version shoud either be a higher patch version of the same minor version or the direct minor version after the current one.
-        :param upgrade_pools: Enablement of the pools upgrade.
-        This field also trigger pools upgrade once the control plane is upgraded.
+        :param version: New Kubernetes version of the cluster. Note that the version should either be a higher patch version of the same minor version or the direct minor version after the current one.
+        :param upgrade_pools: Defines whether pools will also be upgraded once the control plane is upgraded.
         :return: :class:`Cluster <Cluster>`
 
         Usage:
@@ -539,8 +531,8 @@ class K8SV1API(API):
         region: Optional[Region] = None,
     ) -> Cluster:
         """
-        Change type of a cluster.
-        Change type of a specific Kubernetes cluster.
+        Change the Cluster type.
+        Change the type of a specific Kubernetes cluster.
         :param region: Region to target. If none is passed will use default region from the config.
         :param cluster_id: ID of the cluster to migrate from one type to another.
         :param type_: Type of the cluster. Note that some migrations are not possible (please refer to product documentation).
@@ -583,10 +575,10 @@ class K8SV1API(API):
         region: Optional[Region] = None,
     ) -> ListClusterAvailableVersionsResponse:
         """
-        List available versions for a cluster.
-        List the versions that a specific Kubernetes cluster is allowed to upgrade to. Results will comprise every patch version greater than the current patch, as well as one minor version ahead of the current version. Any upgrade skipping a minor version will not work.
+        List available versions for a Cluster.
+        List the versions that a specific Kubernetes cluster is allowed to upgrade to. Results will include every patch version greater than the current patch, as well as one minor version ahead of the current version. Any upgrade skipping a minor version will not work.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param cluster_id: ID of the cluster which the available Kuberentes versions will be listed from.
+        :param cluster_id: Cluster ID for which the available Kubernetes versions will be listed.
         :return: :class:`ListClusterAvailableVersionsResponse <ListClusterAvailableVersionsResponse>`
 
         Usage:
@@ -615,10 +607,11 @@ class K8SV1API(API):
         region: Optional[Region] = None,
     ) -> Optional[ScwFile]:
         """
-        Download the kubeconfig for a cluster.
-        Download the Kubernetes cluster config file (AKA kubeconfig) for a specific cluster in order to use it with, for instance, `kubectl`. Tips: add `?dl=1` at the end of the URL to directly get the base64 decoded kubeconfig. If not, the kubeconfig will be base64 encoded.
+        Download the kubeconfig for a Cluster.
+        Download the Kubernetes cluster config file (also known as `kubeconfig`) for a specific cluster to use it with `kubectl`.
+        Tip: add `?dl=1` at the end of the URL to directly retrieve the base64 decoded kubeconfig. If you choose not to, the kubeconfig will be base64 encoded.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param cluster_id: ID of the cluster to download the kubeconfig from.
+        :param cluster_id: Cluster ID for which to download the kubeconfig.
         :return: :class:`Optional[ScwFile] <Optional[ScwFile]>`
 
         Usage:
@@ -648,10 +641,10 @@ class K8SV1API(API):
         region: Optional[Region] = None,
     ) -> Optional[None]:
         """
-        Reset the admin token of a cluster.
-        Reset the admin token for a specific Kubernetes cluster. This will invalidate the old admin token (which will not be usable afterwards) and create a new one. Note that you will need to redownload kubeconfig in order to keep interacting with the cluster.
+        Reset the admin token of a Cluster.
+        Reset the admin token for a specific Kubernetes cluster. This will revoke the old admin token (which will not be usable afterwards) and create a new one. Note that you will need to download kubeconfig again to keep interacting with the cluster.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param cluster_id: ID of the cluster on which the admin token will be renewed.
+        :param cluster_id: Cluster ID on which the admin token will be renewed.
 
         Usage:
         ::
@@ -684,15 +677,15 @@ class K8SV1API(API):
         status: PoolStatus = PoolStatus.UNKNOWN,
     ) -> ListPoolsResponse:
         """
-        List all the pools in a cluster.
+        List Pools in a Cluster.
         List all the existing pools for a specific Kubernetes cluster.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param cluster_id: ID of the cluster from which the pools will be listed from.
-        :param order_by: Sort order of the returned pools.
+        :param cluster_id: ID of the cluster whose pools will be listed.
+        :param order_by: Sort order of returned pools.
         :param page: Page number for the returned pools.
         :param page_size: Maximum number of pools per page.
-        :param name: Name on which to filter the returned pools.
-        :param status: Status on which to filter the returned pools.
+        :param name: Name to filter on, only pools containing this substring in their name will be returned.
+        :param status: Status to filter on, only pools with this status will be returned.
         :return: :class:`ListPoolsResponse <ListPoolsResponse>`
 
         Usage:
@@ -733,15 +726,15 @@ class K8SV1API(API):
         status: Optional[PoolStatus] = None,
     ) -> List[Pool]:
         """
-        List all the pools in a cluster.
+        List Pools in a Cluster.
         List all the existing pools for a specific Kubernetes cluster.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param cluster_id: ID of the cluster from which the pools will be listed from.
-        :param order_by: Sort order of the returned pools.
+        :param cluster_id: ID of the cluster whose pools will be listed.
+        :param order_by: Sort order of returned pools.
         :param page: Page number for the returned pools.
         :param page_size: Maximum number of pools per page.
-        :param name: Name on which to filter the returned pools.
-        :param status: Status on which to filter the returned pools.
+        :param name: Name to filter on, only pools containing this substring in their name will be returned.
+        :param status: Status to filter on, only pools with this status will be returned.
         :return: :class:`List[ListPoolsResponse] <List[ListPoolsResponse]>`
 
         Usage:
@@ -787,29 +780,24 @@ class K8SV1API(API):
         root_volume_size: Optional[int] = None,
     ) -> Pool:
         """
-        Create a new pool in a cluster.
+        Create a new Pool in a Cluster.
         Create a new pool in a specific Kubernetes cluster.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param cluster_id: ID of the cluster in which the pool will be created.
-        :param name: Name of the pool.
-        :param node_type: Node type is the type of Scaleway Instance wanted for the pool.
-        Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers.
+        :param cluster_id: Cluster ID to which the pool will be attached.
+        :param name: Pool name.
+        :param node_type: Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers in a Kosmos Cluster.
         :param placement_group_id: Placement group ID in which all the nodes of the pool will be created.
         :param autoscaling: Defines whether the autoscaling feature is enabled for the pool.
         :param size: Size (number of nodes) of the pool.
-        :param min_size: Minimum size of the pool.
-        Defines the minimum size of the pool. Note that this field will be used only when autoscaling is enabled.
-        :param max_size: Maximum size of the pool.
-        Defines the maximum size of the pool. Note that this field will be used only when autoscaling is enabled.
-        :param container_runtime: Container runtime for the nodes of the pool.
-        Customization of the container runtime is available for each pool. Note that `docker` is deprecated since 1.20 and will be removed in 1.24.
+        :param min_size: Defines the minimum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
+        :param max_size: Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
+        :param container_runtime: Customization of the container runtime is available for each pool. Note that `docker` has been deprecated since version 1.20 and will be removed by version 1.24.
         :param autohealing: Defines whether the autohealing feature is enabled for the pool.
         :param tags: Tags associated with the pool.
-        :param kubelet_args: Kubelet arguments to be used by this pool. Note that this feature is to be considered as experimental.
+        :param kubelet_args: Kubelet arguments to be used by this pool. Note that this feature is experimental.
         :param upgrade_policy: Pool upgrade policy.
         :param zone: Zone in which the pool's nodes will be spawned.
-        :param root_volume_type: System volume disk type.
-        Defines the system volume disk type, we provide two different types of volume (`volume_type`): `l_ssd` is a local block storage: your system is stored locally on the hypervisor of your node. `b_ssd` is a remote block storage: your system is stored on a centralised and resilient cluster.
+        :param root_volume_type: Defines the system volume disk type. Two different types of volume (`volume_type`) are provided: `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. `b_ssd` is a remote block storage which means your system is stored on a centralized and resilient cluster.
         :param root_volume_size: System volume disk size.
         :return: :class:`Pool <Pool>`
 
@@ -869,8 +857,8 @@ class K8SV1API(API):
         region: Optional[Region] = None,
     ) -> Pool:
         """
-        Get a pool in a cluster.
-        Get details about a specific pool in a Kubernetes cluster.
+        Get a Pool in a Cluster.
+        Retrieve details about a specific pool in a Kubernetes cluster.
         :param region: Region to target. If none is passed will use default region from the config.
         :param pool_id: ID of the requested pool.
         :return: :class:`Pool <Pool>`
@@ -937,8 +925,8 @@ class K8SV1API(API):
         region: Optional[Region] = None,
     ) -> Pool:
         """
-        Upgrade a pool in a cluster.
-        Upgrade the Kubernetes version of a specific pool. Note that this will work when the targeted version is the same than the version of the cluster.
+        Upgrade a Pool in a Cluster.
+        Upgrade the Kubernetes version of a specific pool. Note that it only works if the targeted version matches the cluster's version.
         :param region: Region to target. If none is passed will use default region from the config.
         :param pool_id: ID of the pool to upgrade.
         :param version: New Kubernetes version for the pool.
@@ -989,18 +977,18 @@ class K8SV1API(API):
         upgrade_policy: Optional[UpdatePoolRequestUpgradePolicy] = None,
     ) -> Pool:
         """
-        Update a pool in a cluster.
-        Update attributes of a specific pool, such as size, autoscaling settings, and tags.
+        Update a Pool in a Cluster.
+        Update the attributes of a specific pool, such as its desired size, autoscaling settings, and tags.
         :param region: Region to target. If none is passed will use default region from the config.
         :param pool_id: ID of the pool to update.
-        :param autoscaling: New value for the enablement of autoscaling for the pool.
-        :param size: New size for the pool.
-        :param min_size: New minimun size for the pool.
+        :param autoscaling: New value for the pool autoscaling enablement.
+        :param size: New desired pool size.
+        :param min_size: New minimum size for the pool.
         :param max_size: New maximum size for the pool.
-        :param autohealing: New value for the enablement of autohealing for the pool.
+        :param autohealing: New value for the pool autohealing enablement.
         :param tags: New tags associated with the pool.
-        :param kubelet_args: New Kubelet arguments to be used by this pool. Note that this feature is to be considered as experimental.
-        :param upgrade_policy: Upgrade policy for the pool.
+        :param kubelet_args: New Kubelet arguments to be used by this pool. Note that this feature is experimental.
+        :param upgrade_policy: New upgrade policy for the pool.
         :return: :class:`Pool <Pool>`
 
         Usage:
@@ -1044,8 +1032,8 @@ class K8SV1API(API):
         region: Optional[Region] = None,
     ) -> Pool:
         """
-        Delete a pool in a cluster.
-        Delete a specific pool from a cluster. All of the pool's nodes will also be deleted.
+        Delete a Pool in a Cluster.
+        Delete a specific pool from a cluster. Note that all the pool's nodes will also be deleted.
         :param region: Region to target. If none is passed will use default region from the config.
         :param pool_id: ID of the pool to delete.
         :return: :class:`Pool <Pool>`
@@ -1077,7 +1065,7 @@ class K8SV1API(API):
     ) -> ExternalNode:
         """
         Create a Kosmos node.
-        Get metadata about a Kosmos node. This method is not intended to be directly called by end users, only by the kapsule-node-agent.
+        Retrieve metadata for a Kosmos node. This method is not intended to be called by end users but rather programmatically by the kapsule-node-agent.
         :param region: Region to target. If none is passed will use default region from the config.
         :param pool_id:
         :return: :class:`ExternalNode <ExternalNode>`
@@ -1114,7 +1102,7 @@ class K8SV1API(API):
         status: NodeStatus = NodeStatus.UNKNOWN,
     ) -> ListNodesResponse:
         """
-        List all the nodes in a cluster.
+        List Nodes in a Cluster.
         List all the existing nodes for a specific Kubernetes cluster.
         :param region: Region to target. If none is passed will use default region from the config.
         :param cluster_id: Cluster ID from which the nodes will be listed from.
@@ -1122,8 +1110,8 @@ class K8SV1API(API):
         :param order_by: Sort order of the returned nodes.
         :param page: Page number for the returned nodes.
         :param page_size: Maximum number of nodes per page.
-        :param name: Name on which to filter the returned nodes.
-        :param status: Status on which to filter the returned nodes.
+        :param name: Name to filter on, only nodes containing this substring in their name will be returned.
+        :param status: Status to filter on, only nodes with this status will be returned.
         :return: :class:`ListNodesResponse <ListNodesResponse>`
 
         Usage:
@@ -1166,7 +1154,7 @@ class K8SV1API(API):
         status: Optional[NodeStatus] = None,
     ) -> List[Node]:
         """
-        List all the nodes in a cluster.
+        List Nodes in a Cluster.
         List all the existing nodes for a specific Kubernetes cluster.
         :param region: Region to target. If none is passed will use default region from the config.
         :param cluster_id: Cluster ID from which the nodes will be listed from.
@@ -1174,8 +1162,8 @@ class K8SV1API(API):
         :param order_by: Sort order of the returned nodes.
         :param page: Page number for the returned nodes.
         :param page_size: Maximum number of nodes per page.
-        :param name: Name on which to filter the returned nodes.
-        :param status: Status on which to filter the returned nodes.
+        :param name: Name to filter on, only nodes containing this substring in their name will be returned.
+        :param status: Status to filter on, only nodes with this status will be returned.
         :return: :class:`List[ListNodesResponse] <List[ListNodesResponse]>`
 
         Usage:
@@ -1207,8 +1195,8 @@ class K8SV1API(API):
         region: Optional[Region] = None,
     ) -> Node:
         """
-        Get a node in a cluster.
-        Get details about a specific Kubernetes node.
+        Get a Node in a Cluster.
+        Retrieve details about a specific Kubernetes Node.
         :param region: Region to target. If none is passed will use default region from the config.
         :param node_id: ID of the requested node.
         :return: :class:`Node <Node>`
@@ -1274,8 +1262,8 @@ class K8SV1API(API):
         region: Optional[Region] = None,
     ) -> Node:
         """
-        Replace a node in a cluster.
-        Replace a specific node. The node will be set cordoned, meaning that scheduling will be disabled. Then the existing pods on the node will be drained and reschedule onto another schedulable node. Then the node will be deleted, and a new one will be created after the deletion. Note that when there is not enough space to reschedule all the pods (in a one node cluster for instance), you may experience some disruption of your applications.
+        Replace a Node in a Cluster.
+        Replace a specific Node. The node will first be cordoned (scheduling will be disabled on it). The existing pods on the node will then be drained and rescheduled onto another schedulable node. Note that when there is not enough space to reschedule all the pods (such as in a one-node cluster), disruption of your applications can be expected.
         :param region: Region to target. If none is passed will use default region from the config.
         :param node_id: ID of the node to replace.
         :return: :class:`Node <Node>`
@@ -1307,8 +1295,8 @@ class K8SV1API(API):
         region: Optional[Region] = None,
     ) -> Node:
         """
-        Reboot a node in a cluster.
-        Reboot a specific node. This node will first be cordoned, meaning that scheduling will be disabled. Then the existing pods on the node will be drained and rescheduled onto another schedulable node. Note that when there is not enough space to reschedule all the pods (in a one-node cluster, for instance), you may experience some disruption of your applications.
+        Reboot a Node in a Cluster.
+        Reboot a specific Node. The node will first be cordoned (scheduling will be disabled on it). The existing pods on the node will then be drained and rescheduled onto another schedulable node. Note that when there is not enough space to reschedule all the pods (such as in a one-node cluster), disruption of your applications can be expected.
         :param region: Region to target. If none is passed will use default region from the config.
         :param node_id: ID of the node to reboot.
         :return: :class:`Node <Node>`
@@ -1341,8 +1329,8 @@ class K8SV1API(API):
         region: Optional[Region] = None,
     ) -> Node:
         """
-        Delete a node in a cluster.
-        Delete a specific node. Note that when there is not enough space to reschedule all the pods (in a one-node cluster for instance), you may experience some disruption of your applications.
+        Delete a Node in a Cluster.
+        Delete a specific Node. Note that when there is not enough space to reschedule all the pods (such as in a one-node cluster), disruption of your applications can be expected.
         :param region: Region to target. If none is passed will use default region from the config.
         :param node_id: ID of the node to replace.
         :param skip_drain: Skip draining node from its workload.
@@ -1382,7 +1370,7 @@ class K8SV1API(API):
         region: Optional[Region] = None,
     ) -> ListVersionsResponse:
         """
-        List all available versions.
+        List all available Versions.
         List all available versions for the creation of a new Kubernetes cluster.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`ListVersionsResponse <ListVersionsResponse>`
@@ -1412,8 +1400,8 @@ class K8SV1API(API):
         region: Optional[Region] = None,
     ) -> Version:
         """
-        Get details about a specific version.
-        Get a specific Kubernetes version and the details about the version.
+        Get a Version.
+        Retrieve a specific Kubernetes version and its details.
         :param region: Region to target. If none is passed will use default region from the config.
         :param version_name: Requested version name.
         :return: :class:`Version <Version>`
