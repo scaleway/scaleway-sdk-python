@@ -17,6 +17,7 @@ from scaleway_core.utils import (
 from .types import (
     DomainStatus,
     EmailStatus,
+    ListEmailsRequestOrderBy,
     CreateEmailRequestAddress,
     CreateEmailRequestAttachment,
     CreateEmailResponse,
@@ -196,28 +197,46 @@ class TemV1Alpha1API(API):
         project_id: Optional[str] = None,
         domain_id: Optional[str] = None,
         message_id: Optional[str] = None,
-        subject: Optional[str] = None,
         since: Optional[datetime] = None,
         until: Optional[datetime] = None,
         mail_from: Optional[str] = None,
         mail_to: Optional[str] = None,
+        mail_rcpt: Optional[str] = None,
         statuses: Optional[List[EmailStatus]] = None,
+        subject: Optional[str] = None,
+        order_by: ListEmailsRequestOrderBy = ListEmailsRequestOrderBy.CREATED_AT_DESC,
     ) -> ListEmailsResponse:
         """
         List emails.
         Retrieve the list of emails sent from a specific domain or for a specific Project or Organization. You must specify the `region`.
+        You can filter your emails in ascending or descending order using:
+          - created_at
+          - updated_at
+          - status
+          - mail_from
+          - mail_rcpt
+          - subject
         :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
-        :param project_id: ID of the Project in which to list the emails (optional).
-        :param domain_id: ID of the domain for which to list the emails (optional).
-        :param message_id: ID of the message for which to list the emails (optional).
-        :param subject: Subject of the email.
-        :param since: List emails created after this date (optional).
-        :param until: List emails created before this date (optional).
-        :param mail_from: List emails sent with this `mail_from` sender's address (optional).
-        :param mail_to: List emails sent with this `mail_to` recipient's address (optional).
-        :param statuses: List emails having any of this status (optional).
+        :param project_id: (Optional) ID of the Project in which to list the emails.
+        :param domain_id: (Optional) ID of the domain for which to list the emails.
+        :param message_id: (Optional) ID of the message for which to list the emails.
+        :param since: (Optional) List emails created after this date.
+        :param until: (Optional) List emails created before this date.
+        :param mail_from: (Optional) List emails sent with this sender's email address.
+        :param mail_to: (Deprecated) List emails sent to this recipient's email address.
+        :param mail_rcpt: (Optional) List emails sent to this recipient's email address.
+        :param statuses: (Optional) List emails with any of these statuses.
+        :param subject: (Optional) List emails with this subject.
+        :param order_by: (Optional) List emails corresponding to specific criteria.
+        You can filter your emails in ascending or descending order using:
+          - created_at
+          - updated_at
+          - status
+          - mail_from
+          - mail_rcpt
+          - subject.
         :return: :class:`ListEmailsResponse <ListEmailsResponse>`
 
         Usage:
@@ -236,8 +255,10 @@ class TemV1Alpha1API(API):
             params={
                 "domain_id": domain_id,
                 "mail_from": mail_from,
+                "mail_rcpt": mail_rcpt,
                 "mail_to": mail_to,
                 "message_id": message_id,
+                "order_by": order_by,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -260,28 +281,46 @@ class TemV1Alpha1API(API):
         project_id: Optional[str] = None,
         domain_id: Optional[str] = None,
         message_id: Optional[str] = None,
-        subject: Optional[str] = None,
         since: Optional[datetime] = None,
         until: Optional[datetime] = None,
         mail_from: Optional[str] = None,
         mail_to: Optional[str] = None,
+        mail_rcpt: Optional[str] = None,
         statuses: Optional[List[EmailStatus]] = None,
+        subject: Optional[str] = None,
+        order_by: Optional[ListEmailsRequestOrderBy] = None,
     ) -> List[Email]:
         """
         List emails.
         Retrieve the list of emails sent from a specific domain or for a specific Project or Organization. You must specify the `region`.
+        You can filter your emails in ascending or descending order using:
+          - created_at
+          - updated_at
+          - status
+          - mail_from
+          - mail_rcpt
+          - subject
         :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
-        :param project_id: ID of the Project in which to list the emails (optional).
-        :param domain_id: ID of the domain for which to list the emails (optional).
-        :param message_id: ID of the message for which to list the emails (optional).
-        :param subject: Subject of the email.
-        :param since: List emails created after this date (optional).
-        :param until: List emails created before this date (optional).
-        :param mail_from: List emails sent with this `mail_from` sender's address (optional).
-        :param mail_to: List emails sent with this `mail_to` recipient's address (optional).
-        :param statuses: List emails having any of this status (optional).
+        :param project_id: (Optional) ID of the Project in which to list the emails.
+        :param domain_id: (Optional) ID of the domain for which to list the emails.
+        :param message_id: (Optional) ID of the message for which to list the emails.
+        :param since: (Optional) List emails created after this date.
+        :param until: (Optional) List emails created before this date.
+        :param mail_from: (Optional) List emails sent with this sender's email address.
+        :param mail_to: (Deprecated) List emails sent to this recipient's email address.
+        :param mail_rcpt: (Optional) List emails sent to this recipient's email address.
+        :param statuses: (Optional) List emails with any of these statuses.
+        :param subject: (Optional) List emails with this subject.
+        :param order_by: (Optional) List emails corresponding to specific criteria.
+        You can filter your emails in ascending or descending order using:
+          - created_at
+          - updated_at
+          - status
+          - mail_from
+          - mail_rcpt
+          - subject.
         :return: :class:`List[ListEmailsResponse] <List[ListEmailsResponse]>`
 
         Usage:
@@ -301,12 +340,14 @@ class TemV1Alpha1API(API):
                 "project_id": project_id,
                 "domain_id": domain_id,
                 "message_id": message_id,
-                "subject": subject,
                 "since": since,
                 "until": until,
                 "mail_from": mail_from,
                 "mail_to": mail_to,
+                "mail_rcpt": mail_rcpt,
                 "statuses": statuses,
+                "subject": subject,
+                "order_by": order_by,
             },
         )
 
@@ -324,11 +365,11 @@ class TemV1Alpha1API(API):
         Email statuses.
         Get information on your emails' statuses.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param project_id: Number of emails for this Project (optional).
-        :param domain_id: Number of emails sent from this domain (must be coherent with the `project_id` and the `organization_id`) (optional).
-        :param since: Number of emails created after this date (optional).
-        :param until: Number of emails created before this date (optional).
-        :param mail_from: Number of emails sent with this `mail_from` sender's address (optional).
+        :param project_id: (Optional) Number of emails for this Project.
+        :param domain_id: (Optional) Number of emails sent from this domain (must be coherent with the `project_id` and the `organization_id`).
+        :param since: (Optional) Number of emails created after this date.
+        :param until: (Optional) Number of emails created before this date.
+        :param mail_from: (Optional) Number of emails sent with this sender's email address.
         :return: :class:`Statistics <Statistics>`
 
         Usage:
