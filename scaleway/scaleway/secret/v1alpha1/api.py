@@ -17,19 +17,20 @@ from .types import (
     AccessSecretVersionResponse,
     ListSecretVersionsResponse,
     ListSecretsResponse,
-    PasswordGenerationParams,
     Secret,
     SecretVersion,
     CreateSecretRequest,
     UpdateSecretRequest,
     AddSecretOwnerRequest,
     CreateSecretVersionRequest,
+    GeneratePasswordRequest,
     UpdateSecretVersionRequest,
 )
 from .marshalling import (
     marshal_AddSecretOwnerRequest,
     marshal_CreateSecretRequest,
     marshal_CreateSecretVersionRequest,
+    marshal_GeneratePasswordRequest,
     marshal_UpdateSecretRequest,
     marshal_UpdateSecretVersionRequest,
     unmarshal_Secret,
@@ -395,7 +396,6 @@ class SecretV1Alpha1API(API):
         region: Optional[Region] = None,
         description: Optional[str] = None,
         disable_previous: Optional[bool] = None,
-        password_generation: Optional[PasswordGenerationParams] = None,
         data_crc32: Optional[int] = None,
     ) -> SecretVersion:
         """
@@ -407,12 +407,8 @@ class SecretV1Alpha1API(API):
         :param description: Description of the version.
         :param disable_previous: Disable the previous secret version.
         Optional. If there is no previous version or if the previous version was already disabled, does nothing.
-        :param password_generation: Options to generate a password.
-        Optional. If specified, a random password will be generated. The `data` and `data_crc32` fields must be empty. By default, the generator will use upper and lower case letters, and digits. This behavior can be tuned using the generation parameters.
-
-        One-of ('_password_generation'): at most one of 'password_generation' could be set.
-        :param data_crc32: The CRC32 checksum of the data as a base-10 integer.
-        Optional. If specified, Secret Manager will verify the integrity of the data received against the given CRC32. An error is returned if the CRC32 does not match. Otherwise, the CRC32 will be stored and returned along with the SecretVersion on futur accesses.
+        :param data_crc32: (Optional.) The CRC32 checksum of the data as a base-10 integer.
+        If specified, Secret Manager will verify the integrity of the data received against the given CRC32 checksum. An error is returned if the CRC32 does not match. If, however, the CRC32 matches, it will be stored and returned along with the SecretVersion on future access requests.
         :return: :class:`SecretVersion <SecretVersion>`
 
         Usage:
@@ -439,8 +435,71 @@ class SecretV1Alpha1API(API):
                     region=region,
                     description=description,
                     disable_previous=disable_previous,
-                    password_generation=password_generation,
                     data_crc32=data_crc32,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_SecretVersion(res.json())
+
+    def generate_password(
+        self,
+        *,
+        secret_id: str,
+        length: int,
+        region: Optional[Region] = None,
+        description: Optional[str] = None,
+        disable_previous: Optional[bool] = None,
+        no_lowercase_letters: Optional[bool] = None,
+        no_uppercase_letters: Optional[bool] = None,
+        no_digits: Optional[bool] = None,
+        additional_chars: Optional[str] = None,
+    ) -> SecretVersion:
+        """
+        Generate a password in a new version.
+        Generate a password for the given secret specified by the `region` and `secret_id` parameters. This will also create a new version of the secret that will store the password.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param secret_id: ID of the secret.
+        :param description: Description of the version.
+        :param disable_previous: (Optional.) Disable the previous secret version.
+        This has no effect if there is no previous version or if the previous version was already disabled.
+        :param length: Length of the password to generate (between 1 and 1024 characters).
+        :param no_lowercase_letters: (Optional.) Exclude lower case letters by default in the password character set.
+        :param no_uppercase_letters: (Optional.) Exclude upper case letters by default in the password character set.
+        :param no_digits: (Optional.) Exclude digits by default in the password character set.
+        :param additional_chars: (Optional.) Additional ASCII characters to be included in the password character set.
+        :return: :class:`SecretVersion <SecretVersion>`
+
+        Usage:
+        ::
+
+            result = api.generate_password(
+                secret_id="example",
+                length=1,
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_secret_id = validate_path_param("secret_id", secret_id)
+
+        res = self._request(
+            "POST",
+            f"/secret-manager/v1alpha1/regions/{param_region}/secrets/{param_secret_id}/generate-password",
+            body=marshal_GeneratePasswordRequest(
+                GeneratePasswordRequest(
+                    secret_id=secret_id,
+                    length=length,
+                    region=region,
+                    description=description,
+                    disable_previous=disable_previous,
+                    no_lowercase_letters=no_lowercase_letters,
+                    no_uppercase_letters=no_uppercase_letters,
+                    no_digits=no_digits,
+                    additional_chars=additional_chars,
                 ),
                 self.client,
             ),
