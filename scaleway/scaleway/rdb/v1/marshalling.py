@@ -401,6 +401,9 @@ def unmarshal_ReadReplica(data: Any) -> ReadReplica:
     field = data.get("region")
     args["region"] = field
 
+    field = data.get("same_zone")
+    args["same_zone"] = field
+
     field = data.get("status")
     args["status"] = field
 
@@ -1452,6 +1455,7 @@ def marshal_CreateReadReplicaRequest(
         if request.endpoint_spec is not None
         else None,
         "instance_id": request.instance_id,
+        "same_zone": request.same_zone,
     }
 
 
