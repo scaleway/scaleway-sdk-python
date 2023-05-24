@@ -51,6 +51,7 @@ from .types import (
     UpdateClusterRequest,
     UpgradeClusterRequest,
     SetClusterTypeRequest,
+    MigrateToPrivateNetworkClusterRequest,
     CreatePoolRequest,
     UpgradePoolRequest,
     UpdatePoolRequest,
@@ -63,6 +64,7 @@ from .content import (
 from .marshalling import (
     marshal_CreateClusterRequest,
     marshal_CreatePoolRequest,
+    marshal_MigrateToPrivateNetworkClusterRequest,
     marshal_SetClusterTypeRequest,
     marshal_UpdateClusterRequest,
     marshal_UpdatePoolRequest,
@@ -664,6 +666,51 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return None
+
+    async def migrate_to_private_network_cluster(
+        self,
+        *,
+        cluster_id: str,
+        private_network_id: str,
+        region: Optional[Region] = None,
+    ) -> Cluster:
+        """
+        Migrate an existing cluster to a Private Network cluster.
+        Migrate a cluster that was created before the release of Private Network clusters to a new one with a Private Network.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param cluster_id: ID of the cluster to migrate.
+        :param private_network_id: ID of the Private Network to link to the cluster.
+        :return: :class:`Cluster <Cluster>`
+
+        Usage:
+        ::
+
+            result = await api.migrate_to_private_network_cluster(
+                cluster_id="example",
+                private_network_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_cluster_id = validate_path_param("cluster_id", cluster_id)
+
+        res = self._request(
+            "POST",
+            f"/k8s/v1/regions/{param_region}/clusters/{param_cluster_id}/migrate-to-private-network",
+            body=marshal_MigrateToPrivateNetworkClusterRequest(
+                MigrateToPrivateNetworkClusterRequest(
+                    cluster_id=cluster_id,
+                    private_network_id=private_network_id,
+                    region=region,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Cluster(res.json())
 
     async def list_pools(
         self,

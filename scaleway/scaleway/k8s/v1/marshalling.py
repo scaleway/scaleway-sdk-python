@@ -46,6 +46,7 @@ from .types import (
     UpdateClusterRequest,
     UpgradeClusterRequest,
     SetClusterTypeRequest,
+    MigrateToPrivateNetworkClusterRequest,
     CreatePoolRequest,
     UpgradePoolRequest,
     UpdatePoolRequest,
@@ -796,6 +797,15 @@ def marshal_CreatePoolRequest(
         if request.upgrade_policy is not None
         else None,
         "zone": request.zone or defaults.default_zone,
+    }
+
+
+def marshal_MigrateToPrivateNetworkClusterRequest(
+    request: MigrateToPrivateNetworkClusterRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    return {
+        "private_network_id": request.private_network_id,
     }
 
 
