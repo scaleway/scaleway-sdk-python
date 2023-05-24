@@ -301,6 +301,12 @@ class GetSecretByNameRequest:
     Name of the secret.
     """
 
+    project_id: Optional[str]
+    """
+    ID of the Project to target.
+    (Optional.) If not specified, Secret Manager will look for the secret in all Projects.
+    """
+
 
 @dataclass
 class UpdateSecretRequest:
@@ -425,7 +431,7 @@ class CreateSecretVersionRequest:
     disable_previous: Optional[bool]
     """
     Disable the previous secret version.
-    Optional. If there is no previous version or if the previous version was already disabled, does nothing.
+    (Optional.) If there is no previous version or if the previous version was already disabled, does nothing.
     """
 
     data_crc32: Optional[int]
@@ -521,6 +527,12 @@ class GetSecretVersionByNameRequest:
     The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
     """
 
+    project_id: Optional[str]
+    """
+    ID of the Project to target.
+    (Optional.) If not specified, Secret Manager will look for the secret version in all Projects.
+    """
+
 
 @dataclass
 class UpdateSecretVersionRequest:
@@ -587,6 +599,12 @@ class ListSecretVersionsByNameRequest:
     status: Optional[List[SecretVersionStatus]]
     """
     Filter results by status.
+    """
+
+    project_id: Optional[str]
+    """
+    ID of the Project to target.
+    (Optional.) If not specified, Secret Manager will look for the secret in all Projects.
     """
 
 
@@ -663,6 +681,12 @@ class AccessSecretVersionByNameRequest:
     """
     Version number.
     The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+    """
+
+    project_id: Optional[str]
+    """
+    ID of the Project to target.
+    (Optional.) If not specified, Secret Manager will look for the secret version in all Projects.
     """
 
 

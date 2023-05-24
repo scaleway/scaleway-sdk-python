@@ -133,12 +133,15 @@ class SecretV1Alpha1API(API):
         *,
         secret_name: str,
         region: Optional[Region] = None,
+        project_id: Optional[str] = None,
     ) -> Secret:
         """
         Get metadata using the secret's ID.
-        Retrieve the metadata of a secret specified by the `region` and the `secret_id` parameters.
+        Retrieve the metadata of a secret specified by the `region`, `secret_id` and `project_id` parameters.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_name: Name of the secret.
+        :param project_id: ID of the Project to target.
+        (Optional.) If not specified, Secret Manager will look for the secret in all Projects.
         :return: :class:`Secret <Secret>`
 
         Usage:
@@ -155,6 +158,9 @@ class SecretV1Alpha1API(API):
         res = self._request(
             "GET",
             f"/secret-manager/v1alpha1/regions/{param_region}/secrets-by-name/{param_secret_name}",
+            params={
+                "project_id": project_id or self.client.default_project_id,
+            },
         )
 
         self._throw_on_error(res)
@@ -406,7 +412,7 @@ class SecretV1Alpha1API(API):
         :param data: The base64-encoded secret payload of the version.
         :param description: Description of the version.
         :param disable_previous: Disable the previous secret version.
-        Optional. If there is no previous version or if the previous version was already disabled, does nothing.
+        (Optional.) If there is no previous version or if the previous version was already disabled, does nothing.
         :param data_crc32: (Optional.) The CRC32 checksum of the data as a base-10 integer.
         If specified, Secret Manager will verify the integrity of the data received against the given CRC32 checksum. An error is returned if the CRC32 does not match. If, however, the CRC32 matches, it will be stored and returned along with the SecretVersion on future access requests.
         :return: :class:`SecretVersion <SecretVersion>`
@@ -553,14 +559,17 @@ class SecretV1Alpha1API(API):
         secret_name: str,
         revision: str,
         region: Optional[Region] = None,
+        project_id: Optional[str] = None,
     ) -> SecretVersion:
         """
         Get metadata of a secret's version using the secret's name.
-        Retrieve the metadata of a secret's given version specified by the `region`, `secret_name` and `revision` parameters.
+        Retrieve the metadata of a secret's given version specified by the `region`, `secret_name`, `revision` and `project_id` parameters.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_name: Name of the secret.
         :param revision: Version number.
         The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+        :param project_id: ID of the Project to target.
+        (Optional.) If not specified, Secret Manager will look for the secret version in all Projects.
         :return: :class:`SecretVersion <SecretVersion>`
 
         Usage:
@@ -581,6 +590,9 @@ class SecretV1Alpha1API(API):
         res = self._request(
             "GET",
             f"/secret-manager/v1alpha1/regions/{param_region}/secrets-by-name/{param_secret_name}/versions/{param_revision}",
+            params={
+                "project_id": project_id or self.client.default_project_id,
+            },
         )
 
         self._throw_on_error(res)
@@ -725,15 +737,18 @@ class SecretV1Alpha1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         status: Optional[List[SecretVersionStatus]] = None,
+        project_id: Optional[str] = None,
     ) -> ListSecretVersionsResponse:
         """
         List versions of a secret using the secret's name.
-        Retrieve the list of a given secret's versions specified by the `secret_name` and `region` parameters.
+        Retrieve the list of a given secret's versions specified by the `secret_name`,`region` and `project_id` parameters.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_name: Name of the secret.
         :param page:
         :param page_size:
         :param status: Filter results by status.
+        :param project_id: ID of the Project to target.
+        (Optional.) If not specified, Secret Manager will look for the secret in all Projects.
         :return: :class:`ListSecretVersionsResponse <ListSecretVersionsResponse>`
 
         Usage:
@@ -753,6 +768,7 @@ class SecretV1Alpha1API(API):
             params={
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
+                "project_id": project_id or self.client.default_project_id,
                 "status": status,
             },
         )
@@ -768,15 +784,18 @@ class SecretV1Alpha1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         status: Optional[List[SecretVersionStatus]] = None,
+        project_id: Optional[str] = None,
     ) -> List[SecretVersion]:
         """
         List versions of a secret using the secret's name.
-        Retrieve the list of a given secret's versions specified by the `secret_name` and `region` parameters.
+        Retrieve the list of a given secret's versions specified by the `secret_name`,`region` and `project_id` parameters.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_name: Name of the secret.
         :param page:
         :param page_size:
         :param status: Filter results by status.
+        :param project_id: ID of the Project to target.
+        (Optional.) If not specified, Secret Manager will look for the secret in all Projects.
         :return: :class:`List[ListSecretVersionsResponse] <List[ListSecretVersionsResponse]>`
 
         Usage:
@@ -795,6 +814,7 @@ class SecretV1Alpha1API(API):
                 "page": page,
                 "page_size": page_size,
                 "status": status,
+                "project_id": project_id,
             },
         )
 
@@ -921,14 +941,17 @@ class SecretV1Alpha1API(API):
         secret_name: str,
         revision: str,
         region: Optional[Region] = None,
+        project_id: Optional[str] = None,
     ) -> AccessSecretVersionResponse:
         """
         Access a secret's version using the secret's name.
-        Access sensitive data in a secret's version specified by the `region`, `secret_name` and `revision` parameters.
+        Access sensitive data in a secret's version specified by the `region`, `secret_name`, `revision` and `project_id` parameters.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_name: Name of the secret.
         :param revision: Version number.
         The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+        :param project_id: ID of the Project to target.
+        (Optional.) If not specified, Secret Manager will look for the secret version in all Projects.
         :return: :class:`AccessSecretVersionResponse <AccessSecretVersionResponse>`
 
         Usage:
@@ -949,6 +972,9 @@ class SecretV1Alpha1API(API):
         res = self._request(
             "GET",
             f"/secret-manager/v1alpha1/regions/{param_region}/secrets-by-name/{param_secret_name}/versions/{param_revision}/access",
+            params={
+                "project_id": project_id or self.client.default_project_id,
+            },
         )
 
         self._throw_on_error(res)
