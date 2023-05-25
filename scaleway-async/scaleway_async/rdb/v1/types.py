@@ -1304,6 +1304,11 @@ class ReadReplica:
     Region the Read Replica is in.
     """
 
+    same_zone: bool
+    """
+    Whether the replica is in the same availability zone as the main instance nodes or not.
+    """
+
 
 @dataclass
 class ReadReplicaEndpointSpec:
@@ -2025,6 +2030,11 @@ class CreateReadReplicaRequest:
     endpoint_spec: Optional[List[ReadReplicaEndpointSpec]]
     """
     Specification of the endpoint you want to create.
+    """
+
+    same_zone: Optional[bool]
+    """
+    Defines whether to create the replica in the same availability zone as the main instance nodes or not.
     """
 
 

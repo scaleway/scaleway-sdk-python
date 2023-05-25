@@ -1319,6 +1319,7 @@ class RdbV1API(API):
         instance_id: str,
         region: Optional[Region] = None,
         endpoint_spec: Optional[List[ReadReplicaEndpointSpec]] = None,
+        same_zone: Optional[bool] = None,
     ) -> ReadReplica:
         """
         Create a Read Replica.
@@ -1326,6 +1327,7 @@ class RdbV1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance you want to create a Read Replica from.
         :param endpoint_spec: Specification of the endpoint you want to create.
+        :param same_zone: Defines whether to create the replica in the same availability zone as the main instance nodes or not.
         :return: :class:`ReadReplica <ReadReplica>`
 
         Usage:
@@ -1346,6 +1348,7 @@ class RdbV1API(API):
                     instance_id=instance_id,
                     region=region,
                     endpoint_spec=endpoint_spec,
+                    same_zone=same_zone,
                 ),
                 self.client,
             ),
