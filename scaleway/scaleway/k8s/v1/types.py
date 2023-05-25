@@ -1455,6 +1455,24 @@ class ResetClusterAdminTokenRequest:
 
 
 @dataclass
+class MigrateToPrivateNetworkClusterRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    cluster_id: str
+    """
+    ID of the cluster to migrate.
+    """
+
+    private_network_id: str
+    """
+    ID of the Private Network to link to the cluster.
+    """
+
+
+@dataclass
 class ListPoolsRequest:
     region: Optional[Region]
     """
