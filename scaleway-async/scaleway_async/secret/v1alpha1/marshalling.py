@@ -4,11 +4,16 @@
 from typing import Any, Dict
 
 from scaleway_core.profile import ProfileDefaults
+from scaleway_core.utils import (
+    OneOfPossibility,
+    resolve_one_of,
+)
 from dateutil import parser
 from .types import (
     AccessSecretVersionResponse,
     ListSecretVersionsResponse,
     ListSecretsResponse,
+    PasswordGenerationParams,
     Secret,
     SecretVersion,
     CreateSecretRequest,
@@ -153,6 +158,19 @@ def unmarshal_ListSecretsResponse(data: Any) -> ListSecretsResponse:
     return ListSecretsResponse(**args)
 
 
+def marshal_PasswordGenerationParams(
+    request: PasswordGenerationParams,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    return {
+        "additional_chars": request.additional_chars,
+        "length": request.length,
+        "no_digits": request.no_digits,
+        "no_lowercase_letters": request.no_lowercase_letters,
+        "no_uppercase_letters": request.no_uppercase_letters,
+    }
+
+
 def marshal_AddSecretOwnerRequest(
     request: AddSecretOwnerRequest,
     defaults: ProfileDefaults,
@@ -179,6 +197,18 @@ def marshal_CreateSecretVersionRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
+        **resolve_one_of(
+            [
+                OneOfPossibility(
+                    "password_generation",
+                    marshal_PasswordGenerationParams(
+                        request.password_generation, defaults
+                    )
+                    if request.password_generation is not None
+                    else None,
+                ),
+            ]
+        ),
         "data": request.data,
         "data_crc32": request.data_crc32,
         "description": request.description,
