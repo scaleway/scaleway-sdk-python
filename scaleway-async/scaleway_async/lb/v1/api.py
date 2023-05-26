@@ -1903,11 +1903,13 @@ class LbV1API(API):
         *,
         lb_id: str,
         region: Optional[Region] = None,
+        backend_id: Optional[str] = None,
     ) -> LbStats:
         """
         Get usage statistics of a given load balancer.
         :param region: Region to target. If none is passed will use default region from the config.
         :param lb_id: Load Balancer ID.
+        :param backend_id: ID of the backend.
         :return: :class:`LbStats <LbStats>`
         :deprecated
 
@@ -1925,6 +1927,9 @@ class LbV1API(API):
         res = self._request(
             "GET",
             f"/lb/v1/regions/{param_region}/lbs/{param_lb_id}/stats",
+            params={
+                "backend_id": backend_id,
+            },
         )
 
         self._throw_on_error(res)
@@ -4798,11 +4803,13 @@ class LbZonedV1API(API):
         *,
         lb_id: str,
         zone: Optional[Zone] = None,
+        backend_id: Optional[str] = None,
     ) -> LbStats:
         """
         Get usage statistics of a given Load Balancer.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param lb_id: Load Balancer ID.
+        :param backend_id: ID of the backend.
         :return: :class:`LbStats <LbStats>`
         :deprecated
 
@@ -4818,6 +4825,9 @@ class LbZonedV1API(API):
         res = self._request(
             "GET",
             f"/lb/v1/zones/{param_zone}/lbs/{param_lb_id}/stats",
+            params={
+                "backend_id": backend_id,
+            },
         )
 
         self._throw_on_error(res)
