@@ -17,6 +17,7 @@ from .types import (
     AccessSecretVersionResponse,
     ListSecretVersionsResponse,
     ListSecretsResponse,
+    PasswordGenerationParams,
     Secret,
     SecretVersion,
     CreateSecretRequest,
@@ -402,6 +403,7 @@ class SecretV1Alpha1API(API):
         region: Optional[Region] = None,
         description: Optional[str] = None,
         disable_previous: Optional[bool] = None,
+        password_generation: Optional[PasswordGenerationParams] = None,
         data_crc32: Optional[int] = None,
     ) -> SecretVersion:
         """
@@ -413,6 +415,10 @@ class SecretV1Alpha1API(API):
         :param description: Description of the version.
         :param disable_previous: Disable the previous secret version.
         (Optional.) If there is no previous version or if the previous version was already disabled, does nothing.
+        :param password_generation: Options to generate a password.
+        (Optional.) If specified, a random password will be generated. The `data` and `data_crc32` fields must be empty. By default, the generator will use upper and lower case letters, and digits. This behavior can be tuned using the generation parameters.
+
+        One-of ('_password_generation'): at most one of 'password_generation' could be set.
         :param data_crc32: (Optional.) The CRC32 checksum of the data as a base-10 integer.
         If specified, Secret Manager will verify the integrity of the data received against the given CRC32 checksum. An error is returned if the CRC32 does not match. If, however, the CRC32 matches, it will be stored and returned along with the SecretVersion on future access requests.
         :return: :class:`SecretVersion <SecretVersion>`
@@ -441,6 +447,7 @@ class SecretV1Alpha1API(API):
                     region=region,
                     description=description,
                     disable_previous=disable_previous,
+                    password_generation=password_generation,
                     data_crc32=data_crc32,
                 ),
                 self.client,

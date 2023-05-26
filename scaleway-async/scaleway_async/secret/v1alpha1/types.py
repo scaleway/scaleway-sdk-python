@@ -434,6 +434,15 @@ class CreateSecretVersionRequest:
     (Optional.) If there is no previous version or if the previous version was already disabled, does nothing.
     """
 
+    password_generation: Optional[PasswordGenerationParams]
+    """
+    Options to generate a password.
+    (Optional.) If specified, a random password will be generated. The `data` and `data_crc32` fields must be empty. By default, the generator will use upper and lower case letters, and digits. This behavior can be tuned using the generation parameters.
+    
+    One-of ('_password_generation'): at most one of 'password_generation' could be set.
+    :deprecated
+    """
+
     data_crc32: Optional[int]
     """
     (Optional.) The CRC32 checksum of the data as a base-10 integer.
