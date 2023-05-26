@@ -2567,6 +2567,11 @@ class GetLbStatsRequest:
     Load Balancer ID.
     """
 
+    backend_id: Optional[str]
+    """
+    ID of the backend.
+    """
+
 
 @dataclass
 class ListBackendStatsRequest:
@@ -4085,6 +4090,11 @@ class ZonedApiGetLbStatsRequest:
     lb_id: str
     """
     Load Balancer ID.
+    """
+
+    backend_id: Optional[str]
+    """
+    ID of the backend.
     """
 
 
