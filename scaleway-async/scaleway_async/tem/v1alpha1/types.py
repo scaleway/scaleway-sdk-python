@@ -388,17 +388,17 @@ class CreateEmailRequest:
 
     to: Optional[List[CreateEmailRequestAddress]]
     """
-    Array of recipient information (limited to 1 recipient).
+    An array of the primary recipient's information.
     """
 
     cc: Optional[List[CreateEmailRequestAddress]]
     """
-    Array of recipient information (unimplemented).
+    An array of the carbon copy recipient's information.
     """
 
     bcc: Optional[List[CreateEmailRequestAddress]]
     """
-    Array of recipient information (unimplemented).
+    An array of the blind carbon copy recipient's information.
     """
 
     subject: str
@@ -507,16 +507,14 @@ class ListEmailsRequest:
     (Optional) List emails with this subject.
     """
 
+    search: Optional[str]
+    """
+    (Optional) List emails by searching to all fields.
+    """
+
     order_by: Optional[ListEmailsRequestOrderBy]
     """
     (Optional) List emails corresponding to specific criteria.
-    You can filter your emails in ascending or descending order using:
-      - created_at
-      - updated_at
-      - status
-      - mail_from
-      - mail_rcpt
-      - subject.
     """
 
 
