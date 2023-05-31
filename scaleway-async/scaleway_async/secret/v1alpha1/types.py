@@ -24,6 +24,13 @@ class ListSecretsRequestOrderBy(str, Enum):
         return str(self.value)
 
 
+class Product(str, Enum):
+    UNKNOWN = "unknown"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class SecretStatus(str, Enum):
     READY = "ready"
     LOCKED = "locked"
@@ -400,9 +407,15 @@ class AddSecretOwnerRequest:
     ID of the secret.
     """
 
-    product_name: str
+    product_name: Optional[str]
     """
-    Name of the product to add.
+    (Deprecated: use product field) ID of the product to add (see product enum).
+    :deprecated
+    """
+
+    product: Product
+    """
+    ID of the product to add (see product enum).
     """
 
 

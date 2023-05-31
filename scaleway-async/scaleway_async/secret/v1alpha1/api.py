@@ -13,6 +13,7 @@ from scaleway_core.utils import (
 )
 from .types import (
     ListSecretsRequestOrderBy,
+    Product,
     SecretVersionStatus,
     AccessSecretVersionResponse,
     ListSecretVersionsResponse,
@@ -356,21 +357,23 @@ class SecretV1Alpha1API(API):
         self,
         *,
         secret_id: str,
-        product_name: str,
+        product: Product,
         region: Optional[Region] = None,
+        product_name: Optional[str] = None,
     ) -> Optional[None]:
         """
         Allow a product to use the secret.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the secret.
-        :param product_name: Name of the product to add.
+        :param product_name: (Deprecated: use product field) ID of the product to add (see product enum).
+        :param product: ID of the product to add (see product enum).
 
         Usage:
         ::
 
             result = await api.add_secret_owner(
                 secret_id="example",
-                product_name="example",
+                product=unknown,
             )
         """
 
@@ -385,8 +388,9 @@ class SecretV1Alpha1API(API):
             body=marshal_AddSecretOwnerRequest(
                 AddSecretOwnerRequest(
                     secret_id=secret_id,
-                    product_name=product_name,
+                    product=product,
                     region=region,
+                    product_name=product_name,
                 ),
                 self.client,
             ),

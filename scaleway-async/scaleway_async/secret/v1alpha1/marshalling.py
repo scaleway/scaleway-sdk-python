@@ -10,6 +10,7 @@ from scaleway_core.utils import (
 )
 from dateutil import parser
 from .types import (
+    Product,
     AccessSecretVersionResponse,
     ListSecretVersionsResponse,
     ListSecretsResponse,
@@ -176,6 +177,7 @@ def marshal_AddSecretOwnerRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
+        "product": Product(request.product),
         "product_name": request.product_name,
     }
 
