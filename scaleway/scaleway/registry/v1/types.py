@@ -585,7 +585,8 @@ class DeleteTagRequest:
     UUID of the tag.
     """
 
-    force: bool
+    force: Optional[bool]
     """
-    If two tags share the same digest the deletion will fail unless this parameter is set to true.
+    If two tags share the same digest the deletion will fail unless this parameter is set to true (deprecated).
+    :deprecated
     """
