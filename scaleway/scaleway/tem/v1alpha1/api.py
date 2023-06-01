@@ -72,9 +72,9 @@ class TemV1Alpha1API(API):
         You must specify the `region`, the sender and the recipient's information and the `project_id` to send an email from a checked domain. The subject of the email must contain at least 6 characters.
         :param region: Region to target. If none is passed will use default region from the config.
         :param from_: Sender information. Must be from a checked domain declared in the Project.
-        :param to: Array of recipient information (limited to 1 recipient).
-        :param cc: Array of recipient information (unimplemented).
-        :param bcc: Array of recipient information (unimplemented).
+        :param to: An array of the primary recipient's information.
+        :param cc: An array of the carbon copy recipient's information.
+        :param bcc: An array of the blind carbon copy recipient's information.
         :param subject: Subject of the email.
         :param text: Text content.
         :param html: HTML content.
@@ -204,18 +204,12 @@ class TemV1Alpha1API(API):
         mail_rcpt: Optional[str] = None,
         statuses: Optional[List[EmailStatus]] = None,
         subject: Optional[str] = None,
+        search: Optional[str] = None,
         order_by: ListEmailsRequestOrderBy = ListEmailsRequestOrderBy.CREATED_AT_DESC,
     ) -> ListEmailsResponse:
         """
         List emails.
         Retrieve the list of emails sent from a specific domain or for a specific Project or Organization. You must specify the `region`.
-        You can filter your emails in ascending or descending order using:
-          - created_at
-          - updated_at
-          - status
-          - mail_from
-          - mail_rcpt
-          - subject
         :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
@@ -229,14 +223,8 @@ class TemV1Alpha1API(API):
         :param mail_rcpt: (Optional) List emails sent to this recipient's email address.
         :param statuses: (Optional) List emails with any of these statuses.
         :param subject: (Optional) List emails with this subject.
+        :param search: (Optional) List emails by searching to all fields.
         :param order_by: (Optional) List emails corresponding to specific criteria.
-        You can filter your emails in ascending or descending order using:
-          - created_at
-          - updated_at
-          - status
-          - mail_from
-          - mail_rcpt
-          - subject.
         :return: :class:`ListEmailsResponse <ListEmailsResponse>`
 
         Usage:
@@ -262,6 +250,7 @@ class TemV1Alpha1API(API):
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
+                "search": search,
                 "since": since,
                 "statuses": statuses,
                 "subject": subject,
@@ -288,18 +277,12 @@ class TemV1Alpha1API(API):
         mail_rcpt: Optional[str] = None,
         statuses: Optional[List[EmailStatus]] = None,
         subject: Optional[str] = None,
+        search: Optional[str] = None,
         order_by: Optional[ListEmailsRequestOrderBy] = None,
     ) -> List[Email]:
         """
         List emails.
         Retrieve the list of emails sent from a specific domain or for a specific Project or Organization. You must specify the `region`.
-        You can filter your emails in ascending or descending order using:
-          - created_at
-          - updated_at
-          - status
-          - mail_from
-          - mail_rcpt
-          - subject
         :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
@@ -313,14 +296,8 @@ class TemV1Alpha1API(API):
         :param mail_rcpt: (Optional) List emails sent to this recipient's email address.
         :param statuses: (Optional) List emails with any of these statuses.
         :param subject: (Optional) List emails with this subject.
+        :param search: (Optional) List emails by searching to all fields.
         :param order_by: (Optional) List emails corresponding to specific criteria.
-        You can filter your emails in ascending or descending order using:
-          - created_at
-          - updated_at
-          - status
-          - mail_from
-          - mail_rcpt
-          - subject.
         :return: :class:`List[ListEmailsResponse] <List[ListEmailsResponse]>`
 
         Usage:
@@ -347,6 +324,7 @@ class TemV1Alpha1API(API):
                 "mail_rcpt": mail_rcpt,
                 "statuses": statuses,
                 "subject": subject,
+                "search": search,
                 "order_by": order_by,
             },
         )
