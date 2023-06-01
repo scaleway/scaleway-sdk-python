@@ -279,7 +279,7 @@ class FunctionV1Beta1API(API):
     ) -> Namespace:
         """
         Create a new namespace.
-        Create a new namespace in a specified Organization or Proejct.
+        Create a new namespace in a specified Organization or Project.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name:
         :param environment_variables: Environment variables of the namespace.
