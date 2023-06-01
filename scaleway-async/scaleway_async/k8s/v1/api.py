@@ -448,7 +448,7 @@ class K8SV1API(API):
         Delete a specific Kubernetes cluster and all its associated pools and nodes. Note that this method will not delete any Load Balancer or Block Volume that are associated with the cluster.
         :param region: Region to target. If none is passed will use default region from the config.
         :param cluster_id: ID of the cluster to delete.
-        :param with_additional_resources: Defines whether all volumes (including retain volume type) and Load Balancers with a name starting with the cluster ID will also be deleted.
+        :param with_additional_resources: Defines whether all volumes (including retain volume type), empty Private Networks and Load Balancers with a name starting with the cluster ID will also be deleted.
         :return: :class:`Cluster <Cluster>`
 
         Usage:
