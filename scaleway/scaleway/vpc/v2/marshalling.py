@@ -116,6 +116,9 @@ def unmarshal_VPC(data: Any) -> VPC:
     field = data.get("organization_id")
     args["organization_id"] = field
 
+    field = data.get("private_network_count")
+    args["private_network_count"] = field
+
     field = data.get("project_id")
     args["project_id"] = field
 

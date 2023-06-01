@@ -196,6 +196,11 @@ class VPC:
     Date the VPC was last modified.
     """
 
+    private_network_count: int
+    """
+    Number of Private Networks within this VPC.
+    """
+
 
 @dataclass
 class ListVPCsRequest:
