@@ -1662,6 +1662,11 @@ class CreateLbRequest:
     ID of an existing flexible IP address to attach to the Load Balancer.
     """
 
+    assign_flexible_ip: Optional[bool]
+    """
+    Defines whether to automatically assign a flexible public IP to lb. Default value is `false` (do not assign).
+    """
+
     tags: Optional[List[str]]
     """
     List of tags for the Load Balancer.
@@ -3185,6 +3190,11 @@ class ZonedApiCreateLbRequest:
     ip_id: Optional[str]
     """
     ID of an existing flexible IP address to attach to the Load Balancer.
+    """
+
+    assign_flexible_ip: Optional[bool]
+    """
+    Defines whether to automatically assign a flexible public IP to lb. Default value is `false` (do not assign).
     """
 
     tags: Optional[List[str]]
