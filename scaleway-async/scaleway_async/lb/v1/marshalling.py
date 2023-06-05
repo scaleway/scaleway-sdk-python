@@ -1576,6 +1576,7 @@ def marshal_CreateIpRequest(
                 ),
             ]
         ),
+        "is_ipv6": request.is_ipv6,
         "reverse": request.reverse,
     }
 
@@ -1606,6 +1607,7 @@ def marshal_CreateLbRequest(
         "assign_flexible_ip": request.assign_flexible_ip,
         "description": request.description,
         "ip_id": request.ip_id,
+        "ip_ids": request.ip_ids,
         "name": request.name,
         "ssl_compatibility_level": SSLCompatibilityLevel(
             request.ssl_compatibility_level
@@ -2055,6 +2057,7 @@ def marshal_ZonedApiCreateIpRequest(
                 ),
             ]
         ),
+        "is_ipv6": request.is_ipv6,
         "reverse": request.reverse,
     }
 
@@ -2085,6 +2088,7 @@ def marshal_ZonedApiCreateLbRequest(
         "assign_flexible_ip": request.assign_flexible_ip,
         "description": request.description,
         "ip_id": request.ip_id,
+        "ip_ids": request.ip_ids,
         "name": request.name,
         "ssl_compatibility_level": SSLCompatibilityLevel(
             request.ssl_compatibility_level
