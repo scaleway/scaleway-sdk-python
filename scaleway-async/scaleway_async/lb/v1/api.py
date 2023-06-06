@@ -310,6 +310,8 @@ class LbV1API(API):
         project_id: Optional[str] = None,
         name: Optional[str] = None,
         ip_id: Optional[str] = None,
+        assign_flexible_ip: Optional[bool] = None,
+        ip_ids: Optional[List[str]] = None,
         tags: Optional[List[str]] = None,
     ) -> Lb:
         """
@@ -324,6 +326,8 @@ class LbV1API(API):
         :param name: Name for the Load Balancer.
         :param description: Description for the Load Balancer.
         :param ip_id: ID of an existing flexible IP address to attach to the Load Balancer.
+        :param assign_flexible_ip: Defines whether to automatically assign a flexible public IP to lb. Default value is `false` (do not assign).
+        :param ip_ids: List of IP IDs to attach to the Load Balancer.
         :param tags: List of tags for the Load Balancer.
         :param type_: Load Balancer commercial offer type. Use the Load Balancer types endpoint to retrieve a list of available offer types.
         :param ssl_compatibility_level: Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort.
@@ -356,6 +360,8 @@ class LbV1API(API):
                     project_id=project_id,
                     name=name or random_name(prefix="lb"),
                     ip_id=ip_id,
+                    assign_flexible_ip=assign_flexible_ip,
+                    ip_ids=ip_ids,
                     tags=tags,
                 ),
                 self.client,
@@ -657,6 +663,7 @@ class LbV1API(API):
     async def create_ip(
         self,
         *,
+        is_ipv6: bool,
         region: Optional[Region] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -672,12 +679,13 @@ class LbV1API(API):
 
         One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
         :param reverse: Reverse DNS (domain name) for the IP address.
+        :param is_ipv6: If true, creates a Flexible IP with an ipv6 address.
         :return: :class:`Ip <Ip>`
 
         Usage:
         ::
 
-            result = await api.create_ip()
+            result = await api.create_ip(is_ipv6=True)
         """
 
         param_region = validate_path_param(
@@ -689,6 +697,7 @@ class LbV1API(API):
             f"/lb/v1/regions/{param_region}/ips",
             body=marshal_CreateIpRequest(
                 CreateIpRequest(
+                    is_ipv6=is_ipv6,
                     region=region,
                     organization_id=organization_id,
                     project_id=project_id,
@@ -1942,6 +1951,7 @@ class LbV1API(API):
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
+        backend_id: Optional[str] = None,
     ) -> ListBackendStatsResponse:
         """
 
@@ -1960,6 +1970,7 @@ class LbV1API(API):
             "GET",
             f"/lb/v1/regions/{param_region}/lbs/{param_lb_id}/backend-stats",
             params={
+                "backend_id": backend_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
             },
@@ -1975,6 +1986,7 @@ class LbV1API(API):
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
+        backend_id: Optional[str] = None,
     ) -> List[BackendServerStats]:
         """
         :return: :class:`List[ListBackendStatsResponse] <List[ListBackendStatsResponse]>`
@@ -1994,6 +2006,7 @@ class LbV1API(API):
                 "region": region,
                 "page": page,
                 "page_size": page_size,
+                "backend_id": backend_id,
             },
         )
 
@@ -3235,6 +3248,8 @@ class LbZonedV1API(API):
         project_id: Optional[str] = None,
         name: Optional[str] = None,
         ip_id: Optional[str] = None,
+        assign_flexible_ip: Optional[bool] = None,
+        ip_ids: Optional[List[str]] = None,
         tags: Optional[List[str]] = None,
     ) -> Lb:
         """
@@ -3250,6 +3265,8 @@ class LbZonedV1API(API):
         :param name: Name for the Load Balancer.
         :param description: Description for the Load Balancer.
         :param ip_id: ID of an existing flexible IP address to attach to the Load Balancer.
+        :param assign_flexible_ip: Defines whether to automatically assign a flexible public IP to lb. Default value is `false` (do not assign).
+        :param ip_ids: List of IP IDs to attach to the Load Balancer.
         :param tags: List of tags for the Load Balancer.
         :param type_: Load Balancer commercial offer type. Use the Load Balancer types endpoint to retrieve a list of available offer types.
         :param ssl_compatibility_level: Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort.
@@ -3280,6 +3297,8 @@ class LbZonedV1API(API):
                     project_id=project_id,
                     name=name or random_name(prefix="lb"),
                     ip_id=ip_id,
+                    assign_flexible_ip=assign_flexible_ip,
+                    ip_ids=ip_ids,
                     tags=tags,
                 ),
                 self.client,
@@ -3577,6 +3596,7 @@ class LbZonedV1API(API):
     async def create_ip(
         self,
         *,
+        is_ipv6: bool,
         zone: Optional[Zone] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -3593,12 +3613,13 @@ class LbZonedV1API(API):
 
         One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
         :param reverse: Reverse DNS (domain name) for the IP address.
+        :param is_ipv6: If true, creates a Flexible IP with an ipv6 address.
         :return: :class:`Ip <Ip>`
 
         Usage:
         ::
 
-            result = await api.create_ip()
+            result = await api.create_ip(is_ipv6=True)
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -3608,6 +3629,7 @@ class LbZonedV1API(API):
             f"/lb/v1/zones/{param_zone}/ips",
             body=marshal_ZonedApiCreateIpRequest(
                 ZonedApiCreateIpRequest(
+                    is_ipv6=is_ipv6,
                     zone=zone,
                     organization_id=organization_id,
                     project_id=project_id,
@@ -4840,6 +4862,7 @@ class LbZonedV1API(API):
         zone: Optional[Zone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
+        backend_id: Optional[str] = None,
     ) -> ListBackendStatsResponse:
         """
         List backend server statistics.
@@ -4848,6 +4871,7 @@ class LbZonedV1API(API):
         :param lb_id: Load Balancer ID.
         :param page: The page number to return, from the paginated results.
         :param page_size: Number of items to return.
+        :param backend_id: ID of the backend.
         :return: :class:`ListBackendStatsResponse <ListBackendStatsResponse>`
 
         Usage:
@@ -4863,6 +4887,7 @@ class LbZonedV1API(API):
             "GET",
             f"/lb/v1/zones/{param_zone}/lbs/{param_lb_id}/backend-stats",
             params={
+                "backend_id": backend_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
             },
@@ -4878,6 +4903,7 @@ class LbZonedV1API(API):
         zone: Optional[Zone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
+        backend_id: Optional[str] = None,
     ) -> List[BackendServerStats]:
         """
         List backend server statistics.
@@ -4886,6 +4912,7 @@ class LbZonedV1API(API):
         :param lb_id: Load Balancer ID.
         :param page: The page number to return, from the paginated results.
         :param page_size: Number of items to return.
+        :param backend_id: ID of the backend.
         :return: :class:`List[ListBackendStatsResponse] <List[ListBackendStatsResponse]>`
 
         Usage:
@@ -4903,6 +4930,7 @@ class LbZonedV1API(API):
                 "zone": zone,
                 "page": page,
                 "page_size": page_size,
+                "backend_id": backend_id,
             },
         )
 

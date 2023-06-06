@@ -348,7 +348,7 @@ class AclActionRedirect:
 
     target: str
     """
-    Redirect target. For a location redirect, you can use a URL e.g. `https://scaleway.com`. Using a scheme name (e.g. `https`, `http`, `ftp`, `git`) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a `location` redirect to preserve parts of the original request in the redirection URL are {{ host }}, {{ query }}, {{ path }} and {{ scheme }}.
+    Redirect target. For a location redirect, you can use a URL e.g. `https://scaleway.com`. Using a scheme name (e.g. `https`, `http`, `ftp`, `git`) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a `location` redirect to preserve parts of the original request in the redirection URL are \{\{ host \}\}, \{\{ query \}\}, \{\{ path \}\} and \{\{ scheme \}\}.
     """
 
     code: Optional[int]
@@ -1660,6 +1660,17 @@ class CreateLbRequest:
     ip_id: Optional[str]
     """
     ID of an existing flexible IP address to attach to the Load Balancer.
+    :deprecated
+    """
+
+    assign_flexible_ip: Optional[bool]
+    """
+    Defines whether to automatically assign a flexible public IP to lb. Default value is `false` (do not assign).
+    """
+
+    ip_ids: Optional[List[str]]
+    """
+    List of IP IDs to attach to the Load Balancer.
     """
 
     tags: Optional[List[str]]
@@ -1818,6 +1829,11 @@ class CreateIpRequest:
     reverse: Optional[str]
     """
     Reverse DNS (domain name) for the IP address.
+    """
+
+    is_ipv6: bool
+    """
+    If true, creates a Flexible IP with an ipv6 address.
     """
 
 
@@ -2595,6 +2611,11 @@ class ListBackendStatsRequest:
     Number of items to return.
     """
 
+    backend_id: Optional[str]
+    """
+    ID of the backend.
+    """
+
 
 @dataclass
 class ListAclsRequest:
@@ -3185,6 +3206,17 @@ class ZonedApiCreateLbRequest:
     ip_id: Optional[str]
     """
     ID of an existing flexible IP address to attach to the Load Balancer.
+    :deprecated
+    """
+
+    assign_flexible_ip: Optional[bool]
+    """
+    Defines whether to automatically assign a flexible public IP to lb. Default value is `false` (do not assign).
+    """
+
+    ip_ids: Optional[List[str]]
+    """
+    List of IP IDs to attach to the Load Balancer.
     """
 
     tags: Optional[List[str]]
@@ -3343,6 +3375,11 @@ class ZonedApiCreateIpRequest:
     reverse: Optional[str]
     """
     Reverse DNS (domain name) for the IP address.
+    """
+
+    is_ipv6: bool
+    """
+    If true, creates a Flexible IP with an ipv6 address.
     """
 
 
@@ -4118,6 +4155,11 @@ class ZonedApiListBackendStatsRequest:
     page_size: Optional[int]
     """
     Number of items to return.
+    """
+
+    backend_id: Optional[str]
+    """
+    ID of the backend.
     """
 
 
