@@ -6,11 +6,15 @@ from typing import Any, Dict
 from scaleway_core.profile import ProfileDefaults
 from dateutil import parser
 from .types import (
+    DomainStatus,
     CreateEmailRequestAddress,
     CreateEmailRequestAttachment,
     CreateEmailResponse,
     Domain,
     DomainStatistics,
+    DomainStatus,
+    DomainStatusDkimRecord,
+    DomainStatusSpfRecord,
     Email,
     EmailTry,
     ListDomainsResponse,
@@ -19,6 +23,46 @@ from .types import (
     CreateEmailRequest,
     CreateDomainRequest,
 )
+
+
+def unmarshal_DomainStatusDkimRecord(data: Any) -> DomainStatusDkimRecord:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'DomainStatusDkimRecord' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("error")
+    args["error"] = field
+
+    field = data.get("last_valid_at")
+    args["last_valid_at"] = parser.isoparse(field) if type(field) is str else field
+
+    field = data.get("status")
+    args["status"] = field
+
+    return DomainStatusDkimRecord(**args)
+
+
+def unmarshal_DomainStatusSpfRecord(data: Any) -> DomainStatusSpfRecord:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'DomainStatusSpfRecord' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("error")
+    args["error"] = field
+
+    field = data.get("last_valid_at")
+    args["last_valid_at"] = parser.isoparse(field) if type(field) is str else field
+
+    field = data.get("status")
+    args["status"] = field
+
+    return DomainStatusSpfRecord(**args)
 
 
 def unmarshal_DomainStatistics(data: Any) -> DomainStatistics:
@@ -42,6 +86,33 @@ def unmarshal_DomainStatistics(data: Any) -> DomainStatistics:
     args["total_count"] = field
 
     return DomainStatistics(**args)
+
+
+def unmarshal_DomainStatus(data: Any) -> DomainStatus:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'DomainStatus' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("dkim_record")
+    args["dkim_record"] = (
+        unmarshal_DomainStatusDkimRecord(field) if field is not None else None
+    )
+
+    field = data.get("domain_id")
+    args["domain_id"] = field
+
+    field = data.get("domain_name")
+    args["domain_name"] = field
+
+    field = data.get("spf_record")
+    args["spf_record"] = (
+        unmarshal_DomainStatusSpfRecord(field) if field is not None else None
+    )
+
+    return DomainStatus(**args)
 
 
 def unmarshal_EmailTry(data: Any) -> EmailTry:

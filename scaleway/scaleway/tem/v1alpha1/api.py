@@ -22,6 +22,7 @@ from .types import (
     CreateEmailRequestAttachment,
     CreateEmailResponse,
     Domain,
+    DomainStatus,
     Email,
     ListDomainsResponse,
     ListEmailsResponse,
@@ -36,6 +37,7 @@ from .content import (
 from .marshalling import (
     marshal_CreateDomainRequest,
     marshal_CreateEmailRequest,
+    unmarshal_DomainStatus,
     unmarshal_Domain,
     unmarshal_Email,
     unmarshal_CreateEmailResponse,
@@ -219,7 +221,7 @@ class TemV1Alpha1API(API):
         :param since: (Optional) List emails created after this date.
         :param until: (Optional) List emails created before this date.
         :param mail_from: (Optional) List emails sent with this sender's email address.
-        :param mail_to: (Deprecated) List emails sent to this recipient's email address.
+        :param mail_to: List emails sent to this recipient's email address.
         :param mail_rcpt: (Optional) List emails sent to this recipient's email address.
         :param statuses: (Optional) List emails with any of these statuses.
         :param subject: (Optional) List emails with this subject.
@@ -292,7 +294,7 @@ class TemV1Alpha1API(API):
         :param since: (Optional) List emails created after this date.
         :param until: (Optional) List emails created before this date.
         :param mail_from: (Optional) List emails sent with this sender's email address.
-        :param mail_to: (Deprecated) List emails sent to this recipient's email address.
+        :param mail_to: List emails sent to this recipient's email address.
         :param mail_rcpt: (Optional) List emails sent to this recipient's email address.
         :param statuses: (Optional) List emails with any of these statuses.
         :param subject: (Optional) List emails with this subject.
@@ -678,3 +680,35 @@ class TemV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Domain(res.json())
+
+    def check_domain_status(
+        self,
+        *,
+        domain_id: str,
+        region: Optional[Region] = None,
+    ) -> DomainStatus:
+        """
+        Display SPF and DKIM records status and potential errors.
+        Display SPF and DKIM records status and potential errors, including the found records to ease the debugging.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param domain_id: ID of the domain to delete.
+        :return: :class:`DomainStatus <DomainStatus>`
+
+        Usage:
+        ::
+
+            result = api.check_domain_status(domain_id="example")
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_domain_id = validate_path_param("domain_id", domain_id)
+
+        res = self._request(
+            "POST",
+            f"/transactional-email/v1alpha1/regions/{param_region}/domains/{param_domain_id}/verification",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_DomainStatus(res.json())
