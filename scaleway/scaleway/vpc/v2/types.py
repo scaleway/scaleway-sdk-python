@@ -262,6 +262,11 @@ class CreateVPCRequest:
     Name for the VPC.
     """
 
+    default_private_network_name: str
+    """
+    Name for the VPC's associated default Private Network.
+    """
+
     project_id: Optional[str]
     """
     Scaleway Project in which to create the VPC.

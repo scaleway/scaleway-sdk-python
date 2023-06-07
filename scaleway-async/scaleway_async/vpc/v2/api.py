@@ -166,6 +166,7 @@ class VpcV2API(API):
     async def create_vpc(
         self,
         *,
+        default_private_network_name: str,
         region: Optional[Region] = None,
         name: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -176,6 +177,7 @@ class VpcV2API(API):
         Create a new VPC in the specified region.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name for the VPC.
+        :param default_private_network_name: Name for the VPC's associated default Private Network.
         :param project_id: Scaleway Project in which to create the VPC.
         :param tags: Tags for the VPC.
         :return: :class:`VPC <VPC>`
@@ -183,7 +185,7 @@ class VpcV2API(API):
         Usage:
         ::
 
-            result = await api.create_vpc()
+            result = await api.create_vpc(default_private_network_name="example")
         """
 
         param_region = validate_path_param(
@@ -195,6 +197,7 @@ class VpcV2API(API):
             f"/vpc/v2/regions/{param_region}/vpcs",
             body=marshal_CreateVPCRequest(
                 CreateVPCRequest(
+                    default_private_network_name=default_private_network_name,
                     region=region,
                     name=name or random_name(prefix="vpc"),
                     project_id=project_id,
