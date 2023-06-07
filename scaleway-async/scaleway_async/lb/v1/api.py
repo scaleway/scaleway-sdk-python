@@ -1945,6 +1945,7 @@ class LbV1API(API):
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
+        backend_id: Optional[str] = None,
     ) -> ListBackendStatsResponse:
         """
 
@@ -1963,6 +1964,7 @@ class LbV1API(API):
             "GET",
             f"/lb/v1/regions/{param_region}/lbs/{param_lb_id}/backend-stats",
             params={
+                "backend_id": backend_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
             },
@@ -1978,6 +1980,7 @@ class LbV1API(API):
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
+        backend_id: Optional[str] = None,
     ) -> List[BackendServerStats]:
         """
         :return: :class:`List[ListBackendStatsResponse] <List[ListBackendStatsResponse]>`
@@ -1997,6 +2000,7 @@ class LbV1API(API):
                 "region": region,
                 "page": page,
                 "page_size": page_size,
+                "backend_id": backend_id,
             },
         )
 
@@ -4846,6 +4850,7 @@ class LbZonedV1API(API):
         zone: Optional[Zone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
+        backend_id: Optional[str] = None,
     ) -> ListBackendStatsResponse:
         """
         List backend server statistics.
@@ -4854,6 +4859,7 @@ class LbZonedV1API(API):
         :param lb_id: Load Balancer ID.
         :param page: The page number to return, from the paginated results.
         :param page_size: Number of items to return.
+        :param backend_id: ID of the backend.
         :return: :class:`ListBackendStatsResponse <ListBackendStatsResponse>`
 
         Usage:
@@ -4869,6 +4875,7 @@ class LbZonedV1API(API):
             "GET",
             f"/lb/v1/zones/{param_zone}/lbs/{param_lb_id}/backend-stats",
             params={
+                "backend_id": backend_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
             },
@@ -4884,6 +4891,7 @@ class LbZonedV1API(API):
         zone: Optional[Zone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
+        backend_id: Optional[str] = None,
     ) -> List[BackendServerStats]:
         """
         List backend server statistics.
@@ -4892,6 +4900,7 @@ class LbZonedV1API(API):
         :param lb_id: Load Balancer ID.
         :param page: The page number to return, from the paginated results.
         :param page_size: Number of items to return.
+        :param backend_id: ID of the backend.
         :return: :class:`List[ListBackendStatsResponse] <List[ListBackendStatsResponse]>`
 
         Usage:
@@ -4909,6 +4918,7 @@ class LbZonedV1API(API):
                 "zone": zone,
                 "page": page,
                 "page_size": page_size,
+                "backend_id": backend_id,
             },
         )
 
