@@ -21,6 +21,7 @@ from .types import (
     ClusterAutoUpgrade,
     ClusterAutoscalerConfig,
     ClusterOpenIDConnectConfig,
+    ClusterType,
     CreateClusterRequestAutoUpgrade,
     CreateClusterRequestAutoscalerConfig,
     CreateClusterRequestOpenIDConnectConfig,
@@ -29,6 +30,7 @@ from .types import (
     CreatePoolRequestUpgradePolicy,
     ExternalNode,
     ListClusterAvailableVersionsResponse,
+    ListClusterTypesResponse,
     ListClustersResponse,
     ListNodesResponse,
     ListPoolsResponse,
@@ -271,6 +273,23 @@ def unmarshal_Cluster(data: Any) -> Cluster:
     return Cluster(**args)
 
 
+def unmarshal_ClusterType(data: Any) -> ClusterType:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'ClusterType' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("availability")
+    args["availability"] = field
+
+    field = data.get("name")
+    args["name"] = field
+
+    return ClusterType(**args)
+
+
 def unmarshal_Node(data: Any) -> Node:
     if type(data) is not dict:
         raise TypeError(
@@ -487,6 +506,23 @@ def unmarshal_ListClusterAvailableVersionsResponse(
     args["versions"] = [unmarshal_Version(v) for v in data["versions"]]
 
     return ListClusterAvailableVersionsResponse(**args)
+
+
+def unmarshal_ListClusterTypesResponse(data: Any) -> ListClusterTypesResponse:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'ListClusterTypesResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("cluster_types")
+    args["cluster_types"] = [unmarshal_ClusterType(v) for v in data["cluster_types"]]
+
+    field = data.get("total_count")
+    args["total_count"] = field
+
+    return ListClusterTypesResponse(**args)
 
 
 def unmarshal_ListClustersResponse(data: Any) -> ListClustersResponse:
