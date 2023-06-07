@@ -4,6 +4,7 @@ from .types import AutoscalerEstimator
 from .types import AutoscalerExpander
 from .types import CNI
 from .types import ClusterStatus
+from .types import ClusterTypeAvailability
 from .types import Ingress
 from .types import ListClustersRequestOrderBy
 from .types import ListNodesRequestOrderBy
@@ -17,6 +18,7 @@ from .types import Cluster
 from .types import ClusterAutoUpgrade
 from .types import ClusterAutoscalerConfig
 from .types import ClusterOpenIDConnectConfig
+from .types import ClusterType
 from .types import CreateClusterRequestAutoUpgrade
 from .types import CreateClusterRequestAutoscalerConfig
 from .types import CreateClusterRequestOpenIDConnectConfig
@@ -25,6 +27,7 @@ from .types import CreateClusterRequestPoolConfigUpgradePolicy
 from .types import CreatePoolRequestUpgradePolicy
 from .types import ExternalNode
 from .types import ListClusterAvailableVersionsResponse
+from .types import ListClusterTypesResponse
 from .types import ListClustersResponse
 from .types import ListNodesResponse
 from .types import ListPoolsResponse
@@ -48,6 +51,7 @@ __all__ = [
     "AutoscalerExpander",
     "CNI",
     "ClusterStatus",
+    "ClusterTypeAvailability",
     "Ingress",
     "ListClustersRequestOrderBy",
     "ListNodesRequestOrderBy",
@@ -61,6 +65,7 @@ __all__ = [
     "ClusterAutoUpgrade",
     "ClusterAutoscalerConfig",
     "ClusterOpenIDConnectConfig",
+    "ClusterType",
     "CreateClusterRequestAutoUpgrade",
     "CreateClusterRequestAutoscalerConfig",
     "CreateClusterRequestOpenIDConnectConfig",
@@ -69,6 +74,7 @@ __all__ = [
     "CreatePoolRequestUpgradePolicy",
     "ExternalNode",
     "ListClusterAvailableVersionsResponse",
+    "ListClusterTypesResponse",
     "ListClustersResponse",
     "ListNodesResponse",
     "ListPoolsResponse",

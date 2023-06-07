@@ -59,6 +59,15 @@ class ClusterStatus(str, Enum):
         return str(self.value)
 
 
+class ClusterTypeAvailability(str, Enum):
+    AVAILABLE = "available"
+    SCARCE = "scarce"
+    SHORTAGE = "shortage"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class Ingress(str, Enum):
     UNKNOWN_INGRESS = "unknown_ingress"
     NONE = "none"
@@ -426,6 +435,23 @@ class ClusterOpenIDConnectConfig:
 
 
 @dataclass
+class ClusterType:
+    """
+    Cluster type.
+    """
+
+    name: str
+    """
+    Cluster type name.
+    """
+
+    availability: ClusterTypeAvailability
+    """
+    Cluster type availability.
+    """
+
+
+@dataclass
 class CreateClusterRequestAutoUpgrade:
     """
     Create cluster request. auto upgrade.
@@ -675,6 +701,23 @@ class ListClusterAvailableVersionsResponse:
     versions: List[Version]
     """
     Available Kubernetes versions for the cluster.
+    """
+
+
+@dataclass
+class ListClusterTypesResponse:
+    """
+    List cluster types response.
+    """
+
+    total_count: int
+    """
+    Total number of cluster-types.
+    """
+
+    cluster_types: List[ClusterType]
+    """
+    Paginated returned cluster-types.
     """
 
 
@@ -1828,4 +1871,22 @@ class GetVersionRequest:
     version_name: str
     """
     Requested version name.
+    """
+
+
+@dataclass
+class ListClusterTypesRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    page: Optional[int]
+    """
+    Page number, from the paginated results, to return for cluster-types.
+    """
+
+    page_size: Optional[int]
+    """
+    Maximum number of clusters per page.
     """

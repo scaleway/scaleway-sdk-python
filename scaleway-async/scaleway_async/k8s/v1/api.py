@@ -29,6 +29,7 @@ from .types import (
     PoolVolumeType,
     Runtime,
     Cluster,
+    ClusterType,
     CreateClusterRequestAutoUpgrade,
     CreateClusterRequestAutoscalerConfig,
     CreateClusterRequestOpenIDConnectConfig,
@@ -36,6 +37,7 @@ from .types import (
     CreatePoolRequestUpgradePolicy,
     ExternalNode,
     ListClusterAvailableVersionsResponse,
+    ListClusterTypesResponse,
     ListClustersResponse,
     ListNodesResponse,
     ListPoolsResponse,
@@ -76,6 +78,7 @@ from .marshalling import (
     unmarshal_Version,
     unmarshal_ExternalNode,
     unmarshal_ListClusterAvailableVersionsResponse,
+    unmarshal_ListClusterTypesResponse,
     unmarshal_ListClustersResponse,
     unmarshal_ListNodesResponse,
     unmarshal_ListPoolsResponse,
@@ -1471,3 +1474,72 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Version(res.json())
+
+    async def list_cluster_types(
+        self,
+        *,
+        region: Optional[Region] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ListClusterTypesResponse:
+        """
+        List cluster types.
+        List available cluster types and their technical details.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page: Page number, from the paginated results, to return for cluster-types.
+        :param page_size: Maximum number of clusters per page.
+        :return: :class:`ListClusterTypesResponse <ListClusterTypesResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_cluster_types()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/k8s/v1/regions/{param_region}/cluster-types",
+            params={
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListClusterTypesResponse(res.json())
+
+    async def list_cluster_types_all(
+        self,
+        *,
+        region: Optional[Region] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[ClusterType]:
+        """
+        List cluster types.
+        List available cluster types and their technical details.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page: Page number, from the paginated results, to return for cluster-types.
+        :param page_size: Maximum number of clusters per page.
+        :return: :class:`List[ListClusterTypesResponse] <List[ListClusterTypesResponse]>`
+
+        Usage:
+        ::
+
+            result = await api.list_cluster_types_all()
+        """
+
+        return await fetch_all_pages_async(
+            type=ListClusterTypesResponse,
+            key="cluster_types",
+            fetcher=self.list_cluster_types,
+            args={
+                "region": region,
+                "page": page,
+                "page_size": page_size,
+            },
+        )
