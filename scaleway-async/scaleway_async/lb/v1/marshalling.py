@@ -1603,6 +1603,7 @@ def marshal_CreateLbRequest(
                 ),
             ]
         ),
+        "assign_flexible_ip": request.assign_flexible_ip,
         "description": request.description,
         "ip_id": request.ip_id,
         "name": request.name,
@@ -2081,6 +2082,7 @@ def marshal_ZonedApiCreateLbRequest(
                 ),
             ]
         ),
+        "assign_flexible_ip": request.assign_flexible_ip,
         "description": request.description,
         "ip_id": request.ip_id,
         "name": request.name,
