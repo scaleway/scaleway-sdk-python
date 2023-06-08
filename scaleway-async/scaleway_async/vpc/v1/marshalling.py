@@ -21,31 +21,31 @@ def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("created_at")
+    field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
-    field = data.get("id")
+    field = data.get("id", None)
     args["id"] = field
 
-    field = data.get("name")
+    field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("organization_id")
+    field = data.get("organization_id", None)
     args["organization_id"] = field
 
-    field = data.get("project_id")
+    field = data.get("project_id", None)
     args["project_id"] = field
 
-    field = data.get("subnets")
+    field = data.get("subnets", None)
     args["subnets"] = field
 
-    field = data.get("tags")
+    field = data.get("tags", None)
     args["tags"] = field
 
-    field = data.get("updated_at")
+    field = data.get("updated_at", None)
     args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
-    field = data.get("zone")
+    field = data.get("zone", None)
     args["zone"] = field
 
     return PrivateNetwork(**args)
@@ -59,12 +59,12 @@ def unmarshal_ListPrivateNetworksResponse(data: Any) -> ListPrivateNetworksRespo
 
     args: Dict[str, Any] = {}
 
-    field = data.get("private_networks")
-    args["private_networks"] = [
-        unmarshal_PrivateNetwork(v) for v in data["private_networks"]
-    ]
+    field = data.get("private_networks", None)
+    args["private_networks"] = (
+        [unmarshal_PrivateNetwork(v) for v in field] if field is not None else None
+    )
 
-    field = data.get("total_count")
+    field = data.get("total_count", None)
     args["total_count"] = field
 
     return ListPrivateNetworksResponse(**args)
