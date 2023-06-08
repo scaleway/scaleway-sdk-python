@@ -61,10 +61,10 @@ def unmarshal_SecretHashedValue(data: Any) -> SecretHashedValue:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("hashed_value")
+    field = data.get("hashed_value", None)
     args["hashed_value"] = field
 
-    field = data.get("key")
+    field = data.get("key", None)
     args["key"] = field
 
     return SecretHashedValue(**args)
@@ -78,19 +78,19 @@ def unmarshal_TriggerMnqNatsClientConfig(data: Any) -> TriggerMnqNatsClientConfi
 
     args: Dict[str, Any] = {}
 
-    field = data.get("mnq_credential_id")
+    field = data.get("mnq_credential_id", None)
     args["mnq_credential_id"] = field
 
-    field = data.get("mnq_namespace_id")
+    field = data.get("mnq_namespace_id", None)
     args["mnq_namespace_id"] = field
 
-    field = data.get("mnq_project_id")
+    field = data.get("mnq_project_id", None)
     args["mnq_project_id"] = field
 
-    field = data.get("mnq_region")
+    field = data.get("mnq_region", None)
     args["mnq_region"] = field
 
-    field = data.get("subject")
+    field = data.get("subject", None)
     args["subject"] = field
 
     return TriggerMnqNatsClientConfig(**args)
@@ -104,19 +104,19 @@ def unmarshal_TriggerMnqSqsClientConfig(data: Any) -> TriggerMnqSqsClientConfig:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("mnq_credential_id")
+    field = data.get("mnq_credential_id", None)
     args["mnq_credential_id"] = field
 
-    field = data.get("mnq_namespace_id")
+    field = data.get("mnq_namespace_id", None)
     args["mnq_namespace_id"] = field
 
-    field = data.get("mnq_project_id")
+    field = data.get("mnq_project_id", None)
     args["mnq_project_id"] = field
 
-    field = data.get("mnq_region")
+    field = data.get("mnq_region", None)
     args["mnq_region"] = field
 
-    field = data.get("queue")
+    field = data.get("queue", None)
     args["queue"] = field
 
     return TriggerMnqSqsClientConfig(**args)
@@ -130,16 +130,16 @@ def unmarshal_TriggerSqsClientConfig(data: Any) -> TriggerSqsClientConfig:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("access_key")
+    field = data.get("access_key", None)
     args["access_key"] = field
 
-    field = data.get("endpoint")
+    field = data.get("endpoint", None)
     args["endpoint"] = field
 
-    field = data.get("queue_url")
+    field = data.get("queue_url", None)
     args["queue_url"] = field
 
-    field = data.get("secret_key")
+    field = data.get("secret_key", None)
     args["secret_key"] = field
 
     return TriggerSqsClientConfig(**args)
@@ -153,22 +153,22 @@ def unmarshal_Cron(data: Any) -> Cron:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("args")
+    field = data.get("args", None)
     args["args"] = field
 
-    field = data.get("function_id")
+    field = data.get("function_id", None)
     args["function_id"] = field
 
-    field = data.get("id")
+    field = data.get("id", None)
     args["id"] = field
 
-    field = data.get("name")
+    field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("schedule")
+    field = data.get("schedule", None)
     args["schedule"] = field
 
-    field = data.get("status")
+    field = data.get("status", None)
     args["status"] = field
 
     return Cron(**args)
@@ -182,22 +182,22 @@ def unmarshal_Domain(data: Any) -> Domain:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("error_message")
+    field = data.get("error_message", None)
     args["error_message"] = field
 
-    field = data.get("function_id")
+    field = data.get("function_id", None)
     args["function_id"] = field
 
-    field = data.get("hostname")
+    field = data.get("hostname", None)
     args["hostname"] = field
 
-    field = data.get("id")
+    field = data.get("id", None)
     args["id"] = field
 
-    field = data.get("status")
+    field = data.get("status", None)
     args["status"] = field
 
-    field = data.get("url")
+    field = data.get("url", None)
     args["url"] = field
 
     return Domain(**args)
@@ -211,69 +211,69 @@ def unmarshal_Function(data: Any) -> Function:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("build_message")
+    field = data.get("build_message", None)
     args["build_message"] = field
 
-    field = data.get("cpu_limit")
+    field = data.get("cpu_limit", None)
     args["cpu_limit"] = field
 
-    field = data.get("description")
+    field = data.get("description", None)
     args["description"] = field
 
-    field = data.get("domain_name")
+    field = data.get("domain_name", None)
     args["domain_name"] = field
 
-    field = data.get("environment_variables")
+    field = data.get("environment_variables", None)
     args["environment_variables"] = field
 
-    field = data.get("error_message")
+    field = data.get("error_message", None)
     args["error_message"] = field
 
-    field = data.get("handler")
+    field = data.get("handler", None)
     args["handler"] = field
 
-    field = data.get("http_option")
+    field = data.get("http_option", None)
     args["http_option"] = field
 
-    field = data.get("id")
+    field = data.get("id", None)
     args["id"] = field
 
-    field = data.get("max_scale")
+    field = data.get("max_scale", None)
     args["max_scale"] = field
 
-    field = data.get("memory_limit")
+    field = data.get("memory_limit", None)
     args["memory_limit"] = field
 
-    field = data.get("min_scale")
+    field = data.get("min_scale", None)
     args["min_scale"] = field
 
-    field = data.get("name")
+    field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("namespace_id")
+    field = data.get("namespace_id", None)
     args["namespace_id"] = field
 
-    field = data.get("privacy")
+    field = data.get("privacy", None)
     args["privacy"] = field
 
-    field = data.get("region")
+    field = data.get("region", None)
     args["region"] = field
 
-    field = data.get("runtime")
+    field = data.get("runtime", None)
     args["runtime"] = field
 
-    field = data.get("runtime_message")
+    field = data.get("runtime_message", None)
     args["runtime_message"] = field
 
-    field = data.get("secret_environment_variables")
-    args["secret_environment_variables"] = [
-        unmarshal_SecretHashedValue(v) for v in data["secret_environment_variables"]
-    ]
+    field = data.get("secret_environment_variables", None)
+    args["secret_environment_variables"] = (
+        [unmarshal_SecretHashedValue(v) for v in field] if field is not None else None
+    )
 
-    field = data.get("status")
+    field = data.get("status", None)
     args["status"] = field
 
-    field = data.get("timeout")
+    field = data.get("timeout", None)
     args["timeout"] = field
 
     return Function(**args)
@@ -287,22 +287,22 @@ def unmarshal_Log(data: Any) -> Log:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("id")
+    field = data.get("id", None)
     args["id"] = field
 
-    field = data.get("level")
+    field = data.get("level", None)
     args["level"] = field
 
-    field = data.get("message")
+    field = data.get("message", None)
     args["message"] = field
 
-    field = data.get("source")
+    field = data.get("source", None)
     args["source"] = field
 
-    field = data.get("stream")
+    field = data.get("stream", None)
     args["stream"] = field
 
-    field = data.get("timestamp")
+    field = data.get("timestamp", None)
     args["timestamp"] = parser.isoparse(field) if type(field) is str else field
 
     return Log(**args)
@@ -316,42 +316,42 @@ def unmarshal_Namespace(data: Any) -> Namespace:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("description")
+    field = data.get("description", None)
     args["description"] = field
 
-    field = data.get("environment_variables")
+    field = data.get("environment_variables", None)
     args["environment_variables"] = field
 
-    field = data.get("error_message")
+    field = data.get("error_message", None)
     args["error_message"] = field
 
-    field = data.get("id")
+    field = data.get("id", None)
     args["id"] = field
 
-    field = data.get("name")
+    field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("organization_id")
+    field = data.get("organization_id", None)
     args["organization_id"] = field
 
-    field = data.get("project_id")
+    field = data.get("project_id", None)
     args["project_id"] = field
 
-    field = data.get("region")
+    field = data.get("region", None)
     args["region"] = field
 
-    field = data.get("registry_endpoint")
+    field = data.get("registry_endpoint", None)
     args["registry_endpoint"] = field
 
-    field = data.get("registry_namespace_id")
+    field = data.get("registry_namespace_id", None)
     args["registry_namespace_id"] = field
 
-    field = data.get("secret_environment_variables")
-    args["secret_environment_variables"] = [
-        unmarshal_SecretHashedValue(v) for v in data["secret_environment_variables"]
-    ]
+    field = data.get("secret_environment_variables", None)
+    args["secret_environment_variables"] = (
+        [unmarshal_SecretHashedValue(v) for v in field] if field is not None else None
+    )
 
-    field = data.get("status")
+    field = data.get("status", None)
     args["status"] = field
 
     return Namespace(**args)
@@ -365,34 +365,34 @@ def unmarshal_Runtime(data: Any) -> Runtime:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("code_sample")
+    field = data.get("code_sample", None)
     args["code_sample"] = field
 
-    field = data.get("default_handler")
+    field = data.get("default_handler", None)
     args["default_handler"] = field
 
-    field = data.get("extension")
+    field = data.get("extension", None)
     args["extension"] = field
 
-    field = data.get("implementation")
+    field = data.get("implementation", None)
     args["implementation"] = field
 
-    field = data.get("language")
+    field = data.get("language", None)
     args["language"] = field
 
-    field = data.get("logo_url")
+    field = data.get("logo_url", None)
     args["logo_url"] = field
 
-    field = data.get("name")
+    field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("status")
+    field = data.get("status", None)
     args["status"] = field
 
-    field = data.get("status_message")
+    field = data.get("status_message", None)
     args["status_message"] = field
 
-    field = data.get("version")
+    field = data.get("version", None)
     args["version"] = field
 
     return Runtime(**args)
@@ -406,28 +406,28 @@ def unmarshal_Token(data: Any) -> Token:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("description")
+    field = data.get("description", None)
     args["description"] = field
 
-    field = data.get("expires_at")
+    field = data.get("expires_at", None)
     args["expires_at"] = parser.isoparse(field) if type(field) is str else field
 
-    field = data.get("function_id")
+    field = data.get("function_id", None)
     args["function_id"] = field
 
-    field = data.get("id")
+    field = data.get("id", None)
     args["id"] = field
 
-    field = data.get("namespace_id")
+    field = data.get("namespace_id", None)
     args["namespace_id"] = field
 
-    field = data.get("public_key")
+    field = data.get("public_key", None)
     args["public_key"] = field
 
-    field = data.get("status")
+    field = data.get("status", None)
     args["status"] = field
 
-    field = data.get("token")
+    field = data.get("token", None)
     args["token"] = field
 
     return Token(**args)
@@ -441,40 +441,40 @@ def unmarshal_Trigger(data: Any) -> Trigger:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("description")
+    field = data.get("description", None)
     args["description"] = field
 
-    field = data.get("error_message")
+    field = data.get("error_message", None)
     args["error_message"] = field
 
-    field = data.get("function_id")
+    field = data.get("function_id", None)
     args["function_id"] = field
 
-    field = data.get("id")
+    field = data.get("id", None)
     args["id"] = field
 
-    field = data.get("input_type")
+    field = data.get("input_type", None)
     args["input_type"] = field
 
-    field = data.get("name")
+    field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("scw_nats_config")
+    field = data.get("scw_nats_config", None)
     args["scw_nats_config"] = (
         unmarshal_TriggerMnqNatsClientConfig(field) if field is not None else None
     )
 
-    field = data.get("scw_sqs_config")
+    field = data.get("scw_sqs_config", None)
     args["scw_sqs_config"] = (
         unmarshal_TriggerMnqSqsClientConfig(field) if field is not None else None
     )
 
-    field = data.get("sqs_config")
+    field = data.get("sqs_config", None)
     args["sqs_config"] = (
         unmarshal_TriggerSqsClientConfig(field) if field is not None else None
     )
 
-    field = data.get("status")
+    field = data.get("status", None)
     args["status"] = field
 
     return Trigger(**args)
@@ -488,10 +488,10 @@ def unmarshal_DownloadURL(data: Any) -> DownloadURL:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("headers")
+    field = data.get("headers", None)
     args["headers"] = field
 
-    field = data.get("url")
+    field = data.get("url", None)
     args["url"] = field
 
     return DownloadURL(**args)
@@ -505,10 +505,10 @@ def unmarshal_ListCronsResponse(data: Any) -> ListCronsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("crons")
-    args["crons"] = [unmarshal_Cron(v) for v in data["crons"]]
+    field = data.get("crons", None)
+    args["crons"] = [unmarshal_Cron(v) for v in field] if field is not None else None
 
-    field = data.get("total_count")
+    field = data.get("total_count", None)
     args["total_count"] = field
 
     return ListCronsResponse(**args)
@@ -522,10 +522,12 @@ def unmarshal_ListDomainsResponse(data: Any) -> ListDomainsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("domains")
-    args["domains"] = [unmarshal_Domain(v) for v in data["domains"]]
+    field = data.get("domains", None)
+    args["domains"] = (
+        [unmarshal_Domain(v) for v in field] if field is not None else None
+    )
 
-    field = data.get("total_count")
+    field = data.get("total_count", None)
     args["total_count"] = field
 
     return ListDomainsResponse(**args)
@@ -539,10 +541,12 @@ def unmarshal_ListFunctionRuntimesResponse(data: Any) -> ListFunctionRuntimesRes
 
     args: Dict[str, Any] = {}
 
-    field = data.get("runtimes")
-    args["runtimes"] = [unmarshal_Runtime(v) for v in data["runtimes"]]
+    field = data.get("runtimes", None)
+    args["runtimes"] = (
+        [unmarshal_Runtime(v) for v in field] if field is not None else None
+    )
 
-    field = data.get("total_count")
+    field = data.get("total_count", None)
     args["total_count"] = field
 
     return ListFunctionRuntimesResponse(**args)
@@ -556,10 +560,12 @@ def unmarshal_ListFunctionsResponse(data: Any) -> ListFunctionsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("functions")
-    args["functions"] = [unmarshal_Function(v) for v in data["functions"]]
+    field = data.get("functions", None)
+    args["functions"] = (
+        [unmarshal_Function(v) for v in field] if field is not None else None
+    )
 
-    field = data.get("total_count")
+    field = data.get("total_count", None)
     args["total_count"] = field
 
     return ListFunctionsResponse(**args)
@@ -573,10 +579,10 @@ def unmarshal_ListLogsResponse(data: Any) -> ListLogsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("logs")
-    args["logs"] = [unmarshal_Log(v) for v in data["logs"]]
+    field = data.get("logs", None)
+    args["logs"] = [unmarshal_Log(v) for v in field] if field is not None else None
 
-    field = data.get("total_count")
+    field = data.get("total_count", None)
     args["total_count"] = field
 
     return ListLogsResponse(**args)
@@ -590,10 +596,12 @@ def unmarshal_ListNamespacesResponse(data: Any) -> ListNamespacesResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("namespaces")
-    args["namespaces"] = [unmarshal_Namespace(v) for v in data["namespaces"]]
+    field = data.get("namespaces", None)
+    args["namespaces"] = (
+        [unmarshal_Namespace(v) for v in field] if field is not None else None
+    )
 
-    field = data.get("total_count")
+    field = data.get("total_count", None)
     args["total_count"] = field
 
     return ListNamespacesResponse(**args)
@@ -607,10 +615,10 @@ def unmarshal_ListTokensResponse(data: Any) -> ListTokensResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("tokens")
-    args["tokens"] = [unmarshal_Token(v) for v in data["tokens"]]
+    field = data.get("tokens", None)
+    args["tokens"] = [unmarshal_Token(v) for v in field] if field is not None else None
 
-    field = data.get("total_count")
+    field = data.get("total_count", None)
     args["total_count"] = field
 
     return ListTokensResponse(**args)
@@ -624,11 +632,13 @@ def unmarshal_ListTriggersResponse(data: Any) -> ListTriggersResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count")
+    field = data.get("total_count", None)
     args["total_count"] = field
 
-    field = data.get("triggers")
-    args["triggers"] = [unmarshal_Trigger(v) for v in data["triggers"]]
+    field = data.get("triggers", None)
+    args["triggers"] = (
+        [unmarshal_Trigger(v) for v in field] if field is not None else None
+    )
 
     return ListTriggersResponse(**args)
 
@@ -641,10 +651,10 @@ def unmarshal_UploadURL(data: Any) -> UploadURL:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("headers")
+    field = data.get("headers", None)
     args["headers"] = field
 
-    field = data.get("url")
+    field = data.get("url", None)
     args["url"] = field
 
     return UploadURL(**args)

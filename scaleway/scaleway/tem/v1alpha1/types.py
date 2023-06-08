@@ -25,6 +25,16 @@ class DomainStatus(str, Enum):
         return str(self.value)
 
 
+class DomainStatusRecordStatus(str, Enum):
+    UNKNOWN_RECORD_STATUS = "unknown_record_status"
+    VALID = "valid"
+    INVALID = "invalid"
+    NOT_FOUND = "not_found"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class EmailRcptType(str, Enum):
     UNKNOWN_RCPT_TYPE = "unknown_rcpt_type"
     TO = "to"
@@ -170,6 +180,7 @@ class Domain:
     last_error: Optional[str]
     """
     Error message returned if the last check failed.
+    :deprecated
     """
 
     spf_config: str
@@ -202,6 +213,77 @@ class DomainStatistics:
 
 
 @dataclass
+class DomainStatus:
+    """
+    Domain status.
+    """
+
+    domain_id: str
+    """
+    The id of the domain.
+    """
+
+    domain_name: str
+    """
+    The domain name (example.com).
+    """
+
+    spf_record: Optional[DomainStatusSpfRecord]
+    """
+    The SPF record verification data.
+    """
+
+    dkim_record: Optional[DomainStatusDkimRecord]
+    """
+    The DKIM record verification data.
+    """
+
+
+@dataclass
+class DomainStatusDkimRecord:
+    """
+    Domain status. dkim record.
+    """
+
+    status: DomainStatusRecordStatus
+    """
+    Status of the DKIM record's configurartion.
+    """
+
+    last_valid_at: Optional[datetime]
+    """
+    Time and date the DKIM record was last valid.
+    """
+
+    error: Optional[str]
+    """
+    An error text displays in case the record is not valid.
+    """
+
+
+@dataclass
+class DomainStatusSpfRecord:
+    """
+    Domain status. spf record.
+    """
+
+    status: DomainStatusRecordStatus
+    """
+    Status of the SPF record's configurartion.
+    """
+
+    last_valid_at: Optional[datetime]
+    """
+    Time and date the SPF record was last valid.
+    """
+
+    error: Optional[str]
+    """
+    An error text displays in case the record is not valid.
+    """
+
+
+@dataclass
 class Email:
     """
     Email.
@@ -229,7 +311,7 @@ class Email:
 
     rcpt_to: Optional[str]
     """
-    (Deprecated) Email address of the recipient.
+    Email address of the recipient.
     :deprecated
     """
 
@@ -488,7 +570,7 @@ class ListEmailsRequest:
 
     mail_to: Optional[str]
     """
-    (Deprecated) List emails sent to this recipient's email address.
+    List emails sent to this recipient's email address.
     :deprecated
     """
 
@@ -649,4 +731,17 @@ class CheckDomainRequest:
     domain_id: str
     """
     ID of the domain to check.
+    """
+
+
+@dataclass
+class CheckDomainStatusRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    domain_id: str
+    """
+    ID of the domain to delete.
     """
