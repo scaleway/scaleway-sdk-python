@@ -122,7 +122,7 @@ def unmarshal_SubscriberEmailConfig(data: Any) -> SubscriberEmailConfig:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("email")
+    field = data.get("email", None)
     args["email"] = field
 
     return SubscriberEmailConfig(**args)
@@ -136,7 +136,7 @@ def unmarshal_SubscriberWebhookConfig(data: Any) -> SubscriberWebhookConfig:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("uri")
+    field = data.get("uri", None)
     args["uri"] = field
 
     return SubscriberWebhookConfig(**args)
@@ -150,16 +150,16 @@ def unmarshal_HealthCheckHttpConfig(data: Any) -> HealthCheckHttpConfig:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("code")
+    field = data.get("code", None)
     args["code"] = field
 
-    field = data.get("host_header")
+    field = data.get("host_header", None)
     args["host_header"] = field
 
-    field = data.get("method")
+    field = data.get("method", None)
     args["method"] = field
 
-    field = data.get("uri")
+    field = data.get("uri", None)
     args["uri"] = field
 
     return HealthCheckHttpConfig(**args)
@@ -173,19 +173,19 @@ def unmarshal_HealthCheckHttpsConfig(data: Any) -> HealthCheckHttpsConfig:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("code")
+    field = data.get("code", None)
     args["code"] = field
 
-    field = data.get("host_header")
+    field = data.get("host_header", None)
     args["host_header"] = field
 
-    field = data.get("method")
+    field = data.get("method", None)
     args["method"] = field
 
-    field = data.get("sni")
+    field = data.get("sni", None)
     args["sni"] = field
 
-    field = data.get("uri")
+    field = data.get("uri", None)
     args["uri"] = field
 
     return HealthCheckHttpsConfig(**args)
@@ -210,7 +210,7 @@ def unmarshal_HealthCheckMysqlConfig(data: Any) -> HealthCheckMysqlConfig:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("user")
+    field = data.get("user", None)
     args["user"] = field
 
     return HealthCheckMysqlConfig(**args)
@@ -224,7 +224,7 @@ def unmarshal_HealthCheckPgsqlConfig(data: Any) -> HealthCheckPgsqlConfig:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("user")
+    field = data.get("user", None)
     args["user"] = field
 
     return HealthCheckPgsqlConfig(**args)
@@ -260,25 +260,25 @@ def unmarshal_Instance(data: Any) -> Instance:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("created_at")
+    field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
-    field = data.get("id")
+    field = data.get("id", None)
     args["id"] = field
 
-    field = data.get("ip_address")
+    field = data.get("ip_address", None)
     args["ip_address"] = field
 
-    field = data.get("region")
+    field = data.get("region", None)
     args["region"] = field
 
-    field = data.get("status")
+    field = data.get("status", None)
     args["status"] = field
 
-    field = data.get("updated_at")
+    field = data.get("updated_at", None)
     args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
-    field = data.get("zone")
+    field = data.get("zone", None)
     args["zone"] = field
 
     return Instance(**args)
@@ -292,28 +292,28 @@ def unmarshal_Ip(data: Any) -> Ip:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("id")
+    field = data.get("id", None)
     args["id"] = field
 
-    field = data.get("ip_address")
+    field = data.get("ip_address", None)
     args["ip_address"] = field
 
-    field = data.get("lb_id")
+    field = data.get("lb_id", None)
     args["lb_id"] = field
 
-    field = data.get("organization_id")
+    field = data.get("organization_id", None)
     args["organization_id"] = field
 
-    field = data.get("project_id")
+    field = data.get("project_id", None)
     args["project_id"] = field
 
-    field = data.get("region")
+    field = data.get("region", None)
     args["region"] = field
 
-    field = data.get("reverse")
+    field = data.get("reverse", None)
     args["reverse"] = field
 
-    field = data.get("zone")
+    field = data.get("zone", None)
     args["zone"] = field
 
     return Ip(**args)
@@ -327,18 +327,18 @@ def unmarshal_Subscriber(data: Any) -> Subscriber:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("email_config")
+    field = data.get("email_config", None)
     args["email_config"] = (
         unmarshal_SubscriberEmailConfig(field) if field is not None else None
     )
 
-    field = data.get("id")
+    field = data.get("id", None)
     args["id"] = field
 
-    field = data.get("name")
+    field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("webhook_config")
+    field = data.get("webhook_config", None)
     args["webhook_config"] = (
         unmarshal_SubscriberWebhookConfig(field) if field is not None else None
     )
@@ -354,57 +354,57 @@ def unmarshal_HealthCheck(data: Any) -> HealthCheck:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("check_delay")
+    field = data.get("check_delay", None)
     args["check_delay"] = field
 
-    field = data.get("check_max_retries")
+    field = data.get("check_max_retries", None)
     args["check_max_retries"] = field
 
-    field = data.get("check_send_proxy")
+    field = data.get("check_send_proxy", None)
     args["check_send_proxy"] = field
 
-    field = data.get("check_timeout")
+    field = data.get("check_timeout", None)
     args["check_timeout"] = field
 
-    field = data.get("http_config")
+    field = data.get("http_config", None)
     args["http_config"] = (
         unmarshal_HealthCheckHttpConfig(field) if field is not None else None
     )
 
-    field = data.get("https_config")
+    field = data.get("https_config", None)
     args["https_config"] = (
         unmarshal_HealthCheckHttpsConfig(field) if field is not None else None
     )
 
-    field = data.get("ldap_config")
+    field = data.get("ldap_config", None)
     args["ldap_config"] = (
         unmarshal_HealthCheckLdapConfig(field) if field is not None else None
     )
 
-    field = data.get("mysql_config")
+    field = data.get("mysql_config", None)
     args["mysql_config"] = (
         unmarshal_HealthCheckMysqlConfig(field) if field is not None else None
     )
 
-    field = data.get("pgsql_config")
+    field = data.get("pgsql_config", None)
     args["pgsql_config"] = (
         unmarshal_HealthCheckPgsqlConfig(field) if field is not None else None
     )
 
-    field = data.get("port")
+    field = data.get("port", None)
     args["port"] = field
 
-    field = data.get("redis_config")
+    field = data.get("redis_config", None)
     args["redis_config"] = (
         unmarshal_HealthCheckRedisConfig(field) if field is not None else None
     )
 
-    field = data.get("tcp_config")
+    field = data.get("tcp_config", None)
     args["tcp_config"] = (
         unmarshal_HealthCheckTcpConfig(field) if field is not None else None
     )
 
-    field = data.get("transient_check_delay")
+    field = data.get("transient_check_delay", None)
     args["transient_check_delay"] = field
 
     return HealthCheck(**args)
@@ -418,64 +418,66 @@ def unmarshal_Lb(data: Any) -> Lb:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("backend_count")
+    field = data.get("backend_count", None)
     args["backend_count"] = field
 
-    field = data.get("created_at")
+    field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
-    field = data.get("description")
+    field = data.get("description", None)
     args["description"] = field
 
-    field = data.get("frontend_count")
+    field = data.get("frontend_count", None)
     args["frontend_count"] = field
 
-    field = data.get("id")
+    field = data.get("id", None)
     args["id"] = field
 
-    field = data.get("instances")
-    args["instances"] = [unmarshal_Instance(v) for v in data["instances"]]
+    field = data.get("instances", None)
+    args["instances"] = (
+        [unmarshal_Instance(v) for v in field] if field is not None else None
+    )
 
-    field = data.get("ip")
-    args["ip"] = [unmarshal_Ip(v) for v in data["ip"]]
+    field = data.get("ip", None)
+    args["ip"] = [unmarshal_Ip(v) for v in field] if field is not None else None
 
-    field = data.get("name")
+    field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("organization_id")
+    field = data.get("organization_id", None)
     args["organization_id"] = field
 
-    field = data.get("private_network_count")
+    field = data.get("private_network_count", None)
     args["private_network_count"] = field
 
-    field = data.get("project_id")
+    field = data.get("project_id", None)
     args["project_id"] = field
 
-    field = data.get("region")
+    field = data.get("region", None)
     args["region"] = field
 
-    field = data.get("route_count")
+    field = data.get("route_count", None)
     args["route_count"] = field
 
-    field = data.get("ssl_compatibility_level")
+    field = data.get("ssl_compatibility_level", None)
     args["ssl_compatibility_level"] = field
 
-    field = data.get("status")
+    field = data.get("status", None)
     args["status"] = field
 
-    field = data.get("subscriber")
+    field = data.get("subscriber", None)
     args["subscriber"] = unmarshal_Subscriber(field) if field is not None else None
 
-    field = data.get("tags")
+    field = data.get("tags", None)
     args["tags"] = field
 
-    field = data.get("type_")
+    field = data.get("type_", None)
     args["type_"] = field
 
-    field = data.get("updated_at")
+    field = data.get("updated_at", None)
     args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
-    field = data.get("zone")
+    field = data.get("zone", None)
     args["zone"] = field
 
     return Lb(**args)
@@ -489,13 +491,13 @@ def unmarshal_AclActionRedirect(data: Any) -> AclActionRedirect:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("code")
+    field = data.get("code", None)
     args["code"] = field
 
-    field = data.get("target")
+    field = data.get("target", None)
     args["target"] = field
 
-    field = data.get("type_")
+    field = data.get("type_", None)
     args["type_"] = field
 
     return AclActionRedirect(**args)
@@ -509,79 +511,79 @@ def unmarshal_Backend(data: Any) -> Backend:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("created_at")
+    field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
-    field = data.get("failover_host")
+    field = data.get("failover_host", None)
     args["failover_host"] = field
 
-    field = data.get("forward_port")
+    field = data.get("forward_port", None)
     args["forward_port"] = field
 
-    field = data.get("forward_port_algorithm")
+    field = data.get("forward_port_algorithm", None)
     args["forward_port_algorithm"] = field
 
-    field = data.get("forward_protocol")
+    field = data.get("forward_protocol", None)
     args["forward_protocol"] = field
 
-    field = data.get("health_check")
+    field = data.get("health_check", None)
     args["health_check"] = unmarshal_HealthCheck(field) if field is not None else None
 
-    field = data.get("id")
+    field = data.get("id", None)
     args["id"] = field
 
-    field = data.get("ignore_ssl_server_verify")
+    field = data.get("ignore_ssl_server_verify", None)
     args["ignore_ssl_server_verify"] = field
 
-    field = data.get("lb")
+    field = data.get("lb", None)
     args["lb"] = unmarshal_Lb(field) if field is not None else None
 
-    field = data.get("max_connections")
+    field = data.get("max_connections", None)
     args["max_connections"] = field
 
-    field = data.get("max_retries")
+    field = data.get("max_retries", None)
     args["max_retries"] = field
 
-    field = data.get("name")
+    field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("on_marked_down_action")
+    field = data.get("on_marked_down_action", None)
     args["on_marked_down_action"] = field
 
-    field = data.get("pool")
+    field = data.get("pool", None)
     args["pool"] = field
 
-    field = data.get("proxy_protocol")
+    field = data.get("proxy_protocol", None)
     args["proxy_protocol"] = field
 
-    field = data.get("redispatch_attempt_count")
+    field = data.get("redispatch_attempt_count", None)
     args["redispatch_attempt_count"] = field
 
-    field = data.get("send_proxy_v2")
+    field = data.get("send_proxy_v2", None)
     args["send_proxy_v2"] = field
 
-    field = data.get("ssl_bridging")
+    field = data.get("ssl_bridging", None)
     args["ssl_bridging"] = field
 
-    field = data.get("sticky_sessions")
+    field = data.get("sticky_sessions", None)
     args["sticky_sessions"] = field
 
-    field = data.get("sticky_sessions_cookie_name")
+    field = data.get("sticky_sessions_cookie_name", None)
     args["sticky_sessions_cookie_name"] = field
 
-    field = data.get("timeout_connect")
+    field = data.get("timeout_connect", None)
     args["timeout_connect"] = field
 
-    field = data.get("timeout_queue")
+    field = data.get("timeout_queue", None)
     args["timeout_queue"] = field
 
-    field = data.get("timeout_server")
+    field = data.get("timeout_server", None)
     args["timeout_server"] = field
 
-    field = data.get("timeout_tunnel")
+    field = data.get("timeout_tunnel", None)
     args["timeout_tunnel"] = field
 
-    field = data.get("updated_at")
+    field = data.get("updated_at", None)
     args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
     return Backend(**args)
@@ -595,43 +597,43 @@ def unmarshal_Certificate(data: Any) -> Certificate:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("common_name")
+    field = data.get("common_name", None)
     args["common_name"] = field
 
-    field = data.get("created_at")
+    field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
-    field = data.get("fingerprint")
+    field = data.get("fingerprint", None)
     args["fingerprint"] = field
 
-    field = data.get("id")
+    field = data.get("id", None)
     args["id"] = field
 
-    field = data.get("lb")
+    field = data.get("lb", None)
     args["lb"] = unmarshal_Lb(field) if field is not None else None
 
-    field = data.get("name")
+    field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("not_valid_after")
+    field = data.get("not_valid_after", None)
     args["not_valid_after"] = parser.isoparse(field) if type(field) is str else field
 
-    field = data.get("not_valid_before")
+    field = data.get("not_valid_before", None)
     args["not_valid_before"] = parser.isoparse(field) if type(field) is str else field
 
-    field = data.get("status")
+    field = data.get("status", None)
     args["status"] = field
 
-    field = data.get("status_details")
+    field = data.get("status_details", None)
     args["status_details"] = field
 
-    field = data.get("subject_alternative_name")
+    field = data.get("subject_alternative_name", None)
     args["subject_alternative_name"] = field
 
-    field = data.get("type_")
+    field = data.get("type_", None)
     args["type_"] = field
 
-    field = data.get("updated_at")
+    field = data.get("updated_at", None)
     args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
     return Certificate(**args)
@@ -645,10 +647,10 @@ def unmarshal_AclAction(data: Any) -> AclAction:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("redirect")
+    field = data.get("redirect", None)
     args["redirect"] = unmarshal_AclActionRedirect(field) if field is not None else None
 
-    field = data.get("type_")
+    field = data.get("type_", None)
     args["type_"] = field
 
     return AclAction(**args)
@@ -662,19 +664,19 @@ def unmarshal_AclMatch(data: Any) -> AclMatch:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("http_filter")
+    field = data.get("http_filter", None)
     args["http_filter"] = field
 
-    field = data.get("http_filter_option")
+    field = data.get("http_filter_option", None)
     args["http_filter_option"] = field
 
-    field = data.get("http_filter_value")
+    field = data.get("http_filter_value", None)
     args["http_filter_value"] = field
 
-    field = data.get("invert")
+    field = data.get("invert", None)
     args["invert"] = field
 
-    field = data.get("ip_subnet")
+    field = data.get("ip_subnet", None)
     args["ip_subnet"] = field
 
     return AclMatch(**args)
@@ -688,37 +690,37 @@ def unmarshal_Frontend(data: Any) -> Frontend:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("backend")
+    field = data.get("backend", None)
     args["backend"] = unmarshal_Backend(field) if field is not None else None
 
-    field = data.get("certificate")
+    field = data.get("certificate", None)
     args["certificate"] = unmarshal_Certificate(field) if field is not None else None
 
-    field = data.get("certificate_ids")
+    field = data.get("certificate_ids", None)
     args["certificate_ids"] = field
 
-    field = data.get("created_at")
+    field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
-    field = data.get("enable_http3")
+    field = data.get("enable_http3", None)
     args["enable_http3"] = field
 
-    field = data.get("id")
+    field = data.get("id", None)
     args["id"] = field
 
-    field = data.get("inbound_port")
+    field = data.get("inbound_port", None)
     args["inbound_port"] = field
 
-    field = data.get("lb")
+    field = data.get("lb", None)
     args["lb"] = unmarshal_Lb(field) if field is not None else None
 
-    field = data.get("name")
+    field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("timeout_client")
+    field = data.get("timeout_client", None)
     args["timeout_client"] = field
 
-    field = data.get("updated_at")
+    field = data.get("updated_at", None)
     args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
     return Frontend(**args)
@@ -754,7 +756,7 @@ def unmarshal_PrivateNetworkStaticConfig(data: Any) -> PrivateNetworkStaticConfi
 
     args: Dict[str, Any] = {}
 
-    field = data.get("ip_address")
+    field = data.get("ip_address", None)
     args["ip_address"] = field
 
     return PrivateNetworkStaticConfig(**args)
@@ -768,10 +770,10 @@ def unmarshal_RouteMatch(data: Any) -> RouteMatch:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("host_header")
+    field = data.get("host_header", None)
     args["host_header"] = field
 
-    field = data.get("sni")
+    field = data.get("sni", None)
     args["sni"] = field
 
     return RouteMatch(**args)
@@ -785,31 +787,31 @@ def unmarshal_Acl(data: Any) -> Acl:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("action")
+    field = data.get("action", None)
     args["action"] = unmarshal_AclAction(field) if field is not None else None
 
-    field = data.get("created_at")
+    field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
-    field = data.get("description")
+    field = data.get("description", None)
     args["description"] = field
 
-    field = data.get("frontend")
+    field = data.get("frontend", None)
     args["frontend"] = unmarshal_Frontend(field) if field is not None else None
 
-    field = data.get("id")
+    field = data.get("id", None)
     args["id"] = field
 
-    field = data.get("index")
+    field = data.get("index", None)
     args["index"] = field
 
-    field = data.get("match")
+    field = data.get("match", None)
     args["match"] = unmarshal_AclMatch(field) if field is not None else None
 
-    field = data.get("name")
+    field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("updated_at")
+    field = data.get("updated_at", None)
     args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
     return Acl(**args)
@@ -823,22 +825,22 @@ def unmarshal_BackendServerStats(data: Any) -> BackendServerStats:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("backend_id")
+    field = data.get("backend_id", None)
     args["backend_id"] = field
 
-    field = data.get("instance_id")
+    field = data.get("instance_id", None)
     args["instance_id"] = field
 
-    field = data.get("ip")
+    field = data.get("ip", None)
     args["ip"] = field
 
-    field = data.get("last_health_check_status")
+    field = data.get("last_health_check_status", None)
     args["last_health_check_status"] = field
 
-    field = data.get("server_state")
+    field = data.get("server_state", None)
     args["server_state"] = field
 
-    field = data.get("server_state_changed_at")
+    field = data.get("server_state_changed_at", None)
     args["server_state_changed_at"] = (
         parser.isoparse(field) if type(field) is str else field
     )
@@ -854,19 +856,19 @@ def unmarshal_LbType(data: Any) -> LbType:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("description")
+    field = data.get("description", None)
     args["description"] = field
 
-    field = data.get("name")
+    field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("region")
+    field = data.get("region", None)
     args["region"] = field
 
-    field = data.get("stock_status")
+    field = data.get("stock_status", None)
     args["stock_status"] = field
 
-    field = data.get("zone")
+    field = data.get("zone", None)
     args["zone"] = field
 
     return LbType(**args)
@@ -880,34 +882,34 @@ def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("created_at")
+    field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
-    field = data.get("dhcp_config")
+    field = data.get("dhcp_config", None)
     args["dhcp_config"] = (
         unmarshal_PrivateNetworkDHCPConfig(field) if field is not None else None
     )
 
-    field = data.get("ipam_config")
+    field = data.get("ipam_config", None)
     args["ipam_config"] = (
         unmarshal_PrivateNetworkIpamConfig(field) if field is not None else None
     )
 
-    field = data.get("lb")
+    field = data.get("lb", None)
     args["lb"] = unmarshal_Lb(field) if field is not None else None
 
-    field = data.get("private_network_id")
+    field = data.get("private_network_id", None)
     args["private_network_id"] = field
 
-    field = data.get("static_config")
+    field = data.get("static_config", None)
     args["static_config"] = (
         unmarshal_PrivateNetworkStaticConfig(field) if field is not None else None
     )
 
-    field = data.get("status")
+    field = data.get("status", None)
     args["status"] = field
 
-    field = data.get("updated_at")
+    field = data.get("updated_at", None)
     args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
     return PrivateNetwork(**args)
@@ -921,22 +923,22 @@ def unmarshal_Route(data: Any) -> Route:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("backend_id")
+    field = data.get("backend_id", None)
     args["backend_id"] = field
 
-    field = data.get("created_at")
+    field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
-    field = data.get("frontend_id")
+    field = data.get("frontend_id", None)
     args["frontend_id"] = field
 
-    field = data.get("id")
+    field = data.get("id", None)
     args["id"] = field
 
-    field = data.get("match")
+    field = data.get("match", None)
     args["match"] = unmarshal_RouteMatch(field) if field is not None else None
 
-    field = data.get("updated_at")
+    field = data.get("updated_at", None)
     args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
     return Route(**args)
@@ -950,10 +952,10 @@ def unmarshal_LbStats(data: Any) -> LbStats:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("backend_servers_stats")
-    args["backend_servers_stats"] = [
-        unmarshal_BackendServerStats(v) for v in data["backend_servers_stats"]
-    ]
+    field = data.get("backend_servers_stats", None)
+    args["backend_servers_stats"] = (
+        [unmarshal_BackendServerStats(v) for v in field] if field is not None else None
+    )
 
     return LbStats(**args)
 
@@ -966,10 +968,10 @@ def unmarshal_ListAclResponse(data: Any) -> ListAclResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("acls")
-    args["acls"] = [unmarshal_Acl(v) for v in data["acls"]]
+    field = data.get("acls", None)
+    args["acls"] = [unmarshal_Acl(v) for v in field] if field is not None else None
 
-    field = data.get("total_count")
+    field = data.get("total_count", None)
     args["total_count"] = field
 
     return ListAclResponse(**args)
@@ -983,12 +985,12 @@ def unmarshal_ListBackendStatsResponse(data: Any) -> ListBackendStatsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("backend_servers_stats")
-    args["backend_servers_stats"] = [
-        unmarshal_BackendServerStats(v) for v in data["backend_servers_stats"]
-    ]
+    field = data.get("backend_servers_stats", None)
+    args["backend_servers_stats"] = (
+        [unmarshal_BackendServerStats(v) for v in field] if field is not None else None
+    )
 
-    field = data.get("total_count")
+    field = data.get("total_count", None)
     args["total_count"] = field
 
     return ListBackendStatsResponse(**args)
@@ -1002,10 +1004,12 @@ def unmarshal_ListBackendsResponse(data: Any) -> ListBackendsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("backends")
-    args["backends"] = [unmarshal_Backend(v) for v in data["backends"]]
+    field = data.get("backends", None)
+    args["backends"] = (
+        [unmarshal_Backend(v) for v in field] if field is not None else None
+    )
 
-    field = data.get("total_count")
+    field = data.get("total_count", None)
     args["total_count"] = field
 
     return ListBackendsResponse(**args)
@@ -1019,10 +1023,12 @@ def unmarshal_ListCertificatesResponse(data: Any) -> ListCertificatesResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("certificates")
-    args["certificates"] = [unmarshal_Certificate(v) for v in data["certificates"]]
+    field = data.get("certificates", None)
+    args["certificates"] = (
+        [unmarshal_Certificate(v) for v in field] if field is not None else None
+    )
 
-    field = data.get("total_count")
+    field = data.get("total_count", None)
     args["total_count"] = field
 
     return ListCertificatesResponse(**args)
@@ -1036,10 +1042,12 @@ def unmarshal_ListFrontendsResponse(data: Any) -> ListFrontendsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("frontends")
-    args["frontends"] = [unmarshal_Frontend(v) for v in data["frontends"]]
+    field = data.get("frontends", None)
+    args["frontends"] = (
+        [unmarshal_Frontend(v) for v in field] if field is not None else None
+    )
 
-    field = data.get("total_count")
+    field = data.get("total_count", None)
     args["total_count"] = field
 
     return ListFrontendsResponse(**args)
@@ -1053,10 +1061,10 @@ def unmarshal_ListIpsResponse(data: Any) -> ListIpsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("ips")
-    args["ips"] = [unmarshal_Ip(v) for v in data["ips"]]
+    field = data.get("ips", None)
+    args["ips"] = [unmarshal_Ip(v) for v in field] if field is not None else None
 
-    field = data.get("total_count")
+    field = data.get("total_count", None)
     args["total_count"] = field
 
     return ListIpsResponse(**args)
@@ -1070,12 +1078,12 @@ def unmarshal_ListLbPrivateNetworksResponse(data: Any) -> ListLbPrivateNetworksR
 
     args: Dict[str, Any] = {}
 
-    field = data.get("private_network")
-    args["private_network"] = [
-        unmarshal_PrivateNetwork(v) for v in data["private_network"]
-    ]
+    field = data.get("private_network", None)
+    args["private_network"] = (
+        [unmarshal_PrivateNetwork(v) for v in field] if field is not None else None
+    )
 
-    field = data.get("total_count")
+    field = data.get("total_count", None)
     args["total_count"] = field
 
     return ListLbPrivateNetworksResponse(**args)
@@ -1089,10 +1097,12 @@ def unmarshal_ListLbTypesResponse(data: Any) -> ListLbTypesResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("lb_types")
-    args["lb_types"] = [unmarshal_LbType(v) for v in data["lb_types"]]
+    field = data.get("lb_types", None)
+    args["lb_types"] = (
+        [unmarshal_LbType(v) for v in field] if field is not None else None
+    )
 
-    field = data.get("total_count")
+    field = data.get("total_count", None)
     args["total_count"] = field
 
     return ListLbTypesResponse(**args)
@@ -1106,10 +1116,10 @@ def unmarshal_ListLbsResponse(data: Any) -> ListLbsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("lbs")
-    args["lbs"] = [unmarshal_Lb(v) for v in data["lbs"]]
+    field = data.get("lbs", None)
+    args["lbs"] = [unmarshal_Lb(v) for v in field] if field is not None else None
 
-    field = data.get("total_count")
+    field = data.get("total_count", None)
     args["total_count"] = field
 
     return ListLbsResponse(**args)
@@ -1123,10 +1133,10 @@ def unmarshal_ListRoutesResponse(data: Any) -> ListRoutesResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("routes")
-    args["routes"] = [unmarshal_Route(v) for v in data["routes"]]
+    field = data.get("routes", None)
+    args["routes"] = [unmarshal_Route(v) for v in field] if field is not None else None
 
-    field = data.get("total_count")
+    field = data.get("total_count", None)
     args["total_count"] = field
 
     return ListRoutesResponse(**args)
@@ -1140,10 +1150,12 @@ def unmarshal_ListSubscriberResponse(data: Any) -> ListSubscriberResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("subscribers")
-    args["subscribers"] = [unmarshal_Subscriber(v) for v in data["subscribers"]]
+    field = data.get("subscribers", None)
+    args["subscribers"] = (
+        [unmarshal_Subscriber(v) for v in field] if field is not None else None
+    )
 
-    field = data.get("total_count")
+    field = data.get("total_count", None)
     args["total_count"] = field
 
     return ListSubscriberResponse(**args)
@@ -1157,10 +1169,10 @@ def unmarshal_SetAclsResponse(data: Any) -> SetAclsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("acls")
-    args["acls"] = [unmarshal_Acl(v) for v in data["acls"]]
+    field = data.get("acls", None)
+    args["acls"] = [unmarshal_Acl(v) for v in field] if field is not None else None
 
-    field = data.get("total_count")
+    field = data.get("total_count", None)
     args["total_count"] = field
 
     return SetAclsResponse(**args)
@@ -1576,7 +1588,6 @@ def marshal_CreateIpRequest(
                 ),
             ]
         ),
-        "is_ipv6": request.is_ipv6,
         "reverse": request.reverse,
     }
 
@@ -1607,7 +1618,6 @@ def marshal_CreateLbRequest(
         "assign_flexible_ip": request.assign_flexible_ip,
         "description": request.description,
         "ip_id": request.ip_id,
-        "ip_ids": request.ip_ids,
         "name": request.name,
         "ssl_compatibility_level": SSLCompatibilityLevel(
             request.ssl_compatibility_level
@@ -2057,7 +2067,6 @@ def marshal_ZonedApiCreateIpRequest(
                 ),
             ]
         ),
-        "is_ipv6": request.is_ipv6,
         "reverse": request.reverse,
     }
 
@@ -2088,7 +2097,6 @@ def marshal_ZonedApiCreateLbRequest(
         "assign_flexible_ip": request.assign_flexible_ip,
         "description": request.description,
         "ip_id": request.ip_id,
-        "ip_ids": request.ip_ids,
         "name": request.name,
         "ssl_compatibility_level": SSLCompatibilityLevel(
             request.ssl_compatibility_level
