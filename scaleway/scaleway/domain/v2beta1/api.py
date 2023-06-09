@@ -1319,8 +1319,8 @@ class DomainRegistrarV2Beta1API(API):
     ) -> ListTasksResponse:
         """
         List tasks.
-        List all account tasks.
-        You can filter the list by domain name.
+        List all operations performed on the account.
+        You can filter the list of tasks by domain name.
         :param page:
         :param page_size:
         :param project_id:
@@ -1370,8 +1370,8 @@ class DomainRegistrarV2Beta1API(API):
     ) -> List[Task]:
         """
         List tasks.
-        List all account tasks.
-        You can filter the list by domain name.
+        List all operations performed on the account.
+        You can filter the list of tasks by domain name.
         :param page:
         :param page_size:
         :param project_id:
@@ -1418,9 +1418,9 @@ class DomainRegistrarV2Beta1API(API):
         technical_contact: Optional[NewContact] = None,
     ) -> OrderResponse:
         """
-        Buy one or more domains.
+        Purchase domains.
         Request the registration of domain names.
-        You can provide an already existing domain's contact or a new contact.
+        You can provide a domain's already existing contact or a new contact.
         :param domains:
         :param duration_in_years:
         :param project_id:
@@ -1471,8 +1471,8 @@ class DomainRegistrarV2Beta1API(API):
         force_late_renewal: Optional[bool] = None,
     ) -> OrderResponse:
         """
-        Renew one or more domains.
-        Request the renewal of domain names.
+        Renew domains.
+        Request the renewal of one or more domain names.
         :param domains:
         :param duration_in_years:
         :param force_late_renewal:
@@ -1517,7 +1517,7 @@ class DomainRegistrarV2Beta1API(API):
     ) -> OrderResponse:
         """
         Transfer a domain.
-        Request the transfer from another registrar domain to Scaleway.
+        Request the transfer of a domain from another registrar to Scaleway Domains and DNS.
         :param domains:
         :param project_id:
         :param owner_contact_id: One-of ('owner_contact_type'): at most one of 'owner_contact_id', 'owner_contact' could be set.
@@ -1564,11 +1564,11 @@ class DomainRegistrarV2Beta1API(API):
         new_owner_contact: Optional[NewContact] = None,
     ) -> OrderResponse:
         """
-        Trade a domain contact.
-        Request a trade for the contact owner.<br/>
-        If an `organization_id` is given, the change is from the current Scaleway account to another Scaleway account.<br/>
-        If no contact is given, the first contact of the other Scaleway account is taken.<br/>
-        If the other Scaleway account has no contact. An error occurs.
+        Trade a domain's contact.
+        Request to change a domain's contact owner.<br/>
+        If you specify the `organization_id` of the domain's new owner, the contact will change from the current owner's Scaleway account to the new owner's Scaleway account.<br/>
+        If the new owner's current contact information is not available, the first ever contact they have created for previous domains is taken into account to operate the change.<br/>
+        If the new owner has never created a contact to register domains before, an error message displays.
         :param domain:
         :param project_id:
         :param new_owner_contact_id: One-of ('new_owner_contact_type'): at most one of 'new_owner_contact_id', 'new_owner_contact' could be set.
@@ -1674,9 +1674,9 @@ class DomainRegistrarV2Beta1API(API):
         technical_contact: Optional[NewContact] = None,
     ) -> CheckContactsCompatibilityResponse:
         """
-        Check if contacts are compatible against a domain or a tld.
-        Check if contacts are compatible against a domain or a tld.
-        If not, it will return the information requiring a correction.
+        Check if contacts are compatible with a domain or a TLD.
+        Check whether contacts are compatible with a domain or a TLD.
+        If contacts are not compatible with either the domain or the TLD, the information that needs to be corrected is returned.
         :param domains:
         :param tlds:
         :param owner_contact_id: One-of ('owner_contact_type'): at most one of 'owner_contact_id', 'owner_contact' could be set.
@@ -1725,7 +1725,7 @@ class DomainRegistrarV2Beta1API(API):
     ) -> ListContactsResponse:
         """
         List contacts.
-        Return a list of contacts with their domains and roles.
+        Retrieve the list of contacts and their associated domains and roles.
         You can filter the list by domain name.
         :param page:
         :param page_size:
@@ -1767,7 +1767,7 @@ class DomainRegistrarV2Beta1API(API):
     ) -> List[ContactRoles]:
         """
         List contacts.
-        Return a list of contacts with their domains and roles.
+        Retrieve the list of contacts and their associated domains and roles.
         You can filter the list by domain name.
         :param page:
         :param page_size:
@@ -1802,7 +1802,7 @@ class DomainRegistrarV2Beta1API(API):
     ) -> Contact:
         """
         Get a contact.
-        Return a contact details retrieved from the registrar using a given contact ID.
+        Retrieve a contact's details from the registrar using the given contact's ID.
         :param contact_id:
         :return: :class:`Contact <Contact>`
 
@@ -1848,7 +1848,7 @@ class DomainRegistrarV2Beta1API(API):
     ) -> Contact:
         """
         Update contact.
-        You can edit the contact coordinates.
+        Edit the contact's information.
         :param contact_id:
         :param email:
         :param email_alt:
@@ -1930,7 +1930,7 @@ class DomainRegistrarV2Beta1API(API):
     ) -> ListDomainsResponse:
         """
         List domains.
-        Returns a list of domains owned by the user.
+        Retrieve the list of domains you own.
         :param page:
         :param page_size:
         :param order_by:
@@ -1983,7 +1983,7 @@ class DomainRegistrarV2Beta1API(API):
     ) -> List[DomainSummary]:
         """
         List domains.
-        Returns a list of domains owned by the user.
+        Retrieve the list of domains you own.
         :param page:
         :param page_size:
         :param order_by:
@@ -2028,8 +2028,8 @@ class DomainRegistrarV2Beta1API(API):
         organization_id: Optional[str] = None,
     ) -> ListRenewableDomainsResponse:
         """
-        List scaleway domains that can or not be renewed.
-        Returns a list of domains owned by the user with a renew status and if renewable, the maximum renew duration in years.
+        List domains that can be renewed.
+        Retrieve the list of domains you own that can be renewed. You can also see the maximum renewal duration in years for your domains that are renewable.
         :param page:
         :param page_size:
         :param order_by:
@@ -2069,8 +2069,8 @@ class DomainRegistrarV2Beta1API(API):
         organization_id: Optional[str] = None,
     ) -> List[RenewableDomain]:
         """
-        List scaleway domains that can or not be renewed.
-        Returns a list of domains owned by the user with a renew status and if renewable, the maximum renew duration in years.
+        List domains that can be renewed.
+        Retrieve the list of domains you own that can be renewed. You can also see the maximum renewal duration in years for your domains that are renewable.
         :param page:
         :param page_size:
         :param order_by:
@@ -2104,7 +2104,7 @@ class DomainRegistrarV2Beta1API(API):
     ) -> Domain:
         """
         Get domain.
-        Returns a the domain with more informations.
+        Retrieve a specific domain and display the domain's information.
         :param domain:
         :return: :class:`Domain <Domain>`
 
@@ -2168,9 +2168,9 @@ class DomainRegistrarV2Beta1API(API):
         administrative_contact: Optional[NewContact] = None,
     ) -> Domain:
         """
-        Update a domain.
-        Update the domain contacts or create a new one.<br/>
-        If you add the same contact for multiple roles. Only one ID will be created and used for all of them.
+        Update a domain's contacts.
+        Update contacts for a specific domain or create a new contact.<br/>
+        If you add the same contact for multiple roles (owner, administrative, technical), only one ID will be created and used for all of the roles.
         :param domain:
         :param technical_contact_id: One-of ('technical_contact_info'): at most one of 'technical_contact_id', 'technical_contact' could be set.
         :param technical_contact: One-of ('technical_contact_info'): at most one of 'technical_contact_id', 'technical_contact' could be set.
@@ -2214,8 +2214,8 @@ class DomainRegistrarV2Beta1API(API):
         domain: str,
     ) -> Domain:
         """
-        Lock domain transfer.
-        Lock domain transfer. A locked domain transfer can't be transferred and the auth code can't be requested.
+        Lock the transfer of a domain.
+        Lock the transfer of a domain. This means that the domain cannot be transferred and the authorization code cannot be requested to your current registrar.
         :param domain:
         :return: :class:`Domain <Domain>`
 
@@ -2241,8 +2241,8 @@ class DomainRegistrarV2Beta1API(API):
         domain: str,
     ) -> Domain:
         """
-        Unlock domain transfer.
-        Unlock domain transfer. An unlocked domain can be transferred and the auth code can be requested for this.
+        Unlock the transfer of a domain.
+        Unlock the transfer of a domain. This means that the domain can be transferred and the authorization code can be requested to your current registrar.
         :param domain:
         :return: :class:`Domain <Domain>`
 
@@ -2268,7 +2268,8 @@ class DomainRegistrarV2Beta1API(API):
         domain: str,
     ) -> Domain:
         """
-        Enable domain auto renew.
+        Enable auto renew.
+        Enable the `auto renew` feature for a domain. This means the domain will be automatically renewed before its expiry date.
         :param domain:
         :return: :class:`Domain <Domain>`
 
@@ -2294,7 +2295,8 @@ class DomainRegistrarV2Beta1API(API):
         domain: str,
     ) -> Domain:
         """
-        Disable domain auto renew.
+        Disable auto renew.
+        Disable the `auto renew` feature for a domain. This means the domain will not be renewed before its expiry date.
         :param domain:
         :return: :class:`Domain <Domain>`
 
@@ -2320,9 +2322,9 @@ class DomainRegistrarV2Beta1API(API):
         domain: str,
     ) -> GetDomainAuthCodeResponse:
         """
-        Return domain auth code.
-        If possible, return the auth code for an unlocked domain transfer, or an error if the domain is locked.
-        Some TLD may have a different procedure to retrieve the auth code, in that case, the information is given in the message field.
+        Get a domain's authorization code.
+        Retrieve the authorization code to tranfer an unlocked domain. The output returns an error if the domain is locked.
+        Some TLDs may have a different procedure to retrieve the authorization code. In that case, the information displays in the message field.
         :param domain:
         :return: :class:`GetDomainAuthCodeResponse <GetDomainAuthCodeResponse>`
 
@@ -2384,7 +2386,8 @@ class DomainRegistrarV2Beta1API(API):
         domain: str,
     ) -> Domain:
         """
-        Disable domain DNSSEC.
+        Disable a domain's DNSSEC.
+        Disable DNSSEC for a domain.
         :param domain:
         :return: :class:`Domain <Domain>`
 
@@ -2413,9 +2416,9 @@ class DomainRegistrarV2Beta1API(API):
     ) -> SearchAvailableDomainsResponse:
         """
         Search available domains.
-        Search a domain (or at maximum, 10 domains).
+        Search a domain or a maximum of 10 domains that are available.
 
-        If the TLD list is empty or not set the search returns the results from the most popular TLDs.
+        If the TLD list is empty or not set, the search returns the results from the most popular TLDs.
         :param domains: A list of domain to search, TLD is optional.
         :param tlds: Array of tlds to search on.
         :param strict_search: Search exact match.
@@ -2451,7 +2454,8 @@ class DomainRegistrarV2Beta1API(API):
         ips: Optional[List[str]] = None,
     ) -> Host:
         """
-        Create domain hostname with glue IPs.
+        Create a hostname for a domain.
+        Create a hostname for a domain with glue IPs.
         :param domain:
         :param name:
         :param ips:
@@ -2492,7 +2496,8 @@ class DomainRegistrarV2Beta1API(API):
         page_size: Optional[int] = None,
     ) -> ListDomainHostsResponse:
         """
-        List domain hostnames with they glue IPs.
+        List a domain's hostnames.
+        List a domain's hostnames using their glue IPs.
         :param domain:
         :param page:
         :param page_size:
@@ -2526,7 +2531,8 @@ class DomainRegistrarV2Beta1API(API):
         page_size: Optional[int] = None,
     ) -> List[Host]:
         """
-        List domain hostnames with they glue IPs.
+        List a domain's hostnames.
+        List a domain's hostnames using their glue IPs.
         :param domain:
         :param page:
         :param page_size:
@@ -2557,7 +2563,8 @@ class DomainRegistrarV2Beta1API(API):
         ips: Optional[List[str]] = None,
     ) -> Host:
         """
-        Update domain hostname with glue IPs.
+        Update a domain's hostname.
+        Update a domain's hostname with glue IPs.
         :param domain:
         :param name:
         :param ips:
@@ -2598,7 +2605,8 @@ class DomainRegistrarV2Beta1API(API):
         name: str,
     ) -> Host:
         """
-        Delete domain hostname.
+        Delete a domain's hostname.
+        Delete a domain's hostname.
         :param domain:
         :param name:
         :return: :class:`Host <Host>`
