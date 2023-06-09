@@ -46,10 +46,10 @@ def unmarshal_SecretHashedValue(data: Any) -> SecretHashedValue:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("hashed_value")
+    field = data.get("hashed_value", None)
     args["hashed_value"] = field
 
-    field = data.get("key")
+    field = data.get("key", None)
     args["key"] = field
 
     return SecretHashedValue(**args)
@@ -63,69 +63,69 @@ def unmarshal_Container(data: Any) -> Container:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("cpu_limit")
+    field = data.get("cpu_limit", None)
     args["cpu_limit"] = field
 
-    field = data.get("description")
+    field = data.get("description", None)
     args["description"] = field
 
-    field = data.get("domain_name")
+    field = data.get("domain_name", None)
     args["domain_name"] = field
 
-    field = data.get("environment_variables")
+    field = data.get("environment_variables", None)
     args["environment_variables"] = field
 
-    field = data.get("error_message")
+    field = data.get("error_message", None)
     args["error_message"] = field
 
-    field = data.get("http_option")
+    field = data.get("http_option", None)
     args["http_option"] = field
 
-    field = data.get("id")
+    field = data.get("id", None)
     args["id"] = field
 
-    field = data.get("max_concurrency")
+    field = data.get("max_concurrency", None)
     args["max_concurrency"] = field
 
-    field = data.get("max_scale")
+    field = data.get("max_scale", None)
     args["max_scale"] = field
 
-    field = data.get("memory_limit")
+    field = data.get("memory_limit", None)
     args["memory_limit"] = field
 
-    field = data.get("min_scale")
+    field = data.get("min_scale", None)
     args["min_scale"] = field
 
-    field = data.get("name")
+    field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("namespace_id")
+    field = data.get("namespace_id", None)
     args["namespace_id"] = field
 
-    field = data.get("port")
+    field = data.get("port", None)
     args["port"] = field
 
-    field = data.get("privacy")
+    field = data.get("privacy", None)
     args["privacy"] = field
 
-    field = data.get("protocol")
+    field = data.get("protocol", None)
     args["protocol"] = field
 
-    field = data.get("region")
+    field = data.get("region", None)
     args["region"] = field
 
-    field = data.get("registry_image")
+    field = data.get("registry_image", None)
     args["registry_image"] = field
 
-    field = data.get("secret_environment_variables")
-    args["secret_environment_variables"] = [
-        unmarshal_SecretHashedValue(v) for v in data["secret_environment_variables"]
-    ]
+    field = data.get("secret_environment_variables", None)
+    args["secret_environment_variables"] = (
+        [unmarshal_SecretHashedValue(v) for v in field] if field is not None else None
+    )
 
-    field = data.get("status")
+    field = data.get("status", None)
     args["status"] = field
 
-    field = data.get("timeout")
+    field = data.get("timeout", None)
     args["timeout"] = field
 
     return Container(**args)
@@ -139,22 +139,22 @@ def unmarshal_Cron(data: Any) -> Cron:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("args")
+    field = data.get("args", None)
     args["args"] = field
 
-    field = data.get("container_id")
+    field = data.get("container_id", None)
     args["container_id"] = field
 
-    field = data.get("id")
+    field = data.get("id", None)
     args["id"] = field
 
-    field = data.get("name")
+    field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("schedule")
+    field = data.get("schedule", None)
     args["schedule"] = field
 
-    field = data.get("status")
+    field = data.get("status", None)
     args["status"] = field
 
     return Cron(**args)
@@ -168,22 +168,22 @@ def unmarshal_Domain(data: Any) -> Domain:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("container_id")
+    field = data.get("container_id", None)
     args["container_id"] = field
 
-    field = data.get("error_message")
+    field = data.get("error_message", None)
     args["error_message"] = field
 
-    field = data.get("hostname")
+    field = data.get("hostname", None)
     args["hostname"] = field
 
-    field = data.get("id")
+    field = data.get("id", None)
     args["id"] = field
 
-    field = data.get("status")
+    field = data.get("status", None)
     args["status"] = field
 
-    field = data.get("url")
+    field = data.get("url", None)
     args["url"] = field
 
     return Domain(**args)
@@ -197,22 +197,22 @@ def unmarshal_Log(data: Any) -> Log:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("id")
+    field = data.get("id", None)
     args["id"] = field
 
-    field = data.get("level")
+    field = data.get("level", None)
     args["level"] = field
 
-    field = data.get("message")
+    field = data.get("message", None)
     args["message"] = field
 
-    field = data.get("source")
+    field = data.get("source", None)
     args["source"] = field
 
-    field = data.get("stream")
+    field = data.get("stream", None)
     args["stream"] = field
 
-    field = data.get("timestamp")
+    field = data.get("timestamp", None)
     args["timestamp"] = parser.isoparse(field) if type(field) is str else field
 
     return Log(**args)
@@ -226,42 +226,42 @@ def unmarshal_Namespace(data: Any) -> Namespace:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("description")
+    field = data.get("description", None)
     args["description"] = field
 
-    field = data.get("environment_variables")
+    field = data.get("environment_variables", None)
     args["environment_variables"] = field
 
-    field = data.get("error_message")
+    field = data.get("error_message", None)
     args["error_message"] = field
 
-    field = data.get("id")
+    field = data.get("id", None)
     args["id"] = field
 
-    field = data.get("name")
+    field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("organization_id")
+    field = data.get("organization_id", None)
     args["organization_id"] = field
 
-    field = data.get("project_id")
+    field = data.get("project_id", None)
     args["project_id"] = field
 
-    field = data.get("region")
+    field = data.get("region", None)
     args["region"] = field
 
-    field = data.get("registry_endpoint")
+    field = data.get("registry_endpoint", None)
     args["registry_endpoint"] = field
 
-    field = data.get("registry_namespace_id")
+    field = data.get("registry_namespace_id", None)
     args["registry_namespace_id"] = field
 
-    field = data.get("secret_environment_variables")
-    args["secret_environment_variables"] = [
-        unmarshal_SecretHashedValue(v) for v in data["secret_environment_variables"]
-    ]
+    field = data.get("secret_environment_variables", None)
+    args["secret_environment_variables"] = (
+        [unmarshal_SecretHashedValue(v) for v in field] if field is not None else None
+    )
 
-    field = data.get("status")
+    field = data.get("status", None)
     args["status"] = field
 
     return Namespace(**args)
@@ -275,28 +275,28 @@ def unmarshal_Token(data: Any) -> Token:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("container_id")
+    field = data.get("container_id", None)
     args["container_id"] = field
 
-    field = data.get("description")
+    field = data.get("description", None)
     args["description"] = field
 
-    field = data.get("expires_at")
+    field = data.get("expires_at", None)
     args["expires_at"] = parser.isoparse(field) if type(field) is str else field
 
-    field = data.get("id")
+    field = data.get("id", None)
     args["id"] = field
 
-    field = data.get("namespace_id")
+    field = data.get("namespace_id", None)
     args["namespace_id"] = field
 
-    field = data.get("public_key")
+    field = data.get("public_key", None)
     args["public_key"] = field
 
-    field = data.get("status")
+    field = data.get("status", None)
     args["status"] = field
 
-    field = data.get("token")
+    field = data.get("token", None)
     args["token"] = field
 
     return Token(**args)
@@ -310,10 +310,12 @@ def unmarshal_ListContainersResponse(data: Any) -> ListContainersResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("containers")
-    args["containers"] = [unmarshal_Container(v) for v in data["containers"]]
+    field = data.get("containers", None)
+    args["containers"] = (
+        [unmarshal_Container(v) for v in field] if field is not None else None
+    )
 
-    field = data.get("total_count")
+    field = data.get("total_count", None)
     args["total_count"] = field
 
     return ListContainersResponse(**args)
@@ -327,10 +329,10 @@ def unmarshal_ListCronsResponse(data: Any) -> ListCronsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("crons")
-    args["crons"] = [unmarshal_Cron(v) for v in data["crons"]]
+    field = data.get("crons", None)
+    args["crons"] = [unmarshal_Cron(v) for v in field] if field is not None else None
 
-    field = data.get("total_count")
+    field = data.get("total_count", None)
     args["total_count"] = field
 
     return ListCronsResponse(**args)
@@ -344,10 +346,12 @@ def unmarshal_ListDomainsResponse(data: Any) -> ListDomainsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("domains")
-    args["domains"] = [unmarshal_Domain(v) for v in data["domains"]]
+    field = data.get("domains", None)
+    args["domains"] = (
+        [unmarshal_Domain(v) for v in field] if field is not None else None
+    )
 
-    field = data.get("total_count")
+    field = data.get("total_count", None)
     args["total_count"] = field
 
     return ListDomainsResponse(**args)
@@ -361,10 +365,10 @@ def unmarshal_ListLogsResponse(data: Any) -> ListLogsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("logs")
-    args["logs"] = [unmarshal_Log(v) for v in data["logs"]]
+    field = data.get("logs", None)
+    args["logs"] = [unmarshal_Log(v) for v in field] if field is not None else None
 
-    field = data.get("total_count")
+    field = data.get("total_count", None)
     args["total_count"] = field
 
     return ListLogsResponse(**args)
@@ -378,10 +382,12 @@ def unmarshal_ListNamespacesResponse(data: Any) -> ListNamespacesResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("namespaces")
-    args["namespaces"] = [unmarshal_Namespace(v) for v in data["namespaces"]]
+    field = data.get("namespaces", None)
+    args["namespaces"] = (
+        [unmarshal_Namespace(v) for v in field] if field is not None else None
+    )
 
-    field = data.get("total_count")
+    field = data.get("total_count", None)
     args["total_count"] = field
 
     return ListNamespacesResponse(**args)
@@ -395,10 +401,10 @@ def unmarshal_ListTokensResponse(data: Any) -> ListTokensResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("tokens")
-    args["tokens"] = [unmarshal_Token(v) for v in data["tokens"]]
+    field = data.get("tokens", None)
+    args["tokens"] = [unmarshal_Token(v) for v in field] if field is not None else None
 
-    field = data.get("total_count")
+    field = data.get("total_count", None)
     args["total_count"] = field
 
     return ListTokensResponse(**args)

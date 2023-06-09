@@ -63,10 +63,10 @@ def unmarshal_MaintenanceWindow(data: Any) -> MaintenanceWindow:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("day")
+    field = data.get("day", None)
     args["day"] = field
 
-    field = data.get("start_hour")
+    field = data.get("start_hour", None)
     args["start_hour"] = field
 
     return MaintenanceWindow(**args)
@@ -80,10 +80,10 @@ def unmarshal_ClusterAutoUpgrade(data: Any) -> ClusterAutoUpgrade:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("enabled")
+    field = data.get("enabled", None)
     args["enabled"] = field
 
-    field = data.get("maintenance_window")
+    field = data.get("maintenance_window", None)
     args["maintenance_window"] = (
         unmarshal_MaintenanceWindow(field) if field is not None else None
     )
@@ -99,34 +99,34 @@ def unmarshal_ClusterAutoscalerConfig(data: Any) -> ClusterAutoscalerConfig:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("balance_similar_node_groups")
+    field = data.get("balance_similar_node_groups", None)
     args["balance_similar_node_groups"] = field
 
-    field = data.get("estimator")
+    field = data.get("estimator", None)
     args["estimator"] = field
 
-    field = data.get("expander")
+    field = data.get("expander", None)
     args["expander"] = field
 
-    field = data.get("expendable_pods_priority_cutoff")
+    field = data.get("expendable_pods_priority_cutoff", None)
     args["expendable_pods_priority_cutoff"] = field
 
-    field = data.get("ignore_daemonsets_utilization")
+    field = data.get("ignore_daemonsets_utilization", None)
     args["ignore_daemonsets_utilization"] = field
 
-    field = data.get("max_graceful_termination_sec")
+    field = data.get("max_graceful_termination_sec", None)
     args["max_graceful_termination_sec"] = field
 
-    field = data.get("scale_down_delay_after_add")
+    field = data.get("scale_down_delay_after_add", None)
     args["scale_down_delay_after_add"] = field
 
-    field = data.get("scale_down_disabled")
+    field = data.get("scale_down_disabled", None)
     args["scale_down_disabled"] = field
 
-    field = data.get("scale_down_unneeded_time")
+    field = data.get("scale_down_unneeded_time", None)
     args["scale_down_unneeded_time"] = field
 
-    field = data.get("scale_down_utilization_threshold")
+    field = data.get("scale_down_utilization_threshold", None)
     args["scale_down_utilization_threshold"] = field
 
     return ClusterAutoscalerConfig(**args)
@@ -140,25 +140,25 @@ def unmarshal_ClusterOpenIDConnectConfig(data: Any) -> ClusterOpenIDConnectConfi
 
     args: Dict[str, Any] = {}
 
-    field = data.get("client_id")
+    field = data.get("client_id", None)
     args["client_id"] = field
 
-    field = data.get("groups_claim")
+    field = data.get("groups_claim", None)
     args["groups_claim"] = field
 
-    field = data.get("groups_prefix")
+    field = data.get("groups_prefix", None)
     args["groups_prefix"] = field
 
-    field = data.get("issuer_url")
+    field = data.get("issuer_url", None)
     args["issuer_url"] = field
 
-    field = data.get("required_claim")
+    field = data.get("required_claim", None)
     args["required_claim"] = field
 
-    field = data.get("username_claim")
+    field = data.get("username_claim", None)
     args["username_claim"] = field
 
-    field = data.get("username_prefix")
+    field = data.get("username_prefix", None)
     args["username_prefix"] = field
 
     return ClusterOpenIDConnectConfig(**args)
@@ -172,10 +172,10 @@ def unmarshal_PoolUpgradePolicy(data: Any) -> PoolUpgradePolicy:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("max_surge")
+    field = data.get("max_surge", None)
     args["max_surge"] = field
 
-    field = data.get("max_unavailable")
+    field = data.get("max_unavailable", None)
     args["max_unavailable"] = field
 
     return PoolUpgradePolicy(**args)
@@ -189,85 +189,85 @@ def unmarshal_Cluster(data: Any) -> Cluster:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("admission_plugins")
+    field = data.get("admission_plugins", None)
     args["admission_plugins"] = field
 
-    field = data.get("apiserver_cert_sans")
+    field = data.get("apiserver_cert_sans", None)
     args["apiserver_cert_sans"] = field
 
-    field = data.get("auto_upgrade")
+    field = data.get("auto_upgrade", None)
     args["auto_upgrade"] = (
         unmarshal_ClusterAutoUpgrade(field) if field is not None else None
     )
 
-    field = data.get("autoscaler_config")
+    field = data.get("autoscaler_config", None)
     args["autoscaler_config"] = (
         unmarshal_ClusterAutoscalerConfig(field) if field is not None else None
     )
 
-    field = data.get("cluster_url")
+    field = data.get("cluster_url", None)
     args["cluster_url"] = field
 
-    field = data.get("cni")
+    field = data.get("cni", None)
     args["cni"] = field
 
-    field = data.get("created_at")
+    field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
-    field = data.get("dashboard_enabled")
+    field = data.get("dashboard_enabled", None)
     args["dashboard_enabled"] = field
 
-    field = data.get("description")
+    field = data.get("description", None)
     args["description"] = field
 
-    field = data.get("dns_wildcard")
+    field = data.get("dns_wildcard", None)
     args["dns_wildcard"] = field
 
-    field = data.get("feature_gates")
+    field = data.get("feature_gates", None)
     args["feature_gates"] = field
 
-    field = data.get("id")
+    field = data.get("id", None)
     args["id"] = field
 
-    field = data.get("ingress")
+    field = data.get("ingress", None)
     args["ingress"] = field
 
-    field = data.get("name")
+    field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("open_id_connect_config")
+    field = data.get("open_id_connect_config", None)
     args["open_id_connect_config"] = (
         unmarshal_ClusterOpenIDConnectConfig(field) if field is not None else None
     )
 
-    field = data.get("organization_id")
+    field = data.get("organization_id", None)
     args["organization_id"] = field
 
-    field = data.get("private_network_id")
+    field = data.get("private_network_id", None)
     args["private_network_id"] = field
 
-    field = data.get("project_id")
+    field = data.get("project_id", None)
     args["project_id"] = field
 
-    field = data.get("region")
+    field = data.get("region", None)
     args["region"] = field
 
-    field = data.get("status")
+    field = data.get("status", None)
     args["status"] = field
 
-    field = data.get("tags")
+    field = data.get("tags", None)
     args["tags"] = field
 
-    field = data.get("type_")
+    field = data.get("type_", None)
     args["type_"] = field
 
-    field = data.get("updated_at")
+    field = data.get("updated_at", None)
     args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
-    field = data.get("upgrade_available")
+    field = data.get("upgrade_available", None)
     args["upgrade_available"] = field
 
-    field = data.get("version")
+    field = data.get("version", None)
     args["version"] = field
 
     return Cluster(**args)
@@ -281,10 +281,10 @@ def unmarshal_ClusterType(data: Any) -> ClusterType:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("availability")
+    field = data.get("availability", None)
     args["availability"] = field
 
-    field = data.get("name")
+    field = data.get("name", None)
     args["name"] = field
 
     return ClusterType(**args)
@@ -298,43 +298,43 @@ def unmarshal_Node(data: Any) -> Node:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("cluster_id")
+    field = data.get("cluster_id", None)
     args["cluster_id"] = field
 
-    field = data.get("conditions")
+    field = data.get("conditions", None)
     args["conditions"] = field
 
-    field = data.get("created_at")
+    field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
-    field = data.get("error_message")
+    field = data.get("error_message", None)
     args["error_message"] = field
 
-    field = data.get("id")
+    field = data.get("id", None)
     args["id"] = field
 
-    field = data.get("name")
+    field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("pool_id")
+    field = data.get("pool_id", None)
     args["pool_id"] = field
 
-    field = data.get("provider_id")
+    field = data.get("provider_id", None)
     args["provider_id"] = field
 
-    field = data.get("public_ip_v4")
+    field = data.get("public_ip_v4", None)
     args["public_ip_v4"] = field
 
-    field = data.get("public_ip_v6")
+    field = data.get("public_ip_v6", None)
     args["public_ip_v6"] = field
 
-    field = data.get("region")
+    field = data.get("region", None)
     args["region"] = field
 
-    field = data.get("status")
+    field = data.get("status", None)
     args["status"] = field
 
-    field = data.get("updated_at")
+    field = data.get("updated_at", None)
     args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
     return Node(**args)
@@ -348,72 +348,72 @@ def unmarshal_Pool(data: Any) -> Pool:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("autohealing")
+    field = data.get("autohealing", None)
     args["autohealing"] = field
 
-    field = data.get("autoscaling")
+    field = data.get("autoscaling", None)
     args["autoscaling"] = field
 
-    field = data.get("cluster_id")
+    field = data.get("cluster_id", None)
     args["cluster_id"] = field
 
-    field = data.get("container_runtime")
+    field = data.get("container_runtime", None)
     args["container_runtime"] = field
 
-    field = data.get("created_at")
+    field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
-    field = data.get("id")
+    field = data.get("id", None)
     args["id"] = field
 
-    field = data.get("kubelet_args")
+    field = data.get("kubelet_args", None)
     args["kubelet_args"] = field
 
-    field = data.get("max_size")
+    field = data.get("max_size", None)
     args["max_size"] = field
 
-    field = data.get("min_size")
+    field = data.get("min_size", None)
     args["min_size"] = field
 
-    field = data.get("name")
+    field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("node_type")
+    field = data.get("node_type", None)
     args["node_type"] = field
 
-    field = data.get("placement_group_id")
+    field = data.get("placement_group_id", None)
     args["placement_group_id"] = field
 
-    field = data.get("region")
+    field = data.get("region", None)
     args["region"] = field
 
-    field = data.get("root_volume_size")
+    field = data.get("root_volume_size", None)
     args["root_volume_size"] = field
 
-    field = data.get("root_volume_type")
+    field = data.get("root_volume_type", None)
     args["root_volume_type"] = field
 
-    field = data.get("size")
+    field = data.get("size", None)
     args["size"] = field
 
-    field = data.get("status")
+    field = data.get("status", None)
     args["status"] = field
 
-    field = data.get("tags")
+    field = data.get("tags", None)
     args["tags"] = field
 
-    field = data.get("updated_at")
+    field = data.get("updated_at", None)
     args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
-    field = data.get("upgrade_policy")
+    field = data.get("upgrade_policy", None)
     args["upgrade_policy"] = (
         unmarshal_PoolUpgradePolicy(field) if field is not None else None
     )
 
-    field = data.get("version")
+    field = data.get("version", None)
     args["version"] = field
 
-    field = data.get("zone")
+    field = data.get("zone", None)
     args["zone"] = field
 
     return Pool(**args)
@@ -427,31 +427,31 @@ def unmarshal_Version(data: Any) -> Version:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("available_admission_plugins")
+    field = data.get("available_admission_plugins", None)
     args["available_admission_plugins"] = field
 
-    field = data.get("available_cnis")
+    field = data.get("available_cnis", None)
     args["available_cnis"] = field
 
-    field = data.get("available_container_runtimes")
+    field = data.get("available_container_runtimes", None)
     args["available_container_runtimes"] = field
 
-    field = data.get("available_feature_gates")
+    field = data.get("available_feature_gates", None)
     args["available_feature_gates"] = field
 
-    field = data.get("available_ingresses")
+    field = data.get("available_ingresses", None)
     args["available_ingresses"] = field
 
-    field = data.get("available_kubelet_args")
+    field = data.get("available_kubelet_args", None)
     args["available_kubelet_args"] = field
 
-    field = data.get("label")
+    field = data.get("label", None)
     args["label"] = field
 
-    field = data.get("name")
+    field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("region")
+    field = data.get("region", None)
     args["region"] = field
 
     return Version(**args)
@@ -465,28 +465,28 @@ def unmarshal_ExternalNode(data: Any) -> ExternalNode:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("cluster_ca")
+    field = data.get("cluster_ca", None)
     args["cluster_ca"] = field
 
-    field = data.get("cluster_url")
+    field = data.get("cluster_url", None)
     args["cluster_url"] = field
 
-    field = data.get("external_ip")
+    field = data.get("external_ip", None)
     args["external_ip"] = field
 
-    field = data.get("id")
+    field = data.get("id", None)
     args["id"] = field
 
-    field = data.get("kube_token")
+    field = data.get("kube_token", None)
     args["kube_token"] = field
 
-    field = data.get("kubelet_config")
+    field = data.get("kubelet_config", None)
     args["kubelet_config"] = field
 
-    field = data.get("name")
+    field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("pool_version")
+    field = data.get("pool_version", None)
     args["pool_version"] = field
 
     return ExternalNode(**args)
@@ -502,8 +502,10 @@ def unmarshal_ListClusterAvailableVersionsResponse(
 
     args: Dict[str, Any] = {}
 
-    field = data.get("versions")
-    args["versions"] = [unmarshal_Version(v) for v in data["versions"]]
+    field = data.get("versions", None)
+    args["versions"] = (
+        [unmarshal_Version(v) for v in field] if field is not None else None
+    )
 
     return ListClusterAvailableVersionsResponse(**args)
 
@@ -516,10 +518,12 @@ def unmarshal_ListClusterTypesResponse(data: Any) -> ListClusterTypesResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("cluster_types")
-    args["cluster_types"] = [unmarshal_ClusterType(v) for v in data["cluster_types"]]
+    field = data.get("cluster_types", None)
+    args["cluster_types"] = (
+        [unmarshal_ClusterType(v) for v in field] if field is not None else None
+    )
 
-    field = data.get("total_count")
+    field = data.get("total_count", None)
     args["total_count"] = field
 
     return ListClusterTypesResponse(**args)
@@ -533,10 +537,12 @@ def unmarshal_ListClustersResponse(data: Any) -> ListClustersResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("clusters")
-    args["clusters"] = [unmarshal_Cluster(v) for v in data["clusters"]]
+    field = data.get("clusters", None)
+    args["clusters"] = (
+        [unmarshal_Cluster(v) for v in field] if field is not None else None
+    )
 
-    field = data.get("total_count")
+    field = data.get("total_count", None)
     args["total_count"] = field
 
     return ListClustersResponse(**args)
@@ -550,10 +556,10 @@ def unmarshal_ListNodesResponse(data: Any) -> ListNodesResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("nodes")
-    args["nodes"] = [unmarshal_Node(v) for v in data["nodes"]]
+    field = data.get("nodes", None)
+    args["nodes"] = [unmarshal_Node(v) for v in field] if field is not None else None
 
-    field = data.get("total_count")
+    field = data.get("total_count", None)
     args["total_count"] = field
 
     return ListNodesResponse(**args)
@@ -567,10 +573,10 @@ def unmarshal_ListPoolsResponse(data: Any) -> ListPoolsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("pools")
-    args["pools"] = [unmarshal_Pool(v) for v in data["pools"]]
+    field = data.get("pools", None)
+    args["pools"] = [unmarshal_Pool(v) for v in field] if field is not None else None
 
-    field = data.get("total_count")
+    field = data.get("total_count", None)
     args["total_count"] = field
 
     return ListPoolsResponse(**args)
@@ -584,8 +590,10 @@ def unmarshal_ListVersionsResponse(data: Any) -> ListVersionsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("versions")
-    args["versions"] = [unmarshal_Version(v) for v in data["versions"]]
+    field = data.get("versions", None)
+    args["versions"] = (
+        [unmarshal_Version(v) for v in field] if field is not None else None
+    )
 
     return ListVersionsResponse(**args)
 

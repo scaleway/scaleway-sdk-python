@@ -31,13 +31,13 @@ def unmarshal_Permissions(data: Any) -> Permissions:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("can_manage")
+    field = data.get("can_manage", None)
     args["can_manage"] = field
 
-    field = data.get("can_publish")
+    field = data.get("can_publish", None)
     args["can_publish"] = field
 
-    field = data.get("can_receive")
+    field = data.get("can_receive", None)
     args["can_receive"] = field
 
     return Permissions(**args)
@@ -51,10 +51,10 @@ def unmarshal_CredentialSummarySQSSNSCreds(data: Any) -> CredentialSummarySQSSNS
 
     args: Dict[str, Any] = {}
 
-    field = data.get("access_key")
+    field = data.get("access_key", None)
     args["access_key"] = field
 
-    field = data.get("permissions")
+    field = data.get("permissions", None)
     args["permissions"] = unmarshal_Permissions(field) if field is not None else None
 
     return CredentialSummarySQSSNSCreds(**args)
@@ -68,7 +68,7 @@ def unmarshal_CredentialNATSCredsFile(data: Any) -> CredentialNATSCredsFile:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("content")
+    field = data.get("content", None)
     args["content"] = field
 
     return CredentialNATSCredsFile(**args)
@@ -82,13 +82,13 @@ def unmarshal_CredentialSQSSNSCreds(data: Any) -> CredentialSQSSNSCreds:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("access_key")
+    field = data.get("access_key", None)
     args["access_key"] = field
 
-    field = data.get("permissions")
+    field = data.get("permissions", None)
     args["permissions"] = unmarshal_Permissions(field) if field is not None else None
 
-    field = data.get("secret_key")
+    field = data.get("secret_key", None)
     args["secret_key"] = field
 
     return CredentialSQSSNSCreds(**args)
@@ -102,19 +102,19 @@ def unmarshal_CredentialSummary(data: Any) -> CredentialSummary:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("id")
+    field = data.get("id", None)
     args["id"] = field
 
-    field = data.get("name")
+    field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("namespace_id")
+    field = data.get("namespace_id", None)
     args["namespace_id"] = field
 
-    field = data.get("protocol")
+    field = data.get("protocol", None)
     args["protocol"] = field
 
-    field = data.get("sqs_sns_credentials")
+    field = data.get("sqs_sns_credentials", None)
     args["sqs_sns_credentials"] = (
         unmarshal_CredentialSummarySQSSNSCreds(field) if field is not None else None
     )
@@ -130,28 +130,28 @@ def unmarshal_Namespace(data: Any) -> Namespace:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("created_at")
+    field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
-    field = data.get("endpoint")
+    field = data.get("endpoint", None)
     args["endpoint"] = field
 
-    field = data.get("id")
+    field = data.get("id", None)
     args["id"] = field
 
-    field = data.get("name")
+    field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("project_id")
+    field = data.get("project_id", None)
     args["project_id"] = field
 
-    field = data.get("protocol")
+    field = data.get("protocol", None)
     args["protocol"] = field
 
-    field = data.get("region")
+    field = data.get("region", None)
     args["region"] = field
 
-    field = data.get("updated_at")
+    field = data.get("updated_at", None)
     args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
     return Namespace(**args)
@@ -165,24 +165,24 @@ def unmarshal_Credential(data: Any) -> Credential:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("id")
+    field = data.get("id", None)
     args["id"] = field
 
-    field = data.get("name")
+    field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("namespace_id")
+    field = data.get("namespace_id", None)
     args["namespace_id"] = field
 
-    field = data.get("nats_credentials")
+    field = data.get("nats_credentials", None)
     args["nats_credentials"] = (
         unmarshal_CredentialNATSCredsFile(field) if field is not None else None
     )
 
-    field = data.get("protocol")
+    field = data.get("protocol", None)
     args["protocol"] = field
 
-    field = data.get("sqs_sns_credentials")
+    field = data.get("sqs_sns_credentials", None)
     args["sqs_sns_credentials"] = (
         unmarshal_CredentialSQSSNSCreds(field) if field is not None else None
     )
@@ -198,10 +198,12 @@ def unmarshal_ListCredentialsResponse(data: Any) -> ListCredentialsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("credentials")
-    args["credentials"] = [unmarshal_CredentialSummary(v) for v in data["credentials"]]
+    field = data.get("credentials", None)
+    args["credentials"] = (
+        [unmarshal_CredentialSummary(v) for v in field] if field is not None else None
+    )
 
-    field = data.get("total_count")
+    field = data.get("total_count", None)
     args["total_count"] = field
 
     return ListCredentialsResponse(**args)
@@ -215,10 +217,12 @@ def unmarshal_ListNamespacesResponse(data: Any) -> ListNamespacesResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("namespaces")
-    args["namespaces"] = [unmarshal_Namespace(v) for v in data["namespaces"]]
+    field = data.get("namespaces", None)
+    args["namespaces"] = (
+        [unmarshal_Namespace(v) for v in field] if field is not None else None
+    )
 
-    field = data.get("total_count")
+    field = data.get("total_count", None)
     args["total_count"] = field
 
     return ListNamespacesResponse(**args)

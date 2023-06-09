@@ -34,37 +34,37 @@ def unmarshal_Secret(data: Any) -> Secret:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("created_at")
+    field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
-    field = data.get("description")
+    field = data.get("description", None)
     args["description"] = field
 
-    field = data.get("id")
+    field = data.get("id", None)
     args["id"] = field
 
-    field = data.get("is_managed")
+    field = data.get("is_managed", None)
     args["is_managed"] = field
 
-    field = data.get("name")
+    field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("project_id")
+    field = data.get("project_id", None)
     args["project_id"] = field
 
-    field = data.get("region")
+    field = data.get("region", None)
     args["region"] = field
 
-    field = data.get("status")
+    field = data.get("status", None)
     args["status"] = field
 
-    field = data.get("tags")
+    field = data.get("tags", None)
     args["tags"] = field
 
-    field = data.get("updated_at")
+    field = data.get("updated_at", None)
     args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
-    field = data.get("version_count")
+    field = data.get("version_count", None)
     args["version_count"] = field
 
     return Secret(**args)
@@ -78,25 +78,25 @@ def unmarshal_SecretVersion(data: Any) -> SecretVersion:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("created_at")
+    field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
-    field = data.get("description")
+    field = data.get("description", None)
     args["description"] = field
 
-    field = data.get("is_latest")
+    field = data.get("is_latest", None)
     args["is_latest"] = field
 
-    field = data.get("revision")
+    field = data.get("revision", None)
     args["revision"] = field
 
-    field = data.get("secret_id")
+    field = data.get("secret_id", None)
     args["secret_id"] = field
 
-    field = data.get("status")
+    field = data.get("status", None)
     args["status"] = field
 
-    field = data.get("updated_at")
+    field = data.get("updated_at", None)
     args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
     return SecretVersion(**args)
@@ -110,16 +110,16 @@ def unmarshal_AccessSecretVersionResponse(data: Any) -> AccessSecretVersionRespo
 
     args: Dict[str, Any] = {}
 
-    field = data.get("data")
+    field = data.get("data", None)
     args["data"] = field
 
-    field = data.get("data_crc32")
+    field = data.get("data_crc32", None)
     args["data_crc32"] = field
 
-    field = data.get("revision")
+    field = data.get("revision", None)
     args["revision"] = field
 
-    field = data.get("secret_id")
+    field = data.get("secret_id", None)
     args["secret_id"] = field
 
     return AccessSecretVersionResponse(**args)
@@ -133,11 +133,13 @@ def unmarshal_ListSecretVersionsResponse(data: Any) -> ListSecretVersionsRespons
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count")
+    field = data.get("total_count", None)
     args["total_count"] = field
 
-    field = data.get("versions")
-    args["versions"] = [unmarshal_SecretVersion(v) for v in data["versions"]]
+    field = data.get("versions", None)
+    args["versions"] = (
+        [unmarshal_SecretVersion(v) for v in field] if field is not None else None
+    )
 
     return ListSecretVersionsResponse(**args)
 
@@ -150,10 +152,12 @@ def unmarshal_ListSecretsResponse(data: Any) -> ListSecretsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("secrets")
-    args["secrets"] = [unmarshal_Secret(v) for v in data["secrets"]]
+    field = data.get("secrets", None)
+    args["secrets"] = (
+        [unmarshal_Secret(v) for v in field] if field is not None else None
+    )
 
-    field = data.get("total_count")
+    field = data.get("total_count", None)
     args["total_count"] = field
 
     return ListSecretsResponse(**args)

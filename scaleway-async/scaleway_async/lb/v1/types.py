@@ -1668,11 +1668,6 @@ class CreateLbRequest:
     Defines whether to automatically assign a flexible public IP to lb. Default value is `false` (do not assign).
     """
 
-    ip_ids: Optional[List[str]]
-    """
-    List of IP IDs to attach to the Load Balancer.
-    """
-
     tags: Optional[List[str]]
     """
     List of tags for the Load Balancer.
@@ -1829,11 +1824,6 @@ class CreateIpRequest:
     reverse: Optional[str]
     """
     Reverse DNS (domain name) for the IP address.
-    """
-
-    is_ipv6: bool
-    """
-    If true, creates a Flexible IP with an ipv6 address.
     """
 
 
@@ -3214,11 +3204,6 @@ class ZonedApiCreateLbRequest:
     Defines whether to automatically assign a flexible public IP to lb. Default value is `false` (do not assign).
     """
 
-    ip_ids: Optional[List[str]]
-    """
-    List of IP IDs to attach to the Load Balancer.
-    """
-
     tags: Optional[List[str]]
     """
     List of tags for the Load Balancer.
@@ -3375,11 +3360,6 @@ class ZonedApiCreateIpRequest:
     reverse: Optional[str]
     """
     Reverse DNS (domain name) for the IP address.
-    """
-
-    is_ipv6: bool
-    """
-    If true, creates a Flexible IP with an ipv6 address.
     """
 
 
