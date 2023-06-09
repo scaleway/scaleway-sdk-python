@@ -3015,7 +3015,7 @@ class RdbV1API(API):
     ) -> Endpoint:
         """
         Create a new Database Instance endpoint.
-        Create a new endpoint for a Database Instance. You can add `load_balancer` and `private_network` specifications to the body of the request. Note that this action replaces your current endpoint, which means you might need to update any environment configurations that point to the old endpoint.
+        Create a new endpoint for a Database Instance. You can add `load_balancer` and `private_network` specifications to the body of the request.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance you to which you want to add an endpoint.
         :param endpoint_spec: Specification of the endpoint you want to create.
