@@ -248,7 +248,7 @@ def unmarshal_DHCPEntry(data: Any) -> DHCPEntry:
     field = data.get("mac_address", None)
     args["mac_address"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     args["type_"] = field
 
     field = data.get("updated_at", None)
@@ -309,7 +309,7 @@ def unmarshal_Gateway(data: Any) -> Gateway:
     field = data.get("tags", None)
     args["tags"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     args["type_"] = unmarshal_GatewayType(field) if field is not None else None
 
     field = data.get("updated_at", None)

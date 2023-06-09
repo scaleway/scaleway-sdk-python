@@ -129,7 +129,7 @@ def unmarshal_AvailableClusterSetting(data: Any) -> AvailableClusterSetting:
     field = data.get("regex", None)
     args["regex"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     args["type_"] = field
 
     return AvailableClusterSetting(**args)

@@ -48,7 +48,7 @@ def unmarshal_ServerTypeDisk(data: Any) -> ServerTypeDisk:
     field = data.get("capacity", None)
     args["capacity"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     args["type_"] = field
 
     return ServerTypeDisk(**args)
@@ -65,7 +65,7 @@ def unmarshal_ServerTypeMemory(data: Any) -> ServerTypeMemory:
     field = data.get("capacity", None)
     args["capacity"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     args["type_"] = field
 
     return ServerTypeMemory(**args)
@@ -129,7 +129,7 @@ def unmarshal_Server(data: Any) -> Server:
     field = data.get("status", None)
     args["status"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     args["type_"] = field
 
     field = data.get("updated_at", None)
