@@ -258,7 +258,7 @@ def unmarshal_Cluster(data: Any) -> Cluster:
     field = data.get("tags", None)
     args["tags"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     args["type_"] = field
 
     field = data.get("updated_at", None)

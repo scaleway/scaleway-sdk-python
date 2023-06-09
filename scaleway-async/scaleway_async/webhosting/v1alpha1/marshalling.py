@@ -116,7 +116,7 @@ def unmarshal_DnsRecord(data: Any) -> DnsRecord:
     field = data.get("ttl", None)
     args["ttl"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     args["type_"] = field
 
     field = data.get("value", None)

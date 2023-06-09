@@ -403,7 +403,7 @@ def unmarshal_User(data: Any) -> User:
     field = data.get("two_factor_enabled", None)
     args["two_factor_enabled"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     args["type_"] = field
 
     field = data.get("updated_at", None)

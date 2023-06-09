@@ -95,7 +95,7 @@ def unmarshal_Disk(data: Any) -> Disk:
     field = data.get("capacity", None)
     args["capacity"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     args["type_"] = field
 
     return Disk(**args)
@@ -147,7 +147,7 @@ def unmarshal_Memory(data: Any) -> Memory:
     field = data.get("is_ecc", None)
     args["is_ecc"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     args["type_"] = field
 
     return Memory(**args)
@@ -219,7 +219,7 @@ def unmarshal_PersistentMemory(data: Any) -> PersistentMemory:
     field = data.get("frequency", None)
     args["frequency"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     args["type_"] = field
 
     return PersistentMemory(**args)
@@ -616,7 +616,7 @@ def unmarshal_Setting(data: Any) -> Setting:
     field = data.get("project_id", None)
     args["project_id"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     args["type_"] = field
 
     return Setting(**args)

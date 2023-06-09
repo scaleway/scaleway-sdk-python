@@ -469,7 +469,7 @@ def unmarshal_DSRecordDigest(data: Any) -> DSRecordDigest:
         unmarshal_DSRecordPublicKey(field) if field is not None else None
     )
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     args["type_"] = field
 
     return DSRecordDigest(**args)
@@ -511,7 +511,7 @@ def unmarshal_DomainRecord(data: Any) -> DomainRecord:
     field = data.get("ttl", None)
     args["ttl"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     args["type_"] = field
 
     field = data.get("view_config", None)
@@ -544,7 +544,7 @@ def unmarshal_RecordIdentifier(data: Any) -> RecordIdentifier:
     field = data.get("ttl", None)
     args["ttl"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     args["type_"] = field
 
     return RecordIdentifier(**args)
@@ -1096,7 +1096,7 @@ def unmarshal_RecordChange(data: Any) -> RecordChange:
     field = data.get("delete", None)
     args["delete"] = unmarshal_RecordChangeDelete(field) if field is not None else None
 
-    field = data.get("set_", None)
+    field = data.get("set", None)
     args["set_"] = unmarshal_RecordChangeSet(field) if field is not None else None
 
     return RecordChange(**args)
@@ -1208,7 +1208,7 @@ def unmarshal_Task(data: Any) -> Task:
     field = data.get("status", None)
     args["status"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     args["type_"] = field
 
     field = data.get("updated_at", None)

@@ -378,7 +378,7 @@ def unmarshal_NodeTypeVolumeType(data: Any) -> NodeTypeVolumeType:
     field = data.get("min_size", None)
     args["min_size"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     args["type_"] = field
 
     return NodeTypeVolumeType(**args)
@@ -446,7 +446,7 @@ def unmarshal_Volume(data: Any) -> Volume:
     field = data.get("size", None)
     args["size"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     args["type_"] = field
 
     return Volume(**args)

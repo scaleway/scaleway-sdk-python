@@ -296,7 +296,7 @@ def unmarshal_Network(data: Any) -> Network:
     field = data.get("topic_prefix", None)
     args["topic_prefix"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     args["type_"] = field
 
     return Network(**args)
@@ -400,7 +400,7 @@ def unmarshal_RouteSummary(data: Any) -> RouteSummary:
     field = data.get("topic", None)
     args["topic"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     args["type_"] = field
 
     field = data.get("updated_at", None)
@@ -653,7 +653,7 @@ def unmarshal_Route(data: Any) -> Route:
     field = data.get("topic", None)
     args["topic"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     args["type_"] = field
 
     field = data.get("updated_at", None)

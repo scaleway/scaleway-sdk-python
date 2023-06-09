@@ -471,7 +471,7 @@ def unmarshal_Lb(data: Any) -> Lb:
     field = data.get("tags", None)
     args["tags"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     args["type_"] = field
 
     field = data.get("updated_at", None)
@@ -497,7 +497,7 @@ def unmarshal_AclActionRedirect(data: Any) -> AclActionRedirect:
     field = data.get("target", None)
     args["target"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     args["type_"] = field
 
     return AclActionRedirect(**args)
@@ -630,7 +630,7 @@ def unmarshal_Certificate(data: Any) -> Certificate:
     field = data.get("subject_alternative_name", None)
     args["subject_alternative_name"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     args["type_"] = field
 
     field = data.get("updated_at", None)
@@ -650,7 +650,7 @@ def unmarshal_AclAction(data: Any) -> AclAction:
     field = data.get("redirect", None)
     args["redirect"] = unmarshal_AclActionRedirect(field) if field is not None else None
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     args["type_"] = field
 
     return AclAction(**args)
