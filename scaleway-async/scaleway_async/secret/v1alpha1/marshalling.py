@@ -14,6 +14,7 @@ from .types import (
     AccessSecretVersionResponse,
     ListSecretVersionsResponse,
     ListSecretsResponse,
+    ListTagsResponse,
     PasswordGenerationParams,
     Secret,
     SecretVersion,
@@ -161,6 +162,23 @@ def unmarshal_ListSecretsResponse(data: Any) -> ListSecretsResponse:
     args["total_count"] = field
 
     return ListSecretsResponse(**args)
+
+
+def unmarshal_ListTagsResponse(data: Any) -> ListTagsResponse:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'ListTagsResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("tags", None)
+    args["tags"] = field
+
+    field = data.get("total_count", None)
+    args["total_count"] = field
+
+    return ListTagsResponse(**args)
 
 
 def marshal_PasswordGenerationParams(
