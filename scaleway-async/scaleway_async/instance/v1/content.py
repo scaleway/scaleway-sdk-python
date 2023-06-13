@@ -4,6 +4,7 @@ from typing import List
 
 from .types import (
     ImageState,
+    IpState,
     PrivateNICState,
     SecurityGroupState,
     ServerState,
@@ -19,6 +20,13 @@ IMAGE_TRANSIENT_STATUSES: List[ImageState] = [
 ]
 """
 Lists transient statutes of the enum :class:`ImageState <ImageState>`.
+"""
+
+IP_TRANSIENT_STATUSES: List[IpState] = [
+    IpState.PENDING,
+]
+"""
+Lists transient statutes of the enum :class:`IpState <IpState>`.
 """
 
 PRIVATE_NIC_TRANSIENT_STATUSES: List[PrivateNICState] = [
