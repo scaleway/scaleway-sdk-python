@@ -60,6 +60,9 @@ def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
     field = data.get("id", None)
     args["id"] = field
 
+    field = data.get("provisioning_mode", None)
+    args["provisioning_mode"] = field
+
     field = data.get("service_ips", None)
     args["service_ips"] = field
 
