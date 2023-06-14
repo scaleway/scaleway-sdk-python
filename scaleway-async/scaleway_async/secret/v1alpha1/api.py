@@ -107,8 +107,8 @@ class SecretV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> Secret:
         """
-        Get metadata using the secret's name.
-        Retrieve the metadata of a secret specified by the `region` and the `secret_name` parameters.
+        Get metadata using the secret's ID.
+        Retrieve the metadata of a secret specified by the `region` and `secret_id` parameters.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the secret.
         :return: :class:`Secret <Secret>`
@@ -140,8 +140,8 @@ class SecretV1Alpha1API(API):
         project_id: Optional[str] = None,
     ) -> Secret:
         """
-        Get metadata using the secret's ID.
-        Retrieve the metadata of a secret specified by the `region`, `secret_id` and `project_id` parameters.
+        Get metadata using the secret's name.
+        Retrieve the metadata of a secret specified by the `region` and `secret_name` parameters.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_name: Name of the secret.
         :param project_id: ID of the Project to target.
