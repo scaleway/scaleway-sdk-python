@@ -1533,6 +1533,9 @@ def unmarshal_GetServerTypesAvailabilityResponse(
         else None
     )
 
+    field = data.get("total_count", None)
+    args["total_count"] = field
+
     return GetServerTypesAvailabilityResponse(**args)
 
 

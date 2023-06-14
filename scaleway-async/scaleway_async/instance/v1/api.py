@@ -230,8 +230,8 @@ class InstanceV1API(API):
         Get availability.
         Get availability for all Instance types.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param per_page:
-        :param page:
+        :param per_page: A positive integer lower or equal to 100 to select the number of items to return.
+        :param page: A positive integer to choose the page to return.
         :return: :class:`GetServerTypesAvailabilityResponse <GetServerTypesAvailabilityResponse>`
 
         Usage:

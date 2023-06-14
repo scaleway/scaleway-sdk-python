@@ -436,7 +436,16 @@ class GetServerResponse:
 
 @dataclass
 class GetServerTypesAvailabilityResponse:
+    """
+    Get server types availability response.
+    """
+
     servers: Dict[str, GetServerTypesAvailabilityResponseAvailability]
+    """
+    Map of server types.
+    """
+
+    total_count: int
 
 
 @dataclass
@@ -1830,8 +1839,14 @@ class GetServerTypesAvailabilityRequest:
     """
 
     per_page: Optional[int]
+    """
+    A positive integer lower or equal to 100 to select the number of items to return.
+    """
 
     page: Optional[int]
+    """
+    A positive integer to choose the page to return.
+    """
 
 
 @dataclass
