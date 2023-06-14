@@ -13,6 +13,7 @@ from .types import (
     Arch,
     BootType,
     ImageState,
+    IpType,
     PlacementGroupPolicyMode,
     PlacementGroupPolicyType,
     PrivateNICState,
@@ -21,6 +22,8 @@ from .types import (
     SecurityGroupRuleDirection,
     SecurityGroupRuleProtocol,
     ServerAction,
+    ServerIpIpFamily,
+    ServerIpProvisioningMode,
     ServerState,
     SnapshotState,
     SnapshotVolumeType,
@@ -477,8 +480,20 @@ def unmarshal_ServerIp(data: Any) -> ServerIp:
     field = data.get("dynamic", None)
     args["dynamic"] = field
 
+    field = data.get("family", None)
+    args["family"] = field
+
+    field = data.get("gateway", None)
+    args["gateway"] = field
+
     field = data.get("id", None)
     args["id"] = field
+
+    field = data.get("netmask", None)
+    args["netmask"] = field
+
+    field = data.get("provisioning_mode", None)
+    args["provisioning_mode"] = field
 
     return ServerIp(**args)
 
@@ -792,6 +807,9 @@ def unmarshal_Ip(data: Any) -> Ip:
     field = data.get("organization", None)
     args["organization"] = field
 
+    field = data.get("prefix", None)
+    args["prefix"] = field
+
     field = data.get("project", None)
     args["project"] = field
 
@@ -801,8 +819,14 @@ def unmarshal_Ip(data: Any) -> Ip:
     field = data.get("server", None)
     args["server"] = unmarshal_ServerSummary(field) if field is not None else None
 
+    field = data.get("state", None)
+    args["state"] = field
+
     field = data.get("tags", None)
     args["tags"] = field
+
+    field = data.get("type", None)
+    args["type_"] = field
 
     field = data.get("zone", None)
     args["zone"] = field
@@ -982,6 +1006,9 @@ def unmarshal_Server(data: Any) -> Server:
     field = data.get("location", None)
     args["location"] = unmarshal_ServerLocation(field) if field is not None else None
 
+    field = data.get("mac_address", None)
+    args["mac_address"] = field
+
     field = data.get("maintenances", None)
     args["maintenances"] = (
         [unmarshal_ServerMaintenance(v) for v in field] if field is not None else None
@@ -1017,6 +1044,14 @@ def unmarshal_Server(data: Any) -> Server:
 
     field = data.get("public_ip", None)
     args["public_ip"] = unmarshal_ServerIp(field) if field is not None else None
+
+    field = data.get("public_ips", None)
+    args["public_ips"] = (
+        [unmarshal_ServerIp(v) for v in field] if field is not None else None
+    )
+
+    field = data.get("routed_ip_enabled", None)
+    args["routed_ip_enabled"] = field
 
     field = data.get("security_group", None)
     args["security_group"] = (
@@ -2202,7 +2237,11 @@ def marshal_ServerIp(
     return {
         "address": request.address,
         "dynamic": request.dynamic,
+        "family": ServerIpIpFamily(request.family),
+        "gateway": request.gateway,
         "id": request.id,
+        "netmask": request.netmask,
+        "provisioning_mode": ServerIpProvisioningMode(request.provisioning_mode),
     }
 
 
@@ -2372,6 +2411,7 @@ def marshal_CreateIpRequest(
         ),
         "server": request.server,
         "tags": request.tags,
+        "type": IpType(request.type_),
     }
 
 
@@ -2635,6 +2675,7 @@ def marshal_UpdateIpRequest(
         "reverse": request.reverse,
         "server": request.server,
         "tags": request.tags,
+        "type": IpType(request.type_),
     }
 
 
@@ -2717,6 +2758,8 @@ def marshal__CreateServerRequest(
         "name": request.name,
         "placement_group": request.placement_group,
         "public_ip": request.public_ip,
+        "public_ips": request.public_ips,
+        "routed_ip_enabled": request.routed_ip_enabled,
         "security_group": request.security_group,
         "tags": request.tags,
         "volumes": {
@@ -2845,6 +2888,10 @@ def marshal__SetServerRequest(
         "public_ip": marshal_ServerIp(request.public_ip, defaults)
         if request.public_ip is not None
         else None,
+        "public_ips": [marshal_ServerIp(v, defaults) for v in request.public_ips]
+        if request.public_ips is not None
+        else None,
+        "routed_ip_enabled": request.routed_ip_enabled,
         "security_group": marshal_SecurityGroupSummary(request.security_group, defaults)
         if request.security_group is not None
         else None,
@@ -2895,6 +2942,10 @@ def marshal__UpdateServerRequest(
         if request.private_nics is not None
         else None,
         "protected": request.protected,
+        "public_ips": [marshal_ServerIp(v, defaults) for v in request.public_ips]
+        if request.public_ips is not None
+        else None,
+        "routed_ip_enabled": request.routed_ip_enabled,
         "security_group": marshal_SecurityGroupTemplate(
             request.security_group, defaults
         )

@@ -3,6 +3,8 @@
 from .types import Arch
 from .types import BootType
 from .types import ImageState
+from .types import IpState
+from .types import IpType
 from .types import ListServersRequestOrder
 from .types import PlacementGroupPolicyMode
 from .types import PlacementGroupPolicyType
@@ -13,6 +15,8 @@ from .types import SecurityGroupRuleDirection
 from .types import SecurityGroupRuleProtocol
 from .types import SecurityGroupState
 from .types import ServerAction
+from .types import ServerIpIpFamily
+from .types import ServerIpProvisioningMode
 from .types import ServerState
 from .types import ServerTypesAvailability
 from .types import SnapshotState
@@ -106,6 +110,7 @@ from .types import VolumeType
 from .types import VolumeTypeCapabilities
 from .types import VolumeTypeConstraints
 from .content import IMAGE_TRANSIENT_STATUSES
+from .content import IP_TRANSIENT_STATUSES
 from .content import PRIVATE_NIC_TRANSIENT_STATUSES
 from .content import SECURITY_GROUP_TRANSIENT_STATUSES
 from .content import SERVER_TRANSIENT_STATUSES
@@ -119,6 +124,8 @@ __all__ = [
     "Arch",
     "BootType",
     "ImageState",
+    "IpState",
+    "IpType",
     "ListServersRequestOrder",
     "PlacementGroupPolicyMode",
     "PlacementGroupPolicyType",
@@ -129,6 +136,8 @@ __all__ = [
     "SecurityGroupRuleProtocol",
     "SecurityGroupState",
     "ServerAction",
+    "ServerIpIpFamily",
+    "ServerIpProvisioningMode",
     "ServerState",
     "ServerTypesAvailability",
     "SnapshotState",
@@ -222,6 +231,7 @@ __all__ = [
     "VolumeTypeCapabilities",
     "VolumeTypeConstraints",
     "IMAGE_TRANSIENT_STATUSES",
+    "IP_TRANSIENT_STATUSES",
     "PRIVATE_NIC_TRANSIENT_STATUSES",
     "SECURITY_GROUP_TRANSIENT_STATUSES",
     "SERVER_TRANSIENT_STATUSES",

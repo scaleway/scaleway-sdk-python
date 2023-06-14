@@ -102,7 +102,12 @@ class _CreateServerRequest:
 
     dynamic_ip_required: Optional[bool]
     """
-    Define if a dynamic IP is required for the Instance.
+    Define if a dynamic IPv4 is required for the Instance.
+    """
+
+    routed_ip_enabled: Optional[bool]
+    """
+    If true, configure the Instance so it uses the new routed IP mode.
     """
 
     commercial_type: str
@@ -127,7 +132,12 @@ class _CreateServerRequest:
 
     public_ip: Optional[str]
     """
-    ID of the reserved IP to attach to the server.
+    ID of the reserved IP to attach to the Instance.
+    """
+
+    public_ips: Optional[List[str]]
+    """
+    A list of reserved IP IDs to attach to the Instance.
     """
 
     boot_type: Optional[BootType]
@@ -221,7 +231,12 @@ class _SetServerRequest:
 
     dynamic_ip_required: bool
     """
-    True if a dynamic IP is required.
+    True if a dynamic IPv4 is required.
+    """
+
+    routed_ip_enabled: Optional[bool]
+    """
+    True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False).
     """
 
     enable_ipv6: bool
@@ -252,6 +267,11 @@ class _SetServerRequest:
     public_ip: Optional[ServerIp]
     """
     Information about the public IP.
+    """
+
+    public_ips: Optional[List[ServerIp]]
+    """
+    Information about all the public IPs attached to the server.
     """
 
     modification_date: Optional[datetime]
@@ -353,6 +373,13 @@ class _UpdateServerRequest:
     """
 
     dynamic_ip_required: Optional[bool]
+
+    routed_ip_enabled: Optional[bool]
+    """
+    True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False).
+    """
+
+    public_ips: Optional[List[ServerIp]]
 
     enable_ipv6: Optional[bool]
 

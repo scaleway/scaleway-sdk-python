@@ -38,6 +38,27 @@ class ImageState(str, Enum):
         return str(self.value)
 
 
+class IpState(str, Enum):
+    UNKNOWN_STATE = "unknown_state"
+    DETACHED = "detached"
+    ATTACHED = "attached"
+    PENDING = "pending"
+    ERROR = "error"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class IpType(str, Enum):
+    UNKNOWN_IPTYPE = "unknown_iptype"
+    NAT = "nat"
+    ROUTED_IPV4 = "routed_ipv4"
+    ROUTED_IPV6 = "routed_ipv6"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListServersRequestOrder(str, Enum):
     CREATION_DATE_DESC = "creation_date_desc"
     CREATION_DATE_ASC = "creation_date_asc"
@@ -123,6 +144,23 @@ class ServerAction(str, Enum):
     POWEROFF = "poweroff"
     TERMINATE = "terminate"
     REBOOT = "reboot"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ServerIpIpFamily(str, Enum):
+    INET = "inet"
+    INET6 = "inet6"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ServerIpProvisioningMode(str, Enum):
+    MANUAL = "manual"
+    DHCP = "dhcp"
+    SLAAC = "slaac"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -514,6 +552,12 @@ class Ip:
     tags: List[str]
 
     project: str
+
+    type_: IpType
+
+    state: IpState
+
+    prefix: str
 
     zone: Zone
 
@@ -1011,7 +1055,12 @@ class Server:
 
     dynamic_ip_required: bool
     """
-    True if a dynamic IP is required.
+    True if a dynamic IPv4 is required.
+    """
+
+    routed_ip_enabled: bool
+    """
+    True to configure the instance so it uses the new routed IP mode.
     """
 
     enable_ipv6: bool
@@ -1042,6 +1091,16 @@ class Server:
     public_ip: Optional[ServerIp]
     """
     Information about the public IP.
+    """
+
+    public_ips: List[ServerIp]
+    """
+    Information about all the public IPs attached to the server.
+    """
+
+    mac_address: str
+    """
+    The server's MAC address.
     """
 
     modification_date: Optional[datetime]
@@ -1148,12 +1207,32 @@ class ServerIp:
 
     address: str
     """
-    Instance public IPv4 IP-Address.
+    Instance's public IP-Address.
+    """
+
+    gateway: str
+    """
+    Gateway's IP address.
+    """
+
+    netmask: str
+    """
+    CIDR netmask.
+    """
+
+    family: ServerIpIpFamily
+    """
+    IP address family (inet or inet6).
     """
 
     dynamic: bool
     """
     True if the IP address is dynamic.
+    """
+
+    provisioning_mode: ServerIpProvisioningMode
+    """
+    Information about this address provisioning mode.
     """
 
 
@@ -2968,6 +3047,11 @@ class CreateIpRequest:
     UUID of the Instance you want to attach the IP to.
     """
 
+    type_: IpType
+    """
+    IP type to reserve (either 'nat', 'routed_ipv4' or 'routed_ipv6').
+    """
+
 
 @dataclass
 class GetIpRequest:
@@ -2997,6 +3081,11 @@ class UpdateIpRequest:
     reverse: Optional[str]
     """
     Reverse domain name.
+    """
+
+    type_: IpType
+    """
+    Convert a 'nat' IP to a 'routed_ipv4'.
     """
 
     tags: Optional[List[str]]

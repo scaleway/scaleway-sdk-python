@@ -17,6 +17,7 @@ from .types import (
     Arch,
     BootType,
     ImageState,
+    IpType,
     ListServersRequestOrder,
     PlacementGroupPolicyMode,
     PlacementGroupPolicyType,
@@ -460,8 +461,10 @@ class InstanceV1API(API):
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
         dynamic_ip_required: Optional[bool] = None,
+        routed_ip_enabled: Optional[bool] = None,
         volumes: Optional[Dict[str, VolumeServerTemplate]] = None,
         public_ip: Optional[str] = None,
+        public_ips: Optional[List[str]] = None,
         boot_type: Optional[BootType] = None,
         bootscript: Optional[str] = None,
         organization: Optional[str] = None,
@@ -476,12 +479,14 @@ class InstanceV1API(API):
         Get more information in the [Technical Information](#technical-information) section of the introduction.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: Instance name.
-        :param dynamic_ip_required: Define if a dynamic IP is required for the Instance.
+        :param dynamic_ip_required: Define if a dynamic IPv4 is required for the Instance.
+        :param routed_ip_enabled: If true, configure the Instance so it uses the new routed IP mode.
         :param commercial_type: Define the Instance commercial type (i.e. GP1-S).
         :param image: Instance image ID or label.
         :param volumes: Volumes attached to the server.
         :param enable_ipv6: True if IPv6 is enabled on the server.
-        :param public_ip: ID of the reserved IP to attach to the server.
+        :param public_ip: ID of the reserved IP to attach to the Instance.
+        :param public_ips: A list of reserved IP IDs to attach to the Instance.
         :param boot_type: Boot type to use.
         :param bootscript: Bootscript ID to use when `boot_type` is set to `bootscript`.
         :param organization: Instance Organization ID.
@@ -518,8 +523,10 @@ class InstanceV1API(API):
                     zone=zone,
                     name=name or random_name(prefix="srv"),
                     dynamic_ip_required=dynamic_ip_required,
+                    routed_ip_enabled=routed_ip_enabled,
                     volumes=volumes,
                     public_ip=public_ip,
+                    public_ips=public_ips,
                     boot_type=boot_type,
                     bootscript=bootscript,
                     organization=organization,
@@ -614,9 +621,11 @@ class InstanceV1API(API):
         allowed_actions: Optional[List[ServerAction]] = None,
         tags: Optional[List[str]] = None,
         creation_date: Optional[datetime] = None,
+        routed_ip_enabled: Optional[bool] = None,
         image: Optional[Image] = None,
         private_ip: Optional[str] = None,
         public_ip: Optional[ServerIp] = None,
+        public_ips: Optional[List[ServerIp]] = None,
         modification_date: Optional[datetime] = None,
         location: Optional[ServerLocation] = None,
         ipv6: Optional[ServerIpv6] = None,
@@ -672,9 +681,11 @@ class InstanceV1API(API):
                     allowed_actions=allowed_actions,
                     tags=tags,
                     creation_date=creation_date,
+                    routed_ip_enabled=routed_ip_enabled,
                     image=image,
                     private_ip=private_ip,
                     public_ip=public_ip,
+                    public_ips=public_ips,
                     modification_date=modification_date,
                     location=location,
                     ipv6=ipv6,
@@ -703,6 +714,8 @@ class InstanceV1API(API):
         volumes: Optional[Dict[str, VolumeServerTemplate]] = None,
         bootscript: Optional[str] = None,
         dynamic_ip_required: Optional[bool] = None,
+        routed_ip_enabled: Optional[bool] = None,
+        public_ips: Optional[List[ServerIp]] = None,
         enable_ipv6: Optional[bool] = None,
         protected: Optional[bool] = None,
         security_group: Optional[SecurityGroupTemplate] = None,
@@ -720,6 +733,8 @@ class InstanceV1API(API):
         :param volumes:
         :param bootscript:
         :param dynamic_ip_required:
+        :param routed_ip_enabled: True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False).
+        :param public_ips:
         :param enable_ipv6:
         :param protected:
         :param security_group:
@@ -749,6 +764,8 @@ class InstanceV1API(API):
                     volumes=volumes,
                     bootscript=bootscript,
                     dynamic_ip_required=dynamic_ip_required,
+                    routed_ip_enabled=routed_ip_enabled,
+                    public_ips=public_ips,
                     enable_ipv6=enable_ipv6,
                     protected=protected,
                     security_group=security_group,
@@ -811,6 +828,7 @@ class InstanceV1API(API):
         * `reboot`: Stop the instance and restart it.
         * `backup`:  Create an image with all the volumes of an Instance.
         * `terminate`: Delete the Instance along with all attached volumes.
+        * `enable_routed_ip`: Migrate the Instance to the new network stack.
 
         Keep in mind that terminating an Instance will result in the deletion of all attached volumes, including local and block storage.
         If you want to preserve your local volumes, you should use the `archive` action instead of `terminate`. Similarly, if you want to keep your block storage volumes, you must first detach them before issuing the `terminate` command.
@@ -3079,6 +3097,7 @@ class InstanceV1API(API):
     def create_ip(
         self,
         *,
+        type_: IpType,
         zone: Optional[Zone] = None,
         organization: Optional[str] = None,
         project: Optional[str] = None,
@@ -3097,12 +3116,13 @@ class InstanceV1API(API):
         One-of ('project_identifier'): at most one of 'organization', 'project' could be set.
         :param tags: Tags of the IP.
         :param server: UUID of the Instance you want to attach the IP to.
+        :param type_: IP type to reserve (either 'nat', 'routed_ipv4' or 'routed_ipv6').
         :return: :class:`CreateIpResponse <CreateIpResponse>`
 
         Usage:
         ::
 
-            result = api.create_ip()
+            result = api.create_ip(type_=unknown_iptype)
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -3112,6 +3132,7 @@ class InstanceV1API(API):
             f"/instance/v1/zones/{param_zone}/ips",
             body=marshal_CreateIpRequest(
                 CreateIpRequest(
+                    type_=type_,
                     zone=zone,
                     organization=organization,
                     project=project,
@@ -3159,6 +3180,7 @@ class InstanceV1API(API):
         self,
         *,
         ip: str,
+        type_: IpType,
         zone: Optional[Zone] = None,
         reverse: Optional[str] = None,
         tags: Optional[List[str]] = None,
@@ -3170,6 +3192,7 @@ class InstanceV1API(API):
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param ip: IP ID or IP address.
         :param reverse: Reverse domain name.
+        :param type_: Convert a 'nat' IP to a 'routed_ipv4'.
         :param tags: An array of keywords you want to tag this IP with.
         :param server:
         :return: :class:`UpdateIpResponse <UpdateIpResponse>`
@@ -3177,7 +3200,10 @@ class InstanceV1API(API):
         Usage:
         ::
 
-            result = api.update_ip(ip="example")
+            result = api.update_ip(
+                ip="example",
+                type_=unknown_iptype,
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -3189,6 +3215,7 @@ class InstanceV1API(API):
             body=marshal_UpdateIpRequest(
                 UpdateIpRequest(
                     ip=ip,
+                    type_=type_,
                     zone=zone,
                     reverse=reverse,
                     tags=tags,
