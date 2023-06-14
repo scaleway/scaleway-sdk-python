@@ -18,6 +18,8 @@ from .serviceinfo import marshal_ServiceInfo
 from .timeseries import TimeSeriesPoint
 from .timeseries import TimeSeries
 from .timeseries import unmarshal_TimeSeries
+from .timeseries import marshal_TimeSeries
+from .timeseries import unmarshal_TimeSeriesPoint
 from .timeseries import marshal_TimeSeriesPoint
 
 __all__ = [
@@ -37,5 +39,7 @@ __all__ = [
     "TimeSeriesPoint",
     "TimeSeries",
     "unmarshal_TimeSeries",
+    "marshal_TimeSeries",
+    "unmarshal_TimeSeriesPoint",
     "marshal_TimeSeriesPoint",
 ]
