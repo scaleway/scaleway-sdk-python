@@ -7,6 +7,7 @@ from .types import SecretVersionStatus
 from .types import AccessSecretVersionResponse
 from .types import ListSecretVersionsResponse
 from .types import ListSecretsResponse
+from .types import ListTagsResponse
 from .types import PasswordGenerationParams
 from .types import Secret
 from .types import SecretVersion
@@ -20,6 +21,7 @@ __all__ = [
     "AccessSecretVersionResponse",
     "ListSecretVersionsResponse",
     "ListSecretsResponse",
+    "ListTagsResponse",
     "PasswordGenerationParams",
     "Secret",
     "SecretVersion",

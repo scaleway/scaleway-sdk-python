@@ -113,6 +113,23 @@ class ListSecretsResponse:
 
 
 @dataclass
+class ListTagsResponse:
+    """
+    List tags response.
+    """
+
+    tags: List[str]
+    """
+    List of tags.
+    """
+
+    total_count: int
+    """
+    Count of all tags matching the requested criteria.
+    """
+
+
+@dataclass
 class PasswordGenerationParams:
     """
     Password generation params.
@@ -729,3 +746,21 @@ class DestroySecretVersionRequest:
     Version number.
     The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
     """
+
+
+@dataclass
+class ListTagsRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    ID of the Project to target.
+    (Optional.) If not specified, Secret Manager will look for tags in all Projects.
+    """
+
+    page: Optional[int]
+
+    page_size: Optional[int]
