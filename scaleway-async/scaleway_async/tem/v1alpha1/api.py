@@ -681,7 +681,7 @@ class TemV1Alpha1API(API):
         self._throw_on_error(res)
         return unmarshal_Domain(res.json())
 
-    async def check_domain_last_status(
+    async def get_domain_last_status(
         self,
         *,
         domain_id: str,
@@ -697,7 +697,7 @@ class TemV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.check_domain_last_status(domain_id="example")
+            result = await api.get_domain_last_status(domain_id="example")
         """
 
         param_region = validate_path_param(
@@ -706,7 +706,7 @@ class TemV1Alpha1API(API):
         param_domain_id = validate_path_param("domain_id", domain_id)
 
         res = self._request(
-            "POST",
+            "GET",
             f"/transactional-email/v1alpha1/regions/{param_region}/domains/{param_domain_id}/verification",
         )
 

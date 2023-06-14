@@ -735,7 +735,7 @@ class CheckDomainRequest:
 
 
 @dataclass
-class CheckDomainLastStatusRequest:
+class GetDomainLastStatusRequest:
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
