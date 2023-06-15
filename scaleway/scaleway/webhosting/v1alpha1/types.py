@@ -60,6 +60,7 @@ class HostingStatus(str, Enum):
     DELETING = "deleting"
     ERROR = "error"
     LOCKED = "locked"
+    MIGRATING = "migrating"
 
     def __str__(self) -> str:
         return str(self.value)

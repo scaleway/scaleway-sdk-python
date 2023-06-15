@@ -10,6 +10,7 @@ from .types import (
 HOSTING_TRANSIENT_STATUSES: List[HostingStatus] = [
     HostingStatus.DELIVERING,
     HostingStatus.DELETING,
+    HostingStatus.MIGRATING,
 ]
 """
 Lists transient statutes of the enum :class:`HostingStatus <HostingStatus>`.
