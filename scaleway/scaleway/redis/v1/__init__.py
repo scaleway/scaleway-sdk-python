@@ -4,6 +4,7 @@ from .types import AvailableClusterSettingPropertyType
 from .types import ClusterStatus
 from .types import ListClustersRequestOrderBy
 from .types import NodeTypeStock
+from .types import PrivateNetworkProvisioningMode
 from .types import ACLRule
 from .types import ACLRuleSpec
 from .types import AddAclRulesResponse
@@ -35,6 +36,7 @@ __all__ = [
     "ClusterStatus",
     "ListClustersRequestOrderBy",
     "NodeTypeStock",
+    "PrivateNetworkProvisioningMode",
     "ACLRule",
     "ACLRuleSpec",
     "AddAclRulesResponse",

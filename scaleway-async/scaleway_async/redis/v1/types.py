@@ -59,6 +59,14 @@ class NodeTypeStock(str, Enum):
         return str(self.value)
 
 
+class PrivateNetworkProvisioningMode(str, Enum):
+    STATIC = "static"
+    IPAM = "ipam"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 @dataclass
 class ACLRule:
     """
@@ -552,6 +560,11 @@ class PrivateNetwork:
     zone: Zone
     """
     Zone of the Private Network.
+    """
+
+    provisioning_mode: PrivateNetworkProvisioningMode
+    """
+    How your endpoint ips are provisioned.
     """
 
 
