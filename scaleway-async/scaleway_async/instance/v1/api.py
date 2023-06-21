@@ -3343,6 +3343,7 @@ class InstanceV1API(API):
         private_network_id: str,
         zone: Optional[Zone] = None,
         tags: Optional[List[str]] = None,
+        ip_ids: Optional[List[str]] = None,
     ) -> CreatePrivateNICResponse:
         """
         Create a private NIC connecting an Instance to a Private Network.
@@ -3350,6 +3351,7 @@ class InstanceV1API(API):
         :param server_id: UUID of the Instance the private NIC will be attached to.
         :param private_network_id: UUID of the private network where the private NIC will be attached.
         :param tags: Private NIC tags.
+        :param ip_ids: Ip_ids defined from IPAM.
         :return: :class:`CreatePrivateNICResponse <CreatePrivateNICResponse>`
 
         Usage:
@@ -3373,6 +3375,7 @@ class InstanceV1API(API):
                     private_network_id=private_network_id,
                     zone=zone,
                     tags=tags,
+                    ip_ids=ip_ids,
                 ),
                 self.client,
             ),
