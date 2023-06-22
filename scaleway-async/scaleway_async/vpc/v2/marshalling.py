@@ -63,6 +63,9 @@ def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
+    field = data.get("dhcp_enabled", None)
+    args["dhcp_enabled"] = field
+
     field = data.get("id", None)
     args["id"] = field
 
