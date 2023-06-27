@@ -297,11 +297,29 @@ class AddInstanceSettingsResponse:
 
 @dataclass
 class BackupSchedule:
+    """
+    Backup schedule.
+    """
+
     frequency: int
+    """
+    Frequency of the backup schedule (in hours).
+    """
 
     retention: int
+    """
+    Default retention period of backups (in days).
+    """
 
     disabled: bool
+    """
+    Defines whether the backup schedule feature is disabled.
+    """
+
+    next_run_at: Optional[datetime]
+    """
+    Next run of the backup schedule (accurate to 10 minutes).
+    """
 
 
 @dataclass
@@ -1909,6 +1927,11 @@ class UpdateInstanceRequest:
     backup_same_region: Optional[bool]
     """
     Store logical backups in the same region as the Database Instance.
+    """
+
+    backup_schedule_start_hour: Optional[int]
+    """
+    Defines the start time of the autobackup.
     """
 
 
