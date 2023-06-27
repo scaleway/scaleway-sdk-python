@@ -40,6 +40,15 @@ class ListVersionsRequestOrderBy(str, Enum):
         return str(self.value)
 
 
+class LocalImageType(str, Enum):
+    UNKNOWN_TYPE = "unknown_type"
+    INSTANCE_LOCAL = "instance_local"
+    INSTANCE_SBS = "instance_sbs"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 @dataclass
 class Category:
     id: str
@@ -162,6 +171,11 @@ class LocalImage:
     Image label this image belongs to.
     """
 
+    type_: LocalImageType
+    """
+    Type of this local image.
+    """
+
 
 @dataclass
 class Version:
@@ -276,6 +290,8 @@ class ListLocalImagesRequest:
     """
 
     zone: Optional[Zone]
+
+    type_: Optional[LocalImageType]
 
 
 @dataclass

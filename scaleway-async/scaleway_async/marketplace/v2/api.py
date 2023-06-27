@@ -17,6 +17,7 @@ from .types import (
     ListImagesRequestOrderBy,
     ListLocalImagesRequestOrderBy,
     ListVersionsRequestOrderBy,
+    LocalImageType,
     Category,
     Image,
     ListCategoriesResponse,
@@ -265,6 +266,7 @@ class MarketplaceV2API(API):
         order_by: ListLocalImagesRequestOrderBy = ListLocalImagesRequestOrderBy.CREATED_AT_ASC,
         image_label: Optional[str] = None,
         zone: Optional[Zone] = None,
+        type_: LocalImageType = LocalImageType.UNKNOWN_TYPE,
     ) -> ListLocalImagesResponse:
         """
         List local images from a specific image or version.
@@ -276,6 +278,7 @@ class MarketplaceV2API(API):
         :param order_by:
         :param image_label: One-of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
         :param zone:
+        :param type_:
         :return: :class:`ListLocalImagesResponse <ListLocalImagesResponse>`
 
         Usage:
@@ -291,6 +294,7 @@ class MarketplaceV2API(API):
                 "order_by": order_by,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
+                "type": type_,
                 "zone": zone or self.client.default_zone,
                 **resolve_one_of(
                     [
@@ -315,6 +319,7 @@ class MarketplaceV2API(API):
         order_by: Optional[ListLocalImagesRequestOrderBy] = None,
         image_label: Optional[str] = None,
         zone: Optional[Zone] = None,
+        type_: Optional[LocalImageType] = None,
     ) -> List[LocalImage]:
         """
         List local images from a specific image or version.
@@ -326,6 +331,7 @@ class MarketplaceV2API(API):
         :param order_by:
         :param image_label: One-of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
         :param zone:
+        :param type_:
         :return: :class:`List[ListLocalImagesResponse] <List[ListLocalImagesResponse]>`
 
         Usage:
@@ -346,6 +352,7 @@ class MarketplaceV2API(API):
                 "order_by": order_by,
                 "image_label": image_label,
                 "zone": zone,
+                "type_": type_,
             },
         )
 
