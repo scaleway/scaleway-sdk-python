@@ -39,6 +39,15 @@ class SecretStatus(str, Enum):
         return str(self.value)
 
 
+class SecretType(str, Enum):
+    UNKNOWN_SECRET_TYPE = "unknown_secret_type"
+    OPAQUE = "opaque"
+    NETWORK_EDGE_CERTIFICATE = "network_edge_certificate"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class SecretVersionStatus(str, Enum):
     UNKNOWN = "unknown"
     ENABLED = "enabled"
@@ -216,7 +225,13 @@ class Secret:
 
     is_managed: bool
     """
-    True for secrets that are managed by another product.
+    Returns `true` for secrets that are managed by another product.
+    """
+
+    type_: SecretType
+    """
+    Type of the secret.
+    See `Secret.Type` enum for description of values.
     """
 
     region: Region
@@ -297,6 +312,12 @@ class CreateSecretRequest:
     description: Optional[str]
     """
     Description of the secret.
+    """
+
+    type_: SecretType
+    """
+    Type of the secret.
+    (Optional.) See `Secret.Type` enum for description of values. If not specified, the type is `Opaque`.
     """
 
 
@@ -426,13 +447,14 @@ class AddSecretOwnerRequest:
 
     product_name: Optional[str]
     """
-    (Deprecated: use product field) ID of the product to add (see product enum).
+    (Deprecated: use `product` field) Name of the product to add.
     :deprecated
     """
 
     product: Product
     """
-    ID of the product to add (see product enum).
+    ID of the product to add.
+    See `Product` enum for description of values.
     """
 
 
