@@ -1948,6 +1948,13 @@ class LbV1API(API):
         backend_id: Optional[str] = None,
     ) -> ListBackendStatsResponse:
         """
+        List backend server statistics.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param lb_id: Load Balancer ID.
+        :param page: The page number to return, from the paginated results.
+        :param page_size: Number of items to return.
+        :param backend_id: ID of the backend.
+        :return: :class:`ListBackendStatsResponse <ListBackendStatsResponse>`
 
         Usage:
         ::
@@ -1983,6 +1990,12 @@ class LbV1API(API):
         backend_id: Optional[str] = None,
     ) -> List[BackendServerStats]:
         """
+        List backend server statistics.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param lb_id: Load Balancer ID.
+        :param page: The page number to return, from the paginated results.
+        :param page_size: Number of items to return.
+        :param backend_id: ID of the backend.
         :return: :class:`List[ListBackendStatsResponse] <List[ListBackendStatsResponse]>`
 
         Usage:
