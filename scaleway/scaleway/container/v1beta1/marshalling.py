@@ -14,6 +14,9 @@ from .types import (
     ContainerPrivacy,
     ContainerProtocol,
     Container,
+    CreateTriggerRequestMnqNatsClientConfig,
+    CreateTriggerRequestMnqSqsClientConfig,
+    CreateTriggerRequestSqsClientConfig,
     Cron,
     Domain,
     ListContainersResponse,
@@ -22,11 +25,17 @@ from .types import (
     ListLogsResponse,
     ListNamespacesResponse,
     ListTokensResponse,
+    ListTriggersResponse,
     Log,
     Namespace,
     Secret,
     SecretHashedValue,
     Token,
+    Trigger,
+    TriggerMnqNatsClientConfig,
+    TriggerMnqSqsClientConfig,
+    TriggerSqsClientConfig,
+    UpdateTriggerRequestSqsClientConfig,
     CreateNamespaceRequest,
     UpdateNamespaceRequest,
     CreateContainerRequest,
@@ -35,6 +44,8 @@ from .types import (
     UpdateCronRequest,
     CreateDomainRequest,
     CreateTokenRequest,
+    CreateTriggerRequest,
+    UpdateTriggerRequest,
 )
 
 
@@ -53,6 +64,81 @@ def unmarshal_SecretHashedValue(data: Any) -> SecretHashedValue:
     args["key"] = field
 
     return SecretHashedValue(**args)
+
+
+def unmarshal_TriggerMnqNatsClientConfig(data: Any) -> TriggerMnqNatsClientConfig:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'TriggerMnqNatsClientConfig' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("mnq_credential_id", None)
+    args["mnq_credential_id"] = field
+
+    field = data.get("mnq_namespace_id", None)
+    args["mnq_namespace_id"] = field
+
+    field = data.get("mnq_project_id", None)
+    args["mnq_project_id"] = field
+
+    field = data.get("mnq_region", None)
+    args["mnq_region"] = field
+
+    field = data.get("subject", None)
+    args["subject"] = field
+
+    return TriggerMnqNatsClientConfig(**args)
+
+
+def unmarshal_TriggerMnqSqsClientConfig(data: Any) -> TriggerMnqSqsClientConfig:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'TriggerMnqSqsClientConfig' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("mnq_credential_id", None)
+    args["mnq_credential_id"] = field
+
+    field = data.get("mnq_namespace_id", None)
+    args["mnq_namespace_id"] = field
+
+    field = data.get("mnq_project_id", None)
+    args["mnq_project_id"] = field
+
+    field = data.get("mnq_region", None)
+    args["mnq_region"] = field
+
+    field = data.get("queue", None)
+    args["queue"] = field
+
+    return TriggerMnqSqsClientConfig(**args)
+
+
+def unmarshal_TriggerSqsClientConfig(data: Any) -> TriggerSqsClientConfig:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'TriggerSqsClientConfig' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("access_key", None)
+    args["access_key"] = field
+
+    field = data.get("endpoint", None)
+    args["endpoint"] = field
+
+    field = data.get("queue_url", None)
+    args["queue_url"] = field
+
+    field = data.get("secret_key", None)
+    args["secret_key"] = field
+
+    return TriggerSqsClientConfig(**args)
 
 
 def unmarshal_Container(data: Any) -> Container:
@@ -302,6 +388,53 @@ def unmarshal_Token(data: Any) -> Token:
     return Token(**args)
 
 
+def unmarshal_Trigger(data: Any) -> Trigger:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'Trigger' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("container_id", None)
+    args["container_id"] = field
+
+    field = data.get("description", None)
+    args["description"] = field
+
+    field = data.get("error_message", None)
+    args["error_message"] = field
+
+    field = data.get("id", None)
+    args["id"] = field
+
+    field = data.get("input_type", None)
+    args["input_type"] = field
+
+    field = data.get("name", None)
+    args["name"] = field
+
+    field = data.get("scw_nats_config", None)
+    args["scw_nats_config"] = (
+        unmarshal_TriggerMnqNatsClientConfig(field) if field is not None else None
+    )
+
+    field = data.get("scw_sqs_config", None)
+    args["scw_sqs_config"] = (
+        unmarshal_TriggerMnqSqsClientConfig(field) if field is not None else None
+    )
+
+    field = data.get("sqs_config", None)
+    args["sqs_config"] = (
+        unmarshal_TriggerSqsClientConfig(field) if field is not None else None
+    )
+
+    field = data.get("status", None)
+    args["status"] = field
+
+    return Trigger(**args)
+
+
 def unmarshal_ListContainersResponse(data: Any) -> ListContainersResponse:
     if type(data) is not dict:
         raise TypeError(
@@ -410,6 +543,61 @@ def unmarshal_ListTokensResponse(data: Any) -> ListTokensResponse:
     return ListTokensResponse(**args)
 
 
+def unmarshal_ListTriggersResponse(data: Any) -> ListTriggersResponse:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'ListTriggersResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("total_count", None)
+    args["total_count"] = field
+
+    field = data.get("triggers", None)
+    args["triggers"] = (
+        [unmarshal_Trigger(v) for v in field] if field is not None else None
+    )
+
+    return ListTriggersResponse(**args)
+
+
+def marshal_CreateTriggerRequestMnqNatsClientConfig(
+    request: CreateTriggerRequestMnqNatsClientConfig,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    return {
+        "mnq_namespace_id": request.mnq_namespace_id,
+        "mnq_project_id": request.mnq_project_id,
+        "mnq_region": request.mnq_region,
+        "subject": request.subject,
+    }
+
+
+def marshal_CreateTriggerRequestMnqSqsClientConfig(
+    request: CreateTriggerRequestMnqSqsClientConfig,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    return {
+        "mnq_namespace_id": request.mnq_namespace_id,
+        "mnq_project_id": request.mnq_project_id,
+        "mnq_region": request.mnq_region,
+        "queue": request.queue,
+    }
+
+
+def marshal_CreateTriggerRequestSqsClientConfig(
+    request: CreateTriggerRequestSqsClientConfig,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    return {
+        "access_key": request.access_key,
+        "endpoint": request.endpoint,
+        "queue_url": request.queue_url,
+        "secret_key": request.secret_key,
+    }
+
+
 def marshal_Secret(
     request: Secret,
     defaults: ProfileDefaults,
@@ -417,6 +605,16 @@ def marshal_Secret(
     return {
         "key": request.key,
         "value": request.value,
+    }
+
+
+def marshal_UpdateTriggerRequestSqsClientConfig(
+    request: UpdateTriggerRequestSqsClientConfig,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    return {
+        "access_key": request.access_key,
+        "secret_key": request.secret_key,
     }
 
 
@@ -509,6 +707,45 @@ def marshal_CreateTokenRequest(
     }
 
 
+def marshal_CreateTriggerRequest(
+    request: CreateTriggerRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    return {
+        **resolve_one_of(
+            [
+                OneOfPossibility(
+                    "scw_sqs_config",
+                    marshal_CreateTriggerRequestMnqSqsClientConfig(
+                        request.scw_sqs_config, defaults
+                    )
+                    if request.scw_sqs_config is not None
+                    else None,
+                ),
+                OneOfPossibility(
+                    "sqs_config",
+                    marshal_CreateTriggerRequestSqsClientConfig(
+                        request.sqs_config, defaults
+                    )
+                    if request.sqs_config is not None
+                    else None,
+                ),
+                OneOfPossibility(
+                    "scw_nats_config",
+                    marshal_CreateTriggerRequestMnqNatsClientConfig(
+                        request.scw_nats_config, defaults
+                    )
+                    if request.scw_nats_config is not None
+                    else None,
+                ),
+            ]
+        ),
+        "container_id": request.container_id,
+        "description": request.description,
+        "name": request.name,
+    }
+
+
 def marshal_UpdateContainerRequest(
     request: UpdateContainerRequest,
     defaults: ProfileDefaults,
@@ -560,4 +797,26 @@ def marshal_UpdateNamespaceRequest(
         ]
         if request.secret_environment_variables is not None
         else None,
+    }
+
+
+def marshal_UpdateTriggerRequest(
+    request: UpdateTriggerRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    return {
+        **resolve_one_of(
+            [
+                OneOfPossibility(
+                    "sqs_config",
+                    marshal_UpdateTriggerRequestSqsClientConfig(
+                        request.sqs_config, defaults
+                    )
+                    if request.sqs_config is not None
+                    else None,
+                ),
+            ]
+        ),
+        "description": request.description,
+        "name": request.name,
     }
