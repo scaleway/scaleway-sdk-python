@@ -331,6 +331,7 @@ class VpcV2API(API):
         project_id: Optional[str] = None,
         private_network_ids: Optional[List[str]] = None,
         vpc_id: Optional[str] = None,
+        dhcp_enabled: Optional[bool] = None,
     ) -> ListPrivateNetworksResponse:
         """
         List Private Networks.
@@ -345,6 +346,7 @@ class VpcV2API(API):
         :param project_id: Project ID to filter for. Only Private Networks belonging to this Project will be returned.
         :param private_network_ids: Private Network IDs to filter for. Only Private Networks with one of these IDs will be returned.
         :param vpc_id: VPC ID to filter for. Only Private Networks belonging to this VPC will be returned.
+        :param dhcp_enabled: DHCP status to filter for. When true, only Private Networks with managed DHCP enabled will be returned.
         :return: :class:`ListPrivateNetworksResponse <ListPrivateNetworksResponse>`
 
         Usage:
@@ -361,6 +363,7 @@ class VpcV2API(API):
             "GET",
             f"/vpc/v2/regions/{param_region}/private-networks",
             params={
+                "dhcp_enabled": dhcp_enabled,
                 "name": name,
                 "order_by": order_by,
                 "organization_id": organization_id
@@ -390,6 +393,7 @@ class VpcV2API(API):
         project_id: Optional[str] = None,
         private_network_ids: Optional[List[str]] = None,
         vpc_id: Optional[str] = None,
+        dhcp_enabled: Optional[bool] = None,
     ) -> List[PrivateNetwork]:
         """
         List Private Networks.
@@ -404,6 +408,7 @@ class VpcV2API(API):
         :param project_id: Project ID to filter for. Only Private Networks belonging to this Project will be returned.
         :param private_network_ids: Private Network IDs to filter for. Only Private Networks with one of these IDs will be returned.
         :param vpc_id: VPC ID to filter for. Only Private Networks belonging to this VPC will be returned.
+        :param dhcp_enabled: DHCP status to filter for. When true, only Private Networks with managed DHCP enabled will be returned.
         :return: :class:`List[ListPrivateNetworksResponse] <List[ListPrivateNetworksResponse]>`
 
         Usage:
@@ -427,6 +432,7 @@ class VpcV2API(API):
                 "project_id": project_id,
                 "private_network_ids": private_network_ids,
                 "vpc_id": vpc_id,
+                "dhcp_enabled": dhcp_enabled,
             },
         )
 
@@ -640,6 +646,40 @@ class VpcV2API(API):
 
         self._throw_on_error(res)
         return None
+
+    def enable_dhcp(
+        self,
+        *,
+        private_network_id: str,
+        region: Optional[Region] = None,
+    ) -> PrivateNetwork:
+        """
+        Enable DHCP on a Private Network.
+        Enable DHCP managed on an existing Private Network. Note that you will not be able to deactivate it afterwards.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param private_network_id: Private Network ID.
+        :return: :class:`PrivateNetwork <PrivateNetwork>`
+
+        Usage:
+        ::
+
+            result = api.enable_dhcp(private_network_id="example")
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_private_network_id = validate_path_param(
+            "private_network_id", private_network_id
+        )
+
+        res = self._request(
+            "POST",
+            f"/vpc/v2/regions/{param_region}/private-networks/{param_private_network_id}/enable-dhcp",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_PrivateNetwork(res.json())
 
     def set_subnets(
         self,

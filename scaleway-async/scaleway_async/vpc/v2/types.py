@@ -112,6 +112,11 @@ class PrivateNetwork:
     VPC the Private Network belongs to.
     """
 
+    dhcp_enabled: bool
+    """
+    Defines whether managed DHCP is enabled for this Private Network.
+    """
+
 
 @dataclass
 class SetSubnetsResponse:
@@ -379,6 +384,11 @@ class ListPrivateNetworksRequest:
     VPC ID to filter for. Only Private Networks belonging to this VPC will be returned.
     """
 
+    dhcp_enabled: Optional[bool]
+    """
+    DHCP status to filter for. When true, only Private Networks with managed DHCP enabled will be returned.
+    """
+
 
 @dataclass
 class CreatePrivateNetworkRequest:
@@ -486,6 +496,19 @@ class MigrateZonalPrivateNetworksRequest:
     private_network_ids: Optional[List[str]]
     """
     IDs of the Private Networks to migrate.
+    """
+
+
+@dataclass
+class EnableDHCPRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    private_network_id: str
+    """
+    Private Network ID.
     """
 
 
