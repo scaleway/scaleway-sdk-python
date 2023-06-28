@@ -5,6 +5,7 @@ import logging
 import os
 from dataclasses import dataclass
 from typing import Optional, Type, TypeVar
+import sys
 
 import yaml
 from scaleway_core import __version__
@@ -197,7 +198,9 @@ class Profile(ProfileDefaults, ProfileConfig):
             config_profile = cls.from_config_file(filepath, profile_name)
             has_config_profile = True
         except Exception as e:
-            print(e)
+            logging.getLogger("scaleway").warning(
+                f"Could not load profile from config file: {e}"
+            )
 
         env_profile = cls.from_env(force_none=has_config_profile)
         if has_config_profile:
