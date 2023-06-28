@@ -108,7 +108,7 @@ class API:
             client.validate()
 
         self.client = client
-        self._log = logging.getLogger(__name__)
+        self._log = logging.getLogger("scaleway")
 
     def _request(
         self,
