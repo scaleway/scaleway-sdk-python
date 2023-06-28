@@ -450,6 +450,11 @@ class ClusterType:
     Cluster type availability.
     """
 
+    max_nodes: int
+    """
+    Maximum number of nodes supported by the offer.
+    """
+
 
 @dataclass
 class CreateClusterRequestAutoUpgrade:
