@@ -27,7 +27,11 @@ from .types import (
     ListLogsRequestOrderBy,
     ListNamespacesRequestOrderBy,
     ListTokensRequestOrderBy,
+    ListTriggersRequestOrderBy,
     Container,
+    CreateTriggerRequestMnqNatsClientConfig,
+    CreateTriggerRequestMnqSqsClientConfig,
+    CreateTriggerRequestSqsClientConfig,
     Cron,
     Domain,
     ListContainersResponse,
@@ -36,10 +40,13 @@ from .types import (
     ListLogsResponse,
     ListNamespacesResponse,
     ListTokensResponse,
+    ListTriggersResponse,
     Log,
     Namespace,
     Secret,
     Token,
+    Trigger,
+    UpdateTriggerRequestSqsClientConfig,
     CreateNamespaceRequest,
     UpdateNamespaceRequest,
     CreateContainerRequest,
@@ -48,6 +55,8 @@ from .types import (
     UpdateCronRequest,
     CreateDomainRequest,
     CreateTokenRequest,
+    CreateTriggerRequest,
+    UpdateTriggerRequest,
 )
 from .content import (
     CONTAINER_TRANSIENT_STATUSES,
@@ -55,6 +64,7 @@ from .content import (
     DOMAIN_TRANSIENT_STATUSES,
     NAMESPACE_TRANSIENT_STATUSES,
     TOKEN_TRANSIENT_STATUSES,
+    TRIGGER_TRANSIENT_STATUSES,
 )
 from .marshalling import (
     marshal_CreateContainerRequest,
@@ -62,20 +72,24 @@ from .marshalling import (
     marshal_CreateDomainRequest,
     marshal_CreateNamespaceRequest,
     marshal_CreateTokenRequest,
+    marshal_CreateTriggerRequest,
     marshal_UpdateContainerRequest,
     marshal_UpdateCronRequest,
     marshal_UpdateNamespaceRequest,
+    marshal_UpdateTriggerRequest,
     unmarshal_Container,
     unmarshal_Cron,
     unmarshal_Domain,
     unmarshal_Namespace,
     unmarshal_Token,
+    unmarshal_Trigger,
     unmarshal_ListContainersResponse,
     unmarshal_ListCronsResponse,
     unmarshal_ListDomainsResponse,
     unmarshal_ListLogsResponse,
     unmarshal_ListNamespacesResponse,
     unmarshal_ListTokensResponse,
+    unmarshal_ListTriggersResponse,
 )
 
 
@@ -1648,3 +1662,305 @@ class ContainerV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Token(res.json())
+
+    def create_trigger(
+        self,
+        *,
+        name: str,
+        container_id: str,
+        region: Optional[Region] = None,
+        description: Optional[str] = None,
+        scw_sqs_config: Optional[CreateTriggerRequestMnqSqsClientConfig] = None,
+        sqs_config: Optional[CreateTriggerRequestSqsClientConfig] = None,
+        scw_nats_config: Optional[CreateTriggerRequestMnqNatsClientConfig] = None,
+    ) -> Trigger:
+        """
+        Create a trigger.
+        Create a new trigger for a specified container.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param name:
+        :param description:
+        :param container_id:
+        :param scw_sqs_config: One-of ('config'): at most one of 'scw_sqs_config', 'sqs_config', 'scw_nats_config' could be set.
+        :param sqs_config: One-of ('config'): at most one of 'scw_sqs_config', 'sqs_config', 'scw_nats_config' could be set.
+        :param scw_nats_config: One-of ('config'): at most one of 'scw_sqs_config', 'sqs_config', 'scw_nats_config' could be set.
+        :return: :class:`Trigger <Trigger>`
+
+        Usage:
+        ::
+
+            result = api.create_trigger(
+                name="example",
+                container_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "POST",
+            f"/containers/v1beta1/regions/{param_region}/triggers",
+            body=marshal_CreateTriggerRequest(
+                CreateTriggerRequest(
+                    name=name,
+                    container_id=container_id,
+                    region=region,
+                    description=description,
+                    scw_sqs_config=scw_sqs_config,
+                    sqs_config=sqs_config,
+                    scw_nats_config=scw_nats_config,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Trigger(res.json())
+
+    def get_trigger(
+        self,
+        *,
+        trigger_id: str,
+        region: Optional[Region] = None,
+    ) -> Trigger:
+        """
+        Get a trigger.
+        Get a trigger with a specified ID.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param trigger_id:
+        :return: :class:`Trigger <Trigger>`
+
+        Usage:
+        ::
+
+            result = api.get_trigger(trigger_id="example")
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_trigger_id = validate_path_param("trigger_id", trigger_id)
+
+        res = self._request(
+            "GET",
+            f"/containers/v1beta1/regions/{param_region}/triggers/{param_trigger_id}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Trigger(res.json())
+
+    def wait_for_trigger(
+        self,
+        *,
+        trigger_id: str,
+        region: Optional[Region] = None,
+        options: Optional[WaitForOptions[Trigger, bool]] = None,
+    ) -> Trigger:
+        """
+        Waits for :class:`Trigger <Trigger>` to be in a final state.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param trigger_id:
+        :param options: The options for the waiter
+        :return: :class:`Trigger <Trigger>`
+
+        Usage:
+        ::
+
+            result = api.wait_for_trigger(trigger_id="example")
+        """
+
+        if not options:
+            options = WaitForOptions()
+
+        if not options.stop:
+            options.stop = lambda res: res.status not in TRIGGER_TRANSIENT_STATUSES
+
+        return wait_for_resource(
+            fetcher=self.get_trigger,
+            options=options,
+            args={
+                "trigger_id": trigger_id,
+                "region": region,
+            },
+        )
+
+    def list_triggers(
+        self,
+        *,
+        region: Optional[Region] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        order_by: ListTriggersRequestOrderBy = ListTriggersRequestOrderBy.CREATED_AT_ASC,
+        container_id: Optional[str] = None,
+        namespace_id: Optional[str] = None,
+        project_id: Optional[str] = None,
+    ) -> ListTriggersResponse:
+        """
+        List all triggers.
+        List all triggers belonging to a specified Organization or Project.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page:
+        :param page_size:
+        :param order_by:
+        :param container_id: One-of ('scope'): at most one of 'container_id', 'namespace_id', 'project_id' could be set.
+        :param namespace_id: One-of ('scope'): at most one of 'container_id', 'namespace_id', 'project_id' could be set.
+        :param project_id: One-of ('scope'): at most one of 'container_id', 'namespace_id', 'project_id' could be set.
+        :return: :class:`ListTriggersResponse <ListTriggersResponse>`
+
+        Usage:
+        ::
+
+            result = api.list_triggers()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/containers/v1beta1/regions/{param_region}/triggers",
+            params={
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+                **resolve_one_of(
+                    [
+                        OneOfPossibility(
+                            "project_id", project_id, self.client.default_project_id
+                        ),
+                        OneOfPossibility("container_id", container_id),
+                        OneOfPossibility("namespace_id", namespace_id),
+                    ]
+                ),
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListTriggersResponse(res.json())
+
+    def list_triggers_all(
+        self,
+        *,
+        region: Optional[Region] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        order_by: Optional[ListTriggersRequestOrderBy] = None,
+        container_id: Optional[str] = None,
+        namespace_id: Optional[str] = None,
+        project_id: Optional[str] = None,
+    ) -> List[Trigger]:
+        """
+        List all triggers.
+        List all triggers belonging to a specified Organization or Project.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page:
+        :param page_size:
+        :param order_by:
+        :param container_id: One-of ('scope'): at most one of 'container_id', 'namespace_id', 'project_id' could be set.
+        :param namespace_id: One-of ('scope'): at most one of 'container_id', 'namespace_id', 'project_id' could be set.
+        :param project_id: One-of ('scope'): at most one of 'container_id', 'namespace_id', 'project_id' could be set.
+        :return: :class:`List[ListTriggersResponse] <List[ListTriggersResponse]>`
+
+        Usage:
+        ::
+
+            result = api.list_triggers_all()
+        """
+
+        return fetch_all_pages(
+            type=ListTriggersResponse,
+            key="triggers",
+            fetcher=self.list_triggers,
+            args={
+                "region": region,
+                "page": page,
+                "page_size": page_size,
+                "order_by": order_by,
+                "container_id": container_id,
+                "namespace_id": namespace_id,
+                "project_id": project_id,
+            },
+        )
+
+    def update_trigger(
+        self,
+        *,
+        trigger_id: str,
+        region: Optional[Region] = None,
+        name: Optional[str] = None,
+        description: Optional[str] = None,
+        sqs_config: Optional[UpdateTriggerRequestSqsClientConfig] = None,
+    ) -> Trigger:
+        """
+        Update a trigger.
+        Update a trigger with a specified ID.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param trigger_id:
+        :param name:
+        :param description:
+        :param sqs_config: One-of ('config'): at most one of 'sqs_config' could be set.
+        :return: :class:`Trigger <Trigger>`
+
+        Usage:
+        ::
+
+            result = api.update_trigger(trigger_id="example")
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_trigger_id = validate_path_param("trigger_id", trigger_id)
+
+        res = self._request(
+            "PATCH",
+            f"/containers/v1beta1/regions/{param_region}/triggers/{param_trigger_id}",
+            body=marshal_UpdateTriggerRequest(
+                UpdateTriggerRequest(
+                    trigger_id=trigger_id,
+                    region=region,
+                    name=name,
+                    description=description,
+                    sqs_config=sqs_config,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Trigger(res.json())
+
+    def delete_trigger(
+        self,
+        *,
+        trigger_id: str,
+        region: Optional[Region] = None,
+    ) -> Trigger:
+        """
+        Delete a trigger.
+        Delete a trigger with a specified ID.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param trigger_id:
+        :return: :class:`Trigger <Trigger>`
+
+        Usage:
+        ::
+
+            result = api.delete_trigger(trigger_id="example")
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_trigger_id = validate_path_param("trigger_id", trigger_id)
+
+        res = self._request(
+            "DELETE",
+            f"/containers/v1beta1/regions/{param_region}/triggers/{param_trigger_id}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Trigger(res.json())

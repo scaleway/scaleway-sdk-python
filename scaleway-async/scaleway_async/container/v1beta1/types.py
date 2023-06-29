@@ -132,6 +132,14 @@ class ListTokensRequestOrderBy(str, Enum):
         return str(self.value)
 
 
+class ListTriggersRequestOrderBy(str, Enum):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class LogStream(str, Enum):
     UNKNOWN = "unknown"
     STDOUT = "stdout"
@@ -167,6 +175,29 @@ class TokenStatus(str, Enum):
     DELETING = "deleting"
     ERROR = "error"
     CREATING = "creating"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class TriggerInputType(str, Enum):
+    UNKNOWN_INPUT_TYPE = "unknown_input_type"
+    SQS = "sqs"
+    SCW_SQS = "scw_sqs"
+    NATS = "nats"
+    SCW_NATS = "scw_nats"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class TriggerStatus(str, Enum):
+    UNKNOWN_STATUS = "unknown_status"
+    READY = "ready"
+    DELETING = "deleting"
+    ERROR = "error"
+    CREATING = "creating"
+    PENDING = "pending"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -285,6 +316,39 @@ class Container:
     """
     Region in which the container will be deployed.
     """
+
+
+@dataclass
+class CreateTriggerRequestMnqNatsClientConfig:
+    mnq_namespace_id: str
+
+    subject: str
+
+    mnq_project_id: str
+
+    mnq_region: str
+
+
+@dataclass
+class CreateTriggerRequestMnqSqsClientConfig:
+    mnq_namespace_id: str
+
+    queue: str
+
+    mnq_project_id: str
+
+    mnq_region: str
+
+
+@dataclass
+class CreateTriggerRequestSqsClientConfig:
+    endpoint: str
+
+    queue_url: str
+
+    access_key: str
+
+    secret_key: str
 
 
 @dataclass
@@ -448,6 +512,13 @@ class ListTokensResponse:
 
 
 @dataclass
+class ListTriggersResponse:
+    triggers: List[Trigger]
+
+    total_count: int
+
+
+@dataclass
 class Log:
     """
     Log.
@@ -606,6 +677,82 @@ class Token:
     """
     Expiry date of the token.
     """
+
+
+@dataclass
+class Trigger:
+    id: str
+
+    name: str
+
+    description: str
+
+    input_type: TriggerInputType
+
+    status: TriggerStatus
+
+    error_message: Optional[str]
+
+    container_id: str
+
+    scw_sqs_config: Optional[TriggerMnqSqsClientConfig]
+    """
+    One-of ('config'): at most one of 'scw_sqs_config', 'sqs_config', 'scw_nats_config' could be set.
+    """
+
+    sqs_config: Optional[TriggerSqsClientConfig]
+    """
+    One-of ('config'): at most one of 'scw_sqs_config', 'sqs_config', 'scw_nats_config' could be set.
+    """
+
+    scw_nats_config: Optional[TriggerMnqNatsClientConfig]
+    """
+    One-of ('config'): at most one of 'scw_sqs_config', 'sqs_config', 'scw_nats_config' could be set.
+    """
+
+
+@dataclass
+class TriggerMnqNatsClientConfig:
+    mnq_namespace_id: str
+
+    subject: str
+
+    mnq_project_id: str
+
+    mnq_region: str
+
+    mnq_credential_id: Optional[str]
+
+
+@dataclass
+class TriggerMnqSqsClientConfig:
+    mnq_namespace_id: str
+
+    queue: str
+
+    mnq_project_id: str
+
+    mnq_region: str
+
+    mnq_credential_id: Optional[str]
+
+
+@dataclass
+class TriggerSqsClientConfig:
+    endpoint: str
+
+    queue_url: str
+
+    access_key: str
+
+    secret_key: str
+
+
+@dataclass
+class UpdateTriggerRequestSqsClientConfig:
+    access_key: Optional[str]
+
+    secret_key: Optional[str]
 
 
 @dataclass
@@ -1312,3 +1459,100 @@ class DeleteTokenRequest:
     """
     UUID of the token to delete.
     """
+
+
+@dataclass
+class CreateTriggerRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    name: str
+
+    description: Optional[str]
+
+    container_id: str
+
+    scw_sqs_config: Optional[CreateTriggerRequestMnqSqsClientConfig]
+    """
+    One-of ('config'): at most one of 'scw_sqs_config', 'sqs_config', 'scw_nats_config' could be set.
+    """
+
+    sqs_config: Optional[CreateTriggerRequestSqsClientConfig]
+    """
+    One-of ('config'): at most one of 'scw_sqs_config', 'sqs_config', 'scw_nats_config' could be set.
+    """
+
+    scw_nats_config: Optional[CreateTriggerRequestMnqNatsClientConfig]
+    """
+    One-of ('config'): at most one of 'scw_sqs_config', 'sqs_config', 'scw_nats_config' could be set.
+    """
+
+
+@dataclass
+class GetTriggerRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    trigger_id: str
+
+
+@dataclass
+class ListTriggersRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    page: Optional[int]
+
+    page_size: Optional[int]
+
+    order_by: Optional[ListTriggersRequestOrderBy]
+
+    container_id: Optional[str]
+    """
+    One-of ('scope'): at most one of 'container_id', 'namespace_id', 'project_id' could be set.
+    """
+
+    namespace_id: Optional[str]
+    """
+    One-of ('scope'): at most one of 'container_id', 'namespace_id', 'project_id' could be set.
+    """
+
+    project_id: Optional[str]
+    """
+    One-of ('scope'): at most one of 'container_id', 'namespace_id', 'project_id' could be set.
+    """
+
+
+@dataclass
+class UpdateTriggerRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    trigger_id: str
+
+    name: Optional[str]
+
+    description: Optional[str]
+
+    sqs_config: Optional[UpdateTriggerRequestSqsClientConfig]
+    """
+    One-of ('config'): at most one of 'sqs_config' could be set.
+    """
+
+
+@dataclass
+class DeleteTriggerRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    trigger_id: str
