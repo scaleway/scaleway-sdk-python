@@ -317,6 +317,11 @@ class Cluster:
     Private network ID for internal cluster communication.
     """
 
+    commitment_ends_at: Optional[datetime]
+    """
+    Date on which it will be possible to switch to a smaller offer.
+    """
+
 
 @dataclass
 class ClusterAutoUpgrade:
@@ -448,6 +453,16 @@ class ClusterType:
     availability: ClusterTypeAvailability
     """
     Cluster type availability.
+    """
+
+    max_nodes: int
+    """
+    Maximum number of nodes supported by the offer.
+    """
+
+    commitment_delay: Optional[str]
+    """
+    Time period during which you can no longer switch to a lower offer.
     """
 
 

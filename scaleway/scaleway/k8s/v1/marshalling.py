@@ -211,6 +211,9 @@ def unmarshal_Cluster(data: Any) -> Cluster:
     field = data.get("cni", None)
     args["cni"] = field
 
+    field = data.get("commitment_ends_at", None)
+    args["commitment_ends_at"] = parser.isoparse(field) if type(field) is str else field
+
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
@@ -283,6 +286,12 @@ def unmarshal_ClusterType(data: Any) -> ClusterType:
 
     field = data.get("availability", None)
     args["availability"] = field
+
+    field = data.get("commitment_delay", None)
+    args["commitment_delay"] = field
+
+    field = data.get("max_nodes", None)
+    args["max_nodes"] = field
 
     field = data.get("name", None)
     args["name"] = field
