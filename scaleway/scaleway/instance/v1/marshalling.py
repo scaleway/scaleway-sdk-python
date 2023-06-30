@@ -2450,6 +2450,7 @@ def marshal_CreatePrivateNICRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
+        "ip_ids": request.ip_ids,
         "private_network_id": request.private_network_id,
         "tags": request.tags,
     }

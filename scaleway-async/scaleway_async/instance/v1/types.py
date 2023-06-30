@@ -3159,6 +3159,11 @@ class CreatePrivateNICRequest:
     Private NIC tags.
     """
 
+    ip_ids: Optional[List[str]]
+    """
+    Ip_ids defined from IPAM.
+    """
+
 
 @dataclass
 class GetPrivateNICRequest:
