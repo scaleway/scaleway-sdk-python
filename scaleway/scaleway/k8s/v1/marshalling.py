@@ -284,6 +284,9 @@ def unmarshal_ClusterType(data: Any) -> ClusterType:
     field = data.get("availability", None)
     args["availability"] = field
 
+    field = data.get("commitment_delay", None)
+    args["commitment_delay"] = field
+
     field = data.get("max_nodes", None)
     args["max_nodes"] = field
 

@@ -455,6 +455,11 @@ class ClusterType:
     Maximum number of nodes supported by the offer.
     """
 
+    commitment_delay: Optional[str]
+    """
+    Time period during which you can no longer switch to a lower offer.
+    """
+
 
 @dataclass
 class CreateClusterRequestAutoUpgrade:
