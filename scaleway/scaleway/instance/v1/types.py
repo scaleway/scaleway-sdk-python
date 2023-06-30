@@ -1795,22 +1795,22 @@ class VolumeServerTemplate:
     Volume server template.
     """
 
-    id: str
+    id: Optional[str]
     """
     UUID of the volume.
     """
 
-    boot: bool
+    boot: Optional[bool]
     """
     Force the Instance to boot on this volume.
     """
 
-    name: str
+    name: Optional[str]
     """
     Name of the volume.
     """
 
-    size: int
+    size: Optional[int]
     """
     Disk size of the volume, must be a multiple of 512.
     """
@@ -1820,17 +1820,17 @@ class VolumeServerTemplate:
     Type of the volume.
     """
 
-    base_snapshot: str
+    base_snapshot: Optional[str]
     """
     ID of the snapshot on which this volume will be based.
     """
 
-    organization: str
+    organization: Optional[str]
     """
     Organization ID of the volume.
     """
 
-    project: str
+    project: Optional[str]
     """
     Project ID of the volume.
     """
