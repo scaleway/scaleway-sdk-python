@@ -500,6 +500,19 @@ class MigrateZonalPrivateNetworksRequest:
 
 
 @dataclass
+class EnableDHCPRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    private_network_id: str
+    """
+    Private Network ID.
+    """
+
+
+@dataclass
 class SetSubnetsRequest:
     region: Optional[Region]
     """
