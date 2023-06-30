@@ -211,6 +211,9 @@ def unmarshal_Cluster(data: Any) -> Cluster:
     field = data.get("cni", None)
     args["cni"] = field
 
+    field = data.get("commitment_ends_at", None)
+    args["commitment_ends_at"] = parser.isoparse(field) if type(field) is str else field
+
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if type(field) is str else field
 

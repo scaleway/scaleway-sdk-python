@@ -317,6 +317,11 @@ class Cluster:
     Private network ID for internal cluster communication.
     """
 
+    commitment_ends_at: Optional[datetime]
+    """
+    Date on which it will be possible to switch to a smaller offer.
+    """
+
 
 @dataclass
 class ClusterAutoUpgrade:
