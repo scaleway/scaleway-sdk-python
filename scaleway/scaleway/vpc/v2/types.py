@@ -112,6 +112,11 @@ class PrivateNetwork:
     VPC the Private Network belongs to.
     """
 
+    dhcp_enabled: bool
+    """
+    Defines whether managed DHCP is enabled for this Private Network.
+    """
+
 
 @dataclass
 class SetSubnetsResponse:
@@ -377,6 +382,11 @@ class ListPrivateNetworksRequest:
     vpc_id: Optional[str]
     """
     VPC ID to filter for. Only Private Networks belonging to this VPC will be returned.
+    """
+
+    dhcp_enabled: Optional[bool]
+    """
+    DHCP status to filter for. When true, only Private Networks with managed DHCP enabled will be returned.
     """
 
 
