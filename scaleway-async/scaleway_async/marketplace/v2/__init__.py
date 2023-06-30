@@ -3,6 +3,7 @@
 from .types import ListImagesRequestOrderBy
 from .types import ListLocalImagesRequestOrderBy
 from .types import ListVersionsRequestOrderBy
+from .types import LocalImageType
 from .types import Category
 from .types import Image
 from .types import ListCategoriesResponse
@@ -17,6 +18,7 @@ __all__ = [
     "ListImagesRequestOrderBy",
     "ListLocalImagesRequestOrderBy",
     "ListVersionsRequestOrderBy",
+    "LocalImageType",
     "Category",
     "Image",
     "ListCategoriesResponse",
