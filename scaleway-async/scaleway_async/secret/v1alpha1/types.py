@@ -194,8 +194,8 @@ class Secret:
     status: SecretStatus
     """
     Current status of the secret.
-    * `ready`: the secret is ready.
-    * `locked`: the secret is locked.
+    * `ready`: the secret can be read, modified and deleted.
+    * `locked`: no action can be performed on the secret. This status can only be applied and removed by Scaleway.
     """
 
     created_at: Optional[datetime]
@@ -226,6 +226,11 @@ class Secret:
     is_managed: bool
     """
     Returns `true` for secrets that are managed by another product.
+    """
+
+    is_protected: bool
+    """
+    Returns `true` for protected secrets that cannot be deleted.
     """
 
     type_: SecretType
@@ -430,6 +435,32 @@ class DeleteSecretRequest:
     secret_id: str
     """
     ID of the secret.
+    """
+
+
+@dataclass
+class ProtectSecretRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    secret_id: str
+    """
+    ID of the secret to protect.
+    """
+
+
+@dataclass
+class UnprotectSecretRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    secret_id: str
+    """
+    ID of the secret to unprotect.
     """
 
 

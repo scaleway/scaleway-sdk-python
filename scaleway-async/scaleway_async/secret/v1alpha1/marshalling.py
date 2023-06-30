@@ -48,6 +48,9 @@ def unmarshal_Secret(data: Any) -> Secret:
     field = data.get("is_managed", None)
     args["is_managed"] = field
 
+    field = data.get("is_protected", None)
+    args["is_protected"] = field
+
     field = data.get("name", None)
     args["name"] = field
 
