@@ -14,6 +14,7 @@ from scaleway_core.utils import (
 from .types import (
     ListSecretsRequestOrderBy,
     Product,
+    SecretType,
     SecretVersionStatus,
     AccessSecretVersionResponse,
     ListSecretVersionsResponse,
@@ -57,6 +58,7 @@ class SecretV1Alpha1API(API):
         self,
         *,
         name: str,
+        type_: SecretType,
         region: Optional[Region] = None,
         project_id: Optional[str] = None,
         tags: Optional[List[str]] = None,
@@ -70,12 +72,17 @@ class SecretV1Alpha1API(API):
         :param name: Name of the secret.
         :param tags: List of the secret's tags.
         :param description: Description of the secret.
+        :param type_: Type of the secret.
+        (Optional.) See `Secret.Type` enum for description of values. If not specified, the type is `Opaque`.
         :return: :class:`Secret <Secret>`
 
         Usage:
         ::
 
-            result = api.create_secret(name="example")
+            result = api.create_secret(
+                name="example",
+                type_=unknown_secret_type,
+            )
         """
 
         param_region = validate_path_param(
@@ -88,6 +95,7 @@ class SecretV1Alpha1API(API):
             body=marshal_CreateSecretRequest(
                 CreateSecretRequest(
                     name=name,
+                    type_=type_,
                     region=region,
                     project_id=project_id,
                     tags=tags,
@@ -367,8 +375,9 @@ class SecretV1Alpha1API(API):
         Allow a product to use the secret.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the secret.
-        :param product_name: (Deprecated: use product field) ID of the product to add (see product enum).
-        :param product: ID of the product to add (see product enum).
+        :param product_name: (Deprecated: use `product` field) Name of the product to add.
+        :param product: ID of the product to add.
+        See `Product` enum for description of values.
 
         Usage:
         ::

@@ -3,6 +3,7 @@
 from .types import ListSecretsRequestOrderBy
 from .types import Product
 from .types import SecretStatus
+from .types import SecretType
 from .types import SecretVersionStatus
 from .types import AccessSecretVersionResponse
 from .types import ListSecretVersionsResponse
@@ -17,6 +18,7 @@ __all__ = [
     "ListSecretsRequestOrderBy",
     "Product",
     "SecretStatus",
+    "SecretType",
     "SecretVersionStatus",
     "AccessSecretVersionResponse",
     "ListSecretVersionsResponse",

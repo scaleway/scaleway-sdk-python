@@ -11,6 +11,7 @@ from scaleway_core.utils import (
 from dateutil import parser
 from .types import (
     Product,
+    SecretType,
     AccessSecretVersionResponse,
     ListSecretVersionsResponse,
     ListSecretsResponse,
@@ -61,6 +62,9 @@ def unmarshal_Secret(data: Any) -> Secret:
 
     field = data.get("tags", None)
     args["tags"] = field
+
+    field = data.get("type", None)
+    args["type_"] = field
 
     field = data.get("updated_at", None)
     args["updated_at"] = parser.isoparse(field) if type(field) is str else field
@@ -213,6 +217,7 @@ def marshal_CreateSecretRequest(
         "name": request.name,
         "project_id": request.project_id or defaults.default_project_id,
         "tags": request.tags,
+        "type": SecretType(request.type_),
     }
 
 
