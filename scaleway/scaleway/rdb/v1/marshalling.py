@@ -239,6 +239,9 @@ def unmarshal_BackupSchedule(data: Any) -> BackupSchedule:
     field = data.get("frequency", None)
     args["frequency"] = field
 
+    field = data.get("next_run_at", None)
+    args["next_run_at"] = parser.isoparse(field) if type(field) is str else field
+
     field = data.get("retention", None)
     args["retention"] = field
 
@@ -1620,6 +1623,7 @@ def marshal_UpdateInstanceRequest(
         "backup_same_region": request.backup_same_region,
         "backup_schedule_frequency": request.backup_schedule_frequency,
         "backup_schedule_retention": request.backup_schedule_retention,
+        "backup_schedule_start_hour": request.backup_schedule_start_hour,
         "is_backup_schedule_disabled": request.is_backup_schedule_disabled,
         "logs_policy": marshal_LogsPolicy(request.logs_policy, defaults)
         if request.logs_policy is not None

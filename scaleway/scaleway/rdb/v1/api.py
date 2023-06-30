@@ -1042,6 +1042,7 @@ class RdbV1API(API):
         tags: Optional[List[str]] = None,
         logs_policy: Optional[LogsPolicy] = None,
         backup_same_region: Optional[bool] = None,
+        backup_schedule_start_hour: Optional[int] = None,
     ) -> Instance:
         """
         Update a Database Instance.
@@ -1055,6 +1056,7 @@ class RdbV1API(API):
         :param tags: Tags of a Database Instance.
         :param logs_policy: Logs policy of the Database Instance.
         :param backup_same_region: Store logical backups in the same region as the Database Instance.
+        :param backup_schedule_start_hour: Defines the start time of the autobackup.
         :return: :class:`Instance <Instance>`
 
         Usage:
@@ -1082,6 +1084,7 @@ class RdbV1API(API):
                     tags=tags,
                     logs_policy=logs_policy,
                     backup_same_region=backup_same_region,
+                    backup_schedule_start_hour=backup_schedule_start_hour,
                 ),
                 self.client,
             ),
