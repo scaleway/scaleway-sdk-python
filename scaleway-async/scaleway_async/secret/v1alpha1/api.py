@@ -1042,7 +1042,7 @@ class SecretV1Alpha1API(API):
     ) -> ListTagsResponse:
         """
         List tags.
-        List all tags associated to secrets in one or several Projects.
+        List all tags associated with secrets within a given Project.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the Project to target.
         (Optional.) If not specified, Secret Manager will look for tags in all Projects.
@@ -1083,7 +1083,7 @@ class SecretV1Alpha1API(API):
     ) -> List[str]:
         """
         List tags.
-        List all tags associated to secrets in one or several Projects.
+        List all tags associated with secrets within a given Project.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the Project to target.
         (Optional.) If not specified, Secret Manager will look for tags in all Projects.
