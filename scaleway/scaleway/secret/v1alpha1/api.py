@@ -363,6 +363,70 @@ class SecretV1Alpha1API(API):
         self._throw_on_error(res)
         return None
 
+    def protect_secret(
+        self,
+        *,
+        secret_id: str,
+        region: Optional[Region] = None,
+    ) -> Secret:
+        """
+        Protect a secret.
+        Protect a given secret specified by the `secret_id` parameter. A protected secret can be read and modified but cannot be deleted.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param secret_id: ID of the secret to protect.
+        :return: :class:`Secret <Secret>`
+
+        Usage:
+        ::
+
+            result = api.protect_secret(secret_id="example")
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_secret_id = validate_path_param("secret_id", secret_id)
+
+        res = self._request(
+            "POST",
+            f"/secret-manager/v1alpha1/regions/{param_region}/secrets/{param_secret_id}/protect",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Secret(res.json())
+
+    def unprotect_secret(
+        self,
+        *,
+        secret_id: str,
+        region: Optional[Region] = None,
+    ) -> Secret:
+        """
+        Unprotect a secret.
+        Unprotect a given secret specified by the `secret_id` parameter. An unprotected secret can be read, modified and deleted.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param secret_id: ID of the secret to unprotect.
+        :return: :class:`Secret <Secret>`
+
+        Usage:
+        ::
+
+            result = api.unprotect_secret(secret_id="example")
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_secret_id = validate_path_param("secret_id", secret_id)
+
+        res = self._request(
+            "POST",
+            f"/secret-manager/v1alpha1/regions/{param_region}/secrets/{param_secret_id}/unprotect",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Secret(res.json())
+
     def add_secret_owner(
         self,
         *,
