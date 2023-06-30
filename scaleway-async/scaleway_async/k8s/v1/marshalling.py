@@ -284,6 +284,9 @@ def unmarshal_ClusterType(data: Any) -> ClusterType:
     field = data.get("availability", None)
     args["availability"] = field
 
+    field = data.get("max_nodes", None)
+    args["max_nodes"] = field
+
     field = data.get("name", None)
     args["name"] = field
 
