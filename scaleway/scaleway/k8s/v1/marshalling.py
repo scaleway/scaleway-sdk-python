@@ -29,6 +29,7 @@ from .types import (
     CreateClusterRequestPoolConfigUpgradePolicy,
     CreatePoolRequestUpgradePolicy,
     ExternalNode,
+    ListClusterAvailableTypesResponse,
     ListClusterAvailableVersionsResponse,
     ListClusterTypesResponse,
     ListClustersResponse,
@@ -499,6 +500,27 @@ def unmarshal_ExternalNode(data: Any) -> ExternalNode:
     args["pool_version"] = field
 
     return ExternalNode(**args)
+
+
+def unmarshal_ListClusterAvailableTypesResponse(
+    data: Any,
+) -> ListClusterAvailableTypesResponse:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'ListClusterAvailableTypesResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("cluster_types", None)
+    args["cluster_types"] = (
+        [unmarshal_ClusterType(v) for v in field] if field is not None else None
+    )
+
+    field = data.get("total_count", None)
+    args["total_count"] = field
+
+    return ListClusterAvailableTypesResponse(**args)
 
 
 def unmarshal_ListClusterAvailableVersionsResponse(

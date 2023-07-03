@@ -708,6 +708,23 @@ class ExternalNode:
 
 
 @dataclass
+class ListClusterAvailableTypesResponse:
+    """
+    List cluster available types response.
+    """
+
+    cluster_types: List[ClusterType]
+    """
+    Available cluster types for the cluster.
+    """
+
+    total_count: int
+    """
+    Total number of types.
+    """
+
+
+@dataclass
 class ListClusterAvailableVersionsResponse:
     """
     List cluster available versions response.
@@ -1496,6 +1513,19 @@ class ListClusterAvailableVersionsRequest:
     cluster_id: str
     """
     Cluster ID for which the available Kubernetes versions will be listed.
+    """
+
+
+@dataclass
+class ListClusterAvailableTypesRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    cluster_id: str
+    """
+    Cluster ID for which the available Kubernetes types will be listed.
     """
 
 

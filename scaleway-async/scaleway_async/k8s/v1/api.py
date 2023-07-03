@@ -36,6 +36,7 @@ from .types import (
     CreateClusterRequestPoolConfig,
     CreatePoolRequestUpgradePolicy,
     ExternalNode,
+    ListClusterAvailableTypesResponse,
     ListClusterAvailableVersionsResponse,
     ListClusterTypesResponse,
     ListClustersResponse,
@@ -77,6 +78,7 @@ from .marshalling import (
     unmarshal_Pool,
     unmarshal_Version,
     unmarshal_ExternalNode,
+    unmarshal_ListClusterAvailableTypesResponse,
     unmarshal_ListClusterAvailableVersionsResponse,
     unmarshal_ListClusterTypesResponse,
     unmarshal_ListClustersResponse,
@@ -604,6 +606,38 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListClusterAvailableVersionsResponse(res.json())
+
+    async def list_cluster_available_types(
+        self,
+        *,
+        cluster_id: str,
+        region: Optional[Region] = None,
+    ) -> ListClusterAvailableTypesResponse:
+        """
+        List available cluster types for a cluster.
+        List the cluster types that a specific Kubernetes cluster is allowed to switch to.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param cluster_id: Cluster ID for which the available Kubernetes types will be listed.
+        :return: :class:`ListClusterAvailableTypesResponse <ListClusterAvailableTypesResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_cluster_available_types(cluster_id="example")
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_cluster_id = validate_path_param("cluster_id", cluster_id)
+
+        res = self._request(
+            "GET",
+            f"/k8s/v1/regions/{param_region}/clusters/{param_cluster_id}/available-types",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListClusterAvailableTypesResponse(res.json())
 
     async def _get_cluster_kube_config(
         self,
