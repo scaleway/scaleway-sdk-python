@@ -2935,6 +2935,7 @@ def marshal__UpdateServerRequest(
         if request.boot_type is not None
         else None,
         "bootscript": request.bootscript,
+        "commercial_type": request.commercial_type,
         "dynamic_ip_required": request.dynamic_ip_required,
         "enable_ipv6": request.enable_ipv6,
         "name": request.name,
