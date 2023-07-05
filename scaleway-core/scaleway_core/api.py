@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from typing import IO, Any, Dict, Iterable, Mapping, Optional, Tuple, Union
 
 import requests
-from requests import Response
+from requests import Response, Session
 
 from .client import Client
 
@@ -103,12 +103,13 @@ class ValidationError(ScalewayException):
 
 
 class API:
-    def __init__(self, client: Client, *, bypass_validation: bool = False):
+    def __init__(self, client: Client, *, bypass_validation: bool = False, session: Optional[Session] = None):
         if not bypass_validation:
             client.validate()
 
         self.client = client
         self._log = logging.getLogger("scaleway")
+        self._session = session or requests.Session()
 
     def _request(
         self,
@@ -151,7 +152,7 @@ class API:
             body=raw_body,
         )
 
-        response = requests.request(
+        response = self._session.request(
             method=method,
             url=url,
             params=params,
