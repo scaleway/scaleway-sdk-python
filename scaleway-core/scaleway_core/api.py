@@ -103,7 +103,13 @@ class ValidationError(ScalewayException):
 
 
 class API:
-    def __init__(self, client: Client, *, bypass_validation: bool = False, session: Optional[Session] = None):
+    def __init__(
+        self,
+        client: Client,
+        *,
+        bypass_validation: bool = False,
+        session: Optional[Session] = None,
+    ):
         if not bypass_validation:
             client.validate()
 
