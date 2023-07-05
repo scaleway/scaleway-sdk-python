@@ -1204,7 +1204,12 @@ class NodeType:
 
     generation: NodeTypeGeneration
     """
-    Generation associated the NodeType offer.
+    Generation associated with the NodeType offer.
+    """
+
+    instance_range: str
+    """
+    Instance range associated with the NodeType offer.
     """
 
     region: Region
