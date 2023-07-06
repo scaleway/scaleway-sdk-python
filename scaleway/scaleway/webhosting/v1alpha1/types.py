@@ -245,6 +245,11 @@ class Hosting:
     Main Web Hosting cPanel username.
     """
 
+    offer_end_of_life: bool
+    """
+    Indicates if the hosting offer has reached its end of life.
+    """
+
     region: Region
     """
     Region where the Web Hosting plan is hosted.
@@ -360,6 +365,11 @@ class Offer:
     quota_warnings: List[OfferQuotaWarning]
     """
     Quota warnings, if the offer is not available for the specified hosting_id.
+    """
+
+    end_of_life: bool
+    """
+    Indicates if the offer has reached its end of life.
     """
 
 
