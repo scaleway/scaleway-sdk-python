@@ -244,7 +244,6 @@ def marshal_CreateVPCRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     return {
-        "default_private_network_name": request.default_private_network_name,
         "name": request.name,
         "project_id": request.project_id or defaults.default_project_id,
         "tags": request.tags,
