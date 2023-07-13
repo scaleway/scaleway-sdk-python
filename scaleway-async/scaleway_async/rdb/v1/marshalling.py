@@ -754,6 +754,9 @@ def unmarshal_NodeType(data: Any) -> NodeType:
     field = data.get("generation", None)
     args["generation"] = field
 
+    field = data.get("instance_range", None)
+    args["instance_range"] = field
+
     field = data.get("is_bssd_compatible", None)
     args["is_bssd_compatible"] = field
 
