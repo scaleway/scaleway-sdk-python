@@ -41,11 +41,13 @@ class AccountV2API(API):
     ) -> Project:
         """
         Create a new Project for an Organization.
+        Deprecated in favor of Account API v3.
         Generate a new Project for an Organization, specifying its configuration including name and description.
         :param name: Name of the Project.
         :param organization_id: Organization ID of the Project.
         :param description: Description of the Project.
         :return: :class:`Project <Project>`
+        :deprecated
 
         Usage:
         ::
@@ -81,6 +83,7 @@ class AccountV2API(API):
     ) -> ListProjectsResponse:
         """
         List all Projects of an Organization.
+        Deprecated in favor of Account API v3.
         List all Projects of an Organization. The response will include the total number of Projects as well as their associated Organizations, names and IDs. Other information include the creation and update date of the Project.
         :param organization_id: Organization ID of the Project.
         :param name: Name of the Project.
@@ -89,6 +92,7 @@ class AccountV2API(API):
         :param order_by: Sort order of the returned Projects.
         :param project_ids: Project IDs to filter for. The results will be limited to any Projects with an ID in this array.
         :return: :class:`ListProjectsResponse <ListProjectsResponse>`
+        :deprecated
 
         Usage:
         ::
@@ -125,6 +129,7 @@ class AccountV2API(API):
     ) -> List[Project]:
         """
         List all Projects of an Organization.
+        Deprecated in favor of Account API v3.
         List all Projects of an Organization. The response will include the total number of Projects as well as their associated Organizations, names and IDs. Other information include the creation and update date of the Project.
         :param organization_id: Organization ID of the Project.
         :param name: Name of the Project.
@@ -133,6 +138,7 @@ class AccountV2API(API):
         :param order_by: Sort order of the returned Projects.
         :param project_ids: Project IDs to filter for. The results will be limited to any Projects with an ID in this array.
         :return: :class:`List[ListProjectsResponse] <List[ListProjectsResponse]>`
+        :deprecated
 
         Usage:
         ::
@@ -161,9 +167,11 @@ class AccountV2API(API):
     ) -> Project:
         """
         Get an existing Project.
+        Deprecated in favor of Account API v3.
         Retrieve information about an existing Project, specified by its Project ID. Its full details, including ID, name and description, are returned in the response object.
         :param project_id: Project ID of the Project.
         :return: :class:`Project <Project>`
+        :deprecated
 
         Usage:
         ::
@@ -190,8 +198,10 @@ class AccountV2API(API):
     ) -> Optional[None]:
         """
         Delete an existing Project.
+        Deprecated in favor of Account API v3.
         Delete an existing Project, specified by its Project ID. The Project needs to be empty (meaning there are no resources left in it) to be deleted effectively. Note that deleting a Project is permanent, and cannot be undone.
         :param project_id: Project ID of the Project.
+        :deprecated
 
         Usage:
         ::
@@ -220,11 +230,13 @@ class AccountV2API(API):
     ) -> Project:
         """
         Update Project.
+        Deprecated in favor of Account API v3.
         Update the parameters of an existing Project, specified by its Project ID. These parameters include the name and description.
         :param project_id: Project ID of the Project.
         :param name: Name of the Project.
         :param description: Description of the Project.
         :return: :class:`Project <Project>`
+        :deprecated
 
         Usage:
         ::
