@@ -150,6 +150,9 @@ def unmarshal_Hosting(data: Any) -> Hosting:
     field = data.get("id", None)
     args["id"] = field
 
+    field = data.get("offer_end_of_life", None)
+    args["offer_end_of_life"] = field
+
     field = data.get("offer_id", None)
     args["offer_id"] = field
 
@@ -224,6 +227,9 @@ def unmarshal_Offer(data: Any) -> Offer:
 
     field = data.get("billing_operation_path", None)
     args["billing_operation_path"] = field
+
+    field = data.get("end_of_life", None)
+    args["end_of_life"] = field
 
     field = data.get("id", None)
     args["id"] = field
