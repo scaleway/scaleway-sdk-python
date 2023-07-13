@@ -68,6 +68,15 @@ class ClusterTypeAvailability(str, Enum):
         return str(self.value)
 
 
+class ClusterTypeResiliency(str, Enum):
+    UNKNOWN_RESILIENCY = "unknown_resiliency"
+    STANDARD = "standard"
+    HIGH_AVAILABILITY = "high_availability"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class Ingress(str, Enum):
     UNKNOWN_INGRESS = "unknown_ingress"
     NONE = "none"
@@ -463,6 +472,16 @@ class ClusterType:
     commitment_delay: Optional[str]
     """
     Time period during which you can no longer switch to a lower offer.
+    """
+
+    sla: float
+    """
+    Value of the Service Level Agreement of the offer.
+    """
+
+    resiliency: ClusterTypeResiliency
+    """
+    Resiliency offered by the offer.
     """
 
 

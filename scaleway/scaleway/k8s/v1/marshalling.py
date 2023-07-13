@@ -297,6 +297,12 @@ def unmarshal_ClusterType(data: Any) -> ClusterType:
     field = data.get("name", None)
     args["name"] = field
 
+    field = data.get("resiliency", None)
+    args["resiliency"] = field
+
+    field = data.get("sla", None)
+    args["sla"] = field
+
     return ClusterType(**args)
 
 
