@@ -721,6 +721,7 @@ class InstanceV1API(API):
         security_group: Optional[SecurityGroupTemplate] = None,
         placement_group: Optional[str] = None,
         private_nics: Optional[List[PrivateNIC]] = None,
+        commercial_type: Optional[str] = None,
     ) -> UpdateServerResponse:
         """
         Update an Instance.
@@ -740,6 +741,11 @@ class InstanceV1API(API):
         :param security_group:
         :param placement_group: Placement group ID if Instance must be part of a placement group.
         :param private_nics: Instance private NICs.
+        :param commercial_type: Set the commercial_type for this Instance.
+        Warning: This field has some restrictions:
+        - Cannot be changed if the Instance is not in `stopped` state.
+        - Cannot be changed if the Instance is in a placement group.
+        - Local storage requirements of the target commercial_types must be fulfilled (i.e. if an Instance has 80GB of local storage, it can be changed into a GP1-XS, which has a maximum of 150GB, but it cannot be changed into a DEV1-S, which has only 20GB).
         :return: :class:`UpdateServerResponse <UpdateServerResponse>`
 
         Usage:
@@ -771,6 +777,7 @@ class InstanceV1API(API):
                     security_group=security_group,
                     placement_group=placement_group,
                     private_nics=private_nics,
+                    commercial_type=commercial_type,
                 ),
                 self.client,
             ),
