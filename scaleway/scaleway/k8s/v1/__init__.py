@@ -5,6 +5,7 @@ from .types import AutoscalerExpander
 from .types import CNI
 from .types import ClusterStatus
 from .types import ClusterTypeAvailability
+from .types import ClusterTypeResiliency
 from .types import Ingress
 from .types import ListClustersRequestOrderBy
 from .types import ListNodesRequestOrderBy
@@ -53,6 +54,7 @@ __all__ = [
     "CNI",
     "ClusterStatus",
     "ClusterTypeAvailability",
+    "ClusterTypeResiliency",
     "Ingress",
     "ListClustersRequestOrderBy",
     "ListNodesRequestOrderBy",
