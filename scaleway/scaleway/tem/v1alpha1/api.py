@@ -16,6 +16,7 @@ from scaleway_core.utils import (
 )
 from .types import (
     DomainStatus,
+    EmailFlag,
     EmailStatus,
     ListEmailsRequestOrderBy,
     CreateEmailRequestAddress,
@@ -208,6 +209,7 @@ class TemV1Alpha1API(API):
         subject: Optional[str] = None,
         search: Optional[str] = None,
         order_by: ListEmailsRequestOrderBy = ListEmailsRequestOrderBy.CREATED_AT_DESC,
+        flags: Optional[List[EmailFlag]] = None,
     ) -> ListEmailsResponse:
         """
         List emails.
@@ -227,6 +229,7 @@ class TemV1Alpha1API(API):
         :param subject: (Optional) List emails with this subject.
         :param search: (Optional) List emails by searching to all fields.
         :param order_by: (Optional) List emails corresponding to specific criteria.
+        :param flags: (Optional) List emails containing only specific flags.
         :return: :class:`ListEmailsResponse <ListEmailsResponse>`
 
         Usage:
@@ -244,6 +247,7 @@ class TemV1Alpha1API(API):
             f"/transactional-email/v1alpha1/regions/{param_region}/emails",
             params={
                 "domain_id": domain_id,
+                "flags": flags,
                 "mail_from": mail_from,
                 "mail_rcpt": mail_rcpt,
                 "mail_to": mail_to,
@@ -281,6 +285,7 @@ class TemV1Alpha1API(API):
         subject: Optional[str] = None,
         search: Optional[str] = None,
         order_by: Optional[ListEmailsRequestOrderBy] = None,
+        flags: Optional[List[EmailFlag]] = None,
     ) -> List[Email]:
         """
         List emails.
@@ -300,6 +305,7 @@ class TemV1Alpha1API(API):
         :param subject: (Optional) List emails with this subject.
         :param search: (Optional) List emails by searching to all fields.
         :param order_by: (Optional) List emails corresponding to specific criteria.
+        :param flags: (Optional) List emails containing only specific flags.
         :return: :class:`List[ListEmailsResponse] <List[ListEmailsResponse]>`
 
         Usage:
@@ -328,6 +334,7 @@ class TemV1Alpha1API(API):
                 "subject": subject,
                 "search": search,
                 "order_by": order_by,
+                "flags": flags,
             },
         )
 
