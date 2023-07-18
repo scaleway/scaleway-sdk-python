@@ -176,6 +176,9 @@ def unmarshal_Email(data: Any) -> Email:
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
+    field = data.get("flags", None)
+    args["flags"] = field
+
     field = data.get("id", None)
     args["id"] = field
 

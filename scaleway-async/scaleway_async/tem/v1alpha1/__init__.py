@@ -2,6 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from .types import DomainLastStatusRecordStatus
 from .types import DomainStatus
+from .types import EmailFlag
 from .types import EmailRcptType
 from .types import EmailStatus
 from .types import ListEmailsRequestOrderBy
@@ -25,6 +26,7 @@ from .api import TemV1Alpha1API
 __all__ = [
     "DomainLastStatusRecordStatus",
     "DomainStatus",
+    "EmailFlag",
     "EmailRcptType",
     "EmailStatus",
     "ListEmailsRequestOrderBy",

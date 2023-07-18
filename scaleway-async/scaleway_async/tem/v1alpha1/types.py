@@ -35,6 +35,15 @@ class DomainStatus(str, Enum):
         return str(self.value)
 
 
+class EmailFlag(str, Enum):
+    UNKNOWN_FLAG = "unknown_flag"
+    SOFT_BOUNCE = "soft_bounce"
+    HARD_BOUNCE = "hard_bounce"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class EmailRcptType(str, Enum):
     UNKNOWN_RCPT_TYPE = "unknown_rcpt_type"
     TO = "to"
@@ -360,6 +369,11 @@ class Email:
     Information about the last three attempts to send the email.
     """
 
+    flags: List[EmailFlag]
+    """
+    Flags categorize emails. They allow you to obtain more information about recurring errors, for example.
+    """
+
 
 @dataclass
 class EmailTry:
@@ -597,6 +611,11 @@ class ListEmailsRequest:
     order_by: Optional[ListEmailsRequestOrderBy]
     """
     (Optional) List emails corresponding to specific criteria.
+    """
+
+    flags: Optional[List[EmailFlag]]
+    """
+    (Optional) List emails containing only specific flags.
     """
 
 
