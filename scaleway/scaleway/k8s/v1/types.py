@@ -484,6 +484,16 @@ class ClusterType:
     Resiliency offered by the offer.
     """
 
+    memory: int
+    """
+    Max RAM allowed for the control plane.
+    """
+
+    dedicated: bool
+    """
+    Returns information if this offer uses dedicated resources.
+    """
+
 
 @dataclass
 class CreateClusterRequestAutoUpgrade:
