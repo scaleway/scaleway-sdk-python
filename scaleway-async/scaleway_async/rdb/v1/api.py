@@ -1494,6 +1494,38 @@ class RdbV1API(API):
         self._throw_on_error(res)
         return unmarshal_ReadReplica(res.json())
 
+    async def promote_read_replica(
+        self,
+        *,
+        read_replica_id: str,
+        region: Optional[Region] = None,
+    ) -> Instance:
+        """
+        Promote a Read Replica.
+        Promote a Read Replica to Database Instance automatically.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param read_replica_id: UUID of the Read Replica.
+        :return: :class:`Instance <Instance>`
+
+        Usage:
+        ::
+
+            result = await api.promote_read_replica(read_replica_id="example")
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_read_replica_id = validate_path_param("read_replica_id", read_replica_id)
+
+        res = self._request(
+            "POST",
+            f"/rdb/v1/regions/{param_region}/read-replicas/{param_read_replica_id}/promote",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Instance(res.json())
+
     async def create_read_replica_endpoint(
         self,
         *,

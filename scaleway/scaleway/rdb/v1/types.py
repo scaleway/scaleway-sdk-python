@@ -220,6 +220,7 @@ class ReadReplicaStatus(str, Enum):
     ERROR = "error"
     LOCKED = "locked"
     CONFIGURING = "configuring"
+    PROMOTING = "promoting"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -2094,6 +2095,19 @@ class DeleteReadReplicaRequest:
 
 @dataclass
 class ResetReadReplicaRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    read_replica_id: str
+    """
+    UUID of the Read Replica.
+    """
+
+
+@dataclass
+class PromoteReadReplicaRequest:
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.

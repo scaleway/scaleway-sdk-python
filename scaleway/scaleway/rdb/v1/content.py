@@ -55,6 +55,7 @@ READ_REPLICA_TRANSIENT_STATUSES: List[ReadReplicaStatus] = [
     ReadReplicaStatus.INITIALIZING,
     ReadReplicaStatus.DELETING,
     ReadReplicaStatus.CONFIGURING,
+    ReadReplicaStatus.PROMOTING,
 ]
 """
 Lists transient statutes of the enum :class:`ReadReplicaStatus <ReadReplicaStatus>`.
