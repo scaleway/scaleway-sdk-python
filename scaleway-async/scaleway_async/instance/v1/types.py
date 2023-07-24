@@ -2019,6 +2019,11 @@ class ListServersRequest:
     Define the order of the returned servers.
     """
 
+    private_networks: Optional[List[str]]
+    """
+    List Instances from the given Private Networks (use commas to separate them).
+    """
+
 
 @dataclass
 class DeleteServerRequest:

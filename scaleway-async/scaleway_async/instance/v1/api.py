@@ -341,6 +341,7 @@ class InstanceV1API(API):
         tags: Optional[List[str]] = None,
         private_network: Optional[str] = None,
         order: ListServersRequestOrder = ListServersRequestOrder.CREATION_DATE_DESC,
+        private_networks: Optional[List[str]] = None,
     ) -> ListServersResponse:
         """
         List all Instances.
@@ -358,6 +359,7 @@ class InstanceV1API(API):
         :param tags: List Instances with these exact tags (to filter with several tags, use commas to separate them).
         :param private_network: List Instances in this Private Network.
         :param order: Define the order of the returned servers.
+        :param private_networks: List Instances from the given Private Networks (use commas to separate them).
         :return: :class:`ListServersResponse <ListServersResponse>`
 
         Usage:
@@ -380,6 +382,9 @@ class InstanceV1API(API):
                 "per_page": per_page or self.client.default_page_size,
                 "private_ip": private_ip,
                 "private_network": private_network,
+                "private_networks": ",".join(private_networks)
+                if private_networks and len(private_networks) > 0
+                else None,
                 "project": project or self.client.default_project_id,
                 "state": state,
                 "tags": ",".join(tags) if tags and len(tags) > 0 else None,
@@ -406,6 +411,7 @@ class InstanceV1API(API):
         tags: Optional[List[str]] = None,
         private_network: Optional[str] = None,
         order: Optional[ListServersRequestOrder] = None,
+        private_networks: Optional[List[str]] = None,
     ) -> List[Server]:
         """
         List all Instances.
@@ -423,6 +429,7 @@ class InstanceV1API(API):
         :param tags: List Instances with these exact tags (to filter with several tags, use commas to separate them).
         :param private_network: List Instances in this Private Network.
         :param order: Define the order of the returned servers.
+        :param private_networks: List Instances from the given Private Networks (use commas to separate them).
         :return: :class:`List[ListServersResponse] <List[ListServersResponse]>`
 
         Usage:
@@ -449,6 +456,7 @@ class InstanceV1API(API):
                 "tags": tags,
                 "private_network": private_network,
                 "order": order,
+                "private_networks": private_networks,
             },
         )
 
