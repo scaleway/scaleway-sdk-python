@@ -42,7 +42,7 @@ class SecretStatus(str, Enum):
 class SecretType(str, Enum):
     UNKNOWN_SECRET_TYPE = "unknown_secret_type"
     OPAQUE = "opaque"
-    NETWORK_EDGE_CERTIFICATE = "network_edge_certificate"
+    CERTIFICATE = "certificate"
 
     def __str__(self) -> str:
         return str(self.value)
