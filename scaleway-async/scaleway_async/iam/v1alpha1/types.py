@@ -992,6 +992,19 @@ class DeleteUserRequest:
 
 
 @dataclass
+class CreateUserRequest:
+    organization_id: Optional[str]
+    """
+    ID of the Organization.
+    """
+
+    email: str
+    """
+    Email of the user.
+    """
+
+
+@dataclass
 class ListApplicationsRequest:
     order_by: Optional[ListApplicationsRequestOrderBy]
     """

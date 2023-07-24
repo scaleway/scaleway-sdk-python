@@ -47,6 +47,7 @@ from .types import (
     User,
     CreateSSHKeyRequest,
     UpdateSSHKeyRequest,
+    CreateUserRequest,
     CreateApplicationRequest,
     UpdateApplicationRequest,
     CreateGroupRequest,
@@ -69,6 +70,7 @@ from .marshalling import (
     marshal_CreateGroupRequest,
     marshal_CreatePolicyRequest,
     marshal_CreateSSHKeyRequest,
+    marshal_CreateUserRequest,
     marshal_RemoveGroupMemberRequest,
     marshal_SetGroupMembersRequest,
     marshal_SetRulesRequest,
@@ -463,6 +465,40 @@ class IamV1Alpha1API(API):
 
         self._throw_on_error(res)
         return None
+
+    def create_user(
+        self,
+        *,
+        email: str,
+        organization_id: Optional[str] = None,
+    ) -> User:
+        """
+        Create a new user.
+        Create a new user. You must define the `organization_id` and the `email` in your request.
+        :param organization_id: ID of the Organization.
+        :param email: Email of the user.
+        :return: :class:`User <User>`
+
+        Usage:
+        ::
+
+            result = api.create_user(email="example")
+        """
+
+        res = self._request(
+            "POST",
+            f"/iam/v1alpha1/users",
+            body=marshal_CreateUserRequest(
+                CreateUserRequest(
+                    email=email,
+                    organization_id=organization_id,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_User(res.json())
 
     def list_applications(
         self,
