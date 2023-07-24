@@ -34,6 +34,7 @@ from .types import (
     User,
     CreateSSHKeyRequest,
     UpdateSSHKeyRequest,
+    CreateUserRequest,
     CreateApplicationRequest,
     UpdateApplicationRequest,
     CreateGroupRequest,
@@ -750,6 +751,16 @@ def marshal_CreateSSHKeyRequest(
         "name": request.name,
         "project_id": request.project_id or defaults.default_project_id,
         "public_key": request.public_key,
+    }
+
+
+def marshal_CreateUserRequest(
+    request: CreateUserRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    return {
+        "email": request.email,
+        "organization_id": request.organization_id or defaults.default_organization_id,
     }
 
 
