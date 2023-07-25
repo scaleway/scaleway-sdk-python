@@ -108,7 +108,20 @@ class API:
             client.validate()
 
         self.client = client
+        self.session = client.session or requests.Session()
+
+        self._set_headers_from_client()
+
         self._log = logging.getLogger("scaleway")
+
+    def _set_headers_from_client(self) -> None:
+        self.session.headers.update(
+            {
+                "accept": "application/json",
+                "x-auth-token": self.client.secret_key or "",
+                "user-agent": self.client.user_agent,
+            }
+        )
 
     def _request(
         self,
@@ -131,13 +144,7 @@ class API:
 
         params = {k: str(v) for k, v in params.items() if v is not None}
 
-        headers = {
-            "accept": "application/json",
-            "x-auth-token": self.client.secret_key or "",
-            "user-agent": self.client.user_agent,
-            **additional_headers,
-            **headers,
-        }
+        headers.update(additional_headers)
 
         url = f"{self.client.api_url}{path}"
 
@@ -151,7 +158,7 @@ class API:
             body=raw_body,
         )
 
-        response = requests.request(
+        response = self.session.request(
             method=method,
             url=url,
             params=params,

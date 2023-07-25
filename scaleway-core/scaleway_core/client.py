@@ -1,7 +1,6 @@
 from __future__ import annotations
 
-import logging
-from dataclasses import dataclass
+import requests
 from typing import Optional
 
 from scaleway_core.profile import Profile
@@ -18,6 +17,11 @@ from scaleway_core.validations.string_validation import (
 
 class Client(Profile):
     _request_count: int = 1
+
+    """
+    session is used to share a session between multiple API clients.
+    """
+    session: Optional[requests.Session] = None
 
     @staticmethod
     def from_profile(profile: Profile) -> Client:
