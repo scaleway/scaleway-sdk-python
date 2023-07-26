@@ -39,6 +39,7 @@ class EmailFlag(str, Enum):
     UNKNOWN_FLAG = "unknown_flag"
     SOFT_BOUNCE = "soft_bounce"
     HARD_BOUNCE = "hard_bounce"
+    SPAM = "spam"
 
     def __str__(self) -> str:
         return str(self.value)
