@@ -734,6 +734,9 @@ def unmarshal_PrivateNetworkDHCPConfig(data: Any) -> PrivateNetworkDHCPConfig:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("ip_id", None)
+    args["ip_id"] = field
+
     return PrivateNetworkDHCPConfig(**args)
 
 
@@ -1376,7 +1379,9 @@ def marshal_PrivateNetworkDHCPConfig(
     request: PrivateNetworkDHCPConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {}
+    return {
+        "ip_id": request.ip_id,
+    }
 
 
 def marshal_PrivateNetworkIpamConfig(
