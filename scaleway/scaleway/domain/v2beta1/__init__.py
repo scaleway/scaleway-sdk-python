@@ -14,6 +14,7 @@ from .types import DomainRegistrationStatusTransferStatus
 from .types import DomainStatus
 from .types import HostStatus
 from .types import LanguageCode
+from .types import ListContactsRequestRole
 from .types import ListDNSZoneRecordsRequestOrderBy
 from .types import ListDNSZonesRequestOrderBy
 from .types import ListDomainsRequestOrderBy
@@ -129,6 +130,7 @@ __all__ = [
     "DomainStatus",
     "HostStatus",
     "LanguageCode",
+    "ListContactsRequestRole",
     "ListDNSZoneRecordsRequestOrderBy",
     "ListDNSZonesRequestOrderBy",
     "ListDomainsRequestOrderBy",
