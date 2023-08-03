@@ -213,6 +213,16 @@ class LanguageCode(str, Enum):
         return str(self.value)
 
 
+class ListContactsRequestRole(str, Enum):
+    UNKNOWN_ROLE = "unknown_role"
+    OWNER = "owner"
+    ADMINISTRATIVE = "administrative"
+    TECHNICAL = "technical"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListDNSZoneRecordsRequestOrderBy(str, Enum):
     NAME_ASC = "name_asc"
     NAME_DESC = "name_desc"
@@ -1893,6 +1903,10 @@ class RegistrarApiListContactsRequest:
     project_id: Optional[str]
 
     organization_id: Optional[str]
+
+    role: Optional[ListContactsRequestRole]
+
+    email_status: Optional[ContactEmailStatus]
 
 
 @dataclass

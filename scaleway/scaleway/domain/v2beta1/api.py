@@ -15,9 +15,11 @@ from scaleway_core.utils import (
     wait_for_resource,
 )
 from .types import (
+    ContactEmailStatus,
     DomainRecordType,
     DomainStatus,
     LanguageCode,
+    ListContactsRequestRole,
     ListDNSZoneRecordsRequestOrderBy,
     ListDNSZonesRequestOrderBy,
     ListDomainsRequestOrderBy,
@@ -1722,6 +1724,8 @@ class DomainRegistrarV2Beta1API(API):
         domain: Optional[str] = None,
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
+        role: ListContactsRequestRole = ListContactsRequestRole.UNKNOWN_ROLE,
+        email_status: ContactEmailStatus = ContactEmailStatus.EMAIL_STATUS_UNKNOWN,
     ) -> ListContactsResponse:
         """
         List contacts.
@@ -1732,6 +1736,8 @@ class DomainRegistrarV2Beta1API(API):
         :param domain:
         :param project_id:
         :param organization_id:
+        :param role:
+        :param email_status:
         :return: :class:`ListContactsResponse <ListContactsResponse>`
 
         Usage:
@@ -1745,11 +1751,13 @@ class DomainRegistrarV2Beta1API(API):
             f"/domain/v2beta1/contacts",
             params={
                 "domain": domain,
+                "email_status": email_status,
                 "organization_id": organization_id
                 or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
+                "role": role,
             },
         )
 
@@ -1764,6 +1772,8 @@ class DomainRegistrarV2Beta1API(API):
         domain: Optional[str] = None,
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
+        role: Optional[ListContactsRequestRole] = None,
+        email_status: Optional[ContactEmailStatus] = None,
     ) -> List[ContactRoles]:
         """
         List contacts.
@@ -1774,6 +1784,8 @@ class DomainRegistrarV2Beta1API(API):
         :param domain:
         :param project_id:
         :param organization_id:
+        :param role:
+        :param email_status:
         :return: :class:`List[ListContactsResponse] <List[ListContactsResponse]>`
 
         Usage:
@@ -1792,6 +1804,8 @@ class DomainRegistrarV2Beta1API(API):
                 "domain": domain,
                 "project_id": project_id,
                 "organization_id": organization_id,
+                "role": role,
+                "email_status": email_status,
             },
         )
 
