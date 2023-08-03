@@ -1395,11 +1395,12 @@ class PrivateNetwork:
     Object containing an array of a local IP address for the Load Balancer on this Private Network.
     
     One-of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
+    :deprecated
     """
 
     dhcp_config: Optional[PrivateNetworkDHCPConfig]
     """
-    Defines whether to let DHCP assign IP addresses.
+    Object containing DHCP-assigned IP addresses.
     
     One-of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
     """
@@ -1409,6 +1410,7 @@ class PrivateNetwork:
     For internal use only.
     
     One-of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
+    :deprecated
     """
 
     private_network_id: str
@@ -1434,7 +1436,7 @@ class PrivateNetwork:
 
 @dataclass
 class PrivateNetworkDHCPConfig:
-    pass
+    ip_id: str
 
 
 @dataclass
@@ -1448,9 +1450,10 @@ class PrivateNetworkStaticConfig:
     Private network. static config.
     """
 
-    ip_address: List[str]
+    ip_address: Optional[List[str]]
     """
     Array of a local IP address for the Load Balancer on this Private Network.
+    :deprecated
     """
 
 
@@ -3088,6 +3091,7 @@ class AttachPrivateNetworkRequest:
     Object containing an array of a local IP address for the Load Balancer on this Private Network.
     
     One-of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
+    :deprecated
     """
 
     dhcp_config: Optional[PrivateNetworkDHCPConfig]
@@ -3102,6 +3106,7 @@ class AttachPrivateNetworkRequest:
     For internal use only.
     
     One-of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
+    :deprecated
     """
 
 
@@ -4642,6 +4647,7 @@ class ZonedApiAttachPrivateNetworkRequest:
     Object containing an array of a local IP address for the Load Balancer on this Private Network.
     
     One-of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
+    :deprecated
     """
 
     dhcp_config: Optional[PrivateNetworkDHCPConfig]
@@ -4656,6 +4662,7 @@ class ZonedApiAttachPrivateNetworkRequest:
     For internal use only.
     
     One-of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
+    :deprecated
     """
 
 
