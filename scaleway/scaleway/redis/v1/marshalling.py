@@ -481,57 +481,77 @@ def marshal_EndpointSpecPrivateNetworkSpecIpamConfig(
     request: EndpointSpecPrivateNetworkSpecIpamConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {}
+    output: Dict[str, Any] = {}
+
+    return output
 
 
 def marshal_EndpointSpecPrivateNetworkSpec(
     request: EndpointSpecPrivateNetworkSpec,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "id": request.id,
-        "ipam_config": marshal_EndpointSpecPrivateNetworkSpecIpamConfig(
+    output: Dict[str, Any] = {}
+
+    if request.id is not None:
+        output["id"] = request.id
+
+    if request.ipam_config is not None:
+        output["ipam_config"] = marshal_EndpointSpecPrivateNetworkSpecIpamConfig(
             request.ipam_config, defaults
         )
-        if request.ipam_config is not None
-        else None,
-        "service_ips": request.service_ips,
-    }
+
+    if request.service_ips is not None:
+        output["service_ips"] = request.service_ips
+
+    return output
 
 
 def marshal_EndpointSpecPublicNetworkSpec(
     request: EndpointSpecPublicNetworkSpec,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {}
+    output: Dict[str, Any] = {}
+
+    return output
 
 
 def marshal_ACLRuleSpec(
     request: ACLRuleSpec,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "description": request.description,
-        "ip_cidr": request.ip_cidr,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.ip_cidr is not None:
+        output["ip_cidr"] = request.ip_cidr
+
+    return output
 
 
 def marshal_ClusterSetting(
     request: ClusterSetting,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "name": request.name,
-        "value": request.value,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.value is not None:
+        output["value"] = request.value
+
+    return output
 
 
 def marshal_EndpointSpec(
     request: EndpointSpec,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "private_network",
@@ -551,70 +571,111 @@ def marshal_EndpointSpec(
                 ),
             ]
         ),
-    }
+    )
+
+    return output
 
 
 def marshal_AddAclRulesRequest(
     request: AddAclRulesRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "acl_rules": [marshal_ACLRuleSpec(v, defaults) for v in request.acl_rules],
-    }
+    output: Dict[str, Any] = {}
+
+    if request.acl_rules is not None:
+        output["acl_rules"] = [
+            marshal_ACLRuleSpec(v, defaults) for v in request.acl_rules
+        ]
+
+    return output
 
 
 def marshal_AddClusterSettingsRequest(
     request: AddClusterSettingsRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "settings": [marshal_ClusterSetting(v, defaults) for v in request.settings],
-    }
+    output: Dict[str, Any] = {}
+
+    if request.settings is not None:
+        output["settings"] = [
+            marshal_ClusterSetting(v, defaults) for v in request.settings
+        ]
+
+    return output
 
 
 def marshal_AddEndpointsRequest(
     request: AddEndpointsRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "endpoints": [marshal_EndpointSpec(v, defaults) for v in request.endpoints],
-    }
+    output: Dict[str, Any] = {}
+
+    if request.endpoints is not None:
+        output["endpoints"] = [
+            marshal_EndpointSpec(v, defaults) for v in request.endpoints
+        ]
+
+    return output
 
 
 def marshal_CreateClusterRequest(
     request: CreateClusterRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "acl_rules": [marshal_ACLRuleSpec(v, defaults) for v in request.acl_rules]
-        if request.acl_rules is not None
-        else None,
-        "cluster_settings": [
+    output: Dict[str, Any] = {}
+
+    if request.acl_rules is not None:
+        output["acl_rules"] = [
+            marshal_ACLRuleSpec(v, defaults) for v in request.acl_rules
+        ]
+
+    if request.cluster_settings is not None:
+        output["cluster_settings"] = [
             marshal_ClusterSetting(v, defaults) for v in request.cluster_settings
         ]
-        if request.cluster_settings is not None
-        else None,
-        "cluster_size": request.cluster_size,
-        "endpoints": [marshal_EndpointSpec(v, defaults) for v in request.endpoints]
-        if request.endpoints is not None
-        else None,
-        "name": request.name,
-        "node_type": request.node_type,
-        "password": request.password,
-        "project_id": request.project_id or defaults.default_project_id,
-        "tags": request.tags,
-        "tls_enabled": request.tls_enabled,
-        "user_name": request.user_name,
-        "version": request.version,
-    }
+
+    if request.cluster_size is not None:
+        output["cluster_size"] = request.cluster_size
+
+    if request.endpoints is not None:
+        output["endpoints"] = [
+            marshal_EndpointSpec(v, defaults) for v in request.endpoints
+        ]
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.node_type is not None:
+        output["node_type"] = request.node_type
+
+    if request.password is not None:
+        output["password"] = request.password
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    if request.tls_enabled is not None:
+        output["tls_enabled"] = request.tls_enabled
+
+    if request.user_name is not None:
+        output["user_name"] = request.user_name
+
+    if request.version is not None:
+        output["version"] = request.version
+
+    return output
 
 
 def marshal_MigrateClusterRequest(
     request: MigrateClusterRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "version", request.version if request.version is not None else None
@@ -629,54 +690,81 @@ def marshal_MigrateClusterRequest(
                 ),
             ]
         ),
-    }
+    )
+
+    return output
 
 
 def marshal_SetAclRulesRequest(
     request: SetAclRulesRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "acl_rules": [marshal_ACLRuleSpec(v, defaults) for v in request.acl_rules],
-    }
+    output: Dict[str, Any] = {}
+
+    if request.acl_rules is not None:
+        output["acl_rules"] = [
+            marshal_ACLRuleSpec(v, defaults) for v in request.acl_rules
+        ]
+
+    return output
 
 
 def marshal_SetClusterSettingsRequest(
     request: SetClusterSettingsRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "settings": [marshal_ClusterSetting(v, defaults) for v in request.settings],
-    }
+    output: Dict[str, Any] = {}
+
+    if request.settings is not None:
+        output["settings"] = [
+            marshal_ClusterSetting(v, defaults) for v in request.settings
+        ]
+
+    return output
 
 
 def marshal_SetEndpointsRequest(
     request: SetEndpointsRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "endpoints": [marshal_EndpointSpec(v, defaults) for v in request.endpoints],
-    }
+    output: Dict[str, Any] = {}
+
+    if request.endpoints is not None:
+        output["endpoints"] = [
+            marshal_EndpointSpec(v, defaults) for v in request.endpoints
+        ]
+
+    return output
 
 
 def marshal_UpdateClusterRequest(
     request: UpdateClusterRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "name": request.name,
-        "password": request.password,
-        "tags": request.tags,
-        "user_name": request.user_name,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.password is not None:
+        output["password"] = request.password
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    if request.user_name is not None:
+        output["user_name"] = request.user_name
+
+    return output
 
 
 def marshal_UpdateEndpointRequest(
     request: UpdateEndpointRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "private_network",
@@ -696,4 +784,6 @@ def marshal_UpdateEndpointRequest(
                 ),
             ]
         ),
-    }
+    )
+
+    return output

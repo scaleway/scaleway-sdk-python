@@ -229,17 +229,27 @@ def marshal_CreateServerRequest(
     request: CreateServerRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "name": request.name,
-        "project_id": request.project_id or defaults.default_project_id,
-        "type": request.type_,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    if request.type_ is not None:
+        output["type"] = request.type_
+
+    return output
 
 
 def marshal_UpdateServerRequest(
     request: UpdateServerRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "name": request.name,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output

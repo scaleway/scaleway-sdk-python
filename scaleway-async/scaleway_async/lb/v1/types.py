@@ -1436,7 +1436,7 @@ class PrivateNetwork:
 
 @dataclass
 class PrivateNetworkDHCPConfig:
-    ip_id: str
+    ip_id: Optional[str]
 
 
 @dataclass

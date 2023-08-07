@@ -333,60 +333,96 @@ def marshal_CreateEmailRequestAddress(
     request: CreateEmailRequestAddress,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "email": request.email,
-        "name": request.name,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.email is not None:
+        output["email"] = request.email
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output
 
 
 def marshal_CreateEmailRequestAttachment(
     request: CreateEmailRequestAttachment,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "content": request.content,
-        "name": request.name,
-        "type": request.type_,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.content is not None:
+        output["content"] = request.content
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.type_ is not None:
+        output["type"] = request.type_
+
+    return output
 
 
 def marshal_CreateDomainRequest(
     request: CreateDomainRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "accept_tos": request.accept_tos,
-        "domain_name": request.domain_name,
-        "project_id": request.project_id or defaults.default_project_id,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.accept_tos is not None:
+        output["accept_tos"] = request.accept_tos
+
+    if request.domain_name is not None:
+        output["domain_name"] = request.domain_name
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    return output
 
 
 def marshal_CreateEmailRequest(
     request: CreateEmailRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "attachments": [
+    output: Dict[str, Any] = {}
+
+    if request.attachments is not None:
+        output["attachments"] = [
             marshal_CreateEmailRequestAttachment(v, defaults)
             for v in request.attachments
         ]
-        if request.attachments is not None
-        else None,
-        "bcc": [marshal_CreateEmailRequestAddress(v, defaults) for v in request.bcc]
-        if request.bcc is not None
-        else None,
-        "cc": [marshal_CreateEmailRequestAddress(v, defaults) for v in request.cc]
-        if request.cc is not None
-        else None,
-        "from": marshal_CreateEmailRequestAddress(request.from_, defaults)
-        if request.from_ is not None
-        else None,
-        "html": request.html,
-        "project_id": request.project_id or defaults.default_project_id,
-        "send_before": request.send_before,
-        "subject": request.subject,
-        "text": request.text,
-        "to": [marshal_CreateEmailRequestAddress(v, defaults) for v in request.to]
-        if request.to is not None
-        else None,
-    }
+
+    if request.bcc is not None:
+        output["bcc"] = [
+            marshal_CreateEmailRequestAddress(v, defaults) for v in request.bcc
+        ]
+
+    if request.cc is not None:
+        output["cc"] = [
+            marshal_CreateEmailRequestAddress(v, defaults) for v in request.cc
+        ]
+
+    if request.from_ is not None:
+        output["from"] = marshal_CreateEmailRequestAddress(request.from_, defaults)
+
+    if request.html is not None:
+        output["html"] = request.html
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    if request.send_before is not None:
+        output["send_before"] = request.send_before
+
+    if request.subject is not None:
+        output["subject"] = request.subject
+
+    if request.text is not None:
+        output["text"] = request.text
+
+    if request.to is not None:
+        output["to"] = [
+            marshal_CreateEmailRequestAddress(v, defaults) for v in request.to
+        ]
+
+    return output

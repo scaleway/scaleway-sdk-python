@@ -114,8 +114,9 @@ def marshal_CreateHumanRequest(
     request: CreateHumanRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "project_id",
@@ -133,39 +134,81 @@ def marshal_CreateHumanRequest(
                 ),
             ]
         ),
-        "altitude_in_meter": request.altitude_in_meter,
-        "altitude_in_millimeter": request.altitude_in_millimeter,
-        "eyes_color": EyeColors(request.eyes_color),
-        "fingers_count": request.fingers_count,
-        "hair_count": request.hair_count,
-        "height": request.height,
-        "is_happy": request.is_happy,
-        "name": request.name,
-        "shoe_size": request.shoe_size,
-    }
+    )
+
+    if request.altitude_in_meter is not None:
+        output["altitude_in_meter"] = request.altitude_in_meter
+
+    if request.altitude_in_millimeter is not None:
+        output["altitude_in_millimeter"] = request.altitude_in_millimeter
+
+    if request.eyes_color is not None:
+        output["eyes_color"] = EyeColors(request.eyes_color)
+
+    if request.fingers_count is not None:
+        output["fingers_count"] = request.fingers_count
+
+    if request.hair_count is not None:
+        output["hair_count"] = request.hair_count
+
+    if request.height is not None:
+        output["height"] = request.height
+
+    if request.is_happy is not None:
+        output["is_happy"] = request.is_happy
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.shoe_size is not None:
+        output["shoe_size"] = request.shoe_size
+
+    return output
 
 
 def marshal_RegisterRequest(
     request: RegisterRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "username": request.username,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.username is not None:
+        output["username"] = request.username
+
+    return output
 
 
 def marshal_UpdateHumanRequest(
     request: UpdateHumanRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "altitude_in_meter": request.altitude_in_meter,
-        "altitude_in_millimeter": request.altitude_in_millimeter,
-        "eyes_color": EyeColors(request.eyes_color),
-        "fingers_count": request.fingers_count,
-        "hair_count": request.hair_count,
-        "height": request.height,
-        "is_happy": request.is_happy,
-        "name": request.name,
-        "shoe_size": request.shoe_size,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.altitude_in_meter is not None:
+        output["altitude_in_meter"] = request.altitude_in_meter
+
+    if request.altitude_in_millimeter is not None:
+        output["altitude_in_millimeter"] = request.altitude_in_millimeter
+
+    if request.eyes_color is not None:
+        output["eyes_color"] = EyeColors(request.eyes_color)
+
+    if request.fingers_count is not None:
+        output["fingers_count"] = request.fingers_count
+
+    if request.hair_count is not None:
+        output["hair_count"] = request.hair_count
+
+    if request.height is not None:
+        output["height"] = request.height
+
+    if request.is_happy is not None:
+        output["is_happy"] = request.is_happy
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.shoe_size is not None:
+        output["shoe_size"] = request.shoe_size
+
+    return output

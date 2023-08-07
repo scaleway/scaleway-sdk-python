@@ -232,56 +232,81 @@ def marshal_Permissions(
     request: Permissions,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "can_manage": request.can_manage,
-        "can_publish": request.can_publish,
-        "can_receive": request.can_receive,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.can_manage is not None:
+        output["can_manage"] = request.can_manage
+
+    if request.can_publish is not None:
+        output["can_publish"] = request.can_publish
+
+    if request.can_receive is not None:
+        output["can_receive"] = request.can_receive
+
+    return output
 
 
 def marshal_CreateCredentialRequest(
     request: CreateCredentialRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "name": request.name,
-        "namespace_id": request.namespace_id,
-        "permissions": marshal_Permissions(request.permissions, defaults)
-        if request.permissions is not None
-        else None,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.namespace_id is not None:
+        output["namespace_id"] = request.namespace_id
+
+    if request.permissions is not None:
+        output["permissions"] = marshal_Permissions(request.permissions, defaults)
+
+    return output
 
 
 def marshal_CreateNamespaceRequest(
     request: CreateNamespaceRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "name": request.name,
-        "project_id": request.project_id or defaults.default_project_id,
-        "protocol": NamespaceProtocol(request.protocol)
-        if request.protocol is not None
-        else None,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    if request.protocol is not None:
+        output["protocol"] = NamespaceProtocol(request.protocol)
+
+    return output
 
 
 def marshal_UpdateCredentialRequest(
     request: UpdateCredentialRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "name": request.name,
-        "permissions": marshal_Permissions(request.permissions, defaults)
-        if request.permissions is not None
-        else None,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.permissions is not None:
+        output["permissions"] = marshal_Permissions(request.permissions, defaults)
+
+    return output
 
 
 def marshal_UpdateNamespaceRequest(
     request: UpdateNamespaceRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "name": request.name,
-        "namespace_id": request.namespace_id,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.namespace_id is not None:
+        output["namespace_id"] = request.namespace_id
+
+    return output

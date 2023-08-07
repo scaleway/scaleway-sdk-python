@@ -1185,142 +1185,213 @@ def marshal_AclActionRedirect(
     request: AclActionRedirect,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "code": request.code,
-        "target": request.target,
-        "type": AclActionRedirectRedirectType(request.type_),
-    }
+    output: Dict[str, Any] = {}
+
+    if request.code is not None:
+        output["code"] = request.code
+
+    if request.target is not None:
+        output["target"] = request.target
+
+    if request.type_ is not None:
+        output["type"] = AclActionRedirectRedirectType(request.type_)
+
+    return output
 
 
 def marshal_AclAction(
     request: AclAction,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "redirect": marshal_AclActionRedirect(request.redirect, defaults)
-        if request.redirect is not None
-        else None,
-        "type": AclActionType(request.type_),
-    }
+    output: Dict[str, Any] = {}
+
+    if request.redirect is not None:
+        output["redirect"] = marshal_AclActionRedirect(request.redirect, defaults)
+
+    if request.type_ is not None:
+        output["type"] = AclActionType(request.type_)
+
+    return output
 
 
 def marshal_AclMatch(
     request: AclMatch,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "http_filter": AclHttpFilter(request.http_filter),
-        "http_filter_option": request.http_filter_option,
-        "http_filter_value": request.http_filter_value,
-        "invert": request.invert,
-        "ip_subnet": request.ip_subnet,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.http_filter is not None:
+        output["http_filter"] = AclHttpFilter(request.http_filter)
+
+    if request.http_filter_option is not None:
+        output["http_filter_option"] = request.http_filter_option
+
+    if request.http_filter_value is not None:
+        output["http_filter_value"] = request.http_filter_value
+
+    if request.invert is not None:
+        output["invert"] = request.invert
+
+    if request.ip_subnet is not None:
+        output["ip_subnet"] = request.ip_subnet
+
+    return output
 
 
 def marshal_HealthCheckHttpConfig(
     request: HealthCheckHttpConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "code": request.code,
-        "host_header": request.host_header,
-        "method": request.method,
-        "uri": request.uri,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.code is not None:
+        output["code"] = request.code
+
+    if request.host_header is not None:
+        output["host_header"] = request.host_header
+
+    if request.method is not None:
+        output["method"] = request.method
+
+    if request.uri is not None:
+        output["uri"] = request.uri
+
+    return output
 
 
 def marshal_HealthCheckHttpsConfig(
     request: HealthCheckHttpsConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "code": request.code,
-        "host_header": request.host_header,
-        "method": request.method,
-        "sni": request.sni,
-        "uri": request.uri,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.code is not None:
+        output["code"] = request.code
+
+    if request.host_header is not None:
+        output["host_header"] = request.host_header
+
+    if request.method is not None:
+        output["method"] = request.method
+
+    if request.sni is not None:
+        output["sni"] = request.sni
+
+    if request.uri is not None:
+        output["uri"] = request.uri
+
+    return output
 
 
 def marshal_HealthCheckLdapConfig(
     request: HealthCheckLdapConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {}
+    output: Dict[str, Any] = {}
+
+    return output
 
 
 def marshal_HealthCheckMysqlConfig(
     request: HealthCheckMysqlConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "user": request.user,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.user is not None:
+        output["user"] = request.user
+
+    return output
 
 
 def marshal_HealthCheckPgsqlConfig(
     request: HealthCheckPgsqlConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "user": request.user,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.user is not None:
+        output["user"] = request.user
+
+    return output
 
 
 def marshal_HealthCheckRedisConfig(
     request: HealthCheckRedisConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {}
+    output: Dict[str, Any] = {}
+
+    return output
 
 
 def marshal_HealthCheckTcpConfig(
     request: HealthCheckTcpConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {}
+    output: Dict[str, Any] = {}
+
+    return output
 
 
 def marshal_AclSpec(
     request: AclSpec,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "action": marshal_AclAction(request.action, defaults),
-        "description": request.description,
-        "index": request.index,
-        "match": marshal_AclMatch(request.match, defaults)
-        if request.match is not None
-        else None,
-        "name": request.name,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.action is not None:
+        output["action"] = marshal_AclAction(request.action, defaults)
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.index is not None:
+        output["index"] = request.index
+
+    if request.match is not None:
+        output["match"] = marshal_AclMatch(request.match, defaults)
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output
 
 
 def marshal_CreateCertificateRequestCustomCertificate(
     request: CreateCertificateRequestCustomCertificate,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "certificate_chain": request.certificate_chain,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.certificate_chain is not None:
+        output["certificate_chain"] = request.certificate_chain
+
+    return output
 
 
 def marshal_CreateCertificateRequestLetsencryptConfig(
     request: CreateCertificateRequestLetsencryptConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "common_name": request.common_name,
-        "subject_alternative_name": request.subject_alternative_name,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.common_name is not None:
+        output["common_name"] = request.common_name
+
+    if request.subject_alternative_name is not None:
+        output["subject_alternative_name"] = request.subject_alternative_name
+
+    return output
 
 
 def marshal_HealthCheck(
     request: HealthCheck,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "tcp_config",
@@ -1366,46 +1437,69 @@ def marshal_HealthCheck(
                 ),
             ]
         ),
-        "check_delay": request.check_delay,
-        "check_max_retries": request.check_max_retries,
-        "check_send_proxy": request.check_send_proxy,
-        "check_timeout": request.check_timeout,
-        "port": request.port,
-        "transient_check_delay": request.transient_check_delay,
-    }
+    )
+
+    if request.check_delay is not None:
+        output["check_delay"] = request.check_delay
+
+    if request.check_max_retries is not None:
+        output["check_max_retries"] = request.check_max_retries
+
+    if request.check_send_proxy is not None:
+        output["check_send_proxy"] = request.check_send_proxy
+
+    if request.check_timeout is not None:
+        output["check_timeout"] = request.check_timeout
+
+    if request.port is not None:
+        output["port"] = request.port
+
+    if request.transient_check_delay is not None:
+        output["transient_check_delay"] = request.transient_check_delay
+
+    return output
 
 
 def marshal_PrivateNetworkDHCPConfig(
     request: PrivateNetworkDHCPConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "ip_id": request.ip_id,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.ip_id is not None:
+        output["ip_id"] = request.ip_id
+
+    return output
 
 
 def marshal_PrivateNetworkIpamConfig(
     request: PrivateNetworkIpamConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {}
+    output: Dict[str, Any] = {}
+
+    return output
 
 
 def marshal_PrivateNetworkStaticConfig(
     request: PrivateNetworkStaticConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "ip_address": request.ip_address,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.ip_address is not None:
+        output["ip_address"] = request.ip_address
+
+    return output
 
 
 def marshal_RouteMatch(
     request: RouteMatch,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "sni", request.sni if request.sni is not None else None
@@ -1416,42 +1510,54 @@ def marshal_RouteMatch(
                 ),
             ]
         ),
-    }
+    )
+
+    return output
 
 
 def marshal_SubscriberEmailConfig(
     request: SubscriberEmailConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "email": request.email,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.email is not None:
+        output["email"] = request.email
+
+    return output
 
 
 def marshal_SubscriberWebhookConfig(
     request: SubscriberWebhookConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "uri": request.uri,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.uri is not None:
+        output["uri"] = request.uri
+
+    return output
 
 
 def marshal_AddBackendServersRequest(
     request: AddBackendServersRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "server_ip": request.server_ip,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.server_ip is not None:
+        output["server_ip"] = request.server_ip
+
+    return output
 
 
 def marshal_AttachPrivateNetworkRequest(
     request: AttachPrivateNetworkRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "static_config",
@@ -1473,65 +1579,118 @@ def marshal_AttachPrivateNetworkRequest(
                 ),
             ]
         ),
-    }
+    )
+
+    return output
 
 
 def marshal_CreateAclRequest(
     request: CreateAclRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "action": marshal_AclAction(request.action, defaults),
-        "description": request.description,
-        "index": request.index,
-        "match": marshal_AclMatch(request.match, defaults)
-        if request.match is not None
-        else None,
-        "name": request.name,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.action is not None:
+        output["action"] = marshal_AclAction(request.action, defaults)
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.index is not None:
+        output["index"] = request.index
+
+    if request.match is not None:
+        output["match"] = marshal_AclMatch(request.match, defaults)
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output
 
 
 def marshal_CreateBackendRequest(
     request: CreateBackendRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "failover_host": request.failover_host,
-        "forward_port": request.forward_port,
-        "forward_port_algorithm": ForwardPortAlgorithm(request.forward_port_algorithm)
-        if request.forward_port_algorithm is not None
-        else None,
-        "forward_protocol": Protocol(request.forward_protocol)
-        if request.forward_protocol is not None
-        else None,
-        "health_check": marshal_HealthCheck(request.health_check, defaults),
-        "ignore_ssl_server_verify": request.ignore_ssl_server_verify,
-        "max_connections": request.max_connections,
-        "max_retries": request.max_retries,
-        "name": request.name,
-        "on_marked_down_action": OnMarkedDownAction(request.on_marked_down_action),
-        "proxy_protocol": ProxyProtocol(request.proxy_protocol),
-        "redispatch_attempt_count": request.redispatch_attempt_count,
-        "send_proxy_v2": request.send_proxy_v2,
-        "server_ip": request.server_ip,
-        "ssl_bridging": request.ssl_bridging,
-        "sticky_sessions": StickySessionsType(request.sticky_sessions)
-        if request.sticky_sessions is not None
-        else None,
-        "sticky_sessions_cookie_name": request.sticky_sessions_cookie_name,
-        "timeout_connect": request.timeout_connect,
-        "timeout_queue": request.timeout_queue,
-        "timeout_server": request.timeout_server,
-        "timeout_tunnel": request.timeout_tunnel,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.failover_host is not None:
+        output["failover_host"] = request.failover_host
+
+    if request.forward_port is not None:
+        output["forward_port"] = request.forward_port
+
+    if request.forward_port_algorithm is not None:
+        output["forward_port_algorithm"] = ForwardPortAlgorithm(
+            request.forward_port_algorithm
+        )
+
+    if request.forward_protocol is not None:
+        output["forward_protocol"] = Protocol(request.forward_protocol)
+
+    if request.health_check is not None:
+        output["health_check"] = marshal_HealthCheck(request.health_check, defaults)
+
+    if request.ignore_ssl_server_verify is not None:
+        output["ignore_ssl_server_verify"] = request.ignore_ssl_server_verify
+
+    if request.max_connections is not None:
+        output["max_connections"] = request.max_connections
+
+    if request.max_retries is not None:
+        output["max_retries"] = request.max_retries
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.on_marked_down_action is not None:
+        output["on_marked_down_action"] = OnMarkedDownAction(
+            request.on_marked_down_action
+        )
+
+    if request.proxy_protocol is not None:
+        output["proxy_protocol"] = ProxyProtocol(request.proxy_protocol)
+
+    if request.redispatch_attempt_count is not None:
+        output["redispatch_attempt_count"] = request.redispatch_attempt_count
+
+    if request.send_proxy_v2 is not None:
+        output["send_proxy_v2"] = request.send_proxy_v2
+
+    if request.server_ip is not None:
+        output["server_ip"] = request.server_ip
+
+    if request.ssl_bridging is not None:
+        output["ssl_bridging"] = request.ssl_bridging
+
+    if request.sticky_sessions is not None:
+        output["sticky_sessions"] = StickySessionsType(request.sticky_sessions)
+
+    if request.sticky_sessions_cookie_name is not None:
+        output["sticky_sessions_cookie_name"] = request.sticky_sessions_cookie_name
+
+    if request.timeout_connect is not None:
+        output["timeout_connect"] = request.timeout_connect
+
+    if request.timeout_queue is not None:
+        output["timeout_queue"] = request.timeout_queue
+
+    if request.timeout_server is not None:
+        output["timeout_server"] = request.timeout_server
+
+    if request.timeout_tunnel is not None:
+        output["timeout_tunnel"] = request.timeout_tunnel
+
+    return output
 
 
 def marshal_CreateCertificateRequest(
     request: CreateCertificateRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "letsencrypt",
@@ -1551,31 +1710,51 @@ def marshal_CreateCertificateRequest(
                 ),
             ]
         ),
-        "name": request.name,
-    }
+    )
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output
 
 
 def marshal_CreateFrontendRequest(
     request: CreateFrontendRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "backend_id": request.backend_id,
-        "certificate_id": request.certificate_id,
-        "certificate_ids": request.certificate_ids,
-        "enable_http3": request.enable_http3,
-        "inbound_port": request.inbound_port,
-        "name": request.name,
-        "timeout_client": request.timeout_client,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.backend_id is not None:
+        output["backend_id"] = request.backend_id
+
+    if request.certificate_id is not None:
+        output["certificate_id"] = request.certificate_id
+
+    if request.certificate_ids is not None:
+        output["certificate_ids"] = request.certificate_ids
+
+    if request.enable_http3 is not None:
+        output["enable_http3"] = request.enable_http3
+
+    if request.inbound_port is not None:
+        output["inbound_port"] = request.inbound_port
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.timeout_client is not None:
+        output["timeout_client"] = request.timeout_client
+
+    return output
 
 
 def marshal_CreateIpRequest(
     request: CreateIpRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "project_id",
@@ -1593,16 +1772,21 @@ def marshal_CreateIpRequest(
                 ),
             ]
         ),
-        "reverse": request.reverse,
-    }
+    )
+
+    if request.reverse is not None:
+        output["reverse"] = request.reverse
+
+    return output
 
 
 def marshal_CreateLbRequest(
     request: CreateLbRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "project_id",
@@ -1620,37 +1804,59 @@ def marshal_CreateLbRequest(
                 ),
             ]
         ),
-        "assign_flexible_ip": request.assign_flexible_ip,
-        "description": request.description,
-        "ip_id": request.ip_id,
-        "name": request.name,
-        "ssl_compatibility_level": SSLCompatibilityLevel(
+    )
+
+    if request.assign_flexible_ip is not None:
+        output["assign_flexible_ip"] = request.assign_flexible_ip
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.ip_id is not None:
+        output["ip_id"] = request.ip_id
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.ssl_compatibility_level is not None:
+        output["ssl_compatibility_level"] = SSLCompatibilityLevel(
             request.ssl_compatibility_level
-        ),
-        "tags": request.tags,
-        "type": request.type_,
-    }
+        )
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    if request.type_ is not None:
+        output["type"] = request.type_
+
+    return output
 
 
 def marshal_CreateRouteRequest(
     request: CreateRouteRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "backend_id": request.backend_id,
-        "frontend_id": request.frontend_id,
-        "match": marshal_RouteMatch(request.match, defaults)
-        if request.match is not None
-        else None,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.backend_id is not None:
+        output["backend_id"] = request.backend_id
+
+    if request.frontend_id is not None:
+        output["frontend_id"] = request.frontend_id
+
+    if request.match is not None:
+        output["match"] = marshal_RouteMatch(request.match, defaults)
+
+    return output
 
 
 def marshal_CreateSubscriberRequest(
     request: CreateSubscriberRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "project_id",
@@ -1668,7 +1874,9 @@ def marshal_CreateSubscriberRequest(
                 ),
             ]
         ),
-        **resolve_one_of(
+    )
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "email_config",
@@ -1684,124 +1892,205 @@ def marshal_CreateSubscriberRequest(
                 ),
             ]
         ),
-        "name": request.name,
-    }
+    )
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output
 
 
 def marshal_MigrateLbRequest(
     request: MigrateLbRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "type": request.type_,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.type_ is not None:
+        output["type"] = request.type_
+
+    return output
 
 
 def marshal_RemoveBackendServersRequest(
     request: RemoveBackendServersRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "server_ip": request.server_ip,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.server_ip is not None:
+        output["server_ip"] = request.server_ip
+
+    return output
 
 
 def marshal_SetBackendServersRequest(
     request: SetBackendServersRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "server_ip": request.server_ip,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.server_ip is not None:
+        output["server_ip"] = request.server_ip
+
+    return output
 
 
 def marshal_SubscribeToLbRequest(
     request: SubscribeToLbRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "subscriber_id": request.subscriber_id,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.subscriber_id is not None:
+        output["subscriber_id"] = request.subscriber_id
+
+    return output
 
 
 def marshal_UpdateAclRequest(
     request: UpdateAclRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "action": marshal_AclAction(request.action, defaults),
-        "description": request.description,
-        "index": request.index,
-        "match": marshal_AclMatch(request.match, defaults)
-        if request.match is not None
-        else None,
-        "name": request.name,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.action is not None:
+        output["action"] = marshal_AclAction(request.action, defaults)
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.index is not None:
+        output["index"] = request.index
+
+    if request.match is not None:
+        output["match"] = marshal_AclMatch(request.match, defaults)
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output
 
 
 def marshal_UpdateBackendRequest(
     request: UpdateBackendRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "failover_host": request.failover_host,
-        "forward_port": request.forward_port,
-        "forward_port_algorithm": ForwardPortAlgorithm(request.forward_port_algorithm)
-        if request.forward_port_algorithm is not None
-        else None,
-        "forward_protocol": Protocol(request.forward_protocol)
-        if request.forward_protocol is not None
-        else None,
-        "ignore_ssl_server_verify": request.ignore_ssl_server_verify,
-        "max_connections": request.max_connections,
-        "max_retries": request.max_retries,
-        "name": request.name,
-        "on_marked_down_action": OnMarkedDownAction(request.on_marked_down_action),
-        "proxy_protocol": ProxyProtocol(request.proxy_protocol),
-        "redispatch_attempt_count": request.redispatch_attempt_count,
-        "send_proxy_v2": request.send_proxy_v2,
-        "ssl_bridging": request.ssl_bridging,
-        "sticky_sessions": StickySessionsType(request.sticky_sessions)
-        if request.sticky_sessions is not None
-        else None,
-        "sticky_sessions_cookie_name": request.sticky_sessions_cookie_name,
-        "timeout_connect": request.timeout_connect,
-        "timeout_queue": request.timeout_queue,
-        "timeout_server": request.timeout_server,
-        "timeout_tunnel": request.timeout_tunnel,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.failover_host is not None:
+        output["failover_host"] = request.failover_host
+
+    if request.forward_port is not None:
+        output["forward_port"] = request.forward_port
+
+    if request.forward_port_algorithm is not None:
+        output["forward_port_algorithm"] = ForwardPortAlgorithm(
+            request.forward_port_algorithm
+        )
+
+    if request.forward_protocol is not None:
+        output["forward_protocol"] = Protocol(request.forward_protocol)
+
+    if request.ignore_ssl_server_verify is not None:
+        output["ignore_ssl_server_verify"] = request.ignore_ssl_server_verify
+
+    if request.max_connections is not None:
+        output["max_connections"] = request.max_connections
+
+    if request.max_retries is not None:
+        output["max_retries"] = request.max_retries
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.on_marked_down_action is not None:
+        output["on_marked_down_action"] = OnMarkedDownAction(
+            request.on_marked_down_action
+        )
+
+    if request.proxy_protocol is not None:
+        output["proxy_protocol"] = ProxyProtocol(request.proxy_protocol)
+
+    if request.redispatch_attempt_count is not None:
+        output["redispatch_attempt_count"] = request.redispatch_attempt_count
+
+    if request.send_proxy_v2 is not None:
+        output["send_proxy_v2"] = request.send_proxy_v2
+
+    if request.ssl_bridging is not None:
+        output["ssl_bridging"] = request.ssl_bridging
+
+    if request.sticky_sessions is not None:
+        output["sticky_sessions"] = StickySessionsType(request.sticky_sessions)
+
+    if request.sticky_sessions_cookie_name is not None:
+        output["sticky_sessions_cookie_name"] = request.sticky_sessions_cookie_name
+
+    if request.timeout_connect is not None:
+        output["timeout_connect"] = request.timeout_connect
+
+    if request.timeout_queue is not None:
+        output["timeout_queue"] = request.timeout_queue
+
+    if request.timeout_server is not None:
+        output["timeout_server"] = request.timeout_server
+
+    if request.timeout_tunnel is not None:
+        output["timeout_tunnel"] = request.timeout_tunnel
+
+    return output
 
 
 def marshal_UpdateCertificateRequest(
     request: UpdateCertificateRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "name": request.name,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output
 
 
 def marshal_UpdateFrontendRequest(
     request: UpdateFrontendRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "backend_id": request.backend_id,
-        "certificate_id": request.certificate_id,
-        "certificate_ids": request.certificate_ids,
-        "enable_http3": request.enable_http3,
-        "inbound_port": request.inbound_port,
-        "name": request.name,
-        "timeout_client": request.timeout_client,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.backend_id is not None:
+        output["backend_id"] = request.backend_id
+
+    if request.certificate_id is not None:
+        output["certificate_id"] = request.certificate_id
+
+    if request.certificate_ids is not None:
+        output["certificate_ids"] = request.certificate_ids
+
+    if request.enable_http3 is not None:
+        output["enable_http3"] = request.enable_http3
+
+    if request.inbound_port is not None:
+        output["inbound_port"] = request.inbound_port
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.timeout_client is not None:
+        output["timeout_client"] = request.timeout_client
+
+    return output
 
 
 def marshal_UpdateHealthCheckRequest(
     request: UpdateHealthCheckRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "tcp_config",
@@ -1847,56 +2136,86 @@ def marshal_UpdateHealthCheckRequest(
                 ),
             ]
         ),
-        "check_delay": request.check_delay,
-        "check_max_retries": request.check_max_retries,
-        "check_send_proxy": request.check_send_proxy,
-        "check_timeout": request.check_timeout,
-        "port": request.port,
-        "transient_check_delay": request.transient_check_delay,
-    }
+    )
+
+    if request.check_delay is not None:
+        output["check_delay"] = request.check_delay
+
+    if request.check_max_retries is not None:
+        output["check_max_retries"] = request.check_max_retries
+
+    if request.check_send_proxy is not None:
+        output["check_send_proxy"] = request.check_send_proxy
+
+    if request.check_timeout is not None:
+        output["check_timeout"] = request.check_timeout
+
+    if request.port is not None:
+        output["port"] = request.port
+
+    if request.transient_check_delay is not None:
+        output["transient_check_delay"] = request.transient_check_delay
+
+    return output
 
 
 def marshal_UpdateIpRequest(
     request: UpdateIpRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "reverse": request.reverse,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.reverse is not None:
+        output["reverse"] = request.reverse
+
+    return output
 
 
 def marshal_UpdateLbRequest(
     request: UpdateLbRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "description": request.description,
-        "name": request.name,
-        "ssl_compatibility_level": SSLCompatibilityLevel(
+    output: Dict[str, Any] = {}
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.ssl_compatibility_level is not None:
+        output["ssl_compatibility_level"] = SSLCompatibilityLevel(
             request.ssl_compatibility_level
-        ),
-        "tags": request.tags,
-    }
+        )
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    return output
 
 
 def marshal_UpdateRouteRequest(
     request: UpdateRouteRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "backend_id": request.backend_id,
-        "match": marshal_RouteMatch(request.match, defaults)
-        if request.match is not None
-        else None,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.backend_id is not None:
+        output["backend_id"] = request.backend_id
+
+    if request.match is not None:
+        output["match"] = marshal_RouteMatch(request.match, defaults)
+
+    return output
 
 
 def marshal_UpdateSubscriberRequest(
     request: UpdateSubscriberRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "email_config",
@@ -1912,25 +2231,33 @@ def marshal_UpdateSubscriberRequest(
                 ),
             ]
         ),
-        "name": request.name,
-    }
+    )
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output
 
 
 def marshal_ZonedApiAddBackendServersRequest(
     request: ZonedApiAddBackendServersRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "server_ip": request.server_ip,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.server_ip is not None:
+        output["server_ip"] = request.server_ip
+
+    return output
 
 
 def marshal_ZonedApiAttachPrivateNetworkRequest(
     request: ZonedApiAttachPrivateNetworkRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "static_config",
@@ -1952,65 +2279,118 @@ def marshal_ZonedApiAttachPrivateNetworkRequest(
                 ),
             ]
         ),
-    }
+    )
+
+    return output
 
 
 def marshal_ZonedApiCreateAclRequest(
     request: ZonedApiCreateAclRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "action": marshal_AclAction(request.action, defaults),
-        "description": request.description,
-        "index": request.index,
-        "match": marshal_AclMatch(request.match, defaults)
-        if request.match is not None
-        else None,
-        "name": request.name,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.action is not None:
+        output["action"] = marshal_AclAction(request.action, defaults)
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.index is not None:
+        output["index"] = request.index
+
+    if request.match is not None:
+        output["match"] = marshal_AclMatch(request.match, defaults)
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output
 
 
 def marshal_ZonedApiCreateBackendRequest(
     request: ZonedApiCreateBackendRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "failover_host": request.failover_host,
-        "forward_port": request.forward_port,
-        "forward_port_algorithm": ForwardPortAlgorithm(request.forward_port_algorithm)
-        if request.forward_port_algorithm is not None
-        else None,
-        "forward_protocol": Protocol(request.forward_protocol)
-        if request.forward_protocol is not None
-        else None,
-        "health_check": marshal_HealthCheck(request.health_check, defaults),
-        "ignore_ssl_server_verify": request.ignore_ssl_server_verify,
-        "max_connections": request.max_connections,
-        "max_retries": request.max_retries,
-        "name": request.name,
-        "on_marked_down_action": OnMarkedDownAction(request.on_marked_down_action),
-        "proxy_protocol": ProxyProtocol(request.proxy_protocol),
-        "redispatch_attempt_count": request.redispatch_attempt_count,
-        "send_proxy_v2": request.send_proxy_v2,
-        "server_ip": request.server_ip,
-        "ssl_bridging": request.ssl_bridging,
-        "sticky_sessions": StickySessionsType(request.sticky_sessions)
-        if request.sticky_sessions is not None
-        else None,
-        "sticky_sessions_cookie_name": request.sticky_sessions_cookie_name,
-        "timeout_connect": request.timeout_connect,
-        "timeout_queue": request.timeout_queue,
-        "timeout_server": request.timeout_server,
-        "timeout_tunnel": request.timeout_tunnel,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.failover_host is not None:
+        output["failover_host"] = request.failover_host
+
+    if request.forward_port is not None:
+        output["forward_port"] = request.forward_port
+
+    if request.forward_port_algorithm is not None:
+        output["forward_port_algorithm"] = ForwardPortAlgorithm(
+            request.forward_port_algorithm
+        )
+
+    if request.forward_protocol is not None:
+        output["forward_protocol"] = Protocol(request.forward_protocol)
+
+    if request.health_check is not None:
+        output["health_check"] = marshal_HealthCheck(request.health_check, defaults)
+
+    if request.ignore_ssl_server_verify is not None:
+        output["ignore_ssl_server_verify"] = request.ignore_ssl_server_verify
+
+    if request.max_connections is not None:
+        output["max_connections"] = request.max_connections
+
+    if request.max_retries is not None:
+        output["max_retries"] = request.max_retries
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.on_marked_down_action is not None:
+        output["on_marked_down_action"] = OnMarkedDownAction(
+            request.on_marked_down_action
+        )
+
+    if request.proxy_protocol is not None:
+        output["proxy_protocol"] = ProxyProtocol(request.proxy_protocol)
+
+    if request.redispatch_attempt_count is not None:
+        output["redispatch_attempt_count"] = request.redispatch_attempt_count
+
+    if request.send_proxy_v2 is not None:
+        output["send_proxy_v2"] = request.send_proxy_v2
+
+    if request.server_ip is not None:
+        output["server_ip"] = request.server_ip
+
+    if request.ssl_bridging is not None:
+        output["ssl_bridging"] = request.ssl_bridging
+
+    if request.sticky_sessions is not None:
+        output["sticky_sessions"] = StickySessionsType(request.sticky_sessions)
+
+    if request.sticky_sessions_cookie_name is not None:
+        output["sticky_sessions_cookie_name"] = request.sticky_sessions_cookie_name
+
+    if request.timeout_connect is not None:
+        output["timeout_connect"] = request.timeout_connect
+
+    if request.timeout_queue is not None:
+        output["timeout_queue"] = request.timeout_queue
+
+    if request.timeout_server is not None:
+        output["timeout_server"] = request.timeout_server
+
+    if request.timeout_tunnel is not None:
+        output["timeout_tunnel"] = request.timeout_tunnel
+
+    return output
 
 
 def marshal_ZonedApiCreateCertificateRequest(
     request: ZonedApiCreateCertificateRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "letsencrypt",
@@ -2030,31 +2410,51 @@ def marshal_ZonedApiCreateCertificateRequest(
                 ),
             ]
         ),
-        "name": request.name,
-    }
+    )
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output
 
 
 def marshal_ZonedApiCreateFrontendRequest(
     request: ZonedApiCreateFrontendRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "backend_id": request.backend_id,
-        "certificate_id": request.certificate_id,
-        "certificate_ids": request.certificate_ids,
-        "enable_http3": request.enable_http3,
-        "inbound_port": request.inbound_port,
-        "name": request.name,
-        "timeout_client": request.timeout_client,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.backend_id is not None:
+        output["backend_id"] = request.backend_id
+
+    if request.certificate_id is not None:
+        output["certificate_id"] = request.certificate_id
+
+    if request.certificate_ids is not None:
+        output["certificate_ids"] = request.certificate_ids
+
+    if request.enable_http3 is not None:
+        output["enable_http3"] = request.enable_http3
+
+    if request.inbound_port is not None:
+        output["inbound_port"] = request.inbound_port
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.timeout_client is not None:
+        output["timeout_client"] = request.timeout_client
+
+    return output
 
 
 def marshal_ZonedApiCreateIpRequest(
     request: ZonedApiCreateIpRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "project_id",
@@ -2072,16 +2472,21 @@ def marshal_ZonedApiCreateIpRequest(
                 ),
             ]
         ),
-        "reverse": request.reverse,
-    }
+    )
+
+    if request.reverse is not None:
+        output["reverse"] = request.reverse
+
+    return output
 
 
 def marshal_ZonedApiCreateLbRequest(
     request: ZonedApiCreateLbRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "project_id",
@@ -2099,37 +2504,59 @@ def marshal_ZonedApiCreateLbRequest(
                 ),
             ]
         ),
-        "assign_flexible_ip": request.assign_flexible_ip,
-        "description": request.description,
-        "ip_id": request.ip_id,
-        "name": request.name,
-        "ssl_compatibility_level": SSLCompatibilityLevel(
+    )
+
+    if request.assign_flexible_ip is not None:
+        output["assign_flexible_ip"] = request.assign_flexible_ip
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.ip_id is not None:
+        output["ip_id"] = request.ip_id
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.ssl_compatibility_level is not None:
+        output["ssl_compatibility_level"] = SSLCompatibilityLevel(
             request.ssl_compatibility_level
-        ),
-        "tags": request.tags,
-        "type": request.type_,
-    }
+        )
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    if request.type_ is not None:
+        output["type"] = request.type_
+
+    return output
 
 
 def marshal_ZonedApiCreateRouteRequest(
     request: ZonedApiCreateRouteRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "backend_id": request.backend_id,
-        "frontend_id": request.frontend_id,
-        "match": marshal_RouteMatch(request.match, defaults)
-        if request.match is not None
-        else None,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.backend_id is not None:
+        output["backend_id"] = request.backend_id
+
+    if request.frontend_id is not None:
+        output["frontend_id"] = request.frontend_id
+
+    if request.match is not None:
+        output["match"] = marshal_RouteMatch(request.match, defaults)
+
+    return output
 
 
 def marshal_ZonedApiCreateSubscriberRequest(
     request: ZonedApiCreateSubscriberRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "project_id",
@@ -2147,7 +2574,9 @@ def marshal_ZonedApiCreateSubscriberRequest(
                 ),
             ]
         ),
-        **resolve_one_of(
+    )
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "email_config",
@@ -2163,133 +2592,217 @@ def marshal_ZonedApiCreateSubscriberRequest(
                 ),
             ]
         ),
-        "name": request.name,
-    }
+    )
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output
 
 
 def marshal_ZonedApiMigrateLbRequest(
     request: ZonedApiMigrateLbRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "type": request.type_,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.type_ is not None:
+        output["type"] = request.type_
+
+    return output
 
 
 def marshal_ZonedApiRemoveBackendServersRequest(
     request: ZonedApiRemoveBackendServersRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "server_ip": request.server_ip,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.server_ip is not None:
+        output["server_ip"] = request.server_ip
+
+    return output
 
 
 def marshal_ZonedApiSetAclsRequest(
     request: ZonedApiSetAclsRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "acls": [marshal_AclSpec(v, defaults) for v in request.acls],
-    }
+    output: Dict[str, Any] = {}
+
+    if request.acls is not None:
+        output["acls"] = [marshal_AclSpec(v, defaults) for v in request.acls]
+
+    return output
 
 
 def marshal_ZonedApiSetBackendServersRequest(
     request: ZonedApiSetBackendServersRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "server_ip": request.server_ip,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.server_ip is not None:
+        output["server_ip"] = request.server_ip
+
+    return output
 
 
 def marshal_ZonedApiSubscribeToLbRequest(
     request: ZonedApiSubscribeToLbRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "subscriber_id": request.subscriber_id,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.subscriber_id is not None:
+        output["subscriber_id"] = request.subscriber_id
+
+    return output
 
 
 def marshal_ZonedApiUpdateAclRequest(
     request: ZonedApiUpdateAclRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "action": marshal_AclAction(request.action, defaults),
-        "description": request.description,
-        "index": request.index,
-        "match": marshal_AclMatch(request.match, defaults)
-        if request.match is not None
-        else None,
-        "name": request.name,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.action is not None:
+        output["action"] = marshal_AclAction(request.action, defaults)
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.index is not None:
+        output["index"] = request.index
+
+    if request.match is not None:
+        output["match"] = marshal_AclMatch(request.match, defaults)
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output
 
 
 def marshal_ZonedApiUpdateBackendRequest(
     request: ZonedApiUpdateBackendRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "failover_host": request.failover_host,
-        "forward_port": request.forward_port,
-        "forward_port_algorithm": ForwardPortAlgorithm(request.forward_port_algorithm)
-        if request.forward_port_algorithm is not None
-        else None,
-        "forward_protocol": Protocol(request.forward_protocol)
-        if request.forward_protocol is not None
-        else None,
-        "ignore_ssl_server_verify": request.ignore_ssl_server_verify,
-        "max_connections": request.max_connections,
-        "max_retries": request.max_retries,
-        "name": request.name,
-        "on_marked_down_action": OnMarkedDownAction(request.on_marked_down_action),
-        "proxy_protocol": ProxyProtocol(request.proxy_protocol),
-        "redispatch_attempt_count": request.redispatch_attempt_count,
-        "send_proxy_v2": request.send_proxy_v2,
-        "ssl_bridging": request.ssl_bridging,
-        "sticky_sessions": StickySessionsType(request.sticky_sessions)
-        if request.sticky_sessions is not None
-        else None,
-        "sticky_sessions_cookie_name": request.sticky_sessions_cookie_name,
-        "timeout_connect": request.timeout_connect,
-        "timeout_queue": request.timeout_queue,
-        "timeout_server": request.timeout_server,
-        "timeout_tunnel": request.timeout_tunnel,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.failover_host is not None:
+        output["failover_host"] = request.failover_host
+
+    if request.forward_port is not None:
+        output["forward_port"] = request.forward_port
+
+    if request.forward_port_algorithm is not None:
+        output["forward_port_algorithm"] = ForwardPortAlgorithm(
+            request.forward_port_algorithm
+        )
+
+    if request.forward_protocol is not None:
+        output["forward_protocol"] = Protocol(request.forward_protocol)
+
+    if request.ignore_ssl_server_verify is not None:
+        output["ignore_ssl_server_verify"] = request.ignore_ssl_server_verify
+
+    if request.max_connections is not None:
+        output["max_connections"] = request.max_connections
+
+    if request.max_retries is not None:
+        output["max_retries"] = request.max_retries
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.on_marked_down_action is not None:
+        output["on_marked_down_action"] = OnMarkedDownAction(
+            request.on_marked_down_action
+        )
+
+    if request.proxy_protocol is not None:
+        output["proxy_protocol"] = ProxyProtocol(request.proxy_protocol)
+
+    if request.redispatch_attempt_count is not None:
+        output["redispatch_attempt_count"] = request.redispatch_attempt_count
+
+    if request.send_proxy_v2 is not None:
+        output["send_proxy_v2"] = request.send_proxy_v2
+
+    if request.ssl_bridging is not None:
+        output["ssl_bridging"] = request.ssl_bridging
+
+    if request.sticky_sessions is not None:
+        output["sticky_sessions"] = StickySessionsType(request.sticky_sessions)
+
+    if request.sticky_sessions_cookie_name is not None:
+        output["sticky_sessions_cookie_name"] = request.sticky_sessions_cookie_name
+
+    if request.timeout_connect is not None:
+        output["timeout_connect"] = request.timeout_connect
+
+    if request.timeout_queue is not None:
+        output["timeout_queue"] = request.timeout_queue
+
+    if request.timeout_server is not None:
+        output["timeout_server"] = request.timeout_server
+
+    if request.timeout_tunnel is not None:
+        output["timeout_tunnel"] = request.timeout_tunnel
+
+    return output
 
 
 def marshal_ZonedApiUpdateCertificateRequest(
     request: ZonedApiUpdateCertificateRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "name": request.name,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output
 
 
 def marshal_ZonedApiUpdateFrontendRequest(
     request: ZonedApiUpdateFrontendRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "backend_id": request.backend_id,
-        "certificate_id": request.certificate_id,
-        "certificate_ids": request.certificate_ids,
-        "enable_http3": request.enable_http3,
-        "inbound_port": request.inbound_port,
-        "name": request.name,
-        "timeout_client": request.timeout_client,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.backend_id is not None:
+        output["backend_id"] = request.backend_id
+
+    if request.certificate_id is not None:
+        output["certificate_id"] = request.certificate_id
+
+    if request.certificate_ids is not None:
+        output["certificate_ids"] = request.certificate_ids
+
+    if request.enable_http3 is not None:
+        output["enable_http3"] = request.enable_http3
+
+    if request.inbound_port is not None:
+        output["inbound_port"] = request.inbound_port
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.timeout_client is not None:
+        output["timeout_client"] = request.timeout_client
+
+    return output
 
 
 def marshal_ZonedApiUpdateHealthCheckRequest(
     request: ZonedApiUpdateHealthCheckRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "tcp_config",
@@ -2335,56 +2848,86 @@ def marshal_ZonedApiUpdateHealthCheckRequest(
                 ),
             ]
         ),
-        "check_delay": request.check_delay,
-        "check_max_retries": request.check_max_retries,
-        "check_send_proxy": request.check_send_proxy,
-        "check_timeout": request.check_timeout,
-        "port": request.port,
-        "transient_check_delay": request.transient_check_delay,
-    }
+    )
+
+    if request.check_delay is not None:
+        output["check_delay"] = request.check_delay
+
+    if request.check_max_retries is not None:
+        output["check_max_retries"] = request.check_max_retries
+
+    if request.check_send_proxy is not None:
+        output["check_send_proxy"] = request.check_send_proxy
+
+    if request.check_timeout is not None:
+        output["check_timeout"] = request.check_timeout
+
+    if request.port is not None:
+        output["port"] = request.port
+
+    if request.transient_check_delay is not None:
+        output["transient_check_delay"] = request.transient_check_delay
+
+    return output
 
 
 def marshal_ZonedApiUpdateIpRequest(
     request: ZonedApiUpdateIpRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "reverse": request.reverse,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.reverse is not None:
+        output["reverse"] = request.reverse
+
+    return output
 
 
 def marshal_ZonedApiUpdateLbRequest(
     request: ZonedApiUpdateLbRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "description": request.description,
-        "name": request.name,
-        "ssl_compatibility_level": SSLCompatibilityLevel(
+    output: Dict[str, Any] = {}
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.ssl_compatibility_level is not None:
+        output["ssl_compatibility_level"] = SSLCompatibilityLevel(
             request.ssl_compatibility_level
-        ),
-        "tags": request.tags,
-    }
+        )
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    return output
 
 
 def marshal_ZonedApiUpdateRouteRequest(
     request: ZonedApiUpdateRouteRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "backend_id": request.backend_id,
-        "match": marshal_RouteMatch(request.match, defaults)
-        if request.match is not None
-        else None,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.backend_id is not None:
+        output["backend_id"] = request.backend_id
+
+    if request.match is not None:
+        output["match"] = marshal_RouteMatch(request.match, defaults)
+
+    return output
 
 
 def marshal_ZonedApiUpdateSubscriberRequest(
     request: ZonedApiUpdateSubscriberRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "email_config",
@@ -2400,5 +2943,9 @@ def marshal_ZonedApiUpdateSubscriberRequest(
                 ),
             ]
         ),
-        "name": request.name,
-    }
+    )
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output

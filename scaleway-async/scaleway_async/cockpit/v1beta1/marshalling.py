@@ -355,17 +355,21 @@ def marshal_ContactPointEmail(
     request: ContactPointEmail,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "to": request.to,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.to is not None:
+        output["to"] = request.to
+
+    return output
 
 
 def marshal_ContactPoint(
     request: ContactPoint,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "email",
@@ -375,149 +379,213 @@ def marshal_ContactPoint(
                 ),
             ]
         ),
-    }
+    )
+
+    return output
 
 
 def marshal_TokenScopes(
     request: TokenScopes,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "query_logs": request.query_logs,
-        "query_metrics": request.query_metrics,
-        "setup_alerts": request.setup_alerts,
-        "setup_logs_rules": request.setup_logs_rules,
-        "setup_metrics_rules": request.setup_metrics_rules,
-        "write_logs": request.write_logs,
-        "write_metrics": request.write_metrics,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.query_logs is not None:
+        output["query_logs"] = request.query_logs
+
+    if request.query_metrics is not None:
+        output["query_metrics"] = request.query_metrics
+
+    if request.setup_alerts is not None:
+        output["setup_alerts"] = request.setup_alerts
+
+    if request.setup_logs_rules is not None:
+        output["setup_logs_rules"] = request.setup_logs_rules
+
+    if request.setup_metrics_rules is not None:
+        output["setup_metrics_rules"] = request.setup_metrics_rules
+
+    if request.write_logs is not None:
+        output["write_logs"] = request.write_logs
+
+    if request.write_metrics is not None:
+        output["write_metrics"] = request.write_metrics
+
+    return output
 
 
 def marshal_ActivateCockpitRequest(
     request: ActivateCockpitRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "project_id": request.project_id or defaults.default_project_id,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    return output
 
 
 def marshal_CreateContactPointRequest(
     request: CreateContactPointRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "contact_point": marshal_ContactPoint(request.contact_point, defaults)
-        if request.contact_point is not None
-        else None,
-        "project_id": request.project_id or defaults.default_project_id,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.contact_point is not None:
+        output["contact_point"] = marshal_ContactPoint(request.contact_point, defaults)
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    return output
 
 
 def marshal_CreateGrafanaUserRequest(
     request: CreateGrafanaUserRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "login": request.login,
-        "project_id": request.project_id or defaults.default_project_id,
-        "role": GrafanaUserRole(request.role),
-    }
+    output: Dict[str, Any] = {}
+
+    if request.login is not None:
+        output["login"] = request.login
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    if request.role is not None:
+        output["role"] = GrafanaUserRole(request.role)
+
+    return output
 
 
 def marshal_CreateTokenRequest(
     request: CreateTokenRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "name": request.name,
-        "project_id": request.project_id or defaults.default_project_id,
-        "scopes": marshal_TokenScopes(request.scopes, defaults)
-        if request.scopes is not None
-        else None,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    if request.scopes is not None:
+        output["scopes"] = marshal_TokenScopes(request.scopes, defaults)
+
+    return output
 
 
 def marshal_DeactivateCockpitRequest(
     request: DeactivateCockpitRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "project_id": request.project_id or defaults.default_project_id,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    return output
 
 
 def marshal_DeleteContactPointRequest(
     request: DeleteContactPointRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "contact_point": marshal_ContactPoint(request.contact_point, defaults)
-        if request.contact_point is not None
-        else None,
-        "project_id": request.project_id or defaults.default_project_id,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.contact_point is not None:
+        output["contact_point"] = marshal_ContactPoint(request.contact_point, defaults)
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    return output
 
 
 def marshal_DeleteGrafanaUserRequest(
     request: DeleteGrafanaUserRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "project_id": request.project_id or defaults.default_project_id,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    return output
 
 
 def marshal_DisableManagedAlertsRequest(
     request: DisableManagedAlertsRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "project_id": request.project_id or defaults.default_project_id,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    return output
 
 
 def marshal_EnableManagedAlertsRequest(
     request: EnableManagedAlertsRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "project_id": request.project_id or defaults.default_project_id,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    return output
 
 
 def marshal_ResetCockpitGrafanaRequest(
     request: ResetCockpitGrafanaRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "project_id": request.project_id or defaults.default_project_id,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    return output
 
 
 def marshal_ResetGrafanaUserPasswordRequest(
     request: ResetGrafanaUserPasswordRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "project_id": request.project_id or defaults.default_project_id,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    return output
 
 
 def marshal_SelectPlanRequest(
     request: SelectPlanRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "plan_id": request.plan_id,
-        "project_id": request.project_id or defaults.default_project_id,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.plan_id is not None:
+        output["plan_id"] = request.plan_id
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    return output
 
 
 def marshal_TriggerTestAlertRequest(
     request: TriggerTestAlertRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "project_id": request.project_id or defaults.default_project_id,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    return output

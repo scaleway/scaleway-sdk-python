@@ -527,63 +527,114 @@ def marshal_CreateDHCPRequest(
     request: CreateDHCPRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "address": request.address,
-        "dns_local_name": request.dns_local_name,
-        "dns_search": request.dns_search,
-        "dns_servers_override": request.dns_servers_override,
-        "enable_dynamic": request.enable_dynamic,
-        "pool_high": request.pool_high,
-        "pool_low": request.pool_low,
-        "project_id": request.project_id or defaults.default_project_id,
-        "push_default_route": request.push_default_route,
-        "push_dns_server": request.push_dns_server,
-        "rebind_timer": request.rebind_timer,
-        "renew_timer": request.renew_timer,
-        "subnet": request.subnet,
-        "valid_lifetime": request.valid_lifetime,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.address is not None:
+        output["address"] = request.address
+
+    if request.dns_local_name is not None:
+        output["dns_local_name"] = request.dns_local_name
+
+    if request.dns_search is not None:
+        output["dns_search"] = request.dns_search
+
+    if request.dns_servers_override is not None:
+        output["dns_servers_override"] = request.dns_servers_override
+
+    if request.enable_dynamic is not None:
+        output["enable_dynamic"] = request.enable_dynamic
+
+    if request.pool_high is not None:
+        output["pool_high"] = request.pool_high
+
+    if request.pool_low is not None:
+        output["pool_low"] = request.pool_low
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    if request.push_default_route is not None:
+        output["push_default_route"] = request.push_default_route
+
+    if request.push_dns_server is not None:
+        output["push_dns_server"] = request.push_dns_server
+
+    if request.rebind_timer is not None:
+        output["rebind_timer"] = request.rebind_timer
+
+    if request.renew_timer is not None:
+        output["renew_timer"] = request.renew_timer
+
+    if request.subnet is not None:
+        output["subnet"] = request.subnet
+
+    if request.valid_lifetime is not None:
+        output["valid_lifetime"] = request.valid_lifetime
+
+    return output
 
 
 def marshal_SetDHCPEntriesRequestEntry(
     request: SetDHCPEntriesRequestEntry,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "ip_address": request.ip_address,
-        "mac_address": request.mac_address,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.ip_address is not None:
+        output["ip_address"] = request.ip_address
+
+    if request.mac_address is not None:
+        output["mac_address"] = request.mac_address
+
+    return output
 
 
 def marshal_SetPATRulesRequestRule(
     request: SetPATRulesRequestRule,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "private_ip": request.private_ip,
-        "private_port": request.private_port,
-        "protocol": PATRuleProtocol(request.protocol),
-        "public_port": request.public_port,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.private_ip is not None:
+        output["private_ip"] = request.private_ip
+
+    if request.private_port is not None:
+        output["private_port"] = request.private_port
+
+    if request.protocol is not None:
+        output["protocol"] = PATRuleProtocol(request.protocol)
+
+    if request.public_port is not None:
+        output["public_port"] = request.public_port
+
+    return output
 
 
 def marshal_CreateDHCPEntryRequest(
     request: CreateDHCPEntryRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "gateway_network_id": request.gateway_network_id,
-        "ip_address": request.ip_address,
-        "mac_address": request.mac_address,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.gateway_network_id is not None:
+        output["gateway_network_id"] = request.gateway_network_id
+
+    if request.ip_address is not None:
+        output["ip_address"] = request.ip_address
+
+    if request.mac_address is not None:
+        output["mac_address"] = request.mac_address
+
+    return output
 
 
 def marshal_CreateGatewayNetworkRequest(
     request: CreateGatewayNetworkRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "dhcp_id", request.dhcp_id if request.dhcp_id is not None else None
@@ -599,116 +650,200 @@ def marshal_CreateGatewayNetworkRequest(
                 ),
             ]
         ),
-        "enable_dhcp": request.enable_dhcp,
-        "enable_masquerade": request.enable_masquerade,
-        "gateway_id": request.gateway_id,
-        "private_network_id": request.private_network_id,
-    }
+    )
+
+    if request.enable_dhcp is not None:
+        output["enable_dhcp"] = request.enable_dhcp
+
+    if request.enable_masquerade is not None:
+        output["enable_masquerade"] = request.enable_masquerade
+
+    if request.gateway_id is not None:
+        output["gateway_id"] = request.gateway_id
+
+    if request.private_network_id is not None:
+        output["private_network_id"] = request.private_network_id
+
+    return output
 
 
 def marshal_CreateGatewayRequest(
     request: CreateGatewayRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "bastion_port": request.bastion_port,
-        "enable_bastion": request.enable_bastion,
-        "enable_smtp": request.enable_smtp,
-        "ip_id": request.ip_id,
-        "name": request.name,
-        "project_id": request.project_id or defaults.default_project_id,
-        "tags": request.tags,
-        "type": request.type_,
-        "upstream_dns_servers": request.upstream_dns_servers,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.bastion_port is not None:
+        output["bastion_port"] = request.bastion_port
+
+    if request.enable_bastion is not None:
+        output["enable_bastion"] = request.enable_bastion
+
+    if request.enable_smtp is not None:
+        output["enable_smtp"] = request.enable_smtp
+
+    if request.ip_id is not None:
+        output["ip_id"] = request.ip_id
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    if request.type_ is not None:
+        output["type"] = request.type_
+
+    if request.upstream_dns_servers is not None:
+        output["upstream_dns_servers"] = request.upstream_dns_servers
+
+    return output
 
 
 def marshal_CreateIPRequest(
     request: CreateIPRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "project_id": request.project_id or defaults.default_project_id,
-        "tags": request.tags,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    return output
 
 
 def marshal_CreatePATRuleRequest(
     request: CreatePATRuleRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "gateway_id": request.gateway_id,
-        "private_ip": request.private_ip,
-        "private_port": request.private_port,
-        "protocol": PATRuleProtocol(request.protocol),
-        "public_port": request.public_port,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.gateway_id is not None:
+        output["gateway_id"] = request.gateway_id
+
+    if request.private_ip is not None:
+        output["private_ip"] = request.private_ip
+
+    if request.private_port is not None:
+        output["private_port"] = request.private_port
+
+    if request.protocol is not None:
+        output["protocol"] = PATRuleProtocol(request.protocol)
+
+    if request.public_port is not None:
+        output["public_port"] = request.public_port
+
+    return output
 
 
 def marshal_SetDHCPEntriesRequest(
     request: SetDHCPEntriesRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "dhcp_entries": [
+    output: Dict[str, Any] = {}
+
+    if request.dhcp_entries is not None:
+        output["dhcp_entries"] = [
             marshal_SetDHCPEntriesRequestEntry(v, defaults)
             for v in request.dhcp_entries
         ]
-        if request.dhcp_entries is not None
-        else None,
-        "gateway_network_id": request.gateway_network_id,
-    }
+
+    if request.gateway_network_id is not None:
+        output["gateway_network_id"] = request.gateway_network_id
+
+    return output
 
 
 def marshal_SetPATRulesRequest(
     request: SetPATRulesRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "gateway_id": request.gateway_id,
-        "pat_rules": [
+    output: Dict[str, Any] = {}
+
+    if request.gateway_id is not None:
+        output["gateway_id"] = request.gateway_id
+
+    if request.pat_rules is not None:
+        output["pat_rules"] = [
             marshal_SetPATRulesRequestRule(v, defaults) for v in request.pat_rules
-        ],
-    }
+        ]
+
+    return output
 
 
 def marshal_UpdateDHCPEntryRequest(
     request: UpdateDHCPEntryRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "ip_address": request.ip_address,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.ip_address is not None:
+        output["ip_address"] = request.ip_address
+
+    return output
 
 
 def marshal_UpdateDHCPRequest(
     request: UpdateDHCPRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "address": request.address,
-        "dns_local_name": request.dns_local_name,
-        "dns_search": request.dns_search,
-        "dns_servers_override": request.dns_servers_override,
-        "enable_dynamic": request.enable_dynamic,
-        "pool_high": request.pool_high,
-        "pool_low": request.pool_low,
-        "push_default_route": request.push_default_route,
-        "push_dns_server": request.push_dns_server,
-        "rebind_timer": request.rebind_timer,
-        "renew_timer": request.renew_timer,
-        "subnet": request.subnet,
-        "valid_lifetime": request.valid_lifetime,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.address is not None:
+        output["address"] = request.address
+
+    if request.dns_local_name is not None:
+        output["dns_local_name"] = request.dns_local_name
+
+    if request.dns_search is not None:
+        output["dns_search"] = request.dns_search
+
+    if request.dns_servers_override is not None:
+        output["dns_servers_override"] = request.dns_servers_override
+
+    if request.enable_dynamic is not None:
+        output["enable_dynamic"] = request.enable_dynamic
+
+    if request.pool_high is not None:
+        output["pool_high"] = request.pool_high
+
+    if request.pool_low is not None:
+        output["pool_low"] = request.pool_low
+
+    if request.push_default_route is not None:
+        output["push_default_route"] = request.push_default_route
+
+    if request.push_dns_server is not None:
+        output["push_dns_server"] = request.push_dns_server
+
+    if request.rebind_timer is not None:
+        output["rebind_timer"] = request.rebind_timer
+
+    if request.renew_timer is not None:
+        output["renew_timer"] = request.renew_timer
+
+    if request.subnet is not None:
+        output["subnet"] = request.subnet
+
+    if request.valid_lifetime is not None:
+        output["valid_lifetime"] = request.valid_lifetime
+
+    return output
 
 
 def marshal_UpdateGatewayNetworkRequest(
     request: UpdateGatewayNetworkRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "dhcp_id", request.dhcp_id if request.dhcp_id is not None else None
@@ -718,43 +853,78 @@ def marshal_UpdateGatewayNetworkRequest(
                 ),
             ]
         ),
-        "enable_dhcp": request.enable_dhcp,
-        "enable_masquerade": request.enable_masquerade,
-    }
+    )
+
+    if request.enable_dhcp is not None:
+        output["enable_dhcp"] = request.enable_dhcp
+
+    if request.enable_masquerade is not None:
+        output["enable_masquerade"] = request.enable_masquerade
+
+    return output
 
 
 def marshal_UpdateGatewayRequest(
     request: UpdateGatewayRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "bastion_port": request.bastion_port,
-        "enable_bastion": request.enable_bastion,
-        "enable_smtp": request.enable_smtp,
-        "name": request.name,
-        "tags": request.tags,
-        "upstream_dns_servers": request.upstream_dns_servers,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.bastion_port is not None:
+        output["bastion_port"] = request.bastion_port
+
+    if request.enable_bastion is not None:
+        output["enable_bastion"] = request.enable_bastion
+
+    if request.enable_smtp is not None:
+        output["enable_smtp"] = request.enable_smtp
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    if request.upstream_dns_servers is not None:
+        output["upstream_dns_servers"] = request.upstream_dns_servers
+
+    return output
 
 
 def marshal_UpdateIPRequest(
     request: UpdateIPRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "gateway_id": request.gateway_id,
-        "reverse": request.reverse,
-        "tags": request.tags,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.gateway_id is not None:
+        output["gateway_id"] = request.gateway_id
+
+    if request.reverse is not None:
+        output["reverse"] = request.reverse
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    return output
 
 
 def marshal_UpdatePATRuleRequest(
     request: UpdatePATRuleRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "private_ip": request.private_ip,
-        "private_port": request.private_port,
-        "protocol": PATRuleProtocol(request.protocol),
-        "public_port": request.public_port,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.private_ip is not None:
+        output["private_ip"] = request.private_ip
+
+    if request.private_port is not None:
+        output["private_port"] = request.private_port
+
+    if request.protocol is not None:
+        output["protocol"] = PATRuleProtocol(request.protocol)
+
+    if request.public_port is not None:
+        output["public_port"] = request.public_port
+
+    return output

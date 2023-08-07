@@ -645,169 +645,305 @@ def marshal_CreateClusterRequestPoolConfigUpgradePolicy(
     request: CreateClusterRequestPoolConfigUpgradePolicy,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "max_surge": request.max_surge,
-        "max_unavailable": request.max_unavailable,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.max_surge is not None:
+        output["max_surge"] = request.max_surge
+
+    if request.max_unavailable is not None:
+        output["max_unavailable"] = request.max_unavailable
+
+    return output
 
 
 def marshal_MaintenanceWindow(
     request: MaintenanceWindow,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "day": MaintenanceWindowDayOfTheWeek(request.day),
-        "start_hour": request.start_hour,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.day is not None:
+        output["day"] = MaintenanceWindowDayOfTheWeek(request.day)
+
+    if request.start_hour is not None:
+        output["start_hour"] = request.start_hour
+
+    return output
 
 
 def marshal_CreateClusterRequestAutoUpgrade(
     request: CreateClusterRequestAutoUpgrade,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "enable": request.enable,
-        "maintenance_window": marshal_MaintenanceWindow(
+    output: Dict[str, Any] = {}
+
+    if request.enable is not None:
+        output["enable"] = request.enable
+
+    if request.maintenance_window is not None:
+        output["maintenance_window"] = marshal_MaintenanceWindow(
             request.maintenance_window, defaults
         )
-        if request.maintenance_window is not None
-        else None,
-    }
+
+    return output
 
 
 def marshal_CreateClusterRequestAutoscalerConfig(
     request: CreateClusterRequestAutoscalerConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "balance_similar_node_groups": request.balance_similar_node_groups,
-        "estimator": AutoscalerEstimator(request.estimator),
-        "expander": AutoscalerExpander(request.expander),
-        "expendable_pods_priority_cutoff": request.expendable_pods_priority_cutoff,
-        "ignore_daemonsets_utilization": request.ignore_daemonsets_utilization,
-        "max_graceful_termination_sec": request.max_graceful_termination_sec,
-        "scale_down_delay_after_add": request.scale_down_delay_after_add,
-        "scale_down_disabled": request.scale_down_disabled,
-        "scale_down_unneeded_time": request.scale_down_unneeded_time,
-        "scale_down_utilization_threshold": request.scale_down_utilization_threshold,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.balance_similar_node_groups is not None:
+        output["balance_similar_node_groups"] = request.balance_similar_node_groups
+
+    if request.estimator is not None:
+        output["estimator"] = AutoscalerEstimator(request.estimator)
+
+    if request.expander is not None:
+        output["expander"] = AutoscalerExpander(request.expander)
+
+    if request.expendable_pods_priority_cutoff is not None:
+        output[
+            "expendable_pods_priority_cutoff"
+        ] = request.expendable_pods_priority_cutoff
+
+    if request.ignore_daemonsets_utilization is not None:
+        output["ignore_daemonsets_utilization"] = request.ignore_daemonsets_utilization
+
+    if request.max_graceful_termination_sec is not None:
+        output["max_graceful_termination_sec"] = request.max_graceful_termination_sec
+
+    if request.scale_down_delay_after_add is not None:
+        output["scale_down_delay_after_add"] = request.scale_down_delay_after_add
+
+    if request.scale_down_disabled is not None:
+        output["scale_down_disabled"] = request.scale_down_disabled
+
+    if request.scale_down_unneeded_time is not None:
+        output["scale_down_unneeded_time"] = request.scale_down_unneeded_time
+
+    if request.scale_down_utilization_threshold is not None:
+        output[
+            "scale_down_utilization_threshold"
+        ] = request.scale_down_utilization_threshold
+
+    return output
 
 
 def marshal_CreateClusterRequestOpenIDConnectConfig(
     request: CreateClusterRequestOpenIDConnectConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "client_id": request.client_id,
-        "groups_claim": request.groups_claim,
-        "groups_prefix": request.groups_prefix,
-        "issuer_url": request.issuer_url,
-        "required_claim": request.required_claim,
-        "username_claim": request.username_claim,
-        "username_prefix": request.username_prefix,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.client_id is not None:
+        output["client_id"] = request.client_id
+
+    if request.groups_claim is not None:
+        output["groups_claim"] = request.groups_claim
+
+    if request.groups_prefix is not None:
+        output["groups_prefix"] = request.groups_prefix
+
+    if request.issuer_url is not None:
+        output["issuer_url"] = request.issuer_url
+
+    if request.required_claim is not None:
+        output["required_claim"] = request.required_claim
+
+    if request.username_claim is not None:
+        output["username_claim"] = request.username_claim
+
+    if request.username_prefix is not None:
+        output["username_prefix"] = request.username_prefix
+
+    return output
 
 
 def marshal_CreateClusterRequestPoolConfig(
     request: CreateClusterRequestPoolConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "autohealing": request.autohealing,
-        "autoscaling": request.autoscaling,
-        "container_runtime": Runtime(request.container_runtime),
-        "kubelet_args": request.kubelet_args,
-        "max_size": request.max_size,
-        "min_size": request.min_size,
-        "name": request.name,
-        "node_type": request.node_type,
-        "placement_group_id": request.placement_group_id,
-        "root_volume_size": request.root_volume_size,
-        "root_volume_type": PoolVolumeType(request.root_volume_type),
-        "size": request.size,
-        "tags": request.tags,
-        "upgrade_policy": marshal_CreateClusterRequestPoolConfigUpgradePolicy(
+    output: Dict[str, Any] = {}
+
+    if request.autohealing is not None:
+        output["autohealing"] = request.autohealing
+
+    if request.autoscaling is not None:
+        output["autoscaling"] = request.autoscaling
+
+    if request.container_runtime is not None:
+        output["container_runtime"] = Runtime(request.container_runtime)
+
+    if request.kubelet_args is not None:
+        output["kubelet_args"] = request.kubelet_args
+
+    if request.max_size is not None:
+        output["max_size"] = request.max_size
+
+    if request.min_size is not None:
+        output["min_size"] = request.min_size
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.node_type is not None:
+        output["node_type"] = request.node_type
+
+    if request.placement_group_id is not None:
+        output["placement_group_id"] = request.placement_group_id
+
+    if request.root_volume_size is not None:
+        output["root_volume_size"] = request.root_volume_size
+
+    if request.root_volume_type is not None:
+        output["root_volume_type"] = PoolVolumeType(request.root_volume_type)
+
+    if request.size is not None:
+        output["size"] = request.size
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    if request.upgrade_policy is not None:
+        output["upgrade_policy"] = marshal_CreateClusterRequestPoolConfigUpgradePolicy(
             request.upgrade_policy, defaults
         )
-        if request.upgrade_policy is not None
-        else None,
-        "zone": request.zone,
-    }
+
+    if request.zone is not None:
+        output["zone"] = request.zone
+
+    return output
 
 
 def marshal_CreatePoolRequestUpgradePolicy(
     request: CreatePoolRequestUpgradePolicy,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "max_surge": request.max_surge,
-        "max_unavailable": request.max_unavailable,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.max_surge is not None:
+        output["max_surge"] = request.max_surge
+
+    if request.max_unavailable is not None:
+        output["max_unavailable"] = request.max_unavailable
+
+    return output
 
 
 def marshal_UpdateClusterRequestAutoUpgrade(
     request: UpdateClusterRequestAutoUpgrade,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "enable": request.enable,
-        "maintenance_window": marshal_MaintenanceWindow(
+    output: Dict[str, Any] = {}
+
+    if request.enable is not None:
+        output["enable"] = request.enable
+
+    if request.maintenance_window is not None:
+        output["maintenance_window"] = marshal_MaintenanceWindow(
             request.maintenance_window, defaults
         )
-        if request.maintenance_window is not None
-        else None,
-    }
+
+    return output
 
 
 def marshal_UpdateClusterRequestAutoscalerConfig(
     request: UpdateClusterRequestAutoscalerConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "balance_similar_node_groups": request.balance_similar_node_groups,
-        "estimator": AutoscalerEstimator(request.estimator),
-        "expander": AutoscalerExpander(request.expander),
-        "expendable_pods_priority_cutoff": request.expendable_pods_priority_cutoff,
-        "ignore_daemonsets_utilization": request.ignore_daemonsets_utilization,
-        "max_graceful_termination_sec": request.max_graceful_termination_sec,
-        "scale_down_delay_after_add": request.scale_down_delay_after_add,
-        "scale_down_disabled": request.scale_down_disabled,
-        "scale_down_unneeded_time": request.scale_down_unneeded_time,
-        "scale_down_utilization_threshold": request.scale_down_utilization_threshold,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.balance_similar_node_groups is not None:
+        output["balance_similar_node_groups"] = request.balance_similar_node_groups
+
+    if request.estimator is not None:
+        output["estimator"] = AutoscalerEstimator(request.estimator)
+
+    if request.expander is not None:
+        output["expander"] = AutoscalerExpander(request.expander)
+
+    if request.expendable_pods_priority_cutoff is not None:
+        output[
+            "expendable_pods_priority_cutoff"
+        ] = request.expendable_pods_priority_cutoff
+
+    if request.ignore_daemonsets_utilization is not None:
+        output["ignore_daemonsets_utilization"] = request.ignore_daemonsets_utilization
+
+    if request.max_graceful_termination_sec is not None:
+        output["max_graceful_termination_sec"] = request.max_graceful_termination_sec
+
+    if request.scale_down_delay_after_add is not None:
+        output["scale_down_delay_after_add"] = request.scale_down_delay_after_add
+
+    if request.scale_down_disabled is not None:
+        output["scale_down_disabled"] = request.scale_down_disabled
+
+    if request.scale_down_unneeded_time is not None:
+        output["scale_down_unneeded_time"] = request.scale_down_unneeded_time
+
+    if request.scale_down_utilization_threshold is not None:
+        output[
+            "scale_down_utilization_threshold"
+        ] = request.scale_down_utilization_threshold
+
+    return output
 
 
 def marshal_UpdateClusterRequestOpenIDConnectConfig(
     request: UpdateClusterRequestOpenIDConnectConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "client_id": request.client_id,
-        "groups_claim": request.groups_claim,
-        "groups_prefix": request.groups_prefix,
-        "issuer_url": request.issuer_url,
-        "required_claim": request.required_claim,
-        "username_claim": request.username_claim,
-        "username_prefix": request.username_prefix,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.client_id is not None:
+        output["client_id"] = request.client_id
+
+    if request.groups_claim is not None:
+        output["groups_claim"] = request.groups_claim
+
+    if request.groups_prefix is not None:
+        output["groups_prefix"] = request.groups_prefix
+
+    if request.issuer_url is not None:
+        output["issuer_url"] = request.issuer_url
+
+    if request.required_claim is not None:
+        output["required_claim"] = request.required_claim
+
+    if request.username_claim is not None:
+        output["username_claim"] = request.username_claim
+
+    if request.username_prefix is not None:
+        output["username_prefix"] = request.username_prefix
+
+    return output
 
 
 def marshal_UpdatePoolRequestUpgradePolicy(
     request: UpdatePoolRequestUpgradePolicy,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "max_surge": request.max_surge,
-        "max_unavailable": request.max_unavailable,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.max_surge is not None:
+        output["max_surge"] = request.max_surge
+
+    if request.max_unavailable is not None:
+        output["max_unavailable"] = request.max_unavailable
+
+    return output
 
 
 def marshal_CreateClusterRequest(
     request: CreateClusterRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "project_id",
@@ -825,151 +961,256 @@ def marshal_CreateClusterRequest(
                 ),
             ]
         ),
-        "admission_plugins": request.admission_plugins,
-        "apiserver_cert_sans": request.apiserver_cert_sans,
-        "auto_upgrade": marshal_CreateClusterRequestAutoUpgrade(
+    )
+
+    if request.admission_plugins is not None:
+        output["admission_plugins"] = request.admission_plugins
+
+    if request.apiserver_cert_sans is not None:
+        output["apiserver_cert_sans"] = request.apiserver_cert_sans
+
+    if request.auto_upgrade is not None:
+        output["auto_upgrade"] = marshal_CreateClusterRequestAutoUpgrade(
             request.auto_upgrade, defaults
         )
-        if request.auto_upgrade is not None
-        else None,
-        "autoscaler_config": marshal_CreateClusterRequestAutoscalerConfig(
+
+    if request.autoscaler_config is not None:
+        output["autoscaler_config"] = marshal_CreateClusterRequestAutoscalerConfig(
             request.autoscaler_config, defaults
         )
-        if request.autoscaler_config is not None
-        else None,
-        "cni": CNI(request.cni) if request.cni is not None else None,
-        "description": request.description,
-        "enable_dashboard": request.enable_dashboard,
-        "feature_gates": request.feature_gates,
-        "ingress": Ingress(request.ingress) if request.ingress is not None else None,
-        "name": request.name,
-        "open_id_connect_config": marshal_CreateClusterRequestOpenIDConnectConfig(
+
+    if request.cni is not None:
+        output["cni"] = CNI(request.cni)
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.enable_dashboard is not None:
+        output["enable_dashboard"] = request.enable_dashboard
+
+    if request.feature_gates is not None:
+        output["feature_gates"] = request.feature_gates
+
+    if request.ingress is not None:
+        output["ingress"] = Ingress(request.ingress)
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.open_id_connect_config is not None:
+        output[
+            "open_id_connect_config"
+        ] = marshal_CreateClusterRequestOpenIDConnectConfig(
             request.open_id_connect_config, defaults
         )
-        if request.open_id_connect_config is not None
-        else None,
-        "pools": [
+
+    if request.pools is not None:
+        output["pools"] = [
             marshal_CreateClusterRequestPoolConfig(v, defaults) for v in request.pools
         ]
-        if request.pools is not None
-        else None,
-        "private_network_id": request.private_network_id,
-        "tags": request.tags,
-        "type": request.type_,
-        "version": request.version,
-    }
+
+    if request.private_network_id is not None:
+        output["private_network_id"] = request.private_network_id
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    if request.type_ is not None:
+        output["type"] = request.type_
+
+    if request.version is not None:
+        output["version"] = request.version
+
+    return output
 
 
 def marshal_CreatePoolRequest(
     request: CreatePoolRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "autohealing": request.autohealing,
-        "autoscaling": request.autoscaling,
-        "container_runtime": Runtime(request.container_runtime),
-        "kubelet_args": request.kubelet_args,
-        "max_size": request.max_size,
-        "min_size": request.min_size,
-        "name": request.name,
-        "node_type": request.node_type,
-        "placement_group_id": request.placement_group_id,
-        "root_volume_size": request.root_volume_size,
-        "root_volume_type": PoolVolumeType(request.root_volume_type),
-        "size": request.size,
-        "tags": request.tags,
-        "upgrade_policy": marshal_CreatePoolRequestUpgradePolicy(
+    output: Dict[str, Any] = {}
+
+    if request.autohealing is not None:
+        output["autohealing"] = request.autohealing
+
+    if request.autoscaling is not None:
+        output["autoscaling"] = request.autoscaling
+
+    if request.container_runtime is not None:
+        output["container_runtime"] = Runtime(request.container_runtime)
+
+    if request.kubelet_args is not None:
+        output["kubelet_args"] = request.kubelet_args
+
+    if request.max_size is not None:
+        output["max_size"] = request.max_size
+
+    if request.min_size is not None:
+        output["min_size"] = request.min_size
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.node_type is not None:
+        output["node_type"] = request.node_type
+
+    if request.placement_group_id is not None:
+        output["placement_group_id"] = request.placement_group_id
+
+    if request.root_volume_size is not None:
+        output["root_volume_size"] = request.root_volume_size
+
+    if request.root_volume_type is not None:
+        output["root_volume_type"] = PoolVolumeType(request.root_volume_type)
+
+    if request.size is not None:
+        output["size"] = request.size
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    if request.upgrade_policy is not None:
+        output["upgrade_policy"] = marshal_CreatePoolRequestUpgradePolicy(
             request.upgrade_policy, defaults
         )
-        if request.upgrade_policy is not None
-        else None,
-        "zone": request.zone or defaults.default_zone,
-    }
+
+    if request.zone is not None:
+        output["zone"] = request.zone or defaults.default_zone
+
+    return output
 
 
 def marshal_MigrateToPrivateNetworkClusterRequest(
     request: MigrateToPrivateNetworkClusterRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "private_network_id": request.private_network_id,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.private_network_id is not None:
+        output["private_network_id"] = request.private_network_id
+
+    return output
 
 
 def marshal_SetClusterTypeRequest(
     request: SetClusterTypeRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "type": request.type_,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.type_ is not None:
+        output["type"] = request.type_
+
+    return output
 
 
 def marshal_UpdateClusterRequest(
     request: UpdateClusterRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "admission_plugins": request.admission_plugins,
-        "apiserver_cert_sans": request.apiserver_cert_sans,
-        "auto_upgrade": marshal_UpdateClusterRequestAutoUpgrade(
+    output: Dict[str, Any] = {}
+
+    if request.admission_plugins is not None:
+        output["admission_plugins"] = request.admission_plugins
+
+    if request.apiserver_cert_sans is not None:
+        output["apiserver_cert_sans"] = request.apiserver_cert_sans
+
+    if request.auto_upgrade is not None:
+        output["auto_upgrade"] = marshal_UpdateClusterRequestAutoUpgrade(
             request.auto_upgrade, defaults
         )
-        if request.auto_upgrade is not None
-        else None,
-        "autoscaler_config": marshal_UpdateClusterRequestAutoscalerConfig(
+
+    if request.autoscaler_config is not None:
+        output["autoscaler_config"] = marshal_UpdateClusterRequestAutoscalerConfig(
             request.autoscaler_config, defaults
         )
-        if request.autoscaler_config is not None
-        else None,
-        "description": request.description,
-        "enable_dashboard": request.enable_dashboard,
-        "feature_gates": request.feature_gates,
-        "ingress": Ingress(request.ingress) if request.ingress is not None else None,
-        "name": request.name,
-        "open_id_connect_config": marshal_UpdateClusterRequestOpenIDConnectConfig(
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.enable_dashboard is not None:
+        output["enable_dashboard"] = request.enable_dashboard
+
+    if request.feature_gates is not None:
+        output["feature_gates"] = request.feature_gates
+
+    if request.ingress is not None:
+        output["ingress"] = Ingress(request.ingress)
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.open_id_connect_config is not None:
+        output[
+            "open_id_connect_config"
+        ] = marshal_UpdateClusterRequestOpenIDConnectConfig(
             request.open_id_connect_config, defaults
         )
-        if request.open_id_connect_config is not None
-        else None,
-        "tags": request.tags,
-    }
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    return output
 
 
 def marshal_UpdatePoolRequest(
     request: UpdatePoolRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "autohealing": request.autohealing,
-        "autoscaling": request.autoscaling,
-        "kubelet_args": request.kubelet_args,
-        "max_size": request.max_size,
-        "min_size": request.min_size,
-        "size": request.size,
-        "tags": request.tags,
-        "upgrade_policy": marshal_UpdatePoolRequestUpgradePolicy(
+    output: Dict[str, Any] = {}
+
+    if request.autohealing is not None:
+        output["autohealing"] = request.autohealing
+
+    if request.autoscaling is not None:
+        output["autoscaling"] = request.autoscaling
+
+    if request.kubelet_args is not None:
+        output["kubelet_args"] = request.kubelet_args
+
+    if request.max_size is not None:
+        output["max_size"] = request.max_size
+
+    if request.min_size is not None:
+        output["min_size"] = request.min_size
+
+    if request.size is not None:
+        output["size"] = request.size
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    if request.upgrade_policy is not None:
+        output["upgrade_policy"] = marshal_UpdatePoolRequestUpgradePolicy(
             request.upgrade_policy, defaults
         )
-        if request.upgrade_policy is not None
-        else None,
-    }
+
+    return output
 
 
 def marshal_UpgradeClusterRequest(
     request: UpgradeClusterRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "upgrade_pools": request.upgrade_pools,
-        "version": request.version,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.upgrade_pools is not None:
+        output["upgrade_pools"] = request.upgrade_pools
+
+    if request.version is not None:
+        output["version"] = request.version
+
+    return output
 
 
 def marshal_UpgradePoolRequest(
     request: UpgradePoolRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "version": request.version,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.version is not None:
+        output["version"] = request.version
+
+    return output

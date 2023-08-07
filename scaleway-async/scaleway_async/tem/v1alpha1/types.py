@@ -40,6 +40,7 @@ class EmailFlag(str, Enum):
     SOFT_BOUNCE = "soft_bounce"
     HARD_BOUNCE = "hard_bounce"
     SPAM = "spam"
+    MAILBOX_FULL = "mailbox_full"
 
     def __str__(self) -> str:
         return str(self.value)

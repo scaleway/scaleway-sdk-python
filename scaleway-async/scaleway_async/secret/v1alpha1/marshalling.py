@@ -192,44 +192,72 @@ def marshal_PasswordGenerationParams(
     request: PasswordGenerationParams,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "additional_chars": request.additional_chars,
-        "length": request.length,
-        "no_digits": request.no_digits,
-        "no_lowercase_letters": request.no_lowercase_letters,
-        "no_uppercase_letters": request.no_uppercase_letters,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.additional_chars is not None:
+        output["additional_chars"] = request.additional_chars
+
+    if request.length is not None:
+        output["length"] = request.length
+
+    if request.no_digits is not None:
+        output["no_digits"] = request.no_digits
+
+    if request.no_lowercase_letters is not None:
+        output["no_lowercase_letters"] = request.no_lowercase_letters
+
+    if request.no_uppercase_letters is not None:
+        output["no_uppercase_letters"] = request.no_uppercase_letters
+
+    return output
 
 
 def marshal_AddSecretOwnerRequest(
     request: AddSecretOwnerRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "product": Product(request.product),
-        "product_name": request.product_name,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.product is not None:
+        output["product"] = Product(request.product)
+
+    if request.product_name is not None:
+        output["product_name"] = request.product_name
+
+    return output
 
 
 def marshal_CreateSecretRequest(
     request: CreateSecretRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "description": request.description,
-        "name": request.name,
-        "project_id": request.project_id or defaults.default_project_id,
-        "tags": request.tags,
-        "type": SecretType(request.type_),
-    }
+    output: Dict[str, Any] = {}
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    if request.type_ is not None:
+        output["type"] = SecretType(request.type_)
+
+    return output
 
 
 def marshal_CreateSecretVersionRequest(
     request: CreateSecretVersionRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "password_generation",
@@ -241,43 +269,78 @@ def marshal_CreateSecretVersionRequest(
                 ),
             ]
         ),
-        "data": request.data,
-        "data_crc32": request.data_crc32,
-        "description": request.description,
-        "disable_previous": request.disable_previous,
-    }
+    )
+
+    if request.data is not None:
+        output["data"] = request.data
+
+    if request.data_crc32 is not None:
+        output["data_crc32"] = request.data_crc32
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.disable_previous is not None:
+        output["disable_previous"] = request.disable_previous
+
+    return output
 
 
 def marshal_GeneratePasswordRequest(
     request: GeneratePasswordRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "additional_chars": request.additional_chars,
-        "description": request.description,
-        "disable_previous": request.disable_previous,
-        "length": request.length,
-        "no_digits": request.no_digits,
-        "no_lowercase_letters": request.no_lowercase_letters,
-        "no_uppercase_letters": request.no_uppercase_letters,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.additional_chars is not None:
+        output["additional_chars"] = request.additional_chars
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.disable_previous is not None:
+        output["disable_previous"] = request.disable_previous
+
+    if request.length is not None:
+        output["length"] = request.length
+
+    if request.no_digits is not None:
+        output["no_digits"] = request.no_digits
+
+    if request.no_lowercase_letters is not None:
+        output["no_lowercase_letters"] = request.no_lowercase_letters
+
+    if request.no_uppercase_letters is not None:
+        output["no_uppercase_letters"] = request.no_uppercase_letters
+
+    return output
 
 
 def marshal_UpdateSecretRequest(
     request: UpdateSecretRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "description": request.description,
-        "name": request.name,
-        "tags": request.tags,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    return output
 
 
 def marshal_UpdateSecretVersionRequest(
     request: UpdateSecretVersionRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "description": request.description,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    return output

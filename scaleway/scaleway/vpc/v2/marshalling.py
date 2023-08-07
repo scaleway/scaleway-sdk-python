@@ -221,50 +221,75 @@ def marshal_AddSubnetsRequest(
     request: AddSubnetsRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "subnets": request.subnets,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.subnets is not None:
+        output["subnets"] = request.subnets
+
+    return output
 
 
 def marshal_CreatePrivateNetworkRequest(
     request: CreatePrivateNetworkRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "name": request.name,
-        "project_id": request.project_id or defaults.default_project_id,
-        "subnets": request.subnets,
-        "tags": request.tags,
-        "vpc_id": request.vpc_id,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    if request.subnets is not None:
+        output["subnets"] = request.subnets
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    if request.vpc_id is not None:
+        output["vpc_id"] = request.vpc_id
+
+    return output
 
 
 def marshal_CreateVPCRequest(
     request: CreateVPCRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "name": request.name,
-        "project_id": request.project_id or defaults.default_project_id,
-        "tags": request.tags,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    return output
 
 
 def marshal_DeleteSubnetsRequest(
     request: DeleteSubnetsRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "subnets": request.subnets,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.subnets is not None:
+        output["subnets"] = request.subnets
+
+    return output
 
 
 def marshal_MigrateZonalPrivateNetworksRequest(
     request: MigrateZonalPrivateNetworksRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "project_id",
@@ -282,34 +307,51 @@ def marshal_MigrateZonalPrivateNetworksRequest(
                 ),
             ]
         ),
-        "private_network_ids": request.private_network_ids,
-    }
+    )
+
+    if request.private_network_ids is not None:
+        output["private_network_ids"] = request.private_network_ids
+
+    return output
 
 
 def marshal_SetSubnetsRequest(
     request: SetSubnetsRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "subnets": request.subnets,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.subnets is not None:
+        output["subnets"] = request.subnets
+
+    return output
 
 
 def marshal_UpdatePrivateNetworkRequest(
     request: UpdatePrivateNetworkRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "name": request.name,
-        "tags": request.tags,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    return output
 
 
 def marshal_UpdateVPCRequest(
     request: UpdateVPCRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "name": request.name,
-        "tags": request.tags,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    return output
