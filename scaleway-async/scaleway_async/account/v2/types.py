@@ -7,8 +7,12 @@ from datetime import datetime
 from enum import Enum
 from typing import List, Optional
 
+from scaleway_core.utils import (
+    StrEnumMeta,
+)
 
-class ListProjectsRequestOrderBy(str, Enum):
+
+class ListProjectsRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     NAME_ASC = "name_asc"

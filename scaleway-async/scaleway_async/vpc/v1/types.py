@@ -10,9 +10,12 @@ from typing import List, Optional
 from scaleway_core.bridge import (
     Zone,
 )
+from scaleway_core.utils import (
+    StrEnumMeta,
+)
 
 
-class ListPrivateNetworksRequestOrderBy(str, Enum):
+class ListPrivateNetworksRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     NAME_ASC = "name_asc"

@@ -10,9 +10,12 @@ from typing import List, Optional
 from scaleway_core.bridge import (
     Region,
 )
+from scaleway_core.utils import (
+    StrEnumMeta,
+)
 
 
-class ListCredentialsRequestOrderBy(str, Enum):
+class ListCredentialsRequestOrderBy(Enum, metaclass=StrEnumMeta):
     ID_ASC = "id_asc"
     ID_DESC = "id_desc"
     NAME_ASC = "name_asc"
@@ -22,7 +25,7 @@ class ListCredentialsRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListNamespacesRequestOrderBy(str, Enum):
+class ListNamespacesRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     UPDATED_AT_ASC = "updated_at_asc"
@@ -38,7 +41,7 @@ class ListNamespacesRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class NamespaceProtocol(str, Enum):
+class NamespaceProtocol(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     NATS = "nats"
     SQS_SNS = "sqs_sns"

@@ -12,9 +12,12 @@ from scaleway_core.bridge import (
     TimeSeries,
     Zone,
 )
+from scaleway_core.utils import (
+    StrEnumMeta,
+)
 
 
-class IPReverseStatus(str, Enum):
+class IPReverseStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     PENDING = "pending"
     ACTIVE = "active"
@@ -24,7 +27,7 @@ class IPReverseStatus(str, Enum):
         return str(self.value)
 
 
-class IPVersion(str, Enum):
+class IPVersion(Enum, metaclass=StrEnumMeta):
     IPV4 = "IPv4"
     IPV6 = "IPv6"
 
@@ -32,7 +35,7 @@ class IPVersion(str, Enum):
         return str(self.value)
 
 
-class ListServerEventsRequestOrderBy(str, Enum):
+class ListServerEventsRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
 
@@ -40,7 +43,7 @@ class ListServerEventsRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListServerPrivateNetworksRequestOrderBy(str, Enum):
+class ListServerPrivateNetworksRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     UPDATED_AT_ASC = "updated_at_asc"
@@ -50,7 +53,7 @@ class ListServerPrivateNetworksRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListServersRequestOrderBy(str, Enum):
+class ListServersRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
 
@@ -58,7 +61,7 @@ class ListServersRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListSettingsRequestOrderBy(str, Enum):
+class ListSettingsRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
 
@@ -66,7 +69,7 @@ class ListSettingsRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class OfferStock(str, Enum):
+class OfferStock(Enum, metaclass=StrEnumMeta):
     EMPTY = "empty"
     LOW = "low"
     AVAILABLE = "available"
@@ -75,7 +78,7 @@ class OfferStock(str, Enum):
         return str(self.value)
 
 
-class OfferSubscriptionPeriod(str, Enum):
+class OfferSubscriptionPeriod(Enum, metaclass=StrEnumMeta):
     UNKNOWN_SUBSCRIPTION_PERIOD = "unknown_subscription_period"
     HOURLY = "hourly"
     MONTHLY = "monthly"
@@ -84,7 +87,7 @@ class OfferSubscriptionPeriod(str, Enum):
         return str(self.value)
 
 
-class ServerBootType(str, Enum):
+class ServerBootType(Enum, metaclass=StrEnumMeta):
     UNKNOWN_BOOT_TYPE = "unknown_boot_type"
     NORMAL = "normal"
     RESCUE = "rescue"
@@ -93,7 +96,7 @@ class ServerBootType(str, Enum):
         return str(self.value)
 
 
-class ServerInstallStatus(str, Enum):
+class ServerInstallStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     TO_INSTALL = "to_install"
     INSTALLING = "installing"
@@ -104,7 +107,7 @@ class ServerInstallStatus(str, Enum):
         return str(self.value)
 
 
-class ServerOptionOptionStatus(str, Enum):
+class ServerOptionOptionStatus(Enum, metaclass=StrEnumMeta):
     OPTION_STATUS_UNKNOWN = "option_status_unknown"
     OPTION_STATUS_ENABLE = "option_status_enable"
     OPTION_STATUS_ENABLING = "option_status_enabling"
@@ -115,7 +118,7 @@ class ServerOptionOptionStatus(str, Enum):
         return str(self.value)
 
 
-class ServerPingStatus(str, Enum):
+class ServerPingStatus(Enum, metaclass=StrEnumMeta):
     PING_STATUS_UNKNOWN = "ping_status_unknown"
     PING_STATUS_UP = "ping_status_up"
     PING_STATUS_DOWN = "ping_status_down"
@@ -124,7 +127,7 @@ class ServerPingStatus(str, Enum):
         return str(self.value)
 
 
-class ServerPrivateNetworkStatus(str, Enum):
+class ServerPrivateNetworkStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     ATTACHING = "attaching"
     ATTACHED = "attached"
@@ -136,7 +139,7 @@ class ServerPrivateNetworkStatus(str, Enum):
         return str(self.value)
 
 
-class ServerStatus(str, Enum):
+class ServerStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     DELIVERING = "delivering"
     READY = "ready"
@@ -154,7 +157,7 @@ class ServerStatus(str, Enum):
         return str(self.value)
 
 
-class SettingType(str, Enum):
+class SettingType(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     SMTP = "smtp"
 

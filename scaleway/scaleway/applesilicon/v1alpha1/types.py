@@ -10,9 +10,12 @@ from typing import List, Optional
 from scaleway_core.bridge import (
     Zone,
 )
+from scaleway_core.utils import (
+    StrEnumMeta,
+)
 
 
-class ListServersRequestOrderBy(str, Enum):
+class ListServersRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
 
@@ -20,7 +23,7 @@ class ListServersRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ServerStatus(str, Enum):
+class ServerStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
     STARTING = "starting"
     READY = "ready"
@@ -36,7 +39,7 @@ class ServerStatus(str, Enum):
         return str(self.value)
 
 
-class ServerTypeStock(str, Enum):
+class ServerTypeStock(Enum, metaclass=StrEnumMeta):
     UNKNOWN_STOCK = "unknown_stock"
     NO_STOCK = "no_stock"
     LOW_STOCK = "low_stock"

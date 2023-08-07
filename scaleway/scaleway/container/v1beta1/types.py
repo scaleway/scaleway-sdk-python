@@ -10,9 +10,12 @@ from typing import Any, Dict, List, Optional
 from scaleway_core.bridge import (
     Region,
 )
+from scaleway_core.utils import (
+    StrEnumMeta,
+)
 
 
-class ContainerHttpOption(str, Enum):
+class ContainerHttpOption(Enum, metaclass=StrEnumMeta):
     UNKNOWN_HTTP_OPTION = "unknown_http_option"
     ENABLED = "enabled"
     REDIRECTED = "redirected"
@@ -21,7 +24,7 @@ class ContainerHttpOption(str, Enum):
         return str(self.value)
 
 
-class ContainerPrivacy(str, Enum):
+class ContainerPrivacy(Enum, metaclass=StrEnumMeta):
     UNKNOWN_PRIVACY = "unknown_privacy"
     PUBLIC = "public"
     PRIVATE = "private"
@@ -30,7 +33,7 @@ class ContainerPrivacy(str, Enum):
         return str(self.value)
 
 
-class ContainerProtocol(str, Enum):
+class ContainerProtocol(Enum, metaclass=StrEnumMeta):
     UNKNOWN_PROTOCOL = "unknown_protocol"
     HTTP1 = "http1"
     H2C = "h2c"
@@ -39,7 +42,7 @@ class ContainerProtocol(str, Enum):
         return str(self.value)
 
 
-class ContainerStatus(str, Enum):
+class ContainerStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     READY = "ready"
     DELETING = "deleting"
@@ -53,7 +56,7 @@ class ContainerStatus(str, Enum):
         return str(self.value)
 
 
-class CronStatus(str, Enum):
+class CronStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     READY = "ready"
     DELETING = "deleting"
@@ -66,7 +69,7 @@ class CronStatus(str, Enum):
         return str(self.value)
 
 
-class DomainStatus(str, Enum):
+class DomainStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     READY = "ready"
     DELETING = "deleting"
@@ -78,7 +81,7 @@ class DomainStatus(str, Enum):
         return str(self.value)
 
 
-class ListContainersRequestOrderBy(str, Enum):
+class ListContainersRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     NAME_ASC = "name_asc"
@@ -88,7 +91,7 @@ class ListContainersRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListCronsRequestOrderBy(str, Enum):
+class ListCronsRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
 
@@ -96,7 +99,7 @@ class ListCronsRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListDomainsRequestOrderBy(str, Enum):
+class ListDomainsRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     HOSTNAME_ASC = "hostname_asc"
@@ -106,7 +109,7 @@ class ListDomainsRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListLogsRequestOrderBy(str, Enum):
+class ListLogsRequestOrderBy(Enum, metaclass=StrEnumMeta):
     TIMESTAMP_DESC = "timestamp_desc"
     TIMESTAMP_ASC = "timestamp_asc"
 
@@ -114,7 +117,7 @@ class ListLogsRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListNamespacesRequestOrderBy(str, Enum):
+class ListNamespacesRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     NAME_ASC = "name_asc"
@@ -124,7 +127,7 @@ class ListNamespacesRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListTokensRequestOrderBy(str, Enum):
+class ListTokensRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
 
@@ -132,7 +135,7 @@ class ListTokensRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListTriggersRequestOrderBy(str, Enum):
+class ListTriggersRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
 
@@ -140,7 +143,7 @@ class ListTriggersRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class LogStream(str, Enum):
+class LogStream(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     STDOUT = "stdout"
     STDERR = "stderr"
@@ -149,7 +152,7 @@ class LogStream(str, Enum):
         return str(self.value)
 
 
-class NamespaceStatus(str, Enum):
+class NamespaceStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     READY = "ready"
     DELETING = "deleting"
@@ -162,14 +165,14 @@ class NamespaceStatus(str, Enum):
         return str(self.value)
 
 
-class NullValue(str, Enum):
+class NullValue(Enum, metaclass=StrEnumMeta):
     NULL_VALUE = "NULL_VALUE"
 
     def __str__(self) -> str:
         return str(self.value)
 
 
-class TokenStatus(str, Enum):
+class TokenStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     READY = "ready"
     DELETING = "deleting"
@@ -180,7 +183,7 @@ class TokenStatus(str, Enum):
         return str(self.value)
 
 
-class TriggerInputType(str, Enum):
+class TriggerInputType(Enum, metaclass=StrEnumMeta):
     UNKNOWN_INPUT_TYPE = "unknown_input_type"
     SQS = "sqs"
     SCW_SQS = "scw_sqs"
@@ -191,7 +194,7 @@ class TriggerInputType(str, Enum):
         return str(self.value)
 
 
-class TriggerStatus(str, Enum):
+class TriggerStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
     READY = "ready"
     DELETING = "deleting"

@@ -11,9 +11,12 @@ from scaleway_core.bridge import (
     Region,
     Zone,
 )
+from scaleway_core.utils import (
+    StrEnumMeta,
+)
 
 
-class AutoscalerEstimator(str, Enum):
+class AutoscalerEstimator(Enum, metaclass=StrEnumMeta):
     UNKNOWN_ESTIMATOR = "unknown_estimator"
     BINPACKING = "binpacking"
 
@@ -21,7 +24,7 @@ class AutoscalerEstimator(str, Enum):
         return str(self.value)
 
 
-class AutoscalerExpander(str, Enum):
+class AutoscalerExpander(Enum, metaclass=StrEnumMeta):
     UNKNOWN_EXPANDER = "unknown_expander"
     RANDOM = "random"
     MOST_PODS = "most_pods"
@@ -33,7 +36,7 @@ class AutoscalerExpander(str, Enum):
         return str(self.value)
 
 
-class CNI(str, Enum):
+class CNI(Enum, metaclass=StrEnumMeta):
     UNKNOWN_CNI = "unknown_cni"
     CILIUM = "cilium"
     CALICO = "calico"
@@ -45,7 +48,7 @@ class CNI(str, Enum):
         return str(self.value)
 
 
-class ClusterStatus(str, Enum):
+class ClusterStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     CREATING = "creating"
     READY = "ready"
@@ -59,7 +62,7 @@ class ClusterStatus(str, Enum):
         return str(self.value)
 
 
-class ClusterTypeAvailability(str, Enum):
+class ClusterTypeAvailability(Enum, metaclass=StrEnumMeta):
     AVAILABLE = "available"
     SCARCE = "scarce"
     SHORTAGE = "shortage"
@@ -68,7 +71,7 @@ class ClusterTypeAvailability(str, Enum):
         return str(self.value)
 
 
-class ClusterTypeResiliency(str, Enum):
+class ClusterTypeResiliency(Enum, metaclass=StrEnumMeta):
     UNKNOWN_RESILIENCY = "unknown_resiliency"
     STANDARD = "standard"
     HIGH_AVAILABILITY = "high_availability"
@@ -77,7 +80,7 @@ class ClusterTypeResiliency(str, Enum):
         return str(self.value)
 
 
-class Ingress(str, Enum):
+class Ingress(Enum, metaclass=StrEnumMeta):
     UNKNOWN_INGRESS = "unknown_ingress"
     NONE = "none"
     NGINX = "nginx"
@@ -88,7 +91,7 @@ class Ingress(str, Enum):
         return str(self.value)
 
 
-class ListClustersRequestOrderBy(str, Enum):
+class ListClustersRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     UPDATED_AT_ASC = "updated_at_asc"
@@ -104,7 +107,7 @@ class ListClustersRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListNodesRequestOrderBy(str, Enum):
+class ListNodesRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
 
@@ -112,7 +115,7 @@ class ListNodesRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListPoolsRequestOrderBy(str, Enum):
+class ListPoolsRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     UPDATED_AT_ASC = "updated_at_asc"
@@ -128,7 +131,7 @@ class ListPoolsRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class MaintenanceWindowDayOfTheWeek(str, Enum):
+class MaintenanceWindowDayOfTheWeek(Enum, metaclass=StrEnumMeta):
     ANY = "any"
     MONDAY = "monday"
     TUESDAY = "tuesday"
@@ -142,7 +145,7 @@ class MaintenanceWindowDayOfTheWeek(str, Enum):
         return str(self.value)
 
 
-class NodeStatus(str, Enum):
+class NodeStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     CREATING = "creating"
     NOT_READY = "not_ready"
@@ -160,7 +163,7 @@ class NodeStatus(str, Enum):
         return str(self.value)
 
 
-class PoolStatus(str, Enum):
+class PoolStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     READY = "ready"
     DELETING = "deleting"
@@ -174,7 +177,7 @@ class PoolStatus(str, Enum):
         return str(self.value)
 
 
-class PoolVolumeType(str, Enum):
+class PoolVolumeType(Enum, metaclass=StrEnumMeta):
     DEFAULT_VOLUME_TYPE = "default_volume_type"
     L_SSD = "l_ssd"
     B_SSD = "b_ssd"
@@ -183,7 +186,7 @@ class PoolVolumeType(str, Enum):
         return str(self.value)
 
 
-class Runtime(str, Enum):
+class Runtime(Enum, metaclass=StrEnumMeta):
     UNKNOWN_RUNTIME = "unknown_runtime"
     DOCKER = "docker"
     CONTAINERD = "containerd"

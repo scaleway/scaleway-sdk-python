@@ -10,9 +10,12 @@ from typing import Dict, List, Optional
 from scaleway_core.bridge import (
     Money,
 )
+from scaleway_core.utils import (
+    StrEnumMeta,
+)
 
 
-class ContactEmailStatus(str, Enum):
+class ContactEmailStatus(Enum, metaclass=StrEnumMeta):
     EMAIL_STATUS_UNKNOWN = "email_status_unknown"
     VALIDATED = "validated"
     NOT_VALIDATED = "not_validated"
@@ -22,7 +25,7 @@ class ContactEmailStatus(str, Enum):
         return str(self.value)
 
 
-class ContactExtensionFRMode(str, Enum):
+class ContactExtensionFRMode(Enum, metaclass=StrEnumMeta):
     MODE_UNKNOWN = "mode_unknown"
     INDIVIDUAL = "individual"
     COMPANY_IDENTIFICATION_CODE = "company_identification_code"
@@ -36,7 +39,7 @@ class ContactExtensionFRMode(str, Enum):
         return str(self.value)
 
 
-class ContactExtensionNLLegalForm(str, Enum):
+class ContactExtensionNLLegalForm(Enum, metaclass=StrEnumMeta):
     LEGAL_FORM_UNKNOWN = "legal_form_unknown"
     OTHER = "other"
     NON_DUTCH_EU_COMPANY = "non_dutch_eu_company"
@@ -64,7 +67,7 @@ class ContactExtensionNLLegalForm(str, Enum):
         return str(self.value)
 
 
-class ContactLegalForm(str, Enum):
+class ContactLegalForm(Enum, metaclass=StrEnumMeta):
     LEGAL_FORM_UNKNOWN = "legal_form_unknown"
     INDIVIDUAL = "individual"
     CORPORATE = "corporate"
@@ -75,7 +78,7 @@ class ContactLegalForm(str, Enum):
         return str(self.value)
 
 
-class DNSZoneStatus(str, Enum):
+class DNSZoneStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     ACTIVE = "active"
     PENDING = "pending"
@@ -86,7 +89,7 @@ class DNSZoneStatus(str, Enum):
         return str(self.value)
 
 
-class DSRecordAlgorithm(str, Enum):
+class DSRecordAlgorithm(Enum, metaclass=StrEnumMeta):
     RSAMD5 = "rsamd5"
     DH = "dh"
     DSA = "dsa"
@@ -105,7 +108,7 @@ class DSRecordAlgorithm(str, Enum):
         return str(self.value)
 
 
-class DSRecordDigestType(str, Enum):
+class DSRecordDigestType(Enum, metaclass=StrEnumMeta):
     SHA_1 = "sha_1"
     SHA_256 = "sha_256"
     GOST_R_34_11_94 = "gost_r_34_11_94"
@@ -115,7 +118,7 @@ class DSRecordDigestType(str, Enum):
         return str(self.value)
 
 
-class DomainFeatureStatus(str, Enum):
+class DomainFeatureStatus(Enum, metaclass=StrEnumMeta):
     FEATURE_STATUS_UNKNOWN = "feature_status_unknown"
     ENABLING = "enabling"
     ENABLED = "enabled"
@@ -126,7 +129,7 @@ class DomainFeatureStatus(str, Enum):
         return str(self.value)
 
 
-class DomainRecordHTTPServiceConfigStrategy(str, Enum):
+class DomainRecordHTTPServiceConfigStrategy(Enum, metaclass=StrEnumMeta):
     RANDOM = "random"
     HASHED = "hashed"
     ALL = "all"
@@ -135,7 +138,7 @@ class DomainRecordHTTPServiceConfigStrategy(str, Enum):
         return str(self.value)
 
 
-class DomainRecordType(str, Enum):
+class DomainRecordType(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     A = "A"
     AAAA = "AAAA"
@@ -161,7 +164,7 @@ class DomainRecordType(str, Enum):
         return str(self.value)
 
 
-class DomainRegistrationStatusTransferStatus(str, Enum):
+class DomainRegistrationStatusTransferStatus(Enum, metaclass=StrEnumMeta):
     STATUS_UNKNOWN = "status_unknown"
     PENDING = "pending"
     WAITING_VOTE = "waiting_vote"
@@ -173,7 +176,7 @@ class DomainRegistrationStatusTransferStatus(str, Enum):
         return str(self.value)
 
 
-class DomainStatus(str, Enum):
+class DomainStatus(Enum, metaclass=StrEnumMeta):
     STATUS_UNKNOWN = "status_unknown"
     ACTIVE = "active"
     CREATING = "creating"
@@ -193,7 +196,7 @@ class DomainStatus(str, Enum):
         return str(self.value)
 
 
-class HostStatus(str, Enum):
+class HostStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
     ACTIVE = "active"
     UPDATING = "updating"
@@ -203,7 +206,7 @@ class HostStatus(str, Enum):
         return str(self.value)
 
 
-class LanguageCode(str, Enum):
+class LanguageCode(Enum, metaclass=StrEnumMeta):
     UNKNOWN_LANGUAGE_CODE = "unknown_language_code"
     EN_US = "en_US"
     FR_FR = "fr_FR"
@@ -213,7 +216,7 @@ class LanguageCode(str, Enum):
         return str(self.value)
 
 
-class ListContactsRequestRole(str, Enum):
+class ListContactsRequestRole(Enum, metaclass=StrEnumMeta):
     UNKNOWN_ROLE = "unknown_role"
     OWNER = "owner"
     ADMINISTRATIVE = "administrative"
@@ -223,7 +226,7 @@ class ListContactsRequestRole(str, Enum):
         return str(self.value)
 
 
-class ListDNSZoneRecordsRequestOrderBy(str, Enum):
+class ListDNSZoneRecordsRequestOrderBy(Enum, metaclass=StrEnumMeta):
     NAME_ASC = "name_asc"
     NAME_DESC = "name_desc"
 
@@ -231,7 +234,7 @@ class ListDNSZoneRecordsRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListDNSZonesRequestOrderBy(str, Enum):
+class ListDNSZonesRequestOrderBy(Enum, metaclass=StrEnumMeta):
     DOMAIN_ASC = "domain_asc"
     DOMAIN_DESC = "domain_desc"
     SUBDOMAIN_ASC = "subdomain_asc"
@@ -241,7 +244,7 @@ class ListDNSZonesRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListDomainsRequestOrderBy(str, Enum):
+class ListDomainsRequestOrderBy(Enum, metaclass=StrEnumMeta):
     DOMAIN_ASC = "domain_asc"
     DOMAIN_DESC = "domain_desc"
 
@@ -249,7 +252,7 @@ class ListDomainsRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListRenewableDomainsRequestOrderBy(str, Enum):
+class ListRenewableDomainsRequestOrderBy(Enum, metaclass=StrEnumMeta):
     DOMAIN_ASC = "domain_asc"
     DOMAIN_DESC = "domain_desc"
 
@@ -257,7 +260,7 @@ class ListRenewableDomainsRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListTasksRequestOrderBy(str, Enum):
+class ListTasksRequestOrderBy(Enum, metaclass=StrEnumMeta):
     DOMAIN_DESC = "domain_desc"
     DOMAIN_ASC = "domain_asc"
     TYPE_ASC = "type_asc"
@@ -271,7 +274,7 @@ class ListTasksRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class RawFormat(str, Enum):
+class RawFormat(Enum, metaclass=StrEnumMeta):
     UNKNOWN_RAW_FORMAT = "unknown_raw_format"
     BIND = "bind"
 
@@ -279,7 +282,7 @@ class RawFormat(str, Enum):
         return str(self.value)
 
 
-class RenewableDomainStatus(str, Enum):
+class RenewableDomainStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     RENEWABLE = "renewable"
     LATE_RENEWEABLE = "late_reneweable"
@@ -289,7 +292,7 @@ class RenewableDomainStatus(str, Enum):
         return str(self.value)
 
 
-class SSLCertificateStatus(str, Enum):
+class SSLCertificateStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     NEW = "new"
     PENDING = "pending"
@@ -300,7 +303,7 @@ class SSLCertificateStatus(str, Enum):
         return str(self.value)
 
 
-class TaskStatus(str, Enum):
+class TaskStatus(Enum, metaclass=StrEnumMeta):
     UNAVAILABLE = "unavailable"
     NEW = "new"
     WAITING_PAYMENT = "waiting_payment"
@@ -312,7 +315,7 @@ class TaskStatus(str, Enum):
         return str(self.value)
 
 
-class TaskType(str, Enum):
+class TaskType(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     CREATE_DOMAIN = "create_domain"
     CREATE_EXTERNAL_DOMAIN = "create_external_domain"

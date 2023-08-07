@@ -10,9 +10,12 @@ from typing import List, Optional
 from scaleway_core.bridge import (
     Region,
 )
+from scaleway_core.utils import (
+    StrEnumMeta,
+)
 
 
-class ImageStatus(str, Enum):
+class ImageStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     READY = "ready"
     DELETING = "deleting"
@@ -23,7 +26,7 @@ class ImageStatus(str, Enum):
         return str(self.value)
 
 
-class ImageVisibility(str, Enum):
+class ImageVisibility(Enum, metaclass=StrEnumMeta):
     VISIBILITY_UNKNOWN = "visibility_unknown"
     INHERIT = "inherit"
     PUBLIC = "public"
@@ -33,7 +36,7 @@ class ImageVisibility(str, Enum):
         return str(self.value)
 
 
-class ListImagesRequestOrderBy(str, Enum):
+class ListImagesRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     NAME_ASC = "name_asc"
@@ -43,7 +46,7 @@ class ListImagesRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListNamespacesRequestOrderBy(str, Enum):
+class ListNamespacesRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     DESCRIPTION_ASC = "description_asc"
@@ -55,7 +58,7 @@ class ListNamespacesRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListTagsRequestOrderBy(str, Enum):
+class ListTagsRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     NAME_ASC = "name_asc"
@@ -65,7 +68,7 @@ class ListTagsRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class NamespaceStatus(str, Enum):
+class NamespaceStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     READY = "ready"
     DELETING = "deleting"
@@ -76,7 +79,7 @@ class NamespaceStatus(str, Enum):
         return str(self.value)
 
 
-class TagStatus(str, Enum):
+class TagStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     READY = "ready"
     DELETING = "deleting"

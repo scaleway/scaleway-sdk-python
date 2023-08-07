@@ -10,9 +10,12 @@ from typing import List, Optional
 from scaleway_core.bridge import (
     Region,
 )
+from scaleway_core.utils import (
+    StrEnumMeta,
+)
 
 
-class ListSecretsRequestOrderBy(str, Enum):
+class ListSecretsRequestOrderBy(Enum, metaclass=StrEnumMeta):
     NAME_ASC = "name_asc"
     NAME_DESC = "name_desc"
     CREATED_AT_ASC = "created_at_asc"
@@ -24,14 +27,14 @@ class ListSecretsRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class Product(str, Enum):
+class Product(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
 
     def __str__(self) -> str:
         return str(self.value)
 
 
-class SecretStatus(str, Enum):
+class SecretStatus(Enum, metaclass=StrEnumMeta):
     READY = "ready"
     LOCKED = "locked"
 
@@ -39,7 +42,7 @@ class SecretStatus(str, Enum):
         return str(self.value)
 
 
-class SecretType(str, Enum):
+class SecretType(Enum, metaclass=StrEnumMeta):
     UNKNOWN_SECRET_TYPE = "unknown_secret_type"
     OPAQUE = "opaque"
     CERTIFICATE = "certificate"
@@ -48,7 +51,7 @@ class SecretType(str, Enum):
         return str(self.value)
 
 
-class SecretVersionStatus(str, Enum):
+class SecretVersionStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     ENABLED = "enabled"
     DISABLED = "disabled"
