@@ -11,9 +11,12 @@ from scaleway_core.bridge import (
     Region,
     TimeSeries,
 )
+from scaleway_core.utils import (
+    StrEnumMeta,
+)
 
 
-class DeviceMessageFiltersRulePolicy(str, Enum):
+class DeviceMessageFiltersRulePolicy(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     ACCEPT = "accept"
     REJECT = "reject"
@@ -22,7 +25,7 @@ class DeviceMessageFiltersRulePolicy(str, Enum):
         return str(self.value)
 
 
-class DeviceStatus(str, Enum):
+class DeviceStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     ERROR = "error"
     ENABLED = "enabled"
@@ -32,7 +35,7 @@ class DeviceStatus(str, Enum):
         return str(self.value)
 
 
-class HubProductPlan(str, Enum):
+class HubProductPlan(Enum, metaclass=StrEnumMeta):
     PLAN_UNKNOWN = "plan_unknown"
     PLAN_SHARED = "plan_shared"
     PLAN_DEDICATED = "plan_dedicated"
@@ -42,7 +45,7 @@ class HubProductPlan(str, Enum):
         return str(self.value)
 
 
-class HubStatus(str, Enum):
+class HubStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     ERROR = "error"
     ENABLING = "enabling"
@@ -54,7 +57,7 @@ class HubStatus(str, Enum):
         return str(self.value)
 
 
-class ListDevicesRequestOrderBy(str, Enum):
+class ListDevicesRequestOrderBy(Enum, metaclass=StrEnumMeta):
     NAME_ASC = "name_asc"
     NAME_DESC = "name_desc"
     STATUS_ASC = "status_asc"
@@ -72,7 +75,7 @@ class ListDevicesRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListHubsRequestOrderBy(str, Enum):
+class ListHubsRequestOrderBy(Enum, metaclass=StrEnumMeta):
     NAME_ASC = "name_asc"
     NAME_DESC = "name_desc"
     STATUS_ASC = "status_asc"
@@ -88,7 +91,7 @@ class ListHubsRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListNetworksRequestOrderBy(str, Enum):
+class ListNetworksRequestOrderBy(Enum, metaclass=StrEnumMeta):
     NAME_ASC = "name_asc"
     NAME_DESC = "name_desc"
     TYPE_ASC = "type_asc"
@@ -100,7 +103,7 @@ class ListNetworksRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListRoutesRequestOrderBy(str, Enum):
+class ListRoutesRequestOrderBy(Enum, metaclass=StrEnumMeta):
     NAME_ASC = "name_asc"
     NAME_DESC = "name_desc"
     HUB_ID_ASC = "hub_id_asc"
@@ -114,7 +117,7 @@ class ListRoutesRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class NetworkNetworkType(str, Enum):
+class NetworkNetworkType(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     SIGFOX = "sigfox"
     REST = "rest"
@@ -123,14 +126,14 @@ class NetworkNetworkType(str, Enum):
         return str(self.value)
 
 
-class NullValue(str, Enum):
+class NullValue(Enum, metaclass=StrEnumMeta):
     NULL_VALUE = "NULL_VALUE"
 
     def __str__(self) -> str:
         return str(self.value)
 
 
-class RouteDatabaseConfigEngine(str, Enum):
+class RouteDatabaseConfigEngine(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     POSTGRESQL = "postgresql"
     MYSQL = "mysql"
@@ -139,7 +142,7 @@ class RouteDatabaseConfigEngine(str, Enum):
         return str(self.value)
 
 
-class RouteRestConfigHttpVerb(str, Enum):
+class RouteRestConfigHttpVerb(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     GET = "get"
     POST = "post"
@@ -151,7 +154,7 @@ class RouteRestConfigHttpVerb(str, Enum):
         return str(self.value)
 
 
-class RouteRouteType(str, Enum):
+class RouteRouteType(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     S3 = "s3"
     DATABASE = "database"
@@ -161,7 +164,7 @@ class RouteRouteType(str, Enum):
         return str(self.value)
 
 
-class RouteS3ConfigS3Strategy(str, Enum):
+class RouteS3ConfigS3Strategy(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     PER_TOPIC = "per_topic"
     PER_MESSAGE = "per_message"

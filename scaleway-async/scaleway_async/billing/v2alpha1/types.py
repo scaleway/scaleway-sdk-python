@@ -10,16 +10,19 @@ from typing import List, Optional
 from scaleway_core.bridge import (
     Money,
 )
+from scaleway_core.utils import (
+    StrEnumMeta,
+)
 
 
-class DownloadInvoiceRequestFileType(str, Enum):
+class DownloadInvoiceRequestFileType(Enum, metaclass=StrEnumMeta):
     PDF = "pdf"
 
     def __str__(self) -> str:
         return str(self.value)
 
 
-class InvoiceType(str, Enum):
+class InvoiceType(Enum, metaclass=StrEnumMeta):
     UNKNOWN_TYPE = "unknown_type"
     PERIODIC = "periodic"
     PURCHASE = "purchase"
@@ -28,7 +31,7 @@ class InvoiceType(str, Enum):
         return str(self.value)
 
 
-class ListInvoicesRequestOrderBy(str, Enum):
+class ListInvoicesRequestOrderBy(Enum, metaclass=StrEnumMeta):
     INVOICE_NUMBER_DESC = "invoice_number_desc"
     INVOICE_NUMBER_ASC = "invoice_number_asc"
     START_DATE_DESC = "start_date_desc"

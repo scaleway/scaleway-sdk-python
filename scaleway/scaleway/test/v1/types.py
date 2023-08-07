@@ -7,8 +7,12 @@ from datetime import datetime
 from enum import Enum
 from typing import List, Optional
 
+from scaleway_core.utils import (
+    StrEnumMeta,
+)
 
-class EyeColors(str, Enum):
+
+class EyeColors(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     AMBER = "amber"
     BLUE = "blue"
@@ -23,7 +27,7 @@ class EyeColors(str, Enum):
         return str(self.value)
 
 
-class HumanStatus(str, Enum):
+class HumanStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     STOPPED = "stopped"
     RUNNING = "running"
@@ -32,7 +36,7 @@ class HumanStatus(str, Enum):
         return str(self.value)
 
 
-class ListHumansRequestOrderBy(str, Enum):
+class ListHumansRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     UPDATED_AT_ASC = "updated_at_asc"

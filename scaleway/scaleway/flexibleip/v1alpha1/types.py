@@ -10,9 +10,12 @@ from typing import List, Optional
 from scaleway_core.bridge import (
     Zone,
 )
+from scaleway_core.utils import (
+    StrEnumMeta,
+)
 
 
-class FlexibleIPStatus(str, Enum):
+class FlexibleIPStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     READY = "ready"
     UPDATING = "updating"
@@ -25,7 +28,7 @@ class FlexibleIPStatus(str, Enum):
         return str(self.value)
 
 
-class ListFlexibleIPsRequestOrderBy(str, Enum):
+class ListFlexibleIPsRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
 
@@ -33,7 +36,7 @@ class ListFlexibleIPsRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class MACAddressStatus(str, Enum):
+class MACAddressStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     READY = "ready"
     UPDATING = "updating"
@@ -45,7 +48,7 @@ class MACAddressStatus(str, Enum):
         return str(self.value)
 
 
-class MACAddressType(str, Enum):
+class MACAddressType(Enum, metaclass=StrEnumMeta):
     UNKNOWN_TYPE = "unknown_type"
     VMWARE = "vmware"
     XEN = "xen"

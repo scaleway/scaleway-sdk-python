@@ -10,9 +10,12 @@ from typing import List, Optional
 from scaleway_core.bridge import (
     Zone,
 )
+from scaleway_core.utils import (
+    StrEnumMeta,
+)
 
 
-class DHCPEntryType(str, Enum):
+class DHCPEntryType(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     RESERVATION = "reservation"
     LEASE = "lease"
@@ -21,7 +24,7 @@ class DHCPEntryType(str, Enum):
         return str(self.value)
 
 
-class GatewayNetworkStatus(str, Enum):
+class GatewayNetworkStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     CREATED = "created"
     ATTACHING = "attaching"
@@ -34,7 +37,7 @@ class GatewayNetworkStatus(str, Enum):
         return str(self.value)
 
 
-class GatewayStatus(str, Enum):
+class GatewayStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     STOPPED = "stopped"
     ALLOCATING = "allocating"
@@ -50,7 +53,7 @@ class GatewayStatus(str, Enum):
         return str(self.value)
 
 
-class ListDHCPEntriesRequestOrderBy(str, Enum):
+class ListDHCPEntriesRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     IP_ADDRESS_ASC = "ip_address_asc"
@@ -62,7 +65,7 @@ class ListDHCPEntriesRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListDHCPsRequestOrderBy(str, Enum):
+class ListDHCPsRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     SUBNET_ASC = "subnet_asc"
@@ -72,7 +75,7 @@ class ListDHCPsRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListGatewayNetworksRequestOrderBy(str, Enum):
+class ListGatewayNetworksRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     STATUS_ASC = "status_asc"
@@ -82,7 +85,7 @@ class ListGatewayNetworksRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListGatewaysRequestOrderBy(str, Enum):
+class ListGatewaysRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     NAME_ASC = "name_asc"
@@ -96,7 +99,7 @@ class ListGatewaysRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListIPsRequestOrderBy(str, Enum):
+class ListIPsRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     IP_ASC = "ip_asc"
@@ -108,7 +111,7 @@ class ListIPsRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListPATRulesRequestOrderBy(str, Enum):
+class ListPATRulesRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     PUBLIC_PORT_ASC = "public_port_asc"
@@ -118,7 +121,7 @@ class ListPATRulesRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class PATRuleProtocol(str, Enum):
+class PATRuleProtocol(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     BOTH = "both"
     TCP = "tcp"

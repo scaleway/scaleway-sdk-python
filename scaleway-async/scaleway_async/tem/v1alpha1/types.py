@@ -10,9 +10,12 @@ from typing import List, Optional
 from scaleway_core.bridge import (
     Region,
 )
+from scaleway_core.utils import (
+    StrEnumMeta,
+)
 
 
-class DomainLastStatusRecordStatus(str, Enum):
+class DomainLastStatusRecordStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN_RECORD_STATUS = "unknown_record_status"
     VALID = "valid"
     INVALID = "invalid"
@@ -22,7 +25,7 @@ class DomainLastStatusRecordStatus(str, Enum):
         return str(self.value)
 
 
-class DomainStatus(str, Enum):
+class DomainStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     CHECKED = "checked"
     UNCHECKED = "unchecked"
@@ -35,7 +38,7 @@ class DomainStatus(str, Enum):
         return str(self.value)
 
 
-class EmailFlag(str, Enum):
+class EmailFlag(Enum, metaclass=StrEnumMeta):
     UNKNOWN_FLAG = "unknown_flag"
     SOFT_BOUNCE = "soft_bounce"
     HARD_BOUNCE = "hard_bounce"
@@ -46,7 +49,7 @@ class EmailFlag(str, Enum):
         return str(self.value)
 
 
-class EmailRcptType(str, Enum):
+class EmailRcptType(Enum, metaclass=StrEnumMeta):
     UNKNOWN_RCPT_TYPE = "unknown_rcpt_type"
     TO = "to"
     CC = "cc"
@@ -56,7 +59,7 @@ class EmailRcptType(str, Enum):
         return str(self.value)
 
 
-class EmailStatus(str, Enum):
+class EmailStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     NEW = "new"
     SENDING = "sending"
@@ -68,7 +71,7 @@ class EmailStatus(str, Enum):
         return str(self.value)
 
 
-class ListEmailsRequestOrderBy(str, Enum):
+class ListEmailsRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_DESC = "created_at_desc"
     CREATED_AT_ASC = "created_at_asc"
     UPDATED_AT_DESC = "updated_at_desc"

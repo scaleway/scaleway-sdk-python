@@ -10,9 +10,12 @@ from typing import List, Optional
 from scaleway_core.bridge import (
     Zone,
 )
+from scaleway_core.utils import (
+    StrEnumMeta,
+)
 
 
-class ListImagesRequestOrderBy(str, Enum):
+class ListImagesRequestOrderBy(Enum, metaclass=StrEnumMeta):
     NAME_ASC = "name_asc"
     NAME_DESC = "name_desc"
     CREATED_AT_ASC = "created_at_asc"
@@ -24,7 +27,7 @@ class ListImagesRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListLocalImagesRequestOrderBy(str, Enum):
+class ListLocalImagesRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
 
@@ -32,7 +35,7 @@ class ListLocalImagesRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListVersionsRequestOrderBy(str, Enum):
+class ListVersionsRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
 
@@ -40,7 +43,7 @@ class ListVersionsRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class LocalImageType(str, Enum):
+class LocalImageType(Enum, metaclass=StrEnumMeta):
     UNKNOWN_TYPE = "unknown_type"
     INSTANCE_LOCAL = "instance_local"
     INSTANCE_SBS = "instance_sbs"

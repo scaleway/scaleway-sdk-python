@@ -12,9 +12,12 @@ from scaleway_core.bridge import (
     TimeSeries,
     Zone,
 )
+from scaleway_core.utils import (
+    StrEnumMeta,
+)
 
 
-class ACLRuleAction(str, Enum):
+class ACLRuleAction(Enum, metaclass=StrEnumMeta):
     ALLOW = "allow"
     DENY = "deny"
 
@@ -22,7 +25,7 @@ class ACLRuleAction(str, Enum):
         return str(self.value)
 
 
-class ACLRuleDirection(str, Enum):
+class ACLRuleDirection(Enum, metaclass=StrEnumMeta):
     INBOUND = "inbound"
     OUTBOUND = "outbound"
 
@@ -30,7 +33,7 @@ class ACLRuleDirection(str, Enum):
         return str(self.value)
 
 
-class ACLRuleProtocol(str, Enum):
+class ACLRuleProtocol(Enum, metaclass=StrEnumMeta):
     TCP = "tcp"
     UDP = "udp"
     ICMP = "icmp"
@@ -39,7 +42,7 @@ class ACLRuleProtocol(str, Enum):
         return str(self.value)
 
 
-class DatabaseBackupStatus(str, Enum):
+class DatabaseBackupStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     CREATING = "creating"
     READY = "ready"
@@ -53,7 +56,7 @@ class DatabaseBackupStatus(str, Enum):
         return str(self.value)
 
 
-class EngineSettingPropertyType(str, Enum):
+class EngineSettingPropertyType(Enum, metaclass=StrEnumMeta):
     BOOLEAN = "BOOLEAN"
     INT = "INT"
     STRING = "STRING"
@@ -63,7 +66,7 @@ class EngineSettingPropertyType(str, Enum):
         return str(self.value)
 
 
-class InstanceLogStatus(str, Enum):
+class InstanceLogStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     READY = "ready"
     CREATING = "creating"
@@ -73,7 +76,7 @@ class InstanceLogStatus(str, Enum):
         return str(self.value)
 
 
-class InstanceStatus(str, Enum):
+class InstanceStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     READY = "ready"
     PROVISIONING = "provisioning"
@@ -92,7 +95,7 @@ class InstanceStatus(str, Enum):
         return str(self.value)
 
 
-class ListDatabaseBackupsRequestOrderBy(str, Enum):
+class ListDatabaseBackupsRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     NAME_ASC = "name_asc"
@@ -104,7 +107,7 @@ class ListDatabaseBackupsRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListDatabasesRequestOrderBy(str, Enum):
+class ListDatabasesRequestOrderBy(Enum, metaclass=StrEnumMeta):
     NAME_ASC = "name_asc"
     NAME_DESC = "name_desc"
     SIZE_ASC = "size_asc"
@@ -114,7 +117,7 @@ class ListDatabasesRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListInstanceLogsRequestOrderBy(str, Enum):
+class ListInstanceLogsRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
 
@@ -122,7 +125,7 @@ class ListInstanceLogsRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListInstancesRequestOrderBy(str, Enum):
+class ListInstancesRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     NAME_ASC = "name_asc"
@@ -135,7 +138,7 @@ class ListInstancesRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListPrivilegesRequestOrderBy(str, Enum):
+class ListPrivilegesRequestOrderBy(Enum, metaclass=StrEnumMeta):
     USER_NAME_ASC = "user_name_asc"
     USER_NAME_DESC = "user_name_desc"
     DATABASE_NAME_ASC = "database_name_asc"
@@ -145,7 +148,7 @@ class ListPrivilegesRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListSnapshotsRequestOrderBy(str, Enum):
+class ListSnapshotsRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     NAME_ASC = "name_asc"
@@ -157,7 +160,7 @@ class ListSnapshotsRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListUsersRequestOrderBy(str, Enum):
+class ListUsersRequestOrderBy(Enum, metaclass=StrEnumMeta):
     NAME_ASC = "name_asc"
     NAME_DESC = "name_desc"
     IS_ADMIN_ASC = "is_admin_asc"
@@ -167,7 +170,7 @@ class ListUsersRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class MaintenanceStatus(str, Enum):
+class MaintenanceStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     PENDING = "pending"
     DONE = "done"
@@ -177,7 +180,7 @@ class MaintenanceStatus(str, Enum):
         return str(self.value)
 
 
-class NodeTypeGeneration(str, Enum):
+class NodeTypeGeneration(Enum, metaclass=StrEnumMeta):
     UNKNOWN_GENERATION = "unknown_generation"
     GENERATION_V1 = "generation_v1"
     GENERATION_V2 = "generation_v2"
@@ -186,7 +189,7 @@ class NodeTypeGeneration(str, Enum):
         return str(self.value)
 
 
-class NodeTypeStock(str, Enum):
+class NodeTypeStock(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     LOW_STOCK = "low_stock"
     OUT_OF_STOCK = "out_of_stock"
@@ -196,7 +199,7 @@ class NodeTypeStock(str, Enum):
         return str(self.value)
 
 
-class Permission(str, Enum):
+class Permission(Enum, metaclass=StrEnumMeta):
     READONLY = "readonly"
     READWRITE = "readwrite"
     ALL = "all"
@@ -207,7 +210,7 @@ class Permission(str, Enum):
         return str(self.value)
 
 
-class ReadReplicaStatus(str, Enum):
+class ReadReplicaStatus(Enum, metaclass=StrEnumMeta):
     """
     Read replica. status.
     """
@@ -226,7 +229,7 @@ class ReadReplicaStatus(str, Enum):
         return str(self.value)
 
 
-class SnapshotStatus(str, Enum):
+class SnapshotStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     CREATING = "creating"
     READY = "ready"
@@ -239,7 +242,7 @@ class SnapshotStatus(str, Enum):
         return str(self.value)
 
 
-class VolumeType(str, Enum):
+class VolumeType(Enum, metaclass=StrEnumMeta):
     LSSD = "lssd"
     BSSD = "bssd"
 

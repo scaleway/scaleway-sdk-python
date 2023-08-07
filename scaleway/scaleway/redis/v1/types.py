@@ -11,9 +11,12 @@ from scaleway_core.bridge import (
     TimeSeries,
     Zone,
 )
+from scaleway_core.utils import (
+    StrEnumMeta,
+)
 
 
-class AvailableClusterSettingPropertyType(str, Enum):
+class AvailableClusterSettingPropertyType(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "UNKNOWN"
     BOOLEAN = "BOOLEAN"
     INT = "INT"
@@ -23,7 +26,7 @@ class AvailableClusterSettingPropertyType(str, Enum):
         return str(self.value)
 
 
-class ClusterStatus(str, Enum):
+class ClusterStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     READY = "ready"
     PROVISIONING = "provisioning"
@@ -39,7 +42,7 @@ class ClusterStatus(str, Enum):
         return str(self.value)
 
 
-class ListClustersRequestOrderBy(str, Enum):
+class ListClustersRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     NAME_ASC = "name_asc"
@@ -49,7 +52,7 @@ class ListClustersRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class NodeTypeStock(str, Enum):
+class NodeTypeStock(Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     LOW_STOCK = "low_stock"
     OUT_OF_STOCK = "out_of_stock"
@@ -59,7 +62,7 @@ class NodeTypeStock(str, Enum):
         return str(self.value)
 
 
-class PrivateNetworkProvisioningMode(str, Enum):
+class PrivateNetworkProvisioningMode(Enum, metaclass=StrEnumMeta):
     STATIC = "static"
     IPAM = "ipam"
 

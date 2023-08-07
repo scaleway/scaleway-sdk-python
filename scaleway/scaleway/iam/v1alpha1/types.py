@@ -7,8 +7,12 @@ from datetime import datetime
 from enum import Enum
 from typing import List, Optional
 
+from scaleway_core.utils import (
+    StrEnumMeta,
+)
 
-class BearerType(str, Enum):
+
+class BearerType(Enum, metaclass=StrEnumMeta):
     UNKNOWN_BEARER_TYPE = "unknown_bearer_type"
     USER = "user"
     APPLICATION = "application"
@@ -17,7 +21,7 @@ class BearerType(str, Enum):
         return str(self.value)
 
 
-class ListAPIKeysRequestOrderBy(str, Enum):
+class ListAPIKeysRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     UPDATED_AT_ASC = "updated_at_asc"
@@ -31,7 +35,7 @@ class ListAPIKeysRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListApplicationsRequestOrderBy(str, Enum):
+class ListApplicationsRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     UPDATED_AT_ASC = "updated_at_asc"
@@ -43,7 +47,7 @@ class ListApplicationsRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListGroupsRequestOrderBy(str, Enum):
+class ListGroupsRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     UPDATED_AT_ASC = "updated_at_asc"
@@ -55,7 +59,7 @@ class ListGroupsRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListJWTsRequestOrderBy(str, Enum):
+class ListJWTsRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     UPDATED_AT_ASC = "updated_at_asc"
@@ -65,7 +69,7 @@ class ListJWTsRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListPermissionSetsRequestOrderBy(str, Enum):
+class ListPermissionSetsRequestOrderBy(Enum, metaclass=StrEnumMeta):
     NAME_ASC = "name_asc"
     NAME_DESC = "name_desc"
     CREATED_AT_ASC = "created_at_asc"
@@ -75,7 +79,7 @@ class ListPermissionSetsRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListPoliciesRequestOrderBy(str, Enum):
+class ListPoliciesRequestOrderBy(Enum, metaclass=StrEnumMeta):
     POLICY_NAME_ASC = "policy_name_asc"
     POLICY_NAME_DESC = "policy_name_desc"
     CREATED_AT_ASC = "created_at_asc"
@@ -85,7 +89,7 @@ class ListPoliciesRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListQuotaRequestOrderBy(str, Enum):
+class ListQuotaRequestOrderBy(Enum, metaclass=StrEnumMeta):
     NAME_ASC = "name_asc"
     NAME_DESC = "name_desc"
 
@@ -93,7 +97,7 @@ class ListQuotaRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListSSHKeysRequestOrderBy(str, Enum):
+class ListSSHKeysRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     UPDATED_AT_ASC = "updated_at_asc"
@@ -105,7 +109,7 @@ class ListSSHKeysRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class ListUsersRequestOrderBy(str, Enum):
+class ListUsersRequestOrderBy(Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     UPDATED_AT_ASC = "updated_at_asc"
@@ -119,7 +123,7 @@ class ListUsersRequestOrderBy(str, Enum):
         return str(self.value)
 
 
-class PermissionSetScopeType(str, Enum):
+class PermissionSetScopeType(Enum, metaclass=StrEnumMeta):
     UNKNOWN_SCOPE_TYPE = "unknown_scope_type"
     PROJECTS = "projects"
     ORGANIZATION = "organization"
@@ -129,7 +133,7 @@ class PermissionSetScopeType(str, Enum):
         return str(self.value)
 
 
-class UserStatus(str, Enum):
+class UserStatus(Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
     INVITATION_PENDING = "invitation_pending"
     ACTIVATED = "activated"
@@ -138,7 +142,7 @@ class UserStatus(str, Enum):
         return str(self.value)
 
 
-class UserType(str, Enum):
+class UserType(Enum, metaclass=StrEnumMeta):
     UNKNOWN_TYPE = "unknown_type"
     GUEST = "guest"
     OWNER = "owner"
