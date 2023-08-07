@@ -9,7 +9,7 @@ from .random_name import random_name
 
 from .resolve_one_of import OneOfPossibility, resolve_one_of
 
-from .strenum import StrEnum
+from .strenummeta import StrEnumMeta
 
 from .validate_path_param import validate_path_param
 
@@ -27,7 +27,7 @@ __all__ = [
     "random_name",
     "OneOfPossibility",
     "resolve_one_of",
-    "StrEnum",
+    "StrEnumMeta",
     "validate_path_param",
     "WaitForOptions",
     "WaitForStopCondition",
