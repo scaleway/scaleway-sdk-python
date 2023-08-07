@@ -65,18 +65,32 @@ def marshal_ProjectApiCreateProjectRequest(
     request: ProjectApiCreateProjectRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "description": request.description,
-        "name": request.name,
-        "organization_id": request.organization_id or defaults.default_organization_id,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.organization_id is not None:
+        output["organization_id"] = (
+            request.organization_id or defaults.default_organization_id
+        )
+
+    return output
 
 
 def marshal_ProjectApiUpdateProjectRequest(
     request: ProjectApiUpdateProjectRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "description": request.description,
-        "name": request.name,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output

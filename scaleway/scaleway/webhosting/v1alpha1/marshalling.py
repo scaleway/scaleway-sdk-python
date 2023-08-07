@@ -307,23 +307,45 @@ def marshal_CreateHostingRequest(
     request: CreateHostingRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "domain": request.domain,
-        "email": request.email,
-        "offer_id": request.offer_id,
-        "option_ids": request.option_ids,
-        "project_id": request.project_id or defaults.default_project_id,
-        "tags": request.tags,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.domain is not None:
+        output["domain"] = request.domain
+
+    if request.email is not None:
+        output["email"] = request.email
+
+    if request.offer_id is not None:
+        output["offer_id"] = request.offer_id
+
+    if request.option_ids is not None:
+        output["option_ids"] = request.option_ids
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    return output
 
 
 def marshal_UpdateHostingRequest(
     request: UpdateHostingRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "email": request.email,
-        "offer_id": request.offer_id,
-        "option_ids": request.option_ids,
-        "tags": request.tags,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.email is not None:
+        output["email"] = request.email
+
+    if request.offer_id is not None:
+        output["offer_id"] = request.offer_id
+
+    if request.option_ids is not None:
+        output["option_ids"] = request.option_ids
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    return output

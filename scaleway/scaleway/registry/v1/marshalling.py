@@ -206,8 +206,9 @@ def marshal_CreateNamespaceRequest(
     request: CreateNamespaceRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "project_id",
@@ -225,26 +226,42 @@ def marshal_CreateNamespaceRequest(
                 ),
             ]
         ),
-        "description": request.description,
-        "is_public": request.is_public,
-        "name": request.name,
-    }
+    )
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.is_public is not None:
+        output["is_public"] = request.is_public
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output
 
 
 def marshal_UpdateImageRequest(
     request: UpdateImageRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "visibility": ImageVisibility(request.visibility),
-    }
+    output: Dict[str, Any] = {}
+
+    if request.visibility is not None:
+        output["visibility"] = ImageVisibility(request.visibility)
+
+    return output
 
 
 def marshal_UpdateNamespaceRequest(
     request: UpdateNamespaceRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "description": request.description,
-        "is_public": request.is_public,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.is_public is not None:
+        output["is_public"] = request.is_public
+
+    return output

@@ -165,70 +165,105 @@ def marshal_AttachFlexibleIPRequest(
     request: AttachFlexibleIPRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "fips_ids": request.fips_ids,
-        "server_id": request.server_id,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.fips_ids is not None:
+        output["fips_ids"] = request.fips_ids
+
+    if request.server_id is not None:
+        output["server_id"] = request.server_id
+
+    return output
 
 
 def marshal_CreateFlexibleIPRequest(
     request: CreateFlexibleIPRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "description": request.description,
-        "is_ipv6": request.is_ipv6,
-        "project_id": request.project_id or defaults.default_project_id,
-        "reverse": request.reverse,
-        "server_id": request.server_id,
-        "tags": request.tags,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.is_ipv6 is not None:
+        output["is_ipv6"] = request.is_ipv6
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    if request.reverse is not None:
+        output["reverse"] = request.reverse
+
+    if request.server_id is not None:
+        output["server_id"] = request.server_id
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    return output
 
 
 def marshal_DetachFlexibleIPRequest(
     request: DetachFlexibleIPRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "fips_ids": request.fips_ids,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.fips_ids is not None:
+        output["fips_ids"] = request.fips_ids
+
+    return output
 
 
 def marshal_DuplicateMACAddrRequest(
     request: DuplicateMACAddrRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "duplicate_from_fip_id": request.duplicate_from_fip_id,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.duplicate_from_fip_id is not None:
+        output["duplicate_from_fip_id"] = request.duplicate_from_fip_id
+
+    return output
 
 
 def marshal_GenerateMACAddrRequest(
     request: GenerateMACAddrRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "mac_type": MACAddressType(request.mac_type)
-        if request.mac_type is not None
-        else None,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.mac_type is not None:
+        output["mac_type"] = MACAddressType(request.mac_type)
+
+    return output
 
 
 def marshal_MoveMACAddrRequest(
     request: MoveMACAddrRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "dst_fip_id": request.dst_fip_id,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.dst_fip_id is not None:
+        output["dst_fip_id"] = request.dst_fip_id
+
+    return output
 
 
 def marshal_UpdateFlexibleIPRequest(
     request: UpdateFlexibleIPRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "description": request.description,
-        "reverse": request.reverse,
-        "tags": request.tags,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.reverse is not None:
+        output["reverse"] = request.reverse
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    return output

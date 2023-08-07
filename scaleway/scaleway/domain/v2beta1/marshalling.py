@@ -1794,143 +1794,205 @@ def marshal_DomainRecordGeoIPConfigMatch(
     request: DomainRecordGeoIPConfigMatch,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "continents": request.continents,
-        "countries": request.countries,
-        "data": request.data,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.continents is not None:
+        output["continents"] = request.continents
+
+    if request.countries is not None:
+        output["countries"] = request.countries
+
+    if request.data is not None:
+        output["data"] = request.data
+
+    return output
 
 
 def marshal_DomainRecordViewConfigView(
     request: DomainRecordViewConfigView,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "data": request.data,
-        "subnet": request.subnet,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.data is not None:
+        output["data"] = request.data
+
+    if request.subnet is not None:
+        output["subnet"] = request.subnet
+
+    return output
 
 
 def marshal_DomainRecordWeightedConfigWeightedIP(
     request: DomainRecordWeightedConfigWeightedIP,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "ip": request.ip,
-        "weight": request.weight,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.ip is not None:
+        output["ip"] = request.ip
+
+    if request.weight is not None:
+        output["weight"] = request.weight
+
+    return output
 
 
 def marshal_DomainRecordGeoIPConfig(
     request: DomainRecordGeoIPConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "default": request.default,
-        "matches": [
+    output: Dict[str, Any] = {}
+
+    if request.default is not None:
+        output["default"] = request.default
+
+    if request.matches is not None:
+        output["matches"] = [
             marshal_DomainRecordGeoIPConfigMatch(v, defaults) for v in request.matches
-        ],
-    }
+        ]
+
+    return output
 
 
 def marshal_DomainRecordHTTPServiceConfig(
     request: DomainRecordHTTPServiceConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "ips": request.ips,
-        "must_contain": request.must_contain,
-        "strategy": DomainRecordHTTPServiceConfigStrategy(request.strategy),
-        "url": request.url,
-        "user_agent": request.user_agent,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.ips is not None:
+        output["ips"] = request.ips
+
+    if request.must_contain is not None:
+        output["must_contain"] = request.must_contain
+
+    if request.strategy is not None:
+        output["strategy"] = DomainRecordHTTPServiceConfigStrategy(request.strategy)
+
+    if request.url is not None:
+        output["url"] = request.url
+
+    if request.user_agent is not None:
+        output["user_agent"] = request.user_agent
+
+    return output
 
 
 def marshal_DomainRecordViewConfig(
     request: DomainRecordViewConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "views": [
+    output: Dict[str, Any] = {}
+
+    if request.views is not None:
+        output["views"] = [
             marshal_DomainRecordViewConfigView(v, defaults) for v in request.views
-        ],
-    }
+        ]
+
+    return output
 
 
 def marshal_DomainRecordWeightedConfig(
     request: DomainRecordWeightedConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "weighted_ips": [
+    output: Dict[str, Any] = {}
+
+    if request.weighted_ips is not None:
+        output["weighted_ips"] = [
             marshal_DomainRecordWeightedConfigWeightedIP(v, defaults)
             for v in request.weighted_ips
-        ],
-    }
+        ]
+
+    return output
 
 
 def marshal_ContactExtensionFRAssociationInfo(
     request: ContactExtensionFRAssociationInfo,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "publication_jo": request.publication_jo,
-        "publication_jo_page": request.publication_jo_page,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.publication_jo is not None:
+        output["publication_jo"] = request.publication_jo
+
+    if request.publication_jo_page is not None:
+        output["publication_jo_page"] = request.publication_jo_page
+
+    return output
 
 
 def marshal_ContactExtensionFRCodeAuthAfnicInfo(
     request: ContactExtensionFRCodeAuthAfnicInfo,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "code_auth_afnic": request.code_auth_afnic,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.code_auth_afnic is not None:
+        output["code_auth_afnic"] = request.code_auth_afnic
+
+    return output
 
 
 def marshal_ContactExtensionFRDunsInfo(
     request: ContactExtensionFRDunsInfo,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "duns_id": request.duns_id,
-        "local_id": request.local_id,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.duns_id is not None:
+        output["duns_id"] = request.duns_id
+
+    if request.local_id is not None:
+        output["local_id"] = request.local_id
+
+    return output
 
 
 def marshal_ContactExtensionFRIndividualInfo(
     request: ContactExtensionFRIndividualInfo,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "whois_opt_in": request.whois_opt_in,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.whois_opt_in is not None:
+        output["whois_opt_in"] = request.whois_opt_in
+
+    return output
 
 
 def marshal_ContactExtensionFRTrademarkInfo(
     request: ContactExtensionFRTrademarkInfo,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "trademark_inpi": request.trademark_inpi,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.trademark_inpi is not None:
+        output["trademark_inpi"] = request.trademark_inpi
+
+    return output
 
 
 def marshal_DSRecordPublicKey(
     request: DSRecordPublicKey,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "key": request.key,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.key is not None:
+        output["key"] = request.key
+
+    return output
 
 
 def marshal_DomainRecord(
     request: DomainRecord,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "geo_ip_config",
@@ -1962,43 +2024,72 @@ def marshal_DomainRecord(
                 ),
             ]
         ),
-        "comment": request.comment,
-        "data": request.data,
-        "id": request.id,
-        "name": request.name,
-        "priority": request.priority,
-        "ttl": request.ttl,
-        "type": DomainRecordType(request.type_),
-    }
+    )
+
+    if request.comment is not None:
+        output["comment"] = request.comment
+
+    if request.data is not None:
+        output["data"] = request.data
+
+    if request.id is not None:
+        output["id"] = request.id
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.priority is not None:
+        output["priority"] = request.priority
+
+    if request.ttl is not None:
+        output["ttl"] = request.ttl
+
+    if request.type_ is not None:
+        output["type"] = DomainRecordType(request.type_)
+
+    return output
 
 
 def marshal_RecordIdentifier(
     request: RecordIdentifier,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "data": request.data,
-        "name": request.name,
-        "ttl": request.ttl,
-        "type": DomainRecordType(request.type_),
-    }
+    output: Dict[str, Any] = {}
+
+    if request.data is not None:
+        output["data"] = request.data
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.ttl is not None:
+        output["ttl"] = request.ttl
+
+    if request.type_ is not None:
+        output["type"] = DomainRecordType(request.type_)
+
+    return output
 
 
 def marshal_ContactExtensionEU(
     request: ContactExtensionEU,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "european_citizenship": request.european_citizenship,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.european_citizenship is not None:
+        output["european_citizenship"] = request.european_citizenship
+
+    return output
 
 
 def marshal_ContactExtensionFR(
     request: ContactExtensionFR,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "individual_info",
@@ -2040,76 +2131,110 @@ def marshal_ContactExtensionFR(
                 ),
             ]
         ),
-        "mode": ContactExtensionFRMode(request.mode),
-    }
+    )
+
+    if request.mode is not None:
+        output["mode"] = ContactExtensionFRMode(request.mode)
+
+    return output
 
 
 def marshal_ContactExtensionNL(
     request: ContactExtensionNL,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "legal_form": ContactExtensionNLLegalForm(request.legal_form),
-        "legal_form_registration_number": request.legal_form_registration_number,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.legal_form is not None:
+        output["legal_form"] = ContactExtensionNLLegalForm(request.legal_form)
+
+    if request.legal_form_registration_number is not None:
+        output[
+            "legal_form_registration_number"
+        ] = request.legal_form_registration_number
+
+    return output
 
 
 def marshal_ContactQuestion(
     request: ContactQuestion,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "answer": request.answer,
-        "question": request.question,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.answer is not None:
+        output["answer"] = request.answer
+
+    if request.question is not None:
+        output["question"] = request.question
+
+    return output
 
 
 def marshal_DSRecordDigest(
     request: DSRecordDigest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "digest": request.digest,
-        "public_key": marshal_DSRecordPublicKey(request.public_key, defaults)
-        if request.public_key is not None
-        else None,
-        "type": DSRecordDigestType(request.type_),
-    }
+    output: Dict[str, Any] = {}
+
+    if request.digest is not None:
+        output["digest"] = request.digest
+
+    if request.public_key is not None:
+        output["public_key"] = marshal_DSRecordPublicKey(request.public_key, defaults)
+
+    if request.type_ is not None:
+        output["type"] = DSRecordDigestType(request.type_)
+
+    return output
 
 
 def marshal_ImportRawDNSZoneRequestTsigKey(
     request: ImportRawDNSZoneRequestTsigKey,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "algorithm": request.algorithm,
-        "key": request.key,
-        "name": request.name,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.algorithm is not None:
+        output["algorithm"] = request.algorithm
+
+    if request.key is not None:
+        output["key"] = request.key
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output
 
 
 def marshal_RecordChangeAdd(
     request: RecordChangeAdd,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "records": [marshal_DomainRecord(v, defaults) for v in request.records],
-    }
+    output: Dict[str, Any] = {}
+
+    if request.records is not None:
+        output["records"] = [marshal_DomainRecord(v, defaults) for v in request.records]
+
+    return output
 
 
 def marshal_RecordChangeClear(
     request: RecordChangeClear,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {}
+    output: Dict[str, Any] = {}
+
+    return output
 
 
 def marshal_RecordChangeDelete(
     request: RecordChangeDelete,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility("id", request.id if request.id is not None else None),
                 OneOfPossibility(
@@ -2120,15 +2245,18 @@ def marshal_RecordChangeDelete(
                 ),
             ]
         ),
-    }
+    )
+
+    return output
 
 
 def marshal_RecordChangeSet(
     request: RecordChangeSet,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility("id", request.id if request.id is not None else None),
                 OneOfPossibility(
@@ -2139,16 +2267,21 @@ def marshal_RecordChangeSet(
                 ),
             ]
         ),
-        "records": [marshal_DomainRecord(v, defaults) for v in request.records],
-    }
+    )
+
+    if request.records is not None:
+        output["records"] = [marshal_DomainRecord(v, defaults) for v in request.records]
+
+    return output
 
 
 def marshal_DSRecord(
     request: DSRecord,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "digest",
@@ -2164,96 +2297,166 @@ def marshal_DSRecord(
                 ),
             ]
         ),
-        "algorithm": DSRecordAlgorithm(request.algorithm),
-        "key_id": request.key_id,
-    }
+    )
+
+    if request.algorithm is not None:
+        output["algorithm"] = DSRecordAlgorithm(request.algorithm)
+
+    if request.key_id is not None:
+        output["key_id"] = request.key_id
+
+    return output
 
 
 def marshal_ImportProviderDNSZoneRequestOnlineV1(
     request: ImportProviderDNSZoneRequestOnlineV1,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "token": request.token,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.token is not None:
+        output["token"] = request.token
+
+    return output
 
 
 def marshal_ImportRawDNSZoneRequestAXFRSource(
     request: ImportRawDNSZoneRequestAXFRSource,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "name_server": request.name_server,
-        "tsig_key": marshal_ImportRawDNSZoneRequestTsigKey(request.tsig_key, defaults)
-        if request.tsig_key is not None
-        else None,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.name_server is not None:
+        output["name_server"] = request.name_server
+
+    if request.tsig_key is not None:
+        output["tsig_key"] = marshal_ImportRawDNSZoneRequestTsigKey(
+            request.tsig_key, defaults
+        )
+
+    return output
 
 
 def marshal_ImportRawDNSZoneRequestBindSource(
     request: ImportRawDNSZoneRequestBindSource,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "content": request.content,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.content is not None:
+        output["content"] = request.content
+
+    return output
 
 
 def marshal_Nameserver(
     request: Nameserver,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "ip": request.ip,
-        "name": request.name,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.ip is not None:
+        output["ip"] = request.ip
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output
 
 
 def marshal_NewContact(
     request: NewContact,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "address_line_1": request.address_line_1,
-        "address_line_2": request.address_line_2,
-        "city": request.city,
-        "company_identification_code": request.company_identification_code,
-        "company_name": request.company_name,
-        "country": request.country,
-        "email": request.email,
-        "email_alt": request.email_alt,
-        "extension_eu": marshal_ContactExtensionEU(request.extension_eu, defaults)
-        if request.extension_eu is not None
-        else None,
-        "extension_fr": marshal_ContactExtensionFR(request.extension_fr, defaults)
-        if request.extension_fr is not None
-        else None,
-        "extension_nl": marshal_ContactExtensionNL(request.extension_nl, defaults)
-        if request.extension_nl is not None
-        else None,
-        "fax_number": request.fax_number,
-        "firstname": request.firstname,
-        "lang": LanguageCode(request.lang),
-        "lastname": request.lastname,
-        "legal_form": ContactLegalForm(request.legal_form),
-        "phone_number": request.phone_number,
-        "questions": [marshal_ContactQuestion(v, defaults) for v in request.questions]
-        if request.questions is not None
-        else None,
-        "resale": request.resale,
-        "state": request.state,
-        "vat_identification_code": request.vat_identification_code,
-        "whois_opt_in": request.whois_opt_in,
-        "zip": request.zip,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.address_line_1 is not None:
+        output["address_line_1"] = request.address_line_1
+
+    if request.address_line_2 is not None:
+        output["address_line_2"] = request.address_line_2
+
+    if request.city is not None:
+        output["city"] = request.city
+
+    if request.company_identification_code is not None:
+        output["company_identification_code"] = request.company_identification_code
+
+    if request.company_name is not None:
+        output["company_name"] = request.company_name
+
+    if request.country is not None:
+        output["country"] = request.country
+
+    if request.email is not None:
+        output["email"] = request.email
+
+    if request.email_alt is not None:
+        output["email_alt"] = request.email_alt
+
+    if request.extension_eu is not None:
+        output["extension_eu"] = marshal_ContactExtensionEU(
+            request.extension_eu, defaults
+        )
+
+    if request.extension_fr is not None:
+        output["extension_fr"] = marshal_ContactExtensionFR(
+            request.extension_fr, defaults
+        )
+
+    if request.extension_nl is not None:
+        output["extension_nl"] = marshal_ContactExtensionNL(
+            request.extension_nl, defaults
+        )
+
+    if request.fax_number is not None:
+        output["fax_number"] = request.fax_number
+
+    if request.firstname is not None:
+        output["firstname"] = request.firstname
+
+    if request.lang is not None:
+        output["lang"] = LanguageCode(request.lang)
+
+    if request.lastname is not None:
+        output["lastname"] = request.lastname
+
+    if request.legal_form is not None:
+        output["legal_form"] = ContactLegalForm(request.legal_form)
+
+    if request.phone_number is not None:
+        output["phone_number"] = request.phone_number
+
+    if request.questions is not None:
+        output["questions"] = [
+            marshal_ContactQuestion(v, defaults) for v in request.questions
+        ]
+
+    if request.resale is not None:
+        output["resale"] = request.resale
+
+    if request.state is not None:
+        output["state"] = request.state
+
+    if request.vat_identification_code is not None:
+        output["vat_identification_code"] = request.vat_identification_code
+
+    if request.whois_opt_in is not None:
+        output["whois_opt_in"] = request.whois_opt_in
+
+    if request.zip is not None:
+        output["zip"] = request.zip
+
+    return output
 
 
 def marshal_RecordChange(
     request: RecordChange,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "add",
@@ -2281,67 +2484,99 @@ def marshal_RecordChange(
                 ),
             ]
         ),
-    }
+    )
+
+    return output
 
 
 def marshal_TransferInDomainRequestTransferRequest(
     request: TransferInDomainRequestTransferRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "auth_code": request.auth_code,
-        "domain": request.domain,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.auth_code is not None:
+        output["auth_code"] = request.auth_code
+
+    if request.domain is not None:
+        output["domain"] = request.domain
+
+    return output
 
 
 def marshal_UpdateContactRequestQuestion(
     request: UpdateContactRequestQuestion,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "answer": request.answer,
-        "question": request.question,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.answer is not None:
+        output["answer"] = request.answer
+
+    if request.question is not None:
+        output["question"] = request.question
+
+    return output
 
 
 def marshal_CloneDNSZoneRequest(
     request: CloneDNSZoneRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "dest_dns_zone": request.dest_dns_zone,
-        "overwrite": request.overwrite,
-        "project_id": request.project_id or defaults.default_project_id,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.dest_dns_zone is not None:
+        output["dest_dns_zone"] = request.dest_dns_zone
+
+    if request.overwrite is not None:
+        output["overwrite"] = request.overwrite
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    return output
 
 
 def marshal_CreateDNSZoneRequest(
     request: CreateDNSZoneRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "domain": request.domain,
-        "project_id": request.project_id or defaults.default_project_id,
-        "subdomain": request.subdomain,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.domain is not None:
+        output["domain"] = request.domain
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    if request.subdomain is not None:
+        output["subdomain"] = request.subdomain
+
+    return output
 
 
 def marshal_CreateSSLCertificateRequest(
     request: CreateSSLCertificateRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "alternative_dns_zones": request.alternative_dns_zones,
-        "dns_zone": request.dns_zone,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.alternative_dns_zones is not None:
+        output["alternative_dns_zones"] = request.alternative_dns_zones
+
+    if request.dns_zone is not None:
+        output["dns_zone"] = request.dns_zone
+
+    return output
 
 
 def marshal_ImportProviderDNSZoneRequest(
     request: ImportProviderDNSZoneRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "online_v1",
@@ -2353,15 +2588,18 @@ def marshal_ImportProviderDNSZoneRequest(
                 ),
             ]
         ),
-    }
+    )
+
+    return output
 
 
 def marshal_ImportRawDNSZoneRequest(
     request: ImportRawDNSZoneRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "bind_source",
@@ -2381,28 +2619,42 @@ def marshal_ImportRawDNSZoneRequest(
                 ),
             ]
         ),
-        "content": request.content,
-        "format": RawFormat(request.format) if request.format is not None else None,
-        "project_id": request.project_id or defaults.default_project_id,
-    }
+    )
+
+    if request.content is not None:
+        output["content"] = request.content
+
+    if request.format is not None:
+        output["format"] = RawFormat(request.format)
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    return output
 
 
 def marshal_RefreshDNSZoneRequest(
     request: RefreshDNSZoneRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "recreate_dns_zone": request.recreate_dns_zone,
-        "recreate_sub_dns_zone": request.recreate_sub_dns_zone,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.recreate_dns_zone is not None:
+        output["recreate_dns_zone"] = request.recreate_dns_zone
+
+    if request.recreate_sub_dns_zone is not None:
+        output["recreate_sub_dns_zone"] = request.recreate_sub_dns_zone
+
+    return output
 
 
 def marshal_RegistrarApiBuyDomainsRequest(
     request: RegistrarApiBuyDomainsRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "administrative_contact_id",
@@ -2418,7 +2670,9 @@ def marshal_RegistrarApiBuyDomainsRequest(
                 ),
             ]
         ),
-        **resolve_one_of(
+    )
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "owner_contact_id",
@@ -2434,7 +2688,9 @@ def marshal_RegistrarApiBuyDomainsRequest(
                 ),
             ]
         ),
-        **resolve_one_of(
+    )
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "technical_contact_id",
@@ -2450,18 +2706,27 @@ def marshal_RegistrarApiBuyDomainsRequest(
                 ),
             ]
         ),
-        "domains": request.domains,
-        "duration_in_years": request.duration_in_years,
-        "project_id": request.project_id or defaults.default_project_id,
-    }
+    )
+
+    if request.domains is not None:
+        output["domains"] = request.domains
+
+    if request.duration_in_years is not None:
+        output["duration_in_years"] = request.duration_in_years
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    return output
 
 
 def marshal_RegistrarApiCheckContactsCompatibilityRequest(
     request: RegistrarApiCheckContactsCompatibilityRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "administrative_contact_id",
@@ -2477,7 +2742,9 @@ def marshal_RegistrarApiCheckContactsCompatibilityRequest(
                 ),
             ]
         ),
-        **resolve_one_of(
+    )
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "owner_contact_id",
@@ -2493,7 +2760,9 @@ def marshal_RegistrarApiCheckContactsCompatibilityRequest(
                 ),
             ]
         ),
-        **resolve_one_of(
+    )
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "technical_contact_id",
@@ -2509,59 +2778,84 @@ def marshal_RegistrarApiCheckContactsCompatibilityRequest(
                 ),
             ]
         ),
-        "domains": request.domains,
-        "tlds": request.tlds,
-    }
+    )
+
+    if request.domains is not None:
+        output["domains"] = request.domains
+
+    if request.tlds is not None:
+        output["tlds"] = request.tlds
+
+    return output
 
 
 def marshal_RegistrarApiCreateDomainHostRequest(
     request: RegistrarApiCreateDomainHostRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "ips": request.ips,
-        "name": request.name,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.ips is not None:
+        output["ips"] = request.ips
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output
 
 
 def marshal_RegistrarApiEnableDomainDNSSECRequest(
     request: RegistrarApiEnableDomainDNSSECRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "ds_record": marshal_DSRecord(request.ds_record, defaults)
-        if request.ds_record is not None
-        else None,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.ds_record is not None:
+        output["ds_record"] = marshal_DSRecord(request.ds_record, defaults)
+
+    return output
 
 
 def marshal_RegistrarApiRegisterExternalDomainRequest(
     request: RegistrarApiRegisterExternalDomainRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "domain": request.domain,
-        "project_id": request.project_id or defaults.default_project_id,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.domain is not None:
+        output["domain"] = request.domain
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    return output
 
 
 def marshal_RegistrarApiRenewDomainsRequest(
     request: RegistrarApiRenewDomainsRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "domains": request.domains,
-        "duration_in_years": request.duration_in_years,
-        "force_late_renewal": request.force_late_renewal,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.domains is not None:
+        output["domains"] = request.domains
+
+    if request.duration_in_years is not None:
+        output["duration_in_years"] = request.duration_in_years
+
+    if request.force_late_renewal is not None:
+        output["force_late_renewal"] = request.force_late_renewal
+
+    return output
 
 
 def marshal_RegistrarApiTradeDomainRequest(
     request: RegistrarApiTradeDomainRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "new_owner_contact_id",
@@ -2577,16 +2871,21 @@ def marshal_RegistrarApiTradeDomainRequest(
                 ),
             ]
         ),
-        "project_id": request.project_id or defaults.default_project_id,
-    }
+    )
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    return output
 
 
 def marshal_RegistrarApiTransferInDomainRequest(
     request: RegistrarApiTransferInDomainRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "administrative_contact_id",
@@ -2602,7 +2901,9 @@ def marshal_RegistrarApiTransferInDomainRequest(
                 ),
             ]
         ),
-        **resolve_one_of(
+    )
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "owner_contact_id",
@@ -2618,7 +2919,9 @@ def marshal_RegistrarApiTransferInDomainRequest(
                 ),
             ]
         ),
-        **resolve_one_of(
+    )
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "technical_contact_id",
@@ -2634,66 +2937,113 @@ def marshal_RegistrarApiTransferInDomainRequest(
                 ),
             ]
         ),
-        "domains": [
+    )
+
+    if request.domains is not None:
+        output["domains"] = [
             marshal_TransferInDomainRequestTransferRequest(v, defaults)
             for v in request.domains
-        ],
-        "project_id": request.project_id or defaults.default_project_id,
-    }
+        ]
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    return output
 
 
 def marshal_RegistrarApiUpdateContactRequest(
     request: RegistrarApiUpdateContactRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "address_line_1": request.address_line_1,
-        "address_line_2": request.address_line_2,
-        "city": request.city,
-        "company_identification_code": request.company_identification_code,
-        "country": request.country,
-        "email": request.email,
-        "email_alt": request.email_alt,
-        "extension_eu": marshal_ContactExtensionEU(request.extension_eu, defaults)
-        if request.extension_eu is not None
-        else None,
-        "extension_fr": marshal_ContactExtensionFR(request.extension_fr, defaults)
-        if request.extension_fr is not None
-        else None,
-        "extension_nl": marshal_ContactExtensionNL(request.extension_nl, defaults)
-        if request.extension_nl is not None
-        else None,
-        "fax_number": request.fax_number,
-        "lang": LanguageCode(request.lang),
-        "phone_number": request.phone_number,
-        "questions": [
+    output: Dict[str, Any] = {}
+
+    if request.address_line_1 is not None:
+        output["address_line_1"] = request.address_line_1
+
+    if request.address_line_2 is not None:
+        output["address_line_2"] = request.address_line_2
+
+    if request.city is not None:
+        output["city"] = request.city
+
+    if request.company_identification_code is not None:
+        output["company_identification_code"] = request.company_identification_code
+
+    if request.country is not None:
+        output["country"] = request.country
+
+    if request.email is not None:
+        output["email"] = request.email
+
+    if request.email_alt is not None:
+        output["email_alt"] = request.email_alt
+
+    if request.extension_eu is not None:
+        output["extension_eu"] = marshal_ContactExtensionEU(
+            request.extension_eu, defaults
+        )
+
+    if request.extension_fr is not None:
+        output["extension_fr"] = marshal_ContactExtensionFR(
+            request.extension_fr, defaults
+        )
+
+    if request.extension_nl is not None:
+        output["extension_nl"] = marshal_ContactExtensionNL(
+            request.extension_nl, defaults
+        )
+
+    if request.fax_number is not None:
+        output["fax_number"] = request.fax_number
+
+    if request.lang is not None:
+        output["lang"] = LanguageCode(request.lang)
+
+    if request.phone_number is not None:
+        output["phone_number"] = request.phone_number
+
+    if request.questions is not None:
+        output["questions"] = [
             marshal_UpdateContactRequestQuestion(v, defaults) for v in request.questions
         ]
-        if request.questions is not None
-        else None,
-        "resale": request.resale,
-        "state": request.state,
-        "vat_identification_code": request.vat_identification_code,
-        "whois_opt_in": request.whois_opt_in,
-        "zip": request.zip,
-    }
+
+    if request.resale is not None:
+        output["resale"] = request.resale
+
+    if request.state is not None:
+        output["state"] = request.state
+
+    if request.vat_identification_code is not None:
+        output["vat_identification_code"] = request.vat_identification_code
+
+    if request.whois_opt_in is not None:
+        output["whois_opt_in"] = request.whois_opt_in
+
+    if request.zip is not None:
+        output["zip"] = request.zip
+
+    return output
 
 
 def marshal_RegistrarApiUpdateDomainHostRequest(
     request: RegistrarApiUpdateDomainHostRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "ips": request.ips,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.ips is not None:
+        output["ips"] = request.ips
+
+    return output
 
 
 def marshal_RegistrarApiUpdateDomainRequest(
     request: RegistrarApiUpdateDomainRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "administrative_contact_id",
@@ -2709,7 +3059,9 @@ def marshal_RegistrarApiUpdateDomainRequest(
                 ),
             ]
         ),
-        **resolve_one_of(
+    )
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "owner_contact_id",
@@ -2725,7 +3077,9 @@ def marshal_RegistrarApiUpdateDomainRequest(
                 ),
             ]
         ),
-        **resolve_one_of(
+    )
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "technical_contact_id",
@@ -2741,35 +3095,54 @@ def marshal_RegistrarApiUpdateDomainRequest(
                 ),
             ]
         ),
-    }
+    )
+
+    return output
 
 
 def marshal_UpdateDNSZoneNameserversRequest(
     request: UpdateDNSZoneNameserversRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "ns": [marshal_Nameserver(v, defaults) for v in request.ns],
-    }
+    output: Dict[str, Any] = {}
+
+    if request.ns is not None:
+        output["ns"] = [marshal_Nameserver(v, defaults) for v in request.ns]
+
+    return output
 
 
 def marshal_UpdateDNSZoneRecordsRequest(
     request: UpdateDNSZoneRecordsRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "changes": [marshal_RecordChange(v, defaults) for v in request.changes],
-        "disallow_new_zone_creation": request.disallow_new_zone_creation,
-        "return_all_records": request.return_all_records,
-        "serial": request.serial,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.changes is not None:
+        output["changes"] = [marshal_RecordChange(v, defaults) for v in request.changes]
+
+    if request.disallow_new_zone_creation is not None:
+        output["disallow_new_zone_creation"] = request.disallow_new_zone_creation
+
+    if request.return_all_records is not None:
+        output["return_all_records"] = request.return_all_records
+
+    if request.serial is not None:
+        output["serial"] = request.serial
+
+    return output
 
 
 def marshal_UpdateDNSZoneRequest(
     request: UpdateDNSZoneRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "new_dns_zone": request.new_dns_zone,
-        "project_id": request.project_id or defaults.default_project_id,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.new_dns_zone is not None:
+        output["new_dns_zone"] = request.new_dns_zone
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    return output

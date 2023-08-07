@@ -2080,254 +2080,474 @@ def marshal_ServerSummary(
     request: ServerSummary,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "id": request.id,
-        "name": request.name,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.id is not None:
+        output["id"] = request.id
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output
 
 
 def marshal_Bootscript(
     request: Bootscript,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "arch": Arch(request.arch),
-        "bootcmdargs": request.bootcmdargs,
-        "default": request.default,
-        "dtb": request.dtb,
-        "id": request.id,
-        "initrd": request.initrd,
-        "kernel": request.kernel,
-        "organization": request.organization,
-        "project": request.project,
-        "public": request.public,
-        "title": request.title,
-        "zone": request.zone,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.arch is not None:
+        output["arch"] = Arch(request.arch)
+
+    if request.bootcmdargs is not None:
+        output["bootcmdargs"] = request.bootcmdargs
+
+    if request.default is not None:
+        output["default"] = request.default
+
+    if request.dtb is not None:
+        output["dtb"] = request.dtb
+
+    if request.id is not None:
+        output["id"] = request.id
+
+    if request.initrd is not None:
+        output["initrd"] = request.initrd
+
+    if request.kernel is not None:
+        output["kernel"] = request.kernel
+
+    if request.organization is not None:
+        output["organization"] = request.organization
+
+    if request.project is not None:
+        output["project"] = request.project
+
+    if request.public is not None:
+        output["public"] = request.public
+
+    if request.title is not None:
+        output["title"] = request.title
+
+    if request.zone is not None:
+        output["zone"] = request.zone
+
+    return output
 
 
 def marshal_Volume(
     request: Volume,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "creation_date": request.creation_date,
-        "export_uri": request.export_uri,
-        "id": request.id,
-        "modification_date": request.modification_date,
-        "name": request.name,
-        "organization": request.organization,
-        "project": request.project,
-        "server": marshal_ServerSummary(request.server, defaults)
-        if request.server is not None
-        else None,
-        "size": request.size,
-        "state": VolumeState(request.state),
-        "tags": request.tags,
-        "volume_type": VolumeVolumeType(request.volume_type),
-        "zone": request.zone,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.creation_date is not None:
+        output["creation_date"] = request.creation_date
+
+    if request.export_uri is not None:
+        output["export_uri"] = request.export_uri
+
+    if request.id is not None:
+        output["id"] = request.id
+
+    if request.modification_date is not None:
+        output["modification_date"] = request.modification_date
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.organization is not None:
+        output["organization"] = request.organization
+
+    if request.project is not None:
+        output["project"] = request.project
+
+    if request.server is not None:
+        output["server"] = marshal_ServerSummary(request.server, defaults)
+
+    if request.size is not None:
+        output["size"] = request.size
+
+    if request.state is not None:
+        output["state"] = VolumeState(request.state)
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    if request.volume_type is not None:
+        output["volume_type"] = VolumeVolumeType(request.volume_type)
+
+    if request.zone is not None:
+        output["zone"] = request.zone
+
+    return output
 
 
 def marshal_VolumeSummary(
     request: VolumeSummary,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "id": request.id,
-        "name": request.name,
-        "size": request.size,
-        "volume_type": VolumeVolumeType(request.volume_type),
-    }
+    output: Dict[str, Any] = {}
+
+    if request.id is not None:
+        output["id"] = request.id
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.size is not None:
+        output["size"] = request.size
+
+    if request.volume_type is not None:
+        output["volume_type"] = VolumeVolumeType(request.volume_type)
+
+    return output
 
 
 def marshal_Image(
     request: Image,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "arch": Arch(request.arch),
-        "creation_date": request.creation_date,
-        "default_bootscript": marshal_Bootscript(request.default_bootscript, defaults)
-        if request.default_bootscript is not None
-        else None,
-        "extra_volumes": {
+    output: Dict[str, Any] = {}
+
+    if request.arch is not None:
+        output["arch"] = Arch(request.arch)
+
+    if request.creation_date is not None:
+        output["creation_date"] = request.creation_date
+
+    if request.default_bootscript is not None:
+        output["default_bootscript"] = marshal_Bootscript(
+            request.default_bootscript, defaults
+        )
+
+    if request.extra_volumes is not None:
+        output["extra_volumes"] = {
             k: marshal_Volume(v, defaults) for k, v in request.extra_volumes.items()
-        },
-        "from_server": request.from_server,
-        "id": request.id,
-        "modification_date": request.modification_date,
-        "name": request.name,
-        "organization": request.organization,
-        "project": request.project,
-        "public": request.public,
-        "root_volume": marshal_VolumeSummary(request.root_volume, defaults)
-        if request.root_volume is not None
-        else None,
-        "state": ImageState(request.state),
-        "tags": request.tags,
-        "zone": request.zone,
-    }
+        }
+
+    if request.from_server is not None:
+        output["from_server"] = request.from_server
+
+    if request.id is not None:
+        output["id"] = request.id
+
+    if request.modification_date is not None:
+        output["modification_date"] = request.modification_date
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.organization is not None:
+        output["organization"] = request.organization
+
+    if request.project is not None:
+        output["project"] = request.project
+
+    if request.public is not None:
+        output["public"] = request.public
+
+    if request.root_volume is not None:
+        output["root_volume"] = marshal_VolumeSummary(request.root_volume, defaults)
+
+    if request.state is not None:
+        output["state"] = ImageState(request.state)
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    if request.zone is not None:
+        output["zone"] = request.zone
+
+    return output
 
 
 def marshal_PlacementGroup(
     request: PlacementGroup,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "id": request.id,
-        "name": request.name,
-        "organization": request.organization,
-        "policy_mode": PlacementGroupPolicyMode(request.policy_mode),
-        "policy_respected": request.policy_respected,
-        "policy_type": PlacementGroupPolicyType(request.policy_type),
-        "project": request.project,
-        "tags": request.tags,
-        "zone": request.zone,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.id is not None:
+        output["id"] = request.id
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.organization is not None:
+        output["organization"] = request.organization
+
+    if request.policy_mode is not None:
+        output["policy_mode"] = PlacementGroupPolicyMode(request.policy_mode)
+
+    if request.policy_respected is not None:
+        output["policy_respected"] = request.policy_respected
+
+    if request.policy_type is not None:
+        output["policy_type"] = PlacementGroupPolicyType(request.policy_type)
+
+    if request.project is not None:
+        output["project"] = request.project
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    if request.zone is not None:
+        output["zone"] = request.zone
+
+    return output
 
 
 def marshal_PrivateNIC(
     request: PrivateNIC,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "id": request.id,
-        "mac_address": request.mac_address,
-        "private_network_id": request.private_network_id,
-        "server_id": request.server_id,
-        "state": PrivateNICState(request.state),
-        "tags": request.tags,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.id is not None:
+        output["id"] = request.id
+
+    if request.mac_address is not None:
+        output["mac_address"] = request.mac_address
+
+    if request.private_network_id is not None:
+        output["private_network_id"] = request.private_network_id
+
+    if request.server_id is not None:
+        output["server_id"] = request.server_id
+
+    if request.state is not None:
+        output["state"] = PrivateNICState(request.state)
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    return output
 
 
 def marshal_SecurityGroupSummary(
     request: SecurityGroupSummary,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "id": request.id,
-        "name": request.name,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.id is not None:
+        output["id"] = request.id
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output
 
 
 def marshal_SecurityGroupTemplate(
     request: SecurityGroupTemplate,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "id": request.id,
-        "name": request.name,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.id is not None:
+        output["id"] = request.id
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output
 
 
 def marshal_ServerActionRequestVolumeBackupTemplate(
     request: ServerActionRequestVolumeBackupTemplate,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "volume_type": SnapshotVolumeType(request.volume_type),
-    }
+    output: Dict[str, Any] = {}
+
+    if request.volume_type is not None:
+        output["volume_type"] = SnapshotVolumeType(request.volume_type)
+
+    return output
 
 
 def marshal_ServerIp(
     request: ServerIp,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "address": request.address,
-        "dynamic": request.dynamic,
-        "family": ServerIpIpFamily(request.family),
-        "gateway": request.gateway,
-        "id": request.id,
-        "netmask": request.netmask,
-        "provisioning_mode": ServerIpProvisioningMode(request.provisioning_mode),
-    }
+    output: Dict[str, Any] = {}
+
+    if request.address is not None:
+        output["address"] = request.address
+
+    if request.dynamic is not None:
+        output["dynamic"] = request.dynamic
+
+    if request.family is not None:
+        output["family"] = ServerIpIpFamily(request.family)
+
+    if request.gateway is not None:
+        output["gateway"] = request.gateway
+
+    if request.id is not None:
+        output["id"] = request.id
+
+    if request.netmask is not None:
+        output["netmask"] = request.netmask
+
+    if request.provisioning_mode is not None:
+        output["provisioning_mode"] = ServerIpProvisioningMode(
+            request.provisioning_mode
+        )
+
+    return output
 
 
 def marshal_ServerIpv6(
     request: ServerIpv6,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "address": request.address,
-        "gateway": request.gateway,
-        "netmask": request.netmask,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.address is not None:
+        output["address"] = request.address
+
+    if request.gateway is not None:
+        output["gateway"] = request.gateway
+
+    if request.netmask is not None:
+        output["netmask"] = request.netmask
+
+    return output
 
 
 def marshal_ServerLocation(
     request: ServerLocation,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "cluster_id": request.cluster_id,
-        "hypervisor_id": request.hypervisor_id,
-        "node_id": request.node_id,
-        "platform_id": request.platform_id,
-        "zone_id": request.zone_id,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.cluster_id is not None:
+        output["cluster_id"] = request.cluster_id
+
+    if request.hypervisor_id is not None:
+        output["hypervisor_id"] = request.hypervisor_id
+
+    if request.node_id is not None:
+        output["node_id"] = request.node_id
+
+    if request.platform_id is not None:
+        output["platform_id"] = request.platform_id
+
+    if request.zone_id is not None:
+        output["zone_id"] = request.zone_id
+
+    return output
 
 
 def marshal_ServerMaintenance(
     request: ServerMaintenance,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "reason": request.reason,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.reason is not None:
+        output["reason"] = request.reason
+
+    return output
 
 
 def marshal_SetSecurityGroupRulesRequestRule(
     request: SetSecurityGroupRulesRequestRule,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "action": SecurityGroupRuleAction(request.action),
-        "dest_port_from": request.dest_port_from,
-        "dest_port_to": request.dest_port_to,
-        "direction": SecurityGroupRuleDirection(request.direction),
-        "editable": request.editable,
-        "id": request.id,
-        "ip_range": request.ip_range,
-        "position": request.position,
-        "protocol": SecurityGroupRuleProtocol(request.protocol),
-        "zone": request.zone,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.action is not None:
+        output["action"] = SecurityGroupRuleAction(request.action)
+
+    if request.dest_port_from is not None:
+        output["dest_port_from"] = request.dest_port_from
+
+    if request.dest_port_to is not None:
+        output["dest_port_to"] = request.dest_port_to
+
+    if request.direction is not None:
+        output["direction"] = SecurityGroupRuleDirection(request.direction)
+
+    if request.editable is not None:
+        output["editable"] = request.editable
+
+    if request.id is not None:
+        output["id"] = request.id
+
+    if request.ip_range is not None:
+        output["ip_range"] = request.ip_range
+
+    if request.position is not None:
+        output["position"] = request.position
+
+    if request.protocol is not None:
+        output["protocol"] = SecurityGroupRuleProtocol(request.protocol)
+
+    if request.zone is not None:
+        output["zone"] = request.zone
+
+    return output
 
 
 def marshal_SnapshotBaseVolume(
     request: SnapshotBaseVolume,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "id": request.id,
-        "name": request.name,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.id is not None:
+        output["id"] = request.id
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output
 
 
 def marshal_VolumeServerTemplate(
     request: VolumeServerTemplate,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "base_snapshot": request.base_snapshot,
-        "boot": request.boot,
-        "id": request.id,
-        "name": request.name,
-        "organization": request.organization,
-        "project": request.project,
-        "size": request.size,
-        "volume_type": VolumeVolumeType(request.volume_type),
-    }
+    output: Dict[str, Any] = {}
+
+    if request.base_snapshot is not None:
+        output["base_snapshot"] = request.base_snapshot
+
+    if request.boot is not None:
+        output["boot"] = request.boot
+
+    if request.id is not None:
+        output["id"] = request.id
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.organization is not None:
+        output["organization"] = request.organization
+
+    if request.project is not None:
+        output["project"] = request.project
+
+    if request.size is not None:
+        output["size"] = request.size
+
+    if request.volume_type is not None:
+        output["volume_type"] = VolumeVolumeType(request.volume_type)
+
+    return output
 
 
 def marshal_VolumeTemplate(
     request: VolumeTemplate,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "project",
@@ -2341,19 +2561,30 @@ def marshal_VolumeTemplate(
                 ),
             ]
         ),
-        "id": request.id,
-        "name": request.name,
-        "size": request.size,
-        "volume_type": VolumeVolumeType(request.volume_type),
-    }
+    )
+
+    if request.id is not None:
+        output["id"] = request.id
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.size is not None:
+        output["size"] = request.size
+
+    if request.volume_type is not None:
+        output["volume_type"] = VolumeVolumeType(request.volume_type)
+
+    return output
 
 
 def marshal_CreateImageRequest(
     request: CreateImageRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "project",
@@ -2371,27 +2602,42 @@ def marshal_CreateImageRequest(
                 ),
             ]
         ),
-        "arch": Arch(request.arch) if request.arch is not None else None,
-        "default_bootscript": request.default_bootscript,
-        "extra_volumes": {
+    )
+
+    if request.arch is not None:
+        output["arch"] = Arch(request.arch)
+
+    if request.default_bootscript is not None:
+        output["default_bootscript"] = request.default_bootscript
+
+    if request.extra_volumes is not None:
+        output["extra_volumes"] = {
             k: marshal_VolumeTemplate(v, defaults)
             for k, v in request.extra_volumes.items()
         }
-        if request.extra_volumes is not None
-        else None,
-        "name": request.name,
-        "public": request.public,
-        "root_volume": request.root_volume,
-        "tags": request.tags,
-    }
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.public is not None:
+        output["public"] = request.public
+
+    if request.root_volume is not None:
+        output["root_volume"] = request.root_volume
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    return output
 
 
 def marshal_CreateIpRequest(
     request: CreateIpRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "project",
@@ -2409,18 +2655,27 @@ def marshal_CreateIpRequest(
                 ),
             ]
         ),
-        "server": request.server,
-        "tags": request.tags,
-        "type": IpType(request.type_),
-    }
+    )
+
+    if request.server is not None:
+        output["server"] = request.server
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    if request.type_ is not None:
+        output["type"] = IpType(request.type_)
+
+    return output
 
 
 def marshal_CreatePlacementGroupRequest(
     request: CreatePlacementGroupRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "project",
@@ -2438,30 +2693,48 @@ def marshal_CreatePlacementGroupRequest(
                 ),
             ]
         ),
-        "name": request.name,
-        "policy_mode": PlacementGroupPolicyMode(request.policy_mode),
-        "policy_type": PlacementGroupPolicyType(request.policy_type),
-        "tags": request.tags,
-    }
+    )
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.policy_mode is not None:
+        output["policy_mode"] = PlacementGroupPolicyMode(request.policy_mode)
+
+    if request.policy_type is not None:
+        output["policy_type"] = PlacementGroupPolicyType(request.policy_type)
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    return output
 
 
 def marshal_CreatePrivateNICRequest(
     request: CreatePrivateNICRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "ip_ids": request.ip_ids,
-        "private_network_id": request.private_network_id,
-        "tags": request.tags,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.ip_ids is not None:
+        output["ip_ids"] = request.ip_ids
+
+    if request.private_network_id is not None:
+        output["private_network_id"] = request.private_network_id
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    return output
 
 
 def marshal_CreateSecurityGroupRequest(
     request: CreateSecurityGroupRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "organization_default",
@@ -2477,7 +2750,9 @@ def marshal_CreateSecurityGroupRequest(
                 ),
             ]
         ),
-        **resolve_one_of(
+    )
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "project",
@@ -2495,44 +2770,76 @@ def marshal_CreateSecurityGroupRequest(
                 ),
             ]
         ),
-        "description": request.description,
-        "enable_default_security": request.enable_default_security,
-        "inbound_default_policy": SecurityGroupPolicy(request.inbound_default_policy),
-        "name": request.name,
-        "outbound_default_policy": SecurityGroupPolicy(request.outbound_default_policy),
-        "stateful": request.stateful,
-        "tags": request.tags,
-    }
+    )
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.enable_default_security is not None:
+        output["enable_default_security"] = request.enable_default_security
+
+    if request.inbound_default_policy is not None:
+        output["inbound_default_policy"] = SecurityGroupPolicy(
+            request.inbound_default_policy
+        )
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.outbound_default_policy is not None:
+        output["outbound_default_policy"] = SecurityGroupPolicy(
+            request.outbound_default_policy
+        )
+
+    if request.stateful is not None:
+        output["stateful"] = request.stateful
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    return output
 
 
 def marshal_CreateSecurityGroupRuleRequest(
     request: CreateSecurityGroupRuleRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "action": SecurityGroupRuleAction(request.action)
-        if request.action is not None
-        else None,
-        "dest_port_from": request.dest_port_from,
-        "dest_port_to": request.dest_port_to,
-        "direction": SecurityGroupRuleDirection(request.direction)
-        if request.direction is not None
-        else None,
-        "editable": request.editable,
-        "ip_range": request.ip_range,
-        "position": request.position,
-        "protocol": SecurityGroupRuleProtocol(request.protocol)
-        if request.protocol is not None
-        else None,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.action is not None:
+        output["action"] = SecurityGroupRuleAction(request.action)
+
+    if request.dest_port_from is not None:
+        output["dest_port_from"] = request.dest_port_from
+
+    if request.dest_port_to is not None:
+        output["dest_port_to"] = request.dest_port_to
+
+    if request.direction is not None:
+        output["direction"] = SecurityGroupRuleDirection(request.direction)
+
+    if request.editable is not None:
+        output["editable"] = request.editable
+
+    if request.ip_range is not None:
+        output["ip_range"] = request.ip_range
+
+    if request.position is not None:
+        output["position"] = request.position
+
+    if request.protocol is not None:
+        output["protocol"] = SecurityGroupRuleProtocol(request.protocol)
+
+    return output
 
 
 def marshal_CreateSnapshotRequest(
     request: CreateSnapshotRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "project",
@@ -2550,22 +2857,39 @@ def marshal_CreateSnapshotRequest(
                 ),
             ]
         ),
-        "bucket": request.bucket,
-        "key": request.key,
-        "name": request.name,
-        "size": request.size,
-        "tags": request.tags,
-        "volume_id": request.volume_id,
-        "volume_type": SnapshotVolumeType(request.volume_type),
-    }
+    )
+
+    if request.bucket is not None:
+        output["bucket"] = request.bucket
+
+    if request.key is not None:
+        output["key"] = request.key
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.size is not None:
+        output["size"] = request.size
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    if request.volume_id is not None:
+        output["volume_id"] = request.volume_id
+
+    if request.volume_type is not None:
+        output["volume_type"] = SnapshotVolumeType(request.volume_type)
+
+    return output
 
 
 def marshal_CreateVolumeRequest(
     request: CreateVolumeRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "project",
@@ -2583,7 +2907,9 @@ def marshal_CreateVolumeRequest(
                 ),
             ]
         ),
-        **resolve_one_of(
+    )
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "size", request.size if request.size is not None else None
@@ -2600,137 +2926,202 @@ def marshal_CreateVolumeRequest(
                 ),
             ]
         ),
-        "name": request.name,
-        "tags": request.tags,
-        "volume_type": VolumeVolumeType(request.volume_type),
-    }
+    )
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    if request.volume_type is not None:
+        output["volume_type"] = VolumeVolumeType(request.volume_type)
+
+    return output
 
 
 def marshal_ExportSnapshotRequest(
     request: ExportSnapshotRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "bucket": request.bucket,
-        "key": request.key,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.bucket is not None:
+        output["bucket"] = request.bucket
+
+    if request.key is not None:
+        output["key"] = request.key
+
+    return output
 
 
 def marshal_ServerActionRequest(
     request: ServerActionRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "action": ServerAction(request.action),
-        "name": request.name,
-        "volumes": {
+    output: Dict[str, Any] = {}
+
+    if request.action is not None:
+        output["action"] = ServerAction(request.action)
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.volumes is not None:
+        output["volumes"] = {
             k: marshal_ServerActionRequestVolumeBackupTemplate(v, defaults)
             for k, v in request.volumes.items()
         }
-        if request.volumes is not None
-        else None,
-    }
+
+    return output
 
 
 def marshal_SetPlacementGroupRequest(
     request: SetPlacementGroupRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "name": request.name,
-        "organization": request.organization or defaults.default_organization_id,
-        "policy_mode": PlacementGroupPolicyMode(request.policy_mode),
-        "policy_type": PlacementGroupPolicyType(request.policy_type),
-        "project": request.project or defaults.default_project_id,
-        "tags": request.tags,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.organization is not None:
+        output["organization"] = (
+            request.organization or defaults.default_organization_id
+        )
+
+    if request.policy_mode is not None:
+        output["policy_mode"] = PlacementGroupPolicyMode(request.policy_mode)
+
+    if request.policy_type is not None:
+        output["policy_type"] = PlacementGroupPolicyType(request.policy_type)
+
+    if request.project is not None:
+        output["project"] = request.project or defaults.default_project_id
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    return output
 
 
 def marshal_SetPlacementGroupServersRequest(
     request: SetPlacementGroupServersRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "servers": request.servers,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.servers is not None:
+        output["servers"] = request.servers
+
+    return output
 
 
 def marshal_SetSecurityGroupRulesRequest(
     request: SetSecurityGroupRulesRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "rules": [
+    output: Dict[str, Any] = {}
+
+    if request.rules is not None:
+        output["rules"] = [
             marshal_SetSecurityGroupRulesRequestRule(v, defaults) for v in request.rules
         ]
-        if request.rules is not None
-        else None,
-    }
+
+    return output
 
 
 def marshal_UpdateIpRequest(
     request: UpdateIpRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "reverse": request.reverse,
-        "server": request.server,
-        "tags": request.tags,
-        "type": IpType(request.type_),
-    }
+    output: Dict[str, Any] = {}
+
+    if request.reverse is not None:
+        output["reverse"] = request.reverse
+
+    if request.server is not None:
+        output["server"] = request.server
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    if request.type_ is not None:
+        output["type"] = IpType(request.type_)
+
+    return output
 
 
 def marshal_UpdatePlacementGroupRequest(
     request: UpdatePlacementGroupRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "name": request.name,
-        "policy_mode": PlacementGroupPolicyMode(request.policy_mode)
-        if request.policy_mode is not None
-        else None,
-        "policy_type": PlacementGroupPolicyType(request.policy_type)
-        if request.policy_type is not None
-        else None,
-        "tags": request.tags,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.policy_mode is not None:
+        output["policy_mode"] = PlacementGroupPolicyMode(request.policy_mode)
+
+    if request.policy_type is not None:
+        output["policy_type"] = PlacementGroupPolicyType(request.policy_type)
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    return output
 
 
 def marshal_UpdatePlacementGroupServersRequest(
     request: UpdatePlacementGroupServersRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "servers": request.servers,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.servers is not None:
+        output["servers"] = request.servers
+
+    return output
 
 
 def marshal_UpdatePrivateNICRequest(
     request: UpdatePrivateNICRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "tags": request.tags,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    return output
 
 
 def marshal_UpdateVolumeRequest(
     request: UpdateVolumeRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "name": request.name,
-        "size": request.size,
-        "tags": request.tags,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.size is not None:
+        output["size"] = request.size
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    return output
 
 
 def marshal__CreateServerRequest(
     request: _CreateServerRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "project",
@@ -2748,216 +3139,416 @@ def marshal__CreateServerRequest(
                 ),
             ]
         ),
-        "boot_type": BootType(request.boot_type)
-        if request.boot_type is not None
-        else None,
-        "bootscript": request.bootscript,
-        "commercial_type": request.commercial_type,
-        "dynamic_ip_required": request.dynamic_ip_required,
-        "enable_ipv6": request.enable_ipv6,
-        "image": request.image,
-        "name": request.name,
-        "placement_group": request.placement_group,
-        "public_ip": request.public_ip,
-        "public_ips": request.public_ips,
-        "routed_ip_enabled": request.routed_ip_enabled,
-        "security_group": request.security_group,
-        "tags": request.tags,
-        "volumes": {
+    )
+
+    if request.boot_type is not None:
+        output["boot_type"] = BootType(request.boot_type)
+
+    if request.bootscript is not None:
+        output["bootscript"] = request.bootscript
+
+    if request.commercial_type is not None:
+        output["commercial_type"] = request.commercial_type
+
+    if request.dynamic_ip_required is not None:
+        output["dynamic_ip_required"] = request.dynamic_ip_required
+
+    if request.enable_ipv6 is not None:
+        output["enable_ipv6"] = request.enable_ipv6
+
+    if request.image is not None:
+        output["image"] = request.image
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.placement_group is not None:
+        output["placement_group"] = request.placement_group
+
+    if request.public_ip is not None:
+        output["public_ip"] = request.public_ip
+
+    if request.public_ips is not None:
+        output["public_ips"] = request.public_ips
+
+    if request.routed_ip_enabled is not None:
+        output["routed_ip_enabled"] = request.routed_ip_enabled
+
+    if request.security_group is not None:
+        output["security_group"] = request.security_group
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    if request.volumes is not None:
+        output["volumes"] = {
             k: marshal_VolumeServerTemplate(v, defaults)
             for k, v in request.volumes.items()
         }
-        if request.volumes is not None
-        else None,
-    }
+
+    return output
 
 
 def marshal__SetImageRequest(
     request: _SetImageRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "arch": Arch(request.arch),
-        "creation_date": request.creation_date,
-        "default_bootscript": marshal_Bootscript(request.default_bootscript, defaults)
-        if request.default_bootscript is not None
-        else None,
-        "extra_volumes": {
+    output: Dict[str, Any] = {}
+
+    if request.arch is not None:
+        output["arch"] = Arch(request.arch)
+
+    if request.creation_date is not None:
+        output["creation_date"] = request.creation_date
+
+    if request.default_bootscript is not None:
+        output["default_bootscript"] = marshal_Bootscript(
+            request.default_bootscript, defaults
+        )
+
+    if request.extra_volumes is not None:
+        output["extra_volumes"] = {
             k: marshal_Volume(v, defaults) for k, v in request.extra_volumes.items()
         }
-        if request.extra_volumes is not None
-        else None,
-        "from_server": request.from_server,
-        "modification_date": request.modification_date,
-        "name": request.name,
-        "organization": request.organization or defaults.default_organization_id,
-        "project": request.project or defaults.default_project_id,
-        "public": request.public,
-        "root_volume": marshal_VolumeSummary(request.root_volume, defaults)
-        if request.root_volume is not None
-        else None,
-        "state": ImageState(request.state),
-        "tags": request.tags,
-    }
+
+    if request.from_server is not None:
+        output["from_server"] = request.from_server
+
+    if request.modification_date is not None:
+        output["modification_date"] = request.modification_date
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.organization is not None:
+        output["organization"] = (
+            request.organization or defaults.default_organization_id
+        )
+
+    if request.project is not None:
+        output["project"] = request.project or defaults.default_project_id
+
+    if request.public is not None:
+        output["public"] = request.public
+
+    if request.root_volume is not None:
+        output["root_volume"] = marshal_VolumeSummary(request.root_volume, defaults)
+
+    if request.state is not None:
+        output["state"] = ImageState(request.state)
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    return output
 
 
 def marshal__SetSecurityGroupRequest(
     request: _SetSecurityGroupRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "creation_date": request.creation_date,
-        "description": request.description,
-        "enable_default_security": request.enable_default_security,
-        "inbound_default_policy": SecurityGroupPolicy(request.inbound_default_policy),
-        "modification_date": request.modification_date,
-        "name": request.name,
-        "organization": request.organization or defaults.default_organization_id,
-        "organization_default": request.organization_default,
-        "outbound_default_policy": SecurityGroupPolicy(request.outbound_default_policy),
-        "project": request.project or defaults.default_project_id,
-        "project_default": request.project_default,
-        "servers": [marshal_ServerSummary(v, defaults) for v in request.servers]
-        if request.servers is not None
-        else None,
-        "stateful": request.stateful,
-        "tags": request.tags,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.creation_date is not None:
+        output["creation_date"] = request.creation_date
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.enable_default_security is not None:
+        output["enable_default_security"] = request.enable_default_security
+
+    if request.inbound_default_policy is not None:
+        output["inbound_default_policy"] = SecurityGroupPolicy(
+            request.inbound_default_policy
+        )
+
+    if request.modification_date is not None:
+        output["modification_date"] = request.modification_date
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.organization is not None:
+        output["organization"] = (
+            request.organization or defaults.default_organization_id
+        )
+
+    if request.organization_default is not None:
+        output["organization_default"] = request.organization_default
+
+    if request.outbound_default_policy is not None:
+        output["outbound_default_policy"] = SecurityGroupPolicy(
+            request.outbound_default_policy
+        )
+
+    if request.project is not None:
+        output["project"] = request.project or defaults.default_project_id
+
+    if request.project_default is not None:
+        output["project_default"] = request.project_default
+
+    if request.servers is not None:
+        output["servers"] = [
+            marshal_ServerSummary(v, defaults) for v in request.servers
+        ]
+
+    if request.stateful is not None:
+        output["stateful"] = request.stateful
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    return output
 
 
 def marshal__SetSecurityGroupRuleRequest(
     request: _SetSecurityGroupRuleRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "action": SecurityGroupRuleAction(request.action),
-        "dest_port_from": request.dest_port_from,
-        "dest_port_to": request.dest_port_to,
-        "direction": SecurityGroupRuleDirection(request.direction),
-        "editable": request.editable,
-        "id": request.id,
-        "ip_range": request.ip_range,
-        "position": request.position,
-        "protocol": SecurityGroupRuleProtocol(request.protocol),
-    }
+    output: Dict[str, Any] = {}
+
+    if request.action is not None:
+        output["action"] = SecurityGroupRuleAction(request.action)
+
+    if request.dest_port_from is not None:
+        output["dest_port_from"] = request.dest_port_from
+
+    if request.dest_port_to is not None:
+        output["dest_port_to"] = request.dest_port_to
+
+    if request.direction is not None:
+        output["direction"] = SecurityGroupRuleDirection(request.direction)
+
+    if request.editable is not None:
+        output["editable"] = request.editable
+
+    if request.id is not None:
+        output["id"] = request.id
+
+    if request.ip_range is not None:
+        output["ip_range"] = request.ip_range
+
+    if request.position is not None:
+        output["position"] = request.position
+
+    if request.protocol is not None:
+        output["protocol"] = SecurityGroupRuleProtocol(request.protocol)
+
+    return output
 
 
 def marshal__SetServerRequest(
     request: _SetServerRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "allowed_actions": [ServerAction(v) for v in request.allowed_actions]
-        if request.allowed_actions is not None
-        else None,
-        "arch": Arch(request.arch),
-        "boot_type": BootType(request.boot_type),
-        "bootscript": marshal_Bootscript(request.bootscript, defaults)
-        if request.bootscript is not None
-        else None,
-        "commercial_type": request.commercial_type,
-        "creation_date": request.creation_date,
-        "dynamic_ip_required": request.dynamic_ip_required,
-        "enable_ipv6": request.enable_ipv6,
-        "hostname": request.hostname,
-        "image": marshal_Image(request.image, defaults)
-        if request.image is not None
-        else None,
-        "ipv6": marshal_ServerIpv6(request.ipv6, defaults)
-        if request.ipv6 is not None
-        else None,
-        "location": marshal_ServerLocation(request.location, defaults)
-        if request.location is not None
-        else None,
-        "maintenances": [
+    output: Dict[str, Any] = {}
+
+    if request.allowed_actions is not None:
+        output["allowed_actions"] = [ServerAction(v) for v in request.allowed_actions]
+
+    if request.arch is not None:
+        output["arch"] = Arch(request.arch)
+
+    if request.boot_type is not None:
+        output["boot_type"] = BootType(request.boot_type)
+
+    if request.bootscript is not None:
+        output["bootscript"] = marshal_Bootscript(request.bootscript, defaults)
+
+    if request.commercial_type is not None:
+        output["commercial_type"] = request.commercial_type
+
+    if request.creation_date is not None:
+        output["creation_date"] = request.creation_date
+
+    if request.dynamic_ip_required is not None:
+        output["dynamic_ip_required"] = request.dynamic_ip_required
+
+    if request.enable_ipv6 is not None:
+        output["enable_ipv6"] = request.enable_ipv6
+
+    if request.hostname is not None:
+        output["hostname"] = request.hostname
+
+    if request.image is not None:
+        output["image"] = marshal_Image(request.image, defaults)
+
+    if request.ipv6 is not None:
+        output["ipv6"] = marshal_ServerIpv6(request.ipv6, defaults)
+
+    if request.location is not None:
+        output["location"] = marshal_ServerLocation(request.location, defaults)
+
+    if request.maintenances is not None:
+        output["maintenances"] = [
             marshal_ServerMaintenance(v, defaults) for v in request.maintenances
         ]
-        if request.maintenances is not None
-        else None,
-        "modification_date": request.modification_date,
-        "name": request.name,
-        "organization": request.organization or defaults.default_organization_id,
-        "placement_group": marshal_PlacementGroup(request.placement_group, defaults)
-        if request.placement_group is not None
-        else None,
-        "private_ip": request.private_ip,
-        "private_nics": [marshal_PrivateNIC(v, defaults) for v in request.private_nics]
-        if request.private_nics is not None
-        else None,
-        "project": request.project or defaults.default_project_id,
-        "protected": request.protected,
-        "public_ip": marshal_ServerIp(request.public_ip, defaults)
-        if request.public_ip is not None
-        else None,
-        "public_ips": [marshal_ServerIp(v, defaults) for v in request.public_ips]
-        if request.public_ips is not None
-        else None,
-        "routed_ip_enabled": request.routed_ip_enabled,
-        "security_group": marshal_SecurityGroupSummary(request.security_group, defaults)
-        if request.security_group is not None
-        else None,
-        "state": ServerState(request.state),
-        "state_detail": request.state_detail,
-        "tags": request.tags,
-        "volumes": {k: marshal_Volume(v, defaults) for k, v in request.volumes.items()}
-        if request.volumes is not None
-        else None,
-    }
+
+    if request.modification_date is not None:
+        output["modification_date"] = request.modification_date
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.organization is not None:
+        output["organization"] = (
+            request.organization or defaults.default_organization_id
+        )
+
+    if request.placement_group is not None:
+        output["placement_group"] = marshal_PlacementGroup(
+            request.placement_group, defaults
+        )
+
+    if request.private_ip is not None:
+        output["private_ip"] = request.private_ip
+
+    if request.private_nics is not None:
+        output["private_nics"] = [
+            marshal_PrivateNIC(v, defaults) for v in request.private_nics
+        ]
+
+    if request.project is not None:
+        output["project"] = request.project or defaults.default_project_id
+
+    if request.protected is not None:
+        output["protected"] = request.protected
+
+    if request.public_ip is not None:
+        output["public_ip"] = marshal_ServerIp(request.public_ip, defaults)
+
+    if request.public_ips is not None:
+        output["public_ips"] = [
+            marshal_ServerIp(v, defaults) for v in request.public_ips
+        ]
+
+    if request.routed_ip_enabled is not None:
+        output["routed_ip_enabled"] = request.routed_ip_enabled
+
+    if request.security_group is not None:
+        output["security_group"] = marshal_SecurityGroupSummary(
+            request.security_group, defaults
+        )
+
+    if request.state is not None:
+        output["state"] = ServerState(request.state)
+
+    if request.state_detail is not None:
+        output["state_detail"] = request.state_detail
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    if request.volumes is not None:
+        output["volumes"] = {
+            k: marshal_Volume(v, defaults) for k, v in request.volumes.items()
+        }
+
+    return output
 
 
 def marshal__SetSnapshotRequest(
     request: _SetSnapshotRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "base_volume": marshal_SnapshotBaseVolume(request.base_volume, defaults)
-        if request.base_volume is not None
-        else None,
-        "creation_date": request.creation_date,
-        "id": request.id,
-        "modification_date": request.modification_date,
-        "name": request.name,
-        "organization": request.organization or defaults.default_organization_id,
-        "project": request.project or defaults.default_project_id,
-        "size": request.size,
-        "state": SnapshotState(request.state),
-        "tags": request.tags,
-        "volume_type": VolumeVolumeType(request.volume_type),
-    }
+    output: Dict[str, Any] = {}
+
+    if request.base_volume is not None:
+        output["base_volume"] = marshal_SnapshotBaseVolume(
+            request.base_volume, defaults
+        )
+
+    if request.creation_date is not None:
+        output["creation_date"] = request.creation_date
+
+    if request.id is not None:
+        output["id"] = request.id
+
+    if request.modification_date is not None:
+        output["modification_date"] = request.modification_date
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.organization is not None:
+        output["organization"] = (
+            request.organization or defaults.default_organization_id
+        )
+
+    if request.project is not None:
+        output["project"] = request.project or defaults.default_project_id
+
+    if request.size is not None:
+        output["size"] = request.size
+
+    if request.state is not None:
+        output["state"] = SnapshotState(request.state)
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    if request.volume_type is not None:
+        output["volume_type"] = VolumeVolumeType(request.volume_type)
+
+    return output
 
 
 def marshal__UpdateServerRequest(
     request: _UpdateServerRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "boot_type": BootType(request.boot_type)
-        if request.boot_type is not None
-        else None,
-        "bootscript": request.bootscript,
-        "commercial_type": request.commercial_type,
-        "dynamic_ip_required": request.dynamic_ip_required,
-        "enable_ipv6": request.enable_ipv6,
-        "name": request.name,
-        "placement_group": request.placement_group,
-        "private_nics": [marshal_PrivateNIC(v, defaults) for v in request.private_nics]
-        if request.private_nics is not None
-        else None,
-        "protected": request.protected,
-        "public_ips": [marshal_ServerIp(v, defaults) for v in request.public_ips]
-        if request.public_ips is not None
-        else None,
-        "routed_ip_enabled": request.routed_ip_enabled,
-        "security_group": marshal_SecurityGroupTemplate(
+    output: Dict[str, Any] = {}
+
+    if request.boot_type is not None:
+        output["boot_type"] = BootType(request.boot_type)
+
+    if request.bootscript is not None:
+        output["bootscript"] = request.bootscript
+
+    if request.commercial_type is not None:
+        output["commercial_type"] = request.commercial_type
+
+    if request.dynamic_ip_required is not None:
+        output["dynamic_ip_required"] = request.dynamic_ip_required
+
+    if request.enable_ipv6 is not None:
+        output["enable_ipv6"] = request.enable_ipv6
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.placement_group is not None:
+        output["placement_group"] = request.placement_group
+
+    if request.private_nics is not None:
+        output["private_nics"] = [
+            marshal_PrivateNIC(v, defaults) for v in request.private_nics
+        ]
+
+    if request.protected is not None:
+        output["protected"] = request.protected
+
+    if request.public_ips is not None:
+        output["public_ips"] = [
+            marshal_ServerIp(v, defaults) for v in request.public_ips
+        ]
+
+    if request.routed_ip_enabled is not None:
+        output["routed_ip_enabled"] = request.routed_ip_enabled
+
+    if request.security_group is not None:
+        output["security_group"] = marshal_SecurityGroupTemplate(
             request.security_group, defaults
         )
-        if request.security_group is not None
-        else None,
-        "tags": request.tags,
-        "volumes": {
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    if request.volumes is not None:
+        output["volumes"] = {
             k: marshal_VolumeServerTemplate(v, defaults)
             for k, v in request.volumes.items()
         }
-        if request.volumes is not None
-        else None,
-    }
+
+    return output

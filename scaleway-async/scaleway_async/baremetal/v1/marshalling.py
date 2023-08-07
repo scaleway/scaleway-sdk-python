@@ -816,32 +816,51 @@ def marshal_CreateServerRequestInstall(
     request: CreateServerRequestInstall,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "hostname": request.hostname,
-        "os_id": request.os_id,
-        "password": request.password,
-        "service_password": request.service_password,
-        "service_user": request.service_user,
-        "ssh_key_ids": request.ssh_key_ids,
-        "user": request.user,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.hostname is not None:
+        output["hostname"] = request.hostname
+
+    if request.os_id is not None:
+        output["os_id"] = request.os_id
+
+    if request.password is not None:
+        output["password"] = request.password
+
+    if request.service_password is not None:
+        output["service_password"] = request.service_password
+
+    if request.service_user is not None:
+        output["service_user"] = request.service_user
+
+    if request.ssh_key_ids is not None:
+        output["ssh_key_ids"] = request.ssh_key_ids
+
+    if request.user is not None:
+        output["user"] = request.user
+
+    return output
 
 
 def marshal_AddOptionServerRequest(
     request: AddOptionServerRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "expires_at": request.expires_at,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.expires_at is not None:
+        output["expires_at"] = request.expires_at
+
+    return output
 
 
 def marshal_CreateServerRequest(
     request: CreateServerRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "project_id",
@@ -859,101 +878,158 @@ def marshal_CreateServerRequest(
                 ),
             ]
         ),
-        "description": request.description,
-        "install": marshal_CreateServerRequestInstall(request.install, defaults)
-        if request.install is not None
-        else None,
-        "name": request.name,
-        "offer_id": request.offer_id,
-        "option_ids": request.option_ids,
-        "tags": request.tags,
-    }
+    )
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.install is not None:
+        output["install"] = marshal_CreateServerRequestInstall(
+            request.install, defaults
+        )
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.offer_id is not None:
+        output["offer_id"] = request.offer_id
+
+    if request.option_ids is not None:
+        output["option_ids"] = request.option_ids
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    return output
 
 
 def marshal_InstallServerRequest(
     request: InstallServerRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "hostname": request.hostname,
-        "os_id": request.os_id,
-        "password": request.password,
-        "service_password": request.service_password,
-        "service_user": request.service_user,
-        "ssh_key_ids": request.ssh_key_ids,
-        "user": request.user,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.hostname is not None:
+        output["hostname"] = request.hostname
+
+    if request.os_id is not None:
+        output["os_id"] = request.os_id
+
+    if request.password is not None:
+        output["password"] = request.password
+
+    if request.service_password is not None:
+        output["service_password"] = request.service_password
+
+    if request.service_user is not None:
+        output["service_user"] = request.service_user
+
+    if request.ssh_key_ids is not None:
+        output["ssh_key_ids"] = request.ssh_key_ids
+
+    if request.user is not None:
+        output["user"] = request.user
+
+    return output
 
 
 def marshal_PrivateNetworkApiAddServerPrivateNetworkRequest(
     request: PrivateNetworkApiAddServerPrivateNetworkRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "private_network_id": request.private_network_id,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.private_network_id is not None:
+        output["private_network_id"] = request.private_network_id
+
+    return output
 
 
 def marshal_PrivateNetworkApiSetServerPrivateNetworksRequest(
     request: PrivateNetworkApiSetServerPrivateNetworksRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "private_network_ids": request.private_network_ids,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.private_network_ids is not None:
+        output["private_network_ids"] = request.private_network_ids
+
+    return output
 
 
 def marshal_RebootServerRequest(
     request: RebootServerRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "boot_type": ServerBootType(request.boot_type),
-    }
+    output: Dict[str, Any] = {}
+
+    if request.boot_type is not None:
+        output["boot_type"] = ServerBootType(request.boot_type)
+
+    return output
 
 
 def marshal_StartBMCAccessRequest(
     request: StartBMCAccessRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "ip": request.ip,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.ip is not None:
+        output["ip"] = request.ip
+
+    return output
 
 
 def marshal_StartServerRequest(
     request: StartServerRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "boot_type": ServerBootType(request.boot_type),
-    }
+    output: Dict[str, Any] = {}
+
+    if request.boot_type is not None:
+        output["boot_type"] = ServerBootType(request.boot_type)
+
+    return output
 
 
 def marshal_UpdateIPRequest(
     request: UpdateIPRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "reverse": request.reverse,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.reverse is not None:
+        output["reverse"] = request.reverse
+
+    return output
 
 
 def marshal_UpdateServerRequest(
     request: UpdateServerRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "description": request.description,
-        "name": request.name,
-        "tags": request.tags,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    return output
 
 
 def marshal_UpdateSettingRequest(
     request: UpdateSettingRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "enabled": request.enabled,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.enabled is not None:
+        output["enabled"] = request.enabled
+
+    return output

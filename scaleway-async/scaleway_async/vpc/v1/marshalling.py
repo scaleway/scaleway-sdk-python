@@ -74,20 +74,36 @@ def marshal_CreatePrivateNetworkRequest(
     request: CreatePrivateNetworkRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "name": request.name,
-        "project_id": request.project_id or defaults.default_project_id,
-        "subnets": request.subnets,
-        "tags": request.tags,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    if request.subnets is not None:
+        output["subnets"] = request.subnets
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    return output
 
 
 def marshal_UpdatePrivateNetworkRequest(
     request: UpdatePrivateNetworkRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "name": request.name,
-        "subnets": request.subnets,
-        "tags": request.tags,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.subnets is not None:
+        output["subnets"] = request.subnets
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    return output

@@ -664,128 +664,214 @@ def marshal_CreateTriggerRequestMnqNatsClientConfig(
     request: CreateTriggerRequestMnqNatsClientConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "mnq_namespace_id": request.mnq_namespace_id,
-        "mnq_project_id": request.mnq_project_id,
-        "mnq_region": request.mnq_region,
-        "subject": request.subject,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.mnq_namespace_id is not None:
+        output["mnq_namespace_id"] = request.mnq_namespace_id
+
+    if request.mnq_project_id is not None:
+        output["mnq_project_id"] = request.mnq_project_id
+
+    if request.mnq_region is not None:
+        output["mnq_region"] = request.mnq_region
+
+    if request.subject is not None:
+        output["subject"] = request.subject
+
+    return output
 
 
 def marshal_CreateTriggerRequestMnqSqsClientConfig(
     request: CreateTriggerRequestMnqSqsClientConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "mnq_namespace_id": request.mnq_namespace_id,
-        "mnq_project_id": request.mnq_project_id,
-        "mnq_region": request.mnq_region,
-        "queue": request.queue,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.mnq_namespace_id is not None:
+        output["mnq_namespace_id"] = request.mnq_namespace_id
+
+    if request.mnq_project_id is not None:
+        output["mnq_project_id"] = request.mnq_project_id
+
+    if request.mnq_region is not None:
+        output["mnq_region"] = request.mnq_region
+
+    if request.queue is not None:
+        output["queue"] = request.queue
+
+    return output
 
 
 def marshal_CreateTriggerRequestSqsClientConfig(
     request: CreateTriggerRequestSqsClientConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "access_key": request.access_key,
-        "endpoint": request.endpoint,
-        "queue_url": request.queue_url,
-        "secret_key": request.secret_key,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.access_key is not None:
+        output["access_key"] = request.access_key
+
+    if request.endpoint is not None:
+        output["endpoint"] = request.endpoint
+
+    if request.queue_url is not None:
+        output["queue_url"] = request.queue_url
+
+    if request.secret_key is not None:
+        output["secret_key"] = request.secret_key
+
+    return output
 
 
 def marshal_Secret(
     request: Secret,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "key": request.key,
-        "value": request.value,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.key is not None:
+        output["key"] = request.key
+
+    if request.value is not None:
+        output["value"] = request.value
+
+    return output
 
 
 def marshal_UpdateTriggerRequestSqsClientConfig(
     request: UpdateTriggerRequestSqsClientConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "access_key": request.access_key,
-        "secret_key": request.secret_key,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.access_key is not None:
+        output["access_key"] = request.access_key
+
+    if request.secret_key is not None:
+        output["secret_key"] = request.secret_key
+
+    return output
 
 
 def marshal_CreateCronRequest(
     request: CreateCronRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "args": request.args,
-        "function_id": request.function_id,
-        "name": request.name,
-        "schedule": request.schedule,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.args is not None:
+        output["args"] = request.args
+
+    if request.function_id is not None:
+        output["function_id"] = request.function_id
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.schedule is not None:
+        output["schedule"] = request.schedule
+
+    return output
 
 
 def marshal_CreateDomainRequest(
     request: CreateDomainRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "function_id": request.function_id,
-        "hostname": request.hostname,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.function_id is not None:
+        output["function_id"] = request.function_id
+
+    if request.hostname is not None:
+        output["hostname"] = request.hostname
+
+    return output
 
 
 def marshal_CreateFunctionRequest(
     request: CreateFunctionRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "description": request.description,
-        "environment_variables": request.environment_variables,
-        "handler": request.handler,
-        "http_option": FunctionHttpOption(request.http_option),
-        "max_scale": request.max_scale,
-        "memory_limit": request.memory_limit,
-        "min_scale": request.min_scale,
-        "name": request.name,
-        "namespace_id": request.namespace_id,
-        "privacy": FunctionPrivacy(request.privacy),
-        "runtime": FunctionRuntime(request.runtime),
-        "secret_environment_variables": [
+    output: Dict[str, Any] = {}
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.environment_variables is not None:
+        output["environment_variables"] = request.environment_variables
+
+    if request.handler is not None:
+        output["handler"] = request.handler
+
+    if request.http_option is not None:
+        output["http_option"] = FunctionHttpOption(request.http_option)
+
+    if request.max_scale is not None:
+        output["max_scale"] = request.max_scale
+
+    if request.memory_limit is not None:
+        output["memory_limit"] = request.memory_limit
+
+    if request.min_scale is not None:
+        output["min_scale"] = request.min_scale
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.namespace_id is not None:
+        output["namespace_id"] = request.namespace_id
+
+    if request.privacy is not None:
+        output["privacy"] = FunctionPrivacy(request.privacy)
+
+    if request.runtime is not None:
+        output["runtime"] = FunctionRuntime(request.runtime)
+
+    if request.secret_environment_variables is not None:
+        output["secret_environment_variables"] = [
             marshal_Secret(v, defaults) for v in request.secret_environment_variables
         ]
-        if request.secret_environment_variables is not None
-        else None,
-        "timeout": request.timeout,
-    }
+
+    if request.timeout is not None:
+        output["timeout"] = request.timeout
+
+    return output
 
 
 def marshal_CreateNamespaceRequest(
     request: CreateNamespaceRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "description": request.description,
-        "environment_variables": request.environment_variables,
-        "name": request.name,
-        "project_id": request.project_id or defaults.default_project_id,
-        "secret_environment_variables": [
+    output: Dict[str, Any] = {}
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.environment_variables is not None:
+        output["environment_variables"] = request.environment_variables
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    if request.secret_environment_variables is not None:
+        output["secret_environment_variables"] = [
             marshal_Secret(v, defaults) for v in request.secret_environment_variables
         ]
-        if request.secret_environment_variables is not None
-        else None,
-    }
+
+    return output
 
 
 def marshal_CreateTokenRequest(
     request: CreateTokenRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "function_id",
@@ -797,17 +883,24 @@ def marshal_CreateTokenRequest(
                 ),
             ]
         ),
-        "description": request.description,
-        "expires_at": request.expires_at,
-    }
+    )
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.expires_at is not None:
+        output["expires_at"] = request.expires_at
+
+    return output
 
 
 def marshal_CreateTriggerRequest(
     request: CreateTriggerRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "scw_sqs_config",
@@ -835,69 +928,115 @@ def marshal_CreateTriggerRequest(
                 ),
             ]
         ),
-        "description": request.description,
-        "function_id": request.function_id,
-        "name": request.name,
-    }
+    )
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.function_id is not None:
+        output["function_id"] = request.function_id
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output
 
 
 def marshal_UpdateCronRequest(
     request: UpdateCronRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "args": request.args,
-        "function_id": request.function_id,
-        "name": request.name,
-        "schedule": request.schedule,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.args is not None:
+        output["args"] = request.args
+
+    if request.function_id is not None:
+        output["function_id"] = request.function_id
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.schedule is not None:
+        output["schedule"] = request.schedule
+
+    return output
 
 
 def marshal_UpdateFunctionRequest(
     request: UpdateFunctionRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "description": request.description,
-        "environment_variables": request.environment_variables,
-        "handler": request.handler,
-        "http_option": FunctionHttpOption(request.http_option),
-        "max_scale": request.max_scale,
-        "memory_limit": request.memory_limit,
-        "min_scale": request.min_scale,
-        "privacy": FunctionPrivacy(request.privacy),
-        "redeploy": request.redeploy,
-        "runtime": FunctionRuntime(request.runtime),
-        "secret_environment_variables": [
+    output: Dict[str, Any] = {}
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.environment_variables is not None:
+        output["environment_variables"] = request.environment_variables
+
+    if request.handler is not None:
+        output["handler"] = request.handler
+
+    if request.http_option is not None:
+        output["http_option"] = FunctionHttpOption(request.http_option)
+
+    if request.max_scale is not None:
+        output["max_scale"] = request.max_scale
+
+    if request.memory_limit is not None:
+        output["memory_limit"] = request.memory_limit
+
+    if request.min_scale is not None:
+        output["min_scale"] = request.min_scale
+
+    if request.privacy is not None:
+        output["privacy"] = FunctionPrivacy(request.privacy)
+
+    if request.redeploy is not None:
+        output["redeploy"] = request.redeploy
+
+    if request.runtime is not None:
+        output["runtime"] = FunctionRuntime(request.runtime)
+
+    if request.secret_environment_variables is not None:
+        output["secret_environment_variables"] = [
             marshal_Secret(v, defaults) for v in request.secret_environment_variables
         ]
-        if request.secret_environment_variables is not None
-        else None,
-        "timeout": request.timeout,
-    }
+
+    if request.timeout is not None:
+        output["timeout"] = request.timeout
+
+    return output
 
 
 def marshal_UpdateNamespaceRequest(
     request: UpdateNamespaceRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "description": request.description,
-        "environment_variables": request.environment_variables,
-        "secret_environment_variables": [
+    output: Dict[str, Any] = {}
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.environment_variables is not None:
+        output["environment_variables"] = request.environment_variables
+
+    if request.secret_environment_variables is not None:
+        output["secret_environment_variables"] = [
             marshal_Secret(v, defaults) for v in request.secret_environment_variables
         ]
-        if request.secret_environment_variables is not None
-        else None,
-    }
+
+    return output
 
 
 def marshal_UpdateTriggerRequest(
     request: UpdateTriggerRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "sqs_config",
@@ -909,6 +1048,12 @@ def marshal_UpdateTriggerRequest(
                 ),
             ]
         ),
-        "description": request.description,
-        "name": request.name,
-    }
+    )
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output

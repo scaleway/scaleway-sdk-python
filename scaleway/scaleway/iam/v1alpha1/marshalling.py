@@ -611,8 +611,9 @@ def marshal_RuleSpecs(
     request: RuleSpecs,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "project_ids",
@@ -627,16 +628,21 @@ def marshal_RuleSpecs(
                 ),
             ]
         ),
-        "permission_set_names": request.permission_set_names,
-    }
+    )
+
+    if request.permission_set_names is not None:
+        output["permission_set_names"] = request.permission_set_names
+
+    return output
 
 
 def marshal_AddGroupMemberRequest(
     request: AddGroupMemberRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "user_id", request.user_id if request.user_id is not None else None
@@ -649,25 +655,33 @@ def marshal_AddGroupMemberRequest(
                 ),
             ]
         ),
-    }
+    )
+
+    return output
 
 
 def marshal_AddGroupMembersRequest(
     request: AddGroupMembersRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "application_ids": request.application_ids,
-        "user_ids": request.user_ids,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.application_ids is not None:
+        output["application_ids"] = request.application_ids
+
+    if request.user_ids is not None:
+        output["user_ids"] = request.user_ids
+
+    return output
 
 
 def marshal_CreateAPIKeyRequest(
     request: CreateAPIKeyRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "application_id",
@@ -680,40 +694,67 @@ def marshal_CreateAPIKeyRequest(
                 ),
             ]
         ),
-        "default_project_id": request.default_project_id,
-        "description": request.description,
-        "expires_at": request.expires_at,
-    }
+    )
+
+    if request.default_project_id is not None:
+        output["default_project_id"] = request.default_project_id
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.expires_at is not None:
+        output["expires_at"] = request.expires_at
+
+    return output
 
 
 def marshal_CreateApplicationRequest(
     request: CreateApplicationRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "description": request.description,
-        "name": request.name,
-        "organization_id": request.organization_id or defaults.default_organization_id,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.organization_id is not None:
+        output["organization_id"] = (
+            request.organization_id or defaults.default_organization_id
+        )
+
+    return output
 
 
 def marshal_CreateGroupRequest(
     request: CreateGroupRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "description": request.description,
-        "name": request.name,
-        "organization_id": request.organization_id or defaults.default_organization_id,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.organization_id is not None:
+        output["organization_id"] = (
+            request.organization_id or defaults.default_organization_id
+        )
+
+    return output
 
 
 def marshal_CreatePolicyRequest(
     request: CreatePolicyRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "user_id", request.user_id if request.user_id is not None else None
@@ -734,42 +775,67 @@ def marshal_CreatePolicyRequest(
                 ),
             ]
         ),
-        "description": request.description,
-        "name": request.name,
-        "organization_id": request.organization_id or defaults.default_organization_id,
-        "rules": [marshal_RuleSpecs(v, defaults) for v in request.rules]
-        if request.rules is not None
-        else None,
-    }
+    )
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.organization_id is not None:
+        output["organization_id"] = (
+            request.organization_id or defaults.default_organization_id
+        )
+
+    if request.rules is not None:
+        output["rules"] = [marshal_RuleSpecs(v, defaults) for v in request.rules]
+
+    return output
 
 
 def marshal_CreateSSHKeyRequest(
     request: CreateSSHKeyRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "name": request.name,
-        "project_id": request.project_id or defaults.default_project_id,
-        "public_key": request.public_key,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    if request.public_key is not None:
+        output["public_key"] = request.public_key
+
+    return output
 
 
 def marshal_CreateUserRequest(
     request: CreateUserRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "email": request.email,
-        "organization_id": request.organization_id or defaults.default_organization_id,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.email is not None:
+        output["email"] = request.email
+
+    if request.organization_id is not None:
+        output["organization_id"] = (
+            request.organization_id or defaults.default_organization_id
+        )
+
+    return output
 
 
 def marshal_RemoveGroupMemberRequest(
     request: RemoveGroupMemberRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "user_id", request.user_id if request.user_id is not None else None
@@ -782,65 +848,93 @@ def marshal_RemoveGroupMemberRequest(
                 ),
             ]
         ),
-    }
+    )
+
+    return output
 
 
 def marshal_SetGroupMembersRequest(
     request: SetGroupMembersRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "application_ids": request.application_ids,
-        "user_ids": request.user_ids,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.application_ids is not None:
+        output["application_ids"] = request.application_ids
+
+    if request.user_ids is not None:
+        output["user_ids"] = request.user_ids
+
+    return output
 
 
 def marshal_SetRulesRequest(
     request: SetRulesRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "policy_id": request.policy_id,
-        "rules": [marshal_RuleSpecs(v, defaults) for v in request.rules],
-    }
+    output: Dict[str, Any] = {}
+
+    if request.policy_id is not None:
+        output["policy_id"] = request.policy_id
+
+    if request.rules is not None:
+        output["rules"] = [marshal_RuleSpecs(v, defaults) for v in request.rules]
+
+    return output
 
 
 def marshal_UpdateAPIKeyRequest(
     request: UpdateAPIKeyRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "default_project_id": request.default_project_id,
-        "description": request.description,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.default_project_id is not None:
+        output["default_project_id"] = request.default_project_id
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    return output
 
 
 def marshal_UpdateApplicationRequest(
     request: UpdateApplicationRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "description": request.description,
-        "name": request.name,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output
 
 
 def marshal_UpdateGroupRequest(
     request: UpdateGroupRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "description": request.description,
-        "name": request.name,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output
 
 
 def marshal_UpdatePolicyRequest(
     request: UpdatePolicyRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "user_id", request.user_id if request.user_id is not None else None
@@ -861,16 +955,27 @@ def marshal_UpdatePolicyRequest(
                 ),
             ]
         ),
-        "description": request.description,
-        "name": request.name,
-    }
+    )
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output
 
 
 def marshal_UpdateSSHKeyRequest(
     request: UpdateSSHKeyRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "disabled": request.disabled,
-        "name": request.name,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.disabled is not None:
+        output["disabled"] = request.disabled
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output

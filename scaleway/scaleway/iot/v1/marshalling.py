@@ -706,135 +706,220 @@ def marshal_DeviceMessageFiltersRule(
     request: DeviceMessageFiltersRule,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "policy": DeviceMessageFiltersRulePolicy(request.policy),
-        "topics": request.topics,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.policy is not None:
+        output["policy"] = DeviceMessageFiltersRulePolicy(request.policy)
+
+    if request.topics is not None:
+        output["topics"] = request.topics
+
+    return output
 
 
 def marshal_CreateRouteRequestDatabaseConfig(
     request: CreateRouteRequestDatabaseConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "dbname": request.dbname,
-        "engine": RouteDatabaseConfigEngine(request.engine),
-        "host": request.host,
-        "password": request.password,
-        "port": request.port,
-        "query": request.query,
-        "username": request.username,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.dbname is not None:
+        output["dbname"] = request.dbname
+
+    if request.engine is not None:
+        output["engine"] = RouteDatabaseConfigEngine(request.engine)
+
+    if request.host is not None:
+        output["host"] = request.host
+
+    if request.password is not None:
+        output["password"] = request.password
+
+    if request.port is not None:
+        output["port"] = request.port
+
+    if request.query is not None:
+        output["query"] = request.query
+
+    if request.username is not None:
+        output["username"] = request.username
+
+    return output
 
 
 def marshal_CreateRouteRequestRestConfig(
     request: CreateRouteRequestRestConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "headers": request.headers,
-        "uri": request.uri,
-        "verb": RouteRestConfigHttpVerb(request.verb),
-    }
+    output: Dict[str, Any] = {}
+
+    if request.headers is not None:
+        output["headers"] = request.headers
+
+    if request.uri is not None:
+        output["uri"] = request.uri
+
+    if request.verb is not None:
+        output["verb"] = RouteRestConfigHttpVerb(request.verb)
+
+    return output
 
 
 def marshal_CreateRouteRequestS3Config(
     request: CreateRouteRequestS3Config,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "bucket_name": request.bucket_name,
-        "bucket_region": request.bucket_region,
-        "object_prefix": request.object_prefix,
-        "strategy": RouteS3ConfigS3Strategy(request.strategy),
-    }
+    output: Dict[str, Any] = {}
+
+    if request.bucket_name is not None:
+        output["bucket_name"] = request.bucket_name
+
+    if request.bucket_region is not None:
+        output["bucket_region"] = request.bucket_region
+
+    if request.object_prefix is not None:
+        output["object_prefix"] = request.object_prefix
+
+    if request.strategy is not None:
+        output["strategy"] = RouteS3ConfigS3Strategy(request.strategy)
+
+    return output
 
 
 def marshal_DeviceMessageFilters(
     request: DeviceMessageFilters,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "publish": marshal_DeviceMessageFiltersRule(request.publish, defaults)
-        if request.publish is not None
-        else None,
-        "subscribe": marshal_DeviceMessageFiltersRule(request.subscribe, defaults)
-        if request.subscribe is not None
-        else None,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.publish is not None:
+        output["publish"] = marshal_DeviceMessageFiltersRule(request.publish, defaults)
+
+    if request.subscribe is not None:
+        output["subscribe"] = marshal_DeviceMessageFiltersRule(
+            request.subscribe, defaults
+        )
+
+    return output
 
 
 def marshal_HubTwinsGraphiteConfig(
     request: HubTwinsGraphiteConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "push_uri": request.push_uri,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.push_uri is not None:
+        output["push_uri"] = request.push_uri
+
+    return output
 
 
 def marshal_UpdateRouteRequestDatabaseConfig(
     request: UpdateRouteRequestDatabaseConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "dbname": request.dbname,
-        "engine": RouteDatabaseConfigEngine(request.engine),
-        "host": request.host,
-        "password": request.password,
-        "port": request.port,
-        "query": request.query,
-        "username": request.username,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.dbname is not None:
+        output["dbname"] = request.dbname
+
+    if request.engine is not None:
+        output["engine"] = RouteDatabaseConfigEngine(request.engine)
+
+    if request.host is not None:
+        output["host"] = request.host
+
+    if request.password is not None:
+        output["password"] = request.password
+
+    if request.port is not None:
+        output["port"] = request.port
+
+    if request.query is not None:
+        output["query"] = request.query
+
+    if request.username is not None:
+        output["username"] = request.username
+
+    return output
 
 
 def marshal_UpdateRouteRequestRestConfig(
     request: UpdateRouteRequestRestConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "headers": request.headers,
-        "uri": request.uri,
-        "verb": RouteRestConfigHttpVerb(request.verb),
-    }
+    output: Dict[str, Any] = {}
+
+    if request.headers is not None:
+        output["headers"] = request.headers
+
+    if request.uri is not None:
+        output["uri"] = request.uri
+
+    if request.verb is not None:
+        output["verb"] = RouteRestConfigHttpVerb(request.verb)
+
+    return output
 
 
 def marshal_UpdateRouteRequestS3Config(
     request: UpdateRouteRequestS3Config,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "bucket_name": request.bucket_name,
-        "bucket_region": request.bucket_region,
-        "object_prefix": request.object_prefix,
-        "strategy": RouteS3ConfigS3Strategy(request.strategy),
-    }
+    output: Dict[str, Any] = {}
+
+    if request.bucket_name is not None:
+        output["bucket_name"] = request.bucket_name
+
+    if request.bucket_region is not None:
+        output["bucket_region"] = request.bucket_region
+
+    if request.object_prefix is not None:
+        output["object_prefix"] = request.object_prefix
+
+    if request.strategy is not None:
+        output["strategy"] = RouteS3ConfigS3Strategy(request.strategy)
+
+    return output
 
 
 def marshal_CreateDeviceRequest(
     request: CreateDeviceRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "allow_insecure": request.allow_insecure,
-        "allow_multiple_connections": request.allow_multiple_connections,
-        "description": request.description,
-        "hub_id": request.hub_id,
-        "message_filters": marshal_DeviceMessageFilters(
+    output: Dict[str, Any] = {}
+
+    if request.allow_insecure is not None:
+        output["allow_insecure"] = request.allow_insecure
+
+    if request.allow_multiple_connections is not None:
+        output["allow_multiple_connections"] = request.allow_multiple_connections
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.hub_id is not None:
+        output["hub_id"] = request.hub_id
+
+    if request.message_filters is not None:
+        output["message_filters"] = marshal_DeviceMessageFilters(
             request.message_filters, defaults
         )
-        if request.message_filters is not None
-        else None,
-        "name": request.name,
-    }
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output
 
 
 def marshal_CreateHubRequest(
     request: CreateHubRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "twins_graphite_config",
@@ -846,36 +931,54 @@ def marshal_CreateHubRequest(
                 ),
             ]
         ),
-        "disable_events": request.disable_events,
-        "events_topic_prefix": request.events_topic_prefix,
-        "name": request.name,
-        "product_plan": HubProductPlan(request.product_plan)
-        if request.product_plan is not None
-        else None,
-        "project_id": request.project_id or defaults.default_project_id,
-    }
+    )
+
+    if request.disable_events is not None:
+        output["disable_events"] = request.disable_events
+
+    if request.events_topic_prefix is not None:
+        output["events_topic_prefix"] = request.events_topic_prefix
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.product_plan is not None:
+        output["product_plan"] = HubProductPlan(request.product_plan)
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    return output
 
 
 def marshal_CreateNetworkRequest(
     request: CreateNetworkRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "hub_id": request.hub_id,
-        "name": request.name,
-        "topic_prefix": request.topic_prefix,
-        "type": NetworkNetworkType(request.type_)
-        if request.type_ is not None
-        else None,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.hub_id is not None:
+        output["hub_id"] = request.hub_id
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.topic_prefix is not None:
+        output["topic_prefix"] = request.topic_prefix
+
+    if request.type_ is not None:
+        output["type"] = NetworkNetworkType(request.type_)
+
+    return output
 
 
 def marshal_CreateRouteRequest(
     request: CreateRouteRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "s3_config",
@@ -899,74 +1002,110 @@ def marshal_CreateRouteRequest(
                 ),
             ]
         ),
-        "hub_id": request.hub_id,
-        "name": request.name,
-        "topic": request.topic,
-    }
+    )
+
+    if request.hub_id is not None:
+        output["hub_id"] = request.hub_id
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.topic is not None:
+        output["topic"] = request.topic
+
+    return output
 
 
 def marshal_PatchTwinDocumentRequest(
     request: PatchTwinDocumentRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "data": request.data,
-        "version": request.version,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.data is not None:
+        output["data"] = request.data
+
+    if request.version is not None:
+        output["version"] = request.version
+
+    return output
 
 
 def marshal_PutTwinDocumentRequest(
     request: PutTwinDocumentRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "data": request.data,
-        "version": request.version,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.data is not None:
+        output["data"] = request.data
+
+    if request.version is not None:
+        output["version"] = request.version
+
+    return output
 
 
 def marshal_SetDeviceCertificateRequest(
     request: SetDeviceCertificateRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "certificate_pem": request.certificate_pem,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.certificate_pem is not None:
+        output["certificate_pem"] = request.certificate_pem
+
+    return output
 
 
 def marshal_SetHubCARequest(
     request: SetHubCARequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "ca_cert_pem": request.ca_cert_pem,
-        "challenge_cert_pem": request.challenge_cert_pem,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.ca_cert_pem is not None:
+        output["ca_cert_pem"] = request.ca_cert_pem
+
+    if request.challenge_cert_pem is not None:
+        output["challenge_cert_pem"] = request.challenge_cert_pem
+
+    return output
 
 
 def marshal_UpdateDeviceRequest(
     request: UpdateDeviceRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "allow_insecure": request.allow_insecure,
-        "allow_multiple_connections": request.allow_multiple_connections,
-        "description": request.description,
-        "hub_id": request.hub_id,
-        "message_filters": marshal_DeviceMessageFilters(
+    output: Dict[str, Any] = {}
+
+    if request.allow_insecure is not None:
+        output["allow_insecure"] = request.allow_insecure
+
+    if request.allow_multiple_connections is not None:
+        output["allow_multiple_connections"] = request.allow_multiple_connections
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.hub_id is not None:
+        output["hub_id"] = request.hub_id
+
+    if request.message_filters is not None:
+        output["message_filters"] = marshal_DeviceMessageFilters(
             request.message_filters, defaults
         )
-        if request.message_filters is not None
-        else None,
-    }
+
+    return output
 
 
 def marshal_UpdateHubRequest(
     request: UpdateHubRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "twins_graphite_config",
@@ -978,20 +1117,35 @@ def marshal_UpdateHubRequest(
                 ),
             ]
         ),
-        "disable_events": request.disable_events,
-        "enable_device_auto_provisioning": request.enable_device_auto_provisioning,
-        "events_topic_prefix": request.events_topic_prefix,
-        "name": request.name,
-        "product_plan": HubProductPlan(request.product_plan),
-    }
+    )
+
+    if request.disable_events is not None:
+        output["disable_events"] = request.disable_events
+
+    if request.enable_device_auto_provisioning is not None:
+        output[
+            "enable_device_auto_provisioning"
+        ] = request.enable_device_auto_provisioning
+
+    if request.events_topic_prefix is not None:
+        output["events_topic_prefix"] = request.events_topic_prefix
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.product_plan is not None:
+        output["product_plan"] = HubProductPlan(request.product_plan)
+
+    return output
 
 
 def marshal_UpdateRouteRequest(
     request: UpdateRouteRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "s3_config",
@@ -1015,6 +1169,12 @@ def marshal_UpdateRouteRequest(
                 ),
             ]
         ),
-        "name": request.name,
-        "topic": request.topic,
-    }
+    )
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.topic is not None:
+        output["topic"] = request.topic
+
+    return output

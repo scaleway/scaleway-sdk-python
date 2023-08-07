@@ -1200,29 +1200,36 @@ def marshal_EndpointSpecPrivateNetworkIpamConfig(
     request: EndpointSpecPrivateNetworkIpamConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {}
+    output: Dict[str, Any] = {}
+
+    return output
 
 
 def marshal_ReadReplicaEndpointSpecPrivateNetworkIpamConfig(
     request: ReadReplicaEndpointSpecPrivateNetworkIpamConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {}
+    output: Dict[str, Any] = {}
+
+    return output
 
 
 def marshal_EndpointSpecLoadBalancer(
     request: EndpointSpecLoadBalancer,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {}
+    output: Dict[str, Any] = {}
+
+    return output
 
 
 def marshal_EndpointSpecPrivateNetwork(
     request: EndpointSpecPrivateNetwork,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "service_ip",
@@ -1238,23 +1245,30 @@ def marshal_EndpointSpecPrivateNetwork(
                 ),
             ]
         ),
-        "private_network_id": request.private_network_id,
-    }
+    )
+
+    if request.private_network_id is not None:
+        output["private_network_id"] = request.private_network_id
+
+    return output
 
 
 def marshal_ReadReplicaEndpointSpecDirectAccess(
     request: ReadReplicaEndpointSpecDirectAccess,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {}
+    output: Dict[str, Any] = {}
+
+    return output
 
 
 def marshal_ReadReplicaEndpointSpecPrivateNetwork(
     request: ReadReplicaEndpointSpecPrivateNetwork,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "service_ip",
@@ -1270,26 +1284,36 @@ def marshal_ReadReplicaEndpointSpecPrivateNetwork(
                 ),
             ]
         ),
-        "private_network_id": request.private_network_id,
-    }
+    )
+
+    if request.private_network_id is not None:
+        output["private_network_id"] = request.private_network_id
+
+    return output
 
 
 def marshal_ACLRuleRequest(
     request: ACLRuleRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "description": request.description,
-        "ip": request.ip,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.ip is not None:
+        output["ip"] = request.ip
+
+    return output
 
 
 def marshal_EndpointSpec(
     request: EndpointSpec,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "load_balancer",
@@ -1307,35 +1331,48 @@ def marshal_EndpointSpec(
                 ),
             ]
         ),
-    }
+    )
+
+    return output
 
 
 def marshal_InstanceSetting(
     request: InstanceSetting,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "name": request.name,
-        "value": request.value,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.value is not None:
+        output["value"] = request.value
+
+    return output
 
 
 def marshal_LogsPolicy(
     request: LogsPolicy,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "max_age_retention": request.max_age_retention,
-        "total_disk_retention": request.total_disk_retention,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.max_age_retention is not None:
+        output["max_age_retention"] = request.max_age_retention
+
+    if request.total_disk_retention is not None:
+        output["total_disk_retention"] = request.total_disk_retention
+
+    return output
 
 
 def marshal_ReadReplicaEndpointSpec(
     request: ReadReplicaEndpointSpec,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "direct_access",
@@ -1355,86 +1392,122 @@ def marshal_ReadReplicaEndpointSpec(
                 ),
             ]
         ),
-    }
+    )
+
+    return output
 
 
 def marshal_AddInstanceACLRulesRequest(
     request: AddInstanceACLRulesRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "rules": [marshal_ACLRuleRequest(v, defaults) for v in request.rules],
-    }
+    output: Dict[str, Any] = {}
+
+    if request.rules is not None:
+        output["rules"] = [marshal_ACLRuleRequest(v, defaults) for v in request.rules]
+
+    return output
 
 
 def marshal_AddInstanceSettingsRequest(
     request: AddInstanceSettingsRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "settings": [marshal_InstanceSetting(v, defaults) for v in request.settings],
-    }
+    output: Dict[str, Any] = {}
+
+    if request.settings is not None:
+        output["settings"] = [
+            marshal_InstanceSetting(v, defaults) for v in request.settings
+        ]
+
+    return output
 
 
 def marshal_CloneInstanceRequest(
     request: CloneInstanceRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "name": request.name,
-        "node_type": request.node_type,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.node_type is not None:
+        output["node_type"] = request.node_type
+
+    return output
 
 
 def marshal_CreateDatabaseBackupRequest(
     request: CreateDatabaseBackupRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "database_name": request.database_name,
-        "expires_at": request.expires_at,
-        "instance_id": request.instance_id,
-        "name": request.name,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.database_name is not None:
+        output["database_name"] = request.database_name
+
+    if request.expires_at is not None:
+        output["expires_at"] = request.expires_at
+
+    if request.instance_id is not None:
+        output["instance_id"] = request.instance_id
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output
 
 
 def marshal_CreateDatabaseRequest(
     request: CreateDatabaseRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "name": request.name,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output
 
 
 def marshal_CreateEndpointRequest(
     request: CreateEndpointRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "endpoint_spec": marshal_EndpointSpec(request.endpoint_spec, defaults)
-        if request.endpoint_spec is not None
-        else None,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.endpoint_spec is not None:
+        output["endpoint_spec"] = marshal_EndpointSpec(request.endpoint_spec, defaults)
+
+    return output
 
 
 def marshal_CreateInstanceFromSnapshotRequest(
     request: CreateInstanceFromSnapshotRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "instance_name": request.instance_name,
-        "is_ha_cluster": request.is_ha_cluster,
-        "node_type": request.node_type,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.instance_name is not None:
+        output["instance_name"] = request.instance_name
+
+    if request.is_ha_cluster is not None:
+        output["is_ha_cluster"] = request.is_ha_cluster
+
+    if request.node_type is not None:
+        output["node_type"] = request.node_type
+
+    return output
 
 
 def marshal_CreateInstanceRequest(
     request: CreateInstanceRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "project_id",
@@ -1452,216 +1525,328 @@ def marshal_CreateInstanceRequest(
                 ),
             ]
         ),
-        "backup_same_region": request.backup_same_region,
-        "disable_backup": request.disable_backup,
-        "engine": request.engine,
-        "init_endpoints": [
+    )
+
+    if request.backup_same_region is not None:
+        output["backup_same_region"] = request.backup_same_region
+
+    if request.disable_backup is not None:
+        output["disable_backup"] = request.disable_backup
+
+    if request.engine is not None:
+        output["engine"] = request.engine
+
+    if request.init_endpoints is not None:
+        output["init_endpoints"] = [
             marshal_EndpointSpec(v, defaults) for v in request.init_endpoints
         ]
-        if request.init_endpoints is not None
-        else None,
-        "init_settings": [
+
+    if request.init_settings is not None:
+        output["init_settings"] = [
             marshal_InstanceSetting(v, defaults) for v in request.init_settings
         ]
-        if request.init_settings is not None
-        else None,
-        "is_ha_cluster": request.is_ha_cluster,
-        "name": request.name,
-        "node_type": request.node_type,
-        "password": request.password,
-        "tags": request.tags,
-        "user_name": request.user_name,
-        "volume_size": request.volume_size,
-        "volume_type": VolumeType(request.volume_type),
-    }
+
+    if request.is_ha_cluster is not None:
+        output["is_ha_cluster"] = request.is_ha_cluster
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.node_type is not None:
+        output["node_type"] = request.node_type
+
+    if request.password is not None:
+        output["password"] = request.password
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    if request.user_name is not None:
+        output["user_name"] = request.user_name
+
+    if request.volume_size is not None:
+        output["volume_size"] = request.volume_size
+
+    if request.volume_type is not None:
+        output["volume_type"] = VolumeType(request.volume_type)
+
+    return output
 
 
 def marshal_CreateReadReplicaEndpointRequest(
     request: CreateReadReplicaEndpointRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "endpoint_spec": [
+    output: Dict[str, Any] = {}
+
+    if request.endpoint_spec is not None:
+        output["endpoint_spec"] = [
             marshal_ReadReplicaEndpointSpec(v, defaults) for v in request.endpoint_spec
-        ],
-    }
+        ]
+
+    return output
 
 
 def marshal_CreateReadReplicaRequest(
     request: CreateReadReplicaRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "endpoint_spec": [
+    output: Dict[str, Any] = {}
+
+    if request.endpoint_spec is not None:
+        output["endpoint_spec"] = [
             marshal_ReadReplicaEndpointSpec(v, defaults) for v in request.endpoint_spec
         ]
-        if request.endpoint_spec is not None
-        else None,
-        "instance_id": request.instance_id,
-        "same_zone": request.same_zone,
-    }
+
+    if request.instance_id is not None:
+        output["instance_id"] = request.instance_id
+
+    if request.same_zone is not None:
+        output["same_zone"] = request.same_zone
+
+    return output
 
 
 def marshal_CreateSnapshotRequest(
     request: CreateSnapshotRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "expires_at": request.expires_at,
-        "name": request.name,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.expires_at is not None:
+        output["expires_at"] = request.expires_at
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output
 
 
 def marshal_CreateUserRequest(
     request: CreateUserRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "is_admin": request.is_admin,
-        "name": request.name,
-        "password": request.password,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.is_admin is not None:
+        output["is_admin"] = request.is_admin
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.password is not None:
+        output["password"] = request.password
+
+    return output
 
 
 def marshal_DeleteInstanceACLRulesRequest(
     request: DeleteInstanceACLRulesRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "acl_rule_ips": request.acl_rule_ips,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.acl_rule_ips is not None:
+        output["acl_rule_ips"] = request.acl_rule_ips
+
+    return output
 
 
 def marshal_DeleteInstanceSettingsRequest(
     request: DeleteInstanceSettingsRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "setting_names": request.setting_names,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.setting_names is not None:
+        output["setting_names"] = request.setting_names
+
+    return output
 
 
 def marshal_MigrateEndpointRequest(
     request: MigrateEndpointRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "instance_id": request.instance_id,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.instance_id is not None:
+        output["instance_id"] = request.instance_id
+
+    return output
 
 
 def marshal_PrepareInstanceLogsRequest(
     request: PrepareInstanceLogsRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "end_date": request.end_date,
-        "start_date": request.start_date,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.end_date is not None:
+        output["end_date"] = request.end_date
+
+    if request.start_date is not None:
+        output["start_date"] = request.start_date
+
+    return output
 
 
 def marshal_PurgeInstanceLogsRequest(
     request: PurgeInstanceLogsRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "log_name": request.log_name,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.log_name is not None:
+        output["log_name"] = request.log_name
+
+    return output
 
 
 def marshal_RestoreDatabaseBackupRequest(
     request: RestoreDatabaseBackupRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "database_name": request.database_name,
-        "instance_id": request.instance_id,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.database_name is not None:
+        output["database_name"] = request.database_name
+
+    if request.instance_id is not None:
+        output["instance_id"] = request.instance_id
+
+    return output
 
 
 def marshal_SetInstanceACLRulesRequest(
     request: SetInstanceACLRulesRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "rules": [marshal_ACLRuleRequest(v, defaults) for v in request.rules],
-    }
+    output: Dict[str, Any] = {}
+
+    if request.rules is not None:
+        output["rules"] = [marshal_ACLRuleRequest(v, defaults) for v in request.rules]
+
+    return output
 
 
 def marshal_SetInstanceSettingsRequest(
     request: SetInstanceSettingsRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "settings": [marshal_InstanceSetting(v, defaults) for v in request.settings],
-    }
+    output: Dict[str, Any] = {}
+
+    if request.settings is not None:
+        output["settings"] = [
+            marshal_InstanceSetting(v, defaults) for v in request.settings
+        ]
+
+    return output
 
 
 def marshal_SetPrivilegeRequest(
     request: SetPrivilegeRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "database_name": request.database_name,
-        "permission": Permission(request.permission),
-        "user_name": request.user_name,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.database_name is not None:
+        output["database_name"] = request.database_name
+
+    if request.permission is not None:
+        output["permission"] = Permission(request.permission)
+
+    if request.user_name is not None:
+        output["user_name"] = request.user_name
+
+    return output
 
 
 def marshal_UpdateDatabaseBackupRequest(
     request: UpdateDatabaseBackupRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "expires_at": request.expires_at,
-        "name": request.name,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.expires_at is not None:
+        output["expires_at"] = request.expires_at
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output
 
 
 def marshal_UpdateInstanceRequest(
     request: UpdateInstanceRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "backup_same_region": request.backup_same_region,
-        "backup_schedule_frequency": request.backup_schedule_frequency,
-        "backup_schedule_retention": request.backup_schedule_retention,
-        "backup_schedule_start_hour": request.backup_schedule_start_hour,
-        "is_backup_schedule_disabled": request.is_backup_schedule_disabled,
-        "logs_policy": marshal_LogsPolicy(request.logs_policy, defaults)
-        if request.logs_policy is not None
-        else None,
-        "name": request.name,
-        "tags": request.tags,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.backup_same_region is not None:
+        output["backup_same_region"] = request.backup_same_region
+
+    if request.backup_schedule_frequency is not None:
+        output["backup_schedule_frequency"] = request.backup_schedule_frequency
+
+    if request.backup_schedule_retention is not None:
+        output["backup_schedule_retention"] = request.backup_schedule_retention
+
+    if request.backup_schedule_start_hour is not None:
+        output["backup_schedule_start_hour"] = request.backup_schedule_start_hour
+
+    if request.is_backup_schedule_disabled is not None:
+        output["is_backup_schedule_disabled"] = request.is_backup_schedule_disabled
+
+    if request.logs_policy is not None:
+        output["logs_policy"] = marshal_LogsPolicy(request.logs_policy, defaults)
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    return output
 
 
 def marshal_UpdateSnapshotRequest(
     request: UpdateSnapshotRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "expires_at": request.expires_at,
-        "name": request.name,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.expires_at is not None:
+        output["expires_at"] = request.expires_at
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output
 
 
 def marshal_UpdateUserRequest(
     request: UpdateUserRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        "is_admin": request.is_admin,
-        "password": request.password,
-    }
+    output: Dict[str, Any] = {}
+
+    if request.is_admin is not None:
+        output["is_admin"] = request.is_admin
+
+    if request.password is not None:
+        output["password"] = request.password
+
+    return output
 
 
 def marshal_UpgradeInstanceRequest(
     request: UpgradeInstanceRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
-    return {
-        **resolve_one_of(
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
             [
                 OneOfPossibility(
                     "node_type",
@@ -1689,4 +1874,6 @@ def marshal_UpgradeInstanceRequest(
                 ),
             ]
         ),
-    }
+    )
+
+    return output
