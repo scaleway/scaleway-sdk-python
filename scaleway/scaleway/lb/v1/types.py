@@ -16,7 +16,7 @@ from scaleway_core.utils import (
 )
 
 
-class AclActionRedirectRedirectType(Enum, metaclass=StrEnumMeta):
+class AclActionRedirectRedirectType(str, Enum, metaclass=StrEnumMeta):
     LOCATION = "location"
     SCHEME = "scheme"
 
@@ -24,7 +24,7 @@ class AclActionRedirectRedirectType(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class AclActionType(Enum, metaclass=StrEnumMeta):
+class AclActionType(str, Enum, metaclass=StrEnumMeta):
     ALLOW = "allow"
     DENY = "deny"
     REDIRECT = "redirect"
@@ -33,7 +33,7 @@ class AclActionType(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class AclHttpFilter(Enum, metaclass=StrEnumMeta):
+class AclHttpFilter(str, Enum, metaclass=StrEnumMeta):
     ACL_HTTP_FILTER_NONE = "acl_http_filter_none"
     PATH_BEGIN = "path_begin"
     PATH_END = "path_end"
@@ -44,7 +44,7 @@ class AclHttpFilter(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class BackendServerStatsHealthCheckStatus(Enum, metaclass=StrEnumMeta):
+class BackendServerStatsHealthCheckStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     NEUTRAL = "neutral"
     FAILED = "failed"
@@ -55,7 +55,7 @@ class BackendServerStatsHealthCheckStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class BackendServerStatsServerState(Enum, metaclass=StrEnumMeta):
+class BackendServerStatsServerState(str, Enum, metaclass=StrEnumMeta):
     STOPPED = "stopped"
     STARTING = "starting"
     RUNNING = "running"
@@ -65,7 +65,7 @@ class BackendServerStatsServerState(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class CertificateStatus(Enum, metaclass=StrEnumMeta):
+class CertificateStatus(str, Enum, metaclass=StrEnumMeta):
     PENDING = "pending"
     READY = "ready"
     ERROR = "error"
@@ -74,7 +74,7 @@ class CertificateStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class CertificateType(Enum, metaclass=StrEnumMeta):
+class CertificateType(str, Enum, metaclass=StrEnumMeta):
     LETSENCRYT = "letsencryt"
     CUSTOM = "custom"
 
@@ -82,7 +82,7 @@ class CertificateType(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ForwardPortAlgorithm(Enum, metaclass=StrEnumMeta):
+class ForwardPortAlgorithm(str, Enum, metaclass=StrEnumMeta):
     ROUNDROBIN = "roundrobin"
     LEASTCONN = "leastconn"
     FIRST = "first"
@@ -91,7 +91,7 @@ class ForwardPortAlgorithm(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class InstanceStatus(Enum, metaclass=StrEnumMeta):
+class InstanceStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     READY = "ready"
     PENDING = "pending"
@@ -104,7 +104,7 @@ class InstanceStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class LbStatus(Enum, metaclass=StrEnumMeta):
+class LbStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     READY = "ready"
     PENDING = "pending"
@@ -121,7 +121,7 @@ class LbStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class LbTypeStock(Enum, metaclass=StrEnumMeta):
+class LbTypeStock(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     LOW_STOCK = "low_stock"
     OUT_OF_STOCK = "out_of_stock"
@@ -131,7 +131,7 @@ class LbTypeStock(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListAclRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListAclRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     NAME_ASC = "name_asc"
@@ -141,7 +141,7 @@ class ListAclRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListBackendsRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListBackendsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     NAME_ASC = "name_asc"
@@ -151,7 +151,7 @@ class ListBackendsRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListCertificatesRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListCertificatesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     NAME_ASC = "name_asc"
@@ -161,7 +161,7 @@ class ListCertificatesRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListFrontendsRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListFrontendsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     NAME_ASC = "name_asc"
@@ -171,7 +171,7 @@ class ListFrontendsRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListLbsRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListLbsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     NAME_ASC = "name_asc"
@@ -181,7 +181,7 @@ class ListLbsRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListPrivateNetworksRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListPrivateNetworksRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
 
@@ -189,7 +189,7 @@ class ListPrivateNetworksRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListRoutesRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListRoutesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
 
@@ -197,7 +197,7 @@ class ListRoutesRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListSubscriberRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListSubscriberRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     NAME_ASC = "name_asc"
@@ -207,7 +207,7 @@ class ListSubscriberRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class OnMarkedDownAction(Enum, metaclass=StrEnumMeta):
+class OnMarkedDownAction(str, Enum, metaclass=StrEnumMeta):
     ON_MARKED_DOWN_ACTION_NONE = "on_marked_down_action_none"
     SHUTDOWN_SESSIONS = "shutdown_sessions"
 
@@ -215,7 +215,7 @@ class OnMarkedDownAction(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class PrivateNetworkStatus(Enum, metaclass=StrEnumMeta):
+class PrivateNetworkStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     READY = "ready"
     PENDING = "pending"
@@ -225,7 +225,7 @@ class PrivateNetworkStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class Protocol(Enum, metaclass=StrEnumMeta):
+class Protocol(str, Enum, metaclass=StrEnumMeta):
     TCP = "tcp"
     HTTP = "http"
 
@@ -233,7 +233,7 @@ class Protocol(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ProxyProtocol(Enum, metaclass=StrEnumMeta):
+class ProxyProtocol(str, Enum, metaclass=StrEnumMeta):
     """
     PROXY protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. PROXY protocol must be supported by the backend servers' software. For more information on the different protocols available, see the [dedicated documentation](https://www.scaleway.com/en/docs/network/load-balancer/reference-content/configuring-load-balancer/#choosing-a-proxy-protocol).
     Proxy protocol.
@@ -250,7 +250,7 @@ class ProxyProtocol(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class SSLCompatibilityLevel(Enum, metaclass=StrEnumMeta):
+class SSLCompatibilityLevel(str, Enum, metaclass=StrEnumMeta):
     SSL_COMPATIBILITY_LEVEL_UNKNOWN = "ssl_compatibility_level_unknown"
     SSL_COMPATIBILITY_LEVEL_INTERMEDIATE = "ssl_compatibility_level_intermediate"
     SSL_COMPATIBILITY_LEVEL_MODERN = "ssl_compatibility_level_modern"
@@ -260,7 +260,7 @@ class SSLCompatibilityLevel(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class StickySessionsType(Enum, metaclass=StrEnumMeta):
+class StickySessionsType(str, Enum, metaclass=StrEnumMeta):
     NONE = "none"
     COOKIE = "cookie"
     TABLE = "table"

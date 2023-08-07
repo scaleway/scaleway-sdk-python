@@ -15,14 +15,14 @@ from scaleway_core.utils import (
 )
 
 
-class DownloadInvoiceRequestFileType(Enum, metaclass=StrEnumMeta):
+class DownloadInvoiceRequestFileType(str, Enum, metaclass=StrEnumMeta):
     PDF = "pdf"
 
     def __str__(self) -> str:
         return str(self.value)
 
 
-class InvoiceType(Enum, metaclass=StrEnumMeta):
+class InvoiceType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_TYPE = "unknown_type"
     PERIODIC = "periodic"
     PURCHASE = "purchase"
@@ -31,7 +31,7 @@ class InvoiceType(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListInvoicesRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListInvoicesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     INVOICE_NUMBER_DESC = "invoice_number_desc"
     INVOICE_NUMBER_ASC = "invoice_number_asc"
     START_DATE_DESC = "start_date_desc"

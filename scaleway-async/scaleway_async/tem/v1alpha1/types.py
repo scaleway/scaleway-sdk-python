@@ -15,7 +15,7 @@ from scaleway_core.utils import (
 )
 
 
-class DomainLastStatusRecordStatus(Enum, metaclass=StrEnumMeta):
+class DomainLastStatusRecordStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_RECORD_STATUS = "unknown_record_status"
     VALID = "valid"
     INVALID = "invalid"
@@ -25,7 +25,7 @@ class DomainLastStatusRecordStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class DomainStatus(Enum, metaclass=StrEnumMeta):
+class DomainStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     CHECKED = "checked"
     UNCHECKED = "unchecked"
@@ -38,7 +38,7 @@ class DomainStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class EmailFlag(Enum, metaclass=StrEnumMeta):
+class EmailFlag(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_FLAG = "unknown_flag"
     SOFT_BOUNCE = "soft_bounce"
     HARD_BOUNCE = "hard_bounce"
@@ -49,7 +49,7 @@ class EmailFlag(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class EmailRcptType(Enum, metaclass=StrEnumMeta):
+class EmailRcptType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_RCPT_TYPE = "unknown_rcpt_type"
     TO = "to"
     CC = "cc"
@@ -59,7 +59,7 @@ class EmailRcptType(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class EmailStatus(Enum, metaclass=StrEnumMeta):
+class EmailStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     NEW = "new"
     SENDING = "sending"
@@ -71,7 +71,7 @@ class EmailStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListEmailsRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListEmailsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_DESC = "created_at_desc"
     CREATED_AT_ASC = "created_at_asc"
     UPDATED_AT_DESC = "updated_at_desc"

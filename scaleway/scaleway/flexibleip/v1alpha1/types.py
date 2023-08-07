@@ -15,7 +15,7 @@ from scaleway_core.utils import (
 )
 
 
-class FlexibleIPStatus(Enum, metaclass=StrEnumMeta):
+class FlexibleIPStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     READY = "ready"
     UPDATING = "updating"
@@ -28,7 +28,7 @@ class FlexibleIPStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListFlexibleIPsRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListFlexibleIPsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
 
@@ -36,7 +36,7 @@ class ListFlexibleIPsRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class MACAddressStatus(Enum, metaclass=StrEnumMeta):
+class MACAddressStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     READY = "ready"
     UPDATING = "updating"
@@ -48,7 +48,7 @@ class MACAddressStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class MACAddressType(Enum, metaclass=StrEnumMeta):
+class MACAddressType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_TYPE = "unknown_type"
     VMWARE = "vmware"
     XEN = "xen"

@@ -12,7 +12,7 @@ from scaleway_core.utils import (
 )
 
 
-class EyeColors(Enum, metaclass=StrEnumMeta):
+class EyeColors(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     AMBER = "amber"
     BLUE = "blue"
@@ -27,7 +27,7 @@ class EyeColors(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class HumanStatus(Enum, metaclass=StrEnumMeta):
+class HumanStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     STOPPED = "stopped"
     RUNNING = "running"
@@ -36,7 +36,7 @@ class HumanStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListHumansRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListHumansRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     UPDATED_AT_ASC = "updated_at_asc"

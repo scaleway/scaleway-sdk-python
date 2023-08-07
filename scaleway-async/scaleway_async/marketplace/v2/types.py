@@ -15,7 +15,7 @@ from scaleway_core.utils import (
 )
 
 
-class ListImagesRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListImagesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     NAME_ASC = "name_asc"
     NAME_DESC = "name_desc"
     CREATED_AT_ASC = "created_at_asc"
@@ -27,7 +27,7 @@ class ListImagesRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListLocalImagesRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListLocalImagesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
 
@@ -35,7 +35,7 @@ class ListLocalImagesRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListVersionsRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListVersionsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
 
@@ -43,7 +43,7 @@ class ListVersionsRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class LocalImageType(Enum, metaclass=StrEnumMeta):
+class LocalImageType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_TYPE = "unknown_type"
     INSTANCE_LOCAL = "instance_local"
     INSTANCE_SBS = "instance_sbs"
