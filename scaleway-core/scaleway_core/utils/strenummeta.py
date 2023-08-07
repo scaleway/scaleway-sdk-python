@@ -5,11 +5,15 @@ from typing import Any, Optional
 class StrEnumMeta(EnumMeta):
     def __call__(
         cls,
-        value: str,
-        names: Optional[Any] = None,
-        *args: Any,
-        **kwargs: Any,
-    ) -> Any:
+        value,
+        names=None,
+        *,
+        module=None,
+        qualname=None,
+        type=None,
+        start=1,
+        boundary=None,
+    ):
         if names is not None:
             return super().__call__(value, names, *args, **kwargs)
 
