@@ -12,11 +12,14 @@ from scaleway_core.utils import (
     validate_path_param,
 )
 from .types import (
+    ListFoldersRequestOrderBy,
     ListSecretsRequestOrderBy,
     Product,
     SecretType,
     SecretVersionStatus,
     AccessSecretVersionResponse,
+    Folder,
+    ListFoldersResponse,
     ListSecretVersionsResponse,
     ListSecretsResponse,
     ListTagsResponse,
@@ -24,6 +27,7 @@ from .types import (
     Secret,
     SecretVersion,
     CreateSecretRequest,
+    CreateFolderRequest,
     UpdateSecretRequest,
     AddSecretOwnerRequest,
     CreateSecretVersionRequest,
@@ -32,14 +36,17 @@ from .types import (
 )
 from .marshalling import (
     marshal_AddSecretOwnerRequest,
+    marshal_CreateFolderRequest,
     marshal_CreateSecretRequest,
     marshal_CreateSecretVersionRequest,
     marshal_GeneratePasswordRequest,
     marshal_UpdateSecretRequest,
     marshal_UpdateSecretVersionRequest,
+    unmarshal_Folder,
     unmarshal_Secret,
     unmarshal_SecretVersion,
     unmarshal_AccessSecretVersionResponse,
+    unmarshal_ListFoldersResponse,
     unmarshal_ListSecretVersionsResponse,
     unmarshal_ListSecretsResponse,
     unmarshal_ListTagsResponse,
@@ -63,10 +70,11 @@ class SecretV1Alpha1API(API):
         project_id: Optional[str] = None,
         tags: Optional[List[str]] = None,
         description: Optional[str] = None,
+        path: Optional[str] = None,
     ) -> Secret:
         """
         Create a secret.
-        You must sepcify the `region` to create a secret.
+        You must specify the `region` to create a secret.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the Project containing the secret.
         :param name: Name of the secret.
@@ -74,6 +82,8 @@ class SecretV1Alpha1API(API):
         :param description: Description of the secret.
         :param type_: Type of the secret.
         (Optional.) See `Secret.Type` enum for description of values. If not specified, the type is `Opaque`.
+        :param path: Path of the secret.
+        (Optional.) Location of the secret in the directory structure. If not specified, the path is `/`.
         :return: :class:`Secret <Secret>`
 
         Usage:
@@ -100,6 +110,7 @@ class SecretV1Alpha1API(API):
                     project_id=project_id,
                     tags=tags,
                     description=description,
+                    path=path,
                 ),
                 self.client,
             ),
@@ -107,6 +118,50 @@ class SecretV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Secret(res.json())
+
+    async def create_folder(
+        self,
+        *,
+        name: str,
+        region: Optional[Region] = None,
+        project_id: Optional[str] = None,
+        path: Optional[str] = None,
+    ) -> Folder:
+        """
+        Create folder.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: ID of the Project containing the folder.
+        :param name: Name of the folder.
+        :param path: Path of the folder.
+        (Optional.) Location of the folder in the directory structure. If not specified, the path is `/`.
+        :return: :class:`Folder <Folder>`
+
+        Usage:
+        ::
+
+            result = await api.create_folder(name="example")
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "POST",
+            f"/secret-manager/v1alpha1/regions/{param_region}/folders",
+            body=marshal_CreateFolderRequest(
+                CreateFolderRequest(
+                    name=name,
+                    region=region,
+                    project_id=project_id,
+                    path=path,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Folder(res.json())
 
     async def get_secret(
         self,
@@ -150,11 +205,16 @@ class SecretV1Alpha1API(API):
         """
         Get metadata using the secret's name.
         Retrieve the metadata of a secret specified by the `region` and `secret_name` parameters.
+
+        GetSecretByName usage is now deprecated.
+
+        Scaleway recommends you to use ListSecrets with the `name` filter.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_name: Name of the secret.
         :param project_id: ID of the Project to target.
         (Optional.) If not specified, Secret Manager will look for the secret in all Projects.
         :return: :class:`Secret <Secret>`
+        :deprecated
 
         Usage:
         ::
@@ -186,6 +246,7 @@ class SecretV1Alpha1API(API):
         name: Optional[str] = None,
         tags: Optional[List[str]] = None,
         description: Optional[str] = None,
+        path: Optional[str] = None,
     ) -> Secret:
         """
         Update metadata of a secret.
@@ -195,6 +256,8 @@ class SecretV1Alpha1API(API):
         :param name: Secret's updated name (optional).
         :param tags: Secret's updated list of tags (optional).
         :param description: Description of the secret.
+        :param path: Path of the folder.
+        (Optional.) Location of the folder in the directory structure. If not specified, the path is `/`.
         :return: :class:`Secret <Secret>`
 
         Usage:
@@ -218,6 +281,7 @@ class SecretV1Alpha1API(API):
                     name=name,
                     tags=tags,
                     description=description,
+                    path=path,
                 ),
                 self.client,
             ),
@@ -238,6 +302,7 @@ class SecretV1Alpha1API(API):
         tags: Optional[List[str]] = None,
         name: Optional[str] = None,
         is_managed: Optional[bool] = None,
+        path: Optional[str] = None,
     ) -> ListSecretsResponse:
         """
         List secrets.
@@ -251,6 +316,7 @@ class SecretV1Alpha1API(API):
         :param tags: List of tags to filter on (optional).
         :param name: Filter by secret name (optional).
         :param is_managed: Filter by managed / not managed (optional).
+        :param path: Filter by path (optional).
         :return: :class:`ListSecretsResponse <ListSecretsResponse>`
 
         Usage:
@@ -274,6 +340,7 @@ class SecretV1Alpha1API(API):
                 or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
+                "path": path,
                 "project_id": project_id or self.client.default_project_id,
                 "tags": tags,
             },
@@ -294,6 +361,7 @@ class SecretV1Alpha1API(API):
         tags: Optional[List[str]] = None,
         name: Optional[str] = None,
         is_managed: Optional[bool] = None,
+        path: Optional[str] = None,
     ) -> List[Secret]:
         """
         List secrets.
@@ -307,6 +375,7 @@ class SecretV1Alpha1API(API):
         :param tags: List of tags to filter on (optional).
         :param name: Filter by secret name (optional).
         :param is_managed: Filter by managed / not managed (optional).
+        :param path: Filter by path (optional).
         :return: :class:`List[ListSecretsResponse] <List[ListSecretsResponse]>`
 
         Usage:
@@ -329,6 +398,94 @@ class SecretV1Alpha1API(API):
                 "tags": tags,
                 "name": name,
                 "is_managed": is_managed,
+                "path": path,
+            },
+        )
+
+    async def list_folders(
+        self,
+        *,
+        region: Optional[Region] = None,
+        project_id: Optional[str] = None,
+        path: Optional[str] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        order_by: ListFoldersRequestOrderBy = ListFoldersRequestOrderBy.CREATED_AT_ASC,
+    ) -> ListFoldersResponse:
+        """
+        List secrets.
+        Retrieve the list of folders created within a Project.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: ID of the Project.
+        :param path: Filter by path (optional).
+        :param page:
+        :param page_size:
+        :param order_by:
+        :return: :class:`ListFoldersResponse <ListFoldersResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_folders()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/secret-manager/v1alpha1/regions/{param_region}/folders",
+            params={
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+                "path": path,
+                "project_id": project_id or self.client.default_project_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListFoldersResponse(res.json())
+
+    async def list_folders_all(
+        self,
+        *,
+        region: Optional[Region] = None,
+        project_id: Optional[str] = None,
+        path: Optional[str] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        order_by: Optional[ListFoldersRequestOrderBy] = None,
+    ) -> List[Folder]:
+        """
+        List secrets.
+        Retrieve the list of folders created within a Project.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: ID of the Project.
+        :param path: Filter by path (optional).
+        :param page:
+        :param page_size:
+        :param order_by:
+        :return: :class:`List[ListFoldersResponse] <List[ListFoldersResponse]>`
+
+        Usage:
+        ::
+
+            result = await api.list_folders_all()
+        """
+
+        return await fetch_all_pages_async(
+            type=ListFoldersResponse,
+            key="folders",
+            fetcher=self.list_folders,
+            args={
+                "region": region,
+                "project_id": project_id,
+                "path": path,
+                "page": page,
+                "page_size": page_size,
+                "order_by": order_by,
             },
         )
 
@@ -358,6 +515,36 @@ class SecretV1Alpha1API(API):
         res = self._request(
             "DELETE",
             f"/secret-manager/v1alpha1/regions/{param_region}/secrets/{param_secret_id}",
+        )
+
+        self._throw_on_error(res)
+        return None
+
+    async def delete_folder(
+        self,
+        *,
+        folder_id: str,
+        region: Optional[Region] = None,
+    ) -> Optional[None]:
+        """
+        Delete a given folder specified by the and `folder_id` parameter.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param folder_id: ID of the folder.
+
+        Usage:
+        ::
+
+            result = await api.delete_folder(folder_id="example")
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_folder_id = validate_path_param("folder_id", folder_id)
+
+        res = self._request(
+            "DELETE",
+            f"/secret-manager/v1alpha1/regions/{param_region}/folders/{param_folder_id}",
         )
 
         self._throw_on_error(res)

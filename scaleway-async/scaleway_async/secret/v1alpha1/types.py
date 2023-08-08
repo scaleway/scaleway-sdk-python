@@ -15,6 +15,16 @@ from scaleway_core.utils import (
 )
 
 
+class ListFoldersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+    NAME_ASC = "name_asc"
+    NAME_DESC = "name_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListSecretsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     NAME_ASC = "name_asc"
     NAME_DESC = "name_desc"
@@ -87,6 +97,56 @@ class AccessSecretVersionResponse:
     """
     The CRC32 checksum of the data as a base-10 integer.
     This field is only available if a CRC32 was supplied during the creation of the version.
+    """
+
+
+@dataclass
+class Folder:
+    """
+    Folder.
+    """
+
+    id: str
+    """
+    ID of the folder.
+    """
+
+    project_id: str
+    """
+    ID of the Project containing the folder.
+    """
+
+    name: str
+    """
+    Name of the folder.
+    """
+
+    path: str
+    """
+    Path of the folder.
+    Location of the folder in the directory structure.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Date and time of the folder's creation.
+    """
+
+
+@dataclass
+class ListFoldersResponse:
+    """
+    List folders response.
+    """
+
+    folders: List[Folder]
+    """
+    List of folders.
+    """
+
+    total_count: int
+    """
+    Count of all folders matching the requested criteria.
     """
 
 
@@ -242,6 +302,12 @@ class Secret:
     See `Secret.Type` enum for description of values.
     """
 
+    path: str
+    """
+    Path of the secret.
+    Location of the secret in the directory structure.
+    """
+
     region: Region
     """
     Region of the secret.
@@ -328,6 +394,36 @@ class CreateSecretRequest:
     (Optional.) See `Secret.Type` enum for description of values. If not specified, the type is `Opaque`.
     """
 
+    path: Optional[str]
+    """
+    Path of the secret.
+    (Optional.) Location of the secret in the directory structure. If not specified, the path is `/`.
+    """
+
+
+@dataclass
+class CreateFolderRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    ID of the Project containing the folder.
+    """
+
+    name: str
+    """
+    Name of the folder.
+    """
+
+    path: Optional[str]
+    """
+    Path of the folder.
+    (Optional.) Location of the folder in the directory structure. If not specified, the path is `/`.
+    """
+
 
 @dataclass
 class GetSecretRequest:
@@ -388,6 +484,12 @@ class UpdateSecretRequest:
     Description of the secret.
     """
 
+    path: Optional[str]
+    """
+    Path of the folder.
+    (Optional.) Location of the folder in the directory structure. If not specified, the path is `/`.
+    """
+
 
 @dataclass
 class ListSecretsRequest:
@@ -427,6 +529,35 @@ class ListSecretsRequest:
     Filter by managed / not managed (optional).
     """
 
+    path: Optional[str]
+    """
+    Filter by path (optional).
+    """
+
+
+@dataclass
+class ListFoldersRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    ID of the Project.
+    """
+
+    path: Optional[str]
+    """
+    Filter by path (optional).
+    """
+
+    page: Optional[int]
+
+    page_size: Optional[int]
+
+    order_by: Optional[ListFoldersRequestOrderBy]
+
 
 @dataclass
 class DeleteSecretRequest:
@@ -438,6 +569,19 @@ class DeleteSecretRequest:
     secret_id: str
     """
     ID of the secret.
+    """
+
+
+@dataclass
+class DeleteFolderRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    folder_id: str
+    """
+    ID of the folder.
     """
 
 
