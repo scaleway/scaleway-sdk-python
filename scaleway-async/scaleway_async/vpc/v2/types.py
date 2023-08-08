@@ -15,7 +15,7 @@ from scaleway_core.utils import (
 )
 
 
-class ListPrivateNetworksRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListPrivateNetworksRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     NAME_ASC = "name_asc"
@@ -25,7 +25,7 @@ class ListPrivateNetworksRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListVPCsRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListVPCsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     NAME_ASC = "name_asc"

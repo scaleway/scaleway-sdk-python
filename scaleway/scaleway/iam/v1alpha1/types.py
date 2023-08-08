@@ -12,7 +12,7 @@ from scaleway_core.utils import (
 )
 
 
-class BearerType(Enum, metaclass=StrEnumMeta):
+class BearerType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_BEARER_TYPE = "unknown_bearer_type"
     USER = "user"
     APPLICATION = "application"
@@ -21,7 +21,7 @@ class BearerType(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListAPIKeysRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListAPIKeysRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     UPDATED_AT_ASC = "updated_at_asc"
@@ -35,7 +35,7 @@ class ListAPIKeysRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListApplicationsRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListApplicationsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     UPDATED_AT_ASC = "updated_at_asc"
@@ -47,7 +47,7 @@ class ListApplicationsRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListGroupsRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListGroupsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     UPDATED_AT_ASC = "updated_at_asc"
@@ -59,7 +59,7 @@ class ListGroupsRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListJWTsRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListJWTsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     UPDATED_AT_ASC = "updated_at_asc"
@@ -69,7 +69,7 @@ class ListJWTsRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListPermissionSetsRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListPermissionSetsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     NAME_ASC = "name_asc"
     NAME_DESC = "name_desc"
     CREATED_AT_ASC = "created_at_asc"
@@ -79,7 +79,7 @@ class ListPermissionSetsRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListPoliciesRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListPoliciesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     POLICY_NAME_ASC = "policy_name_asc"
     POLICY_NAME_DESC = "policy_name_desc"
     CREATED_AT_ASC = "created_at_asc"
@@ -89,7 +89,7 @@ class ListPoliciesRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListQuotaRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListQuotaRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     NAME_ASC = "name_asc"
     NAME_DESC = "name_desc"
 
@@ -97,7 +97,7 @@ class ListQuotaRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListSSHKeysRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListSSHKeysRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     UPDATED_AT_ASC = "updated_at_asc"
@@ -109,7 +109,7 @@ class ListSSHKeysRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListUsersRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListUsersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     UPDATED_AT_ASC = "updated_at_asc"
@@ -123,7 +123,7 @@ class ListUsersRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class PermissionSetScopeType(Enum, metaclass=StrEnumMeta):
+class PermissionSetScopeType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_SCOPE_TYPE = "unknown_scope_type"
     PROJECTS = "projects"
     ORGANIZATION = "organization"
@@ -133,7 +133,7 @@ class PermissionSetScopeType(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class UserStatus(Enum, metaclass=StrEnumMeta):
+class UserStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
     INVITATION_PENDING = "invitation_pending"
     ACTIVATED = "activated"
@@ -142,7 +142,7 @@ class UserStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class UserType(Enum, metaclass=StrEnumMeta):
+class UserType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_TYPE = "unknown_type"
     GUEST = "guest"
     OWNER = "owner"

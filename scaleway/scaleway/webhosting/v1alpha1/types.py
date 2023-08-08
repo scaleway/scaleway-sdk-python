@@ -16,7 +16,7 @@ from scaleway_core.utils import (
 )
 
 
-class DnsRecordStatus(Enum, metaclass=StrEnumMeta):
+class DnsRecordStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
     VALID = "valid"
     INVALID = "invalid"
@@ -25,7 +25,7 @@ class DnsRecordStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class DnsRecordType(Enum, metaclass=StrEnumMeta):
+class DnsRecordType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_TYPE = "unknown_type"
     A = "a"
     CNAME = "cname"
@@ -38,7 +38,7 @@ class DnsRecordType(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class DnsRecordsStatus(Enum, metaclass=StrEnumMeta):
+class DnsRecordsStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     VALID = "valid"
     INVALID = "invalid"
@@ -47,7 +47,7 @@ class DnsRecordsStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class HostingDnsStatus(Enum, metaclass=StrEnumMeta):
+class HostingDnsStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_DNS_STATUS = "unknown_dns_status"
     VALID = "valid"
     INVALID = "invalid"
@@ -56,7 +56,7 @@ class HostingDnsStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class HostingStatus(Enum, metaclass=StrEnumMeta):
+class HostingStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
     DELIVERING = "delivering"
     READY = "ready"
@@ -69,7 +69,7 @@ class HostingStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListHostingsRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListHostingsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
 
@@ -77,14 +77,14 @@ class ListHostingsRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListOffersRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListOffersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     PRICE_ASC = "price_asc"
 
     def __str__(self) -> str:
         return str(self.value)
 
 
-class NameserverStatus(Enum, metaclass=StrEnumMeta):
+class NameserverStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
     VALID = "valid"
     INVALID = "invalid"
@@ -93,7 +93,7 @@ class NameserverStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class OfferQuotaWarning(Enum, metaclass=StrEnumMeta):
+class OfferQuotaWarning(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_QUOTA_WARNING = "unknown_quota_warning"
     EMAIL_COUNT_EXCEEDED = "email_count_exceeded"
     DATABASE_COUNT_EXCEEDED = "database_count_exceeded"

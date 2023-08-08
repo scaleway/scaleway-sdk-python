@@ -16,7 +16,7 @@ from scaleway_core.utils import (
 )
 
 
-class AvailableClusterSettingPropertyType(Enum, metaclass=StrEnumMeta):
+class AvailableClusterSettingPropertyType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "UNKNOWN"
     BOOLEAN = "BOOLEAN"
     INT = "INT"
@@ -26,7 +26,7 @@ class AvailableClusterSettingPropertyType(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ClusterStatus(Enum, metaclass=StrEnumMeta):
+class ClusterStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     READY = "ready"
     PROVISIONING = "provisioning"
@@ -42,7 +42,7 @@ class ClusterStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListClustersRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListClustersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     NAME_ASC = "name_asc"
@@ -52,7 +52,7 @@ class ListClustersRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class NodeTypeStock(Enum, metaclass=StrEnumMeta):
+class NodeTypeStock(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     LOW_STOCK = "low_stock"
     OUT_OF_STOCK = "out_of_stock"
@@ -62,7 +62,7 @@ class NodeTypeStock(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class PrivateNetworkProvisioningMode(Enum, metaclass=StrEnumMeta):
+class PrivateNetworkProvisioningMode(str, Enum, metaclass=StrEnumMeta):
     STATIC = "static"
     IPAM = "ipam"
 

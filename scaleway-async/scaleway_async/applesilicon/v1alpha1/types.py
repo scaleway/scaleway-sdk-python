@@ -15,7 +15,7 @@ from scaleway_core.utils import (
 )
 
 
-class ListServersRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListServersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
 
@@ -23,7 +23,7 @@ class ListServersRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ServerStatus(Enum, metaclass=StrEnumMeta):
+class ServerStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
     STARTING = "starting"
     READY = "ready"
@@ -39,7 +39,7 @@ class ServerStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ServerTypeStock(Enum, metaclass=StrEnumMeta):
+class ServerTypeStock(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STOCK = "unknown_stock"
     NO_STOCK = "no_stock"
     LOW_STOCK = "low_stock"

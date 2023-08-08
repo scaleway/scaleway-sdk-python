@@ -15,7 +15,7 @@ from scaleway_core.utils import (
 )
 
 
-class ImageStatus(Enum, metaclass=StrEnumMeta):
+class ImageStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     READY = "ready"
     DELETING = "deleting"
@@ -26,7 +26,7 @@ class ImageStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ImageVisibility(Enum, metaclass=StrEnumMeta):
+class ImageVisibility(str, Enum, metaclass=StrEnumMeta):
     VISIBILITY_UNKNOWN = "visibility_unknown"
     INHERIT = "inherit"
     PUBLIC = "public"
@@ -36,7 +36,7 @@ class ImageVisibility(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListImagesRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListImagesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     NAME_ASC = "name_asc"
@@ -46,7 +46,7 @@ class ListImagesRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListNamespacesRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListNamespacesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     DESCRIPTION_ASC = "description_asc"
@@ -58,7 +58,7 @@ class ListNamespacesRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListTagsRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListTagsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     NAME_ASC = "name_asc"
@@ -68,7 +68,7 @@ class ListTagsRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class NamespaceStatus(Enum, metaclass=StrEnumMeta):
+class NamespaceStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     READY = "ready"
     DELETING = "deleting"
@@ -79,7 +79,7 @@ class NamespaceStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class TagStatus(Enum, metaclass=StrEnumMeta):
+class TagStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     READY = "ready"
     DELETING = "deleting"

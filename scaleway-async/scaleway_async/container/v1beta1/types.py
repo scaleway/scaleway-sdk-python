@@ -15,7 +15,7 @@ from scaleway_core.utils import (
 )
 
 
-class ContainerHttpOption(Enum, metaclass=StrEnumMeta):
+class ContainerHttpOption(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_HTTP_OPTION = "unknown_http_option"
     ENABLED = "enabled"
     REDIRECTED = "redirected"
@@ -24,7 +24,7 @@ class ContainerHttpOption(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ContainerPrivacy(Enum, metaclass=StrEnumMeta):
+class ContainerPrivacy(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_PRIVACY = "unknown_privacy"
     PUBLIC = "public"
     PRIVATE = "private"
@@ -33,7 +33,7 @@ class ContainerPrivacy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ContainerProtocol(Enum, metaclass=StrEnumMeta):
+class ContainerProtocol(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_PROTOCOL = "unknown_protocol"
     HTTP1 = "http1"
     H2C = "h2c"
@@ -42,7 +42,7 @@ class ContainerProtocol(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ContainerStatus(Enum, metaclass=StrEnumMeta):
+class ContainerStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     READY = "ready"
     DELETING = "deleting"
@@ -56,7 +56,7 @@ class ContainerStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class CronStatus(Enum, metaclass=StrEnumMeta):
+class CronStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     READY = "ready"
     DELETING = "deleting"
@@ -69,7 +69,7 @@ class CronStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class DomainStatus(Enum, metaclass=StrEnumMeta):
+class DomainStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     READY = "ready"
     DELETING = "deleting"
@@ -81,7 +81,7 @@ class DomainStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListContainersRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListContainersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     NAME_ASC = "name_asc"
@@ -91,7 +91,7 @@ class ListContainersRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListCronsRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListCronsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
 
@@ -99,7 +99,7 @@ class ListCronsRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListDomainsRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListDomainsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     HOSTNAME_ASC = "hostname_asc"
@@ -109,7 +109,7 @@ class ListDomainsRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListLogsRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListLogsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     TIMESTAMP_DESC = "timestamp_desc"
     TIMESTAMP_ASC = "timestamp_asc"
 
@@ -117,7 +117,7 @@ class ListLogsRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListNamespacesRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListNamespacesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     NAME_ASC = "name_asc"
@@ -127,7 +127,7 @@ class ListNamespacesRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListTokensRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListTokensRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
 
@@ -135,7 +135,7 @@ class ListTokensRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListTriggersRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListTriggersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
 
@@ -143,7 +143,7 @@ class ListTriggersRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class LogStream(Enum, metaclass=StrEnumMeta):
+class LogStream(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     STDOUT = "stdout"
     STDERR = "stderr"
@@ -152,7 +152,7 @@ class LogStream(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class NamespaceStatus(Enum, metaclass=StrEnumMeta):
+class NamespaceStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     READY = "ready"
     DELETING = "deleting"
@@ -165,14 +165,14 @@ class NamespaceStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class NullValue(Enum, metaclass=StrEnumMeta):
+class NullValue(str, Enum, metaclass=StrEnumMeta):
     NULL_VALUE = "NULL_VALUE"
 
     def __str__(self) -> str:
         return str(self.value)
 
 
-class TokenStatus(Enum, metaclass=StrEnumMeta):
+class TokenStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     READY = "ready"
     DELETING = "deleting"
@@ -183,7 +183,7 @@ class TokenStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class TriggerInputType(Enum, metaclass=StrEnumMeta):
+class TriggerInputType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_INPUT_TYPE = "unknown_input_type"
     SQS = "sqs"
     SCW_SQS = "scw_sqs"
@@ -194,7 +194,7 @@ class TriggerInputType(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class TriggerStatus(Enum, metaclass=StrEnumMeta):
+class TriggerStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
     READY = "ready"
     DELETING = "deleting"

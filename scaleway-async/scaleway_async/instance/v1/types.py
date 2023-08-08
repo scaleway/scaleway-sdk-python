@@ -15,7 +15,7 @@ from scaleway_core.utils import (
 )
 
 
-class Arch(Enum, metaclass=StrEnumMeta):
+class Arch(str, Enum, metaclass=StrEnumMeta):
     X86_64 = "x86_64"
     ARM = "arm"
 
@@ -23,7 +23,7 @@ class Arch(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class BootType(Enum, metaclass=StrEnumMeta):
+class BootType(str, Enum, metaclass=StrEnumMeta):
     LOCAL = "local"
     BOOTSCRIPT = "bootscript"
     RESCUE = "rescue"
@@ -32,7 +32,7 @@ class BootType(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ImageState(Enum, metaclass=StrEnumMeta):
+class ImageState(str, Enum, metaclass=StrEnumMeta):
     AVAILABLE = "available"
     CREATING = "creating"
     ERROR = "error"
@@ -41,7 +41,7 @@ class ImageState(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class IpState(Enum, metaclass=StrEnumMeta):
+class IpState(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATE = "unknown_state"
     DETACHED = "detached"
     ATTACHED = "attached"
@@ -52,7 +52,7 @@ class IpState(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class IpType(Enum, metaclass=StrEnumMeta):
+class IpType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_IPTYPE = "unknown_iptype"
     NAT = "nat"
     ROUTED_IPV4 = "routed_ipv4"
@@ -62,7 +62,7 @@ class IpType(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListServersRequestOrder(Enum, metaclass=StrEnumMeta):
+class ListServersRequestOrder(str, Enum, metaclass=StrEnumMeta):
     CREATION_DATE_DESC = "creation_date_desc"
     CREATION_DATE_ASC = "creation_date_asc"
     MODIFICATION_DATE_DESC = "modification_date_desc"
@@ -72,7 +72,7 @@ class ListServersRequestOrder(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class PlacementGroupPolicyMode(Enum, metaclass=StrEnumMeta):
+class PlacementGroupPolicyMode(str, Enum, metaclass=StrEnumMeta):
     OPTIONAL = "optional"
     ENFORCED = "enforced"
 
@@ -80,7 +80,7 @@ class PlacementGroupPolicyMode(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class PlacementGroupPolicyType(Enum, metaclass=StrEnumMeta):
+class PlacementGroupPolicyType(str, Enum, metaclass=StrEnumMeta):
     MAX_AVAILABILITY = "max_availability"
     LOW_LATENCY = "low_latency"
 
@@ -88,7 +88,7 @@ class PlacementGroupPolicyType(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class PrivateNICState(Enum, metaclass=StrEnumMeta):
+class PrivateNICState(str, Enum, metaclass=StrEnumMeta):
     AVAILABLE = "available"
     SYNCING = "syncing"
     SYNCING_ERROR = "syncing_error"
@@ -97,7 +97,7 @@ class PrivateNICState(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class SecurityGroupPolicy(Enum, metaclass=StrEnumMeta):
+class SecurityGroupPolicy(str, Enum, metaclass=StrEnumMeta):
     ACCEPT = "accept"
     DROP = "drop"
 
@@ -105,7 +105,7 @@ class SecurityGroupPolicy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class SecurityGroupRuleAction(Enum, metaclass=StrEnumMeta):
+class SecurityGroupRuleAction(str, Enum, metaclass=StrEnumMeta):
     ACCEPT = "accept"
     DROP = "drop"
 
@@ -113,7 +113,7 @@ class SecurityGroupRuleAction(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class SecurityGroupRuleDirection(Enum, metaclass=StrEnumMeta):
+class SecurityGroupRuleDirection(str, Enum, metaclass=StrEnumMeta):
     INBOUND = "inbound"
     OUTBOUND = "outbound"
 
@@ -121,7 +121,7 @@ class SecurityGroupRuleDirection(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class SecurityGroupRuleProtocol(Enum, metaclass=StrEnumMeta):
+class SecurityGroupRuleProtocol(str, Enum, metaclass=StrEnumMeta):
     TCP = "TCP"
     UDP = "UDP"
     ICMP = "ICMP"
@@ -131,7 +131,7 @@ class SecurityGroupRuleProtocol(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class SecurityGroupState(Enum, metaclass=StrEnumMeta):
+class SecurityGroupState(str, Enum, metaclass=StrEnumMeta):
     AVAILABLE = "available"
     SYNCING = "syncing"
     SYNCING_ERROR = "syncing_error"
@@ -140,7 +140,7 @@ class SecurityGroupState(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ServerAction(Enum, metaclass=StrEnumMeta):
+class ServerAction(str, Enum, metaclass=StrEnumMeta):
     POWERON = "poweron"
     BACKUP = "backup"
     STOP_IN_PLACE = "stop_in_place"
@@ -152,7 +152,7 @@ class ServerAction(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ServerIpIpFamily(Enum, metaclass=StrEnumMeta):
+class ServerIpIpFamily(str, Enum, metaclass=StrEnumMeta):
     INET = "inet"
     INET6 = "inet6"
 
@@ -160,7 +160,7 @@ class ServerIpIpFamily(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ServerIpProvisioningMode(Enum, metaclass=StrEnumMeta):
+class ServerIpProvisioningMode(str, Enum, metaclass=StrEnumMeta):
     MANUAL = "manual"
     DHCP = "dhcp"
     SLAAC = "slaac"
@@ -169,7 +169,7 @@ class ServerIpProvisioningMode(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ServerState(Enum, metaclass=StrEnumMeta):
+class ServerState(str, Enum, metaclass=StrEnumMeta):
     RUNNING = "running"
     STOPPED = "stopped"
     STOPPED_IN_PLACE = "stopped in place"
@@ -181,7 +181,7 @@ class ServerState(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ServerTypesAvailability(Enum, metaclass=StrEnumMeta):
+class ServerTypesAvailability(str, Enum, metaclass=StrEnumMeta):
     AVAILABLE = "available"
     SCARCE = "scarce"
     SHORTAGE = "shortage"
@@ -190,7 +190,7 @@ class ServerTypesAvailability(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class SnapshotState(Enum, metaclass=StrEnumMeta):
+class SnapshotState(str, Enum, metaclass=StrEnumMeta):
     AVAILABLE = "available"
     SNAPSHOTTING = "snapshotting"
     ERROR = "error"
@@ -202,7 +202,7 @@ class SnapshotState(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class SnapshotVolumeType(Enum, metaclass=StrEnumMeta):
+class SnapshotVolumeType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_VOLUME_TYPE = "unknown_volume_type"
     L_SSD = "l_ssd"
     B_SSD = "b_ssd"
@@ -212,7 +212,7 @@ class SnapshotVolumeType(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class TaskStatus(Enum, metaclass=StrEnumMeta):
+class TaskStatus(str, Enum, metaclass=StrEnumMeta):
     PENDING = "pending"
     STARTED = "started"
     SUCCESS = "success"
@@ -223,7 +223,7 @@ class TaskStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class VolumeServerState(Enum, metaclass=StrEnumMeta):
+class VolumeServerState(str, Enum, metaclass=StrEnumMeta):
     AVAILABLE = "available"
     SNAPSHOTTING = "snapshotting"
     ERROR = "error"
@@ -236,7 +236,7 @@ class VolumeServerState(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class VolumeServerVolumeType(Enum, metaclass=StrEnumMeta):
+class VolumeServerVolumeType(str, Enum, metaclass=StrEnumMeta):
     L_SSD = "l_ssd"
     B_SSD = "b_ssd"
 
@@ -244,7 +244,7 @@ class VolumeServerVolumeType(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class VolumeState(Enum, metaclass=StrEnumMeta):
+class VolumeState(str, Enum, metaclass=StrEnumMeta):
     AVAILABLE = "available"
     SNAPSHOTTING = "snapshotting"
     ERROR = "error"
@@ -257,7 +257,7 @@ class VolumeState(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class VolumeVolumeType(Enum, metaclass=StrEnumMeta):
+class VolumeVolumeType(str, Enum, metaclass=StrEnumMeta):
     L_SSD = "l_ssd"
     B_SSD = "b_ssd"
     UNIFIED = "unified"

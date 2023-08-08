@@ -15,7 +15,7 @@ from scaleway_core.utils import (
 )
 
 
-class ListSecretsRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListSecretsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     NAME_ASC = "name_asc"
     NAME_DESC = "name_desc"
     CREATED_AT_ASC = "created_at_asc"
@@ -27,14 +27,14 @@ class ListSecretsRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class Product(Enum, metaclass=StrEnumMeta):
+class Product(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
 
     def __str__(self) -> str:
         return str(self.value)
 
 
-class SecretStatus(Enum, metaclass=StrEnumMeta):
+class SecretStatus(str, Enum, metaclass=StrEnumMeta):
     READY = "ready"
     LOCKED = "locked"
 
@@ -42,7 +42,7 @@ class SecretStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class SecretType(Enum, metaclass=StrEnumMeta):
+class SecretType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_SECRET_TYPE = "unknown_secret_type"
     OPAQUE = "opaque"
     CERTIFICATE = "certificate"
@@ -51,7 +51,7 @@ class SecretType(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class SecretVersionStatus(Enum, metaclass=StrEnumMeta):
+class SecretVersionStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     ENABLED = "enabled"
     DISABLED = "disabled"

@@ -16,7 +16,7 @@ from scaleway_core.utils import (
 )
 
 
-class DeviceMessageFiltersRulePolicy(Enum, metaclass=StrEnumMeta):
+class DeviceMessageFiltersRulePolicy(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     ACCEPT = "accept"
     REJECT = "reject"
@@ -25,7 +25,7 @@ class DeviceMessageFiltersRulePolicy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class DeviceStatus(Enum, metaclass=StrEnumMeta):
+class DeviceStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     ERROR = "error"
     ENABLED = "enabled"
@@ -35,7 +35,7 @@ class DeviceStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class HubProductPlan(Enum, metaclass=StrEnumMeta):
+class HubProductPlan(str, Enum, metaclass=StrEnumMeta):
     PLAN_UNKNOWN = "plan_unknown"
     PLAN_SHARED = "plan_shared"
     PLAN_DEDICATED = "plan_dedicated"
@@ -45,7 +45,7 @@ class HubProductPlan(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class HubStatus(Enum, metaclass=StrEnumMeta):
+class HubStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     ERROR = "error"
     ENABLING = "enabling"
@@ -57,7 +57,7 @@ class HubStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListDevicesRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListDevicesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     NAME_ASC = "name_asc"
     NAME_DESC = "name_desc"
     STATUS_ASC = "status_asc"
@@ -75,7 +75,7 @@ class ListDevicesRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListHubsRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListHubsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     NAME_ASC = "name_asc"
     NAME_DESC = "name_desc"
     STATUS_ASC = "status_asc"
@@ -91,7 +91,7 @@ class ListHubsRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListNetworksRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListNetworksRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     NAME_ASC = "name_asc"
     NAME_DESC = "name_desc"
     TYPE_ASC = "type_asc"
@@ -103,7 +103,7 @@ class ListNetworksRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListRoutesRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListRoutesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     NAME_ASC = "name_asc"
     NAME_DESC = "name_desc"
     HUB_ID_ASC = "hub_id_asc"
@@ -117,7 +117,7 @@ class ListRoutesRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class NetworkNetworkType(Enum, metaclass=StrEnumMeta):
+class NetworkNetworkType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     SIGFOX = "sigfox"
     REST = "rest"
@@ -126,14 +126,14 @@ class NetworkNetworkType(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class NullValue(Enum, metaclass=StrEnumMeta):
+class NullValue(str, Enum, metaclass=StrEnumMeta):
     NULL_VALUE = "NULL_VALUE"
 
     def __str__(self) -> str:
         return str(self.value)
 
 
-class RouteDatabaseConfigEngine(Enum, metaclass=StrEnumMeta):
+class RouteDatabaseConfigEngine(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     POSTGRESQL = "postgresql"
     MYSQL = "mysql"
@@ -142,7 +142,7 @@ class RouteDatabaseConfigEngine(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class RouteRestConfigHttpVerb(Enum, metaclass=StrEnumMeta):
+class RouteRestConfigHttpVerb(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     GET = "get"
     POST = "post"
@@ -154,7 +154,7 @@ class RouteRestConfigHttpVerb(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class RouteRouteType(Enum, metaclass=StrEnumMeta):
+class RouteRouteType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     S3 = "s3"
     DATABASE = "database"
@@ -164,7 +164,7 @@ class RouteRouteType(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class RouteS3ConfigS3Strategy(Enum, metaclass=StrEnumMeta):
+class RouteS3ConfigS3Strategy(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     PER_TOPIC = "per_topic"
     PER_MESSAGE = "per_message"

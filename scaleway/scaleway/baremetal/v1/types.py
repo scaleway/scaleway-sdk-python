@@ -17,7 +17,7 @@ from scaleway_core.utils import (
 )
 
 
-class IPReverseStatus(Enum, metaclass=StrEnumMeta):
+class IPReverseStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     PENDING = "pending"
     ACTIVE = "active"
@@ -27,7 +27,7 @@ class IPReverseStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class IPVersion(Enum, metaclass=StrEnumMeta):
+class IPVersion(str, Enum, metaclass=StrEnumMeta):
     IPV4 = "IPv4"
     IPV6 = "IPv6"
 
@@ -35,7 +35,7 @@ class IPVersion(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListServerEventsRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListServerEventsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
 
@@ -43,7 +43,7 @@ class ListServerEventsRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListServerPrivateNetworksRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListServerPrivateNetworksRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     UPDATED_AT_ASC = "updated_at_asc"
@@ -53,7 +53,7 @@ class ListServerPrivateNetworksRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListServersRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListServersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
 
@@ -61,7 +61,7 @@ class ListServersRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListSettingsRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListSettingsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
 
@@ -69,7 +69,7 @@ class ListSettingsRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class OfferStock(Enum, metaclass=StrEnumMeta):
+class OfferStock(str, Enum, metaclass=StrEnumMeta):
     EMPTY = "empty"
     LOW = "low"
     AVAILABLE = "available"
@@ -78,7 +78,7 @@ class OfferStock(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class OfferSubscriptionPeriod(Enum, metaclass=StrEnumMeta):
+class OfferSubscriptionPeriod(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_SUBSCRIPTION_PERIOD = "unknown_subscription_period"
     HOURLY = "hourly"
     MONTHLY = "monthly"
@@ -87,7 +87,7 @@ class OfferSubscriptionPeriod(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ServerBootType(Enum, metaclass=StrEnumMeta):
+class ServerBootType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_BOOT_TYPE = "unknown_boot_type"
     NORMAL = "normal"
     RESCUE = "rescue"
@@ -96,7 +96,7 @@ class ServerBootType(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ServerInstallStatus(Enum, metaclass=StrEnumMeta):
+class ServerInstallStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     TO_INSTALL = "to_install"
     INSTALLING = "installing"
@@ -107,7 +107,7 @@ class ServerInstallStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ServerOptionOptionStatus(Enum, metaclass=StrEnumMeta):
+class ServerOptionOptionStatus(str, Enum, metaclass=StrEnumMeta):
     OPTION_STATUS_UNKNOWN = "option_status_unknown"
     OPTION_STATUS_ENABLE = "option_status_enable"
     OPTION_STATUS_ENABLING = "option_status_enabling"
@@ -118,7 +118,7 @@ class ServerOptionOptionStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ServerPingStatus(Enum, metaclass=StrEnumMeta):
+class ServerPingStatus(str, Enum, metaclass=StrEnumMeta):
     PING_STATUS_UNKNOWN = "ping_status_unknown"
     PING_STATUS_UP = "ping_status_up"
     PING_STATUS_DOWN = "ping_status_down"
@@ -127,7 +127,7 @@ class ServerPingStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ServerPrivateNetworkStatus(Enum, metaclass=StrEnumMeta):
+class ServerPrivateNetworkStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     ATTACHING = "attaching"
     ATTACHED = "attached"
@@ -139,7 +139,7 @@ class ServerPrivateNetworkStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ServerStatus(Enum, metaclass=StrEnumMeta):
+class ServerStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     DELIVERING = "delivering"
     READY = "ready"
@@ -157,7 +157,7 @@ class ServerStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class SettingType(Enum, metaclass=StrEnumMeta):
+class SettingType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     SMTP = "smtp"
 

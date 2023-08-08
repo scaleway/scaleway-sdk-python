@@ -15,7 +15,7 @@ from scaleway_core.utils import (
 )
 
 
-class ListCredentialsRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListCredentialsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     ID_ASC = "id_asc"
     ID_DESC = "id_desc"
     NAME_ASC = "name_asc"
@@ -25,7 +25,7 @@ class ListCredentialsRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListNamespacesRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListNamespacesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     UPDATED_AT_ASC = "updated_at_asc"
@@ -41,7 +41,7 @@ class ListNamespacesRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class NamespaceProtocol(Enum, metaclass=StrEnumMeta):
+class NamespaceProtocol(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     NATS = "nats"
     SQS_SNS = "sqs_sns"

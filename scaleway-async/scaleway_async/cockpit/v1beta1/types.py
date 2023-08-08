@@ -15,7 +15,7 @@ from scaleway_core.utils import (
 )
 
 
-class CockpitStatus(Enum, metaclass=StrEnumMeta):
+class CockpitStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
     CREATING = "creating"
     READY = "ready"
@@ -27,7 +27,7 @@ class CockpitStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class GrafanaUserRole(Enum, metaclass=StrEnumMeta):
+class GrafanaUserRole(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_ROLE = "unknown_role"
     EDITOR = "editor"
     VIEWER = "viewer"
@@ -36,7 +36,7 @@ class GrafanaUserRole(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListGrafanaUsersRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListGrafanaUsersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     LOGIN_ASC = "login_asc"
     LOGIN_DESC = "login_desc"
 
@@ -44,7 +44,7 @@ class ListGrafanaUsersRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListPlansRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListPlansRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     NAME_ASC = "name_asc"
     NAME_DESC = "name_desc"
 
@@ -52,7 +52,7 @@ class ListPlansRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListTokensRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListTokensRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     NAME_ASC = "name_asc"
@@ -62,7 +62,7 @@ class ListTokensRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class PlanName(Enum, metaclass=StrEnumMeta):
+class PlanName(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_NAME = "unknown_name"
     FREE = "free"
     PREMIUM = "premium"

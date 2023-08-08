@@ -16,7 +16,7 @@ from scaleway_core.utils import (
 )
 
 
-class AutoscalerEstimator(Enum, metaclass=StrEnumMeta):
+class AutoscalerEstimator(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_ESTIMATOR = "unknown_estimator"
     BINPACKING = "binpacking"
 
@@ -24,7 +24,7 @@ class AutoscalerEstimator(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class AutoscalerExpander(Enum, metaclass=StrEnumMeta):
+class AutoscalerExpander(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_EXPANDER = "unknown_expander"
     RANDOM = "random"
     MOST_PODS = "most_pods"
@@ -36,7 +36,7 @@ class AutoscalerExpander(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class CNI(Enum, metaclass=StrEnumMeta):
+class CNI(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_CNI = "unknown_cni"
     CILIUM = "cilium"
     CALICO = "calico"
@@ -48,7 +48,7 @@ class CNI(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ClusterStatus(Enum, metaclass=StrEnumMeta):
+class ClusterStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     CREATING = "creating"
     READY = "ready"
@@ -62,7 +62,7 @@ class ClusterStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ClusterTypeAvailability(Enum, metaclass=StrEnumMeta):
+class ClusterTypeAvailability(str, Enum, metaclass=StrEnumMeta):
     AVAILABLE = "available"
     SCARCE = "scarce"
     SHORTAGE = "shortage"
@@ -71,7 +71,7 @@ class ClusterTypeAvailability(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ClusterTypeResiliency(Enum, metaclass=StrEnumMeta):
+class ClusterTypeResiliency(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_RESILIENCY = "unknown_resiliency"
     STANDARD = "standard"
     HIGH_AVAILABILITY = "high_availability"
@@ -80,7 +80,7 @@ class ClusterTypeResiliency(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class Ingress(Enum, metaclass=StrEnumMeta):
+class Ingress(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_INGRESS = "unknown_ingress"
     NONE = "none"
     NGINX = "nginx"
@@ -91,7 +91,7 @@ class Ingress(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListClustersRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListClustersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     UPDATED_AT_ASC = "updated_at_asc"
@@ -107,7 +107,7 @@ class ListClustersRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListNodesRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListNodesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
 
@@ -115,7 +115,7 @@ class ListNodesRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListPoolsRequestOrderBy(Enum, metaclass=StrEnumMeta):
+class ListPoolsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     UPDATED_AT_ASC = "updated_at_asc"
@@ -131,7 +131,7 @@ class ListPoolsRequestOrderBy(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class MaintenanceWindowDayOfTheWeek(Enum, metaclass=StrEnumMeta):
+class MaintenanceWindowDayOfTheWeek(str, Enum, metaclass=StrEnumMeta):
     ANY = "any"
     MONDAY = "monday"
     TUESDAY = "tuesday"
@@ -145,7 +145,7 @@ class MaintenanceWindowDayOfTheWeek(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class NodeStatus(Enum, metaclass=StrEnumMeta):
+class NodeStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     CREATING = "creating"
     NOT_READY = "not_ready"
@@ -163,7 +163,7 @@ class NodeStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class PoolStatus(Enum, metaclass=StrEnumMeta):
+class PoolStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     READY = "ready"
     DELETING = "deleting"
@@ -177,7 +177,7 @@ class PoolStatus(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class PoolVolumeType(Enum, metaclass=StrEnumMeta):
+class PoolVolumeType(str, Enum, metaclass=StrEnumMeta):
     DEFAULT_VOLUME_TYPE = "default_volume_type"
     L_SSD = "l_ssd"
     B_SSD = "b_ssd"
@@ -186,7 +186,7 @@ class PoolVolumeType(Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class Runtime(Enum, metaclass=StrEnumMeta):
+class Runtime(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_RUNTIME = "unknown_runtime"
     DOCKER = "docker"
     CONTAINERD = "containerd"
