@@ -5,7 +5,7 @@ from typing import Any, Optional
 class StrEnumMeta(EnumMeta):
     def __call__(
         cls,
-        value,
+        value: str,
         names: Optional[Any] = None,
         *args: Any,
         **kwargs: Any,
