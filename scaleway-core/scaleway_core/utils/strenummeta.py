@@ -6,14 +6,10 @@ class StrEnumMeta(EnumMeta):
     def __call__(
         cls,
         value,
-        names=None,
-        *,
-        module=None,
-        qualname=None,
-        type=None,
-        start=1,
-        boundary=None,
-    ):
+        names: Optional[Any] = None,
+        *args: Any,
+        **kwargs: Any,
+    ) -> Any:
         if names is not None:
             return super().__call__(value, names, *args, **kwargs)
 
