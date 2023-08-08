@@ -18,6 +18,7 @@ from scaleway_core.utils import (
 class Arch(str, Enum, metaclass=StrEnumMeta):
     X86_64 = "x86_64"
     ARM = "arm"
+    ARM64 = "arm64"
 
     def __str__(self) -> str:
         return str(self.value)
