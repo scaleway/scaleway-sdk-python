@@ -13,6 +13,8 @@ from .types import (
     Product,
     SecretType,
     AccessSecretVersionResponse,
+    Folder,
+    ListFoldersResponse,
     ListSecretVersionsResponse,
     ListSecretsResponse,
     ListTagsResponse,
@@ -20,12 +22,39 @@ from .types import (
     Secret,
     SecretVersion,
     CreateSecretRequest,
+    CreateFolderRequest,
     UpdateSecretRequest,
     AddSecretOwnerRequest,
     CreateSecretVersionRequest,
     GeneratePasswordRequest,
     UpdateSecretVersionRequest,
 )
+
+
+def unmarshal_Folder(data: Any) -> Folder:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'Folder' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("created_at", None)
+    args["created_at"] = parser.isoparse(field) if type(field) is str else field
+
+    field = data.get("id", None)
+    args["id"] = field
+
+    field = data.get("name", None)
+    args["name"] = field
+
+    field = data.get("path", None)
+    args["path"] = field
+
+    field = data.get("project_id", None)
+    args["project_id"] = field
+
+    return Folder(**args)
 
 
 def unmarshal_Secret(data: Any) -> Secret:
@@ -53,6 +82,9 @@ def unmarshal_Secret(data: Any) -> Secret:
 
     field = data.get("name", None)
     args["name"] = field
+
+    field = data.get("path", None)
+    args["path"] = field
 
     field = data.get("project_id", None)
     args["project_id"] = field
@@ -131,6 +163,25 @@ def unmarshal_AccessSecretVersionResponse(data: Any) -> AccessSecretVersionRespo
     args["secret_id"] = field
 
     return AccessSecretVersionResponse(**args)
+
+
+def unmarshal_ListFoldersResponse(data: Any) -> ListFoldersResponse:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'ListFoldersResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("folders", None)
+    args["folders"] = (
+        [unmarshal_Folder(v) for v in field] if field is not None else None
+    )
+
+    field = data.get("total_count", None)
+    args["total_count"] = field
+
+    return ListFoldersResponse(**args)
 
 
 def unmarshal_ListSecretVersionsResponse(data: Any) -> ListSecretVersionsResponse:
@@ -227,6 +278,24 @@ def marshal_AddSecretOwnerRequest(
     return output
 
 
+def marshal_CreateFolderRequest(
+    request: CreateFolderRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.path is not None:
+        output["path"] = request.path
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    return output
+
+
 def marshal_CreateSecretRequest(
     request: CreateSecretRequest,
     defaults: ProfileDefaults,
@@ -238,6 +307,9 @@ def marshal_CreateSecretRequest(
 
     if request.name is not None:
         output["name"] = request.name
+
+    if request.path is not None:
+        output["path"] = request.path
 
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id
@@ -327,6 +399,9 @@ def marshal_UpdateSecretRequest(
 
     if request.name is not None:
         output["name"] = request.name
+
+    if request.path is not None:
+        output["path"] = request.path
 
     if request.tags is not None:
         output["tags"] = request.tags
