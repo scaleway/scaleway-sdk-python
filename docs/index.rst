@@ -97,6 +97,7 @@ We are using the standard Python logging library. You can configure it as you wi
    :caption: Contents:
 
    scaleway
+   scaleway-async
    scaleway-core
 
 
