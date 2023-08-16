@@ -1238,6 +1238,9 @@ class GetFunctionUploadURLRequest:
     """
 
     content_length: int
+    """
+    Size of the archive to upload in bytes.
+    """
 
 
 @dataclass

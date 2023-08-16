@@ -832,7 +832,7 @@ class FunctionV1Beta1API(API):
         Get an upload URL of a function associated with the specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :param function_id: UUID of the function to get the upload URL for.
-        :param content_length:
+        :param content_length: Size of the archive to upload in bytes.
         :return: :class:`UploadURL <UploadURL>`
 
         Usage:
