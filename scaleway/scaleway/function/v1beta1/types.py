@@ -83,6 +83,7 @@ class FunctionRuntime(str, Enum, metaclass=StrEnumMeta):
     NODE19 = "node19"
     GO120 = "go120"
     NODE20 = "node20"
+    GO121 = "go121"
 
     def __str__(self) -> str:
         return str(self.value)
