@@ -1127,6 +1127,9 @@ def unmarshal_ServerType(data: Any) -> ServerType:
     field = data.get("ram", None)
     args["ram"] = field
 
+    field = data.get("scratch_storage_max_size", None)
+    args["scratch_storage_max_size"] = field
+
     field = data.get("volumes_constraint", None)
     args["volumes_constraint"] = (
         unmarshal_ServerTypeVolumeConstraintSizes(field) if field is not None else None

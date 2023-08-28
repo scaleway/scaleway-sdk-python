@@ -1354,6 +1354,11 @@ class ServerType:
     Capabilities.
     """
 
+    scratch_storage_max_size: Optional[int]
+    """
+    Maximum available scratch storage.
+    """
+
 
 @dataclass
 class ServerTypeCapabilities:
