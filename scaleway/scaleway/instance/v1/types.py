@@ -262,6 +262,7 @@ class VolumeVolumeType(str, Enum, metaclass=StrEnumMeta):
     L_SSD = "l_ssd"
     B_SSD = "b_ssd"
     UNIFIED = "unified"
+    SCRATCH = "scratch"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -1352,6 +1353,11 @@ class ServerType:
     capabilities: Optional[ServerTypeCapabilities]
     """
     Capabilities.
+    """
+
+    scratch_storage_max_size: Optional[int]
+    """
+    Maximum available scratch storage.
     """
 
 
