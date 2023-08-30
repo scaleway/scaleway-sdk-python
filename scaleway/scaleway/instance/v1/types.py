@@ -262,6 +262,7 @@ class VolumeVolumeType(str, Enum, metaclass=StrEnumMeta):
     L_SSD = "l_ssd"
     B_SSD = "b_ssd"
     UNIFIED = "unified"
+    SCRATCH = "scratch"
 
     def __str__(self) -> str:
         return str(self.value)
