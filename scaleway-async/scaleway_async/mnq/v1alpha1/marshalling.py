@@ -24,9 +24,9 @@ from .types import (
 
 
 def unmarshal_Permissions(data: Any) -> Permissions:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Permissions' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Permissions' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -44,9 +44,9 @@ def unmarshal_Permissions(data: Any) -> Permissions:
 
 
 def unmarshal_CredentialSummarySQSSNSCreds(data: Any) -> CredentialSummarySQSSNSCreds:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'CredentialSummarySQSSNSCreds' failed as data isn't a dictionary."
+            "Unmarshalling the type 'CredentialSummarySQSSNSCreds' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -61,9 +61,9 @@ def unmarshal_CredentialSummarySQSSNSCreds(data: Any) -> CredentialSummarySQSSNS
 
 
 def unmarshal_CredentialNATSCredsFile(data: Any) -> CredentialNATSCredsFile:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'CredentialNATSCredsFile' failed as data isn't a dictionary."
+            "Unmarshalling the type 'CredentialNATSCredsFile' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -75,9 +75,9 @@ def unmarshal_CredentialNATSCredsFile(data: Any) -> CredentialNATSCredsFile:
 
 
 def unmarshal_CredentialSQSSNSCreds(data: Any) -> CredentialSQSSNSCreds:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'CredentialSQSSNSCreds' failed as data isn't a dictionary."
+            "Unmarshalling the type 'CredentialSQSSNSCreds' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -95,9 +95,9 @@ def unmarshal_CredentialSQSSNSCreds(data: Any) -> CredentialSQSSNSCreds:
 
 
 def unmarshal_CredentialSummary(data: Any) -> CredentialSummary:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'CredentialSummary' failed as data isn't a dictionary."
+            "Unmarshalling the type 'CredentialSummary' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -123,15 +123,15 @@ def unmarshal_CredentialSummary(data: Any) -> CredentialSummary:
 
 
 def unmarshal_Namespace(data: Any) -> Namespace:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Namespace' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Namespace' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("endpoint", None)
     args["endpoint"] = field
@@ -152,15 +152,15 @@ def unmarshal_Namespace(data: Any) -> Namespace:
     args["region"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return Namespace(**args)
 
 
 def unmarshal_Credential(data: Any) -> Credential:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Credential' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Credential' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -191,9 +191,9 @@ def unmarshal_Credential(data: Any) -> Credential:
 
 
 def unmarshal_ListCredentialsResponse(data: Any) -> ListCredentialsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListCredentialsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListCredentialsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -210,9 +210,9 @@ def unmarshal_ListCredentialsResponse(data: Any) -> ListCredentialsResponse:
 
 
 def unmarshal_ListNamespacesResponse(data: Any) -> ListNamespacesResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListNamespacesResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListNamespacesResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}

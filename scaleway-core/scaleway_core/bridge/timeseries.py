@@ -25,9 +25,9 @@ def unmarshal_TimeSeriesPoint(data: Any) -> TimeSeriesPoint:
     """
     Unmarshal an instance of TimeSeriesPoint from the given data.
     """
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'TimeSeriesPoint' failed as data isn't a dictionary."
+            "Unmarshalling the type 'TimeSeriesPoint' failed as data isn't a dictionary."
         )
 
     return TimeSeriesPoint(
@@ -72,9 +72,9 @@ def unmarshal_TimeSeries(data: Any) -> TimeSeries:
     """
     Unmarshal an instance of TimeSeries from the given data.
     """
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'TimeSeries' failed as data isn't a dictionary."
+            "Unmarshalling the type 'TimeSeries' failed as data isn't a dictionary."
         )
 
     return TimeSeries(

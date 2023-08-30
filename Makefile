@@ -40,11 +40,11 @@ typing:
 		poetry run mypy --install-types --non-interactive --strict $$(echo $$lib | tr "-" "_"); \
 	done
 
-security:
+lint:
 	for lib in $(LIBRARIES); do \
 		cd ${WORKDIR}/$$lib && \
-		poetry run bandit --version && \
-		poetry run bandit -r ./; \
+		poetry run ruff --version && \
+		poetry run ruff check ./; \
 	done
 
 test:

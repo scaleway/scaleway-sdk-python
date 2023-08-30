@@ -36,9 +36,9 @@ def unmarshal_Money(data: Any) -> Money:
     """
     Unmarshal an instance of Money from the given data.
     """
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Money' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Money' failed as data isn't a dictionary."
         )
 
     return Money(

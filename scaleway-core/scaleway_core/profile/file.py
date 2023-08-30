@@ -1,6 +1,3 @@
-import os
-from typing import Any, Optional
-
 CONFIG_PROPERTIES_TO_PROFILE = {
     "access_key": "access_key",
     "secret_key": "secret_key",

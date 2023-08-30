@@ -39,11 +39,11 @@ class TestTestV1(unittest.TestCase):
 
     def test_list_humans(self) -> None:
         humans = self.api.list_humans()
-        self.assertTrue(type(humans.humans) is list)
+        self.assertTrue(isinstance(humans.humans, list))
 
     def test_list_humans_all(self) -> None:
         humans = self.api.list_humans_all()
-        self.assertTrue(type(humans) is list)
+        self.assertTrue(isinstance(humans, list))
 
     def test_get_human(self) -> None:
         name = utils.random_name()

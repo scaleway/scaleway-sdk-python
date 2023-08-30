@@ -59,7 +59,7 @@ jobs:
       - name: Check typing
         run: poetry run mypy --install-types --non-interactive --strict --no-warn-unused-ignores $(echo "${{ matrix.lib }}" | tr "-" "_")
 
-  security:
+  linting:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -82,8 +82,8 @@ jobs:
           poetry --version
       - name: Install dependencies and library
         run: poetry install
-      - name: Check security
-        run: poetry run bandit -sB105 -r .
+      - name: Check linting
+        run: poetry run ruff check .
 
   tests:
     runs-on: ubuntu-latest

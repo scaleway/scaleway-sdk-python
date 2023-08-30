@@ -50,9 +50,9 @@ from .types import (
 
 
 def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'PrivateNetwork' failed as data isn't a dictionary."
+            "Unmarshalling the type 'PrivateNetwork' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -73,9 +73,9 @@ def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
 
 
 def unmarshal_PublicNetwork(data: Any) -> PublicNetwork:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'PublicNetwork' failed as data isn't a dictionary."
+            "Unmarshalling the type 'PublicNetwork' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -84,9 +84,9 @@ def unmarshal_PublicNetwork(data: Any) -> PublicNetwork:
 
 
 def unmarshal_ACLRule(data: Any) -> ACLRule:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ACLRule' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ACLRule' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -104,9 +104,9 @@ def unmarshal_ACLRule(data: Any) -> ACLRule:
 
 
 def unmarshal_AvailableClusterSetting(data: Any) -> AvailableClusterSetting:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'AvailableClusterSetting' failed as data isn't a dictionary."
+            "Unmarshalling the type 'AvailableClusterSetting' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -139,9 +139,9 @@ def unmarshal_AvailableClusterSetting(data: Any) -> AvailableClusterSetting:
 
 
 def unmarshal_ClusterSetting(data: Any) -> ClusterSetting:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ClusterSetting' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ClusterSetting' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -156,9 +156,9 @@ def unmarshal_ClusterSetting(data: Any) -> ClusterSetting:
 
 
 def unmarshal_Endpoint(data: Any) -> Endpoint:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Endpoint' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Endpoint' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -186,9 +186,9 @@ def unmarshal_Endpoint(data: Any) -> Endpoint:
 
 
 def unmarshal_Cluster(data: Any) -> Cluster:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Cluster' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Cluster' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -207,7 +207,7 @@ def unmarshal_Cluster(data: Any) -> Cluster:
     args["cluster_size"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("endpoints", None)
     args["endpoints"] = (
@@ -236,7 +236,7 @@ def unmarshal_Cluster(data: Any) -> Cluster:
     args["tls_enabled"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("upgradable_versions", None)
     args["upgradable_versions"] = field
@@ -254,9 +254,9 @@ def unmarshal_Cluster(data: Any) -> Cluster:
 
 
 def unmarshal_ClusterVersion(data: Any) -> ClusterVersion:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ClusterVersion' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ClusterVersion' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -269,7 +269,7 @@ def unmarshal_ClusterVersion(data: Any) -> ClusterVersion:
     )
 
     field = data.get("end_of_life_at", None)
-    args["end_of_life_at"] = parser.isoparse(field) if type(field) is str else field
+    args["end_of_life_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("logo_url", None)
     args["logo_url"] = field
@@ -284,9 +284,9 @@ def unmarshal_ClusterVersion(data: Any) -> ClusterVersion:
 
 
 def unmarshal_NodeType(data: Any) -> NodeType:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'NodeType' failed as data isn't a dictionary."
+            "Unmarshalling the type 'NodeType' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -319,9 +319,9 @@ def unmarshal_NodeType(data: Any) -> NodeType:
 
 
 def unmarshal_AddAclRulesResponse(data: Any) -> AddAclRulesResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'AddAclRulesResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'AddAclRulesResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -338,9 +338,9 @@ def unmarshal_AddAclRulesResponse(data: Any) -> AddAclRulesResponse:
 
 
 def unmarshal_AddEndpointsResponse(data: Any) -> AddEndpointsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'AddEndpointsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'AddEndpointsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -357,9 +357,9 @@ def unmarshal_AddEndpointsResponse(data: Any) -> AddEndpointsResponse:
 
 
 def unmarshal_ClusterMetricsResponse(data: Any) -> ClusterMetricsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ClusterMetricsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ClusterMetricsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -373,9 +373,9 @@ def unmarshal_ClusterMetricsResponse(data: Any) -> ClusterMetricsResponse:
 
 
 def unmarshal_ClusterSettingsResponse(data: Any) -> ClusterSettingsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ClusterSettingsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ClusterSettingsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -389,9 +389,9 @@ def unmarshal_ClusterSettingsResponse(data: Any) -> ClusterSettingsResponse:
 
 
 def unmarshal_ListClusterVersionsResponse(data: Any) -> ListClusterVersionsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListClusterVersionsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListClusterVersionsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -408,9 +408,9 @@ def unmarshal_ListClusterVersionsResponse(data: Any) -> ListClusterVersionsRespo
 
 
 def unmarshal_ListClustersResponse(data: Any) -> ListClustersResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListClustersResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListClustersResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -427,9 +427,9 @@ def unmarshal_ListClustersResponse(data: Any) -> ListClustersResponse:
 
 
 def unmarshal_ListNodeTypesResponse(data: Any) -> ListNodeTypesResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListNodeTypesResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListNodeTypesResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -446,9 +446,9 @@ def unmarshal_ListNodeTypesResponse(data: Any) -> ListNodeTypesResponse:
 
 
 def unmarshal_SetAclRulesResponse(data: Any) -> SetAclRulesResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'SetAclRulesResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'SetAclRulesResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -462,9 +462,9 @@ def unmarshal_SetAclRulesResponse(data: Any) -> SetAclRulesResponse:
 
 
 def unmarshal_SetEndpointsResponse(data: Any) -> SetEndpointsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'SetEndpointsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'SetEndpointsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}

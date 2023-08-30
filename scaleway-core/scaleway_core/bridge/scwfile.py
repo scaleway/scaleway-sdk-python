@@ -28,9 +28,9 @@ def unmarshal_ScwFile(data: Any) -> ScwFile:
     """
     Unmarshals a ScwFile object from a dict.
     """
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ScwFile' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ScwFile' failed as data isn't a dictionary."
         )
 
     return ScwFile(

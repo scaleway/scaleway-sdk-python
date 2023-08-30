@@ -35,9 +35,9 @@ def unmarshal_ServiceInfo(data: Any) -> ServiceInfo:
     """
     Unmarshals a ServiceInfo object from a dict.
     """
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ServiceInfo' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ServiceInfo' failed as data isn't a dictionary."
         )
 
     return ServiceInfo(

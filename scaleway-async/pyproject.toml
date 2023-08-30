@@ -27,11 +27,14 @@ python = "^3.8"
 scaleway-core = "^1"
 
 [tool.poetry.group.dev.dependencies]
-mypy = "*"
-black = "^22.10.0"
-bandit = { extras = ["toml"], version = "^1.7.4" }
 scaleway-core = { path = "../scaleway-core", develop = true }
+ruff = "^0.0.286"
+mypy = "^1.5.1"
+black = "^23.7.0"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+ignore = ["E501"]
