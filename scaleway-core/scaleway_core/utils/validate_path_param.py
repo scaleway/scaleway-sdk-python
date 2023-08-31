@@ -10,7 +10,7 @@ def validate_path_param(name: str, value: Optional[Union[str, int, datetime]]) -
     if type(value) is datetime:
         value = value.isoformat()
 
-    if (value is None) or (type(value) is str and not value):
+    if (value is None) or (isinstance(value, str) and not value):
         raise ValueError(f"Path parameter {name} is required")
 
     return str(value)

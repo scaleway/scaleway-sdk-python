@@ -148,9 +148,9 @@ from .types_private import (
 
 
 def unmarshal_ServerSummary(data: Any) -> ServerSummary:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ServerSummary' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ServerSummary' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -165,9 +165,9 @@ def unmarshal_ServerSummary(data: Any) -> ServerSummary:
 
 
 def unmarshal_Bootscript(data: Any) -> Bootscript:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Bootscript' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Bootscript' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -212,9 +212,9 @@ def unmarshal_Bootscript(data: Any) -> Bootscript:
 
 
 def unmarshal_ServerTypeNetworkInterface(data: Any) -> ServerTypeNetworkInterface:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ServerTypeNetworkInterface' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ServerTypeNetworkInterface' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -231,9 +231,9 @@ def unmarshal_ServerTypeNetworkInterface(data: Any) -> ServerTypeNetworkInterfac
 def unmarshal_ServerTypeVolumeConstraintSizes(
     data: Any,
 ) -> ServerTypeVolumeConstraintSizes:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ServerTypeVolumeConstraintSizes' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ServerTypeVolumeConstraintSizes' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -248,15 +248,15 @@ def unmarshal_ServerTypeVolumeConstraintSizes(
 
 
 def unmarshal_Volume(data: Any) -> Volume:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Volume' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Volume' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
     field = data.get("creation_date", None)
-    args["creation_date"] = parser.isoparse(field) if type(field) is str else field
+    args["creation_date"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("export_uri", None)
     args["export_uri"] = field
@@ -265,7 +265,9 @@ def unmarshal_Volume(data: Any) -> Volume:
     args["id"] = field
 
     field = data.get("modification_date", None)
-    args["modification_date"] = parser.isoparse(field) if type(field) is str else field
+    args["modification_date"] = (
+        parser.isoparse(field) if isinstance(field, str) else field
+    )
 
     field = data.get("name", None)
     args["name"] = field
@@ -298,9 +300,9 @@ def unmarshal_Volume(data: Any) -> Volume:
 
 
 def unmarshal_VolumeSummary(data: Any) -> VolumeSummary:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'VolumeSummary' failed as data isn't a dictionary."
+            "Unmarshalling the type 'VolumeSummary' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -321,9 +323,9 @@ def unmarshal_VolumeSummary(data: Any) -> VolumeSummary:
 
 
 def unmarshal_Image(data: Any) -> Image:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Image' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Image' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -332,7 +334,7 @@ def unmarshal_Image(data: Any) -> Image:
     args["arch"] = field
 
     field = data.get("creation_date", None)
-    args["creation_date"] = parser.isoparse(field) if type(field) is str else field
+    args["creation_date"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("default_bootscript", None)
     args["default_bootscript"] = (
@@ -353,7 +355,9 @@ def unmarshal_Image(data: Any) -> Image:
     args["id"] = field
 
     field = data.get("modification_date", None)
-    args["modification_date"] = parser.isoparse(field) if type(field) is str else field
+    args["modification_date"] = (
+        parser.isoparse(field) if isinstance(field, str) else field
+    )
 
     field = data.get("name", None)
     args["name"] = field
@@ -383,9 +387,9 @@ def unmarshal_Image(data: Any) -> Image:
 
 
 def unmarshal_PlacementGroup(data: Any) -> PlacementGroup:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'PlacementGroup' failed as data isn't a dictionary."
+            "Unmarshalling the type 'PlacementGroup' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -421,9 +425,9 @@ def unmarshal_PlacementGroup(data: Any) -> PlacementGroup:
 
 
 def unmarshal_PrivateNIC(data: Any) -> PrivateNIC:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'PrivateNIC' failed as data isn't a dictionary."
+            "Unmarshalling the type 'PrivateNIC' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -450,9 +454,9 @@ def unmarshal_PrivateNIC(data: Any) -> PrivateNIC:
 
 
 def unmarshal_SecurityGroupSummary(data: Any) -> SecurityGroupSummary:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'SecurityGroupSummary' failed as data isn't a dictionary."
+            "Unmarshalling the type 'SecurityGroupSummary' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -467,9 +471,9 @@ def unmarshal_SecurityGroupSummary(data: Any) -> SecurityGroupSummary:
 
 
 def unmarshal_ServerIp(data: Any) -> ServerIp:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ServerIp' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ServerIp' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -499,9 +503,9 @@ def unmarshal_ServerIp(data: Any) -> ServerIp:
 
 
 def unmarshal_ServerIpv6(data: Any) -> ServerIpv6:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ServerIpv6' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ServerIpv6' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -519,9 +523,9 @@ def unmarshal_ServerIpv6(data: Any) -> ServerIpv6:
 
 
 def unmarshal_ServerLocation(data: Any) -> ServerLocation:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ServerLocation' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ServerLocation' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -545,9 +549,9 @@ def unmarshal_ServerLocation(data: Any) -> ServerLocation:
 
 
 def unmarshal_ServerMaintenance(data: Any) -> ServerMaintenance:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ServerMaintenance' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ServerMaintenance' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -559,9 +563,9 @@ def unmarshal_ServerMaintenance(data: Any) -> ServerMaintenance:
 
 
 def unmarshal_ServerTypeCapabilities(data: Any) -> ServerTypeCapabilities:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ServerTypeCapabilities' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ServerTypeCapabilities' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -576,9 +580,9 @@ def unmarshal_ServerTypeCapabilities(data: Any) -> ServerTypeCapabilities:
 
 
 def unmarshal_ServerTypeNetwork(data: Any) -> ServerTypeNetwork:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ServerTypeNetwork' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ServerTypeNetwork' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -605,9 +609,9 @@ def unmarshal_ServerTypeNetwork(data: Any) -> ServerTypeNetwork:
 def unmarshal_ServerTypeVolumeConstraintsByType(
     data: Any,
 ) -> ServerTypeVolumeConstraintsByType:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ServerTypeVolumeConstraintsByType' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ServerTypeVolumeConstraintsByType' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -621,9 +625,9 @@ def unmarshal_ServerTypeVolumeConstraintsByType(
 
 
 def unmarshal_SnapshotBaseVolume(data: Any) -> SnapshotBaseVolume:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'SnapshotBaseVolume' failed as data isn't a dictionary."
+            "Unmarshalling the type 'SnapshotBaseVolume' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -638,9 +642,9 @@ def unmarshal_SnapshotBaseVolume(data: Any) -> SnapshotBaseVolume:
 
 
 def unmarshal_VolumeServer(data: Any) -> VolumeServer:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'VolumeServer' failed as data isn't a dictionary."
+            "Unmarshalling the type 'VolumeServer' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -649,7 +653,7 @@ def unmarshal_VolumeServer(data: Any) -> VolumeServer:
     args["boot"] = field
 
     field = data.get("creation_date", None)
-    args["creation_date"] = parser.isoparse(field) if type(field) is str else field
+    args["creation_date"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("export_uri", None)
     args["export_uri"] = field
@@ -658,7 +662,9 @@ def unmarshal_VolumeServer(data: Any) -> VolumeServer:
     args["id"] = field
 
     field = data.get("modification_date", None)
-    args["modification_date"] = parser.isoparse(field) if type(field) is str else field
+    args["modification_date"] = (
+        parser.isoparse(field) if isinstance(field, str) else field
+    )
 
     field = data.get("name", None)
     args["name"] = field
@@ -688,9 +694,9 @@ def unmarshal_VolumeServer(data: Any) -> VolumeServer:
 
 
 def unmarshal_VolumeTypeCapabilities(data: Any) -> VolumeTypeCapabilities:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'VolumeTypeCapabilities' failed as data isn't a dictionary."
+            "Unmarshalling the type 'VolumeTypeCapabilities' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -702,9 +708,9 @@ def unmarshal_VolumeTypeCapabilities(data: Any) -> VolumeTypeCapabilities:
 
 
 def unmarshal_VolumeTypeConstraints(data: Any) -> VolumeTypeConstraints:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'VolumeTypeConstraints' failed as data isn't a dictionary."
+            "Unmarshalling the type 'VolumeTypeConstraints' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -719,9 +725,9 @@ def unmarshal_VolumeTypeConstraints(data: Any) -> VolumeTypeConstraints:
 
 
 def unmarshal_Dashboard(data: Any) -> Dashboard:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Dashboard' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Dashboard' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -777,9 +783,9 @@ def unmarshal_Dashboard(data: Any) -> Dashboard:
 def unmarshal_GetServerTypesAvailabilityResponseAvailability(
     data: Any,
 ) -> GetServerTypesAvailabilityResponseAvailability:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'GetServerTypesAvailabilityResponseAvailability' failed as data isn't a dictionary."
+            "Unmarshalling the type 'GetServerTypesAvailabilityResponseAvailability' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -791,9 +797,9 @@ def unmarshal_GetServerTypesAvailabilityResponseAvailability(
 
 
 def unmarshal_Ip(data: Any) -> Ip:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Ip' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Ip' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -835,9 +841,9 @@ def unmarshal_Ip(data: Any) -> Ip:
 
 
 def unmarshal_PlacementGroupServer(data: Any) -> PlacementGroupServer:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'PlacementGroupServer' failed as data isn't a dictionary."
+            "Unmarshalling the type 'PlacementGroupServer' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -855,15 +861,15 @@ def unmarshal_PlacementGroupServer(data: Any) -> PlacementGroupServer:
 
 
 def unmarshal_SecurityGroup(data: Any) -> SecurityGroup:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'SecurityGroup' failed as data isn't a dictionary."
+            "Unmarshalling the type 'SecurityGroup' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
     field = data.get("creation_date", None)
-    args["creation_date"] = parser.isoparse(field) if type(field) is str else field
+    args["creation_date"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("description", None)
     args["description"] = field
@@ -878,7 +884,9 @@ def unmarshal_SecurityGroup(data: Any) -> SecurityGroup:
     args["inbound_default_policy"] = field
 
     field = data.get("modification_date", None)
-    args["modification_date"] = parser.isoparse(field) if type(field) is str else field
+    args["modification_date"] = (
+        parser.isoparse(field) if isinstance(field, str) else field
+    )
 
     field = data.get("name", None)
     args["name"] = field
@@ -919,9 +927,9 @@ def unmarshal_SecurityGroup(data: Any) -> SecurityGroup:
 
 
 def unmarshal_SecurityGroupRule(data: Any) -> SecurityGroupRule:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'SecurityGroupRule' failed as data isn't a dictionary."
+            "Unmarshalling the type 'SecurityGroupRule' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -960,9 +968,9 @@ def unmarshal_SecurityGroupRule(data: Any) -> SecurityGroupRule:
 
 
 def unmarshal_Server(data: Any) -> Server:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Server' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Server' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -983,7 +991,7 @@ def unmarshal_Server(data: Any) -> Server:
     args["commercial_type"] = field
 
     field = data.get("creation_date", None)
-    args["creation_date"] = parser.isoparse(field) if type(field) is str else field
+    args["creation_date"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("dynamic_ip_required", None)
     args["dynamic_ip_required"] = field
@@ -1015,7 +1023,9 @@ def unmarshal_Server(data: Any) -> Server:
     )
 
     field = data.get("modification_date", None)
-    args["modification_date"] = parser.isoparse(field) if type(field) is str else field
+    args["modification_date"] = (
+        parser.isoparse(field) if isinstance(field, str) else field
+    )
 
     field = data.get("name", None)
     args["name"] = field
@@ -1081,9 +1091,9 @@ def unmarshal_Server(data: Any) -> Server:
 
 
 def unmarshal_ServerType(data: Any) -> ServerType:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ServerType' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ServerType' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1139,9 +1149,9 @@ def unmarshal_ServerType(data: Any) -> ServerType:
 
 
 def unmarshal_Snapshot(data: Any) -> Snapshot:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Snapshot' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Snapshot' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1152,7 +1162,7 @@ def unmarshal_Snapshot(data: Any) -> Snapshot:
     )
 
     field = data.get("creation_date", None)
-    args["creation_date"] = parser.isoparse(field) if type(field) is str else field
+    args["creation_date"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("error_reason", None)
     args["error_reason"] = field
@@ -1161,7 +1171,9 @@ def unmarshal_Snapshot(data: Any) -> Snapshot:
     args["id"] = field
 
     field = data.get("modification_date", None)
-    args["modification_date"] = parser.isoparse(field) if type(field) is str else field
+    args["modification_date"] = (
+        parser.isoparse(field) if isinstance(field, str) else field
+    )
 
     field = data.get("name", None)
     args["name"] = field
@@ -1191,9 +1203,9 @@ def unmarshal_Snapshot(data: Any) -> Snapshot:
 
 
 def unmarshal_Task(data: Any) -> Task:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Task' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Task' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1214,13 +1226,13 @@ def unmarshal_Task(data: Any) -> Task:
     args["progress"] = field
 
     field = data.get("started_at", None)
-    args["started_at"] = parser.isoparse(field) if type(field) is str else field
+    args["started_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("status", None)
     args["status"] = field
 
     field = data.get("terminated_at", None)
-    args["terminated_at"] = parser.isoparse(field) if type(field) is str else field
+    args["terminated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("zone", None)
     args["zone"] = field
@@ -1229,9 +1241,9 @@ def unmarshal_Task(data: Any) -> Task:
 
 
 def unmarshal_VolumeType(data: Any) -> VolumeType:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'VolumeType' failed as data isn't a dictionary."
+            "Unmarshalling the type 'VolumeType' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1253,9 +1265,9 @@ def unmarshal_VolumeType(data: Any) -> VolumeType:
 
 
 def unmarshal_CreateImageResponse(data: Any) -> CreateImageResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'CreateImageResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'CreateImageResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1267,9 +1279,9 @@ def unmarshal_CreateImageResponse(data: Any) -> CreateImageResponse:
 
 
 def unmarshal_CreateIpResponse(data: Any) -> CreateIpResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'CreateIpResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'CreateIpResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1281,9 +1293,9 @@ def unmarshal_CreateIpResponse(data: Any) -> CreateIpResponse:
 
 
 def unmarshal_CreatePlacementGroupResponse(data: Any) -> CreatePlacementGroupResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'CreatePlacementGroupResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'CreatePlacementGroupResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1297,9 +1309,9 @@ def unmarshal_CreatePlacementGroupResponse(data: Any) -> CreatePlacementGroupRes
 
 
 def unmarshal_CreatePrivateNICResponse(data: Any) -> CreatePrivateNICResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'CreatePrivateNICResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'CreatePrivateNICResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1311,9 +1323,9 @@ def unmarshal_CreatePrivateNICResponse(data: Any) -> CreatePrivateNICResponse:
 
 
 def unmarshal_CreateSecurityGroupResponse(data: Any) -> CreateSecurityGroupResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'CreateSecurityGroupResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'CreateSecurityGroupResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1329,9 +1341,9 @@ def unmarshal_CreateSecurityGroupResponse(data: Any) -> CreateSecurityGroupRespo
 def unmarshal_CreateSecurityGroupRuleResponse(
     data: Any,
 ) -> CreateSecurityGroupRuleResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'CreateSecurityGroupRuleResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'CreateSecurityGroupRuleResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1343,9 +1355,9 @@ def unmarshal_CreateSecurityGroupRuleResponse(
 
 
 def unmarshal_CreateServerResponse(data: Any) -> CreateServerResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'CreateServerResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'CreateServerResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1357,9 +1369,9 @@ def unmarshal_CreateServerResponse(data: Any) -> CreateServerResponse:
 
 
 def unmarshal_CreateSnapshotResponse(data: Any) -> CreateSnapshotResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'CreateSnapshotResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'CreateSnapshotResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1374,9 +1386,9 @@ def unmarshal_CreateSnapshotResponse(data: Any) -> CreateSnapshotResponse:
 
 
 def unmarshal_CreateVolumeResponse(data: Any) -> CreateVolumeResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'CreateVolumeResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'CreateVolumeResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1388,9 +1400,9 @@ def unmarshal_CreateVolumeResponse(data: Any) -> CreateVolumeResponse:
 
 
 def unmarshal_ExportSnapshotResponse(data: Any) -> ExportSnapshotResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ExportSnapshotResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ExportSnapshotResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1402,9 +1414,9 @@ def unmarshal_ExportSnapshotResponse(data: Any) -> ExportSnapshotResponse:
 
 
 def unmarshal_GetBootscriptResponse(data: Any) -> GetBootscriptResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'GetBootscriptResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'GetBootscriptResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1416,9 +1428,9 @@ def unmarshal_GetBootscriptResponse(data: Any) -> GetBootscriptResponse:
 
 
 def unmarshal_GetDashboardResponse(data: Any) -> GetDashboardResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'GetDashboardResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'GetDashboardResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1430,9 +1442,9 @@ def unmarshal_GetDashboardResponse(data: Any) -> GetDashboardResponse:
 
 
 def unmarshal_GetImageResponse(data: Any) -> GetImageResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'GetImageResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'GetImageResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1444,9 +1456,9 @@ def unmarshal_GetImageResponse(data: Any) -> GetImageResponse:
 
 
 def unmarshal_GetIpResponse(data: Any) -> GetIpResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'GetIpResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'GetIpResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1458,9 +1470,9 @@ def unmarshal_GetIpResponse(data: Any) -> GetIpResponse:
 
 
 def unmarshal_GetPlacementGroupResponse(data: Any) -> GetPlacementGroupResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'GetPlacementGroupResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'GetPlacementGroupResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1476,9 +1488,9 @@ def unmarshal_GetPlacementGroupResponse(data: Any) -> GetPlacementGroupResponse:
 def unmarshal_GetPlacementGroupServersResponse(
     data: Any,
 ) -> GetPlacementGroupServersResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'GetPlacementGroupServersResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'GetPlacementGroupServersResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1494,9 +1506,9 @@ def unmarshal_GetPlacementGroupServersResponse(
 
 
 def unmarshal_GetPrivateNICResponse(data: Any) -> GetPrivateNICResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'GetPrivateNICResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'GetPrivateNICResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1508,9 +1520,9 @@ def unmarshal_GetPrivateNICResponse(data: Any) -> GetPrivateNICResponse:
 
 
 def unmarshal_GetSecurityGroupResponse(data: Any) -> GetSecurityGroupResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'GetSecurityGroupResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'GetSecurityGroupResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1524,9 +1536,9 @@ def unmarshal_GetSecurityGroupResponse(data: Any) -> GetSecurityGroupResponse:
 
 
 def unmarshal_GetSecurityGroupRuleResponse(data: Any) -> GetSecurityGroupRuleResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'GetSecurityGroupRuleResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'GetSecurityGroupRuleResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1538,9 +1550,9 @@ def unmarshal_GetSecurityGroupRuleResponse(data: Any) -> GetSecurityGroupRuleRes
 
 
 def unmarshal_GetServerResponse(data: Any) -> GetServerResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'GetServerResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'GetServerResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1554,9 +1566,9 @@ def unmarshal_GetServerResponse(data: Any) -> GetServerResponse:
 def unmarshal_GetServerTypesAvailabilityResponse(
     data: Any,
 ) -> GetServerTypesAvailabilityResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'GetServerTypesAvailabilityResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'GetServerTypesAvailabilityResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1578,9 +1590,9 @@ def unmarshal_GetServerTypesAvailabilityResponse(
 
 
 def unmarshal_GetSnapshotResponse(data: Any) -> GetSnapshotResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'GetSnapshotResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'GetSnapshotResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1592,9 +1604,9 @@ def unmarshal_GetSnapshotResponse(data: Any) -> GetSnapshotResponse:
 
 
 def unmarshal_GetVolumeResponse(data: Any) -> GetVolumeResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'GetVolumeResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'GetVolumeResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1606,9 +1618,9 @@ def unmarshal_GetVolumeResponse(data: Any) -> GetVolumeResponse:
 
 
 def unmarshal_ListBootscriptsResponse(data: Any) -> ListBootscriptsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListBootscriptsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListBootscriptsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1625,9 +1637,9 @@ def unmarshal_ListBootscriptsResponse(data: Any) -> ListBootscriptsResponse:
 
 
 def unmarshal_ListImagesResponse(data: Any) -> ListImagesResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListImagesResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListImagesResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1642,9 +1654,9 @@ def unmarshal_ListImagesResponse(data: Any) -> ListImagesResponse:
 
 
 def unmarshal_ListIpsResponse(data: Any) -> ListIpsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListIpsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListIpsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1659,9 +1671,9 @@ def unmarshal_ListIpsResponse(data: Any) -> ListIpsResponse:
 
 
 def unmarshal_ListPlacementGroupsResponse(data: Any) -> ListPlacementGroupsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListPlacementGroupsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListPlacementGroupsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1678,9 +1690,9 @@ def unmarshal_ListPlacementGroupsResponse(data: Any) -> ListPlacementGroupsRespo
 
 
 def unmarshal_ListPrivateNICsResponse(data: Any) -> ListPrivateNICsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListPrivateNICsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListPrivateNICsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1699,9 +1711,9 @@ def unmarshal_ListPrivateNICsResponse(data: Any) -> ListPrivateNICsResponse:
 def unmarshal_ListSecurityGroupRulesResponse(
     data: Any,
 ) -> ListSecurityGroupRulesResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListSecurityGroupRulesResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListSecurityGroupRulesResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1718,9 +1730,9 @@ def unmarshal_ListSecurityGroupRulesResponse(
 
 
 def unmarshal_ListSecurityGroupsResponse(data: Any) -> ListSecurityGroupsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListSecurityGroupsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListSecurityGroupsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1737,9 +1749,9 @@ def unmarshal_ListSecurityGroupsResponse(data: Any) -> ListSecurityGroupsRespons
 
 
 def unmarshal_ListServerActionsResponse(data: Any) -> ListServerActionsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListServerActionsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListServerActionsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1751,9 +1763,9 @@ def unmarshal_ListServerActionsResponse(data: Any) -> ListServerActionsResponse:
 
 
 def unmarshal_ListServerUserDataResponse(data: Any) -> ListServerUserDataResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListServerUserDataResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListServerUserDataResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1765,9 +1777,9 @@ def unmarshal_ListServerUserDataResponse(data: Any) -> ListServerUserDataRespons
 
 
 def unmarshal_ListServersResponse(data: Any) -> ListServersResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListServersResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListServersResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1784,9 +1796,9 @@ def unmarshal_ListServersResponse(data: Any) -> ListServersResponse:
 
 
 def unmarshal_ListServersTypesResponse(data: Any) -> ListServersTypesResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListServersTypesResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListServersTypesResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1805,9 +1817,9 @@ def unmarshal_ListServersTypesResponse(data: Any) -> ListServersTypesResponse:
 
 
 def unmarshal_ListSnapshotsResponse(data: Any) -> ListSnapshotsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListSnapshotsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListSnapshotsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1824,9 +1836,9 @@ def unmarshal_ListSnapshotsResponse(data: Any) -> ListSnapshotsResponse:
 
 
 def unmarshal_ListVolumesResponse(data: Any) -> ListVolumesResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListVolumesResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListVolumesResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1843,9 +1855,9 @@ def unmarshal_ListVolumesResponse(data: Any) -> ListVolumesResponse:
 
 
 def unmarshal_ListVolumesTypesResponse(data: Any) -> ListVolumesTypesResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListVolumesTypesResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListVolumesTypesResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1864,9 +1876,9 @@ def unmarshal_ListVolumesTypesResponse(data: Any) -> ListVolumesTypesResponse:
 
 
 def unmarshal_ServerActionResponse(data: Any) -> ServerActionResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ServerActionResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ServerActionResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1878,9 +1890,9 @@ def unmarshal_ServerActionResponse(data: Any) -> ServerActionResponse:
 
 
 def unmarshal_SetPlacementGroupResponse(data: Any) -> SetPlacementGroupResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'SetPlacementGroupResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'SetPlacementGroupResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1896,9 +1908,9 @@ def unmarshal_SetPlacementGroupResponse(data: Any) -> SetPlacementGroupResponse:
 def unmarshal_SetPlacementGroupServersResponse(
     data: Any,
 ) -> SetPlacementGroupServersResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'SetPlacementGroupServersResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'SetPlacementGroupServersResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1914,9 +1926,9 @@ def unmarshal_SetPlacementGroupServersResponse(
 
 
 def unmarshal_SetSecurityGroupRulesResponse(data: Any) -> SetSecurityGroupRulesResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'SetSecurityGroupRulesResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'SetSecurityGroupRulesResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1930,9 +1942,9 @@ def unmarshal_SetSecurityGroupRulesResponse(data: Any) -> SetSecurityGroupRulesR
 
 
 def unmarshal_UpdateIpResponse(data: Any) -> UpdateIpResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'UpdateIpResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'UpdateIpResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1944,9 +1956,9 @@ def unmarshal_UpdateIpResponse(data: Any) -> UpdateIpResponse:
 
 
 def unmarshal_UpdatePlacementGroupResponse(data: Any) -> UpdatePlacementGroupResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'UpdatePlacementGroupResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'UpdatePlacementGroupResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1962,9 +1974,9 @@ def unmarshal_UpdatePlacementGroupResponse(data: Any) -> UpdatePlacementGroupRes
 def unmarshal_UpdatePlacementGroupServersResponse(
     data: Any,
 ) -> UpdatePlacementGroupServersResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'UpdatePlacementGroupServersResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'UpdatePlacementGroupServersResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1980,9 +1992,9 @@ def unmarshal_UpdatePlacementGroupServersResponse(
 
 
 def unmarshal_UpdateServerResponse(data: Any) -> UpdateServerResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'UpdateServerResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'UpdateServerResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -1994,9 +2006,9 @@ def unmarshal_UpdateServerResponse(data: Any) -> UpdateServerResponse:
 
 
 def unmarshal_UpdateVolumeResponse(data: Any) -> UpdateVolumeResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'UpdateVolumeResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'UpdateVolumeResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -2008,9 +2020,9 @@ def unmarshal_UpdateVolumeResponse(data: Any) -> UpdateVolumeResponse:
 
 
 def unmarshal__SetImageResponse(data: Any) -> _SetImageResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type '_SetImageResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type '_SetImageResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -2022,9 +2034,9 @@ def unmarshal__SetImageResponse(data: Any) -> _SetImageResponse:
 
 
 def unmarshal__SetSecurityGroupResponse(data: Any) -> _SetSecurityGroupResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type '_SetSecurityGroupResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type '_SetSecurityGroupResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -2038,9 +2050,9 @@ def unmarshal__SetSecurityGroupResponse(data: Any) -> _SetSecurityGroupResponse:
 
 
 def unmarshal__SetSecurityGroupRuleResponse(data: Any) -> _SetSecurityGroupRuleResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type '_SetSecurityGroupRuleResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type '_SetSecurityGroupRuleResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -2052,9 +2064,9 @@ def unmarshal__SetSecurityGroupRuleResponse(data: Any) -> _SetSecurityGroupRuleR
 
 
 def unmarshal__SetServerResponse(data: Any) -> _SetServerResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type '_SetServerResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type '_SetServerResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -2066,9 +2078,9 @@ def unmarshal__SetServerResponse(data: Any) -> _SetServerResponse:
 
 
 def unmarshal__SetSnapshotResponse(data: Any) -> _SetSnapshotResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type '_SetSnapshotResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type '_SetSnapshotResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}

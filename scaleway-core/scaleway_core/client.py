@@ -1,8 +1,5 @@
 from __future__ import annotations
 
-import logging
-from dataclasses import dataclass
-from typing import Optional
 
 from scaleway_core.profile import Profile
 from scaleway_core.validations.string_validation import (

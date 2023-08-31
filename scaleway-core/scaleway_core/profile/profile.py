@@ -5,7 +5,6 @@ import logging
 import os
 from dataclasses import dataclass
 from typing import Optional, Type, TypeVar
-import sys
 
 import yaml
 from scaleway_core import __version__
@@ -141,7 +140,7 @@ class Profile(ProfileDefaults, ProfileConfig):
         with open(filepath, "r") as f:
             config = yaml.safe_load(f)
 
-            if type(config) is not dict:
+            if not isinstance(config, dict):
                 raise ValueError("Invalid config file")
 
             profile = cls()
@@ -155,7 +154,7 @@ class Profile(ProfileDefaults, ProfileConfig):
             if profile_name is not None and profile_name != "default":
                 has_profile = (
                     "profiles" in config
-                    and type(config["profiles"]) is dict
+                    and isinstance(config["profiles"], dict)
                     and profile_name in config["profiles"]
                 )
 
@@ -164,7 +163,7 @@ class Profile(ProfileDefaults, ProfileConfig):
 
                 overrides = config["profiles"][profile_name]
 
-                if type(overrides) is not dict:
+                if not isinstance(overrides, dict):
                     raise ValueError(f"Invalid profile '{profile_name}'")
 
                 for (

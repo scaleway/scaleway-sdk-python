@@ -25,9 +25,9 @@ from .types import (
 
 
 def unmarshal_DomainStatistics(data: Any) -> DomainStatistics:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'DomainStatistics' failed as data isn't a dictionary."
+            "Unmarshalling the type 'DomainStatistics' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -48,9 +48,9 @@ def unmarshal_DomainStatistics(data: Any) -> DomainStatistics:
 
 
 def unmarshal_EmailTry(data: Any) -> EmailTry:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'EmailTry' failed as data isn't a dictionary."
+            "Unmarshalling the type 'EmailTry' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -65,21 +65,21 @@ def unmarshal_EmailTry(data: Any) -> EmailTry:
     args["rank"] = field
 
     field = data.get("tried_at", None)
-    args["tried_at"] = parser.isoparse(field) if type(field) is str else field
+    args["tried_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return EmailTry(**args)
 
 
 def unmarshal_Domain(data: Any) -> Domain:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Domain' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Domain' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("dkim_config", None)
     args["dkim_config"] = field
@@ -91,13 +91,13 @@ def unmarshal_Domain(data: Any) -> Domain:
     args["last_error"] = field
 
     field = data.get("last_valid_at", None)
-    args["last_valid_at"] = parser.isoparse(field) if type(field) is str else field
+    args["last_valid_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("name", None)
     args["name"] = field
 
     field = data.get("next_check_at", None)
-    args["next_check_at"] = parser.isoparse(field) if type(field) is str else field
+    args["next_check_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("organization_id", None)
     args["organization_id"] = field
@@ -109,7 +109,7 @@ def unmarshal_Domain(data: Any) -> Domain:
     args["region"] = field
 
     field = data.get("revoked_at", None)
-    args["revoked_at"] = parser.isoparse(field) if type(field) is str else field
+    args["revoked_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("spf_config", None)
     args["spf_config"] = field
@@ -126,9 +126,9 @@ def unmarshal_Domain(data: Any) -> Domain:
 
 
 def unmarshal_DomainLastStatusDkimRecord(data: Any) -> DomainLastStatusDkimRecord:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'DomainLastStatusDkimRecord' failed as data isn't a dictionary."
+            "Unmarshalling the type 'DomainLastStatusDkimRecord' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -137,7 +137,7 @@ def unmarshal_DomainLastStatusDkimRecord(data: Any) -> DomainLastStatusDkimRecor
     args["error"] = field
 
     field = data.get("last_valid_at", None)
-    args["last_valid_at"] = parser.isoparse(field) if type(field) is str else field
+    args["last_valid_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("status", None)
     args["status"] = field
@@ -146,9 +146,9 @@ def unmarshal_DomainLastStatusDkimRecord(data: Any) -> DomainLastStatusDkimRecor
 
 
 def unmarshal_DomainLastStatusSpfRecord(data: Any) -> DomainLastStatusSpfRecord:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'DomainLastStatusSpfRecord' failed as data isn't a dictionary."
+            "Unmarshalling the type 'DomainLastStatusSpfRecord' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -157,7 +157,7 @@ def unmarshal_DomainLastStatusSpfRecord(data: Any) -> DomainLastStatusSpfRecord:
     args["error"] = field
 
     field = data.get("last_valid_at", None)
-    args["last_valid_at"] = parser.isoparse(field) if type(field) is str else field
+    args["last_valid_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("status", None)
     args["status"] = field
@@ -166,15 +166,15 @@ def unmarshal_DomainLastStatusSpfRecord(data: Any) -> DomainLastStatusSpfRecord:
 
 
 def unmarshal_Email(data: Any) -> Email:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Email' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Email' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("flags", None)
     args["flags"] = field
@@ -218,15 +218,15 @@ def unmarshal_Email(data: Any) -> Email:
     args["try_count"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return Email(**args)
 
 
 def unmarshal_CreateEmailResponse(data: Any) -> CreateEmailResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'CreateEmailResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'CreateEmailResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -238,9 +238,9 @@ def unmarshal_CreateEmailResponse(data: Any) -> CreateEmailResponse:
 
 
 def unmarshal_DomainLastStatus(data: Any) -> DomainLastStatus:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'DomainLastStatus' failed as data isn't a dictionary."
+            "Unmarshalling the type 'DomainLastStatus' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -265,9 +265,9 @@ def unmarshal_DomainLastStatus(data: Any) -> DomainLastStatus:
 
 
 def unmarshal_ListDomainsResponse(data: Any) -> ListDomainsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListDomainsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListDomainsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -284,9 +284,9 @@ def unmarshal_ListDomainsResponse(data: Any) -> ListDomainsResponse:
 
 
 def unmarshal_ListEmailsResponse(data: Any) -> ListEmailsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListEmailsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListEmailsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -301,9 +301,9 @@ def unmarshal_ListEmailsResponse(data: Any) -> ListEmailsResponse:
 
 
 def unmarshal_Statistics(data: Any) -> Statistics:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Statistics' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Statistics' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}

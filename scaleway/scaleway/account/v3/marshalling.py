@@ -14,15 +14,15 @@ from .types import (
 
 
 def unmarshal_Project(data: Any) -> Project:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Project' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Project' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("description", None)
     args["description"] = field
@@ -37,15 +37,15 @@ def unmarshal_Project(data: Any) -> Project:
     args["organization_id"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return Project(**args)
 
 
 def unmarshal_ListProjectsResponse(data: Any) -> ListProjectsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListProjectsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListProjectsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
