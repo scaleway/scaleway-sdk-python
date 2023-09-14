@@ -1054,12 +1054,15 @@ class CreateGatewayNetworkRequest:
 
     enable_masquerade: bool
     """
-    Defines whether to enable masquerade (dynamic NAT) on this network.
+    Defines whether to enable masquerade (dynamic NAT) on the GatewayNetwork.
+    Note: this setting is ignored when passing `ipam_config`.
     """
 
     enable_dhcp: Optional[bool]
     """
-    Defines whether to enable DHCP on this Private Network. Defaults to `true` if either `dhcp_id` or `dhcp` are present. If set to `true`, either `dhcp_id` or `dhcp` must be present.
+    Defines whether to enable DHCP on this Private Network.
+    Defaults to `true` if either `dhcp_id` or `dhcp` are present. If set to `true`, either `dhcp_id` or `dhcp` must be present.
+    Note: this setting is ignored when passing `ipam_config`.
     """
 
     dhcp_id: Optional[str]
@@ -1107,11 +1110,14 @@ class UpdateGatewayNetworkRequest:
     enable_masquerade: Optional[bool]
     """
     Defines whether to enable masquerade (dynamic NAT) on the GatewayNetwork.
+    Note: this setting is ignored when passing `ipam_config`.
     """
 
     enable_dhcp: Optional[bool]
     """
-    Defines whether to enable DHCP on the connected Private Network.
+    Defines whether to enable DHCP on this Private Network.
+    Defaults to `true` if `dhcp_id` is present. If set to `true`, `dhcp_id` must be present.
+    Note: this setting is ignored when passing `ipam_config`.
     """
 
     dhcp_id: Optional[str]
@@ -1130,7 +1136,8 @@ class UpdateGatewayNetworkRequest:
 
     ipam_config: Optional[IpamConfig]
     """
-    New IPAM configuration to use for this GatewayNetwork.
+    Auto-configure the GatewayNetwork using Scaleway's IPAM (IP address management service).
+    Note: all or none of the GatewayNetworks for a single gateway can use the IPAM. DHCP and IPAM configurations cannot be mixed. Some products may require that the Public Gateway uses the IPAM, to ensure correct functionality.
     
     One-of ('ip_config'): at most one of 'dhcp_id', 'address', 'ipam_config' could be set.
     """
