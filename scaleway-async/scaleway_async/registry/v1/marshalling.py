@@ -26,7 +26,7 @@ from .types import (
 def unmarshal_Image(data: Any) -> Image:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Image' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Image' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -67,7 +67,7 @@ def unmarshal_Image(data: Any) -> Image:
 def unmarshal_Namespace(data: Any) -> Namespace:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Namespace' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Namespace' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -120,7 +120,7 @@ def unmarshal_Namespace(data: Any) -> Namespace:
 def unmarshal_Tag(data: Any) -> Tag:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Tag' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Tag' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -152,7 +152,7 @@ def unmarshal_Tag(data: Any) -> Tag:
 def unmarshal_ListImagesResponse(data: Any) -> ListImagesResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListImagesResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListImagesResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -169,7 +169,7 @@ def unmarshal_ListImagesResponse(data: Any) -> ListImagesResponse:
 def unmarshal_ListNamespacesResponse(data: Any) -> ListNamespacesResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListNamespacesResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListNamespacesResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -188,7 +188,7 @@ def unmarshal_ListNamespacesResponse(data: Any) -> ListNamespacesResponse:
 def unmarshal_ListTagsResponse(data: Any) -> ListTagsResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListTagsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListTagsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}

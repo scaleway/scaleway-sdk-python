@@ -27,7 +27,7 @@ from .types import (
 def unmarshal_DomainStatistics(data: Any) -> DomainStatistics:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'DomainStatistics' failed as data isn't a dictionary."
+            "Unmarshalling the type 'DomainStatistics' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -50,7 +50,7 @@ def unmarshal_DomainStatistics(data: Any) -> DomainStatistics:
 def unmarshal_EmailTry(data: Any) -> EmailTry:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'EmailTry' failed as data isn't a dictionary."
+            "Unmarshalling the type 'EmailTry' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -73,7 +73,7 @@ def unmarshal_EmailTry(data: Any) -> EmailTry:
 def unmarshal_Domain(data: Any) -> Domain:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Domain' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Domain' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -128,7 +128,7 @@ def unmarshal_Domain(data: Any) -> Domain:
 def unmarshal_DomainLastStatusDkimRecord(data: Any) -> DomainLastStatusDkimRecord:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'DomainLastStatusDkimRecord' failed as data isn't a dictionary."
+            "Unmarshalling the type 'DomainLastStatusDkimRecord' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -148,7 +148,7 @@ def unmarshal_DomainLastStatusDkimRecord(data: Any) -> DomainLastStatusDkimRecor
 def unmarshal_DomainLastStatusSpfRecord(data: Any) -> DomainLastStatusSpfRecord:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'DomainLastStatusSpfRecord' failed as data isn't a dictionary."
+            "Unmarshalling the type 'DomainLastStatusSpfRecord' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -168,7 +168,7 @@ def unmarshal_DomainLastStatusSpfRecord(data: Any) -> DomainLastStatusSpfRecord:
 def unmarshal_Email(data: Any) -> Email:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Email' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Email' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -226,7 +226,7 @@ def unmarshal_Email(data: Any) -> Email:
 def unmarshal_CreateEmailResponse(data: Any) -> CreateEmailResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'CreateEmailResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'CreateEmailResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -240,7 +240,7 @@ def unmarshal_CreateEmailResponse(data: Any) -> CreateEmailResponse:
 def unmarshal_DomainLastStatus(data: Any) -> DomainLastStatus:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'DomainLastStatus' failed as data isn't a dictionary."
+            "Unmarshalling the type 'DomainLastStatus' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -267,7 +267,7 @@ def unmarshal_DomainLastStatus(data: Any) -> DomainLastStatus:
 def unmarshal_ListDomainsResponse(data: Any) -> ListDomainsResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListDomainsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListDomainsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -286,7 +286,7 @@ def unmarshal_ListDomainsResponse(data: Any) -> ListDomainsResponse:
 def unmarshal_ListEmailsResponse(data: Any) -> ListEmailsResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListEmailsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListEmailsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -303,7 +303,7 @@ def unmarshal_ListEmailsResponse(data: Any) -> ListEmailsResponse:
 def unmarshal_Statistics(data: Any) -> Statistics:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Statistics' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Statistics' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}

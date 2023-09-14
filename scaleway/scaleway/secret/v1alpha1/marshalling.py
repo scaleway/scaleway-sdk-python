@@ -34,7 +34,7 @@ from .types import (
 def unmarshal_Folder(data: Any) -> Folder:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Folder' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Folder' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -60,7 +60,7 @@ def unmarshal_Folder(data: Any) -> Folder:
 def unmarshal_Secret(data: Any) -> Secret:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Secret' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Secret' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -113,7 +113,7 @@ def unmarshal_Secret(data: Any) -> Secret:
 def unmarshal_SecretVersion(data: Any) -> SecretVersion:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'SecretVersion' failed as data isn't a dictionary."
+            "Unmarshalling the type 'SecretVersion' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -145,7 +145,7 @@ def unmarshal_SecretVersion(data: Any) -> SecretVersion:
 def unmarshal_AccessSecretVersionResponse(data: Any) -> AccessSecretVersionResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'AccessSecretVersionResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'AccessSecretVersionResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -168,7 +168,7 @@ def unmarshal_AccessSecretVersionResponse(data: Any) -> AccessSecretVersionRespo
 def unmarshal_ListFoldersResponse(data: Any) -> ListFoldersResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListFoldersResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListFoldersResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -187,7 +187,7 @@ def unmarshal_ListFoldersResponse(data: Any) -> ListFoldersResponse:
 def unmarshal_ListSecretVersionsResponse(data: Any) -> ListSecretVersionsResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListSecretVersionsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListSecretVersionsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -206,7 +206,7 @@ def unmarshal_ListSecretVersionsResponse(data: Any) -> ListSecretVersionsRespons
 def unmarshal_ListSecretsResponse(data: Any) -> ListSecretsResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListSecretsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListSecretsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -225,7 +225,7 @@ def unmarshal_ListSecretsResponse(data: Any) -> ListSecretsResponse:
 def unmarshal_ListTagsResponse(data: Any) -> ListTagsResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListTagsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListTagsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}

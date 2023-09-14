@@ -211,7 +211,7 @@ class DomainV2Beta1API(API):
 
         res = self._request(
             "GET",
-            f"/domain/v2beta1/dns-zones",
+            "/domain/v2beta1/dns-zones",
             params={
                 "created_after": created_after,
                 "created_before": created_before,
@@ -317,7 +317,7 @@ class DomainV2Beta1API(API):
 
         res = self._request(
             "POST",
-            f"/domain/v2beta1/dns-zones",
+            "/domain/v2beta1/dns-zones",
             body=marshal_CreateDNSZoneRequest(
                 CreateDNSZoneRequest(
                     domain=domain,
@@ -1160,7 +1160,7 @@ class DomainV2Beta1API(API):
 
         res = self._request(
             "POST",
-            f"/domain/v2beta1/ssl-certificates",
+            "/domain/v2beta1/ssl-certificates",
             body=marshal_CreateSSLCertificateRequest(
                 CreateSSLCertificateRequest(
                     dns_zone=dns_zone,
@@ -1198,7 +1198,7 @@ class DomainV2Beta1API(API):
 
         res = self._request(
             "GET",
-            f"/domain/v2beta1/ssl-certificates",
+            "/domain/v2beta1/ssl-certificates",
             params={
                 "dns_zone": dns_zone,
                 "page": page,
@@ -1368,7 +1368,7 @@ class DomainRegistrarV2Beta1API(API):
 
         res = self._request(
             "GET",
-            f"/domain/v2beta1/tasks",
+            "/domain/v2beta1/tasks",
             params={
                 "domain": domain,
                 "order_by": order_by,
@@ -1472,7 +1472,7 @@ class DomainRegistrarV2Beta1API(API):
 
         res = self._request(
             "POST",
-            f"/domain/v2beta1/buy-domains",
+            "/domain/v2beta1/buy-domains",
             body=marshal_RegistrarApiBuyDomainsRequest(
                 RegistrarApiBuyDomainsRequest(
                     domains=domains,
@@ -1518,7 +1518,7 @@ class DomainRegistrarV2Beta1API(API):
 
         res = self._request(
             "POST",
-            f"/domain/v2beta1/renew-domains",
+            "/domain/v2beta1/renew-domains",
             body=marshal_RegistrarApiRenewDomainsRequest(
                 RegistrarApiRenewDomainsRequest(
                     domains=domains,
@@ -1565,7 +1565,7 @@ class DomainRegistrarV2Beta1API(API):
 
         res = self._request(
             "POST",
-            f"/domain/v2beta1/domains/transfer-domains",
+            "/domain/v2beta1/domains/transfer-domains",
             body=marshal_RegistrarApiTransferInDomainRequest(
                 RegistrarApiTransferInDomainRequest(
                     domains=domains,
@@ -1650,7 +1650,7 @@ class DomainRegistrarV2Beta1API(API):
 
         res = self._request(
             "POST",
-            f"/domain/v2beta1/external-domains",
+            "/domain/v2beta1/external-domains",
             body=marshal_RegistrarApiRegisterExternalDomainRequest(
                 RegistrarApiRegisterExternalDomainRequest(
                     domain=domain,
@@ -1724,7 +1724,7 @@ class DomainRegistrarV2Beta1API(API):
 
         res = self._request(
             "POST",
-            f"/domain/v2beta1/check-contacts-compatibility",
+            "/domain/v2beta1/check-contacts-compatibility",
             body=marshal_RegistrarApiCheckContactsCompatibilityRequest(
                 RegistrarApiCheckContactsCompatibilityRequest(
                     domains=domains,
@@ -1775,7 +1775,7 @@ class DomainRegistrarV2Beta1API(API):
 
         res = self._request(
             "GET",
-            f"/domain/v2beta1/contacts",
+            "/domain/v2beta1/contacts",
             params={
                 "domain": domain,
                 "email_status": email_status,
@@ -1991,7 +1991,7 @@ class DomainRegistrarV2Beta1API(API):
 
         res = self._request(
             "GET",
-            f"/domain/v2beta1/domains",
+            "/domain/v2beta1/domains",
             params={
                 "domain": domain,
                 "is_external": is_external,
@@ -2086,7 +2086,7 @@ class DomainRegistrarV2Beta1API(API):
 
         res = self._request(
             "GET",
-            f"/domain/v2beta1/renewable-domains",
+            "/domain/v2beta1/renewable-domains",
             params={
                 "order_by": order_by,
                 "organization_id": organization_id
@@ -2476,7 +2476,7 @@ class DomainRegistrarV2Beta1API(API):
 
         res = self._request(
             "GET",
-            f"/domain/v2beta1/search-domains",
+            "/domain/v2beta1/search-domains",
             params={
                 "domains": domains,
                 "strict_search": strict_search,

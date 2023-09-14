@@ -54,7 +54,7 @@ from .types import (
 def unmarshal_APIKey(data: Any) -> APIKey:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'APIKey' failed as data isn't a dictionary."
+            "Unmarshalling the type 'APIKey' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -98,7 +98,7 @@ def unmarshal_APIKey(data: Any) -> APIKey:
 def unmarshal_Application(data: Any) -> Application:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Application' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Application' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -133,7 +133,7 @@ def unmarshal_Application(data: Any) -> Application:
 def unmarshal_Group(data: Any) -> Group:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Group' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Group' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -168,7 +168,7 @@ def unmarshal_Group(data: Any) -> Group:
 def unmarshal_JWT(data: Any) -> JWT:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'JWT' failed as data isn't a dictionary."
+            "Unmarshalling the type 'JWT' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -203,7 +203,7 @@ def unmarshal_JWT(data: Any) -> JWT:
 def unmarshal_PermissionSet(data: Any) -> PermissionSet:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'PermissionSet' failed as data isn't a dictionary."
+            "Unmarshalling the type 'PermissionSet' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -229,7 +229,7 @@ def unmarshal_PermissionSet(data: Any) -> PermissionSet:
 def unmarshal_Policy(data: Any) -> Policy:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Policy' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Policy' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -282,7 +282,7 @@ def unmarshal_Policy(data: Any) -> Policy:
 def unmarshal_Quotum(data: Any) -> Quotum:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Quotum' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Quotum' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -302,7 +302,7 @@ def unmarshal_Quotum(data: Any) -> Quotum:
 def unmarshal_Rule(data: Any) -> Rule:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Rule' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Rule' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -331,7 +331,7 @@ def unmarshal_Rule(data: Any) -> Rule:
 def unmarshal_SSHKey(data: Any) -> SSHKey:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'SSHKey' failed as data isn't a dictionary."
+            "Unmarshalling the type 'SSHKey' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -369,7 +369,7 @@ def unmarshal_SSHKey(data: Any) -> SSHKey:
 def unmarshal_User(data: Any) -> User:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'User' failed as data isn't a dictionary."
+            "Unmarshalling the type 'User' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -416,7 +416,7 @@ def unmarshal_User(data: Any) -> User:
 def unmarshal_ListAPIKeysResponse(data: Any) -> ListAPIKeysResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListAPIKeysResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListAPIKeysResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -435,7 +435,7 @@ def unmarshal_ListAPIKeysResponse(data: Any) -> ListAPIKeysResponse:
 def unmarshal_ListApplicationsResponse(data: Any) -> ListApplicationsResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListApplicationsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListApplicationsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -454,7 +454,7 @@ def unmarshal_ListApplicationsResponse(data: Any) -> ListApplicationsResponse:
 def unmarshal_ListGroupsResponse(data: Any) -> ListGroupsResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListGroupsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListGroupsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -471,7 +471,7 @@ def unmarshal_ListGroupsResponse(data: Any) -> ListGroupsResponse:
 def unmarshal_ListJWTsResponse(data: Any) -> ListJWTsResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListJWTsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListJWTsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -488,7 +488,7 @@ def unmarshal_ListJWTsResponse(data: Any) -> ListJWTsResponse:
 def unmarshal_ListPermissionSetsResponse(data: Any) -> ListPermissionSetsResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListPermissionSetsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListPermissionSetsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -507,7 +507,7 @@ def unmarshal_ListPermissionSetsResponse(data: Any) -> ListPermissionSetsRespons
 def unmarshal_ListPoliciesResponse(data: Any) -> ListPoliciesResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListPoliciesResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListPoliciesResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -526,7 +526,7 @@ def unmarshal_ListPoliciesResponse(data: Any) -> ListPoliciesResponse:
 def unmarshal_ListQuotaResponse(data: Any) -> ListQuotaResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListQuotaResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListQuotaResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -543,7 +543,7 @@ def unmarshal_ListQuotaResponse(data: Any) -> ListQuotaResponse:
 def unmarshal_ListRulesResponse(data: Any) -> ListRulesResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListRulesResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListRulesResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -560,7 +560,7 @@ def unmarshal_ListRulesResponse(data: Any) -> ListRulesResponse:
 def unmarshal_ListSSHKeysResponse(data: Any) -> ListSSHKeysResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListSSHKeysResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListSSHKeysResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -579,7 +579,7 @@ def unmarshal_ListSSHKeysResponse(data: Any) -> ListSSHKeysResponse:
 def unmarshal_ListUsersResponse(data: Any) -> ListUsersResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListUsersResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListUsersResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -596,7 +596,7 @@ def unmarshal_ListUsersResponse(data: Any) -> ListUsersResponse:
 def unmarshal_SetRulesResponse(data: Any) -> SetRulesResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'SetRulesResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'SetRulesResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}

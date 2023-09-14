@@ -20,7 +20,7 @@ def unmarshal_GetConsumptionResponseConsumption(
 ) -> GetConsumptionResponseConsumption:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'GetConsumptionResponseConsumption' failed as data isn't a dictionary."
+            "Unmarshalling the type 'GetConsumptionResponseConsumption' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -46,7 +46,7 @@ def unmarshal_GetConsumptionResponseConsumption(
 def unmarshal_Invoice(data: Any) -> Invoice:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Invoice' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Invoice' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -81,7 +81,7 @@ def unmarshal_Invoice(data: Any) -> Invoice:
 def unmarshal_GetConsumptionResponse(data: Any) -> GetConsumptionResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'GetConsumptionResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'GetConsumptionResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -102,7 +102,7 @@ def unmarshal_GetConsumptionResponse(data: Any) -> GetConsumptionResponse:
 def unmarshal_ListInvoicesResponse(data: Any) -> ListInvoicesResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListInvoicesResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListInvoicesResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}

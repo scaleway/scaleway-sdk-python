@@ -32,7 +32,7 @@ from .types import (
 def unmarshal_Subnet(data: Any) -> Subnet:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Subnet' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Subnet' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -55,7 +55,7 @@ def unmarshal_Subnet(data: Any) -> Subnet:
 def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'PrivateNetwork' failed as data isn't a dictionary."
+            "Unmarshalling the type 'PrivateNetwork' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -101,7 +101,7 @@ def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
 def unmarshal_VPC(data: Any) -> VPC:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'VPC' failed as data isn't a dictionary."
+            "Unmarshalling the type 'VPC' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -142,7 +142,7 @@ def unmarshal_VPC(data: Any) -> VPC:
 def unmarshal_AddSubnetsResponse(data: Any) -> AddSubnetsResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'AddSubnetsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'AddSubnetsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -156,7 +156,7 @@ def unmarshal_AddSubnetsResponse(data: Any) -> AddSubnetsResponse:
 def unmarshal_DeleteSubnetsResponse(data: Any) -> DeleteSubnetsResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'DeleteSubnetsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'DeleteSubnetsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -170,7 +170,7 @@ def unmarshal_DeleteSubnetsResponse(data: Any) -> DeleteSubnetsResponse:
 def unmarshal_ListPrivateNetworksResponse(data: Any) -> ListPrivateNetworksResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListPrivateNetworksResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListPrivateNetworksResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -189,7 +189,7 @@ def unmarshal_ListPrivateNetworksResponse(data: Any) -> ListPrivateNetworksRespo
 def unmarshal_ListVPCsResponse(data: Any) -> ListVPCsResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListVPCsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListVPCsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -206,7 +206,7 @@ def unmarshal_ListVPCsResponse(data: Any) -> ListVPCsResponse:
 def unmarshal_SetSubnetsResponse(data: Any) -> SetSubnetsResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'SetSubnetsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'SetSubnetsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}

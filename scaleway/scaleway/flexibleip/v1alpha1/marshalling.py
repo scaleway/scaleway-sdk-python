@@ -25,7 +25,7 @@ from .types import (
 def unmarshal_MACAddress(data: Any) -> MACAddress:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'MACAddress' failed as data isn't a dictionary."
+            "Unmarshalling the type 'MACAddress' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -57,7 +57,7 @@ def unmarshal_MACAddress(data: Any) -> MACAddress:
 def unmarshal_FlexibleIP(data: Any) -> FlexibleIP:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'FlexibleIP' failed as data isn't a dictionary."
+            "Unmarshalling the type 'FlexibleIP' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -107,7 +107,7 @@ def unmarshal_FlexibleIP(data: Any) -> FlexibleIP:
 def unmarshal_AttachFlexibleIPsResponse(data: Any) -> AttachFlexibleIPsResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'AttachFlexibleIPsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'AttachFlexibleIPsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -126,7 +126,7 @@ def unmarshal_AttachFlexibleIPsResponse(data: Any) -> AttachFlexibleIPsResponse:
 def unmarshal_DetachFlexibleIPsResponse(data: Any) -> DetachFlexibleIPsResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'DetachFlexibleIPsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'DetachFlexibleIPsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -145,7 +145,7 @@ def unmarshal_DetachFlexibleIPsResponse(data: Any) -> DetachFlexibleIPsResponse:
 def unmarshal_ListFlexibleIPsResponse(data: Any) -> ListFlexibleIPsResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListFlexibleIPsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListFlexibleIPsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}

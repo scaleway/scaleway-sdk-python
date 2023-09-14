@@ -47,7 +47,7 @@ from .types import (
 def unmarshal_ContactPointEmail(data: Any) -> ContactPointEmail:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ContactPointEmail' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ContactPointEmail' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -61,7 +61,7 @@ def unmarshal_ContactPointEmail(data: Any) -> ContactPointEmail:
 def unmarshal_TokenScopes(data: Any) -> TokenScopes:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'TokenScopes' failed as data isn't a dictionary."
+            "Unmarshalling the type 'TokenScopes' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -99,7 +99,7 @@ def unmarshal_TokenScopes(data: Any) -> TokenScopes:
 def unmarshal_CockpitEndpoints(data: Any) -> CockpitEndpoints:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'CockpitEndpoints' failed as data isn't a dictionary."
+            "Unmarshalling the type 'CockpitEndpoints' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -122,7 +122,7 @@ def unmarshal_CockpitEndpoints(data: Any) -> CockpitEndpoints:
 def unmarshal_ContactPoint(data: Any) -> ContactPoint:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ContactPoint' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ContactPoint' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -136,7 +136,7 @@ def unmarshal_ContactPoint(data: Any) -> ContactPoint:
 def unmarshal_GrafanaUser(data: Any) -> GrafanaUser:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'GrafanaUser' failed as data isn't a dictionary."
+            "Unmarshalling the type 'GrafanaUser' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -159,7 +159,7 @@ def unmarshal_GrafanaUser(data: Any) -> GrafanaUser:
 def unmarshal_Plan(data: Any) -> Plan:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Plan' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Plan' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -191,7 +191,7 @@ def unmarshal_Plan(data: Any) -> Plan:
 def unmarshal_Token(data: Any) -> Token:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Token' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Token' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -223,7 +223,7 @@ def unmarshal_Token(data: Any) -> Token:
 def unmarshal_Cockpit(data: Any) -> Cockpit:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Cockpit' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Cockpit' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -255,7 +255,7 @@ def unmarshal_Cockpit(data: Any) -> Cockpit:
 def unmarshal_CockpitMetrics(data: Any) -> CockpitMetrics:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'CockpitMetrics' failed as data isn't a dictionary."
+            "Unmarshalling the type 'CockpitMetrics' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -271,7 +271,7 @@ def unmarshal_CockpitMetrics(data: Any) -> CockpitMetrics:
 def unmarshal_ListContactPointsResponse(data: Any) -> ListContactPointsResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListContactPointsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListContactPointsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -296,7 +296,7 @@ def unmarshal_ListContactPointsResponse(data: Any) -> ListContactPointsResponse:
 def unmarshal_ListGrafanaUsersResponse(data: Any) -> ListGrafanaUsersResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListGrafanaUsersResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListGrafanaUsersResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -315,7 +315,7 @@ def unmarshal_ListGrafanaUsersResponse(data: Any) -> ListGrafanaUsersResponse:
 def unmarshal_ListPlansResponse(data: Any) -> ListPlansResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListPlansResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListPlansResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -332,7 +332,7 @@ def unmarshal_ListPlansResponse(data: Any) -> ListPlansResponse:
 def unmarshal_ListTokensResponse(data: Any) -> ListTokensResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListTokensResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListTokensResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -349,7 +349,7 @@ def unmarshal_ListTokensResponse(data: Any) -> ListTokensResponse:
 def unmarshal_SelectPlanResponse(data: Any) -> SelectPlanResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'SelectPlanResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'SelectPlanResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}

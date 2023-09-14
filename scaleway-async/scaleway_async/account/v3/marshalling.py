@@ -16,7 +16,7 @@ from .types import (
 def unmarshal_Project(data: Any) -> Project:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Project' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Project' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -45,7 +45,7 @@ def unmarshal_Project(data: Any) -> Project:
 def unmarshal_ListProjectsResponse(data: Any) -> ListProjectsResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListProjectsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListProjectsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}

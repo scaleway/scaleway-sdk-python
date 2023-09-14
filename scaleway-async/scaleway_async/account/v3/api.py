@@ -54,7 +54,7 @@ class AccountProjectV3API(API):
 
         res = self._request(
             "POST",
-            f"/account/v3/projects",
+            "/account/v3/projects",
             body=marshal_ProjectApiCreateProjectRequest(
                 ProjectApiCreateProjectRequest(
                     description=description,
@@ -97,7 +97,7 @@ class AccountProjectV3API(API):
 
         res = self._request(
             "GET",
-            f"/account/v3/projects",
+            "/account/v3/projects",
             params={
                 "name": name,
                 "order_by": order_by,

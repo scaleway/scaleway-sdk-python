@@ -50,7 +50,7 @@ class BillingV2Alpha1API(API):
 
         res = self._request(
             "GET",
-            f"/billing/v2alpha1/consumption",
+            "/billing/v2alpha1/consumption",
             params={
                 "organization_id": organization_id
                 or self.client.default_organization_id,
@@ -81,7 +81,7 @@ class BillingV2Alpha1API(API):
 
         res = self._request(
             "GET",
-            f"/billing/v2alpha1/invoices",
+            "/billing/v2alpha1/invoices",
             params={
                 "invoice_type": invoice_type,
                 "order_by": order_by,

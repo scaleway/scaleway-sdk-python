@@ -50,7 +50,7 @@ from .types import (
 def unmarshal_DHCP(data: Any) -> DHCP:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'DHCP' failed as data isn't a dictionary."
+            "Unmarshalling the type 'DHCP' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -118,7 +118,7 @@ def unmarshal_DHCP(data: Any) -> DHCP:
 def unmarshal_GatewayNetwork(data: Any) -> GatewayNetwork:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'GatewayNetwork' failed as data isn't a dictionary."
+            "Unmarshalling the type 'GatewayNetwork' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -165,7 +165,7 @@ def unmarshal_GatewayNetwork(data: Any) -> GatewayNetwork:
 def unmarshal_GatewayType(data: Any) -> GatewayType:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'GatewayType' failed as data isn't a dictionary."
+            "Unmarshalling the type 'GatewayType' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -185,7 +185,7 @@ def unmarshal_GatewayType(data: Any) -> GatewayType:
 def unmarshal_IP(data: Any) -> IP:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'IP' failed as data isn't a dictionary."
+            "Unmarshalling the type 'IP' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -226,7 +226,7 @@ def unmarshal_IP(data: Any) -> IP:
 def unmarshal_DHCPEntry(data: Any) -> DHCPEntry:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'DHCPEntry' failed as data isn't a dictionary."
+            "Unmarshalling the type 'DHCPEntry' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -264,7 +264,7 @@ def unmarshal_DHCPEntry(data: Any) -> DHCPEntry:
 def unmarshal_Gateway(data: Any) -> Gateway:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Gateway' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Gateway' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -331,7 +331,7 @@ def unmarshal_Gateway(data: Any) -> Gateway:
 def unmarshal_PATRule(data: Any) -> PATRule:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'PATRule' failed as data isn't a dictionary."
+            "Unmarshalling the type 'PATRule' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -369,7 +369,7 @@ def unmarshal_PATRule(data: Any) -> PATRule:
 def unmarshal_ListDHCPEntriesResponse(data: Any) -> ListDHCPEntriesResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListDHCPEntriesResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListDHCPEntriesResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -388,7 +388,7 @@ def unmarshal_ListDHCPEntriesResponse(data: Any) -> ListDHCPEntriesResponse:
 def unmarshal_ListDHCPsResponse(data: Any) -> ListDHCPsResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListDHCPsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListDHCPsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -405,7 +405,7 @@ def unmarshal_ListDHCPsResponse(data: Any) -> ListDHCPsResponse:
 def unmarshal_ListGatewayNetworksResponse(data: Any) -> ListGatewayNetworksResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListGatewayNetworksResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListGatewayNetworksResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -424,7 +424,7 @@ def unmarshal_ListGatewayNetworksResponse(data: Any) -> ListGatewayNetworksRespo
 def unmarshal_ListGatewayTypesResponse(data: Any) -> ListGatewayTypesResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListGatewayTypesResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListGatewayTypesResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -440,7 +440,7 @@ def unmarshal_ListGatewayTypesResponse(data: Any) -> ListGatewayTypesResponse:
 def unmarshal_ListGatewaysResponse(data: Any) -> ListGatewaysResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListGatewaysResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListGatewaysResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -459,7 +459,7 @@ def unmarshal_ListGatewaysResponse(data: Any) -> ListGatewaysResponse:
 def unmarshal_ListIPsResponse(data: Any) -> ListIPsResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListIPsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListIPsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -476,7 +476,7 @@ def unmarshal_ListIPsResponse(data: Any) -> ListIPsResponse:
 def unmarshal_ListPATRulesResponse(data: Any) -> ListPATRulesResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListPATRulesResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListPATRulesResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -495,7 +495,7 @@ def unmarshal_ListPATRulesResponse(data: Any) -> ListPATRulesResponse:
 def unmarshal_SetDHCPEntriesResponse(data: Any) -> SetDHCPEntriesResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'SetDHCPEntriesResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'SetDHCPEntriesResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -511,7 +511,7 @@ def unmarshal_SetDHCPEntriesResponse(data: Any) -> SetDHCPEntriesResponse:
 def unmarshal_SetPATRulesResponse(data: Any) -> SetPATRulesResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'SetPATRulesResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'SetPATRulesResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}

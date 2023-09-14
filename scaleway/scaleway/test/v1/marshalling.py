@@ -23,7 +23,7 @@ from .types import (
 def unmarshal_Human(data: Any) -> Human:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Human' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Human' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -79,7 +79,7 @@ def unmarshal_Human(data: Any) -> Human:
 def unmarshal_ListHumansResponse(data: Any) -> ListHumansResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListHumansResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListHumansResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -96,7 +96,7 @@ def unmarshal_ListHumansResponse(data: Any) -> ListHumansResponse:
 def unmarshal_RegisterResponse(data: Any) -> RegisterResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'RegisterResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'RegisterResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}

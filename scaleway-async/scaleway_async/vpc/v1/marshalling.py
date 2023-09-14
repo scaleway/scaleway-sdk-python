@@ -16,7 +16,7 @@ from .types import (
 def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'PrivateNetwork' failed as data isn't a dictionary."
+            "Unmarshalling the type 'PrivateNetwork' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -54,7 +54,7 @@ def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
 def unmarshal_ListPrivateNetworksResponse(data: Any) -> ListPrivateNetworksResponse:
     if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListPrivateNetworksResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListPrivateNetworksResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
