@@ -44,6 +44,9 @@ class EmailFlag(str, Enum, metaclass=StrEnumMeta):
     HARD_BOUNCE = "hard_bounce"
     SPAM = "spam"
     MAILBOX_FULL = "mailbox_full"
+    MAILBOX_NOT_FOUND = "mailbox_not_found"
+    GREYLISTED = "greylisted"
+    SEND_BEFORE_EXPIRATION = "send_before_expiration"
 
     def __str__(self) -> str:
         return str(self.value)

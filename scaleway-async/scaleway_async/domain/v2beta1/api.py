@@ -1,6 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
+from datetime import datetime
 from typing import Awaitable, List, Optional, Union
 
 from scaleway_core.api import API
@@ -173,12 +174,17 @@ class DomainV2Beta1API(API):
         self,
         *,
         domain: str,
-        dns_zone: str,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         order_by: ListDNSZonesRequestOrderBy = ListDNSZonesRequestOrderBy.DOMAIN_ASC,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
+        dns_zone: Optional[str] = None,
+        dns_zones: Optional[List[str]] = None,
+        created_after: Optional[datetime] = None,
+        created_before: Optional[datetime] = None,
+        updated_after: Optional[datetime] = None,
+        updated_before: Optional[datetime] = None,
     ) -> ListDNSZonesResponse:
         """
         List DNS zones.
@@ -190,22 +196,27 @@ class DomainV2Beta1API(API):
         :param page_size: Maximum number of DNS zones to return per page.
         :param domain: Domain on which to filter the returned DNS zones.
         :param dns_zone: DNS zone on which to filter the returned DNS zones.
+        :param dns_zones: DNS zones on which to filter the returned DNS zones.
+        :param created_after: Only list DNS zones created after this date.
+        :param created_before: Only list DNS zones created before this date.
+        :param updated_after: Only list DNS zones updated after this date.
+        :param updated_before: Only list DNS zones updated before this date.
         :return: :class:`ListDNSZonesResponse <ListDNSZonesResponse>`
 
         Usage:
         ::
 
-            result = await api.list_dns_zones(
-                domain="example",
-                dns_zone="example",
-            )
+            result = await api.list_dns_zones(domain="example")
         """
 
         res = self._request(
             "GET",
-            "/domain/v2beta1/dns-zones",
+            f"/domain/v2beta1/dns-zones",
             params={
+                "created_after": created_after,
+                "created_before": created_before,
                 "dns_zone": dns_zone,
+                "dns_zones": dns_zones,
                 "domain": domain,
                 "order_by": order_by,
                 "organization_id": organization_id
@@ -213,6 +224,8 @@ class DomainV2Beta1API(API):
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
+                "updated_after": updated_after,
+                "updated_before": updated_before,
             },
         )
 
@@ -223,12 +236,17 @@ class DomainV2Beta1API(API):
         self,
         *,
         domain: str,
-        dns_zone: str,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         order_by: Optional[ListDNSZonesRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
+        dns_zone: Optional[str] = None,
+        dns_zones: Optional[List[str]] = None,
+        created_after: Optional[datetime] = None,
+        created_before: Optional[datetime] = None,
+        updated_after: Optional[datetime] = None,
+        updated_before: Optional[datetime] = None,
     ) -> List[DNSZone]:
         """
         List DNS zones.
@@ -240,15 +258,17 @@ class DomainV2Beta1API(API):
         :param page_size: Maximum number of DNS zones to return per page.
         :param domain: Domain on which to filter the returned DNS zones.
         :param dns_zone: DNS zone on which to filter the returned DNS zones.
+        :param dns_zones: DNS zones on which to filter the returned DNS zones.
+        :param created_after: Only list DNS zones created after this date.
+        :param created_before: Only list DNS zones created before this date.
+        :param updated_after: Only list DNS zones updated after this date.
+        :param updated_before: Only list DNS zones updated before this date.
         :return: :class:`List[ListDNSZonesResponse] <List[ListDNSZonesResponse]>`
 
         Usage:
         ::
 
-            result = await api.list_dns_zones_all(
-                domain="example",
-                dns_zone="example",
-            )
+            result = await api.list_dns_zones_all(domain="example")
         """
 
         return await fetch_all_pages_async(
@@ -257,12 +277,17 @@ class DomainV2Beta1API(API):
             fetcher=self.list_dns_zones,
             args={
                 "domain": domain,
-                "dns_zone": dns_zone,
                 "organization_id": organization_id,
                 "project_id": project_id,
                 "order_by": order_by,
                 "page": page,
                 "page_size": page_size,
+                "dns_zone": dns_zone,
+                "dns_zones": dns_zones,
+                "created_after": created_after,
+                "created_before": created_before,
+                "updated_after": updated_after,
+                "updated_before": updated_before,
             },
         )
 
@@ -292,7 +317,7 @@ class DomainV2Beta1API(API):
 
         res = self._request(
             "POST",
-            "/domain/v2beta1/dns-zones",
+            f"/domain/v2beta1/dns-zones",
             body=marshal_CreateDNSZoneRequest(
                 CreateDNSZoneRequest(
                     domain=domain,
@@ -1135,7 +1160,7 @@ class DomainV2Beta1API(API):
 
         res = self._request(
             "POST",
-            "/domain/v2beta1/ssl-certificates",
+            f"/domain/v2beta1/ssl-certificates",
             body=marshal_CreateSSLCertificateRequest(
                 CreateSSLCertificateRequest(
                     dns_zone=dns_zone,
@@ -1173,7 +1198,7 @@ class DomainV2Beta1API(API):
 
         res = self._request(
             "GET",
-            "/domain/v2beta1/ssl-certificates",
+            f"/domain/v2beta1/ssl-certificates",
             params={
                 "dns_zone": dns_zone,
                 "page": page,
@@ -1343,7 +1368,7 @@ class DomainRegistrarV2Beta1API(API):
 
         res = self._request(
             "GET",
-            "/domain/v2beta1/tasks",
+            f"/domain/v2beta1/tasks",
             params={
                 "domain": domain,
                 "order_by": order_by,
@@ -1447,7 +1472,7 @@ class DomainRegistrarV2Beta1API(API):
 
         res = self._request(
             "POST",
-            "/domain/v2beta1/buy-domains",
+            f"/domain/v2beta1/buy-domains",
             body=marshal_RegistrarApiBuyDomainsRequest(
                 RegistrarApiBuyDomainsRequest(
                     domains=domains,
@@ -1493,7 +1518,7 @@ class DomainRegistrarV2Beta1API(API):
 
         res = self._request(
             "POST",
-            "/domain/v2beta1/renew-domains",
+            f"/domain/v2beta1/renew-domains",
             body=marshal_RegistrarApiRenewDomainsRequest(
                 RegistrarApiRenewDomainsRequest(
                     domains=domains,
@@ -1540,7 +1565,7 @@ class DomainRegistrarV2Beta1API(API):
 
         res = self._request(
             "POST",
-            "/domain/v2beta1/domains/transfer-domains",
+            f"/domain/v2beta1/domains/transfer-domains",
             body=marshal_RegistrarApiTransferInDomainRequest(
                 RegistrarApiTransferInDomainRequest(
                     domains=domains,
@@ -1625,7 +1650,7 @@ class DomainRegistrarV2Beta1API(API):
 
         res = self._request(
             "POST",
-            "/domain/v2beta1/external-domains",
+            f"/domain/v2beta1/external-domains",
             body=marshal_RegistrarApiRegisterExternalDomainRequest(
                 RegistrarApiRegisterExternalDomainRequest(
                     domain=domain,
@@ -1699,7 +1724,7 @@ class DomainRegistrarV2Beta1API(API):
 
         res = self._request(
             "POST",
-            "/domain/v2beta1/check-contacts-compatibility",
+            f"/domain/v2beta1/check-contacts-compatibility",
             body=marshal_RegistrarApiCheckContactsCompatibilityRequest(
                 RegistrarApiCheckContactsCompatibilityRequest(
                     domains=domains,
@@ -1750,7 +1775,7 @@ class DomainRegistrarV2Beta1API(API):
 
         res = self._request(
             "GET",
-            "/domain/v2beta1/contacts",
+            f"/domain/v2beta1/contacts",
             params={
                 "domain": domain,
                 "email_status": email_status,
@@ -1966,7 +1991,7 @@ class DomainRegistrarV2Beta1API(API):
 
         res = self._request(
             "GET",
-            "/domain/v2beta1/domains",
+            f"/domain/v2beta1/domains",
             params={
                 "domain": domain,
                 "is_external": is_external,
@@ -2061,7 +2086,7 @@ class DomainRegistrarV2Beta1API(API):
 
         res = self._request(
             "GET",
-            "/domain/v2beta1/renewable-domains",
+            f"/domain/v2beta1/renewable-domains",
             params={
                 "order_by": order_by,
                 "organization_id": organization_id
@@ -2451,7 +2476,7 @@ class DomainRegistrarV2Beta1API(API):
 
         res = self._request(
             "GET",
-            "/domain/v2beta1/search-domains",
+            f"/domain/v2beta1/search-domains",
             params={
                 "domains": domains,
                 "strict_search": strict_search,

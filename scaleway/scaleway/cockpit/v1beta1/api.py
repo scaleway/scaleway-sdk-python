@@ -100,7 +100,7 @@ class CockpitV1Beta1API(API):
 
         res = self._request(
             "POST",
-            "/cockpit/v1beta1/activate",
+            f"/cockpit/v1beta1/activate",
             body=marshal_ActivateCockpitRequest(
                 ActivateCockpitRequest(
                     project_id=project_id,
@@ -131,7 +131,7 @@ class CockpitV1Beta1API(API):
 
         res = self._request(
             "GET",
-            "/cockpit/v1beta1/cockpit",
+            f"/cockpit/v1beta1/cockpit",
             params={
                 "project_id": project_id or self.client.default_project_id,
             },
@@ -197,7 +197,7 @@ class CockpitV1Beta1API(API):
 
         res = self._request(
             "GET",
-            "/cockpit/v1beta1/cockpit/metrics",
+            f"/cockpit/v1beta1/cockpit/metrics",
             params={
                 "end_date": end_date,
                 "metric_name": metric_name,
@@ -228,7 +228,7 @@ class CockpitV1Beta1API(API):
 
         res = self._request(
             "POST",
-            "/cockpit/v1beta1/deactivate",
+            f"/cockpit/v1beta1/deactivate",
             body=marshal_DeactivateCockpitRequest(
                 DeactivateCockpitRequest(
                     project_id=project_id,
@@ -259,7 +259,7 @@ class CockpitV1Beta1API(API):
 
         res = self._request(
             "POST",
-            "/cockpit/v1beta1/reset-grafana",
+            f"/cockpit/v1beta1/reset-grafana",
             body=marshal_ResetCockpitGrafanaRequest(
                 ResetCockpitGrafanaRequest(
                     project_id=project_id,
@@ -294,7 +294,7 @@ class CockpitV1Beta1API(API):
 
         res = self._request(
             "POST",
-            "/cockpit/v1beta1/tokens",
+            f"/cockpit/v1beta1/tokens",
             body=marshal_CreateTokenRequest(
                 CreateTokenRequest(
                     project_id=project_id,
@@ -333,7 +333,7 @@ class CockpitV1Beta1API(API):
 
         res = self._request(
             "GET",
-            "/cockpit/v1beta1/tokens",
+            f"/cockpit/v1beta1/tokens",
             params={
                 "order_by": order_by,
                 "page": page,
@@ -454,7 +454,7 @@ class CockpitV1Beta1API(API):
 
         res = self._request(
             "POST",
-            "/cockpit/v1beta1/contact-points",
+            f"/cockpit/v1beta1/contact-points",
             body=marshal_CreateContactPointRequest(
                 CreateContactPointRequest(
                     project_id=project_id,
@@ -490,7 +490,7 @@ class CockpitV1Beta1API(API):
 
         res = self._request(
             "GET",
-            "/cockpit/v1beta1/contact-points",
+            f"/cockpit/v1beta1/contact-points",
             params={
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
@@ -553,7 +553,7 @@ class CockpitV1Beta1API(API):
 
         res = self._request(
             "POST",
-            "/cockpit/v1beta1/delete-contact-point",
+            f"/cockpit/v1beta1/delete-contact-point",
             body=marshal_DeleteContactPointRequest(
                 DeleteContactPointRequest(
                     project_id=project_id,
@@ -584,7 +584,7 @@ class CockpitV1Beta1API(API):
 
         res = self._request(
             "POST",
-            "/cockpit/v1beta1/enable-managed-alerts",
+            f"/cockpit/v1beta1/enable-managed-alerts",
             body=marshal_EnableManagedAlertsRequest(
                 EnableManagedAlertsRequest(
                     project_id=project_id,
@@ -614,7 +614,7 @@ class CockpitV1Beta1API(API):
 
         res = self._request(
             "POST",
-            "/cockpit/v1beta1/disable-managed-alerts",
+            f"/cockpit/v1beta1/disable-managed-alerts",
             body=marshal_DisableManagedAlertsRequest(
                 DisableManagedAlertsRequest(
                     project_id=project_id,
@@ -644,7 +644,7 @@ class CockpitV1Beta1API(API):
 
         res = self._request(
             "POST",
-            "/cockpit/v1beta1/trigger-test-alert",
+            f"/cockpit/v1beta1/trigger-test-alert",
             body=marshal_TriggerTestAlertRequest(
                 TriggerTestAlertRequest(
                     project_id=project_id,
@@ -682,7 +682,7 @@ class CockpitV1Beta1API(API):
 
         res = self._request(
             "POST",
-            "/cockpit/v1beta1/grafana-users",
+            f"/cockpit/v1beta1/grafana-users",
             body=marshal_CreateGrafanaUserRequest(
                 CreateGrafanaUserRequest(
                     login=login,
@@ -721,7 +721,7 @@ class CockpitV1Beta1API(API):
 
         res = self._request(
             "GET",
-            "/cockpit/v1beta1/grafana-users",
+            f"/cockpit/v1beta1/grafana-users",
             params={
                 "order_by": order_by,
                 "page": page,
@@ -862,7 +862,7 @@ class CockpitV1Beta1API(API):
 
         res = self._request(
             "GET",
-            "/cockpit/v1beta1/plans",
+            f"/cockpit/v1beta1/plans",
             params={
                 "order_by": order_by,
                 "page": page,
@@ -926,7 +926,7 @@ class CockpitV1Beta1API(API):
 
         res = self._request(
             "POST",
-            "/cockpit/v1beta1/select-plan",
+            f"/cockpit/v1beta1/select-plan",
             body=marshal_SelectPlanRequest(
                 SelectPlanRequest(
                     plan_id=plan_id,

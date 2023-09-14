@@ -21,9 +21,9 @@ from .types import (
 
 
 def unmarshal_Human(data: Any) -> Human:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'Human' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'Human' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -35,7 +35,7 @@ def unmarshal_Human(data: Any) -> Human:
     args["altitude_in_millimeter"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("eyes_color", None)
     args["eyes_color"] = field
@@ -71,15 +71,15 @@ def unmarshal_Human(data: Any) -> Human:
     args["status"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
     return Human(**args)
 
 
 def unmarshal_ListHumansResponse(data: Any) -> ListHumansResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'ListHumansResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'ListHumansResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -94,9 +94,9 @@ def unmarshal_ListHumansResponse(data: Any) -> ListHumansResponse:
 
 
 def unmarshal_RegisterResponse(data: Any) -> RegisterResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'RegisterResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'RegisterResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}

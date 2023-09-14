@@ -17,6 +17,7 @@ from .types import (
     GatewayNetwork,
     GatewayType,
     IP,
+    IpamConfig,
     ListDHCPEntriesResponse,
     ListDHCPsResponse,
     ListGatewayNetworksResponse,
@@ -47,9 +48,9 @@ from .types import (
 
 
 def unmarshal_DHCP(data: Any) -> DHCP:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'DHCP' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'DHCP' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -58,7 +59,7 @@ def unmarshal_DHCP(data: Any) -> DHCP:
     args["address"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("dns_local_name", None)
     args["dns_local_name"] = field
@@ -103,7 +104,7 @@ def unmarshal_DHCP(data: Any) -> DHCP:
     args["subnet"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("valid_lifetime", None)
     args["valid_lifetime"] = field
@@ -115,9 +116,9 @@ def unmarshal_DHCP(data: Any) -> DHCP:
 
 
 def unmarshal_GatewayNetwork(data: Any) -> GatewayNetwork:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'GatewayNetwork' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'GatewayNetwork' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -126,7 +127,7 @@ def unmarshal_GatewayNetwork(data: Any) -> GatewayNetwork:
     args["address"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("dhcp", None)
     args["dhcp"] = unmarshal_DHCP(field) if field is not None else None
@@ -153,7 +154,7 @@ def unmarshal_GatewayNetwork(data: Any) -> GatewayNetwork:
     args["status"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("zone", None)
     args["zone"] = field
@@ -162,9 +163,9 @@ def unmarshal_GatewayNetwork(data: Any) -> GatewayNetwork:
 
 
 def unmarshal_GatewayType(data: Any) -> GatewayType:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'GatewayType' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'GatewayType' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -182,9 +183,9 @@ def unmarshal_GatewayType(data: Any) -> GatewayType:
 
 
 def unmarshal_IP(data: Any) -> IP:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'IP' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'IP' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -193,7 +194,7 @@ def unmarshal_IP(data: Any) -> IP:
     args["address"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("gateway_id", None)
     args["gateway_id"] = field
@@ -214,7 +215,7 @@ def unmarshal_IP(data: Any) -> IP:
     args["tags"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("zone", None)
     args["zone"] = field
@@ -223,15 +224,15 @@ def unmarshal_IP(data: Any) -> IP:
 
 
 def unmarshal_DHCPEntry(data: Any) -> DHCPEntry:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'DHCPEntry' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'DHCPEntry' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("gateway_network_id", None)
     args["gateway_network_id"] = field
@@ -252,7 +253,7 @@ def unmarshal_DHCPEntry(data: Any) -> DHCPEntry:
     args["type_"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("zone", None)
     args["zone"] = field
@@ -261,9 +262,9 @@ def unmarshal_DHCPEntry(data: Any) -> DHCPEntry:
 
 
 def unmarshal_Gateway(data: Any) -> Gateway:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'Gateway' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'Gateway' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -278,7 +279,7 @@ def unmarshal_Gateway(data: Any) -> Gateway:
     args["can_upgrade_to"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("gateway_networks", None)
     args["gateway_networks"] = (
@@ -313,7 +314,7 @@ def unmarshal_Gateway(data: Any) -> Gateway:
     args["type_"] = unmarshal_GatewayType(field) if field is not None else None
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("upstream_dns_servers", None)
     args["upstream_dns_servers"] = field
@@ -328,15 +329,15 @@ def unmarshal_Gateway(data: Any) -> Gateway:
 
 
 def unmarshal_PATRule(data: Any) -> PATRule:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'PATRule' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'PATRule' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("gateway_id", None)
     args["gateway_id"] = field
@@ -357,7 +358,7 @@ def unmarshal_PATRule(data: Any) -> PATRule:
     args["public_port"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("zone", None)
     args["zone"] = field
@@ -366,9 +367,9 @@ def unmarshal_PATRule(data: Any) -> PATRule:
 
 
 def unmarshal_ListDHCPEntriesResponse(data: Any) -> ListDHCPEntriesResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'ListDHCPEntriesResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'ListDHCPEntriesResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -385,9 +386,9 @@ def unmarshal_ListDHCPEntriesResponse(data: Any) -> ListDHCPEntriesResponse:
 
 
 def unmarshal_ListDHCPsResponse(data: Any) -> ListDHCPsResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'ListDHCPsResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'ListDHCPsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -402,9 +403,9 @@ def unmarshal_ListDHCPsResponse(data: Any) -> ListDHCPsResponse:
 
 
 def unmarshal_ListGatewayNetworksResponse(data: Any) -> ListGatewayNetworksResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'ListGatewayNetworksResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'ListGatewayNetworksResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -421,9 +422,9 @@ def unmarshal_ListGatewayNetworksResponse(data: Any) -> ListGatewayNetworksRespo
 
 
 def unmarshal_ListGatewayTypesResponse(data: Any) -> ListGatewayTypesResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'ListGatewayTypesResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'ListGatewayTypesResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -437,9 +438,9 @@ def unmarshal_ListGatewayTypesResponse(data: Any) -> ListGatewayTypesResponse:
 
 
 def unmarshal_ListGatewaysResponse(data: Any) -> ListGatewaysResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'ListGatewaysResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'ListGatewaysResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -456,9 +457,9 @@ def unmarshal_ListGatewaysResponse(data: Any) -> ListGatewaysResponse:
 
 
 def unmarshal_ListIPsResponse(data: Any) -> ListIPsResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'ListIPsResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'ListIPsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -473,9 +474,9 @@ def unmarshal_ListIPsResponse(data: Any) -> ListIPsResponse:
 
 
 def unmarshal_ListPATRulesResponse(data: Any) -> ListPATRulesResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'ListPATRulesResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'ListPATRulesResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -492,9 +493,9 @@ def unmarshal_ListPATRulesResponse(data: Any) -> ListPATRulesResponse:
 
 
 def unmarshal_SetDHCPEntriesResponse(data: Any) -> SetDHCPEntriesResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'SetDHCPEntriesResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'SetDHCPEntriesResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -508,9 +509,9 @@ def unmarshal_SetDHCPEntriesResponse(data: Any) -> SetDHCPEntriesResponse:
 
 
 def unmarshal_SetPATRulesResponse(data: Any) -> SetPATRulesResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'SetPATRulesResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'SetPATRulesResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -570,6 +571,18 @@ def marshal_CreateDHCPRequest(
 
     if request.valid_lifetime is not None:
         output["valid_lifetime"] = request.valid_lifetime
+
+    return output
+
+
+def marshal_IpamConfig(
+    request: IpamConfig,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.push_default_route is not None:
+        output["push_default_route"] = request.push_default_route
 
     return output
 
@@ -647,6 +660,12 @@ def marshal_CreateGatewayNetworkRequest(
                 ),
                 OneOfPossibility(
                     "address", request.address if request.address is not None else None
+                ),
+                OneOfPossibility(
+                    "ipam_config",
+                    marshal_IpamConfig(request.ipam_config, defaults)
+                    if request.ipam_config is not None
+                    else None,
                 ),
             ]
         ),
@@ -850,6 +869,12 @@ def marshal_UpdateGatewayNetworkRequest(
                 ),
                 OneOfPossibility(
                     "address", request.address if request.address is not None else None
+                ),
+                OneOfPossibility(
+                    "ipam_config",
+                    marshal_IpamConfig(request.ipam_config, defaults)
+                    if request.ipam_config is not None
+                    else None,
                 ),
             ]
         ),

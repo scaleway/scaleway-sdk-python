@@ -68,6 +68,7 @@ from .types import ListServersTypesResponse
 from .types import ListSnapshotsResponse
 from .types import ListVolumesResponse
 from .types import ListVolumesTypesResponse
+from .types import MigrationPlan
 from .types import PlacementGroup
 from .types import PlacementGroupServer
 from .types import PrivateNIC
@@ -189,6 +190,7 @@ __all__ = [
     "ListSnapshotsResponse",
     "ListVolumesResponse",
     "ListVolumesTypesResponse",
+    "MigrationPlan",
     "PlacementGroup",
     "PlacementGroupServer",
     "PrivateNIC",

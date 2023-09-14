@@ -16,6 +16,7 @@ from .types import Gateway
 from .types import GatewayNetwork
 from .types import GatewayType
 from .types import IP
+from .types import IpamConfig
 from .types import ListDHCPEntriesResponse
 from .types import ListDHCPsResponse
 from .types import ListGatewayNetworksResponse
@@ -49,6 +50,7 @@ __all__ = [
     "GatewayNetwork",
     "GatewayType",
     "IP",
+    "IpamConfig",
     "ListDHCPEntriesResponse",
     "ListDHCPsResponse",
     "ListGatewayNetworksResponse",

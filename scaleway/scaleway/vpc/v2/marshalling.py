@@ -30,15 +30,15 @@ from .types import (
 
 
 def unmarshal_Subnet(data: Any) -> Subnet:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'Subnet' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'Subnet' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("id", None)
     args["id"] = field
@@ -47,21 +47,21 @@ def unmarshal_Subnet(data: Any) -> Subnet:
     args["subnet"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
     return Subnet(**args)
 
 
 def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'PrivateNetwork' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'PrivateNetwork' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("dhcp_enabled", None)
     args["dhcp_enabled"] = field
@@ -90,7 +90,7 @@ def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
     args["tags"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("vpc_id", None)
     args["vpc_id"] = field
@@ -99,15 +99,15 @@ def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
 
 
 def unmarshal_VPC(data: Any) -> VPC:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'VPC' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'VPC' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("id", None)
     args["id"] = field
@@ -134,15 +134,15 @@ def unmarshal_VPC(data: Any) -> VPC:
     args["tags"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
     return VPC(**args)
 
 
 def unmarshal_AddSubnetsResponse(data: Any) -> AddSubnetsResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'AddSubnetsResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'AddSubnetsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -154,9 +154,9 @@ def unmarshal_AddSubnetsResponse(data: Any) -> AddSubnetsResponse:
 
 
 def unmarshal_DeleteSubnetsResponse(data: Any) -> DeleteSubnetsResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'DeleteSubnetsResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'DeleteSubnetsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -168,9 +168,9 @@ def unmarshal_DeleteSubnetsResponse(data: Any) -> DeleteSubnetsResponse:
 
 
 def unmarshal_ListPrivateNetworksResponse(data: Any) -> ListPrivateNetworksResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'ListPrivateNetworksResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'ListPrivateNetworksResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -187,9 +187,9 @@ def unmarshal_ListPrivateNetworksResponse(data: Any) -> ListPrivateNetworksRespo
 
 
 def unmarshal_ListVPCsResponse(data: Any) -> ListVPCsResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'ListVPCsResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'ListVPCsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -204,9 +204,9 @@ def unmarshal_ListVPCsResponse(data: Any) -> ListVPCsResponse:
 
 
 def unmarshal_SetSubnetsResponse(data: Any) -> SetSubnetsResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'SetSubnetsResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'SetSubnetsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}

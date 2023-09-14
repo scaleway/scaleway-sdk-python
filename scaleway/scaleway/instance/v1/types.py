@@ -148,6 +148,7 @@ class ServerAction(str, Enum, metaclass=StrEnumMeta):
     POWEROFF = "poweroff"
     TERMINATE = "terminate"
     REBOOT = "reboot"
+    ENABLE_ROUTED_IP = "enable_routed_ip"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -240,6 +241,8 @@ class VolumeServerState(str, Enum, metaclass=StrEnumMeta):
 class VolumeServerVolumeType(str, Enum, metaclass=StrEnumMeta):
     L_SSD = "l_ssd"
     B_SSD = "b_ssd"
+    SBS_VOLUME = "sbs_volume"
+    SCRATCH = "scratch"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -263,6 +266,7 @@ class VolumeVolumeType(str, Enum, metaclass=StrEnumMeta):
     B_SSD = "b_ssd"
     UNIFIED = "unified"
     SCRATCH = "scratch"
+    SBS_VOLUME = "sbs_volume"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -768,6 +772,28 @@ class ListVolumesTypesResponse:
     volumes: Dict[str, VolumeType]
     """
     Map of volume types.
+    """
+
+
+@dataclass
+class MigrationPlan:
+    """
+    Migration plan.
+    """
+
+    volume: Optional[Volume]
+    """
+    A volume which will be migrated to SBS together with the snapshots, if present.
+    """
+
+    snapshots: List[Snapshot]
+    """
+    A list of snapshots which will be migrated to SBS together and with the volume, if present.
+    """
+
+    validation_key: str
+    """
+    A value to be passed to ApplyBlockMigrationRequest, to confirm that the execution of the plan is being requested.
     """
 
 
@@ -2034,6 +2060,11 @@ class ListServersRequest:
     List Instances from the given Private Networks (use commas to separate them).
     """
 
+    private_nic_mac_address: Optional[str]
+    """
+    List Instances associated with the given private NIC MAC address.
+    """
+
 
 @dataclass
 class DeleteServerRequest:
@@ -3279,3 +3310,52 @@ class GetDashboardRequest:
     organization: Optional[str]
 
     project: Optional[str]
+
+
+@dataclass
+class PlanBlockMigrationRequest:
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    volume_id: Optional[str]
+    """
+    The volume for which the migration plan will be generated.
+    
+    One-of ('resource'): at most one of 'volume_id', 'snapshot_id' could be set.
+    """
+
+    snapshot_id: Optional[str]
+    """
+    The snapshot for which the migration plan will be generated.
+    
+    One-of ('resource'): at most one of 'volume_id', 'snapshot_id' could be set.
+    """
+
+
+@dataclass
+class ApplyBlockMigrationRequest:
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    volume_id: Optional[str]
+    """
+    The volume to migrate, along with potentially other resources, according to the migration plan generated with a call to PlanBlockMigration.
+    
+    One-of ('resource'): at most one of 'volume_id', 'snapshot_id' could be set.
+    """
+
+    snapshot_id: Optional[str]
+    """
+    The snapshot to migrate, along with potentially other resources, according to the migration plan generated with a call to PlanBlockMigration.
+    
+    One-of ('resource'): at most one of 'volume_id', 'snapshot_id' could be set.
+    """
+
+    validation_key: str
+    """
+    A value to be retrieved from a call to PlanBlockMigration, to confirm that the volume and/or snapshots specified in said plan should be migrated.
+    """

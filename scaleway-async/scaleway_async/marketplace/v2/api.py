@@ -75,7 +75,7 @@ class MarketplaceV2API(API):
 
         res = self._request(
             "GET",
-            "/marketplace/v2/images",
+            f"/marketplace/v2/images",
             params={
                 "arch": arch,
                 "category": category,
@@ -182,7 +182,7 @@ class MarketplaceV2API(API):
 
         res = self._request(
             "GET",
-            "/marketplace/v2/versions",
+            f"/marketplace/v2/versions",
             params={
                 "image_id": image_id,
                 "order_by": order_by,
@@ -289,7 +289,7 @@ class MarketplaceV2API(API):
 
         res = self._request(
             "GET",
-            "/marketplace/v2/local-images",
+            f"/marketplace/v2/local-images",
             params={
                 "order_by": order_by,
                 "page": page,
@@ -404,7 +404,7 @@ class MarketplaceV2API(API):
 
         res = self._request(
             "GET",
-            "/marketplace/v2/categories",
+            f"/marketplace/v2/categories",
             params={
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,

@@ -407,12 +407,22 @@ class TokenScopes:
 
     setup_logs_rules: bool
     """
-    Permission to setup logs rules.
+    Permission to set up logs rules.
     """
 
     setup_alerts: bool
     """
-    Permission to setup alerts.
+    Permission to set up alerts.
+    """
+
+    query_traces: bool
+    """
+    Permission to fetch traces.
+    """
+
+    write_traces: bool
+    """
+    Permission to write traces.
     """
 
 

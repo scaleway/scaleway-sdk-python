@@ -70,6 +70,7 @@ from .types import (
     ListSnapshotsResponse,
     ListVolumesResponse,
     ListVolumesTypesResponse,
+    MigrationPlan,
     PlacementGroup,
     PrivateNIC,
     SecurityGroup,
@@ -117,6 +118,8 @@ from .types import (
     UpdateIpRequest,
     CreatePrivateNICRequest,
     UpdatePrivateNICRequest,
+    PlanBlockMigrationRequest,
+    ApplyBlockMigrationRequest,
 )
 from .types_private import (
     _SetImageResponse,
@@ -133,6 +136,7 @@ from .types_private import (
     _SetSecurityGroupRuleRequest,
 )
 from .marshalling import (
+    marshal_ApplyBlockMigrationRequest,
     marshal_CreateImageRequest,
     marshal_CreateIpRequest,
     marshal_CreatePlacementGroupRequest,
@@ -142,6 +146,7 @@ from .marshalling import (
     marshal_CreateSnapshotRequest,
     marshal_CreateVolumeRequest,
     marshal_ExportSnapshotRequest,
+    marshal_PlanBlockMigrationRequest,
     marshal_ServerActionRequest,
     marshal_SetPlacementGroupRequest,
     marshal_SetPlacementGroupServersRequest,
@@ -196,6 +201,7 @@ from .marshalling import (
     unmarshal_ListSnapshotsResponse,
     unmarshal_ListVolumesResponse,
     unmarshal_ListVolumesTypesResponse,
+    unmarshal_MigrationPlan,
     unmarshal_ServerActionResponse,
     unmarshal_SetPlacementGroupResponse,
     unmarshal_SetPlacementGroupServersResponse,
@@ -342,6 +348,7 @@ class InstanceV1API(API):
         private_network: Optional[str] = None,
         order: ListServersRequestOrder = ListServersRequestOrder.CREATION_DATE_DESC,
         private_networks: Optional[List[str]] = None,
+        private_nic_mac_address: Optional[str] = None,
     ) -> ListServersResponse:
         """
         List all Instances.
@@ -360,6 +367,7 @@ class InstanceV1API(API):
         :param private_network: List Instances in this Private Network.
         :param order: Define the order of the returned servers.
         :param private_networks: List Instances from the given Private Networks (use commas to separate them).
+        :param private_nic_mac_address: List Instances associated with the given private NIC MAC address.
         :return: :class:`ListServersResponse <ListServersResponse>`
 
         Usage:
@@ -385,6 +393,7 @@ class InstanceV1API(API):
                 "private_networks": ",".join(private_networks)
                 if private_networks and len(private_networks) > 0
                 else None,
+                "private_nic_mac_address": private_nic_mac_address,
                 "project": project or self.client.default_project_id,
                 "state": state,
                 "tags": ",".join(tags) if tags and len(tags) > 0 else None,
@@ -412,6 +421,7 @@ class InstanceV1API(API):
         private_network: Optional[str] = None,
         order: Optional[ListServersRequestOrder] = None,
         private_networks: Optional[List[str]] = None,
+        private_nic_mac_address: Optional[str] = None,
     ) -> List[Server]:
         """
         List all Instances.
@@ -430,6 +440,7 @@ class InstanceV1API(API):
         :param private_network: List Instances in this Private Network.
         :param order: Define the order of the returned servers.
         :param private_networks: List Instances from the given Private Networks (use commas to separate them).
+        :param private_nic_mac_address: List Instances associated with the given private NIC MAC address.
         :return: :class:`List[ListServersResponse] <List[ListServersResponse]>`
 
         Usage:
@@ -457,6 +468,7 @@ class InstanceV1API(API):
                 "private_network": private_network,
                 "order": order,
                 "private_networks": private_networks,
+                "private_nic_mac_address": private_nic_mac_address,
             },
         )
 
@@ -3666,3 +3678,91 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_GetDashboardResponse(res.json())
+
+    async def plan_block_migration(
+        self,
+        *,
+        zone: Optional[Zone] = None,
+        volume_id: Optional[str] = None,
+        snapshot_id: Optional[str] = None,
+    ) -> MigrationPlan:
+        """
+        Get a volume or snapshot's migration plan.
+        Given a volume or snapshot, returns the migration plan for a call to the RPC ApplyBlockMigration. This plan will include zero or one volume, and zero or more snapshots, which will need to be migrated together. This RPC does not perform the actual migration itself, ApplyBlockMigration must be used. The validation_key value returned by this call must be provided to the ApplyBlockMigration call to confirm that all resources listed in the plan should be migrated.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param volume_id: The volume for which the migration plan will be generated.
+
+        One-of ('resource'): at most one of 'volume_id', 'snapshot_id' could be set.
+        :param snapshot_id: The snapshot for which the migration plan will be generated.
+
+        One-of ('resource'): at most one of 'volume_id', 'snapshot_id' could be set.
+        :return: :class:`MigrationPlan <MigrationPlan>`
+
+        Usage:
+        ::
+
+            result = await api.plan_block_migration()
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+
+        res = self._request(
+            "POST",
+            f"/instance/v1/zones/{param_zone}/block-migration/plan",
+            body=marshal_PlanBlockMigrationRequest(
+                PlanBlockMigrationRequest(
+                    zone=zone,
+                    volume_id=volume_id,
+                    snapshot_id=snapshot_id,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_MigrationPlan(res.json())
+
+    async def apply_block_migration(
+        self,
+        *,
+        validation_key: str,
+        zone: Optional[Zone] = None,
+        volume_id: Optional[str] = None,
+        snapshot_id: Optional[str] = None,
+    ) -> Optional[None]:
+        """
+        Migrate a volume and/or snapshots to SBS (Scaleway Block Storage).
+        To be used, this RPC must be preceded by a call to PlanBlockMigration. To migrate all resources mentioned in the MigrationPlan, the validation_key returned in the MigrationPlan must be provided.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param volume_id: The volume to migrate, along with potentially other resources, according to the migration plan generated with a call to PlanBlockMigration.
+
+        One-of ('resource'): at most one of 'volume_id', 'snapshot_id' could be set.
+        :param snapshot_id: The snapshot to migrate, along with potentially other resources, according to the migration plan generated with a call to PlanBlockMigration.
+
+        One-of ('resource'): at most one of 'volume_id', 'snapshot_id' could be set.
+        :param validation_key: A value to be retrieved from a call to PlanBlockMigration, to confirm that the volume and/or snapshots specified in said plan should be migrated.
+
+        Usage:
+        ::
+
+            result = await api.apply_block_migration(validation_key="example")
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+
+        res = self._request(
+            "POST",
+            f"/instance/v1/zones/{param_zone}/block-migration/apply",
+            body=marshal_ApplyBlockMigrationRequest(
+                ApplyBlockMigrationRequest(
+                    validation_key=validation_key,
+                    zone=zone,
+                    volume_id=volume_id,
+                    snapshot_id=snapshot_id,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return None
