@@ -393,18 +393,44 @@ class OfferProduct:
     """
 
     email_accounts_quota: int
+    """
+    Limit number of email accounts.
+    """
 
     email_storage_quota: int
+    """
+    Limit quantity of email storage in gigabytes.
+    """
 
     databases_quota: int
+    """
+    Limit number of databases.
+    """
 
     hosting_storage_quota: int
+    """
+    Limit quantity of hosting storage in gigabytes.
+    """
 
     support_included: bool
+    """
+    Whether or not support is included.
+    """
 
     v_cpu: int
+    """
+    Limit number of virtual CPU.
+    """
 
     ram: int
+    """
+    Limit quantity of memory in gigabytes.
+    """
+
+    max_addon_domains: int
+    """
+    Limit number of add-on domains.
+    """
 
 
 @dataclass

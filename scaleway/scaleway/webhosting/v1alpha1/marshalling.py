@@ -25,9 +25,9 @@ from .types import (
 
 
 def unmarshal_HostingCpanelUrls(data: Any) -> HostingCpanelUrls:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'HostingCpanelUrls' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'HostingCpanelUrls' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -42,9 +42,9 @@ def unmarshal_HostingCpanelUrls(data: Any) -> HostingCpanelUrls:
 
 
 def unmarshal_HostingOption(data: Any) -> HostingOption:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'HostingOption' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'HostingOption' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -59,9 +59,9 @@ def unmarshal_HostingOption(data: Any) -> HostingOption:
 
 
 def unmarshal_OfferProduct(data: Any) -> OfferProduct:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'OfferProduct' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'OfferProduct' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -77,6 +77,9 @@ def unmarshal_OfferProduct(data: Any) -> OfferProduct:
 
     field = data.get("hosting_storage_quota", None)
     args["hosting_storage_quota"] = field
+
+    field = data.get("max_addon_domains", None)
+    args["max_addon_domains"] = field
 
     field = data.get("name", None)
     args["name"] = field
@@ -97,9 +100,9 @@ def unmarshal_OfferProduct(data: Any) -> OfferProduct:
 
 
 def unmarshal_DnsRecord(data: Any) -> DnsRecord:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'DnsRecord' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'DnsRecord' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -126,9 +129,9 @@ def unmarshal_DnsRecord(data: Any) -> DnsRecord:
 
 
 def unmarshal_Hosting(data: Any) -> Hosting:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'Hosting' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'Hosting' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -139,7 +142,7 @@ def unmarshal_Hosting(data: Any) -> Hosting:
     )
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("dns_status", None)
     args["dns_status"] = field
@@ -186,7 +189,7 @@ def unmarshal_Hosting(data: Any) -> Hosting:
     args["tags"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("username", None)
     args["username"] = field
@@ -195,9 +198,9 @@ def unmarshal_Hosting(data: Any) -> Hosting:
 
 
 def unmarshal_Nameserver(data: Any) -> Nameserver:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'Nameserver' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'Nameserver' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -215,9 +218,9 @@ def unmarshal_Nameserver(data: Any) -> Nameserver:
 
 
 def unmarshal_Offer(data: Any) -> Offer:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'Offer' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'Offer' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -247,9 +250,9 @@ def unmarshal_Offer(data: Any) -> Offer:
 
 
 def unmarshal_DnsRecords(data: Any) -> DnsRecords:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'DnsRecords' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'DnsRecords' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -271,9 +274,9 @@ def unmarshal_DnsRecords(data: Any) -> DnsRecords:
 
 
 def unmarshal_ListHostingsResponse(data: Any) -> ListHostingsResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'ListHostingsResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'ListHostingsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -290,9 +293,9 @@ def unmarshal_ListHostingsResponse(data: Any) -> ListHostingsResponse:
 
 
 def unmarshal_ListOffersResponse(data: Any) -> ListOffersResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'ListOffersResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'ListOffersResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
