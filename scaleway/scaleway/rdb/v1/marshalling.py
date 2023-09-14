@@ -99,7 +99,7 @@ from .types import (
 
 
 def unmarshal_EndpointDirectAccessDetails(data: Any) -> EndpointDirectAccessDetails:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'EndpointDirectAccessDetails' failed as data isn't a dictionary."
         )
@@ -110,7 +110,7 @@ def unmarshal_EndpointDirectAccessDetails(data: Any) -> EndpointDirectAccessDeta
 
 
 def unmarshal_EndpointLoadBalancerDetails(data: Any) -> EndpointLoadBalancerDetails:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'EndpointLoadBalancerDetails' failed as data isn't a dictionary."
         )
@@ -121,7 +121,7 @@ def unmarshal_EndpointLoadBalancerDetails(data: Any) -> EndpointLoadBalancerDeta
 
 
 def unmarshal_EndpointPrivateNetworkDetails(data: Any) -> EndpointPrivateNetworkDetails:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'EndpointPrivateNetworkDetails' failed as data isn't a dictionary."
         )
@@ -141,7 +141,7 @@ def unmarshal_EndpointPrivateNetworkDetails(data: Any) -> EndpointPrivateNetwork
 
 
 def unmarshal_Endpoint(data: Any) -> Endpoint:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'Endpoint' failed as data isn't a dictionary."
         )
@@ -182,7 +182,7 @@ def unmarshal_Endpoint(data: Any) -> Endpoint:
 
 
 def unmarshal_EngineSetting(data: Any) -> EngineSetting:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'EngineSetting' failed as data isn't a dictionary."
         )
@@ -226,7 +226,7 @@ def unmarshal_EngineSetting(data: Any) -> EngineSetting:
 
 
 def unmarshal_BackupSchedule(data: Any) -> BackupSchedule:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'BackupSchedule' failed as data isn't a dictionary."
         )
@@ -240,7 +240,7 @@ def unmarshal_BackupSchedule(data: Any) -> BackupSchedule:
     args["frequency"] = field
 
     field = data.get("next_run_at", None)
-    args["next_run_at"] = parser.isoparse(field) if type(field) is str else field
+    args["next_run_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("retention", None)
     args["retention"] = field
@@ -249,7 +249,7 @@ def unmarshal_BackupSchedule(data: Any) -> BackupSchedule:
 
 
 def unmarshal_EngineVersion(data: Any) -> EngineVersion:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'EngineVersion' failed as data isn't a dictionary."
         )
@@ -273,7 +273,7 @@ def unmarshal_EngineVersion(data: Any) -> EngineVersion:
     args["disabled"] = field
 
     field = data.get("end_of_life", None)
-    args["end_of_life"] = parser.isoparse(field) if type(field) is str else field
+    args["end_of_life"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("name", None)
     args["name"] = field
@@ -285,7 +285,7 @@ def unmarshal_EngineVersion(data: Any) -> EngineVersion:
 
 
 def unmarshal_InstanceSetting(data: Any) -> InstanceSetting:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'InstanceSetting' failed as data isn't a dictionary."
         )
@@ -302,7 +302,7 @@ def unmarshal_InstanceSetting(data: Any) -> InstanceSetting:
 
 
 def unmarshal_LogsPolicy(data: Any) -> LogsPolicy:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'LogsPolicy' failed as data isn't a dictionary."
         )
@@ -319,7 +319,7 @@ def unmarshal_LogsPolicy(data: Any) -> LogsPolicy:
 
 
 def unmarshal_Maintenance(data: Any) -> Maintenance:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'Maintenance' failed as data isn't a dictionary."
         )
@@ -327,25 +327,25 @@ def unmarshal_Maintenance(data: Any) -> Maintenance:
     args: Dict[str, Any] = {}
 
     field = data.get("closed_at", None)
-    args["closed_at"] = parser.isoparse(field) if type(field) is str else field
+    args["closed_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("reason", None)
     args["reason"] = field
 
     field = data.get("starts_at", None)
-    args["starts_at"] = parser.isoparse(field) if type(field) is str else field
+    args["starts_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("status", None)
     args["status"] = field
 
     field = data.get("stops_at", None)
-    args["stops_at"] = parser.isoparse(field) if type(field) is str else field
+    args["stops_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return Maintenance(**args)
 
 
 def unmarshal_NodeTypeVolumeConstraintSizes(data: Any) -> NodeTypeVolumeConstraintSizes:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'NodeTypeVolumeConstraintSizes' failed as data isn't a dictionary."
         )
@@ -362,7 +362,7 @@ def unmarshal_NodeTypeVolumeConstraintSizes(data: Any) -> NodeTypeVolumeConstrai
 
 
 def unmarshal_NodeTypeVolumeType(data: Any) -> NodeTypeVolumeType:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'NodeTypeVolumeType' failed as data isn't a dictionary."
         )
@@ -388,7 +388,7 @@ def unmarshal_NodeTypeVolumeType(data: Any) -> NodeTypeVolumeType:
 
 
 def unmarshal_ReadReplica(data: Any) -> ReadReplica:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ReadReplica' failed as data isn't a dictionary."
         )
@@ -416,7 +416,7 @@ def unmarshal_ReadReplica(data: Any) -> ReadReplica:
 
 
 def unmarshal_UpgradableVersion(data: Any) -> UpgradableVersion:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'UpgradableVersion' failed as data isn't a dictionary."
         )
@@ -439,7 +439,7 @@ def unmarshal_UpgradableVersion(data: Any) -> UpgradableVersion:
 
 
 def unmarshal_Volume(data: Any) -> Volume:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'Volume' failed as data isn't a dictionary."
         )
@@ -456,7 +456,7 @@ def unmarshal_Volume(data: Any) -> Volume:
 
 
 def unmarshal_ACLRule(data: Any) -> ACLRule:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ACLRule' failed as data isn't a dictionary."
         )
@@ -485,7 +485,7 @@ def unmarshal_ACLRule(data: Any) -> ACLRule:
 
 
 def unmarshal_Database(data: Any) -> Database:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'Database' failed as data isn't a dictionary."
         )
@@ -508,7 +508,7 @@ def unmarshal_Database(data: Any) -> Database:
 
 
 def unmarshal_DatabaseBackup(data: Any) -> DatabaseBackup:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'DatabaseBackup' failed as data isn't a dictionary."
         )
@@ -516,7 +516,7 @@ def unmarshal_DatabaseBackup(data: Any) -> DatabaseBackup:
     args: Dict[str, Any] = {}
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("database_name", None)
     args["database_name"] = field
@@ -526,11 +526,11 @@ def unmarshal_DatabaseBackup(data: Any) -> DatabaseBackup:
 
     field = data.get("download_url_expires_at", None)
     args["download_url_expires_at"] = (
-        parser.isoparse(field) if type(field) is str else field
+        parser.isoparse(field) if isinstance(field, str) else field
     )
 
     field = data.get("expires_at", None)
-    args["expires_at"] = parser.isoparse(field) if type(field) is str else field
+    args["expires_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("id", None)
     args["id"] = field
@@ -557,13 +557,13 @@ def unmarshal_DatabaseBackup(data: Any) -> DatabaseBackup:
     args["status"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return DatabaseBackup(**args)
 
 
 def unmarshal_DatabaseEngine(data: Any) -> DatabaseEngine:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'DatabaseEngine' failed as data isn't a dictionary."
         )
@@ -588,7 +588,7 @@ def unmarshal_DatabaseEngine(data: Any) -> DatabaseEngine:
 
 
 def unmarshal_Instance(data: Any) -> Instance:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'Instance' failed as data isn't a dictionary."
         )
@@ -604,7 +604,7 @@ def unmarshal_Instance(data: Any) -> Instance:
     )
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("endpoint", None)
     args["endpoint"] = unmarshal_Endpoint(field) if field is not None else None
@@ -679,7 +679,7 @@ def unmarshal_Instance(data: Any) -> Instance:
 
 
 def unmarshal_InstanceLog(data: Any) -> InstanceLog:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'InstanceLog' failed as data isn't a dictionary."
         )
@@ -687,13 +687,13 @@ def unmarshal_InstanceLog(data: Any) -> InstanceLog:
     args: Dict[str, Any] = {}
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("download_url", None)
     args["download_url"] = field
 
     field = data.get("expires_at", None)
-    args["expires_at"] = parser.isoparse(field) if type(field) is str else field
+    args["expires_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("id", None)
     args["id"] = field
@@ -713,7 +713,7 @@ def unmarshal_InstanceLog(data: Any) -> InstanceLog:
 def unmarshal_ListInstanceLogsDetailsResponseInstanceLogDetail(
     data: Any,
 ) -> ListInstanceLogsDetailsResponseInstanceLogDetail:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListInstanceLogsDetailsResponseInstanceLogDetail' failed as data isn't a dictionary."
         )
@@ -730,7 +730,7 @@ def unmarshal_ListInstanceLogsDetailsResponseInstanceLogDetail(
 
 
 def unmarshal_NodeType(data: Any) -> NodeType:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'NodeType' failed as data isn't a dictionary."
         )
@@ -787,7 +787,7 @@ def unmarshal_NodeType(data: Any) -> NodeType:
 
 
 def unmarshal_Privilege(data: Any) -> Privilege:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'Privilege' failed as data isn't a dictionary."
         )
@@ -807,7 +807,7 @@ def unmarshal_Privilege(data: Any) -> Privilege:
 
 
 def unmarshal_Snapshot(data: Any) -> Snapshot:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'Snapshot' failed as data isn't a dictionary."
         )
@@ -815,10 +815,10 @@ def unmarshal_Snapshot(data: Any) -> Snapshot:
     args: Dict[str, Any] = {}
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("expires_at", None)
-    args["expires_at"] = parser.isoparse(field) if type(field) is str else field
+    args["expires_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("id", None)
     args["id"] = field
@@ -845,13 +845,13 @@ def unmarshal_Snapshot(data: Any) -> Snapshot:
     args["status"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return Snapshot(**args)
 
 
 def unmarshal_User(data: Any) -> User:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'User' failed as data isn't a dictionary."
         )
@@ -868,7 +868,7 @@ def unmarshal_User(data: Any) -> User:
 
 
 def unmarshal_AddInstanceACLRulesResponse(data: Any) -> AddInstanceACLRulesResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'AddInstanceACLRulesResponse' failed as data isn't a dictionary."
         )
@@ -882,7 +882,7 @@ def unmarshal_AddInstanceACLRulesResponse(data: Any) -> AddInstanceACLRulesRespo
 
 
 def unmarshal_AddInstanceSettingsResponse(data: Any) -> AddInstanceSettingsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'AddInstanceSettingsResponse' failed as data isn't a dictionary."
         )
@@ -900,7 +900,7 @@ def unmarshal_AddInstanceSettingsResponse(data: Any) -> AddInstanceSettingsRespo
 def unmarshal_DeleteInstanceACLRulesResponse(
     data: Any,
 ) -> DeleteInstanceACLRulesResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'DeleteInstanceACLRulesResponse' failed as data isn't a dictionary."
         )
@@ -916,7 +916,7 @@ def unmarshal_DeleteInstanceACLRulesResponse(
 def unmarshal_DeleteInstanceSettingsResponse(
     data: Any,
 ) -> DeleteInstanceSettingsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'DeleteInstanceSettingsResponse' failed as data isn't a dictionary."
         )
@@ -932,7 +932,7 @@ def unmarshal_DeleteInstanceSettingsResponse(
 
 
 def unmarshal_InstanceMetrics(data: Any) -> InstanceMetrics:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'InstanceMetrics' failed as data isn't a dictionary."
         )
@@ -948,7 +948,7 @@ def unmarshal_InstanceMetrics(data: Any) -> InstanceMetrics:
 
 
 def unmarshal_ListDatabaseBackupsResponse(data: Any) -> ListDatabaseBackupsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListDatabaseBackupsResponse' failed as data isn't a dictionary."
         )
@@ -967,7 +967,7 @@ def unmarshal_ListDatabaseBackupsResponse(data: Any) -> ListDatabaseBackupsRespo
 
 
 def unmarshal_ListDatabaseEnginesResponse(data: Any) -> ListDatabaseEnginesResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListDatabaseEnginesResponse' failed as data isn't a dictionary."
         )
@@ -986,7 +986,7 @@ def unmarshal_ListDatabaseEnginesResponse(data: Any) -> ListDatabaseEnginesRespo
 
 
 def unmarshal_ListDatabasesResponse(data: Any) -> ListDatabasesResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListDatabasesResponse' failed as data isn't a dictionary."
         )
@@ -1005,7 +1005,7 @@ def unmarshal_ListDatabasesResponse(data: Any) -> ListDatabasesResponse:
 
 
 def unmarshal_ListInstanceACLRulesResponse(data: Any) -> ListInstanceACLRulesResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListInstanceACLRulesResponse' failed as data isn't a dictionary."
         )
@@ -1024,7 +1024,7 @@ def unmarshal_ListInstanceACLRulesResponse(data: Any) -> ListInstanceACLRulesRes
 def unmarshal_ListInstanceLogsDetailsResponse(
     data: Any,
 ) -> ListInstanceLogsDetailsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListInstanceLogsDetailsResponse' failed as data isn't a dictionary."
         )
@@ -1042,7 +1042,7 @@ def unmarshal_ListInstanceLogsDetailsResponse(
 
 
 def unmarshal_ListInstanceLogsResponse(data: Any) -> ListInstanceLogsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListInstanceLogsResponse' failed as data isn't a dictionary."
         )
@@ -1058,7 +1058,7 @@ def unmarshal_ListInstanceLogsResponse(data: Any) -> ListInstanceLogsResponse:
 
 
 def unmarshal_ListInstancesResponse(data: Any) -> ListInstancesResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListInstancesResponse' failed as data isn't a dictionary."
         )
@@ -1077,7 +1077,7 @@ def unmarshal_ListInstancesResponse(data: Any) -> ListInstancesResponse:
 
 
 def unmarshal_ListNodeTypesResponse(data: Any) -> ListNodeTypesResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListNodeTypesResponse' failed as data isn't a dictionary."
         )
@@ -1096,7 +1096,7 @@ def unmarshal_ListNodeTypesResponse(data: Any) -> ListNodeTypesResponse:
 
 
 def unmarshal_ListPrivilegesResponse(data: Any) -> ListPrivilegesResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListPrivilegesResponse' failed as data isn't a dictionary."
         )
@@ -1115,7 +1115,7 @@ def unmarshal_ListPrivilegesResponse(data: Any) -> ListPrivilegesResponse:
 
 
 def unmarshal_ListSnapshotsResponse(data: Any) -> ListSnapshotsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListSnapshotsResponse' failed as data isn't a dictionary."
         )
@@ -1134,7 +1134,7 @@ def unmarshal_ListSnapshotsResponse(data: Any) -> ListSnapshotsResponse:
 
 
 def unmarshal_ListUsersResponse(data: Any) -> ListUsersResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListUsersResponse' failed as data isn't a dictionary."
         )
@@ -1151,7 +1151,7 @@ def unmarshal_ListUsersResponse(data: Any) -> ListUsersResponse:
 
 
 def unmarshal_PrepareInstanceLogsResponse(data: Any) -> PrepareInstanceLogsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'PrepareInstanceLogsResponse' failed as data isn't a dictionary."
         )
@@ -1167,7 +1167,7 @@ def unmarshal_PrepareInstanceLogsResponse(data: Any) -> PrepareInstanceLogsRespo
 
 
 def unmarshal_SetInstanceACLRulesResponse(data: Any) -> SetInstanceACLRulesResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'SetInstanceACLRulesResponse' failed as data isn't a dictionary."
         )
@@ -1181,7 +1181,7 @@ def unmarshal_SetInstanceACLRulesResponse(data: Any) -> SetInstanceACLRulesRespo
 
 
 def unmarshal_SetInstanceSettingsResponse(data: Any) -> SetInstanceSettingsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'SetInstanceSettingsResponse' failed as data isn't a dictionary."
         )

@@ -14,7 +14,7 @@ from .types import (
 
 
 def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'PrivateNetwork' failed as data isn't a dictionary."
         )
@@ -22,7 +22,7 @@ def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
     args: Dict[str, Any] = {}
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("id", None)
     args["id"] = field
@@ -43,7 +43,7 @@ def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
     args["tags"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("zone", None)
     args["zone"] = field
@@ -52,7 +52,7 @@ def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
 
 
 def unmarshal_ListPrivateNetworksResponse(data: Any) -> ListPrivateNetworksResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListPrivateNetworksResponse' failed as data isn't a dictionary."
         )

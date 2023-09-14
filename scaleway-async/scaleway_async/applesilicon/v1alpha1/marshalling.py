@@ -21,7 +21,7 @@ from .types import (
 
 
 def unmarshal_ServerTypeCPU(data: Any) -> ServerTypeCPU:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ServerTypeCPU' failed as data isn't a dictionary."
         )
@@ -38,7 +38,7 @@ def unmarshal_ServerTypeCPU(data: Any) -> ServerTypeCPU:
 
 
 def unmarshal_ServerTypeDisk(data: Any) -> ServerTypeDisk:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ServerTypeDisk' failed as data isn't a dictionary."
         )
@@ -55,7 +55,7 @@ def unmarshal_ServerTypeDisk(data: Any) -> ServerTypeDisk:
 
 
 def unmarshal_ServerTypeMemory(data: Any) -> ServerTypeMemory:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ServerTypeMemory' failed as data isn't a dictionary."
         )
@@ -72,7 +72,7 @@ def unmarshal_ServerTypeMemory(data: Any) -> ServerTypeMemory:
 
 
 def unmarshal_OS(data: Any) -> OS:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'OS' failed as data isn't a dictionary."
         )
@@ -98,7 +98,7 @@ def unmarshal_OS(data: Any) -> OS:
 
 
 def unmarshal_Server(data: Any) -> Server:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'Server' failed as data isn't a dictionary."
         )
@@ -106,10 +106,10 @@ def unmarshal_Server(data: Any) -> Server:
     args: Dict[str, Any] = {}
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("deletable_at", None)
-    args["deletable_at"] = parser.isoparse(field) if type(field) is str else field
+    args["deletable_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("id", None)
     args["id"] = field
@@ -133,7 +133,7 @@ def unmarshal_Server(data: Any) -> Server:
     args["type_"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("vnc_url", None)
     args["vnc_url"] = field
@@ -145,7 +145,7 @@ def unmarshal_Server(data: Any) -> Server:
 
 
 def unmarshal_ServerType(data: Any) -> ServerType:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ServerType' failed as data isn't a dictionary."
         )
@@ -174,7 +174,7 @@ def unmarshal_ServerType(data: Any) -> ServerType:
 
 
 def unmarshal_ListOSResponse(data: Any) -> ListOSResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListOSResponse' failed as data isn't a dictionary."
         )
@@ -191,7 +191,7 @@ def unmarshal_ListOSResponse(data: Any) -> ListOSResponse:
 
 
 def unmarshal_ListServerTypesResponse(data: Any) -> ListServerTypesResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListServerTypesResponse' failed as data isn't a dictionary."
         )
@@ -207,7 +207,7 @@ def unmarshal_ListServerTypesResponse(data: Any) -> ListServerTypesResponse:
 
 
 def unmarshal_ListServersResponse(data: Any) -> ListServersResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListServersResponse' failed as data isn't a dictionary."
         )

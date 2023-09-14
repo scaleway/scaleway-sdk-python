@@ -52,7 +52,7 @@ from .types import (
 
 
 def unmarshal_APIKey(data: Any) -> APIKey:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'APIKey' failed as data isn't a dictionary."
         )
@@ -66,7 +66,7 @@ def unmarshal_APIKey(data: Any) -> APIKey:
     args["application_id"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("creation_ip", None)
     args["creation_ip"] = field
@@ -81,13 +81,13 @@ def unmarshal_APIKey(data: Any) -> APIKey:
     args["editable"] = field
 
     field = data.get("expires_at", None)
-    args["expires_at"] = parser.isoparse(field) if type(field) is str else field
+    args["expires_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("secret_key", None)
     args["secret_key"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("user_id", None)
     args["user_id"] = field
@@ -96,7 +96,7 @@ def unmarshal_APIKey(data: Any) -> APIKey:
 
 
 def unmarshal_Application(data: Any) -> Application:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'Application' failed as data isn't a dictionary."
         )
@@ -104,7 +104,7 @@ def unmarshal_Application(data: Any) -> Application:
     args: Dict[str, Any] = {}
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("description", None)
     args["description"] = field
@@ -125,13 +125,13 @@ def unmarshal_Application(data: Any) -> Application:
     args["organization_id"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return Application(**args)
 
 
 def unmarshal_Group(data: Any) -> Group:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'Group' failed as data isn't a dictionary."
         )
@@ -142,7 +142,7 @@ def unmarshal_Group(data: Any) -> Group:
     args["application_ids"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("description", None)
     args["description"] = field
@@ -157,7 +157,7 @@ def unmarshal_Group(data: Any) -> Group:
     args["organization_id"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("user_ids", None)
     args["user_ids"] = field
@@ -166,7 +166,7 @@ def unmarshal_Group(data: Any) -> Group:
 
 
 def unmarshal_JWT(data: Any) -> JWT:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'JWT' failed as data isn't a dictionary."
         )
@@ -177,10 +177,10 @@ def unmarshal_JWT(data: Any) -> JWT:
     args["audience_id"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("expires_at", None)
-    args["expires_at"] = parser.isoparse(field) if type(field) is str else field
+    args["expires_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("ip", None)
     args["ip"] = field
@@ -192,7 +192,7 @@ def unmarshal_JWT(data: Any) -> JWT:
     args["jti"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("user_agent", None)
     args["user_agent"] = field
@@ -201,7 +201,7 @@ def unmarshal_JWT(data: Any) -> JWT:
 
 
 def unmarshal_PermissionSet(data: Any) -> PermissionSet:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'PermissionSet' failed as data isn't a dictionary."
         )
@@ -227,7 +227,7 @@ def unmarshal_PermissionSet(data: Any) -> PermissionSet:
 
 
 def unmarshal_Policy(data: Any) -> Policy:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'Policy' failed as data isn't a dictionary."
         )
@@ -238,7 +238,7 @@ def unmarshal_Policy(data: Any) -> Policy:
     args["application_id"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("description", None)
     args["description"] = field
@@ -271,7 +271,7 @@ def unmarshal_Policy(data: Any) -> Policy:
     args["organization_id"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("user_id", None)
     args["user_id"] = field
@@ -280,7 +280,7 @@ def unmarshal_Policy(data: Any) -> Policy:
 
 
 def unmarshal_Quotum(data: Any) -> Quotum:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'Quotum' failed as data isn't a dictionary."
         )
@@ -300,7 +300,7 @@ def unmarshal_Quotum(data: Any) -> Quotum:
 
 
 def unmarshal_Rule(data: Any) -> Rule:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'Rule' failed as data isn't a dictionary."
         )
@@ -329,7 +329,7 @@ def unmarshal_Rule(data: Any) -> Rule:
 
 
 def unmarshal_SSHKey(data: Any) -> SSHKey:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'SSHKey' failed as data isn't a dictionary."
         )
@@ -337,7 +337,7 @@ def unmarshal_SSHKey(data: Any) -> SSHKey:
     args: Dict[str, Any] = {}
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("disabled", None)
     args["disabled"] = field
@@ -361,13 +361,13 @@ def unmarshal_SSHKey(data: Any) -> SSHKey:
     args["public_key"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return SSHKey(**args)
 
 
 def unmarshal_User(data: Any) -> User:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'User' failed as data isn't a dictionary."
         )
@@ -378,7 +378,7 @@ def unmarshal_User(data: Any) -> User:
     args["account_root_user_id"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("deletable", None)
     args["deletable"] = field
@@ -390,7 +390,7 @@ def unmarshal_User(data: Any) -> User:
     args["id"] = field
 
     field = data.get("last_login_at", None)
-    args["last_login_at"] = parser.isoparse(field) if type(field) is str else field
+    args["last_login_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("mfa", None)
     args["mfa"] = field
@@ -408,13 +408,13 @@ def unmarshal_User(data: Any) -> User:
     args["type_"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return User(**args)
 
 
 def unmarshal_ListAPIKeysResponse(data: Any) -> ListAPIKeysResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListAPIKeysResponse' failed as data isn't a dictionary."
         )
@@ -433,7 +433,7 @@ def unmarshal_ListAPIKeysResponse(data: Any) -> ListAPIKeysResponse:
 
 
 def unmarshal_ListApplicationsResponse(data: Any) -> ListApplicationsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListApplicationsResponse' failed as data isn't a dictionary."
         )
@@ -452,7 +452,7 @@ def unmarshal_ListApplicationsResponse(data: Any) -> ListApplicationsResponse:
 
 
 def unmarshal_ListGroupsResponse(data: Any) -> ListGroupsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListGroupsResponse' failed as data isn't a dictionary."
         )
@@ -469,7 +469,7 @@ def unmarshal_ListGroupsResponse(data: Any) -> ListGroupsResponse:
 
 
 def unmarshal_ListJWTsResponse(data: Any) -> ListJWTsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListJWTsResponse' failed as data isn't a dictionary."
         )
@@ -486,7 +486,7 @@ def unmarshal_ListJWTsResponse(data: Any) -> ListJWTsResponse:
 
 
 def unmarshal_ListPermissionSetsResponse(data: Any) -> ListPermissionSetsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListPermissionSetsResponse' failed as data isn't a dictionary."
         )
@@ -505,7 +505,7 @@ def unmarshal_ListPermissionSetsResponse(data: Any) -> ListPermissionSetsRespons
 
 
 def unmarshal_ListPoliciesResponse(data: Any) -> ListPoliciesResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListPoliciesResponse' failed as data isn't a dictionary."
         )
@@ -524,7 +524,7 @@ def unmarshal_ListPoliciesResponse(data: Any) -> ListPoliciesResponse:
 
 
 def unmarshal_ListQuotaResponse(data: Any) -> ListQuotaResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListQuotaResponse' failed as data isn't a dictionary."
         )
@@ -541,7 +541,7 @@ def unmarshal_ListQuotaResponse(data: Any) -> ListQuotaResponse:
 
 
 def unmarshal_ListRulesResponse(data: Any) -> ListRulesResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListRulesResponse' failed as data isn't a dictionary."
         )
@@ -558,7 +558,7 @@ def unmarshal_ListRulesResponse(data: Any) -> ListRulesResponse:
 
 
 def unmarshal_ListSSHKeysResponse(data: Any) -> ListSSHKeysResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListSSHKeysResponse' failed as data isn't a dictionary."
         )
@@ -577,7 +577,7 @@ def unmarshal_ListSSHKeysResponse(data: Any) -> ListSSHKeysResponse:
 
 
 def unmarshal_ListUsersResponse(data: Any) -> ListUsersResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListUsersResponse' failed as data isn't a dictionary."
         )
@@ -594,7 +594,7 @@ def unmarshal_ListUsersResponse(data: Any) -> ListUsersResponse:
 
 
 def unmarshal_SetRulesResponse(data: Any) -> SetRulesResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'SetRulesResponse' failed as data isn't a dictionary."
         )

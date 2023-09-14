@@ -24,7 +24,7 @@ from .types import (
 
 
 def unmarshal_Image(data: Any) -> Image:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'Image' failed as data isn't a dictionary."
         )
@@ -32,7 +32,7 @@ def unmarshal_Image(data: Any) -> Image:
     args: Dict[str, Any] = {}
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("id", None)
     args["id"] = field
@@ -56,7 +56,7 @@ def unmarshal_Image(data: Any) -> Image:
     args["tags"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("visibility", None)
     args["visibility"] = field
@@ -65,7 +65,7 @@ def unmarshal_Image(data: Any) -> Image:
 
 
 def unmarshal_Namespace(data: Any) -> Namespace:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'Namespace' failed as data isn't a dictionary."
         )
@@ -73,7 +73,7 @@ def unmarshal_Namespace(data: Any) -> Namespace:
     args: Dict[str, Any] = {}
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("description", None)
     args["description"] = field
@@ -112,13 +112,13 @@ def unmarshal_Namespace(data: Any) -> Namespace:
     args["status_message"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return Namespace(**args)
 
 
 def unmarshal_Tag(data: Any) -> Tag:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'Tag' failed as data isn't a dictionary."
         )
@@ -126,7 +126,7 @@ def unmarshal_Tag(data: Any) -> Tag:
     args: Dict[str, Any] = {}
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("digest", None)
     args["digest"] = field
@@ -144,13 +144,13 @@ def unmarshal_Tag(data: Any) -> Tag:
     args["status"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return Tag(**args)
 
 
 def unmarshal_ListImagesResponse(data: Any) -> ListImagesResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListImagesResponse' failed as data isn't a dictionary."
         )
@@ -167,7 +167,7 @@ def unmarshal_ListImagesResponse(data: Any) -> ListImagesResponse:
 
 
 def unmarshal_ListNamespacesResponse(data: Any) -> ListNamespacesResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListNamespacesResponse' failed as data isn't a dictionary."
         )
@@ -186,7 +186,7 @@ def unmarshal_ListNamespacesResponse(data: Any) -> ListNamespacesResponse:
 
 
 def unmarshal_ListTagsResponse(data: Any) -> ListTagsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListTagsResponse' failed as data isn't a dictionary."
         )

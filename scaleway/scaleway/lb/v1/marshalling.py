@@ -115,7 +115,7 @@ from .types import (
 
 
 def unmarshal_SubscriberEmailConfig(data: Any) -> SubscriberEmailConfig:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'SubscriberEmailConfig' failed as data isn't a dictionary."
         )
@@ -129,7 +129,7 @@ def unmarshal_SubscriberEmailConfig(data: Any) -> SubscriberEmailConfig:
 
 
 def unmarshal_SubscriberWebhookConfig(data: Any) -> SubscriberWebhookConfig:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'SubscriberWebhookConfig' failed as data isn't a dictionary."
         )
@@ -143,7 +143,7 @@ def unmarshal_SubscriberWebhookConfig(data: Any) -> SubscriberWebhookConfig:
 
 
 def unmarshal_HealthCheckHttpConfig(data: Any) -> HealthCheckHttpConfig:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'HealthCheckHttpConfig' failed as data isn't a dictionary."
         )
@@ -166,7 +166,7 @@ def unmarshal_HealthCheckHttpConfig(data: Any) -> HealthCheckHttpConfig:
 
 
 def unmarshal_HealthCheckHttpsConfig(data: Any) -> HealthCheckHttpsConfig:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'HealthCheckHttpsConfig' failed as data isn't a dictionary."
         )
@@ -192,7 +192,7 @@ def unmarshal_HealthCheckHttpsConfig(data: Any) -> HealthCheckHttpsConfig:
 
 
 def unmarshal_HealthCheckLdapConfig(data: Any) -> HealthCheckLdapConfig:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'HealthCheckLdapConfig' failed as data isn't a dictionary."
         )
@@ -203,7 +203,7 @@ def unmarshal_HealthCheckLdapConfig(data: Any) -> HealthCheckLdapConfig:
 
 
 def unmarshal_HealthCheckMysqlConfig(data: Any) -> HealthCheckMysqlConfig:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'HealthCheckMysqlConfig' failed as data isn't a dictionary."
         )
@@ -217,7 +217,7 @@ def unmarshal_HealthCheckMysqlConfig(data: Any) -> HealthCheckMysqlConfig:
 
 
 def unmarshal_HealthCheckPgsqlConfig(data: Any) -> HealthCheckPgsqlConfig:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'HealthCheckPgsqlConfig' failed as data isn't a dictionary."
         )
@@ -231,7 +231,7 @@ def unmarshal_HealthCheckPgsqlConfig(data: Any) -> HealthCheckPgsqlConfig:
 
 
 def unmarshal_HealthCheckRedisConfig(data: Any) -> HealthCheckRedisConfig:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'HealthCheckRedisConfig' failed as data isn't a dictionary."
         )
@@ -242,7 +242,7 @@ def unmarshal_HealthCheckRedisConfig(data: Any) -> HealthCheckRedisConfig:
 
 
 def unmarshal_HealthCheckTcpConfig(data: Any) -> HealthCheckTcpConfig:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'HealthCheckTcpConfig' failed as data isn't a dictionary."
         )
@@ -253,7 +253,7 @@ def unmarshal_HealthCheckTcpConfig(data: Any) -> HealthCheckTcpConfig:
 
 
 def unmarshal_Instance(data: Any) -> Instance:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'Instance' failed as data isn't a dictionary."
         )
@@ -261,7 +261,7 @@ def unmarshal_Instance(data: Any) -> Instance:
     args: Dict[str, Any] = {}
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("id", None)
     args["id"] = field
@@ -276,7 +276,7 @@ def unmarshal_Instance(data: Any) -> Instance:
     args["status"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("zone", None)
     args["zone"] = field
@@ -285,7 +285,7 @@ def unmarshal_Instance(data: Any) -> Instance:
 
 
 def unmarshal_Ip(data: Any) -> Ip:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'Ip' failed as data isn't a dictionary."
         )
@@ -320,7 +320,7 @@ def unmarshal_Ip(data: Any) -> Ip:
 
 
 def unmarshal_Subscriber(data: Any) -> Subscriber:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'Subscriber' failed as data isn't a dictionary."
         )
@@ -347,7 +347,7 @@ def unmarshal_Subscriber(data: Any) -> Subscriber:
 
 
 def unmarshal_HealthCheck(data: Any) -> HealthCheck:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'HealthCheck' failed as data isn't a dictionary."
         )
@@ -411,7 +411,7 @@ def unmarshal_HealthCheck(data: Any) -> HealthCheck:
 
 
 def unmarshal_Lb(data: Any) -> Lb:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'Lb' failed as data isn't a dictionary."
         )
@@ -422,7 +422,7 @@ def unmarshal_Lb(data: Any) -> Lb:
     args["backend_count"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("description", None)
     args["description"] = field
@@ -475,7 +475,7 @@ def unmarshal_Lb(data: Any) -> Lb:
     args["type_"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("zone", None)
     args["zone"] = field
@@ -484,7 +484,7 @@ def unmarshal_Lb(data: Any) -> Lb:
 
 
 def unmarshal_AclActionRedirect(data: Any) -> AclActionRedirect:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'AclActionRedirect' failed as data isn't a dictionary."
         )
@@ -504,7 +504,7 @@ def unmarshal_AclActionRedirect(data: Any) -> AclActionRedirect:
 
 
 def unmarshal_Backend(data: Any) -> Backend:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'Backend' failed as data isn't a dictionary."
         )
@@ -512,7 +512,7 @@ def unmarshal_Backend(data: Any) -> Backend:
     args: Dict[str, Any] = {}
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("failover_host", None)
     args["failover_host"] = field
@@ -584,13 +584,13 @@ def unmarshal_Backend(data: Any) -> Backend:
     args["timeout_tunnel"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return Backend(**args)
 
 
 def unmarshal_Certificate(data: Any) -> Certificate:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'Certificate' failed as data isn't a dictionary."
         )
@@ -601,7 +601,7 @@ def unmarshal_Certificate(data: Any) -> Certificate:
     args["common_name"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("fingerprint", None)
     args["fingerprint"] = field
@@ -616,10 +616,10 @@ def unmarshal_Certificate(data: Any) -> Certificate:
     args["name"] = field
 
     field = data.get("not_valid_after", None)
-    args["not_valid_after"] = parser.isoparse(field) if type(field) is str else field
+    args["not_valid_after"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("not_valid_before", None)
-    args["not_valid_before"] = parser.isoparse(field) if type(field) is str else field
+    args["not_valid_before"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("status", None)
     args["status"] = field
@@ -634,13 +634,13 @@ def unmarshal_Certificate(data: Any) -> Certificate:
     args["type_"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return Certificate(**args)
 
 
 def unmarshal_AclAction(data: Any) -> AclAction:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'AclAction' failed as data isn't a dictionary."
         )
@@ -657,7 +657,7 @@ def unmarshal_AclAction(data: Any) -> AclAction:
 
 
 def unmarshal_AclMatch(data: Any) -> AclMatch:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'AclMatch' failed as data isn't a dictionary."
         )
@@ -683,7 +683,7 @@ def unmarshal_AclMatch(data: Any) -> AclMatch:
 
 
 def unmarshal_Frontend(data: Any) -> Frontend:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'Frontend' failed as data isn't a dictionary."
         )
@@ -700,7 +700,7 @@ def unmarshal_Frontend(data: Any) -> Frontend:
     args["certificate_ids"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("enable_http3", None)
     args["enable_http3"] = field
@@ -721,13 +721,13 @@ def unmarshal_Frontend(data: Any) -> Frontend:
     args["timeout_client"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return Frontend(**args)
 
 
 def unmarshal_PrivateNetworkDHCPConfig(data: Any) -> PrivateNetworkDHCPConfig:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'PrivateNetworkDHCPConfig' failed as data isn't a dictionary."
         )
@@ -741,7 +741,7 @@ def unmarshal_PrivateNetworkDHCPConfig(data: Any) -> PrivateNetworkDHCPConfig:
 
 
 def unmarshal_PrivateNetworkIpamConfig(data: Any) -> PrivateNetworkIpamConfig:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'PrivateNetworkIpamConfig' failed as data isn't a dictionary."
         )
@@ -752,7 +752,7 @@ def unmarshal_PrivateNetworkIpamConfig(data: Any) -> PrivateNetworkIpamConfig:
 
 
 def unmarshal_PrivateNetworkStaticConfig(data: Any) -> PrivateNetworkStaticConfig:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'PrivateNetworkStaticConfig' failed as data isn't a dictionary."
         )
@@ -766,7 +766,7 @@ def unmarshal_PrivateNetworkStaticConfig(data: Any) -> PrivateNetworkStaticConfi
 
 
 def unmarshal_RouteMatch(data: Any) -> RouteMatch:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'RouteMatch' failed as data isn't a dictionary."
         )
@@ -783,7 +783,7 @@ def unmarshal_RouteMatch(data: Any) -> RouteMatch:
 
 
 def unmarshal_Acl(data: Any) -> Acl:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'Acl' failed as data isn't a dictionary."
         )
@@ -794,7 +794,7 @@ def unmarshal_Acl(data: Any) -> Acl:
     args["action"] = unmarshal_AclAction(field) if field is not None else None
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("description", None)
     args["description"] = field
@@ -815,13 +815,13 @@ def unmarshal_Acl(data: Any) -> Acl:
     args["name"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return Acl(**args)
 
 
 def unmarshal_BackendServerStats(data: Any) -> BackendServerStats:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'BackendServerStats' failed as data isn't a dictionary."
         )
@@ -845,14 +845,14 @@ def unmarshal_BackendServerStats(data: Any) -> BackendServerStats:
 
     field = data.get("server_state_changed_at", None)
     args["server_state_changed_at"] = (
-        parser.isoparse(field) if type(field) is str else field
+        parser.isoparse(field) if isinstance(field, str) else field
     )
 
     return BackendServerStats(**args)
 
 
 def unmarshal_LbType(data: Any) -> LbType:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'LbType' failed as data isn't a dictionary."
         )
@@ -878,7 +878,7 @@ def unmarshal_LbType(data: Any) -> LbType:
 
 
 def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'PrivateNetwork' failed as data isn't a dictionary."
         )
@@ -886,7 +886,7 @@ def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
     args: Dict[str, Any] = {}
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("dhcp_config", None)
     args["dhcp_config"] = (
@@ -913,13 +913,13 @@ def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
     args["status"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return PrivateNetwork(**args)
 
 
 def unmarshal_Route(data: Any) -> Route:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'Route' failed as data isn't a dictionary."
         )
@@ -930,7 +930,7 @@ def unmarshal_Route(data: Any) -> Route:
     args["backend_id"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("frontend_id", None)
     args["frontend_id"] = field
@@ -942,13 +942,13 @@ def unmarshal_Route(data: Any) -> Route:
     args["match"] = unmarshal_RouteMatch(field) if field is not None else None
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return Route(**args)
 
 
 def unmarshal_LbStats(data: Any) -> LbStats:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'LbStats' failed as data isn't a dictionary."
         )
@@ -964,7 +964,7 @@ def unmarshal_LbStats(data: Any) -> LbStats:
 
 
 def unmarshal_ListAclResponse(data: Any) -> ListAclResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListAclResponse' failed as data isn't a dictionary."
         )
@@ -981,7 +981,7 @@ def unmarshal_ListAclResponse(data: Any) -> ListAclResponse:
 
 
 def unmarshal_ListBackendStatsResponse(data: Any) -> ListBackendStatsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListBackendStatsResponse' failed as data isn't a dictionary."
         )
@@ -1000,7 +1000,7 @@ def unmarshal_ListBackendStatsResponse(data: Any) -> ListBackendStatsResponse:
 
 
 def unmarshal_ListBackendsResponse(data: Any) -> ListBackendsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListBackendsResponse' failed as data isn't a dictionary."
         )
@@ -1019,7 +1019,7 @@ def unmarshal_ListBackendsResponse(data: Any) -> ListBackendsResponse:
 
 
 def unmarshal_ListCertificatesResponse(data: Any) -> ListCertificatesResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListCertificatesResponse' failed as data isn't a dictionary."
         )
@@ -1038,7 +1038,7 @@ def unmarshal_ListCertificatesResponse(data: Any) -> ListCertificatesResponse:
 
 
 def unmarshal_ListFrontendsResponse(data: Any) -> ListFrontendsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListFrontendsResponse' failed as data isn't a dictionary."
         )
@@ -1057,7 +1057,7 @@ def unmarshal_ListFrontendsResponse(data: Any) -> ListFrontendsResponse:
 
 
 def unmarshal_ListIpsResponse(data: Any) -> ListIpsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListIpsResponse' failed as data isn't a dictionary."
         )
@@ -1074,7 +1074,7 @@ def unmarshal_ListIpsResponse(data: Any) -> ListIpsResponse:
 
 
 def unmarshal_ListLbPrivateNetworksResponse(data: Any) -> ListLbPrivateNetworksResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListLbPrivateNetworksResponse' failed as data isn't a dictionary."
         )
@@ -1093,7 +1093,7 @@ def unmarshal_ListLbPrivateNetworksResponse(data: Any) -> ListLbPrivateNetworksR
 
 
 def unmarshal_ListLbTypesResponse(data: Any) -> ListLbTypesResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListLbTypesResponse' failed as data isn't a dictionary."
         )
@@ -1112,7 +1112,7 @@ def unmarshal_ListLbTypesResponse(data: Any) -> ListLbTypesResponse:
 
 
 def unmarshal_ListLbsResponse(data: Any) -> ListLbsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListLbsResponse' failed as data isn't a dictionary."
         )
@@ -1129,7 +1129,7 @@ def unmarshal_ListLbsResponse(data: Any) -> ListLbsResponse:
 
 
 def unmarshal_ListRoutesResponse(data: Any) -> ListRoutesResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListRoutesResponse' failed as data isn't a dictionary."
         )
@@ -1146,7 +1146,7 @@ def unmarshal_ListRoutesResponse(data: Any) -> ListRoutesResponse:
 
 
 def unmarshal_ListSubscriberResponse(data: Any) -> ListSubscriberResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'ListSubscriberResponse' failed as data isn't a dictionary."
         )
@@ -1165,7 +1165,7 @@ def unmarshal_ListSubscriberResponse(data: Any) -> ListSubscriberResponse:
 
 
 def unmarshal_SetAclsResponse(data: Any) -> SetAclsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             f"Unmarshalling the type 'SetAclsResponse' failed as data isn't a dictionary."
         )
