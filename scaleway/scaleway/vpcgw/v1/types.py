@@ -529,6 +529,18 @@ class IP:
 
 
 @dataclass
+class IpamConfig:
+    """
+    Ipam config.
+    """
+
+    push_default_route: bool
+    """
+    Defines whether the default route is enabled on that Gateway Network.
+    """
+
+
+@dataclass
 class ListDHCPEntriesResponse:
     """
     List dhcp entries response.
@@ -1045,30 +1057,38 @@ class CreateGatewayNetworkRequest:
     Defines whether to enable masquerade (dynamic NAT) on this network.
     """
 
+    enable_dhcp: Optional[bool]
+    """
+    Defines whether to enable DHCP on this Private Network. Defaults to `true` if either `dhcp_id` or `dhcp` are present. If set to `true`, either `dhcp_id` or `dhcp` must be present.
+    """
+
     dhcp_id: Optional[str]
     """
     ID of an existing DHCP configuration object to use for this GatewayNetwork.
     
-    One-of ('ip_config'): at most one of 'dhcp_id', 'dhcp', 'address' could be set.
+    One-of ('ip_config'): at most one of 'dhcp_id', 'dhcp', 'address', 'ipam_config' could be set.
     """
 
     dhcp: Optional[CreateDHCPRequest]
     """
     New DHCP configuration object to use for this GatewayNetwork.
     
-    One-of ('ip_config'): at most one of 'dhcp_id', 'dhcp', 'address' could be set.
+    One-of ('ip_config'): at most one of 'dhcp_id', 'dhcp', 'address', 'ipam_config' could be set.
     """
 
     address: Optional[str]
     """
     Static IP address in CIDR format to to use without DHCP.
     
-    One-of ('ip_config'): at most one of 'dhcp_id', 'dhcp', 'address' could be set.
+    One-of ('ip_config'): at most one of 'dhcp_id', 'dhcp', 'address', 'ipam_config' could be set.
     """
 
-    enable_dhcp: Optional[bool]
+    ipam_config: Optional[IpamConfig]
     """
-    Defines whether to enable DHCP on this Private Network. Defaults to `true` if either `dhcp_id` or `dhcp` are present. If set to `true`, either `dhcp_id` or `dhcp` must be present.
+    Auto-configure the GatewayNetwork using Scaleway's IPAM (IP address management service).
+    Note: all or none of the GatewayNetworks for a single gateway can use the IPAM. DHCP and IPAM configurations cannot be mixed. Some products may require that the Public Gateway uses the IPAM, to ensure correct functionality.
+    
+    One-of ('ip_config'): at most one of 'dhcp_id', 'dhcp', 'address', 'ipam_config' could be set.
     """
 
 
@@ -1089,23 +1109,30 @@ class UpdateGatewayNetworkRequest:
     Defines whether to enable masquerade (dynamic NAT) on the GatewayNetwork.
     """
 
+    enable_dhcp: Optional[bool]
+    """
+    Defines whether to enable DHCP on the connected Private Network.
+    """
+
     dhcp_id: Optional[str]
     """
     ID of the new DHCP configuration object to use with this GatewayNetwork.
     
-    One-of ('ip_config'): at most one of 'dhcp_id', 'address' could be set.
-    """
-
-    enable_dhcp: Optional[bool]
-    """
-    Defines whether to enable DHCP on the connected Private Network.
+    One-of ('ip_config'): at most one of 'dhcp_id', 'address', 'ipam_config' could be set.
     """
 
     address: Optional[str]
     """
     New static IP address.
     
-    One-of ('ip_config'): at most one of 'dhcp_id', 'address' could be set.
+    One-of ('ip_config'): at most one of 'dhcp_id', 'address', 'ipam_config' could be set.
+    """
+
+    ipam_config: Optional[IpamConfig]
+    """
+    New IPAM configuration to use for this GatewayNetwork.
+    
+    One-of ('ip_config'): at most one of 'dhcp_id', 'address', 'ipam_config' could be set.
     """
 
 

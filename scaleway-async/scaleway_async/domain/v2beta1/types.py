@@ -239,6 +239,10 @@ class ListDNSZonesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     DOMAIN_DESC = "domain_desc"
     SUBDOMAIN_ASC = "subdomain_asc"
     SUBDOMAIN_DESC = "subdomain_desc"
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+    UPDATED_AT_ASC = "updated_at_asc"
+    UPDATED_AT_DESC = "updated_at_desc"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -1390,9 +1394,35 @@ class ListDNSZonesRequest:
     Domain on which to filter the returned DNS zones.
     """
 
-    dns_zone: str
+    dns_zone: Optional[str]
     """
     DNS zone on which to filter the returned DNS zones.
+    :deprecated
+    """
+
+    dns_zones: Optional[List[str]]
+    """
+    DNS zones on which to filter the returned DNS zones.
+    """
+
+    created_after: Optional[datetime]
+    """
+    Only list DNS zones created after this date.
+    """
+
+    created_before: Optional[datetime]
+    """
+    Only list DNS zones created before this date.
+    """
+
+    updated_after: Optional[datetime]
+    """
+    Only list DNS zones updated after this date.
+    """
+
+    updated_before: Optional[datetime]
+    """
+    Only list DNS zones updated before this date.
     """
 
 

@@ -72,6 +72,9 @@ def unmarshal_TokenScopes(data: Any) -> TokenScopes:
     field = data.get("query_metrics", None)
     args["query_metrics"] = field
 
+    field = data.get("query_traces", None)
+    args["query_traces"] = field
+
     field = data.get("setup_alerts", None)
     args["setup_alerts"] = field
 
@@ -86,6 +89,9 @@ def unmarshal_TokenScopes(data: Any) -> TokenScopes:
 
     field = data.get("write_metrics", None)
     args["write_metrics"] = field
+
+    field = data.get("write_traces", None)
+    args["write_traces"] = field
 
     return TokenScopes(**args)
 
@@ -396,6 +402,9 @@ def marshal_TokenScopes(
     if request.query_metrics is not None:
         output["query_metrics"] = request.query_metrics
 
+    if request.query_traces is not None:
+        output["query_traces"] = request.query_traces
+
     if request.setup_alerts is not None:
         output["setup_alerts"] = request.setup_alerts
 
@@ -410,6 +419,9 @@ def marshal_TokenScopes(
 
     if request.write_metrics is not None:
         output["write_metrics"] = request.write_metrics
+
+    if request.write_traces is not None:
+        output["write_traces"] = request.write_traces
 
     return output
 

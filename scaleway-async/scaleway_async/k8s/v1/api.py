@@ -539,7 +539,7 @@ class K8SV1API(API):
     ) -> Cluster:
         """
         Change the Cluster type.
-        Change the type of a specific Kubernetes cluster.
+        Change the type of a specific Kubernetes cluster. To see the possible values you can enter for the `type` field, [list available cluster types](#path-clusters-list-available-cluster-types-for-a-cluster).
         :param region: Region to target. If none is passed will use default region from the config.
         :param cluster_id: ID of the cluster to migrate from one type to another.
         :param type_: Type of the cluster. Note that some migrations are not possible (please refer to product documentation).

@@ -17,6 +17,7 @@ from .types import (
     GatewayNetwork,
     GatewayType,
     IP,
+    IpamConfig,
     ListDHCPEntriesResponse,
     ListDHCPsResponse,
     ListGatewayNetworksResponse,
@@ -574,6 +575,18 @@ def marshal_CreateDHCPRequest(
     return output
 
 
+def marshal_IpamConfig(
+    request: IpamConfig,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.push_default_route is not None:
+        output["push_default_route"] = request.push_default_route
+
+    return output
+
+
 def marshal_SetDHCPEntriesRequestEntry(
     request: SetDHCPEntriesRequestEntry,
     defaults: ProfileDefaults,
@@ -647,6 +660,12 @@ def marshal_CreateGatewayNetworkRequest(
                 ),
                 OneOfPossibility(
                     "address", request.address if request.address is not None else None
+                ),
+                OneOfPossibility(
+                    "ipam_config",
+                    marshal_IpamConfig(request.ipam_config, defaults)
+                    if request.ipam_config is not None
+                    else None,
                 ),
             ]
         ),
@@ -850,6 +869,12 @@ def marshal_UpdateGatewayNetworkRequest(
                 ),
                 OneOfPossibility(
                     "address", request.address if request.address is not None else None
+                ),
+                OneOfPossibility(
+                    "ipam_config",
+                    marshal_IpamConfig(request.ipam_config, defaults)
+                    if request.ipam_config is not None
+                    else None,
                 ),
             ]
         ),

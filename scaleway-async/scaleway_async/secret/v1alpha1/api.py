@@ -208,7 +208,7 @@ class SecretV1Alpha1API(API):
 
         GetSecretByName usage is now deprecated.
 
-        Scaleway recommends you to use ListSecrets with the `name` filter.
+        Scaleway recommends that you use the `ListSecrets` request with the `name` filter.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_name: Name of the secret.
         :param project_id: ID of the Project to target.
@@ -527,7 +527,7 @@ class SecretV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> Optional[None]:
         """
-        Delete a given folder specified by the and `folder_id` parameter.
+        Delete a given folder specified by the `region` and `folder_id` parameters.
         :param region: Region to target. If none is passed will use default region from the config.
         :param folder_id: ID of the folder.
 

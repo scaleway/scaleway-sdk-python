@@ -30,6 +30,7 @@ from .types import (
     Gateway,
     GatewayNetwork,
     IP,
+    IpamConfig,
     ListDHCPEntriesResponse,
     ListDHCPsResponse,
     ListGatewayNetworksResponse,
@@ -647,10 +648,11 @@ class VpcgwV1API(API):
         private_network_id: str,
         enable_masquerade: bool,
         zone: Optional[Zone] = None,
+        enable_dhcp: Optional[bool] = None,
         dhcp_id: Optional[str] = None,
         dhcp: Optional[CreateDHCPRequest] = None,
         address: Optional[str] = None,
-        enable_dhcp: Optional[bool] = None,
+        ipam_config: Optional[IpamConfig] = None,
     ) -> GatewayNetwork:
         """
         Attach a Public Gateway to a Private Network.
@@ -659,16 +661,20 @@ class VpcgwV1API(API):
         :param gateway_id: Public Gateway to connect.
         :param private_network_id: Private Network to connect.
         :param enable_masquerade: Defines whether to enable masquerade (dynamic NAT) on this network.
+        :param enable_dhcp: Defines whether to enable DHCP on this Private Network. Defaults to `true` if either `dhcp_id` or `dhcp` are present. If set to `true`, either `dhcp_id` or `dhcp` must be present.
         :param dhcp_id: ID of an existing DHCP configuration object to use for this GatewayNetwork.
 
-        One-of ('ip_config'): at most one of 'dhcp_id', 'dhcp', 'address' could be set.
+        One-of ('ip_config'): at most one of 'dhcp_id', 'dhcp', 'address', 'ipam_config' could be set.
         :param dhcp: New DHCP configuration object to use for this GatewayNetwork.
 
-        One-of ('ip_config'): at most one of 'dhcp_id', 'dhcp', 'address' could be set.
+        One-of ('ip_config'): at most one of 'dhcp_id', 'dhcp', 'address', 'ipam_config' could be set.
         :param address: Static IP address in CIDR format to to use without DHCP.
 
-        One-of ('ip_config'): at most one of 'dhcp_id', 'dhcp', 'address' could be set.
-        :param enable_dhcp: Defines whether to enable DHCP on this Private Network. Defaults to `true` if either `dhcp_id` or `dhcp` are present. If set to `true`, either `dhcp_id` or `dhcp` must be present.
+        One-of ('ip_config'): at most one of 'dhcp_id', 'dhcp', 'address', 'ipam_config' could be set.
+        :param ipam_config: Auto-configure the GatewayNetwork using Scaleway's IPAM (IP address management service).
+        Note: all or none of the GatewayNetworks for a single gateway can use the IPAM. DHCP and IPAM configurations cannot be mixed. Some products may require that the Public Gateway uses the IPAM, to ensure correct functionality.
+
+        One-of ('ip_config'): at most one of 'dhcp_id', 'dhcp', 'address', 'ipam_config' could be set.
         :return: :class:`GatewayNetwork <GatewayNetwork>`
 
         Usage:
@@ -692,10 +698,11 @@ class VpcgwV1API(API):
                     private_network_id=private_network_id,
                     enable_masquerade=enable_masquerade,
                     zone=zone,
+                    enable_dhcp=enable_dhcp,
                     dhcp_id=dhcp_id,
                     dhcp=dhcp,
                     address=address,
-                    enable_dhcp=enable_dhcp,
+                    ipam_config=ipam_config,
                 ),
                 self.client,
             ),
@@ -710,9 +717,10 @@ class VpcgwV1API(API):
         gateway_network_id: str,
         zone: Optional[Zone] = None,
         enable_masquerade: Optional[bool] = None,
-        dhcp_id: Optional[str] = None,
         enable_dhcp: Optional[bool] = None,
+        dhcp_id: Optional[str] = None,
         address: Optional[str] = None,
+        ipam_config: Optional[IpamConfig] = None,
     ) -> GatewayNetwork:
         """
         Update a Public Gateway's connection to a Private Network.
@@ -720,13 +728,16 @@ class VpcgwV1API(API):
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param gateway_network_id: ID of the GatewayNetwork to update.
         :param enable_masquerade: Defines whether to enable masquerade (dynamic NAT) on the GatewayNetwork.
+        :param enable_dhcp: Defines whether to enable DHCP on the connected Private Network.
         :param dhcp_id: ID of the new DHCP configuration object to use with this GatewayNetwork.
 
-        One-of ('ip_config'): at most one of 'dhcp_id', 'address' could be set.
-        :param enable_dhcp: Defines whether to enable DHCP on the connected Private Network.
+        One-of ('ip_config'): at most one of 'dhcp_id', 'address', 'ipam_config' could be set.
         :param address: New static IP address.
 
-        One-of ('ip_config'): at most one of 'dhcp_id', 'address' could be set.
+        One-of ('ip_config'): at most one of 'dhcp_id', 'address', 'ipam_config' could be set.
+        :param ipam_config: New IPAM configuration to use for this GatewayNetwork.
+
+        One-of ('ip_config'): at most one of 'dhcp_id', 'address', 'ipam_config' could be set.
         :return: :class:`GatewayNetwork <GatewayNetwork>`
 
         Usage:
@@ -748,9 +759,10 @@ class VpcgwV1API(API):
                     gateway_network_id=gateway_network_id,
                     zone=zone,
                     enable_masquerade=enable_masquerade,
-                    dhcp_id=dhcp_id,
                     enable_dhcp=enable_dhcp,
+                    dhcp_id=dhcp_id,
                     address=address,
+                    ipam_config=ipam_config,
                 ),
                 self.client,
             ),

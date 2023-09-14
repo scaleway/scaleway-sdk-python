@@ -71,6 +71,7 @@ from .types import (
     ListSnapshotsResponse,
     ListVolumesResponse,
     ListVolumesTypesResponse,
+    MigrationPlan,
     PlacementGroup,
     PlacementGroupServer,
     PrivateNIC,
@@ -130,6 +131,8 @@ from .types import (
     UpdateIpRequest,
     CreatePrivateNICRequest,
     UpdatePrivateNICRequest,
+    PlanBlockMigrationRequest,
+    ApplyBlockMigrationRequest,
 )
 from .types_private import (
     _SetImageResponse,
@@ -1875,6 +1878,28 @@ def unmarshal_ListVolumesTypesResponse(data: Any) -> ListVolumesTypesResponse:
     return ListVolumesTypesResponse(**args)
 
 
+def unmarshal_MigrationPlan(data: Any) -> MigrationPlan:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'MigrationPlan' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("snapshots", None)
+    args["snapshots"] = (
+        [unmarshal_Snapshot(v) for v in field] if field is not None else None
+    )
+
+    field = data.get("validation_key", None)
+    args["validation_key"] = field
+
+    field = data.get("volume", None)
+    args["volume"] = unmarshal_Volume(field) if field is not None else None
+
+    return MigrationPlan(**args)
+
+
 def unmarshal_ServerActionResponse(data: Any) -> ServerActionResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -2593,6 +2618,32 @@ def marshal_VolumeTemplate(
     return output
 
 
+def marshal_ApplyBlockMigrationRequest(
+    request: ApplyBlockMigrationRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
+            [
+                OneOfPossibility(
+                    "volume_id",
+                    request.volume_id if request.volume_id is not None else None,
+                ),
+                OneOfPossibility(
+                    "snapshot_id",
+                    request.snapshot_id if request.snapshot_id is not None else None,
+                ),
+            ]
+        ),
+    )
+
+    if request.validation_key is not None:
+        output["validation_key"] = request.validation_key
+
+    return output
+
+
 def marshal_CreateImageRequest(
     request: CreateImageRequest,
     defaults: ProfileDefaults,
@@ -2966,6 +3017,29 @@ def marshal_ExportSnapshotRequest(
 
     if request.key is not None:
         output["key"] = request.key
+
+    return output
+
+
+def marshal_PlanBlockMigrationRequest(
+    request: PlanBlockMigrationRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
+            [
+                OneOfPossibility(
+                    "volume_id",
+                    request.volume_id if request.volume_id is not None else None,
+                ),
+                OneOfPossibility(
+                    "snapshot_id",
+                    request.snapshot_id if request.snapshot_id is not None else None,
+                ),
+            ]
+        ),
+    )
 
     return output
 
