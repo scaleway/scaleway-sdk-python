@@ -168,7 +168,9 @@ def unmarshal_Device(data: Any) -> Device:
     args["is_connected"] = field
 
     field = data.get("last_activity_at", None)
-    args["last_activity_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["last_activity_at"] = (
+        parser.isoparse(field) if isinstance(field, str) else field
+    )
 
     field = data.get("message_filters", None)
     args["message_filters"] = (

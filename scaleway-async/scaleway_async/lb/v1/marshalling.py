@@ -616,10 +616,14 @@ def unmarshal_Certificate(data: Any) -> Certificate:
     args["name"] = field
 
     field = data.get("not_valid_after", None)
-    args["not_valid_after"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["not_valid_after"] = (
+        parser.isoparse(field) if isinstance(field, str) else field
+    )
 
     field = data.get("not_valid_before", None)
-    args["not_valid_before"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["not_valid_before"] = (
+        parser.isoparse(field) if isinstance(field, str) else field
+    )
 
     field = data.get("status", None)
     args["status"] = field

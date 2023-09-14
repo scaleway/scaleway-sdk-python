@@ -76,7 +76,9 @@ def unmarshal_Version(data: Any) -> Version:
     )
 
     field = data.get("modification_date", None)
-    args["modification_date"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["modification_date"] = (
+        parser.isoparse(field) if isinstance(field, str) else field
+    )
 
     field = data.get("name", None)
     args["name"] = field
@@ -114,7 +116,9 @@ def unmarshal_Image(data: Any) -> Image:
     args["logo"] = field
 
     field = data.get("modification_date", None)
-    args["modification_date"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["modification_date"] = (
+        parser.isoparse(field) if isinstance(field, str) else field
+    )
 
     field = data.get("name", None)
     args["name"] = field

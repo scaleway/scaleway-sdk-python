@@ -268,7 +268,9 @@ def unmarshal_Volume(data: Any) -> Volume:
     args["id"] = field
 
     field = data.get("modification_date", None)
-    args["modification_date"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["modification_date"] = (
+        parser.isoparse(field) if isinstance(field, str) else field
+    )
 
     field = data.get("name", None)
     args["name"] = field
@@ -356,7 +358,9 @@ def unmarshal_Image(data: Any) -> Image:
     args["id"] = field
 
     field = data.get("modification_date", None)
-    args["modification_date"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["modification_date"] = (
+        parser.isoparse(field) if isinstance(field, str) else field
+    )
 
     field = data.get("name", None)
     args["name"] = field
@@ -661,7 +665,9 @@ def unmarshal_VolumeServer(data: Any) -> VolumeServer:
     args["id"] = field
 
     field = data.get("modification_date", None)
-    args["modification_date"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["modification_date"] = (
+        parser.isoparse(field) if isinstance(field, str) else field
+    )
 
     field = data.get("name", None)
     args["name"] = field
@@ -881,7 +887,9 @@ def unmarshal_SecurityGroup(data: Any) -> SecurityGroup:
     args["inbound_default_policy"] = field
 
     field = data.get("modification_date", None)
-    args["modification_date"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["modification_date"] = (
+        parser.isoparse(field) if isinstance(field, str) else field
+    )
 
     field = data.get("name", None)
     args["name"] = field
@@ -1018,7 +1026,9 @@ def unmarshal_Server(data: Any) -> Server:
     )
 
     field = data.get("modification_date", None)
-    args["modification_date"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["modification_date"] = (
+        parser.isoparse(field) if isinstance(field, str) else field
+    )
 
     field = data.get("name", None)
     args["name"] = field
@@ -1164,7 +1174,9 @@ def unmarshal_Snapshot(data: Any) -> Snapshot:
     args["id"] = field
 
     field = data.get("modification_date", None)
-    args["modification_date"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["modification_date"] = (
+        parser.isoparse(field) if isinstance(field, str) else field
+    )
 
     field = data.get("name", None)
     args["name"] = field

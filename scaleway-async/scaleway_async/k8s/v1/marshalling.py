@@ -213,7 +213,9 @@ def unmarshal_Cluster(data: Any) -> Cluster:
     args["cni"] = field
 
     field = data.get("commitment_ends_at", None)
-    args["commitment_ends_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["commitment_ends_at"] = (
+        parser.isoparse(field) if isinstance(field, str) else field
+    )
 
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
