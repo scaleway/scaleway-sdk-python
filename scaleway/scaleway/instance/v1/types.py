@@ -2290,6 +2290,8 @@ class ListSnapshotsRequest:
 
     tags: Optional[str]
 
+    base_volume_id: Optional[str]
+
 
 @dataclass
 class CreateSnapshotRequest:
@@ -3058,6 +3060,11 @@ class ListIpsRequest:
     page: Optional[int]
     """
     A positive integer to choose the page to return.
+    """
+
+    type_: Optional[str]
+    """
+    Filter on the IP Mobility IP type (whose value should be either 'nat', 'routed_ipv4' or 'routed_ipv6').
     """
 
 

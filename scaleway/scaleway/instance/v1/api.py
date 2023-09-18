@@ -1285,6 +1285,7 @@ class InstanceV1API(API):
         name: Optional[str] = None,
         project: Optional[str] = None,
         tags: Optional[str] = None,
+        base_volume_id: Optional[str] = None,
     ) -> ListSnapshotsResponse:
         """
         List snapshots.
@@ -1296,6 +1297,7 @@ class InstanceV1API(API):
         :param name:
         :param project:
         :param tags:
+        :param base_volume_id:
         :return: :class:`ListSnapshotsResponse <ListSnapshotsResponse>`
 
         Usage:
@@ -1310,6 +1312,7 @@ class InstanceV1API(API):
             "GET",
             f"/instance/v1/zones/{param_zone}/snapshots",
             params={
+                "base_volume_id": base_volume_id,
                 "name": name,
                 "organization": organization or self.client.default_organization_id,
                 "page": page,
@@ -1332,6 +1335,7 @@ class InstanceV1API(API):
         name: Optional[str] = None,
         project: Optional[str] = None,
         tags: Optional[str] = None,
+        base_volume_id: Optional[str] = None,
     ) -> List[Snapshot]:
         """
         List snapshots.
@@ -1343,6 +1347,7 @@ class InstanceV1API(API):
         :param name:
         :param project:
         :param tags:
+        :param base_volume_id:
         :return: :class:`List[ListSnapshotsResponse] <List[ListSnapshotsResponse]>`
 
         Usage:
@@ -1363,6 +1368,7 @@ class InstanceV1API(API):
                 "name": name,
                 "project": project,
                 "tags": tags,
+                "base_volume_id": base_volume_id,
             },
         )
 
@@ -3040,6 +3046,7 @@ class InstanceV1API(API):
         name: Optional[str] = None,
         per_page: Optional[int] = None,
         page: Optional[int] = None,
+        type_: Optional[str] = None,
     ) -> ListIpsResponse:
         """
         List all flexible IPs.
@@ -3051,6 +3058,7 @@ class InstanceV1API(API):
         :param name: Filter on the IP address (Works as a LIKE operation on the IP address).
         :param per_page: A positive integer lower or equal to 100 to select the number of items to return.
         :param page: A positive integer to choose the page to return.
+        :param type_: Filter on the IP Mobility IP type (whose value should be either 'nat', 'routed_ipv4' or 'routed_ipv6').
         :return: :class:`ListIpsResponse <ListIpsResponse>`
 
         Usage:
@@ -3071,6 +3079,7 @@ class InstanceV1API(API):
                 "per_page": per_page or self.client.default_page_size,
                 "project": project or self.client.default_project_id,
                 "tags": ",".join(tags) if tags and len(tags) > 0 else None,
+                "type": type_,
             },
         )
 
@@ -3087,6 +3096,7 @@ class InstanceV1API(API):
         name: Optional[str] = None,
         per_page: Optional[int] = None,
         page: Optional[int] = None,
+        type_: Optional[str] = None,
     ) -> List[Ip]:
         """
         List all flexible IPs.
@@ -3098,6 +3108,7 @@ class InstanceV1API(API):
         :param name: Filter on the IP address (Works as a LIKE operation on the IP address).
         :param per_page: A positive integer lower or equal to 100 to select the number of items to return.
         :param page: A positive integer to choose the page to return.
+        :param type_: Filter on the IP Mobility IP type (whose value should be either 'nat', 'routed_ipv4' or 'routed_ipv6').
         :return: :class:`List[ListIpsResponse] <List[ListIpsResponse]>`
 
         Usage:
@@ -3118,6 +3129,7 @@ class InstanceV1API(API):
                 "name": name,
                 "per_page": per_page,
                 "page": page,
+                "type_": type_,
             },
         )
 
