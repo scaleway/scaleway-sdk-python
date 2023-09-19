@@ -13,6 +13,7 @@ from scaleway_core.utils import (
     wait_for_resource_async,
 )
 from .types import (
+    DatasourceType,
     GrafanaUserRole,
     ListGrafanaUsersRequestOrderBy,
     ListPlansRequestOrderBy,
@@ -20,6 +21,7 @@ from .types import (
     Cockpit,
     CockpitMetrics,
     ContactPoint,
+    Datasource,
     GrafanaUser,
     ListContactPointsResponse,
     ListGrafanaUsersResponse,
@@ -32,6 +34,7 @@ from .types import (
     ActivateCockpitRequest,
     DeactivateCockpitRequest,
     ResetCockpitGrafanaRequest,
+    CreateDatasourceRequest,
     CreateTokenRequest,
     CreateContactPointRequest,
     DeleteContactPointRequest,
@@ -49,6 +52,7 @@ from .content import (
 from .marshalling import (
     marshal_ActivateCockpitRequest,
     marshal_CreateContactPointRequest,
+    marshal_CreateDatasourceRequest,
     marshal_CreateGrafanaUserRequest,
     marshal_CreateTokenRequest,
     marshal_DeactivateCockpitRequest,
@@ -65,6 +69,7 @@ from .marshalling import (
     unmarshal_Token,
     unmarshal_Cockpit,
     unmarshal_CockpitMetrics,
+    unmarshal_Datasource,
     unmarshal_ListContactPointsResponse,
     unmarshal_ListGrafanaUsersResponse,
     unmarshal_ListPlansResponse,
@@ -77,8 +82,8 @@ class CockpitV1Beta1API(API):
     """
     Cockpit API.
 
-    Cockpit API.
     Cockpit's API allows you to activate your Cockpit on your Projects. Scaleway's Cockpit stores metrics and logs and provides a dedicated Grafana for dashboarding to visualize them.
+    Cockpit API.
     """
 
     async def activate_cockpit(
@@ -87,7 +92,6 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> Cockpit:
         """
-        Activate a Cockpit.
         Activate the Cockpit of the specified Project ID.
         :param project_id: ID of the Project the Cockpit belongs to.
         :return: :class:`Cockpit <Cockpit>`
@@ -100,7 +104,7 @@ class CockpitV1Beta1API(API):
 
         res = self._request(
             "POST",
-            "/cockpit/v1beta1/activate",
+            f"/cockpit/v1beta1/activate",
             body=marshal_ActivateCockpitRequest(
                 ActivateCockpitRequest(
                     project_id=project_id,
@@ -118,7 +122,6 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> Cockpit:
         """
-        Get a Cockpit.
         Retrieve the Cockpit of the specified Project ID.
         :param project_id: ID of the Project the Cockpit belongs to.
         :return: :class:`Cockpit <Cockpit>`
@@ -131,7 +134,7 @@ class CockpitV1Beta1API(API):
 
         res = self._request(
             "GET",
-            "/cockpit/v1beta1/cockpit",
+            f"/cockpit/v1beta1/cockpit",
             params={
                 "project_id": project_id or self.client.default_project_id,
             },
@@ -181,7 +184,6 @@ class CockpitV1Beta1API(API):
         metric_name: Optional[str] = None,
     ) -> CockpitMetrics:
         """
-        Get Cockpit metrics.
         Get metrics from your Cockpit with the specified Project ID.
         :param project_id: ID of the Project the Cockpit belongs to.
         :param start_date: Desired time range's start date for the metrics.
@@ -197,7 +199,7 @@ class CockpitV1Beta1API(API):
 
         res = self._request(
             "GET",
-            "/cockpit/v1beta1/cockpit/metrics",
+            f"/cockpit/v1beta1/cockpit/metrics",
             params={
                 "end_date": end_date,
                 "metric_name": metric_name,
@@ -215,7 +217,6 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> Cockpit:
         """
-        Deactivate a Cockpit.
         Deactivate the Cockpit of the specified Project ID.
         :param project_id: ID of the Project the Cockpit belongs to.
         :return: :class:`Cockpit <Cockpit>`
@@ -228,7 +229,7 @@ class CockpitV1Beta1API(API):
 
         res = self._request(
             "POST",
-            "/cockpit/v1beta1/deactivate",
+            f"/cockpit/v1beta1/deactivate",
             body=marshal_DeactivateCockpitRequest(
                 DeactivateCockpitRequest(
                     project_id=project_id,
@@ -246,7 +247,6 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> Cockpit:
         """
-        Reset a Grafana.
         Reset your Cockpit's Grafana associated with the specified Project ID.
         :param project_id: ID of the Project the Cockpit belongs to.
         :return: :class:`Cockpit <Cockpit>`
@@ -259,7 +259,7 @@ class CockpitV1Beta1API(API):
 
         res = self._request(
             "POST",
-            "/cockpit/v1beta1/reset-grafana",
+            f"/cockpit/v1beta1/reset-grafana",
             body=marshal_ResetCockpitGrafanaRequest(
                 ResetCockpitGrafanaRequest(
                     project_id=project_id,
@@ -271,6 +271,45 @@ class CockpitV1Beta1API(API):
         self._throw_on_error(res)
         return unmarshal_Cockpit(res.json())
 
+    async def create_datasource(
+        self,
+        *,
+        name: str,
+        type_: DatasourceType,
+        project_id: Optional[str] = None,
+    ) -> Datasource:
+        """
+        Create a datasource for the specified Project ID and the given type.
+        :param project_id: ID of the Project the Cockpit belongs to.
+        :param name: Datasource name.
+        :param type_: Datasource type.
+        :return: :class:`Datasource <Datasource>`
+
+        Usage:
+        ::
+
+            result = await api.create_datasource(
+                name="example",
+                type_=unknown_datasource_type,
+            )
+        """
+
+        res = self._request(
+            "POST",
+            f"/cockpit/v1beta1/datasources",
+            body=marshal_CreateDatasourceRequest(
+                CreateDatasourceRequest(
+                    name=name,
+                    type_=type_,
+                    project_id=project_id,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Datasource(res.json())
+
     async def create_token(
         self,
         *,
@@ -279,7 +318,6 @@ class CockpitV1Beta1API(API):
         scopes: Optional[TokenScopes] = None,
     ) -> Token:
         """
-        Create a token.
         Create a token associated with the specified Project ID.
         :param project_id: ID of the Project.
         :param name: Name of the token.
@@ -294,7 +332,7 @@ class CockpitV1Beta1API(API):
 
         res = self._request(
             "POST",
-            "/cockpit/v1beta1/tokens",
+            f"/cockpit/v1beta1/tokens",
             body=marshal_CreateTokenRequest(
                 CreateTokenRequest(
                     project_id=project_id,
@@ -317,7 +355,6 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> ListTokensResponse:
         """
-        List tokens.
         Get a list of tokens associated with the specified Project ID.
         :param page: Page number.
         :param page_size: Page size.
@@ -333,7 +370,7 @@ class CockpitV1Beta1API(API):
 
         res = self._request(
             "GET",
-            "/cockpit/v1beta1/tokens",
+            f"/cockpit/v1beta1/tokens",
             params={
                 "order_by": order_by,
                 "page": page,
@@ -354,7 +391,6 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> List[Token]:
         """
-        List tokens.
         Get a list of tokens associated with the specified Project ID.
         :param page: Page number.
         :param page_size: Page size.
@@ -386,7 +422,6 @@ class CockpitV1Beta1API(API):
         token_id: str,
     ) -> Token:
         """
-        Get a token.
         Retrieve the token associated with the specified token ID.
         :param token_id: ID of the token.
         :return: :class:`Token <Token>`
@@ -413,7 +448,6 @@ class CockpitV1Beta1API(API):
         token_id: str,
     ) -> Optional[None]:
         """
-        Delete a token.
         Delete the token associated with the specified token ID.
         :param token_id: ID of the token.
 
@@ -440,7 +474,6 @@ class CockpitV1Beta1API(API):
         contact_point: Optional[ContactPoint] = None,
     ) -> ContactPoint:
         """
-        Create a contact point.
         Create a contact point to receive alerts for the default receiver.
         :param project_id: ID of the Project in which to create the contact point.
         :param contact_point: Contact point to create.
@@ -454,7 +487,7 @@ class CockpitV1Beta1API(API):
 
         res = self._request(
             "POST",
-            "/cockpit/v1beta1/contact-points",
+            f"/cockpit/v1beta1/contact-points",
             body=marshal_CreateContactPointRequest(
                 CreateContactPointRequest(
                     project_id=project_id,
@@ -475,7 +508,6 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> ListContactPointsResponse:
         """
-        List contact points.
         Get a list of contact points for the Cockpit associated with the specified Project ID.
         :param page: Page number.
         :param page_size: Page size.
@@ -490,7 +522,7 @@ class CockpitV1Beta1API(API):
 
         res = self._request(
             "GET",
-            "/cockpit/v1beta1/contact-points",
+            f"/cockpit/v1beta1/contact-points",
             params={
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
@@ -509,7 +541,6 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> List[ContactPoint]:
         """
-        List contact points.
         Get a list of contact points for the Cockpit associated with the specified Project ID.
         :param page: Page number.
         :param page_size: Page size.
@@ -540,7 +571,6 @@ class CockpitV1Beta1API(API):
         contact_point: Optional[ContactPoint] = None,
     ) -> Optional[None]:
         """
-        Delete an alert contact point.
         Delete a contact point for the default receiver.
         :param project_id: ID of the Project.
         :param contact_point: Contact point to delete.
@@ -553,7 +583,7 @@ class CockpitV1Beta1API(API):
 
         res = self._request(
             "POST",
-            "/cockpit/v1beta1/delete-contact-point",
+            f"/cockpit/v1beta1/delete-contact-point",
             body=marshal_DeleteContactPointRequest(
                 DeleteContactPointRequest(
                     project_id=project_id,
@@ -572,7 +602,6 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> Optional[None]:
         """
-        Enable managed alerts.
         Enable the sending of managed alerts for the specified Project's Cockpit.
         :param project_id: ID of the Project.
 
@@ -584,7 +613,7 @@ class CockpitV1Beta1API(API):
 
         res = self._request(
             "POST",
-            "/cockpit/v1beta1/enable-managed-alerts",
+            f"/cockpit/v1beta1/enable-managed-alerts",
             body=marshal_EnableManagedAlertsRequest(
                 EnableManagedAlertsRequest(
                     project_id=project_id,
@@ -602,7 +631,6 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> Optional[None]:
         """
-        Disable managed alerts.
         Disable the sending of managed alerts for the specified Project's Cockpit.
         :param project_id: ID of the Project.
 
@@ -614,7 +642,7 @@ class CockpitV1Beta1API(API):
 
         res = self._request(
             "POST",
-            "/cockpit/v1beta1/disable-managed-alerts",
+            f"/cockpit/v1beta1/disable-managed-alerts",
             body=marshal_DisableManagedAlertsRequest(
                 DisableManagedAlertsRequest(
                     project_id=project_id,
@@ -632,7 +660,6 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> Optional[None]:
         """
-        Trigger a test alert.
         Trigger a test alert to all of the Cockpit's receivers.
         :param project_id:
 
@@ -644,7 +671,7 @@ class CockpitV1Beta1API(API):
 
         res = self._request(
             "POST",
-            "/cockpit/v1beta1/trigger-test-alert",
+            f"/cockpit/v1beta1/trigger-test-alert",
             body=marshal_TriggerTestAlertRequest(
                 TriggerTestAlertRequest(
                     project_id=project_id,
@@ -664,7 +691,6 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> GrafanaUser:
         """
-        Create a Grafana user.
         Create a Grafana user for your Cockpit's Grafana instance. Make sure you save the automatically-generated password and the Grafana user ID.
         :param project_id: ID of the Project.
         :param login: Username of the Grafana user.
@@ -682,7 +708,7 @@ class CockpitV1Beta1API(API):
 
         res = self._request(
             "POST",
-            "/cockpit/v1beta1/grafana-users",
+            f"/cockpit/v1beta1/grafana-users",
             body=marshal_CreateGrafanaUserRequest(
                 CreateGrafanaUserRequest(
                     login=login,
@@ -705,7 +731,6 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> ListGrafanaUsersResponse:
         """
-        List Grafana users.
         Get a list of Grafana users who are able to connect to the Cockpit's Grafana instance.
         :param page: Page number.
         :param page_size: Page size.
@@ -721,7 +746,7 @@ class CockpitV1Beta1API(API):
 
         res = self._request(
             "GET",
-            "/cockpit/v1beta1/grafana-users",
+            f"/cockpit/v1beta1/grafana-users",
             params={
                 "order_by": order_by,
                 "page": page,
@@ -742,7 +767,6 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> List[GrafanaUser]:
         """
-        List Grafana users.
         Get a list of Grafana users who are able to connect to the Cockpit's Grafana instance.
         :param page: Page number.
         :param page_size: Page size.
@@ -775,7 +799,6 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> Optional[None]:
         """
-        Delete a Grafana user.
         Delete a Grafana user from a Grafana instance, specified by the Cockpit's Project ID and the Grafana user ID.
         :param grafana_user_id: ID of the Grafana user.
         :param project_id: ID of the Project.
@@ -810,7 +833,6 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> GrafanaUser:
         """
-        Reset a Grafana user's password.
         Reset a Grafana user's password specified by the Cockpit's Project ID and the Grafana user ID.
         :param grafana_user_id: ID of the Grafana user.
         :param project_id: ID of the Project.
@@ -847,7 +869,6 @@ class CockpitV1Beta1API(API):
         order_by: ListPlansRequestOrderBy = ListPlansRequestOrderBy.NAME_ASC,
     ) -> ListPlansResponse:
         """
-        List pricing plans.
         Get a list of all pricing plans available.
         :param page: Page number.
         :param page_size: Page size.
@@ -862,7 +883,7 @@ class CockpitV1Beta1API(API):
 
         res = self._request(
             "GET",
-            "/cockpit/v1beta1/plans",
+            f"/cockpit/v1beta1/plans",
             params={
                 "order_by": order_by,
                 "page": page,
@@ -881,7 +902,6 @@ class CockpitV1Beta1API(API):
         order_by: Optional[ListPlansRequestOrderBy] = None,
     ) -> List[Plan]:
         """
-        List pricing plans.
         Get a list of all pricing plans available.
         :param page: Page number.
         :param page_size: Page size.
@@ -912,7 +932,6 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> SelectPlanResponse:
         """
-        Select pricing plan.
         Select your chosen pricing plan for your Cockpit, specifying the Cockpit's Project ID and the pricing plan's ID in the request.
         :param project_id: ID of the Project.
         :param plan_id: ID of the pricing plan.
@@ -926,7 +945,7 @@ class CockpitV1Beta1API(API):
 
         res = self._request(
             "POST",
-            "/cockpit/v1beta1/select-plan",
+            f"/cockpit/v1beta1/select-plan",
             body=marshal_SelectPlanRequest(
                 SelectPlanRequest(
                     plan_id=plan_id,

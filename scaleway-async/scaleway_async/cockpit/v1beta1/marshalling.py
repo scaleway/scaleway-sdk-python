@@ -13,12 +13,14 @@ from scaleway_core.utils import (
 )
 from dateutil import parser
 from .types import (
+    DatasourceType,
     GrafanaUserRole,
     Cockpit,
     CockpitEndpoints,
     CockpitMetrics,
     ContactPoint,
     ContactPointEmail,
+    Datasource,
     GrafanaUser,
     ListContactPointsResponse,
     ListGrafanaUsersResponse,
@@ -31,6 +33,7 @@ from .types import (
     ActivateCockpitRequest,
     DeactivateCockpitRequest,
     ResetCockpitGrafanaRequest,
+    CreateDatasourceRequest,
     CreateTokenRequest,
     CreateContactPointRequest,
     DeleteContactPointRequest,
@@ -45,9 +48,9 @@ from .types import (
 
 
 def unmarshal_ContactPointEmail(data: Any) -> ContactPointEmail:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'ContactPointEmail' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'ContactPointEmail' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -59,9 +62,9 @@ def unmarshal_ContactPointEmail(data: Any) -> ContactPointEmail:
 
 
 def unmarshal_TokenScopes(data: Any) -> TokenScopes:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'TokenScopes' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'TokenScopes' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -97,9 +100,9 @@ def unmarshal_TokenScopes(data: Any) -> TokenScopes:
 
 
 def unmarshal_CockpitEndpoints(data: Any) -> CockpitEndpoints:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'CockpitEndpoints' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'CockpitEndpoints' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -120,9 +123,9 @@ def unmarshal_CockpitEndpoints(data: Any) -> CockpitEndpoints:
 
 
 def unmarshal_ContactPoint(data: Any) -> ContactPoint:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'ContactPoint' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'ContactPoint' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -134,9 +137,9 @@ def unmarshal_ContactPoint(data: Any) -> ContactPoint:
 
 
 def unmarshal_GrafanaUser(data: Any) -> GrafanaUser:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'GrafanaUser' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'GrafanaUser' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -157,9 +160,9 @@ def unmarshal_GrafanaUser(data: Any) -> GrafanaUser:
 
 
 def unmarshal_Plan(data: Any) -> Plan:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'Plan' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'Plan' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -189,15 +192,15 @@ def unmarshal_Plan(data: Any) -> Plan:
 
 
 def unmarshal_Token(data: Any) -> Token:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'Token' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'Token' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("id", None)
     args["id"] = field
@@ -215,21 +218,21 @@ def unmarshal_Token(data: Any) -> Token:
     args["secret_key"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
     return Token(**args)
 
 
 def unmarshal_Cockpit(data: Any) -> Cockpit:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'Cockpit' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'Cockpit' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("endpoints", None)
     args["endpoints"] = unmarshal_CockpitEndpoints(field) if field is not None else None
@@ -247,15 +250,15 @@ def unmarshal_Cockpit(data: Any) -> Cockpit:
     args["status"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
     return Cockpit(**args)
 
 
 def unmarshal_CockpitMetrics(data: Any) -> CockpitMetrics:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'CockpitMetrics' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'CockpitMetrics' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -268,10 +271,36 @@ def unmarshal_CockpitMetrics(data: Any) -> CockpitMetrics:
     return CockpitMetrics(**args)
 
 
-def unmarshal_ListContactPointsResponse(data: Any) -> ListContactPointsResponse:
-    if not isinstance(data, dict):
+def unmarshal_Datasource(data: Any) -> Datasource:
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'ListContactPointsResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'Datasource' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id", None)
+    args["id"] = field
+
+    field = data.get("name", None)
+    args["name"] = field
+
+    field = data.get("project_id", None)
+    args["project_id"] = field
+
+    field = data.get("type", None)
+    args["type_"] = field
+
+    field = data.get("url", None)
+    args["url"] = field
+
+    return Datasource(**args)
+
+
+def unmarshal_ListContactPointsResponse(data: Any) -> ListContactPointsResponse:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'ListContactPointsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -294,9 +323,9 @@ def unmarshal_ListContactPointsResponse(data: Any) -> ListContactPointsResponse:
 
 
 def unmarshal_ListGrafanaUsersResponse(data: Any) -> ListGrafanaUsersResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'ListGrafanaUsersResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'ListGrafanaUsersResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -313,9 +342,9 @@ def unmarshal_ListGrafanaUsersResponse(data: Any) -> ListGrafanaUsersResponse:
 
 
 def unmarshal_ListPlansResponse(data: Any) -> ListPlansResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'ListPlansResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'ListPlansResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -330,9 +359,9 @@ def unmarshal_ListPlansResponse(data: Any) -> ListPlansResponse:
 
 
 def unmarshal_ListTokensResponse(data: Any) -> ListTokensResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'ListTokensResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'ListTokensResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -347,9 +376,9 @@ def unmarshal_ListTokensResponse(data: Any) -> ListTokensResponse:
 
 
 def unmarshal_SelectPlanResponse(data: Any) -> SelectPlanResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'SelectPlanResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'SelectPlanResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -449,6 +478,24 @@ def marshal_CreateContactPointRequest(
 
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id
+
+    return output
+
+
+def marshal_CreateDatasourceRequest(
+    request: CreateDatasourceRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    if request.type_ is not None:
+        output["type"] = DatasourceType(request.type_)
 
     return output
 
