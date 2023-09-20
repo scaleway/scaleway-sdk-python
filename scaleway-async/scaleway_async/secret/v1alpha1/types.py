@@ -544,7 +544,7 @@ class ListFoldersRequest:
 
     project_id: Optional[str]
     """
-    ID of the Project.
+    Filter by Project ID (optional).
     """
 
     path: Optional[str]
