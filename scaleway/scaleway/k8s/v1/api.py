@@ -107,6 +107,7 @@ class K8SV1API(API):
         name: Optional[str] = None,
         status: ClusterStatus = ClusterStatus.UNKNOWN,
         type_: Optional[str] = None,
+        private_network_id: Optional[str] = None,
     ) -> ListClustersResponse:
         """
         List Clusters.
@@ -120,6 +121,7 @@ class K8SV1API(API):
         :param name: Name to filter on, only clusters containing this substring in their name will be returned.
         :param status: Status to filter on, only clusters with this status will be returned.
         :param type_: Type to filter on, only clusters with this type will be returned.
+        :param private_network_id: Private Network ID to filter on, only clusters within this Private Network will be returned.
         :return: :class:`ListClustersResponse <ListClustersResponse>`
 
         Usage:
@@ -142,6 +144,7 @@ class K8SV1API(API):
                 or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
+                "private_network_id": private_network_id,
                 "project_id": project_id or self.client.default_project_id,
                 "status": status,
                 "type": type_,
@@ -163,6 +166,7 @@ class K8SV1API(API):
         name: Optional[str] = None,
         status: Optional[ClusterStatus] = None,
         type_: Optional[str] = None,
+        private_network_id: Optional[str] = None,
     ) -> List[Cluster]:
         """
         List Clusters.
@@ -176,6 +180,7 @@ class K8SV1API(API):
         :param name: Name to filter on, only clusters containing this substring in their name will be returned.
         :param status: Status to filter on, only clusters with this status will be returned.
         :param type_: Type to filter on, only clusters with this type will be returned.
+        :param private_network_id: Private Network ID to filter on, only clusters within this Private Network will be returned.
         :return: :class:`List[ListClustersResponse] <List[ListClustersResponse]>`
 
         Usage:
@@ -198,6 +203,7 @@ class K8SV1API(API):
                 "name": name,
                 "status": status,
                 "type_": type_,
+                "private_network_id": private_network_id,
             },
         )
 
