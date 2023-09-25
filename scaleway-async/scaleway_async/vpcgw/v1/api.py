@@ -662,8 +662,11 @@ class VpcgwV1API(API):
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param gateway_id: Public Gateway to connect.
         :param private_network_id: Private Network to connect.
-        :param enable_masquerade: Defines whether to enable masquerade (dynamic NAT) on this network.
-        :param enable_dhcp: Defines whether to enable DHCP on this Private Network. Defaults to `true` if either `dhcp_id` or `dhcp` are present. If set to `true`, either `dhcp_id` or `dhcp` must be present.
+        :param enable_masquerade: Defines whether to enable masquerade (dynamic NAT) on the GatewayNetwork.
+        Note: this setting is ignored when passing `ipam_config`.
+        :param enable_dhcp: Defines whether to enable DHCP on this Private Network.
+        Defaults to `true` if either `dhcp_id` or `dhcp` are present. If set to `true`, either `dhcp_id` or `dhcp` must be present.
+        Note: this setting is ignored when passing `ipam_config`.
         :param dhcp_id: ID of an existing DHCP configuration object to use for this GatewayNetwork.
 
         One-of ('ip_config'): at most one of 'dhcp_id', 'dhcp', 'address', 'ipam_config' could be set.
@@ -730,14 +733,18 @@ class VpcgwV1API(API):
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param gateway_network_id: ID of the GatewayNetwork to update.
         :param enable_masquerade: Defines whether to enable masquerade (dynamic NAT) on the GatewayNetwork.
-        :param enable_dhcp: Defines whether to enable DHCP on the connected Private Network.
+        Note: this setting is ignored when passing `ipam_config`.
+        :param enable_dhcp: Defines whether to enable DHCP on this Private Network.
+        Defaults to `true` if `dhcp_id` is present. If set to `true`, `dhcp_id` must be present.
+        Note: this setting is ignored when passing `ipam_config`.
         :param dhcp_id: ID of the new DHCP configuration object to use with this GatewayNetwork.
 
         One-of ('ip_config'): at most one of 'dhcp_id', 'address', 'ipam_config' could be set.
         :param address: New static IP address.
 
         One-of ('ip_config'): at most one of 'dhcp_id', 'address', 'ipam_config' could be set.
-        :param ipam_config: New IPAM configuration to use for this GatewayNetwork.
+        :param ipam_config: Auto-configure the GatewayNetwork using Scaleway's IPAM (IP address management service).
+        Note: all or none of the GatewayNetworks for a single gateway can use the IPAM. DHCP and IPAM configurations cannot be mixed. Some products may require that the Public Gateway uses the IPAM, to ensure correct functionality.
 
         One-of ('ip_config'): at most one of 'dhcp_id', 'address', 'ipam_config' could be set.
         :return: :class:`GatewayNetwork <GatewayNetwork>`
