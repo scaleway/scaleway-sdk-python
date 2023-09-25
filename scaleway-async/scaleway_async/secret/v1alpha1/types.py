@@ -744,7 +744,10 @@ class GetSecretVersionRequest:
     revision: str
     """
     Version number.
-    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
+    - a number (the revision number)
+    - "latest" (the latest revision)
+    - "latest_enabled" (the latest enabled revision).
     """
 
 
@@ -763,7 +766,10 @@ class GetSecretVersionByNameRequest:
     revision: str
     """
     Version number.
-    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
+    - a number (the revision number)
+    - "latest" (the latest revision)
+    - "latest_enabled" (the latest enabled revision).
     """
 
     project_id: Optional[str]
@@ -788,7 +794,10 @@ class UpdateSecretVersionRequest:
     revision: str
     """
     Version number.
-    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
+    - a number (the revision number)
+    - "latest" (the latest revision)
+    - "latest_enabled" (the latest enabled revision).
     """
 
     description: Optional[str]
@@ -862,7 +871,10 @@ class EnableSecretVersionRequest:
     revision: str
     """
     Version number.
-    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
+    - a number (the revision number)
+    - "latest" (the latest revision)
+    - "latest_enabled" (the latest enabled revision).
     """
 
 
@@ -881,7 +893,10 @@ class DisableSecretVersionRequest:
     revision: str
     """
     Version number.
-    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
+    - a number (the revision number)
+    - "latest" (the latest revision)
+    - "latest_enabled" (the latest enabled revision).
     """
 
 
@@ -900,7 +915,10 @@ class AccessSecretVersionRequest:
     revision: str
     """
     Version number.
-    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
+    - a number (the revision number)
+    - "latest" (the latest revision)
+    - "latest_enabled" (the latest enabled revision).
     """
 
 
@@ -919,7 +937,10 @@ class AccessSecretVersionByNameRequest:
     revision: str
     """
     Version number.
-    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
+    - a number (the revision number)
+    - "latest" (the latest revision)
+    - "latest_enabled" (the latest enabled revision).
     """
 
     project_id: Optional[str]
@@ -944,7 +965,10 @@ class DestroySecretVersionRequest:
     revision: str
     """
     Version number.
-    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
+    - a number (the revision number)
+    - "latest" (the latest revision)
+    - "latest_enabled" (the latest enabled revision).
     """
 
 

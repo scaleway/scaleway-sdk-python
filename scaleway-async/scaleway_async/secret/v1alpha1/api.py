@@ -800,7 +800,10 @@ class SecretV1Alpha1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the secret.
         :param revision: Version number.
-        The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+        The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
+        - a number (the revision number)
+        - "latest" (the latest revision)
+        - "latest_enabled" (the latest enabled revision).
         :return: :class:`SecretVersion <SecretVersion>`
 
         Usage:
@@ -840,7 +843,10 @@ class SecretV1Alpha1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_name: Name of the secret.
         :param revision: Version number.
-        The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+        The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
+        - a number (the revision number)
+        - "latest" (the latest revision)
+        - "latest_enabled" (the latest enabled revision).
         :param project_id: ID of the Project to target.
         (Optional.) If not specified, Secret Manager will look for the secret version in all Projects.
         :return: :class:`SecretVersion <SecretVersion>`
@@ -885,7 +891,10 @@ class SecretV1Alpha1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the secret.
         :param revision: Version number.
-        The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+        The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
+        - a number (the revision number)
+        - "latest" (the latest revision)
+        - "latest_enabled" (the latest enabled revision).
         :param description: Description of the version.
         :return: :class:`SecretVersion <SecretVersion>`
 
@@ -1104,7 +1113,10 @@ class SecretV1Alpha1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the secret.
         :param revision: Version number.
-        The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+        The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
+        - a number (the revision number)
+        - "latest" (the latest revision)
+        - "latest_enabled" (the latest enabled revision).
         :return: :class:`SecretVersion <SecretVersion>`
 
         Usage:
@@ -1143,7 +1155,10 @@ class SecretV1Alpha1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the secret.
         :param revision: Version number.
-        The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+        The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
+        - a number (the revision number)
+        - "latest" (the latest revision)
+        - "latest_enabled" (the latest enabled revision).
         :return: :class:`SecretVersion <SecretVersion>`
 
         Usage:
@@ -1182,7 +1197,10 @@ class SecretV1Alpha1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the secret.
         :param revision: Version number.
-        The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+        The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
+        - a number (the revision number)
+        - "latest" (the latest revision)
+        - "latest_enabled" (the latest enabled revision).
         :return: :class:`AccessSecretVersionResponse <AccessSecretVersionResponse>`
 
         Usage:
@@ -1222,7 +1240,10 @@ class SecretV1Alpha1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_name: Name of the secret.
         :param revision: Version number.
-        The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+        The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
+        - a number (the revision number)
+        - "latest" (the latest revision)
+        - "latest_enabled" (the latest enabled revision).
         :param project_id: ID of the Project to target.
         (Optional.) If not specified, Secret Manager will look for the secret version in all Projects.
         :return: :class:`AccessSecretVersionResponse <AccessSecretVersionResponse>`
@@ -1266,7 +1287,10 @@ class SecretV1Alpha1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the secret.
         :param revision: Version number.
-        The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be a number or "latest".
+        The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
+        - a number (the revision number)
+        - "latest" (the latest revision)
+        - "latest_enabled" (the latest enabled revision).
         :return: :class:`SecretVersion <SecretVersion>`
 
         Usage:
