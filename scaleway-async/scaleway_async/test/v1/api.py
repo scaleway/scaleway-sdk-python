@@ -68,7 +68,7 @@ class TestV1API(API):
 
         res = self._request(
             "POST",
-            "/test/v1/register",
+            f"/test/v1/register",
             body=marshal_RegisterRequest(
                 RegisterRequest(
                     username=username,
@@ -106,7 +106,7 @@ class TestV1API(API):
 
         res = self._request(
             "GET",
-            "/test/v1/humans",
+            f"/test/v1/humans",
             params={
                 "order_by": order_by,
                 "organization_id": organization_id
@@ -264,7 +264,7 @@ class TestV1API(API):
 
         res = self._request(
             "POST",
-            "/test/v1/humans",
+            f"/test/v1/humans",
             body=marshal_CreateHumanRequest(
                 CreateHumanRequest(
                     height=height,

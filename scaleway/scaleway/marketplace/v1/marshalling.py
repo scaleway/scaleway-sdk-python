@@ -17,9 +17,9 @@ from .types import (
 
 
 def unmarshal_LocalImage(data: Any) -> LocalImage:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'LocalImage' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'LocalImage' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -40,9 +40,9 @@ def unmarshal_LocalImage(data: Any) -> LocalImage:
 
 
 def unmarshal_Organization(data: Any) -> Organization:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'Organization' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'Organization' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -57,15 +57,15 @@ def unmarshal_Organization(data: Any) -> Organization:
 
 
 def unmarshal_Version(data: Any) -> Version:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'Version' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'Version' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
     field = data.get("creation_date", None)
-    args["creation_date"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["creation_date"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("id", None)
     args["id"] = field
@@ -76,9 +76,7 @@ def unmarshal_Version(data: Any) -> Version:
     )
 
     field = data.get("modification_date", None)
-    args["modification_date"] = (
-        parser.isoparse(field) if isinstance(field, str) else field
-    )
+    args["modification_date"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("name", None)
     args["name"] = field
@@ -87,9 +85,9 @@ def unmarshal_Version(data: Any) -> Version:
 
 
 def unmarshal_Image(data: Any) -> Image:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'Image' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'Image' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -98,7 +96,7 @@ def unmarshal_Image(data: Any) -> Image:
     args["categories"] = field
 
     field = data.get("creation_date", None)
-    args["creation_date"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["creation_date"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("current_public_version", None)
     args["current_public_version"] = field
@@ -116,9 +114,7 @@ def unmarshal_Image(data: Any) -> Image:
     args["logo"] = field
 
     field = data.get("modification_date", None)
-    args["modification_date"] = (
-        parser.isoparse(field) if isinstance(field, str) else field
-    )
+    args["modification_date"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("name", None)
     args["name"] = field
@@ -127,7 +123,7 @@ def unmarshal_Image(data: Any) -> Image:
     args["organization"] = unmarshal_Organization(field) if field is not None else None
 
     field = data.get("valid_until", None)
-    args["valid_until"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["valid_until"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("versions", None)
     args["versions"] = (
@@ -138,9 +134,9 @@ def unmarshal_Image(data: Any) -> Image:
 
 
 def unmarshal_GetImageResponse(data: Any) -> GetImageResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'GetImageResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'GetImageResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -152,9 +148,9 @@ def unmarshal_GetImageResponse(data: Any) -> GetImageResponse:
 
 
 def unmarshal_GetVersionResponse(data: Any) -> GetVersionResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'GetVersionResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'GetVersionResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -166,9 +162,9 @@ def unmarshal_GetVersionResponse(data: Any) -> GetVersionResponse:
 
 
 def unmarshal_ListImagesResponse(data: Any) -> ListImagesResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'ListImagesResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'ListImagesResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -183,9 +179,9 @@ def unmarshal_ListImagesResponse(data: Any) -> ListImagesResponse:
 
 
 def unmarshal_ListVersionsResponse(data: Any) -> ListVersionsResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'ListVersionsResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'ListVersionsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}

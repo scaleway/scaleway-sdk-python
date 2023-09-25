@@ -50,9 +50,9 @@ from .types import (
 
 
 def unmarshal_SecretHashedValue(data: Any) -> SecretHashedValue:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'SecretHashedValue' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'SecretHashedValue' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -67,9 +67,9 @@ def unmarshal_SecretHashedValue(data: Any) -> SecretHashedValue:
 
 
 def unmarshal_TriggerMnqNatsClientConfig(data: Any) -> TriggerMnqNatsClientConfig:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'TriggerMnqNatsClientConfig' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'TriggerMnqNatsClientConfig' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -93,9 +93,9 @@ def unmarshal_TriggerMnqNatsClientConfig(data: Any) -> TriggerMnqNatsClientConfi
 
 
 def unmarshal_TriggerMnqSqsClientConfig(data: Any) -> TriggerMnqSqsClientConfig:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'TriggerMnqSqsClientConfig' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'TriggerMnqSqsClientConfig' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -119,9 +119,9 @@ def unmarshal_TriggerMnqSqsClientConfig(data: Any) -> TriggerMnqSqsClientConfig:
 
 
 def unmarshal_TriggerSqsClientConfig(data: Any) -> TriggerSqsClientConfig:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'TriggerSqsClientConfig' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'TriggerSqsClientConfig' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -142,9 +142,9 @@ def unmarshal_TriggerSqsClientConfig(data: Any) -> TriggerSqsClientConfig:
 
 
 def unmarshal_Container(data: Any) -> Container:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'Container' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'Container' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -218,9 +218,9 @@ def unmarshal_Container(data: Any) -> Container:
 
 
 def unmarshal_Cron(data: Any) -> Cron:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'Cron' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'Cron' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -247,9 +247,9 @@ def unmarshal_Cron(data: Any) -> Cron:
 
 
 def unmarshal_Domain(data: Any) -> Domain:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'Domain' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'Domain' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -276,9 +276,9 @@ def unmarshal_Domain(data: Any) -> Domain:
 
 
 def unmarshal_Log(data: Any) -> Log:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'Log' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'Log' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -299,15 +299,15 @@ def unmarshal_Log(data: Any) -> Log:
     args["stream"] = field
 
     field = data.get("timestamp", None)
-    args["timestamp"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["timestamp"] = parser.isoparse(field) if type(field) is str else field
 
     return Log(**args)
 
 
 def unmarshal_Namespace(data: Any) -> Namespace:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'Namespace' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'Namespace' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -354,9 +354,9 @@ def unmarshal_Namespace(data: Any) -> Namespace:
 
 
 def unmarshal_Token(data: Any) -> Token:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'Token' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'Token' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -368,7 +368,7 @@ def unmarshal_Token(data: Any) -> Token:
     args["description"] = field
 
     field = data.get("expires_at", None)
-    args["expires_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["expires_at"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("id", None)
     args["id"] = field
@@ -389,9 +389,9 @@ def unmarshal_Token(data: Any) -> Token:
 
 
 def unmarshal_Trigger(data: Any) -> Trigger:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'Trigger' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'Trigger' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -436,9 +436,9 @@ def unmarshal_Trigger(data: Any) -> Trigger:
 
 
 def unmarshal_ListContainersResponse(data: Any) -> ListContainersResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'ListContainersResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'ListContainersResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -455,9 +455,9 @@ def unmarshal_ListContainersResponse(data: Any) -> ListContainersResponse:
 
 
 def unmarshal_ListCronsResponse(data: Any) -> ListCronsResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'ListCronsResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'ListCronsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -472,9 +472,9 @@ def unmarshal_ListCronsResponse(data: Any) -> ListCronsResponse:
 
 
 def unmarshal_ListDomainsResponse(data: Any) -> ListDomainsResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'ListDomainsResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'ListDomainsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -491,9 +491,9 @@ def unmarshal_ListDomainsResponse(data: Any) -> ListDomainsResponse:
 
 
 def unmarshal_ListLogsResponse(data: Any) -> ListLogsResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'ListLogsResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'ListLogsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -508,9 +508,9 @@ def unmarshal_ListLogsResponse(data: Any) -> ListLogsResponse:
 
 
 def unmarshal_ListNamespacesResponse(data: Any) -> ListNamespacesResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'ListNamespacesResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'ListNamespacesResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -527,9 +527,9 @@ def unmarshal_ListNamespacesResponse(data: Any) -> ListNamespacesResponse:
 
 
 def unmarshal_ListTokensResponse(data: Any) -> ListTokensResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'ListTokensResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'ListTokensResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -544,9 +544,9 @@ def unmarshal_ListTokensResponse(data: Any) -> ListTokensResponse:
 
 
 def unmarshal_ListTriggersResponse(data: Any) -> ListTriggersResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'ListTriggersResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'ListTriggersResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
