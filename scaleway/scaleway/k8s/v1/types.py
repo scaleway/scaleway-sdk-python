@@ -1287,6 +1287,11 @@ class ListClustersRequest:
     Type to filter on, only clusters with this type will be returned.
     """
 
+    private_network_id: Optional[str]
+    """
+    Private Network ID to filter on, only clusters within this Private Network will be returned.
+    """
+
 
 @dataclass
 class CreateClusterRequest:
