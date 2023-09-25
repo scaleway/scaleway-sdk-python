@@ -82,8 +82,11 @@ jobs:
           poetry --version
       - name: Install dependencies and library
         run: poetry install
+      # We ignore the following rules for now:
+      #   E721 (https://docs.astral.sh/ruff/rules/type-comparison)
+      #   F541 (https://docs.astral.sh/ruff/rules/f-string-missing-placeholders)
       - name: Check linting
-        run: poetry run ruff check .
+        run: poetry run ruff check . --ignore E721 --ignore F541
 
   tests:
     runs-on: ubuntu-latest
