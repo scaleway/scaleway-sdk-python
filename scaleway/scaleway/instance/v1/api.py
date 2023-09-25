@@ -1280,10 +1280,10 @@ class InstanceV1API(API):
         *,
         zone: Optional[Zone] = None,
         organization: Optional[str] = None,
+        project: Optional[str] = None,
         per_page: Optional[int] = None,
         page: Optional[int] = None,
         name: Optional[str] = None,
-        project: Optional[str] = None,
         tags: Optional[str] = None,
         base_volume_id: Optional[str] = None,
     ) -> ListSnapshotsResponse:
@@ -1291,13 +1291,13 @@ class InstanceV1API(API):
         List snapshots.
         List all snapshots of an Organization in a specified Availability Zone.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param organization:
-        :param per_page:
-        :param page:
-        :param name:
-        :param project:
-        :param tags:
-        :param base_volume_id:
+        :param organization: List snapshots only for this Organization ID.
+        :param project: List snapshots only for this Project ID.
+        :param per_page: Number of snapshots returned per page (positive integer lower or equal to 100).
+        :param page: Page to be returned.
+        :param name: List snapshots of the requested name.
+        :param tags: List snapshots that have the requested tag.
+        :param base_volume_id: List snapshots originating only from this volume.
         :return: :class:`ListSnapshotsResponse <ListSnapshotsResponse>`
 
         Usage:
@@ -1330,10 +1330,10 @@ class InstanceV1API(API):
         *,
         zone: Optional[Zone] = None,
         organization: Optional[str] = None,
+        project: Optional[str] = None,
         per_page: Optional[int] = None,
         page: Optional[int] = None,
         name: Optional[str] = None,
-        project: Optional[str] = None,
         tags: Optional[str] = None,
         base_volume_id: Optional[str] = None,
     ) -> List[Snapshot]:
@@ -1341,13 +1341,13 @@ class InstanceV1API(API):
         List snapshots.
         List all snapshots of an Organization in a specified Availability Zone.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param organization:
-        :param per_page:
-        :param page:
-        :param name:
-        :param project:
-        :param tags:
-        :param base_volume_id:
+        :param organization: List snapshots only for this Organization ID.
+        :param project: List snapshots only for this Project ID.
+        :param per_page: Number of snapshots returned per page (positive integer lower or equal to 100).
+        :param page: Page to be returned.
+        :param name: List snapshots of the requested name.
+        :param tags: List snapshots that have the requested tag.
+        :param base_volume_id: List snapshots originating only from this volume.
         :return: :class:`List[ListSnapshotsResponse] <List[ListSnapshotsResponse]>`
 
         Usage:
@@ -1363,10 +1363,10 @@ class InstanceV1API(API):
             args={
                 "zone": zone,
                 "organization": organization,
+                "project": project,
                 "per_page": per_page,
                 "page": page,
                 "name": name,
-                "project": project,
                 "tags": tags,
                 "base_volume_id": base_volume_id,
             },

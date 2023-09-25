@@ -2279,16 +2279,39 @@ class ListSnapshotsRequest:
     """
 
     organization: Optional[str]
-
-    per_page: Optional[int]
-
-    page: Optional[int]
-
-    name: Optional[str]
+    """
+    List snapshots only for this Organization ID.
+    """
 
     project: Optional[str]
+    """
+    List snapshots only for this Project ID.
+    """
+
+    per_page: Optional[int]
+    """
+    Number of snapshots returned per page (positive integer lower or equal to 100).
+    """
+
+    page: Optional[int]
+    """
+    Page to be returned.
+    """
+
+    name: Optional[str]
+    """
+    List snapshots of the requested name.
+    """
 
     tags: Optional[str]
+    """
+    List snapshots that have the requested tag.
+    """
+
+    base_volume_id: Optional[str]
+    """
+    List snapshots originating only from this volume.
+    """
 
     base_volume_id: Optional[str]
 
