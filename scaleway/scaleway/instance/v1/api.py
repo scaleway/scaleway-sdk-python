@@ -1285,6 +1285,7 @@ class InstanceV1API(API):
         name: Optional[str] = None,
         project: Optional[str] = None,
         tags: Optional[str] = None,
+        base_volume_id: Optional[str] = None,
     ) -> ListSnapshotsResponse:
         """
         List snapshots.
@@ -1296,6 +1297,7 @@ class InstanceV1API(API):
         :param name:
         :param project:
         :param tags:
+        :param base_volume_id:
         :return: :class:`ListSnapshotsResponse <ListSnapshotsResponse>`
 
         Usage:
@@ -1310,6 +1312,7 @@ class InstanceV1API(API):
             "GET",
             f"/instance/v1/zones/{param_zone}/snapshots",
             params={
+                "base_volume_id": base_volume_id,
                 "name": name,
                 "organization": organization or self.client.default_organization_id,
                 "page": page,
@@ -1332,6 +1335,7 @@ class InstanceV1API(API):
         name: Optional[str] = None,
         project: Optional[str] = None,
         tags: Optional[str] = None,
+        base_volume_id: Optional[str] = None,
     ) -> List[Snapshot]:
         """
         List snapshots.
@@ -1343,6 +1347,7 @@ class InstanceV1API(API):
         :param name:
         :param project:
         :param tags:
+        :param base_volume_id:
         :return: :class:`List[ListSnapshotsResponse] <List[ListSnapshotsResponse]>`
 
         Usage:
@@ -1363,6 +1368,7 @@ class InstanceV1API(API):
                 "name": name,
                 "project": project,
                 "tags": tags,
+                "base_volume_id": base_volume_id,
             },
         )
 

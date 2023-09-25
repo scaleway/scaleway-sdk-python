@@ -2290,6 +2290,8 @@ class ListSnapshotsRequest:
 
     tags: Optional[str]
 
+    base_volume_id: Optional[str]
+
 
 @dataclass
 class CreateSnapshotRequest:
