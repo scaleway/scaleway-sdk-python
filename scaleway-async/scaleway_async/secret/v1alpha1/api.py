@@ -416,7 +416,7 @@ class SecretV1Alpha1API(API):
         List folders.
         Retrieve the list of folders created within a Project.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param project_id: ID of the Project.
+        :param project_id: Filter by Project ID (optional).
         :param path: Filter by path (optional).
         :param page:
         :param page_size:
@@ -462,7 +462,7 @@ class SecretV1Alpha1API(API):
         List folders.
         Retrieve the list of folders created within a Project.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param project_id: ID of the Project.
+        :param project_id: Filter by Project ID (optional).
         :param path: Filter by path (optional).
         :param page:
         :param page_size:
