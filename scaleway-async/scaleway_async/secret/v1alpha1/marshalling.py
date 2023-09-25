@@ -32,15 +32,15 @@ from .types import (
 
 
 def unmarshal_Folder(data: Any) -> Folder:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'Folder' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'Folder' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("id", None)
     args["id"] = field
@@ -58,15 +58,15 @@ def unmarshal_Folder(data: Any) -> Folder:
 
 
 def unmarshal_Secret(data: Any) -> Secret:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'Secret' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'Secret' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("description", None)
     args["description"] = field
@@ -102,7 +102,7 @@ def unmarshal_Secret(data: Any) -> Secret:
     args["type_"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("version_count", None)
     args["version_count"] = field
@@ -111,15 +111,15 @@ def unmarshal_Secret(data: Any) -> Secret:
 
 
 def unmarshal_SecretVersion(data: Any) -> SecretVersion:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'SecretVersion' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'SecretVersion' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("description", None)
     args["description"] = field
@@ -137,15 +137,15 @@ def unmarshal_SecretVersion(data: Any) -> SecretVersion:
     args["status"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
     return SecretVersion(**args)
 
 
 def unmarshal_AccessSecretVersionResponse(data: Any) -> AccessSecretVersionResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'AccessSecretVersionResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'AccessSecretVersionResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -166,9 +166,9 @@ def unmarshal_AccessSecretVersionResponse(data: Any) -> AccessSecretVersionRespo
 
 
 def unmarshal_ListFoldersResponse(data: Any) -> ListFoldersResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'ListFoldersResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'ListFoldersResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -185,9 +185,9 @@ def unmarshal_ListFoldersResponse(data: Any) -> ListFoldersResponse:
 
 
 def unmarshal_ListSecretVersionsResponse(data: Any) -> ListSecretVersionsResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'ListSecretVersionsResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'ListSecretVersionsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -204,9 +204,9 @@ def unmarshal_ListSecretVersionsResponse(data: Any) -> ListSecretVersionsRespons
 
 
 def unmarshal_ListSecretsResponse(data: Any) -> ListSecretsResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'ListSecretsResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'ListSecretsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -223,9 +223,9 @@ def unmarshal_ListSecretsResponse(data: Any) -> ListSecretsResponse:
 
 
 def unmarshal_ListTagsResponse(data: Any) -> ListTagsResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'ListTagsResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'ListTagsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}

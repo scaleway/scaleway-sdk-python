@@ -1393,6 +1393,11 @@ class PrivateNetwork:
     Load Balancer object which is attached to the Private Network.
     """
 
+    ipam_ids: List[str]
+    """
+    IPAM IDs of the booked IP addresses.
+    """
+
     static_config: Optional[PrivateNetworkStaticConfig]
     """
     Object containing an array of a local IP address for the Load Balancer on this Private Network.
@@ -1406,6 +1411,7 @@ class PrivateNetwork:
     Object containing DHCP-assigned IP addresses.
     
     One-of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
+    :deprecated
     """
 
     ipam_config: Optional[PrivateNetworkIpamConfig]
@@ -1440,6 +1446,9 @@ class PrivateNetwork:
 @dataclass
 class PrivateNetworkDHCPConfig:
     ip_id: Optional[str]
+    """
+    :deprecated
+    """
 
 
 @dataclass
@@ -3102,6 +3111,7 @@ class AttachPrivateNetworkRequest:
     Defines whether to let DHCP assign IP addresses.
     
     One-of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
+    :deprecated
     """
 
     ipam_config: Optional[PrivateNetworkIpamConfig]
@@ -4658,6 +4668,7 @@ class ZonedApiAttachPrivateNetworkRequest:
     Defines whether to let DHCP assign IP addresses.
     
     One-of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
+    :deprecated
     """
 
     ipam_config: Optional[PrivateNetworkIpamConfig]

@@ -2313,6 +2313,8 @@ class ListSnapshotsRequest:
     List snapshots originating only from this volume.
     """
 
+    base_volume_id: Optional[str]
+
 
 @dataclass
 class CreateSnapshotRequest:

@@ -27,6 +27,17 @@ class CockpitStatus(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class DatasourceType(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_DATASOURCE_TYPE = "unknown_datasource_type"
+    METRICS = "metrics"
+    LOGS = "logs"
+    TRACES = "traces"
+    ALERTS = "alerts"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class GrafanaUserRole(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_ROLE = "unknown_role"
     EDITOR = "editor"
@@ -171,6 +182,38 @@ class ContactPoint:
 @dataclass
 class ContactPointEmail:
     to: str
+
+
+@dataclass
+class Datasource:
+    """
+    Datasource.
+    """
+
+    id: str
+    """
+    ID of the datasource.
+    """
+
+    project_id: str
+    """
+    ID of the Project the Cockpit belongs to.
+    """
+
+    name: str
+    """
+    Datasource name.
+    """
+
+    url: str
+    """
+    Datasource URL.
+    """
+
+    type_: DatasourceType
+    """
+    Datasource type.
+    """
 
 
 @dataclass
@@ -478,6 +521,24 @@ class ResetCockpitGrafanaRequest:
     project_id: Optional[str]
     """
     ID of the Project the Cockpit belongs to.
+    """
+
+
+@dataclass
+class CreateDatasourceRequest:
+    project_id: Optional[str]
+    """
+    ID of the Project the Cockpit belongs to.
+    """
+
+    name: str
+    """
+    Datasource name.
+    """
+
+    type_: DatasourceType
+    """
+    Datasource type.
     """
 
 

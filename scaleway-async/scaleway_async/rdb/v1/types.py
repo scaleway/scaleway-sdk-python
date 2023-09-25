@@ -245,6 +245,7 @@ class SnapshotStatus(str, Enum, metaclass=StrEnumMeta):
 class VolumeType(str, Enum, metaclass=StrEnumMeta):
     LSSD = "lssd"
     BSSD = "bssd"
+    SBS = "sbs"
 
     def __str__(self) -> str:
         return str(self.value)
