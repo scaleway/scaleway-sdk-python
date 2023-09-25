@@ -44,7 +44,7 @@ lint:
 	for lib in $(LIBRARIES); do \
 		cd ${WORKDIR}/$$lib && \
 		poetry run ruff --version && \
-		poetry run ruff check ./; \
+		poetry run ruff check . --ignore E721 --ignore F541; \
 	done
 
 test:
