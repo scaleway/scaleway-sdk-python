@@ -139,7 +139,7 @@ class IamV1Alpha1API(API):
 
         res = self._request(
             "GET",
-            "/iam/v1alpha1/ssh-keys",
+            f"/iam/v1alpha1/ssh-keys",
             params={
                 "disabled": disabled,
                 "name": name,
@@ -222,7 +222,7 @@ class IamV1Alpha1API(API):
 
         res = self._request(
             "POST",
-            "/iam/v1alpha1/ssh-keys",
+            f"/iam/v1alpha1/ssh-keys",
             body=marshal_CreateSSHKeyRequest(
                 CreateSSHKeyRequest(
                     public_key=public_key,
@@ -357,7 +357,7 @@ class IamV1Alpha1API(API):
 
         res = self._request(
             "GET",
-            "/iam/v1alpha1/users",
+            f"/iam/v1alpha1/users",
             params={
                 "mfa": mfa,
                 "order_by": order_by,
@@ -487,7 +487,7 @@ class IamV1Alpha1API(API):
 
         res = self._request(
             "POST",
-            "/iam/v1alpha1/users",
+            f"/iam/v1alpha1/users",
             body=marshal_CreateUserRequest(
                 CreateUserRequest(
                     email=email,
@@ -531,7 +531,7 @@ class IamV1Alpha1API(API):
 
         res = self._request(
             "GET",
-            "/iam/v1alpha1/applications",
+            f"/iam/v1alpha1/applications",
             params={
                 "application_ids": application_ids,
                 "editable": editable,
@@ -614,7 +614,7 @@ class IamV1Alpha1API(API):
 
         res = self._request(
             "POST",
-            "/iam/v1alpha1/applications",
+            f"/iam/v1alpha1/applications",
             body=marshal_CreateApplicationRequest(
                 CreateApplicationRequest(
                     description=description,
@@ -753,7 +753,7 @@ class IamV1Alpha1API(API):
 
         res = self._request(
             "GET",
-            "/iam/v1alpha1/groups",
+            f"/iam/v1alpha1/groups",
             params={
                 "application_ids": application_ids,
                 "group_ids": group_ids,
@@ -840,7 +840,7 @@ class IamV1Alpha1API(API):
 
         res = self._request(
             "POST",
-            "/iam/v1alpha1/groups",
+            f"/iam/v1alpha1/groups",
             body=marshal_CreateGroupRequest(
                 CreateGroupRequest(
                     description=description,
@@ -1151,7 +1151,7 @@ class IamV1Alpha1API(API):
 
         res = self._request(
             "GET",
-            "/iam/v1alpha1/policies",
+            f"/iam/v1alpha1/policies",
             params={
                 "application_ids": application_ids,
                 "editable": editable,
@@ -1264,7 +1264,7 @@ class IamV1Alpha1API(API):
 
         res = self._request(
             "POST",
-            "/iam/v1alpha1/policies",
+            f"/iam/v1alpha1/policies",
             body=marshal_CreatePolicyRequest(
                 CreatePolicyRequest(
                     description=description,
@@ -1446,7 +1446,7 @@ class IamV1Alpha1API(API):
 
         res = self._request(
             "PUT",
-            "/iam/v1alpha1/rules",
+            f"/iam/v1alpha1/rules",
             body=marshal_SetRulesRequest(
                 SetRulesRequest(
                     policy_id=policy_id,
@@ -1482,7 +1482,7 @@ class IamV1Alpha1API(API):
 
         res = self._request(
             "GET",
-            "/iam/v1alpha1/rules",
+            f"/iam/v1alpha1/rules",
             params={
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
@@ -1550,7 +1550,7 @@ class IamV1Alpha1API(API):
 
         res = self._request(
             "GET",
-            "/iam/v1alpha1/permission-sets",
+            f"/iam/v1alpha1/permission-sets",
             params={
                 "order_by": order_by,
                 "organization_id": organization_id
@@ -1643,7 +1643,7 @@ class IamV1Alpha1API(API):
 
         res = self._request(
             "GET",
-            "/iam/v1alpha1/api-keys",
+            f"/iam/v1alpha1/api-keys",
             params={
                 "access_key": access_key,
                 "bearer_id": bearer_id,
@@ -1762,7 +1762,7 @@ class IamV1Alpha1API(API):
 
         res = self._request(
             "POST",
-            "/iam/v1alpha1/api-keys",
+            f"/iam/v1alpha1/api-keys",
             body=marshal_CreateAPIKeyRequest(
                 CreateAPIKeyRequest(
                     description=description,
@@ -1895,7 +1895,7 @@ class IamV1Alpha1API(API):
 
         res = self._request(
             "GET",
-            "/iam/v1alpha1/quota",
+            f"/iam/v1alpha1/quota",
             params={
                 "order_by": order_by,
                 "organization_id": organization_id
@@ -2002,7 +2002,7 @@ class IamV1Alpha1API(API):
 
         res = self._request(
             "GET",
-            "/iam/v1alpha1/jwts",
+            f"/iam/v1alpha1/jwts",
             params={
                 "audience_id": audience_id,
                 "expired": expired,

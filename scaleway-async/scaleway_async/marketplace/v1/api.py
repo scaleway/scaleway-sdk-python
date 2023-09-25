@@ -50,7 +50,7 @@ class MarketplaceV1API(API):
 
         res = self._request(
             "GET",
-            "/marketplace/v1/images",
+            f"/marketplace/v1/images",
             params={
                 "page": page,
                 "per_page": per_page or self.client.default_page_size,

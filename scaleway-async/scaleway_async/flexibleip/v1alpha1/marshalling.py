@@ -23,15 +23,15 @@ from .types import (
 
 
 def unmarshal_MACAddress(data: Any) -> MACAddress:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'MACAddress' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'MACAddress' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("id", None)
     args["id"] = field
@@ -46,7 +46,7 @@ def unmarshal_MACAddress(data: Any) -> MACAddress:
     args["status"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("zone", None)
     args["zone"] = field
@@ -55,15 +55,15 @@ def unmarshal_MACAddress(data: Any) -> MACAddress:
 
 
 def unmarshal_FlexibleIP(data: Any) -> FlexibleIP:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'FlexibleIP' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'FlexibleIP' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("description", None)
     args["description"] = field
@@ -96,7 +96,7 @@ def unmarshal_FlexibleIP(data: Any) -> FlexibleIP:
     args["tags"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("zone", None)
     args["zone"] = field
@@ -105,9 +105,9 @@ def unmarshal_FlexibleIP(data: Any) -> FlexibleIP:
 
 
 def unmarshal_AttachFlexibleIPsResponse(data: Any) -> AttachFlexibleIPsResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'AttachFlexibleIPsResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'AttachFlexibleIPsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -124,9 +124,9 @@ def unmarshal_AttachFlexibleIPsResponse(data: Any) -> AttachFlexibleIPsResponse:
 
 
 def unmarshal_DetachFlexibleIPsResponse(data: Any) -> DetachFlexibleIPsResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'DetachFlexibleIPsResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'DetachFlexibleIPsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -143,9 +143,9 @@ def unmarshal_DetachFlexibleIPsResponse(data: Any) -> DetachFlexibleIPsResponse:
 
 
 def unmarshal_ListFlexibleIPsResponse(data: Any) -> ListFlexibleIPsResponse:
-    if not isinstance(data, dict):
+    if type(data) is not dict:
         raise TypeError(
-            "Unmarshalling the type 'ListFlexibleIPsResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'ListFlexibleIPsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
