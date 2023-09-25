@@ -1,13 +1,12 @@
 import json
 import logging
 from dataclasses import dataclass
-from typing import IO, Any, Dict, Iterable, Mapping, Optional, Tuple, Union
+from typing import IO, Any, Dict, Iterable, List, Mapping, Optional, Tuple, Union
 
 import requests
 from requests import Response
 
 from .client import Client
-
 
 Body = Union[
     str, bytes, Mapping[str, Any], Iterable[Tuple[str, Optional[str]]], IO[Any]
@@ -26,14 +25,14 @@ class APILogger:
         self,
         method: str,
         url: str,
-        params: Dict[str, Optional[str]],
+        params: List[Tuple[str, Any]],
         headers: Dict[str, str],
         body: Optional[str],
     ) -> None:
         if not self.logger.isEnabledFor(logging.DEBUG):
             return
 
-        raw_params = "&".join([f"{k}={v}" for k, v in params.items()])
+        raw_params = "&".join([f"{k}={v}" for (k, v) in params])
 
         debug_headers = {
             **headers,
@@ -129,7 +128,16 @@ class API:
 
         raw_body = json.dumps(body) if body is not None else None
 
-        params = {k: str(v) for k, v in params.items() if v is not None}
+        request_params: List[Tuple[str, Any]] = []
+        for k, v in params.items():
+            if v is None:
+                continue
+
+            if isinstance(v, list):
+                for item in v:
+                    request_params.append((k, item))
+            else:
+                request_params.append((k, v))
 
         headers = {
             "accept": "application/json",
@@ -146,7 +154,7 @@ class API:
         logger.log_request(
             method=method,
             url=url,
-            params=params,
+            params=request_params,
             headers=headers,
             body=raw_body,
         )
@@ -154,7 +162,7 @@ class API:
         response = requests.request(
             method=method,
             url=url,
-            params=params,
+            params=request_params,
             headers=headers,
             data=raw_body,
             verify=not self.client.api_allow_insecure,
