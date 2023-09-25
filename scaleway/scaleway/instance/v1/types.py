@@ -3060,6 +3060,11 @@ class ListIpsRequest:
     A positive integer to choose the page to return.
     """
 
+    type_: Optional[str]
+    """
+    Filter on the IP Mobility IP type (whose value should be either 'nat', 'routed_ipv4' or 'routed_ipv6').
+    """
+
 
 @dataclass
 class CreateIpRequest:
