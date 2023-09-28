@@ -278,6 +278,14 @@ class ListTasksRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ListTldsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    NAME_ASC = "name_asc"
+    NAME_DESC = "name_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class RawFormat(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_RAW_FORMAT = "unknown_raw_format"
     BIND = "bind"
@@ -1047,6 +1055,23 @@ class ListTasksResponse:
     total_count: int
 
     tasks: List[Task]
+
+
+@dataclass
+class ListTldsResponse:
+    """
+    List tlds response.
+    """
+
+    tlds: List[Tld]
+    """
+    Array of TLDs.
+    """
+
+    total_count: int
+    """
+    Total count of TLDs returned.
+    """
 
 
 @dataclass
@@ -2120,6 +2145,29 @@ class RegistrarApiSearchAvailableDomainsRequest:
     strict_search: bool
     """
     Search exact match.
+    """
+
+
+@dataclass
+class RegistrarApiListTldsRequest:
+    tlds: Optional[List[str]]
+    """
+    Array of TLDs to return.
+    """
+
+    page: Optional[int]
+    """
+    Page number for the returned Projects.
+    """
+
+    page_size: Optional[int]
+    """
+    Maximum number of Project per page.
+    """
+
+    order_by: Optional[ListTldsRequestOrderBy]
+    """
+    Sort order of the returned TLDs.
     """
 
 

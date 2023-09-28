@@ -80,6 +80,7 @@ from .types import (
     ListRenewableDomainsResponse,
     ListSSLCertificatesResponse,
     ListTasksResponse,
+    ListTldsResponse,
     Nameserver,
     NewContact,
     OrderResponse,
@@ -1657,6 +1658,23 @@ def unmarshal_ListTasksResponse(data: Any) -> ListTasksResponse:
     args["total_count"] = field
 
     return ListTasksResponse(**args)
+
+
+def unmarshal_ListTldsResponse(data: Any) -> ListTldsResponse:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'ListTldsResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("tlds", None)
+    args["tlds"] = [unmarshal_Tld(v) for v in field] if field is not None else None
+
+    field = data.get("total_count", None)
+    args["total_count"] = field
+
+    return ListTldsResponse(**args)
 
 
 def unmarshal_OrderResponse(data: Any) -> OrderResponse:
