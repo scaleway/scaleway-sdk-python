@@ -141,9 +141,9 @@ from .marshalling import (
 
 class DocumentDbV1Beta1API(API):
     """
-    Managed Database for FerretDB API.
+    Managed Document Databases API.
 
-    Managed Database for FerretDB API.
+    Managed Document Databases API.
     """
 
     def list_database_engines(
