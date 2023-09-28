@@ -20,6 +20,7 @@ from .types import ListDNSZonesRequestOrderBy
 from .types import ListDomainsRequestOrderBy
 from .types import ListRenewableDomainsRequestOrderBy
 from .types import ListTasksRequestOrderBy
+from .types import ListTldsRequestOrderBy
 from .types import RawFormat
 from .types import RenewableDomainStatus
 from .types import SSLCertificateStatus
@@ -83,6 +84,7 @@ from .types import ListDomainsResponse
 from .types import ListRenewableDomainsResponse
 from .types import ListSSLCertificatesResponse
 from .types import ListTasksResponse
+from .types import ListTldsResponse
 from .types import Nameserver
 from .types import NewContact
 from .types import OrderResponse
@@ -136,6 +138,7 @@ __all__ = [
     "ListDomainsRequestOrderBy",
     "ListRenewableDomainsRequestOrderBy",
     "ListTasksRequestOrderBy",
+    "ListTldsRequestOrderBy",
     "RawFormat",
     "RenewableDomainStatus",
     "SSLCertificateStatus",
@@ -199,6 +202,7 @@ __all__ = [
     "ListRenewableDomainsResponse",
     "ListSSLCertificatesResponse",
     "ListTasksResponse",
+    "ListTldsResponse",
     "Nameserver",
     "NewContact",
     "OrderResponse",

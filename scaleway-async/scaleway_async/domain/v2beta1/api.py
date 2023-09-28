@@ -26,6 +26,7 @@ from .types import (
     ListDomainsRequestOrderBy,
     ListRenewableDomainsRequestOrderBy,
     ListTasksRequestOrderBy,
+    ListTldsRequestOrderBy,
     RawFormat,
     TaskStatus,
     TaskType,
@@ -65,6 +66,7 @@ from .types import (
     ListRenewableDomainsResponse,
     ListSSLCertificatesResponse,
     ListTasksResponse,
+    ListTldsResponse,
     Nameserver,
     NewContact,
     OrderResponse,
@@ -76,6 +78,7 @@ from .types import (
     SSLCertificate,
     SearchAvailableDomainsResponse,
     Task,
+    Tld,
     TransferInDomainRequestTransferRequest,
     UpdateContactRequestQuestion,
     UpdateDNSZoneNameserversResponse,
@@ -152,6 +155,7 @@ from .marshalling import (
     unmarshal_ListRenewableDomainsResponse,
     unmarshal_ListSSLCertificatesResponse,
     unmarshal_ListTasksResponse,
+    unmarshal_ListTldsResponse,
     unmarshal_OrderResponse,
     unmarshal_RefreshDNSZoneResponse,
     unmarshal_RegisterExternalDomainResponse,
@@ -2486,6 +2490,78 @@ class DomainRegistrarV2Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_SearchAvailableDomainsResponse(res.json())
+
+    async def list_tlds(
+        self,
+        *,
+        tlds: Optional[List[str]] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        order_by: ListTldsRequestOrderBy = ListTldsRequestOrderBy.NAME_ASC,
+    ) -> ListTldsResponse:
+        """
+        List TLD offers.
+        Retrieve the list of TLDs and offers associated with them.
+        :param tlds: Array of TLDs to return.
+        :param page: Page number for the returned Projects.
+        :param page_size: Maximum number of Project per page.
+        :param order_by: Sort order of the returned TLDs.
+        :return: :class:`ListTldsResponse <ListTldsResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_tlds()
+        """
+
+        res = self._request(
+            "GET",
+            f"/domain/v2beta1/tlds",
+            params={
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+                "tlds": tlds,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListTldsResponse(res.json())
+
+    async def list_tlds_all(
+        self,
+        *,
+        tlds: Optional[List[str]] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        order_by: Optional[ListTldsRequestOrderBy] = None,
+    ) -> List[Tld]:
+        """
+        List TLD offers.
+        Retrieve the list of TLDs and offers associated with them.
+        :param tlds: Array of TLDs to return.
+        :param page: Page number for the returned Projects.
+        :param page_size: Maximum number of Project per page.
+        :param order_by: Sort order of the returned TLDs.
+        :return: :class:`List[ListTldsResponse] <List[ListTldsResponse]>`
+
+        Usage:
+        ::
+
+            result = await api.list_tlds_all()
+        """
+
+        return await fetch_all_pages_async(
+            type=ListTldsResponse,
+            key="tlds",
+            fetcher=self.list_tlds,
+            args={
+                "tlds": tlds,
+                "page": page,
+                "page_size": page_size,
+                "order_by": order_by,
+            },
+        )
 
     async def create_domain_host(
         self,
