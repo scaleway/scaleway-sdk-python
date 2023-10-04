@@ -1933,7 +1933,7 @@ def marshal_ContactExtensionFRAssociationInfo(
     output: Dict[str, Any] = {}
 
     if request.publication_jo is not None:
-        output["publication_jo"] = request.publication_jo
+        output["publication_jo"] = request.publication_jo.astimezone().isoformat()
 
     if request.publication_jo_page is not None:
         output["publication_jo_page"] = request.publication_jo_page

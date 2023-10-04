@@ -2171,7 +2171,7 @@ def marshal_Volume(
     output: Dict[str, Any] = {}
 
     if request.creation_date is not None:
-        output["creation_date"] = request.creation_date
+        output["creation_date"] = request.creation_date.astimezone().isoformat()
 
     if request.export_uri is not None:
         output["export_uri"] = request.export_uri
@@ -2180,7 +2180,7 @@ def marshal_Volume(
         output["id"] = request.id
 
     if request.modification_date is not None:
-        output["modification_date"] = request.modification_date
+        output["modification_date"] = request.modification_date.astimezone().isoformat()
 
     if request.name is not None:
         output["name"] = request.name
@@ -2243,7 +2243,7 @@ def marshal_Image(
         output["arch"] = Arch(request.arch)
 
     if request.creation_date is not None:
-        output["creation_date"] = request.creation_date
+        output["creation_date"] = request.creation_date.astimezone().isoformat()
 
     if request.default_bootscript is not None:
         output["default_bootscript"] = marshal_Bootscript(
@@ -2262,7 +2262,7 @@ def marshal_Image(
         output["id"] = request.id
 
     if request.modification_date is not None:
-        output["modification_date"] = request.modification_date
+        output["modification_date"] = request.modification_date.astimezone().isoformat()
 
     if request.name is not None:
         output["name"] = request.name
@@ -3276,7 +3276,7 @@ def marshal__SetImageRequest(
         output["arch"] = Arch(request.arch)
 
     if request.creation_date is not None:
-        output["creation_date"] = request.creation_date
+        output["creation_date"] = request.creation_date.astimezone().isoformat()
 
     if request.default_bootscript is not None:
         output["default_bootscript"] = marshal_Bootscript(
@@ -3292,7 +3292,7 @@ def marshal__SetImageRequest(
         output["from_server"] = request.from_server
 
     if request.modification_date is not None:
-        output["modification_date"] = request.modification_date
+        output["modification_date"] = request.modification_date.astimezone().isoformat()
 
     if request.name is not None:
         output["name"] = request.name
@@ -3327,7 +3327,7 @@ def marshal__SetSecurityGroupRequest(
     output: Dict[str, Any] = {}
 
     if request.creation_date is not None:
-        output["creation_date"] = request.creation_date
+        output["creation_date"] = request.creation_date.astimezone().isoformat()
 
     if request.description is not None:
         output["description"] = request.description
@@ -3341,7 +3341,7 @@ def marshal__SetSecurityGroupRequest(
         )
 
     if request.modification_date is not None:
-        output["modification_date"] = request.modification_date
+        output["modification_date"] = request.modification_date.astimezone().isoformat()
 
     if request.name is not None:
         output["name"] = request.name
@@ -3437,7 +3437,7 @@ def marshal__SetServerRequest(
         output["commercial_type"] = request.commercial_type
 
     if request.creation_date is not None:
-        output["creation_date"] = request.creation_date
+        output["creation_date"] = request.creation_date.astimezone().isoformat()
 
     if request.dynamic_ip_required is not None:
         output["dynamic_ip_required"] = request.dynamic_ip_required
@@ -3463,7 +3463,7 @@ def marshal__SetServerRequest(
         ]
 
     if request.modification_date is not None:
-        output["modification_date"] = request.modification_date
+        output["modification_date"] = request.modification_date.astimezone().isoformat()
 
     if request.name is not None:
         output["name"] = request.name
@@ -3537,13 +3537,13 @@ def marshal__SetSnapshotRequest(
         )
 
     if request.creation_date is not None:
-        output["creation_date"] = request.creation_date
+        output["creation_date"] = request.creation_date.astimezone().isoformat()
 
     if request.id is not None:
         output["id"] = request.id
 
     if request.modification_date is not None:
-        output["modification_date"] = request.modification_date
+        output["modification_date"] = request.modification_date.astimezone().isoformat()
 
     if request.name is not None:
         output["name"] = request.name

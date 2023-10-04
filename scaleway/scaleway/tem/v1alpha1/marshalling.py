@@ -412,7 +412,7 @@ def marshal_CreateEmailRequest(
         output["project_id"] = request.project_id or defaults.default_project_id
 
     if request.send_before is not None:
-        output["send_before"] = request.send_before
+        output["send_before"] = request.send_before.astimezone().isoformat()
 
     if request.subject is not None:
         output["subject"] = request.subject
