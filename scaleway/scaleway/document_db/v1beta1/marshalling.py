@@ -1496,7 +1496,7 @@ def marshal_CreateSnapshotRequest(
     output: Dict[str, Any] = {}
 
     if request.expires_at is not None:
-        output["expires_at"] = request.expires_at
+        output["expires_at"] = request.expires_at.astimezone().isoformat()
 
     if request.name is not None:
         output["name"] = request.name
@@ -1654,7 +1654,7 @@ def marshal_UpdateSnapshotRequest(
     output: Dict[str, Any] = {}
 
     if request.expires_at is not None:
-        output["expires_at"] = request.expires_at
+        output["expires_at"] = request.expires_at.astimezone().isoformat()
 
     if request.name is not None:
         output["name"] = request.name

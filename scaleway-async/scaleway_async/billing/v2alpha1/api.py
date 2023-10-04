@@ -41,6 +41,11 @@ class BillingV2Alpha1API(API):
         organization_id: Optional[str] = None,
     ) -> GetConsumptionResponse:
         """
+        Get current month's consumption.
+        The consumption reflects the amount of money you have spent for the products you have used.
+        The consumption value is monetary and is not computed in real time.
+        :param organization_id: Filter by organization ID.
+        :return: :class:`GetConsumptionResponse <GetConsumptionResponse>`
 
         Usage:
         ::
@@ -72,6 +77,16 @@ class BillingV2Alpha1API(API):
         order_by: ListInvoicesRequestOrderBy = ListInvoicesRequestOrderBy.INVOICE_NUMBER_DESC,
     ) -> ListInvoicesResponse:
         """
+        List invoices.
+        List all your invoices, filtering by `start_date` and `invoice_type`. Each invoice has its own ID.
+        :param organization_id: Organization ID to filter for, only invoices from this Organization will be returned.
+        :param started_after: Invoice's `start_date` is greater or equal to `started_after`.
+        :param started_before: Invoice's `start_date` precedes `started_before`.
+        :param invoice_type: Invoice type. It can either be `periodic` or `purchase`.
+        :param page: Positive integer to choose the page to return.
+        :param page_size: Positive integer lower or equal to 100 to select the number of items to return.
+        :param order_by: How invoices are ordered in the response.
+        :return: :class:`ListInvoicesResponse <ListInvoicesResponse>`
 
         Usage:
         ::
@@ -109,6 +124,15 @@ class BillingV2Alpha1API(API):
         order_by: Optional[ListInvoicesRequestOrderBy] = None,
     ) -> List[Invoice]:
         """
+        List invoices.
+        List all your invoices, filtering by `start_date` and `invoice_type`. Each invoice has its own ID.
+        :param organization_id: Organization ID to filter for, only invoices from this Organization will be returned.
+        :param started_after: Invoice's `start_date` is greater or equal to `started_after`.
+        :param started_before: Invoice's `start_date` precedes `started_before`.
+        :param invoice_type: Invoice type. It can either be `periodic` or `purchase`.
+        :param page: Positive integer to choose the page to return.
+        :param page_size: Positive integer lower or equal to 100 to select the number of items to return.
+        :param order_by: How invoices are ordered in the response.
         :return: :class:`List[ListInvoicesResponse] <List[ListInvoicesResponse]>`
 
         Usage:
@@ -139,6 +163,11 @@ class BillingV2Alpha1API(API):
         file_type: DownloadInvoiceRequestFileType,
     ) -> Optional[ScwFile]:
         """
+        Download an invoice.
+        Download a specific invoice, specified by its ID.
+        :param invoice_id: Invoice ID.
+        :param file_type: Wanted file type.
+        :return: :class:`Optional[ScwFile] <Optional[ScwFile]>`
 
         Usage:
         ::

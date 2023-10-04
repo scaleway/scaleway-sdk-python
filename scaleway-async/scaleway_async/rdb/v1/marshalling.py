@@ -1448,7 +1448,7 @@ def marshal_CreateDatabaseBackupRequest(
         output["database_name"] = request.database_name
 
     if request.expires_at is not None:
-        output["expires_at"] = request.expires_at
+        output["expires_at"] = request.expires_at.astimezone().isoformat()
 
     if request.instance_id is not None:
         output["instance_id"] = request.instance_id
@@ -1614,7 +1614,7 @@ def marshal_CreateSnapshotRequest(
     output: Dict[str, Any] = {}
 
     if request.expires_at is not None:
-        output["expires_at"] = request.expires_at
+        output["expires_at"] = request.expires_at.astimezone().isoformat()
 
     if request.name is not None:
         output["name"] = request.name
@@ -1683,10 +1683,10 @@ def marshal_PrepareInstanceLogsRequest(
     output: Dict[str, Any] = {}
 
     if request.end_date is not None:
-        output["end_date"] = request.end_date
+        output["end_date"] = request.end_date.astimezone().isoformat()
 
     if request.start_date is not None:
-        output["start_date"] = request.start_date
+        output["start_date"] = request.start_date.astimezone().isoformat()
 
     return output
 
@@ -1769,7 +1769,7 @@ def marshal_UpdateDatabaseBackupRequest(
     output: Dict[str, Any] = {}
 
     if request.expires_at is not None:
-        output["expires_at"] = request.expires_at
+        output["expires_at"] = request.expires_at.astimezone().isoformat()
 
     if request.name is not None:
         output["name"] = request.name
@@ -1817,7 +1817,7 @@ def marshal_UpdateSnapshotRequest(
     output: Dict[str, Any] = {}
 
     if request.expires_at is not None:
-        output["expires_at"] = request.expires_at
+        output["expires_at"] = request.expires_at.astimezone().isoformat()
 
     if request.name is not None:
         output["name"] = request.name
