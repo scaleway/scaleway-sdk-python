@@ -250,6 +250,8 @@ class CreateTriggerRequestMnqNatsClientConfig:
 
     mnq_region: str
 
+    mnq_nats_account_id: str
+
 
 @dataclass
 class CreateTriggerRequestMnqSqsClientConfig:

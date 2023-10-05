@@ -669,6 +669,9 @@ def marshal_CreateTriggerRequestMnqNatsClientConfig(
     if request.mnq_namespace_id is not None:
         output["mnq_namespace_id"] = request.mnq_namespace_id
 
+    if request.mnq_nats_account_id is not None:
+        output["mnq_nats_account_id"] = request.mnq_nats_account_id
+
     if request.mnq_project_id is not None:
         output["mnq_project_id"] = request.mnq_project_id
 
