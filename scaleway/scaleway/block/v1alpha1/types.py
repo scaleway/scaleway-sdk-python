@@ -108,7 +108,7 @@ class CreateVolumeRequestFromEmpty:
     size: int
     """
     Volume size in bytes, with a granularity of 1 GB (10^9 bytes).
-    Must be compliant with the minimum and maximum allowed size.
+    Must be compliant with the minimum (1 GB) and maximum (10 TB) allowed size.
     """
 
 
@@ -121,13 +121,13 @@ class CreateVolumeRequestFromSnapshot:
     size: Optional[int]
     """
     Volume size in bytes, with a granularity of 1 GB (10^9 bytes).
-    Must be compliant with the allowed minimum and maximum allowed size.
+    Must be compliant with the minimum (1 GB) and maximum (10 TB) allowed size.
     Size is optional and is used only if a resize of the volume is requested, otherwise original snapshot size will be used.
     """
 
     snapshot_id: str
     """
-    Source snapshot from which create a volume.
+    Source snapshot from which volume will be created.
     """
 
 
@@ -156,7 +156,7 @@ class ListVolumeTypesResponse:
 
     volume_types: List[VolumeType]
     """
-    Paginated returned list of volume-types.
+    Returns paginated list of volume-types.
     """
 
     total_count: int
@@ -195,7 +195,7 @@ class Reference:
 
     product_resource_type: str
     """
-    Type of the resoruce the reference is associated (else snapshot or volume).
+    Type of resoruce to which the reference is associated (snapshot or volume).
     """
 
     product_resource_id: str
@@ -210,12 +210,12 @@ class Reference:
 
     type_: ReferenceType
     """
-    Type of the reference (link, exclusive, read_only).
+    Type of reference (link, exclusive, read_only).
     """
 
     status: ReferenceStatus
     """
-    Status of the reference (attaching, attached, detaching).
+    Status of reference (attaching, attached, detaching).
     """
 
 
@@ -237,8 +237,8 @@ class Snapshot:
 
     parent_volume: Optional[SnapshotParentVolume]
     """
-    Informations about the parent volume.
-    If the parent volume has been deleted, value is null.
+    Information about the parent volume.
+    If the parent volume was deleted, value is null.
     """
 
     size: int
@@ -295,22 +295,22 @@ class SnapshotParentVolume:
 
     id: str
     """
-    Volume ID on which the snapshot is based.
+    Parent volume UUID (volume from which the snapshot originates).
     """
 
     name: str
     """
-    Name of the parent volume from which the snapshot has been taken.
+    Name of the parent volume.
     """
 
     type_: str
     """
-    Volume type of the parent volume from which the snapshot has been taken.
+    Volume type of the parent volume.
     """
 
     status: VolumeStatus
     """
-    Current status the parent volume from which the snapshot has been taken.
+    Current status the parent volume.
     """
 
 
@@ -338,7 +338,7 @@ class SnapshotSummary:
 
     size: int
     """
-    Size in bytes of the snapshot.
+    Size of the snapshot in bytes.
     """
 
     project_id: str
@@ -368,7 +368,7 @@ class SnapshotSummary:
 
     zone: Zone
     """
-    Snapshot zone.
+    Snapshot Availability Zone.
     """
 
     class_: StorageClass
@@ -395,7 +395,7 @@ class Volume:
 
     type_: str
     """
-    Type of the volume.
+    Volume type.
     """
 
     size: int
@@ -405,7 +405,7 @@ class Volume:
 
     project_id: str
     """
-    UUID of the project the volume belongs to.
+    UUID of the project to which the volume belongs.
     """
 
     created_at: Optional[datetime]
@@ -415,7 +415,7 @@ class Volume:
 
     updated_at: Optional[datetime]
     """
-    Last modification date of the properties of a volume.
+    Last update of the properties of a volume.
     """
 
     references: List[Reference]
@@ -445,7 +445,7 @@ class Volume:
 
     specs: Optional[VolumeSpecifications]
     """
-    Volume specifications of the volume.
+    Specifications of the volume.
     """
 
 
@@ -474,7 +474,7 @@ class VolumeType:
 
     type_: str
     """
-    Internal type of the volume.
+    Volume type.
     """
 
     pricing: Optional[Money]
@@ -502,12 +502,12 @@ class ListVolumeTypesRequest:
 
     page: Optional[int]
     """
-    Positive integer to choose the page to return.
+    Page number.
     """
 
     page_size: Optional[int]
     """
-    Positive integer lower or equal to 100 to select the number of items to return.
+    Page size, defines how many entries are returned in one page, must be lower or equal to 100.
     """
 
 
@@ -520,22 +520,22 @@ class ListVolumesRequest:
 
     order_by: Optional[ListVolumesRequestOrderBy]
     """
-    Sort order of the returned volumes.
+    Criteria to use when ordering the list.
     """
 
     project_id: Optional[str]
     """
-    Only list volumes of this project ID.
+    Filter by Project ID.
     """
 
     page: Optional[int]
     """
-    Positive integer to choose the page to return.
+    Page number.
     """
 
     page_size: Optional[int]
     """
-    Positive integer lower or equal to 100 to select the number of items to return.
+    Page size, defines how many entries are returned in one page, must be lower or equal to 100.
     """
 
     name: Optional[str]
@@ -545,7 +545,7 @@ class ListVolumesRequest:
 
     product_resource_id: Optional[str]
     """
-    Filter by a Product Resource Id linked to this volume (such as an Instance Server Id).
+    Filter by a product resource ID linked to this volume (such as an Instance ID).
     """
 
 
@@ -558,7 +558,7 @@ class CreateVolumeRequest:
 
     name: str
     """
-    Name of the volume you want to create.
+    Name of the volume.
     """
 
     perf_iops: Optional[int]
@@ -575,14 +575,14 @@ class CreateVolumeRequest:
 
     from_empty: Optional[CreateVolumeRequestFromEmpty]
     """
-    Create a new and empty volume.
+    Specify the size of the new volume if creating a new one from scratch.
     
     One-of ('from_'): at most one of 'from_empty', 'from_snapshot' could be set.
     """
 
     from_snapshot: Optional[CreateVolumeRequestFromSnapshot]
     """
-    Create a volume from an existing snapshot.
+    Specify the snapshot ID of the original snapshot.
     
     One-of ('from_'): at most one of 'from_empty', 'from_snapshot' could be set.
     """
@@ -602,7 +602,7 @@ class GetVolumeRequest:
 
     volume_id: str
     """
-    UUID of the volume you want to get.
+    UUID of the volume.
     """
 
 
@@ -638,9 +638,9 @@ class UpdateVolumeRequest:
 
     size: Optional[int]
     """
-    Optional field for growing a volume (size must be equal or larger than the current one).
+    Optional field for increasing the size of a volume (size must be equal or larger than the current one).
     Size in bytes of the volume, with a granularity of 1 GB (10^9 bytes).
-    Must be compliant with the minimum and maximum allowed size.
+    Must be compliant with the minimum (1GB) and maximum (10TB) allowed size.
     """
 
     tags: Optional[List[str]]
@@ -651,7 +651,7 @@ class UpdateVolumeRequest:
     perf_iops: Optional[int]
     """
     The maximum IO/s expected, according to the different options available in stock (`5000 | 15000`).
-    The selected value must be available on the Storage Class where is currently located the volume.
+    The selected value must be available for the volume's current storage class.
     """
 
 
@@ -664,32 +664,32 @@ class ListSnapshotsRequest:
 
     order_by: Optional[ListSnapshotsRequestOrderBy]
     """
-    Sort order of the returned snapshots.
+    Criteria to use when ordering the list.
     """
 
     project_id: Optional[str]
     """
-    Only list snapshots of this project ID.
+    Filter by Project ID.
     """
 
     page: Optional[int]
     """
-    Positive integer to choose the page to return.
+    Page number.
     """
 
     page_size: Optional[int]
     """
-    Positive integer lower or equal to 100 to select the number of items to return.
+    Page size, defines how many entries are returned in one page, must be lower or equal to 100.
     """
 
     volume_id: Optional[str]
     """
-    Filter the return snapshots by the volume it belongs to.
+    Filter snapshots by the ID of the original volume.
     """
 
     name: Optional[str]
     """
-    Filter the return snapshots by their names.
+    Filter snapshots by their names.
     """
 
 
@@ -715,7 +715,7 @@ class CreateSnapshotRequest:
 
     volume_id: str
     """
-    UUID of the volume from which creates a snpashot.
+    UUID of the volume to snapshot.
     """
 
     name: str
@@ -725,7 +725,7 @@ class CreateSnapshotRequest:
 
     project_id: Optional[str]
     """
-    UUID of the project the volume and the snapshot belong to.
+    UUID of the project to which the volume and the snapshot belong.
     """
 
     tags: Optional[List[str]]

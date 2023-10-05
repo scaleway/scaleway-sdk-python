@@ -49,10 +49,10 @@ from .marshalling import (
 
 class BlockV1Alpha1API(API):
     """
-    Scaleway Block Storage (SBS) API.
+    Scaleway Block Storage API.
 
     This API allows you to use and manage your Block Storage volumes.
-    Scaleway Block Storage (SBS) API.
+    Scaleway Block Storage API.
     """
 
     async def list_volume_types(
@@ -66,8 +66,8 @@ class BlockV1Alpha1API(API):
         List volume types.
         List all available volume types in a specified zone. The volume types listed are ordered by name in ascending order.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param page: Positive integer to choose the page to return.
-        :param page_size: Positive integer lower or equal to 100 to select the number of items to return.
+        :param page: Page number.
+        :param page_size: Page size, defines how many entries are returned in one page, must be lower or equal to 100.
         :return: :class:`ListVolumeTypesResponse <ListVolumeTypesResponse>`
 
         Usage:
@@ -101,8 +101,8 @@ class BlockV1Alpha1API(API):
         List volume types.
         List all available volume types in a specified zone. The volume types listed are ordered by name in ascending order.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param page: Positive integer to choose the page to return.
-        :param page_size: Positive integer lower or equal to 100 to select the number of items to return.
+        :param page: Page number.
+        :param page_size: Page size, defines how many entries are returned in one page, must be lower or equal to 100.
         :return: :class:`List[ListVolumeTypesResponse] <List[ListVolumeTypesResponse]>`
 
         Usage:
@@ -135,14 +135,14 @@ class BlockV1Alpha1API(API):
     ) -> ListVolumesResponse:
         """
         List volumes.
-        List all existing volumes in a specified zone. By default, the volume listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.
+        List all existing volumes in a specified zone. By default, the volumes listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param order_by: Sort order of the returned volumes.
-        :param project_id: Only list volumes of this project ID.
-        :param page: Positive integer to choose the page to return.
-        :param page_size: Positive integer lower or equal to 100 to select the number of items to return.
+        :param order_by: Criteria to use when ordering the list.
+        :param project_id: Filter by Project ID.
+        :param page: Page number.
+        :param page_size: Page size, defines how many entries are returned in one page, must be lower or equal to 100.
         :param name: Filter the return volumes by their names.
-        :param product_resource_id: Filter by a Product Resource Id linked to this volume (such as an Instance Server Id).
+        :param product_resource_id: Filter by a product resource ID linked to this volume (such as an Instance ID).
         :return: :class:`ListVolumesResponse <ListVolumesResponse>`
 
         Usage:
@@ -182,14 +182,14 @@ class BlockV1Alpha1API(API):
     ) -> List[Volume]:
         """
         List volumes.
-        List all existing volumes in a specified zone. By default, the volume listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.
+        List all existing volumes in a specified zone. By default, the volumes listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param order_by: Sort order of the returned volumes.
-        :param project_id: Only list volumes of this project ID.
-        :param page: Positive integer to choose the page to return.
-        :param page_size: Positive integer lower or equal to 100 to select the number of items to return.
+        :param order_by: Criteria to use when ordering the list.
+        :param project_id: Filter by Project ID.
+        :param page: Page number.
+        :param page_size: Page size, defines how many entries are returned in one page, must be lower or equal to 100.
         :param name: Filter the return volumes by their names.
-        :param product_resource_id: Filter by a Product Resource Id linked to this volume (such as an Instance Server Id).
+        :param product_resource_id: Filter by a product resource ID linked to this volume (such as an Instance ID).
         :return: :class:`List[ListVolumesResponse] <List[ListVolumesResponse]>`
 
         Usage:
@@ -225,20 +225,19 @@ class BlockV1Alpha1API(API):
         tags: Optional[List[str]] = None,
     ) -> Volume:
         """
-        Create a new empty volume by specifying the `size`.
-        To create a volume from an existing snapshot, specify the `snapshot_id` in the request payload instead, size is optional and can be specified if you need to extend the original size.
-        In that case the created volume will have the same volume class (and underlying IOPS limitations) as the originating snapshot.
-        You can specify the desired performance of the volume by setting `requirements` accordingly.
+        Create a volume.
+        To create a new volume from scratch, you must specify `from_empty` and the `size`.
+        To create a volume from an existing snapshot, specify `from_snapshot` and the `snapshot_id` in the request payload instead, size is optional and can be specified if you need to extend the original size. The volume will take on the same volume class and underlying IOPS limitations as the original snapshot.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param name: Name of the volume you want to create.
+        :param name: Name of the volume.
         :param perf_iops: The maximum IO/s expected, according to the different options available in stock (`5000 | 15000`).
 
         One-of ('requirements'): at most one of 'perf_iops' could be set.
         :param project_id: UUID of the project the volume belongs to.
-        :param from_empty: Create a new and empty volume.
+        :param from_empty: Specify the size of the new volume if creating a new one from scratch.
 
         One-of ('from_'): at most one of 'from_empty', 'from_snapshot' could be set.
-        :param from_snapshot: Create a volume from an existing snapshot.
+        :param from_snapshot: Specify the snapshot ID of the original snapshot.
 
         One-of ('from_'): at most one of 'from_empty', 'from_snapshot' could be set.
         :param tags: List of tags assigned to the volume.
@@ -282,7 +281,7 @@ class BlockV1Alpha1API(API):
         Get a volume.
         Retrieve technical information about a specific volume. Details such as size, type, and status are returned in the response.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param volume_id: UUID of the volume you want to get.
+        :param volume_id: UUID of the volume.
         :return: :class:`Volume <Volume>`
 
         Usage:
@@ -312,7 +311,7 @@ class BlockV1Alpha1API(API):
         """
         Waits for :class:`Volume <Volume>` to be in a final state.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param volume_id: UUID of the volume you want to get.
+        :param volume_id: UUID of the volume.
         :param options: The options for the waiter
         :return: :class:`Volume <Volume>`
 
@@ -378,17 +377,17 @@ class BlockV1Alpha1API(API):
     ) -> Volume:
         """
         Update a volume.
-        Update technical details about a volume, such as its name, tags, or its new size and `volume_type` (within the same Block Storage class).
-        You can only resize a volume to a larger size. It is not possible for now to change your Block Storage Class.
+        Update the technical details of a volume, such as its name, tags, or its new size and `volume_type` (within the same Block Storage class).
+        You can only resize a volume to a larger size. It is currently not possible to change your Block Storage Class.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param volume_id: UUID of the volume.
         :param name: When defined, is the new name of the volume.
-        :param size: Optional field for growing a volume (size must be equal or larger than the current one).
+        :param size: Optional field for increasing the size of a volume (size must be equal or larger than the current one).
         Size in bytes of the volume, with a granularity of 1 GB (10^9 bytes).
-        Must be compliant with the minimum and maximum allowed size.
+        Must be compliant with the minimum (1GB) and maximum (10TB) allowed size.
         :param tags: List of tags assigned to the volume.
         :param perf_iops: The maximum IO/s expected, according to the different options available in stock (`5000 | 15000`).
-        The selected value must be available on the Storage Class where is currently located the volume.
+        The selected value must be available for the volume's current storage class.
         :return: :class:`Volume <Volume>`
 
         Usage:
@@ -434,12 +433,12 @@ class BlockV1Alpha1API(API):
         List all snapshots.
         List all available snapshots in a specified zone. By default, the snapshots listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param order_by: Sort order of the returned snapshots.
-        :param project_id: Only list snapshots of this project ID.
-        :param page: Positive integer to choose the page to return.
-        :param page_size: Positive integer lower or equal to 100 to select the number of items to return.
-        :param volume_id: Filter the return snapshots by the volume it belongs to.
-        :param name: Filter the return snapshots by their names.
+        :param order_by: Criteria to use when ordering the list.
+        :param project_id: Filter by Project ID.
+        :param page: Page number.
+        :param page_size: Page size, defines how many entries are returned in one page, must be lower or equal to 100.
+        :param volume_id: Filter snapshots by the ID of the original volume.
+        :param name: Filter snapshots by their names.
         :return: :class:`ListSnapshotsResponse <ListSnapshotsResponse>`
 
         Usage:
@@ -481,12 +480,12 @@ class BlockV1Alpha1API(API):
         List all snapshots.
         List all available snapshots in a specified zone. By default, the snapshots listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param order_by: Sort order of the returned snapshots.
-        :param project_id: Only list snapshots of this project ID.
-        :param page: Positive integer to choose the page to return.
-        :param page_size: Positive integer lower or equal to 100 to select the number of items to return.
-        :param volume_id: Filter the return snapshots by the volume it belongs to.
-        :param name: Filter the return snapshots by their names.
+        :param order_by: Criteria to use when ordering the list.
+        :param project_id: Filter by Project ID.
+        :param page: Page number.
+        :param page_size: Page size, defines how many entries are returned in one page, must be lower or equal to 100.
+        :param volume_id: Filter snapshots by the ID of the original volume.
+        :param name: Filter snapshots by their names.
         :return: :class:`List[ListSnapshotsResponse] <List[ListSnapshotsResponse]>`
 
         Usage:
@@ -591,9 +590,9 @@ class BlockV1Alpha1API(API):
         To create a snapshot, the volume must be in the `in_use` or the `available` status.
         If your volume is in a transient state, you need to wait until the end of the current operation.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param volume_id: UUID of the volume from which creates a snpashot.
+        :param volume_id: UUID of the volume to snapshot.
         :param name: Name of the snapshot.
-        :param project_id: UUID of the project the volume and the snapshot belong to.
+        :param project_id: UUID of the project to which the volume and the snapshot belong.
         :param tags: List of tags assigned to the snapshot.
         :return: :class:`Snapshot <Snapshot>`
 
@@ -665,7 +664,7 @@ class BlockV1Alpha1API(API):
     ) -> Snapshot:
         """
         Update a snapshot.
-        Update name or tags of the snapshot.
+        Update the name or tags of the snapshot.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param snapshot_id: UUID of the snapshot.
         :param name: When defined, is the name of the snapshot.
