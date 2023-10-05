@@ -2065,6 +2065,11 @@ class ListServersRequest:
     List Instances associated with the given private NIC MAC address.
     """
 
+    servers: Optional[List[str]]
+    """
+    List Instances from these server ids (use commas to separate them).
+    """
+
 
 @dataclass
 class DeleteServerRequest:
