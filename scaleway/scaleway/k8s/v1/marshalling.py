@@ -406,6 +406,9 @@ def unmarshal_Pool(data: Any) -> Pool:
     field = data.get("placement_group_id", None)
     args["placement_group_id"] = field
 
+    field = data.get("public_ip_disabled", None)
+    args["public_ip_disabled"] = field
+
     field = data.get("region", None)
     args["region"] = field
 
@@ -794,6 +797,9 @@ def marshal_CreateClusterRequestPoolConfig(
     if request.placement_group_id is not None:
         output["placement_group_id"] = request.placement_group_id
 
+    if request.public_ip_disabled is not None:
+        output["public_ip_disabled"] = request.public_ip_disabled
+
     if request.root_volume_size is not None:
         output["root_volume_size"] = request.root_volume_size
 
@@ -1056,6 +1062,9 @@ def marshal_CreatePoolRequest(
 
     if request.placement_group_id is not None:
         output["placement_group_id"] = request.placement_group_id
+
+    if request.public_ip_disabled is not None:
+        output["public_ip_disabled"] = request.public_ip_disabled
 
     if request.root_volume_size is not None:
         output["root_volume_size"] = request.root_volume_size

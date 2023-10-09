@@ -695,6 +695,11 @@ class CreateClusterRequestPoolConfig:
     System volume disk size.
     """
 
+    public_ip_disabled: bool
+    """
+    Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway.
+    """
+
 
 @dataclass
 class CreateClusterRequestPoolConfigUpgradePolicy:
@@ -1049,6 +1054,11 @@ class Pool:
     root_volume_size: Optional[int]
     """
     System volume disk size.
+    """
+
+    public_ip_disabled: bool
+    """
+    Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway.
     """
 
     region: Region
@@ -1720,6 +1730,11 @@ class CreatePoolRequest:
     root_volume_size: Optional[int]
     """
     System volume disk size.
+    """
+
+    public_ip_disabled: bool
+    """
+    Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway.
     """
 
 

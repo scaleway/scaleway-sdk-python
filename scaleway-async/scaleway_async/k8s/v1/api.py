@@ -858,6 +858,7 @@ class K8SV1API(API):
         container_runtime: Runtime,
         autohealing: bool,
         root_volume_type: PoolVolumeType,
+        public_ip_disabled: bool,
         region: Optional[Region] = None,
         name: Optional[str] = None,
         placement_group_id: Optional[str] = None,
@@ -889,6 +890,7 @@ class K8SV1API(API):
         :param zone: Zone in which the pool's nodes will be spawned.
         :param root_volume_type: Defines the system volume disk type. Two different types of volume (`volume_type`) are provided: `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. `b_ssd` is a remote block storage which means your system is stored on a centralized and resilient cluster.
         :param root_volume_size: System volume disk size.
+        :param public_ip_disabled: Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway.
         :return: :class:`Pool <Pool>`
 
         Usage:
@@ -902,6 +904,7 @@ class K8SV1API(API):
                 container_runtime=unknown_runtime,
                 autohealing=True,
                 root_volume_type=default_volume_type,
+                public_ip_disabled=True,
             )
         """
 
@@ -922,6 +925,7 @@ class K8SV1API(API):
                     container_runtime=container_runtime,
                     autohealing=autohealing,
                     root_volume_type=root_volume_type,
+                    public_ip_disabled=public_ip_disabled,
                     region=region,
                     name=name or random_name(prefix="pool"),
                     placement_group_id=placement_group_id,
