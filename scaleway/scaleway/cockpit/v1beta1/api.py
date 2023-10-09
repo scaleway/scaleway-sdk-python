@@ -23,9 +23,11 @@ from .types import (
     CockpitMetrics,
     ContactPoint,
     Datasource,
+    GrafanaProductDashboard,
     GrafanaUser,
     ListContactPointsResponse,
     ListDatasourcesResponse,
+    ListGrafanaProductDashboardsResponse,
     ListGrafanaUsersResponse,
     ListPlansResponse,
     ListTokensResponse,
@@ -68,12 +70,14 @@ from .marshalling import (
     marshal_TriggerTestAlertRequest,
     unmarshal_ContactPoint,
     unmarshal_Datasource,
+    unmarshal_GrafanaProductDashboard,
     unmarshal_GrafanaUser,
     unmarshal_Token,
     unmarshal_Cockpit,
     unmarshal_CockpitMetrics,
     unmarshal_ListContactPointsResponse,
     unmarshal_ListDatasourcesResponse,
+    unmarshal_ListGrafanaProductDashboardsResponse,
     unmarshal_ListGrafanaUsersResponse,
     unmarshal_ListPlansResponse,
     unmarshal_ListTokensResponse,
@@ -1036,3 +1040,107 @@ class CockpitV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_SelectPlanResponse(res.json())
+
+    def list_grafana_product_dashboards(
+        self,
+        *,
+        project_id: Optional[str] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        tags: Optional[List[str]] = None,
+    ) -> ListGrafanaProductDashboardsResponse:
+        """
+        List product dashboards.
+        Get a list of available product dashboards.
+        :param project_id: ID of the Project.
+        :param page: Page number.
+        :param page_size: Page size.
+        :param tags: Tags to filter the dashboards.
+        :return: :class:`ListGrafanaProductDashboardsResponse <ListGrafanaProductDashboardsResponse>`
+
+        Usage:
+        ::
+
+            result = api.list_grafana_product_dashboards()
+        """
+
+        res = self._request(
+            "GET",
+            f"/cockpit/v1beta1/grafana-product-dashboards",
+            params={
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+                "project_id": project_id or self.client.default_project_id,
+                "tags": tags,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListGrafanaProductDashboardsResponse(res.json())
+
+    def list_grafana_product_dashboards_all(
+        self,
+        *,
+        project_id: Optional[str] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        tags: Optional[List[str]] = None,
+    ) -> List[GrafanaProductDashboard]:
+        """
+        List product dashboards.
+        Get a list of available product dashboards.
+        :param project_id: ID of the Project.
+        :param page: Page number.
+        :param page_size: Page size.
+        :param tags: Tags to filter the dashboards.
+        :return: :class:`List[ListGrafanaProductDashboardsResponse] <List[ListGrafanaProductDashboardsResponse]>`
+
+        Usage:
+        ::
+
+            result = api.list_grafana_product_dashboards_all()
+        """
+
+        return fetch_all_pages(
+            type=ListGrafanaProductDashboardsResponse,
+            key="dashboards",
+            fetcher=self.list_grafana_product_dashboards,
+            args={
+                "project_id": project_id,
+                "page": page,
+                "page_size": page_size,
+                "tags": tags,
+            },
+        )
+
+    def get_grafana_product_dashboard(
+        self,
+        *,
+        dashboard_name: str,
+        project_id: Optional[str] = None,
+    ) -> GrafanaProductDashboard:
+        """
+        Get a product dashboard.
+        Get a product dashboard specified by the dashboard ID.
+        :param dashboard_name: Name of the dashboard.
+        :param project_id: ID of the Project.
+        :return: :class:`GrafanaProductDashboard <GrafanaProductDashboard>`
+
+        Usage:
+        ::
+
+            result = api.get_grafana_product_dashboard(dashboard_name="example")
+        """
+
+        param_dashboard_name = validate_path_param("dashboard_name", dashboard_name)
+
+        res = self._request(
+            "GET",
+            f"/cockpit/v1beta1/grafana-product-dashboards/{param_dashboard_name}",
+            params={
+                "project_id": project_id or self.client.default_project_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_GrafanaProductDashboard(res.json())
