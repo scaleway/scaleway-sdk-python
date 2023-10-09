@@ -3,6 +3,7 @@
 from .types import CockpitStatus
 from .types import DatasourceType
 from .types import GrafanaUserRole
+from .types import ListDatasourcesRequestOrderBy
 from .types import ListGrafanaUsersRequestOrderBy
 from .types import ListPlansRequestOrderBy
 from .types import ListTokensRequestOrderBy
@@ -15,6 +16,7 @@ from .types import ContactPointEmail
 from .types import Datasource
 from .types import GrafanaUser
 from .types import ListContactPointsResponse
+from .types import ListDatasourcesResponse
 from .types import ListGrafanaUsersResponse
 from .types import ListPlansResponse
 from .types import ListTokensResponse
@@ -29,6 +31,7 @@ __all__ = [
     "CockpitStatus",
     "DatasourceType",
     "GrafanaUserRole",
+    "ListDatasourcesRequestOrderBy",
     "ListGrafanaUsersRequestOrderBy",
     "ListPlansRequestOrderBy",
     "ListTokensRequestOrderBy",
@@ -41,6 +44,7 @@ __all__ = [
     "Datasource",
     "GrafanaUser",
     "ListContactPointsResponse",
+    "ListDatasourcesResponse",
     "ListGrafanaUsersResponse",
     "ListPlansResponse",
     "ListTokensResponse",

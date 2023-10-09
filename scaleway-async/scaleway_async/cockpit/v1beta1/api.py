@@ -15,6 +15,7 @@ from scaleway_core.utils import (
 from .types import (
     DatasourceType,
     GrafanaUserRole,
+    ListDatasourcesRequestOrderBy,
     ListGrafanaUsersRequestOrderBy,
     ListPlansRequestOrderBy,
     ListTokensRequestOrderBy,
@@ -24,6 +25,7 @@ from .types import (
     Datasource,
     GrafanaUser,
     ListContactPointsResponse,
+    ListDatasourcesResponse,
     ListGrafanaUsersResponse,
     ListPlansResponse,
     ListTokensResponse,
@@ -65,12 +67,13 @@ from .marshalling import (
     marshal_SelectPlanRequest,
     marshal_TriggerTestAlertRequest,
     unmarshal_ContactPoint,
+    unmarshal_Datasource,
     unmarshal_GrafanaUser,
     unmarshal_Token,
     unmarshal_Cockpit,
     unmarshal_CockpitMetrics,
-    unmarshal_Datasource,
     unmarshal_ListContactPointsResponse,
+    unmarshal_ListDatasourcesResponse,
     unmarshal_ListGrafanaUsersResponse,
     unmarshal_ListPlansResponse,
     unmarshal_ListTokensResponse,
@@ -310,6 +313,82 @@ class CockpitV1Beta1API(API):
         self._throw_on_error(res)
         return unmarshal_Datasource(res.json())
 
+    async def list_datasources(
+        self,
+        *,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        order_by: ListDatasourcesRequestOrderBy = ListDatasourcesRequestOrderBy.CREATED_AT_ASC,
+        project_id: Optional[str] = None,
+        types: Optional[List[DatasourceType]] = None,
+    ) -> ListDatasourcesResponse:
+        """
+        Get a list of datasources for the specified Project ID.
+        :param page: Page number.
+        :param page_size: Page size.
+        :param order_by: How the response is ordered.
+        :param project_id: ID of the Project.
+        :param types: Filter by datasource types.
+        :return: :class:`ListDatasourcesResponse <ListDatasourcesResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_datasources()
+        """
+
+        res = self._request(
+            "GET",
+            f"/cockpit/v1beta1/datasources",
+            params={
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+                "project_id": project_id or self.client.default_project_id,
+                "types": types,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListDatasourcesResponse(res.json())
+
+    async def list_datasources_all(
+        self,
+        *,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        order_by: Optional[ListDatasourcesRequestOrderBy] = None,
+        project_id: Optional[str] = None,
+        types: Optional[List[DatasourceType]] = None,
+    ) -> List[Datasource]:
+        """
+        Get a list of datasources for the specified Project ID.
+        :param page: Page number.
+        :param page_size: Page size.
+        :param order_by: How the response is ordered.
+        :param project_id: ID of the Project.
+        :param types: Filter by datasource types.
+        :return: :class:`List[ListDatasourcesResponse] <List[ListDatasourcesResponse]>`
+
+        Usage:
+        ::
+
+            result = await api.list_datasources_all()
+        """
+
+        return await fetch_all_pages_async(
+            type=ListDatasourcesResponse,
+            key="datasources",
+            fetcher=self.list_datasources,
+            args={
+                "page": page,
+                "page_size": page_size,
+                "order_by": order_by,
+                "project_id": project_id,
+                "types": types,
+            },
+        )
+
     async def create_token(
         self,
         *,
@@ -358,7 +437,7 @@ class CockpitV1Beta1API(API):
         Get a list of tokens associated with the specified Project ID.
         :param page: Page number.
         :param page_size: Page size.
-        :param order_by:
+        :param order_by: How the response is ordered.
         :param project_id: ID of the Project.
         :return: :class:`ListTokensResponse <ListTokensResponse>`
 
@@ -394,7 +473,7 @@ class CockpitV1Beta1API(API):
         Get a list of tokens associated with the specified Project ID.
         :param page: Page number.
         :param page_size: Page size.
-        :param order_by:
+        :param order_by: How the response is ordered.
         :param project_id: ID of the Project.
         :return: :class:`List[ListTokensResponse] <List[ListTokensResponse]>`
 

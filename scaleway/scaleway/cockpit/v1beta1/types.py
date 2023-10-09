@@ -47,6 +47,16 @@ class GrafanaUserRole(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ListDatasourcesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+    NAME_ASC = "name_asc"
+    NAME_DESC = "name_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListGrafanaUsersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     LOGIN_ASC = "login_asc"
     LOGIN_DESC = "login_desc"
@@ -268,6 +278,23 @@ class ListContactPointsResponse:
     has_additional_contact_points: bool
     """
     Specifies whether there are unmanaged contact points.
+    """
+
+
+@dataclass
+class ListDatasourcesResponse:
+    """
+    List datasources response.
+    """
+
+    total_count: int
+    """
+    Count of all datasources corresponding to the request.
+    """
+
+    datasources: List[Datasource]
+    """
+    List of the datasources within the pagination.
     """
 
 
@@ -543,6 +570,34 @@ class CreateDatasourceRequest:
 
 
 @dataclass
+class ListDatasourcesRequest:
+    page: Optional[int]
+    """
+    Page number.
+    """
+
+    page_size: Optional[int]
+    """
+    Page size.
+    """
+
+    order_by: Optional[ListDatasourcesRequestOrderBy]
+    """
+    How the response is ordered.
+    """
+
+    project_id: Optional[str]
+    """
+    ID of the Project.
+    """
+
+    types: Optional[List[DatasourceType]]
+    """
+    Filter by datasource types.
+    """
+
+
+@dataclass
 class CreateTokenRequest:
     project_id: Optional[str]
     """
@@ -573,6 +628,9 @@ class ListTokensRequest:
     """
 
     order_by: Optional[ListTokensRequestOrderBy]
+    """
+    How the response is ordered.
+    """
 
     project_id: Optional[str]
     """

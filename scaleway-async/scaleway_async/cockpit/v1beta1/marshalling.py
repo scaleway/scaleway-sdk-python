@@ -23,6 +23,7 @@ from .types import (
     Datasource,
     GrafanaUser,
     ListContactPointsResponse,
+    ListDatasourcesResponse,
     ListGrafanaUsersResponse,
     ListPlansResponse,
     ListTokensResponse,
@@ -134,6 +135,32 @@ def unmarshal_ContactPoint(data: Any) -> ContactPoint:
     args["email"] = unmarshal_ContactPointEmail(field) if field is not None else None
 
     return ContactPoint(**args)
+
+
+def unmarshal_Datasource(data: Any) -> Datasource:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'Datasource' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id", None)
+    args["id"] = field
+
+    field = data.get("name", None)
+    args["name"] = field
+
+    field = data.get("project_id", None)
+    args["project_id"] = field
+
+    field = data.get("type", None)
+    args["type_"] = field
+
+    field = data.get("url", None)
+    args["url"] = field
+
+    return Datasource(**args)
 
 
 def unmarshal_GrafanaUser(data: Any) -> GrafanaUser:
@@ -271,32 +298,6 @@ def unmarshal_CockpitMetrics(data: Any) -> CockpitMetrics:
     return CockpitMetrics(**args)
 
 
-def unmarshal_Datasource(data: Any) -> Datasource:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'Datasource' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("id", None)
-    args["id"] = field
-
-    field = data.get("name", None)
-    args["name"] = field
-
-    field = data.get("project_id", None)
-    args["project_id"] = field
-
-    field = data.get("type", None)
-    args["type_"] = field
-
-    field = data.get("url", None)
-    args["url"] = field
-
-    return Datasource(**args)
-
-
 def unmarshal_ListContactPointsResponse(data: Any) -> ListContactPointsResponse:
     if type(data) is not dict:
         raise TypeError(
@@ -320,6 +321,25 @@ def unmarshal_ListContactPointsResponse(data: Any) -> ListContactPointsResponse:
     args["total_count"] = field
 
     return ListContactPointsResponse(**args)
+
+
+def unmarshal_ListDatasourcesResponse(data: Any) -> ListDatasourcesResponse:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'ListDatasourcesResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("datasources", None)
+    args["datasources"] = (
+        [unmarshal_Datasource(v) for v in field] if field is not None else None
+    )
+
+    field = data.get("total_count", None)
+    args["total_count"] = field
+
+    return ListDatasourcesResponse(**args)
 
 
 def unmarshal_ListGrafanaUsersResponse(data: Any) -> ListGrafanaUsersResponse:
