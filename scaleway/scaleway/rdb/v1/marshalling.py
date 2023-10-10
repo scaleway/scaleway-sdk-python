@@ -372,6 +372,9 @@ def unmarshal_NodeTypeVolumeType(data: Any) -> NodeTypeVolumeType:
     field = data.get("chunk_size", None)
     args["chunk_size"] = field
 
+    field = data.get("class", None)
+    args["class_"] = field
+
     field = data.get("description", None)
     args["description"] = field
 
@@ -445,6 +448,9 @@ def unmarshal_Volume(data: Any) -> Volume:
         )
 
     args: Dict[str, Any] = {}
+
+    field = data.get("class", None)
+    args["class_"] = field
 
     field = data.get("size", None)
     args["size"] = field
