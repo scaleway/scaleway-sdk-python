@@ -407,7 +407,7 @@ files = []
 develop = true
 
 [package.dependencies]
-scaleway-core = "^1"
+scaleway-core = "^2"
 
 [package.source]
 type = "directory"
@@ -424,7 +424,7 @@ files = []
 develop = true
 
 [package.dependencies]
-scaleway-core = "^1"
+scaleway-core = "^2"
 
 [package.source]
 type = "directory"

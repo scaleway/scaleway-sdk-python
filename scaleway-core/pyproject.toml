@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "scaleway-core"
-version = "1.0.0"
+version = "2.0.0"
 description = "Scaleway SDK for Python"
 authors = ["Scaleway <opensource@scaleway.com>"]
 license = "BSD"
