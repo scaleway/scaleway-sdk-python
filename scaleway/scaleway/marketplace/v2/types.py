@@ -54,32 +54,23 @@ class LocalImageType(str, Enum, metaclass=StrEnumMeta):
 
 @dataclass
 class Category:
-    id: str
+    description: str
 
     name: str
 
-    description: str
+    id: str
 
 
 @dataclass
 class Image:
+    label: str
     """
-    Image.
-    """
-
-    id: str
-    """
-    UUID of this image.
+    Typically an identifier for a distribution (ex. "ubuntu_focal").
     """
 
-    name: str
+    categories: List[str]
     """
-    Name of the image.
-    """
-
-    description: str
-    """
-    Text description of this image.
+    List of categories this image belongs to.
     """
 
     logo: str
@@ -87,9 +78,19 @@ class Image:
     URL of this image's logo.
     """
 
-    categories: List[str]
+    description: str
     """
-    List of categories this image belongs to.
+    Text description of this image.
+    """
+
+    name: str
+    """
+    Name of the image.
+    """
+
+    id: str
+    """
+    UUID of this image.
     """
 
     created_at: Optional[datetime]
@@ -107,66 +108,12 @@ class Image:
     Expiration date of this image.
     """
 
-    label: str
-    """
-    Label of this image.
-    Typically an identifier for a distribution (ex. "ubuntu_focal").
-    """
-
-
-@dataclass
-class ListCategoriesResponse:
-    categories: List[Category]
-
-    total_count: int
-
-
-@dataclass
-class ListImagesResponse:
-    images: List[Image]
-
-    total_count: int
-
-
-@dataclass
-class ListLocalImagesResponse:
-    local_images: List[LocalImage]
-
-    total_count: int
-
-
-@dataclass
-class ListVersionsResponse:
-    versions: List[Version]
-
-    total_count: int
-
 
 @dataclass
 class LocalImage:
+    type_: LocalImageType
     """
-    Local image.
-    """
-
-    id: str
-    """
-    UUID of this local image.
-    Version you will typically use to define an image in an API call.
-    """
-
-    compatible_commercial_types: List[str]
-    """
-    List of all commercial types that are compatible with this local image.
-    """
-
-    arch: str
-    """
-    Supported architecture for this local image.
-    """
-
-    zone: Zone
-    """
-    Availability Zone where this local image is available.
+    Type of this local image.
     """
 
     label: str
@@ -174,26 +121,37 @@ class LocalImage:
     Image label this image belongs to.
     """
 
-    type_: LocalImageType
+    zone: Zone
     """
-    Type of this local image.
+    Availability Zone where this local image is available.
+    """
+
+    arch: str
+    """
+    Supported architecture for this local image.
+    """
+
+    compatible_commercial_types: List[str]
+    """
+    List of all commercial types that are compatible with this local image.
+    """
+
+    id: str
+    """
+    Version you will typically use to define an image in an API call.
     """
 
 
 @dataclass
 class Version:
+    name: str
     """
-    Version.
+    Name of this version.
     """
 
     id: str
     """
     UUID of this version.
-    """
-
-    name: str
-    """
-    Name of this version.
     """
 
     created_at: Optional[datetime]
@@ -213,7 +171,49 @@ class Version:
 
 
 @dataclass
+class GetCategoryRequest:
+    category_id: str
+
+
+@dataclass
+class GetImageRequest:
+    image_id: str
+    """
+    Display the image name.
+    """
+
+
+@dataclass
+class GetLocalImageRequest:
+    local_image_id: str
+
+
+@dataclass
+class GetVersionRequest:
+    version_id: str
+
+
+@dataclass
+class ListCategoriesRequest:
+    page_size: Optional[int]
+
+    page: Optional[int]
+
+
+@dataclass
+class ListCategoriesResponse:
+    total_count: int
+
+    categories: List[Category]
+
+
+@dataclass
 class ListImagesRequest:
+    include_eol: bool
+    """
+    Choose to include end-of-life images.
+    """
+
     page_size: Optional[int]
     """
     A positive integer lower or equal to 100 to select the number of items to display.
@@ -239,18 +239,41 @@ class ListImagesRequest:
     Choose the category of images to get.
     """
 
-    include_eol: bool
-    """
-    Choose to include end-of-life images.
-    """
+
+@dataclass
+class ListImagesResponse:
+    total_count: int
+
+    images: List[Image]
 
 
 @dataclass
-class GetImageRequest:
-    image_id: str
+class ListLocalImagesRequest:
+    page_size: Optional[int]
+
+    page: Optional[int]
+
+    order_by: Optional[ListLocalImagesRequestOrderBy]
+
+    zone: Optional[Zone]
     """
-    Display the image name.
+    Zone to target. If none is passed will use default zone from the config.
     """
+
+    type_: Optional[LocalImageType]
+
+    image_id: Optional[str]
+
+    version_id: Optional[str]
+
+    image_label: Optional[str]
+
+
+@dataclass
+class ListLocalImagesResponse:
+    total_count: int
+
+    local_images: List[LocalImage]
 
 
 @dataclass
@@ -265,50 +288,7 @@ class ListVersionsRequest:
 
 
 @dataclass
-class GetVersionRequest:
-    version_id: str
+class ListVersionsResponse:
+    total_count: int
 
-
-@dataclass
-class ListLocalImagesRequest:
-    image_id: Optional[str]
-    """
-    One-of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
-    """
-
-    version_id: Optional[str]
-    """
-    One-of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
-    """
-
-    page_size: Optional[int]
-
-    page: Optional[int]
-
-    order_by: Optional[ListLocalImagesRequestOrderBy]
-
-    image_label: Optional[str]
-    """
-    One-of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
-    """
-
-    zone: Optional[Zone]
-
-    type_: Optional[LocalImageType]
-
-
-@dataclass
-class GetLocalImageRequest:
-    local_image_id: str
-
-
-@dataclass
-class ListCategoriesRequest:
-    page_size: Optional[int]
-
-    page: Optional[int]
-
-
-@dataclass
-class GetCategoryRequest:
-    category_id: str
+    versions: List[Version]

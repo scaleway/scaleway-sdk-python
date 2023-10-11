@@ -7,8 +7,7 @@ from .types import (
     GatewayStatus,
 )
 
-
-GATEWAY_NETWORK_TRANSIENT_STATUSES: List[GatewayNetworkStatus] = [
+GATEWAYNETWORK_TRANSIENT_STATUSES: List[GatewayNetworkStatus] = [
     GatewayNetworkStatus.ATTACHING,
     GatewayNetworkStatus.CONFIGURING,
     GatewayNetworkStatus.DETACHING,
@@ -16,7 +15,6 @@ GATEWAY_NETWORK_TRANSIENT_STATUSES: List[GatewayNetworkStatus] = [
 """
 Lists transient statutes of the enum :class:`GatewayNetworkStatus <GatewayNetworkStatus>`.
 """
-
 GATEWAY_TRANSIENT_STATUSES: List[GatewayStatus] = [
     GatewayStatus.ALLOCATING,
     GatewayStatus.CONFIGURING,

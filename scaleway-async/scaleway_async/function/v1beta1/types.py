@@ -187,13 +187,6 @@ class NamespaceStatus(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class NullValue(str, Enum, metaclass=StrEnumMeta):
-    NULL_VALUE = "NULL_VALUE"
-
-    def __str__(self) -> str:
-        return str(self.value)
-
-
 class RuntimeStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
     BETA = "beta"
@@ -256,6 +249,35 @@ class CreateTriggerRequestMnqNatsClientConfig:
     Name of the NATS subject the trigger should listen to.
     """
 
+    mnq_project_id: str
+
+    queue: str
+
+    mnq_namespace_id: str
+
+    mnq_credential_id: Optional[str]
+
+
+@dataclass
+class TriggerSqsClientConfig:
+    secret_key: str
+
+    access_key: str
+
+    queue_url: str
+
+    endpoint: str
+
+
+@dataclass
+class Secret:
+    key: str
+
+    value: Optional[str]
+
+
+@dataclass
+class CreateTriggerRequestMnqNatsClientConfig:
     mnq_nats_account_id: str
     """
     ID of the M&Q NATS account.
@@ -270,6 +292,14 @@ class CreateTriggerRequestMnqNatsClientConfig:
     """
     Region of the M&Q project.
     """
+
+    mnq_region: str
+
+    mnq_project_id: str
+
+    subject: str
+
+    mnq_namespace_id: str
 
 
 @dataclass
@@ -302,39 +332,20 @@ class CreateTriggerRequestMnqSqsClientConfig:
 
 @dataclass
 class CreateTriggerRequestSqsClientConfig:
-    endpoint: str
-
-    queue_url: str
+    secret_key: str
 
     access_key: str
 
-    secret_key: str
+    queue_url: str
+
+    endpoint: str
 
 
 @dataclass
 class Cron:
+    name: str
     """
-    Cron.
-    """
-
-    id: str
-    """
-    UUID of the cron.
-    """
-
-    function_id: str
-    """
-    UUID of the function the cron applies to.
-    """
-
-    schedule: str
-    """
-    Schedule of the cron.
-    """
-
-    args: Optional[Dict[str, Any]]
-    """
-    Arguments to pass with the cron.
+    Name of the cron.
     """
 
     status: CronStatus
@@ -342,31 +353,32 @@ class Cron:
     Status of the cron.
     """
 
-    name: str
+    schedule: str
     """
-    Name of the cron.
+    Schedule of the cron.
+    """
+
+    function_id: str
+    """
+    UUID of the function the cron applies to.
+    """
+
+    id: str
+    """
+    UUID of the cron.
+    """
+
+    args: Optional[Dict[str, Any]]
+    """
+    Arguments to pass with the cron.
     """
 
 
 @dataclass
 class Domain:
+    status: DomainStatus
     """
-    Domain.
-    """
-
-    id: str
-    """
-    UUID of the domain.
-    """
-
-    hostname: str
-    """
-    Hostname associated with the function.
-    """
-
-    function_id: str
-    """
-    UUID of the function the domain is associated with.
+    State of the doamin.
     """
 
     url: str
@@ -374,9 +386,19 @@ class Domain:
     URL of the function.
     """
 
-    status: DomainStatus
+    function_id: str
     """
-    State of the doamin.
+    UUID of the function the domain is associated with.
+    """
+
+    hostname: str
+    """
+    Hostname associated with the function.
+    """
+
+    id: str
+    """
+    UUID of the domain.
     """
 
     error_message: Optional[str]
@@ -386,16 +408,33 @@ class Domain:
 
 
 @dataclass
-class DownloadURL:
-    url: str
+class Runtime:
+    logo_url: str
 
-    headers: Dict[str, List[str]]
+    implementation: str
+
+    extension: str
+
+    status_message: str
+
+    status: RuntimeStatus
+
+    code_sample: str
+
+    default_handler: str
+
+    version: str
+
+    language: str
+
+    name: str
 
 
 @dataclass
 class Function:
+    handler: str
     """
-    Function.
+    Handler to use for the function.
     """
 
     id: str
@@ -403,79 +442,9 @@ class Function:
     UUID of the function.
     """
 
-    name: str
-    """
-    Name of the function.
-    """
-
-    namespace_id: str
-    """
-    UUID of the namespace the function belongs to.
-    """
-
-    status: FunctionStatus
-    """
-    Status of the function.
-    """
-
-    environment_variables: Dict[str, str]
-    """
-    Environment variables of the function.
-    """
-
-    min_scale: int
-    """
-    Minimum number of instances to scale the function to.
-    """
-
     max_scale: int
     """
     Maximum number of instances to scale the function to.
-    """
-
-    runtime: FunctionRuntime
-    """
-    Runtime of the function.
-    """
-
-    memory_limit: int
-    """
-    Memory limit of the function in MB.
-    """
-
-    cpu_limit: int
-    """
-    CPU limit of the function.
-    """
-
-    timeout: Optional[str]
-    """
-    Request processing time limit for the function.
-    """
-
-    handler: str
-    """
-    Handler to use for the function.
-    """
-
-    error_message: Optional[str]
-    """
-    Error message if the function is in "error" state.
-    """
-
-    build_message: Optional[str]
-    """
-    Description of the current build step.
-    """
-
-    privacy: FunctionPrivacy
-    """
-    Privacy setting of the function.
-    """
-
-    description: Optional[str]
-    """
-    Description of the function.
     """
 
     domain_name: str
@@ -488,70 +457,83 @@ class Function:
     Secret environment variables of the function.
     """
 
+    http_option: FunctionHttpOption
+    """
+    Possible values:
+ - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
+ - enabled: Serve both HTTP and HTTPS traffic.
+    """
+
     region: Region
     """
     Region in which the function is deployed.
     """
 
-    http_option: FunctionHttpOption
+    environment_variables: Dict[str, str]
     """
-    Configuration for handling of HTTP and HTTPS requests.
-    Possible values:
-     - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
-     - enabled: Serve both HTTP and HTTPS traffic.
+    Environment variables of the function.
+    """
+
+    name: str
+    """
+    Name of the function.
+    """
+
+    namespace_id: str
+    """
+    UUID of the namespace the function belongs to.
+    """
+
+    runtime: FunctionRuntime
+    """
+    Runtime of the function.
     """
 
     runtime_message: str
 
-
-@dataclass
-class ListCronsResponse:
+    privacy: FunctionPrivacy
     """
-    List crons response.
+    Privacy setting of the function.
     """
 
-    crons: List[Cron]
+    cpu_limit: int
     """
-    Array of crons.
-    """
-
-    total_count: int
-    """
-    Total number of crons.
+    CPU limit of the function.
     """
 
-
-@dataclass
-class ListDomainsResponse:
+    min_scale: int
     """
-    List domains response.
+    Minimum number of instances to scale the function to.
     """
 
-    domains: List[Domain]
+    status: FunctionStatus
     """
-    Array of domains.
-    """
-
-    total_count: int
-    """
-    Total number of domains.
+    Status of the function.
     """
 
-
-@dataclass
-class ListFunctionRuntimesResponse:
+    memory_limit: int
     """
-    List function runtimes response.
+    Memory limit of the function in MB.
     """
 
-    runtimes: List[Runtime]
+    timeout: Optional[str]
     """
-    Array of runtimes available.
+    Request processing time limit for the function.
     """
 
-    total_count: int
+    description: Optional[str]
     """
-    Total number of runtimes.
+    Description of the function.
+    """
+
+    build_message: Optional[str]
+    """
+    Description of the current build step.
+    """
+
+    error_message: Optional[str]
+    """
+    Error message if the function is in "error" state.
     """
 
 
@@ -629,8 +611,24 @@ class ListTriggersResponse:
 
 @dataclass
 class Log:
+    stream: LogStream
     """
-    Log.
+    Can be stdout or stderr.
+    """
+
+    source: str
+    """
+    Source of the log (core runtime or user code).
+    """
+
+    level: str
+    """
+    Severity of the log (info, debug, error etc.).
+    """
+
+    id: str
+    """
+    UUID of the log.
     """
 
     message: str
@@ -643,81 +641,12 @@ class Log:
     Timestamp of the log.
     """
 
-    id: str
-    """
-    UUID of the log.
-    """
-
-    level: str
-    """
-    Severity of the log (info, debug, error etc.).
-    """
-
-    source: str
-    """
-    Source of the log (core runtime or user code).
-    """
-
-    stream: LogStream
-    """
-    Can be stdout or stderr.
-    """
-
 
 @dataclass
 class Namespace:
+    region: Region
     """
-    Namespace.
-    """
-
-    id: str
-    """
-    UUID of the namespace.
-    """
-
-    name: str
-    """
-    Name of the namespace.
-    """
-
-    environment_variables: Dict[str, str]
-    """
-    Environment variables of the namespace.
-    """
-
-    organization_id: str
-    """
-    UUID of the Organization the namespace belongs to.
-    """
-
-    project_id: str
-    """
-    UUID of the Project the namespace belongs to.
-    """
-
-    status: NamespaceStatus
-    """
-    Status of the namespace.
-    """
-
-    registry_namespace_id: str
-    """
-    UUID of the registry namespace.
-    """
-
-    error_message: Optional[str]
-    """
-    Error message if the namespace is in "error" state.
-    """
-
-    registry_endpoint: str
-    """
-    Registry endpoint of the namespace.
-    """
-
-    description: Optional[str]
-    """
-    Description of the namespace.
+    Region in which the namespace is located.
     """
 
     secret_environment_variables: List[SecretHashedValue]
@@ -725,58 +654,62 @@ class Namespace:
     Secret environment variables of the namespace.
     """
 
-    region: Region
+    registry_endpoint: str
     """
-    Region in which the namespace is located.
+    Registry endpoint of the namespace.
     """
 
+    registry_namespace_id: str
+    """
+    UUID of the registry namespace.
+    """
 
-@dataclass
-class Runtime:
+    status: NamespaceStatus
+    """
+    Status of the namespace.
+    """
+
+    project_id: str
+    """
+    UUID of the Project the namespace belongs to.
+    """
+
+    organization_id: str
+    """
+    UUID of the Organization the namespace belongs to.
+    """
+
+    environment_variables: Dict[str, str]
+    """
+    Environment variables of the namespace.
+    """
+
     name: str
-
-    language: str
-
-    version: str
-
-    default_handler: str
-
-    code_sample: str
-
-    status: RuntimeStatus
-
-    status_message: str
-
-    extension: str
-
-    implementation: str
-
-    logo_url: str
-
-
-@dataclass
-class Secret:
-    key: str
-
-    value: Optional[str]
-
-
-@dataclass
-class SecretHashedValue:
-    key: str
-
-    hashed_value: str
-
-
-@dataclass
-class Token:
     """
-    Token.
+    Name of the namespace.
     """
 
     id: str
     """
-    UUID of the token.
+    UUID of the namespace.
+    """
+
+    error_message: Optional[str]
+    """
+    Error message if the namespace is in "error" state.
+    """
+
+    description: Optional[str]
+    """
+    Description of the namespace.
+    """
+
+
+@dataclass
+class Token:
+    status: TokenStatus
+    """
+    Status of the token.
     """
 
     token: str
@@ -784,29 +717,14 @@ class Token:
     String of the token.
     """
 
-    function_id: Optional[str]
+    id: str
     """
-    UUID of the function the token is associated with.
-    
-    One-of ('scope'): at most one of 'function_id', 'namespace_id' could be set.
-    """
-
-    namespace_id: Optional[str]
-    """
-    UUID of the namespace the token is assoicated with.
-    
-    One-of ('scope'): at most one of 'function_id', 'namespace_id' could be set.
+    UUID of the token.
     """
 
     public_key: Optional[str]
     """
     Public key of the token.
-    :deprecated
-    """
-
-    status: TokenStatus
-    """
-    Status of the token.
     """
 
     description: Optional[str]
@@ -818,6 +736,10 @@ class Token:
     """
     Date on which the token expires.
     """
+
+    function_id: Optional[str]
+
+    namespace_id: Optional[str]
 
 
 @dataclass
@@ -971,19 +893,607 @@ class UpdateTriggerRequestSqsClientConfig:
 
 
 @dataclass
-class UploadURL:
+class CreateCronRequest:
+    schedule: str
     """
-    Upload url.
+    Schedule of the cron in UNIX cron format.
     """
+
+    function_id: str
+    """
+    UUID of the function to use the cron with.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    args: Optional[Dict[str, Any]]
+    """
+    Arguments to use with the cron.
+    """
+
+    name: Optional[str]
+    """
+    Name of the cron.
+    """
+
+
+@dataclass
+class CreateDomainRequest:
+    function_id: str
+    """
+    UUID of the function to associate the domain with.
+    """
+
+    hostname: str
+    """
+    Hostame to create.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class CreateFunctionRequest:
+    namespace_id: str
+    """
+    UUID of the namespace the function will be created in.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    runtime: Optional[FunctionRuntime]
+    """
+    Runtime to use with the function.
+    """
+
+    environment_variables: Optional[Dict[str, str]]
+    """
+    Environment variables of the function.
+    """
+
+    min_scale: Optional[int]
+    """
+    Minumum number of instances to scale the function to.
+    """
+
+    max_scale: Optional[int]
+    """
+    Maximum number of instances to scale the function to.
+    """
+
+    name: Optional[str]
+    """
+    Name of the function to create.
+    """
+
+    memory_limit: Optional[int]
+    """
+    Memory limit of the function in MB.
+    """
+
+    timeout: Optional[str]
+    """
+    Request processing time limit for the function.
+    """
+
+    handler: Optional[str]
+    """
+    Handler to use with the function.
+    """
+
+    privacy: Optional[FunctionPrivacy]
+    """
+    Privacy setting of the function.
+    """
+
+    description: Optional[str]
+    """
+    Description of the function.
+    """
+
+    secret_environment_variables: Optional[List[Secret]]
+
+    http_option: Optional[FunctionHttpOption]
+    """
+    Possible values:
+ - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
+ - enabled: Serve both HTTP and HTTPS traffic.
+    """
+
+
+@dataclass
+class CreateNamespaceRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    name: Optional[str]
+
+    environment_variables: Optional[Dict[str, str]]
+    """
+    Environment variables of the namespace.
+    """
+
+    project_id: Optional[str]
+    """
+    UUID of the project in which the namespace will be created.
+    """
+
+    description: Optional[str]
+    """
+    Description of the namespace.
+    """
+
+    secret_environment_variables: Optional[List[Secret]]
+    """
+    Secret environment variables of the namespace.
+    """
+
+
+@dataclass
+class CreateTokenRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    description: Optional[str]
+    """
+    Description of the token.
+    """
+
+    expires_at: Optional[datetime]
+    """
+    Date on which the token expires.
+    """
+
+    function_id: Optional[str]
+
+    namespace_id: Optional[str]
+
+
+@dataclass
+class CreateTriggerRequest:
+    function_id: str
+
+    name: str
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    description: Optional[str]
+
+    scw_sqs_config: Optional[CreateTriggerRequestMnqSqsClientConfig]
+
+    sqs_config: Optional[CreateTriggerRequestSqsClientConfig]
+
+    scw_nats_config: Optional[CreateTriggerRequestMnqNatsClientConfig]
+
+
+@dataclass
+class DeleteCronRequest:
+    cron_id: str
+    """
+    UUID of the cron to delete.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class DeleteDomainRequest:
+    domain_id: str
+    """
+    UUID of the domain to delete.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class DeleteFunctionRequest:
+    function_id: str
+    """
+    UUID of the function to delete.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class DeleteNamespaceRequest:
+    namespace_id: str
+    """
+    UUID of the namespace.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class DeleteTokenRequest:
+    token_id: str
+    """
+    UUID of the token to delete.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class DeleteTriggerRequest:
+    trigger_id: str
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class DeployFunctionRequest:
+    function_id: str
+    """
+    UUID of the function to deploy.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class DownloadURL:
+    headers: Dict[str, List[str]]
 
     url: str
+
+
+@dataclass
+class GetCronRequest:
+    cron_id: str
     """
-    Upload URL to upload the function to.
+    UUID of the cron to get.
     """
 
-    headers: Dict[str, List[str]]
+    region: Optional[Region]
     """
-    HTTP headers.
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetDomainRequest:
+    domain_id: str
+    """
+    UUID of the domain to get.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetFunctionDownloadURLRequest:
+    function_id: str
+    """
+    UUID of the function to get the the download URL for.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetFunctionRequest:
+    function_id: str
+    """
+    UUID of the function.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetFunctionUploadURLRequest:
+    content_length: int
+    """
+    Size of the archive to upload in bytes.
+    """
+
+    function_id: str
+    """
+    UUID of the function to get the upload URL for.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetNamespaceRequest:
+    namespace_id: str
+    """
+    UUID of the namespace.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetTokenRequest:
+    token_id: str
+    """
+    UUID of the token to get.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetTriggerRequest:
+    trigger_id: str
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class IssueJWTRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    expires_at: Optional[datetime]
+
+    function_id: Optional[str]
+
+    namespace_id: Optional[str]
+
+
+@dataclass
+class ListCronsRequest:
+    function_id: str
+    """
+    UUID of the function.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    page: Optional[int]
+    """
+    Page number.
+    """
+
+    page_size: Optional[int]
+    """
+    Number of crons per page.
+    """
+
+    order_by: Optional[ListCronsRequestOrderBy]
+    """
+    Order of the crons.
+    """
+
+
+@dataclass
+class ListCronsResponse:
+    total_count: int
+    """
+    Total number of crons.
+    """
+
+    crons: List[Cron]
+    """
+    Array of crons.
+    """
+
+
+@dataclass
+class ListDomainsRequest:
+    function_id: str
+    """
+    UUID of the function the domain is assoicated with.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    page: Optional[int]
+    """
+    Page number.
+    """
+
+    page_size: Optional[int]
+    """
+    Number of domains per page.
+    """
+
+    order_by: Optional[ListDomainsRequestOrderBy]
+    """
+    Order of the domains.
+    """
+
+
+@dataclass
+class ListDomainsResponse:
+    total_count: int
+    """
+    Total number of domains.
+    """
+
+    domains: List[Domain]
+    """
+    Array of domains.
+    """
+
+
+@dataclass
+class ListFunctionRuntimesRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class ListFunctionRuntimesResponse:
+    total_count: int
+    """
+    Total number of runtimes.
+    """
+
+    runtimes: List[Runtime]
+    """
+    Array of runtimes available.
+    """
+
+
+@dataclass
+class ListFunctionsRequest:
+    namespace_id: str
+    """
+    UUID of the namespace the function belongs to.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    page: Optional[int]
+    """
+    Page number.
+    """
+
+    page_size: Optional[int]
+    """
+    Number of functions per page.
+    """
+
+    order_by: Optional[ListFunctionsRequestOrderBy]
+    """
+    Order of the functions.
+    """
+
+    name: Optional[str]
+    """
+    Name of the function.
+    """
+
+    organization_id: Optional[str]
+    """
+    UUID of the Organziation the function belongs to.
+    """
+
+    project_id: Optional[str]
+    """
+    UUID of the Project the function belongs to.
+    """
+
+
+@dataclass
+class ListFunctionsResponse:
+    total_count: int
+    """
+    Total number of functions.
+    """
+
+    functions: List[Function]
+    """
+    Array of functions.
+    """
+
+
+@dataclass
+class ListLogsRequest:
+    function_id: str
+    """
+    UUID of the function to get the logs for.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    page: Optional[int]
+    """
+    Page number.
+    """
+
+    page_size: Optional[int]
+    """
+    Number of logs per page.
+    """
+
+    order_by: Optional[ListLogsRequestOrderBy]
+    """
+    Order of the logs.
+    """
+
+
+@dataclass
+class ListLogsResponse:
+    total_count: int
+    """
+    Total number of logs.
+    """
+
+    logs: List[Log]
+    """
+    Array of logs.
     """
 
 
@@ -1026,637 +1536,13 @@ class ListNamespacesRequest:
 
 
 @dataclass
-class GetNamespaceRequest:
-    region: Optional[Region]
+class ListNamespacesResponse:
+    total_count: int
     """
-    Region to target. If none is passed will use default region from the config.
+    Total number of namespaces.
     """
 
-    namespace_id: str
-    """
-    UUID of the namespace.
-    """
-
-
-@dataclass
-class CreateNamespaceRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    name: Optional[str]
-
-    environment_variables: Optional[Dict[str, str]]
-    """
-    Environment variables of the namespace.
-    """
-
-    project_id: Optional[str]
-    """
-    UUID of the project in which the namespace will be created.
-    """
-
-    description: Optional[str]
-    """
-    Description of the namespace.
-    """
-
-    secret_environment_variables: Optional[List[Secret]]
-    """
-    Secret environment variables of the namespace.
-    """
-
-
-@dataclass
-class UpdateNamespaceRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    namespace_id: str
-    """
-    UUID of the namespapce.
-    """
-
-    environment_variables: Optional[Dict[str, str]]
-    """
-    Environment variables of the namespace.
-    """
-
-    description: Optional[str]
-    """
-    Description of the namespace.
-    """
-
-    secret_environment_variables: Optional[List[Secret]]
-    """
-    Secret environment variables of the namespace.
-    """
-
-
-@dataclass
-class DeleteNamespaceRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    namespace_id: str
-    """
-    UUID of the namespace.
-    """
-
-
-@dataclass
-class ListFunctionsRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    page: Optional[int]
-    """
-    Page number.
-    """
-
-    page_size: Optional[int]
-    """
-    Number of functions per page.
-    """
-
-    order_by: Optional[ListFunctionsRequestOrderBy]
-    """
-    Order of the functions.
-    """
-
-    namespace_id: str
-    """
-    UUID of the namespace the function belongs to.
-    """
-
-    name: Optional[str]
-    """
-    Name of the function.
-    """
-
-    organization_id: Optional[str]
-    """
-    UUID of the Organziation the function belongs to.
-    """
-
-    project_id: Optional[str]
-    """
-    UUID of the Project the function belongs to.
-    """
-
-
-@dataclass
-class GetFunctionRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    function_id: str
-    """
-    UUID of the function.
-    """
-
-
-@dataclass
-class CreateFunctionRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    name: Optional[str]
-    """
-    Name of the function to create.
-    """
-
-    namespace_id: str
-    """
-    UUID of the namespace the function will be created in.
-    """
-
-    environment_variables: Optional[Dict[str, str]]
-    """
-    Environment variables of the function.
-    """
-
-    min_scale: Optional[int]
-    """
-    Minumum number of instances to scale the function to.
-    """
-
-    max_scale: Optional[int]
-    """
-    Maximum number of instances to scale the function to.
-    """
-
-    runtime: FunctionRuntime
-    """
-    Runtime to use with the function.
-    """
-
-    memory_limit: Optional[int]
-    """
-    Memory limit of the function in MB.
-    """
-
-    timeout: Optional[str]
-    """
-    Request processing time limit for the function.
-    """
-
-    handler: Optional[str]
-    """
-    Handler to use with the function.
-    """
-
-    privacy: FunctionPrivacy
-    """
-    Privacy setting of the function.
-    """
-
-    description: Optional[str]
-    """
-    Description of the function.
-    """
-
-    secret_environment_variables: Optional[List[Secret]]
-
-    http_option: FunctionHttpOption
-    """
-    Configure how HTTP and HTTPS requests are handled.
-    Possible values:
-     - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
-     - enabled: Serve both HTTP and HTTPS traffic.
-    """
-
-
-@dataclass
-class UpdateFunctionRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    function_id: str
-    """
-    UUID of the function to update.
-    """
-
-    environment_variables: Optional[Dict[str, str]]
-    """
-    Environment variables of the function to update.
-    """
-
-    min_scale: Optional[int]
-    """
-    Minumum number of instances to scale the function to.
-    """
-
-    max_scale: Optional[int]
-    """
-    Maximum number of instances to scale the function to.
-    """
-
-    runtime: FunctionRuntime
-    """
-    Runtime to use with the function.
-    """
-
-    memory_limit: Optional[int]
-    """
-    Memory limit of the function in MB.
-    """
-
-    timeout: Optional[str]
-    """
-    Processing time limit for the function.
-    """
-
-    redeploy: Optional[bool]
-    """
-    Redeploy failed function.
-    """
-
-    handler: Optional[str]
-    """
-    Handler to use with the function.
-    """
-
-    privacy: FunctionPrivacy
-    """
-    Privacy setting of the function.
-    """
-
-    description: Optional[str]
-    """
-    Description of the function.
-    """
-
-    secret_environment_variables: Optional[List[Secret]]
-    """
-    Secret environment variables of the function.
-    """
-
-    http_option: FunctionHttpOption
-    """
-    Configure how HTTP and HTTPS requests are handled.
-    Possible values:
-     - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
-     - enabled: Serve both HTTP and HTTPS traffic.
-    """
-
-
-@dataclass
-class DeleteFunctionRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    function_id: str
-    """
-    UUID of the function to delete.
-    """
-
-
-@dataclass
-class DeployFunctionRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    function_id: str
-    """
-    UUID of the function to deploy.
-    """
-
-
-@dataclass
-class ListFunctionRuntimesRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-
-@dataclass
-class GetFunctionUploadURLRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    function_id: str
-    """
-    UUID of the function to get the upload URL for.
-    """
-
-    content_length: int
-    """
-    Size of the archive to upload in bytes.
-    """
-
-
-@dataclass
-class GetFunctionDownloadURLRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    function_id: str
-    """
-    UUID of the function to get the the download URL for.
-    """
-
-
-@dataclass
-class ListCronsRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    page: Optional[int]
-    """
-    Page number.
-    """
-
-    page_size: Optional[int]
-    """
-    Number of crons per page.
-    """
-
-    order_by: Optional[ListCronsRequestOrderBy]
-    """
-    Order of the crons.
-    """
-
-    function_id: str
-    """
-    UUID of the function.
-    """
-
-
-@dataclass
-class GetCronRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    cron_id: str
-    """
-    UUID of the cron to get.
-    """
-
-
-@dataclass
-class CreateCronRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    function_id: str
-    """
-    UUID of the function to use the cron with.
-    """
-
-    schedule: str
-    """
-    Schedule of the cron in UNIX cron format.
-    """
-
-    args: Optional[Dict[str, Any]]
-    """
-    Arguments to use with the cron.
-    """
-
-    name: Optional[str]
-    """
-    Name of the cron.
-    """
-
-
-@dataclass
-class UpdateCronRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    cron_id: str
-    """
-    UUID of the cron to update.
-    """
-
-    function_id: Optional[str]
-    """
-    UUID of the function to use the cron with.
-    """
-
-    schedule: Optional[str]
-    """
-    Schedule of the cron in UNIX cron format.
-    """
-
-    args: Optional[Dict[str, Any]]
-    """
-    Arguments to use with the cron.
-    """
-
-    name: Optional[str]
-    """
-    Name of the cron.
-    """
-
-
-@dataclass
-class DeleteCronRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    cron_id: str
-    """
-    UUID of the cron to delete.
-    """
-
-
-@dataclass
-class ListLogsRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    function_id: str
-    """
-    UUID of the function to get the logs for.
-    """
-
-    page: Optional[int]
-    """
-    Page number.
-    """
-
-    page_size: Optional[int]
-    """
-    Number of logs per page.
-    """
-
-    order_by: Optional[ListLogsRequestOrderBy]
-    """
-    Order of the logs.
-    """
-
-
-@dataclass
-class ListDomainsRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    page: Optional[int]
-    """
-    Page number.
-    """
-
-    page_size: Optional[int]
-    """
-    Number of domains per page.
-    """
-
-    order_by: Optional[ListDomainsRequestOrderBy]
-    """
-    Order of the domains.
-    """
-
-    function_id: str
-    """
-    UUID of the function the domain is assoicated with.
-    """
-
-
-@dataclass
-class GetDomainRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    domain_id: str
-    """
-    UUID of the domain to get.
-    """
-
-
-@dataclass
-class CreateDomainRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    hostname: str
-    """
-    Hostame to create.
-    """
-
-    function_id: str
-    """
-    UUID of the function to associate the domain with.
-    """
-
-
-@dataclass
-class DeleteDomainRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    domain_id: str
-    """
-    UUID of the domain to delete.
-    """
-
-
-@dataclass
-class IssueJWTRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    function_id: Optional[str]
-    """
-    One-of ('scope'): at most one of 'function_id', 'namespace_id' could be set.
-    """
-
-    namespace_id: Optional[str]
-    """
-    One-of ('scope'): at most one of 'function_id', 'namespace_id' could be set.
-    """
-
-    expires_at: Optional[datetime]
-
-
-@dataclass
-class CreateTokenRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    function_id: Optional[str]
-    """
-    UUID of the function to associate the token with.
-    
-    One-of ('scope'): at most one of 'function_id', 'namespace_id' could be set.
-    """
-
-    namespace_id: Optional[str]
-    """
-    UUID of the namespace to associate the token with.
-    
-    One-of ('scope'): at most one of 'function_id', 'namespace_id' could be set.
-    """
-
-    description: Optional[str]
-    """
-    Description of the token.
-    """
-
-    expires_at: Optional[datetime]
-    """
-    Date on which the token expires.
-    """
-
-
-@dataclass
-class GetTokenRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    token_id: str
-    """
-    UUID of the token to get.
-    """
+    namespaces: List[Namespace]
 
 
 @dataclass
@@ -1693,11 +1579,8 @@ class ListTokensRequest:
 
 
 @dataclass
-class DeleteTokenRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
+class ListTokensResponse:
+    total_count: int
 
     token_id: str
     """
@@ -1807,15 +1690,158 @@ class ListTriggersRequest:
 
 
 @dataclass
-class UpdateTriggerRequest:
+class ListTriggersResponse:
+    total_count: int
+
+    triggers: List[Trigger]
+
+
+@dataclass
+class UpdateCronRequest:
+    cron_id: str
+    """
+    UUID of the cron to update.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
+    function_id: Optional[str]
+    """
+    UUID of the function to use the cron with.
+    """
+
+    schedule: Optional[str]
+    """
+    Schedule of the cron in UNIX cron format.
+    """
+
+    args: Optional[Dict[str, Any]]
+    """
+    Arguments to use with the cron.
+    """
+
+    name: Optional[str]
+    """
+    Name of the cron.
+    """
+
+
+@dataclass
+class UpdateFunctionRequest:
+    function_id: str
+    """
+    UUID of the function to update.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    memory_limit: Optional[int]
+    """
+    Memory limit of the function in MB.
+    """
+
+    min_scale: Optional[int]
+    """
+    Minumum number of instances to scale the function to.
+    """
+
+    max_scale: Optional[int]
+    """
+    Maximum number of instances to scale the function to.
+    """
+
+    runtime: Optional[FunctionRuntime]
+    """
+    Runtime to use with the function.
+    """
+
+    environment_variables: Optional[Dict[str, str]]
+    """
+    Environment variables of the function to update.
+    """
+
+    timeout: Optional[str]
+    """
+    Processing time limit for the function.
+    """
+
+    redeploy: Optional[bool]
+    """
+    Redeploy failed function.
+    """
+
+    handler: Optional[str]
+    """
+    Handler to use with the function.
+    """
+
+    privacy: Optional[FunctionPrivacy]
+    """
+    Privacy setting of the function.
+    """
+
+    description: Optional[str]
+    """
+    Description of the function.
+    """
+
+    secret_environment_variables: Optional[List[Secret]]
+    """
+    Secret environment variables of the function.
+    """
+
+    http_option: Optional[FunctionHttpOption]
+    """
+    Possible values:
+ - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
+ - enabled: Serve both HTTP and HTTPS traffic.
+    """
+
+
+@dataclass
+class UpdateNamespaceRequest:
+    namespace_id: str
+    """
+    UUID of the namespapce.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    environment_variables: Optional[Dict[str, str]]
+    """
+    Environment variables of the namespace.
+    """
+
+    description: Optional[str]
+    """
+    Description of the namespace.
+    """
+
+    secret_environment_variables: Optional[List[Secret]]
+    """
+    Secret environment variables of the namespace.
+    """
+
+
+@dataclass
+class UpdateTriggerRequest:
     trigger_id: str
     """
     ID of the trigger to update.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
     """
 
     name: Optional[str]
@@ -1837,10 +1863,10 @@ class UpdateTriggerRequest:
 
 
 @dataclass
-class DeleteTriggerRequest:
-    region: Optional[Region]
+class UploadURL:
+    headers: Dict[str, List[str]]
     """
-    Region to target. If none is passed will use default region from the config.
+    HTTP headers.
     """
 
     trigger_id: str

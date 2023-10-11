@@ -197,23 +197,9 @@ class GetConsumptionResponse:
 
 @dataclass
 class GetConsumptionResponseConsumption:
+    operation_path: str
     """
-    Get consumption response. consumption.
-    """
-
-    value: Optional[Money]
-    """
-    Monetary value of the consumption.
-    """
-
-    description: str
-    """
-    Description of the consumption.
-    """
-
-    project_id: str
-    """
-    Project ID of the consumption.
+    Unique identifier of the product.
     """
 
     category: str
@@ -221,16 +207,32 @@ class GetConsumptionResponseConsumption:
     Category of the consumption.
     """
 
-    operation_path: str
+    project_id: str
     """
-    Unique identifier of the product.
+    Project ID of the consumption.
+    """
+
+    description: str
+    """
+    Description of the consumption.
+    """
+
+    value: Optional[Money]
+    """
+    Monetary value of the consumption.
     """
 
 
 @dataclass
 class Invoice:
+    number: int
     """
-    Invoice.
+    Invoice number.
+    """
+
+    invoice_type: InvoiceType
+    """
+    Type of invoice.
     """
 
     id: str
@@ -263,16 +265,6 @@ class Invoice:
     Total amount, taxed.
     """
 
-    invoice_type: InvoiceType
-    """
-    Type of invoice.
-    """
-
-    number: int
-    """
-    Invoice number.
-    """
-
 
 @dataclass
 class ListDiscountsResponse:
@@ -294,17 +286,12 @@ class ListDiscountsResponse:
 @dataclass
 class ListInvoicesResponse:
     """
-    List invoices response.
+    Invoice ID.
     """
 
-    total_count: int
+    file_type: Optional[DownloadInvoiceRequestFileType]
     """
-    Total number of invoices.
-    """
-
-    invoices: List[Invoice]
-    """
-    Paginated returned invoices.
+    Wanted file type.
     """
 
 
@@ -313,6 +300,19 @@ class GetConsumptionRequest:
     organization_id: Optional[str]
     """
     Filter by organization ID.
+    """
+
+
+@dataclass
+class GetConsumptionResponse:
+    consumptions: List[GetConsumptionResponseConsumption]
+    """
+    Detailed consumption list.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Last consumption update date.
     """
 
 
@@ -355,15 +355,15 @@ class ListInvoicesRequest:
 
 
 @dataclass
-class DownloadInvoiceRequest:
-    invoice_id: str
+class ListInvoicesResponse:
+    invoices: List[Invoice]
     """
-    Invoice ID.
+    Paginated returned invoices.
     """
 
-    file_type: DownloadInvoiceRequestFileType
+    total_count: int
     """
-    Wanted file type.
+    Total number of invoices.
     """
 
 

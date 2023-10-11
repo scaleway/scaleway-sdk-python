@@ -11,15 +11,13 @@ from scaleway_core.bridge import (
 )
 from scaleway_core.utils import (
     WaitForOptions,
-    fetch_all_pages,
     validate_path_param,
+    fetch_all_pages,
     wait_for_resource,
 )
 from .types import (
     ContactEmailStatus,
-    DomainRecordType,
     DomainStatus,
-    LanguageCode,
     ListContactsRequestRole,
     ListDNSZoneRecordsRequestOrderBy,
     ListDNSZonesRequestOrderBy,
@@ -28,15 +26,19 @@ from .types import (
     ListTasksRequestOrderBy,
     ListTldsRequestOrderBy,
     RawFormat,
+    RecordType,
     TaskStatus,
     TaskType,
     CheckContactsCompatibilityResponse,
     ClearDNSZoneRecordsResponse,
+    CloneDNSZoneRequest,
     Contact,
     ContactExtensionEU,
     ContactExtensionFR,
     ContactExtensionNL,
     ContactRoles,
+    CreateDNSZoneRequest,
+    CreateSSLCertificateRequest,
     DNSZone,
     DNSZoneVersion,
     DSRecord,
@@ -44,14 +46,15 @@ from .types import (
     DeleteExternalDomainResponse,
     DeleteSSLCertificateResponse,
     Domain,
-    DomainRecord,
     DomainSummary,
     GetDNSZoneTsigKeyResponse,
     GetDNSZoneVersionDiffResponse,
     GetDomainAuthCodeResponse,
     Host,
+    ImportProviderDNSZoneRequest,
     ImportProviderDNSZoneRequestOnlineV1,
     ImportProviderDNSZoneResponse,
+    ImportRawDNSZoneRequest,
     ImportRawDNSZoneRequestAXFRSource,
     ImportRawDNSZoneRequestBindSource,
     ImportRawDNSZoneResponse,
@@ -70,9 +73,22 @@ from .types import (
     Nameserver,
     NewContact,
     OrderResponse,
+    Record,
     RecordChange,
+    RefreshDNSZoneRequest,
     RefreshDNSZoneResponse,
     RegisterExternalDomainResponse,
+    RegistrarApiBuyDomainsRequest,
+    RegistrarApiCheckContactsCompatibilityRequest,
+    RegistrarApiCreateDomainHostRequest,
+    RegistrarApiEnableDomainDNSSECRequest,
+    RegistrarApiRegisterExternalDomainRequest,
+    RegistrarApiRenewDomainsRequest,
+    RegistrarApiTradeDomainRequest,
+    RegistrarApiTransferInDomainRequest,
+    RegistrarApiUpdateContactRequest,
+    RegistrarApiUpdateDomainHostRequest,
+    RegistrarApiUpdateDomainRequest,
     RenewableDomain,
     RestoreDNSZoneVersionResponse,
     SSLCertificate,
@@ -81,54 +97,17 @@ from .types import (
     Tld,
     TransferInDomainRequestTransferRequest,
     UpdateContactRequestQuestion,
-    UpdateDNSZoneNameserversResponse,
-    UpdateDNSZoneRecordsResponse,
-    CreateDNSZoneRequest,
-    UpdateDNSZoneRequest,
-    CloneDNSZoneRequest,
-    UpdateDNSZoneRecordsRequest,
     UpdateDNSZoneNameserversRequest,
-    ImportRawDNSZoneRequest,
-    ImportProviderDNSZoneRequest,
-    RefreshDNSZoneRequest,
-    CreateSSLCertificateRequest,
-    RegistrarApiBuyDomainsRequest,
-    RegistrarApiRenewDomainsRequest,
-    RegistrarApiTransferInDomainRequest,
-    RegistrarApiTradeDomainRequest,
-    RegistrarApiRegisterExternalDomainRequest,
-    RegistrarApiCheckContactsCompatibilityRequest,
-    RegistrarApiUpdateContactRequest,
-    RegistrarApiUpdateDomainRequest,
-    RegistrarApiEnableDomainDNSSECRequest,
-    RegistrarApiCreateDomainHostRequest,
-    RegistrarApiUpdateDomainHostRequest,
+    UpdateDNSZoneNameserversResponse,
+    UpdateDNSZoneRecordsRequest,
+    UpdateDNSZoneRecordsResponse,
+    UpdateDNSZoneRequest,
 )
 from .content import (
     DOMAIN_TRANSIENT_STATUSES,
-    SSL_CERTIFICATE_TRANSIENT_STATUSES,
+    SSLCERTIFICATE_TRANSIENT_STATUSES,
 )
 from .marshalling import (
-    marshal_CloneDNSZoneRequest,
-    marshal_CreateDNSZoneRequest,
-    marshal_CreateSSLCertificateRequest,
-    marshal_ImportProviderDNSZoneRequest,
-    marshal_ImportRawDNSZoneRequest,
-    marshal_RefreshDNSZoneRequest,
-    marshal_RegistrarApiBuyDomainsRequest,
-    marshal_RegistrarApiCheckContactsCompatibilityRequest,
-    marshal_RegistrarApiCreateDomainHostRequest,
-    marshal_RegistrarApiEnableDomainDNSSECRequest,
-    marshal_RegistrarApiRegisterExternalDomainRequest,
-    marshal_RegistrarApiRenewDomainsRequest,
-    marshal_RegistrarApiTradeDomainRequest,
-    marshal_RegistrarApiTransferInDomainRequest,
-    marshal_RegistrarApiUpdateContactRequest,
-    marshal_RegistrarApiUpdateDomainHostRequest,
-    marshal_RegistrarApiUpdateDomainRequest,
-    marshal_UpdateDNSZoneNameserversRequest,
-    marshal_UpdateDNSZoneRecordsRequest,
-    marshal_UpdateDNSZoneRequest,
     unmarshal_Contact,
     unmarshal_DNSZone,
     unmarshal_Host,
@@ -163,14 +142,34 @@ from .marshalling import (
     unmarshal_SearchAvailableDomainsResponse,
     unmarshal_UpdateDNSZoneNameserversResponse,
     unmarshal_UpdateDNSZoneRecordsResponse,
+    marshal_CloneDNSZoneRequest,
+    marshal_CreateDNSZoneRequest,
+    marshal_CreateSSLCertificateRequest,
+    marshal_ImportProviderDNSZoneRequest,
+    marshal_ImportRawDNSZoneRequest,
+    marshal_RefreshDNSZoneRequest,
+    marshal_RegistrarApiBuyDomainsRequest,
+    marshal_RegistrarApiCheckContactsCompatibilityRequest,
+    marshal_RegistrarApiCreateDomainHostRequest,
+    marshal_RegistrarApiEnableDomainDNSSECRequest,
+    marshal_RegistrarApiRegisterExternalDomainRequest,
+    marshal_RegistrarApiRenewDomainsRequest,
+    marshal_RegistrarApiTradeDomainRequest,
+    marshal_RegistrarApiTransferInDomainRequest,
+    marshal_RegistrarApiUpdateContactRequest,
+    marshal_RegistrarApiUpdateDomainHostRequest,
+    marshal_RegistrarApiUpdateDomainRequest,
+    marshal_UpdateDNSZoneNameserversRequest,
+    marshal_UpdateDNSZoneRecordsRequest,
+    marshal_UpdateDNSZoneRequest,
+)
+from ...std.types import (
+    LanguageCode as StdLanguageCode,
 )
 
 
 class DomainV2Beta1API(API):
     """
-    Domains and DNS API.
-
-    Domains and DNS API.
     Manage your domains, DNS zones and records with the Domains and DNS API.
     """
 
@@ -180,7 +179,7 @@ class DomainV2Beta1API(API):
         domain: str,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
-        order_by: ListDNSZonesRequestOrderBy = ListDNSZonesRequestOrderBy.DOMAIN_ASC,
+        order_by: Optional[ListDNSZonesRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         dns_zone: Optional[str] = None,
@@ -193,12 +192,12 @@ class DomainV2Beta1API(API):
         """
         List DNS zones.
         Retrieve the list of DNS zones you can manage and filter DNS zones associated with specific domain names.
+        :param domain: Domain on which to filter the returned DNS zones.
         :param organization_id: Organization ID on which to filter the returned DNS zones.
         :param project_id: Project ID on which to filter the returned DNS zones.
         :param order_by: Sort order of the returned DNS zones.
         :param page: Page number to return, from the paginated results.
         :param page_size: Maximum number of DNS zones to return per page.
-        :param domain: Domain on which to filter the returned DNS zones.
         :param dns_zone: DNS zone on which to filter the returned DNS zones.
         :param dns_zones: DNS zones on which to filter the returned DNS zones.
         :param created_after: Only list DNS zones created after this date.
@@ -210,12 +209,14 @@ class DomainV2Beta1API(API):
         Usage:
         ::
 
-            result = api.list_dns_zones(domain="example")
+            result = api.list_dns_zones(
+                domain="example",
+            )
         """
 
         res = self._request(
             "GET",
-            f"/domain/v2beta1/dns-zones",
+            "/domain/v2beta1/dns-zones",
             params={
                 "created_after": created_after,
                 "created_before": created_before,
@@ -255,24 +256,26 @@ class DomainV2Beta1API(API):
         """
         List DNS zones.
         Retrieve the list of DNS zones you can manage and filter DNS zones associated with specific domain names.
+        :param domain: Domain on which to filter the returned DNS zones.
         :param organization_id: Organization ID on which to filter the returned DNS zones.
         :param project_id: Project ID on which to filter the returned DNS zones.
         :param order_by: Sort order of the returned DNS zones.
         :param page: Page number to return, from the paginated results.
         :param page_size: Maximum number of DNS zones to return per page.
-        :param domain: Domain on which to filter the returned DNS zones.
         :param dns_zone: DNS zone on which to filter the returned DNS zones.
         :param dns_zones: DNS zones on which to filter the returned DNS zones.
         :param created_after: Only list DNS zones created after this date.
         :param created_before: Only list DNS zones created before this date.
         :param updated_after: Only list DNS zones updated after this date.
         :param updated_before: Only list DNS zones updated before this date.
-        :return: :class:`List[ListDNSZonesResponse] <List[ListDNSZonesResponse]>`
+        :return: :class:`List[DNSZone] <List[DNSZone]>`
 
         Usage:
         ::
 
-            result = api.list_dns_zones_all(domain="example")
+            result = api.list_dns_zones_all(
+                domain="example",
+            )
         """
 
         return fetch_all_pages(
@@ -298,15 +301,15 @@ class DomainV2Beta1API(API):
     def create_dns_zone(
         self,
         *,
-        domain: str,
         subdomain: str,
+        domain: str,
         project_id: Optional[str] = None,
     ) -> DNSZone:
         """
         Create a DNS zone.
         Create a new DNS zone specified by the domain name, the subdomain and the Project ID.
-        :param domain: Domain in which to crreate the DNS zone.
         :param subdomain: Subdomain of the DNS zone to create.
+        :param domain: Domain in which to crreate the DNS zone.
         :param project_id: Project ID in which to create the DNS zone.
         :return: :class:`DNSZone <DNSZone>`
 
@@ -314,18 +317,18 @@ class DomainV2Beta1API(API):
         ::
 
             result = api.create_dns_zone(
-                domain="example",
                 subdomain="example",
+                domain="example",
             )
         """
 
         res = self._request(
             "POST",
-            f"/domain/v2beta1/dns-zones",
+            "/domain/v2beta1/dns-zones",
             body=marshal_CreateDNSZoneRequest(
                 CreateDNSZoneRequest(
-                    domain=domain,
                     subdomain=subdomain,
+                    domain=domain,
                     project_id=project_id,
                 ),
                 self.client,
@@ -339,7 +342,7 @@ class DomainV2Beta1API(API):
         self,
         *,
         dns_zone: str,
-        new_dns_zone: str,
+        new_dns_zone: Optional[str] = None,
         project_id: Optional[str] = None,
     ) -> DNSZone:
         """
@@ -355,7 +358,6 @@ class DomainV2Beta1API(API):
 
             result = api.update_dns_zone(
                 dns_zone="example",
-                new_dns_zone="example",
             )
         """
 
@@ -380,17 +382,17 @@ class DomainV2Beta1API(API):
     def clone_dns_zone(
         self,
         *,
-        dns_zone: str,
-        dest_dns_zone: str,
         overwrite: bool,
+        dest_dns_zone: str,
+        dns_zone: str,
         project_id: Optional[str] = None,
     ) -> DNSZone:
         """
         Clone a DNS zone.
         Clone an existing DNS zone with all its records into a new DNS zone.
-        :param dns_zone: DNS zone to clone.
-        :param dest_dns_zone: Destination DNS zone in which to clone the chosen DNS zone.
         :param overwrite: Specifies whether or not the destination DNS zone will be overwritten.
+        :param dest_dns_zone: Destination DNS zone in which to clone the chosen DNS zone.
+        :param dns_zone: DNS zone to clone.
         :param project_id: Project ID of the destination DNS zone.
         :return: :class:`DNSZone <DNSZone>`
 
@@ -398,9 +400,9 @@ class DomainV2Beta1API(API):
         ::
 
             result = api.clone_dns_zone(
-                dns_zone="example",
+                overwrite=False,
                 dest_dns_zone="example",
-                overwrite=True,
+                dns_zone="example",
             )
         """
 
@@ -411,9 +413,9 @@ class DomainV2Beta1API(API):
             f"/domain/v2beta1/dns-zones/{param_dns_zone}/clone",
             body=marshal_CloneDNSZoneRequest(
                 CloneDNSZoneRequest(
-                    dns_zone=dns_zone,
-                    dest_dns_zone=dest_dns_zone,
                     overwrite=overwrite,
+                    dest_dns_zone=dest_dns_zone,
+                    dns_zone=dns_zone,
                     project_id=project_id,
                 ),
                 self.client,
@@ -439,7 +441,9 @@ class DomainV2Beta1API(API):
         Usage:
         ::
 
-            result = api.delete_dns_zone(dns_zone="example")
+            result = api.delete_dns_zone(
+                dns_zone="example",
+            )
         """
 
         param_dns_zone = validate_path_param("dns_zone", dns_zone)
@@ -458,25 +462,25 @@ class DomainV2Beta1API(API):
     def list_dns_zone_records(
         self,
         *,
-        dns_zone: str,
         name: str,
+        dns_zone: str,
         project_id: Optional[str] = None,
-        order_by: ListDNSZoneRecordsRequestOrderBy = ListDNSZoneRecordsRequestOrderBy.NAME_ASC,
+        order_by: Optional[ListDNSZoneRecordsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        type_: DomainRecordType = DomainRecordType.UNKNOWN,
+        type_: Optional[RecordType] = None,
         id: Optional[str] = None,
     ) -> ListDNSZoneRecordsResponse:
         """
         List records within a DNS zone.
         Retrieve a list of DNS records within a DNS zone that has default name servers.
         You can filter records by type and name.
+        :param name: Name on which to filter the returned DNS zone records.
         :param dns_zone: DNS zone on which to filter the returned DNS zone records.
         :param project_id: Project ID on which to filter the returned DNS zone records.
         :param order_by: Sort order of the returned DNS zone records.
         :param page: Page number to return, from the paginated results.
         :param page_size: Maximum number of DNS zone records per page.
-        :param name: Name on which to filter the returned DNS zone records.
         :param type_: Record type on which to filter the returned DNS zone records.
         :param id: Record ID on which to filter the returned DNS zone records.
         :return: :class:`ListDNSZoneRecordsResponse <ListDNSZoneRecordsResponse>`
@@ -485,8 +489,8 @@ class DomainV2Beta1API(API):
         ::
 
             result = api.list_dns_zone_records(
-                dns_zone="example",
                 name="example",
+                dns_zone="example",
             )
         """
 
@@ -512,35 +516,35 @@ class DomainV2Beta1API(API):
     def list_dns_zone_records_all(
         self,
         *,
-        dns_zone: str,
         name: str,
+        dns_zone: str,
         project_id: Optional[str] = None,
         order_by: Optional[ListDNSZoneRecordsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        type_: Optional[DomainRecordType] = None,
+        type_: Optional[RecordType] = None,
         id: Optional[str] = None,
-    ) -> List[DomainRecord]:
+    ) -> List[Record]:
         """
         List records within a DNS zone.
         Retrieve a list of DNS records within a DNS zone that has default name servers.
         You can filter records by type and name.
+        :param name: Name on which to filter the returned DNS zone records.
         :param dns_zone: DNS zone on which to filter the returned DNS zone records.
         :param project_id: Project ID on which to filter the returned DNS zone records.
         :param order_by: Sort order of the returned DNS zone records.
         :param page: Page number to return, from the paginated results.
         :param page_size: Maximum number of DNS zone records per page.
-        :param name: Name on which to filter the returned DNS zone records.
         :param type_: Record type on which to filter the returned DNS zone records.
         :param id: Record ID on which to filter the returned DNS zone records.
-        :return: :class:`List[ListDNSZoneRecordsResponse] <List[ListDNSZoneRecordsResponse]>`
+        :return: :class:`List[Record] <List[Record]>`
 
         Usage:
         ::
 
             result = api.list_dns_zone_records_all(
-                dns_zone="example",
                 name="example",
+                dns_zone="example",
             )
         """
 
@@ -549,8 +553,8 @@ class DomainV2Beta1API(API):
             key="records",
             fetcher=self.list_dns_zone_records,
             args={
-                "dns_zone": dns_zone,
                 "name": name,
+                "dns_zone": dns_zone,
                 "project_id": project_id,
                 "order_by": order_by,
                 "page": page,
@@ -563,9 +567,9 @@ class DomainV2Beta1API(API):
     def update_dns_zone_records(
         self,
         *,
-        dns_zone: str,
-        changes: List[RecordChange],
         disallow_new_zone_creation: bool,
+        dns_zone: str,
+        changes: Optional[List[RecordChange]] = None,
         return_all_records: Optional[bool] = None,
         serial: Optional[int] = None,
     ) -> UpdateDNSZoneRecordsResponse:
@@ -580,10 +584,10 @@ class DomainV2Beta1API(API):
          - clear: allows you to delete all records from a DNS zone
 
         All edits will be versioned.
+        :param disallow_new_zone_creation: Disable the creation of the target zone if it does not exist. Target zone creation is disabled by default.
         :param dns_zone: DNS zone in which to update the DNS zone records.
         :param changes: Changes made to the records.
         :param return_all_records: Specifies whether or not to return all the records.
-        :param disallow_new_zone_creation: Disable the creation of the target zone if it does not exist. Target zone creation is disabled by default.
         :param serial: Use the provided serial (0) instead of the auto-increment serial.
         :return: :class:`UpdateDNSZoneRecordsResponse <UpdateDNSZoneRecordsResponse>`
 
@@ -591,9 +595,8 @@ class DomainV2Beta1API(API):
         ::
 
             result = api.update_dns_zone_records(
+                disallow_new_zone_creation=False,
                 dns_zone="example",
-                changes=[RecordChange(...)],
-                disallow_new_zone_creation=True,
             )
         """
 
@@ -604,9 +607,9 @@ class DomainV2Beta1API(API):
             f"/domain/v2beta1/dns-zones/{param_dns_zone}/records",
             body=marshal_UpdateDNSZoneRecordsRequest(
                 UpdateDNSZoneRecordsRequest(
+                    disallow_new_zone_creation=disallow_new_zone_creation,
                     dns_zone=dns_zone,
                     changes=changes,
-                    disallow_new_zone_creation=disallow_new_zone_creation,
                     return_all_records=return_all_records,
                     serial=serial,
                 ),
@@ -633,7 +636,9 @@ class DomainV2Beta1API(API):
         Usage:
         ::
 
-            result = api.list_dns_zone_nameservers(dns_zone="example")
+            result = api.list_dns_zone_nameservers(
+                dns_zone="example",
+            )
         """
 
         param_dns_zone = validate_path_param("dns_zone", dns_zone)
@@ -653,7 +658,7 @@ class DomainV2Beta1API(API):
         self,
         *,
         dns_zone: str,
-        ns: List[Nameserver],
+        ns: Optional[List[Nameserver]] = None,
     ) -> UpdateDNSZoneNameserversResponse:
         """
         Update name servers within a DNS zone.
@@ -667,7 +672,6 @@ class DomainV2Beta1API(API):
 
             result = api.update_dns_zone_nameservers(
                 dns_zone="example",
-                ns=[Nameserver(...)],
             )
         """
 
@@ -703,7 +707,9 @@ class DomainV2Beta1API(API):
         Usage:
         ::
 
-            result = api.clear_dns_zone_records(dns_zone="example")
+            result = api.clear_dns_zone_records(
+                dns_zone="example",
+            )
         """
 
         param_dns_zone = validate_path_param("dns_zone", dns_zone)
@@ -720,21 +726,20 @@ class DomainV2Beta1API(API):
         self,
         *,
         dns_zone: str,
-        format: RawFormat,
-    ) -> Optional[ScwFile]:
+        format: Optional[RawFormat] = None,
+    ) -> ScwFile:
         """
         Export a raw DNS zone.
         Export a DNS zone with default name servers, in a specific format.
         :param dns_zone: DNS zone to export.
         :param format: DNS zone format.
-        :return: :class:`Optional[ScwFile] <Optional[ScwFile]>`
+        :return: :class:`ScwFile <ScwFile>`
 
         Usage:
         ::
 
             result = api.export_raw_dns_zone(
                 dns_zone="example",
-                format=unknown_raw_format,
             )
         """
 
@@ -749,8 +754,7 @@ class DomainV2Beta1API(API):
         )
 
         self._throw_on_error(res)
-        json = res.json()
-        return unmarshal_ScwFile(json) if json is not None else None
+        return unmarshal_ScwFile(res.json())
 
     def import_raw_dns_zone(
         self,
@@ -770,17 +774,15 @@ class DomainV2Beta1API(API):
         :param project_id:
         :param format:
         :param bind_source: Import a bind file format.
-
-        One-of ('source'): at most one of 'bind_source', 'axfr_source' could be set.
         :param axfr_source: Import from the name server given with TSIG, to use or not.
-
-        One-of ('source'): at most one of 'bind_source', 'axfr_source' could be set.
         :return: :class:`ImportRawDNSZoneResponse <ImportRawDNSZoneResponse>`
 
         Usage:
         ::
 
-            result = api.import_raw_dns_zone(dns_zone="example")
+            result = api.import_raw_dns_zone(
+                dns_zone="example",
+            )
         """
 
         param_dns_zone = validate_path_param("dns_zone", dns_zone)
@@ -814,13 +816,15 @@ class DomainV2Beta1API(API):
         Import a DNS zone from another provider.
         Import and replace the format of records from a given provider, with default name servers.
         :param dns_zone:
-        :param online_v1: One-of ('provider'): at most one of 'online_v1' could be set.
+        :param online_v1:
         :return: :class:`ImportProviderDNSZoneResponse <ImportProviderDNSZoneResponse>`
 
         Usage:
         ::
 
-            result = api.import_provider_dns_zone(dns_zone="example")
+            result = api.import_provider_dns_zone(
+                dns_zone="example",
+            )
         """
 
         param_dns_zone = validate_path_param("dns_zone", dns_zone)
@@ -843,26 +847,26 @@ class DomainV2Beta1API(API):
     def refresh_dns_zone(
         self,
         *,
-        dns_zone: str,
-        recreate_dns_zone: bool,
         recreate_sub_dns_zone: bool,
+        recreate_dns_zone: bool,
+        dns_zone: str,
     ) -> RefreshDNSZoneResponse:
         """
         Refresh a DNS zone.
         Refresh an SOA DNS zone to reload the records in the DNS zone and update the SOA serial.
         You can recreate the given DNS zone and its sub DNS zone if needed.
-        :param dns_zone: DNS zone to refresh.
-        :param recreate_dns_zone: Specifies whether or not to recreate the DNS zone.
         :param recreate_sub_dns_zone: Specifies whether or not to recreate the sub DNS zone.
+        :param recreate_dns_zone: Specifies whether or not to recreate the DNS zone.
+        :param dns_zone: DNS zone to refresh.
         :return: :class:`RefreshDNSZoneResponse <RefreshDNSZoneResponse>`
 
         Usage:
         ::
 
             result = api.refresh_dns_zone(
+                recreate_sub_dns_zone=False,
+                recreate_dns_zone=False,
                 dns_zone="example",
-                recreate_dns_zone=True,
-                recreate_sub_dns_zone=True,
             )
         """
 
@@ -873,9 +877,9 @@ class DomainV2Beta1API(API):
             f"/domain/v2beta1/dns-zones/{param_dns_zone}/refresh",
             body=marshal_RefreshDNSZoneRequest(
                 RefreshDNSZoneRequest(
-                    dns_zone=dns_zone,
-                    recreate_dns_zone=recreate_dns_zone,
                     recreate_sub_dns_zone=recreate_sub_dns_zone,
+                    recreate_dns_zone=recreate_dns_zone,
+                    dns_zone=dns_zone,
                 ),
                 self.client,
             ),
@@ -903,7 +907,9 @@ class DomainV2Beta1API(API):
         Usage:
         ::
 
-            result = api.list_dns_zone_versions(dns_zone="example")
+            result = api.list_dns_zone_versions(
+                dns_zone="example",
+            )
         """
 
         param_dns_zone = validate_path_param("dns_zone", dns_zone)
@@ -934,12 +940,14 @@ class DomainV2Beta1API(API):
         :param dns_zone:
         :param page: Page number to return, from the paginated results.
         :param page_size: Maximum number of DNS zones versions per page.
-        :return: :class:`List[ListDNSZoneVersionsResponse] <List[ListDNSZoneVersionsResponse]>`
+        :return: :class:`List[DNSZoneVersion] <List[DNSZoneVersion]>`
 
         Usage:
         ::
 
-            result = api.list_dns_zone_versions_all(dns_zone="example")
+            result = api.list_dns_zone_versions_all(
+                dns_zone="example",
+            )
         """
 
         return fetch_all_pages(
@@ -971,7 +979,9 @@ class DomainV2Beta1API(API):
         Usage:
         ::
 
-            result = api.list_dns_zone_version_records(dns_zone_version_id="example")
+            result = api.list_dns_zone_version_records(
+                dns_zone_version_id="example",
+            )
         """
 
         param_dns_zone_version_id = validate_path_param(
@@ -996,19 +1006,21 @@ class DomainV2Beta1API(API):
         dns_zone_version_id: str,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> List[DomainRecord]:
+    ) -> List[Record]:
         """
         List records from a given version of a specific DNS zone.
         Retrieve a list of records from a specific DNS zone version.
         :param dns_zone_version_id:
         :param page: Page number to return, from the paginated results.
         :param page_size: Maximum number of DNS zones versions records per page.
-        :return: :class:`List[ListDNSZoneVersionRecordsResponse] <List[ListDNSZoneVersionRecordsResponse]>`
+        :return: :class:`List[Record] <List[Record]>`
 
         Usage:
         ::
 
-            result = api.list_dns_zone_version_records_all(dns_zone_version_id="example")
+            result = api.list_dns_zone_version_records_all(
+                dns_zone_version_id="example",
+            )
         """
 
         return fetch_all_pages(
@@ -1036,7 +1048,9 @@ class DomainV2Beta1API(API):
         Usage:
         ::
 
-            result = api.get_dns_zone_version_diff(dns_zone_version_id="example")
+            result = api.get_dns_zone_version_diff(
+                dns_zone_version_id="example",
+            )
         """
 
         param_dns_zone_version_id = validate_path_param(
@@ -1065,7 +1079,9 @@ class DomainV2Beta1API(API):
         Usage:
         ::
 
-            result = api.restore_dns_zone_version(dns_zone_version_id="example")
+            result = api.restore_dns_zone_version(
+                dns_zone_version_id="example",
+            )
         """
 
         param_dns_zone_version_id = validate_path_param(
@@ -1075,6 +1091,7 @@ class DomainV2Beta1API(API):
         res = self._request(
             "POST",
             f"/domain/v2beta1/dns-zones/version/{param_dns_zone_version_id}/restore",
+            body={},
         )
 
         self._throw_on_error(res)
@@ -1094,7 +1111,9 @@ class DomainV2Beta1API(API):
         Usage:
         ::
 
-            result = api.get_ssl_certificate(dns_zone="example")
+            result = api.get_ssl_certificate(
+                dns_zone="example",
+            )
         """
 
         param_dns_zone = validate_path_param("dns_zone", dns_zone)
@@ -1114,15 +1133,17 @@ class DomainV2Beta1API(API):
         options: Optional[WaitForOptions[SSLCertificate, bool]] = None,
     ) -> SSLCertificate:
         """
-        Waits for :class:`SSLCertificate <SSLCertificate>` to be in a final state.
+        Get a DNS zone's TLS certificate.
+        Get the DNS zone's TLS certificate. If you do not have a certificate, the ouptut returns `no certificate found`.
         :param dns_zone:
-        :param options: The options for the waiter
         :return: :class:`SSLCertificate <SSLCertificate>`
 
         Usage:
         ::
 
-            result = api.wait_for_ssl_certificate(dns_zone="example")
+            result = api.get_ssl_certificate(
+                dns_zone="example",
+            )
         """
 
         if not options:
@@ -1130,7 +1151,7 @@ class DomainV2Beta1API(API):
 
         if not options.stop:
             options.stop = (
-                lambda res: res.status not in SSL_CERTIFICATE_TRANSIENT_STATUSES
+                lambda res: res.status not in SSLCERTIFICATE_TRANSIENT_STATUSES
             )
 
         return wait_for_resource(
@@ -1157,12 +1178,14 @@ class DomainV2Beta1API(API):
         Usage:
         ::
 
-            result = api.create_ssl_certificate(dns_zone="example")
+            result = api.create_ssl_certificate(
+                dns_zone="example",
+            )
         """
 
         res = self._request(
             "POST",
-            f"/domain/v2beta1/ssl-certificates",
+            "/domain/v2beta1/ssl-certificates",
             body=marshal_CreateSSLCertificateRequest(
                 CreateSSLCertificateRequest(
                     dns_zone=dns_zone,
@@ -1195,12 +1218,14 @@ class DomainV2Beta1API(API):
         Usage:
         ::
 
-            result = api.list_ssl_certificates(dns_zone="example")
+            result = api.list_ssl_certificates(
+                dns_zone="example",
+            )
         """
 
         res = self._request(
             "GET",
-            f"/domain/v2beta1/ssl-certificates",
+            "/domain/v2beta1/ssl-certificates",
             params={
                 "dns_zone": dns_zone,
                 "page": page,
@@ -1227,12 +1252,14 @@ class DomainV2Beta1API(API):
         :param page:
         :param page_size:
         :param project_id:
-        :return: :class:`List[ListSSLCertificatesResponse] <List[ListSSLCertificatesResponse]>`
+        :return: :class:`List[SSLCertificate] <List[SSLCertificate]>`
 
         Usage:
         ::
 
-            result = api.list_ssl_certificates_all(dns_zone="example")
+            result = api.list_ssl_certificates_all(
+                dns_zone="example",
+            )
         """
 
         return fetch_all_pages(
@@ -1261,7 +1288,9 @@ class DomainV2Beta1API(API):
         Usage:
         ::
 
-            result = api.delete_ssl_certificate(dns_zone="example")
+            result = api.delete_ssl_certificate(
+                dns_zone="example",
+            )
         """
 
         param_dns_zone = validate_path_param("dns_zone", dns_zone)
@@ -1288,7 +1317,9 @@ class DomainV2Beta1API(API):
         Usage:
         ::
 
-            result = api.get_dns_zone_tsig_key(dns_zone="example")
+            result = api.get_dns_zone_tsig_key(
+                dns_zone="example",
+            )
         """
 
         param_dns_zone = validate_path_param("dns_zone", dns_zone)
@@ -1305,7 +1336,7 @@ class DomainV2Beta1API(API):
         self,
         *,
         dns_zone: str,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Delete the DNS zone's TSIG key.
         Delete an existing TSIG key specified by its DNS zone. Deleting a TSIG key is permanent and cannot be undone.
@@ -1314,7 +1345,9 @@ class DomainV2Beta1API(API):
         Usage:
         ::
 
-            result = api.delete_dns_zone_tsig_key(dns_zone="example")
+            result = api.delete_dns_zone_tsig_key(
+                dns_zone="example",
+            )
         """
 
         param_dns_zone = validate_path_param("dns_zone", dns_zone)
@@ -1325,14 +1358,10 @@ class DomainV2Beta1API(API):
         )
 
         self._throw_on_error(res)
-        return None
 
 
-class DomainRegistrarV2Beta1API(API):
+class DomainV2Beta1RegistrarAPI(API):
     """
-    Domains and DNS - Registrar API.
-
-    Domains and DNS - Registrar API.
     Manage your domains and contacts.
     """
 
@@ -1346,7 +1375,7 @@ class DomainRegistrarV2Beta1API(API):
         domain: Optional[str] = None,
         types: Optional[List[TaskType]] = None,
         statuses: Optional[List[TaskStatus]] = None,
-        order_by: ListTasksRequestOrderBy = ListTasksRequestOrderBy.DOMAIN_DESC,
+        order_by: Optional[ListTasksRequestOrderBy] = None,
     ) -> ListTasksResponse:
         """
         List tasks.
@@ -1370,7 +1399,7 @@ class DomainRegistrarV2Beta1API(API):
 
         res = self._request(
             "GET",
-            f"/domain/v2beta1/tasks",
+            "/domain/v2beta1/tasks",
             params={
                 "domain": domain,
                 "order_by": order_by,
@@ -1411,7 +1440,7 @@ class DomainRegistrarV2Beta1API(API):
         :param types:
         :param statuses:
         :param order_by:
-        :return: :class:`List[ListTasksResponse] <List[ListTasksResponse]>`
+        :return: :class:`List[Task] <List[Task]>`
 
         Usage:
         ::
@@ -1438,8 +1467,8 @@ class DomainRegistrarV2Beta1API(API):
     def buy_domains(
         self,
         *,
-        domains: List[str],
         duration_in_years: int,
+        domains: Optional[List[str]] = None,
         project_id: Optional[str] = None,
         owner_contact_id: Optional[str] = None,
         owner_contact: Optional[NewContact] = None,
@@ -1452,33 +1481,32 @@ class DomainRegistrarV2Beta1API(API):
         Purchase domains.
         Request the registration of domain names.
         You can provide a domain's already existing contact or a new contact.
-        :param domains:
         :param duration_in_years:
+        :param domains:
         :param project_id:
-        :param owner_contact_id: One-of ('owner_contact_type'): at most one of 'owner_contact_id', 'owner_contact' could be set.
-        :param owner_contact: One-of ('owner_contact_type'): at most one of 'owner_contact_id', 'owner_contact' could be set.
-        :param administrative_contact_id: One-of ('administrative_contact_type'): at most one of 'administrative_contact_id', 'administrative_contact' could be set.
-        :param administrative_contact: One-of ('administrative_contact_type'): at most one of 'administrative_contact_id', 'administrative_contact' could be set.
-        :param technical_contact_id: One-of ('technical_contact_type'): at most one of 'technical_contact_id', 'technical_contact' could be set.
-        :param technical_contact: One-of ('technical_contact_type'): at most one of 'technical_contact_id', 'technical_contact' could be set.
+        :param owner_contact_id:
+        :param owner_contact:
+        :param administrative_contact_id:
+        :param administrative_contact:
+        :param technical_contact_id:
+        :param technical_contact:
         :return: :class:`OrderResponse <OrderResponse>`
 
         Usage:
         ::
 
             result = api.buy_domains(
-                domains=["example"],
                 duration_in_years=1,
             )
         """
 
         res = self._request(
             "POST",
-            f"/domain/v2beta1/buy-domains",
+            "/domain/v2beta1/buy-domains",
             body=marshal_RegistrarApiBuyDomainsRequest(
                 RegistrarApiBuyDomainsRequest(
-                    domains=domains,
                     duration_in_years=duration_in_years,
+                    domains=domains,
                     project_id=project_id,
                     owner_contact_id=owner_contact_id,
                     owner_contact=owner_contact,
@@ -1497,15 +1525,15 @@ class DomainRegistrarV2Beta1API(API):
     def renew_domains(
         self,
         *,
-        domains: List[str],
         duration_in_years: int,
+        domains: Optional[List[str]] = None,
         force_late_renewal: Optional[bool] = None,
     ) -> OrderResponse:
         """
         Renew domains.
         Request the renewal of one or more domain names.
-        :param domains:
         :param duration_in_years:
+        :param domains:
         :param force_late_renewal:
         :return: :class:`OrderResponse <OrderResponse>`
 
@@ -1513,18 +1541,17 @@ class DomainRegistrarV2Beta1API(API):
         ::
 
             result = api.renew_domains(
-                domains=["example"],
                 duration_in_years=1,
             )
         """
 
         res = self._request(
             "POST",
-            f"/domain/v2beta1/renew-domains",
+            "/domain/v2beta1/renew-domains",
             body=marshal_RegistrarApiRenewDomainsRequest(
                 RegistrarApiRenewDomainsRequest(
-                    domains=domains,
                     duration_in_years=duration_in_years,
+                    domains=domains,
                     force_late_renewal=force_late_renewal,
                 ),
                 self.client,
@@ -1537,7 +1564,7 @@ class DomainRegistrarV2Beta1API(API):
     def transfer_in_domain(
         self,
         *,
-        domains: List[TransferInDomainRequestTransferRequest],
+        domains: Optional[List[TransferInDomainRequestTransferRequest]] = None,
         project_id: Optional[str] = None,
         owner_contact_id: Optional[str] = None,
         owner_contact: Optional[NewContact] = None,
@@ -1551,23 +1578,23 @@ class DomainRegistrarV2Beta1API(API):
         Request the transfer of a domain from another registrar to Scaleway Domains and DNS.
         :param domains:
         :param project_id:
-        :param owner_contact_id: One-of ('owner_contact_type'): at most one of 'owner_contact_id', 'owner_contact' could be set.
-        :param owner_contact: One-of ('owner_contact_type'): at most one of 'owner_contact_id', 'owner_contact' could be set.
-        :param administrative_contact_id: One-of ('administrative_contact_type'): at most one of 'administrative_contact_id', 'administrative_contact' could be set.
-        :param administrative_contact: One-of ('administrative_contact_type'): at most one of 'administrative_contact_id', 'administrative_contact' could be set.
-        :param technical_contact_id: One-of ('technical_contact_type'): at most one of 'technical_contact_id', 'technical_contact' could be set.
-        :param technical_contact: One-of ('technical_contact_type'): at most one of 'technical_contact_id', 'technical_contact' could be set.
+        :param owner_contact_id:
+        :param owner_contact:
+        :param administrative_contact_id:
+        :param administrative_contact:
+        :param technical_contact_id:
+        :param technical_contact:
         :return: :class:`OrderResponse <OrderResponse>`
 
         Usage:
         ::
 
-            result = api.transfer_in_domain(domains=[TransferInDomainRequestTransferRequest(...)])
+            result = api.transfer_in_domain()
         """
 
         res = self._request(
             "POST",
-            f"/domain/v2beta1/domains/transfer-domains",
+            "/domain/v2beta1/domains/transfer-domains",
             body=marshal_RegistrarApiTransferInDomainRequest(
                 RegistrarApiTransferInDomainRequest(
                     domains=domains,
@@ -1602,14 +1629,16 @@ class DomainRegistrarV2Beta1API(API):
         If the new owner has never created a contact to register domains before, an error message displays.
         :param domain:
         :param project_id:
-        :param new_owner_contact_id: One-of ('new_owner_contact_type'): at most one of 'new_owner_contact_id', 'new_owner_contact' could be set.
-        :param new_owner_contact: One-of ('new_owner_contact_type'): at most one of 'new_owner_contact_id', 'new_owner_contact' could be set.
+        :param new_owner_contact_id:
+        :param new_owner_contact:
         :return: :class:`OrderResponse <OrderResponse>`
 
         Usage:
         ::
 
-            result = api.trade_domain(domain="example")
+            result = api.trade_domain(
+                domain="example",
+            )
         """
 
         param_domain = validate_path_param("domain", domain)
@@ -1647,12 +1676,14 @@ class DomainRegistrarV2Beta1API(API):
         Usage:
         ::
 
-            result = api.register_external_domain(domain="example")
+            result = api.register_external_domain(
+                domain="example",
+            )
         """
 
         res = self._request(
             "POST",
-            f"/domain/v2beta1/external-domains",
+            "/domain/v2beta1/external-domains",
             body=marshal_RegistrarApiRegisterExternalDomainRequest(
                 RegistrarApiRegisterExternalDomainRequest(
                     domain=domain,
@@ -1679,7 +1710,9 @@ class DomainRegistrarV2Beta1API(API):
         Usage:
         ::
 
-            result = api.delete_external_domain(domain="example")
+            result = api.delete_external_domain(
+                domain="example",
+            )
         """
 
         param_domain = validate_path_param("domain", domain)
@@ -1710,12 +1743,12 @@ class DomainRegistrarV2Beta1API(API):
         If contacts are not compatible with either the domain or the TLD, the information that needs to be corrected is returned.
         :param domains:
         :param tlds:
-        :param owner_contact_id: One-of ('owner_contact_type'): at most one of 'owner_contact_id', 'owner_contact' could be set.
-        :param owner_contact: One-of ('owner_contact_type'): at most one of 'owner_contact_id', 'owner_contact' could be set.
-        :param administrative_contact_id: One-of ('administrative_contact_type'): at most one of 'administrative_contact_id', 'administrative_contact' could be set.
-        :param administrative_contact: One-of ('administrative_contact_type'): at most one of 'administrative_contact_id', 'administrative_contact' could be set.
-        :param technical_contact_id: One-of ('technical_contact_type'): at most one of 'technical_contact_id', 'technical_contact' could be set.
-        :param technical_contact: One-of ('technical_contact_type'): at most one of 'technical_contact_id', 'technical_contact' could be set.
+        :param owner_contact_id:
+        :param owner_contact:
+        :param administrative_contact_id:
+        :param administrative_contact:
+        :param technical_contact_id:
+        :param technical_contact:
         :return: :class:`CheckContactsCompatibilityResponse <CheckContactsCompatibilityResponse>`
 
         Usage:
@@ -1726,7 +1759,7 @@ class DomainRegistrarV2Beta1API(API):
 
         res = self._request(
             "POST",
-            f"/domain/v2beta1/check-contacts-compatibility",
+            "/domain/v2beta1/check-contacts-compatibility",
             body=marshal_RegistrarApiCheckContactsCompatibilityRequest(
                 RegistrarApiCheckContactsCompatibilityRequest(
                     domains=domains,
@@ -1753,8 +1786,8 @@ class DomainRegistrarV2Beta1API(API):
         domain: Optional[str] = None,
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
-        role: ListContactsRequestRole = ListContactsRequestRole.UNKNOWN_ROLE,
-        email_status: ContactEmailStatus = ContactEmailStatus.EMAIL_STATUS_UNKNOWN,
+        role: Optional[ListContactsRequestRole] = None,
+        email_status: Optional[ContactEmailStatus] = None,
     ) -> ListContactsResponse:
         """
         List contacts.
@@ -1777,7 +1810,7 @@ class DomainRegistrarV2Beta1API(API):
 
         res = self._request(
             "GET",
-            f"/domain/v2beta1/contacts",
+            "/domain/v2beta1/contacts",
             params={
                 "domain": domain,
                 "email_status": email_status,
@@ -1815,7 +1848,7 @@ class DomainRegistrarV2Beta1API(API):
         :param organization_id:
         :param role:
         :param email_status:
-        :return: :class:`List[ListContactsResponse] <List[ListContactsResponse]>`
+        :return: :class:`List[ContactRoles] <List[ContactRoles]>`
 
         Usage:
         ::
@@ -1852,7 +1885,9 @@ class DomainRegistrarV2Beta1API(API):
         Usage:
         ::
 
-            result = api.get_contact(contact_id="example")
+            result = api.get_contact(
+                contact_id="example",
+            )
         """
 
         param_contact_id = validate_path_param("contact_id", contact_id)
@@ -1868,58 +1903,60 @@ class DomainRegistrarV2Beta1API(API):
     def update_contact(
         self,
         *,
+        extension_fr: ContactExtensionFR,
+        extension_eu: ContactExtensionEU,
+        extension_nl: ContactExtensionNL,
         contact_id: str,
-        lang: LanguageCode,
-        email: Optional[str] = None,
-        email_alt: Optional[str] = None,
-        phone_number: Optional[str] = None,
-        fax_number: Optional[str] = None,
         address_line_1: Optional[str] = None,
+        company_identification_code: Optional[str] = None,
         address_line_2: Optional[str] = None,
         zip: Optional[str] = None,
         city: Optional[str] = None,
         country: Optional[str] = None,
         vat_identification_code: Optional[str] = None,
-        company_identification_code: Optional[str] = None,
+        fax_number: Optional[str] = None,
+        lang: Optional[StdLanguageCode] = None,
         resale: Optional[bool] = None,
         questions: Optional[List[UpdateContactRequestQuestion]] = None,
-        extension_fr: Optional[ContactExtensionFR] = None,
-        extension_eu: Optional[ContactExtensionEU] = None,
+        phone_number: Optional[str] = None,
+        email_alt: Optional[str] = None,
         whois_opt_in: Optional[bool] = None,
         state: Optional[str] = None,
-        extension_nl: Optional[ContactExtensionNL] = None,
+        email: Optional[str] = None,
     ) -> Contact:
         """
         Update contact.
         Edit the contact's information.
+        :param extension_fr:
+        :param extension_eu:
+        :param extension_nl:
         :param contact_id:
-        :param email:
-        :param email_alt:
-        :param phone_number:
-        :param fax_number:
         :param address_line_1:
+        :param company_identification_code:
         :param address_line_2:
         :param zip:
         :param city:
         :param country:
         :param vat_identification_code:
-        :param company_identification_code:
+        :param fax_number:
         :param lang:
         :param resale:
         :param questions:
-        :param extension_fr:
-        :param extension_eu:
+        :param phone_number:
+        :param email_alt:
         :param whois_opt_in:
         :param state:
-        :param extension_nl:
+        :param email:
         :return: :class:`Contact <Contact>`
 
         Usage:
         ::
 
             result = api.update_contact(
+                extension_fr=ContactExtensionFR(),
+                extension_eu=ContactExtensionEU(),
+                extension_nl=ContactExtensionNL(),
                 contact_id="example",
-                lang=unknown_language_code,
             )
         """
 
@@ -1930,26 +1967,26 @@ class DomainRegistrarV2Beta1API(API):
             f"/domain/v2beta1/contacts/{param_contact_id}",
             body=marshal_RegistrarApiUpdateContactRequest(
                 RegistrarApiUpdateContactRequest(
+                    extension_fr=extension_fr,
+                    extension_eu=extension_eu,
+                    extension_nl=extension_nl,
                     contact_id=contact_id,
-                    lang=lang,
-                    email=email,
-                    email_alt=email_alt,
-                    phone_number=phone_number,
-                    fax_number=fax_number,
                     address_line_1=address_line_1,
+                    company_identification_code=company_identification_code,
                     address_line_2=address_line_2,
                     zip=zip,
                     city=city,
                     country=country,
                     vat_identification_code=vat_identification_code,
-                    company_identification_code=company_identification_code,
+                    fax_number=fax_number,
+                    lang=lang,
                     resale=resale,
                     questions=questions,
-                    extension_fr=extension_fr,
-                    extension_eu=extension_eu,
+                    phone_number=phone_number,
+                    email_alt=email_alt,
                     whois_opt_in=whois_opt_in,
                     state=state,
-                    extension_nl=extension_nl,
+                    email=email,
                 ),
                 self.client,
             ),
@@ -1963,9 +2000,9 @@ class DomainRegistrarV2Beta1API(API):
         *,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        order_by: ListDomainsRequestOrderBy = ListDomainsRequestOrderBy.DOMAIN_ASC,
+        order_by: Optional[ListDomainsRequestOrderBy] = None,
         registrar: Optional[str] = None,
-        status: DomainStatus = DomainStatus.STATUS_UNKNOWN,
+        status: Optional[DomainStatus] = None,
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
         is_external: Optional[bool] = None,
@@ -1993,7 +2030,7 @@ class DomainRegistrarV2Beta1API(API):
 
         res = self._request(
             "GET",
-            f"/domain/v2beta1/domains",
+            "/domain/v2beta1/domains",
             params={
                 "domain": domain,
                 "is_external": is_external,
@@ -2036,7 +2073,7 @@ class DomainRegistrarV2Beta1API(API):
         :param organization_id:
         :param is_external:
         :param domain:
-        :return: :class:`List[ListDomainsResponse] <List[ListDomainsResponse]>`
+        :return: :class:`List[DomainSummary] <List[DomainSummary]>`
 
         Usage:
         ::
@@ -2066,7 +2103,7 @@ class DomainRegistrarV2Beta1API(API):
         *,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        order_by: ListRenewableDomainsRequestOrderBy = ListRenewableDomainsRequestOrderBy.DOMAIN_ASC,
+        order_by: Optional[ListRenewableDomainsRequestOrderBy] = None,
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
     ) -> ListRenewableDomainsResponse:
@@ -2088,7 +2125,7 @@ class DomainRegistrarV2Beta1API(API):
 
         res = self._request(
             "GET",
-            f"/domain/v2beta1/renewable-domains",
+            "/domain/v2beta1/renewable-domains",
             params={
                 "order_by": order_by,
                 "organization_id": organization_id
@@ -2119,7 +2156,7 @@ class DomainRegistrarV2Beta1API(API):
         :param order_by:
         :param project_id:
         :param organization_id:
-        :return: :class:`List[ListRenewableDomainsResponse] <List[ListRenewableDomainsResponse]>`
+        :return: :class:`List[RenewableDomain] <List[RenewableDomain]>`
 
         Usage:
         ::
@@ -2154,7 +2191,9 @@ class DomainRegistrarV2Beta1API(API):
         Usage:
         ::
 
-            result = api.get_domain(domain="example")
+            result = api.get_domain(
+                domain="example",
+            )
         """
 
         param_domain = validate_path_param("domain", domain)
@@ -2174,15 +2213,17 @@ class DomainRegistrarV2Beta1API(API):
         options: Optional[WaitForOptions[Domain, bool]] = None,
     ) -> Domain:
         """
-        Waits for :class:`Domain <Domain>` to be in a final state.
+        Get domain.
+        Retrieve a specific domain and display the domain's information.
         :param domain:
-        :param options: The options for the waiter
         :return: :class:`Domain <Domain>`
 
         Usage:
         ::
 
-            result = api.wait_for_domain(domain="example")
+            result = api.get_domain(
+                domain="example",
+            )
         """
 
         if not options:
@@ -2215,18 +2256,20 @@ class DomainRegistrarV2Beta1API(API):
         Update contacts for a specific domain or create a new contact.<br/>
         If you add the same contact for multiple roles (owner, administrative, technical), only one ID will be created and used for all of the roles.
         :param domain:
-        :param technical_contact_id: One-of ('technical_contact_info'): at most one of 'technical_contact_id', 'technical_contact' could be set.
-        :param technical_contact: One-of ('technical_contact_info'): at most one of 'technical_contact_id', 'technical_contact' could be set.
-        :param owner_contact_id: One-of ('owner_contact_info'): at most one of 'owner_contact_id', 'owner_contact' could be set.
-        :param owner_contact: One-of ('owner_contact_info'): at most one of 'owner_contact_id', 'owner_contact' could be set.
-        :param administrative_contact_id: One-of ('administrative_contact_info'): at most one of 'administrative_contact_id', 'administrative_contact' could be set.
-        :param administrative_contact: One-of ('administrative_contact_info'): at most one of 'administrative_contact_id', 'administrative_contact' could be set.
+        :param technical_contact_id:
+        :param technical_contact:
+        :param owner_contact_id:
+        :param owner_contact:
+        :param administrative_contact_id:
+        :param administrative_contact:
         :return: :class:`Domain <Domain>`
 
         Usage:
         ::
 
-            result = api.update_domain(domain="example")
+            result = api.update_domain(
+                domain="example",
+            )
         """
 
         param_domain = validate_path_param("domain", domain)
@@ -2265,7 +2308,9 @@ class DomainRegistrarV2Beta1API(API):
         Usage:
         ::
 
-            result = api.lock_domain_transfer(domain="example")
+            result = api.lock_domain_transfer(
+                domain="example",
+            )
         """
 
         param_domain = validate_path_param("domain", domain)
@@ -2273,6 +2318,7 @@ class DomainRegistrarV2Beta1API(API):
         res = self._request(
             "POST",
             f"/domain/v2beta1/domains/{param_domain}/lock-transfer",
+            body={},
         )
 
         self._throw_on_error(res)
@@ -2292,7 +2338,9 @@ class DomainRegistrarV2Beta1API(API):
         Usage:
         ::
 
-            result = api.unlock_domain_transfer(domain="example")
+            result = api.unlock_domain_transfer(
+                domain="example",
+            )
         """
 
         param_domain = validate_path_param("domain", domain)
@@ -2300,6 +2348,7 @@ class DomainRegistrarV2Beta1API(API):
         res = self._request(
             "POST",
             f"/domain/v2beta1/domains/{param_domain}/unlock-transfer",
+            body={},
         )
 
         self._throw_on_error(res)
@@ -2319,7 +2368,9 @@ class DomainRegistrarV2Beta1API(API):
         Usage:
         ::
 
-            result = api.enable_domain_auto_renew(domain="example")
+            result = api.enable_domain_auto_renew(
+                domain="example",
+            )
         """
 
         param_domain = validate_path_param("domain", domain)
@@ -2327,6 +2378,7 @@ class DomainRegistrarV2Beta1API(API):
         res = self._request(
             "POST",
             f"/domain/v2beta1/domains/{param_domain}/enable-auto-renew",
+            body={},
         )
 
         self._throw_on_error(res)
@@ -2346,7 +2398,9 @@ class DomainRegistrarV2Beta1API(API):
         Usage:
         ::
 
-            result = api.disable_domain_auto_renew(domain="example")
+            result = api.disable_domain_auto_renew(
+                domain="example",
+            )
         """
 
         param_domain = validate_path_param("domain", domain)
@@ -2354,6 +2408,7 @@ class DomainRegistrarV2Beta1API(API):
         res = self._request(
             "POST",
             f"/domain/v2beta1/domains/{param_domain}/disable-auto-renew",
+            body={},
         )
 
         self._throw_on_error(res)
@@ -2374,7 +2429,9 @@ class DomainRegistrarV2Beta1API(API):
         Usage:
         ::
 
-            result = api.get_domain_auth_code(domain="example")
+            result = api.get_domain_auth_code(
+                domain="example",
+            )
         """
 
         param_domain = validate_path_param("domain", domain)
@@ -2390,20 +2447,23 @@ class DomainRegistrarV2Beta1API(API):
     def enable_domain_dnssec(
         self,
         *,
+        ds_record: DSRecord,
         domain: str,
-        ds_record: Optional[DSRecord] = None,
     ) -> Domain:
         """
         Update domain DNSSEC.
         If your domain has the default Scaleway NS and uses another registrar, you have to update the DS record manually.
-        :param domain:
         :param ds_record:
+        :param domain:
         :return: :class:`Domain <Domain>`
 
         Usage:
         ::
 
-            result = api.enable_domain_dnssec(domain="example")
+            result = api.enable_domain_dnssec(
+                ds_record=DSRecord(),
+                domain="example",
+            )
         """
 
         param_domain = validate_path_param("domain", domain)
@@ -2413,8 +2473,8 @@ class DomainRegistrarV2Beta1API(API):
             f"/domain/v2beta1/domains/{param_domain}/enable-dnssec",
             body=marshal_RegistrarApiEnableDomainDNSSECRequest(
                 RegistrarApiEnableDomainDNSSECRequest(
-                    domain=domain,
                     ds_record=ds_record,
+                    domain=domain,
                 ),
                 self.client,
             ),
@@ -2437,7 +2497,9 @@ class DomainRegistrarV2Beta1API(API):
         Usage:
         ::
 
-            result = api.disable_domain_dnssec(domain="example")
+            result = api.disable_domain_dnssec(
+                domain="example",
+            )
         """
 
         param_domain = validate_path_param("domain", domain)
@@ -2445,6 +2507,7 @@ class DomainRegistrarV2Beta1API(API):
         res = self._request(
             "POST",
             f"/domain/v2beta1/domains/{param_domain}/disable-dnssec",
+            body={},
         )
 
         self._throw_on_error(res)
@@ -2453,8 +2516,8 @@ class DomainRegistrarV2Beta1API(API):
     def search_available_domains(
         self,
         *,
-        domains: List[str],
         strict_search: bool,
+        domains: Optional[List[str]] = None,
         tlds: Optional[List[str]] = None,
     ) -> SearchAvailableDomainsResponse:
         """
@@ -2462,23 +2525,22 @@ class DomainRegistrarV2Beta1API(API):
         Search a domain or a maximum of 10 domains that are available.
 
         If the TLD list is empty or not set, the search returns the results from the most popular TLDs.
+        :param strict_search: Search exact match.
         :param domains: A list of domain to search, TLD is optional.
         :param tlds: Array of tlds to search on.
-        :param strict_search: Search exact match.
         :return: :class:`SearchAvailableDomainsResponse <SearchAvailableDomainsResponse>`
 
         Usage:
         ::
 
             result = api.search_available_domains(
-                domains=["example"],
-                strict_search=True,
+                strict_search=False,
             )
         """
 
         res = self._request(
             "GET",
-            f"/domain/v2beta1/search-domains",
+            "/domain/v2beta1/search-domains",
             params={
                 "domains": domains,
                 "strict_search": strict_search,
@@ -2495,7 +2557,7 @@ class DomainRegistrarV2Beta1API(API):
         tlds: Optional[List[str]] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        order_by: ListTldsRequestOrderBy = ListTldsRequestOrderBy.NAME_ASC,
+        order_by: Optional[ListTldsRequestOrderBy] = None,
     ) -> ListTldsResponse:
         """
         List TLD offers.
@@ -2514,7 +2576,7 @@ class DomainRegistrarV2Beta1API(API):
 
         res = self._request(
             "GET",
-            f"/domain/v2beta1/tlds",
+            "/domain/v2beta1/tlds",
             params={
                 "order_by": order_by,
                 "page": page,
@@ -2541,7 +2603,7 @@ class DomainRegistrarV2Beta1API(API):
         :param page: Page number for the returned Projects.
         :param page_size: Maximum number of Project per page.
         :param order_by: Sort order of the returned TLDs.
-        :return: :class:`List[ListTldsResponse] <List[ListTldsResponse]>`
+        :return: :class:`List[Tld] <List[Tld]>`
 
         Usage:
         ::
@@ -2564,15 +2626,15 @@ class DomainRegistrarV2Beta1API(API):
     def create_domain_host(
         self,
         *,
-        domain: str,
         name: str,
+        domain: str,
         ips: Optional[List[str]] = None,
     ) -> Host:
         """
         Create a hostname for a domain.
         Create a hostname for a domain with glue IPs.
-        :param domain:
         :param name:
+        :param domain:
         :param ips:
         :return: :class:`Host <Host>`
 
@@ -2580,8 +2642,8 @@ class DomainRegistrarV2Beta1API(API):
         ::
 
             result = api.create_domain_host(
-                domain="example",
                 name="example",
+                domain="example",
             )
         """
 
@@ -2592,8 +2654,8 @@ class DomainRegistrarV2Beta1API(API):
             f"/domain/v2beta1/domains/{param_domain}/hosts",
             body=marshal_RegistrarApiCreateDomainHostRequest(
                 RegistrarApiCreateDomainHostRequest(
-                    domain=domain,
                     name=name,
+                    domain=domain,
                     ips=ips,
                 ),
                 self.client,
@@ -2621,7 +2683,9 @@ class DomainRegistrarV2Beta1API(API):
         Usage:
         ::
 
-            result = api.list_domain_hosts(domain="example")
+            result = api.list_domain_hosts(
+                domain="example",
+            )
         """
 
         param_domain = validate_path_param("domain", domain)
@@ -2651,12 +2715,14 @@ class DomainRegistrarV2Beta1API(API):
         :param domain:
         :param page:
         :param page_size:
-        :return: :class:`List[ListDomainHostsResponse] <List[ListDomainHostsResponse]>`
+        :return: :class:`List[Host] <List[Host]>`
 
         Usage:
         ::
 
-            result = api.list_domain_hosts_all(domain="example")
+            result = api.list_domain_hosts_all(
+                domain="example",
+            )
         """
 
         return fetch_all_pages(
@@ -2673,15 +2739,15 @@ class DomainRegistrarV2Beta1API(API):
     def update_domain_host(
         self,
         *,
-        domain: str,
         name: str,
+        domain: str,
         ips: Optional[List[str]] = None,
     ) -> Host:
         """
         Update a domain's hostname.
         Update a domain's hostname with glue IPs.
-        :param domain:
         :param name:
+        :param domain:
         :param ips:
         :return: :class:`Host <Host>`
 
@@ -2689,8 +2755,8 @@ class DomainRegistrarV2Beta1API(API):
         ::
 
             result = api.update_domain_host(
-                domain="example",
                 name="example",
+                domain="example",
             )
         """
 
@@ -2702,8 +2768,8 @@ class DomainRegistrarV2Beta1API(API):
             f"/domain/v2beta1/domains/{param_domain}/hosts/{param_name}",
             body=marshal_RegistrarApiUpdateDomainHostRequest(
                 RegistrarApiUpdateDomainHostRequest(
-                    domain=domain,
                     name=name,
+                    domain=domain,
                     ips=ips,
                 ),
                 self.client,
@@ -2716,22 +2782,22 @@ class DomainRegistrarV2Beta1API(API):
     def delete_domain_host(
         self,
         *,
-        domain: str,
         name: str,
+        domain: str,
     ) -> Host:
         """
         Delete a domain's hostname.
         Delete a domain's hostname.
-        :param domain:
         :param name:
+        :param domain:
         :return: :class:`Host <Host>`
 
         Usage:
         ::
 
             result = api.delete_domain_host(
-                domain="example",
                 name="example",
+                domain="example",
             )
         """
 

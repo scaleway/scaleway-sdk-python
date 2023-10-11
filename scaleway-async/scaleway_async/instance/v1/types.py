@@ -123,10 +123,10 @@ class SecurityGroupRuleDirection(str, Enum, metaclass=StrEnumMeta):
 
 
 class SecurityGroupRuleProtocol(str, Enum, metaclass=StrEnumMeta):
-    TCP = "TCP"
-    UDP = "UDP"
-    ICMP = "ICMP"
-    ANY = "ANY"
+    TCP = "tcp"
+    UDP = "udp"
+    ICMP = "icmp"
+    ANY = "any"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -185,7 +185,7 @@ class ServerIpState(str, Enum, metaclass=StrEnumMeta):
 class ServerState(str, Enum, metaclass=StrEnumMeta):
     RUNNING = "running"
     STOPPED = "stopped"
-    STOPPED_IN_PLACE = "stopped in place"
+    STOPPED_IN_PLACE = "stopped_in_place"
     STARTING = "starting"
     STOPPING = "stopping"
     LOCKED = "locked"
@@ -239,11 +239,11 @@ class TaskStatus(str, Enum, metaclass=StrEnumMeta):
 class VolumeServerState(str, Enum, metaclass=StrEnumMeta):
     AVAILABLE = "available"
     SNAPSHOTTING = "snapshotting"
-    ERROR = "error"
     FETCHING = "fetching"
     RESIZING = "resizing"
     SAVING = "saving"
     HOTSYNCING = "hotsyncing"
+    ERROR = "error"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -262,11 +262,11 @@ class VolumeServerVolumeType(str, Enum, metaclass=StrEnumMeta):
 class VolumeState(str, Enum, metaclass=StrEnumMeta):
     AVAILABLE = "available"
     SNAPSHOTTING = "snapshotting"
-    ERROR = "error"
     FETCHING = "fetching"
     RESIZING = "resizing"
     SAVING = "saving"
     HOTSYNCING = "hotsyncing"
+    ERROR = "error"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -285,59 +285,17 @@ class VolumeVolumeType(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
-class Bootscript:
-    """
-    Bootscript.
-    """
-
-    bootcmdargs: str
-    """
-    Bootscript arguments.
-    """
-
-    default: bool
-    """
-    Display if the bootscript is the default bootscript (if no other boot option is configured).
-    """
-
-    dtb: str
-    """
-    Provide information regarding a Device Tree Binary (DTB) for use with C1 servers.
-    """
+class ServerSummary:
+    name: str
 
     id: str
-    """
-    Bootscript ID.
-    """
 
-    initrd: str
-    """
-    Initrd (initial ramdisk) configuration.
-    """
 
-    kernel: str
+@dataclass
+class Bootscript:
+    zone: Zone
     """
-    Instance kernel version.
-    """
-
-    organization: str
-    """
-    Bootscript Organization ID.
-    """
-
-    project: str
-    """
-    Bootscript Project ID.
-    """
-
-    public: bool
-    """
-    Provide information if the bootscript is public.
-    """
-
-    title: str
-    """
-    Bootscript title.
+    Zone in which the bootscript is located.
     """
 
     arch: Arch
@@ -345,509 +303,203 @@ class Bootscript:
     Bootscript architecture.
     """
 
+    title: str
+    """
+    Bootscript title.
+    """
+
+    public: bool
+    """
+    Provide information if the bootscript is public.
+    """
+
+    project: str
+    """
+    Bootscript Project ID.
+    """
+
+    organization: str
+    """
+    Bootscript Organization ID.
+    """
+
+    kernel: str
+    """
+    Instance kernel version.
+    """
+
+    initrd: str
+    """
+    Initrd (initial ramdisk) configuration.
+    """
+
+    id: str
+    """
+    Bootscript ID.
+    """
+
+    dtb: str
+    """
+    Provide information regarding a Device Tree Binary (DTB) for use with C1 servers.
+    """
+
+    default: bool
+    """
+    Display if the bootscript is the default bootscript (if no other boot option is configured).
+    """
+
+    bootcmdargs: str
+    """
+    Bootscript arguments.
+    """
+
+
+@dataclass
+class Volume:
+    project: str
+    """
+    Volume Project ID.
+    """
+
+    organization: str
+    """
+    Volume Organization ID.
+    """
+
+    server: ServerSummary
+    """
+    Instance attached to the volume.
+    """
+
+    state: VolumeState
+    """
+    Volume state.
+    """
+
+    volume_type: VolumeVolumeType
+    """
+    Volume type.
+    """
+
+    id: str
+    """
+    Volume unique ID.
+    """
+
     zone: Zone
     """
-    Zone in which the bootscript is located.
+    Zone in which the volume is located.
+    """
+
+    name: str
+    """
+    Volume name.
+    """
+
+    tags: List[str]
+    """
+    Volume tags.
+    """
+
+    size: int
+    """
+    Volume disk size.
+    """
+
+    modification_date: Optional[datetime]
+    """
+    Volume modification date.
+    """
+
+    creation_date: Optional[datetime]
+    """
+    Volume creation date.
+    """
+
+    export_uri: Optional[str]
+    """
+    Show the volume NBD export URI.
     """
 
 
 @dataclass
-class CreateImageResponse:
-    image: Optional[Image]
+class VolumeSummary:
+    volume_type: VolumeVolumeType
+
+    size: int
+
+    name: str
+
+    id: str
 
 
 @dataclass
-class CreateIpResponse:
-    ip: Optional[Ip]
-
-
-@dataclass
-class CreatePlacementGroupResponse:
-    placement_group: Optional[PlacementGroup]
-
-
-@dataclass
-class CreatePrivateNICResponse:
-    private_nic: Optional[PrivateNIC]
-
-
-@dataclass
-class CreateSecurityGroupResponse:
-    security_group: Optional[SecurityGroup]
-
-
-@dataclass
-class CreateSecurityGroupRuleResponse:
-    rule: Optional[SecurityGroupRule]
-
-
-@dataclass
-class CreateServerResponse:
-    server: Optional[Server]
-
-
-@dataclass
-class CreateSnapshotResponse:
-    snapshot: Optional[Snapshot]
-
-    task: Optional[Task]
-
-
-@dataclass
-class CreateVolumeResponse:
-    volume: Optional[Volume]
-
-
-@dataclass
-class Dashboard:
-    volumes_count: int
-
-    running_servers_count: int
-
-    servers_by_types: Dict[str, int]
-
-    images_count: int
-
-    snapshots_count: int
-
-    servers_count: int
-
-    ips_count: int
-
-    security_groups_count: int
-
-    ips_unused: int
-
-    volumes_l_ssd_count: int
-
-    volumes_b_ssd_count: int
-
-    volumes_l_ssd_total_size: int
-
-    volumes_b_ssd_total_size: int
-
-    private_nics_count: int
-
-    placement_groups_count: int
-
-
-@dataclass
-class ExportSnapshotResponse:
-    task: Optional[Task]
-
-
-@dataclass
-class GetBootscriptResponse:
-    bootscript: Optional[Bootscript]
-
-
-@dataclass
-class GetDashboardResponse:
-    dashboard: Optional[Dashboard]
-
-
-@dataclass
-class GetImageResponse:
-    image: Optional[Image]
-
-
-@dataclass
-class GetIpResponse:
-    ip: Optional[Ip]
-
-
-@dataclass
-class GetPlacementGroupResponse:
-    placement_group: Optional[PlacementGroup]
-
-
-@dataclass
-class GetPlacementGroupServersResponse:
+class ServerTypeNetworkInterface:
+    internal_bandwidth: Optional[int]
     """
-    Get placement group servers response.
+    Maximum internal bandwidth in bits per seconds.
     """
 
-    servers: List[PlacementGroupServer]
+    internet_bandwidth: Optional[int]
     """
-    Instances attached to the placement group.
+    Maximum internet bandwidth in bits per seconds.
     """
 
 
 @dataclass
-class GetPrivateNICResponse:
-    private_nic: Optional[PrivateNIC]
-
-
-@dataclass
-class GetSecurityGroupResponse:
-    security_group: Optional[SecurityGroup]
-
-
-@dataclass
-class GetSecurityGroupRuleResponse:
-    rule: Optional[SecurityGroupRule]
-
-
-@dataclass
-class GetServerResponse:
-    server: Optional[Server]
-
-
-@dataclass
-class GetServerTypesAvailabilityResponse:
+class ServerTypeVolumeConstraintSizes:
+    max_size: int
     """
-    Get server types availability response.
+    Maximum volume size in bytes.
     """
 
-    servers: Dict[str, GetServerTypesAvailabilityResponseAvailability]
+    min_size: int
     """
-    Map of server types.
+    Minimum volume size in bytes.
     """
-
-    total_count: int
-
-
-@dataclass
-class GetServerTypesAvailabilityResponseAvailability:
-    availability: ServerTypesAvailability
-
-
-@dataclass
-class GetSnapshotResponse:
-    snapshot: Optional[Snapshot]
-
-
-@dataclass
-class GetVolumeResponse:
-    volume: Optional[Volume]
 
 
 @dataclass
 class Image:
-    id: str
-
-    name: str
-
-    arch: Arch
-
-    creation_date: Optional[datetime]
-
-    modification_date: Optional[datetime]
-
-    default_bootscript: Optional[Bootscript]
-    """
-    :deprecated
-    """
-
-    extra_volumes: Dict[str, Volume]
-
-    from_server: str
-
-    organization: str
+    root_volume: VolumeSummary
 
     public: bool
 
-    root_volume: Optional[VolumeSummary]
+    organization: str
+
+    from_server: str
+
+    id: str
+
+    project: str
+
+    tags: List[str]
+
+    zone: Zone
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    arch: Arch
+
+    name: str
 
     state: ImageState
 
-    project: str
+    extra_volumes: Dict[str, Volume]
 
-    tags: List[str]
+    default_bootscript: Optional[Bootscript]
 
-    zone: Zone
+    modification_date: Optional[datetime]
 
-
-@dataclass
-class Ip:
-    id: str
-
-    address: str
-
-    reverse: Optional[str]
-
-    server: Optional[ServerSummary]
-
-    organization: str
-
-    tags: List[str]
-
-    project: str
-
-    type_: IpType
-
-    state: IpState
-
-    prefix: str
-
-    zone: Zone
-
-
-@dataclass
-class ListBootscriptsResponse:
-    """
-    List bootscripts response.
-    """
-
-    total_count: int
-    """
-    Total number of bootscripts.
-    """
-
-    bootscripts: List[Bootscript]
-    """
-    List of bootscripts.
-    """
-
-
-@dataclass
-class ListImagesResponse:
-    """
-    List images response.
-    """
-
-    total_count: int
-    """
-    Total number of images.
-    """
-
-    images: List[Image]
-    """
-    List of images.
-    """
-
-
-@dataclass
-class ListIpsResponse:
-    """
-    List ips response.
-    """
-
-    total_count: int
-    """
-    Total number of ips.
-    """
-
-    ips: List[Ip]
-    """
-    List of ips.
-    """
-
-
-@dataclass
-class ListPlacementGroupsResponse:
-    """
-    List placement groups response.
-    """
-
-    total_count: int
-    """
-    Total number of placement groups.
-    """
-
-    placement_groups: List[PlacementGroup]
-    """
-    List of placement groups.
-    """
-
-
-@dataclass
-class ListPrivateNICsResponse:
-    private_nics: List[PrivateNIC]
-
-    total_count: int
-
-
-@dataclass
-class ListSecurityGroupRulesResponse:
-    """
-    List security group rules response.
-    """
-
-    total_count: int
-    """
-    Total number of security groups.
-    """
-
-    rules: List[SecurityGroupRule]
-    """
-    List of security rules.
-    """
-
-
-@dataclass
-class ListSecurityGroupsResponse:
-    """
-    List security groups response.
-    """
-
-    total_count: int
-    """
-    Total number of security groups.
-    """
-
-    security_groups: List[SecurityGroup]
-    """
-    List of security groups.
-    """
-
-
-@dataclass
-class ListServerActionsResponse:
-    actions: List[ServerAction]
-
-
-@dataclass
-class ListServerUserDataResponse:
-    user_data: List[str]
-
-
-@dataclass
-class ListServersResponse:
-    """
-    List servers response.
-    """
-
-    total_count: int
-    """
-    Total number of Instances.
-    """
-
-    servers: List[Server]
-    """
-    List of Instances.
-    """
-
-
-@dataclass
-class ListServersTypesResponse:
-    """
-    List servers types response.
-    """
-
-    total_count: int
-    """
-    Total number of Instance types.
-    """
-
-    servers: Dict[str, ServerType]
-    """
-    List of Instance types.
-    """
-
-
-@dataclass
-class ListSnapshotsResponse:
-    """
-    List snapshots response.
-    """
-
-    total_count: int
-    """
-    Total number of snapshots.
-    """
-
-    snapshots: List[Snapshot]
-    """
-    List of snapshots.
-    """
-
-
-@dataclass
-class ListVolumesResponse:
-    """
-    List volumes response.
-    """
-
-    total_count: int
-    """
-    Total number of volumes.
-    """
-
-    volumes: List[Volume]
-    """
-    List of volumes.
-    """
-
-
-@dataclass
-class ListVolumesTypesResponse:
-    """
-    List volumes types response.
-    """
-
-    total_count: int
-    """
-    Total number of volume types.
-    """
-
-    volumes: Dict[str, VolumeType]
-    """
-    Map of volume types.
-    """
-
-
-@dataclass
-class MigrationPlan:
-    """
-    Migration plan.
-    """
-
-    volume: Optional[Volume]
-    """
-    A volume which will be migrated to SBS together with the snapshots, if present.
-    """
-
-    snapshots: List[Snapshot]
-    """
-    A list of snapshots which will be migrated to SBS together and with the volume, if present.
-    """
-
-    validation_key: str
-    """
-    A value to be passed to ApplyBlockMigrationRequest, to confirm that the execution of the plan is being requested.
-    """
+    creation_date: Optional[datetime]
 
 
 @dataclass
 class PlacementGroup:
+    zone: Zone
     """
-    Placement group.
-    """
-
-    id: str
-    """
-    Placement group unique ID.
-    """
-
-    name: str
-    """
-    Placement group name.
-    """
-
-    organization: str
-    """
-    Placement group Organization ID.
-    """
-
-    project: str
-    """
-    Placement group Project ID.
-    """
-
-    tags: List[str]
-    """
-    Placement group tags.
-    """
-
-    policy_mode: PlacementGroupPolicyMode
-    """
-    Select the failure mode when the placement cannot be respected, either optional or enforced.
-    """
-
-    policy_type: PlacementGroupPolicyType
-    """
-    Select the behavior of the placement group, either low_latency (group) or max_availability (spread).
+    Zone in which the placement group is located.
     """
 
     policy_respected: bool
@@ -855,58 +507,47 @@ class PlacementGroup:
     Returns true if the policy is respected, false otherwise.
     """
 
-    zone: Zone
+    policy_type: PlacementGroupPolicyType
     """
-    Zone in which the placement group is located.
-    """
-
-
-@dataclass
-class PlacementGroupServer:
-    """
-    Placement group server.
+    Select the behavior of the placement group, either low_latency (group) or max_availability (spread).
     """
 
-    id: str
+    policy_mode: PlacementGroupPolicyMode
     """
-    Instance UUID.
+    Select the failure mode when the placement cannot be respected, either optional or enforced.
+    """
+
+    tags: List[str]
+    """
+    Placement group tags.
+    """
+
+    project: str
+    """
+    Placement group Project ID.
+    """
+
+    organization: str
+    """
+    Placement group Organization ID.
     """
 
     name: str
     """
-    Instance name.
+    Placement group name.
     """
 
-    policy_respected: bool
+    id: str
     """
-    Defines whether the placement group policy is respected (either 1 or 0).
+    Placement group unique ID.
     """
 
 
 @dataclass
 class PrivateNIC:
+    tags: List[str]
     """
-    Private nic.
-    """
-
-    id: str
-    """
-    Private NIC unique ID.
-    """
-
-    server_id: str
-    """
-    Instance to which the private NIC is attached.
-    """
-
-    private_network_id: str
-    """
-    Private Network the private NIC is attached to.
-    """
-
-    mac_address: str
-    """
-    Private NIC MAC address.
+    Private NIC tags.
     """
 
     state: PrivateNICState
@@ -914,358 +555,39 @@ class PrivateNIC:
     Private NIC state.
     """
 
-    tags: List[str]
+    mac_address: str
     """
-    Private NIC tags.
+    Private NIC MAC address.
     """
 
-
-@dataclass
-class SecurityGroup:
+    private_network_id: str
     """
-    Security group.
+    Private Network the private NIC is attached to.
+    """
+
+    server_id: str
+    """
+    Instance to which the private NIC is attached.
     """
 
     id: str
     """
-    Security group unique ID.
+    Private NIC unique ID.
     """
-
-    name: str
-    """
-    Security group name.
-    """
-
-    description: str
-    """
-    Security group description.
-    """
-
-    enable_default_security: bool
-    """
-    True if SMTP is blocked on IPv4 and IPv6. This feature is read only, please open a support ticket if you need to make it configurable.
-    """
-
-    inbound_default_policy: SecurityGroupPolicy
-    """
-    Default inbound policy.
-    """
-
-    outbound_default_policy: SecurityGroupPolicy
-    """
-    Default outbound policy.
-    """
-
-    organization: str
-    """
-    Security group Organization ID.
-    """
-
-    project: str
-    """
-    Security group Project ID.
-    """
-
-    tags: List[str]
-    """
-    Security group tags.
-    """
-
-    organization_default: Optional[bool]
-    """
-    True if it is your default security group for this Organization ID.
-    :deprecated
-    """
-
-    project_default: bool
-    """
-    True if it is your default security group for this Project ID.
-    """
-
-    creation_date: Optional[datetime]
-    """
-    Security group creation date.
-    """
-
-    modification_date: Optional[datetime]
-    """
-    Security group modification date.
-    """
-
-    servers: List[ServerSummary]
-    """
-    List of Instances attached to this security group.
-    """
-
-    stateful: bool
-    """
-    Defines whether the security group is stateful.
-    """
-
-    state: SecurityGroupState
-    """
-    Security group state.
-    """
-
-    zone: Zone
-    """
-    Zone in which the security group is located.
-    """
-
-
-@dataclass
-class SecurityGroupRule:
-    id: str
-
-    protocol: SecurityGroupRuleProtocol
-
-    direction: SecurityGroupRuleDirection
-
-    action: SecurityGroupRuleAction
-
-    ip_range: str
-
-    dest_port_from: Optional[int]
-
-    dest_port_to: Optional[int]
-
-    position: int
-
-    editable: bool
-
-    zone: Zone
 
 
 @dataclass
 class SecurityGroupSummary:
-    id: str
-
     name: str
 
-
-@dataclass
-class SecurityGroupTemplate:
     id: str
-
-    name: str
-
-
-@dataclass
-class Server:
-    """
-    Server.
-    """
-
-    id: str
-    """
-    Instance unique ID.
-    """
-
-    name: str
-    """
-    Instance name.
-    """
-
-    organization: str
-    """
-    Instance Organization ID.
-    """
-
-    project: str
-    """
-    Instance Project ID.
-    """
-
-    allowed_actions: List[ServerAction]
-    """
-    List of allowed actions on the Instance.
-    """
-
-    tags: List[str]
-    """
-    Tags associated with the Instance.
-    """
-
-    commercial_type: str
-    """
-    Instance commercial type (eg. GP1-M).
-    """
-
-    creation_date: Optional[datetime]
-    """
-    Instance creation date.
-    """
-
-    dynamic_ip_required: bool
-    """
-    True if a dynamic IPv4 is required.
-    """
-
-    routed_ip_enabled: bool
-    """
-    True to configure the instance so it uses the new routed IP mode.
-    """
-
-    enable_ipv6: bool
-    """
-    True if IPv6 is enabled.
-    """
-
-    hostname: str
-    """
-    Instance host name.
-    """
-
-    image: Optional[Image]
-    """
-    Information about the Instance image.
-    """
-
-    protected: bool
-    """
-    Defines whether the Instance protection option is activated.
-    """
-
-    private_ip: Optional[str]
-    """
-    Private IP address of the Instance.
-    """
-
-    public_ip: Optional[ServerIp]
-    """
-    Information about the public IP.
-    """
-
-    public_ips: List[ServerIp]
-    """
-    Information about all the public IPs attached to the server.
-    """
-
-    mac_address: str
-    """
-    The server's MAC address.
-    """
-
-    modification_date: Optional[datetime]
-    """
-    Instance modification date.
-    """
-
-    state: ServerState
-    """
-    Instance state.
-    """
-
-    location: Optional[ServerLocation]
-    """
-    Instance location.
-    """
-
-    ipv6: Optional[ServerIpv6]
-    """
-    Instance IPv6 address.
-    """
-
-    bootscript: Optional[Bootscript]
-    """
-    Instance bootscript.
-    :deprecated
-    """
-
-    boot_type: BootType
-    """
-    Instance boot type.
-    """
-
-    volumes: Dict[str, VolumeServer]
-    """
-    Instance volumes.
-    """
-
-    security_group: Optional[SecurityGroupSummary]
-    """
-    Instance security group.
-    """
-
-    maintenances: List[ServerMaintenance]
-    """
-    Instance planned maintenance.
-    """
-
-    state_detail: str
-    """
-    Detailed information about the Instance state.
-    """
-
-    arch: Arch
-    """
-    Instance architecture.
-    """
-
-    placement_group: Optional[PlacementGroup]
-    """
-    Instance placement group.
-    """
-
-    private_nics: List[PrivateNIC]
-    """
-    Instance private NICs.
-    """
-
-    zone: Zone
-    """
-    Zone in which the Instance is located.
-    """
-
-
-@dataclass
-class ServerActionRequestVolumeBackupTemplate:
-    """
-    Server action request. volume backup template.
-    """
-
-    volume_type: SnapshotVolumeType
-    """
-    Snapshot's volume type.
-    Overrides the `volume_type` of the snapshot for this volume.
-    If omitted, the volume type of the original volume will be used.
-    """
-
-
-@dataclass
-class ServerActionResponse:
-    task: Optional[Task]
 
 
 @dataclass
 class ServerIp:
+    provisioning_mode: ServerIpProvisioningMode
     """
-    Server. ip.
-    """
-
-    id: str
-    """
-    Unique ID of the IP address.
-    """
-
-    address: str
-    """
-    Instance's public IP-Address.
-    """
-
-    gateway: str
-    """
-    Gateway's IP address.
-    """
-
-    netmask: str
-    """
-    CIDR netmask.
-    """
-
-    family: ServerIpIpFamily
-    """
-    IP address family (inet or inet6).
+    Information about this address provisioning mode.
     """
 
     dynamic: bool
@@ -1273,9 +595,29 @@ class ServerIp:
     True if the IP address is dynamic.
     """
 
-    provisioning_mode: ServerIpProvisioningMode
+    family: ServerIpIpFamily
     """
-    Information about this address provisioning mode.
+    IP address family (inet or inet6).
+    """
+
+    netmask: str
+    """
+    CIDR netmask.
+    """
+
+    gateway: str
+    """
+    Gateway's IP address.
+    """
+
+    address: str
+    """
+    Instance's public IP-Address.
+    """
+
+    id: str
+    """
+    Unique ID of the IP address.
     """
 
     tags: List[str]
@@ -1288,13 +630,9 @@ class ServerIp:
 
 @dataclass
 class ServerIpv6:
+    netmask: str
     """
-    Server. ipv6.
-    """
-
-    address: str
-    """
-    Instance IPv6 IP-Address.
+    IPv6 IP-addresses CIDR netmask.
     """
 
     gateway: str
@@ -1302,23 +640,23 @@ class ServerIpv6:
     IPv6 IP-addresses gateway.
     """
 
-    netmask: str
+    address: str
     """
-    IPv6 IP-addresses CIDR netmask.
+    Instance IPv6 IP-Address.
     """
 
 
 @dataclass
 class ServerLocation:
-    cluster_id: str
-
-    hypervisor_id: str
-
-    node_id: str
+    zone_id: str
 
     platform_id: str
 
-    zone_id: str
+    node_id: str
+
+    hypervisor_id: str
+
+    cluster_id: str
 
 
 @dataclass
@@ -1327,89 +665,55 @@ class ServerMaintenance:
 
 
 @dataclass
-class ServerSummary:
+class VolumeServer:
+    state: VolumeServerState
+
+    boot: bool
+
+    zone: Zone
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
     id: str
+
+    size: int
+
+    server: ServerSummary
+
+    organization: str
+
+    export_uri: str
 
     name: str
 
+    project: str
+
+    volume_type: VolumeServerVolumeType
+
+    modification_date: Optional[datetime]
+
+    creation_date: Optional[datetime]
+
 
 @dataclass
-class ServerType:
+class SnapshotBaseVolume:
+    name: str
     """
-    Server type.
-    """
-
-    monthly_price: Optional[float]
-    """
-    Estimated monthly price, for a 30 days month, in Euro.
-    :deprecated
+    Volume name on which the snapshot is based on.
     """
 
-    hourly_price: float
+    id: str
     """
-    Hourly price in Euro.
-    """
-
-    alt_names: List[str]
-    """
-    Alternative Instance name, if any.
-    """
-
-    per_volume_constraint: Optional[ServerTypeVolumeConstraintsByType]
-    """
-    Additional volume constraints.
-    """
-
-    volumes_constraint: Optional[ServerTypeVolumeConstraintSizes]
-    """
-    Initial volume constraints.
-    """
-
-    ncpus: int
-    """
-    Number of CPU.
-    """
-
-    gpu: Optional[int]
-    """
-    Number of GPU.
-    """
-
-    ram: int
-    """
-    Available RAM in bytes.
-    """
-
-    arch: Arch
-    """
-    CPU architecture.
-    """
-
-    baremetal: bool
-    """
-    True if it is a baremetal Instance.
-    """
-
-    network: Optional[ServerTypeNetwork]
-    """
-    Network available for the Instance.
-    """
-
-    capabilities: Optional[ServerTypeCapabilities]
-    """
-    Capabilities.
-    """
-
-    scratch_storage_max_size: Optional[int]
-    """
-    Maximum available scratch storage.
+    Volume ID on which the snapshot is based.
     """
 
 
 @dataclass
 class ServerTypeCapabilities:
+    boot_types: List[BootType]
     """
-    Server type. capabilities.
+    List of supported boot types.
     """
 
     block_storage: Optional[bool]
@@ -1417,16 +721,12 @@ class ServerTypeCapabilities:
     Defines whether the Instance supports block storage.
     """
 
-    boot_types: List[BootType]
-    """
-    List of supported boot types.
-    """
-
 
 @dataclass
 class ServerTypeNetwork:
+    ipv6_support: bool
     """
-    Server type. network.
+    True if IPv6 is enabled.
     """
 
     interfaces: List[ServerTypeNetworkInterface]
@@ -1444,176 +744,364 @@ class ServerTypeNetwork:
     Total maximum internet bandwidth in bits per seconds.
     """
 
-    ipv6_support: bool
-    """
-    True if IPv6 is enabled.
-    """
-
-
-@dataclass
-class ServerTypeNetworkInterface:
-    """
-    Server type. network. interface.
-    """
-
-    internal_bandwidth: Optional[int]
-    """
-    Maximum internal bandwidth in bits per seconds.
-    """
-
-    internet_bandwidth: Optional[int]
-    """
-    Maximum internet bandwidth in bits per seconds.
-    """
-
-
-@dataclass
-class ServerTypeVolumeConstraintSizes:
-    """
-    Server type. volume constraint sizes.
-    """
-
-    min_size: int
-    """
-    Minimum volume size in bytes.
-    """
-
-    max_size: int
-    """
-    Maximum volume size in bytes.
-    """
-
 
 @dataclass
 class ServerTypeVolumeConstraintsByType:
-    """
-    Server type. volume constraints by type.
-    """
-
-    l_ssd: Optional[ServerTypeVolumeConstraintSizes]
+    l_ssd: ServerTypeVolumeConstraintSizes
     """
     Local SSD volumes.
     """
 
 
 @dataclass
-class SetPlacementGroupResponse:
-    placement_group: Optional[PlacementGroup]
+class VolumeTypeCapabilities:
+    snapshot: bool
 
 
 @dataclass
-class SetPlacementGroupServersResponse:
-    """
-    Set placement group servers response.
-    """
+class VolumeTypeConstraints:
+    max: int
 
-    servers: List[PlacementGroupServer]
-    """
-    Instances attached to the placement group.
-    """
+    min: int
 
 
 @dataclass
-class SetSecurityGroupRulesRequestRule:
-    """
-    Set security group rules request. rule.
-    """
-
-    id: Optional[str]
-    """
-    UUID of the security rule to update. If no value is provided, a new rule will be created.
-    """
-
-    action: SecurityGroupRuleAction
-    """
-    Action to apply when the rule matches a packet.
-    """
-
-    protocol: SecurityGroupRuleProtocol
-    """
-    Protocol family this rule applies to.
-    """
-
-    direction: SecurityGroupRuleDirection
-    """
-    Direction the rule applies to.
-    """
-
-    ip_range: str
-    """
-    Range of IP addresses these rules apply to.
-    """
-
-    dest_port_from: Optional[int]
-    """
-    Beginning of the range of ports this rule applies to (inclusive). This value will be set to null if protocol is ICMP or ANY.
-    """
-
-    dest_port_to: Optional[int]
-    """
-    End of the range of ports this rule applies to (inclusive). This value will be set to null if protocol is ICMP or ANY, or if it is equal to dest_port_from.
-    """
-
-    position: int
-    """
-    Position of this rule in the security group rules list. If several rules are passed with the same position, the resulting order is undefined.
-    """
-
-    editable: Optional[bool]
-    """
-    Indicates if this rule is editable. Rules with the value false will be ignored.
-    """
-
-    zone: Zone
-    """
-    Zone of the rule. This field is ignored.
-    """
-
-
-@dataclass
-class SetSecurityGroupRulesResponse:
-    rules: List[SecurityGroupRule]
-
-
-@dataclass
-class Snapshot:
-    """
-    Snapshot.
-    """
-
-    id: str
-    """
-    Snapshot ID.
-    """
-
-    name: str
-    """
-    Snapshot name.
-    """
-
-    organization: str
-    """
-    Snapshot Organization ID.
-    """
-
-    project: str
-    """
-    Snapshot Project ID.
-    """
-
-    tags: List[str]
-    """
-    Snapshot tags.
-    """
-
+class VolumeTemplate:
     volume_type: VolumeVolumeType
     """
-    Snapshot volume type.
+    Type of the volume.
     """
 
     size: int
     """
-    Snapshot size.
+    Disk size of the volume, must be a multiple of 512.
+    """
+
+    name: str
+    """
+    Name of the volume.
+    """
+
+    id: str
+    """
+    UUID of the volume.
+    """
+
+    organization: Optional[str]
+
+    project: Optional[str]
+
+
+@dataclass
+class Ip:
+    zone: Zone
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    prefix: str
+
+    state: IpState
+
+    type_: IpType
+
+    project: str
+
+    tags: List[str]
+
+    organization: str
+
+    server: ServerSummary
+
+    address: str
+
+    id: str
+
+    reverse: Optional[str]
+
+
+@dataclass
+class SecurityGroup:
+    state: SecurityGroupState
+    """
+    Security group state.
+    """
+
+    project_default: bool
+    """
+    True if it is your default security group for this Project ID.
+    """
+
+    zone: Zone
+    """
+    Zone in which the security group is located.
+    """
+
+    id: str
+    """
+    Security group unique ID.
+    """
+
+    project: str
+    """
+    Security group Project ID.
+    """
+
+    servers: List[ServerSummary]
+    """
+    List of Instances attached to this security group.
+    """
+
+    outbound_default_policy: SecurityGroupPolicy
+    """
+    Default outbound policy.
+    """
+
+    inbound_default_policy: SecurityGroupPolicy
+    """
+    Default inbound policy.
+    """
+
+    enable_default_security: bool
+    """
+    True if SMTP is blocked on IPv4 and IPv6. This feature is read only, please open a support ticket if you need to make it configurable.
+    """
+
+    description: str
+    """
+    Security group description.
+    """
+
+    name: str
+    """
+    Security group name.
+    """
+
+    stateful: bool
+    """
+    Defines whether the security group is stateful.
+    """
+
+    organization: str
+    """
+    Security group Organization ID.
+    """
+
+    tags: List[str]
+    """
+    Security group tags.
+    """
+
+    modification_date: Optional[datetime]
+    """
+    Security group modification date.
+    """
+
+    creation_date: Optional[datetime]
+    """
+    Security group creation date.
+    """
+
+    organization_default: Optional[bool]
+    """
+    True if it is your default security group for this Organization ID.
+    """
+
+
+@dataclass
+class SecurityGroupRule:
+    zone: Zone
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    editable: bool
+
+    position: int
+
+    ip_range: str
+
+    action: SecurityGroupRuleAction
+
+    direction: SecurityGroupRuleDirection
+
+    protocol: SecurityGroupRuleProtocol
+
+    id: str
+
+    dest_port_from: Optional[int]
+
+    dest_port_to: Optional[int]
+
+
+@dataclass
+class Server:
+    placement_group: PlacementGroup
+    """
+    Instance placement group.
+    """
+
+    boot_type: BootType
+    """
+    Instance boot type.
+    """
+
+    allowed_actions: List[ServerAction]
+    """
+    List of allowed actions on the Instance.
+    """
+
+    id: str
+    """
+    Instance unique ID.
+    """
+
+    name: str
+    """
+    Instance name.
+    """
+
+    commercial_type: str
+    """
+    Instance commercial type (eg. GP1-M).
+    """
+
+    state: ServerState
+    """
+    Instance state.
+    """
+
+    routed_ip_enabled: bool
+    """
+    True to configure the instance so it uses the new routed IP mode.
+    """
+
+    zone: Zone
+    """
+    Zone in which the Instance is located.
+    """
+
+    tags: List[str]
+    """
+    Tags associated with the Instance.
+    """
+
+    public_ip: ServerIp
+    """
+    Information about the public IP.
+    """
+
+    maintenances: List[ServerMaintenance]
+    """
+    Instance planned maintenance.
+    """
+
+    dynamic_ip_required: bool
+    """
+    True if a dynamic IPv4 is required.
+    """
+
+    mac_address: str
+    """
+    The server's MAC address.
+    """
+
+    state_detail: str
+    """
+    Detailed information about the Instance state.
+    """
+
+    enable_ipv6: bool
+    """
+    True if IPv6 is enabled.
+    """
+
+    volumes: Dict[str, VolumeServer]
+    """
+    Instance volumes.
+    """
+
+    location: ServerLocation
+    """
+    Instance location.
+    """
+
+    organization: str
+    """
+    Instance Organization ID.
+    """
+
+    private_nics: List[PrivateNIC]
+    """
+    Instance private NICs.
+    """
+
+    arch: Arch
+    """
+    Instance architecture.
+    """
+
+    ipv6: ServerIpv6
+    """
+    Instance IPv6 address.
+    """
+
+    protected: bool
+    """
+    Defines whether the Instance protection option is activated.
+    """
+
+    project: str
+    """
+    Instance Project ID.
+    """
+
+    hostname: str
+    """
+    Instance host name.
+    """
+
+    security_group: SecurityGroupSummary
+    """
+    Instance security group.
+    """
+
+    image: Image
+    """
+    Information about the Instance image.
+    """
+
+    public_ips: List[ServerIp]
+    """
+    Information about all the public IPs attached to the server.
+    """
+
+    bootscript: Optional[Bootscript]
+    """
+    Instance bootscript.
+    """
+
+    modification_date: Optional[datetime]
+    """
+    Instance modification date.
+    """
+
+    private_ip: Optional[str]
+    """
+    Private IP address of the Instance.
+    """
+
+    creation_date: Optional[datetime]
+    """
+    Instance creation date.
+    """
+
+
+@dataclass
+class Snapshot:
+    base_volume: SnapshotBaseVolume
+    """
+    Volume on which the snapshot is based on.
     """
 
     state: SnapshotState
@@ -1621,14 +1109,44 @@ class Snapshot:
     Snapshot state.
     """
 
-    base_volume: Optional[SnapshotBaseVolume]
+    id: str
     """
-    Volume on which the snapshot is based on.
+    Snapshot ID.
     """
 
-    creation_date: Optional[datetime]
+    volume_type: VolumeVolumeType
     """
-    Snapshot creation date.
+    Snapshot volume type.
+    """
+
+    tags: List[str]
+    """
+    Snapshot tags.
+    """
+
+    project: str
+    """
+    Snapshot Project ID.
+    """
+
+    organization: str
+    """
+    Snapshot Organization ID.
+    """
+
+    name: str
+    """
+    Snapshot name.
+    """
+
+    zone: Zone
+    """
+    Snapshot zone.
+    """
+
+    size: int
+    """
+    Snapshot size.
     """
 
     modification_date: Optional[datetime]
@@ -1636,9 +1154,9 @@ class Snapshot:
     Snapshot modification date.
     """
 
-    zone: Zone
+    creation_date: Optional[datetime]
     """
-    Snapshot zone.
+    Snapshot creation date.
     """
 
     error_reason: Optional[str]
@@ -1648,31 +1166,24 @@ class Snapshot:
 
 
 @dataclass
-class SnapshotBaseVolume:
-    """
-    Snapshot. base volume.
-    """
-
-    id: str
-    """
-    Volume ID on which the snapshot is based.
-    """
-
-    name: str
-    """
-    Volume name on which the snapshot is based on.
-    """
-
-
-@dataclass
 class Task:
+    zone: Zone
     """
-    Task.
+    Zone in which the task is excecuted.
     """
 
-    id: str
+    href_result: str
+
+    href_from: str
+
+    status: TaskStatus
     """
-    Unique ID of the task.
+    Task status.
+    """
+
+    progress: int
+    """
+    Progress of the task in percent.
     """
 
     description: str
@@ -1680,9 +1191,9 @@ class Task:
     Description of the task.
     """
 
-    progress: int
+    id: str
     """
-    Progress of the task in percent.
+    Unique ID of the task.
     """
 
     started_at: Optional[datetime]
@@ -1695,159 +1206,207 @@ class Task:
     Task end date.
     """
 
-    status: TaskStatus
-    """
-    Task status.
-    """
 
-    href_from: str
+@dataclass
+class Dashboard:
+    volumes_l_ssd_total_size: int
 
-    href_result: str
+    volumes_b_ssd_count: int
 
-    zone: Zone
-    """
-    Zone in which the task is excecuted.
-    """
+    volumes_l_ssd_count: int
+
+    ips_unused: int
+
+    security_groups_count: int
+
+    private_nics_count: int
+
+    servers_count: int
+
+    snapshots_count: int
+
+    images_count: int
+
+    servers_by_types: Dict[str, int]
+
+    running_servers_count: int
+
+    volumes_b_ssd_total_size: int
+
+    placement_groups_count: int
+
+    volumes_count: int
+
+    ips_count: int
 
 
 @dataclass
-class UpdateIpResponse:
-    ip: Optional[Ip]
-
-
-@dataclass
-class UpdatePlacementGroupResponse:
-    placement_group: Optional[PlacementGroup]
-
-
-@dataclass
-class UpdatePlacementGroupServersResponse:
+class PlacementGroupServer:
+    policy_respected: bool
     """
-    Update placement group servers response.
-    """
-
-    servers: List[PlacementGroupServer]
-    """
-    Instances attached to the placement group.
-    """
-
-
-@dataclass
-class UpdateServerResponse:
-    server: Optional[Server]
-
-
-@dataclass
-class UpdateVolumeResponse:
-    volume: Optional[Volume]
-
-
-@dataclass
-class Volume:
-    """
-    Volume.
-    """
-
-    id: str
-    """
-    Volume unique ID.
+    Defines whether the placement group policy is respected (either 1 or 0).
     """
 
     name: str
     """
-    Volume name.
+    Instance name.
     """
 
-    export_uri: Optional[str]
+    id: str
     """
-    Show the volume NBD export URI.
-    :deprecated
-    """
-
-    size: int
-    """
-    Volume disk size.
-    """
-
-    volume_type: VolumeVolumeType
-    """
-    Volume type.
-    """
-
-    creation_date: Optional[datetime]
-    """
-    Volume creation date.
-    """
-
-    modification_date: Optional[datetime]
-    """
-    Volume modification date.
-    """
-
-    organization: str
-    """
-    Volume Organization ID.
-    """
-
-    project: str
-    """
-    Volume Project ID.
-    """
-
-    tags: List[str]
-    """
-    Volume tags.
-    """
-
-    server: Optional[ServerSummary]
-    """
-    Instance attached to the volume.
-    """
-
-    state: VolumeState
-    """
-    Volume state.
-    """
-
-    zone: Zone
-    """
-    Zone in which the volume is located.
+    Instance UUID.
     """
 
 
 @dataclass
-class VolumeServer:
-    id: str
+class GetServerTypesAvailabilityResponseAvailability:
+    availability: ServerTypesAvailability
 
-    name: str
 
-    export_uri: str
+@dataclass
+class ServerType:
+    arch: Arch
+    """
+    CPU architecture.
+    """
 
-    organization: str
+    ram: int
+    """
+    Available RAM in bytes.
+    """
 
-    server: Optional[ServerSummary]
+    network: ServerTypeNetwork
+    """
+    Network available for the Instance.
+    """
 
-    size: int
+    ncpus: int
+    """
+    Number of CPU.
+    """
 
-    volume_type: VolumeServerVolumeType
+    volumes_constraint: ServerTypeVolumeConstraintSizes
+    """
+    Initial volume constraints.
+    """
 
-    creation_date: Optional[datetime]
+    capabilities: ServerTypeCapabilities
+    """
+    Capabilities.
+    """
 
-    modification_date: Optional[datetime]
+    alt_names: List[str]
+    """
+    Alternative Instance name, if any.
+    """
 
-    state: VolumeServerState
+    hourly_price: float
+    """
+    Hourly price in Euro.
+    """
 
-    project: str
+    baremetal: bool
+    """
+    True if it is a baremetal Instance.
+    """
 
-    boot: bool
+    per_volume_constraint: ServerTypeVolumeConstraintsByType
+    """
+    Additional volume constraints.
+    """
 
-    zone: Zone
+    gpu: Optional[int]
+    """
+    Number of GPU.
+    """
+
+    monthly_price: Optional[float]
+    """
+    Estimated monthly price, for a 30 days month, in Euro.
+    """
+
+    scratch_storage_max_size: Optional[int]
+    """
+    Maximum available scratch storage.
+    """
+
+
+@dataclass
+class VolumeType:
+    constraints: VolumeTypeConstraints
+
+    capabilities: VolumeTypeCapabilities
+
+    display_name: str
+
+
+@dataclass
+class ServerActionRequestVolumeBackupTemplate:
+    volume_type: SnapshotVolumeType
+    """
+    Overrides the `volume_type` of the snapshot for this volume.
+If omitted, the volume type of the original volume will be used.
+    """
+
+
+@dataclass
+class SetSecurityGroupRulesRequestRule:
+    position: int
+    """
+    Position of this rule in the security group rules list. If several rules are passed with the same position, the resulting order is undefined.
+    """
+
+    ip_range: str
+    """
+    Range of IP addresses these rules apply to.
+    """
+
+    direction: SecurityGroupRuleDirection
+    """
+    Direction the rule applies to.
+    """
+
+    protocol: SecurityGroupRuleProtocol
+    """
+    Protocol family this rule applies to.
+    """
+
+    action: SecurityGroupRuleAction
+    """
+    Action to apply when the rule matches a packet.
+    """
+
+    id: Optional[str]
+    """
+    UUID of the security rule to update. If no value is provided, a new rule will be created.
+    """
+
+    dest_port_from: Optional[int]
+    """
+    Beginning of the range of ports this rule applies to (inclusive). This value will be set to null if protocol is ICMP or ANY.
+    """
+
+    dest_port_to: Optional[int]
+    """
+    End of the range of ports this rule applies to (inclusive). This value will be set to null if protocol is ICMP or ANY, or if it is equal to dest_port_from.
+    """
+
+    editable: Optional[bool]
+    """
+    Indicates if this rule is editable. Rules with the value false will be ignored.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone of the rule. This field is ignored.
+    """
 
 
 @dataclass
 class VolumeServerTemplate:
+    volume_type: VolumeVolumeType
     """
-    Volume server template.
+    Type of the volume.
     """
 
     id: Optional[str]
@@ -1870,11 +1429,6 @@ class VolumeServerTemplate:
     Disk size of the volume, must be a multiple of 512.
     """
 
-    volume_type: VolumeVolumeType
-    """
-    Type of the volume.
-    """
-
     base_snapshot: Optional[str]
     """
     ID of the snapshot on which this volume will be based.
@@ -1892,77 +1446,728 @@ class VolumeServerTemplate:
 
 
 @dataclass
-class VolumeSummary:
-    id: str
-
+class SecurityGroupTemplate:
     name: str
 
-    size: int
-
-    volume_type: VolumeVolumeType
+    id: str
 
 
 @dataclass
-class VolumeTemplate:
+class ApplyBlockMigrationRequest:
+    validation_key: str
     """
-    Volume template.
+    A value to be retrieved from a call to PlanBlockMigration, to confirm that the volume and/or snapshots specified in said plan should be migrated.
     """
 
-    id: str
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    volume_id: Optional[str]
+
+    snapshot_id: Optional[str]
+
+
+@dataclass
+class CreateImageRequest:
+    extra_volumes: Dict[str, VolumeTemplate]
+    """
+    Additional volumes of the image.
+    """
+
+    root_volume: str
+    """
+    UUID of the snapshot.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    name: Optional[str]
+    """
+    Name of the image.
+    """
+
+    arch: Optional[Arch]
+    """
+    Architecture of the image.
+    """
+
+    default_bootscript: Optional[str]
+    """
+    Default bootscript of the image.
+    """
+
+    tags: Optional[List[str]]
+    """
+    Tags of the image.
+    """
+
+    public: Optional[bool]
+    """
+    True to create a public image.
+    """
+
+    organization: Optional[str]
+
+    project: Optional[str]
+
+
+@dataclass
+class CreateImageResponse:
+    image: Image
+
+
+@dataclass
+class CreateIpRequest:
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    tags: Optional[List[str]]
+    """
+    Tags of the IP.
+    """
+
+    server: Optional[str]
+    """
+    UUID of the Instance you want to attach the IP to.
+    """
+
+    type_: Optional[IpType]
+    """
+    IP type to reserve (either 'nat', 'routed_ipv4' or 'routed_ipv6').
+    """
+
+    organization: Optional[str]
+
+    project: Optional[str]
+
+
+@dataclass
+class CreateIpResponse:
+    ip: Ip
+
+
+@dataclass
+class CreatePlacementGroupRequest:
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    name: Optional[str]
+    """
+    Name of the placement group.
+    """
+
+    tags: Optional[List[str]]
+    """
+    Tags of the placement group.
+    """
+
+    policy_mode: Optional[PlacementGroupPolicyMode]
+    """
+    Operating mode of the placement group.
+    """
+
+    policy_type: Optional[PlacementGroupPolicyType]
+    """
+    Policy type of the placement group.
+    """
+
+    organization: Optional[str]
+
+    project: Optional[str]
+
+
+@dataclass
+class CreatePlacementGroupResponse:
+    placement_group: PlacementGroup
+
+
+@dataclass
+class CreatePrivateNICRequest:
+    private_network_id: str
+    """
+    UUID of the private network where the private NIC will be attached.
+    """
+
+    server_id: str
+    """
+    UUID of the Instance the private NIC will be attached to.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    tags: Optional[List[str]]
+    """
+    Private NIC tags.
+    """
+
+    ip_ids: Optional[List[str]]
+    """
+    Ip_ids defined from IPAM.
+    """
+
+
+@dataclass
+class CreatePrivateNICResponse:
+    private_nic: PrivateNIC
+
+
+@dataclass
+class CreateSecurityGroupRequest:
+    stateful: bool
+    """
+    Whether the security group is stateful or not.
+    """
+
+    description: str
+    """
+    Description of the security group.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    name: Optional[str]
+    """
+    Name of the security group.
+    """
+
+    tags: Optional[List[str]]
+    """
+    Tags of the security group.
+    """
+
+    inbound_default_policy: Optional[SecurityGroupPolicy]
+    """
+    Default policy for inbound rules.
+    """
+
+    outbound_default_policy: Optional[SecurityGroupPolicy]
+    """
+    Default policy for outbound rules.
+    """
+
+    enable_default_security: Optional[bool]
+    """
+    True to block SMTP on IPv4 and IPv6. This feature is read only, please open a support ticket if you need to make it configurable.
+    """
+
+    organization: Optional[str]
+
+    project: Optional[str]
+
+    organization_default: Optional[bool]
+
+    project_default: Optional[bool]
+
+
+@dataclass
+class CreateSecurityGroupResponse:
+    security_group: SecurityGroup
+
+
+@dataclass
+class CreateSecurityGroupRuleRequest:
+    editable: bool
+    """
+    Indicates if this rule is editable (will be ignored).
+    """
+
+    position: int
+    """
+    Position of this rule in the security group rules list.
+    """
+
+    ip_range: str
+
+    security_group_id: str
+    """
+    UUID of the security group.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    protocol: Optional[SecurityGroupRuleProtocol]
+
+    direction: Optional[SecurityGroupRuleDirection]
+
+    action: Optional[SecurityGroupRuleAction]
+
+    dest_port_from: Optional[int]
+    """
+    Beginning of the range of ports to apply this rule to (inclusive).
+    """
+
+    dest_port_to: Optional[int]
+    """
+    End of the range of ports to apply this rule to (inclusive).
+    """
+
+
+@dataclass
+class CreateSecurityGroupRuleResponse:
+    rule: SecurityGroupRule
+
+
+@dataclass
+class CreateServerResponse:
+    server: Server
+
+
+@dataclass
+class CreateSnapshotRequest:
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    name: Optional[str]
+    """
+    Name of the snapshot.
+    """
+
+    volume_id: Optional[str]
     """
     UUID of the volume.
     """
 
-    name: str
+    tags: Optional[List[str]]
     """
-    Name of the volume.
-    """
-
-    size: int
-    """
-    Disk size of the volume, must be a multiple of 512.
+    Tags of the snapshot.
     """
 
-    volume_type: VolumeVolumeType
+    volume_type: Optional[SnapshotVolumeType]
     """
-    Type of the volume.
+    Overrides the volume_type of the snapshot.
+If omitted, the volume type of the original volume will be used.
+    """
+
+    bucket: Optional[str]
+    """
+    Bucket name for snapshot imports.
+    """
+
+    key: Optional[str]
+    """
+    Object key for snapshot imports.
+    """
+
+    size: Optional[int]
+    """
+    Imported snapshot size, must be a multiple of 512.
     """
 
     organization: Optional[str]
-    """
-    Organization ID of the volume.
-    
-    One-of ('project_identifier'): at most one of 'organization', 'project' could be set.
-    :deprecated
-    """
 
     project: Optional[str]
+
+
+@dataclass
+class CreateSnapshotResponse:
+    task: Task
+
+    snapshot: Snapshot
+
+
+@dataclass
+class CreateVolumeRequest:
+    zone: Optional[Zone]
     """
-    Project ID of the volume.
-    
-    One-of ('project_identifier'): at most one of 'organization', 'project' could be set.
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    name: Optional[str]
+    """
+    Volume name.
+    """
+
+    tags: Optional[List[str]]
+    """
+    Volume tags.
+    """
+
+    volume_type: Optional[VolumeVolumeType]
+    """
+    Volume type.
+    """
+
+    organization: Optional[str]
+
+    project: Optional[str]
+
+    size: Optional[int]
+
+    base_volume: Optional[str]
+
+    base_snapshot: Optional[str]
+
+
+@dataclass
+class CreateVolumeResponse:
+    volume: Volume
+
+
+@dataclass
+class DeleteImageRequest:
+    image_id: str
+    """
+    UUID of the image you want to delete.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
     """
 
 
 @dataclass
-class VolumeType:
-    display_name: str
+class DeleteIpRequest:
+    ip: str
+    """
+    ID or address of the IP to delete.
+    """
 
-    capabilities: Optional[VolumeTypeCapabilities]
-
-    constraints: Optional[VolumeTypeConstraints]
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
 
 
 @dataclass
-class VolumeTypeCapabilities:
-    snapshot: bool
+class DeletePlacementGroupRequest:
+    placement_group_id: str
+    """
+    UUID of the placement group you want to delete.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
 
 
 @dataclass
-class VolumeTypeConstraints:
-    min: int
+class DeletePrivateNICRequest:
+    private_nic_id: str
+    """
+    Private NIC unique ID.
+    """
 
-    max: int
+    server_id: str
+    """
+    Instance to which the private NIC is attached.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class DeleteSecurityGroupRequest:
+    security_group_id: str
+    """
+    UUID of the security group you want to delete.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class DeleteSecurityGroupRuleRequest:
+    security_group_rule_id: str
+
+    security_group_id: str
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class DeleteServerRequest:
+    server_id: str
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class DeleteServerUserDataRequest:
+    key: str
+    """
+    Key of the user data to delete.
+    """
+
+    server_id: str
+    """
+    UUID of the Instance.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class DeleteSnapshotRequest:
+    snapshot_id: str
+    """
+    UUID of the snapshot you want to delete.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class DeleteVolumeRequest:
+    volume_id: str
+    """
+    UUID of the volume you want to delete.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class ExportSnapshotRequest:
+    key: str
+    """
+    S3 object key.
+    """
+
+    bucket: str
+    """
+    S3 bucket name.
+    """
+
+    snapshot_id: str
+    """
+    Snapshot ID.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class ExportSnapshotResponse:
+    task: Task
+
+
+@dataclass
+class GetBootscriptRequest:
+    bootscript_id: str
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class GetBootscriptResponse:
+    bootscript: Bootscript
+
+
+@dataclass
+class GetDashboardRequest:
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    organization: Optional[str]
+
+    project: Optional[str]
+
+
+@dataclass
+class GetDashboardResponse:
+    dashboard: Dashboard
+
+
+@dataclass
+class GetImageRequest:
+    image_id: str
+    """
+    UUID of the image you want to get.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class GetImageResponse:
+    image: Image
+
+
+@dataclass
+class GetIpRequest:
+    ip: str
+    """
+    IP ID or address to get.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class GetIpResponse:
+    ip: Ip
+
+
+@dataclass
+class GetPlacementGroupRequest:
+    placement_group_id: str
+    """
+    UUID of the placement group you want to get.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class GetPlacementGroupResponse:
+    placement_group: PlacementGroup
+
+
+@dataclass
+class GetPlacementGroupServersRequest:
+    placement_group_id: str
+    """
+    UUID of the placement group you want to get.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class GetPlacementGroupServersResponse:
+    servers: List[PlacementGroupServer]
+    """
+    Instances attached to the placement group.
+    """
+
+
+@dataclass
+class GetPrivateNICRequest:
+    private_nic_id: str
+    """
+    Private NIC unique ID.
+    """
+
+    server_id: str
+    """
+    Instance to which the private NIC is attached.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class GetPrivateNICResponse:
+    private_nic: PrivateNIC
+
+
+@dataclass
+class GetSecurityGroupRequest:
+    security_group_id: str
+    """
+    UUID of the security group you want to get.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class GetSecurityGroupResponse:
+    security_group: SecurityGroup
+
+
+@dataclass
+class GetSecurityGroupRuleRequest:
+    security_group_rule_id: str
+
+    security_group_id: str
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class GetSecurityGroupRuleResponse:
+    rule: SecurityGroupRule
+
+
+@dataclass
+class GetServerRequest:
+    server_id: str
+    """
+    UUID of the Instance you want to get.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class GetServerResponse:
+    server: Server
 
 
 @dataclass
@@ -1984,11 +2189,65 @@ class GetServerTypesAvailabilityRequest:
 
 
 @dataclass
-class ListServersTypesRequest:
+class GetServerTypesAvailabilityResponse:
+    total_count: int
+
+    servers: Dict[str, GetServerTypesAvailabilityResponseAvailability]
+    """
+    Map of server types.
+    """
+
+
+@dataclass
+class GetSnapshotRequest:
+    snapshot_id: str
+    """
+    UUID of the snapshot you want to get.
+    """
+
     zone: Optional[Zone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
+
+
+@dataclass
+class GetSnapshotResponse:
+    snapshot: Snapshot
+
+
+@dataclass
+class GetVolumeRequest:
+    volume_id: str
+    """
+    UUID of the volume you want to get.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class GetVolumeResponse:
+    volume: Volume
+
+
+@dataclass
+class ListBootscriptsRequest:
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    arch: Optional[str]
+
+    title: Optional[str]
+
+    default: Optional[bool]
+
+    public: Optional[bool]
 
     per_page: Optional[int]
 
@@ -1996,15 +2255,328 @@ class ListServersTypesRequest:
 
 
 @dataclass
-class ListVolumesTypesRequest:
+class ListBootscriptsResponse:
+    bootscripts: List[Bootscript]
+    """
+    List of bootscripts.
+    """
+
+    total_count: int
+    """
+    Total number of bootscripts.
+    """
+
+
+@dataclass
+class ListDefaultSecurityGroupRulesRequest:
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class ListImagesRequest:
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    organization: Optional[str]
+
+    per_page: Optional[int]
+
+    page: Optional[int]
+
+    name: Optional[str]
+
+    public: Optional[bool]
+
+    arch: Optional[str]
+
+    project: Optional[str]
+
+    tags: Optional[str]
+
+
+@dataclass
+class ListImagesResponse:
+    images: List[Image]
+    """
+    List of images.
+    """
+
+    total_count: int
+    """
+    Total number of images.
+    """
+
+
+@dataclass
+class ListIpsRequest:
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    project: Optional[str]
+    """
+    Project ID in which the IPs are reserved.
+    """
+
+    organization: Optional[str]
+    """
+    Organization ID in which the IPs are reserved.
+    """
+
+    tags: Optional[List[str]]
+    """
+    Filter IPs with these exact tags (to filter with several tags, use commas to separate them).
+    """
+
+    name: Optional[str]
+    """
+    Filter on the IP address (Works as a LIKE operation on the IP address).
+    """
+
+    per_page: Optional[int]
+    """
+    A positive integer lower or equal to 100 to select the number of items to return.
+    """
+
+    page: Optional[int]
+    """
+    A positive integer to choose the page to return.
+    """
+
+    type_: Optional[str]
+    """
+    Filter on the IP Mobility IP type (whose value should be either 'nat', 'routed_ipv4' or 'routed_ipv6').
+    """
+
+
+@dataclass
+class ListIpsResponse:
+    ips: List[Ip]
+    """
+    List of ips.
+    """
+
+    total_count: int
+    """
+    Total number of ips.
+    """
+
+
+@dataclass
+class ListPlacementGroupsRequest:
     zone: Optional[Zone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
     per_page: Optional[int]
+    """
+    A positive integer lower or equal to 100 to select the number of items to return.
+    """
 
     page: Optional[int]
+    """
+    A positive integer to choose the page to return.
+    """
+
+    organization: Optional[str]
+    """
+    List only placement groups of this Organization ID.
+    """
+
+    project: Optional[str]
+    """
+    List only placement groups of this Project ID.
+    """
+
+    tags: Optional[List[str]]
+    """
+    List placement groups with these exact tags (to filter with several tags, use commas to separate them).
+    """
+
+    name: Optional[str]
+    """
+    Filter placement groups by name (for eg. "cluster1" will return "cluster100" and "cluster1" but not "foo").
+    """
+
+
+@dataclass
+class ListPlacementGroupsResponse:
+    placement_groups: List[PlacementGroup]
+    """
+    List of placement groups.
+    """
+
+    total_count: int
+    """
+    Total number of placement groups.
+    """
+
+
+@dataclass
+class ListPrivateNICsRequest:
+    server_id: str
+    """
+    Instance to which the private NIC is attached.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    tags: Optional[List[str]]
+    """
+    Private NIC tags.
+    """
+
+    per_page: Optional[int]
+    """
+    A positive integer lower or equal to 100 to select the number of items to return.
+    """
+
+    page: Optional[int]
+    """
+    A positive integer to choose the page to return.
+    """
+
+
+@dataclass
+class ListPrivateNICsResponse:
+    total_count: int
+
+    private_nics: List[PrivateNIC]
+
+
+@dataclass
+class ListSecurityGroupRulesRequest:
+    security_group_id: str
+    """
+    UUID of the security group.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    per_page: Optional[int]
+    """
+    A positive integer lower or equal to 100 to select the number of items to return.
+    """
+
+    page: Optional[int]
+    """
+    A positive integer to choose the page to return.
+    """
+
+
+@dataclass
+class ListSecurityGroupRulesResponse:
+    rules: List[SecurityGroupRule]
+    """
+    List of security rules.
+    """
+
+    total_count: int
+    """
+    Total number of security groups.
+    """
+
+
+@dataclass
+class ListSecurityGroupsRequest:
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    name: Optional[str]
+    """
+    Name of the security group.
+    """
+
+    organization: Optional[str]
+    """
+    Security group Organization ID.
+    """
+
+    project: Optional[str]
+    """
+    Security group Project ID.
+    """
+
+    tags: Optional[List[str]]
+    """
+    List security groups with these exact tags (to filter with several tags, use commas to separate them).
+    """
+
+    project_default: Optional[bool]
+    """
+    Filter security groups with this value for project_default.
+    """
+
+    per_page: Optional[int]
+    """
+    A positive integer lower or equal to 100 to select the number of items to return.
+    """
+
+    page: Optional[int]
+    """
+    A positive integer to choose the page to return.
+    """
+
+
+@dataclass
+class ListSecurityGroupsResponse:
+    security_groups: List[SecurityGroup]
+    """
+    List of security groups.
+    """
+
+    total_count: int
+    """
+    Total number of security groups.
+    """
+
+
+@dataclass
+class ListServerActionsRequest:
+    server_id: str
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class ListServerActionsResponse:
+    actions: List[ServerAction]
+
+
+@dataclass
+class ListServerUserDataRequest:
+    server_id: str
+    """
+    UUID of the Instance.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class ListServerUserDataResponse:
+    user_data: List[str]
 
 
 @dataclass
@@ -2091,207 +2663,40 @@ class ListServersRequest:
 
 
 @dataclass
-class DeleteServerRequest:
-    zone: Optional[Zone]
+class ListServersResponse:
+    servers: List[Server]
     """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    server_id: str
-
-
-@dataclass
-class GetServerRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
+    List of Instances.
     """
 
-    server_id: str
+    total_count: int
     """
-    UUID of the Instance you want to get.
+    Total number of Instances.
     """
 
 
 @dataclass
-class ListServerActionsRequest:
+class ListServersTypesRequest:
     zone: Optional[Zone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
-
-    server_id: str
-
-
-@dataclass
-class ServerActionRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    server_id: str
-    """
-    UUID of the Instance.
-    """
-
-    action: ServerAction
-    """
-    Action to perform on the Instance.
-    """
-
-    name: Optional[str]
-    """
-    Name of the backup you want to create.
-    Name of the backup you want to create.
-    This field should only be specified when performing a backup action.
-    """
-
-    volumes: Optional[Dict[str, ServerActionRequestVolumeBackupTemplate]]
-    """
-    For each volume UUID, the snapshot parameters of the volume.
-    For each volume UUID, the snapshot parameters of the volume.
-    This field should only be specified when performing a backup action.
-    """
-
-
-@dataclass
-class ListServerUserDataRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    server_id: str
-    """
-    UUID of the Instance.
-    """
-
-
-@dataclass
-class DeleteServerUserDataRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    server_id: str
-    """
-    UUID of the Instance.
-    """
-
-    key: str
-    """
-    Key of the user data to delete.
-    """
-
-
-@dataclass
-class ListImagesRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    organization: Optional[str]
 
     per_page: Optional[int]
 
     page: Optional[int]
 
-    name: Optional[str]
-
-    public: Optional[bool]
-
-    arch: Optional[str]
-
-    project: Optional[str]
-
-    tags: Optional[str]
-
 
 @dataclass
-class GetImageRequest:
-    zone: Optional[Zone]
+class ListServersTypesResponse:
+    servers: Dict[str, ServerType]
     """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    image_id: str
-    """
-    UUID of the image you want to get.
+    List of Instance types.
     """
 
-
-@dataclass
-class CreateImageRequest:
-    zone: Optional[Zone]
+    total_count: int
     """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    name: Optional[str]
-    """
-    Name of the image.
-    """
-
-    root_volume: str
-    """
-    UUID of the snapshot.
-    """
-
-    arch: Optional[Arch]
-    """
-    Architecture of the image.
-    """
-
-    default_bootscript: Optional[str]
-    """
-    Default bootscript of the image.
-    :deprecated
-    """
-
-    extra_volumes: Optional[Dict[str, VolumeTemplate]]
-    """
-    Additional volumes of the image.
-    """
-
-    organization: Optional[str]
-    """
-    Organization ID of the image.
-    
-    One-of ('project_identifier'): at most one of 'organization', 'project' could be set.
-    :deprecated
-    """
-
-    project: Optional[str]
-    """
-    Project ID of the image.
-    
-    One-of ('project_identifier'): at most one of 'organization', 'project' could be set.
-    """
-
-    tags: Optional[List[str]]
-    """
-    Tags of the image.
-    """
-
-    public: Optional[bool]
-    """
-    True to create a public image.
-    """
-
-
-@dataclass
-class DeleteImageRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    image_id: str
-    """
-    UUID of the image you want to delete.
+    Total number of Instance types.
     """
 
 
@@ -2339,111 +2744,15 @@ class ListSnapshotsRequest:
 
 
 @dataclass
-class CreateSnapshotRequest:
-    zone: Optional[Zone]
+class ListSnapshotsResponse:
+    snapshots: List[Snapshot]
     """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    name: Optional[str]
-    """
-    Name of the snapshot.
+    List of snapshots.
     """
 
-    volume_id: Optional[str]
+    total_count: int
     """
-    UUID of the volume.
-    """
-
-    tags: Optional[List[str]]
-    """
-    Tags of the snapshot.
-    """
-
-    organization: Optional[str]
-    """
-    Organization ID of the snapshot.
-    
-    One-of ('project_identifier'): at most one of 'organization', 'project' could be set.
-    :deprecated
-    """
-
-    project: Optional[str]
-    """
-    Project ID of the snapshot.
-    
-    One-of ('project_identifier'): at most one of 'organization', 'project' could be set.
-    """
-
-    volume_type: SnapshotVolumeType
-    """
-    Volume type of the snapshot.
-    Overrides the volume_type of the snapshot.
-    If omitted, the volume type of the original volume will be used.
-    """
-
-    bucket: Optional[str]
-    """
-    Bucket name for snapshot imports.
-    """
-
-    key: Optional[str]
-    """
-    Object key for snapshot imports.
-    """
-
-    size: Optional[int]
-    """
-    Imported snapshot size, must be a multiple of 512.
-    """
-
-
-@dataclass
-class GetSnapshotRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    snapshot_id: str
-    """
-    UUID of the snapshot you want to get.
-    """
-
-
-@dataclass
-class DeleteSnapshotRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    snapshot_id: str
-    """
-    UUID of the snapshot you want to delete.
-    """
-
-
-@dataclass
-class ExportSnapshotRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    snapshot_id: str
-    """
-    Snapshot ID.
-    """
-
-    bucket: str
-    """
-    S3 bucket name.
-    """
-
-    key: str
-    """
-    S3 object key.
+    Total number of snapshots.
     """
 
 
@@ -2491,342 +2800,171 @@ class ListVolumesRequest:
 
 
 @dataclass
-class CreateVolumeRequest:
-    zone: Optional[Zone]
+class ListVolumesResponse:
+    volumes: List[Volume]
     """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    name: Optional[str]
-    """
-    Volume name.
+    List of volumes.
     """
 
-    organization: Optional[str]
+    total_count: int
     """
-    Volume Organization ID.
-    
-    One-of ('project_identifier'): at most one of 'organization', 'project' could be set.
-    :deprecated
-    """
-
-    project: Optional[str]
-    """
-    Volume Project ID.
-    
-    One-of ('project_identifier'): at most one of 'organization', 'project' could be set.
-    """
-
-    tags: Optional[List[str]]
-    """
-    Volume tags.
-    """
-
-    volume_type: VolumeVolumeType
-    """
-    Volume type.
-    """
-
-    size: Optional[int]
-    """
-    Volume disk size, must be a multiple of 512.
-    
-    One-of ('from_'): at most one of 'size', 'base_volume', 'base_snapshot' could be set.
-    """
-
-    base_volume: Optional[str]
-    """
-    ID of the volume on which this volume will be based.
-    
-    One-of ('from_'): at most one of 'size', 'base_volume', 'base_snapshot' could be set.
-    """
-
-    base_snapshot: Optional[str]
-    """
-    ID of the snapshot on which this volume will be based.
-    
-    One-of ('from_'): at most one of 'size', 'base_volume', 'base_snapshot' could be set.
+    Total number of volumes.
     """
 
 
 @dataclass
-class GetVolumeRequest:
+class ListVolumesTypesRequest:
     zone: Optional[Zone]
     """
     Zone to target. If none is passed will use default zone from the config.
-    """
-
-    volume_id: str
-    """
-    UUID of the volume you want to get.
-    """
-
-
-@dataclass
-class UpdateVolumeRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    volume_id: str
-    """
-    UUID of the volume.
-    """
-
-    name: Optional[str]
-    """
-    Volume name.
-    """
-
-    tags: Optional[List[str]]
-    """
-    Tags of the volume.
-    """
-
-    size: Optional[int]
-    """
-    Volume disk size, must be a multiple of 512.
-    """
-
-
-@dataclass
-class DeleteVolumeRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    volume_id: str
-    """
-    UUID of the volume you want to delete.
-    """
-
-
-@dataclass
-class ListSecurityGroupsRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    name: Optional[str]
-    """
-    Name of the security group.
-    """
-
-    organization: Optional[str]
-    """
-    Security group Organization ID.
-    """
-
-    project: Optional[str]
-    """
-    Security group Project ID.
-    """
-
-    tags: Optional[List[str]]
-    """
-    List security groups with these exact tags (to filter with several tags, use commas to separate them).
-    """
-
-    project_default: Optional[bool]
-    """
-    Filter security groups with this value for project_default.
     """
 
     per_page: Optional[int]
-    """
-    A positive integer lower or equal to 100 to select the number of items to return.
-    """
 
     page: Optional[int]
+
+
+@dataclass
+class ListVolumesTypesResponse:
+    volumes: Dict[str, VolumeType]
     """
-    A positive integer to choose the page to return.
+    Map of volume types.
+    """
+
+    total_count: int
+    """
+    Total number of volume types.
     """
 
 
 @dataclass
-class CreateSecurityGroupRequest:
+class MigrationPlan:
+    validation_key: str
+    """
+    A value to be passed to ApplyBlockMigrationRequest, to confirm that the execution of the plan is being requested.
+    """
+
+    snapshots: List[Snapshot]
+    """
+    A list of snapshots which will be migrated to SBS together and with the volume, if present.
+    """
+
+    volume: Volume
+    """
+    A volume which will be migrated to SBS together with the snapshots, if present.
+    """
+
+
+@dataclass
+class PlanBlockMigrationRequest:
     zone: Optional[Zone]
     """
     Zone to target. If none is passed will use default zone from the config.
+    """
+
+    volume_id: Optional[str]
+
+    snapshot_id: Optional[str]
+
+
+@dataclass
+class ServerActionRequest:
+    volumes: Dict[str, ServerActionRequestVolumeBackupTemplate]
+    """
+    For each volume UUID, the snapshot parameters of the volume.
+This field should only be specified when performing a backup action.
+    """
+
+    server_id: str
+    """
+    UUID of the Instance.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    action: Optional[ServerAction]
+    """
+    Action to perform on the Instance.
     """
 
     name: Optional[str]
     """
-    Name of the security group.
+    Name of the backup you want to create.
+This field should only be specified when performing a backup action.
     """
 
-    description: str
+
+@dataclass
+class ServerActionResponse:
+    task: Task
+
+
+@dataclass
+class SetPlacementGroupRequest:
+    name: str
+
+    placement_group_id: str
+
+    zone: Optional[Zone]
     """
-    Description of the security group.
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     organization: Optional[str]
-    """
-    Organization ID the security group belongs to.
-    
-    One-of ('project_identifier'): at most one of 'organization', 'project' could be set.
-    :deprecated
-    """
+
+    policy_mode: Optional[PlacementGroupPolicyMode]
+
+    policy_type: Optional[PlacementGroupPolicyType]
 
     project: Optional[str]
-    """
-    Project ID the security group belong to.
-    
-    One-of ('project_identifier'): at most one of 'organization', 'project' could be set.
-    """
 
     tags: Optional[List[str]]
-    """
-    Tags of the security group.
-    """
-
-    organization_default: Optional[bool]
-    """
-    Defines whether this security group becomes the default security group for new Instances.
-    
-    One-of ('default_identifier'): at most one of 'organization_default', 'project_default' could be set.
-    :deprecated
-    """
-
-    project_default: Optional[bool]
-    """
-    Whether this security group becomes the default security group for new Instances.
-    
-    One-of ('default_identifier'): at most one of 'organization_default', 'project_default' could be set.
-    """
-
-    stateful: bool
-    """
-    Whether the security group is stateful or not.
-    """
-
-    inbound_default_policy: SecurityGroupPolicy
-    """
-    Default policy for inbound rules.
-    """
-
-    outbound_default_policy: SecurityGroupPolicy
-    """
-    Default policy for outbound rules.
-    """
-
-    enable_default_security: Optional[bool]
-    """
-    True to block SMTP on IPv4 and IPv6. This feature is read only, please open a support ticket if you need to make it configurable.
-    """
 
 
 @dataclass
-class GetSecurityGroupRequest:
+class SetPlacementGroupResponse:
+    placement_group: PlacementGroup
+
+
+@dataclass
+class SetPlacementGroupServersRequest:
+    placement_group_id: str
+    """
+    UUID of the placement group you want to set.
+    """
+
     zone: Optional[Zone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    security_group_id: str
+    servers: Optional[List[str]]
     """
-    UUID of the security group you want to get.
-    """
-
-
-@dataclass
-class DeleteSecurityGroupRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    security_group_id: str
-    """
-    UUID of the security group you want to delete.
+    An array of the Instances' UUIDs you want to configure.
     """
 
 
 @dataclass
-class ListDefaultSecurityGroupRulesRequest:
-    zone: Optional[Zone]
+class SetPlacementGroupServersResponse:
+    servers: List[PlacementGroupServer]
     """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-
-@dataclass
-class ListSecurityGroupRulesRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    security_group_id: str
-    """
-    UUID of the security group.
-    """
-
-    per_page: Optional[int]
-    """
-    A positive integer lower or equal to 100 to select the number of items to return.
-    """
-
-    page: Optional[int]
-    """
-    A positive integer to choose the page to return.
-    """
-
-
-@dataclass
-class CreateSecurityGroupRuleRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    security_group_id: str
-    """
-    UUID of the security group.
-    """
-
-    protocol: Optional[SecurityGroupRuleProtocol]
-
-    direction: Optional[SecurityGroupRuleDirection]
-
-    action: Optional[SecurityGroupRuleAction]
-
-    ip_range: str
-
-    dest_port_from: Optional[int]
-    """
-    Beginning of the range of ports to apply this rule to (inclusive).
-    """
-
-    dest_port_to: Optional[int]
-    """
-    End of the range of ports to apply this rule to (inclusive).
-    """
-
-    position: int
-    """
-    Position of this rule in the security group rules list.
-    """
-
-    editable: bool
-    """
-    Indicates if this rule is editable (will be ignored).
+    Instances attached to the placement group.
     """
 
 
 @dataclass
 class SetSecurityGroupRulesRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
     security_group_id: str
     """
     UUID of the security group to update the rules on.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     rules: Optional[List[SetSecurityGroupRulesRequestRule]]
@@ -2836,155 +2974,55 @@ class SetSecurityGroupRulesRequest:
 
 
 @dataclass
-class DeleteSecurityGroupRuleRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    security_group_id: str
-
-    security_group_rule_id: str
+class SetSecurityGroupRulesResponse:
+    rules: List[SecurityGroupRule]
 
 
 @dataclass
-class GetSecurityGroupRuleRequest:
+class UpdateIpRequest:
+    ip: str
+    """
+    IP ID or IP address.
+    """
+
     zone: Optional[Zone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    security_group_id: str
-
-    security_group_rule_id: str
-
-
-@dataclass
-class ListPlacementGroupsRequest:
-    zone: Optional[Zone]
+    reverse: Optional[str]
     """
-    Zone to target. If none is passed will use default zone from the config.
+    Reverse domain name.
     """
 
-    per_page: Optional[int]
+    type_: Optional[IpType]
     """
-    A positive integer lower or equal to 100 to select the number of items to return.
-    """
-
-    page: Optional[int]
-    """
-    A positive integer to choose the page to return.
-    """
-
-    organization: Optional[str]
-    """
-    List only placement groups of this Organization ID.
-    """
-
-    project: Optional[str]
-    """
-    List only placement groups of this Project ID.
+    Convert a 'nat' IP to a 'routed_ipv4'.
     """
 
     tags: Optional[List[str]]
     """
-    List placement groups with these exact tags (to filter with several tags, use commas to separate them).
+    An array of keywords you want to tag this IP with.
     """
 
-    name: Optional[str]
-    """
-    Filter placement groups by name (for eg. "cluster1" will return "cluster100" and "cluster1" but not "foo").
-    """
+    server: Optional[str]
 
 
 @dataclass
-class CreatePlacementGroupRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    name: Optional[str]
-    """
-    Name of the placement group.
-    """
-
-    organization: Optional[str]
-    """
-    Organization ID of the placement group.
-    
-    One-of ('project_identifier'): at most one of 'organization', 'project' could be set.
-    :deprecated
-    """
-
-    project: Optional[str]
-    """
-    Project ID of the placement group.
-    
-    One-of ('project_identifier'): at most one of 'organization', 'project' could be set.
-    """
-
-    tags: Optional[List[str]]
-    """
-    Tags of the placement group.
-    """
-
-    policy_mode: PlacementGroupPolicyMode
-    """
-    Operating mode of the placement group.
-    """
-
-    policy_type: PlacementGroupPolicyType
-    """
-    Policy type of the placement group.
-    """
-
-
-@dataclass
-class GetPlacementGroupRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    placement_group_id: str
-    """
-    UUID of the placement group you want to get.
-    """
-
-
-@dataclass
-class SetPlacementGroupRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    placement_group_id: str
-
-    name: str
-
-    organization: Optional[str]
-
-    policy_mode: PlacementGroupPolicyMode
-
-    policy_type: PlacementGroupPolicyType
-
-    project: Optional[str]
-
-    tags: Optional[List[str]]
+class UpdateIpResponse:
+    ip: Ip
 
 
 @dataclass
 class UpdatePlacementGroupRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
     placement_group_id: str
     """
     UUID of the placement group.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     name: Optional[str]
@@ -3009,283 +3047,41 @@ class UpdatePlacementGroupRequest:
 
 
 @dataclass
-class DeletePlacementGroupRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    placement_group_id: str
-    """
-    UUID of the placement group you want to delete.
-    """
-
-
-@dataclass
-class GetPlacementGroupServersRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    placement_group_id: str
-    """
-    UUID of the placement group you want to get.
-    """
-
-
-@dataclass
-class SetPlacementGroupServersRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    placement_group_id: str
-    """
-    UUID of the placement group you want to set.
-    """
-
-    servers: List[str]
-    """
-    An array of the Instances' UUIDs you want to configure.
-    """
+class UpdatePlacementGroupResponse:
+    placement_group: PlacementGroup
 
 
 @dataclass
 class UpdatePlacementGroupServersRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
     placement_group_id: str
     """
     UUID of the placement group you want to update.
     """
 
-    servers: List[str]
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    servers: Optional[List[str]]
     """
     An array of the Instances' UUIDs you want to configure.
     """
 
 
 @dataclass
-class ListIpsRequest:
-    zone: Optional[Zone]
+class UpdatePlacementGroupServersResponse:
+    servers: List[PlacementGroupServer]
     """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    project: Optional[str]
-    """
-    Project ID in which the IPs are reserved.
-    """
-
-    organization: Optional[str]
-    """
-    Organization ID in which the IPs are reserved.
-    """
-
-    tags: Optional[List[str]]
-    """
-    Filter IPs with these exact tags (to filter with several tags, use commas to separate them).
-    """
-
-    name: Optional[str]
-    """
-    Filter on the IP address (Works as a LIKE operation on the IP address).
-    """
-
-    per_page: Optional[int]
-    """
-    A positive integer lower or equal to 100 to select the number of items to return.
-    """
-
-    page: Optional[int]
-    """
-    A positive integer to choose the page to return.
-    """
-
-    type_: Optional[str]
-    """
-    Filter on the IP Mobility IP type (whose value should be either 'nat', 'routed_ipv4' or 'routed_ipv6').
-    """
-
-
-@dataclass
-class CreateIpRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    organization: Optional[str]
-    """
-    Organization ID in which the IP is reserved.
-    
-    One-of ('project_identifier'): at most one of 'organization', 'project' could be set.
-    :deprecated
-    """
-
-    project: Optional[str]
-    """
-    Project ID in which the IP is reserved.
-    
-    One-of ('project_identifier'): at most one of 'organization', 'project' could be set.
-    """
-
-    tags: Optional[List[str]]
-    """
-    Tags of the IP.
-    """
-
-    server: Optional[str]
-    """
-    UUID of the Instance you want to attach the IP to.
-    """
-
-    type_: IpType
-    """
-    IP type to reserve (either 'nat', 'routed_ipv4' or 'routed_ipv6').
-    """
-
-
-@dataclass
-class GetIpRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    ip: str
-    """
-    IP ID or address to get.
-    """
-
-
-@dataclass
-class UpdateIpRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    ip: str
-    """
-    IP ID or IP address.
-    """
-
-    reverse: Optional[str]
-    """
-    Reverse domain name.
-    """
-
-    type_: IpType
-    """
-    Convert a 'nat' IP to a 'routed_ipv4'.
-    """
-
-    tags: Optional[List[str]]
-    """
-    An array of keywords you want to tag this IP with.
-    """
-
-    server: Optional[str]
-
-
-@dataclass
-class DeleteIpRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    ip: str
-    """
-    ID or address of the IP to delete.
-    """
-
-
-@dataclass
-class ListPrivateNICsRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    server_id: str
-    """
-    Instance to which the private NIC is attached.
-    """
-
-    tags: Optional[List[str]]
-    """
-    Private NIC tags.
-    """
-
-    per_page: Optional[int]
-    """
-    A positive integer lower or equal to 100 to select the number of items to return.
-    """
-
-    page: Optional[int]
-    """
-    A positive integer to choose the page to return.
-    """
-
-
-@dataclass
-class CreatePrivateNICRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    server_id: str
-    """
-    UUID of the Instance the private NIC will be attached to.
-    """
-
-    private_network_id: str
-    """
-    UUID of the private network where the private NIC will be attached.
-    """
-
-    tags: Optional[List[str]]
-    """
-    Private NIC tags.
-    """
-
-    ip_ids: Optional[List[str]]
-    """
-    Ip_ids defined from IPAM.
-    """
-
-
-@dataclass
-class GetPrivateNICRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    server_id: str
-    """
-    Instance to which the private NIC is attached.
-    """
-
-    private_nic_id: str
-    """
-    Private NIC unique ID.
+    Instances attached to the placement group.
     """
 
 
 @dataclass
 class UpdatePrivateNICRequest:
-    zone: Optional[Zone]
+    private_nic_id: str
     """
-    Zone to target. If none is passed will use default zone from the config.
+    Private NIC unique ID.
     """
 
     server_id: str
@@ -3293,9 +3089,9 @@ class UpdatePrivateNICRequest:
     UUID of the Instance the private NIC will be attached to.
     """
 
-    private_nic_id: str
+    zone: Optional[Zone]
     """
-    Private NIC unique ID.
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     tags: Optional[List[str]]
@@ -3305,58 +3101,118 @@ class UpdatePrivateNICRequest:
 
 
 @dataclass
-class DeletePrivateNICRequest:
+class UpdateServerResponse:
+    server: Server
+
+
+@dataclass
+class UpdateVolumeRequest:
+    volume_id: str
+    """
+    UUID of the volume.
+    """
+
     zone: Optional[Zone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    server_id: str
+    name: Optional[str]
     """
-    Instance to which the private NIC is attached.
+    Volume name.
     """
 
-    private_nic_id: str
+    tags: Optional[List[str]]
     """
-    Private NIC unique ID.
+    Tags of the volume.
+    """
+
+    size: Optional[int]
+    """
+    Volume disk size, must be a multiple of 512.
     """
 
 
 @dataclass
-class ListBootscriptsRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    arch: Optional[str]
-
-    title: Optional[str]
-
-    default: Optional[bool]
-
-    public: Optional[bool]
-
-    per_page: Optional[int]
-
-    page: Optional[int]
+class UpdateVolumeResponse:
+    volume: Volume
 
 
 @dataclass
-class GetBootscriptRequest:
+class _CreateServerRequest:
+    commercial_type: str
+    """
+    Define the Instance commercial type (i.e. GP1-S).
+    """
+
+    volumes: Dict[str, VolumeServerTemplate]
+    """
+    Volumes attached to the server.
+    """
+
+    enable_ipv6: bool
+    """
+    True if IPv6 is enabled on the server.
+    """
+
+    image: str
+    """
+    Instance image ID or label.
+    """
+
     zone: Optional[Zone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    bootscript_id: str
-
-
-@dataclass
-class GetDashboardRequest:
-    zone: Optional[Zone]
+    routed_ip_enabled: Optional[bool]
     """
-    Zone to target. If none is passed will use default zone from the config.
+    If true, configure the Instance so it uses the new routed IP mode.
+    """
+
+    dynamic_ip_required: Optional[bool]
+    """
+    Define if a dynamic IPv4 is required for the Instance.
+    """
+
+    name: Optional[str]
+    """
+    Instance name.
+    """
+
+    public_ip: Optional[str]
+    """
+    ID of the reserved IP to attach to the Instance.
+    """
+
+    public_ips: Optional[List[str]]
+    """
+    A list of reserved IP IDs to attach to the Instance.
+    """
+
+    boot_type: Optional[BootType]
+    """
+    Boot type to use.
+    """
+
+    bootscript: Optional[str]
+    """
+    Bootscript ID to use when `boot_type` is set to `bootscript`.
+    """
+
+    tags: Optional[List[str]]
+    """
+    Instance tags.
+    """
+
+    security_group: Optional[str]
+    """
+    Security group ID.
+    """
+
+    placement_group: Optional[str]
+    """
+    Placement group ID if Instance must be part of a placement group.
     """
 
     organization: Optional[str]
@@ -3365,49 +3221,426 @@ class GetDashboardRequest:
 
 
 @dataclass
-class PlanBlockMigrationRequest:
+class _SetImageRequest:
+    from_server: str
+
+    public: bool
+
+    root_volume: VolumeSummary
+
+    name: str
+
+    id: str
+
+    extra_volumes: Dict[str, Volume]
+
     zone: Optional[Zone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    volume_id: Optional[str]
+    default_bootscript: Optional[Bootscript]
+
+    modification_date: Optional[datetime]
+
+    organization: Optional[str]
+
+    creation_date: Optional[datetime]
+
+    arch: Optional[Arch]
+
+    state: Optional[ImageState]
+
+    project: Optional[str]
+
+    tags: Optional[List[str]]
+
+
+@dataclass
+class _SetImageResponse:
+    image: Image
+
+
+@dataclass
+class _SetSecurityGroupRequest:
+    description: str
     """
-    The volume for which the migration plan will be generated.
-    
-    One-of ('resource'): at most one of 'volume_id', 'snapshot_id' could be set.
+    Description of the security group.
     """
 
-    snapshot_id: Optional[str]
+    project_default: bool
     """
-    The snapshot for which the migration plan will be generated.
-    
-    One-of ('resource'): at most one of 'volume_id', 'snapshot_id' could be set.
+    True use this security group for future Instances created in this project.
+    """
+
+    stateful: bool
+    """
+    True to set the security group as stateful.
+    """
+
+    name: str
+    """
+    Name of the security group.
+    """
+
+    id: str
+    """
+    ID of the security group (will be ignored).
+    """
+
+    enable_default_security: bool
+    """
+    True to block SMTP on IPv4 and IPv6. This feature is read only, please open a support ticket if you need to make it configurable.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    inbound_default_policy: Optional[SecurityGroupPolicy]
+    """
+    Default inbound policy.
+    """
+
+    modification_date: Optional[datetime]
+    """
+    Modification date of the security group (will be ignored).
+    """
+
+    outbound_default_policy: Optional[SecurityGroupPolicy]
+    """
+    Default outbound policy.
+    """
+
+    organization: Optional[str]
+    """
+    Security groups Organization ID.
+    """
+
+    project: Optional[str]
+    """
+    Security group Project ID.
+    """
+
+    organization_default: Optional[bool]
+    """
+    Please use project_default instead.
+    """
+
+    creation_date: Optional[datetime]
+    """
+    Creation date of the security group (will be ignored).
+    """
+
+    servers: Optional[List[ServerSummary]]
+    """
+    Instances attached to this security group.
+    """
+
+    tags: Optional[List[str]]
+    """
+    Tags of the security group.
     """
 
 
 @dataclass
-class ApplyBlockMigrationRequest:
+class _SetSecurityGroupResponse:
+    security_group: SecurityGroup
+
+
+@dataclass
+class _SetSecurityGroupRuleRequest:
+    editable: bool
+
+    position: int
+
+    ip_range: str
+
+    id: str
+
+    security_group_rule_id: str
+
+    security_group_id: str
+
     zone: Optional[Zone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    volume_id: Optional[str]
+    protocol: Optional[SecurityGroupRuleProtocol]
+
+    direction: Optional[SecurityGroupRuleDirection]
+
+    action: Optional[SecurityGroupRuleAction]
+
+    dest_port_from: Optional[int]
+
+    dest_port_to: Optional[int]
+
+
+@dataclass
+class _SetSecurityGroupRuleResponse:
+    rule: SecurityGroupRule
+
+
+@dataclass
+class _SetServerRequest:
+    enable_ipv6: bool
     """
-    The volume to migrate, along with potentially other resources, according to the migration plan generated with a call to PlanBlockMigration.
-    
-    One-of ('resource'): at most one of 'volume_id', 'snapshot_id' could be set.
+    True if IPv6 is enabled.
     """
 
-    snapshot_id: Optional[str]
+    location: ServerLocation
     """
-    The snapshot to migrate, along with potentially other resources, according to the migration plan generated with a call to PlanBlockMigration.
-    
-    One-of ('resource'): at most one of 'volume_id', 'snapshot_id' could be set.
+    Instance location.
     """
 
-    validation_key: str
+    dynamic_ip_required: bool
     """
-    A value to be retrieved from a call to PlanBlockMigration, to confirm that the volume and/or snapshots specified in said plan should be migrated.
+    True if a dynamic IPv4 is required.
+    """
+
+    ipv6: ServerIpv6
+    """
+    Instance IPv6 address.
+    """
+
+    commercial_type: str
+    """
+    Instance commercial type (eg. GP1-M).
+    """
+
+    image: Image
+    """
+    Provide information on the Instance image.
+    """
+
+    security_group: SecurityGroupSummary
+    """
+    Instance security group.
+    """
+
+    state_detail: str
+    """
+    Instance state_detail.
+    """
+
+    placement_group: PlacementGroup
+    """
+    Instance placement group.
+    """
+
+    name: str
+    """
+    Instance name.
+    """
+
+    id: str
+    """
+    Instance unique ID.
+    """
+
+    hostname: str
+    """
+    Instance host name.
+    """
+
+    public_ip: ServerIp
+    """
+    Information about the public IP.
+    """
+
+    volumes: Dict[str, Volume]
+    """
+    Instance volumes.
+    """
+
+    protected: bool
+    """
+    Instance protection option is activated.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    boot_type: Optional[BootType]
+    """
+    Instance boot type.
+    """
+
+    tags: Optional[List[str]]
+    """
+    Tags associated with the Instance.
+    """
+
+    modification_date: Optional[datetime]
+    """
+    Instance modification date.
+    """
+
+    state: Optional[ServerState]
+    """
+    Instance state.
+    """
+
+    routed_ip_enabled: Optional[bool]
+    """
+    True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False).
+    """
+
+    creation_date: Optional[datetime]
+    """
+    Instance creation date.
+    """
+
+    public_ips: Optional[List[ServerIp]]
+    """
+    Information about all the public IPs attached to the server.
+    """
+
+    private_ip: Optional[str]
+    """
+    Instance private IP address.
+    """
+
+    bootscript: Optional[Bootscript]
+    """
+    Instance bootscript.
+    """
+
+    allowed_actions: Optional[List[ServerAction]]
+    """
+    Provide a list of allowed actions on the server.
+    """
+
+    maintenances: Optional[List[ServerMaintenance]]
+    """
+    Instance planned maintenances.
+    """
+
+    project: Optional[str]
+    """
+    Instance Project ID.
+    """
+
+    arch: Optional[Arch]
+    """
+    Instance architecture (refers to the CPU architecture used for the Instance, e.g. x86_64, arm64).
+    """
+
+    organization: Optional[str]
+    """
+    Instance Organization ID.
+    """
+
+    private_nics: Optional[List[PrivateNIC]]
+    """
+    Instance private NICs.
+    """
+
+
+@dataclass
+class _SetServerResponse:
+    server: Server
+
+
+@dataclass
+class _SetSnapshotRequest:
+    name: str
+
+    id: str
+
+    snapshot_id: str
+
+    base_volume: SnapshotBaseVolume
+
+    size: int
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    volume_type: Optional[VolumeVolumeType]
+
+    state: Optional[SnapshotState]
+
+    organization: Optional[str]
+
+    creation_date: Optional[datetime]
+
+    modification_date: Optional[datetime]
+
+    project: Optional[str]
+
+    tags: Optional[List[str]]
+
+
+@dataclass
+class _SetSnapshotResponse:
+    snapshot: Snapshot
+
+
+@dataclass
+class _UpdateServerRequest:
+    security_group: SecurityGroupTemplate
+
+    server_id: str
+    """
+    UUID of the Instance.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    tags: Optional[List[str]]
+    """
+    Tags of the Instance.
+    """
+
+    boot_type: Optional[BootType]
+
+    volumes: Optional[Dict[str, VolumeServerTemplate]]
+
+    bootscript: Optional[str]
+
+    dynamic_ip_required: Optional[bool]
+
+    routed_ip_enabled: Optional[bool]
+    """
+    True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False).
+    """
+
+    public_ips: Optional[List[ServerIp]]
+
+    enable_ipv6: Optional[bool]
+
+    protected: Optional[bool]
+
+    name: Optional[str]
+    """
+    Name of the Instance.
+    """
+
+    placement_group: Optional[str]
+    """
+    Placement group ID if Instance must be part of a placement group.
+    """
+
+    private_nics: Optional[List[PrivateNIC]]
+    """
+    Instance private NICs.
+    """
+
+    commercial_type: Optional[str]
+    """
+    Warning: This field has some restrictions:
+- Cannot be changed if the Instance is not in `stopped` state.
+- Cannot be changed if the Instance is in a placement group.
+- Local storage requirements of the target commercial_types must be fulfilled (i.e. if an Instance has 80GB of local storage, it can be changed into a GP1-XS, which has a maximum of 150GB, but it cannot be changed into a DEV1-S, which has only 20GB).
     """

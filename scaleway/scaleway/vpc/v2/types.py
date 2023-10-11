@@ -36,100 +36,10 @@ class ListVPCsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
-class AddSubnetsResponse:
-    subnets: List[str]
-
-
-@dataclass
-class DeleteSubnetsResponse:
-    subnets: List[str]
-
-
-@dataclass
-class ListPrivateNetworksResponse:
-    private_networks: List[PrivateNetwork]
-
-    total_count: int
-
-
-@dataclass
-class ListVPCsResponse:
-    vpcs: List[VPC]
-
-    total_count: int
-
-
-@dataclass
-class PrivateNetwork:
-    """
-    Private network.
-    """
-
-    id: str
-    """
-    Private Network ID.
-    """
-
-    name: str
-    """
-    Private Network name.
-    """
-
-    organization_id: str
-    """
-    Scaleway Organization the Private Network belongs to.
-    """
-
-    project_id: str
-    """
-    Scaleway Project the Private Network belongs to.
-    """
-
-    region: Region
-    """
-    Region in which the Private Network is available.
-    """
-
-    tags: List[str]
-    """
-    Tags of the Private Network.
-    """
-
-    created_at: Optional[datetime]
-    """
-    Date the Private Network was created.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Date the Private Network was last modified.
-    """
-
-    subnets: List[Subnet]
-    """
-    Private Network subnets.
-    """
-
-    vpc_id: str
-    """
-    VPC the Private Network belongs to.
-    """
-
-    dhcp_enabled: bool
-    """
-    Defines whether managed DHCP is enabled for this Private Network.
-    """
-
-
-@dataclass
-class SetSubnetsResponse:
-    subnets: List[str]
-
-
-@dataclass
 class Subnet:
+    subnet: str
     """
-    Subnet.
+    Subnet CIDR.
     """
 
     id: str
@@ -147,41 +57,75 @@ class Subnet:
     Subnet last modification date.
     """
 
-    subnet: str
+
+@dataclass
+class PrivateNetwork:
+    dhcp_enabled: bool
     """
-    Subnet CIDR.
+    Defines whether managed DHCP is enabled for this Private Network.
+    """
+
+    vpc_id: str
+    """
+    VPC the Private Network belongs to.
+    """
+
+    subnets: List[Subnet]
+    """
+    Private Network subnets.
+    """
+
+    tags: List[str]
+    """
+    Tags of the Private Network.
+    """
+
+    region: Region
+    """
+    Region in which the Private Network is available.
+    """
+
+    project_id: str
+    """
+    Scaleway Project the Private Network belongs to.
+    """
+
+    organization_id: str
+    """
+    Scaleway Organization the Private Network belongs to.
+    """
+
+    name: str
+    """
+    Private Network name.
+    """
+
+    id: str
+    """
+    Private Network ID.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Date the Private Network was created.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Date the Private Network was last modified.
     """
 
 
 @dataclass
 class VPC:
+    private_network_count: int
     """
-    Vpc.
-    """
-
-    id: str
-    """
-    VPC ID.
+    Number of Private Networks within this VPC.
     """
 
-    name: str
+    is_default: bool
     """
-    VPC name.
-    """
-
-    organization_id: str
-    """
-    Scaleway Organization the VPC belongs to.
-    """
-
-    project_id: str
-    """
-    Scaleway Project the VPC belongs to.
-    """
-
-    region: Region
-    """
-    Region of the VPC.
+    Defines whether the VPC is the default one for its Project.
     """
 
     tags: List[str]
@@ -189,9 +133,29 @@ class VPC:
     Tags for the VPC.
     """
 
-    is_default: bool
+    region: Region
     """
-    Defines whether the VPC is the default one for its Project.
+    Region of the VPC.
+    """
+
+    project_id: str
+    """
+    Scaleway Project the VPC belongs to.
+    """
+
+    organization_id: str
+    """
+    Scaleway Organization the VPC belongs to.
+    """
+
+    name: str
+    """
+    VPC name.
+    """
+
+    id: str
+    """
+    VPC ID.
     """
 
     created_at: Optional[datetime]
@@ -204,57 +168,60 @@ class VPC:
     Date the VPC was last modified.
     """
 
-    private_network_count: int
-    """
-    Number of Private Networks within this VPC.
-    """
-
 
 @dataclass
-class ListVPCsRequest:
+class AddSubnetsRequest:
+    private_network_id: str
+    """
+    Private Network ID.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    order_by: Optional[ListVPCsRequestOrderBy]
+    subnets: Optional[List[str]]
     """
-    Sort order of the returned VPCs.
-    """
-
-    page: Optional[int]
-    """
-    Page number to return, from the paginated results.
+    Private Network subnets CIDR.
     """
 
-    page_size: Optional[int]
+
+@dataclass
+class AddSubnetsResponse:
+    subnets: List[str]
+
+
+@dataclass
+class CreatePrivateNetworkRequest:
+    region: Optional[Region]
     """
-    Maximum number of VPCs to return per page.
+    Region to target. If none is passed will use default region from the config.
     """
 
     name: Optional[str]
     """
-    Name to filter for. Only VPCs with names containing this string will be returned.
-    """
-
-    tags: Optional[List[str]]
-    """
-    Tags to filter for. Only VPCs with one more more matching tags will be returned.
-    """
-
-    organization_id: Optional[str]
-    """
-    Organization ID to filter for. Only VPCs belonging to this Organization will be returned.
+    Name for the Private Network.
     """
 
     project_id: Optional[str]
     """
-    Project ID to filter for. Only VPCs belonging to this Project will be returned.
+    Scaleway Project in which to create the Private Network.
     """
 
-    is_default: Optional[bool]
+    tags: Optional[List[str]]
     """
-    Defines whether to filter only for VPCs which are the default one for their Project.
+    Tags for the Private Network.
+    """
+
+    subnets: Optional[List[str]]
+    """
+    Private Network subnets CIDR.
+    """
+
+    vpc_id: Optional[str]
+    """
+    VPC in which to create the Private Network.
     """
 
 
@@ -282,51 +249,90 @@ class CreateVPCRequest:
 
 
 @dataclass
-class GetVPCRequest:
+class DeletePrivateNetworkRequest:
+    private_network_id: str
+    """
+    Private Network ID.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
-    """
-
-    vpc_id: str
-    """
-    VPC ID.
     """
 
 
 @dataclass
-class UpdateVPCRequest:
+class DeleteSubnetsRequest:
+    private_network_id: str
+    """
+    Private Network ID.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    vpc_id: str
+    subnets: Optional[List[str]]
     """
-    VPC ID.
-    """
-
-    name: Optional[str]
-    """
-    Name for the VPC.
+    Private Network subnets CIDR.
     """
 
-    tags: Optional[List[str]]
-    """
-    Tags for the VPC.
-    """
+
+@dataclass
+class DeleteSubnetsResponse:
+    subnets: List[str]
 
 
 @dataclass
 class DeleteVPCRequest:
+    vpc_id: str
+    """
+    VPC ID.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
+
+@dataclass
+class EnableDHCPRequest:
+    private_network_id: str
+    """
+    Private Network ID.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetPrivateNetworkRequest:
+    private_network_id: str
+    """
+    Private Network ID.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetVPCRequest:
     vpc_id: str
     """
     VPC ID.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
     """
 
 
@@ -389,85 +395,65 @@ class ListPrivateNetworksRequest:
 
 
 @dataclass
-class CreatePrivateNetworkRequest:
+class ListPrivateNetworksResponse:
+    total_count: int
+
+    private_networks: List[PrivateNetwork]
+
+
+@dataclass
+class ListVPCsRequest:
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
+    order_by: Optional[ListVPCsRequestOrderBy]
+    """
+    Sort order of the returned VPCs.
+    """
+
+    page: Optional[int]
+    """
+    Page number to return, from the paginated results.
+    """
+
+    page_size: Optional[int]
+    """
+    Maximum number of VPCs to return per page.
+    """
+
     name: Optional[str]
     """
-    Name for the Private Network.
+    Name to filter for. Only VPCs with names containing this string will be returned.
+    """
+
+    tags: Optional[List[str]]
+    """
+    Tags to filter for. Only VPCs with one more more matching tags will be returned.
+    """
+
+    organization_id: Optional[str]
+    """
+    Organization ID to filter for. Only VPCs belonging to this Organization will be returned.
     """
 
     project_id: Optional[str]
     """
-    Scaleway Project in which to create the Private Network.
+    Project ID to filter for. Only VPCs belonging to this Project will be returned.
     """
 
-    tags: Optional[List[str]]
+    is_default: Optional[bool]
     """
-    Tags for the Private Network.
-    """
-
-    subnets: Optional[List[str]]
-    """
-    Private Network subnets CIDR.
-    """
-
-    vpc_id: Optional[str]
-    """
-    VPC in which to create the Private Network.
+    Defines whether to filter only for VPCs which are the default one for their Project.
     """
 
 
 @dataclass
-class GetPrivateNetworkRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
+class ListVPCsResponse:
+    total_count: int
 
-    private_network_id: str
-    """
-    Private Network ID.
-    """
-
-
-@dataclass
-class UpdatePrivateNetworkRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    private_network_id: str
-    """
-    Private Network ID.
-    """
-
-    name: Optional[str]
-    """
-    Name for the Private Network.
-    """
-
-    tags: Optional[List[str]]
-    """
-    Tags for the Private Network.
-    """
-
-
-@dataclass
-class DeletePrivateNetworkRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    private_network_id: str
-    """
-    Private Network ID.
-    """
+    vpcs: List[VPC]
 
 
 @dataclass
@@ -477,49 +463,26 @@ class MigrateZonalPrivateNetworksRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    organization_id: Optional[str]
-    """
-    Organization ID to target. The specified zoned Private Networks within this Organization will be migrated to regional.
-    
-    One-of ('scope'): at most one of 'organization_id', 'project_id' could be set.
-    """
-
-    project_id: Optional[str]
-    """
-    Project to target. The specified zoned Private Networks within this Project will be migrated to regional.
-    
-    One-of ('scope'): at most one of 'organization_id', 'project_id' could be set.
-    """
-
     private_network_ids: Optional[List[str]]
     """
     IDs of the Private Networks to migrate.
     """
 
+    organization_id: Optional[str]
 
-@dataclass
-class EnableDHCPRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    private_network_id: str
-    """
-    Private Network ID.
-    """
+    project_id: Optional[str]
 
 
 @dataclass
 class SetSubnetsRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
     private_network_id: str
     """
     Private Network ID.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
     """
 
     subnets: Optional[List[str]]
@@ -529,36 +492,51 @@ class SetSubnetsRequest:
 
 
 @dataclass
-class AddSubnetsRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
+class SetSubnetsResponse:
+    subnets: List[str]
 
+
+@dataclass
+class UpdatePrivateNetworkRequest:
     private_network_id: str
     """
     Private Network ID.
     """
 
-    subnets: Optional[List[str]]
+    region: Optional[Region]
     """
-    Private Network subnets CIDR.
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    name: Optional[str]
+    """
+    Name for the Private Network.
+    """
+
+    tags: Optional[List[str]]
+    """
+    Tags for the Private Network.
     """
 
 
 @dataclass
-class DeleteSubnetsRequest:
+class UpdateVPCRequest:
+    vpc_id: str
+    """
+    VPC ID.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    private_network_id: str
+    name: Optional[str]
     """
-    Private Network ID.
+    Name for the VPC.
     """
 
-    subnets: Optional[List[str]]
+    tags: Optional[List[str]]
     """
-    Private Network subnets CIDR.
+    Tags for the VPC.
     """

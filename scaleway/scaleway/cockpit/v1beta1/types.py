@@ -94,9 +94,261 @@ class PlanName(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
+class ContactPointEmail:
+    to: str
+
+
+@dataclass
+class TokenScopes:
+    write_traces: bool
+    """
+    Permission to write traces.
+    """
+
+    query_traces: bool
+    """
+    Permission to fetch traces.
+    """
+
+    setup_alerts: bool
+    """
+    Permission to set up alerts.
+    """
+
+    setup_logs_rules: bool
+    """
+    Permission to set up logs rules.
+    """
+
+    write_logs: bool
+    """
+    Permission to write logs.
+    """
+
+    query_logs: bool
+    """
+    Permission to fetch logs.
+    """
+
+    setup_metrics_rules: bool
+    """
+    Permission to setup metrics rules.
+    """
+
+    write_metrics: bool
+    """
+    Permission to write metrics.
+    """
+
+    query_metrics: bool
+    """
+    Permission to fetch metrics.
+    """
+
+
+@dataclass
+class CockpitEndpoints:
+    grafana_url: str
+    """
+    URL for the Grafana dashboard.
+    """
+
+    alertmanager_url: str
+    """
+    URL for the alert manager.
+    """
+
+    logs_url: str
+    """
+    URL for logs.
+    """
+
+    metrics_url: str
+    """
+    URL for metrics.
+    """
+
+
+@dataclass
+class Plan:
+    """
+    Pricing plan.
+    """
+
+    retention_price: int
+    """
+    Retention price in euros per month.
+    """
+
+    logs_ingestion_price: int
+    """
+    Ingestion price for 1 GB of logs in cents.
+    """
+
+    sample_ingestion_price: int
+    """
+    Ingestion price for 1 million samples in cents.
+    """
+
+    name: PlanName
+    """
+    Name of a given pricing plan.
+    """
+
+    id: str
+    """
+    ID of a given pricing plan.
+    """
+
+    retention_metrics_interval: Optional[str]
+    """
+    Retention for metrics.
+    """
+
+    retention_logs_interval: Optional[str]
+    """
+    Retention for logs.
+    """
+
+
+@dataclass
+class ContactPoint:
+    """
+    Contact point.
+    """
+
+    email: Optional[ContactPointEmail]
+
+
+@dataclass
+class Datasource:
+    """
+    Datasource.
+    """
+
+    type_: DatasourceType
+    """
+    Datasource type.
+    """
+
+    url: str
+    """
+    Datasource URL.
+    """
+
+    name: str
+    """
+    Datasource name.
+    """
+
+    project_id: str
+    """
+    ID of the Project the Cockpit belongs to.
+    """
+
+    id: str
+    """
+    ID of the datasource.
+    """
+
+
+@dataclass
+class GrafanaUser:
+    """
+    Grafana user.
+    """
+
+    role: GrafanaUserRole
+    """
+    Role assigned to the Grafana user.
+    """
+
+    login: str
+    """
+    Username of the Grafana user.
+    """
+
+    id: int
+    """
+    ID of the Grafana user.
+    """
+
+    password: Optional[str]
+    """
+    The Grafana user's password.
+    """
+
+
+@dataclass
+class Token:
+    scopes: TokenScopes
+    """
+    Token's permissions.
+    """
+
+    name: str
+    """
+    Name of the token.
+    """
+
+    project_id: str
+    """
+    ID of the Project.
+    """
+
+    id: str
+    """
+    ID of the token.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Date and time of the token's creation.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Date and time of the token's last update.
+    """
+
+    secret_key: Optional[str]
+    """
+    Token's secret key.
+    """
+
+
+@dataclass
+class ActivateCockpitRequest:
+    project_id: Optional[str]
+    """
+    ID of the Project the Cockpit belongs to.
+    """
+
+
+@dataclass
 class Cockpit:
     """
     Cockpit.
+    """
+
+    plan: Plan
+    """
+    Pricing plan information.
+    """
+
+    managed_alerts_enabled: bool
+    """
+    Specifies whether managed alerts are enabled or disabled.
+    """
+
+    status: CockpitStatus
+    """
+    Status of the Cockpit.
+    """
+
+    endpoints: CockpitEndpoints
+    """
+    Endpoints of the Cockpit.
     """
 
     project_id: str
@@ -171,7 +423,6 @@ class CockpitEndpoints:
 class CockpitMetrics:
     """
     Metrics for a given Cockpit.
-    Cockpit metrics.
     """
 
     timeseries: List[TimeSeries]
@@ -181,38 +432,26 @@ class CockpitMetrics:
 
 
 @dataclass
-class ContactPoint:
+class CreateContactPointRequest:
     """
-    Contact point.
-    """
-
-    email: Optional[ContactPointEmail]
-    """
-    Contact point configuration.
-    
-    One-of ('configuration'): at most one of 'email' could be set.
+    Request to create a contact point.
     """
 
+    project_id: Optional[str]
+    """
+    ID of the Project in which to create the contact point.
+    """
 
-@dataclass
-class ContactPointEmail:
-    to: str
+    contact_point: Optional[ContactPoint]
+    """
+    Contact point to create.
+    """
 
 
 @dataclass
-class Datasource:
+class CreateDatasourceRequest:
     """
-    Datasource.
-    """
-
-    id: str
-    """
-    ID of the datasource.
-    """
-
-    project_id: str
-    """
-    ID of the Project the Cockpit belongs to.
+    Request to create a datasource.
     """
 
     name: str
@@ -220,12 +459,12 @@ class Datasource:
     Datasource name.
     """
 
-    url: str
+    project_id: Optional[str]
     """
-    Datasource URL.
+    ID of the Project the Cockpit belongs to.
     """
 
-    type_: DatasourceType
+    type_: Optional[DatasourceType]
     """
     Datasource type.
     """
@@ -267,12 +506,7 @@ class GrafanaProductDashboard:
 @dataclass
 class GrafanaUser:
     """
-    Grafana user.
-    """
-
-    id: int
-    """
-    ID of the Grafana user.
+    Request to create a Grafana user.
     """
 
     login: str
@@ -484,86 +718,32 @@ class Token:
     ID of the Project.
     """
 
-    name: str
+    role: Optional[GrafanaUserRole]
     """
-    Name of the token.
-    """
-
-    created_at: Optional[datetime]
-    """
-    Date and time of the token's creation.
+    Role assigned to the Grafana user.
     """
 
-    updated_at: Optional[datetime]
-    """
-    Date and time of the token's last update.
-    """
 
-    scopes: Optional[TokenScopes]
+@dataclass
+class CreateTokenRequest:
+    scopes: TokenScopes
     """
     Token's permissions.
     """
 
-    secret_key: Optional[str]
+    project_id: Optional[str]
     """
-    Token's secret key.
+    ID of the Project.
+    """
+
+    name: Optional[str]
+    """
+    Name of the token.
     """
 
 
 @dataclass
-class TokenScopes:
-    """
-    Token scopes.
-    """
-
-    query_metrics: bool
-    """
-    Permission to fetch metrics.
-    """
-
-    write_metrics: bool
-    """
-    Permission to write metrics.
-    """
-
-    setup_metrics_rules: bool
-    """
-    Permission to setup metrics rules.
-    """
-
-    query_logs: bool
-    """
-    Permission to fetch logs.
-    """
-
-    write_logs: bool
-    """
-    Permission to write logs.
-    """
-
-    setup_logs_rules: bool
-    """
-    Permission to set up logs rules.
-    """
-
-    setup_alerts: bool
-    """
-    Permission to set up alerts.
-    """
-
-    query_traces: bool
-    """
-    Permission to fetch traces.
-    """
-
-    write_traces: bool
-    """
-    Permission to write traces.
-    """
-
-
-@dataclass
-class ActivateCockpitRequest:
+class DeactivateCockpitRequest:
     project_id: Optional[str]
     """
     ID of the Project the Cockpit belongs to.
@@ -571,15 +751,77 @@ class ActivateCockpitRequest:
 
 
 @dataclass
-class GetCockpitRequest:
+class DeleteContactPointRequest:
+    """
+    Request to delete a contact point.
+    """
+
     project_id: Optional[str]
     """
-    ID of the Project the Cockpit belongs to.
+    ID of the Project.
+    """
+
+    contact_point: Optional[ContactPoint]
+    """
+    Contact point to delete.
+    """
+
+
+@dataclass
+class DeleteGrafanaUserRequest:
+    """
+    Request to delete a Grafana user.
+    """
+
+    grafana_user_id: int
+    """
+    ID of the Grafana user.
+    """
+
+    project_id: Optional[str]
+    """
+    ID of the Project.
+    """
+
+
+@dataclass
+class DeleteTokenRequest:
+    token_id: str
+    """
+    ID of the token.
+    """
+
+
+@dataclass
+class DisableManagedAlertsRequest:
+    """
+    Request to disable the sending of managed alerts.
+    """
+
+    project_id: Optional[str]
+    """
+    ID of the Project.
+    """
+
+
+@dataclass
+class EnableManagedAlertsRequest:
+    """
+    Request to enable the sending of managed alerts.
+    """
+
+    project_id: Optional[str]
+    """
+    ID of the Project.
     """
 
 
 @dataclass
 class GetCockpitMetricsRequest:
+    """
+    Request to get a given Cockpit's metrics.
+    """
+
     project_id: Optional[str]
     """
     ID of the Project the Cockpit belongs to.
@@ -602,7 +844,7 @@ class GetCockpitMetricsRequest:
 
 
 @dataclass
-class DeactivateCockpitRequest:
+class GetCockpitRequest:
     project_id: Optional[str]
     """
     ID of the Project the Cockpit belongs to.
@@ -610,28 +852,59 @@ class DeactivateCockpitRequest:
 
 
 @dataclass
-class ResetCockpitGrafanaRequest:
-    project_id: Optional[str]
+class GetTokenRequest:
+    token_id: str
     """
-    ID of the Project the Cockpit belongs to.
+    ID of the token.
     """
 
 
 @dataclass
-class CreateDatasourceRequest:
+class ListContactPointsRequest:
+    """
+    Request to list all contact points.
+    """
+
+    page: Optional[int]
+    """
+    Page number.
+    """
+
+    page_size: Optional[int]
+    """
+    Page size.
+    """
+
     project_id: Optional[str]
     """
-    ID of the Project the Cockpit belongs to.
+    ID of the Project from which to list the contact points.
     """
 
-    name: str
+
+@dataclass
+class ListContactPointsResponse:
     """
-    Datasource name.
+    Response returned when listing contact points.
     """
 
-    type_: DatasourceType
+    has_additional_contact_points: bool
     """
-    Datasource type.
+    Specifies whether there are unmanaged contact points.
+    """
+
+    has_additional_receivers: bool
+    """
+    Specifies whether the contact point has other receivers than the default receiver.
+    """
+
+    contact_points: List[ContactPoint]
+    """
+    Array of contact points.
+    """
+
+    total_count: int
+    """
+    Count of all contact points created.
     """
 
 
@@ -664,20 +937,92 @@ class ListDatasourcesRequest:
 
 
 @dataclass
-class CreateTokenRequest:
+class ListDatasourcesResponse:
+    datasources: List[Datasource]
+    """
+    List of the datasources within the pagination.
+    """
+
+    total_count: int
+    """
+    Count of all datasources corresponding to the request.
+    """
+
+
+@dataclass
+class ListGrafanaUsersRequest:
+    """
+    Request to list all Grafana users.
+    """
+
+    page: Optional[int]
+    """
+    Page number.
+    """
+
+    page_size: Optional[int]
+    """
+    Page size.
+    """
+
+    order_by: Optional[ListGrafanaUsersRequestOrderBy]
+
     project_id: Optional[str]
     """
     ID of the Project.
     """
 
-    name: Optional[str]
+
+@dataclass
+class ListGrafanaUsersResponse:
     """
-    Name of the token.
+    Response returned when listing Grafana users.
     """
 
-    scopes: Optional[TokenScopes]
+    grafana_users: List[GrafanaUser]
     """
-    Token's permissions.
+    Information on all Grafana users.
+    """
+
+    total_count: int
+    """
+    Count of all Grafana users.
+    """
+
+
+@dataclass
+class ListPlansRequest:
+    """
+    Request to list all pricing plans.
+    """
+
+    page: Optional[int]
+    """
+    Page number.
+    """
+
+    page_size: Optional[int]
+    """
+    Page size.
+    """
+
+    order_by: Optional[ListPlansRequestOrderBy]
+
+
+@dataclass
+class ListPlansResponse:
+    """
+    Response returned when listing all pricing plans.
+    """
+
+    plans: List[Plan]
+    """
+    Information on plans.
+    """
+
+    total_count: int
+    """
+    Count of all pricing plans.
     """
 
 
@@ -705,139 +1050,32 @@ class ListTokensRequest:
 
 
 @dataclass
-class GetTokenRequest:
-    token_id: str
+class ListTokensResponse:
+    tokens: List[Token]
     """
-    ID of the token.
+    List of all tokens created.
     """
 
-
-@dataclass
-class DeleteTokenRequest:
-    token_id: str
+    total_count: int
     """
-    ID of the token.
+    Count of all tokens created.
     """
 
 
 @dataclass
-class CreateContactPointRequest:
+class ResetCockpitGrafanaRequest:
     project_id: Optional[str]
     """
-    ID of the Project in which to create the contact point.
-    """
-
-    contact_point: Optional[ContactPoint]
-    """
-    Contact point to create.
-    """
-
-
-@dataclass
-class ListContactPointsRequest:
-    page: Optional[int]
-    """
-    Page number.
-    """
-
-    page_size: Optional[int]
-    """
-    Page size.
-    """
-
-    project_id: Optional[str]
-    """
-    ID of the Project from which to list the contact points.
-    """
-
-
-@dataclass
-class DeleteContactPointRequest:
-    project_id: Optional[str]
-    """
-    ID of the Project.
-    """
-
-    contact_point: Optional[ContactPoint]
-    """
-    Contact point to delete.
-    """
-
-
-@dataclass
-class EnableManagedAlertsRequest:
-    project_id: Optional[str]
-    """
-    ID of the Project.
-    """
-
-
-@dataclass
-class DisableManagedAlertsRequest:
-    project_id: Optional[str]
-    """
-    ID of the Project.
-    """
-
-
-@dataclass
-class TriggerTestAlertRequest:
-    project_id: Optional[str]
-
-
-@dataclass
-class CreateGrafanaUserRequest:
-    project_id: Optional[str]
-    """
-    ID of the Project.
-    """
-
-    login: str
-    """
-    Username of the Grafana user.
-    """
-
-    role: GrafanaUserRole
-    """
-    Role assigned to the Grafana user.
-    """
-
-
-@dataclass
-class ListGrafanaUsersRequest:
-    page: Optional[int]
-    """
-    Page number.
-    """
-
-    page_size: Optional[int]
-    """
-    Page size.
-    """
-
-    order_by: Optional[ListGrafanaUsersRequestOrderBy]
-
-    project_id: Optional[str]
-    """
-    ID of the Project.
-    """
-
-
-@dataclass
-class DeleteGrafanaUserRequest:
-    grafana_user_id: int
-    """
-    ID of the Grafana user.
-    """
-
-    project_id: Optional[str]
-    """
-    ID of the Project.
+    ID of the Project the Cockpit belongs to.
     """
 
 
 @dataclass
 class ResetGrafanaUserPasswordRequest:
+    """
+    Request to reset a Grafana user's password.
+    """
+
     grafana_user_id: int
     """
     ID of the Grafana user.
@@ -850,25 +1088,9 @@ class ResetGrafanaUserPasswordRequest:
 
 
 @dataclass
-class ListPlansRequest:
-    page: Optional[int]
-    """
-    Page number.
-    """
-
-    page_size: Optional[int]
-    """
-    Page size.
-    """
-
-    order_by: Optional[ListPlansRequestOrderBy]
-
-
-@dataclass
 class SelectPlanRequest:
-    project_id: Optional[str]
     """
-    ID of the Project.
+    Request to select a specific pricing plan.
     """
 
     plan_id: str

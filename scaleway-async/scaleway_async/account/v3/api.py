@@ -5,9 +5,9 @@ from typing import List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.utils import (
-    fetch_all_pages_async,
     random_name,
     validate_path_param,
+    fetch_all_pages_async,
 )
 from .types import (
     ListProjectsRequestOrderBy,
@@ -17,17 +17,15 @@ from .types import (
     ProjectApiUpdateProjectRequest,
 )
 from .marshalling import (
-    marshal_ProjectApiCreateProjectRequest,
-    marshal_ProjectApiUpdateProjectRequest,
     unmarshal_Project,
     unmarshal_ListProjectsResponse,
+    marshal_ProjectApiCreateProjectRequest,
+    marshal_ProjectApiUpdateProjectRequest,
 )
 
 
-class AccountProjectV3API(API):
+class AccountV3ProjectAPI(API):
     """
-    Account API.
-
     This API allows you to manage projects.
     """
 
@@ -41,20 +39,22 @@ class AccountProjectV3API(API):
         """
         Create a new Project for an Organization.
         Generate a new Project for an Organization, specifying its configuration including name and description.
+        :param description: Description of the Project.
         :param name: Name of the Project.
         :param organization_id: Organization ID of the Project.
-        :param description: Description of the Project.
         :return: :class:`Project <Project>`
 
         Usage:
         ::
 
-            result = await api.create_project(description="example")
+            result = await api.create_project(
+                description="example",
+            )
         """
 
         res = self._request(
             "POST",
-            f"/account/v3/projects",
+            "/account/v3/projects",
             body=marshal_ProjectApiCreateProjectRequest(
                 ProjectApiCreateProjectRequest(
                     description=description,
@@ -75,7 +75,7 @@ class AccountProjectV3API(API):
         name: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        order_by: ListProjectsRequestOrderBy = ListProjectsRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListProjectsRequestOrderBy] = None,
         project_ids: Optional[List[str]] = None,
     ) -> ListProjectsResponse:
         """
@@ -97,7 +97,7 @@ class AccountProjectV3API(API):
 
         res = self._request(
             "GET",
-            f"/account/v3/projects",
+            "/account/v3/projects",
             params={
                 "name": name,
                 "order_by": order_by,
@@ -131,7 +131,7 @@ class AccountProjectV3API(API):
         :param page_size: Maximum number of Project per page.
         :param order_by: Sort order of the returned Projects.
         :param project_ids: Project IDs to filter for. The results will be limited to any Projects with an ID in this array.
-        :return: :class:`List[ListProjectsResponse] <List[ListProjectsResponse]>`
+        :return: :class:`List[Project] <List[Project]>`
 
         Usage:
         ::
@@ -186,7 +186,7 @@ class AccountProjectV3API(API):
         self,
         *,
         project_id: Optional[str] = None,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Delete an existing Project.
         Delete an existing Project, specified by its Project ID. The Project needs to be empty (meaning there are no resources left in it) to be deleted effectively. Note that deleting a Project is permanent, and cannot be undone.
@@ -208,7 +208,6 @@ class AccountProjectV3API(API):
         )
 
         self._throw_on_error(res)
-        return None
 
     async def update_project(
         self,
