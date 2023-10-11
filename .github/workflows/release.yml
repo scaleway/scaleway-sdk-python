@@ -30,6 +30,8 @@ jobs:
         run: poetry version $(echo "${{ github.ref }}" | cut -d "/" -f 3)
         working-directory: scaleway-core
         if: matrix.lib != 'scaleway-core'
+      - name: Set scaleway-core version in the package
+        run: poetry add scaleway-core@$(echo "${{ github.ref }}" | cut -d "/" -f 3)
       - name: Update lock file
         run: poetry lock
       - name: Install dependencies and library
