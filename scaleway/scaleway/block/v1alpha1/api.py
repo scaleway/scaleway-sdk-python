@@ -28,6 +28,7 @@ from .types import (
     CreateVolumeRequest,
     UpdateVolumeRequest,
     CreateSnapshotRequest,
+    ImportSnapshotFromS3Request,
     UpdateSnapshotRequest,
 )
 from .content import (
@@ -37,6 +38,7 @@ from .content import (
 from .marshalling import (
     marshal_CreateSnapshotRequest,
     marshal_CreateVolumeRequest,
+    marshal_ImportSnapshotFromS3Request,
     marshal_UpdateSnapshotRequest,
     marshal_UpdateVolumeRequest,
     unmarshal_Volume,
@@ -611,6 +613,49 @@ class BlockV1Alpha1API(API):
             body=marshal_CreateSnapshotRequest(
                 CreateSnapshotRequest(
                     volume_id=volume_id,
+                    name=name,
+                    zone=zone,
+                    project_id=project_id,
+                    tags=tags,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Snapshot(res.json())
+
+    def import_snapshot_from_s3(
+        self,
+        *,
+        bucket: str,
+        key: str,
+        name: str,
+        zone: Optional[Zone] = None,
+        project_id: Optional[str] = None,
+        tags: Optional[List[str]] = None,
+    ) -> Snapshot:
+        """
+
+        Usage:
+        ::
+
+            result = api.import_snapshot_from_s3(
+                bucket="example",
+                key="example",
+                name="example",
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+
+        res = self._request(
+            "POST",
+            f"/block/v1alpha1/zones/{param_zone}/snapshots/import-from-s3",
+            body=marshal_ImportSnapshotFromS3Request(
+                ImportSnapshotFromS3Request(
+                    bucket=bucket,
+                    key=key,
                     name=name,
                     zone=zone,
                     project_id=project_id,
