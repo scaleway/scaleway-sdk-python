@@ -498,6 +498,9 @@ def unmarshal_ServerIp(data: Any) -> ServerIp:
     field = data.get("provisioning_mode", None)
     args["provisioning_mode"] = field
 
+    field = data.get("tags", None)
+    args["tags"] = field
+
     return ServerIp(**args)
 
 
@@ -2424,6 +2427,9 @@ def marshal_ServerIp(
         output["provisioning_mode"] = ServerIpProvisioningMode(
             request.provisioning_mode
         )
+
+    if request.tags is not None:
+        output["tags"] = request.tags
 
     return output
 

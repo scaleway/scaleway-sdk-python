@@ -1266,6 +1266,11 @@ class ServerIp:
     Information about this address provisioning mode.
     """
 
+    tags: List[str]
+    """
+    Tags associated with the IP.
+    """
+
 
 @dataclass
 class ServerIpv6:
