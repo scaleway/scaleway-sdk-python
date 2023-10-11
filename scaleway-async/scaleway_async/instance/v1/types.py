@@ -267,6 +267,7 @@ class VolumeVolumeType(str, Enum, metaclass=StrEnumMeta):
     UNIFIED = "unified"
     SCRATCH = "scratch"
     SBS_VOLUME = "sbs_volume"
+    SBS_SNAPSHOT = "sbs_snapshot"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -1264,6 +1265,11 @@ class ServerIp:
     provisioning_mode: ServerIpProvisioningMode
     """
     Information about this address provisioning mode.
+    """
+
+    tags: List[str]
+    """
+    Tags associated with the IP.
     """
 
 

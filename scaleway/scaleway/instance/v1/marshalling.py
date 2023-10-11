@@ -498,6 +498,9 @@ def unmarshal_ServerIp(data: Any) -> ServerIp:
     field = data.get("provisioning_mode", None)
     args["provisioning_mode"] = field
 
+    field = data.get("tags", None)
+    args["tags"] = field
+
     return ServerIp(**args)
 
 
@@ -2425,6 +2428,9 @@ def marshal_ServerIp(
             request.provisioning_mode
         )
 
+    if request.tags is not None:
+        output["tags"] = request.tags
+
     return output
 
 
@@ -3599,17 +3605,13 @@ def marshal__UpdateServerRequest(
         output["placement_group"] = request.placement_group
 
     if request.private_nics is not None:
-        output["private_nics"] = [
-            marshal_PrivateNIC(v, defaults) for v in request.private_nics
-        ]
+        output["private_nics"] = request.private_nics
 
     if request.protected is not None:
         output["protected"] = request.protected
 
     if request.public_ips is not None:
-        output["public_ips"] = [
-            marshal_ServerIp(v, defaults) for v in request.public_ips
-        ]
+        output["public_ips"] = request.public_ips
 
     if request.routed_ip_enabled is not None:
         output["routed_ip_enabled"] = request.routed_ip_enabled
