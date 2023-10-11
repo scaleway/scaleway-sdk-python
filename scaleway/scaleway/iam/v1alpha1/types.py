@@ -152,174 +152,32 @@ class UserType(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
-class APIKey:
+class RuleSpecs:
+    permission_set_names: Optional[List[str]]
     """
-    Api key.
-    """
-
-    access_key: str
-    """
-    Access key of the API key.
+    Names of permission sets bound to the rule.
     """
 
-    secret_key: Optional[str]
-    """
-    Secret key of the API Key.
-    """
+    project_ids: Optional[List[str]]
 
-    application_id: Optional[str]
-    """
-    ID of application that bears the API key.
-    
-    One-of ('bearer'): at most one of 'application_id', 'user_id' could be set.
-    """
-
-    user_id: Optional[str]
-    """
-    ID of user that bears the API key.
-    
-    One-of ('bearer'): at most one of 'application_id', 'user_id' could be set.
-    """
-
-    description: str
-    """
-    Description of API key.
-    """
-
-    created_at: Optional[datetime]
-    """
-    Date and time of API key creation.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Date and time of last API key update.
-    """
-
-    expires_at: Optional[datetime]
-    """
-    Date and time of API key expiration.
-    """
-
-    default_project_id: str
-    """
-    Default Project ID specified for this API key.
-    """
-
-    editable: bool
-    """
-    Defines whether or not the API key is editable.
-    """
-
-    creation_ip: str
-    """
-    IP address of the device that created the API key.
-    """
-
-
-@dataclass
-class Application:
-    """
-    Application.
-    """
-
-    id: str
-    """
-    ID of the application.
-    """
-
-    name: str
-    """
-    Name of the application.
-    """
-
-    description: str
-    """
-    Description of the application.
-    """
-
-    created_at: Optional[datetime]
-    """
-    Date and time application was created.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Date and time of last application update.
-    """
-
-    organization_id: str
-    """
-    ID of the Organization.
-    """
-
-    editable: bool
-    """
-    Defines whether or not the application is editable.
-    """
-
-    nb_api_keys: int
-    """
-    Number of API keys attributed to the application.
-    """
-
-
-@dataclass
-class Group:
-    """
-    Group.
-    """
-
-    id: str
-    """
-    ID of the group.
-    """
-
-    created_at: Optional[datetime]
-    """
-    Date and time of group creation.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Date and time of last group update.
-    """
-
-    organization_id: str
-    """
-    ID of Organization linked to the group.
-    """
-
-    name: str
-    """
-    Name of the group.
-    """
-
-    description: str
-    """
-    Description of the group.
-    """
-
-    user_ids: List[str]
-    """
-    IDs of users attached to this group.
-    """
-
-    application_ids: List[str]
-    """
-    IDs of applications attached to this group.
-    """
+    organization_id: Optional[str]
 
 
 @dataclass
 class JWT:
+    user_agent: str
     """
-    Jwt.
+    User-agent used during the creation of the JWT.
     """
 
-    jti: str
+    ip: str
     """
-    JWT ID.
+    IP address used during the creation of the JWT.
+    """
+
+    audience_id: str
+    """
+    ID of the user targeted by the JWT.
     """
 
     issuer_id: str
@@ -327,9 +185,9 @@ class JWT:
     ID of the user who issued the JWT.
     """
 
-    audience_id: str
+    jti: str
     """
-    ID of the user targeted by the JWT.
+    JWT ID.
     """
 
     created_at: Optional[datetime]
@@ -347,191 +205,150 @@ class JWT:
     Expiration date of the JWT.
     """
 
-    ip: str
+
+@dataclass
+class APIKey:
+    creation_ip: str
     """
-    IP address used during the creation of the JWT.
+    IP address of the device that created the API key.
     """
 
-    user_agent: str
+    editable: bool
     """
-    User-agent used during the creation of the JWT.
+    Defines whether or not the API key is editable.
+    """
+
+    default_project_id: str
+    """
+    Default Project ID specified for this API key.
+    """
+
+    description: str
+    """
+    Description of API key.
+    """
+
+    access_key: str
+    """
+    Access key of the API key.
+    """
+
+    secret_key: Optional[str]
+    """
+    Secret key of the API Key.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Date and time of API key creation.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Date and time of last API key update.
+    """
+
+    expires_at: Optional[datetime]
+    """
+    Date and time of API key expiration.
+    """
+
+    application_id: Optional[str]
+
+    user_id: Optional[str]
+
+
+@dataclass
+class Application:
+    nb_api_keys: int
+    """
+    Number of API keys attributed to the application.
+    """
+
+    editable: bool
+    """
+    Defines whether or not the application is editable.
+    """
+
+    organization_id: str
+    """
+    ID of the Organization.
+    """
+
+    description: str
+    """
+    Description of the application.
+    """
+
+    name: str
+    """
+    Name of the application.
+    """
+
+    id: str
+    """
+    ID of the application.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Date and time application was created.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Date and time of last application update.
     """
 
 
 @dataclass
-class ListAPIKeysResponse:
+class Group:
+    application_ids: List[str]
     """
-    List api keys response.
-    """
-
-    api_keys: List[APIKey]
-    """
-    List of API keys.
+    IDs of applications attached to this group.
     """
 
-    total_count: int
+    user_ids: List[str]
     """
-    Total count of API Keys.
-    """
-
-
-@dataclass
-class ListApplicationsResponse:
-    """
-    List applications response.
+    IDs of users attached to this group.
     """
 
-    applications: List[Application]
+    description: str
     """
-    List of applications.
-    """
-
-    total_count: int
-    """
-    Total count of applications.
+    Description of the group.
     """
 
-
-@dataclass
-class ListGroupsResponse:
+    name: str
     """
-    List groups response.
+    Name of the group.
     """
 
-    groups: List[Group]
+    organization_id: str
     """
-    List of groups.
-    """
-
-    total_count: int
-    """
-    Total count of groups.
+    ID of Organization linked to the group.
     """
 
-
-@dataclass
-class ListJWTsResponse:
-    jwts: List[JWT]
-
-    total_count: int
-
-
-@dataclass
-class ListPermissionSetsResponse:
+    id: str
     """
-    List permission sets response.
+    ID of the group.
     """
 
-    permission_sets: List[PermissionSet]
+    created_at: Optional[datetime]
     """
-    List of permission sets.
-    """
-
-    total_count: int
-    """
-    Total count of permission sets.
+    Date and time of group creation.
     """
 
-
-@dataclass
-class ListPoliciesResponse:
+    updated_at: Optional[datetime]
     """
-    List policies response.
-    """
-
-    policies: List[Policy]
-    """
-    List of policies.
-    """
-
-    total_count: int
-    """
-    Total count of policies.
-    """
-
-
-@dataclass
-class ListQuotaResponse:
-    """
-    List quota response.
-    """
-
-    quota: List[Quotum]
-    """
-    List of quota.
-    """
-
-    total_count: int
-    """
-    Total count of quota.
-    """
-
-
-@dataclass
-class ListRulesResponse:
-    """
-    List rules response.
-    """
-
-    rules: List[Rule]
-    """
-    Rules of the policy.
-    """
-
-    total_count: int
-    """
-    Total count of rules.
-    """
-
-
-@dataclass
-class ListSSHKeysResponse:
-    """
-    List ssh keys response.
-    """
-
-    ssh_keys: List[SSHKey]
-    """
-    List of SSH keys.
-    """
-
-    total_count: int
-    """
-    Total count of SSH keys.
-    """
-
-
-@dataclass
-class ListUsersResponse:
-    """
-    List users response.
-    """
-
-    users: List[User]
-    """
-    List of users.
-    """
-
-    total_count: int
-    """
-    Total count of users.
+    Date and time of last group update.
     """
 
 
 @dataclass
 class PermissionSet:
+    description: str
     """
-    Permission set.
-    """
-
-    id: str
-    """
-    Id of the permission set.
-    """
-
-    name: str
-    """
-    Name of the permission set.
+    Description of the permission set.
     """
 
     scope_type: PermissionSetScopeType
@@ -539,9 +356,14 @@ class PermissionSet:
     Scope of the permission set.
     """
 
-    description: str
+    name: str
     """
-    Description of the permission set.
+    Name of the permission set.
+    """
+
+    id: str
+    """
+    Id of the permission set.
     """
 
     categories: Optional[List[str]]
@@ -552,18 +374,29 @@ class PermissionSet:
 
 @dataclass
 class Policy:
+    nb_permission_sets: int
     """
-    Policy.
-    """
-
-    id: str
-    """
-    Id of the policy.
+    Number of permission sets of the policy.
     """
 
-    name: str
+    nb_scopes: int
     """
-    Name of the policy.
+    Number of policy scopes.
+    """
+
+    nb_rules: int
+    """
+    Number of rules of the policy.
+    """
+
+    editable: bool
+    """
+    Defines whether or not a policy is editable.
+    """
+
+    organization_id: str
+    """
+    Organization ID of the policy.
     """
 
     description: str
@@ -571,9 +404,14 @@ class Policy:
     Description of the policy.
     """
 
-    organization_id: str
+    name: str
     """
-    Organization ID of the policy.
+    Name of the policy.
+    """
+
+    id: str
+    """
+    Id of the policy.
     """
 
     created_at: Optional[datetime]
@@ -586,85 +424,32 @@ class Policy:
     Date and time of last policy update.
     """
 
-    editable: bool
-    """
-    Defines whether or not a policy is editable.
-    """
-
-    nb_rules: int
-    """
-    Number of rules of the policy.
-    """
-
-    nb_scopes: int
-    """
-    Number of policy scopes.
-    """
-
-    nb_permission_sets: int
-    """
-    Number of permission sets of the policy.
-    """
-
     user_id: Optional[str]
-    """
-    ID of the user attributed to the policy.
-    
-    One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
-    """
 
     group_id: Optional[str]
-    """
-    ID of the group attributed to the policy.
-    
-    One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
-    """
 
     application_id: Optional[str]
-    """
-    ID of the application attributed to the policy.
-    
-    One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
-    """
 
     no_principal: Optional[bool]
-    """
-    Defines whether or not a policy is attributed to a principal.
-    
-    One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
-    """
 
 
 @dataclass
 class Quotum:
-    """
-    Quotum.
-    """
-
     name: str
     """
     Name of the quota.
     """
 
     limit: Optional[int]
-    """
-    Maximum limit of the quota.
-    
-    One-of ('value'): at most one of 'limit', 'unlimited' could be set.
-    """
 
     unlimited: Optional[bool]
-    """
-    Defines whether or not the quota is unlimited.
-    
-    One-of ('value'): at most one of 'limit', 'unlimited' could be set.
-    """
 
 
 @dataclass
 class Rule:
+    permission_sets_scope_type: PermissionSetScopeType
     """
-    Rule.
+    Permission_set_names have the same scope_type.
     """
 
     id: str
@@ -677,73 +462,33 @@ class Rule:
     Names of permission sets bound to the rule.
     """
 
-    permission_sets_scope_type: PermissionSetScopeType
-    """
-    Permission_set_names have the same scope_type.
-    """
-
     project_ids: Optional[List[str]]
-    """
-    List of Project IDs the rule is scoped to.
-    
-    One-of ('scope'): at most one of 'project_ids', 'organization_id', 'account_root_user_id' could be set.
-    """
 
     organization_id: Optional[str]
-    """
-    ID of Organization the rule is scoped to.
-    
-    One-of ('scope'): at most one of 'project_ids', 'organization_id', 'account_root_user_id' could be set.
-    """
 
     account_root_user_id: Optional[str]
-    """
-    ID of account root user the rule is scoped to.
-    
-    One-of ('scope'): at most one of 'project_ids', 'organization_id', 'account_root_user_id' could be set.
-    """
-
-
-@dataclass
-class RuleSpecs:
-    """
-    Rule specs.
-    """
-
-    permission_set_names: Optional[List[str]]
-    """
-    Names of permission sets bound to the rule.
-    """
-
-    project_ids: Optional[List[str]]
-    """
-    List of Project IDs the rule is scoped to.
-    
-    One-of ('scope'): at most one of 'project_ids', 'organization_id' could be set.
-    """
-
-    organization_id: Optional[str]
-    """
-    ID of Organization the rule is scoped to.
-    
-    One-of ('scope'): at most one of 'project_ids', 'organization_id' could be set.
-    """
 
 
 @dataclass
 class SSHKey:
+    disabled: bool
     """
-    Ssh key.
-    """
-
-    id: str
-    """
-    ID of SSH key.
+    SSH key status.
     """
 
-    name: str
+    project_id: str
     """
-    Name of SSH key.
+    ID of Project linked to the SSH key.
+    """
+
+    organization_id: str
+    """
+    ID of Organization linked to the SSH key.
+    """
+
+    fingerprint: str
+    """
+    Fingerprint of the SSH key.
     """
 
     public_key: str
@@ -751,9 +496,14 @@ class SSHKey:
     Public key of SSH key.
     """
 
-    fingerprint: str
+    name: str
     """
-    Fingerprint of the SSH key.
+    Name of SSH key.
+    """
+
+    id: str
+    """
+    ID of SSH key.
     """
 
     created_at: Optional[datetime]
@@ -766,48 +516,47 @@ class SSHKey:
     Last update date of SSH key.
     """
 
-    organization_id: str
-    """
-    ID of Organization linked to the SSH key.
-    """
-
-    project_id: str
-    """
-    ID of Project linked to the SSH key.
-    """
-
-    disabled: bool
-    """
-    SSH key status.
-    """
-
-
-@dataclass
-class SetRulesResponse:
-    """
-    Set rules response.
-    """
-
-    rules: List[Rule]
-    """
-    Rules of the policy.
-    """
-
 
 @dataclass
 class User:
+    account_root_user_id: str
     """
-    User.
+    ID of the account root user associated with the user.
     """
 
-    id: str
+    mfa: bool
     """
-    ID of user.
+    Defines whether MFA is enabled.
+    """
+
+    status: UserStatus
+    """
+    Status of user invitation.
+    """
+
+    type_: UserType
+    """
+    Type of user.
+    """
+
+    deletable: bool
+    """
+    Deletion status of user. Owners cannot be deleted.
+    """
+
+    organization_id: str
+    """
+    ID of the Organization.
     """
 
     email: str
     """
     Email of user.
+    """
+
+    id: str
+    """
+    ID of user.
     """
 
     created_at: Optional[datetime]
@@ -820,101 +569,275 @@ class User:
     Date of last user update.
     """
 
-    organization_id: str
-    """
-    ID of the Organization.
-    """
-
-    deletable: bool
-    """
-    Deletion status of user. Owners cannot be deleted.
-    """
-
     last_login_at: Optional[datetime]
     """
     Date of the last login.
     """
 
-    type_: UserType
-    """
-    Type of user.
-    """
-
     two_factor_enabled: Optional[bool]
     """
     Deprecated, use "mfa" instead.
-    :deprecated
-    """
-
-    status: UserStatus
-    """
-    Status of user invitation.
-    """
-
-    mfa: bool
-    """
-    Defines whether MFA is enabled.
-    """
-
-    account_root_user_id: str
-    """
-    ID of the account root user associated with the user.
     """
 
 
 @dataclass
-class ListSSHKeysRequest:
-    order_by: Optional[ListSSHKeysRequestOrderBy]
+class AddGroupMemberRequest:
+    group_id: str
     """
-    Sort order of the SSH keys.
-    """
-
-    page: Optional[int]
-    """
-    Requested page number. Value must be greater or equal to 1.
+    ID of the group.
     """
 
-    page_size: Optional[int]
+    user_id: Optional[str]
+
+    application_id: Optional[str]
+
+
+@dataclass
+class AddGroupMembersRequest:
+    group_id: str
     """
-    Number of items per page. Value must be between 1 and 100.
+    ID of the group.
+    """
+
+    user_ids: Optional[List[str]]
+    """
+    IDs of the users to add.
+    """
+
+    application_ids: Optional[List[str]]
+    """
+    IDs of the applications to add.
+    """
+
+
+@dataclass
+class ClonePolicyRequest:
+    policy_id: str
+
+
+@dataclass
+class CreateAPIKeyRequest:
+    description: str
+    """
+    Description of the API key (max length is 200 characters).
+    """
+
+    expires_at: Optional[datetime]
+    """
+    Expiration date of the API key.
+    """
+
+    default_project_id: Optional[str]
+    """
+    Default Project ID to use with Object Storage.
+    """
+
+    application_id: Optional[str]
+
+    user_id: Optional[str]
+
+
+@dataclass
+class CreateApplicationRequest:
+    description: str
+    """
+    Description of the application (max length is 200 characters).
+    """
+
+    name: Optional[str]
+    """
+    Name of the application to create (max length is 64 characters).
     """
 
     organization_id: Optional[str]
     """
-    Filter by Organization ID.
-    """
-
-    name: Optional[str]
-    """
-    Name of group to find.
-    """
-
-    project_id: Optional[str]
-    """
-    Filter by Project ID.
-    """
-
-    disabled: Optional[bool]
-    """
-    Defines whether to include disabled SSH keys or not.
+    ID of the Organization.
     """
 
 
 @dataclass
-class CreateSSHKeyRequest:
-    name: Optional[str]
+class CreateGroupRequest:
+    description: str
     """
-    Name of the SSH key. Max length is 1000.
+    Description of the group to create (max length is 200 chars).
     """
 
+    organization_id: Optional[str]
+    """
+    ID of Organization linked to the group.
+    """
+
+    name: Optional[str]
+    """
+    Name of the group to create (max length is 64 chars). MUST be unique inside an Organization.
+    """
+
+
+@dataclass
+class CreatePolicyRequest:
+    description: str
+    """
+    Description of the policy to create (max length is 200 characters).
+    """
+
+    name: Optional[str]
+    """
+    Name of the policy to create (max length is 64 characters).
+    """
+
+    organization_id: Optional[str]
+    """
+    ID of the Organization.
+    """
+
+    rules: Optional[List[RuleSpecs]]
+    """
+    Rules of the policy to create.
+    """
+
+    user_id: Optional[str]
+
+    group_id: Optional[str]
+
+    application_id: Optional[str]
+
+    no_principal: Optional[bool]
+
+
+@dataclass
+class CreateSSHKeyRequest:
     public_key: str
     """
     SSH public key. Currently only the ssh-rsa, ssh-dss (DSA), ssh-ed25519 and ecdsa keys with NIST curves are supported. Max length is 65000.
     """
 
+    name: Optional[str]
+    """
+    Name of the SSH key. Max length is 1000.
+    """
+
     project_id: Optional[str]
     """
     Project the resource is attributed to.
+    """
+
+
+@dataclass
+class CreateUserRequest:
+    email: str
+    """
+    Email of the user.
+    """
+
+    organization_id: Optional[str]
+    """
+    ID of the Organization.
+    """
+
+
+@dataclass
+class DeleteAPIKeyRequest:
+    access_key: str
+    """
+    Access key to delete.
+    """
+
+
+@dataclass
+class DeleteApplicationRequest:
+    application_id: str
+    """
+    ID of the application to delete.
+    """
+
+
+@dataclass
+class DeleteGroupRequest:
+    group_id: str
+    """
+    ID of the group to delete.
+    """
+
+
+@dataclass
+class DeleteJWTRequest:
+    jti: str
+    """
+    JWT ID of the JWT to delete.
+    """
+
+
+@dataclass
+class DeletePolicyRequest:
+    policy_id: str
+    """
+    Id of policy to delete.
+    """
+
+
+@dataclass
+class DeleteSSHKeyRequest:
+    ssh_key_id: str
+
+
+@dataclass
+class DeleteUserRequest:
+    user_id: str
+    """
+    ID of the user to delete.
+    """
+
+
+@dataclass
+class GetAPIKeyRequest:
+    access_key: str
+    """
+    Access key to search for.
+    """
+
+
+@dataclass
+class GetApplicationRequest:
+    application_id: str
+    """
+    ID of the application to find.
+    """
+
+
+@dataclass
+class GetGroupRequest:
+    group_id: str
+    """
+    ID of the group.
+    """
+
+
+@dataclass
+class GetJWTRequest:
+    jti: str
+    """
+    JWT ID of the JWT to get.
+    """
+
+
+@dataclass
+class GetPolicyRequest:
+    policy_id: str
+    """
+    Id of policy to search.
+    """
+
+
+@dataclass
+class GetQuotumRequest:
+    quotum_name: str
+    """
+    Name of the quota to get.
+    """
+
+    organization_id: Optional[str]
+    """
+    ID of the Organization.
     """
 
 
@@ -927,59 +850,6 @@ class GetSSHKeyRequest:
 
 
 @dataclass
-class UpdateSSHKeyRequest:
-    ssh_key_id: str
-
-    name: Optional[str]
-    """
-    Name of the SSH key. Max length is 1000.
-    """
-
-    disabled: Optional[bool]
-    """
-    Enable or disable the SSH key.
-    """
-
-
-@dataclass
-class DeleteSSHKeyRequest:
-    ssh_key_id: str
-
-
-@dataclass
-class ListUsersRequest:
-    order_by: Optional[ListUsersRequestOrderBy]
-    """
-    Criteria for sorting results.
-    """
-
-    page_size: Optional[int]
-    """
-    Number of results per page. Value must be between 1 and 100.
-    """
-
-    page: Optional[int]
-    """
-    Page number. Value must be greater or equal to 1.
-    """
-
-    organization_id: Optional[str]
-    """
-    ID of the Organization to filter.
-    """
-
-    user_ids: Optional[List[str]]
-    """
-    Filter by list of IDs.
-    """
-
-    mfa: Optional[bool]
-    """
-    Filter by MFA status.
-    """
-
-
-@dataclass
 class GetUserRequest:
     user_id: str
     """
@@ -988,23 +858,72 @@ class GetUserRequest:
 
 
 @dataclass
-class DeleteUserRequest:
-    user_id: str
+class ListAPIKeysRequest:
+    order_by: Optional[ListAPIKeysRequestOrderBy]
     """
-    ID of the user to delete.
+    Criteria for sorting results.
     """
+
+    page: Optional[int]
+    """
+    Page number. Value must be greater or equal to 1.
+    """
+
+    page_size: Optional[int]
+    """
+    Number of results per page. Value must be between 1 and 100.
+    """
+
+    organization_id: Optional[str]
+    """
+    ID of Organization.
+    """
+
+    editable: Optional[bool]
+    """
+    Defines whether to filter out editable API keys or not.
+    """
+
+    expired: Optional[bool]
+    """
+    Defines whether to filter out expired API keys or not.
+    """
+
+    access_key: Optional[str]
+    """
+    Filter by access key.
+    """
+
+    description: Optional[str]
+    """
+    Filter by description.
+    """
+
+    bearer_id: Optional[str]
+    """
+    Filter by bearer ID.
+    """
+
+    bearer_type: Optional[BearerType]
+    """
+    Filter by type of bearer.
+    """
+
+    application_id: Optional[str]
+
+    user_id: Optional[str]
 
 
 @dataclass
-class CreateUserRequest:
-    organization_id: Optional[str]
+class ListAPIKeysResponse:
+    total_count: int
     """
-    ID of the Organization.
+    Total count of API Keys.
     """
 
-    email: str
+    api_keys: List[APIKey]
     """
-    Email of the user.
+    List of API keys.
     """
 
 
@@ -1047,54 +966,15 @@ class ListApplicationsRequest:
 
 
 @dataclass
-class CreateApplicationRequest:
-    name: Optional[str]
+class ListApplicationsResponse:
+    total_count: int
     """
-    Name of the application to create (max length is 64 characters).
-    """
-
-    organization_id: Optional[str]
-    """
-    ID of the Organization.
+    Total count of applications.
     """
 
-    description: str
+    applications: List[Application]
     """
-    Description of the application (max length is 200 characters).
-    """
-
-
-@dataclass
-class GetApplicationRequest:
-    application_id: str
-    """
-    ID of the application to find.
-    """
-
-
-@dataclass
-class UpdateApplicationRequest:
-    application_id: str
-    """
-    ID of the application to update.
-    """
-
-    name: Optional[str]
-    """
-    New name for the application (max length is 64 chars).
-    """
-
-    description: Optional[str]
-    """
-    New description for the application (max length is 200 chars).
-    """
-
-
-@dataclass
-class DeleteApplicationRequest:
-    application_id: str
-    """
-    ID of the application to delete.
+    List of applications.
     """
 
 
@@ -1142,125 +1022,86 @@ class ListGroupsRequest:
 
 
 @dataclass
-class CreateGroupRequest:
+class ListGroupsResponse:
+    total_count: int
+    """
+    Total count of groups.
+    """
+
+    groups: List[Group]
+    """
+    List of groups.
+    """
+
+
+@dataclass
+class ListJWTsRequest:
+    order_by: Optional[ListJWTsRequestOrderBy]
+    """
+    Criteria for sorting results.
+    """
+
+    audience_id: Optional[str]
+    """
+    ID of the user to search.
+    """
+
+    page_size: Optional[int]
+    """
+    Number of results per page. Value must be between 1 and 100.
+    """
+
+    page: Optional[int]
+    """
+    Page number. Value must be greater to 1.
+    """
+
+    expired: Optional[bool]
+    """
+    Filter out expired JWTs or not.
+    """
+
+
+@dataclass
+class ListJWTsResponse:
+    total_count: int
+
+    jwts: List[JWT]
+
+
+@dataclass
+class ListPermissionSetsRequest:
+    order_by: Optional[ListPermissionSetsRequestOrderBy]
+    """
+    Criteria for sorting results.
+    """
+
+    page_size: Optional[int]
+    """
+    Number of results per page. Value must be between 1 and 100.
+    """
+
+    page: Optional[int]
+    """
+    Page number. Value must be greater than 1.
+    """
+
     organization_id: Optional[str]
     """
-    ID of Organization linked to the group.
-    """
-
-    name: Optional[str]
-    """
-    Name of the group to create (max length is 64 chars). MUST be unique inside an Organization.
-    """
-
-    description: str
-    """
-    Description of the group to create (max length is 200 chars).
+    Filter by Organization ID.
     """
 
 
 @dataclass
-class GetGroupRequest:
-    group_id: str
+class ListPermissionSetsResponse:
+    total_count: int
     """
-    ID of the group.
-    """
-
-
-@dataclass
-class UpdateGroupRequest:
-    group_id: str
-    """
-    ID of the group to update.
+    Total count of permission sets.
     """
 
-    name: Optional[str]
+    permission_sets: List[PermissionSet]
     """
-    New name for the group (max length is 64 chars). MUST be unique inside an Organization.
-    """
-
-    description: Optional[str]
-    """
-    New description for the group (max length is 200 chars).
-    """
-
-
-@dataclass
-class SetGroupMembersRequest:
-    group_id: str
-
-    user_ids: List[str]
-
-    application_ids: List[str]
-
-
-@dataclass
-class AddGroupMemberRequest:
-    group_id: str
-    """
-    ID of the group.
-    """
-
-    user_id: Optional[str]
-    """
-    ID of the user to add.
-    
-    One-of ('member'): at most one of 'user_id', 'application_id' could be set.
-    """
-
-    application_id: Optional[str]
-    """
-    ID of the application to add.
-    
-    One-of ('member'): at most one of 'user_id', 'application_id' could be set.
-    """
-
-
-@dataclass
-class AddGroupMembersRequest:
-    group_id: str
-    """
-    ID of the group.
-    """
-
-    user_ids: Optional[List[str]]
-    """
-    IDs of the users to add.
-    """
-
-    application_ids: Optional[List[str]]
-    """
-    IDs of the applications to add.
-    """
-
-
-@dataclass
-class RemoveGroupMemberRequest:
-    group_id: str
-    """
-    ID of the group.
-    """
-
-    user_id: Optional[str]
-    """
-    ID of the user to remove.
-    
-    One-of ('member'): at most one of 'user_id', 'application_id' could be set.
-    """
-
-    application_id: Optional[str]
-    """
-    ID of the application to remove.
-    
-    One-of ('member'): at most one of 'user_id', 'application_id' could be set.
-    """
-
-
-@dataclass
-class DeleteGroupRequest:
-    group_id: str
-    """
-    ID of the group to delete.
+    List of permission sets.
     """
 
 
@@ -1318,309 +1159,15 @@ class ListPoliciesRequest:
 
 
 @dataclass
-class CreatePolicyRequest:
-    name: Optional[str]
+class ListPoliciesResponse:
+    total_count: int
     """
-    Name of the policy to create (max length is 64 characters).
-    """
-
-    description: str
-    """
-    Description of the policy to create (max length is 200 characters).
+    Total count of policies.
     """
 
-    organization_id: Optional[str]
+    policies: List[Policy]
     """
-    ID of the Organization.
-    """
-
-    rules: Optional[List[RuleSpecs]]
-    """
-    Rules of the policy to create.
-    """
-
-    user_id: Optional[str]
-    """
-    ID of user attributed to the policy.
-    
-    One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
-    """
-
-    group_id: Optional[str]
-    """
-    ID of group attributed to the policy.
-    
-    One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
-    """
-
-    application_id: Optional[str]
-    """
-    ID of application attributed to the policy.
-    
-    One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
-    """
-
-    no_principal: Optional[bool]
-    """
-    Defines whether or not a policy is attributed to a principal.
-    
-    One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
-    """
-
-
-@dataclass
-class GetPolicyRequest:
-    policy_id: str
-    """
-    Id of policy to search.
-    """
-
-
-@dataclass
-class UpdatePolicyRequest:
-    policy_id: str
-    """
-    Id of policy to update.
-    """
-
-    name: Optional[str]
-    """
-    New name for the policy (max length is 64 characters).
-    """
-
-    description: Optional[str]
-    """
-    New description of policy (max length is 200 characters).
-    """
-
-    user_id: Optional[str]
-    """
-    New ID of user attributed to the policy.
-    
-    One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
-    """
-
-    group_id: Optional[str]
-    """
-    New ID of group attributed to the policy.
-    
-    One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
-    """
-
-    application_id: Optional[str]
-    """
-    New ID of application attributed to the policy.
-    
-    One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
-    """
-
-    no_principal: Optional[bool]
-    """
-    Defines whether or not the policy is attributed to a principal.
-    
-    One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
-    """
-
-
-@dataclass
-class DeletePolicyRequest:
-    policy_id: str
-    """
-    Id of policy to delete.
-    """
-
-
-@dataclass
-class ClonePolicyRequest:
-    policy_id: str
-
-
-@dataclass
-class SetRulesRequest:
-    policy_id: str
-    """
-    Id of policy to update.
-    """
-
-    rules: List[RuleSpecs]
-    """
-    Rules of the policy to set.
-    """
-
-
-@dataclass
-class ListRulesRequest:
-    policy_id: str
-    """
-    Id of policy to search.
-    """
-
-    page_size: Optional[int]
-    """
-    Number of results per page. Value must be between 1 and 100.
-    """
-
-    page: Optional[int]
-    """
-    Page number. Value must be greater than 1.
-    """
-
-
-@dataclass
-class ListPermissionSetsRequest:
-    order_by: Optional[ListPermissionSetsRequestOrderBy]
-    """
-    Criteria for sorting results.
-    """
-
-    page_size: Optional[int]
-    """
-    Number of results per page. Value must be between 1 and 100.
-    """
-
-    page: Optional[int]
-    """
-    Page number. Value must be greater than 1.
-    """
-
-    organization_id: Optional[str]
-    """
-    Filter by Organization ID.
-    """
-
-
-@dataclass
-class ListAPIKeysRequest:
-    order_by: Optional[ListAPIKeysRequestOrderBy]
-    """
-    Criteria for sorting results.
-    """
-
-    page: Optional[int]
-    """
-    Page number. Value must be greater or equal to 1.
-    """
-
-    page_size: Optional[int]
-    """
-    Number of results per page. Value must be between 1 and 100.
-    """
-
-    organization_id: Optional[str]
-    """
-    ID of Organization.
-    """
-
-    application_id: Optional[str]
-    """
-    ID of application that bears the API key.
-    
-    One-of ('bearer'): at most one of 'application_id', 'user_id' could be set.
-    :deprecated
-    """
-
-    user_id: Optional[str]
-    """
-    ID of user that bears the API key.
-    
-    One-of ('bearer'): at most one of 'application_id', 'user_id' could be set.
-    :deprecated
-    """
-
-    editable: Optional[bool]
-    """
-    Defines whether to filter out editable API keys or not.
-    """
-
-    expired: Optional[bool]
-    """
-    Defines whether to filter out expired API keys or not.
-    """
-
-    access_key: Optional[str]
-    """
-    Filter by access key.
-    """
-
-    description: Optional[str]
-    """
-    Filter by description.
-    """
-
-    bearer_id: Optional[str]
-    """
-    Filter by bearer ID.
-    """
-
-    bearer_type: Optional[BearerType]
-    """
-    Filter by type of bearer.
-    """
-
-
-@dataclass
-class CreateAPIKeyRequest:
-    application_id: Optional[str]
-    """
-    ID of the application.
-    
-    One-of ('bearer'): at most one of 'application_id', 'user_id' could be set.
-    """
-
-    user_id: Optional[str]
-    """
-    ID of the user.
-    
-    One-of ('bearer'): at most one of 'application_id', 'user_id' could be set.
-    """
-
-    expires_at: Optional[datetime]
-    """
-    Expiration date of the API key.
-    """
-
-    default_project_id: Optional[str]
-    """
-    Default Project ID to use with Object Storage.
-    """
-
-    description: str
-    """
-    Description of the API key (max length is 200 characters).
-    """
-
-
-@dataclass
-class GetAPIKeyRequest:
-    access_key: str
-    """
-    Access key to search for.
-    """
-
-
-@dataclass
-class UpdateAPIKeyRequest:
-    access_key: str
-    """
-    Access key to update.
-    """
-
-    default_project_id: Optional[str]
-    """
-    New default Project ID to set.
-    """
-
-    description: Optional[str]
-    """
-    New description to update.
-    """
-
-
-@dataclass
-class DeleteAPIKeyRequest:
-    access_key: str
-    """
-    Access key to delete.
+    List of policies.
     """
 
 
@@ -1648,28 +1195,23 @@ class ListQuotaRequest:
 
 
 @dataclass
-class GetQuotumRequest:
-    quotum_name: str
+class ListQuotaResponse:
+    total_count: int
     """
-    Name of the quota to get.
+    Total count of quota.
     """
 
-    organization_id: Optional[str]
+    quota: List[Quotum]
     """
-    ID of the Organization.
+    List of quota.
     """
 
 
 @dataclass
-class ListJWTsRequest:
-    order_by: Optional[ListJWTsRequestOrderBy]
+class ListRulesRequest:
+    policy_id: str
     """
-    Criteria for sorting results.
-    """
-
-    audience_id: str
-    """
-    ID of the user to search.
+    Id of policy to search.
     """
 
     page_size: Optional[int]
@@ -1679,26 +1221,252 @@ class ListJWTsRequest:
 
     page: Optional[int]
     """
-    Page number. Value must be greater to 1.
-    """
-
-    expired: Optional[bool]
-    """
-    Filter out expired JWTs or not.
+    Page number. Value must be greater than 1.
     """
 
 
 @dataclass
-class GetJWTRequest:
-    jti: str
+class ListRulesResponse:
+    total_count: int
     """
-    JWT ID of the JWT to get.
+    Total count of rules.
+    """
+
+    rules: List[Rule]
+    """
+    Rules of the policy.
     """
 
 
 @dataclass
-class DeleteJWTRequest:
-    jti: str
+class ListSSHKeysRequest:
+    order_by: Optional[ListSSHKeysRequestOrderBy]
     """
-    JWT ID of the JWT to delete.
+    Sort order of the SSH keys.
+    """
+
+    page: Optional[int]
+    """
+    Requested page number. Value must be greater or equal to 1.
+    """
+
+    page_size: Optional[int]
+    """
+    Number of items per page. Value must be between 1 and 100.
+    """
+
+    organization_id: Optional[str]
+    """
+    Filter by Organization ID.
+    """
+
+    name: Optional[str]
+    """
+    Name of group to find.
+    """
+
+    project_id: Optional[str]
+    """
+    Filter by Project ID.
+    """
+
+    disabled: Optional[bool]
+    """
+    Defines whether to include disabled SSH keys or not.
+    """
+
+
+@dataclass
+class ListSSHKeysResponse:
+    total_count: int
+    """
+    Total count of SSH keys.
+    """
+
+    ssh_keys: List[SSHKey]
+    """
+    List of SSH keys.
+    """
+
+
+@dataclass
+class ListUsersRequest:
+    order_by: Optional[ListUsersRequestOrderBy]
+    """
+    Criteria for sorting results.
+    """
+
+    page_size: Optional[int]
+    """
+    Number of results per page. Value must be between 1 and 100.
+    """
+
+    page: Optional[int]
+    """
+    Page number. Value must be greater or equal to 1.
+    """
+
+    organization_id: Optional[str]
+    """
+    ID of the Organization to filter.
+    """
+
+    user_ids: Optional[List[str]]
+    """
+    Filter by list of IDs.
+    """
+
+    mfa: Optional[bool]
+    """
+    Filter by MFA status.
+    """
+
+
+@dataclass
+class ListUsersResponse:
+    total_count: int
+    """
+    Total count of users.
+    """
+
+    users: List[User]
+    """
+    List of users.
+    """
+
+
+@dataclass
+class RemoveGroupMemberRequest:
+    group_id: str
+    """
+    ID of the group.
+    """
+
+    user_id: Optional[str]
+
+    application_id: Optional[str]
+
+
+@dataclass
+class SetGroupMembersRequest:
+    group_id: str
+
+    user_ids: Optional[List[str]]
+
+    application_ids: Optional[List[str]]
+
+
+@dataclass
+class SetRulesRequest:
+    policy_id: str
+    """
+    Id of policy to update.
+    """
+
+    rules: Optional[List[RuleSpecs]]
+    """
+    Rules of the policy to set.
+    """
+
+
+@dataclass
+class SetRulesResponse:
+    rules: List[Rule]
+    """
+    Rules of the policy.
+    """
+
+
+@dataclass
+class UpdateAPIKeyRequest:
+    access_key: str
+    """
+    Access key to update.
+    """
+
+    default_project_id: Optional[str]
+    """
+    New default Project ID to set.
+    """
+
+    description: Optional[str]
+    """
+    New description to update.
+    """
+
+
+@dataclass
+class UpdateApplicationRequest:
+    application_id: str
+    """
+    ID of the application to update.
+    """
+
+    name: Optional[str]
+    """
+    New name for the application (max length is 64 chars).
+    """
+
+    description: Optional[str]
+    """
+    New description for the application (max length is 200 chars).
+    """
+
+
+@dataclass
+class UpdateGroupRequest:
+    group_id: str
+    """
+    ID of the group to update.
+    """
+
+    name: Optional[str]
+    """
+    New name for the group (max length is 64 chars). MUST be unique inside an Organization.
+    """
+
+    description: Optional[str]
+    """
+    New description for the group (max length is 200 chars).
+    """
+
+
+@dataclass
+class UpdatePolicyRequest:
+    policy_id: str
+    """
+    Id of policy to update.
+    """
+
+    name: Optional[str]
+    """
+    New name for the policy (max length is 64 characters).
+    """
+
+    description: Optional[str]
+    """
+    New description of policy (max length is 200 characters).
+    """
+
+    user_id: Optional[str]
+
+    group_id: Optional[str]
+
+    application_id: Optional[str]
+
+    no_principal: Optional[bool]
+
+
+@dataclass
+class UpdateSSHKeyRequest:
+    ssh_key_id: str
+
+    name: Optional[str]
+    """
+    Name of the SSH key. Max length is 1000.
+    """
+
+    disabled: Optional[bool]
+    """
+    Enable or disable the SSH key.
     """

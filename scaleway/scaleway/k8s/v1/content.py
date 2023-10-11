@@ -8,7 +8,6 @@ from .types import (
     PoolStatus,
 )
 
-
 CLUSTER_TRANSIENT_STATUSES: List[ClusterStatus] = [
     ClusterStatus.CREATING,
     ClusterStatus.DELETING,
@@ -17,7 +16,6 @@ CLUSTER_TRANSIENT_STATUSES: List[ClusterStatus] = [
 """
 Lists transient statutes of the enum :class:`ClusterStatus <ClusterStatus>`.
 """
-
 NODE_TRANSIENT_STATUSES: List[NodeStatus] = [
     NodeStatus.CREATING,
     NodeStatus.DELETING,
@@ -29,7 +27,6 @@ NODE_TRANSIENT_STATUSES: List[NodeStatus] = [
 """
 Lists transient statutes of the enum :class:`NodeStatus <NodeStatus>`.
 """
-
 POOL_TRANSIENT_STATUSES: List[PoolStatus] = [
     PoolStatus.DELETING,
     PoolStatus.SCALING,

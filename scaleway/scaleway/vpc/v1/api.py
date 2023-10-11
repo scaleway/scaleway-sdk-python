@@ -8,29 +8,27 @@ from scaleway_core.bridge import (
     Zone,
 )
 from scaleway_core.utils import (
-    fetch_all_pages,
     random_name,
     validate_path_param,
+    fetch_all_pages,
 )
 from .types import (
     ListPrivateNetworksRequestOrderBy,
+    CreatePrivateNetworkRequest,
     ListPrivateNetworksResponse,
     PrivateNetwork,
-    CreatePrivateNetworkRequest,
     UpdatePrivateNetworkRequest,
 )
 from .marshalling import (
-    marshal_CreatePrivateNetworkRequest,
-    marshal_UpdatePrivateNetworkRequest,
     unmarshal_PrivateNetwork,
     unmarshal_ListPrivateNetworksResponse,
+    marshal_CreatePrivateNetworkRequest,
+    marshal_UpdatePrivateNetworkRequest,
 )
 
 
 class VpcV1API(API):
     """
-    VPC API.
-
     VPC API.
     """
 
@@ -38,7 +36,7 @@ class VpcV1API(API):
         self,
         *,
         zone: Optional[Zone] = None,
-        order_by: ListPrivateNetworksRequestOrderBy = ListPrivateNetworksRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListPrivateNetworksRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         name: Optional[str] = None,
@@ -118,7 +116,7 @@ class VpcV1API(API):
         :param project_id: Project ID to filter for. Only Private Networks belonging to this Project will be returned.
         :param private_network_ids: Private Network IDs to filter for. Only Private Networks with one of these IDs will be returned.
         :param include_regional: Defines whether to include regional Private Networks in the response.
-        :return: :class:`List[ListPrivateNetworksResponse] <List[ListPrivateNetworksResponse]>`
+        :return: :class:`List[PrivateNetwork] <List[PrivateNetwork]>`
 
         Usage:
         ::
@@ -198,14 +196,16 @@ class VpcV1API(API):
         """
         Get a Private Network.
         Retrieve information about an existing Private Network, specified by its Private Network ID. Its full details are returned in the response object.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param private_network_id: Private Network ID.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`PrivateNetwork <PrivateNetwork>`
 
         Usage:
         ::
 
-            result = api.get_private_network(private_network_id="example")
+            result = api.get_private_network(
+                private_network_id="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -233,8 +233,8 @@ class VpcV1API(API):
         """
         Update Private Network.
         Update parameters (such as name or tags) of an existing Private Network, specified by its Private Network ID.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param private_network_id: Private Network ID.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: Name of the private network.
         :param tags: Tags for the Private Network.
         :param subnets: Private Network subnets CIDR (deprecated).
@@ -243,7 +243,9 @@ class VpcV1API(API):
         Usage:
         ::
 
-            result = api.update_private_network(private_network_id="example")
+            result = api.update_private_network(
+                private_network_id="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -274,17 +276,19 @@ class VpcV1API(API):
         *,
         private_network_id: str,
         zone: Optional[Zone] = None,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Delete a Private Network.
         Delete an existing Private Network. Note that you must first detach all resources from the network, in order to delete it.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param private_network_id: Private Network ID.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
 
         Usage:
         ::
 
-            result = api.delete_private_network(private_network_id="example")
+            result = api.delete_private_network(
+                private_network_id="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -298,4 +302,3 @@ class VpcV1API(API):
         )
 
         self._throw_on_error(res)
-        return None

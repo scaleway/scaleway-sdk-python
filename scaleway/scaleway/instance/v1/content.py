@@ -14,35 +14,30 @@ from .types import (
     VolumeState,
 )
 
-
 IMAGE_TRANSIENT_STATUSES: List[ImageState] = [
     ImageState.CREATING,
 ]
 """
 Lists transient statutes of the enum :class:`ImageState <ImageState>`.
 """
-
 IP_TRANSIENT_STATUSES: List[IpState] = [
     IpState.PENDING,
 ]
 """
 Lists transient statutes of the enum :class:`IpState <IpState>`.
 """
-
-PRIVATE_NIC_TRANSIENT_STATUSES: List[PrivateNICState] = [
+PRIVATENIC_TRANSIENT_STATUSES: List[PrivateNICState] = [
     PrivateNICState.SYNCING,
 ]
 """
 Lists transient statutes of the enum :class:`PrivateNICState <PrivateNICState>`.
 """
-
-SECURITY_GROUP_TRANSIENT_STATUSES: List[SecurityGroupState] = [
+SECURITYGROUP_TRANSIENT_STATUSES: List[SecurityGroupState] = [
     SecurityGroupState.SYNCING,
 ]
 """
 Lists transient statutes of the enum :class:`SecurityGroupState <SecurityGroupState>`.
 """
-
 SERVER_TRANSIENT_STATUSES: List[ServerState] = [
     ServerState.STARTING,
     ServerState.STOPPING,
@@ -50,7 +45,6 @@ SERVER_TRANSIENT_STATUSES: List[ServerState] = [
 """
 Lists transient statutes of the enum :class:`ServerState <ServerState>`.
 """
-
 SNAPSHOT_TRANSIENT_STATUSES: List[SnapshotState] = [
     SnapshotState.SNAPSHOTTING,
     SnapshotState.IMPORTING,
@@ -59,7 +53,6 @@ SNAPSHOT_TRANSIENT_STATUSES: List[SnapshotState] = [
 """
 Lists transient statutes of the enum :class:`SnapshotState <SnapshotState>`.
 """
-
 TASK_TRANSIENT_STATUSES: List[TaskStatus] = [
     TaskStatus.PENDING,
     TaskStatus.STARTED,
@@ -68,8 +61,7 @@ TASK_TRANSIENT_STATUSES: List[TaskStatus] = [
 """
 Lists transient statutes of the enum :class:`TaskStatus <TaskStatus>`.
 """
-
-VOLUME_SERVER_TRANSIENT_STATUSES: List[VolumeServerState] = [
+VOLUMESERVER_TRANSIENT_STATUSES: List[VolumeServerState] = [
     VolumeServerState.SNAPSHOTTING,
     VolumeServerState.FETCHING,
     VolumeServerState.RESIZING,
@@ -79,7 +71,6 @@ VOLUME_SERVER_TRANSIENT_STATUSES: List[VolumeServerState] = [
 """
 Lists transient statutes of the enum :class:`VolumeServerState <VolumeServerState>`.
 """
-
 VOLUME_TRANSIENT_STATUSES: List[VolumeState] = [
     VolumeState.SNAPSHOTTING,
     VolumeState.FETCHING,

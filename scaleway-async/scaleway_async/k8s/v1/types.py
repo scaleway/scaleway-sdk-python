@@ -197,148 +197,43 @@ class Runtime(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
-class Cluster:
+class MaintenanceWindow:
+    day: MaintenanceWindowDayOfTheWeek
     """
-    Cluster.
-    """
-
-    id: str
-    """
-    Cluster ID.
+    Day of the week for the maintenance window.
     """
 
-    type_: str
+    start_hour: int
     """
-    Cluster type.
-    """
-
-    name: str
-    """
-    Cluster name.
+    Start time of the two-hour maintenance window.
     """
 
-    status: ClusterStatus
+
+@dataclass
+class PoolUpgradePolicy:
+    max_surge: int
+
+    max_unavailable: int
+
+
+@dataclass
+class CreateClusterRequestPoolConfigUpgradePolicy:
+    max_unavailable: Optional[int]
     """
-    Status of the cluster.
+    The maximum number of nodes that can be not ready at the same time.
     """
 
-    version: str
+    max_surge: Optional[int]
     """
-    Kubernetes version of the cluster.
-    """
-
-    region: Region
-    """
-    Region in which the cluster is deployed.
-    """
-
-    organization_id: str
-    """
-    ID of the Organization owning the cluster.
-    """
-
-    project_id: str
-    """
-    ID of the Project owning the cluster.
-    """
-
-    tags: List[str]
-    """
-    Tags associated with the cluster.
-    """
-
-    cni: CNI
-    """
-    Container Network Interface (CNI) plugin running in the cluster.
-    """
-
-    description: str
-    """
-    Cluster description.
-    """
-
-    cluster_url: str
-    """
-    Kubernetes API server URL of the cluster.
-    """
-
-    dns_wildcard: str
-    """
-    Wildcard DNS resolving all the ready cluster nodes.
-    """
-
-    created_at: Optional[datetime]
-    """
-    Date on which the cluster was created.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Date on which the cluster was last updated.
-    """
-
-    autoscaler_config: Optional[ClusterAutoscalerConfig]
-    """
-    Autoscaler config for the cluster.
-    """
-
-    dashboard_enabled: Optional[bool]
-    """
-    Defines whether the Kubernetes dashboard is enabled for the cluster.
-    :deprecated
-    """
-
-    ingress: Optional[Ingress]
-    """
-    Managed Ingress controller used in the cluster (deprecated feature).
-    :deprecated
-    """
-
-    auto_upgrade: Optional[ClusterAutoUpgrade]
-    """
-    Auto upgrade configuration of the cluster.
-    """
-
-    upgrade_available: bool
-    """
-    Defines whether a new Kubernetes version is available.
-    """
-
-    feature_gates: List[str]
-    """
-    List of enabled feature gates.
-    """
-
-    admission_plugins: List[str]
-    """
-    List of enabled admission plugins.
-    """
-
-    open_id_connect_config: Optional[ClusterOpenIDConnectConfig]
-    """
-    This configuration enables to update the OpenID Connect configuration of the Kubernetes API server.
-    """
-
-    apiserver_cert_sans: List[str]
-    """
-    Additional Subject Alternative Names for the Kubernetes API server certificate.
-    """
-
-    private_network_id: Optional[str]
-    """
-    Private network ID for internal cluster communication.
-    """
-
-    commitment_ends_at: Optional[datetime]
-    """
-    Date on which it will be possible to switch to a smaller offer.
+    The maximum number of nodes to be created during the upgrade.
     """
 
 
 @dataclass
 class ClusterAutoUpgrade:
+    maintenance_window: MaintenanceWindow
     """
-    Cluster. auto upgrade.
+    Maintenance window of the cluster auto upgrades.
     """
 
     enabled: bool
@@ -346,56 +241,12 @@ class ClusterAutoUpgrade:
     Defines whether auto upgrade is enabled for the cluster.
     """
 
-    maintenance_window: Optional[MaintenanceWindow]
-    """
-    Maintenance window of the cluster auto upgrades.
-    """
-
 
 @dataclass
 class ClusterAutoscalerConfig:
+    max_graceful_termination_sec: int
     """
-    Cluster. autoscaler config.
-    """
-
-    scale_down_disabled: bool
-    """
-    Disable the cluster autoscaler.
-    """
-
-    scale_down_delay_after_add: str
-    """
-    How long after scale up that scale down evaluation resumes.
-    """
-
-    estimator: AutoscalerEstimator
-    """
-    Type of resource estimator to be used in scale up.
-    """
-
-    expander: AutoscalerExpander
-    """
-    Type of node group expander to be used in scale up.
-    """
-
-    ignore_daemonsets_utilization: bool
-    """
-    Ignore DaemonSet pods when calculating resource utilization for scaling down.
-    """
-
-    balance_similar_node_groups: bool
-    """
-    Detect similar node groups and balance the number of nodes between them.
-    """
-
-    expendable_pods_priority_cutoff: int
-    """
-    Pods with priority below cutoff will be expendable. They can be killed without any consideration during scale down and they won't cause scale up. Pods with null priority (PodPriority disabled) are non expendable.
-    """
-
-    scale_down_unneeded_time: str
-    """
-    How long a node should be unneeded before it is eligible to be scaled down.
+    Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node.
     """
 
     scale_down_utilization_threshold: float
@@ -403,41 +254,52 @@ class ClusterAutoscalerConfig:
     Node utilization level, defined as a sum of requested resources divided by capacity, below which a node can be considered for scale down.
     """
 
-    max_graceful_termination_sec: int
+    scale_down_unneeded_time: str
     """
-    Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node.
+    How long a node should be unneeded before it is eligible to be scaled down.
+    """
+
+    expendable_pods_priority_cutoff: int
+    """
+    Pods with priority below cutoff will be expendable. They can be killed without any consideration during scale down and they won't cause scale up. Pods with null priority (PodPriority disabled) are non expendable.
+    """
+
+    balance_similar_node_groups: bool
+    """
+    Detect similar node groups and balance the number of nodes between them.
+    """
+
+    ignore_daemonsets_utilization: bool
+    """
+    Ignore DaemonSet pods when calculating resource utilization for scaling down.
+    """
+
+    expander: AutoscalerExpander
+    """
+    Type of node group expander to be used in scale up.
+    """
+
+    estimator: AutoscalerEstimator
+    """
+    Type of resource estimator to be used in scale up.
+    """
+
+    scale_down_delay_after_add: str
+    """
+    How long after scale up that scale down evaluation resumes.
+    """
+
+    scale_down_disabled: bool
+    """
+    Disable the cluster autoscaler.
     """
 
 
 @dataclass
 class ClusterOpenIDConnectConfig:
+    required_claim: List[str]
     """
-    Cluster. open id connect config.
-    """
-
-    issuer_url: str
-    """
-    URL of the provider which allows the API server to discover public signing keys. Only URLs using the `https://` scheme are accepted. This is typically the provider's discovery URL without a path, for example "https://accounts.google.com" or "https://login.salesforce.com".
-    """
-
-    client_id: str
-    """
-    A client ID that all tokens must be issued for.
-    """
-
-    username_claim: str
-    """
-    JWT claim to use as the user name. The default is `sub`, which is expected to be the end user's unique identifier. Admins can choose other claims, such as `email` or `name`, depending on their provider. However, claims other than `email` will be prefixed with the issuer URL to prevent name collision.
-    """
-
-    username_prefix: str
-    """
-    Prefix prepended to username claims to prevent name collision (such as `system:` users). For example, the value `oidc:` will create usernames like `oidc:jane.doe`. If this flag is not provided and `username_claim` is a value other than `email`, the prefix defaults to `( Issuer URL )#` where `( Issuer URL )` is the value of `issuer_url`. The value `-` can be used to disable all prefixing.
-    """
-
-    groups_claim: List[str]
-    """
-    JWT claim to use as the user's group.
+    Multiple key=value pairs describing a required claim in the ID token. If set, the claims are verified to be present in the ID token with a matching value.
     """
 
     groups_prefix: str
@@ -445,63 +307,155 @@ class ClusterOpenIDConnectConfig:
     Prefix prepended to group claims to prevent name collision (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra`.
     """
 
-    required_claim: List[str]
+    groups_claim: List[str]
     """
-    Multiple key=value pairs describing a required claim in the ID token. If set, the claims are verified to be present in the ID token with a matching value.
+    JWT claim to use as the user's group.
+    """
+
+    username_prefix: str
+    """
+    Prefix prepended to username claims to prevent name collision (such as `system:` users). For example, the value `oidc:` will create usernames like `oidc:jane.doe`. If this flag is not provided and `username_claim` is a value other than `email`, the prefix defaults to `( Issuer URL )#` where `( Issuer URL )` is the value of `issuer_url`. The value `-` can be used to disable all prefixing.
+    """
+
+    username_claim: str
+    """
+    JWT claim to use as the user name. The default is `sub`, which is expected to be the end user's unique identifier. Admins can choose other claims, such as `email` or `name`, depending on their provider. However, claims other than `email` will be prefixed with the issuer URL to prevent name collision.
+    """
+
+    client_id: str
+    """
+    A client ID that all tokens must be issued for.
+    """
+
+    issuer_url: str
+    """
+    URL of the provider which allows the API server to discover public signing keys. Only URLs using the `https://` scheme are accepted. This is typically the provider's discovery URL without a path, for example "https://accounts.google.com" or "https://login.salesforce.com".
     """
 
 
 @dataclass
-class ClusterType:
+class Pool:
+    max_size: int
     """
-    Cluster type.
+    Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
+    """
+
+    id: str
+    """
+    Pool ID.
+    """
+
+    version: str
+    """
+    Pool version.
+    """
+
+    node_type: str
+    """
+    Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers in a Kosmos Cluster.
+    """
+
+    upgrade_policy: PoolUpgradePolicy
+    """
+    Pool upgrade policy.
+    """
+
+    autohealing: bool
+    """
+    Defines whether the autohealing feature is enabled for the pool.
+    """
+
+    root_volume_type: PoolVolumeType
+    """
+    Defines the system volume disk type. Two different types of volume (`volume_type`) are provided: `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. `b_ssd` is a remote block storage which means your system is stored on a centralized and resilient cluster.
     """
 
     name: str
     """
-    Cluster type name.
+    Pool name.
     """
 
-    availability: ClusterTypeAvailability
+    zone: Zone
     """
-    Cluster type availability.
-    """
-
-    max_nodes: int
-    """
-    Maximum number of nodes supported by the offer.
+    Zone in which the pool's nodes will be spawned.
     """
 
-    commitment_delay: Optional[str]
+    size: int
     """
-    Time period during which you can no longer switch to a lower offer.
-    """
-
-    sla: float
-    """
-    Value of the Service Level Agreement of the offer.
+    Size (number of nodes) of the pool.
     """
 
-    resiliency: ClusterTypeResiliency
+    kubelet_args: Dict[str, str]
     """
-    Resiliency offered by the offer.
-    """
-
-    memory: int
-    """
-    Max RAM allowed for the control plane.
+    Kubelet arguments to be used by this pool. Note that this feature is experimental.
     """
 
-    dedicated: bool
+    container_runtime: Runtime
     """
-    Returns information if this offer uses dedicated resources.
+    Customization of the container runtime is available for each pool. Note that `docker` has been deprecated since version 1.20 and will be removed by version 1.24.
+    """
+
+    tags: List[str]
+    """
+    Tags associated with the pool.
+    """
+
+    region: Region
+    """
+    Cluster region of the pool.
+    """
+
+    status: PoolStatus
+    """
+    Pool status.
+    """
+
+    public_ip_disabled: bool
+    """
+    Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway.
+    """
+
+    cluster_id: str
+    """
+    Cluster ID of the pool.
+    """
+
+    autoscaling: bool
+    """
+    Defines whether the autoscaling feature is enabled for the pool.
+    """
+
+    min_size: int
+    """
+    Defines the minimum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
+    """
+
+    placement_group_id: Optional[str]
+    """
+    Placement group ID in which all the nodes of the pool will be created.
+    """
+
+    root_volume_size: Optional[int]
+    """
+    System volume disk size.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Date on which the pool was last updated.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Date on which the pool was created.
     """
 
 
 @dataclass
 class CreateClusterRequestAutoUpgrade:
+    maintenance_window: MaintenanceWindow
     """
-    Create cluster request. auto upgrade.
+    Maintenance window of the cluster auto upgrades.
     """
 
     enable: bool
@@ -509,16 +463,17 @@ class CreateClusterRequestAutoUpgrade:
     Defines whether auto upgrade is enabled for the cluster.
     """
 
-    maintenance_window: Optional[MaintenanceWindow]
-    """
-    Maintenance window of the cluster auto upgrades.
-    """
-
 
 @dataclass
 class CreateClusterRequestAutoscalerConfig:
+    expander: AutoscalerExpander
     """
-    Create cluster request. autoscaler config.
+    Type of node group expander to be used in scale up.
+    """
+
+    estimator: AutoscalerEstimator
+    """
+    Type of resource estimator to be used in scale up.
     """
 
     scale_down_disabled: Optional[bool]
@@ -529,16 +484,6 @@ class CreateClusterRequestAutoscalerConfig:
     scale_down_delay_after_add: Optional[str]
     """
     How long after scale up that scale down evaluation resumes.
-    """
-
-    estimator: AutoscalerEstimator
-    """
-    Type of resource estimator to be used in scale up.
-    """
-
-    expander: AutoscalerExpander
-    """
-    Type of node group expander to be used in scale up.
     """
 
     ignore_daemonsets_utilization: Optional[bool]
@@ -574,18 +519,14 @@ class CreateClusterRequestAutoscalerConfig:
 
 @dataclass
 class CreateClusterRequestOpenIDConnectConfig:
+    client_id: str
     """
-    Create cluster request. open id connect config.
+    A client ID that all tokens must be issued for.
     """
 
     issuer_url: str
     """
     URL of the provider which allows the API server to discover public signing keys. Only URLs using the `https://` scheme are accepted. This is typically the provider's discovery URL without a path, for example "https://accounts.google.com" or "https://login.salesforce.com".
-    """
-
-    client_id: str
-    """
-    A client ID that all tokens must be issued for.
     """
 
     username_claim: Optional[str]
@@ -616,53 +557,9 @@ class CreateClusterRequestOpenIDConnectConfig:
 
 @dataclass
 class CreateClusterRequestPoolConfig:
+    kubelet_args: Dict[str, str]
     """
-    Create cluster request. pool config.
-    """
-
-    name: str
-    """
-    Name of the pool.
-    """
-
-    node_type: str
-    """
-    Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers in a Kosmos Cluster.
-    """
-
-    placement_group_id: Optional[str]
-    """
-    Placement group ID in which all the nodes of the pool will be created.
-    """
-
-    autoscaling: bool
-    """
-    Defines whether the autoscaling feature is enabled for the pool.
-    """
-
-    size: int
-    """
-    Size (number of nodes) of the pool.
-    """
-
-    min_size: Optional[int]
-    """
-    Defines the minimum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
-    """
-
-    max_size: Optional[int]
-    """
-    Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
-    """
-
-    container_runtime: Runtime
-    """
-    Customization of the container runtime is available for each pool. Note that `docker` has been deprecated since version 1.20 and will be removed by version 1.24.
-    """
-
-    autohealing: bool
-    """
-    Defines whether the autohealing feature is enabled for the pool.
+    Kubelet arguments to be used by this pool. Note that this feature is experimental.
     """
 
     tags: List[str]
@@ -670,14 +567,14 @@ class CreateClusterRequestPoolConfig:
     Tags associated with the pool.
     """
 
-    kubelet_args: Dict[str, str]
+    name: str
     """
-    Kubelet arguments to be used by this pool. Note that this feature is experimental.
+    Name of the pool.
     """
 
-    upgrade_policy: Optional[CreateClusterRequestPoolConfigUpgradePolicy]
+    container_runtime: Runtime
     """
-    Pool upgrade policy.
+    Customization of the container runtime is available for each pool. Note that `docker` has been deprecated since version 1.20 and will be removed by version 1.24.
     """
 
     zone: Zone
@@ -690,9 +587,14 @@ class CreateClusterRequestPoolConfig:
     Defines the system volume disk type. Two different types of volume (`volume_type`) are provided: `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. `b_ssd` is a remote block storage which means your system is stored on a centralized and resilient cluster.
     """
 
-    root_volume_size: Optional[int]
+    size: int
     """
-    System volume disk size.
+    Size (number of nodes) of the pool.
+    """
+
+    autoscaling: bool
+    """
+    Defines whether the autoscaling feature is enabled for the pool.
     """
 
     public_ip_disabled: bool
@@ -700,21 +602,39 @@ class CreateClusterRequestPoolConfig:
     Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway.
     """
 
-
-@dataclass
-class CreateClusterRequestPoolConfigUpgradePolicy:
+    node_type: str
     """
-    Create cluster request. pool config. upgrade policy.
+    Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers in a Kosmos Cluster.
     """
 
-    max_unavailable: Optional[int]
+    upgrade_policy: CreateClusterRequestPoolConfigUpgradePolicy
     """
-    The maximum number of nodes that can be not ready at the same time.
+    Pool upgrade policy.
     """
 
-    max_surge: Optional[int]
+    autohealing: bool
     """
-    The maximum number of nodes to be created during the upgrade.
+    Defines whether the autohealing feature is enabled for the pool.
+    """
+
+    max_size: Optional[int]
+    """
+    Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
+    """
+
+    min_size: Optional[int]
+    """
+    Defines the minimum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
+    """
+
+    root_volume_size: Optional[int]
+    """
+    System volume disk size.
+    """
+
+    placement_group_id: Optional[str]
+    """
+    Placement group ID in which all the nodes of the pool will be created.
     """
 
 
@@ -726,174 +646,234 @@ class CreatePoolRequestUpgradePolicy:
 
 
 @dataclass
-class ExternalNode:
-    id: str
+class ClusterType:
+    dedicated: bool
+    """
+    Returns information if this offer uses dedicated resources.
+    """
+
+    memory: int
+    """
+    Max RAM allowed for the control plane.
+    """
+
+    resiliency: ClusterTypeResiliency
+    """
+    Resiliency offered by the offer.
+    """
+
+    sla: float
+    """
+    Value of the Service Level Agreement of the offer.
+    """
+
+    max_nodes: int
+    """
+    Maximum number of nodes supported by the offer.
+    """
+
+    availability: ClusterTypeAvailability
+    """
+    Cluster type availability.
+    """
 
     name: str
+    """
+    Cluster type name.
+    """
+
+    commitment_delay: Optional[str]
+    """
+    Time period during which you can no longer switch to a lower offer.
+    """
+
+
+@dataclass
+class Version:
+    available_kubelet_args: Dict[str, str]
+    """
+    Supported kubelet arguments for this version.
+    """
+
+    available_admission_plugins: List[str]
+    """
+    Supported admission plugins for this version.
+    """
+
+    available_feature_gates: List[str]
+    """
+    Supported feature gates for this version.
+    """
+
+    available_container_runtimes: List[Runtime]
+    """
+    Supported container runtimes for this version.
+    """
+
+    available_cnis: List[CNI]
+    """
+    Supported Container Network Interface (CNI) plugins for this version.
+    """
+
+    region: Region
+    """
+    Region in which this version is available.
+    """
+
+    label: str
+    """
+    Label of the Kubernetes version.
+    """
+
+    name: str
+    """
+    Name of the Kubernetes version.
+    """
+
+    available_ingresses: Optional[List[Ingress]]
+    """
+    Supported Ingress Controllers for this version.
+    """
+
+
+@dataclass
+class Cluster:
+    type_: str
+    """
+    Cluster type.
+    """
+
+    organization_id: str
+    """
+    ID of the Organization owning the cluster.
+    """
+
+    version: str
+    """
+    Kubernetes version of the cluster.
+    """
+
+    upgrade_available: bool
+    """
+    Defines whether a new Kubernetes version is available.
+    """
+
+    id: str
+    """
+    Cluster ID.
+    """
+
+    project_id: str
+    """
+    ID of the Project owning the cluster.
+    """
+
+    cni: CNI
+    """
+    Container Network Interface (CNI) plugin running in the cluster.
+    """
+
+    tags: List[str]
+    """
+    Tags associated with the cluster.
+    """
 
     cluster_url: str
-
-    pool_version: str
-
-    cluster_ca: str
-
-    kube_token: str
-
-    kubelet_config: str
-
-    external_ip: str
-
-
-@dataclass
-class ListClusterAvailableTypesResponse:
     """
-    List cluster available types response.
+    Kubernetes API server URL of the cluster.
     """
 
-    cluster_types: List[ClusterType]
+    autoscaler_config: ClusterAutoscalerConfig
     """
-    Available cluster types for the cluster.
-    """
-
-    total_count: int
-    """
-    Total number of types.
+    Autoscaler config for the cluster.
     """
 
-
-@dataclass
-class ListClusterAvailableVersionsResponse:
+    apiserver_cert_sans: List[str]
     """
-    List cluster available versions response.
+    Additional Subject Alternative Names for the Kubernetes API server certificate.
     """
 
-    versions: List[Version]
+    feature_gates: List[str]
     """
-    Available Kubernetes versions for the cluster.
-    """
-
-
-@dataclass
-class ListClusterTypesResponse:
-    """
-    List cluster types response.
+    List of enabled feature gates.
     """
 
-    total_count: int
+    name: str
     """
-    Total number of cluster-types.
-    """
-
-    cluster_types: List[ClusterType]
-    """
-    Paginated returned cluster-types.
+    Cluster name.
     """
 
-
-@dataclass
-class ListClustersResponse:
+    region: Region
     """
-    List clusters response.
+    Region in which the cluster is deployed.
     """
 
-    total_count: int
+    status: ClusterStatus
     """
-    Total number of clusters.
-    """
-
-    clusters: List[Cluster]
-    """
-    Paginated returned clusters.
+    Status of the cluster.
     """
 
-
-@dataclass
-class ListNodesResponse:
+    auto_upgrade: ClusterAutoUpgrade
     """
-    List nodes response.
+    Auto upgrade configuration of the cluster.
     """
 
-    total_count: int
+    admission_plugins: List[str]
     """
-    Total number of nodes.
-    """
-
-    nodes: List[Node]
-    """
-    Paginated returned nodes.
+    List of enabled admission plugins.
     """
 
-
-@dataclass
-class ListPoolsResponse:
+    open_id_connect_config: ClusterOpenIDConnectConfig
     """
-    List pools response.
+    This configuration enables to update the OpenID Connect configuration of the Kubernetes API server.
     """
 
-    total_count: int
+    description: str
     """
-    Total number of pools that exists for the cluster.
-    """
-
-    pools: List[Pool]
-    """
-    Paginated returned pools.
+    Cluster description.
     """
 
-
-@dataclass
-class ListVersionsResponse:
+    dns_wildcard: str
     """
-    List versions response.
+    Wildcard DNS resolving all the ready cluster nodes.
     """
 
-    versions: List[Version]
+    ingress: Optional[Ingress]
     """
-    Available Kubernetes versions.
-    """
-
-
-@dataclass
-class MaintenanceWindow:
-    """
-    Maintenance window.
+    Managed Ingress controller used in the cluster (deprecated feature).
     """
 
-    start_hour: int
+    dashboard_enabled: Optional[bool]
     """
-    Start time of the two-hour maintenance window.
+    Defines whether the Kubernetes dashboard is enabled for the cluster.
     """
 
-    day: MaintenanceWindowDayOfTheWeek
+    updated_at: Optional[datetime]
     """
-    Day of the week for the maintenance window.
+    Date on which the cluster was last updated.
+    """
+
+    private_network_id: Optional[str]
+    """
+    Private network ID for internal cluster communication.
+    """
+
+    commitment_ends_at: Optional[datetime]
+    """
+    Date on which it will be possible to switch to a smaller offer.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Date on which the cluster was created.
     """
 
 
 @dataclass
 class Node:
+    name: str
     """
-    Node.
-    """
-
-    id: str
-    """
-    Node ID.
-    """
-
-    pool_id: str
-    """
-    Pool ID of the node.
-    """
-
-    cluster_id: str
-    """
-    Cluster ID of the node.
-    """
-
-    provider_id: str
-    """
-    Underlying instance ID. It is prefixed by instance type and location information (see https://pkg.go.dev/k8s.io/api/core/v1#NodeSpec.ProviderID).
+    Name of the node.
     """
 
     region: Region
@@ -901,32 +881,44 @@ class Node:
     Cluster region of the node.
     """
 
-    name: str
+    id: str
     """
-    Name of the node.
-    """
-
-    public_ip_v4: Optional[str]
-    """
-    Public IPv4 address of the node.
-    :deprecated
+    Node ID.
     """
 
-    public_ip_v6: Optional[str]
+    cluster_id: str
     """
-    Public IPv6 address of the node.
-    :deprecated
+    Cluster ID of the node.
     """
 
-    conditions: Optional[Dict[str, str]]
+    pool_id: str
     """
-    Conditions of the node. These conditions contain the Node Problem Detector conditions, as well as some in house conditions.
-    :deprecated
+    Pool ID of the node.
     """
 
     status: NodeStatus
     """
     Status of the node.
+    """
+
+    provider_id: str
+    """
+    Underlying instance ID. It is prefixed by instance type and location information (see https://pkg.go.dev/k8s.io/api/core/v1#NodeSpec.ProviderID).
+    """
+
+    public_ip_v6: Optional[str]
+    """
+    Public IPv6 address of the node.
+    """
+
+    conditions: Optional[Dict[str, str]]
+    """
+    Conditions of the node. These conditions contain the Node Problem Detector conditions, as well as some in house conditions.
+    """
+
+    public_ip_v4: Optional[str]
+    """
+    Public IPv4 address of the node.
     """
 
     error_message: Optional[str]
@@ -946,138 +938,10 @@ class Node:
 
 
 @dataclass
-class Pool:
-    """
-    Pool.
-    """
-
-    id: str
-    """
-    Pool ID.
-    """
-
-    cluster_id: str
-    """
-    Cluster ID of the pool.
-    """
-
-    created_at: Optional[datetime]
-    """
-    Date on which the pool was created.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Date on which the pool was last updated.
-    """
-
-    name: str
-    """
-    Pool name.
-    """
-
-    status: PoolStatus
-    """
-    Pool status.
-    """
-
-    version: str
-    """
-    Pool version.
-    """
-
-    node_type: str
-    """
-    Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers in a Kosmos Cluster.
-    """
-
-    autoscaling: bool
-    """
-    Defines whether the autoscaling feature is enabled for the pool.
-    """
-
-    size: int
-    """
-    Size (number of nodes) of the pool.
-    """
-
-    min_size: int
-    """
-    Defines the minimum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
-    """
-
-    max_size: int
-    """
-    Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
-    """
-
-    container_runtime: Runtime
-    """
-    Customization of the container runtime is available for each pool. Note that `docker` has been deprecated since version 1.20 and will be removed by version 1.24.
-    """
-
-    autohealing: bool
-    """
-    Defines whether the autohealing feature is enabled for the pool.
-    """
-
-    tags: List[str]
-    """
-    Tags associated with the pool.
-    """
-
-    placement_group_id: Optional[str]
-    """
-    Placement group ID in which all the nodes of the pool will be created.
-    """
-
-    kubelet_args: Dict[str, str]
-    """
-    Kubelet arguments to be used by this pool. Note that this feature is experimental.
-    """
-
-    upgrade_policy: Optional[PoolUpgradePolicy]
-    """
-    Pool upgrade policy.
-    """
-
-    zone: Zone
-    """
-    Zone in which the pool's nodes will be spawned.
-    """
-
-    root_volume_type: PoolVolumeType
-    """
-    Defines the system volume disk type. Two different types of volume (`volume_type`) are provided: `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. `b_ssd` is a remote block storage which means your system is stored on a centralized and resilient cluster.
-    """
-
-    root_volume_size: Optional[int]
-    """
-    System volume disk size.
-    """
-
-    public_ip_disabled: bool
-    """
-    Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway.
-    """
-
-    region: Region
-    """
-    Cluster region of the pool.
-    """
-
-
-@dataclass
-class PoolUpgradePolicy:
-    max_unavailable: int
-
-    max_surge: int
-
-
-@dataclass
 class UpdateClusterRequestAutoUpgrade:
+    maintenance_window: MaintenanceWindow
     """
-    Update cluster request. auto upgrade.
+    Maintenance window of the cluster auto upgrades.
     """
 
     enable: Optional[bool]
@@ -1085,16 +949,17 @@ class UpdateClusterRequestAutoUpgrade:
     Defines whether auto upgrade is enabled for the cluster.
     """
 
-    maintenance_window: Optional[MaintenanceWindow]
-    """
-    Maintenance window of the cluster auto upgrades.
-    """
-
 
 @dataclass
 class UpdateClusterRequestAutoscalerConfig:
+    expander: AutoscalerExpander
     """
-    Update cluster request. autoscaler config.
+    Type of node group expander to be used in scale up.
+    """
+
+    estimator: AutoscalerEstimator
+    """
+    Type of resource estimator to be used in scale up.
     """
 
     scale_down_disabled: Optional[bool]
@@ -1105,16 +970,6 @@ class UpdateClusterRequestAutoscalerConfig:
     scale_down_delay_after_add: Optional[str]
     """
     How long after scale up that scale down evaluation resumes.
-    """
-
-    estimator: AutoscalerEstimator
-    """
-    Type of resource estimator to be used in scale up.
-    """
-
-    expander: AutoscalerExpander
-    """
-    Type of node group expander to be used in scale up.
     """
 
     ignore_daemonsets_utilization: Optional[bool]
@@ -1150,10 +1005,6 @@ class UpdateClusterRequestAutoscalerConfig:
 
 @dataclass
 class UpdateClusterRequestOpenIDConnectConfig:
-    """
-    Update cluster request. open id connect config.
-    """
-
     issuer_url: Optional[str]
     """
     URL of the provider which allows the API server to discover public signing keys. Only URLs using the `https://` scheme are accepted. This is typically the provider's discovery URL without a path, for example "https://accounts.google.com" or "https://login.salesforce.com".
@@ -1198,55 +1049,400 @@ class UpdatePoolRequestUpgradePolicy:
 
 
 @dataclass
-class Version:
+class CreateClusterRequest:
+    autoscaler_config: CreateClusterRequestAutoscalerConfig
     """
-    Version.
+    Autoscaler configuration for the cluster. It allows you to set (to an extent) your preferred autoscaler configuration, which is an implementation of the cluster-autoscaler (https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler/).
     """
+
+    auto_upgrade: CreateClusterRequestAutoUpgrade
+    """
+    Auto upgrade configuration of the cluster. This configuration enables to set a specific 2-hour time window in which the cluster can be automatically updated to the latest patch version.
+    """
+
+    version: str
+    """
+    Kubernetes version of the cluster.
+    """
+
+    open_id_connect_config: CreateClusterRequestOpenIDConnectConfig
+    """
+    OpenID Connect configuration of the cluster. This configuration enables to update the OpenID Connect configuration of the Kubernetes API server.
+    """
+
+    description: str
+    """
+    Cluster description.
+    """
+
+    type_: str
+    """
+    Type of the cluster (possible values are kapsule, multicloud, kapsule-dedicated-8, kapsule-dedicated-16).
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    ingress: Optional[Ingress]
+    """
+    Ingress Controller running in the cluster (deprecated feature).
+    """
+
+    pools: Optional[List[CreateClusterRequestPoolConfig]]
+    """
+    Pools created along with the cluster.
+    """
+
+    enable_dashboard: Optional[bool]
+    """
+    Defines whether the Kubernetes Dashboard is enabled in the cluster.
+    """
+
+    cni: Optional[CNI]
+    """
+    Container Network Interface (CNI) plugin running in the cluster.
+    """
+
+    feature_gates: Optional[List[str]]
+    """
+    List of feature gates to enable.
+    """
+
+    admission_plugins: Optional[List[str]]
+    """
+    List of admission plugins to enable.
+    """
+
+    tags: Optional[List[str]]
+    """
+    Tags associated with the cluster.
+    """
+
+    apiserver_cert_sans: Optional[List[str]]
+    """
+    Additional Subject Alternative Names for the Kubernetes API server certificate.
+    """
+
+    private_network_id: Optional[str]
+    """
+    Private network ID for internal cluster communication (cannot be changed later).
+    """
+
+    name: Optional[str]
+    """
+    Cluster name.
+    """
+
+    organization_id: Optional[str]
+
+    project_id: Optional[str]
+
+
+@dataclass
+class CreateExternalNodeRequest:
+    pool_id: str
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class CreatePoolRequest:
+    kubelet_args: Dict[str, str]
+    """
+    Kubelet arguments to be used by this pool. Note that this feature is experimental.
+    """
+
+    size: int
+    """
+    Size (number of nodes) of the pool.
+    """
+
+    autoscaling: bool
+    """
+    Defines whether the autoscaling feature is enabled for the pool.
+    """
+
+    node_type: str
+    """
+    Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers in a Kosmos Cluster.
+    """
+
+    public_ip_disabled: bool
+    """
+    Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway.
+    """
+
+    cluster_id: str
+    """
+    Cluster ID to which the pool will be attached.
+    """
+
+    autohealing: bool
+    """
+    Defines whether the autohealing feature is enabled for the pool.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    placement_group_id: Optional[str]
+    """
+    Placement group ID in which all the nodes of the pool will be created.
+    """
+
+    container_runtime: Optional[Runtime]
+    """
+    Customization of the container runtime is available for each pool. Note that `docker` has been deprecated since version 1.20 and will be removed by version 1.24.
+    """
+
+    max_size: Optional[int]
+    """
+    Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
+    """
+
+    tags: Optional[List[str]]
+    """
+    Tags associated with the pool.
+    """
+
+    min_size: Optional[int]
+    """
+    Defines the minimum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
+    """
+
+    upgrade_policy: Optional[CreatePoolRequestUpgradePolicy]
+    """
+    Pool upgrade policy.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone in which the pool's nodes will be spawned.
+    """
+
+    root_volume_type: Optional[PoolVolumeType]
+    """
+    Defines the system volume disk type. Two different types of volume (`volume_type`) are provided: `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. `b_ssd` is a remote block storage which means your system is stored on a centralized and resilient cluster.
+    """
+
+    root_volume_size: Optional[int]
+    """
+    System volume disk size.
+    """
+
+    name: Optional[str]
+    """
+    Pool name.
+    """
+
+
+@dataclass
+class DeleteClusterRequest:
+    with_additional_resources: bool
+    """
+    Defines whether all volumes (including retain volume type), empty Private Networks and Load Balancers with a name starting with the cluster ID will also be deleted.
+    """
+
+    cluster_id: str
+    """
+    ID of the cluster to delete.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class DeleteNodeRequest:
+    replace: bool
+    """
+    Add a new node after the deletion of this node.
+    """
+
+    skip_drain: bool
+    """
+    Skip draining node from its workload.
+    """
+
+    node_id: str
+    """
+    ID of the node to replace.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class DeletePoolRequest:
+    pool_id: str
+    """
+    ID of the pool to delete.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class ExternalNode:
+    external_ip: str
+
+    kubelet_config: str
+
+    kube_token: str
+
+    cluster_ca: str
+
+    pool_version: str
+
+    cluster_url: str
 
     name: str
+
+    id: str
+
+
+@dataclass
+class GetClusterRequest:
+    cluster_id: str
     """
-    Name of the Kubernetes version.
+    ID of the requested cluster.
     """
 
-    label: str
+    region: Optional[Region]
     """
-    Label of the Kubernetes version.
-    """
-
-    region: Region
-    """
-    Region in which this version is available.
+    Region to target. If none is passed will use default region from the config.
     """
 
-    available_cnis: List[CNI]
+
+@dataclass
+class GetNodeRequest:
+    node_id: str
     """
-    Supported Container Network Interface (CNI) plugins for this version.
+    ID of the requested node.
     """
 
-    available_ingresses: Optional[List[Ingress]]
+    region: Optional[Region]
     """
-    Supported Ingress Controllers for this version.
-    :deprecated
-    """
-
-    available_container_runtimes: List[Runtime]
-    """
-    Supported container runtimes for this version.
+    Region to target. If none is passed will use default region from the config.
     """
 
-    available_feature_gates: List[str]
+
+@dataclass
+class GetPoolRequest:
+    pool_id: str
     """
-    Supported feature gates for this version.
+    ID of the requested pool.
     """
 
-    available_admission_plugins: List[str]
+    region: Optional[Region]
     """
-    Supported admission plugins for this version.
+    Region to target. If none is passed will use default region from the config.
     """
 
-    available_kubelet_args: Dict[str, str]
+
+@dataclass
+class GetVersionRequest:
+    version_name: str
     """
-    Supported kubelet arguments for this version.
+    Requested version name.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class ListClusterAvailableTypesRequest:
+    cluster_id: str
+    """
+    Cluster ID for which the available Kubernetes types will be listed.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class ListClusterAvailableTypesResponse:
+    total_count: int
+    """
+    Total number of types.
+    """
+
+    cluster_types: List[ClusterType]
+    """
+    Available cluster types for the cluster.
+    """
+
+
+@dataclass
+class ListClusterAvailableVersionsRequest:
+    cluster_id: str
+    """
+    Cluster ID for which the available Kubernetes versions will be listed.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class ListClusterAvailableVersionsResponse:
+    versions: List[Version]
+    """
+    Available Kubernetes versions for the cluster.
+    """
+
+
+@dataclass
+class ListClusterTypesRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    page: Optional[int]
+    """
+    Page number, from the paginated results, to return for cluster-types.
+    """
+
+    page_size: Optional[int]
+    """
+    Maximum number of clusters per page.
+    """
+
+
+@dataclass
+class ListClusterTypesResponse:
+    cluster_types: List[ClusterType]
+    """
+    Paginated returned cluster-types.
+    """
+
+    total_count: int
+    """
+    Total number of cluster-types.
     """
 
 
@@ -1304,319 +1500,84 @@ class ListClustersRequest:
 
 
 @dataclass
-class CreateClusterRequest:
+class ListClustersResponse:
+    clusters: List[Cluster]
+    """
+    Paginated returned clusters.
+    """
+
+    total_count: int
+    """
+    Total number of clusters.
+    """
+
+
+@dataclass
+class ListNodesRequest:
+    cluster_id: str
+    """
+    Cluster ID from which the nodes will be listed from.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    organization_id: Optional[str]
+    pool_id: Optional[str]
     """
-    Organization ID in which the cluster will be created.
-    
-    One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
-    :deprecated
+    Pool ID on which to filter the returned nodes.
     """
 
-    project_id: Optional[str]
+    order_by: Optional[ListNodesRequestOrderBy]
     """
-    Project ID in which the cluster will be created.
-    
-    One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
+    Sort order of the returned nodes.
     """
 
-    type_: str
+    page: Optional[int]
     """
-    Type of the cluster (possible values are kapsule, multicloud, kapsule-dedicated-8, kapsule-dedicated-16).
+    Page number for the returned nodes.
+    """
+
+    page_size: Optional[int]
+    """
+    Maximum number of nodes per page.
     """
 
     name: Optional[str]
     """
-    Cluster name.
+    Name to filter on, only nodes containing this substring in their name will be returned.
     """
 
-    description: str
+    status: Optional[NodeStatus]
     """
-    Cluster description.
-    """
-
-    tags: Optional[List[str]]
-    """
-    Tags associated with the cluster.
-    """
-
-    version: str
-    """
-    Kubernetes version of the cluster.
-    """
-
-    cni: Optional[CNI]
-    """
-    Container Network Interface (CNI) plugin running in the cluster.
-    """
-
-    enable_dashboard: Optional[bool]
-    """
-    Defines whether the Kubernetes Dashboard is enabled in the cluster.
-    :deprecated
-    """
-
-    ingress: Optional[Ingress]
-    """
-    Ingress Controller running in the cluster (deprecated feature).
-    :deprecated
-    """
-
-    pools: Optional[List[CreateClusterRequestPoolConfig]]
-    """
-    Pools created along with the cluster.
-    """
-
-    autoscaler_config: Optional[CreateClusterRequestAutoscalerConfig]
-    """
-    Autoscaler configuration for the cluster. It allows you to set (to an extent) your preferred autoscaler configuration, which is an implementation of the cluster-autoscaler (https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler/).
-    """
-
-    auto_upgrade: Optional[CreateClusterRequestAutoUpgrade]
-    """
-    Auto upgrade configuration of the cluster. This configuration enables to set a specific 2-hour time window in which the cluster can be automatically updated to the latest patch version.
-    """
-
-    feature_gates: Optional[List[str]]
-    """
-    List of feature gates to enable.
-    """
-
-    admission_plugins: Optional[List[str]]
-    """
-    List of admission plugins to enable.
-    """
-
-    open_id_connect_config: Optional[CreateClusterRequestOpenIDConnectConfig]
-    """
-    OpenID Connect configuration of the cluster. This configuration enables to update the OpenID Connect configuration of the Kubernetes API server.
-    """
-
-    apiserver_cert_sans: Optional[List[str]]
-    """
-    Additional Subject Alternative Names for the Kubernetes API server certificate.
-    """
-
-    private_network_id: Optional[str]
-    """
-    Private network ID for internal cluster communication (cannot be changed later).
+    Status to filter on, only nodes with this status will be returned.
     """
 
 
 @dataclass
-class GetClusterRequest:
-    region: Optional[Region]
+class ListNodesResponse:
+    nodes: List[Node]
     """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    cluster_id: str
-    """
-    ID of the requested cluster.
+    Paginated returned nodes.
     """
 
-
-@dataclass
-class UpdateClusterRequest:
-    region: Optional[Region]
+    total_count: int
     """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    cluster_id: str
-    """
-    ID of the cluster to update.
-    """
-
-    name: Optional[str]
-    """
-    New external name for the cluster.
-    """
-
-    description: Optional[str]
-    """
-    New description for the cluster.
-    """
-
-    tags: Optional[List[str]]
-    """
-    New tags associated with the cluster.
-    """
-
-    autoscaler_config: Optional[UpdateClusterRequestAutoscalerConfig]
-    """
-    New autoscaler config for the cluster.
-    """
-
-    enable_dashboard: Optional[bool]
-    """
-    New value for the Kubernetes Dashboard enablement.
-    :deprecated
-    """
-
-    ingress: Optional[Ingress]
-    """
-    New Ingress Controller for the cluster (deprecated feature).
-    :deprecated
-    """
-
-    auto_upgrade: Optional[UpdateClusterRequestAutoUpgrade]
-    """
-    New auto upgrade configuration for the cluster. Note that all fields need to be set.
-    """
-
-    feature_gates: Optional[List[str]]
-    """
-    List of feature gates to enable.
-    """
-
-    admission_plugins: Optional[List[str]]
-    """
-    List of admission plugins to enable.
-    """
-
-    open_id_connect_config: Optional[UpdateClusterRequestOpenIDConnectConfig]
-    """
-    OpenID Connect configuration of the cluster. This configuration enables to update the OpenID Connect configuration of the Kubernetes API server.
-    """
-
-    apiserver_cert_sans: Optional[List[str]]
-    """
-    Additional Subject Alternative Names for the Kubernetes API server certificate.
-    """
-
-
-@dataclass
-class DeleteClusterRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    cluster_id: str
-    """
-    ID of the cluster to delete.
-    """
-
-    with_additional_resources: bool
-    """
-    Defines whether all volumes (including retain volume type), empty Private Networks and Load Balancers with a name starting with the cluster ID will also be deleted.
-    """
-
-
-@dataclass
-class UpgradeClusterRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    cluster_id: str
-    """
-    ID of the cluster to upgrade.
-    """
-
-    version: str
-    """
-    New Kubernetes version of the cluster. Note that the version should either be a higher patch version of the same minor version or the direct minor version after the current one.
-    """
-
-    upgrade_pools: bool
-    """
-    Defines whether pools will also be upgraded once the control plane is upgraded.
-    """
-
-
-@dataclass
-class SetClusterTypeRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    cluster_id: str
-    """
-    ID of the cluster to migrate from one type to another.
-    """
-
-    type_: str
-    """
-    Type of the cluster. Note that some migrations are not possible (please refer to product documentation).
-    """
-
-
-@dataclass
-class ListClusterAvailableVersionsRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    cluster_id: str
-    """
-    Cluster ID for which the available Kubernetes versions will be listed.
-    """
-
-
-@dataclass
-class ListClusterAvailableTypesRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    cluster_id: str
-    """
-    Cluster ID for which the available Kubernetes types will be listed.
-    """
-
-
-@dataclass
-class ResetClusterAdminTokenRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    cluster_id: str
-    """
-    Cluster ID on which the admin token will be renewed.
-    """
-
-
-@dataclass
-class MigrateToPrivateNetworkClusterRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    cluster_id: str
-    """
-    ID of the cluster to migrate.
-    """
-
-    private_network_id: str
-    """
-    ID of the Private Network to link to the cluster.
+    Total number of nodes.
     """
 
 
 @dataclass
 class ListPoolsRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
     cluster_id: str
     """
     ID of the cluster whose pools will be listed.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
     """
 
     order_by: Optional[ListPoolsRequestOrderBy]
@@ -1646,139 +1607,187 @@ class ListPoolsRequest:
 
 
 @dataclass
-class CreatePoolRequest:
+class ListPoolsResponse:
+    pools: List[Pool]
+    """
+    Paginated returned pools.
+    """
+
+    total_count: int
+    """
+    Total number of pools that exists for the cluster.
+    """
+
+
+@dataclass
+class ListVersionsRequest:
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class ListVersionsResponse:
+    versions: List[Version]
+    """
+    Available Kubernetes versions.
+    """
+
+
+@dataclass
+class MigrateToPrivateNetworkClusterRequest:
+    private_network_id: str
+    """
+    ID of the Private Network to link to the cluster.
     """
 
     cluster_id: str
     """
-    Cluster ID to which the pool will be attached.
+    ID of the cluster to migrate.
     """
 
-    name: Optional[str]
+    region: Optional[Region]
     """
-    Pool name.
-    """
-
-    node_type: str
-    """
-    Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers in a Kosmos Cluster.
+    Region to target. If none is passed will use default region from the config.
     """
 
-    placement_group_id: Optional[str]
+
+@dataclass
+class RebootNodeRequest:
+    node_id: str
     """
-    Placement group ID in which all the nodes of the pool will be created.
+    ID of the node to reboot.
     """
 
-    autoscaling: bool
+    region: Optional[Region]
     """
-    Defines whether the autoscaling feature is enabled for the pool.
-    """
-
-    size: int
-    """
-    Size (number of nodes) of the pool.
+    Region to target. If none is passed will use default region from the config.
     """
 
-    min_size: Optional[int]
+
+@dataclass
+class ReplaceNodeRequest:
+    node_id: str
     """
-    Defines the minimum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
+    ID of the node to replace.
     """
 
-    max_size: Optional[int]
+    region: Optional[Region]
     """
-    Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
-    """
-
-    container_runtime: Runtime
-    """
-    Customization of the container runtime is available for each pool. Note that `docker` has been deprecated since version 1.20 and will be removed by version 1.24.
+    Region to target. If none is passed will use default region from the config.
     """
 
-    autohealing: bool
+
+@dataclass
+class ResetClusterAdminTokenRequest:
+    cluster_id: str
     """
-    Defines whether the autohealing feature is enabled for the pool.
+    Cluster ID on which the admin token will be renewed.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class SetClusterTypeRequest:
+    type_: str
+    """
+    Type of the cluster. Note that some migrations are not possible (please refer to product documentation).
+    """
+
+    cluster_id: str
+    """
+    ID of the cluster to migrate from one type to another.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class UpdateClusterRequest:
+    auto_upgrade: UpdateClusterRequestAutoUpgrade
+    """
+    New auto upgrade configuration for the cluster. Note that all fields need to be set.
+    """
+
+    cluster_id: str
+    """
+    ID of the cluster to update.
+    """
+
+    autoscaler_config: UpdateClusterRequestAutoscalerConfig
+    """
+    New autoscaler config for the cluster.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    enable_dashboard: Optional[bool]
+    """
+    New value for the Kubernetes Dashboard enablement.
     """
 
     tags: Optional[List[str]]
     """
-    Tags associated with the pool.
+    New tags associated with the cluster.
     """
 
-    kubelet_args: Optional[Dict[str, str]]
+    description: Optional[str]
     """
-    Kubelet arguments to be used by this pool. Note that this feature is experimental.
-    """
-
-    upgrade_policy: Optional[CreatePoolRequestUpgradePolicy]
-    """
-    Pool upgrade policy.
+    New description for the cluster.
     """
 
-    zone: Optional[Zone]
+    ingress: Optional[Ingress]
     """
-    Zone in which the pool's nodes will be spawned.
-    """
-
-    root_volume_type: PoolVolumeType
-    """
-    Defines the system volume disk type. Two different types of volume (`volume_type`) are provided: `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. `b_ssd` is a remote block storage which means your system is stored on a centralized and resilient cluster.
+    New Ingress Controller for the cluster (deprecated feature).
     """
 
-    root_volume_size: Optional[int]
+    name: Optional[str]
     """
-    System volume disk size.
-    """
-
-    public_ip_disabled: bool
-    """
-    Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway.
+    New external name for the cluster.
     """
 
-
-@dataclass
-class GetPoolRequest:
-    region: Optional[Region]
+    feature_gates: Optional[List[str]]
     """
-    Region to target. If none is passed will use default region from the config.
+    List of feature gates to enable.
     """
 
-    pool_id: str
+    admission_plugins: Optional[List[str]]
     """
-    ID of the requested pool.
-    """
-
-
-@dataclass
-class UpgradePoolRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
+    List of admission plugins to enable.
     """
 
-    pool_id: str
+    open_id_connect_config: Optional[UpdateClusterRequestOpenIDConnectConfig]
     """
-    ID of the pool to upgrade.
+    OpenID Connect configuration of the cluster. This configuration enables to update the OpenID Connect configuration of the Kubernetes API server.
     """
 
-    version: str
+    apiserver_cert_sans: Optional[List[str]]
     """
-    New Kubernetes version for the pool.
+    Additional Subject Alternative Names for the Kubernetes API server certificate.
     """
 
 
 @dataclass
 class UpdatePoolRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
     pool_id: str
     """
     ID of the pool to update.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
     """
 
     autoscaling: Optional[bool]
@@ -1823,135 +1832,22 @@ class UpdatePoolRequest:
 
 
 @dataclass
-class DeletePoolRequest:
-    region: Optional[Region]
+class UpgradeClusterRequest:
+    upgrade_pools: bool
     """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    pool_id: str
-    """
-    ID of the pool to delete.
+    Defines whether pools will also be upgraded once the control plane is upgraded.
     """
 
-
-@dataclass
-class CreateExternalNodeRequest:
-    region: Optional[Region]
+    version: str
     """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    pool_id: str
-
-
-@dataclass
-class ListNodesRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
+    New Kubernetes version of the cluster. Note that the version should either be a higher patch version of the same minor version or the direct minor version after the current one.
     """
 
     cluster_id: str
     """
-    Cluster ID from which the nodes will be listed from.
+    ID of the cluster to upgrade.
     """
 
-    pool_id: Optional[str]
-    """
-    Pool ID on which to filter the returned nodes.
-    """
-
-    order_by: Optional[ListNodesRequestOrderBy]
-    """
-    Sort order of the returned nodes.
-    """
-
-    page: Optional[int]
-    """
-    Page number for the returned nodes.
-    """
-
-    page_size: Optional[int]
-    """
-    Maximum number of nodes per page.
-    """
-
-    name: Optional[str]
-    """
-    Name to filter on, only nodes containing this substring in their name will be returned.
-    """
-
-    status: Optional[NodeStatus]
-    """
-    Status to filter on, only nodes with this status will be returned.
-    """
-
-
-@dataclass
-class GetNodeRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    node_id: str
-    """
-    ID of the requested node.
-    """
-
-
-@dataclass
-class ReplaceNodeRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    node_id: str
-    """
-    ID of the node to replace.
-    """
-
-
-@dataclass
-class RebootNodeRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    node_id: str
-    """
-    ID of the node to reboot.
-    """
-
-
-@dataclass
-class DeleteNodeRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    node_id: str
-    """
-    ID of the node to replace.
-    """
-
-    skip_drain: bool
-    """
-    Skip draining node from its workload.
-    """
-
-    replace: bool
-    """
-    Add a new node after the deletion of this node.
-    """
-
-
-@dataclass
-class ListVersionsRequest:
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
@@ -1959,31 +1855,31 @@ class ListVersionsRequest:
 
 
 @dataclass
-class GetVersionRequest:
+class UpgradePoolRequest:
+    version: str
+    """
+    New Kubernetes version for the pool.
+    """
+
+    pool_id: str
+    """
+    ID of the pool to upgrade.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
-    """
-
-    version_name: str
-    """
-    Requested version name.
     """
 
 
 @dataclass
-class ListClusterTypesRequest:
+class _GetClusterKubeConfigRequest:
+    cluster_id: str
+    """
+    Cluster ID for which to download the kubeconfig.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
-    """
-
-    page: Optional[int]
-    """
-    Page number, from the paginated results, to return for cluster-types.
-    """
-
-    page_size: Optional[int]
-    """
-    Maximum number of clusters per page.
     """

@@ -12,23 +12,20 @@ from .types import (
     TaskStatus,
 )
 
-
-DNS_ZONE_TRANSIENT_STATUSES: List[DNSZoneStatus] = [
+DNSZONE_TRANSIENT_STATUSES: List[DNSZoneStatus] = [
     DNSZoneStatus.PENDING,
 ]
 """
 Lists transient statutes of the enum :class:`DNSZoneStatus <DNSZoneStatus>`.
 """
-
-DOMAIN_FEATURE_TRANSIENT_STATUSES: List[DomainFeatureStatus] = [
+DOMAINFEATURE_TRANSIENT_STATUSES: List[DomainFeatureStatus] = [
     DomainFeatureStatus.ENABLING,
     DomainFeatureStatus.DISABLING,
 ]
 """
 Lists transient statutes of the enum :class:`DomainFeatureStatus <DomainFeatureStatus>`.
 """
-
-DOMAIN_REGISTRATION_STATUS_TRANSFER_TRANSIENT_STATUSES: List[
+DOMAINREGISTRATIONSTATUSTRANSFER_TRANSIENT_STATUSES: List[
     DomainRegistrationStatusTransferStatus
 ] = [
     DomainRegistrationStatusTransferStatus.PENDING,
@@ -37,7 +34,6 @@ DOMAIN_REGISTRATION_STATUS_TRANSFER_TRANSIENT_STATUSES: List[
 """
 Lists transient statutes of the enum :class:`DomainRegistrationStatusTransferStatus <DomainRegistrationStatusTransferStatus>`.
 """
-
 DOMAIN_TRANSIENT_STATUSES: List[DomainStatus] = [
     DomainStatus.CREATING,
     DomainStatus.RENEWING,
@@ -50,7 +46,6 @@ DOMAIN_TRANSIENT_STATUSES: List[DomainStatus] = [
 """
 Lists transient statutes of the enum :class:`DomainStatus <DomainStatus>`.
 """
-
 HOST_TRANSIENT_STATUSES: List[HostStatus] = [
     HostStatus.UPDATING,
     HostStatus.DELETING,
@@ -58,14 +53,12 @@ HOST_TRANSIENT_STATUSES: List[HostStatus] = [
 """
 Lists transient statutes of the enum :class:`HostStatus <HostStatus>`.
 """
-
-SSL_CERTIFICATE_TRANSIENT_STATUSES: List[SSLCertificateStatus] = [
+SSLCERTIFICATE_TRANSIENT_STATUSES: List[SSLCertificateStatus] = [
     SSLCertificateStatus.PENDING,
 ]
 """
 Lists transient statutes of the enum :class:`SSLCertificateStatus <SSLCertificateStatus>`.
 """
-
 TASK_TRANSIENT_STATUSES: List[TaskStatus] = [
     TaskStatus.PENDING,
 ]

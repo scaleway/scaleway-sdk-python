@@ -6,45 +6,36 @@ from typing import List, Optional
 from scaleway_core.api import API
 from scaleway_core.utils import (
     WaitForOptions,
-    fetch_all_pages,
     validate_path_param,
+    fetch_all_pages,
     wait_for_resource,
 )
 from .types import (
     EyeColors,
     ListHumansRequestOrderBy,
+    CreateHumanRequest,
     Human,
     ListHumansResponse,
-    RegisterResponse,
     RegisterRequest,
-    CreateHumanRequest,
+    RegisterResponse,
     UpdateHumanRequest,
 )
 from .content import (
     HUMAN_TRANSIENT_STATUSES,
 )
 from .marshalling import (
-    marshal_CreateHumanRequest,
-    marshal_RegisterRequest,
-    marshal_UpdateHumanRequest,
     unmarshal_Human,
     unmarshal_ListHumansResponse,
     unmarshal_RegisterResponse,
+    marshal_CreateHumanRequest,
+    marshal_RegisterRequest,
+    marshal_UpdateHumanRequest,
 )
 
 
 class TestV1API(API):
     """
-    Fake API.
-
     No Auth Service for end-to-end testing.
-    Test is a fake service that aim to manage fake humans. It is used for internal and public end-to-end tests.
-
-    This service don't use the Scaleway authentication service but a fake one.
-    It allows to use this test service publicly without requiring a Scaleway account.
-
-    First, you need to register a user with `scw test human register` to get an access-key.
-    Then, you can use other test commands by setting the SCW_SECRET_KEY env variable.
     """
 
     def register(
@@ -63,12 +54,14 @@ class TestV1API(API):
         Usage:
         ::
 
-            result = api.register(username="example")
+            result = api.register(
+                username="example",
+            )
         """
 
         res = self._request(
             "POST",
-            f"/test/v1/register",
+            "/test/v1/register",
             body=marshal_RegisterRequest(
                 RegisterRequest(
                     username=username,
@@ -85,11 +78,12 @@ class TestV1API(API):
         *,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        order_by: ListHumansRequestOrderBy = ListHumansRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListHumansRequestOrderBy] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
     ) -> ListHumansResponse:
         """
+        List all your humans.
         List all your humans.
         :param page:
         :param page_size:
@@ -106,7 +100,7 @@ class TestV1API(API):
 
         res = self._request(
             "GET",
-            f"/test/v1/humans",
+            "/test/v1/humans",
             params={
                 "order_by": order_by,
                 "organization_id": organization_id
@@ -131,12 +125,13 @@ class TestV1API(API):
     ) -> List[Human]:
         """
         List all your humans.
+        List all your humans.
         :param page:
         :param page_size:
         :param order_by:
         :param organization_id:
         :param project_id:
-        :return: :class:`List[ListHumansResponse] <List[ListHumansResponse]>`
+        :return: :class:`List[Human] <List[Human]>`
 
         Usage:
         ::
@@ -171,7 +166,9 @@ class TestV1API(API):
         Usage:
         ::
 
-            result = api.get_human(human_id="example")
+            result = api.get_human(
+                human_id="example",
+            )
         """
 
         param_human_id = validate_path_param("human_id", human_id)
@@ -191,15 +188,17 @@ class TestV1API(API):
         options: Optional[WaitForOptions[Human, bool]] = None,
     ) -> Human:
         """
-        Waits for :class:`Human <Human>` to be in a final state.
+        Get human details.
+        Get the human details associated with the given id.
         :param human_id: UUID of the human you want to get.
-        :param options: The options for the waiter
         :return: :class:`Human <Human>`
 
         Usage:
         ::
 
-            result = api.wait_for_human(human_id="example")
+            result = api.get_human(
+                human_id="example",
+            )
         """
 
         if not options:
@@ -219,63 +218,63 @@ class TestV1API(API):
     def create_human(
         self,
         *,
-        height: float,
-        shoe_size: float,
-        altitude_in_meter: int,
-        altitude_in_millimeter: int,
-        fingers_count: int,
-        hair_count: int,
-        is_happy: bool,
-        eyes_color: EyeColors,
         name: str,
+        is_happy: bool,
+        hair_count: int,
+        fingers_count: int,
+        altitude_in_millimeter: int,
+        altitude_in_meter: int,
+        shoe_size: float,
+        height: float,
+        eyes_color: Optional[EyeColors] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
     ) -> Human:
         """
         Create a new human.
-        :param height:
-        :param shoe_size:
-        :param altitude_in_meter:
-        :param altitude_in_millimeter:
-        :param fingers_count:
-        :param hair_count:
-        :param is_happy:
-        :param eyes_color:
-        :param organization_id: One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
+        Create a new human.
         :param name:
-        :param project_id: One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
+        :param is_happy:
+        :param hair_count:
+        :param fingers_count:
+        :param altitude_in_millimeter:
+        :param altitude_in_meter:
+        :param shoe_size:
+        :param height:
+        :param eyes_color:
+        :param organization_id:
+        :param project_id:
         :return: :class:`Human <Human>`
 
         Usage:
         ::
 
             result = api.create_human(
-                height=1.0,
-                shoe_size=1.0,
-                altitude_in_meter=1,
-                altitude_in_millimeter=1,
-                fingers_count=1,
-                hair_count=1,
-                is_happy=True,
-                eyes_color=unknown,
                 name="example",
+                is_happy=False,
+                hair_count=1,
+                fingers_count=1,
+                altitude_in_millimeter=1,
+                altitude_in_meter=1,
+                shoe_size=3.14,
+                height=3.14,
             )
         """
 
         res = self._request(
             "POST",
-            f"/test/v1/humans",
+            "/test/v1/humans",
             body=marshal_CreateHumanRequest(
                 CreateHumanRequest(
-                    height=height,
-                    shoe_size=shoe_size,
-                    altitude_in_meter=altitude_in_meter,
-                    altitude_in_millimeter=altitude_in_millimeter,
-                    fingers_count=fingers_count,
-                    hair_count=hair_count,
-                    is_happy=is_happy,
-                    eyes_color=eyes_color,
                     name=name,
+                    is_happy=is_happy,
+                    hair_count=hair_count,
+                    fingers_count=fingers_count,
+                    altitude_in_millimeter=altitude_in_millimeter,
+                    altitude_in_meter=altitude_in_meter,
+                    shoe_size=shoe_size,
+                    height=height,
+                    eyes_color=eyes_color,
                     organization_id=organization_id,
                     project_id=project_id,
                 ),
@@ -290,7 +289,6 @@ class TestV1API(API):
         self,
         *,
         human_id: str,
-        eyes_color: EyeColors,
         height: Optional[float] = None,
         shoe_size: Optional[float] = None,
         altitude_in_meter: Optional[int] = None,
@@ -298,6 +296,7 @@ class TestV1API(API):
         fingers_count: Optional[int] = None,
         hair_count: Optional[int] = None,
         is_happy: Optional[bool] = None,
+        eyes_color: Optional[EyeColors] = None,
         name: Optional[str] = None,
     ) -> Human:
         """
@@ -320,7 +319,6 @@ class TestV1API(API):
 
             result = api.update_human(
                 human_id="example",
-                eyes_color=unknown,
             )
         """
 
@@ -332,7 +330,6 @@ class TestV1API(API):
             body=marshal_UpdateHumanRequest(
                 UpdateHumanRequest(
                     human_id=human_id,
-                    eyes_color=eyes_color,
                     height=height,
                     shoe_size=shoe_size,
                     altitude_in_meter=altitude_in_meter,
@@ -340,6 +337,7 @@ class TestV1API(API):
                     fingers_count=fingers_count,
                     hair_count=hair_count,
                     is_happy=is_happy,
+                    eyes_color=eyes_color,
                     name=name,
                 ),
                 self.client,
@@ -363,7 +361,9 @@ class TestV1API(API):
         Usage:
         ::
 
-            result = api.delete_human(human_id="example")
+            result = api.delete_human(
+                human_id="example",
+            )
         """
 
         param_human_id = validate_path_param("human_id", human_id)
@@ -390,7 +390,9 @@ class TestV1API(API):
         Usage:
         ::
 
-            result = api.run_human(human_id="example")
+            result = api.run_human(
+                human_id="example",
+            )
         """
 
         param_human_id = validate_path_param("human_id", human_id)
@@ -398,6 +400,7 @@ class TestV1API(API):
         res = self._request(
             "POST",
             f"/test/v1/humans/{param_human_id}/run",
+            body={},
         )
 
         self._throw_on_error(res)
@@ -406,9 +409,10 @@ class TestV1API(API):
     def smoke_human(
         self,
         *,
-        human_id: Optional[str] = None,
+        human_id: str,
     ) -> Human:
         """
+        Make a human smoke.
         Make a human smoke.
         :param human_id: UUID of the human you want to make smoking.
         :return: :class:`Human <Human>`
@@ -417,7 +421,9 @@ class TestV1API(API):
         Usage:
         ::
 
-            result = api.smoke_human()
+            result = api.smoke_human(
+                human_id="example",
+            )
         """
 
         param_human_id = validate_path_param("human_id", human_id)
@@ -425,6 +431,7 @@ class TestV1API(API):
         res = self._request(
             "POST",
             f"/test/v1/humans/{param_human_id}/smoke",
+            body={},
         )
 
         self._throw_on_error(res)

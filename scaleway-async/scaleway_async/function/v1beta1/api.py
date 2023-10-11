@@ -11,10 +11,10 @@ from scaleway_core.bridge import (
 from scaleway_core.utils import (
     OneOfPossibility,
     WaitForOptions,
-    fetch_all_pages_async,
     random_name,
     resolve_one_of,
     validate_path_param,
+    fetch_all_pages_async,
     wait_for_resource_async,
 )
 from .types import (
@@ -28,6 +28,12 @@ from .types import (
     ListNamespacesRequestOrderBy,
     ListTokensRequestOrderBy,
     ListTriggersRequestOrderBy,
+    CreateCronRequest,
+    CreateDomainRequest,
+    CreateFunctionRequest,
+    CreateNamespaceRequest,
+    CreateTokenRequest,
+    CreateTriggerRequest,
     CreateTriggerRequestMnqNatsClientConfig,
     CreateTriggerRequestMnqSqsClientConfig,
     CreateTriggerRequestSqsClientConfig,
@@ -48,18 +54,12 @@ from .types import (
     Secret,
     Token,
     Trigger,
+    UpdateCronRequest,
+    UpdateFunctionRequest,
+    UpdateNamespaceRequest,
+    UpdateTriggerRequest,
     UpdateTriggerRequestSqsClientConfig,
     UploadURL,
-    CreateNamespaceRequest,
-    UpdateNamespaceRequest,
-    CreateFunctionRequest,
-    UpdateFunctionRequest,
-    CreateCronRequest,
-    UpdateCronRequest,
-    CreateDomainRequest,
-    CreateTokenRequest,
-    CreateTriggerRequest,
-    UpdateTriggerRequest,
 )
 from .content import (
     CRON_TRANSIENT_STATUSES,
@@ -70,16 +70,6 @@ from .content import (
     TRIGGER_TRANSIENT_STATUSES,
 )
 from .marshalling import (
-    marshal_CreateCronRequest,
-    marshal_CreateDomainRequest,
-    marshal_CreateFunctionRequest,
-    marshal_CreateNamespaceRequest,
-    marshal_CreateTokenRequest,
-    marshal_CreateTriggerRequest,
-    marshal_UpdateCronRequest,
-    marshal_UpdateFunctionRequest,
-    marshal_UpdateNamespaceRequest,
-    marshal_UpdateTriggerRequest,
     unmarshal_Cron,
     unmarshal_Domain,
     unmarshal_Function,
@@ -96,15 +86,21 @@ from .marshalling import (
     unmarshal_ListTokensResponse,
     unmarshal_ListTriggersResponse,
     unmarshal_UploadURL,
+    marshal_CreateCronRequest,
+    marshal_CreateDomainRequest,
+    marshal_CreateFunctionRequest,
+    marshal_CreateNamespaceRequest,
+    marshal_CreateTokenRequest,
+    marshal_CreateTriggerRequest,
+    marshal_UpdateCronRequest,
+    marshal_UpdateFunctionRequest,
+    marshal_UpdateNamespaceRequest,
+    marshal_UpdateTriggerRequest,
 )
 
 
 class FunctionV1Beta1API(API):
-    """
-    Serverless Functions API.
-
-    Serverless Functions API.
-    """
+    """ """
 
     async def list_namespaces(
         self,
@@ -112,7 +108,7 @@ class FunctionV1Beta1API(API):
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        order_by: ListNamespacesRequestOrderBy = ListNamespacesRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListNamespacesRequestOrderBy] = None,
         name: Optional[str] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -177,7 +173,7 @@ class FunctionV1Beta1API(API):
         :param name: Name of the namespace.
         :param organization_id: UUID of the Organization the namespace belongs to.
         :param project_id: UUID of the Project the namespace belongs to.
-        :return: :class:`List[ListNamespacesResponse] <List[ListNamespacesResponse]>`
+        :return: :class:`List[Namespace] <List[Namespace]>`
 
         Usage:
         ::
@@ -209,14 +205,16 @@ class FunctionV1Beta1API(API):
         """
         Get a namespace.
         Get the namespace associated with the specified ID.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param namespace_id: UUID of the namespace.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Namespace <Namespace>`
 
         Usage:
         ::
 
-            result = await api.get_namespace(namespace_id="example")
+            result = await api.get_namespace(
+                namespace_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -242,16 +240,18 @@ class FunctionV1Beta1API(API):
         ] = None,
     ) -> Namespace:
         """
-        Waits for :class:`Namespace <Namespace>` to be in a final state.
-        :param region: Region to target. If none is passed will use default region from the config.
+        Get a namespace.
+        Get the namespace associated with the specified ID.
         :param namespace_id: UUID of the namespace.
-        :param options: The options for the waiter
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Namespace <Namespace>`
 
         Usage:
         ::
 
-            result = api.wait_for_namespace(namespace_id="example")
+            result = await api.get_namespace(
+                namespace_id="example",
+            )
         """
 
         if not options:
@@ -331,8 +331,8 @@ class FunctionV1Beta1API(API):
         """
         Update an existing namespace.
         Update the namespace associated with the specified ID.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param namespace_id: UUID of the namespapce.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param environment_variables: Environment variables of the namespace.
         :param description: Description of the namespace.
         :param secret_environment_variables: Secret environment variables of the namespace.
@@ -341,7 +341,9 @@ class FunctionV1Beta1API(API):
         Usage:
         ::
 
-            result = await api.update_namespace(namespace_id="example")
+            result = await api.update_namespace(
+                namespace_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -376,14 +378,16 @@ class FunctionV1Beta1API(API):
         """
         Delete an existing namespace.
         Delete the namespace associated with the specified ID.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param namespace_id: UUID of the namespace.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Namespace <Namespace>`
 
         Usage:
         ::
 
-            result = await api.delete_namespace(namespace_id="example")
+            result = await api.delete_namespace(
+                namespace_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -406,18 +410,19 @@ class FunctionV1Beta1API(API):
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        order_by: ListFunctionsRequestOrderBy = ListFunctionsRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListFunctionsRequestOrderBy] = None,
         name: Optional[str] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
     ) -> ListFunctionsResponse:
         """
         List all your functions.
+        List all your functions.
+        :param namespace_id: UUID of the namespace the function belongs to.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number.
         :param page_size: Number of functions per page.
         :param order_by: Order of the functions.
-        :param namespace_id: UUID of the namespace the function belongs to.
         :param name: Name of the function.
         :param organization_id: UUID of the Organziation the function belongs to.
         :param project_id: UUID of the Project the function belongs to.
@@ -426,7 +431,9 @@ class FunctionV1Beta1API(API):
         Usage:
         ::
 
-            result = await api.list_functions(namespace_id="example")
+            result = await api.list_functions(
+                namespace_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -465,20 +472,23 @@ class FunctionV1Beta1API(API):
     ) -> List[Function]:
         """
         List all your functions.
+        List all your functions.
+        :param namespace_id: UUID of the namespace the function belongs to.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number.
         :param page_size: Number of functions per page.
         :param order_by: Order of the functions.
-        :param namespace_id: UUID of the namespace the function belongs to.
         :param name: Name of the function.
         :param organization_id: UUID of the Organziation the function belongs to.
         :param project_id: UUID of the Project the function belongs to.
-        :return: :class:`List[ListFunctionsResponse] <List[ListFunctionsResponse]>`
+        :return: :class:`List[Function] <List[Function]>`
 
         Usage:
         ::
 
-            result = await api.list_functions_all(namespace_id="example")
+            result = await api.list_functions_all(
+                namespace_id="example",
+            )
         """
 
         return await fetch_all_pages_async(
@@ -506,14 +516,16 @@ class FunctionV1Beta1API(API):
         """
         Get a function.
         Get the function associated with the specified ID.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param function_id: UUID of the function.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Function <Function>`
 
         Usage:
         ::
 
-            result = await api.get_function(function_id="example")
+            result = await api.get_function(
+                function_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -539,16 +551,18 @@ class FunctionV1Beta1API(API):
         ] = None,
     ) -> Function:
         """
-        Waits for :class:`Function <Function>` to be in a final state.
-        :param region: Region to target. If none is passed will use default region from the config.
+        Get a function.
+        Get the function associated with the specified ID.
         :param function_id: UUID of the function.
-        :param options: The options for the waiter
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Function <Function>`
 
         Usage:
         ::
 
-            result = api.wait_for_function(function_id="example")
+            result = await api.get_function(
+                function_id="example",
+            )
         """
 
         if not options:
@@ -570,38 +584,37 @@ class FunctionV1Beta1API(API):
         self,
         *,
         namespace_id: str,
-        runtime: FunctionRuntime,
-        privacy: FunctionPrivacy,
-        http_option: FunctionHttpOption,
         region: Optional[Region] = None,
-        name: Optional[str] = None,
+        runtime: Optional[FunctionRuntime] = None,
         environment_variables: Optional[Dict[str, str]] = None,
         min_scale: Optional[int] = None,
         max_scale: Optional[int] = None,
+        name: Optional[str] = None,
         memory_limit: Optional[int] = None,
         timeout: Optional[str] = None,
         handler: Optional[str] = None,
+        privacy: Optional[FunctionPrivacy] = None,
         description: Optional[str] = None,
         secret_environment_variables: Optional[List[Secret]] = None,
+        http_option: Optional[FunctionHttpOption] = None,
     ) -> Function:
         """
         Create a new function.
         Create a new function in the specified region for a specified Organization or Project.
-        :param region: Region to target. If none is passed will use default region from the config.
-        :param name: Name of the function to create.
         :param namespace_id: UUID of the namespace the function will be created in.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param runtime: Runtime to use with the function.
         :param environment_variables: Environment variables of the function.
         :param min_scale: Minumum number of instances to scale the function to.
         :param max_scale: Maximum number of instances to scale the function to.
-        :param runtime: Runtime to use with the function.
+        :param name: Name of the function to create.
         :param memory_limit: Memory limit of the function in MB.
         :param timeout: Request processing time limit for the function.
         :param handler: Handler to use with the function.
         :param privacy: Privacy setting of the function.
         :param description: Description of the function.
         :param secret_environment_variables:
-        :param http_option: Configure how HTTP and HTTPS requests are handled.
-        Possible values:
+        :param http_option: Possible values:
          - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
          - enabled: Serve both HTTP and HTTPS traffic.
         :return: :class:`Function <Function>`
@@ -611,9 +624,6 @@ class FunctionV1Beta1API(API):
 
             result = await api.create_function(
                 namespace_id="example",
-                runtime=unknown_runtime,
-                privacy=unknown_privacy,
-                http_option=unknown_http_option,
             )
         """
 
@@ -627,19 +637,19 @@ class FunctionV1Beta1API(API):
             body=marshal_CreateFunctionRequest(
                 CreateFunctionRequest(
                     namespace_id=namespace_id,
-                    runtime=runtime,
-                    privacy=privacy,
-                    http_option=http_option,
                     region=region,
-                    name=name or random_name(prefix="fn"),
+                    runtime=runtime,
                     environment_variables=environment_variables,
                     min_scale=min_scale,
                     max_scale=max_scale,
+                    name=name or random_name(prefix="fn"),
                     memory_limit=memory_limit,
                     timeout=timeout,
                     handler=handler,
+                    privacy=privacy,
                     description=description,
                     secret_environment_variables=secret_environment_variables,
+                    http_option=http_option,
                 ),
                 self.client,
             ),
@@ -652,38 +662,37 @@ class FunctionV1Beta1API(API):
         self,
         *,
         function_id: str,
-        runtime: FunctionRuntime,
-        privacy: FunctionPrivacy,
-        http_option: FunctionHttpOption,
         region: Optional[Region] = None,
-        environment_variables: Optional[Dict[str, str]] = None,
+        memory_limit: Optional[int] = None,
         min_scale: Optional[int] = None,
         max_scale: Optional[int] = None,
-        memory_limit: Optional[int] = None,
+        runtime: Optional[FunctionRuntime] = None,
+        environment_variables: Optional[Dict[str, str]] = None,
         timeout: Optional[str] = None,
         redeploy: Optional[bool] = None,
         handler: Optional[str] = None,
+        privacy: Optional[FunctionPrivacy] = None,
         description: Optional[str] = None,
         secret_environment_variables: Optional[List[Secret]] = None,
+        http_option: Optional[FunctionHttpOption] = None,
     ) -> Function:
         """
         Update an existing function.
         Update the function associated with the specified ID.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param function_id: UUID of the function to update.
-        :param environment_variables: Environment variables of the function to update.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param memory_limit: Memory limit of the function in MB.
         :param min_scale: Minumum number of instances to scale the function to.
         :param max_scale: Maximum number of instances to scale the function to.
         :param runtime: Runtime to use with the function.
-        :param memory_limit: Memory limit of the function in MB.
+        :param environment_variables: Environment variables of the function to update.
         :param timeout: Processing time limit for the function.
         :param redeploy: Redeploy failed function.
         :param handler: Handler to use with the function.
         :param privacy: Privacy setting of the function.
         :param description: Description of the function.
         :param secret_environment_variables: Secret environment variables of the function.
-        :param http_option: Configure how HTTP and HTTPS requests are handled.
-        Possible values:
+        :param http_option: Possible values:
          - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
          - enabled: Serve both HTTP and HTTPS traffic.
         :return: :class:`Function <Function>`
@@ -693,9 +702,6 @@ class FunctionV1Beta1API(API):
 
             result = await api.update_function(
                 function_id="example",
-                runtime=unknown_runtime,
-                privacy=unknown_privacy,
-                http_option=unknown_http_option,
             )
         """
 
@@ -710,19 +716,19 @@ class FunctionV1Beta1API(API):
             body=marshal_UpdateFunctionRequest(
                 UpdateFunctionRequest(
                     function_id=function_id,
-                    runtime=runtime,
-                    privacy=privacy,
-                    http_option=http_option,
                     region=region,
-                    environment_variables=environment_variables,
+                    memory_limit=memory_limit,
                     min_scale=min_scale,
                     max_scale=max_scale,
-                    memory_limit=memory_limit,
+                    runtime=runtime,
+                    environment_variables=environment_variables,
                     timeout=timeout,
                     redeploy=redeploy,
                     handler=handler,
+                    privacy=privacy,
                     description=description,
                     secret_environment_variables=secret_environment_variables,
+                    http_option=http_option,
                 ),
                 self.client,
             ),
@@ -740,14 +746,16 @@ class FunctionV1Beta1API(API):
         """
         Delete a function.
         Delete the function associated with the specified ID.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param function_id: UUID of the function to delete.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Function <Function>`
 
         Usage:
         ::
 
-            result = await api.delete_function(function_id="example")
+            result = await api.delete_function(
+                function_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -772,14 +780,16 @@ class FunctionV1Beta1API(API):
         """
         Deploy a function.
         Deploy a function associated with the specified ID.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param function_id: UUID of the function to deploy.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Function <Function>`
 
         Usage:
         ::
 
-            result = await api.deploy_function(function_id="example")
+            result = await api.deploy_function(
+                function_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -790,6 +800,7 @@ class FunctionV1Beta1API(API):
         res = self._request(
             "POST",
             f"/functions/v1beta1/regions/{param_region}/functions/{param_function_id}/deploy",
+            body={},
         )
 
         self._throw_on_error(res)
@@ -827,24 +838,24 @@ class FunctionV1Beta1API(API):
     async def get_function_upload_url(
         self,
         *,
-        function_id: str,
         content_length: int,
+        function_id: str,
         region: Optional[Region] = None,
     ) -> UploadURL:
         """
         Get an upload URL of a function.
         Get an upload URL of a function associated with the specified ID.
-        :param region: Region to target. If none is passed will use default region from the config.
-        :param function_id: UUID of the function to get the upload URL for.
         :param content_length: Size of the archive to upload in bytes.
+        :param function_id: UUID of the function to get the upload URL for.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`UploadURL <UploadURL>`
 
         Usage:
         ::
 
             result = await api.get_function_upload_url(
-                function_id="example",
                 content_length=1,
+                function_id="example",
             )
         """
 
@@ -873,14 +884,16 @@ class FunctionV1Beta1API(API):
         """
         Get a download URL of a function.
         Get a download URL for a function associated with the specified ID.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param function_id: UUID of the function to get the the download URL for.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`DownloadURL <DownloadURL>`
 
         Usage:
         ::
 
-            result = await api.get_function_download_url(function_id="example")
+            result = await api.get_function_download_url(
+                function_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -903,22 +916,24 @@ class FunctionV1Beta1API(API):
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        order_by: ListCronsRequestOrderBy = ListCronsRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListCronsRequestOrderBy] = None,
     ) -> ListCronsResponse:
         """
         List all crons.
         List all the cronjobs in a specified region.
+        :param function_id: UUID of the function.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number.
         :param page_size: Number of crons per page.
         :param order_by: Order of the crons.
-        :param function_id: UUID of the function.
         :return: :class:`ListCronsResponse <ListCronsResponse>`
 
         Usage:
         ::
 
-            result = await api.list_crons(function_id="example")
+            result = await api.list_crons(
+                function_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -951,17 +966,19 @@ class FunctionV1Beta1API(API):
         """
         List all crons.
         List all the cronjobs in a specified region.
+        :param function_id: UUID of the function.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number.
         :param page_size: Number of crons per page.
         :param order_by: Order of the crons.
-        :param function_id: UUID of the function.
-        :return: :class:`List[ListCronsResponse] <List[ListCronsResponse]>`
+        :return: :class:`List[Cron] <List[Cron]>`
 
         Usage:
         ::
 
-            result = await api.list_crons_all(function_id="example")
+            result = await api.list_crons_all(
+                function_id="example",
+            )
         """
 
         return await fetch_all_pages_async(
@@ -986,14 +1003,16 @@ class FunctionV1Beta1API(API):
         """
         Get a cron.
         Get the cron associated with the specified ID.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param cron_id: UUID of the cron to get.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Cron <Cron>`
 
         Usage:
         ::
 
-            result = await api.get_cron(cron_id="example")
+            result = await api.get_cron(
+                cron_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -1017,16 +1036,18 @@ class FunctionV1Beta1API(API):
         options: Optional[WaitForOptions[Cron, Union[bool, Awaitable[bool]]]] = None,
     ) -> Cron:
         """
-        Waits for :class:`Cron <Cron>` to be in a final state.
-        :param region: Region to target. If none is passed will use default region from the config.
+        Get a cron.
+        Get the cron associated with the specified ID.
         :param cron_id: UUID of the cron to get.
-        :param options: The options for the waiter
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Cron <Cron>`
 
         Usage:
         ::
 
-            result = api.wait_for_cron(cron_id="example")
+            result = await api.get_cron(
+                cron_id="example",
+            )
         """
 
         if not options:
@@ -1047,8 +1068,8 @@ class FunctionV1Beta1API(API):
     async def create_cron(
         self,
         *,
-        function_id: str,
         schedule: str,
+        function_id: str,
         region: Optional[Region] = None,
         args: Optional[Dict[str, Any]] = None,
         name: Optional[str] = None,
@@ -1056,9 +1077,9 @@ class FunctionV1Beta1API(API):
         """
         Create a new cron.
         Create a new cronjob for a function with the specified ID.
-        :param region: Region to target. If none is passed will use default region from the config.
-        :param function_id: UUID of the function to use the cron with.
         :param schedule: Schedule of the cron in UNIX cron format.
+        :param function_id: UUID of the function to use the cron with.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param args: Arguments to use with the cron.
         :param name: Name of the cron.
         :return: :class:`Cron <Cron>`
@@ -1067,8 +1088,8 @@ class FunctionV1Beta1API(API):
         ::
 
             result = await api.create_cron(
-                function_id="example",
                 schedule="example",
+                function_id="example",
             )
         """
 
@@ -1081,8 +1102,8 @@ class FunctionV1Beta1API(API):
             f"/functions/v1beta1/regions/{param_region}/crons",
             body=marshal_CreateCronRequest(
                 CreateCronRequest(
-                    function_id=function_id,
                     schedule=schedule,
+                    function_id=function_id,
                     region=region,
                     args=args,
                     name=name,
@@ -1107,8 +1128,8 @@ class FunctionV1Beta1API(API):
         """
         Update an existing cron.
         Update the cron associated with the specified ID.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param cron_id: UUID of the cron to update.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param function_id: UUID of the function to use the cron with.
         :param schedule: Schedule of the cron in UNIX cron format.
         :param args: Arguments to use with the cron.
@@ -1118,7 +1139,9 @@ class FunctionV1Beta1API(API):
         Usage:
         ::
 
-            result = await api.update_cron(cron_id="example")
+            result = await api.update_cron(
+                cron_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -1154,14 +1177,16 @@ class FunctionV1Beta1API(API):
         """
         Delete an existing cron.
         Delete the cron associated with the specified ID.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param cron_id: UUID of the cron to delete.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Cron <Cron>`
 
         Usage:
         ::
 
-            result = await api.delete_cron(cron_id="example")
+            result = await api.delete_cron(
+                cron_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -1184,13 +1209,13 @@ class FunctionV1Beta1API(API):
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        order_by: ListLogsRequestOrderBy = ListLogsRequestOrderBy.TIMESTAMP_DESC,
+        order_by: Optional[ListLogsRequestOrderBy] = None,
     ) -> ListLogsResponse:
         """
         List application logs.
         List the application logs of the function with the specified ID.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param function_id: UUID of the function to get the logs for.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number.
         :param page_size: Number of logs per page.
         :param order_by: Order of the logs.
@@ -1199,7 +1224,9 @@ class FunctionV1Beta1API(API):
         Usage:
         ::
 
-            result = await api.list_logs(function_id="example")
+            result = await api.list_logs(
+                function_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -1232,17 +1259,19 @@ class FunctionV1Beta1API(API):
         """
         List application logs.
         List the application logs of the function with the specified ID.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param function_id: UUID of the function to get the logs for.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number.
         :param page_size: Number of logs per page.
         :param order_by: Order of the logs.
-        :return: :class:`List[ListLogsResponse] <List[ListLogsResponse]>`
+        :return: :class:`List[Log] <List[Log]>`
 
         Usage:
         ::
 
-            result = await api.list_logs_all(function_id="example")
+            result = await api.list_logs_all(
+                function_id="example",
+            )
         """
 
         return await fetch_all_pages_async(
@@ -1265,22 +1294,24 @@ class FunctionV1Beta1API(API):
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        order_by: ListDomainsRequestOrderBy = ListDomainsRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListDomainsRequestOrderBy] = None,
     ) -> ListDomainsResponse:
         """
         List all domain name bindings.
         List all domain name bindings in a specified region.
+        :param function_id: UUID of the function the domain is assoicated with.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number.
         :param page_size: Number of domains per page.
         :param order_by: Order of the domains.
-        :param function_id: UUID of the function the domain is assoicated with.
         :return: :class:`ListDomainsResponse <ListDomainsResponse>`
 
         Usage:
         ::
 
-            result = await api.list_domains(function_id="example")
+            result = await api.list_domains(
+                function_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -1313,17 +1344,19 @@ class FunctionV1Beta1API(API):
         """
         List all domain name bindings.
         List all domain name bindings in a specified region.
+        :param function_id: UUID of the function the domain is assoicated with.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number.
         :param page_size: Number of domains per page.
         :param order_by: Order of the domains.
-        :param function_id: UUID of the function the domain is assoicated with.
-        :return: :class:`List[ListDomainsResponse] <List[ListDomainsResponse]>`
+        :return: :class:`List[Domain] <List[Domain]>`
 
         Usage:
         ::
 
-            result = await api.list_domains_all(function_id="example")
+            result = await api.list_domains_all(
+                function_id="example",
+            )
         """
 
         return await fetch_all_pages_async(
@@ -1348,14 +1381,16 @@ class FunctionV1Beta1API(API):
         """
         Get a domain name binding.
         Get a domain name binding for the function with the specified ID.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param domain_id: UUID of the domain to get.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Domain <Domain>`
 
         Usage:
         ::
 
-            result = await api.get_domain(domain_id="example")
+            result = await api.get_domain(
+                domain_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -1379,16 +1414,18 @@ class FunctionV1Beta1API(API):
         options: Optional[WaitForOptions[Domain, Union[bool, Awaitable[bool]]]] = None,
     ) -> Domain:
         """
-        Waits for :class:`Domain <Domain>` to be in a final state.
-        :param region: Region to target. If none is passed will use default region from the config.
+        Get a domain name binding.
+        Get a domain name binding for the function with the specified ID.
         :param domain_id: UUID of the domain to get.
-        :param options: The options for the waiter
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Domain <Domain>`
 
         Usage:
         ::
 
-            result = api.wait_for_domain(domain_id="example")
+            result = await api.get_domain(
+                domain_id="example",
+            )
         """
 
         if not options:
@@ -1409,24 +1446,24 @@ class FunctionV1Beta1API(API):
     async def create_domain(
         self,
         *,
-        hostname: str,
         function_id: str,
+        hostname: str,
         region: Optional[Region] = None,
     ) -> Domain:
         """
         Create a domain name binding.
         Create a domain name binding for the function with the specified ID.
-        :param region: Region to target. If none is passed will use default region from the config.
-        :param hostname: Hostame to create.
         :param function_id: UUID of the function to associate the domain with.
+        :param hostname: Hostame to create.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Domain <Domain>`
 
         Usage:
         ::
 
             result = await api.create_domain(
-                hostname="example",
                 function_id="example",
+                hostname="example",
             )
         """
 
@@ -1439,8 +1476,8 @@ class FunctionV1Beta1API(API):
             f"/functions/v1beta1/regions/{param_region}/domains",
             body=marshal_CreateDomainRequest(
                 CreateDomainRequest(
-                    hostname=hostname,
                     function_id=function_id,
+                    hostname=hostname,
                     region=region,
                 ),
                 self.client,
@@ -1459,14 +1496,16 @@ class FunctionV1Beta1API(API):
         """
         Delete a domain name binding.
         Delete a domain name binding for the function with the specified ID.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param domain_id: UUID of the domain to delete.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Domain <Domain>`
 
         Usage:
         ::
 
-            result = await api.delete_domain(domain_id="example")
+            result = await api.delete_domain(
+                domain_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -1491,6 +1530,11 @@ class FunctionV1Beta1API(API):
         expires_at: Optional[datetime] = None,
     ) -> Token:
         """
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param function_id:
+        :param namespace_id:
+        :param expires_at:
+        :return: :class:`Token <Token>`
         :deprecated
 
         Usage:
@@ -1531,13 +1575,10 @@ class FunctionV1Beta1API(API):
     ) -> Token:
         """
         Create a new revocable token.
+        Create a new revocable token.
         :param region: Region to target. If none is passed will use default region from the config.
         :param function_id: UUID of the function to associate the token with.
-
-        One-of ('scope'): at most one of 'function_id', 'namespace_id' could be set.
         :param namespace_id: UUID of the namespace to associate the token with.
-
-        One-of ('scope'): at most one of 'function_id', 'namespace_id' could be set.
         :param description: Description of the token.
         :param expires_at: Date on which the token expires.
         :return: :class:`Token <Token>`
@@ -1558,10 +1599,10 @@ class FunctionV1Beta1API(API):
             body=marshal_CreateTokenRequest(
                 CreateTokenRequest(
                     region=region,
-                    function_id=function_id,
-                    namespace_id=namespace_id,
                     description=description,
                     expires_at=expires_at,
+                    function_id=function_id,
+                    namespace_id=namespace_id,
                 ),
                 self.client,
             ),
@@ -1578,14 +1619,17 @@ class FunctionV1Beta1API(API):
     ) -> Token:
         """
         Get a token.
-        :param region: Region to target. If none is passed will use default region from the config.
+        Get a token.
         :param token_id: UUID of the token to get.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Token <Token>`
 
         Usage:
         ::
 
-            result = await api.get_token(token_id="example")
+            result = await api.get_token(
+                token_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -1609,16 +1653,18 @@ class FunctionV1Beta1API(API):
         options: Optional[WaitForOptions[Token, Union[bool, Awaitable[bool]]]] = None,
     ) -> Token:
         """
-        Waits for :class:`Token <Token>` to be in a final state.
-        :param region: Region to target. If none is passed will use default region from the config.
+        Get a token.
+        Get a token.
         :param token_id: UUID of the token to get.
-        :param options: The options for the waiter
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Token <Token>`
 
         Usage:
         ::
 
-            result = api.wait_for_token(token_id="example")
+            result = await api.get_token(
+                token_id="example",
+            )
         """
 
         if not options:
@@ -1642,11 +1688,12 @@ class FunctionV1Beta1API(API):
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        order_by: ListTokensRequestOrderBy = ListTokensRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListTokensRequestOrderBy] = None,
         function_id: Optional[str] = None,
         namespace_id: Optional[str] = None,
     ) -> ListTokensResponse:
         """
+        List all tokens.
         List all tokens.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number.
@@ -1693,13 +1740,14 @@ class FunctionV1Beta1API(API):
     ) -> List[Token]:
         """
         List all tokens.
+        List all tokens.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number.
         :param page_size: Number of tokens per page.
         :param order_by: Sort order for the tokens.
         :param function_id: UUID of the function the token is assoicated with.
         :param namespace_id: UUID of the namespace the token is associated with.
-        :return: :class:`List[ListTokensResponse] <List[ListTokensResponse]>`
+        :return: :class:`List[Token] <List[Token]>`
 
         Usage:
         ::
@@ -1729,14 +1777,17 @@ class FunctionV1Beta1API(API):
     ) -> Token:
         """
         Delete a token.
-        :param region: Region to target. If none is passed will use default region from the config.
+        Delete a token.
         :param token_id: UUID of the token to delete.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Token <Token>`
 
         Usage:
         ::
 
-            result = await api.delete_token(token_id="example")
+            result = await api.delete_token(
+                token_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -1755,8 +1806,8 @@ class FunctionV1Beta1API(API):
     async def create_trigger(
         self,
         *,
-        name: str,
         function_id: str,
+        name: str,
         region: Optional[Region] = None,
         description: Optional[str] = None,
         scw_sqs_config: Optional[CreateTriggerRequestMnqSqsClientConfig] = None,
@@ -1764,13 +1815,21 @@ class FunctionV1Beta1API(API):
         scw_nats_config: Optional[CreateTriggerRequestMnqNatsClientConfig] = None,
     ) -> Trigger:
         """
+        :param function_id:
+        :param name:
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param description:
+        :param scw_sqs_config:
+        :param sqs_config:
+        :param scw_nats_config:
+        :return: :class:`Trigger <Trigger>`
 
         Usage:
         ::
 
             result = await api.create_trigger(
-                name="example",
                 function_id="example",
+                name="example",
             )
         """
 
@@ -1783,8 +1842,8 @@ class FunctionV1Beta1API(API):
             f"/functions/v1beta1/regions/{param_region}/triggers",
             body=marshal_CreateTriggerRequest(
                 CreateTriggerRequest(
-                    name=name,
                     function_id=function_id,
+                    name=name,
                     region=region,
                     description=description,
                     scw_sqs_config=scw_sqs_config,
@@ -1805,11 +1864,16 @@ class FunctionV1Beta1API(API):
         region: Optional[Region] = None,
     ) -> Trigger:
         """
+        :param trigger_id:
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Trigger <Trigger>`
 
         Usage:
         ::
 
-            result = await api.get_trigger(trigger_id="example")
+            result = await api.get_trigger(
+                trigger_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -1833,16 +1897,16 @@ class FunctionV1Beta1API(API):
         options: Optional[WaitForOptions[Trigger, Union[bool, Awaitable[bool]]]] = None,
     ) -> Trigger:
         """
-        Waits for :class:`Trigger <Trigger>` to be in a final state.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param trigger_id:
-        :param options: The options for the waiter
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Trigger <Trigger>`
 
         Usage:
         ::
 
-            result = api.wait_for_trigger(trigger_id="example")
+            result = await api.get_trigger(
+                trigger_id="example",
+            )
         """
 
         if not options:
@@ -1866,12 +1930,20 @@ class FunctionV1Beta1API(API):
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        order_by: ListTriggersRequestOrderBy = ListTriggersRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListTriggersRequestOrderBy] = None,
         function_id: Optional[str] = None,
         namespace_id: Optional[str] = None,
         project_id: Optional[str] = None,
     ) -> ListTriggersResponse:
         """
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page:
+        :param page_size:
+        :param order_by:
+        :param function_id:
+        :param namespace_id:
+        :param project_id:
+        :return: :class:`ListTriggersResponse <ListTriggersResponse>`
 
         Usage:
         ::
@@ -1892,11 +1964,9 @@ class FunctionV1Beta1API(API):
                 "page_size": page_size or self.client.default_page_size,
                 **resolve_one_of(
                     [
-                        OneOfPossibility(
-                            "project_id", project_id, self.client.default_project_id
-                        ),
                         OneOfPossibility("function_id", function_id),
                         OneOfPossibility("namespace_id", namespace_id),
+                        OneOfPossibility("project_id", project_id),
                     ]
                 ),
             },
@@ -1917,7 +1987,14 @@ class FunctionV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> List[Trigger]:
         """
-        :return: :class:`List[ListTriggersResponse] <List[ListTriggersResponse]>`
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page:
+        :param page_size:
+        :param order_by:
+        :param function_id:
+        :param namespace_id:
+        :param project_id:
+        :return: :class:`List[Trigger] <List[Trigger]>`
 
         Usage:
         ::
@@ -1950,11 +2027,19 @@ class FunctionV1Beta1API(API):
         sqs_config: Optional[UpdateTriggerRequestSqsClientConfig] = None,
     ) -> Trigger:
         """
+        :param trigger_id:
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param name:
+        :param description:
+        :param sqs_config:
+        :return: :class:`Trigger <Trigger>`
 
         Usage:
         ::
 
-            result = await api.update_trigger(trigger_id="example")
+            result = await api.update_trigger(
+                trigger_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -1987,11 +2072,16 @@ class FunctionV1Beta1API(API):
         region: Optional[Region] = None,
     ) -> Trigger:
         """
+        :param trigger_id:
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Trigger <Trigger>`
 
         Usage:
         ::
 
-            result = await api.delete_trigger(trigger_id="example")
+            result = await api.delete_trigger(
+                trigger_id="example",
+            )
         """
 
         param_region = validate_path_param(

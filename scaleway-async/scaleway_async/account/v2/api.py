@@ -5,30 +5,27 @@ from typing import List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.utils import (
-    fetch_all_pages_async,
     random_name,
     validate_path_param,
+    fetch_all_pages_async,
 )
 from .types import (
     ListProjectsRequestOrderBy,
+    CreateProjectRequest,
     ListProjectsResponse,
     Project,
-    CreateProjectRequest,
     UpdateProjectRequest,
 )
 from .marshalling import (
-    marshal_CreateProjectRequest,
-    marshal_UpdateProjectRequest,
     unmarshal_Project,
     unmarshal_ListProjectsResponse,
+    marshal_CreateProjectRequest,
+    marshal_UpdateProjectRequest,
 )
 
 
 class AccountV2API(API):
     """
-    Account API.
-
-    User related data.
     This API allows you to manage projects.
     """
 
@@ -57,7 +54,7 @@ class AccountV2API(API):
 
         res = self._request(
             "POST",
-            f"/account/v2/projects",
+            "/account/v2/projects",
             body=marshal_CreateProjectRequest(
                 CreateProjectRequest(
                     name=name or random_name(prefix="proj"),
@@ -78,7 +75,7 @@ class AccountV2API(API):
         name: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        order_by: ListProjectsRequestOrderBy = ListProjectsRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListProjectsRequestOrderBy] = None,
         project_ids: Optional[List[str]] = None,
     ) -> ListProjectsResponse:
         """
@@ -102,7 +99,7 @@ class AccountV2API(API):
 
         res = self._request(
             "GET",
-            f"/account/v2/projects",
+            "/account/v2/projects",
             params={
                 "name": name,
                 "order_by": order_by,
@@ -137,7 +134,7 @@ class AccountV2API(API):
         :param page_size: Maximum number of Project per page.
         :param order_by: Sort order of the returned Projects.
         :param project_ids: Project IDs to filter for. The results will be limited to any Projects with an ID in this array.
-        :return: :class:`List[ListProjectsResponse] <List[ListProjectsResponse]>`
+        :return: :class:`List[Project] <List[Project]>`
         :deprecated
 
         Usage:
@@ -195,7 +192,7 @@ class AccountV2API(API):
         self,
         *,
         project_id: Optional[str] = None,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Delete an existing Project.
         Deprecated in favor of Account API v3.
@@ -219,7 +216,6 @@ class AccountV2API(API):
         )
 
         self._throw_on_error(res)
-        return None
 
     async def update_project(
         self,

@@ -9,13 +9,15 @@ from scaleway_core.bridge import (
 )
 from scaleway_core.utils import (
     WaitForOptions,
-    fetch_all_pages,
     validate_path_param,
+    fetch_all_pages,
     wait_for_resource,
 )
 from .types import (
     ListSnapshotsRequestOrderBy,
     ListVolumesRequestOrderBy,
+    CreateSnapshotRequest,
+    CreateVolumeRequest,
     CreateVolumeRequestFromEmpty,
     CreateVolumeRequestFromSnapshot,
     ListSnapshotsResponse,
@@ -23,36 +25,31 @@ from .types import (
     ListVolumesResponse,
     Snapshot,
     SnapshotSummary,
+    UpdateSnapshotRequest,
+    UpdateVolumeRequest,
     Volume,
     VolumeType,
-    CreateVolumeRequest,
-    UpdateVolumeRequest,
-    CreateSnapshotRequest,
-    UpdateSnapshotRequest,
 )
 from .content import (
     SNAPSHOT_TRANSIENT_STATUSES,
     VOLUME_TRANSIENT_STATUSES,
 )
 from .marshalling import (
-    marshal_CreateSnapshotRequest,
-    marshal_CreateVolumeRequest,
-    marshal_UpdateSnapshotRequest,
-    marshal_UpdateVolumeRequest,
     unmarshal_Volume,
     unmarshal_ListSnapshotsResponse,
     unmarshal_ListVolumeTypesResponse,
     unmarshal_ListVolumesResponse,
     unmarshal_Snapshot,
+    marshal_CreateSnapshotRequest,
+    marshal_CreateVolumeRequest,
+    marshal_UpdateSnapshotRequest,
+    marshal_UpdateVolumeRequest,
 )
 
 
 class BlockV1Alpha1API(API):
     """
-    Scaleway Block Storage API.
-
     This API allows you to use and manage your Block Storage volumes.
-    Scaleway Block Storage API.
     """
 
     def list_volume_types(
@@ -103,7 +100,7 @@ class BlockV1Alpha1API(API):
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param page: Page number.
         :param page_size: Page size, defines how many entries are returned in one page, must be lower or equal to 100.
-        :return: :class:`List[ListVolumeTypesResponse] <List[ListVolumeTypesResponse]>`
+        :return: :class:`List[VolumeType] <List[VolumeType]>`
 
         Usage:
         ::
@@ -126,7 +123,7 @@ class BlockV1Alpha1API(API):
         self,
         *,
         zone: Optional[Zone] = None,
-        order_by: ListVolumesRequestOrderBy = ListVolumesRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListVolumesRequestOrderBy] = None,
         project_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -190,7 +187,7 @@ class BlockV1Alpha1API(API):
         :param page_size: Page size, defines how many entries are returned in one page, must be lower or equal to 100.
         :param name: Filter the return volumes by their names.
         :param product_resource_id: Filter by a product resource ID linked to this volume (such as an Instance ID).
-        :return: :class:`List[ListVolumesResponse] <List[ListVolumesResponse]>`
+        :return: :class:`List[Volume] <List[Volume]>`
 
         Usage:
         ::
@@ -228,25 +225,21 @@ class BlockV1Alpha1API(API):
         Create a volume.
         To create a new volume from scratch, you must specify `from_empty` and the `size`.
         To create a volume from an existing snapshot, specify `from_snapshot` and the `snapshot_id` in the request payload instead, size is optional and can be specified if you need to extend the original size. The volume will take on the same volume class and underlying IOPS limitations as the original snapshot.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: Name of the volume.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param perf_iops: The maximum IO/s expected, according to the different options available in stock (`5000 | 15000`).
-
-        One-of ('requirements'): at most one of 'perf_iops' could be set.
         :param project_id: UUID of the project the volume belongs to.
         :param from_empty: Specify the size of the new volume if creating a new one from scratch.
-
-        One-of ('from_'): at most one of 'from_empty', 'from_snapshot' could be set.
         :param from_snapshot: Specify the snapshot ID of the original snapshot.
-
-        One-of ('from_'): at most one of 'from_empty', 'from_snapshot' could be set.
         :param tags: List of tags assigned to the volume.
         :return: :class:`Volume <Volume>`
 
         Usage:
         ::
 
-            result = api.create_volume(name="example")
+            result = api.create_volume(
+                name="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -258,11 +251,11 @@ class BlockV1Alpha1API(API):
                 CreateVolumeRequest(
                     name=name,
                     zone=zone,
-                    perf_iops=perf_iops,
                     project_id=project_id,
+                    tags=tags,
                     from_empty=from_empty,
                     from_snapshot=from_snapshot,
-                    tags=tags,
+                    perf_iops=perf_iops,
                 ),
                 self.client,
             ),
@@ -280,14 +273,16 @@ class BlockV1Alpha1API(API):
         """
         Get a volume.
         Retrieve technical information about a specific volume. Details such as size, type, and status are returned in the response.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param volume_id: UUID of the volume.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Volume <Volume>`
 
         Usage:
         ::
 
-            result = api.get_volume(volume_id="example")
+            result = api.get_volume(
+                volume_id="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -309,16 +304,18 @@ class BlockV1Alpha1API(API):
         options: Optional[WaitForOptions[Volume, bool]] = None,
     ) -> Volume:
         """
-        Waits for :class:`Volume <Volume>` to be in a final state.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
+        Get a volume.
+        Retrieve technical information about a specific volume. Details such as size, type, and status are returned in the response.
         :param volume_id: UUID of the volume.
-        :param options: The options for the waiter
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Volume <Volume>`
 
         Usage:
         ::
 
-            result = api.wait_for_volume(volume_id="example")
+            result = api.get_volume(
+                volume_id="example",
+            )
         """
 
         if not options:
@@ -341,17 +338,19 @@ class BlockV1Alpha1API(API):
         *,
         volume_id: str,
         zone: Optional[Zone] = None,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Delete a detached volume.
         You must specify the `volume_id` of the volume you want to delete. The volume must not be in the `in_use` status.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param volume_id: UUID of the volume.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
 
         Usage:
         ::
 
-            result = api.delete_volume(volume_id="example")
+            result = api.delete_volume(
+                volume_id="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -363,7 +362,6 @@ class BlockV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
-        return None
 
     def update_volume(
         self,
@@ -379,21 +377,21 @@ class BlockV1Alpha1API(API):
         Update a volume.
         Update the technical details of a volume, such as its name, tags, or its new size and `volume_type` (within the same Block Storage class).
         You can only resize a volume to a larger size. It is currently not possible to change your Block Storage Class.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param volume_id: UUID of the volume.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: When defined, is the new name of the volume.
-        :param size: Optional field for increasing the size of a volume (size must be equal or larger than the current one).
-        Size in bytes of the volume, with a granularity of 1 GB (10^9 bytes).
+        :param size: Size in bytes of the volume, with a granularity of 1 GB (10^9 bytes).
         Must be compliant with the minimum (1GB) and maximum (10TB) allowed size.
         :param tags: List of tags assigned to the volume.
-        :param perf_iops: The maximum IO/s expected, according to the different options available in stock (`5000 | 15000`).
-        The selected value must be available for the volume's current storage class.
+        :param perf_iops: The selected value must be available for the volume's current storage class.
         :return: :class:`Volume <Volume>`
 
         Usage:
         ::
 
-            result = api.update_volume(volume_id="example")
+            result = api.update_volume(
+                volume_id="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -422,7 +420,7 @@ class BlockV1Alpha1API(API):
         self,
         *,
         zone: Optional[Zone] = None,
-        order_by: ListSnapshotsRequestOrderBy = ListSnapshotsRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListSnapshotsRequestOrderBy] = None,
         project_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -486,7 +484,7 @@ class BlockV1Alpha1API(API):
         :param page_size: Page size, defines how many entries are returned in one page, must be lower or equal to 100.
         :param volume_id: Filter snapshots by the ID of the original volume.
         :param name: Filter snapshots by their names.
-        :return: :class:`List[ListSnapshotsResponse] <List[ListSnapshotsResponse]>`
+        :return: :class:`List[SnapshotSummary] <List[SnapshotSummary]>`
 
         Usage:
         ::
@@ -518,14 +516,16 @@ class BlockV1Alpha1API(API):
         """
         Get a snapshot.
         Retrieve technical information about a specific snapshot. Details such as size, volume type, and status are returned in the response.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param snapshot_id: UUID of the snapshot.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Snapshot <Snapshot>`
 
         Usage:
         ::
 
-            result = api.get_snapshot(snapshot_id="example")
+            result = api.get_snapshot(
+                snapshot_id="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -547,16 +547,18 @@ class BlockV1Alpha1API(API):
         options: Optional[WaitForOptions[Snapshot, bool]] = None,
     ) -> Snapshot:
         """
-        Waits for :class:`Snapshot <Snapshot>` to be in a final state.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
+        Get a snapshot.
+        Retrieve technical information about a specific snapshot. Details such as size, volume type, and status are returned in the response.
         :param snapshot_id: UUID of the snapshot.
-        :param options: The options for the waiter
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Snapshot <Snapshot>`
 
         Usage:
         ::
 
-            result = api.wait_for_snapshot(snapshot_id="example")
+            result = api.get_snapshot(
+                snapshot_id="example",
+            )
         """
 
         if not options:
@@ -577,8 +579,8 @@ class BlockV1Alpha1API(API):
     def create_snapshot(
         self,
         *,
-        volume_id: str,
         name: str,
+        volume_id: str,
         zone: Optional[Zone] = None,
         project_id: Optional[str] = None,
         tags: Optional[List[str]] = None,
@@ -587,9 +589,9 @@ class BlockV1Alpha1API(API):
         Create a snapshot of a volume.
         To create a snapshot, the volume must be in the `in_use` or the `available` status.
         If your volume is in a transient state, you need to wait until the end of the current operation.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param volume_id: UUID of the volume to snapshot.
         :param name: Name of the snapshot.
+        :param volume_id: UUID of the volume to snapshot.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param project_id: UUID of the project to which the volume and the snapshot belong.
         :param tags: List of tags assigned to the snapshot.
         :return: :class:`Snapshot <Snapshot>`
@@ -598,8 +600,8 @@ class BlockV1Alpha1API(API):
         ::
 
             result = api.create_snapshot(
-                volume_id="example",
                 name="example",
+                volume_id="example",
             )
         """
 
@@ -610,8 +612,8 @@ class BlockV1Alpha1API(API):
             f"/block/v1alpha1/zones/{param_zone}/snapshots",
             body=marshal_CreateSnapshotRequest(
                 CreateSnapshotRequest(
-                    volume_id=volume_id,
                     name=name,
+                    volume_id=volume_id,
                     zone=zone,
                     project_id=project_id,
                     tags=tags,
@@ -628,17 +630,19 @@ class BlockV1Alpha1API(API):
         *,
         snapshot_id: str,
         zone: Optional[Zone] = None,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Delete a snapshot.
         You must specify the `snapshot_id` of the snapshot you want to delete. The snapshot must not be in use.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param snapshot_id: UUID of the snapshot.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
 
         Usage:
         ::
 
-            result = api.delete_snapshot(snapshot_id="example")
+            result = api.delete_snapshot(
+                snapshot_id="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -650,7 +654,6 @@ class BlockV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
-        return None
 
     def update_snapshot(
         self,
@@ -663,8 +666,8 @@ class BlockV1Alpha1API(API):
         """
         Update a snapshot.
         Update the name or tags of the snapshot.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param snapshot_id: UUID of the snapshot.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: When defined, is the name of the snapshot.
         :param tags: List of tags assigned to the snapshot.
         :return: :class:`Snapshot <Snapshot>`
@@ -672,7 +675,9 @@ class BlockV1Alpha1API(API):
         Usage:
         ::
 
-            result = api.update_snapshot(snapshot_id="example")
+            result = api.update_snapshot(
+                snapshot_id="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)

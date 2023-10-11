@@ -9,14 +9,12 @@ from .types import (
     PrivateNetworkStatus,
 )
 
-
 CERTIFICATE_TRANSIENT_STATUSES: List[CertificateStatus] = [
     CertificateStatus.PENDING,
 ]
 """
 Lists transient statutes of the enum :class:`CertificateStatus <CertificateStatus>`.
 """
-
 INSTANCE_TRANSIENT_STATUSES: List[InstanceStatus] = [
     InstanceStatus.PENDING,
     InstanceStatus.MIGRATING,
@@ -24,7 +22,6 @@ INSTANCE_TRANSIENT_STATUSES: List[InstanceStatus] = [
 """
 Lists transient statutes of the enum :class:`InstanceStatus <InstanceStatus>`.
 """
-
 LB_TRANSIENT_STATUSES: List[LbStatus] = [
     LbStatus.PENDING,
     LbStatus.MIGRATING,
@@ -36,8 +33,7 @@ LB_TRANSIENT_STATUSES: List[LbStatus] = [
 """
 Lists transient statutes of the enum :class:`LbStatus <LbStatus>`.
 """
-
-PRIVATE_NETWORK_TRANSIENT_STATUSES: List[PrivateNetworkStatus] = [
+PRIVATENETWORK_TRANSIENT_STATUSES: List[PrivateNetworkStatus] = [
     PrivateNetworkStatus.PENDING,
 ]
 """

@@ -12,34 +12,85 @@ from scaleway_core.bridge import (
 
 
 @dataclass
-class GetImageResponse:
-    image: Optional[Image]
-
-
-@dataclass
-class GetVersionResponse:
-    version: Optional[Version]
-
-
-@dataclass
-class Image:
+class LocalImage:
+    zone: Zone
     """
-    Image.
+    Availability Zone where this local image is available.
+    """
+
+    arch: str
+    """
+    Supported architecture for this local image.
+    """
+
+    compatible_commercial_types: List[str]
+    """
+    List of all commercial types that are compatible with this local image.
     """
 
     id: str
     """
-    UUID of this image.
+    Version you will typically use to define an image in an API call.
+    """
+
+
+@dataclass
+class Organization:
+    name: str
+
+    id: str
+
+
+@dataclass
+class Version:
+    local_images: List[LocalImage]
+    """
+    List of local images available in this version.
     """
 
     name: str
     """
-    Name of the image.
+    Name of this version.
     """
 
-    description: str
+    id: str
     """
-    Text description of this image.
+    UUID of this version.
+    """
+
+    creation_date: Optional[datetime]
+    """
+    Creation date of this image version.
+    """
+
+    modification_date: Optional[datetime]
+    """
+    Date of the last modification of this version.
+    """
+
+
+@dataclass
+class Image:
+    current_public_version: str
+
+    organization: Organization
+    """
+    Organization this image belongs to.
+    """
+
+    versions: List[Version]
+    """
+    List of versions of this image.
+    """
+
+    label: str
+    """
+    Typically an identifier for a distribution (ex. "ubuntu_focal").
+    """
+
+    categories: List[str]
+    """
+    List of categories this image belongs to.
     """
 
     logo: str
@@ -47,9 +98,19 @@ class Image:
     URL of this image's logo.
     """
 
-    categories: List[str]
+    description: str
     """
-    List of categories this image belongs to.
+    Text description of this image.
+    """
+
+    name: str
+    """
+    Name of the image.
+    """
+
+    id: str
+    """
+    UUID of this image.
     """
 
     creation_date: Optional[datetime]
@@ -67,104 +128,30 @@ class Image:
     Expiration date of this image.
     """
 
-    label: str
-    """
-    Label of this image.
-    Typically an identifier for a distribution (ex. "ubuntu_focal").
-    """
-
-    versions: List[Version]
-    """
-    List of versions of this image.
-    """
-
-    organization: Optional[Organization]
-    """
-    Organization this image belongs to.
-    """
-
-    current_public_version: str
-
 
 @dataclass
-class ListImagesResponse:
-    images: List[Image]
-
-    total_count: int
-
-
-@dataclass
-class ListVersionsResponse:
-    versions: List[Version]
-
-    total_count: int
-
-
-@dataclass
-class LocalImage:
+class GetImageRequest:
+    image_id: str
     """
-    Local image.
-    """
-
-    id: str
-    """
-    UUID of this local image.
-    Version you will typically use to define an image in an API call.
-    """
-
-    compatible_commercial_types: List[str]
-    """
-    List of all commercial types that are compatible with this local image.
-    """
-
-    arch: str
-    """
-    Supported architecture for this local image.
-    """
-
-    zone: Zone
-    """
-    Availability Zone where this local image is available.
+    Display the image name.
     """
 
 
 @dataclass
-class Organization:
-    id: str
-
-    name: str
+class GetImageResponse:
+    image: Image
 
 
 @dataclass
-class Version:
-    """
-    Version.
-    """
+class GetVersionRequest:
+    version_id: str
 
-    id: str
-    """
-    UUID of this version.
-    """
+    image_id: str
 
-    name: str
-    """
-    Name of this version.
-    """
 
-    creation_date: Optional[datetime]
-    """
-    Creation date of this image version.
-    """
-
-    modification_date: Optional[datetime]
-    """
-    Date of the last modification of this version.
-    """
-
-    local_images: List[LocalImage]
-    """
-    List of local images available in this version.
-    """
+@dataclass
+class GetVersionResponse:
+    version: Version
 
 
 @dataclass
@@ -181,11 +168,10 @@ class ListImagesRequest:
 
 
 @dataclass
-class GetImageRequest:
-    image_id: str
-    """
-    Display the image name.
-    """
+class ListImagesResponse:
+    total_count: int
+
+    images: List[Image]
 
 
 @dataclass
@@ -194,7 +180,7 @@ class ListVersionsRequest:
 
 
 @dataclass
-class GetVersionRequest:
-    image_id: str
+class ListVersionsResponse:
+    total_count: int
 
-    version_id: str
+    versions: List[Version]

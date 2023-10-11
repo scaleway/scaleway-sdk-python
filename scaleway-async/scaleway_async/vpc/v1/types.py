@@ -26,36 +26,15 @@ class ListPrivateNetworksRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
-class ListPrivateNetworksResponse:
-    private_networks: List[PrivateNetwork]
-
-    total_count: int
-
-
-@dataclass
 class PrivateNetwork:
+    subnets: List[str]
     """
-    Private network.
-    """
-
-    id: str
-    """
-    Private Network ID.
+    Private Network subnets CIDR.
     """
 
-    name: str
+    tags: List[str]
     """
-    Private Network name.
-    """
-
-    organization_id: str
-    """
-    Scaleway Organization the Private Network belongs to.
-    """
-
-    project_id: str
-    """
-    Scaleway Project the Private Network belongs to.
+    Tags of the Private Network.
     """
 
     zone: Zone
@@ -63,9 +42,24 @@ class PrivateNetwork:
     Availability Zone in which the Private Network is available.
     """
 
-    tags: List[str]
+    project_id: str
     """
-    Tags of the Private Network.
+    Scaleway Project the Private Network belongs to.
+    """
+
+    organization_id: str
+    """
+    Scaleway Organization the Private Network belongs to.
+    """
+
+    name: str
+    """
+    Private Network name.
+    """
+
+    id: str
+    """
+    Private Network ID.
     """
 
     created_at: Optional[datetime]
@@ -78,9 +72,58 @@ class PrivateNetwork:
     Date the Private Network was last modified.
     """
 
-    subnets: List[str]
+
+@dataclass
+class CreatePrivateNetworkRequest:
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    name: Optional[str]
+    """
+    Name for the Private Network.
+    """
+
+    project_id: Optional[str]
+    """
+    Scaleway Project in which to create the Private Network.
+    """
+
+    tags: Optional[List[str]]
+    """
+    Tags for the Private Network.
+    """
+
+    subnets: Optional[List[str]]
     """
     Private Network subnets CIDR.
+    """
+
+
+@dataclass
+class DeletePrivateNetworkRequest:
+    private_network_id: str
+    """
+    Private Network ID.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class GetPrivateNetworkRequest:
+    private_network_id: str
+    """
+    Private Network ID.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
     """
 
 
@@ -138,56 +181,22 @@ class ListPrivateNetworksRequest:
 
 
 @dataclass
-class CreatePrivateNetworkRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
+class ListPrivateNetworksResponse:
+    total_count: int
 
-    name: Optional[str]
-    """
-    Name for the Private Network.
-    """
-
-    project_id: Optional[str]
-    """
-    Scaleway Project in which to create the Private Network.
-    """
-
-    tags: Optional[List[str]]
-    """
-    Tags for the Private Network.
-    """
-
-    subnets: Optional[List[str]]
-    """
-    Private Network subnets CIDR.
-    """
-
-
-@dataclass
-class GetPrivateNetworkRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    private_network_id: str
-    """
-    Private Network ID.
-    """
+    private_networks: List[PrivateNetwork]
 
 
 @dataclass
 class UpdatePrivateNetworkRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
     private_network_id: str
     """
     Private Network ID.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     name: Optional[str]
@@ -203,18 +212,4 @@ class UpdatePrivateNetworkRequest:
     subnets: Optional[List[str]]
     """
     Private Network subnets CIDR (deprecated).
-    :deprecated
-    """
-
-
-@dataclass
-class DeletePrivateNetworkRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    private_network_id: str
-    """
-    Private Network ID.
     """

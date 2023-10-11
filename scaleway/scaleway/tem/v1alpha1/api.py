@@ -10,8 +10,8 @@ from scaleway_core.bridge import (
 )
 from scaleway_core.utils import (
     WaitForOptions,
-    fetch_all_pages,
     validate_path_param,
+    fetch_all_pages,
     wait_for_resource,
 )
 from .types import (
@@ -19,6 +19,8 @@ from .types import (
     EmailFlag,
     EmailStatus,
     ListEmailsRequestOrderBy,
+    CreateDomainRequest,
+    CreateEmailRequest,
     CreateEmailRequestAddress,
     CreateEmailRequestAttachment,
     CreateEmailResponse,
@@ -28,41 +30,35 @@ from .types import (
     ListDomainsResponse,
     ListEmailsResponse,
     Statistics,
-    CreateEmailRequest,
-    CreateDomainRequest,
 )
 from .content import (
     DOMAIN_TRANSIENT_STATUSES,
     EMAIL_TRANSIENT_STATUSES,
 )
 from .marshalling import (
-    marshal_CreateDomainRequest,
-    marshal_CreateEmailRequest,
-    unmarshal_Domain,
     unmarshal_Email,
+    unmarshal_Domain,
     unmarshal_CreateEmailResponse,
     unmarshal_DomainLastStatus,
     unmarshal_ListDomainsResponse,
     unmarshal_ListEmailsResponse,
     unmarshal_Statistics,
+    marshal_CreateDomainRequest,
+    marshal_CreateEmailRequest,
 )
 
 
 class TemV1Alpha1API(API):
-    """
-    Transactional Email API.
-
-    Transactional Email API.
-    """
+    """ """
 
     def create_email(
         self,
         *,
-        subject: str,
-        text: str,
         html: str,
+        text: str,
+        subject: str,
+        from_: CreateEmailRequestAddress,
         region: Optional[Region] = None,
-        from_: Optional[CreateEmailRequestAddress] = None,
         to: Optional[List[CreateEmailRequestAddress]] = None,
         cc: Optional[List[CreateEmailRequestAddress]] = None,
         bcc: Optional[List[CreateEmailRequestAddress]] = None,
@@ -73,14 +69,14 @@ class TemV1Alpha1API(API):
         """
         Send an email.
         You must specify the `region`, the sender and the recipient's information and the `project_id` to send an email from a checked domain. The subject of the email must contain at least 6 characters.
-        :param region: Region to target. If none is passed will use default region from the config.
+        :param html: HTML content.
+        :param text: Text content.
+        :param subject: Subject of the email.
         :param from_: Sender information. Must be from a checked domain declared in the Project.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param to: An array of the primary recipient's information.
         :param cc: An array of the carbon copy recipient's information.
         :param bcc: An array of the blind carbon copy recipient's information.
-        :param subject: Subject of the email.
-        :param text: Text content.
-        :param html: HTML content.
         :param project_id: ID of the Project in which to create the email.
         :param attachments: Array of attachments.
         :param send_before: Maximum date to deliver the email.
@@ -90,9 +86,10 @@ class TemV1Alpha1API(API):
         ::
 
             result = api.create_email(
-                subject="example",
-                text="example",
                 html="example",
+                text="example",
+                subject="example",
+                from=CreateEmailRequestAddress(),
             )
         """
 
@@ -105,11 +102,11 @@ class TemV1Alpha1API(API):
             f"/transactional-email/v1alpha1/regions/{param_region}/emails",
             body=marshal_CreateEmailRequest(
                 CreateEmailRequest(
-                    subject=subject,
-                    text=text,
                     html=html,
-                    region=region,
+                    text=text,
+                    subject=subject,
                     from_=from_,
+                    region=region,
                     to=to,
                     cc=cc,
                     bcc=bcc,
@@ -133,14 +130,16 @@ class TemV1Alpha1API(API):
         """
         Get an email.
         Retrieve information about a specific email using the `email_id` and `region` parameters.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param email_id: ID of the email to retrieve.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Email <Email>`
 
         Usage:
         ::
 
-            result = api.get_email(email_id="example")
+            result = api.get_email(
+                email_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -164,16 +163,18 @@ class TemV1Alpha1API(API):
         options: Optional[WaitForOptions[Email, bool]] = None,
     ) -> Email:
         """
-        Waits for :class:`Email <Email>` to be in a final state.
-        :param region: Region to target. If none is passed will use default region from the config.
+        Get an email.
+        Retrieve information about a specific email using the `email_id` and `region` parameters.
         :param email_id: ID of the email to retrieve.
-        :param options: The options for the waiter
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Email <Email>`
 
         Usage:
         ::
 
-            result = api.wait_for_email(email_id="example")
+            result = api.get_email(
+                email_id="example",
+            )
         """
 
         if not options:
@@ -208,7 +209,7 @@ class TemV1Alpha1API(API):
         statuses: Optional[List[EmailStatus]] = None,
         subject: Optional[str] = None,
         search: Optional[str] = None,
-        order_by: ListEmailsRequestOrderBy = ListEmailsRequestOrderBy.CREATED_AT_DESC,
+        order_by: Optional[ListEmailsRequestOrderBy] = None,
         flags: Optional[List[EmailFlag]] = None,
     ) -> ListEmailsResponse:
         """
@@ -306,7 +307,7 @@ class TemV1Alpha1API(API):
         :param search: (Optional) List emails by searching to all fields.
         :param order_by: (Optional) List emails corresponding to specific criteria.
         :param flags: (Optional) List emails containing only specific flags.
-        :return: :class:`List[ListEmailsResponse] <List[ListEmailsResponse]>`
+        :return: :class:`List[Email] <List[Email]>`
 
         Usage:
         ::
@@ -393,14 +394,16 @@ class TemV1Alpha1API(API):
         """
         Cancel an email.
         You can cancel the sending of an email if it has not been sent yet. You must specify the `region` and the `email_id` of the email you want to cancel.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param email_id: ID of the email to cancel.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Email <Email>`
 
         Usage:
         ::
 
-            result = api.cancel_email(email_id="example")
+            result = api.cancel_email(
+                email_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -411,6 +414,7 @@ class TemV1Alpha1API(API):
         res = self._request(
             "POST",
             f"/transactional-email/v1alpha1/regions/{param_region}/emails/{param_email_id}/cancel",
+            body={},
         )
 
         self._throw_on_error(res)
@@ -419,26 +423,26 @@ class TemV1Alpha1API(API):
     def create_domain(
         self,
         *,
-        domain_name: str,
         accept_tos: bool,
+        domain_name: str,
         region: Optional[Region] = None,
         project_id: Optional[str] = None,
     ) -> Domain:
         """
         Register a domain in a project.
         You must specify the `region`, `project_id` and `domain_name` to register a domain in a specific Project.
+        :param accept_tos: Accept Scaleway's Terms of Service.
+        :param domain_name: Fully qualified domain dame.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the project to which the domain belongs.
-        :param domain_name: Fully qualified domain dame.
-        :param accept_tos: Accept Scaleway's Terms of Service.
         :return: :class:`Domain <Domain>`
 
         Usage:
         ::
 
             result = api.create_domain(
+                accept_tos=False,
                 domain_name="example",
-                accept_tos=True,
             )
         """
 
@@ -451,8 +455,8 @@ class TemV1Alpha1API(API):
             f"/transactional-email/v1alpha1/regions/{param_region}/domains",
             body=marshal_CreateDomainRequest(
                 CreateDomainRequest(
-                    domain_name=domain_name,
                     accept_tos=accept_tos,
+                    domain_name=domain_name,
                     region=region,
                     project_id=project_id,
                 ),
@@ -472,14 +476,16 @@ class TemV1Alpha1API(API):
         """
         Get information about a domain.
         Retrieve information about a specific domain using the `region` and `domain_id` parameters.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param domain_id: ID of the domain.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Domain <Domain>`
 
         Usage:
         ::
 
-            result = api.get_domain(domain_id="example")
+            result = api.get_domain(
+                domain_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -503,16 +509,18 @@ class TemV1Alpha1API(API):
         options: Optional[WaitForOptions[Domain, bool]] = None,
     ) -> Domain:
         """
-        Waits for :class:`Domain <Domain>` to be in a final state.
-        :param region: Region to target. If none is passed will use default region from the config.
+        Get information about a domain.
+        Retrieve information about a specific domain using the `region` and `domain_id` parameters.
         :param domain_id: ID of the domain.
-        :param options: The options for the waiter
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Domain <Domain>`
 
         Usage:
         ::
 
-            result = api.wait_for_domain(domain_id="example")
+            result = api.get_domain(
+                domain_id="example",
+            )
         """
 
         if not options:
@@ -601,7 +609,7 @@ class TemV1Alpha1API(API):
         :param status:
         :param organization_id:
         :param name:
-        :return: :class:`List[ListDomainsResponse] <List[ListDomainsResponse]>`
+        :return: :class:`List[Domain] <List[Domain]>`
 
         Usage:
         ::
@@ -633,14 +641,16 @@ class TemV1Alpha1API(API):
         """
         Delete a domain.
         You must specify the domain you want to delete by the `region` and `domain_id`. Deleting a domain is permanent and cannot be undone.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param domain_id: ID of the domain to delete.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Domain <Domain>`
 
         Usage:
         ::
 
-            result = api.revoke_domain(domain_id="example")
+            result = api.revoke_domain(
+                domain_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -651,6 +661,7 @@ class TemV1Alpha1API(API):
         res = self._request(
             "POST",
             f"/transactional-email/v1alpha1/regions/{param_region}/domains/{param_domain_id}/revoke",
+            body={},
         )
 
         self._throw_on_error(res)
@@ -665,14 +676,16 @@ class TemV1Alpha1API(API):
         """
         Domain DNS check.
         Perform an immediate DNS check of a domain using the `region` and `domain_id` parameters.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param domain_id: ID of the domain to check.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Domain <Domain>`
 
         Usage:
         ::
 
-            result = api.check_domain(domain_id="example")
+            result = api.check_domain(
+                domain_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -683,6 +696,7 @@ class TemV1Alpha1API(API):
         res = self._request(
             "POST",
             f"/transactional-email/v1alpha1/regions/{param_region}/domains/{param_domain_id}/check",
+            body={},
         )
 
         self._throw_on_error(res)
@@ -697,14 +711,16 @@ class TemV1Alpha1API(API):
         """
         Display SPF and DKIM records status and potential errors.
         Display SPF and DKIM records status and potential errors, including the found records to make debugging easier.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param domain_id: ID of the domain to delete.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`DomainLastStatus <DomainLastStatus>`
 
         Usage:
         ::
 
-            result = api.get_domain_last_status(domain_id="example")
+            result = api.get_domain_last_status(
+                domain_id="example",
+            )
         """
 
         param_region = validate_path_param(

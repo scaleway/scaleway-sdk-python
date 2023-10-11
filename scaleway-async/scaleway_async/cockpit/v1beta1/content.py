@@ -6,7 +6,6 @@ from .types import (
     CockpitStatus,
 )
 
-
 COCKPIT_TRANSIENT_STATUSES: List[CockpitStatus] = [
     CockpitStatus.CREATING,
     CockpitStatus.DELETING,
