@@ -21,9 +21,11 @@ from .types import (
     ContactPoint,
     ContactPointEmail,
     Datasource,
+    GrafanaProductDashboard,
     GrafanaUser,
     ListContactPointsResponse,
     ListDatasourcesResponse,
+    ListGrafanaProductDashboardsResponse,
     ListGrafanaUsersResponse,
     ListPlansResponse,
     ListTokensResponse,
@@ -161,6 +163,32 @@ def unmarshal_Datasource(data: Any) -> Datasource:
     args["url"] = field
 
     return Datasource(**args)
+
+
+def unmarshal_GrafanaProductDashboard(data: Any) -> GrafanaProductDashboard:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'GrafanaProductDashboard' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("dashboard_name", None)
+    args["dashboard_name"] = field
+
+    field = data.get("tags", None)
+    args["tags"] = field
+
+    field = data.get("title", None)
+    args["title"] = field
+
+    field = data.get("url", None)
+    args["url"] = field
+
+    field = data.get("variables", None)
+    args["variables"] = field
+
+    return GrafanaProductDashboard(**args)
 
 
 def unmarshal_GrafanaUser(data: Any) -> GrafanaUser:
@@ -340,6 +368,29 @@ def unmarshal_ListDatasourcesResponse(data: Any) -> ListDatasourcesResponse:
     args["total_count"] = field
 
     return ListDatasourcesResponse(**args)
+
+
+def unmarshal_ListGrafanaProductDashboardsResponse(
+    data: Any,
+) -> ListGrafanaProductDashboardsResponse:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'ListGrafanaProductDashboardsResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("dashboards", None)
+    args["dashboards"] = (
+        [unmarshal_GrafanaProductDashboard(v) for v in field]
+        if field is not None
+        else None
+    )
+
+    field = data.get("total_count", None)
+    args["total_count"] = field
+
+    return ListGrafanaProductDashboardsResponse(**args)
 
 
 def unmarshal_ListGrafanaUsersResponse(data: Any) -> ListGrafanaUsersResponse:

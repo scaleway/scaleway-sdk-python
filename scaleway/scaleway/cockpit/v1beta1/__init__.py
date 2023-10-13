@@ -14,9 +14,11 @@ from .types import CockpitMetrics
 from .types import ContactPoint
 from .types import ContactPointEmail
 from .types import Datasource
+from .types import GrafanaProductDashboard
 from .types import GrafanaUser
 from .types import ListContactPointsResponse
 from .types import ListDatasourcesResponse
+from .types import ListGrafanaProductDashboardsResponse
 from .types import ListGrafanaUsersResponse
 from .types import ListPlansResponse
 from .types import ListTokensResponse
@@ -42,9 +44,11 @@ __all__ = [
     "ContactPoint",
     "ContactPointEmail",
     "Datasource",
+    "GrafanaProductDashboard",
     "GrafanaUser",
     "ListContactPointsResponse",
     "ListDatasourcesResponse",
+    "ListGrafanaProductDashboardsResponse",
     "ListGrafanaUsersResponse",
     "ListPlansResponse",
     "ListTokensResponse",

@@ -227,6 +227,39 @@ class Datasource:
 
 
 @dataclass
+class GrafanaProductDashboard:
+    """
+    Grafana dashboard.
+    Grafana product dashboard.
+    """
+
+    dashboard_name: str
+    """
+    Name of the dashboard.
+    """
+
+    title: str
+    """
+    Title of the dashboard.
+    """
+
+    url: str
+    """
+    URL of the dashboard.
+    """
+
+    tags: List[str]
+    """
+    Tags of the dashboard.
+    """
+
+    variables: List[str]
+    """
+    Variables of the dashboard.
+    """
+
+
+@dataclass
 class GrafanaUser:
     """
     Grafana user.
@@ -295,6 +328,24 @@ class ListDatasourcesResponse:
     datasources: List[Datasource]
     """
     List of the datasources within the pagination.
+    """
+
+
+@dataclass
+class ListGrafanaProductDashboardsResponse:
+    """
+    Response returned when getting a list of dashboards.
+    List grafana product dashboards response.
+    """
+
+    total_count: int
+    """
+    Count of grafana dasboards.
+    """
+
+    dashboards: List[GrafanaProductDashboard]
+    """
+    Information on grafana dashboards.
     """
 
 
@@ -808,4 +859,40 @@ class SelectPlanRequest:
     plan_id: str
     """
     ID of the pricing plan.
+    """
+
+
+@dataclass
+class ListGrafanaProductDashboardsRequest:
+    project_id: Optional[str]
+    """
+    ID of the Project.
+    """
+
+    page: Optional[int]
+    """
+    Page number.
+    """
+
+    page_size: Optional[int]
+    """
+    Page size.
+    """
+
+    tags: Optional[List[str]]
+    """
+    Tags to filter the dashboards.
+    """
+
+
+@dataclass
+class GetGrafanaProductDashboardRequest:
+    dashboard_name: str
+    """
+    Name of the dashboard.
+    """
+
+    project_id: Optional[str]
+    """
+    ID of the Project.
     """
