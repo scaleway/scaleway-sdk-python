@@ -379,7 +379,10 @@ class _UpdateServerRequest:
     True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False).
     """
 
-    public_ips: Optional[List[ServerIp]]
+    public_ips: Optional[List[str]]
+    """
+    A list of reserved IP IDs to attach to the Instance.
+    """
 
     enable_ipv6: Optional[bool]
 
@@ -392,7 +395,7 @@ class _UpdateServerRequest:
     Placement group ID if Instance must be part of a placement group.
     """
 
-    private_nics: Optional[List[PrivateNIC]]
+    private_nics: Optional[List[str]]
     """
     Instance private NICs.
     """
