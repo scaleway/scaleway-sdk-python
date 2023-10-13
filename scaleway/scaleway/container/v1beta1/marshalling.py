@@ -80,6 +80,9 @@ def unmarshal_TriggerMnqNatsClientConfig(data: Any) -> TriggerMnqNatsClientConfi
     field = data.get("mnq_namespace_id", None)
     args["mnq_namespace_id"] = field
 
+    field = data.get("mnq_nats_account_id", None)
+    args["mnq_nats_account_id"] = field
+
     field = data.get("mnq_project_id", None)
     args["mnq_project_id"] = field
 
