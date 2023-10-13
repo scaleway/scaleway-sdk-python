@@ -741,12 +741,12 @@ class InstanceV1API(API):
         bootscript: Optional[str] = None,
         dynamic_ip_required: Optional[bool] = None,
         routed_ip_enabled: Optional[bool] = None,
-        public_ips: Optional[List[ServerIp]] = None,
+        public_ips: Optional[List[str]] = None,
         enable_ipv6: Optional[bool] = None,
         protected: Optional[bool] = None,
         security_group: Optional[SecurityGroupTemplate] = None,
         placement_group: Optional[str] = None,
-        private_nics: Optional[List[PrivateNIC]] = None,
+        private_nics: Optional[List[str]] = None,
         commercial_type: Optional[str] = None,
     ) -> UpdateServerResponse:
         """
@@ -761,7 +761,7 @@ class InstanceV1API(API):
         :param bootscript:
         :param dynamic_ip_required:
         :param routed_ip_enabled: True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False).
-        :param public_ips:
+        :param public_ips: A list of reserved IP IDs to attach to the Instance.
         :param enable_ipv6:
         :param protected:
         :param security_group:
