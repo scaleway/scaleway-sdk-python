@@ -242,10 +242,21 @@ class SnapshotStatus(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class VolumeType(str, Enum, metaclass=StrEnumMeta):
+class StorageClass(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STORAGE_CLASS = "unknown_storage_class"
     LSSD = "lssd"
     BSSD = "bssd"
     SBS = "sbs"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class VolumeType(str, Enum, metaclass=StrEnumMeta):
+    LSSD = "lssd"
+    BSSD = "bssd"
+    SBS_5K = "sbs_5k"
+    SBS_15K = "sbs_15k"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -1271,6 +1282,11 @@ class NodeTypeVolumeType:
     Minimum increment level for a Block Storage volume size.
     """
 
+    class_: StorageClass
+    """
+    The storage class of the volume.
+    """
+
 
 @dataclass
 class PrepareInstanceLogsResponse:
@@ -1514,6 +1530,8 @@ class Volume:
     type_: VolumeType
 
     size: int
+
+    class_: StorageClass
 
 
 @dataclass

@@ -20,6 +20,7 @@ from .types import NodeTypeStock
 from .types import Permission
 from .types import ReadReplicaStatus
 from .types import SnapshotStatus
+from .types import StorageClass
 from .types import VolumeType
 from .types import ACLRule
 from .types import ACLRuleRequest
@@ -104,6 +105,7 @@ __all__ = [
     "Permission",
     "ReadReplicaStatus",
     "SnapshotStatus",
+    "StorageClass",
     "VolumeType",
     "ACLRule",
     "ACLRuleRequest",
