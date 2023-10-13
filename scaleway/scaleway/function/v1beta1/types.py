@@ -242,7 +242,10 @@ class TriggerStatus(str, Enum, metaclass=StrEnumMeta):
 
 @dataclass
 class CreateTriggerRequestMnqNatsClientConfig:
-    mnq_namespace_id: str
+    mnq_namespace_id: Optional[str]
+    """
+    :deprecated
+    """
 
     subject: str
 
@@ -255,7 +258,10 @@ class CreateTriggerRequestMnqNatsClientConfig:
 
 @dataclass
 class CreateTriggerRequestMnqSqsClientConfig:
-    mnq_namespace_id: str
+    mnq_namespace_id: Optional[str]
+    """
+    :deprecated
+    """
 
     queue: str
 
@@ -808,7 +814,10 @@ class Trigger:
 
 @dataclass
 class TriggerMnqNatsClientConfig:
-    mnq_namespace_id: str
+    mnq_namespace_id: Optional[str]
+    """
+    :deprecated
+    """
 
     subject: str
 
@@ -818,10 +827,15 @@ class TriggerMnqNatsClientConfig:
 
     mnq_credential_id: Optional[str]
 
+    mnq_nats_account_id: str
+
 
 @dataclass
 class TriggerMnqSqsClientConfig:
-    mnq_namespace_id: str
+    mnq_namespace_id: Optional[str]
+    """
+    :deprecated
+    """
 
     queue: str
 
