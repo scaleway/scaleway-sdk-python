@@ -115,6 +115,20 @@ def unmarshal_DHCP(data: Any) -> DHCP:
     return DHCP(**args)
 
 
+def unmarshal_IpamConfig(data: Any) -> IpamConfig:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'IpamConfig' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("push_default_route", None)
+    args["push_default_route"] = field
+
+    return IpamConfig(**args)
+
+
 def unmarshal_GatewayNetwork(data: Any) -> GatewayNetwork:
     if type(data) is not dict:
         raise TypeError(
@@ -143,6 +157,9 @@ def unmarshal_GatewayNetwork(data: Any) -> GatewayNetwork:
 
     field = data.get("id", None)
     args["id"] = field
+
+    field = data.get("ipam_config", None)
+    args["ipam_config"] = unmarshal_IpamConfig(field) if field is not None else None
 
     field = data.get("mac_address", None)
     args["mac_address"] = field
@@ -291,6 +308,9 @@ def unmarshal_Gateway(data: Any) -> Gateway:
 
     field = data.get("ip", None)
     args["ip"] = unmarshal_IP(field) if field is not None else None
+
+    field = data.get("is_legacy", None)
+    args["is_legacy"] = field
 
     field = data.get("name", None)
     args["name"] = field
