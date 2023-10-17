@@ -376,6 +376,11 @@ class Gateway:
     Defines whether SMTP traffic is allowed to pass through the gateway.
     """
 
+    is_legacy: bool
+    """
+    Whether this uses non-IPAM IP configurations.
+    """
+
     zone: Zone
     """
     Zone of the gateway.
@@ -441,6 +446,11 @@ class GatewayNetwork:
     address: Optional[str]
     """
     Address of the Gateway (in CIDR form) to use when DHCP is not used.
+    """
+
+    ipam_config: Optional[IpamConfig]
+    """
+    IPAM IP configuration used.
     """
 
     zone: Zone
