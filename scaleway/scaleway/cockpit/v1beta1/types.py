@@ -151,6 +151,11 @@ class CockpitEndpoints:
     URL for logs.
     """
 
+    traces_url: str
+    """
+    URL for traces.
+    """
+
     alertmanager_url: str
     """
     URL for the alert manager.
