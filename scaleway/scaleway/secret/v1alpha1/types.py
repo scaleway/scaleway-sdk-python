@@ -56,6 +56,7 @@ class SecretType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_SECRET_TYPE = "unknown_secret_type"
     OPAQUE = "opaque"
     CERTIFICATE = "certificate"
+    KEY_VALUE = "key_value"
 
     def __str__(self) -> str:
         return str(self.value)
