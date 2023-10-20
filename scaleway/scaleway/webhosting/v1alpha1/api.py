@@ -45,8 +45,8 @@ class WebhostingV1Alpha1API(API):
     def create_hosting(
         self,
         *,
-        domain: str,
         offer_id: str,
+        domain: str,
         region: Optional[Region] = None,
         project_id: Optional[str] = None,
         email: Optional[str] = None,
@@ -56,8 +56,8 @@ class WebhostingV1Alpha1API(API):
         """
         Order a Web Hosting plan.
         Order a Web Hosting plan, specifying the offer type required via the `offer_id` parameter.
-        :param domain: Domain name to link to the Web Hosting plan. You must already own this domain name, and have completed the DNS validation process beforehand.
         :param offer_id: ID of the selected offer for the Web Hosting plan.
+        :param domain: Domain name to link to the Web Hosting plan. You must already own this domain name, and have completed the DNS validation process beforehand.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the Scaleway Project in which to create the Web Hosting plan.
         :param email: Contact email for the Web Hosting client.
@@ -69,8 +69,8 @@ class WebhostingV1Alpha1API(API):
         ::
 
             result = api.create_hosting(
-                domain="example",
                 offer_id="example",
+                domain="example",
             )
         """
 
@@ -83,8 +83,8 @@ class WebhostingV1Alpha1API(API):
             f"/webhosting/v1alpha1/regions/{param_region}/hostings",
             body=marshal_CreateHostingRequest(
                 CreateHostingRequest(
-                    domain=domain,
                     offer_id=offer_id,
+                    domain=domain,
                     region=region,
                     project_id=project_id,
                     email=email,
@@ -434,8 +434,8 @@ class WebhostingV1Alpha1API(API):
     def list_offers(
         self,
         *,
-        only_options: bool,
         without_options: bool,
+        only_options: bool,
         region: Optional[Region] = None,
         order_by: Optional[ListOffersRequestOrderBy] = None,
         hosting_id: Optional[str] = None,
@@ -443,8 +443,8 @@ class WebhostingV1Alpha1API(API):
         """
         List all offers.
         List the different Web Hosting offers, and their options, available to order from Scaleway.
-        :param only_options: Defines whether the response should consist of options only, without offers.
         :param without_options: Defines whether the response should consist of offers only, without options.
+        :param only_options: Defines whether the response should consist of options only, without offers.
         :param region: Region to target. If none is passed will use default region from the config.
         :param order_by: Sort order of offers in the response.
         :param hosting_id: ID of a Web Hosting plan, to check compatibility with returned offers (in case of wanting to update the plan).
@@ -454,8 +454,8 @@ class WebhostingV1Alpha1API(API):
         ::
 
             result = api.list_offers(
-                only_options=False,
                 without_options=False,
+                only_options=False,
             )
         """
 

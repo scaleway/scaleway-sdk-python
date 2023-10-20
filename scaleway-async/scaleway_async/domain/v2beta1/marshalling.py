@@ -160,11 +160,11 @@ def unmarshal_ContactExtensionFRDunsInfo(data: Any) -> ContactExtensionFRDunsInf
 
     args: Dict[str, Any] = {}
 
-    field = data.get("local_id", None)
-    args["local_id"] = field
-
     field = data.get("duns_id", None)
     args["duns_id"] = field
+
+    field = data.get("local_id", None)
+    args["local_id"] = field
 
     return ContactExtensionFRDunsInfo(**args)
 
@@ -252,11 +252,11 @@ def unmarshal_ContactExtensionNL(data: Any) -> ContactExtensionNL:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("legal_form_registration_number", None)
-    args["legal_form_registration_number"] = field
-
     field = data.get("legal_form", None)
     args["legal_form"] = field
+
+    field = data.get("legal_form_registration_number", None)
+    args["legal_form_registration_number"] = field
 
     return ContactExtensionNL(**args)
 
@@ -269,11 +269,11 @@ def unmarshal_ContactQuestion(data: Any) -> ContactQuestion:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("answer", None)
-    args["answer"] = field
-
     field = data.get("question", None)
     args["question"] = field
+
+    field = data.get("answer", None)
+    args["answer"] = field
 
     return ContactQuestion(**args)
 
@@ -286,77 +286,77 @@ def unmarshal_Contact(data: Any) -> Contact:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("resale", None)
-    args["resale"] = field
+    field = data.get("id", None)
+    args["id"] = field
 
     field = data.get("legal_form", None)
     args["legal_form"] = field
 
-    field = data.get("company_name", None)
-    args["company_name"] = field
-
-    field = data.get("country", None)
-    args["country"] = field
-
-    field = data.get("id", None)
-    args["id"] = field
-
-    field = data.get("extension_fr", None)
-    args["extension_fr"] = unmarshal_ContactExtensionFR(field)
-
-    field = data.get("email_alt", None)
-    args["email_alt"] = field
-
-    field = data.get("address_line_2", None)
-    args["address_line_2"] = field
-
     field = data.get("firstname", None)
     args["firstname"] = field
-
-    field = data.get("email", None)
-    args["email"] = field
-
-    field = data.get("company_identification_code", None)
-    args["company_identification_code"] = field
-
-    field = data.get("zip", None)
-    args["zip"] = field
-
-    field = data.get("extension_nl", None)
-    args["extension_nl"] = unmarshal_ContactExtensionNL(field)
-
-    field = data.get("state", None)
-    args["state"] = field
-
-    field = data.get("fax_number", None)
-    args["fax_number"] = field
-
-    field = data.get("phone_number", None)
-    args["phone_number"] = field
-
-    field = data.get("address_line_1", None)
-    args["address_line_1"] = field
-
-    field = data.get("vat_identification_code", None)
-    args["vat_identification_code"] = field
-
-    field = data.get("lang", None)
-    args["lang"] = field
 
     field = data.get("lastname", None)
     args["lastname"] = field
 
-    field = data.get("email_status", None)
-    args["email_status"] = field
+    field = data.get("company_name", None)
+    args["company_name"] = field
 
-    field = data.get("whois_opt_in", None)
-    args["whois_opt_in"] = field
+    field = data.get("email", None)
+    args["email"] = field
+
+    field = data.get("email_alt", None)
+    args["email_alt"] = field
+
+    field = data.get("phone_number", None)
+    args["phone_number"] = field
+
+    field = data.get("fax_number", None)
+    args["fax_number"] = field
+
+    field = data.get("address_line_1", None)
+    args["address_line_1"] = field
+
+    field = data.get("address_line_2", None)
+    args["address_line_2"] = field
+
+    field = data.get("zip", None)
+    args["zip"] = field
+
+    field = data.get("city", None)
+    args["city"] = field
+
+    field = data.get("country", None)
+    args["country"] = field
+
+    field = data.get("vat_identification_code", None)
+    args["vat_identification_code"] = field
+
+    field = data.get("company_identification_code", None)
+    args["company_identification_code"] = field
+
+    field = data.get("lang", None)
+    args["lang"] = field
+
+    field = data.get("resale", None)
+    args["resale"] = field
+
+    field = data.get("extension_fr", None)
+    args["extension_fr"] = unmarshal_ContactExtensionFR(field)
 
     field = data.get("extension_eu", None)
     args["extension_eu"] = unmarshal_ContactExtensionEU(field)
 
-    field = data.get("city", None)
-    args["city"] = field
+    field = data.get("whois_opt_in", None)
+    args["whois_opt_in"] = field
+
+    field = data.get("email_status", None)
+    args["email_status"] = field
+
+    field = data.get("state", None)
+    args["state"] = field
+
+    field = data.get("extension_nl", None)
+    args["extension_nl"] = unmarshal_ContactExtensionNL(field)
 
     field = data.get("questions", None)
     args["questions"] = (
@@ -374,26 +374,26 @@ def unmarshal_DNSZone(data: Any) -> DNSZone:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("project_id", None)
-    args["project_id"] = field
-
-    field = data.get("status", None)
-    args["status"] = field
-
-    field = data.get("ns_master", None)
-    args["ns_master"] = field
-
-    field = data.get("ns_default", None)
-    args["ns_default"] = field
-
-    field = data.get("ns", None)
-    args["ns"] = field
+    field = data.get("domain", None)
+    args["domain"] = field
 
     field = data.get("subdomain", None)
     args["subdomain"] = field
 
-    field = data.get("domain", None)
-    args["domain"] = field
+    field = data.get("ns", None)
+    args["ns"] = field
+
+    field = data.get("ns_default", None)
+    args["ns_default"] = field
+
+    field = data.get("ns_master", None)
+    args["ns_master"] = field
+
+    field = data.get("status", None)
+    args["status"] = field
+
+    field = data.get("project_id", None)
+    args["project_id"] = field
 
     field = data.get("message", None)
     args["message"] = field
@@ -412,17 +412,17 @@ def unmarshal_Host(data: Any) -> Host:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("status", None)
-    args["status"] = field
-
-    field = data.get("ips", None)
-    args["ips"] = field
+    field = data.get("domain", None)
+    args["domain"] = field
 
     field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("domain", None)
-    args["domain"] = field
+    field = data.get("ips", None)
+    args["ips"] = field
+
+    field = data.get("status", None)
+    args["status"] = field
 
     return Host(**args)
 
@@ -435,20 +435,20 @@ def unmarshal_SSLCertificate(data: Any) -> SSLCertificate:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("certificate_chain", None)
-    args["certificate_chain"] = field
-
-    field = data.get("private_key", None)
-    args["private_key"] = field
-
-    field = data.get("status", None)
-    args["status"] = field
+    field = data.get("dns_zone", None)
+    args["dns_zone"] = field
 
     field = data.get("alternative_dns_zones", None)
     args["alternative_dns_zones"] = field
 
-    field = data.get("dns_zone", None)
-    args["dns_zone"] = field
+    field = data.get("status", None)
+    args["status"] = field
+
+    field = data.get("private_key", None)
+    args["private_key"] = field
+
+    field = data.get("certificate_chain", None)
+    args["certificate_chain"] = field
 
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -488,9 +488,12 @@ def unmarshal_CheckContactsCompatibilityResponse(
 
     args: Dict[str, Any] = {}
 
-    field = data.get("technical_check_result", None)
+    field = data.get("compatible", None)
+    args["compatible"] = field
+
+    field = data.get("owner_check_result", None)
     args[
-        "technical_check_result"
+        "owner_check_result"
     ] = unmarshal_CheckContactsCompatibilityResponseContactCheckResult(field)
 
     field = data.get("administrative_check_result", None)
@@ -498,13 +501,10 @@ def unmarshal_CheckContactsCompatibilityResponse(
         "administrative_check_result"
     ] = unmarshal_CheckContactsCompatibilityResponseContactCheckResult(field)
 
-    field = data.get("owner_check_result", None)
+    field = data.get("technical_check_result", None)
     args[
-        "owner_check_result"
+        "technical_check_result"
     ] = unmarshal_CheckContactsCompatibilityResponseContactCheckResult(field)
-
-    field = data.get("compatible", None)
-    args["compatible"] = field
 
     return CheckContactsCompatibilityResponse(**args)
 
@@ -575,14 +575,14 @@ def unmarshal_DSRecordDigest(data: Any) -> DSRecordDigest:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("public_key", None)
-    args["public_key"] = unmarshal_DSRecordPublicKey(field)
+    field = data.get("type_", None)
+    args["type_"] = field
 
     field = data.get("digest", None)
     args["digest"] = field
 
-    field = data.get("type_", None)
-    args["type_"] = field
+    field = data.get("public_key", None)
+    args["public_key"] = unmarshal_DSRecordPublicKey(field)
 
     return DSRecordDigest(**args)
 
@@ -595,11 +595,11 @@ def unmarshal_DSRecord(data: Any) -> DSRecord:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("algorithm", None)
-    args["algorithm"] = field
-
     field = data.get("key_id", None)
     args["key_id"] = field
+
+    field = data.get("algorithm", None)
+    args["algorithm"] = field
 
     field = data.get("digest", None)
     args["digest"] = unmarshal_DSRecordDigest(field)
@@ -618,11 +618,11 @@ def unmarshal_TldOffer(data: Any) -> TldOffer:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("operation_path", None)
-    args["operation_path"] = field
-
     field = data.get("action", None)
     args["action"] = field
+
+    field = data.get("operation_path", None)
+    args["operation_path"] = field
 
     field = data.get("price", None)
     args["price"] = unmarshal_Money(field)
@@ -638,13 +638,13 @@ def unmarshal_DomainDNSSEC(data: Any) -> DomainDNSSEC:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("status", None)
+    args["status"] = field
+
     field = data.get("ds_records", None)
     args["ds_records"] = (
         [unmarshal_DSRecord(v) for v in field] if field is not None else None
     )
-
-    field = data.get("status", None)
-    args["status"] = field
 
     return DomainDNSSEC(**args)
 
@@ -675,14 +675,14 @@ def unmarshal_DomainRegistrationStatusTransfer(
 
     args: Dict[str, Any] = {}
 
-    field = data.get("vote_new_owner", None)
-    args["vote_new_owner"] = field
+    field = data.get("status", None)
+    args["status"] = field
 
     field = data.get("vote_current_owner", None)
     args["vote_current_owner"] = field
 
-    field = data.get("status", None)
-    args["status"] = field
+    field = data.get("vote_new_owner", None)
+    args["vote_new_owner"] = field
 
     return DomainRegistrationStatusTransfer(**args)
 
@@ -695,8 +695,20 @@ def unmarshal_Tld(data: Any) -> Tld:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("specifications", None)
-    args["specifications"] = field
+    field = data.get("name", None)
+    args["name"] = field
+
+    field = data.get("dnssec_support", None)
+    args["dnssec_support"] = field
+
+    field = data.get("duration_in_years_min", None)
+    args["duration_in_years_min"] = field
+
+    field = data.get("duration_in_years_max", None)
+    args["duration_in_years_max"] = field
+
+    field = data.get("idn_support", None)
+    args["idn_support"] = field
 
     field = data.get("offers", None)
     args["offers"] = (
@@ -705,20 +717,8 @@ def unmarshal_Tld(data: Any) -> Tld:
         else None
     )
 
-    field = data.get("idn_support", None)
-    args["idn_support"] = field
-
-    field = data.get("duration_in_years_max", None)
-    args["duration_in_years_max"] = field
-
-    field = data.get("duration_in_years_min", None)
-    args["duration_in_years_min"] = field
-
-    field = data.get("dnssec_support", None)
-    args["dnssec_support"] = field
-
-    field = data.get("name", None)
-    args["name"] = field
+    field = data.get("specifications", None)
+    args["specifications"] = field
 
     return Tld(**args)
 
@@ -731,52 +731,55 @@ def unmarshal_Domain(data: Any) -> Domain:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("domain", None)
+    args["domain"] = field
+
+    field = data.get("organization_id", None)
+    args["organization_id"] = field
+
+    field = data.get("project_id", None)
+    args["project_id"] = field
+
+    field = data.get("auto_renew_status", None)
+    args["auto_renew_status"] = field
+
+    field = data.get("dnssec", None)
+    args["dnssec"] = unmarshal_DomainDNSSEC(field)
+
+    field = data.get("epp_code", None)
+    args["epp_code"] = field
+
+    field = data.get("expired_at", None)
+    args["expired_at"] = parser.isoparse(field) if isinstance(field, str) else field
+
+    field = data.get("updated_at", None)
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+
+    field = data.get("registrar", None)
+    args["registrar"] = field
+
+    field = data.get("is_external", None)
+    args["is_external"] = field
+
+    field = data.get("status", None)
+    args["status"] = field
+
     field = data.get("dns_zones", None)
     args["dns_zones"] = (
         [unmarshal_DNSZone(v) for v in field] if field is not None else None
     )
 
-    field = data.get("status", None)
-    args["status"] = field
-
-    field = data.get("is_external", None)
-    args["is_external"] = field
-
-    field = data.get("domain", None)
-    args["domain"] = field
-
-    field = data.get("administrative_contact", None)
-    args["administrative_contact"] = unmarshal_Contact(field)
+    field = data.get("owner_contact", None)
+    args["owner_contact"] = unmarshal_Contact(field)
 
     field = data.get("technical_contact", None)
     args["technical_contact"] = unmarshal_Contact(field)
 
-    field = data.get("epp_code", None)
-    args["epp_code"] = field
-
-    field = data.get("dnssec", None)
-    args["dnssec"] = unmarshal_DomainDNSSEC(field)
-
-    field = data.get("auto_renew_status", None)
-    args["auto_renew_status"] = field
-
-    field = data.get("project_id", None)
-    args["project_id"] = field
-
-    field = data.get("organization_id", None)
-    args["organization_id"] = field
-
-    field = data.get("owner_contact", None)
-    args["owner_contact"] = unmarshal_Contact(field)
+    field = data.get("administrative_contact", None)
+    args["administrative_contact"] = unmarshal_Contact(field)
 
     field = data.get("tld", None)
     args["tld"] = unmarshal_Tld(field)
-
-    field = data.get("registrar", None)
-    args["registrar"] = field
-
-    field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("external_domain_registration_status", None)
     args[
@@ -787,9 +790,6 @@ def unmarshal_Domain(data: Any) -> Domain:
     args["transfer_registration_status"] = unmarshal_DomainRegistrationStatusTransfer(
         field
     )
-
-    field = data.get("expired_at", None)
-    args["expired_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return Domain(**args)
 
@@ -802,14 +802,14 @@ def unmarshal_GetDNSZoneTsigKeyResponse(data: Any) -> GetDNSZoneTsigKeyResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("algorithm", None)
-    args["algorithm"] = field
+    field = data.get("name", None)
+    args["name"] = field
 
     field = data.get("key", None)
     args["key"] = field
 
-    field = data.get("name", None)
-    args["name"] = field
+    field = data.get("algorithm", None)
+    args["algorithm"] = field
 
     return GetDNSZoneTsigKeyResponse(**args)
 
@@ -822,14 +822,14 @@ def unmarshal_RecordGeoIPConfigMatch(data: Any) -> RecordGeoIPConfigMatch:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("data", None)
-    args["data"] = field
+    field = data.get("countries", None)
+    args["countries"] = field
 
     field = data.get("continents", None)
     args["continents"] = field
 
-    field = data.get("countries", None)
-    args["countries"] = field
+    field = data.get("data", None)
+    args["data"] = field
 
     return RecordGeoIPConfigMatch(**args)
 
@@ -842,11 +842,11 @@ def unmarshal_RecordViewConfigView(data: Any) -> RecordViewConfigView:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("data", None)
-    args["data"] = field
-
     field = data.get("subnet", None)
     args["subnet"] = field
+
+    field = data.get("data", None)
+    args["data"] = field
 
     return RecordViewConfigView(**args)
 
@@ -861,11 +861,11 @@ def unmarshal_RecordWeightedConfigWeightedIP(
 
     args: Dict[str, Any] = {}
 
-    field = data.get("weight", None)
-    args["weight"] = field
-
     field = data.get("ip", None)
     args["ip"] = field
+
+    field = data.get("weight", None)
+    args["weight"] = field
 
     return RecordWeightedConfigWeightedIP(**args)
 
@@ -878,15 +878,15 @@ def unmarshal_RecordGeoIPConfig(data: Any) -> RecordGeoIPConfig:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("default", None)
-    args["default"] = field
-
     field = data.get("matches", None)
     args["matches"] = (
         [unmarshal_RecordGeoIPConfigMatch(v) for v in field]
         if field is not None
         else None
     )
+
+    field = data.get("default", None)
+    args["default"] = field
 
     return RecordGeoIPConfig(**args)
 
@@ -899,14 +899,14 @@ def unmarshal_RecordHTTPServiceConfig(data: Any) -> RecordHTTPServiceConfig:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("strategy", None)
-    args["strategy"] = field
+    field = data.get("ips", None)
+    args["ips"] = field
 
     field = data.get("url", None)
     args["url"] = field
 
-    field = data.get("ips", None)
-    args["ips"] = field
+    field = data.get("strategy", None)
+    args["strategy"] = field
 
     field = data.get("must_contain", None)
     args["must_contain"] = field
@@ -961,23 +961,23 @@ def unmarshal_Record(data: Any) -> Record:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("id", None)
-    args["id"] = field
-
-    field = data.get("type_", None)
-    args["type_"] = field
-
-    field = data.get("ttl", None)
-    args["ttl"] = field
-
-    field = data.get("priority", None)
-    args["priority"] = field
+    field = data.get("data", None)
+    args["data"] = field
 
     field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("data", None)
-    args["data"] = field
+    field = data.get("priority", None)
+    args["priority"] = field
+
+    field = data.get("ttl", None)
+    args["ttl"] = field
+
+    field = data.get("type_", None)
+    args["type_"] = field
+
+    field = data.get("id", None)
+    args["id"] = field
 
     field = data.get("comment", None)
     args["comment"] = field
@@ -1005,11 +1005,11 @@ def unmarshal_RecordIdentifier(data: Any) -> RecordIdentifier:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("type_", None)
-    args["type_"] = field
-
     field = data.get("name", None)
     args["name"] = field
+
+    field = data.get("type_", None)
+    args["type_"] = field
 
     field = data.get("data", None)
     args["data"] = field
@@ -1179,14 +1179,14 @@ def unmarshal_ContactRolesRoles(data: Any) -> ContactRolesRoles:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("is_technical", None)
-    args["is_technical"] = field
+    field = data.get("is_owner", None)
+    args["is_owner"] = field
 
     field = data.get("is_administrative", None)
     args["is_administrative"] = field
 
-    field = data.get("is_owner", None)
-    args["is_owner"] = field
+    field = data.get("is_technical", None)
+    args["is_technical"] = field
 
     return ContactRolesRoles(**args)
 
@@ -1199,15 +1199,15 @@ def unmarshal_ContactRoles(data: Any) -> ContactRoles:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("contact", None)
+    args["contact"] = unmarshal_Contact(field)
+
     field = data.get("roles", None)
     args["roles"] = (
         {key: unmarshal_ContactRolesRoles(value) for key, value in field.items()}
         if field is not None
         else None
     )
-
-    field = data.get("contact", None)
-    args["contact"] = unmarshal_Contact(field)
 
     return ContactRoles(**args)
 
@@ -1220,13 +1220,13 @@ def unmarshal_ListContactsResponse(data: Any) -> ListContactsResponse:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("total_count", None)
+    args["total_count"] = field
+
     field = data.get("contacts", None)
     args["contacts"] = (
         [unmarshal_ContactRoles(v) for v in field] if field is not None else None
     )
-
-    field = data.get("total_count", None)
-    args["total_count"] = field
 
     return ListContactsResponse(**args)
 
@@ -1239,11 +1239,11 @@ def unmarshal_Nameserver(data: Any) -> Nameserver:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("ip", None)
-    args["ip"] = field
-
     field = data.get("name", None)
     args["name"] = field
+
+    field = data.get("ip", None)
+    args["ip"] = field
 
     return Nameserver(**args)
 
@@ -1272,13 +1272,13 @@ def unmarshal_ListDNSZoneRecordsResponse(data: Any) -> ListDNSZoneRecordsRespons
 
     args: Dict[str, Any] = {}
 
+    field = data.get("total_count", None)
+    args["total_count"] = field
+
     field = data.get("records", None)
     args["records"] = (
         [unmarshal_Record(v) for v in field] if field is not None else None
     )
-
-    field = data.get("total_count", None)
-    args["total_count"] = field
 
     return ListDNSZoneRecordsResponse(**args)
 
@@ -1293,13 +1293,13 @@ def unmarshal_ListDNSZoneVersionRecordsResponse(
 
     args: Dict[str, Any] = {}
 
+    field = data.get("total_count", None)
+    args["total_count"] = field
+
     field = data.get("records", None)
     args["records"] = (
         [unmarshal_Record(v) for v in field] if field is not None else None
     )
-
-    field = data.get("total_count", None)
-    args["total_count"] = field
 
     return ListDNSZoneVersionRecordsResponse(**args)
 
@@ -1329,13 +1329,13 @@ def unmarshal_ListDNSZoneVersionsResponse(data: Any) -> ListDNSZoneVersionsRespo
 
     args: Dict[str, Any] = {}
 
+    field = data.get("total_count", None)
+    args["total_count"] = field
+
     field = data.get("versions", None)
     args["versions"] = (
         [unmarshal_DNSZoneVersion(v) for v in field] if field is not None else None
     )
-
-    field = data.get("total_count", None)
-    args["total_count"] = field
 
     return ListDNSZoneVersionsResponse(**args)
 
@@ -1348,13 +1348,13 @@ def unmarshal_ListDNSZonesResponse(data: Any) -> ListDNSZonesResponse:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("total_count", None)
+    args["total_count"] = field
+
     field = data.get("dns_zones", None)
     args["dns_zones"] = (
         [unmarshal_DNSZone(v) for v in field] if field is not None else None
     )
-
-    field = data.get("total_count", None)
-    args["total_count"] = field
 
     return ListDNSZonesResponse(**args)
 
@@ -1367,11 +1367,11 @@ def unmarshal_ListDomainHostsResponse(data: Any) -> ListDomainHostsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("hosts", None)
-    args["hosts"] = [unmarshal_Host(v) for v in field] if field is not None else None
-
     field = data.get("total_count", None)
     args["total_count"] = field
+
+    field = data.get("hosts", None)
+    args["hosts"] = [unmarshal_Host(v) for v in field] if field is not None else None
 
     return ListDomainHostsResponse(**args)
 
@@ -1384,35 +1384,38 @@ def unmarshal_DomainSummary(data: Any) -> DomainSummary:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("domain", None)
+    args["domain"] = field
+
+    field = data.get("project_id", None)
+    args["project_id"] = field
+
+    field = data.get("auto_renew_status", None)
+    args["auto_renew_status"] = field
+
+    field = data.get("dnssec_status", None)
+    args["dnssec_status"] = field
+
+    field = data.get("epp_code", None)
+    args["epp_code"] = field
+
     field = data.get("registrar", None)
     args["registrar"] = field
+
+    field = data.get("is_external", None)
+    args["is_external"] = field
+
+    field = data.get("expired_at", None)
+    args["expired_at"] = parser.isoparse(field) if isinstance(field, str) else field
+
+    field = data.get("updated_at", None)
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("status", None)
     args["status"] = field
 
     field = data.get("organization_id", None)
     args["organization_id"] = field
-
-    field = data.get("epp_code", None)
-    args["epp_code"] = field
-
-    field = data.get("domain", None)
-    args["domain"] = field
-
-    field = data.get("auto_renew_status", None)
-    args["auto_renew_status"] = field
-
-    field = data.get("project_id", None)
-    args["project_id"] = field
-
-    field = data.get("is_external", None)
-    args["is_external"] = field
-
-    field = data.get("dnssec_status", None)
-    args["dnssec_status"] = field
-
-    field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("external_domain_registration_status", None)
     args[
@@ -1423,9 +1426,6 @@ def unmarshal_DomainSummary(data: Any) -> DomainSummary:
     args["transfer_registration_status"] = unmarshal_DomainRegistrationStatusTransfer(
         field
     )
-
-    field = data.get("expired_at", None)
-    args["expired_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return DomainSummary(**args)
 
@@ -1438,13 +1438,13 @@ def unmarshal_ListDomainsResponse(data: Any) -> ListDomainsResponse:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("total_count", None)
+    args["total_count"] = field
+
     field = data.get("domains", None)
     args["domains"] = (
         [unmarshal_DomainSummary(v) for v in field] if field is not None else None
     )
-
-    field = data.get("total_count", None)
-    args["total_count"] = field
 
     return ListDomainsResponse(**args)
 
@@ -1457,20 +1457,20 @@ def unmarshal_RenewableDomain(data: Any) -> RenewableDomain:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("tld", None)
-    args["tld"] = unmarshal_Tld(field)
-
-    field = data.get("status", None)
-    args["status"] = field
-
-    field = data.get("organization_id", None)
-    args["organization_id"] = field
+    field = data.get("domain", None)
+    args["domain"] = field
 
     field = data.get("project_id", None)
     args["project_id"] = field
 
-    field = data.get("domain", None)
-    args["domain"] = field
+    field = data.get("organization_id", None)
+    args["organization_id"] = field
+
+    field = data.get("status", None)
+    args["status"] = field
+
+    field = data.get("tld", None)
+    args["tld"] = unmarshal_Tld(field)
 
     field = data.get("renewable_duration_in_years", None)
     args["renewable_duration_in_years"] = field
@@ -1502,13 +1502,13 @@ def unmarshal_ListRenewableDomainsResponse(data: Any) -> ListRenewableDomainsRes
 
     args: Dict[str, Any] = {}
 
+    field = data.get("total_count", None)
+    args["total_count"] = field
+
     field = data.get("domains", None)
     args["domains"] = (
         [unmarshal_RenewableDomain(v) for v in field] if field is not None else None
     )
-
-    field = data.get("total_count", None)
-    args["total_count"] = field
 
     return ListRenewableDomainsResponse(**args)
 
@@ -1521,13 +1521,13 @@ def unmarshal_ListSSLCertificatesResponse(data: Any) -> ListSSLCertificatesRespo
 
     args: Dict[str, Any] = {}
 
+    field = data.get("total_count", None)
+    args["total_count"] = field
+
     field = data.get("certificates", None)
     args["certificates"] = (
         [unmarshal_SSLCertificate(v) for v in field] if field is not None else None
     )
-
-    field = data.get("total_count", None)
-    args["total_count"] = field
 
     return ListSSLCertificatesResponse(**args)
 
@@ -1540,20 +1540,20 @@ def unmarshal_Task(data: Any) -> Task:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("status", None)
-    args["status"] = field
-
-    field = data.get("type_", None)
-    args["type_"] = field
-
-    field = data.get("organization_id", None)
-    args["organization_id"] = field
+    field = data.get("id", None)
+    args["id"] = field
 
     field = data.get("project_id", None)
     args["project_id"] = field
 
-    field = data.get("id", None)
-    args["id"] = field
+    field = data.get("organization_id", None)
+    args["organization_id"] = field
+
+    field = data.get("type_", None)
+    args["type_"] = field
+
+    field = data.get("status", None)
+    args["status"] = field
 
     field = data.get("domain", None)
     args["domain"] = field
@@ -1578,11 +1578,11 @@ def unmarshal_ListTasksResponse(data: Any) -> ListTasksResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("tasks", None)
-    args["tasks"] = [unmarshal_Task(v) for v in field] if field is not None else None
-
     field = data.get("total_count", None)
     args["total_count"] = field
+
+    field = data.get("tasks", None)
+    args["tasks"] = [unmarshal_Task(v) for v in field] if field is not None else None
 
     return ListTasksResponse(**args)
 
@@ -1595,11 +1595,11 @@ def unmarshal_ListTldsResponse(data: Any) -> ListTldsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    args["total_count"] = field
-
     field = data.get("tlds", None)
     args["tlds"] = [unmarshal_Tld(v) for v in field] if field is not None else None
+
+    field = data.get("total_count", None)
+    args["total_count"] = field
 
     return ListTldsResponse(**args)
 
@@ -1612,17 +1612,17 @@ def unmarshal_OrderResponse(data: Any) -> OrderResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("task_id", None)
-    args["task_id"] = field
-
-    field = data.get("project_id", None)
-    args["project_id"] = field
+    field = data.get("domains", None)
+    args["domains"] = field
 
     field = data.get("organization_id", None)
     args["organization_id"] = field
 
-    field = data.get("domains", None)
-    args["domains"] = field
+    field = data.get("project_id", None)
+    args["project_id"] = field
+
+    field = data.get("task_id", None)
+    args["task_id"] = field
 
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -1656,17 +1656,17 @@ def unmarshal_RegisterExternalDomainResponse(
 
     args: Dict[str, Any] = {}
 
-    field = data.get("project_id", None)
-    args["project_id"] = field
-
-    field = data.get("validation_token", None)
-    args["validation_token"] = field
+    field = data.get("domain", None)
+    args["domain"] = field
 
     field = data.get("organization_id", None)
     args["organization_id"] = field
 
-    field = data.get("domain", None)
-    args["domain"] = field
+    field = data.get("validation_token", None)
+    args["validation_token"] = field
+
+    field = data.get("project_id", None)
+    args["project_id"] = field
 
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -1693,14 +1693,14 @@ def unmarshal_AvailableDomain(data: Any) -> AvailableDomain:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("tld", None)
-    args["tld"] = unmarshal_Tld(field)
+    field = data.get("domain", None)
+    args["domain"] = field
 
     field = data.get("available", None)
     args["available"] = field
 
-    field = data.get("domain", None)
-    args["domain"] = field
+    field = data.get("tld", None)
+    args["tld"] = unmarshal_Tld(field)
 
     return AvailableDomain(**args)
 
@@ -1761,11 +1761,11 @@ def marshal_CloneDNSZoneRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.overwrite is not None:
-        output["overwrite"] = request.overwrite
-
     if request.dest_dns_zone is not None:
         output["dest_dns_zone"] = request.dest_dns_zone
+
+    if request.overwrite is not None:
+        output["overwrite"] = request.overwrite
 
     if request.project_id is not None:
         output["project_id"] = request.project_id
@@ -1779,11 +1779,11 @@ def marshal_CreateDNSZoneRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.subdomain is not None:
-        output["subdomain"] = request.subdomain
-
     if request.domain is not None:
         output["domain"] = request.domain
+
+    if request.subdomain is not None:
+        output["subdomain"] = request.subdomain
 
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id
@@ -1840,14 +1840,14 @@ def marshal_ImportRawDNSZoneRequestTsigKey(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.algorithm is not None:
-        output["algorithm"] = request.algorithm
+    if request.name is not None:
+        output["name"] = request.name
 
     if request.key is not None:
         output["key"] = request.key
 
-    if request.name is not None:
-        output["name"] = request.name
+    if request.algorithm is not None:
+        output["algorithm"] = request.algorithm
 
     return output
 
@@ -1858,13 +1858,13 @@ def marshal_ImportRawDNSZoneRequestAXFRSource(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
+    if request.name_server is not None:
+        output["name_server"] = request.name_server
+
     if request.tsig_key is not None:
         output["tsig_key"] = (
             marshal_ImportRawDNSZoneRequestTsigKey(request.tsig_key, defaults),
         )
-
-    if request.name_server is not None:
-        output["name_server"] = request.name_server
 
     return output
 
@@ -1913,11 +1913,11 @@ def marshal_RefreshDNSZoneRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.recreate_sub_dns_zone is not None:
-        output["recreate_sub_dns_zone"] = request.recreate_sub_dns_zone
-
     if request.recreate_dns_zone is not None:
         output["recreate_dns_zone"] = request.recreate_dns_zone
+
+    if request.recreate_sub_dns_zone is not None:
+        output["recreate_sub_dns_zone"] = request.recreate_sub_dns_zone
 
     return output
 
@@ -1955,11 +1955,11 @@ def marshal_ContactExtensionFRDunsInfo(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.local_id is not None:
-        output["local_id"] = request.local_id
-
     if request.duns_id is not None:
         output["duns_id"] = request.duns_id
+
+    if request.local_id is not None:
+        output["local_id"] = request.local_id
 
     return output
 
@@ -2029,13 +2029,13 @@ def marshal_ContactExtensionNL(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
+    if request.legal_form is not None:
+        output["legal_form"] = str(request.legal_form)
+
     if request.legal_form_registration_number is not None:
         output[
             "legal_form_registration_number"
         ] = request.legal_form_registration_number
-
-    if request.legal_form is not None:
-        output["legal_form"] = str(request.legal_form)
 
     return output
 
@@ -2046,11 +2046,11 @@ def marshal_ContactQuestion(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.answer is not None:
-        output["answer"] = request.answer
-
     if request.question is not None:
         output["question"] = request.question
+
+    if request.answer is not None:
+        output["answer"] = request.answer
 
     return output
 
@@ -2061,82 +2061,82 @@ def marshal_NewContact(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
+    if request.legal_form is not None:
+        output["legal_form"] = str(request.legal_form)
+
+    if request.firstname is not None:
+        output["firstname"] = request.firstname
+
+    if request.lastname is not None:
+        output["lastname"] = request.lastname
+
+    if request.email is not None:
+        output["email"] = request.email
+
+    if request.company_name is not None:
+        output["company_name"] = request.company_name
+
+    if request.email_alt is not None:
+        output["email_alt"] = request.email_alt
+
+    if request.phone_number is not None:
+        output["phone_number"] = request.phone_number
+
+    if request.address_line_1 is not None:
+        output["address_line_1"] = request.address_line_1
+
+    if request.zip is not None:
+        output["zip"] = request.zip
+
     if request.city is not None:
         output["city"] = request.city
 
-    if request.legal_form is not None:
-        output["legal_form"] = str(request.legal_form)
+    if request.country is not None:
+        output["country"] = request.country
+
+    if request.fax_number is not None:
+        output["fax_number"] = request.fax_number
+
+    if request.address_line_2 is not None:
+        output["address_line_2"] = request.address_line_2
+
+    if request.vat_identification_code is not None:
+        output["vat_identification_code"] = request.vat_identification_code
+
+    if request.company_identification_code is not None:
+        output["company_identification_code"] = request.company_identification_code
+
+    if request.lang is not None:
+        output["lang"] = str(request.lang)
+
+    if request.resale is not None:
+        output["resale"] = request.resale
 
     if request.extension_fr is not None:
         output["extension_fr"] = (
             marshal_ContactExtensionFR(request.extension_fr, defaults),
         )
 
-    if request.address_line_1 is not None:
-        output["address_line_1"] = request.address_line_1
-
     if request.extension_eu is not None:
         output["extension_eu"] = (
             marshal_ContactExtensionEU(request.extension_eu, defaults),
         )
 
-    if request.resale is not None:
-        output["resale"] = request.resale
-
     if request.whois_opt_in is not None:
         output["whois_opt_in"] = request.whois_opt_in
-
-    if request.email is not None:
-        output["email"] = request.email
 
     if request.extension_nl is not None:
         output["extension_nl"] = (
             marshal_ContactExtensionNL(request.extension_nl, defaults),
         )
 
-    if request.lastname is not None:
-        output["lastname"] = request.lastname
-
-    if request.firstname is not None:
-        output["firstname"] = request.firstname
-
-    if request.country is not None:
-        output["country"] = request.country
-
-    if request.lang is not None:
-        output["lang"] = str(request.lang)
-
-    if request.phone_number is not None:
-        output["phone_number"] = request.phone_number
-
-    if request.zip is not None:
-        output["zip"] = request.zip
-
-    if request.company_identification_code is not None:
-        output["company_identification_code"] = request.company_identification_code
-
-    if request.vat_identification_code is not None:
-        output["vat_identification_code"] = request.vat_identification_code
-
     if request.questions is not None:
         output["questions"] = [
             marshal_ContactQuestion(item, defaults) for item in request.questions
         ]
 
-    if request.address_line_2 is not None:
-        output["address_line_2"] = request.address_line_2
-
-    if request.fax_number is not None:
-        output["fax_number"] = request.fax_number
-
-    if request.email_alt is not None:
-        output["email_alt"] = request.email_alt
-
     if request.state is not None:
         output["state"] = request.state
-
-    if request.company_name is not None:
-        output["company_name"] = request.company_name
 
     return output
 
@@ -2175,11 +2175,11 @@ def marshal_RegistrarApiBuyDomainsRequest(
         ),
     )
 
-    if request.duration_in_years is not None:
-        output["duration_in_years"] = request.duration_in_years
-
     if request.domains is not None:
         output["domains"] = request.domains
+
+    if request.duration_in_years is not None:
+        output["duration_in_years"] = request.duration_in_years
 
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id
@@ -2263,16 +2263,16 @@ def marshal_DSRecordDigest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.public_key is not None:
-        output["public_key"] = (
-            marshal_DSRecordPublicKey(request.public_key, defaults),
-        )
+    if request.type_ is not None:
+        output["type"] = str(request.type_)
 
     if request.digest is not None:
         output["digest"] = request.digest
 
-    if request.type_ is not None:
-        output["type"] = str(request.type_)
+    if request.public_key is not None:
+        output["public_key"] = (
+            marshal_DSRecordPublicKey(request.public_key, defaults),
+        )
 
     return output
 
@@ -2291,11 +2291,11 @@ def marshal_DSRecord(
         ),
     )
 
-    if request.algorithm is not None:
-        output["algorithm"] = str(request.algorithm)
-
     if request.key_id is not None:
         output["key_id"] = request.key_id
+
+    if request.algorithm is not None:
+        output["algorithm"] = str(request.algorithm)
 
     return output
 
@@ -2333,11 +2333,11 @@ def marshal_RegistrarApiRenewDomainsRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.duration_in_years is not None:
-        output["duration_in_years"] = request.duration_in_years
-
     if request.domains is not None:
         output["domains"] = request.domains
+
+    if request.duration_in_years is not None:
+        output["duration_in_years"] = request.duration_in_years
 
     if request.force_late_renewal is not None:
         output["force_late_renewal"] = request.force_late_renewal
@@ -2371,11 +2371,11 @@ def marshal_TransferInDomainRequestTransferRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.auth_code is not None:
-        output["auth_code"] = request.auth_code
-
     if request.domain is not None:
         output["domain"] = request.domain
+
+    if request.auth_code is not None:
+        output["auth_code"] = request.auth_code
 
     return output
 
@@ -2447,26 +2447,20 @@ def marshal_RegistrarApiUpdateContactRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.extension_fr is not None:
-        output["extension_fr"] = (
-            marshal_ContactExtensionFR(request.extension_fr, defaults),
-        )
+    if request.email is not None:
+        output["email"] = request.email
 
-    if request.extension_eu is not None:
-        output["extension_eu"] = (
-            marshal_ContactExtensionEU(request.extension_eu, defaults),
-        )
+    if request.email_alt is not None:
+        output["email_alt"] = request.email_alt
 
-    if request.extension_nl is not None:
-        output["extension_nl"] = (
-            marshal_ContactExtensionNL(request.extension_nl, defaults),
-        )
+    if request.phone_number is not None:
+        output["phone_number"] = request.phone_number
+
+    if request.fax_number is not None:
+        output["fax_number"] = request.fax_number
 
     if request.address_line_1 is not None:
         output["address_line_1"] = request.address_line_1
-
-    if request.company_identification_code is not None:
-        output["company_identification_code"] = request.company_identification_code
 
     if request.address_line_2 is not None:
         output["address_line_2"] = request.address_line_2
@@ -2483,8 +2477,8 @@ def marshal_RegistrarApiUpdateContactRequest(
     if request.vat_identification_code is not None:
         output["vat_identification_code"] = request.vat_identification_code
 
-    if request.fax_number is not None:
-        output["fax_number"] = request.fax_number
+    if request.company_identification_code is not None:
+        output["company_identification_code"] = request.company_identification_code
 
     if request.lang is not None:
         output["lang"] = str(request.lang)
@@ -2498,11 +2492,15 @@ def marshal_RegistrarApiUpdateContactRequest(
             for item in request.questions
         ]
 
-    if request.phone_number is not None:
-        output["phone_number"] = request.phone_number
+    if request.extension_fr is not None:
+        output["extension_fr"] = (
+            marshal_ContactExtensionFR(request.extension_fr, defaults),
+        )
 
-    if request.email_alt is not None:
-        output["email_alt"] = request.email_alt
+    if request.extension_eu is not None:
+        output["extension_eu"] = (
+            marshal_ContactExtensionEU(request.extension_eu, defaults),
+        )
 
     if request.whois_opt_in is not None:
         output["whois_opt_in"] = request.whois_opt_in
@@ -2510,8 +2508,10 @@ def marshal_RegistrarApiUpdateContactRequest(
     if request.state is not None:
         output["state"] = request.state
 
-    if request.email is not None:
-        output["email"] = request.email
+    if request.extension_nl is not None:
+        output["extension_nl"] = (
+            marshal_ContactExtensionNL(request.extension_nl, defaults),
+        )
 
     return output
 
@@ -2571,11 +2571,11 @@ def marshal_Nameserver(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.ip is not None:
-        output["ip"] = request.ip
-
     if request.name is not None:
         output["name"] = request.name
+
+    if request.ip is not None:
+        output["ip"] = request.ip
 
     return output
 
@@ -2598,14 +2598,14 @@ def marshal_RecordGeoIPConfigMatch(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.data is not None:
-        output["data"] = request.data
+    if request.countries is not None:
+        output["countries"] = request.countries
 
     if request.continents is not None:
         output["continents"] = request.continents
 
-    if request.countries is not None:
-        output["countries"] = request.countries
+    if request.data is not None:
+        output["data"] = request.data
 
     return output
 
@@ -2616,11 +2616,11 @@ def marshal_RecordViewConfigView(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.data is not None:
-        output["data"] = request.data
-
     if request.subnet is not None:
         output["subnet"] = request.subnet
+
+    if request.data is not None:
+        output["data"] = request.data
 
     return output
 
@@ -2631,11 +2631,11 @@ def marshal_RecordWeightedConfigWeightedIP(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.weight is not None:
-        output["weight"] = request.weight
-
     if request.ip is not None:
         output["ip"] = request.ip
+
+    if request.weight is not None:
+        output["weight"] = request.weight
 
     return output
 
@@ -2646,13 +2646,13 @@ def marshal_RecordGeoIPConfig(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.default is not None:
-        output["default"] = request.default
-
     if request.matches is not None:
         output["matches"] = [
             marshal_RecordGeoIPConfigMatch(item, defaults) for item in request.matches
         ]
+
+    if request.default is not None:
+        output["default"] = request.default
 
     return output
 
@@ -2663,14 +2663,14 @@ def marshal_RecordHTTPServiceConfig(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.strategy is not None:
-        output["strategy"] = str(request.strategy)
+    if request.ips is not None:
+        output["ips"] = request.ips
 
     if request.url is not None:
         output["url"] = request.url
 
-    if request.ips is not None:
-        output["ips"] = request.ips
+    if request.strategy is not None:
+        output["strategy"] = str(request.strategy)
 
     if request.must_contain is not None:
         output["must_contain"] = request.must_contain
@@ -2726,23 +2726,23 @@ def marshal_Record(
         ),
     )
 
-    if request.id is not None:
-        output["id"] = request.id
-
-    if request.type_ is not None:
-        output["type"] = str(request.type_)
-
-    if request.ttl is not None:
-        output["ttl"] = request.ttl
-
-    if request.priority is not None:
-        output["priority"] = request.priority
+    if request.data is not None:
+        output["data"] = request.data
 
     if request.name is not None:
         output["name"] = request.name
 
-    if request.data is not None:
-        output["data"] = request.data
+    if request.priority is not None:
+        output["priority"] = request.priority
+
+    if request.ttl is not None:
+        output["ttl"] = request.ttl
+
+    if request.type_ is not None:
+        output["type"] = str(request.type_)
+
+    if request.id is not None:
+        output["id"] = request.id
 
     if request.comment is not None:
         output["comment"] = request.comment
@@ -2756,11 +2756,11 @@ def marshal_RecordIdentifier(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.type_ is not None:
-        output["type"] = str(request.type_)
-
     if request.name is not None:
         output["name"] = request.name
+
+    if request.type_ is not None:
+        output["type"] = str(request.type_)
 
     if request.data is not None:
         output["data"] = request.data
@@ -2854,13 +2854,13 @@ def marshal_UpdateDNSZoneRecordsRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.disallow_new_zone_creation is not None:
-        output["disallow_new_zone_creation"] = request.disallow_new_zone_creation
-
     if request.changes is not None:
         output["changes"] = [
             marshal_RecordChange(item, defaults) for item in request.changes
         ]
+
+    if request.disallow_new_zone_creation is not None:
+        output["disallow_new_zone_creation"] = request.disallow_new_zone_creation
 
     if request.return_all_records is not None:
         output["return_all_records"] = request.return_all_records

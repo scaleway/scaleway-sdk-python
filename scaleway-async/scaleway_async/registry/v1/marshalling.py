@@ -30,26 +30,26 @@ def unmarshal_Image(data: Any) -> Image:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("tags", None)
-    args["tags"] = field
-
-    field = data.get("size", None)
-    args["size"] = field
-
-    field = data.get("visibility", None)
-    args["visibility"] = field
-
-    field = data.get("status", None)
-    args["status"] = field
-
-    field = data.get("namespace_id", None)
-    args["namespace_id"] = field
+    field = data.get("id", None)
+    args["id"] = field
 
     field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("id", None)
-    args["id"] = field
+    field = data.get("namespace_id", None)
+    args["namespace_id"] = field
+
+    field = data.get("status", None)
+    args["status"] = field
+
+    field = data.get("visibility", None)
+    args["visibility"] = field
+
+    field = data.get("size", None)
+    args["size"] = field
+
+    field = data.get("tags", None)
+    args["tags"] = field
 
     field = data.get("status_message", None)
     args["status_message"] = field
@@ -71,47 +71,47 @@ def unmarshal_Namespace(data: Any) -> Namespace:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("region", None)
-    args["region"] = field
-
-    field = data.get("size", None)
-    args["size"] = field
-
-    field = data.get("is_public", None)
-    args["is_public"] = field
-
-    field = data.get("endpoint", None)
-    args["endpoint"] = field
-
     field = data.get("id", None)
     args["id"] = field
-
-    field = data.get("status", None)
-    args["status"] = field
-
-    field = data.get("project_id", None)
-    args["project_id"] = field
-
-    field = data.get("organization_id", None)
-    args["organization_id"] = field
-
-    field = data.get("description", None)
-    args["description"] = field
 
     field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("image_count", None)
-    args["image_count"] = field
+    field = data.get("description", None)
+    args["description"] = field
+
+    field = data.get("organization_id", None)
+    args["organization_id"] = field
+
+    field = data.get("project_id", None)
+    args["project_id"] = field
+
+    field = data.get("status", None)
+    args["status"] = field
 
     field = data.get("status_message", None)
     args["status_message"] = field
 
-    field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    field = data.get("endpoint", None)
+    args["endpoint"] = field
+
+    field = data.get("is_public", None)
+    args["is_public"] = field
+
+    field = data.get("size", None)
+    args["size"] = field
+
+    field = data.get("image_count", None)
+    args["image_count"] = field
+
+    field = data.get("region", None)
+    args["region"] = field
 
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+
+    field = data.get("updated_at", None)
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return Namespace(**args)
 
@@ -124,20 +124,20 @@ def unmarshal_Tag(data: Any) -> Tag:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("digest", None)
-    args["digest"] = field
-
-    field = data.get("status", None)
-    args["status"] = field
-
-    field = data.get("image_id", None)
-    args["image_id"] = field
+    field = data.get("id", None)
+    args["id"] = field
 
     field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("id", None)
-    args["id"] = field
+    field = data.get("image_id", None)
+    args["image_id"] = field
+
+    field = data.get("status", None)
+    args["status"] = field
+
+    field = data.get("digest", None)
+    args["digest"] = field
 
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -156,11 +156,11 @@ def unmarshal_ListImagesResponse(data: Any) -> ListImagesResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    args["total_count"] = field
-
     field = data.get("images", None)
     args["images"] = [unmarshal_Image(v) for v in field] if field is not None else None
+
+    field = data.get("total_count", None)
+    args["total_count"] = field
 
     return ListImagesResponse(**args)
 
@@ -173,13 +173,13 @@ def unmarshal_ListNamespacesResponse(data: Any) -> ListNamespacesResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    args["total_count"] = field
-
     field = data.get("namespaces", None)
     args["namespaces"] = (
         [unmarshal_Namespace(v) for v in field] if field is not None else None
     )
+
+    field = data.get("total_count", None)
+    args["total_count"] = field
 
     return ListNamespacesResponse(**args)
 
@@ -192,11 +192,11 @@ def unmarshal_ListTagsResponse(data: Any) -> ListTagsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    args["total_count"] = field
-
     field = data.get("tags", None)
     args["tags"] = [unmarshal_Tag(v) for v in field] if field is not None else None
+
+    field = data.get("total_count", None)
+    args["total_count"] = field
 
     return ListTagsResponse(**args)
 
@@ -221,11 +221,11 @@ def marshal_CreateNamespaceRequest(
         ),
     )
 
-    if request.is_public is not None:
-        output["is_public"] = request.is_public
-
     if request.description is not None:
         output["description"] = request.description
+
+    if request.is_public is not None:
+        output["is_public"] = request.is_public
 
     if request.name is not None:
         output["name"] = request.name

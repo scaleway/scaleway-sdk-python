@@ -182,14 +182,14 @@ If set to `reject`, all topics in the topics list will be denied, with all other
 
 @dataclass
 class DeviceMessageFilters:
-    subscribe: DeviceMessageFiltersRule
-    """
-    Filtering rule to restrict topics the device can subscribe to.
-    """
-
     publish: DeviceMessageFiltersRule
     """
     Filtering rule to restrict topics the device can publish to.
+    """
+
+    subscribe: DeviceMessageFiltersRule
+    """
+    Filtering rule to restrict topics the device can subscribe to.
     """
 
 
@@ -200,46 +200,16 @@ class HubTwinsGraphiteConfig:
 
 @dataclass
 class Certificate:
-    key: str
-
     crt: str
+
+    key: str
 
 
 @dataclass
 class Device:
-    allow_multiple_connections: bool
-    """
-    Defines whether to allow multiple physical devices to connect to the Hub with this device's credentials.
-    """
-
-    allow_insecure: bool
-    """
-    Defines whether to allow the device to connect to the Hub without TLS mutual authentication.
-    """
-
     id: str
     """
     Device ID, also used as MQTT Client ID or username.
-    """
-
-    has_custom_certificate: bool
-    """
-    Assigning a custom certificate allows a device to authenticate using that specific certificate without checking the Hub's CA certificate.
-    """
-
-    hub_id: str
-    """
-    Hub ID.
-    """
-
-    status: DeviceStatus
-    """
-    Device status.
-    """
-
-    description: str
-    """
-    Device description.
     """
 
     name: str
@@ -247,9 +217,24 @@ class Device:
     Device name.
     """
 
-    message_filters: DeviceMessageFilters
+    description: str
     """
-    Filter-sets to restrict the topics the device can publish/subscribe to.
+    Device description.
+    """
+
+    status: DeviceStatus
+    """
+    Device status.
+    """
+
+    hub_id: str
+    """
+    Hub ID.
+    """
+
+    last_activity_at: Optional[datetime]
+    """
+    Last connection/activity date of a device.
     """
 
     is_connected: bool
@@ -257,9 +242,24 @@ class Device:
     Defines whether the device is connected to the Hub.
     """
 
-    last_activity_at: Optional[datetime]
+    allow_insecure: bool
     """
-    Last connection/activity date of a device.
+    Defines whether to allow the device to connect to the Hub without TLS mutual authentication.
+    """
+
+    allow_multiple_connections: bool
+    """
+    Defines whether to allow multiple physical devices to connect to the Hub with this device's credentials.
+    """
+
+    message_filters: DeviceMessageFilters
+    """
+    Filter-sets to restrict the topics the device can publish/subscribe to.
+    """
+
+    has_custom_certificate: bool
+    """
+    Assigning a custom certificate allows a device to authenticate using that specific certificate without checking the Hub's CA certificate.
     """
 
     created_at: Optional[datetime]
@@ -275,24 +275,9 @@ class Device:
 
 @dataclass
 class Network:
-    topic_prefix: str
+    id: str
     """
-    This prefix will be prepended to all topics for this Network.
-    """
-
-    hub_id: str
-    """
-    Hub ID to connect the Network to.
-    """
-
-    endpoint: str
-    """
-    Endpoint to use for interacting with the network.
-    """
-
-    type_: NetworkNetworkType
-    """
-    Type of network to connect with.
+    Network ID.
     """
 
     name: str
@@ -300,9 +285,24 @@ class Network:
     Network name.
     """
 
-    id: str
+    type_: NetworkNetworkType
     """
-    Network ID.
+    Type of network to connect with.
+    """
+
+    endpoint: str
+    """
+    Endpoint to use for interacting with the network.
+    """
+
+    hub_id: str
+    """
+    Hub ID to connect the Network to.
+    """
+
+    topic_prefix: str
+    """
+    This prefix will be prepended to all topics for this Network.
     """
 
     created_at: Optional[datetime]
@@ -313,91 +313,46 @@ class Network:
 
 @dataclass
 class CreateRouteRequestDatabaseConfig:
-    engine: RouteDatabaseConfigEngine
-
-    query: str
-
-    password: str
-
-    username: str
-
-    dbname: str
+    host: str
 
     port: int
 
-    host: str
+    dbname: str
+
+    username: str
+
+    password: str
+
+    query: str
+
+    engine: RouteDatabaseConfigEngine
 
 
 @dataclass
 class CreateRouteRequestRestConfig:
-    headers: Dict[str, str]
+    verb: RouteRestConfigHttpVerb
 
     uri: str
 
-    verb: RouteRestConfigHttpVerb
+    headers: Dict[str, str]
 
 
 @dataclass
 class CreateRouteRequestS3Config:
-    strategy: RouteS3ConfigS3Strategy
-
-    object_prefix: str
+    bucket_region: str
 
     bucket_name: str
 
-    bucket_region: str
+    object_prefix: str
+
+    strategy: RouteS3ConfigS3Strategy
 
 
 @dataclass
 class Hub:
-    has_custom_ca: bool
-    """
-    Flag is automatically set to `false` after Hub creation, as Hub certificates are managed by Scaleway. Once a custom certificate authority is set, the flag will be set to `true`.
-    """
-
-    region: Region
-    """
-    Region of the Hub.
-    """
-
-    events_topic_prefix: str
-    """
-    Hub events topic prefix.
-    """
-
     id: str
     """
     Hub ID.
-    """
-
-    endpoint: str
-    """
-    Devices should be connected to this host. Port may be 1883 (MQTT), 8883 (MQTT over TLS), 80 (MQTT over Websocket) or 443 (MQTT over Websocket over TLS).
-    """
-
-    project_id: str
-    """
-    Project owning the resource.
-    """
-
-    device_count: int
-    """
-    Number of registered devices.
-    """
-
-    enabled: bool
-    """
-    Defines whether the hub has been enabled.
-    """
-
-    product_plan: HubProductPlan
-    """
-    Hub feature set.
-    """
-
-    status: HubStatus
-    """
-    Current status of the Hub.
     """
 
     name: str
@@ -405,14 +360,24 @@ class Hub:
     Hub name.
     """
 
-    enable_device_auto_provisioning: bool
+    status: HubStatus
     """
-    When an unknown device connects to your hub using a valid certificate chain, it will be automatically provisioned inside your Hub. The Hub uses the common name of the device certifcate to find out if a device with the same name already exists. This setting can only be enabled on a hub with a custom certificate authority.
+    Current status of the Hub.
     """
 
-    organization_id: str
+    product_plan: HubProductPlan
     """
-    Organization owning the resource.
+    Hub feature set.
+    """
+
+    enabled: bool
+    """
+    Defines whether the hub has been enabled.
+    """
+
+    device_count: int
+    """
+    Number of registered devices.
     """
 
     connected_device_count: int
@@ -420,14 +385,44 @@ class Hub:
     Number of currently connected devices.
     """
 
+    endpoint: str
+    """
+    Devices should be connected to this host. Port may be 1883 (MQTT), 8883 (MQTT over TLS), 80 (MQTT over Websocket) or 443 (MQTT over Websocket over TLS).
+    """
+
     disable_events: bool
     """
     Defines whether to disable Hub events.
     """
 
-    updated_at: Optional[datetime]
+    events_topic_prefix: str
     """
-    Hub last modification date.
+    Hub events topic prefix.
+    """
+
+    region: Region
+    """
+    Region of the Hub.
+    """
+
+    project_id: str
+    """
+    Project owning the resource.
+    """
+
+    organization_id: str
+    """
+    Organization owning the resource.
+    """
+
+    enable_device_auto_provisioning: bool
+    """
+    When an unknown device connects to your hub using a valid certificate chain, it will be automatically provisioned inside your Hub. The Hub uses the common name of the device certifcate to find out if a device with the same name already exists. This setting can only be enabled on a hub with a custom certificate authority.
+    """
+
+    has_custom_ca: bool
+    """
+    Flag is automatically set to `false` after Hub creation, as Hub certificates are managed by Scaleway. Once a custom certificate authority is set, the flag will be set to `true`.
     """
 
     created_at: Optional[datetime]
@@ -435,24 +430,19 @@ class Hub:
     Hub creation date.
     """
 
+    updated_at: Optional[datetime]
+    """
+    Hub last modification date.
+    """
+
     twins_graphite_config: Optional[HubTwinsGraphiteConfig]
 
 
 @dataclass
 class RouteSummary:
-    type_: RouteRouteType
+    id: str
     """
-    Route type.
-    """
-
-    topic: str
-    """
-    Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters.
-    """
-
-    hub_id: str
-    """
-    Hub ID of the route.
+    Route ID.
     """
 
     name: str
@@ -460,9 +450,19 @@ class RouteSummary:
     Route name.
     """
 
-    id: str
+    hub_id: str
     """
-    Route ID.
+    Hub ID of the route.
+    """
+
+    topic: str
+    """
+    Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters.
+    """
+
+    type_: RouteRouteType
+    """
+    Route type.
     """
 
     created_at: Optional[datetime]
@@ -486,29 +486,9 @@ class ListTwinDocumentsResponseDocumentSummary:
 
 @dataclass
 class RouteDatabaseConfig:
-    query: str
+    engine: RouteDatabaseConfigEngine
     """
-    SQL query to be executed ($TOPIC and $PAYLOAD variables are available, see documentation).
-    """
-
-    password: str
-    """
-    Database password.
-    """
-
-    username: str
-    """
-    Database username. Make sure this account can execute the provided query.
-    """
-
-    dbname: str
-    """
-    Database name.
-    """
-
-    port: int
-    """
-    Database port.
+    Database engine the route will connect to. If not specified, the default database will be 'PostgreSQL'.
     """
 
     host: str
@@ -516,17 +496,37 @@ class RouteDatabaseConfig:
     Database host.
     """
 
-    engine: RouteDatabaseConfigEngine
+    port: int
     """
-    Database engine the route will connect to. If not specified, the default database will be 'PostgreSQL'.
+    Database port.
+    """
+
+    dbname: str
+    """
+    Database name.
+    """
+
+    username: str
+    """
+    Database username. Make sure this account can execute the provided query.
+    """
+
+    password: str
+    """
+    Database password.
+    """
+
+    query: str
+    """
+    SQL query to be executed ($TOPIC and $PAYLOAD variables are available, see documentation).
     """
 
 
 @dataclass
 class RouteRestConfig:
-    headers: Dict[str, str]
+    verb: RouteRestConfigHttpVerb
     """
-    HTTP call extra headers.
+    HTTP verb used to call REST URI.
     """
 
     uri: str
@@ -534,22 +534,17 @@ class RouteRestConfig:
     URI of the REST endpoint.
     """
 
-    verb: RouteRestConfigHttpVerb
+    headers: Dict[str, str]
     """
-    HTTP verb used to call REST URI.
+    HTTP call extra headers.
     """
 
 
 @dataclass
 class RouteS3Config:
-    strategy: RouteS3ConfigS3Strategy
+    bucket_region: str
     """
-    How the S3 route's objects will be created: one per topic or one per message.
-    """
-
-    object_prefix: str
-    """
-    Optional string to prefix object names with.
+    Region of the S3 route's destination bucket (e.g., 'fr-par').
     """
 
     bucket_name: str
@@ -557,9 +552,14 @@ class RouteS3Config:
     Destination bucket name of the S3 route.
     """
 
-    bucket_region: str
+    object_prefix: str
     """
-    Region of the S3 route's destination bucket (e.g., 'fr-par').
+    Optional string to prefix object names with.
+    """
+
+    strategy: RouteS3ConfigS3Strategy
+    """
+    How the S3 route's objects will be created: one per topic or one per message.
     """
 
 
@@ -602,14 +602,9 @@ class UpdateRouteRequestS3Config:
 
 @dataclass
 class CreateDeviceRequest:
-    message_filters: DeviceMessageFilters
+    hub_id: str
     """
-    Filter-sets to authorize or deny the device to publish/subscribe to specific topics.
-    """
-
-    allow_multiple_connections: bool
-    """
-    Defines whether to allow multiple physical devices to connect with this device's credentials.
+    Hub ID of the device.
     """
 
     allow_insecure: bool
@@ -617,9 +612,9 @@ class CreateDeviceRequest:
     Defines whether to allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones.
     """
 
-    hub_id: str
+    allow_multiple_connections: bool
     """
-    Hub ID of the device.
+    Defines whether to allow multiple physical devices to connect with this device's credentials.
     """
 
     region: Optional[Region]
@@ -632,6 +627,11 @@ class CreateDeviceRequest:
     Device name.
     """
 
+    message_filters: Optional[DeviceMessageFilters]
+    """
+    Filter-sets to authorize or deny the device to publish/subscribe to specific topics.
+    """
+
     description: Optional[str]
     """
     Device description.
@@ -640,19 +640,24 @@ class CreateDeviceRequest:
 
 @dataclass
 class CreateDeviceResponse:
-    certificate: Certificate
-    """
-    Device certificate.
-    """
-
     device: Device
     """
     Information related to the created device.
     """
 
+    certificate: Certificate
+    """
+    Device certificate.
+    """
+
 
 @dataclass
 class CreateHubRequest:
+    product_plan: HubProductPlan
+    """
+    Hub product plan.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
@@ -666,11 +671,6 @@ class CreateHubRequest:
     project_id: Optional[str]
     """
     Project/Organization ID to filter for, only Hubs from this Project/Organization will be returned.
-    """
-
-    product_plan: Optional[HubProductPlan]
-    """
-    Hub product plan.
     """
 
     disable_events: Optional[bool]
@@ -688,14 +688,19 @@ class CreateHubRequest:
 
 @dataclass
 class CreateNetworkRequest:
-    topic_prefix: str
+    type_: NetworkNetworkType
     """
-    Topic prefix for the Network.
+    Type of network to connect with.
     """
 
     hub_id: str
     """
     Hub ID to connect the Network to.
+    """
+
+    topic_prefix: str
+    """
+    Topic prefix for the Network.
     """
 
     region: Optional[Region]
@@ -708,35 +713,30 @@ class CreateNetworkRequest:
     Network name.
     """
 
-    type_: Optional[NetworkNetworkType]
-    """
-    Type of network to connect with.
-    """
-
 
 @dataclass
 class CreateNetworkResponse:
-    secret: str
-    """
-    Endpoint Key to keep secret. This cannot be retrieved later.
-    """
-
     network: Network
     """
     Information related to the created network.
     """
 
+    secret: str
+    """
+    Endpoint Key to keep secret. This cannot be retrieved later.
+    """
+
 
 @dataclass
 class CreateRouteRequest:
-    topic: str
-    """
-    Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters.
-    """
-
     hub_id: str
     """
     Hub ID of the route.
+    """
+
+    topic: str
+    """
+    Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters.
     """
 
     region: Optional[Region]
@@ -815,14 +815,14 @@ class DeleteRouteRequest:
 
 @dataclass
 class DeleteTwinDocumentRequest:
-    document_name: str
-    """
-    Name of the document.
-    """
-
     twin_id: str
     """
     Twin ID.
+    """
+
+    document_name: str
+    """
+    Name of the document.
     """
 
     region: Optional[Region]
@@ -911,14 +911,14 @@ class GetDeviceCertificateRequest:
 
 @dataclass
 class GetDeviceCertificateResponse:
-    certificate_pem: str
-    """
-    Device certificate.
-    """
-
     device: Device
     """
     Information related to the created device.
+    """
+
+    certificate_pem: str
+    """
+    Device certificate.
     """
 
 
@@ -1043,14 +1043,14 @@ class GetRouteRequest:
 
 @dataclass
 class GetTwinDocumentRequest:
-    document_name: str
-    """
-    Name of the document.
-    """
-
     twin_id: str
     """
     Twin ID.
+    """
+
+    document_name: str
+    """
+    Name of the document.
     """
 
     region: Optional[Region]
@@ -1104,14 +1104,14 @@ class ListDevicesRequest:
 
 @dataclass
 class ListDevicesResponse:
-    devices: List[Device]
-    """
-    Page of devices.
-    """
-
     total_count: int
     """
     Total number of devices.
+    """
+
+    devices: List[Device]
+    """
+    Page of devices.
     """
 
 
@@ -1155,14 +1155,14 @@ class ListHubsRequest:
 
 @dataclass
 class ListHubsResponse:
-    hubs: List[Hub]
-    """
-    A page of hubs.
-    """
-
     total_count: int
     """
     Total number of Hubs.
+    """
+
+    hubs: List[Hub]
+    """
+    A page of hubs.
     """
 
 
@@ -1206,14 +1206,14 @@ class ListNetworksRequest:
 
 @dataclass
 class ListNetworksResponse:
-    networks: List[Network]
-    """
-    Page of networks.
-    """
-
     total_count: int
     """
     Total number of Networks.
+    """
+
+    networks: List[Network]
+    """
+    Page of networks.
     """
 
 
@@ -1252,14 +1252,14 @@ class ListRoutesRequest:
 
 @dataclass
 class ListRoutesResponse:
-    routes: List[RouteSummary]
-    """
-    Page of routes.
-    """
-
     total_count: int
     """
     Total number of routes.
+    """
+
+    routes: List[RouteSummary]
+    """
+    Page of routes.
     """
 
 
@@ -1286,14 +1286,14 @@ class ListTwinDocumentsResponse:
 
 @dataclass
 class PatchTwinDocumentRequest:
-    document_name: str
-    """
-    Name of the document.
-    """
-
     twin_id: str
     """
     Twin ID.
+    """
+
+    document_name: str
+    """
+    Name of the document.
     """
 
     region: Optional[Region]
@@ -1319,14 +1319,14 @@ Patching rules:
 
 @dataclass
 class PutTwinDocumentRequest:
-    document_name: str
-    """
-    Name of the document.
-    """
-
     twin_id: str
     """
     Twin ID.
+    """
+
+    document_name: str
+    """
+    Name of the document.
     """
 
     region: Optional[Region]
@@ -1360,32 +1360,22 @@ class RenewDeviceCertificateRequest:
 
 @dataclass
 class RenewDeviceCertificateResponse:
-    certificate: Certificate
-    """
-    Device certificate.
-    """
-
     device: Device
     """
     Information related to the created device.
     """
 
+    certificate: Certificate
+    """
+    Device certificate.
+    """
+
 
 @dataclass
 class Route:
-    type_: RouteRouteType
+    id: str
     """
-    Route type.
-    """
-
-    topic: str
-    """
-    Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters.
-    """
-
-    hub_id: str
-    """
-    Hub ID of the route.
+    Route ID.
     """
 
     name: str
@@ -1393,9 +1383,19 @@ class Route:
     Route name.
     """
 
-    id: str
+    hub_id: str
     """
-    Route ID.
+    Hub ID of the route.
+    """
+
+    topic: str
+    """
+    Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters.
+    """
+
+    type_: RouteRouteType
+    """
+    Route type.
     """
 
     created_at: Optional[datetime]
@@ -1417,14 +1417,14 @@ class Route:
 
 @dataclass
 class SetDeviceCertificateRequest:
-    certificate_pem: str
-    """
-    PEM-encoded custom certificate.
-    """
-
     device_id: str
     """
     Device ID.
+    """
+
+    certificate_pem: str
+    """
+    PEM-encoded custom certificate.
     """
 
     region: Optional[Region]
@@ -1435,16 +1435,16 @@ class SetDeviceCertificateRequest:
 
 @dataclass
 class SetDeviceCertificateResponse:
-    certificate_pem: str
-
     device: Device
+
+    certificate_pem: str
 
 
 @dataclass
 class SetHubCARequest:
-    challenge_cert_pem: str
+    hub_id: str
     """
-    Challenge is a PEM-encoded certificate that acts as proof of possession of the CA. It must be signed by the CA, and have a Common Name equal to the Hub ID.
+    Hub ID.
     """
 
     ca_cert_pem: str
@@ -1452,9 +1452,9 @@ class SetHubCARequest:
     CA's PEM-encoded certificate.
     """
 
-    hub_id: str
+    challenge_cert_pem: str
     """
-    Hub ID.
+    Challenge is a PEM-encoded certificate that acts as proof of possession of the CA. It must be signed by the CA, and have a Common Name equal to the Hub ID.
     """
 
     region: Optional[Region]
@@ -1465,9 +1465,9 @@ class SetHubCARequest:
 
 @dataclass
 class TwinDocument:
-    version: int
+    twin_id: str
     """
-    New version of the document.
+    Parent twin ID of the document.
     """
 
     document_name: str
@@ -1475,9 +1475,9 @@ class TwinDocument:
     Name of the document.
     """
 
-    twin_id: str
+    version: int
     """
-    Parent twin ID of the document.
+    New version of the document.
     """
 
     data: Optional[Dict[str, Any]]
@@ -1488,11 +1488,6 @@ class TwinDocument:
 
 @dataclass
 class UpdateDeviceRequest:
-    message_filters: DeviceMessageFilters
-    """
-    Filter-sets to restrict the topics the device can publish/subscribe to.
-    """
-
     device_id: str
     """
     Device ID.
@@ -1516,6 +1511,11 @@ class UpdateDeviceRequest:
     allow_multiple_connections: Optional[bool]
     """
     Defines whether to allow multiple physical devices to connect with this device's credentials.
+    """
+
+    message_filters: Optional[DeviceMessageFilters]
+    """
+    Filter-sets to restrict the topics the device can publish/subscribe to.
     """
 
     hub_id: Optional[str]

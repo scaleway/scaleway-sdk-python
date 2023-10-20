@@ -218,14 +218,14 @@ class TestV1API(API):
     def create_human(
         self,
         *,
-        name: str,
-        is_happy: bool,
-        hair_count: int,
-        fingers_count: int,
-        altitude_in_millimeter: int,
-        altitude_in_meter: int,
-        shoe_size: float,
         height: float,
+        shoe_size: float,
+        altitude_in_meter: int,
+        altitude_in_millimeter: int,
+        fingers_count: int,
+        hair_count: int,
+        is_happy: bool,
+        name: str,
         eyes_color: Optional[EyeColors] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -233,14 +233,14 @@ class TestV1API(API):
         """
         Create a new human.
         Create a new human.
-        :param name:
-        :param is_happy:
-        :param hair_count:
-        :param fingers_count:
-        :param altitude_in_millimeter:
-        :param altitude_in_meter:
-        :param shoe_size:
         :param height:
+        :param shoe_size:
+        :param altitude_in_meter:
+        :param altitude_in_millimeter:
+        :param fingers_count:
+        :param hair_count:
+        :param is_happy:
+        :param name:
         :param eyes_color:
         :param organization_id:
         :param project_id:
@@ -250,14 +250,14 @@ class TestV1API(API):
         ::
 
             result = api.create_human(
-                name="example",
-                is_happy=False,
-                hair_count=1,
-                fingers_count=1,
-                altitude_in_millimeter=1,
-                altitude_in_meter=1,
-                shoe_size=3.14,
                 height=3.14,
+                shoe_size=3.14,
+                altitude_in_meter=1,
+                altitude_in_millimeter=1,
+                fingers_count=1,
+                hair_count=1,
+                is_happy=False,
+                name="example",
             )
         """
 
@@ -266,14 +266,14 @@ class TestV1API(API):
             "/test/v1/humans",
             body=marshal_CreateHumanRequest(
                 CreateHumanRequest(
-                    name=name,
-                    is_happy=is_happy,
-                    hair_count=hair_count,
-                    fingers_count=fingers_count,
-                    altitude_in_millimeter=altitude_in_millimeter,
-                    altitude_in_meter=altitude_in_meter,
-                    shoe_size=shoe_size,
                     height=height,
+                    shoe_size=shoe_size,
+                    altitude_in_meter=altitude_in_meter,
+                    altitude_in_millimeter=altitude_in_millimeter,
+                    fingers_count=fingers_count,
+                    hair_count=hair_count,
+                    is_happy=is_happy,
+                    name=name,
                     eyes_color=eyes_color,
                     organization_id=organization_id,
                     project_id=project_id,

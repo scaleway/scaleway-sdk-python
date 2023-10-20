@@ -15,6 +15,14 @@ from scaleway_core.utils import (
 )
 
 
+class ListNamesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListPinsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
@@ -26,6 +34,17 @@ class ListPinsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 class ListVolumesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class NameStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATUS = "unknown_status"
+    QUEUED = "queued"
+    PUBLISHING = "publishing"
+    FAILED = "failed"
+    PUBLISHED = "published"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -76,9 +95,9 @@ class PinCIDMeta:
 
 @dataclass
 class PinCID:
-    meta: PinCIDMeta
-
     origins: List[str]
+
+    meta: PinCIDMeta
 
     cid: Optional[str]
 
@@ -100,42 +119,68 @@ class PinInfo:
 
 @dataclass
 class PinOptions:
-    replication_count: int
-
     required_zones: List[str]
 
-
-@dataclass
-class Pin:
-    info: PinInfo
-
-    delegates: List[str]
-
-    cid: PinCID
-
-    status: PinStatus
-
-    pin_id: str
-
-    created_at: Optional[datetime]
+    replication_count: int
 
 
 @dataclass
-class Volume:
-    name: str
+class Name:
+    name_id: str
+
+    project_id: str
 
     tags: List[str]
 
-    count_pin: int
+    name: str
+
+    key: str
+
+    status: NameStatus
+
+    value: str
 
     region: Region
     """
     Region to target. If none is passed will use default region from the config.
     """
 
+    created_at: Optional[datetime]
+
+    updated_at: Optional[datetime]
+
+
+@dataclass
+class Pin:
+    pin_id: str
+
+    status: PinStatus
+
+    cid: PinCID
+
+    delegates: List[str]
+
+    info: PinInfo
+
+    created_at: Optional[datetime]
+
+
+@dataclass
+class Volume:
+    id: str
+
     project_id: str
 
-    id: str
+    region: Region
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    count_pin: int
+
+    tags: List[str]
+
+    name: str
 
     created_at: Optional[datetime]
 
@@ -146,19 +191,14 @@ class Volume:
 
 @dataclass
 class CreatePinByCIDRequest:
-    pin_options: PinOptions
+    volume_id: str
     """
-    Pin options.
+    Volume ID on which you want to pin your content.
     """
 
     cid: str
     """
     CID containing the content you want to pin.
-    """
-
-    volume_id: str
-    """
-    Volume ID on which you want to pin your content.
     """
 
     region: Optional[Region]
@@ -176,22 +216,22 @@ class CreatePinByCIDRequest:
     Pin name.
     """
 
+    pin_options: Optional[PinOptions]
+    """
+    Pin options.
+    """
+
 
 @dataclass
 class CreatePinByURLRequest:
-    pin_options: PinOptions
+    volume_id: str
     """
-    Pin options.
+    Volume ID on which you want to pin your content.
     """
 
     url: str
     """
     URL containing the content you want to pin.
-    """
-
-    volume_id: str
-    """
-    Volume ID on which you want to pin your content.
     """
 
     region: Optional[Region]
@@ -202,6 +242,11 @@ class CreatePinByURLRequest:
     name: Optional[str]
     """
     Pin name.
+    """
+
+    pin_options: Optional[PinOptions]
+    """
+    Pin options.
     """
 
 
@@ -255,6 +300,21 @@ class DeleteVolumeRequest:
 
 
 @dataclass
+class ExportKeyNameResponse:
+    name_id: str
+
+    project_id: str
+
+    public_key: str
+
+    private_key: str
+
+    created_at: Optional[datetime]
+
+    updated_at: Optional[datetime]
+
+
+@dataclass
 class GetPinRequest:
     volume_id: str
     """
@@ -283,6 +343,164 @@ class GetVolumeRequest:
     """
     Region to target. If none is passed will use default region from the config.
     """
+
+
+@dataclass
+class IpnsApiCreateNameRequest:
+    name: str
+    """
+    Name for your records.
+    """
+
+    value: str
+    """
+    Value you want to associate with your records, CID or IPNS key.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    Project ID.
+    """
+
+
+@dataclass
+class IpnsApiDeleteNameRequest:
+    name_id: str
+    """
+    Name ID you wish to delete.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class IpnsApiExportKeyNameRequest:
+    name_id: str
+    """
+    Name ID whose keys you want to export.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class IpnsApiGetNameRequest:
+    name_id: str
+    """
+    Name ID whose information you want to retrieve.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class IpnsApiImportKeyNameRequest:
+    name: str
+    """
+    Name for your records.
+    """
+
+    private_key: str
+    """
+    Base64 private key.
+    """
+
+    value: str
+    """
+    Value you want to associate with your records, CID or IPNS key.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    Project ID.
+    """
+
+
+@dataclass
+class IpnsApiListNamesRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    Project ID.
+    """
+
+    organization_id: Optional[str]
+    """
+    Organization ID.
+    """
+
+    order_by: Optional[ListNamesRequestOrderBy]
+    """
+    Sort the order of the returned names.
+    """
+
+    page: Optional[int]
+    """
+    Page number.
+    """
+
+    page_size: Optional[int]
+    """
+    Maximum number of names to return per page.
+    """
+
+
+@dataclass
+class IpnsApiUpdateNameRequest:
+    name_id: str
+    """
+    Name ID you wish to update.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    name: Optional[str]
+    """
+    New name you want to associate with your record.
+    """
+
+    tags: Optional[List[str]]
+    """
+    New tags you want to associate with your record.
+    """
+
+    value: Optional[str]
+    """
+    Value you want to associate with your records, CID or IPNS key.
+    """
+
+
+@dataclass
+class ListNamesResponse:
+    names: List[Name]
+
+    total_count: int
 
 
 @dataclass
@@ -330,9 +548,9 @@ class ListPinsRequest:
 
 @dataclass
 class ListPinsResponse:
-    pins: List[Pin]
-
     total_count: int
+
+    pins: List[Pin]
 
 
 @dataclass
@@ -365,23 +583,13 @@ class ListVolumesRequest:
 
 @dataclass
 class ListVolumesResponse:
-    total_count: int
-
     volumes: List[Volume]
+
+    total_count: int
 
 
 @dataclass
 class ReplacePinRequest:
-    pin_options: PinOptions
-    """
-    Pin options.
-    """
-
-    cid: str
-    """
-    New CID you want to pin in place of the old one.
-    """
-
     volume_id: str
     """
     Volume ID.
@@ -390,6 +598,11 @@ class ReplacePinRequest:
     pin_id: str
     """
     Pin ID whose information you wish to replace.
+    """
+
+    cid: str
+    """
+    New CID you want to pin in place of the old one.
     """
 
     region: Optional[Region]
@@ -405,6 +618,11 @@ class ReplacePinRequest:
     origins: Optional[List[str]]
     """
     Node containing the content you want to pin.
+    """
+
+    pin_options: Optional[PinOptions]
+    """
+    Pin options.
     """
 
 

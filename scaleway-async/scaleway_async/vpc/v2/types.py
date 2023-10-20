@@ -37,14 +37,14 @@ class ListVPCsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 
 @dataclass
 class Subnet:
-    subnet: str
-    """
-    Subnet CIDR.
-    """
-
     id: str
     """
     ID of the subnet.
+    """
+
+    subnet: str
+    """
+    Subnet CIDR.
     """
 
     created_at: Optional[datetime]
@@ -60,39 +60,9 @@ class Subnet:
 
 @dataclass
 class PrivateNetwork:
-    dhcp_enabled: bool
+    id: str
     """
-    Defines whether managed DHCP is enabled for this Private Network.
-    """
-
-    vpc_id: str
-    """
-    VPC the Private Network belongs to.
-    """
-
-    subnets: List[Subnet]
-    """
-    Private Network subnets.
-    """
-
-    tags: List[str]
-    """
-    Tags of the Private Network.
-    """
-
-    region: Region
-    """
-    Region in which the Private Network is available.
-    """
-
-    project_id: str
-    """
-    Scaleway Project the Private Network belongs to.
-    """
-
-    organization_id: str
-    """
-    Scaleway Organization the Private Network belongs to.
+    Private Network ID.
     """
 
     name: str
@@ -100,9 +70,39 @@ class PrivateNetwork:
     Private Network name.
     """
 
-    id: str
+    organization_id: str
     """
-    Private Network ID.
+    Scaleway Organization the Private Network belongs to.
+    """
+
+    project_id: str
+    """
+    Scaleway Project the Private Network belongs to.
+    """
+
+    region: Region
+    """
+    Region in which the Private Network is available.
+    """
+
+    tags: List[str]
+    """
+    Tags of the Private Network.
+    """
+
+    subnets: List[Subnet]
+    """
+    Private Network subnets.
+    """
+
+    vpc_id: str
+    """
+    VPC the Private Network belongs to.
+    """
+
+    dhcp_enabled: bool
+    """
+    Defines whether managed DHCP is enabled for this Private Network.
     """
 
     created_at: Optional[datetime]
@@ -118,34 +118,9 @@ class PrivateNetwork:
 
 @dataclass
 class VPC:
-    private_network_count: int
+    id: str
     """
-    Number of Private Networks within this VPC.
-    """
-
-    is_default: bool
-    """
-    Defines whether the VPC is the default one for its Project.
-    """
-
-    tags: List[str]
-    """
-    Tags for the VPC.
-    """
-
-    region: Region
-    """
-    Region of the VPC.
-    """
-
-    project_id: str
-    """
-    Scaleway Project the VPC belongs to.
-    """
-
-    organization_id: str
-    """
-    Scaleway Organization the VPC belongs to.
+    VPC ID.
     """
 
     name: str
@@ -153,9 +128,34 @@ class VPC:
     VPC name.
     """
 
-    id: str
+    organization_id: str
     """
-    VPC ID.
+    Scaleway Organization the VPC belongs to.
+    """
+
+    project_id: str
+    """
+    Scaleway Project the VPC belongs to.
+    """
+
+    region: Region
+    """
+    Region of the VPC.
+    """
+
+    tags: List[str]
+    """
+    Tags for the VPC.
+    """
+
+    is_default: bool
+    """
+    Defines whether the VPC is the default one for its Project.
+    """
+
+    private_network_count: int
+    """
+    Number of Private Networks within this VPC.
     """
 
     created_at: Optional[datetime]
@@ -396,9 +396,9 @@ class ListPrivateNetworksRequest:
 
 @dataclass
 class ListPrivateNetworksResponse:
-    total_count: int
-
     private_networks: List[PrivateNetwork]
+
+    total_count: int
 
 
 @dataclass
@@ -451,9 +451,9 @@ class ListVPCsRequest:
 
 @dataclass
 class ListVPCsResponse:
-    total_count: int
-
     vpcs: List[VPC]
+
+    total_count: int
 
 
 @dataclass

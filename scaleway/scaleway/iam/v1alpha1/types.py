@@ -165,19 +165,9 @@ class RuleSpecs:
 
 @dataclass
 class JWT:
-    user_agent: str
+    jti: str
     """
-    User-agent used during the creation of the JWT.
-    """
-
-    ip: str
-    """
-    IP address used during the creation of the JWT.
-    """
-
-    audience_id: str
-    """
-    ID of the user targeted by the JWT.
+    JWT ID.
     """
 
     issuer_id: str
@@ -185,9 +175,19 @@ class JWT:
     ID of the user who issued the JWT.
     """
 
-    jti: str
+    audience_id: str
     """
-    JWT ID.
+    ID of the user targeted by the JWT.
+    """
+
+    ip: str
+    """
+    IP address used during the creation of the JWT.
+    """
+
+    user_agent: str
+    """
+    User-agent used during the creation of the JWT.
     """
 
     created_at: Optional[datetime]
@@ -208,19 +208,9 @@ class JWT:
 
 @dataclass
 class APIKey:
-    creation_ip: str
+    access_key: str
     """
-    IP address of the device that created the API key.
-    """
-
-    editable: bool
-    """
-    Defines whether or not the API key is editable.
-    """
-
-    default_project_id: str
-    """
-    Default Project ID specified for this API key.
+    Access key of the API key.
     """
 
     description: str
@@ -228,9 +218,19 @@ class APIKey:
     Description of API key.
     """
 
-    access_key: str
+    default_project_id: str
     """
-    Access key of the API key.
+    Default Project ID specified for this API key.
+    """
+
+    editable: bool
+    """
+    Defines whether or not the API key is editable.
+    """
+
+    creation_ip: str
+    """
+    IP address of the device that created the API key.
     """
 
     secret_key: Optional[str]
@@ -260,24 +260,9 @@ class APIKey:
 
 @dataclass
 class Application:
-    nb_api_keys: int
+    id: str
     """
-    Number of API keys attributed to the application.
-    """
-
-    editable: bool
-    """
-    Defines whether or not the application is editable.
-    """
-
-    organization_id: str
-    """
-    ID of the Organization.
-    """
-
-    description: str
-    """
-    Description of the application.
+    ID of the application.
     """
 
     name: str
@@ -285,9 +270,24 @@ class Application:
     Name of the application.
     """
 
-    id: str
+    description: str
     """
-    ID of the application.
+    Description of the application.
+    """
+
+    organization_id: str
+    """
+    ID of the Organization.
+    """
+
+    editable: bool
+    """
+    Defines whether or not the application is editable.
+    """
+
+    nb_api_keys: int
+    """
+    Number of API keys attributed to the application.
     """
 
     created_at: Optional[datetime]
@@ -303,24 +303,9 @@ class Application:
 
 @dataclass
 class Group:
-    application_ids: List[str]
+    id: str
     """
-    IDs of applications attached to this group.
-    """
-
-    user_ids: List[str]
-    """
-    IDs of users attached to this group.
-    """
-
-    description: str
-    """
-    Description of the group.
-    """
-
-    name: str
-    """
-    Name of the group.
+    ID of the group.
     """
 
     organization_id: str
@@ -328,9 +313,24 @@ class Group:
     ID of Organization linked to the group.
     """
 
-    id: str
+    name: str
     """
-    ID of the group.
+    Name of the group.
+    """
+
+    description: str
+    """
+    Description of the group.
+    """
+
+    user_ids: List[str]
+    """
+    IDs of users attached to this group.
+    """
+
+    application_ids: List[str]
+    """
+    IDs of applications attached to this group.
     """
 
     created_at: Optional[datetime]
@@ -346,14 +346,9 @@ class Group:
 
 @dataclass
 class PermissionSet:
-    description: str
+    id: str
     """
-    Description of the permission set.
-    """
-
-    scope_type: PermissionSetScopeType
-    """
-    Scope of the permission set.
+    Id of the permission set.
     """
 
     name: str
@@ -361,9 +356,14 @@ class PermissionSet:
     Name of the permission set.
     """
 
-    id: str
+    scope_type: PermissionSetScopeType
     """
-    Id of the permission set.
+    Scope of the permission set.
+    """
+
+    description: str
+    """
+    Description of the permission set.
     """
 
     categories: Optional[List[str]]
@@ -374,34 +374,9 @@ class PermissionSet:
 
 @dataclass
 class Policy:
-    nb_permission_sets: int
+    id: str
     """
-    Number of permission sets of the policy.
-    """
-
-    nb_scopes: int
-    """
-    Number of policy scopes.
-    """
-
-    nb_rules: int
-    """
-    Number of rules of the policy.
-    """
-
-    editable: bool
-    """
-    Defines whether or not a policy is editable.
-    """
-
-    organization_id: str
-    """
-    Organization ID of the policy.
-    """
-
-    description: str
-    """
-    Description of the policy.
+    Id of the policy.
     """
 
     name: str
@@ -409,9 +384,34 @@ class Policy:
     Name of the policy.
     """
 
-    id: str
+    description: str
     """
-    Id of the policy.
+    Description of the policy.
+    """
+
+    organization_id: str
+    """
+    Organization ID of the policy.
+    """
+
+    editable: bool
+    """
+    Defines whether or not a policy is editable.
+    """
+
+    nb_rules: int
+    """
+    Number of rules of the policy.
+    """
+
+    nb_scopes: int
+    """
+    Number of policy scopes.
+    """
+
+    nb_permission_sets: int
+    """
+    Number of permission sets of the policy.
     """
 
     created_at: Optional[datetime]
@@ -447,14 +447,14 @@ class Quotum:
 
 @dataclass
 class Rule:
-    permission_sets_scope_type: PermissionSetScopeType
-    """
-    Permission_set_names have the same scope_type.
-    """
-
     id: str
     """
     Id of rule.
+    """
+
+    permission_sets_scope_type: PermissionSetScopeType
+    """
+    Permission_set_names have the same scope_type.
     """
 
     permission_set_names: Optional[List[str]]
@@ -471,29 +471,9 @@ class Rule:
 
 @dataclass
 class SSHKey:
-    disabled: bool
+    id: str
     """
-    SSH key status.
-    """
-
-    project_id: str
-    """
-    ID of Project linked to the SSH key.
-    """
-
-    organization_id: str
-    """
-    ID of Organization linked to the SSH key.
-    """
-
-    fingerprint: str
-    """
-    Fingerprint of the SSH key.
-    """
-
-    public_key: str
-    """
-    Public key of SSH key.
+    ID of SSH key.
     """
 
     name: str
@@ -501,9 +481,29 @@ class SSHKey:
     Name of SSH key.
     """
 
-    id: str
+    public_key: str
     """
-    ID of SSH key.
+    Public key of SSH key.
+    """
+
+    fingerprint: str
+    """
+    Fingerprint of the SSH key.
+    """
+
+    organization_id: str
+    """
+    ID of Organization linked to the SSH key.
+    """
+
+    project_id: str
+    """
+    ID of Project linked to the SSH key.
+    """
+
+    disabled: bool
+    """
+    SSH key status.
     """
 
     created_at: Optional[datetime]
@@ -519,34 +519,9 @@ class SSHKey:
 
 @dataclass
 class User:
-    account_root_user_id: str
+    id: str
     """
-    ID of the account root user associated with the user.
-    """
-
-    mfa: bool
-    """
-    Defines whether MFA is enabled.
-    """
-
-    status: UserStatus
-    """
-    Status of user invitation.
-    """
-
-    type_: UserType
-    """
-    Type of user.
-    """
-
-    deletable: bool
-    """
-    Deletion status of user. Owners cannot be deleted.
-    """
-
-    organization_id: str
-    """
-    ID of the Organization.
+    ID of user.
     """
 
     email: str
@@ -554,9 +529,34 @@ class User:
     Email of user.
     """
 
-    id: str
+    organization_id: str
     """
-    ID of user.
+    ID of the Organization.
+    """
+
+    deletable: bool
+    """
+    Deletion status of user. Owners cannot be deleted.
+    """
+
+    type_: UserType
+    """
+    Type of user.
+    """
+
+    status: UserStatus
+    """
+    Status of user invitation.
+    """
+
+    mfa: bool
+    """
+    Defines whether MFA is enabled.
+    """
+
+    account_root_user_id: str
+    """
+    ID of the account root user associated with the user.
     """
 
     created_at: Optional[datetime]
@@ -916,14 +916,14 @@ class ListAPIKeysRequest:
 
 @dataclass
 class ListAPIKeysResponse:
-    total_count: int
-    """
-    Total count of API Keys.
-    """
-
     api_keys: List[APIKey]
     """
     List of API keys.
+    """
+
+    total_count: int
+    """
+    Total count of API Keys.
     """
 
 
@@ -967,14 +967,14 @@ class ListApplicationsRequest:
 
 @dataclass
 class ListApplicationsResponse:
-    total_count: int
-    """
-    Total count of applications.
-    """
-
     applications: List[Application]
     """
     List of applications.
+    """
+
+    total_count: int
+    """
+    Total count of applications.
     """
 
 
@@ -1023,14 +1023,14 @@ class ListGroupsRequest:
 
 @dataclass
 class ListGroupsResponse:
-    total_count: int
-    """
-    Total count of groups.
-    """
-
     groups: List[Group]
     """
     List of groups.
+    """
+
+    total_count: int
+    """
+    Total count of groups.
     """
 
 
@@ -1064,9 +1064,9 @@ class ListJWTsRequest:
 
 @dataclass
 class ListJWTsResponse:
-    total_count: int
-
     jwts: List[JWT]
+
+    total_count: int
 
 
 @dataclass
@@ -1094,14 +1094,14 @@ class ListPermissionSetsRequest:
 
 @dataclass
 class ListPermissionSetsResponse:
-    total_count: int
-    """
-    Total count of permission sets.
-    """
-
     permission_sets: List[PermissionSet]
     """
     List of permission sets.
+    """
+
+    total_count: int
+    """
+    Total count of permission sets.
     """
 
 
@@ -1160,14 +1160,14 @@ class ListPoliciesRequest:
 
 @dataclass
 class ListPoliciesResponse:
-    total_count: int
-    """
-    Total count of policies.
-    """
-
     policies: List[Policy]
     """
     List of policies.
+    """
+
+    total_count: int
+    """
+    Total count of policies.
     """
 
 
@@ -1196,14 +1196,14 @@ class ListQuotaRequest:
 
 @dataclass
 class ListQuotaResponse:
-    total_count: int
-    """
-    Total count of quota.
-    """
-
     quota: List[Quotum]
     """
     List of quota.
+    """
+
+    total_count: int
+    """
+    Total count of quota.
     """
 
 
@@ -1227,14 +1227,14 @@ class ListRulesRequest:
 
 @dataclass
 class ListRulesResponse:
-    total_count: int
-    """
-    Total count of rules.
-    """
-
     rules: List[Rule]
     """
     Rules of the policy.
+    """
+
+    total_count: int
+    """
+    Total count of rules.
     """
 
 
@@ -1278,14 +1278,14 @@ class ListSSHKeysRequest:
 
 @dataclass
 class ListSSHKeysResponse:
-    total_count: int
-    """
-    Total count of SSH keys.
-    """
-
     ssh_keys: List[SSHKey]
     """
     List of SSH keys.
+    """
+
+    total_count: int
+    """
+    Total count of SSH keys.
     """
 
 
@@ -1324,14 +1324,14 @@ class ListUsersRequest:
 
 @dataclass
 class ListUsersResponse:
-    total_count: int
-    """
-    Total count of users.
-    """
-
     users: List[User]
     """
     List of users.
+    """
+
+    total_count: int
+    """
+    Total count of users.
     """
 
 
@@ -1351,9 +1351,9 @@ class RemoveGroupMemberRequest:
 class SetGroupMembersRequest:
     group_id: str
 
-    user_ids: Optional[List[str]]
+    user_ids: List[str]
 
-    application_ids: Optional[List[str]]
+    application_ids: List[str]
 
 
 @dataclass
@@ -1363,7 +1363,7 @@ class SetRulesRequest:
     Id of policy to update.
     """
 
-    rules: Optional[List[RuleSpecs]]
+    rules: List[RuleSpecs]
     """
     Rules of the policy to set.
     """

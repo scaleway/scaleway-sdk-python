@@ -45,6 +45,7 @@ from .types import DeleteClusterRequest
 from .types import DeleteNodeRequest
 from .types import DeletePoolRequest
 from .types import ExternalNode
+from .types import GetClusterKubeConfigRequest
 from .types import GetClusterRequest
 from .types import GetNodeRequest
 from .types import GetPoolRequest
@@ -120,6 +121,7 @@ __all__ = [
     "DeleteNodeRequest",
     "DeletePoolRequest",
     "ExternalNode",
+    "GetClusterKubeConfigRequest",
     "GetClusterRequest",
     "GetNodeRequest",
     "GetPoolRequest",

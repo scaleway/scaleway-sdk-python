@@ -30,23 +30,23 @@ def unmarshal_Namespace(data: Any) -> Namespace:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("region", None)
-    args["region"] = field
-
-    field = data.get("project_id", None)
-    args["project_id"] = field
-
-    field = data.get("protocol", None)
-    args["protocol"] = field
-
-    field = data.get("endpoint", None)
-    args["endpoint"] = field
+    field = data.get("id", None)
+    args["id"] = field
 
     field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("id", None)
-    args["id"] = field
+    field = data.get("endpoint", None)
+    args["endpoint"] = field
+
+    field = data.get("protocol", None)
+    args["protocol"] = field
+
+    field = data.get("project_id", None)
+    args["project_id"] = field
+
+    field = data.get("region", None)
+    args["region"] = field
 
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -99,11 +99,11 @@ def unmarshal_CredentialSQSSNSCreds(data: Any) -> CredentialSQSSNSCreds:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("permissions", None)
-    args["permissions"] = unmarshal_Permissions(field)
-
     field = data.get("access_key", None)
     args["access_key"] = field
+
+    field = data.get("permissions", None)
+    args["permissions"] = unmarshal_Permissions(field)
 
     field = data.get("secret_key", None)
     args["secret_key"] = field
@@ -119,17 +119,17 @@ def unmarshal_Credential(data: Any) -> Credential:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("protocol", None)
-    args["protocol"] = field
-
-    field = data.get("namespace_id", None)
-    args["namespace_id"] = field
+    field = data.get("id", None)
+    args["id"] = field
 
     field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("id", None)
-    args["id"] = field
+    field = data.get("namespace_id", None)
+    args["namespace_id"] = field
+
+    field = data.get("protocol", None)
+    args["protocol"] = field
 
     field = data.get("nats_credentials", None)
     args["nats_credentials"] = unmarshal_CredentialNATSCredsFile(field)
@@ -148,11 +148,11 @@ def unmarshal_CredentialSummarySQSSNSCreds(data: Any) -> CredentialSummarySQSSNS
 
     args: Dict[str, Any] = {}
 
-    field = data.get("permissions", None)
-    args["permissions"] = unmarshal_Permissions(field)
-
     field = data.get("access_key", None)
     args["access_key"] = field
+
+    field = data.get("permissions", None)
+    args["permissions"] = unmarshal_Permissions(field)
 
     return CredentialSummarySQSSNSCreds(**args)
 
@@ -165,17 +165,17 @@ def unmarshal_CredentialSummary(data: Any) -> CredentialSummary:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("protocol", None)
-    args["protocol"] = field
-
-    field = data.get("namespace_id", None)
-    args["namespace_id"] = field
+    field = data.get("id", None)
+    args["id"] = field
 
     field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("id", None)
-    args["id"] = field
+    field = data.get("namespace_id", None)
+    args["namespace_id"] = field
+
+    field = data.get("protocol", None)
+    args["protocol"] = field
 
     field = data.get("sqs_sns_credentials", None)
     args["sqs_sns_credentials"] = unmarshal_CredentialSummarySQSSNSCreds(field)
@@ -191,13 +191,13 @@ def unmarshal_ListCredentialsResponse(data: Any) -> ListCredentialsResponse:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("total_count", None)
+    args["total_count"] = field
+
     field = data.get("credentials", None)
     args["credentials"] = (
         [unmarshal_CredentialSummary(v) for v in field] if field is not None else None
     )
-
-    field = data.get("total_count", None)
-    args["total_count"] = field
 
     return ListCredentialsResponse(**args)
 
@@ -210,13 +210,13 @@ def unmarshal_ListNamespacesResponse(data: Any) -> ListNamespacesResponse:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("total_count", None)
+    args["total_count"] = field
+
     field = data.get("namespaces", None)
     args["namespaces"] = (
         [unmarshal_Namespace(v) for v in field] if field is not None else None
     )
-
-    field = data.get("total_count", None)
-    args["total_count"] = field
 
     return ListNamespacesResponse(**args)
 
@@ -263,11 +263,11 @@ def marshal_CreateNamespaceRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.name is not None:
-        output["name"] = request.name
-
     if request.protocol is not None:
         output["protocol"] = str(request.protocol)
+
+    if request.name is not None:
+        output["name"] = request.name
 
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id

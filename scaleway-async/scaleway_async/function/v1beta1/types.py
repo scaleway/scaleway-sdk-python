@@ -235,46 +235,48 @@ class TriggerStatus(str, Enum, metaclass=StrEnumMeta):
 
 @dataclass
 class SecretHashedValue:
-    hashed_value: str
-
     key: str
+
+    hashed_value: str
 
 
 @dataclass
 class TriggerMnqNatsClientConfig:
-    mnq_region: str
+    subject: str
 
     mnq_project_id: str
 
-    subject: str
+    mnq_region: str
 
-    mnq_namespace_id: str
+    mnq_nats_account_id: str
+
+    mnq_namespace_id: Optional[str]
 
     mnq_credential_id: Optional[str]
 
 
 @dataclass
 class TriggerMnqSqsClientConfig:
-    mnq_region: str
+    queue: str
 
     mnq_project_id: str
 
-    queue: str
+    mnq_region: str
 
-    mnq_namespace_id: str
+    mnq_namespace_id: Optional[str]
 
     mnq_credential_id: Optional[str]
 
 
 @dataclass
 class TriggerSqsClientConfig:
-    secret_key: str
-
-    access_key: str
+    endpoint: str
 
     queue_url: str
 
-    endpoint: str
+    access_key: str
+
+    secret_key: str
 
 
 @dataclass
@@ -286,54 +288,44 @@ class Secret:
 
 @dataclass
 class CreateTriggerRequestMnqNatsClientConfig:
-    mnq_nats_account_id: str
-
-    mnq_region: str
+    subject: str
 
     mnq_project_id: str
 
-    subject: str
+    mnq_region: str
 
-    mnq_namespace_id: str
+    mnq_nats_account_id: str
+
+    mnq_namespace_id: Optional[str]
 
 
 @dataclass
 class CreateTriggerRequestMnqSqsClientConfig:
-    mnq_region: str
+    queue: str
 
     mnq_project_id: str
 
-    queue: str
+    mnq_region: str
 
-    mnq_namespace_id: str
+    mnq_namespace_id: Optional[str]
 
 
 @dataclass
 class CreateTriggerRequestSqsClientConfig:
-    secret_key: str
-
-    access_key: str
+    endpoint: str
 
     queue_url: str
 
-    endpoint: str
+    access_key: str
+
+    secret_key: str
 
 
 @dataclass
 class Cron:
-    name: str
+    id: str
     """
-    Name of the cron.
-    """
-
-    status: CronStatus
-    """
-    Status of the cron.
-    """
-
-    schedule: str
-    """
-    Schedule of the cron.
+    UUID of the cron.
     """
 
     function_id: str
@@ -341,9 +333,19 @@ class Cron:
     UUID of the function the cron applies to.
     """
 
-    id: str
+    schedule: str
     """
-    UUID of the cron.
+    Schedule of the cron.
+    """
+
+    status: CronStatus
+    """
+    Status of the cron.
+    """
+
+    name: str
+    """
+    Name of the cron.
     """
 
     args: Optional[Dict[str, Any]]
@@ -354,19 +356,9 @@ class Cron:
 
 @dataclass
 class Domain:
-    status: DomainStatus
+    id: str
     """
-    State of the doamin.
-    """
-
-    url: str
-    """
-    URL of the function.
-    """
-
-    function_id: str
-    """
-    UUID of the function the domain is associated with.
+    UUID of the domain.
     """
 
     hostname: str
@@ -374,9 +366,19 @@ class Domain:
     Hostname associated with the function.
     """
 
-    id: str
+    function_id: str
     """
-    UUID of the domain.
+    UUID of the function the domain is associated with.
+    """
+
+    url: str
+    """
+    URL of the function.
+    """
+
+    status: DomainStatus
+    """
+    State of the doamin.
     """
 
     error_message: Optional[str]
@@ -387,69 +389,32 @@ class Domain:
 
 @dataclass
 class Runtime:
-    logo_url: str
-
-    implementation: str
-
-    extension: str
-
-    status_message: str
-
-    status: RuntimeStatus
-
-    code_sample: str
-
-    default_handler: str
-
-    version: str
+    name: str
 
     language: str
 
-    name: str
+    version: str
+
+    default_handler: str
+
+    code_sample: str
+
+    status: RuntimeStatus
+
+    status_message: str
+
+    extension: str
+
+    implementation: str
+
+    logo_url: str
 
 
 @dataclass
 class Function:
-    handler: str
-    """
-    Handler to use for the function.
-    """
-
     id: str
     """
     UUID of the function.
-    """
-
-    max_scale: int
-    """
-    Maximum number of instances to scale the function to.
-    """
-
-    domain_name: str
-    """
-    Domain name associated with the function.
-    """
-
-    secret_environment_variables: List[SecretHashedValue]
-    """
-    Secret environment variables of the function.
-    """
-
-    http_option: FunctionHttpOption
-    """
-    Possible values:
- - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
- - enabled: Serve both HTTP and HTTPS traffic.
-    """
-
-    region: Region
-    """
-    Region in which the function is deployed.
-    """
-
-    environment_variables: Dict[str, str]
-    """
-    Environment variables of the function.
     """
 
     name: str
@@ -462,21 +427,14 @@ class Function:
     UUID of the namespace the function belongs to.
     """
 
-    runtime: FunctionRuntime
+    status: FunctionStatus
     """
-    Runtime of the function.
-    """
-
-    runtime_message: str
-
-    privacy: FunctionPrivacy
-    """
-    Privacy setting of the function.
+    Status of the function.
     """
 
-    cpu_limit: int
+    environment_variables: Dict[str, str]
     """
-    CPU limit of the function.
+    Environment variables of the function.
     """
 
     min_scale: int
@@ -484,9 +442,14 @@ class Function:
     Minimum number of instances to scale the function to.
     """
 
-    status: FunctionStatus
+    max_scale: int
     """
-    Status of the function.
+    Maximum number of instances to scale the function to.
+    """
+
+    runtime: FunctionRuntime
+    """
+    Runtime of the function.
     """
 
     memory_limit: int
@@ -494,19 +457,48 @@ class Function:
     Memory limit of the function in MB.
     """
 
+    cpu_limit: int
+    """
+    CPU limit of the function.
+    """
+
+    handler: str
+    """
+    Handler to use for the function.
+    """
+
+    privacy: FunctionPrivacy
+    """
+    Privacy setting of the function.
+    """
+
+    domain_name: str
+    """
+    Domain name associated with the function.
+    """
+
+    secret_environment_variables: List[SecretHashedValue]
+    """
+    Secret environment variables of the function.
+    """
+
+    region: Region
+    """
+    Region in which the function is deployed.
+    """
+
+    http_option: FunctionHttpOption
+    """
+    Possible values:
+ - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
+ - enabled: Serve both HTTP and HTTPS traffic.
+    """
+
+    runtime_message: str
+
     timeout: Optional[str]
     """
     Request processing time limit for the function.
-    """
-
-    description: Optional[str]
-    """
-    Description of the function.
-    """
-
-    build_message: Optional[str]
-    """
-    Description of the current build step.
     """
 
     error_message: Optional[str]
@@ -514,22 +506,22 @@ class Function:
     Error message if the function is in "error" state.
     """
 
+    build_message: Optional[str]
+    """
+    Description of the current build step.
+    """
+
+    description: Optional[str]
+    """
+    Description of the function.
+    """
+
 
 @dataclass
 class Log:
-    stream: LogStream
+    message: str
     """
-    Can be stdout or stderr.
-    """
-
-    source: str
-    """
-    Source of the log (core runtime or user code).
-    """
-
-    level: str
-    """
-    Severity of the log (info, debug, error etc.).
+    Message of the log.
     """
 
     id: str
@@ -537,9 +529,19 @@ class Log:
     UUID of the log.
     """
 
-    message: str
+    level: str
     """
-    Message of the log.
+    Severity of the log (info, debug, error etc.).
+    """
+
+    source: str
+    """
+    Source of the log (core runtime or user code).
+    """
+
+    stream: LogStream
+    """
+    Can be stdout or stderr.
     """
 
     timestamp: Optional[datetime]
@@ -550,44 +552,9 @@ class Log:
 
 @dataclass
 class Namespace:
-    region: Region
+    id: str
     """
-    Region in which the namespace is located.
-    """
-
-    secret_environment_variables: List[SecretHashedValue]
-    """
-    Secret environment variables of the namespace.
-    """
-
-    registry_endpoint: str
-    """
-    Registry endpoint of the namespace.
-    """
-
-    registry_namespace_id: str
-    """
-    UUID of the registry namespace.
-    """
-
-    status: NamespaceStatus
-    """
-    Status of the namespace.
-    """
-
-    project_id: str
-    """
-    UUID of the Project the namespace belongs to.
-    """
-
-    organization_id: str
-    """
-    UUID of the Organization the namespace belongs to.
-    """
-
-    environment_variables: Dict[str, str]
-    """
-    Environment variables of the namespace.
+    UUID of the namespace.
     """
 
     name: str
@@ -595,9 +562,44 @@ class Namespace:
     Name of the namespace.
     """
 
-    id: str
+    environment_variables: Dict[str, str]
     """
-    UUID of the namespace.
+    Environment variables of the namespace.
+    """
+
+    organization_id: str
+    """
+    UUID of the Organization the namespace belongs to.
+    """
+
+    project_id: str
+    """
+    UUID of the Project the namespace belongs to.
+    """
+
+    status: NamespaceStatus
+    """
+    Status of the namespace.
+    """
+
+    registry_namespace_id: str
+    """
+    UUID of the registry namespace.
+    """
+
+    registry_endpoint: str
+    """
+    Registry endpoint of the namespace.
+    """
+
+    secret_environment_variables: List[SecretHashedValue]
+    """
+    Secret environment variables of the namespace.
+    """
+
+    region: Region
+    """
+    Region in which the namespace is located.
     """
 
     error_message: Optional[str]
@@ -613,9 +615,9 @@ class Namespace:
 
 @dataclass
 class Token:
-    status: TokenStatus
+    id: str
     """
-    Status of the token.
+    UUID of the token.
     """
 
     token: str
@@ -623,9 +625,9 @@ class Token:
     String of the token.
     """
 
-    id: str
+    status: TokenStatus
     """
-    UUID of the token.
+    Status of the token.
     """
 
     public_key: Optional[str]
@@ -650,17 +652,17 @@ class Token:
 
 @dataclass
 class Trigger:
-    function_id: str
-
-    status: TriggerStatus
-
-    input_type: TriggerInputType
-
-    description: str
+    id: str
 
     name: str
 
-    id: str
+    description: str
+
+    input_type: TriggerInputType
+
+    status: TriggerStatus
+
+    function_id: str
 
     error_message: Optional[str]
 
@@ -680,14 +682,14 @@ class UpdateTriggerRequestSqsClientConfig:
 
 @dataclass
 class CreateCronRequest:
-    schedule: str
-    """
-    Schedule of the cron in UNIX cron format.
-    """
-
     function_id: str
     """
     UUID of the function to use the cron with.
+    """
+
+    schedule: str
+    """
+    Schedule of the cron in UNIX cron format.
     """
 
     region: Optional[Region]
@@ -708,14 +710,14 @@ class CreateCronRequest:
 
 @dataclass
 class CreateDomainRequest:
-    function_id: str
-    """
-    UUID of the function to associate the domain with.
-    """
-
     hostname: str
     """
     Hostame to create.
+    """
+
+    function_id: str
+    """
+    UUID of the function to associate the domain with.
     """
 
     region: Optional[Region]
@@ -736,9 +738,9 @@ class CreateFunctionRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    runtime: Optional[FunctionRuntime]
+    name: Optional[str]
     """
-    Runtime to use with the function.
+    Name of the function to create.
     """
 
     environment_variables: Optional[Dict[str, str]]
@@ -756,9 +758,9 @@ class CreateFunctionRequest:
     Maximum number of instances to scale the function to.
     """
 
-    name: Optional[str]
+    runtime: Optional[FunctionRuntime]
     """
-    Name of the function to create.
+    Runtime to use with the function.
     """
 
     memory_limit: Optional[int]
@@ -850,9 +852,9 @@ class CreateTokenRequest:
 
 @dataclass
 class CreateTriggerRequest:
-    function_id: str
-
     name: str
+
+    function_id: str
 
     region: Optional[Region]
     """
@@ -958,9 +960,9 @@ class DeployFunctionRequest:
 
 @dataclass
 class DownloadURL:
-    headers: Dict[str, List[str]]
-
     url: str
+
+    headers: Dict[str, List[str]]
 
 
 @dataclass
@@ -1017,14 +1019,14 @@ class GetFunctionRequest:
 
 @dataclass
 class GetFunctionUploadURLRequest:
-    content_length: int
-    """
-    Size of the archive to upload in bytes.
-    """
-
     function_id: str
     """
     UUID of the function to get the upload URL for.
+    """
+
+    content_length: int
+    """
+    Size of the archive to upload in bytes.
     """
 
     region: Optional[Region]
@@ -1113,14 +1115,14 @@ class ListCronsRequest:
 
 @dataclass
 class ListCronsResponse:
-    total_count: int
-    """
-    Total number of crons.
-    """
-
     crons: List[Cron]
     """
     Array of crons.
+    """
+
+    total_count: int
+    """
+    Total number of crons.
     """
 
 
@@ -1154,14 +1156,14 @@ class ListDomainsRequest:
 
 @dataclass
 class ListDomainsResponse:
-    total_count: int
-    """
-    Total number of domains.
-    """
-
     domains: List[Domain]
     """
     Array of domains.
+    """
+
+    total_count: int
+    """
+    Total number of domains.
     """
 
 
@@ -1175,14 +1177,14 @@ class ListFunctionRuntimesRequest:
 
 @dataclass
 class ListFunctionRuntimesResponse:
-    total_count: int
-    """
-    Total number of runtimes.
-    """
-
     runtimes: List[Runtime]
     """
     Array of runtimes available.
+    """
+
+    total_count: int
+    """
+    Total number of runtimes.
     """
 
 
@@ -1231,14 +1233,14 @@ class ListFunctionsRequest:
 
 @dataclass
 class ListFunctionsResponse:
-    total_count: int
-    """
-    Total number of functions.
-    """
-
     functions: List[Function]
     """
     Array of functions.
+    """
+
+    total_count: int
+    """
+    Total number of functions.
     """
 
 
@@ -1272,14 +1274,14 @@ class ListLogsRequest:
 
 @dataclass
 class ListLogsResponse:
-    total_count: int
-    """
-    Total number of logs.
-    """
-
     logs: List[Log]
     """
     Array of logs.
+    """
+
+    total_count: int
+    """
+    Total number of logs.
     """
 
 
@@ -1323,12 +1325,12 @@ class ListNamespacesRequest:
 
 @dataclass
 class ListNamespacesResponse:
+    namespaces: List[Namespace]
+
     total_count: int
     """
     Total number of namespaces.
     """
-
-    namespaces: List[Namespace]
 
 
 @dataclass
@@ -1366,9 +1368,9 @@ class ListTokensRequest:
 
 @dataclass
 class ListTokensResponse:
-    total_count: int
-
     tokens: List[Token]
+
+    total_count: int
 
 
 @dataclass
@@ -1393,9 +1395,9 @@ class ListTriggersRequest:
 
 @dataclass
 class ListTriggersResponse:
-    total_count: int
-
     triggers: List[Trigger]
+
+    total_count: int
 
 
 @dataclass
@@ -1443,9 +1445,9 @@ class UpdateFunctionRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    memory_limit: Optional[int]
+    environment_variables: Optional[Dict[str, str]]
     """
-    Memory limit of the function in MB.
+    Environment variables of the function to update.
     """
 
     min_scale: Optional[int]
@@ -1463,9 +1465,9 @@ class UpdateFunctionRequest:
     Runtime to use with the function.
     """
 
-    environment_variables: Optional[Dict[str, str]]
+    memory_limit: Optional[int]
     """
-    Environment variables of the function to update.
+    Memory limit of the function in MB.
     """
 
     timeout: Optional[str]
@@ -1552,12 +1554,12 @@ class UpdateTriggerRequest:
 
 @dataclass
 class UploadURL:
-    headers: Dict[str, List[str]]
-    """
-    HTTP headers.
-    """
-
     url: str
     """
     Upload URL to upload the function to.
+    """
+
+    headers: Dict[str, List[str]]
+    """
+    HTTP headers.
     """

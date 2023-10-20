@@ -44,6 +44,7 @@ from .types import (
     CreateSecurityGroupResponse,
     CreateSecurityGroupRuleRequest,
     CreateSecurityGroupRuleResponse,
+    CreateServerRequest,
     CreateServerResponse,
     CreateSnapshotRequest,
     CreateSnapshotResponse,
@@ -97,6 +98,7 @@ from .types import (
     ServerLocation,
     ServerMaintenance,
     ServerSummary,
+    SetImageRequest,
     SetPlacementGroupRequest,
     SetPlacementGroupResponse,
     SetPlacementGroupServersRequest,
@@ -113,6 +115,7 @@ from .types import (
     UpdatePlacementGroupServersRequest,
     UpdatePlacementGroupServersResponse,
     UpdatePrivateNICRequest,
+    UpdateServerRequest,
     UpdateServerResponse,
     UpdateVolumeRequest,
     UpdateVolumeResponse,
@@ -120,8 +123,6 @@ from .types import (
     VolumeServerTemplate,
     VolumeSummary,
     VolumeTemplate,
-    _CreateServerRequest,
-    _SetImageRequest,
     _SetImageResponse,
     _SetSecurityGroupRequest,
     _SetSecurityGroupResponse,
@@ -131,7 +132,6 @@ from .types import (
     _SetServerResponse,
     _SetSnapshotRequest,
     _SetSnapshotResponse,
-    _UpdateServerRequest,
 )
 from .marshalling import (
     unmarshal_PrivateNIC,
@@ -194,11 +194,13 @@ from .marshalling import (
     marshal_CreatePrivateNICRequest,
     marshal_CreateSecurityGroupRequest,
     marshal_CreateSecurityGroupRuleRequest,
+    marshal_CreateServerRequest,
     marshal_CreateSnapshotRequest,
     marshal_CreateVolumeRequest,
     marshal_ExportSnapshotRequest,
     marshal_PlanBlockMigrationRequest,
     marshal_ServerActionRequest,
+    marshal_SetImageRequest,
     marshal_SetPlacementGroupRequest,
     marshal_SetPlacementGroupServersRequest,
     marshal_SetSecurityGroupRulesRequest,
@@ -206,14 +208,12 @@ from .marshalling import (
     marshal_UpdatePlacementGroupRequest,
     marshal_UpdatePlacementGroupServersRequest,
     marshal_UpdatePrivateNICRequest,
+    marshal_UpdateServerRequest,
     marshal_UpdateVolumeRequest,
-    marshal__CreateServerRequest,
-    marshal__SetImageRequest,
     marshal__SetSecurityGroupRequest,
     marshal__SetSecurityGroupRuleRequest,
     marshal__SetServerRequest,
     marshal__SetSnapshotRequest,
-    marshal__UpdateServerRequest,
 )
 
 
@@ -478,14 +478,14 @@ class InstanceV1API(API):
         self,
         *,
         commercial_type: str,
-        volumes: Dict[str, VolumeServerTemplate],
-        enable_ipv6: bool,
         image: str,
+        enable_ipv6: bool,
         zone: Optional[Zone] = None,
-        public_ip: Optional[str] = None,
-        routed_ip_enabled: Optional[bool] = None,
-        dynamic_ip_required: Optional[bool] = None,
         name: Optional[str] = None,
+        dynamic_ip_required: Optional[bool] = None,
+        routed_ip_enabled: Optional[bool] = None,
+        volumes: Optional[Dict[str, VolumeServerTemplate]] = None,
+        public_ip: Optional[str] = None,
         public_ips: Optional[List[str]] = None,
         boot_type: Optional[BootType] = None,
         bootscript: Optional[str] = None,
@@ -500,14 +500,14 @@ class InstanceV1API(API):
         Create a new Instance of the specified commercial type in the specified zone. Pay attention to the volumes parameter, which takes an object which can be used in different ways to achieve different behaviors.
         Get more information in the [Technical Information](#technical-information) section of the introduction.
         :param commercial_type: Define the Instance commercial type (i.e. GP1-S).
-        :param volumes: Volumes attached to the server.
-        :param enable_ipv6: True if IPv6 is enabled on the server.
         :param image: Instance image ID or label.
+        :param enable_ipv6: True if IPv6 is enabled on the server.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param public_ip: ID of the reserved IP to attach to the Instance.
-        :param routed_ip_enabled: If true, configure the Instance so it uses the new routed IP mode.
-        :param dynamic_ip_required: Define if a dynamic IPv4 is required for the Instance.
         :param name: Instance name.
+        :param dynamic_ip_required: Define if a dynamic IPv4 is required for the Instance.
+        :param routed_ip_enabled: If true, configure the Instance so it uses the new routed IP mode.
+        :param volumes: Volumes attached to the server.
+        :param public_ip: ID of the reserved IP to attach to the Instance.
         :param public_ips: A list of reserved IP IDs to attach to the Instance.
         :param boot_type: Boot type to use.
         :param bootscript: Bootscript ID to use when `boot_type` is set to `bootscript`.
@@ -523,9 +523,8 @@ class InstanceV1API(API):
 
             result = await api._create_server(
                 commercial_type="example",
-                volumes={},
-                enable_ipv6=False,
                 image="example",
+                enable_ipv6=False,
             )
         """
 
@@ -534,16 +533,16 @@ class InstanceV1API(API):
         res = self._request(
             "POST",
             f"/instance/v1/zones/{param_zone}/servers",
-            body=marshal__CreateServerRequest(
-                _CreateServerRequest(
-                    commercial_type=commercial_type,
-                    volumes=volumes,
-                    enable_ipv6=enable_ipv6,
-                    image=image,
+            body=marshal_CreateServerRequest(
+                CreateServerRequest(
                     zone=zone,
-                    routed_ip_enabled=routed_ip_enabled,
-                    dynamic_ip_required=dynamic_ip_required,
+                    commercial_type=commercial_type,
+                    image=image,
                     name=name or random_name(prefix="srv"),
+                    dynamic_ip_required=dynamic_ip_required,
+                    routed_ip_enabled=routed_ip_enabled,
+                    enable_ipv6=enable_ipv6,
+                    volumes=volumes,
                     public_ip=public_ip,
                     public_ips=public_ips,
                     boot_type=boot_type,
@@ -626,69 +625,69 @@ class InstanceV1API(API):
     async def _set_server(
         self,
         *,
-        enable_ipv6: bool,
-        location: ServerLocation,
-        dynamic_ip_required: bool,
-        ipv6: ServerIpv6,
-        commercial_type: str,
-        image: Image,
-        security_group: SecurityGroupSummary,
-        state_detail: str,
-        placement_group: PlacementGroup,
-        name: str,
-        id: str,
-        hostname: str,
-        public_ip: ServerIp,
-        volumes: Dict[str, Volume],
-        protected: bool,
         zone: Optional[Zone] = None,
-        boot_type: Optional[BootType] = None,
-        tags: Optional[List[str]] = None,
-        modification_date: Optional[datetime] = None,
-        state: Optional[ServerState] = None,
-        routed_ip_enabled: Optional[bool] = None,
-        creation_date: Optional[datetime] = None,
-        public_ips: Optional[List[ServerIp]] = None,
-        private_ip: Optional[str] = None,
-        bootscript: Optional[Bootscript] = None,
-        allowed_actions: Optional[List[ServerAction]] = None,
-        maintenances: Optional[List[ServerMaintenance]] = None,
-        project: Optional[str] = None,
-        arch: Optional[Arch] = None,
+        id: str,
+        name: str,
+        commercial_type: str,
+        dynamic_ip_required: bool,
+        enable_ipv6: bool,
+        hostname: str,
         organization: Optional[str] = None,
+        project: Optional[str] = None,
+        allowed_actions: Optional[List[ServerAction]] = None,
+        tags: Optional[List[str]] = None,
+        creation_date: Optional[datetime] = None,
+        routed_ip_enabled: Optional[bool] = None,
+        image: Optional[Image] = None,
+        protected: bool,
+        private_ip: Optional[str] = None,
+        public_ip: Optional[ServerIp] = None,
+        public_ips: Optional[List[ServerIp]] = None,
+        modification_date: Optional[datetime] = None,
+        state_detail: str,
+        state: Optional[ServerState] = None,
+        location: Optional[ServerLocation] = None,
+        ipv6: Optional[ServerIpv6] = None,
+        bootscript: Optional[Bootscript] = None,
+        boot_type: Optional[BootType] = None,
+        volumes: Optional[Dict[str, Volume]] = None,
+        security_group: Optional[SecurityGroupSummary] = None,
+        maintenances: Optional[List[ServerMaintenance]] = None,
+        arch: Optional[Arch] = None,
+        placement_group: Optional[PlacementGroup] = None,
         private_nics: Optional[List[PrivateNIC]] = None,
     ) -> _SetServerResponse:
         """
-        :param enable_ipv6: True if IPv6 is enabled.
-        :param location: Instance location.
-        :param dynamic_ip_required: True if a dynamic IPv4 is required.
-        :param ipv6: Instance IPv6 address.
-        :param commercial_type: Instance commercial type (eg. GP1-M).
-        :param image: Provide information on the Instance image.
-        :param security_group: Instance security group.
-        :param state_detail: Instance state_detail.
-        :param placement_group: Instance placement group.
-        :param name: Instance name.
-        :param id: Instance unique ID.
-        :param hostname: Instance host name.
-        :param public_ip: Information about the public IP.
-        :param volumes: Instance volumes.
-        :param protected: Instance protection option is activated.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param boot_type: Instance boot type.
-        :param tags: Tags associated with the Instance.
-        :param modification_date: Instance modification date.
-        :param state: Instance state.
-        :param routed_ip_enabled: True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False).
-        :param creation_date: Instance creation date.
-        :param public_ips: Information about all the public IPs attached to the server.
-        :param private_ip: Instance private IP address.
-        :param bootscript: Instance bootscript.
-        :param allowed_actions: Provide a list of allowed actions on the server.
-        :param maintenances: Instance planned maintenances.
-        :param project: Instance Project ID.
-        :param arch: Instance architecture (refers to the CPU architecture used for the Instance, e.g. x86_64, arm64).
+        :param id: Instance unique ID.
+        :param name: Instance name.
+        :param commercial_type: Instance commercial type (eg. GP1-M).
+        :param dynamic_ip_required: True if a dynamic IPv4 is required.
+        :param enable_ipv6: True if IPv6 is enabled.
+        :param hostname: Instance host name.
         :param organization: Instance Organization ID.
+        :param project: Instance Project ID.
+        :param allowed_actions: Provide a list of allowed actions on the server.
+        :param tags: Tags associated with the Instance.
+        :param creation_date: Instance creation date.
+        :param routed_ip_enabled: True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False).
+        :param image: Provide information on the Instance image.
+        :param protected: Instance protection option is activated.
+        :param private_ip: Instance private IP address.
+        :param public_ip: Information about the public IP.
+        :param public_ips: Information about all the public IPs attached to the server.
+        :param modification_date: Instance modification date.
+        :param state_detail: Instance state_detail.
+        :param state: Instance state.
+        :param location: Instance location.
+        :param ipv6: Instance IPv6 address.
+        :param bootscript: Instance bootscript.
+        :param boot_type: Instance boot type.
+        :param volumes: Instance volumes.
+        :param security_group: Instance security group.
+        :param maintenances: Instance planned maintenances.
+        :param arch: Instance architecture (refers to the CPU architecture used for the Instance, e.g. x86_64, arm64).
+        :param placement_group: Instance placement group.
         :param private_nics: Instance private NICs.
         :return: :class:`_SetServerResponse <_SetServerResponse>`
 
@@ -696,21 +695,14 @@ class InstanceV1API(API):
         ::
 
             result = await api._set_server(
-                enable_ipv6=False,
-                location=ServerLocation(),
-                dynamic_ip_required=False,
-                ipv6=ServerIpv6(),
-                commercial_type="example",
-                image=Image(),
-                security_group=SecurityGroupSummary(),
-                state_detail="example",
-                placement_group=PlacementGroup(),
-                name="example",
                 id="example",
+                name="example",
+                commercial_type="example",
+                dynamic_ip_required=False,
+                enable_ipv6=False,
                 hostname="example",
-                public_ip=ServerIp(),
-                volumes={},
                 protected=False,
+                state_detail="example",
             )
         """
 
@@ -722,36 +714,36 @@ class InstanceV1API(API):
             f"/instance/v1/zones/{param_zone}/servers/{param_id}",
             body=marshal__SetServerRequest(
                 _SetServerRequest(
-                    enable_ipv6=enable_ipv6,
-                    location=location,
-                    dynamic_ip_required=dynamic_ip_required,
-                    ipv6=ipv6,
-                    commercial_type=commercial_type,
-                    image=image,
-                    security_group=security_group,
-                    state_detail=state_detail,
-                    placement_group=placement_group,
-                    name=name,
-                    id=id,
-                    hostname=hostname,
-                    public_ip=public_ip,
-                    volumes=volumes,
-                    protected=protected,
                     zone=zone,
-                    boot_type=boot_type,
-                    tags=tags,
-                    modification_date=modification_date,
-                    state=state,
-                    routed_ip_enabled=routed_ip_enabled,
-                    creation_date=creation_date,
-                    public_ips=public_ips,
-                    private_ip=private_ip,
-                    bootscript=bootscript,
-                    allowed_actions=allowed_actions,
-                    maintenances=maintenances,
-                    project=project,
-                    arch=arch,
+                    id=id,
+                    name=name,
+                    commercial_type=commercial_type,
+                    dynamic_ip_required=dynamic_ip_required,
+                    enable_ipv6=enable_ipv6,
+                    hostname=hostname,
                     organization=organization,
+                    project=project,
+                    allowed_actions=allowed_actions,
+                    tags=tags,
+                    creation_date=creation_date,
+                    routed_ip_enabled=routed_ip_enabled,
+                    image=image,
+                    protected=protected,
+                    private_ip=private_ip,
+                    public_ip=public_ip,
+                    public_ips=public_ips,
+                    modification_date=modification_date,
+                    state_detail=state_detail,
+                    state=state,
+                    location=location,
+                    ipv6=ipv6,
+                    bootscript=bootscript,
+                    boot_type=boot_type,
+                    volumes=volumes,
+                    security_group=security_group,
+                    maintenances=maintenances,
+                    arch=arch,
+                    placement_group=placement_group,
                     private_nics=private_nics,
                 ),
                 self.client,
@@ -764,39 +756,39 @@ class InstanceV1API(API):
     async def _update_server(
         self,
         *,
-        security_group: SecurityGroupTemplate,
         server_id: str,
         zone: Optional[Zone] = None,
-        tags: Optional[List[str]] = None,
+        name: Optional[str] = None,
         boot_type: Optional[BootType] = None,
+        tags: Optional[List[str]] = None,
         volumes: Optional[Dict[str, VolumeServerTemplate]] = None,
         bootscript: Optional[str] = None,
         dynamic_ip_required: Optional[bool] = None,
         routed_ip_enabled: Optional[bool] = None,
-        public_ips: Optional[List[ServerIp]] = None,
+        public_ips: Optional[List[str]] = None,
         enable_ipv6: Optional[bool] = None,
         protected: Optional[bool] = None,
-        name: Optional[str] = None,
+        security_group: Optional[SecurityGroupTemplate] = None,
         placement_group: Optional[str] = None,
-        private_nics: Optional[List[PrivateNIC]] = None,
+        private_nics: Optional[List[str]] = None,
         commercial_type: Optional[str] = None,
     ) -> UpdateServerResponse:
         """
         Update an Instance.
         Update the Instance information, such as name, boot mode, or tags.
-        :param security_group:
         :param server_id: UUID of the Instance.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param tags: Tags of the Instance.
+        :param name: Name of the Instance.
         :param boot_type:
+        :param tags: Tags of the Instance.
         :param volumes:
         :param bootscript:
         :param dynamic_ip_required:
         :param routed_ip_enabled: True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False).
-        :param public_ips:
+        :param public_ips: A list of reserved IP IDs to attach to the Instance.
         :param enable_ipv6:
         :param protected:
-        :param name: Name of the Instance.
+        :param security_group:
         :param placement_group: Placement group ID if Instance must be part of a placement group.
         :param private_nics: Instance private NICs.
         :param commercial_type: Warning: This field has some restrictions:
@@ -809,7 +801,6 @@ class InstanceV1API(API):
         ::
 
             result = await api._update_server(
-                security_group=SecurityGroupTemplate(),
                 server_id="example",
             )
         """
@@ -820,13 +811,13 @@ class InstanceV1API(API):
         res = self._request(
             "PATCH",
             f"/instance/v1/zones/{param_zone}/servers/{param_server_id}",
-            body=marshal__UpdateServerRequest(
-                _UpdateServerRequest(
-                    security_group=security_group,
+            body=marshal_UpdateServerRequest(
+                UpdateServerRequest(
                     server_id=server_id,
                     zone=zone,
-                    tags=tags,
+                    name=name,
                     boot_type=boot_type,
+                    tags=tags,
                     volumes=volumes,
                     bootscript=bootscript,
                     dynamic_ip_required=dynamic_ip_required,
@@ -834,7 +825,7 @@ class InstanceV1API(API):
                     public_ips=public_ips,
                     enable_ipv6=enable_ipv6,
                     protected=protected,
-                    name=name,
+                    security_group=security_group,
                     placement_group=placement_group,
                     private_nics=private_nics,
                     commercial_type=commercial_type,
@@ -881,11 +872,11 @@ class InstanceV1API(API):
     async def server_action(
         self,
         *,
-        volumes: Dict[str, ServerActionRequestVolumeBackupTemplate],
         server_id: str,
         zone: Optional[Zone] = None,
         action: Optional[ServerAction] = None,
         name: Optional[str] = None,
+        volumes: Optional[Dict[str, ServerActionRequestVolumeBackupTemplate]] = None,
     ) -> ServerActionResponse:
         """
         Perform action.
@@ -902,12 +893,12 @@ class InstanceV1API(API):
         Keep in mind that terminating an Instance will result in the deletion of all attached volumes, including local and block storage.
         If you want to preserve your local volumes, you should use the `archive` action instead of `terminate`. Similarly, if you want to keep your block storage volumes, you must first detach them before issuing the `terminate` command.
         For more information, read the [Volumes](#path-volumes-list-volumes) documentation.
-        :param volumes: For each volume UUID, the snapshot parameters of the volume.
-        This field should only be specified when performing a backup action.
         :param server_id: UUID of the Instance.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param action: Action to perform on the Instance.
         :param name: Name of the backup you want to create.
+        This field should only be specified when performing a backup action.
+        :param volumes: For each volume UUID, the snapshot parameters of the volume.
         This field should only be specified when performing a backup action.
         :return: :class:`ServerActionResponse <ServerActionResponse>`
 
@@ -915,7 +906,6 @@ class InstanceV1API(API):
         ::
 
             result = await api.server_action(
-                volumes={},
                 server_id="example",
             )
         """
@@ -928,11 +918,11 @@ class InstanceV1API(API):
             f"/instance/v1/zones/{param_zone}/servers/{param_server_id}/action",
             body=marshal_ServerActionRequest(
                 ServerActionRequest(
-                    volumes=volumes,
                     server_id=server_id,
                     zone=zone,
                     action=action,
                     name=name,
+                    volumes=volumes,
                 ),
                 self.client,
             ),
@@ -976,23 +966,23 @@ class InstanceV1API(API):
     async def delete_server_user_data(
         self,
         *,
-        key: str,
         server_id: str,
+        key: str,
         zone: Optional[Zone] = None,
     ) -> None:
         """
         Delete user data.
         Delete the specified key from an Instance's user data.
-        :param key: Key of the user data to delete.
         :param server_id: UUID of the Instance.
+        :param key: Key of the user data to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
 
         Usage:
         ::
 
             result = await api.delete_server_user_data(
-                key="example",
                 server_id="example",
+                key="example",
             )
         """
 
@@ -1145,12 +1135,12 @@ class InstanceV1API(API):
     async def create_image(
         self,
         *,
-        extra_volumes: Dict[str, VolumeTemplate],
         root_volume: str,
+        arch: Arch,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
-        arch: Optional[Arch] = None,
         default_bootscript: Optional[str] = None,
+        extra_volumes: Optional[Dict[str, VolumeTemplate]] = None,
         organization: Optional[str] = None,
         project: Optional[str] = None,
         tags: Optional[List[str]] = None,
@@ -1159,12 +1149,12 @@ class InstanceV1API(API):
         """
         Create an Instance image.
         Create an Instance image from the specified snapshot ID.
-        :param extra_volumes: Additional volumes of the image.
         :param root_volume: UUID of the snapshot.
+        :param arch: Architecture of the image.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: Name of the image.
-        :param arch: Architecture of the image.
         :param default_bootscript: Default bootscript of the image.
+        :param extra_volumes: Additional volumes of the image.
         :param organization: Organization ID of the image.
         :param project: Project ID of the image.
         :param tags: Tags of the image.
@@ -1175,8 +1165,8 @@ class InstanceV1API(API):
         ::
 
             result = await api.create_image(
-                extra_volumes={},
                 root_volume="example",
+                arch=Arch.x86_64,
             )
         """
 
@@ -1187,12 +1177,12 @@ class InstanceV1API(API):
             f"/instance/v1/zones/{param_zone}/images",
             body=marshal_CreateImageRequest(
                 CreateImageRequest(
-                    extra_volumes=extra_volumes,
                     root_volume=root_volume,
+                    arch=arch,
                     zone=zone,
                     name=name or random_name(prefix="img"),
-                    arch=arch,
                     default_bootscript=default_bootscript,
+                    extra_volumes=extra_volumes,
                     tags=tags,
                     public=public,
                     organization=organization,
@@ -1208,18 +1198,18 @@ class InstanceV1API(API):
     async def _set_image(
         self,
         *,
+        zone: Optional[Zone] = None,
+        id: str,
+        name: str,
+        arch: Optional[Arch] = None,
+        creation_date: Optional[datetime] = None,
+        modification_date: Optional[datetime] = None,
         from_server: str,
         public: bool,
-        root_volume: VolumeSummary,
-        name: str,
-        id: str,
-        extra_volumes: Dict[str, Volume],
-        zone: Optional[Zone] = None,
         default_bootscript: Optional[Bootscript] = None,
-        modification_date: Optional[datetime] = None,
+        extra_volumes: Optional[Dict[str, Volume]] = None,
         organization: Optional[str] = None,
-        creation_date: Optional[datetime] = None,
-        arch: Optional[Arch] = None,
+        root_volume: Optional[VolumeSummary] = None,
         state: Optional[ImageState] = None,
         project: Optional[str] = None,
         tags: Optional[List[str]] = None,
@@ -1227,18 +1217,18 @@ class InstanceV1API(API):
         """
         Update image.
         Replace all image properties with an image message.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param id:
+        :param name:
+        :param arch:
+        :param creation_date:
+        :param modification_date:
         :param from_server:
         :param public:
-        :param root_volume:
-        :param name:
-        :param id:
-        :param extra_volumes:
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param default_bootscript:
-        :param modification_date:
+        :param extra_volumes:
         :param organization:
-        :param creation_date:
-        :param arch:
+        :param root_volume:
         :param state:
         :param project:
         :param tags:
@@ -1248,12 +1238,10 @@ class InstanceV1API(API):
         ::
 
             result = await api._set_image(
+                id="example",
+                name="example",
                 from_server="example",
                 public=False,
-                root_volume=VolumeSummary(),
-                name="example",
-                id="example",
-                extra_volumes={},
             )
         """
 
@@ -1263,20 +1251,20 @@ class InstanceV1API(API):
         res = self._request(
             "PUT",
             f"/instance/v1/zones/{param_zone}/images/{param_id}",
-            body=marshal__SetImageRequest(
-                _SetImageRequest(
+            body=marshal_SetImageRequest(
+                SetImageRequest(
+                    zone=zone,
+                    id=id,
+                    name=name,
+                    arch=arch,
+                    creation_date=creation_date,
+                    modification_date=modification_date,
                     from_server=from_server,
                     public=public,
-                    root_volume=root_volume,
-                    name=name,
-                    id=id,
-                    extra_volumes=extra_volumes,
-                    zone=zone,
                     default_bootscript=default_bootscript,
-                    modification_date=modification_date,
+                    extra_volumes=extra_volumes,
                     organization=organization,
-                    creation_date=creation_date,
-                    arch=arch,
+                    root_volume=root_volume,
                     state=state,
                     project=project,
                     tags=tags,
@@ -1511,35 +1499,35 @@ class InstanceV1API(API):
     async def _set_snapshot(
         self,
         *,
-        name: str,
         id: str,
-        snapshot_id: str,
-        base_volume: SnapshotBaseVolume,
-        size: int,
+        name: str,
         zone: Optional[Zone] = None,
-        volume_type: Optional[VolumeVolumeType] = None,
-        state: Optional[SnapshotState] = None,
         organization: Optional[str] = None,
+        volume_type: Optional[VolumeVolumeType] = None,
+        size: int,
+        state: Optional[SnapshotState] = None,
+        base_volume: Optional[SnapshotBaseVolume] = None,
         creation_date: Optional[datetime] = None,
         modification_date: Optional[datetime] = None,
         project: Optional[str] = None,
+        snapshot_id: str,
         tags: Optional[List[str]] = None,
     ) -> _SetSnapshotResponse:
         """
         Update snapshot.
         Replace all snapshot properties with a snapshot message.
-        :param name:
         :param id:
-        :param snapshot_id:
-        :param base_volume:
-        :param size:
+        :param name:
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param volume_type:
-        :param state:
         :param organization:
+        :param volume_type:
+        :param size:
+        :param state:
+        :param base_volume:
         :param creation_date:
         :param modification_date:
         :param project:
+        :param snapshot_id:
         :param tags:
         :return: :class:`_SetSnapshotResponse <_SetSnapshotResponse>`
 
@@ -1547,11 +1535,10 @@ class InstanceV1API(API):
         ::
 
             result = await api._set_snapshot(
-                name="example",
                 id="example",
-                snapshot_id="example",
-                base_volume=SnapshotBaseVolume(),
+                name="example",
                 size=1,
+                snapshot_id="example",
             )
         """
 
@@ -1563,18 +1550,18 @@ class InstanceV1API(API):
             f"/instance/v1/zones/{param_zone}/snapshots/{param_snapshot_id}",
             body=marshal__SetSnapshotRequest(
                 _SetSnapshotRequest(
-                    name=name,
                     id=id,
-                    snapshot_id=snapshot_id,
-                    base_volume=base_volume,
-                    size=size,
+                    name=name,
                     zone=zone,
-                    volume_type=volume_type,
-                    state=state,
                     organization=organization,
+                    volume_type=volume_type,
+                    size=size,
+                    state=state,
+                    base_volume=base_volume,
                     creation_date=creation_date,
                     modification_date=modification_date,
                     project=project,
+                    snapshot_id=snapshot_id,
                     tags=tags,
                 ),
                 self.client,
@@ -1617,16 +1604,16 @@ class InstanceV1API(API):
     async def export_snapshot(
         self,
         *,
-        key: str,
         bucket: str,
+        key: str,
         snapshot_id: str,
         zone: Optional[Zone] = None,
     ) -> ExportSnapshotResponse:
         """
         Export a snapshot.
         Export a snapshot to a specified S3 bucket in the same region.
-        :param key: S3 object key.
         :param bucket: S3 bucket name.
+        :param key: S3 object key.
         :param snapshot_id: Snapshot ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`ExportSnapshotResponse <ExportSnapshotResponse>`
@@ -1635,8 +1622,8 @@ class InstanceV1API(API):
         ::
 
             result = await api.export_snapshot(
-                key="example",
                 bucket="example",
+                key="example",
                 snapshot_id="example",
             )
         """
@@ -1649,8 +1636,8 @@ class InstanceV1API(API):
             f"/instance/v1/zones/{param_zone}/snapshots/{param_snapshot_id}/export",
             body=marshal_ExportSnapshotRequest(
                 ExportSnapshotRequest(
-                    key=key,
                     bucket=bucket,
+                    key=key,
                     snapshot_id=snapshot_id,
                     zone=zone,
                 ),
@@ -2025,8 +2012,8 @@ class InstanceV1API(API):
     async def create_security_group(
         self,
         *,
-        stateful: bool,
         description: str,
+        stateful: bool,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
         organization: Optional[str] = None,
@@ -2041,8 +2028,8 @@ class InstanceV1API(API):
         """
         Create a security group.
         Create a security group with a specified name and description.
-        :param stateful: Whether the security group is stateful or not.
         :param description: Description of the security group.
+        :param stateful: Whether the security group is stateful or not.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: Name of the security group.
         :param organization: Organization ID the security group belongs to.
@@ -2059,8 +2046,8 @@ class InstanceV1API(API):
         ::
 
             result = await api.create_security_group(
-                stateful=false,
                 description="example",
+                stateful=false,
             )
         """
 
@@ -2071,8 +2058,8 @@ class InstanceV1API(API):
             f"/instance/v1/zones/{param_zone}/security_groups",
             body=marshal_CreateSecurityGroupRequest(
                 CreateSecurityGroupRequest(
-                    stateful=stateful,
                     description=description,
+                    stateful=stateful,
                     zone=zone,
                     name=name or random_name(prefix="sg"),
                     tags=tags,
@@ -2160,54 +2147,54 @@ class InstanceV1API(API):
     async def _set_security_group(
         self,
         *,
+        zone: Optional[Zone] = None,
+        id: str,
+        name: str,
         description: str,
+        enable_default_security: bool,
+        tags: Optional[List[str]] = None,
+        creation_date: Optional[datetime] = None,
+        modification_date: Optional[datetime] = None,
         project_default: bool,
         stateful: bool,
-        name: str,
-        id: str,
-        enable_default_security: bool,
-        zone: Optional[Zone] = None,
         inbound_default_policy: Optional[SecurityGroupPolicy] = None,
-        modification_date: Optional[datetime] = None,
         outbound_default_policy: Optional[SecurityGroupPolicy] = None,
         organization: Optional[str] = None,
         project: Optional[str] = None,
         organization_default: Optional[bool] = None,
-        creation_date: Optional[datetime] = None,
         servers: Optional[List[ServerSummary]] = None,
-        tags: Optional[List[str]] = None,
     ) -> _SetSecurityGroupResponse:
         """
         Update a security group.
         Replace all security group properties with a security group message.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param id: ID of the security group (will be ignored).
+        :param name: Name of the security group.
         :param description: Description of the security group.
+        :param enable_default_security: True to block SMTP on IPv4 and IPv6. This feature is read only, please open a support ticket if you need to make it configurable.
+        :param tags: Tags of the security group.
+        :param creation_date: Creation date of the security group (will be ignored).
+        :param modification_date: Modification date of the security group (will be ignored).
         :param project_default: True use this security group for future Instances created in this project.
         :param stateful: True to set the security group as stateful.
-        :param name: Name of the security group.
-        :param id: ID of the security group (will be ignored).
-        :param enable_default_security: True to block SMTP on IPv4 and IPv6. This feature is read only, please open a support ticket if you need to make it configurable.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param inbound_default_policy: Default inbound policy.
-        :param modification_date: Modification date of the security group (will be ignored).
         :param outbound_default_policy: Default outbound policy.
         :param organization: Security groups Organization ID.
         :param project: Security group Project ID.
         :param organization_default: Please use project_default instead.
-        :param creation_date: Creation date of the security group (will be ignored).
         :param servers: Instances attached to this security group.
-        :param tags: Tags of the security group.
         :return: :class:`_SetSecurityGroupResponse <_SetSecurityGroupResponse>`
 
         Usage:
         ::
 
             result = await api._set_security_group(
+                id="example",
+                name="example",
                 description="example",
+                enable_default_security=False,
                 project_default=False,
                 stateful=False,
-                name="example",
-                id="example",
-                enable_default_security=False,
             )
         """
 
@@ -2219,22 +2206,22 @@ class InstanceV1API(API):
             f"/instance/v1/zones/{param_zone}/security_groups/{param_id}",
             body=marshal__SetSecurityGroupRequest(
                 _SetSecurityGroupRequest(
+                    zone=zone,
+                    id=id,
+                    name=name,
                     description=description,
+                    enable_default_security=enable_default_security,
+                    tags=tags,
+                    creation_date=creation_date,
+                    modification_date=modification_date,
                     project_default=project_default,
                     stateful=stateful,
-                    name=name,
-                    id=id,
-                    enable_default_security=enable_default_security,
-                    zone=zone,
                     inbound_default_policy=inbound_default_policy,
-                    modification_date=modification_date,
                     outbound_default_policy=outbound_default_policy,
                     organization=organization,
                     project=project,
                     organization_default=organization_default,
-                    creation_date=creation_date,
                     servers=servers,
-                    tags=tags,
                 ),
                 self.client,
             ),
@@ -2352,28 +2339,28 @@ class InstanceV1API(API):
     async def create_security_group_rule(
         self,
         *,
-        editable: bool,
-        position: int,
-        ip_range: str,
         security_group_id: str,
+        protocol: SecurityGroupRuleProtocol,
+        direction: SecurityGroupRuleDirection,
+        action: SecurityGroupRuleAction,
+        ip_range: str,
+        position: int,
+        editable: bool,
         zone: Optional[Zone] = None,
-        protocol: Optional[SecurityGroupRuleProtocol] = None,
-        direction: Optional[SecurityGroupRuleDirection] = None,
-        action: Optional[SecurityGroupRuleAction] = None,
         dest_port_from: Optional[int] = None,
         dest_port_to: Optional[int] = None,
     ) -> CreateSecurityGroupRuleResponse:
         """
         Create rule.
         Create a rule in the specified security group ID.
-        :param editable: Indicates if this rule is editable (will be ignored).
-        :param position: Position of this rule in the security group rules list.
-        :param ip_range:
         :param security_group_id: UUID of the security group.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param protocol:
         :param direction:
         :param action:
+        :param ip_range:
+        :param position: Position of this rule in the security group rules list.
+        :param editable: Indicates if this rule is editable (will be ignored).
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param dest_port_from: Beginning of the range of ports to apply this rule to (inclusive).
         :param dest_port_to: End of the range of ports to apply this rule to (inclusive).
         :return: :class:`CreateSecurityGroupRuleResponse <CreateSecurityGroupRuleResponse>`
@@ -2382,10 +2369,13 @@ class InstanceV1API(API):
         ::
 
             result = await api.create_security_group_rule(
-                editable=False,
-                position=1,
-                ip_range="example",
                 security_group_id="example",
+                protocol=SecurityGroupRuleProtocol.tcp,
+                direction=SecurityGroupRuleDirection.inbound,
+                action=SecurityGroupRuleAction.accept,
+                ip_range="example",
+                position=1,
+                editable=False,
             )
         """
 
@@ -2399,14 +2389,14 @@ class InstanceV1API(API):
             f"/instance/v1/zones/{param_zone}/security_groups/{param_security_group_id}/rules",
             body=marshal_CreateSecurityGroupRuleRequest(
                 CreateSecurityGroupRuleRequest(
-                    editable=editable,
-                    position=position,
-                    ip_range=ip_range,
                     security_group_id=security_group_id,
-                    zone=zone,
                     protocol=protocol,
                     direction=direction,
                     action=action,
+                    ip_range=ip_range,
+                    position=position,
+                    editable=editable,
+                    zone=zone,
                     dest_port_from=dest_port_from,
                     dest_port_to=dest_port_to,
                 ),
@@ -2464,23 +2454,23 @@ class InstanceV1API(API):
     async def delete_security_group_rule(
         self,
         *,
-        security_group_rule_id: str,
         security_group_id: str,
+        security_group_rule_id: str,
         zone: Optional[Zone] = None,
     ) -> None:
         """
         Delete rule.
         Delete a security group rule with the specified ID.
-        :param security_group_rule_id:
         :param security_group_id:
+        :param security_group_rule_id:
         :param zone: Zone to target. If none is passed will use default zone from the config.
 
         Usage:
         ::
 
             result = await api.delete_security_group_rule(
-                security_group_rule_id="example",
                 security_group_id="example",
+                security_group_rule_id="example",
             )
         """
 
@@ -2502,15 +2492,15 @@ class InstanceV1API(API):
     async def get_security_group_rule(
         self,
         *,
-        security_group_rule_id: str,
         security_group_id: str,
+        security_group_rule_id: str,
         zone: Optional[Zone] = None,
     ) -> GetSecurityGroupRuleResponse:
         """
         Get rule.
         Get details of a security group rule with the specified ID.
-        :param security_group_rule_id:
         :param security_group_id:
+        :param security_group_rule_id:
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`GetSecurityGroupRuleResponse <GetSecurityGroupRuleResponse>`
 
@@ -2518,8 +2508,8 @@ class InstanceV1API(API):
         ::
 
             result = await api.get_security_group_rule(
-                security_group_rule_id="example",
                 security_group_id="example",
+                security_group_rule_id="example",
             )
         """
 
@@ -2542,12 +2532,12 @@ class InstanceV1API(API):
     async def _set_security_group_rule(
         self,
         *,
-        editable: bool,
-        position: int,
-        ip_range: str,
-        id: str,
-        security_group_rule_id: str,
         security_group_id: str,
+        security_group_rule_id: str,
+        id: str,
+        ip_range: str,
+        position: int,
+        editable: bool,
         zone: Optional[Zone] = None,
         protocol: Optional[SecurityGroupRuleProtocol] = None,
         direction: Optional[SecurityGroupRuleDirection] = None,
@@ -2558,12 +2548,12 @@ class InstanceV1API(API):
         """
         Update security group rule.
         Update the rule of a specified security group ID.
-        :param editable:
-        :param position:
-        :param ip_range:
-        :param id:
-        :param security_group_rule_id:
         :param security_group_id:
+        :param security_group_rule_id:
+        :param id:
+        :param ip_range:
+        :param position:
+        :param editable:
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param protocol:
         :param direction:
@@ -2576,12 +2566,12 @@ class InstanceV1API(API):
         ::
 
             result = await api._set_security_group_rule(
-                editable=False,
-                position=1,
-                ip_range="example",
-                id="example",
-                security_group_rule_id="example",
                 security_group_id="example",
+                security_group_rule_id="example",
+                id="example",
+                ip_range="example",
+                position=1,
+                editable=False,
             )
         """
 
@@ -2598,12 +2588,12 @@ class InstanceV1API(API):
             f"/instance/v1/zones/{param_zone}/security_groups/{param_security_group_id}/rules/{param_security_group_rule_id}",
             body=marshal__SetSecurityGroupRuleRequest(
                 _SetSecurityGroupRuleRequest(
-                    editable=editable,
-                    position=position,
-                    ip_range=ip_range,
-                    id=id,
-                    security_group_rule_id=security_group_rule_id,
                     security_group_id=security_group_id,
+                    security_group_rule_id=security_group_rule_id,
+                    id=id,
+                    ip_range=ip_range,
+                    position=position,
+                    editable=editable,
                     zone=zone,
                     protocol=protocol,
                     direction=direction,
@@ -2797,8 +2787,8 @@ class InstanceV1API(API):
     async def set_placement_group(
         self,
         *,
-        name: str,
         placement_group_id: str,
+        name: str,
         zone: Optional[Zone] = None,
         organization: Optional[str] = None,
         policy_mode: Optional[PlacementGroupPolicyMode] = None,
@@ -2809,8 +2799,8 @@ class InstanceV1API(API):
         """
         Set placement group.
         Set all parameters of the specified placement group.
-        :param name:
         :param placement_group_id:
+        :param name:
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param organization:
         :param policy_mode:
@@ -2823,8 +2813,8 @@ class InstanceV1API(API):
         ::
 
             result = await api.set_placement_group(
-                name="example",
                 placement_group_id="example",
+                name="example",
             )
         """
 
@@ -2838,8 +2828,8 @@ class InstanceV1API(API):
             f"/instance/v1/zones/{param_zone}/placement_groups/{param_placement_group_id}",
             body=marshal_SetPlacementGroupRequest(
                 SetPlacementGroupRequest(
-                    name=name,
                     placement_group_id=placement_group_id,
+                    name=name,
                     zone=zone,
                     organization=organization,
                     policy_mode=policy_mode,
@@ -2977,15 +2967,15 @@ class InstanceV1API(API):
         self,
         *,
         placement_group_id: str,
+        servers: List[str],
         zone: Optional[Zone] = None,
-        servers: Optional[List[str]] = None,
     ) -> SetPlacementGroupServersResponse:
         """
         Set placement group servers.
         Set all Instances belonging to the specified placement group.
         :param placement_group_id: UUID of the placement group you want to set.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param servers: An array of the Instances' UUIDs you want to configure.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`SetPlacementGroupServersResponse <SetPlacementGroupServersResponse>`
 
         Usage:
@@ -2993,6 +2983,7 @@ class InstanceV1API(API):
 
             result = await api.set_placement_group_servers(
                 placement_group_id="example",
+                servers=[],
             )
         """
 
@@ -3007,8 +2998,8 @@ class InstanceV1API(API):
             body=marshal_SetPlacementGroupServersRequest(
                 SetPlacementGroupServersRequest(
                     placement_group_id=placement_group_id,
-                    zone=zone,
                     servers=servers,
+                    zone=zone,
                 ),
                 self.client,
             ),
@@ -3021,15 +3012,15 @@ class InstanceV1API(API):
         self,
         *,
         placement_group_id: str,
+        servers: List[str],
         zone: Optional[Zone] = None,
-        servers: Optional[List[str]] = None,
     ) -> UpdatePlacementGroupServersResponse:
         """
         Update placement group servers.
         Update all Instances belonging to the specified placement group.
         :param placement_group_id: UUID of the placement group you want to update.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param servers: An array of the Instances' UUIDs you want to configure.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`UpdatePlacementGroupServersResponse <UpdatePlacementGroupServersResponse>`
 
         Usage:
@@ -3037,6 +3028,7 @@ class InstanceV1API(API):
 
             result = await api.update_placement_group_servers(
                 placement_group_id="example",
+                servers=[],
             )
         """
 
@@ -3051,8 +3043,8 @@ class InstanceV1API(API):
             body=marshal_UpdatePlacementGroupServersRequest(
                 UpdatePlacementGroupServersRequest(
                     placement_group_id=placement_group_id,
-                    zone=zone,
                     servers=servers,
+                    zone=zone,
                 ),
                 self.client,
             ),
@@ -3405,8 +3397,8 @@ class InstanceV1API(API):
     async def create_private_nic(
         self,
         *,
-        private_network_id: str,
         server_id: str,
+        private_network_id: str,
         zone: Optional[Zone] = None,
         tags: Optional[List[str]] = None,
         ip_ids: Optional[List[str]] = None,
@@ -3414,8 +3406,8 @@ class InstanceV1API(API):
         """
         Create a private NIC connecting an Instance to a Private Network.
         Create a private NIC connecting an Instance to a Private Network.
-        :param private_network_id: UUID of the private network where the private NIC will be attached.
         :param server_id: UUID of the Instance the private NIC will be attached to.
+        :param private_network_id: UUID of the private network where the private NIC will be attached.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param tags: Private NIC tags.
         :param ip_ids: Ip_ids defined from IPAM.
@@ -3425,8 +3417,8 @@ class InstanceV1API(API):
         ::
 
             result = await api.create_private_nic(
-                private_network_id="example",
                 server_id="example",
+                private_network_id="example",
             )
         """
 
@@ -3438,8 +3430,8 @@ class InstanceV1API(API):
             f"/instance/v1/zones/{param_zone}/servers/{param_server_id}/private_nics",
             body=marshal_CreatePrivateNICRequest(
                 CreatePrivateNICRequest(
-                    private_network_id=private_network_id,
                     server_id=server_id,
+                    private_network_id=private_network_id,
                     zone=zone,
                     tags=tags,
                     ip_ids=ip_ids,
@@ -3454,15 +3446,15 @@ class InstanceV1API(API):
     async def get_private_nic(
         self,
         *,
-        private_nic_id: str,
         server_id: str,
+        private_nic_id: str,
         zone: Optional[Zone] = None,
     ) -> GetPrivateNICResponse:
         """
         Get a private NIC.
         Get private NIC properties.
-        :param private_nic_id: Private NIC unique ID.
         :param server_id: Instance to which the private NIC is attached.
+        :param private_nic_id: Private NIC unique ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`GetPrivateNICResponse <GetPrivateNICResponse>`
 
@@ -3470,8 +3462,8 @@ class InstanceV1API(API):
         ::
 
             result = await api.get_private_nic(
-                private_nic_id="example",
                 server_id="example",
+                private_nic_id="example",
             )
         """
 
@@ -3490,16 +3482,16 @@ class InstanceV1API(API):
     async def update_private_nic(
         self,
         *,
-        private_nic_id: str,
         server_id: str,
+        private_nic_id: str,
         zone: Optional[Zone] = None,
         tags: Optional[List[str]] = None,
     ) -> PrivateNIC:
         """
         Update a private NIC.
         Update one or more parameter(s) of a specified private NIC.
-        :param private_nic_id: Private NIC unique ID.
         :param server_id: UUID of the Instance the private NIC will be attached to.
+        :param private_nic_id: Private NIC unique ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param tags: Tags used to select private NIC/s.
         :return: :class:`PrivateNIC <PrivateNIC>`
@@ -3508,8 +3500,8 @@ class InstanceV1API(API):
         ::
 
             result = await api.update_private_nic(
-                private_nic_id="example",
                 server_id="example",
+                private_nic_id="example",
             )
         """
 
@@ -3522,8 +3514,8 @@ class InstanceV1API(API):
             f"/instance/v1/zones/{param_zone}/servers/{param_server_id}/private_nics/{param_private_nic_id}",
             body=marshal_UpdatePrivateNICRequest(
                 UpdatePrivateNICRequest(
-                    private_nic_id=private_nic_id,
                     server_id=server_id,
+                    private_nic_id=private_nic_id,
                     zone=zone,
                     tags=tags,
                 ),
@@ -3537,23 +3529,23 @@ class InstanceV1API(API):
     async def delete_private_nic(
         self,
         *,
-        private_nic_id: str,
         server_id: str,
+        private_nic_id: str,
         zone: Optional[Zone] = None,
     ) -> None:
         """
         Delete a private NIC.
         Delete a private NIC.
-        :param private_nic_id: Private NIC unique ID.
         :param server_id: Instance to which the private NIC is attached.
+        :param private_nic_id: Private NIC unique ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
 
         Usage:
         ::
 
             result = await api.delete_private_nic(
-                private_nic_id="example",
                 server_id="example",
+                private_nic_id="example",
             )
         """
 

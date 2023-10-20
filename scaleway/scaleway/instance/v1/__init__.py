@@ -60,6 +60,7 @@ from .types import VolumeTemplate
 from .types import Ip
 from .types import SecurityGroup
 from .types import SecurityGroupRule
+from .types import VolumeServerTemplate
 from .types import Server
 from .types import Snapshot
 from .types import Task
@@ -70,7 +71,6 @@ from .types import ServerType
 from .types import VolumeType
 from .types import ServerActionRequestVolumeBackupTemplate
 from .types import SetSecurityGroupRulesRequestRule
-from .types import VolumeServerTemplate
 from .types import SecurityGroupTemplate
 from .types import ApplyBlockMigrationRequest
 from .types import CreateImageRequest
@@ -85,6 +85,7 @@ from .types import CreateSecurityGroupRequest
 from .types import CreateSecurityGroupResponse
 from .types import CreateSecurityGroupRuleRequest
 from .types import CreateSecurityGroupRuleResponse
+from .types import CreateServerRequest
 from .types import CreateServerResponse
 from .types import CreateSnapshotRequest
 from .types import CreateSnapshotResponse
@@ -161,6 +162,7 @@ from .types import MigrationPlan
 from .types import PlanBlockMigrationRequest
 from .types import ServerActionRequest
 from .types import ServerActionResponse
+from .types import SetImageRequest
 from .types import SetPlacementGroupRequest
 from .types import SetPlacementGroupResponse
 from .types import SetPlacementGroupServersRequest
@@ -174,6 +176,7 @@ from .types import UpdatePlacementGroupResponse
 from .types import UpdatePlacementGroupServersRequest
 from .types import UpdatePlacementGroupServersResponse
 from .types import UpdatePrivateNICRequest
+from .types import UpdateServerRequest
 from .types import UpdateServerResponse
 from .types import UpdateVolumeRequest
 from .types import UpdateVolumeResponse
@@ -240,6 +243,7 @@ __all__ = [
     "Ip",
     "SecurityGroup",
     "SecurityGroupRule",
+    "VolumeServerTemplate",
     "Server",
     "Snapshot",
     "Task",
@@ -250,7 +254,6 @@ __all__ = [
     "VolumeType",
     "ServerActionRequestVolumeBackupTemplate",
     "SetSecurityGroupRulesRequestRule",
-    "VolumeServerTemplate",
     "SecurityGroupTemplate",
     "ApplyBlockMigrationRequest",
     "CreateImageRequest",
@@ -265,6 +268,7 @@ __all__ = [
     "CreateSecurityGroupResponse",
     "CreateSecurityGroupRuleRequest",
     "CreateSecurityGroupRuleResponse",
+    "CreateServerRequest",
     "CreateServerResponse",
     "CreateSnapshotRequest",
     "CreateSnapshotResponse",
@@ -341,6 +345,7 @@ __all__ = [
     "PlanBlockMigrationRequest",
     "ServerActionRequest",
     "ServerActionResponse",
+    "SetImageRequest",
     "SetPlacementGroupRequest",
     "SetPlacementGroupResponse",
     "SetPlacementGroupServersRequest",
@@ -354,6 +359,7 @@ __all__ = [
     "UpdatePlacementGroupServersRequest",
     "UpdatePlacementGroupServersResponse",
     "UpdatePrivateNICRequest",
+    "UpdateServerRequest",
     "UpdateServerResponse",
     "UpdateVolumeRequest",
     "UpdateVolumeResponse",

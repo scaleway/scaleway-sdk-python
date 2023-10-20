@@ -288,9 +288,9 @@ class VpcgwV1API(API):
     def create_gateway(
         self,
         *,
-        enable_bastion: bool,
-        enable_smtp: bool,
         type_: str,
+        enable_smtp: bool,
+        enable_bastion: bool,
         zone: Optional[Zone] = None,
         project_id: Optional[str] = None,
         name: Optional[str] = None,
@@ -302,9 +302,9 @@ class VpcgwV1API(API):
         """
         Create a Public Gateway.
         Create a new Public Gateway in the specified Scaleway Project, defining its **name**, **type** and other configuration details such as whether to enable SSH bastion.
-        :param enable_bastion: Defines whether SSH bastion should be enabled the gateway.
-        :param enable_smtp: Defines whether SMTP traffic should be allowed pass through the gateway.
         :param type_: Gateway type (commercial offer type).
+        :param enable_smtp: Defines whether SMTP traffic should be allowed pass through the gateway.
+        :param enable_bastion: Defines whether SSH bastion should be enabled the gateway.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param project_id: Scaleway Project to create the gateway in.
         :param name: Name for the gateway.
@@ -318,9 +318,9 @@ class VpcgwV1API(API):
         ::
 
             result = api.create_gateway(
-                enable_bastion=False,
-                enable_smtp=False,
                 type="example",
+                enable_smtp=False,
+                enable_bastion=False,
             )
         """
 
@@ -331,9 +331,9 @@ class VpcgwV1API(API):
             f"/vpc-gw/v1/zones/{param_zone}/gateways",
             body=marshal_CreateGatewayRequest(
                 CreateGatewayRequest(
-                    enable_bastion=enable_bastion,
-                    enable_smtp=enable_smtp,
                     type_=type_,
+                    enable_smtp=enable_smtp,
+                    enable_bastion=enable_bastion,
                     zone=zone,
                     project_id=project_id,
                     name=name or random_name(prefix="gw"),
@@ -409,23 +409,23 @@ class VpcgwV1API(API):
     def delete_gateway(
         self,
         *,
-        cleanup_dhcp: bool,
         gateway_id: str,
+        cleanup_dhcp: bool,
         zone: Optional[Zone] = None,
     ) -> None:
         """
         Delete a Public Gateway.
         Delete an existing Public Gateway, specified by its gateway ID. This action is irreversible.
-        :param cleanup_dhcp: Defines whether to clean up attached DHCP configurations (if any, and if not attached to another Gateway Network).
         :param gateway_id: ID of the gateway to delete.
+        :param cleanup_dhcp: Defines whether to clean up attached DHCP configurations (if any, and if not attached to another Gateway Network).
         :param zone: Zone to target. If none is passed will use default zone from the config.
 
         Usage:
         ::
 
             result = api.delete_gateway(
-                cleanup_dhcp=False,
                 gateway_id="example",
+                cleanup_dhcp=False,
             )
         """
 
@@ -654,9 +654,9 @@ class VpcgwV1API(API):
     def create_gateway_network(
         self,
         *,
-        enable_masquerade: bool,
-        private_network_id: str,
         gateway_id: str,
+        private_network_id: str,
+        enable_masquerade: bool,
         zone: Optional[Zone] = None,
         enable_dhcp: Optional[bool] = None,
         dhcp_id: Optional[str] = None,
@@ -667,9 +667,9 @@ class VpcgwV1API(API):
         """
         Attach a Public Gateway to a Private Network.
         Attach a specific Public Gateway to a specific Private Network (create a GatewayNetwork). You can configure parameters for the connection including DHCP settings, whether to enable masquerade (dynamic NAT), and more.
-        :param enable_masquerade: Note: this setting is ignored when passing `ipam_config`.
-        :param private_network_id: Private Network to connect.
         :param gateway_id: Public Gateway to connect.
+        :param private_network_id: Private Network to connect.
+        :param enable_masquerade: Note: this setting is ignored when passing `ipam_config`.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param enable_dhcp: Defaults to `true` if either `dhcp_id` or `dhcp` are present. If set to `true`, either `dhcp_id` or `dhcp` must be present.
         Note: this setting is ignored when passing `ipam_config`.
@@ -683,9 +683,9 @@ class VpcgwV1API(API):
         ::
 
             result = api.create_gateway_network(
-                enable_masquerade=False,
-                private_network_id="example",
                 gateway_id="example",
+                private_network_id="example",
+                enable_masquerade=False,
             )
         """
 
@@ -696,9 +696,9 @@ class VpcgwV1API(API):
             f"/vpc-gw/v1/zones/{param_zone}/gateway-networks",
             body=marshal_CreateGatewayNetworkRequest(
                 CreateGatewayNetworkRequest(
-                    enable_masquerade=enable_masquerade,
-                    private_network_id=private_network_id,
                     gateway_id=gateway_id,
+                    private_network_id=private_network_id,
+                    enable_masquerade=enable_masquerade,
                     zone=zone,
                     enable_dhcp=enable_dhcp,
                     dhcp_id=dhcp_id,
@@ -773,23 +773,23 @@ class VpcgwV1API(API):
     def delete_gateway_network(
         self,
         *,
-        cleanup_dhcp: bool,
         gateway_network_id: str,
+        cleanup_dhcp: bool,
         zone: Optional[Zone] = None,
     ) -> None:
         """
         Detach a Public Gateway from a Private Network.
         Detach a given Public Gateway from a given Private Network, i.e. delete a GatewayNetwork specified by a gateway_network_id.
-        :param cleanup_dhcp: Defines whether to clean up attached DHCP configurations (if any, and if not attached to another Gateway Network).
         :param gateway_network_id: ID of the GatewayNetwork to delete.
+        :param cleanup_dhcp: Defines whether to clean up attached DHCP configurations (if any, and if not attached to another Gateway Network).
         :param zone: Zone to target. If none is passed will use default zone from the config.
 
         Usage:
         ::
 
             result = api.delete_gateway_network(
-                cleanup_dhcp=False,
                 gateway_network_id="example",
+                cleanup_dhcp=False,
             )
         """
 
@@ -943,11 +943,11 @@ class VpcgwV1API(API):
         *,
         subnet: str,
         zone: Optional[Zone] = None,
-        enable_dynamic: Optional[bool] = None,
+        project_id: Optional[str] = None,
         address: Optional[str] = None,
         pool_low: Optional[str] = None,
         pool_high: Optional[str] = None,
-        project_id: Optional[str] = None,
+        enable_dynamic: Optional[bool] = None,
         valid_lifetime: Optional[str] = None,
         renew_timer: Optional[str] = None,
         rebind_timer: Optional[str] = None,
@@ -962,11 +962,11 @@ class VpcgwV1API(API):
         Create a new DHCP configuration object, containing settings for the assignment of IP addresses to devices on a Private Network attached to a Public Gateway. The response object includes the ID of the DHCP configuration object. You can use this ID as part of a call to `Create a Public Gateway connection to a Private Network` or `Update a Public Gateway connection to a Private Network` to directly apply this DHCP configuration.
         :param subnet: Subnet for the DHCP server.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param enable_dynamic: Defines whether to enable dynamic pooling of IPs. When false, only pre-existing DHCP reservations will be handed out. Defaults to true.
+        :param project_id: Project to create the DHCP configuration in.
         :param address: IP address of the DHCP server. This will be the gateway's address in the Private Network. Defaults to the first address of the subnet.
         :param pool_low: Low IP (inclusive) of the dynamic address pool. Must be in the config's subnet. Defaults to the second address of the subnet.
         :param pool_high: High IP (inclusive) of the dynamic address pool. Must be in the config's subnet. Defaults to the last address of the subnet.
-        :param project_id: Project to create the DHCP configuration in.
+        :param enable_dynamic: Defines whether to enable dynamic pooling of IPs. When false, only pre-existing DHCP reservations will be handed out. Defaults to true.
         :param valid_lifetime: How long DHCP entries will be valid for. Defaults to 1h (3600s).
         :param renew_timer: After how long a renew will be attempted. Must be 30s lower than `rebind_timer`. Defaults to 50m (3000s).
         :param rebind_timer: After how long a DHCP client will query for a new lease if previous renews fail. Must be 30s lower than `valid_lifetime`. Defaults to 51m (3060s).
@@ -994,11 +994,11 @@ class VpcgwV1API(API):
                 CreateDHCPRequest(
                     subnet=subnet,
                     zone=zone,
-                    enable_dynamic=enable_dynamic,
+                    project_id=project_id,
                     address=address,
                     pool_low=pool_low,
                     pool_high=pool_high,
-                    project_id=project_id,
+                    enable_dynamic=enable_dynamic,
                     valid_lifetime=valid_lifetime,
                     renew_timer=renew_timer,
                     rebind_timer=rebind_timer,
@@ -1020,11 +1020,11 @@ class VpcgwV1API(API):
         *,
         dhcp_id: str,
         zone: Optional[Zone] = None,
-        enable_dynamic: Optional[bool] = None,
+        subnet: Optional[str] = None,
         address: Optional[str] = None,
         pool_low: Optional[str] = None,
         pool_high: Optional[str] = None,
-        subnet: Optional[str] = None,
+        enable_dynamic: Optional[bool] = None,
         valid_lifetime: Optional[str] = None,
         renew_timer: Optional[str] = None,
         rebind_timer: Optional[str] = None,
@@ -1039,11 +1039,11 @@ class VpcgwV1API(API):
         Update a DHCP configuration object, identified by its DHCP ID.
         :param dhcp_id: DHCP configuration to update.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param enable_dynamic: Defines whether to enable dynamic pooling of IPs. When false, only pre-existing DHCP reservations will be handed out. Defaults to true.
+        :param subnet: Subnet for the DHCP server.
         :param address: IP address of the DHCP server. This will be the Public Gateway's address in the Private Network. It must be part of config's subnet.
         :param pool_low: Low IP (inclusive) of the dynamic address pool. Must be in the config's subnet.
         :param pool_high: High IP (inclusive) of the dynamic address pool. Must be in the config's subnet.
-        :param subnet: Subnet for the DHCP server.
+        :param enable_dynamic: Defines whether to enable dynamic pooling of IPs. When false, only pre-existing DHCP reservations will be handed out. Defaults to true.
         :param valid_lifetime: How long DHCP entries will be valid for.
         :param renew_timer: After how long a renew will be attempted. Must be 30s lower than `rebind_timer`.
         :param rebind_timer: After how long a DHCP client will query for a new lease if previous renews fail. Must be 30s lower than `valid_lifetime`.
@@ -1072,11 +1072,11 @@ class VpcgwV1API(API):
                 UpdateDHCPRequest(
                     dhcp_id=dhcp_id,
                     zone=zone,
-                    enable_dynamic=enable_dynamic,
+                    subnet=subnet,
                     address=address,
                     pool_low=pool_low,
                     pool_high=pool_high,
-                    subnet=subnet,
+                    enable_dynamic=enable_dynamic,
                     valid_lifetime=valid_lifetime,
                     renew_timer=renew_timer,
                     rebind_timer=rebind_timer,
@@ -1261,17 +1261,17 @@ class VpcgwV1API(API):
     def create_dhcp_entry(
         self,
         *,
-        ip_address: str,
-        mac_address: str,
         gateway_network_id: str,
+        mac_address: str,
+        ip_address: str,
         zone: Optional[Zone] = None,
     ) -> DHCPEntry:
         """
         Create a DHCP entry.
         Create a static DHCP reservation, specifying the Gateway Network for the reservation, the MAC address of the target device and the IP address to assign this device. The response is a DHCP entry object, confirming the ID and configuration details of the static DHCP reservation.
-        :param ip_address: IP address to give to the device.
-        :param mac_address: MAC address to give a static entry to.
         :param gateway_network_id: GatewayNetwork on which to create a DHCP reservation.
+        :param mac_address: MAC address to give a static entry to.
+        :param ip_address: IP address to give to the device.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`DHCPEntry <DHCPEntry>`
 
@@ -1279,9 +1279,9 @@ class VpcgwV1API(API):
         ::
 
             result = api.create_dhcp_entry(
-                ip_address="example",
-                mac_address="example",
                 gateway_network_id="example",
+                mac_address="example",
+                ip_address="example",
             )
         """
 
@@ -1292,9 +1292,9 @@ class VpcgwV1API(API):
             f"/vpc-gw/v1/zones/{param_zone}/dhcp-entries",
             body=marshal_CreateDHCPEntryRequest(
                 CreateDHCPEntryRequest(
-                    ip_address=ip_address,
-                    mac_address=mac_address,
                     gateway_network_id=gateway_network_id,
+                    mac_address=mac_address,
+                    ip_address=ip_address,
                     zone=zone,
                 ),
                 self.client,
@@ -1543,20 +1543,20 @@ class VpcgwV1API(API):
     def create_pat_rule(
         self,
         *,
-        private_port: int,
-        private_ip: str,
-        public_port: int,
         gateway_id: str,
+        public_port: int,
+        private_ip: str,
+        private_port: int,
         zone: Optional[Zone] = None,
         protocol: Optional[PATRuleProtocol] = None,
     ) -> PATRule:
         """
         Create a PAT rule.
         Create a new PAT rule on a specified Public Gateway, defining the protocol to use, public port to listen on, and private port / IP address to map to.
-        :param private_port: Private port to translate to.
-        :param private_ip: Private IP to forward data to.
-        :param public_port: Public port to listen on.
         :param gateway_id: ID of the Gateway on which to create the rule.
+        :param public_port: Public port to listen on.
+        :param private_ip: Private IP to forward data to.
+        :param private_port: Private port to translate to.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param protocol: Protocol the rule should apply to.
         :return: :class:`PATRule <PATRule>`
@@ -1565,10 +1565,10 @@ class VpcgwV1API(API):
         ::
 
             result = api.create_pat_rule(
-                private_port=1,
-                private_ip="example",
-                public_port=1,
                 gateway_id="example",
+                public_port=1,
+                private_ip="example",
+                private_port=1,
             )
         """
 
@@ -1579,10 +1579,10 @@ class VpcgwV1API(API):
             f"/vpc-gw/v1/zones/{param_zone}/pat-rules",
             body=marshal_CreatePATRuleRequest(
                 CreatePATRuleRequest(
-                    private_port=private_port,
-                    private_ip=private_ip,
-                    public_port=public_port,
                     gateway_id=gateway_id,
+                    public_port=public_port,
+                    private_ip=private_ip,
+                    private_port=private_port,
                     zone=zone,
                     protocol=protocol,
                 ),
@@ -1648,15 +1648,15 @@ class VpcgwV1API(API):
         self,
         *,
         gateway_id: str,
+        pat_rules: List[SetPATRulesRequestRule],
         zone: Optional[Zone] = None,
-        pat_rules: Optional[List[SetPATRulesRequestRule]] = None,
     ) -> SetPATRulesResponse:
         """
         Set all PAT rules.
         Set a definitive list of PAT rules attached to a Public Gateway. Each rule is identified by its public port and protocol. This will sync the current PAT rule list on the gateway with the new list, creating, updating or deleting PAT rules accordingly.
         :param gateway_id: ID of the gateway on which to set the PAT rules.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param pat_rules: New list of PAT rules.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`SetPATRulesResponse <SetPATRulesResponse>`
 
         Usage:
@@ -1664,6 +1664,7 @@ class VpcgwV1API(API):
 
             result = api.set_pat_rules(
                 gateway_id="example",
+                pat_rules=[],
             )
         """
 
@@ -1675,8 +1676,8 @@ class VpcgwV1API(API):
             body=marshal_SetPATRulesRequest(
                 SetPATRulesRequest(
                     gateway_id=gateway_id,
-                    zone=zone,
                     pat_rules=pat_rules,
+                    zone=zone,
                 ),
                 self.client,
             ),

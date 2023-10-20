@@ -101,14 +101,9 @@ class VolumeStatus(str, Enum, metaclass=StrEnumMeta):
 
 @dataclass
 class SnapshotParentVolume:
-    status: VolumeStatus
+    id: str
     """
-    Current status the parent volume.
-    """
-
-    type_: str
-    """
-    Volume type of the parent volume.
+    Parent volume UUID (volume from which the snapshot originates).
     """
 
     name: str
@@ -116,9 +111,14 @@ class SnapshotParentVolume:
     Name of the parent volume.
     """
 
-    id: str
+    type_: str
     """
-    Parent volume UUID (volume from which the snapshot originates).
+    Volume type of the parent volume.
+    """
+
+    status: VolumeStatus
+    """
+    Current status the parent volume.
     """
 
 
@@ -137,19 +137,9 @@ class VolumeSpecifications:
 
 @dataclass
 class Reference:
-    status: ReferenceStatus
+    id: str
     """
-    Status of reference (attaching, attached, detaching).
-    """
-
-    type_: ReferenceType
-    """
-    Type of reference (link, exclusive, read_only).
-    """
-
-    product_resource_id: str
-    """
-    UUID of the volume or the snapshot it refers to (according to the product_resource_type).
+    UUID of the reference.
     """
 
     product_resource_type: str
@@ -157,9 +147,19 @@ class Reference:
     Type of resoruce to which the reference is associated (snapshot or volume).
     """
 
-    id: str
+    product_resource_id: str
     """
-    UUID of the reference.
+    UUID of the volume or the snapshot it refers to (according to the product_resource_type).
+    """
+
+    type_: ReferenceType
+    """
+    Type of reference (link, exclusive, read_only).
+    """
+
+    status: ReferenceStatus
+    """
+    Status of reference (attaching, attached, detaching).
     """
 
     created_at: Optional[datetime]
@@ -192,39 +192,9 @@ Size is optional and is used only if a resize of the volume is requested, otherw
 
 @dataclass
 class SnapshotSummary:
-    class_: StorageClass
+    id: str
     """
-    Storage class of the snapshot.
-    """
-
-    zone: Zone
-    """
-    Snapshot Availability Zone.
-    """
-
-    tags: List[str]
-    """
-    List of tags assigned to the volume.
-    """
-
-    status: SnapshotStatus
-    """
-    Current status of the snapshot (available, in_use, ...).
-    """
-
-    project_id: str
-    """
-    UUID of the project the snapshot belongs to.
-    """
-
-    size: int
-    """
-    Size of the snapshot in bytes.
-    """
-
-    parent_volume: SnapshotParentVolume
-    """
-    If the parent volume has been deleted, value is null.
+    UUID of the snapshot.
     """
 
     name: str
@@ -232,9 +202,39 @@ class SnapshotSummary:
     Name of the snapshot.
     """
 
-    id: str
+    parent_volume: SnapshotParentVolume
     """
-    UUID of the snapshot.
+    If the parent volume has been deleted, value is null.
+    """
+
+    size: int
+    """
+    Size of the snapshot in bytes.
+    """
+
+    project_id: str
+    """
+    UUID of the project the snapshot belongs to.
+    """
+
+    status: SnapshotStatus
+    """
+    Current status of the snapshot (available, in_use, ...).
+    """
+
+    tags: List[str]
+    """
+    List of tags assigned to the volume.
+    """
+
+    zone: Zone
+    """
+    Snapshot Availability Zone.
+    """
+
+    class_: StorageClass
+    """
+    Storage class of the snapshot.
     """
 
     created_at: Optional[datetime]
@@ -250,14 +250,14 @@ class SnapshotSummary:
 
 @dataclass
 class VolumeType:
-    specs: VolumeSpecifications
-    """
-    Volume specifications of the volume type.
-    """
-
     type_: str
     """
     Volume type.
+    """
+
+    specs: VolumeSpecifications
+    """
+    Volume specifications of the volume type.
     """
 
     pricing: Optional[Money]
@@ -273,14 +273,59 @@ class VolumeType:
 
 @dataclass
 class Volume:
-    tags: List[str]
+    id: str
     """
-    List of tags assigned to the volume.
+    UUID of the volume.
+    """
+
+    name: str
+    """
+    Name of the volume.
+    """
+
+    type_: str
+    """
+    Volume type.
+    """
+
+    size: int
+    """
+    Volume size in bytes.
+    """
+
+    project_id: str
+    """
+    UUID of the project to which the volume belongs.
     """
 
     references: List[Reference]
     """
     List of the references to the volume.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Creation date of the volume.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Last update of the properties of a volume.
+    """
+
+    parent_snapshot_id: Optional[str]
+    """
+    When a volume is created from a snapshot, is the UUID of the snapshot from which the volume has been created.
+    """
+
+    status: VolumeStatus
+    """
+    Current status of the volume (available, in_use, ...).
+    """
+
+    tags: List[str]
+    """
+    List of tags assigned to the volume.
     """
 
     zone: Zone
@@ -293,62 +338,17 @@ class Volume:
     Specifications of the volume.
     """
 
-    project_id: str
-    """
-    UUID of the project to which the volume belongs.
-    """
-
-    id: str
-    """
-    UUID of the volume.
-    """
-
-    type_: str
-    """
-    Volume type.
-    """
-
-    name: str
-    """
-    Name of the volume.
-    """
-
-    status: VolumeStatus
-    """
-    Current status of the volume (available, in_use, ...).
-    """
-
-    size: int
-    """
-    Volume size in bytes.
-    """
-
-    parent_snapshot_id: Optional[str]
-    """
-    When a volume is created from a snapshot, is the UUID of the snapshot from which the volume has been created.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Last update of the properties of a volume.
-    """
-
-    created_at: Optional[datetime]
-    """
-    Creation date of the volume.
-    """
-
 
 @dataclass
 class CreateSnapshotRequest:
-    name: str
-    """
-    Name of the snapshot.
-    """
-
     volume_id: str
     """
     UUID of the volume to snapshot.
+    """
+
+    name: str
+    """
+    Name of the snapshot.
     """
 
     zone: Optional[Zone]
@@ -449,6 +449,24 @@ class GetVolumeRequest:
 
 
 @dataclass
+class ImportSnapshotFromS3Request:
+    bucket: str
+
+    key: str
+
+    name: str
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    project_id: Optional[str]
+
+    tags: Optional[List[str]]
+
+
+@dataclass
 class ListSnapshotsRequest:
     zone: Optional[Zone]
     """
@@ -488,14 +506,14 @@ class ListSnapshotsRequest:
 
 @dataclass
 class ListSnapshotsResponse:
-    total_count: int
-    """
-    Total number of snpashots in the project.
-    """
-
     snapshots: List[SnapshotSummary]
     """
     Paginated returned list of snapshots.
+    """
+
+    total_count: int
+    """
+    Total number of snpashots in the project.
     """
 
 
@@ -519,14 +537,14 @@ class ListVolumeTypesRequest:
 
 @dataclass
 class ListVolumeTypesResponse:
-    total_count: int
-    """
-    Total number of volume-types currently available in stock.
-    """
-
     volume_types: List[VolumeType]
     """
     Returns paginated list of volume-types.
+    """
+
+    total_count: int
+    """
+    Total number of volume-types currently available in stock.
     """
 
 
@@ -570,57 +588,22 @@ class ListVolumesRequest:
 
 @dataclass
 class ListVolumesResponse:
-    total_count: int
-    """
-    Total number of volumes in the project.
-    """
-
     volumes: List[Volume]
     """
     Paginated returned list of volumes.
     """
 
+    total_count: int
+    """
+    Total number of volumes in the project.
+    """
+
 
 @dataclass
 class Snapshot:
-    class_: StorageClass
+    id: str
     """
-    Storage class of the snapshot.
-    """
-
-    zone: Zone
-    """
-    Snapshot zone.
-    """
-
-    tags: List[str]
-    """
-    List of tags assigned to the volume.
-    """
-
-    status: SnapshotStatus
-    """
-    Current status of the snapshot (available, in_use, ...).
-    """
-
-    references: List[Reference]
-    """
-    List of the references to the snapshot.
-    """
-
-    project_id: str
-    """
-    UUID of the project the snapshot belongs to.
-    """
-
-    size: int
-    """
-    Size in bytes of the snapshot.
-    """
-
-    parent_volume: SnapshotParentVolume
-    """
-    If the parent volume was deleted, value is null.
+    UUID of the snapshot.
     """
 
     name: str
@@ -628,9 +611,44 @@ class Snapshot:
     Name of the snapshot.
     """
 
-    id: str
+    parent_volume: SnapshotParentVolume
     """
-    UUID of the snapshot.
+    If the parent volume was deleted, value is null.
+    """
+
+    size: int
+    """
+    Size in bytes of the snapshot.
+    """
+
+    project_id: str
+    """
+    UUID of the project the snapshot belongs to.
+    """
+
+    references: List[Reference]
+    """
+    List of the references to the snapshot.
+    """
+
+    status: SnapshotStatus
+    """
+    Current status of the snapshot (available, in_use, ...).
+    """
+
+    tags: List[str]
+    """
+    List of tags assigned to the volume.
+    """
+
+    zone: Zone
+    """
+    Snapshot zone.
+    """
+
+    class_: StorageClass
+    """
+    Storage class of the snapshot.
     """
 
     created_at: Optional[datetime]

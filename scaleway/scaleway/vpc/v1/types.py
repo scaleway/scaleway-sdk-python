@@ -27,29 +27,9 @@ class ListPrivateNetworksRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 
 @dataclass
 class PrivateNetwork:
-    subnets: List[str]
+    id: str
     """
-    Private Network subnets CIDR.
-    """
-
-    tags: List[str]
-    """
-    Tags of the Private Network.
-    """
-
-    zone: Zone
-    """
-    Availability Zone in which the Private Network is available.
-    """
-
-    project_id: str
-    """
-    Scaleway Project the Private Network belongs to.
-    """
-
-    organization_id: str
-    """
-    Scaleway Organization the Private Network belongs to.
+    Private Network ID.
     """
 
     name: str
@@ -57,9 +37,29 @@ class PrivateNetwork:
     Private Network name.
     """
 
-    id: str
+    organization_id: str
     """
-    Private Network ID.
+    Scaleway Organization the Private Network belongs to.
+    """
+
+    project_id: str
+    """
+    Scaleway Project the Private Network belongs to.
+    """
+
+    zone: Zone
+    """
+    Availability Zone in which the Private Network is available.
+    """
+
+    tags: List[str]
+    """
+    Tags of the Private Network.
+    """
+
+    subnets: List[str]
+    """
+    Private Network subnets CIDR.
     """
 
     created_at: Optional[datetime]
@@ -182,9 +182,9 @@ class ListPrivateNetworksRequest:
 
 @dataclass
 class ListPrivateNetworksResponse:
-    total_count: int
-
     private_networks: List[PrivateNetwork]
+
+    total_count: int
 
 
 @dataclass

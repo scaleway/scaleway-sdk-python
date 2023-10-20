@@ -26,6 +26,7 @@ from .types import ReadReplicaStatus
 from .content import READREPLICA_TRANSIENT_STATUSES
 from .types import SnapshotStatus
 from .content import SNAPSHOT_TRANSIENT_STATUSES
+from .types import StorageClass
 from .types import VolumeType
 from .types import EndpointDirectAccessDetails
 from .types import EndpointLoadBalancerDetails
@@ -167,6 +168,7 @@ __all__ = [
     "READREPLICA_TRANSIENT_STATUSES",
     "SnapshotStatus",
     "SNAPSHOT_TRANSIENT_STATUSES",
+    "StorageClass",
     "VolumeType",
     "EndpointDirectAccessDetails",
     "EndpointLoadBalancerDetails",

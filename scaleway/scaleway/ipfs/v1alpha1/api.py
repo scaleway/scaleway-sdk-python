@@ -14,14 +14,21 @@ from scaleway_core.utils import (
     wait_for_resource,
 )
 from .types import (
+    ListNamesRequestOrderBy,
     ListPinsRequestOrderBy,
     ListVolumesRequestOrderBy,
     PinStatus,
     CreatePinByCIDRequest,
     CreatePinByURLRequest,
     CreateVolumeRequest,
+    ExportKeyNameResponse,
+    IpnsApiCreateNameRequest,
+    IpnsApiImportKeyNameRequest,
+    IpnsApiUpdateNameRequest,
+    ListNamesResponse,
     ListPinsResponse,
     ListVolumesResponse,
+    Name,
     Pin,
     PinOptions,
     ReplacePinRequest,
@@ -30,17 +37,24 @@ from .types import (
     Volume,
 )
 from .content import (
+    NAME_TRANSIENT_STATUSES,
     PIN_TRANSIENT_STATUSES,
 )
 from .marshalling import (
+    unmarshal_Name,
     unmarshal_Pin,
     unmarshal_Volume,
+    unmarshal_ExportKeyNameResponse,
+    unmarshal_ListNamesResponse,
     unmarshal_ListPinsResponse,
     unmarshal_ListVolumesResponse,
     unmarshal_ReplacePinResponse,
     marshal_CreatePinByCIDRequest,
     marshal_CreatePinByURLRequest,
     marshal_CreateVolumeRequest,
+    marshal_IpnsApiCreateNameRequest,
+    marshal_IpnsApiImportKeyNameRequest,
+    marshal_IpnsApiUpdateNameRequest,
     marshal_ReplacePinRequest,
     marshal_UpdateVolumeRequest,
 )
@@ -293,11 +307,11 @@ class IpfsV1Alpha1API(API):
     def create_pin_by_url(
         self,
         *,
-        pin_options: PinOptions,
-        url: str,
         volume_id: str,
+        url: str,
         region: Optional[Region] = None,
         name: Optional[str] = None,
+        pin_options: Optional[PinOptions] = None,
     ) -> Pin:
         """
         Create a pin by URL.
@@ -306,20 +320,19 @@ class IpfsV1Alpha1API(API):
         From that point, any other IPFS peer can fetch and host your content: Make sure to pin public or encrypted content.
         Many pin requests (from different users) can target the same CID.
         A pin is defined by its ID (UUID), its status (queued, pinning, pinned or failed) and target CID.
-        :param pin_options: Pin options.
-        :param url: URL containing the content you want to pin.
         :param volume_id: Volume ID on which you want to pin your content.
+        :param url: URL containing the content you want to pin.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Pin name.
+        :param pin_options: Pin options.
         :return: :class:`Pin <Pin>`
 
         Usage:
         ::
 
             result = api.create_pin_by_url(
-                pin_options=PinOptions(),
-                url="example",
                 volume_id="example",
+                url="example",
             )
         """
 
@@ -332,11 +345,11 @@ class IpfsV1Alpha1API(API):
             f"/ipfs/v1alpha1/regions/{param_region}/pins/create-by-url",
             body=marshal_CreatePinByURLRequest(
                 CreatePinByURLRequest(
-                    pin_options=pin_options,
-                    url=url,
                     volume_id=volume_id,
+                    url=url,
                     region=region,
                     name=name,
+                    pin_options=pin_options,
                 ),
                 self.client,
             ),
@@ -348,12 +361,12 @@ class IpfsV1Alpha1API(API):
     def create_pin_by_cid(
         self,
         *,
-        pin_options: PinOptions,
-        cid: str,
         volume_id: str,
+        cid: str,
         region: Optional[Region] = None,
         origins: Optional[List[str]] = None,
         name: Optional[str] = None,
+        pin_options: Optional[PinOptions] = None,
     ) -> Pin:
         """
         Create a pin by CID.
@@ -362,21 +375,20 @@ class IpfsV1Alpha1API(API):
         From that point, any other IPFS peer can fetch and host your content: Make sure to pin public or encrypted content.
         Many pin requests (from different users) can target the same CID.
         A pin is defined by its ID (UUID), its status (queued, pinning, pinned or failed) and target CID.
-        :param pin_options: Pin options.
-        :param cid: CID containing the content you want to pin.
         :param volume_id: Volume ID on which you want to pin your content.
+        :param cid: CID containing the content you want to pin.
         :param region: Region to target. If none is passed will use default region from the config.
         :param origins: Node containing the content you want to pin.
         :param name: Pin name.
+        :param pin_options: Pin options.
         :return: :class:`Pin <Pin>`
 
         Usage:
         ::
 
             result = api.create_pin_by_cid(
-                pin_options=PinOptions(),
-                cid="example",
                 volume_id="example",
+                cid="example",
             )
         """
 
@@ -389,12 +401,12 @@ class IpfsV1Alpha1API(API):
             f"/ipfs/v1alpha1/regions/{param_region}/pins/create-by-cid",
             body=marshal_CreatePinByCIDRequest(
                 CreatePinByCIDRequest(
-                    pin_options=pin_options,
-                    cid=cid,
                     volume_id=volume_id,
+                    cid=cid,
                     region=region,
                     origins=origins,
                     name=name,
+                    pin_options=pin_options,
                 ),
                 self.client,
             ),
@@ -406,32 +418,31 @@ class IpfsV1Alpha1API(API):
     def replace_pin(
         self,
         *,
-        pin_options: PinOptions,
-        cid: str,
         volume_id: str,
         pin_id: str,
+        cid: str,
         region: Optional[Region] = None,
         name: Optional[str] = None,
         origins: Optional[List[str]] = None,
+        pin_options: Optional[PinOptions] = None,
     ) -> ReplacePinResponse:
         """
-        :param pin_options: Pin options.
-        :param cid: New CID you want to pin in place of the old one.
         :param volume_id: Volume ID.
         :param pin_id: Pin ID whose information you wish to replace.
+        :param cid: New CID you want to pin in place of the old one.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: New name to replace.
         :param origins: Node containing the content you want to pin.
+        :param pin_options: Pin options.
         :return: :class:`ReplacePinResponse <ReplacePinResponse>`
 
         Usage:
         ::
 
             result = api.replace_pin(
-                pin_options=PinOptions(),
-                cid="example",
                 volume_id="example",
                 pin_id="example",
+                cid="example",
             )
         """
 
@@ -445,13 +456,13 @@ class IpfsV1Alpha1API(API):
             f"/ipfs/v1alpha1/regions/{param_region}/pins/{param_pin_id}/replace",
             body=marshal_ReplacePinRequest(
                 ReplacePinRequest(
-                    pin_options=pin_options,
-                    cid=cid,
                     volume_id=volume_id,
                     pin_id=pin_id,
+                    cid=cid,
                     region=region,
                     name=name,
                     origins=origins,
+                    pin_options=pin_options,
                 ),
                 self.client,
             ),
@@ -683,3 +694,380 @@ class IpfsV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
+
+
+class IpfsV1Alpha1IpnsAPI(API):
+    """ """
+
+    def create_name(
+        self,
+        *,
+        name: str,
+        value: str,
+        region: Optional[Region] = None,
+        project_id: Optional[str] = None,
+    ) -> Name:
+        """
+        Create a new name.
+        You can use the `ipns key` command to list and generate more names and their respective keys.
+        :param name: Name for your records.
+        :param value: Value you want to associate with your records, CID or IPNS key.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: Project ID.
+        :return: :class:`Name <Name>`
+
+        Usage:
+        ::
+
+            result = api.create_name(
+                name="example",
+                value="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "POST",
+            f"/ipfs/v1alpha1/regions/{param_region}/names",
+            body=marshal_IpnsApiCreateNameRequest(
+                IpnsApiCreateNameRequest(
+                    name=name,
+                    value=value,
+                    region=region,
+                    project_id=project_id,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Name(res.json())
+
+    def get_name(
+        self,
+        *,
+        name_id: str,
+        region: Optional[Region] = None,
+    ) -> Name:
+        """
+        Get information about a name.
+        Retrieve information about a specific name.
+        :param name_id: Name ID whose information you want to retrieve.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Name <Name>`
+
+        Usage:
+        ::
+
+            result = api.get_name(
+                name_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_name_id = validate_path_param("name_id", name_id)
+
+        res = self._request(
+            "GET",
+            f"/ipfs/v1alpha1/regions/{param_region}/names/{param_name_id}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Name(res.json())
+
+    def wait_for_name(
+        self,
+        *,
+        name_id: str,
+        region: Optional[Region] = None,
+        options: Optional[WaitForOptions[Name, bool]] = None,
+    ) -> Name:
+        """
+        Get information about a name.
+        Retrieve information about a specific name.
+        :param name_id: Name ID whose information you want to retrieve.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Name <Name>`
+
+        Usage:
+        ::
+
+            result = api.get_name(
+                name_id="example",
+            )
+        """
+
+        if not options:
+            options = WaitForOptions()
+
+        if not options.stop:
+            options.stop = lambda res: res.status not in NAME_TRANSIENT_STATUSES
+
+        return wait_for_resource(
+            fetcher=self.get_name,
+            options=options,
+            args={
+                "name_id": name_id,
+                "region": region,
+            },
+        )
+
+    def delete_name(
+        self,
+        *,
+        name_id: str,
+        region: Optional[Region] = None,
+    ) -> None:
+        """
+        Delete an existing name.
+        Delete a name by its ID.
+        :param name_id: Name ID you wish to delete.
+        :param region: Region to target. If none is passed will use default region from the config.
+
+        Usage:
+        ::
+
+            result = api.delete_name(
+                name_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_name_id = validate_path_param("name_id", name_id)
+
+        res = self._request(
+            "DELETE",
+            f"/ipfs/v1alpha1/regions/{param_region}/names/{param_name_id}",
+        )
+
+        self._throw_on_error(res)
+
+    def list_names(
+        self,
+        *,
+        region: Optional[Region] = None,
+        project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
+        order_by: Optional[ListNamesRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ListNamesResponse:
+        """
+        List all names by a Project ID.
+        Retrieve information about all names from a Project ID.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: Project ID.
+        :param organization_id: Organization ID.
+        :param order_by: Sort the order of the returned names.
+        :param page: Page number.
+        :param page_size: Maximum number of names to return per page.
+        :return: :class:`ListNamesResponse <ListNamesResponse>`
+
+        Usage:
+        ::
+
+            result = api.list_names()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/ipfs/v1alpha1/regions/{param_region}/names",
+            params={
+                "order_by": order_by,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+                "project_id": project_id or self.client.default_project_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListNamesResponse(res.json())
+
+    def list_names_all(
+        self,
+        *,
+        region: Optional[Region] = None,
+        project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
+        order_by: Optional[ListNamesRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[Name]:
+        """
+        List all names by a Project ID.
+        Retrieve information about all names from a Project ID.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: Project ID.
+        :param organization_id: Organization ID.
+        :param order_by: Sort the order of the returned names.
+        :param page: Page number.
+        :param page_size: Maximum number of names to return per page.
+        :return: :class:`List[Name] <List[Name]>`
+
+        Usage:
+        ::
+
+            result = api.list_names_all()
+        """
+
+        return fetch_all_pages(
+            type=ListNamesResponse,
+            key="names",
+            fetcher=self.list_names,
+            args={
+                "region": region,
+                "project_id": project_id,
+                "organization_id": organization_id,
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size,
+            },
+        )
+
+    def update_name(
+        self,
+        *,
+        name_id: str,
+        region: Optional[Region] = None,
+        name: Optional[str] = None,
+        tags: Optional[List[str]] = None,
+        value: Optional[str] = None,
+    ) -> Name:
+        """
+        Update name information.
+        Update name information (CID, tag, name...).
+        :param name_id: Name ID you wish to update.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param name: New name you want to associate with your record.
+        :param tags: New tags you want to associate with your record.
+        :param value: Value you want to associate with your records, CID or IPNS key.
+        :return: :class:`Name <Name>`
+
+        Usage:
+        ::
+
+            result = api.update_name(
+                name_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_name_id = validate_path_param("name_id", name_id)
+
+        res = self._request(
+            "PATCH",
+            f"/ipfs/v1alpha1/regions/{param_region}/names/{param_name_id}",
+            body=marshal_IpnsApiUpdateNameRequest(
+                IpnsApiUpdateNameRequest(
+                    name_id=name_id,
+                    region=region,
+                    name=name,
+                    tags=tags,
+                    value=value,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Name(res.json())
+
+    def export_key_name(
+        self,
+        *,
+        name_id: str,
+        region: Optional[Region] = None,
+    ) -> ExportKeyNameResponse:
+        """
+        Export your private key.
+        Export a private key by its ID.
+        :param name_id: Name ID whose keys you want to export.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`ExportKeyNameResponse <ExportKeyNameResponse>`
+
+        Usage:
+        ::
+
+            result = api.export_key_name(
+                name_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_name_id = validate_path_param("name_id", name_id)
+
+        res = self._request(
+            "GET",
+            f"/ipfs/v1alpha1/regions/{param_region}/names/{param_name_id}/export-key",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ExportKeyNameResponse(res.json())
+
+    def import_key_name(
+        self,
+        *,
+        name: str,
+        private_key: str,
+        value: str,
+        region: Optional[Region] = None,
+        project_id: Optional[str] = None,
+    ) -> Name:
+        """
+        Import your private key.
+        Import a private key.
+        :param name: Name for your records.
+        :param private_key: Base64 private key.
+        :param value: Value you want to associate with your records, CID or IPNS key.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: Project ID.
+        :return: :class:`Name <Name>`
+
+        Usage:
+        ::
+
+            result = api.import_key_name(
+                name="example",
+                private_key="example",
+                value="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "POST",
+            f"/ipfs/v1alpha1/regions/{param_region}/names/import-key",
+            body=marshal_IpnsApiImportKeyNameRequest(
+                IpnsApiImportKeyNameRequest(
+                    name=name,
+                    private_key=private_key,
+                    value=value,
+                    region=region,
+                    project_id=project_id,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Name(res.json())

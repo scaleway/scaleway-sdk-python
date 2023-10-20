@@ -24,14 +24,14 @@ def unmarshal_Category(data: Any) -> Category:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("description", None)
-    args["description"] = field
+    field = data.get("id", None)
+    args["id"] = field
 
     field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("id", None)
-    args["id"] = field
+    field = data.get("description", None)
+    args["description"] = field
 
     return Category(**args)
 
@@ -44,23 +44,23 @@ def unmarshal_Image(data: Any) -> Image:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("label", None)
-    args["label"] = field
-
-    field = data.get("categories", None)
-    args["categories"] = field
-
-    field = data.get("logo", None)
-    args["logo"] = field
-
-    field = data.get("description", None)
-    args["description"] = field
+    field = data.get("id", None)
+    args["id"] = field
 
     field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("id", None)
-    args["id"] = field
+    field = data.get("description", None)
+    args["description"] = field
+
+    field = data.get("logo", None)
+    args["logo"] = field
+
+    field = data.get("categories", None)
+    args["categories"] = field
+
+    field = data.get("label", None)
+    args["label"] = field
 
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -82,23 +82,23 @@ def unmarshal_LocalImage(data: Any) -> LocalImage:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("type_", None)
-    args["type_"] = field
-
-    field = data.get("label", None)
-    args["label"] = field
-
-    field = data.get("zone", None)
-    args["zone"] = field
-
-    field = data.get("arch", None)
-    args["arch"] = field
+    field = data.get("id", None)
+    args["id"] = field
 
     field = data.get("compatible_commercial_types", None)
     args["compatible_commercial_types"] = field
 
-    field = data.get("id", None)
-    args["id"] = field
+    field = data.get("arch", None)
+    args["arch"] = field
+
+    field = data.get("zone", None)
+    args["zone"] = field
+
+    field = data.get("label", None)
+    args["label"] = field
+
+    field = data.get("type_", None)
+    args["type_"] = field
 
     return LocalImage(**args)
 
@@ -111,11 +111,11 @@ def unmarshal_Version(data: Any) -> Version:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("name", None)
-    args["name"] = field
-
     field = data.get("id", None)
     args["id"] = field
+
+    field = data.get("name", None)
+    args["name"] = field
 
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -137,13 +137,13 @@ def unmarshal_ListCategoriesResponse(data: Any) -> ListCategoriesResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    args["total_count"] = field
-
     field = data.get("categories", None)
     args["categories"] = (
         [unmarshal_Category(v) for v in field] if field is not None else None
     )
+
+    field = data.get("total_count", None)
+    args["total_count"] = field
 
     return ListCategoriesResponse(**args)
 
@@ -156,11 +156,11 @@ def unmarshal_ListImagesResponse(data: Any) -> ListImagesResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    args["total_count"] = field
-
     field = data.get("images", None)
     args["images"] = [unmarshal_Image(v) for v in field] if field is not None else None
+
+    field = data.get("total_count", None)
+    args["total_count"] = field
 
     return ListImagesResponse(**args)
 
@@ -173,13 +173,13 @@ def unmarshal_ListLocalImagesResponse(data: Any) -> ListLocalImagesResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    args["total_count"] = field
-
     field = data.get("local_images", None)
     args["local_images"] = (
         [unmarshal_LocalImage(v) for v in field] if field is not None else None
     )
+
+    field = data.get("total_count", None)
+    args["total_count"] = field
 
     return ListLocalImagesResponse(**args)
 
@@ -192,12 +192,12 @@ def unmarshal_ListVersionsResponse(data: Any) -> ListVersionsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    args["total_count"] = field
-
     field = data.get("versions", None)
     args["versions"] = (
         [unmarshal_Version(v) for v in field] if field is not None else None
     )
+
+    field = data.get("total_count", None)
+    args["total_count"] = field
 
     return ListVersionsResponse(**args)

@@ -200,10 +200,10 @@ class IotV1API(API):
     async def create_hub(
         self,
         *,
+        product_plan: HubProductPlan,
         region: Optional[Region] = None,
         name: Optional[str] = None,
         project_id: Optional[str] = None,
-        product_plan: Optional[HubProductPlan] = None,
         disable_events: Optional[bool] = None,
         events_topic_prefix: Optional[str] = None,
         twins_graphite_config: Optional[HubTwinsGraphiteConfig] = None,
@@ -211,10 +211,10 @@ class IotV1API(API):
         """
         Create a hub.
         Create a new Hub in the targeted region, specifying its configuration including name and product plan.
+        :param product_plan: Hub product plan.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Hub name (up to 255 characters).
         :param project_id: Project/Organization ID to filter for, only Hubs from this Project/Organization will be returned.
-        :param product_plan: Hub product plan.
         :param disable_events: Disable Hub events.
         :param events_topic_prefix: Topic prefix (default '$SCW/events') of Hub events.
         :param twins_graphite_config: BETA - not implemented yet.
@@ -223,7 +223,9 @@ class IotV1API(API):
         Usage:
         ::
 
-            result = await api.create_hub()
+            result = await api.create_hub(
+                product_plan=plan_shared,
+            )
         """
 
         param_region = validate_path_param(
@@ -235,10 +237,10 @@ class IotV1API(API):
             f"/iot/v1/regions/{param_region}/hubs",
             body=marshal_CreateHubRequest(
                 CreateHubRequest(
+                    product_plan=product_plan,
                     region=region,
                     name=name or random_name(prefix="hub"),
                     project_id=project_id,
-                    product_plan=product_plan,
                     disable_events=disable_events,
                     events_topic_prefix=events_topic_prefix,
                     twins_graphite_config=twins_graphite_config,
@@ -530,17 +532,17 @@ class IotV1API(API):
     async def set_hub_ca(
         self,
         *,
-        challenge_cert_pem: str,
-        ca_cert_pem: str,
         hub_id: str,
+        ca_cert_pem: str,
+        challenge_cert_pem: str,
         region: Optional[Region] = None,
     ) -> Hub:
         """
         Set the certificate authority of a hub.
         Set a particular PEM-encoded certificate, specified by the Hub ID.
-        :param challenge_cert_pem: Challenge is a PEM-encoded certificate that acts as proof of possession of the CA. It must be signed by the CA, and have a Common Name equal to the Hub ID.
-        :param ca_cert_pem: CA's PEM-encoded certificate.
         :param hub_id: Hub ID.
+        :param ca_cert_pem: CA's PEM-encoded certificate.
+        :param challenge_cert_pem: Challenge is a PEM-encoded certificate that acts as proof of possession of the CA. It must be signed by the CA, and have a Common Name equal to the Hub ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Hub <Hub>`
 
@@ -548,9 +550,9 @@ class IotV1API(API):
         ::
 
             result = await api.set_hub_ca(
-                challenge_cert_pem="example",
-                ca_cert_pem="example",
                 hub_id="example",
+                ca_cert_pem="example",
+                challenge_cert_pem="example",
             )
         """
 
@@ -564,9 +566,9 @@ class IotV1API(API):
             f"/iot/v1/regions/{param_region}/hubs/{param_hub_id}/ca",
             body=marshal_SetHubCARequest(
                 SetHubCARequest(
-                    challenge_cert_pem=challenge_cert_pem,
-                    ca_cert_pem=ca_cert_pem,
                     hub_id=hub_id,
+                    ca_cert_pem=ca_cert_pem,
+                    challenge_cert_pem=challenge_cert_pem,
                     region=region,
                 ),
                 self.client,
@@ -712,23 +714,23 @@ class IotV1API(API):
     async def create_device(
         self,
         *,
-        message_filters: DeviceMessageFilters,
-        allow_multiple_connections: bool,
-        allow_insecure: bool,
         hub_id: str,
+        allow_insecure: bool,
+        allow_multiple_connections: bool,
         region: Optional[Region] = None,
         name: Optional[str] = None,
+        message_filters: Optional[DeviceMessageFilters] = None,
         description: Optional[str] = None,
     ) -> CreateDeviceResponse:
         """
         Add a device.
         Attach a device to a given Hub.
-        :param message_filters: Filter-sets to authorize or deny the device to publish/subscribe to specific topics.
-        :param allow_multiple_connections: Defines whether to allow multiple physical devices to connect with this device's credentials.
-        :param allow_insecure: Defines whether to allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones.
         :param hub_id: Hub ID of the device.
+        :param allow_insecure: Defines whether to allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones.
+        :param allow_multiple_connections: Defines whether to allow multiple physical devices to connect with this device's credentials.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Device name.
+        :param message_filters: Filter-sets to authorize or deny the device to publish/subscribe to specific topics.
         :param description: Device description.
         :return: :class:`CreateDeviceResponse <CreateDeviceResponse>`
 
@@ -736,10 +738,9 @@ class IotV1API(API):
         ::
 
             result = await api.create_device(
-                message_filters=DeviceMessageFilters(),
-                allow_multiple_connections=False,
-                allow_insecure=False,
                 hub_id="example",
+                allow_insecure=False,
+                allow_multiple_connections=False,
             )
         """
 
@@ -752,12 +753,12 @@ class IotV1API(API):
             f"/iot/v1/regions/{param_region}/devices",
             body=marshal_CreateDeviceRequest(
                 CreateDeviceRequest(
-                    message_filters=message_filters,
-                    allow_multiple_connections=allow_multiple_connections,
-                    allow_insecure=allow_insecure,
                     hub_id=hub_id,
+                    allow_insecure=allow_insecure,
+                    allow_multiple_connections=allow_multiple_connections,
                     region=region,
                     name=name or random_name(prefix="device"),
+                    message_filters=message_filters,
                     description=description,
                 ),
                 self.client,
@@ -804,23 +805,23 @@ class IotV1API(API):
     async def update_device(
         self,
         *,
-        message_filters: DeviceMessageFilters,
         device_id: str,
         region: Optional[Region] = None,
         description: Optional[str] = None,
         allow_insecure: Optional[bool] = None,
         allow_multiple_connections: Optional[bool] = None,
+        message_filters: Optional[DeviceMessageFilters] = None,
         hub_id: Optional[str] = None,
     ) -> Device:
         """
         Update a device.
         Update the parameters of an existing device, specified by its device ID.
-        :param message_filters: Filter-sets to restrict the topics the device can publish/subscribe to.
         :param device_id: Device ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :param description: Description for the device.
         :param allow_insecure: Defines whether to allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones.
         :param allow_multiple_connections: Defines whether to allow multiple physical devices to connect with this device's credentials.
+        :param message_filters: Filter-sets to restrict the topics the device can publish/subscribe to.
         :param hub_id: Change Hub for this device, additional fees may apply, see IoT Hub pricing.
         :return: :class:`Device <Device>`
 
@@ -828,7 +829,6 @@ class IotV1API(API):
         ::
 
             result = await api.update_device(
-                message_filters=DeviceMessageFilters(),
                 device_id="example",
             )
         """
@@ -843,12 +843,12 @@ class IotV1API(API):
             f"/iot/v1/regions/{param_region}/devices/{param_device_id}",
             body=marshal_UpdateDeviceRequest(
                 UpdateDeviceRequest(
-                    message_filters=message_filters,
                     device_id=device_id,
                     region=region,
                     description=description,
                     allow_insecure=allow_insecure,
                     allow_multiple_connections=allow_multiple_connections,
+                    message_filters=message_filters,
                     hub_id=hub_id,
                 ),
                 self.client,
@@ -966,15 +966,15 @@ class IotV1API(API):
     async def set_device_certificate(
         self,
         *,
-        certificate_pem: str,
         device_id: str,
+        certificate_pem: str,
         region: Optional[Region] = None,
     ) -> SetDeviceCertificateResponse:
         """
         Set a custom certificate on a device.
         Switch the existing certificate of a given device with an EM-encoded custom certificate.
-        :param certificate_pem: PEM-encoded custom certificate.
         :param device_id: Device ID.
+        :param certificate_pem: PEM-encoded custom certificate.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`SetDeviceCertificateResponse <SetDeviceCertificateResponse>`
 
@@ -982,8 +982,8 @@ class IotV1API(API):
         ::
 
             result = await api.set_device_certificate(
-                certificate_pem="example",
                 device_id="example",
+                certificate_pem="example",
             )
         """
 
@@ -997,8 +997,8 @@ class IotV1API(API):
             f"/iot/v1/regions/{param_region}/devices/{param_device_id}/certificate",
             body=marshal_SetDeviceCertificateRequest(
                 SetDeviceCertificateRequest(
-                    certificate_pem=certificate_pem,
                     device_id=device_id,
+                    certificate_pem=certificate_pem,
                     region=region,
                 ),
                 self.client,
@@ -1204,8 +1204,8 @@ class IotV1API(API):
     async def create_route(
         self,
         *,
-        topic: str,
         hub_id: str,
+        topic: str,
         region: Optional[Region] = None,
         name: Optional[str] = None,
         s3_config: Optional[CreateRouteRequestS3Config] = None,
@@ -1224,8 +1224,8 @@ class IotV1API(API):
           Create a route that will put subscribed MQTT messages into an S3 bucket.
           You need to create the bucket yourself and grant write access.
           Granting can be done with s3cmd (`s3cmd setacl s3://<my-bucket> --acl-grant=write:555c69c3-87d0-4bf8-80f1-99a2f757d031:555c69c3-87d0-4bf8-80f1-99a2f757d031`).
-        :param topic: Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters.
         :param hub_id: Hub ID of the route.
+        :param topic: Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Route name.
         :param s3_config: If creating S3 Route, S3-specific configuration fields.
@@ -1237,8 +1237,8 @@ class IotV1API(API):
         ::
 
             result = await api.create_route(
-                topic="example",
                 hub_id="example",
+                topic="example",
             )
         """
 
@@ -1251,8 +1251,8 @@ class IotV1API(API):
             f"/iot/v1/regions/{param_region}/routes",
             body=marshal_CreateRouteRequest(
                 CreateRouteRequest(
-                    topic=topic,
                     hub_id=hub_id,
+                    topic=topic,
                     region=region,
                     name=name or random_name(prefix="route"),
                     s3_config=s3_config,
@@ -1484,28 +1484,29 @@ class IotV1API(API):
     async def create_network(
         self,
         *,
-        topic_prefix: str,
+        type_: NetworkNetworkType,
         hub_id: str,
+        topic_prefix: str,
         region: Optional[Region] = None,
         name: Optional[str] = None,
-        type_: Optional[NetworkNetworkType] = None,
     ) -> CreateNetworkResponse:
         """
         Create a new network.
         Create a new network for an existing hub.  Beside the default network, you can add networks for different data providers. Possible network types are Sigfox and REST.
-        :param topic_prefix: Topic prefix for the Network.
+        :param type_: Type of network to connect with.
         :param hub_id: Hub ID to connect the Network to.
+        :param topic_prefix: Topic prefix for the Network.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Network name.
-        :param type_: Type of network to connect with.
         :return: :class:`CreateNetworkResponse <CreateNetworkResponse>`
 
         Usage:
         ::
 
             result = await api.create_network(
-                topic_prefix="example",
+                type=NetworkNetworkType.unknown,
                 hub_id="example",
+                topic_prefix="example",
             )
         """
 
@@ -1518,11 +1519,11 @@ class IotV1API(API):
             f"/iot/v1/regions/{param_region}/networks",
             body=marshal_CreateNetworkRequest(
                 CreateNetworkRequest(
-                    topic_prefix=topic_prefix,
+                    type_=type_,
                     hub_id=hub_id,
+                    topic_prefix=topic_prefix,
                     region=region,
                     name=name or random_name(prefix="network"),
-                    type_=type_,
                 ),
                 self.client,
             ),
@@ -1600,15 +1601,15 @@ class IotV1API(API):
     async def get_twin_document(
         self,
         *,
-        document_name: str,
         twin_id: str,
+        document_name: str,
         region: Optional[Region] = None,
     ) -> TwinDocument:
         """
         BETA - Get a Cloud Twin Document.
         BETA - Get a Cloud Twin Document.
-        :param document_name: Name of the document.
         :param twin_id: Twin ID.
+        :param document_name: Name of the document.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`TwinDocument <TwinDocument>`
 
@@ -1616,8 +1617,8 @@ class IotV1API(API):
         ::
 
             result = await api.get_twin_document(
-                document_name="example",
                 twin_id="example",
+                document_name="example",
             )
         """
 
@@ -1638,8 +1639,8 @@ class IotV1API(API):
     async def put_twin_document(
         self,
         *,
-        document_name: str,
         twin_id: str,
+        document_name: str,
         region: Optional[Region] = None,
         version: Optional[int] = None,
         data: Optional[Dict[str, Any]] = None,
@@ -1647,8 +1648,8 @@ class IotV1API(API):
         """
         BETA - Update a Cloud Twin Document.
         BETA - Update a Cloud Twin Document.
-        :param document_name: Name of the document.
         :param twin_id: Twin ID.
+        :param document_name: Name of the document.
         :param region: Region to target. If none is passed will use default region from the config.
         :param version: If set, ensures that the current version of the document matches before persisting the update.
         :param data: New data that will replace the contents of the document.
@@ -1658,8 +1659,8 @@ class IotV1API(API):
         ::
 
             result = await api.put_twin_document(
-                document_name="example",
                 twin_id="example",
+                document_name="example",
             )
         """
 
@@ -1674,8 +1675,8 @@ class IotV1API(API):
             f"/iot/v1/regions/{param_region}/twins/{param_twin_id}/documents/{param_document_name}",
             body=marshal_PutTwinDocumentRequest(
                 PutTwinDocumentRequest(
-                    document_name=document_name,
                     twin_id=twin_id,
+                    document_name=document_name,
                     region=region,
                     version=version,
                     data=data,
@@ -1690,8 +1691,8 @@ class IotV1API(API):
     async def patch_twin_document(
         self,
         *,
-        document_name: str,
         twin_id: str,
+        document_name: str,
         region: Optional[Region] = None,
         version: Optional[int] = None,
         data: Optional[Dict[str, Any]] = None,
@@ -1699,8 +1700,8 @@ class IotV1API(API):
         """
         BETA - Patch a Cloud Twin Document.
         BETA - Patch a Cloud Twin Document.
-        :param document_name: Name of the document.
         :param twin_id: Twin ID.
+        :param document_name: Name of the document.
         :param region: Region to target. If none is passed will use default region from the config.
         :param version: If set, ensures that the current version of the document matches before persisting the update.
         :param data: A json data that will be applied on the document's current data.
@@ -1715,8 +1716,8 @@ class IotV1API(API):
         ::
 
             result = await api.patch_twin_document(
-                document_name="example",
                 twin_id="example",
+                document_name="example",
             )
         """
 
@@ -1731,8 +1732,8 @@ class IotV1API(API):
             f"/iot/v1/regions/{param_region}/twins/{param_twin_id}/documents/{param_document_name}",
             body=marshal_PatchTwinDocumentRequest(
                 PatchTwinDocumentRequest(
-                    document_name=document_name,
                     twin_id=twin_id,
+                    document_name=document_name,
                     region=region,
                     version=version,
                     data=data,
@@ -1747,23 +1748,23 @@ class IotV1API(API):
     async def delete_twin_document(
         self,
         *,
-        document_name: str,
         twin_id: str,
+        document_name: str,
         region: Optional[Region] = None,
     ) -> None:
         """
         BETA - Delete a Cloud Twin Document.
         BETA - Delete a Cloud Twin Document.
-        :param document_name: Name of the document.
         :param twin_id: Twin ID.
+        :param document_name: Name of the document.
         :param region: Region to target. If none is passed will use default region from the config.
 
         Usage:
         ::
 
             result = await api.delete_twin_document(
-                document_name="example",
                 twin_id="example",
+                document_name="example",
             )
         """
 

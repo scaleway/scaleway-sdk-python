@@ -77,17 +77,17 @@ def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("provisioning_mode", None)
-    args["provisioning_mode"] = field
-
-    field = data.get("zone", None)
-    args["zone"] = field
+    field = data.get("id", None)
+    args["id"] = field
 
     field = data.get("service_ips", None)
     args["service_ips"] = field
 
-    field = data.get("id", None)
-    args["id"] = field
+    field = data.get("zone", None)
+    args["zone"] = field
+
+    field = data.get("provisioning_mode", None)
+    args["provisioning_mode"] = field
 
     return PrivateNetwork(**args)
 
@@ -111,14 +111,14 @@ def unmarshal_Endpoint(data: Any) -> Endpoint:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("id", None)
-    args["id"] = field
+    field = data.get("port", None)
+    args["port"] = field
 
     field = data.get("ips", None)
     args["ips"] = field
 
-    field = data.get("port", None)
-    args["port"] = field
+    field = data.get("id", None)
+    args["id"] = field
 
     field = data.get("private_network", None)
     args["private_network"] = unmarshal_PrivateNetwork(field)
@@ -137,11 +137,11 @@ def unmarshal_ClusterSetting(data: Any) -> ClusterSetting:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("name", None)
-    args["name"] = field
-
     field = data.get("value", None)
     args["value"] = field
+
+    field = data.get("name", None)
+    args["name"] = field
 
     return ClusterSetting(**args)
 
@@ -154,62 +154,62 @@ def unmarshal_Cluster(data: Any) -> Cluster:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("cluster_settings", None)
-    args["cluster_settings"] = (
-        [unmarshal_ClusterSetting(v) for v in field] if field is not None else None
-    )
+    field = data.get("id", None)
+    args["id"] = field
 
-    field = data.get("tls_enabled", None)
-    args["tls_enabled"] = field
+    field = data.get("name", None)
+    args["name"] = field
 
-    field = data.get("user_name", None)
-    args["user_name"] = field
+    field = data.get("project_id", None)
+    args["project_id"] = field
 
-    field = data.get("upgradable_versions", None)
-    args["upgradable_versions"] = field
+    field = data.get("status", None)
+    args["status"] = field
 
-    field = data.get("node_type", None)
-    args["node_type"] = field
-
-    field = data.get("cluster_size", None)
-    args["cluster_size"] = field
+    field = data.get("version", None)
+    args["version"] = field
 
     field = data.get("endpoints", None)
     args["endpoints"] = (
         [unmarshal_Endpoint(v) for v in field] if field is not None else None
     )
 
-    field = data.get("id", None)
-    args["id"] = field
+    field = data.get("tags", None)
+    args["tags"] = field
 
-    field = data.get("status", None)
-    args["status"] = field
+    field = data.get("node_type", None)
+    args["node_type"] = field
 
-    field = data.get("project_id", None)
-    args["project_id"] = field
+    field = data.get("tls_enabled", None)
+    args["tls_enabled"] = field
 
-    field = data.get("name", None)
-    args["name"] = field
+    field = data.get("cluster_settings", None)
+    args["cluster_settings"] = (
+        [unmarshal_ClusterSetting(v) for v in field] if field is not None else None
+    )
+
+    field = data.get("created_at", None)
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+
+    field = data.get("updated_at", None)
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("acl_rules", None)
     args["acl_rules"] = (
         [unmarshal_ACLRule(v) for v in field] if field is not None else None
     )
 
+    field = data.get("cluster_size", None)
+    args["cluster_size"] = field
+
     field = data.get("zone", None)
     args["zone"] = field
 
-    field = data.get("tags", None)
-    args["tags"] = field
+    field = data.get("user_name", None)
+    args["user_name"] = field
 
-    field = data.get("version", None)
-    args["version"] = field
-
-    field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-
-    field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    field = data.get("upgradable_versions", None)
+    args["upgradable_versions"] = field
 
     return Cluster(**args)
 
@@ -222,13 +222,13 @@ def unmarshal_AddAclRulesResponse(data: Any) -> AddAclRulesResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    args["total_count"] = field
-
     field = data.get("acl_rules", None)
     args["acl_rules"] = (
         [unmarshal_ACLRule(v) for v in field] if field is not None else None
     )
+
+    field = data.get("total_count", None)
+    args["total_count"] = field
 
     return AddAclRulesResponse(**args)
 
@@ -241,13 +241,13 @@ def unmarshal_AddEndpointsResponse(data: Any) -> AddEndpointsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    args["total_count"] = field
-
     field = data.get("endpoints", None)
     args["endpoints"] = (
         [unmarshal_Endpoint(v) for v in field] if field is not None else None
     )
+
+    field = data.get("total_count", None)
+    args["total_count"] = field
 
     return AddEndpointsResponse(**args)
 
@@ -292,17 +292,17 @@ def unmarshal_AvailableClusterSetting(data: Any) -> AvailableClusterSetting:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("deprecated", None)
-    args["deprecated"] = field
-
-    field = data.get("description", None)
-    args["description"] = field
+    field = data.get("name", None)
+    args["name"] = field
 
     field = data.get("type_", None)
     args["type_"] = field
 
-    field = data.get("name", None)
-    args["name"] = field
+    field = data.get("description", None)
+    args["description"] = field
+
+    field = data.get("deprecated", None)
+    args["deprecated"] = field
 
     field = data.get("default_value", None)
     args["default_value"] = field
@@ -327,11 +327,8 @@ def unmarshal_ClusterVersion(data: Any) -> ClusterVersion:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("zone", None)
-    args["zone"] = field
-
-    field = data.get("logo_url", None)
-    args["logo_url"] = field
+    field = data.get("version", None)
+    args["version"] = field
 
     field = data.get("available_settings", None)
     args["available_settings"] = (
@@ -340,8 +337,11 @@ def unmarshal_ClusterVersion(data: Any) -> ClusterVersion:
         else None
     )
 
-    field = data.get("version", None)
-    args["version"] = field
+    field = data.get("logo_url", None)
+    args["logo_url"] = field
+
+    field = data.get("zone", None)
+    args["zone"] = field
 
     field = data.get("end_of_life_at", None)
     args["end_of_life_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -357,13 +357,13 @@ def unmarshal_ListClusterVersionsResponse(data: Any) -> ListClusterVersionsRespo
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    args["total_count"] = field
-
     field = data.get("versions", None)
     args["versions"] = (
         [unmarshal_ClusterVersion(v) for v in field] if field is not None else None
     )
+
+    field = data.get("total_count", None)
+    args["total_count"] = field
 
     return ListClusterVersionsResponse(**args)
 
@@ -376,13 +376,13 @@ def unmarshal_ListClustersResponse(data: Any) -> ListClustersResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    args["total_count"] = field
-
     field = data.get("clusters", None)
     args["clusters"] = (
         [unmarshal_Cluster(v) for v in field] if field is not None else None
     )
+
+    field = data.get("total_count", None)
+    args["total_count"] = field
 
     return ListClustersResponse(**args)
 
@@ -395,29 +395,29 @@ def unmarshal_NodeType(data: Any) -> NodeType:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("zone", None)
-    args["zone"] = field
-
-    field = data.get("beta", None)
-    args["beta"] = field
-
-    field = data.get("disabled", None)
-    args["disabled"] = field
-
-    field = data.get("memory", None)
-    args["memory"] = field
-
-    field = data.get("vcpus", None)
-    args["vcpus"] = field
-
-    field = data.get("description", None)
-    args["description"] = field
+    field = data.get("name", None)
+    args["name"] = field
 
     field = data.get("stock_status", None)
     args["stock_status"] = field
 
-    field = data.get("name", None)
-    args["name"] = field
+    field = data.get("description", None)
+    args["description"] = field
+
+    field = data.get("vcpus", None)
+    args["vcpus"] = field
+
+    field = data.get("memory", None)
+    args["memory"] = field
+
+    field = data.get("disabled", None)
+    args["disabled"] = field
+
+    field = data.get("beta", None)
+    args["beta"] = field
+
+    field = data.get("zone", None)
+    args["zone"] = field
 
     return NodeType(**args)
 
@@ -430,13 +430,13 @@ def unmarshal_ListNodeTypesResponse(data: Any) -> ListNodeTypesResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    args["total_count"] = field
-
     field = data.get("node_types", None)
     args["node_types"] = (
         [unmarshal_NodeType(v) for v in field] if field is not None else None
     )
+
+    field = data.get("total_count", None)
+    args["total_count"] = field
 
     return ListNodeTypesResponse(**args)
 
@@ -479,11 +479,11 @@ def marshal_ACLRuleSpec(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.description is not None:
-        output["description"] = request.description
-
     if request.ip_cidr is not None:
         output["ip_cidr"] = request.ip_cidr
+
+    if request.description is not None:
+        output["description"] = request.description
 
     return output
 
@@ -508,11 +508,11 @@ def marshal_ClusterSetting(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.name is not None:
-        output["name"] = request.name
-
     if request.value is not None:
         output["value"] = request.value
+
+    if request.name is not None:
+        output["name"] = request.name
 
     return output
 
@@ -546,18 +546,18 @@ def marshal_EndpointSpecPrivateNetworkSpec(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
+    if request.id is not None:
+        output["id"] = request.id
+
+    if request.service_ips is not None:
+        output["service_ips"] = request.service_ips
+
     if request.ipam_config is not None:
         output["ipam_config"] = (
             marshal_EndpointSpecPrivateNetworkSpecIpamConfig(
                 request.ipam_config, defaults
             ),
         )
-
-    if request.service_ips is not None:
-        output["service_ips"] = request.service_ips
-
-    if request.id is not None:
-        output["id"] = request.id
 
     return output
 
@@ -611,23 +611,26 @@ def marshal_CreateClusterRequest(
     if request.version is not None:
         output["version"] = request.version
 
+    if request.node_type is not None:
+        output["node_type"] = request.node_type
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    if request.user_name is not None:
+        output["user_name"] = request.user_name
+
     if request.password is not None:
         output["password"] = request.password
 
     if request.tls_enabled is not None:
         output["tls_enabled"] = request.tls_enabled
-
-    if request.node_type is not None:
-        output["node_type"] = request.node_type
-
-    if request.user_name is not None:
-        output["user_name"] = request.user_name
-
-    if request.tags is not None:
-        output["tags"] = request.tags
-
-    if request.name is not None:
-        output["name"] = request.name
 
     if request.cluster_size is not None:
         output["cluster_size"] = request.cluster_size
@@ -641,9 +644,6 @@ def marshal_CreateClusterRequest(
         output["endpoints"] = [
             marshal_EndpointSpec(item, defaults) for item in request.endpoints
         ]
-
-    if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
 
     if request.cluster_settings is not None:
         output["cluster_settings"] = [

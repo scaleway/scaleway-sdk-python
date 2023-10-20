@@ -352,25 +352,25 @@ class TaskType(str, Enum, metaclass=StrEnumMeta):
 
 @dataclass
 class RecordGeoIPConfigMatch:
-    data: str
+    countries: List[str]
 
     continents: List[str]
 
-    countries: List[str]
+    data: str
 
 
 @dataclass
 class RecordViewConfigView:
-    data: str
-
     subnet: str
+
+    data: str
 
 
 @dataclass
 class RecordWeightedConfigWeightedIP:
-    weight: int
-
     ip: str
+
+    weight: int
 
 
 @dataclass
@@ -380,18 +380,18 @@ class DSRecordPublicKey:
 
 @dataclass
 class RecordGeoIPConfig:
-    default: str
-
     matches: List[RecordGeoIPConfigMatch]
+
+    default: str
 
 
 @dataclass
 class RecordHTTPServiceConfig:
-    strategy: RecordHTTPServiceConfigStrategy
+    ips: List[str]
 
     url: str
 
-    ips: List[str]
+    strategy: RecordHTTPServiceConfigStrategy
 
     must_contain: Optional[str]
 
@@ -422,9 +422,9 @@ class ContactExtensionFRCodeAuthAfnicInfo:
 
 @dataclass
 class ContactExtensionFRDunsInfo:
-    local_id: str
-
     duns_id: str
+
+    local_id: str
 
 
 @dataclass
@@ -439,26 +439,26 @@ class ContactExtensionFRTrademarkInfo:
 
 @dataclass
 class DSRecordDigest:
-    public_key: DSRecordPublicKey
+    type_: DSRecordDigestType
 
     digest: str
 
-    type_: DSRecordDigestType
+    public_key: DSRecordPublicKey
 
 
 @dataclass
 class Record:
-    id: str
-
-    type_: RecordType
-
-    ttl: int
-
-    priority: int
+    data: str
 
     name: str
 
-    data: str
+    priority: int
+
+    ttl: int
+
+    type_: RecordType
+
+    id: str
 
     comment: Optional[str]
 
@@ -473,9 +473,9 @@ class Record:
 
 @dataclass
 class RecordIdentifier:
-    type_: RecordType
-
     name: str
+
+    type_: RecordType
 
     data: Optional[str]
 
@@ -504,32 +504,32 @@ class ContactExtensionFR:
 
 @dataclass
 class ContactExtensionNL:
-    legal_form_registration_number: str
-
     legal_form: ContactExtensionNLLegalForm
+
+    legal_form_registration_number: str
 
 
 @dataclass
 class ContactQuestion:
-    answer: str
-
     question: str
+
+    answer: str
 
 
 @dataclass
 class TldOffer:
-    operation_path: str
-
     action: str
+
+    operation_path: str
 
     price: Optional[Money]
 
 
 @dataclass
 class DSRecord:
-    algorithm: DSRecordAlgorithm
-
     key_id: int
+
+    algorithm: DSRecordAlgorithm
 
     digest: Optional[DSRecordDigest]
 
@@ -564,73 +564,73 @@ class RecordChangeSet:
 
 @dataclass
 class ImportRawDNSZoneRequestTsigKey:
-    algorithm: str
+    name: str
 
     key: str
 
-    name: str
+    algorithm: str
 
 
 @dataclass
 class Contact:
-    resale: bool
+    id: str
 
     legal_form: ContactLegalForm
 
-    company_name: str
-
-    country: str
-
-    id: str
-
-    extension_fr: ContactExtensionFR
-
-    email_alt: str
-
-    address_line_2: str
-
     firstname: str
-
-    email: str
-
-    company_identification_code: str
-
-    zip: str
-
-    extension_nl: ContactExtensionNL
-
-    state: str
-
-    fax_number: str
-
-    phone_number: str
-
-    address_line_1: str
-
-    vat_identification_code: str
-
-    lang: StdLanguageCode
 
     lastname: str
 
-    email_status: ContactEmailStatus
+    company_name: str
 
-    whois_opt_in: bool
+    email: str
+
+    email_alt: str
+
+    phone_number: str
+
+    fax_number: str
+
+    address_line_1: str
+
+    address_line_2: str
+
+    zip: str
+
+    city: str
+
+    country: str
+
+    vat_identification_code: str
+
+    company_identification_code: str
+
+    lang: StdLanguageCode
+
+    resale: bool
+
+    extension_fr: ContactExtensionFR
 
     extension_eu: ContactExtensionEU
 
-    city: str
+    whois_opt_in: bool
+
+    email_status: ContactEmailStatus
+
+    state: str
+
+    extension_nl: ContactExtensionNL
 
     questions: Optional[List[ContactQuestion]]
 
 
 @dataclass
 class ContactRolesRoles:
-    is_technical: bool
+    is_owner: bool
 
     is_administrative: bool
 
-    is_owner: bool
+    is_technical: bool
 
 
 @dataclass
@@ -640,77 +640,77 @@ class DomainRegistrationStatusExternalDomain:
 
 @dataclass
 class DomainRegistrationStatusTransfer:
-    vote_new_owner: bool
+    status: DomainRegistrationStatusTransferStatus
 
     vote_current_owner: bool
 
-    status: DomainRegistrationStatusTransferStatus
+    vote_new_owner: bool
 
 
 @dataclass
 class Tld:
-    specifications: Dict[str, str]
-
-    offers: Dict[str, TldOffer]
-
-    idn_support: bool
-
-    duration_in_years_max: int
-
-    duration_in_years_min: int
+    name: str
 
     dnssec_support: bool
 
-    name: str
+    duration_in_years_min: int
+
+    duration_in_years_max: int
+
+    idn_support: bool
+
+    offers: Dict[str, TldOffer]
+
+    specifications: Dict[str, str]
 
 
 @dataclass
 class NewContact:
-    city: str
-
     legal_form: ContactLegalForm
-
-    extension_fr: ContactExtensionFR
-
-    address_line_1: str
-
-    extension_eu: ContactExtensionEU
-
-    resale: bool
-
-    whois_opt_in: bool
-
-    email: str
-
-    extension_nl: ContactExtensionNL
-
-    lastname: str
 
     firstname: str
 
-    country: str
+    lastname: str
 
-    lang: StdLanguageCode
+    email: str
 
-    phone_number: str
-
-    zip: str
-
-    company_identification_code: Optional[str]
-
-    vat_identification_code: Optional[str]
-
-    questions: Optional[List[ContactQuestion]]
-
-    address_line_2: Optional[str]
-
-    fax_number: Optional[str]
+    company_name: Optional[str]
 
     email_alt: Optional[str]
 
-    state: Optional[str]
+    phone_number: str
 
-    company_name: Optional[str]
+    address_line_1: str
+
+    zip: str
+
+    city: str
+
+    country: str
+
+    fax_number: Optional[str]
+
+    address_line_2: Optional[str]
+
+    vat_identification_code: Optional[str]
+
+    company_identification_code: Optional[str]
+
+    lang: StdLanguageCode
+
+    resale: bool
+
+    extension_fr: ContactExtensionFR
+
+    extension_eu: ContactExtensionEU
+
+    whois_opt_in: bool
+
+    extension_nl: ContactExtensionNL
+
+    questions: Optional[List[ContactQuestion]]
+
+    state: Optional[str]
 
 
 @dataclass
@@ -722,19 +722,19 @@ class CheckContactsCompatibilityResponseContactCheckResult:
 
 @dataclass
 class DNSZone:
-    project_id: str
-
-    status: DNSZoneStatus
-
-    ns_master: List[str]
-
-    ns_default: List[str]
-
-    ns: List[str]
+    domain: str
 
     subdomain: str
 
-    domain: str
+    ns: List[str]
+
+    ns_default: List[str]
+
+    ns_master: List[str]
+
+    status: DNSZoneStatus
+
+    project_id: str
 
     message: Optional[str]
 
@@ -743,9 +743,9 @@ class DNSZone:
 
 @dataclass
 class DomainDNSSEC:
-    ds_records: List[DSRecord]
-
     status: DomainFeatureStatus
+
+    ds_records: List[DSRecord]
 
 
 @dataclass
@@ -766,9 +766,9 @@ class ImportProviderDNSZoneRequestOnlineV1:
 
 @dataclass
 class ImportRawDNSZoneRequestAXFRSource:
-    tsig_key: ImportRawDNSZoneRequestTsigKey
-
     name_server: str
+
+    tsig_key: ImportRawDNSZoneRequestTsigKey
 
 
 @dataclass
@@ -778,16 +778,16 @@ class ImportRawDNSZoneRequestBindSource:
 
 @dataclass
 class ContactRoles:
-    roles: Dict[str, ContactRolesRoles]
-
     contact: Contact
+
+    roles: Dict[str, ContactRolesRoles]
 
 
 @dataclass
 class Nameserver:
-    ip: List[str]
-
     name: str
+
+    ip: List[str]
 
 
 @dataclass
@@ -799,34 +799,34 @@ class DNSZoneVersion:
 
 @dataclass
 class Host:
-    status: HostStatus
-
-    ips: List[str]
+    domain: str
 
     name: str
 
-    domain: str
+    ips: List[str]
+
+    status: HostStatus
 
 
 @dataclass
 class DomainSummary:
-    organization_id: str
-
-    status: DomainStatus
-
-    is_external: bool
-
-    registrar: str
-
-    epp_code: List[str]
-
-    dnssec_status: DomainFeatureStatus
-
-    auto_renew_status: DomainFeatureStatus
+    domain: str
 
     project_id: str
 
-    domain: str
+    auto_renew_status: DomainFeatureStatus
+
+    dnssec_status: DomainFeatureStatus
+
+    epp_code: List[str]
+
+    registrar: str
+
+    is_external: bool
+
+    status: DomainStatus
+
+    organization_id: str
 
     expired_at: Optional[datetime]
 
@@ -841,15 +841,15 @@ class DomainSummary:
 
 @dataclass
 class RenewableDomain:
-    tld: Tld
-
-    status: RenewableDomainStatus
-
-    organization_id: str
+    domain: str
 
     project_id: str
 
-    domain: str
+    organization_id: str
+
+    status: RenewableDomainStatus
+
+    tld: Tld
 
     renewable_duration_in_years: Optional[int]
 
@@ -864,15 +864,15 @@ class RenewableDomain:
 
 @dataclass
 class SSLCertificate:
-    certificate_chain: str
-
-    private_key: str
-
-    status: SSLCertificateStatus
+    dns_zone: str
 
     alternative_dns_zones: List[str]
 
-    dns_zone: str
+    status: SSLCertificateStatus
+
+    private_key: str
+
+    certificate_chain: str
 
     created_at: Optional[datetime]
 
@@ -881,15 +881,15 @@ class SSLCertificate:
 
 @dataclass
 class Task:
-    status: TaskStatus
-
-    type_: TaskType
-
-    organization_id: str
+    id: str
 
     project_id: str
 
-    id: str
+    organization_id: str
+
+    type_: TaskType
+
+    status: TaskStatus
 
     domain: Optional[str]
 
@@ -902,9 +902,9 @@ class Task:
 
 @dataclass
 class TransferInDomainRequestTransferRequest:
-    auth_code: str
-
     domain: str
+
+    auth_code: str
 
 
 @dataclass
@@ -916,22 +916,22 @@ class UpdateContactRequestQuestion:
 
 @dataclass
 class AvailableDomain:
-    tld: Tld
+    domain: str
 
     available: bool
 
-    domain: str
+    tld: Tld
 
 
 @dataclass
 class CheckContactsCompatibilityResponse:
-    technical_check_result: CheckContactsCompatibilityResponseContactCheckResult
-
-    administrative_check_result: CheckContactsCompatibilityResponseContactCheckResult
+    compatible: bool
 
     owner_check_result: CheckContactsCompatibilityResponseContactCheckResult
 
-    compatible: bool
+    administrative_check_result: CheckContactsCompatibilityResponseContactCheckResult
+
+    technical_check_result: CheckContactsCompatibilityResponseContactCheckResult
 
 
 @dataclass
@@ -949,9 +949,9 @@ class ClearDNSZoneRecordsResponse:
 
 @dataclass
 class CloneDNSZoneRequest:
-    overwrite: bool
+    dns_zone: str
     """
-    Specifies whether or not the destination DNS zone will be overwritten.
+    DNS zone to clone.
     """
 
     dest_dns_zone: str
@@ -959,9 +959,9 @@ class CloneDNSZoneRequest:
     Destination DNS zone in which to clone the chosen DNS zone.
     """
 
-    dns_zone: str
+    overwrite: bool
     """
-    DNS zone to clone.
+    Specifies whether or not the destination DNS zone will be overwritten.
     """
 
     project_id: Optional[str]
@@ -972,14 +972,14 @@ class CloneDNSZoneRequest:
 
 @dataclass
 class CreateDNSZoneRequest:
-    subdomain: str
-    """
-    Subdomain of the DNS zone to create.
-    """
-
     domain: str
     """
     Domain in which to crreate the DNS zone.
+    """
+
+    subdomain: str
+    """
+    Subdomain of the DNS zone to create.
     """
 
     project_id: Optional[str]
@@ -1035,37 +1035,37 @@ class DeleteSSLCertificateResponse:
 
 @dataclass
 class Domain:
-    dns_zones: List[DNSZone]
-
-    status: DomainStatus
-
-    is_external: bool
-
     domain: str
-
-    administrative_contact: Contact
-
-    technical_contact: Contact
-
-    epp_code: List[str]
-
-    dnssec: DomainDNSSEC
-
-    auto_renew_status: DomainFeatureStatus
-
-    project_id: str
 
     organization_id: str
 
-    owner_contact: Contact
+    project_id: str
 
-    tld: Tld
+    auto_renew_status: DomainFeatureStatus
 
-    registrar: str
+    dnssec: DomainDNSSEC
+
+    epp_code: List[str]
+
+    expired_at: Optional[datetime]
 
     updated_at: Optional[datetime]
 
-    expired_at: Optional[datetime]
+    registrar: str
+
+    is_external: bool
+
+    status: DomainStatus
+
+    dns_zones: List[DNSZone]
+
+    owner_contact: Contact
+
+    technical_contact: Contact
+
+    administrative_contact: Contact
+
+    tld: Tld
 
     external_domain_registration_status: Optional[
         DomainRegistrationStatusExternalDomain
@@ -1094,11 +1094,11 @@ class GetDNSZoneTsigKeyRequest:
 
 @dataclass
 class GetDNSZoneTsigKeyResponse:
-    algorithm: str
+    name: str
 
     key: str
 
-    name: str
+    algorithm: str
 
 
 @dataclass
@@ -1158,21 +1158,21 @@ class ImportRawDNSZoneResponse:
 
 @dataclass
 class ListContactsResponse:
-    contacts: List[ContactRoles]
-
     total_count: int
+
+    contacts: List[ContactRoles]
 
 
 @dataclass
 class ListDNSZoneNameserversRequest:
-    dns_zone: str
-    """
-    DNS zone on which to filter the returned DNS zone name servers.
-    """
-
     project_id: Optional[str]
     """
     Project ID on which to filter the returned DNS zone name servers.
+    """
+
+    dns_zone: str
+    """
+    DNS zone on which to filter the returned DNS zone name servers.
     """
 
 
@@ -1186,16 +1186,6 @@ class ListDNSZoneNameserversResponse:
 
 @dataclass
 class ListDNSZoneRecordsRequest:
-    name: str
-    """
-    Name on which to filter the returned DNS zone records.
-    """
-
-    dns_zone: str
-    """
-    DNS zone on which to filter the returned DNS zone records.
-    """
-
     project_id: Optional[str]
     """
     Project ID on which to filter the returned DNS zone records.
@@ -1216,6 +1206,16 @@ class ListDNSZoneRecordsRequest:
     Maximum number of DNS zone records per page.
     """
 
+    dns_zone: str
+    """
+    DNS zone on which to filter the returned DNS zone records.
+    """
+
+    name: str
+    """
+    Name on which to filter the returned DNS zone records.
+    """
+
     type_: Optional[RecordType]
     """
     Record type on which to filter the returned DNS zone records.
@@ -1229,21 +1229,19 @@ class ListDNSZoneRecordsRequest:
 
 @dataclass
 class ListDNSZoneRecordsResponse:
-    records: List[Record]
-    """
-    Paginated returned DNS zone records.
-    """
-
     total_count: int
     """
     Total number of DNS zone records.
     """
 
+    records: List[Record]
+    """
+    Paginated returned DNS zone records.
+    """
+
 
 @dataclass
 class ListDNSZoneVersionRecordsRequest:
-    dns_zone_version_id: str
-
     page: Optional[int]
     """
     Page number to return, from the paginated results.
@@ -1254,21 +1252,21 @@ class ListDNSZoneVersionRecordsRequest:
     Maximum number of DNS zones versions records per page.
     """
 
+    dns_zone_version_id: str
+
 
 @dataclass
 class ListDNSZoneVersionRecordsResponse:
-    records: List[Record]
-
     total_count: int
     """
     Total number of DNS zones versions records.
     """
 
+    records: List[Record]
+
 
 @dataclass
 class ListDNSZoneVersionsRequest:
-    dns_zone: str
-
     page: Optional[int]
     """
     Page number to return, from the paginated results.
@@ -1279,15 +1277,17 @@ class ListDNSZoneVersionsRequest:
     Maximum number of DNS zones versions per page.
     """
 
+    dns_zone: str
+
 
 @dataclass
 class ListDNSZoneVersionsResponse:
-    versions: List[DNSZoneVersion]
-
     total_count: int
     """
     Total number of DNS zones versions.
     """
+
+    versions: List[DNSZoneVersion]
 
 
 @dataclass
@@ -1355,36 +1355,36 @@ class ListDNSZonesRequest:
 
 @dataclass
 class ListDNSZonesResponse:
-    dns_zones: List[DNSZone]
-    """
-    Paginated returned DNS zones.
-    """
-
     total_count: int
     """
     Total number of DNS zones matching the requested criteria.
     """
 
+    dns_zones: List[DNSZone]
+    """
+    Paginated returned DNS zones.
+    """
+
 
 @dataclass
 class ListDomainHostsResponse:
-    hosts: List[Host]
-
     total_count: int
+
+    hosts: List[Host]
 
 
 @dataclass
 class ListDomainsResponse:
-    domains: List[DomainSummary]
-
     total_count: int
+
+    domains: List[DomainSummary]
 
 
 @dataclass
 class ListRenewableDomainsResponse:
-    domains: List[RenewableDomain]
-
     total_count: int
+
+    domains: List[RenewableDomain]
 
 
 @dataclass
@@ -1400,49 +1400,49 @@ class ListSSLCertificatesRequest:
 
 @dataclass
 class ListSSLCertificatesResponse:
-    certificates: List[SSLCertificate]
-
     total_count: int
+
+    certificates: List[SSLCertificate]
 
 
 @dataclass
 class ListTasksResponse:
-    tasks: List[Task]
-
     total_count: int
+
+    tasks: List[Task]
 
 
 @dataclass
 class ListTldsResponse:
-    total_count: int
-    """
-    Total count of TLDs returned.
-    """
-
     tlds: List[Tld]
     """
     Array of TLDs.
     """
 
+    total_count: int
+    """
+    Total count of TLDs returned.
+    """
+
 
 @dataclass
 class OrderResponse:
-    task_id: str
-
-    project_id: str
+    domains: List[str]
 
     organization_id: str
 
-    domains: List[str]
+    project_id: str
+
+    task_id: str
 
     created_at: Optional[datetime]
 
 
 @dataclass
 class RefreshDNSZoneRequest:
-    recreate_sub_dns_zone: bool
+    dns_zone: str
     """
-    Specifies whether or not to recreate the sub DNS zone.
+    DNS zone to refresh.
     """
 
     recreate_dns_zone: bool
@@ -1450,9 +1450,9 @@ class RefreshDNSZoneRequest:
     Specifies whether or not to recreate the DNS zone.
     """
 
-    dns_zone: str
+    recreate_sub_dns_zone: bool
     """
-    DNS zone to refresh.
+    Specifies whether or not to recreate the sub DNS zone.
     """
 
 
@@ -1466,22 +1466,22 @@ class RefreshDNSZoneResponse:
 
 @dataclass
 class RegisterExternalDomainResponse:
-    project_id: str
-
-    validation_token: str
+    domain: str
 
     organization_id: str
 
-    domain: str
+    validation_token: str
+
+    project_id: str
 
     created_at: Optional[datetime]
 
 
 @dataclass
 class RegistrarApiBuyDomainsRequest:
-    duration_in_years: int
+    domains: List[str]
 
-    domains: Optional[List[str]]
+    duration_in_years: int
 
     project_id: Optional[str]
 
@@ -1519,18 +1519,18 @@ class RegistrarApiCheckContactsCompatibilityRequest:
 
 @dataclass
 class RegistrarApiCreateDomainHostRequest:
-    name: str
-
     domain: str
+
+    name: str
 
     ips: Optional[List[str]]
 
 
 @dataclass
 class RegistrarApiDeleteDomainHostRequest:
-    name: str
-
     domain: str
+
+    name: str
 
 
 @dataclass
@@ -1555,9 +1555,9 @@ class RegistrarApiEnableDomainAutoRenewRequest:
 
 @dataclass
 class RegistrarApiEnableDomainDNSSECRequest:
-    ds_record: DSRecord
-
     domain: str
+
+    ds_record: Optional[DSRecord]
 
 
 @dataclass
@@ -1594,11 +1594,11 @@ class RegistrarApiListContactsRequest:
 
 @dataclass
 class RegistrarApiListDomainHostsRequest:
-    domain: str
-
     page: Optional[int]
 
     page_size: Optional[int]
+
+    domain: str
 
 
 @dataclass
@@ -1691,23 +1691,23 @@ class RegistrarApiRegisterExternalDomainRequest:
 
 @dataclass
 class RegistrarApiRenewDomainsRequest:
-    duration_in_years: int
+    domains: List[str]
 
-    domains: Optional[List[str]]
+    duration_in_years: int
 
     force_late_renewal: Optional[bool]
 
 
 @dataclass
 class RegistrarApiSearchAvailableDomainsRequest:
+    domains: List[str]
+    """
+    A list of domain to search, TLD is optional.
+    """
+
     strict_search: bool
     """
     Search exact match.
-    """
-
-    domains: Optional[List[str]]
-    """
-    A list of domain to search, TLD is optional.
     """
 
     tlds: Optional[List[str]]
@@ -1729,7 +1729,7 @@ class RegistrarApiTradeDomainRequest:
 
 @dataclass
 class RegistrarApiTransferInDomainRequest:
-    domains: Optional[List[TransferInDomainRequestTransferRequest]]
+    domains: List[TransferInDomainRequestTransferRequest]
 
     project_id: Optional[str]
 
@@ -1753,17 +1753,17 @@ class RegistrarApiUnlockDomainTransferRequest:
 
 @dataclass
 class RegistrarApiUpdateContactRequest:
-    extension_fr: ContactExtensionFR
-
-    extension_eu: ContactExtensionEU
-
-    extension_nl: ContactExtensionNL
-
     contact_id: str
 
-    address_line_1: Optional[str]
+    email: Optional[str]
 
-    company_identification_code: Optional[str]
+    email_alt: Optional[str]
+
+    phone_number: Optional[str]
+
+    fax_number: Optional[str]
+
+    address_line_1: Optional[str]
 
     address_line_2: Optional[str]
 
@@ -1775,7 +1775,7 @@ class RegistrarApiUpdateContactRequest:
 
     vat_identification_code: Optional[str]
 
-    fax_number: Optional[str]
+    company_identification_code: Optional[str]
 
     lang: Optional[StdLanguageCode]
 
@@ -1783,22 +1783,22 @@ class RegistrarApiUpdateContactRequest:
 
     questions: Optional[List[UpdateContactRequestQuestion]]
 
-    phone_number: Optional[str]
+    extension_fr: Optional[ContactExtensionFR]
 
-    email_alt: Optional[str]
+    extension_eu: Optional[ContactExtensionEU]
 
     whois_opt_in: Optional[bool]
 
     state: Optional[str]
 
-    email: Optional[str]
+    extension_nl: Optional[ContactExtensionNL]
 
 
 @dataclass
 class RegistrarApiUpdateDomainHostRequest:
-    name: str
-
     domain: str
+
+    name: str
 
     ips: Optional[List[str]]
 
@@ -1845,7 +1845,7 @@ class UpdateDNSZoneNameserversRequest:
     DNS zone in which to update the DNS zone name servers.
     """
 
-    ns: Optional[List[Nameserver]]
+    ns: List[Nameserver]
     """
     New DNS zone name servers.
     """
@@ -1861,19 +1861,19 @@ class UpdateDNSZoneNameserversResponse:
 
 @dataclass
 class UpdateDNSZoneRecordsRequest:
-    disallow_new_zone_creation: bool
-    """
-    Disable the creation of the target zone if it does not exist. Target zone creation is disabled by default.
-    """
-
     dns_zone: str
     """
     DNS zone in which to update the DNS zone records.
     """
 
-    changes: Optional[List[RecordChange]]
+    changes: List[RecordChange]
     """
     Changes made to the records.
+    """
+
+    disallow_new_zone_creation: bool
+    """
+    Disable the creation of the target zone if it does not exist. Target zone creation is disabled by default.
     """
 
     return_all_records: Optional[bool]

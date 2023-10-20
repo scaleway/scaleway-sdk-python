@@ -100,39 +100,9 @@ class ContactPointEmail:
 
 @dataclass
 class TokenScopes:
-    write_traces: bool
+    query_metrics: bool
     """
-    Permission to write traces.
-    """
-
-    query_traces: bool
-    """
-    Permission to fetch traces.
-    """
-
-    setup_alerts: bool
-    """
-    Permission to set up alerts.
-    """
-
-    setup_logs_rules: bool
-    """
-    Permission to set up logs rules.
-    """
-
-    write_logs: bool
-    """
-    Permission to write logs.
-    """
-
-    query_logs: bool
-    """
-    Permission to fetch logs.
-    """
-
-    setup_metrics_rules: bool
-    """
-    Permission to setup metrics rules.
+    Permission to fetch metrics.
     """
 
     write_metrics: bool
@@ -140,22 +110,47 @@ class TokenScopes:
     Permission to write metrics.
     """
 
-    query_metrics: bool
+    setup_metrics_rules: bool
     """
-    Permission to fetch metrics.
+    Permission to setup metrics rules.
+    """
+
+    query_logs: bool
+    """
+    Permission to fetch logs.
+    """
+
+    write_logs: bool
+    """
+    Permission to write logs.
+    """
+
+    setup_logs_rules: bool
+    """
+    Permission to set up logs rules.
+    """
+
+    setup_alerts: bool
+    """
+    Permission to set up alerts.
+    """
+
+    query_traces: bool
+    """
+    Permission to fetch traces.
+    """
+
+    write_traces: bool
+    """
+    Permission to write traces.
     """
 
 
 @dataclass
 class CockpitEndpoints:
-    grafana_url: str
+    metrics_url: str
     """
-    URL for the Grafana dashboard.
-    """
-
-    alertmanager_url: str
-    """
-    URL for the alert manager.
+    URL for metrics.
     """
 
     logs_url: str
@@ -163,9 +158,19 @@ class CockpitEndpoints:
     URL for logs.
     """
 
-    metrics_url: str
+    traces_url: str
     """
-    URL for metrics.
+    URL for traces.
+    """
+
+    alertmanager_url: str
+    """
+    URL for the alert manager.
+    """
+
+    grafana_url: str
+    """
+    URL for the Grafana dashboard.
     """
 
 
@@ -175,19 +180,9 @@ class Plan:
     Pricing plan.
     """
 
-    retention_price: int
+    id: str
     """
-    Retention price in euros per month.
-    """
-
-    logs_ingestion_price: int
-    """
-    Ingestion price for 1 GB of logs in cents.
-    """
-
-    sample_ingestion_price: int
-    """
-    Ingestion price for 1 million samples in cents.
+    ID of a given pricing plan.
     """
 
     name: PlanName
@@ -195,9 +190,19 @@ class Plan:
     Name of a given pricing plan.
     """
 
-    id: str
+    sample_ingestion_price: int
     """
-    ID of a given pricing plan.
+    Ingestion price for 1 million samples in cents.
+    """
+
+    logs_ingestion_price: int
+    """
+    Ingestion price for 1 GB of logs in cents.
+    """
+
+    retention_price: int
+    """
+    Retention price in euros per month.
     """
 
     retention_metrics_interval: Optional[str]
@@ -226,19 +231,9 @@ class Datasource:
     Datasource.
     """
 
-    type_: DatasourceType
+    id: str
     """
-    Datasource type.
-    """
-
-    url: str
-    """
-    Datasource URL.
-    """
-
-    name: str
-    """
-    Datasource name.
+    ID of the datasource.
     """
 
     project_id: str
@@ -246,9 +241,51 @@ class Datasource:
     ID of the Project the Cockpit belongs to.
     """
 
-    id: str
+    name: str
     """
-    ID of the datasource.
+    Datasource name.
+    """
+
+    url: str
+    """
+    Datasource URL.
+    """
+
+    type_: DatasourceType
+    """
+    Datasource type.
+    """
+
+
+@dataclass
+class GrafanaProductDashboard:
+    """
+    Grafana dashboard.
+    """
+
+    dashboard_name: str
+    """
+    Name of the dashboard.
+    """
+
+    title: str
+    """
+    Title of the dashboard.
+    """
+
+    url: str
+    """
+    URL of the dashboard.
+    """
+
+    tags: List[str]
+    """
+    Tags of the dashboard.
+    """
+
+    variables: List[str]
+    """
+    Variables of the dashboard.
     """
 
 
@@ -258,9 +295,9 @@ class GrafanaUser:
     Grafana user.
     """
 
-    role: GrafanaUserRole
+    id: int
     """
-    Role assigned to the Grafana user.
+    ID of the Grafana user.
     """
 
     login: str
@@ -268,9 +305,9 @@ class GrafanaUser:
     Username of the Grafana user.
     """
 
-    id: int
+    role: GrafanaUserRole
     """
-    ID of the Grafana user.
+    Role assigned to the Grafana user.
     """
 
     password: Optional[str]
@@ -281,14 +318,9 @@ class GrafanaUser:
 
 @dataclass
 class Token:
-    scopes: TokenScopes
+    id: str
     """
-    Token's permissions.
-    """
-
-    name: str
-    """
-    Name of the token.
+    ID of the token.
     """
 
     project_id: str
@@ -296,9 +328,14 @@ class Token:
     ID of the Project.
     """
 
-    id: str
+    name: str
     """
-    ID of the token.
+    Name of the token.
+    """
+
+    scopes: TokenScopes
+    """
+    Token's permissions.
     """
 
     created_at: Optional[datetime]
@@ -331,19 +368,9 @@ class Cockpit:
     Cockpit.
     """
 
-    plan: Plan
+    project_id: str
     """
-    Pricing plan information.
-    """
-
-    managed_alerts_enabled: bool
-    """
-    Specifies whether managed alerts are enabled or disabled.
-    """
-
-    status: CockpitStatus
-    """
-    Status of the Cockpit.
+    ID of the Project the Cockpit belongs to.
     """
 
     endpoints: CockpitEndpoints
@@ -351,9 +378,19 @@ class Cockpit:
     Endpoints of the Cockpit.
     """
 
-    project_id: str
+    status: CockpitStatus
     """
-    ID of the Project the Cockpit belongs to.
+    Status of the Cockpit.
+    """
+
+    managed_alerts_enabled: bool
+    """
+    Specifies whether managed alerts are enabled or disabled.
+    """
+
+    plan: Plan
+    """
+    Pricing plan information.
     """
 
     created_at: Optional[datetime]
@@ -442,11 +479,6 @@ class CreateGrafanaUserRequest:
 
 @dataclass
 class CreateTokenRequest:
-    scopes: TokenScopes
-    """
-    Token's permissions.
-    """
-
     project_id: Optional[str]
     """
     ID of the Project.
@@ -455,6 +487,11 @@ class CreateTokenRequest:
     name: Optional[str]
     """
     Name of the token.
+    """
+
+    scopes: Optional[TokenScopes]
+    """
+    Token's permissions.
     """
 
 
@@ -489,14 +526,14 @@ class DeleteGrafanaUserRequest:
     Request to delete a Grafana user.
     """
 
-    grafana_user_id: int
-    """
-    ID of the Grafana user.
-    """
-
     project_id: Optional[str]
     """
     ID of the Project.
+    """
+
+    grafana_user_id: int
+    """
+    ID of the Grafana user.
     """
 
 
@@ -568,6 +605,23 @@ class GetCockpitRequest:
 
 
 @dataclass
+class GetGrafanaProductDashboardRequest:
+    """
+    Request to get a dashboard.
+    """
+
+    project_id: Optional[str]
+    """
+    ID of the Project.
+    """
+
+    dashboard_name: str
+    """
+    Name of the dashboard.
+    """
+
+
+@dataclass
 class GetTokenRequest:
     token_id: str
     """
@@ -603,14 +657,9 @@ class ListContactPointsResponse:
     Response returned when listing contact points.
     """
 
-    has_additional_contact_points: bool
+    total_count: int
     """
-    Specifies whether there are unmanaged contact points.
-    """
-
-    has_additional_receivers: bool
-    """
-    Specifies whether the contact point has other receivers than the default receiver.
+    Count of all contact points created.
     """
 
     contact_points: List[ContactPoint]
@@ -618,9 +667,14 @@ class ListContactPointsResponse:
     Array of contact points.
     """
 
-    total_count: int
+    has_additional_receivers: bool
     """
-    Count of all contact points created.
+    Specifies whether the contact point has other receivers than the default receiver.
+    """
+
+    has_additional_contact_points: bool
+    """
+    Specifies whether there are unmanaged contact points.
     """
 
 
@@ -654,14 +708,58 @@ class ListDatasourcesRequest:
 
 @dataclass
 class ListDatasourcesResponse:
+    total_count: int
+    """
+    Count of all datasources corresponding to the request.
+    """
+
     datasources: List[Datasource]
     """
     List of the datasources within the pagination.
     """
 
+
+@dataclass
+class ListGrafanaProductDashboardsRequest:
+    """
+    Request to get a list of dashboards.
+    """
+
+    project_id: Optional[str]
+    """
+    ID of the Project.
+    """
+
+    page: Optional[int]
+    """
+    Page number.
+    """
+
+    page_size: Optional[int]
+    """
+    Page size.
+    """
+
+    tags: Optional[List[str]]
+    """
+    Tags to filter the dashboards.
+    """
+
+
+@dataclass
+class ListGrafanaProductDashboardsResponse:
+    """
+    Response returned when getting a list of dashboards.
+    """
+
     total_count: int
     """
-    Count of all datasources corresponding to the request.
+    Count of grafana dasboards.
+    """
+
+    dashboards: List[GrafanaProductDashboard]
+    """
+    Information on grafana dashboards.
     """
 
 
@@ -695,14 +793,14 @@ class ListGrafanaUsersResponse:
     Response returned when listing Grafana users.
     """
 
-    grafana_users: List[GrafanaUser]
-    """
-    Information on all Grafana users.
-    """
-
     total_count: int
     """
     Count of all Grafana users.
+    """
+
+    grafana_users: List[GrafanaUser]
+    """
+    Information on all Grafana users.
     """
 
 
@@ -731,14 +829,14 @@ class ListPlansResponse:
     Response returned when listing all pricing plans.
     """
 
-    plans: List[Plan]
-    """
-    Information on plans.
-    """
-
     total_count: int
     """
     Count of all pricing plans.
+    """
+
+    plans: List[Plan]
+    """
+    Information on plans.
     """
 
 
@@ -767,14 +865,14 @@ class ListTokensRequest:
 
 @dataclass
 class ListTokensResponse:
-    tokens: List[Token]
-    """
-    List of all tokens created.
-    """
-
     total_count: int
     """
     Count of all tokens created.
+    """
+
+    tokens: List[Token]
+    """
+    List of all tokens created.
     """
 
 
@@ -792,14 +890,14 @@ class ResetGrafanaUserPasswordRequest:
     Request to reset a Grafana user's password.
     """
 
-    grafana_user_id: int
-    """
-    ID of the Grafana user.
-    """
-
     project_id: Optional[str]
     """
     ID of the Project.
+    """
+
+    grafana_user_id: int
+    """
+    ID of the Grafana user.
     """
 
 

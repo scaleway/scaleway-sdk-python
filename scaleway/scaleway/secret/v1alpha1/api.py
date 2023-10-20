@@ -671,8 +671,8 @@ class SecretV1Alpha1API(API):
     def create_secret_version(
         self,
         *,
-        data: str,
         secret_id: str,
+        data: str,
         region: Optional[Region] = None,
         description: Optional[str] = None,
         disable_previous: Optional[bool] = None,
@@ -682,8 +682,8 @@ class SecretV1Alpha1API(API):
         """
         Create a version.
         Create a version of a given secret specified by the `region` and `secret_id` parameters.
-        :param data: The base64-encoded secret payload of the version.
         :param secret_id: ID of the secret.
+        :param data: The base64-encoded secret payload of the version.
         :param region: Region to target. If none is passed will use default region from the config.
         :param description: Description of the version.
         :param disable_previous: (Optional.) If there is no previous version or if the previous version was already disabled, does nothing.
@@ -695,8 +695,8 @@ class SecretV1Alpha1API(API):
         ::
 
             result = api.create_secret_version(
-                data="example",
                 secret_id="example",
+                data="example",
             )
         """
 
@@ -710,8 +710,8 @@ class SecretV1Alpha1API(API):
             f"/secret-manager/v1alpha1/regions/{param_region}/secrets/{param_secret_id}/versions",
             body=marshal_CreateSecretVersionRequest(
                 CreateSecretVersionRequest(
-                    data=data,
                     secret_id=secret_id,
+                    data=data,
                     region=region,
                     description=description,
                     disable_previous=disable_previous,
@@ -728,8 +728,8 @@ class SecretV1Alpha1API(API):
     def generate_password(
         self,
         *,
-        length: int,
         secret_id: str,
+        length: int,
         region: Optional[Region] = None,
         description: Optional[str] = None,
         disable_previous: Optional[bool] = None,
@@ -741,8 +741,8 @@ class SecretV1Alpha1API(API):
         """
         Generate a password in a new version.
         Generate a password for the given secret specified by the `region` and `secret_id` parameters. This will also create a new version of the secret that will store the password.
-        :param length: Length of the password to generate (between 1 and 1024 characters).
         :param secret_id: ID of the secret.
+        :param length: Length of the password to generate (between 1 and 1024 characters).
         :param region: Region to target. If none is passed will use default region from the config.
         :param description: Description of the version.
         :param disable_previous: This has no effect if there is no previous version or if the previous version was already disabled.
@@ -756,8 +756,8 @@ class SecretV1Alpha1API(API):
         ::
 
             result = api.generate_password(
-                length=1,
                 secret_id="example",
+                length=1,
             )
         """
 
@@ -771,8 +771,8 @@ class SecretV1Alpha1API(API):
             f"/secret-manager/v1alpha1/regions/{param_region}/secrets/{param_secret_id}/generate-password",
             body=marshal_GeneratePasswordRequest(
                 GeneratePasswordRequest(
-                    length=length,
                     secret_id=secret_id,
+                    length=length,
                     region=region,
                     description=description,
                     disable_previous=disable_previous,
@@ -791,18 +791,18 @@ class SecretV1Alpha1API(API):
     def get_secret_version(
         self,
         *,
-        revision: str,
         secret_id: str,
+        revision: str,
         region: Optional[Region] = None,
     ) -> SecretVersion:
         """
         Get metadata of a secret's version using the secret's ID.
         Retrieve the metadata of a secret's given version specified by the `region`, `secret_id` and `revision` parameters.
+        :param secret_id: ID of the secret.
         :param revision: The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
         - a number (the revision number)
         - "latest" (the latest revision)
         - "latest_enabled" (the latest enabled revision).
-        :param secret_id: ID of the secret.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`SecretVersion <SecretVersion>`
 
@@ -810,8 +810,8 @@ class SecretV1Alpha1API(API):
         ::
 
             result = api.get_secret_version(
-                revision="example",
                 secret_id="example",
+                revision="example",
             )
         """
 
@@ -832,19 +832,19 @@ class SecretV1Alpha1API(API):
     def get_secret_version_by_name(
         self,
         *,
-        revision: str,
         secret_name: str,
+        revision: str,
         region: Optional[Region] = None,
         project_id: Optional[str] = None,
     ) -> SecretVersion:
         """
         Get metadata of a secret's version using the secret's name.
         Retrieve the metadata of a secret's given version specified by the `region`, `secret_name`, `revision` and `project_id` parameters.
+        :param secret_name: Name of the secret.
         :param revision: The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
         - a number (the revision number)
         - "latest" (the latest revision)
         - "latest_enabled" (the latest enabled revision).
-        :param secret_name: Name of the secret.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: (Optional.) If not specified, Secret Manager will look for the secret version in all Projects.
         :return: :class:`SecretVersion <SecretVersion>`
@@ -853,8 +853,8 @@ class SecretV1Alpha1API(API):
         ::
 
             result = api.get_secret_version_by_name(
-                revision="example",
                 secret_name="example",
+                revision="example",
             )
         """
 
@@ -878,19 +878,19 @@ class SecretV1Alpha1API(API):
     def update_secret_version(
         self,
         *,
-        revision: str,
         secret_id: str,
+        revision: str,
         region: Optional[Region] = None,
         description: Optional[str] = None,
     ) -> SecretVersion:
         """
         Update metadata of a version.
         Edit the metadata of a secret's given version, specified by the `region`, `secret_id` and `revision` parameters.
+        :param secret_id: ID of the secret.
         :param revision: The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
         - a number (the revision number)
         - "latest" (the latest revision)
         - "latest_enabled" (the latest enabled revision).
-        :param secret_id: ID of the secret.
         :param region: Region to target. If none is passed will use default region from the config.
         :param description: Description of the version.
         :return: :class:`SecretVersion <SecretVersion>`
@@ -899,8 +899,8 @@ class SecretV1Alpha1API(API):
         ::
 
             result = api.update_secret_version(
-                revision="example",
                 secret_id="example",
+                revision="example",
             )
         """
 
@@ -915,8 +915,8 @@ class SecretV1Alpha1API(API):
             f"/secret-manager/v1alpha1/regions/{param_region}/secrets/{param_secret_id}/versions/{param_revision}",
             body=marshal_UpdateSecretVersionRequest(
                 UpdateSecretVersionRequest(
-                    revision=revision,
                     secret_id=secret_id,
+                    revision=revision,
                     region=region,
                     description=description,
                 ),
@@ -1106,18 +1106,18 @@ class SecretV1Alpha1API(API):
     def enable_secret_version(
         self,
         *,
-        revision: str,
         secret_id: str,
+        revision: str,
         region: Optional[Region] = None,
     ) -> SecretVersion:
         """
         Enable a version.
         Make a specific version accessible. You must specify the `region`, `secret_id` and `revision` parameters.
+        :param secret_id: ID of the secret.
         :param revision: The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
         - a number (the revision number)
         - "latest" (the latest revision)
         - "latest_enabled" (the latest enabled revision).
-        :param secret_id: ID of the secret.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`SecretVersion <SecretVersion>`
 
@@ -1125,8 +1125,8 @@ class SecretV1Alpha1API(API):
         ::
 
             result = api.enable_secret_version(
-                revision="example",
                 secret_id="example",
+                revision="example",
             )
         """
 
@@ -1148,18 +1148,18 @@ class SecretV1Alpha1API(API):
     def disable_secret_version(
         self,
         *,
-        revision: str,
         secret_id: str,
+        revision: str,
         region: Optional[Region] = None,
     ) -> SecretVersion:
         """
         Disable a version.
         Make a specific version inaccessible. You must specify the `region`, `secret_id` and `revision` parameters.
+        :param secret_id: ID of the secret.
         :param revision: The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
         - a number (the revision number)
         - "latest" (the latest revision)
         - "latest_enabled" (the latest enabled revision).
-        :param secret_id: ID of the secret.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`SecretVersion <SecretVersion>`
 
@@ -1167,8 +1167,8 @@ class SecretV1Alpha1API(API):
         ::
 
             result = api.disable_secret_version(
-                revision="example",
                 secret_id="example",
+                revision="example",
             )
         """
 
@@ -1190,18 +1190,18 @@ class SecretV1Alpha1API(API):
     def access_secret_version(
         self,
         *,
-        revision: str,
         secret_id: str,
+        revision: str,
         region: Optional[Region] = None,
     ) -> AccessSecretVersionResponse:
         """
         Access a secret's version using the secret's ID.
         Access sensitive data in a secret's version specified by the `region`, `secret_id` and `revision` parameters.
+        :param secret_id: ID of the secret.
         :param revision: The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
         - a number (the revision number)
         - "latest" (the latest revision)
         - "latest_enabled" (the latest enabled revision).
-        :param secret_id: ID of the secret.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`AccessSecretVersionResponse <AccessSecretVersionResponse>`
 
@@ -1209,8 +1209,8 @@ class SecretV1Alpha1API(API):
         ::
 
             result = api.access_secret_version(
-                revision="example",
                 secret_id="example",
+                revision="example",
             )
         """
 
@@ -1231,19 +1231,19 @@ class SecretV1Alpha1API(API):
     def access_secret_version_by_name(
         self,
         *,
-        revision: str,
         secret_name: str,
+        revision: str,
         region: Optional[Region] = None,
         project_id: Optional[str] = None,
     ) -> AccessSecretVersionResponse:
         """
         Access a secret's version using the secret's name.
         Access sensitive data in a secret's version specified by the `region`, `secret_name`, `revision` and `project_id` parameters.
+        :param secret_name: Name of the secret.
         :param revision: The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
         - a number (the revision number)
         - "latest" (the latest revision)
         - "latest_enabled" (the latest enabled revision).
-        :param secret_name: Name of the secret.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: (Optional.) If not specified, Secret Manager will look for the secret version in all Projects.
         :return: :class:`AccessSecretVersionResponse <AccessSecretVersionResponse>`
@@ -1252,8 +1252,8 @@ class SecretV1Alpha1API(API):
         ::
 
             result = api.access_secret_version_by_name(
-                revision="example",
                 secret_name="example",
+                revision="example",
             )
         """
 
@@ -1277,18 +1277,18 @@ class SecretV1Alpha1API(API):
     def destroy_secret_version(
         self,
         *,
-        revision: str,
         secret_id: str,
+        revision: str,
         region: Optional[Region] = None,
     ) -> SecretVersion:
         """
         Delete a version.
         Delete a secret's version and the sensitive data contained in it. Deleting a version is permanent and cannot be undone.
+        :param secret_id: ID of the secret.
         :param revision: The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
         - a number (the revision number)
         - "latest" (the latest revision)
         - "latest_enabled" (the latest enabled revision).
-        :param secret_id: ID of the secret.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`SecretVersion <SecretVersion>`
 
@@ -1296,8 +1296,8 @@ class SecretV1Alpha1API(API):
         ::
 
             result = api.destroy_secret_version(
-                revision="example",
                 secret_id="example",
+                revision="example",
             )
         """
 

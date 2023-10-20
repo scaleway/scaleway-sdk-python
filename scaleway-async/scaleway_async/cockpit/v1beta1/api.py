@@ -33,9 +33,11 @@ from .types import (
     DeleteGrafanaUserRequest,
     DisableManagedAlertsRequest,
     EnableManagedAlertsRequest,
+    GrafanaProductDashboard,
     GrafanaUser,
     ListContactPointsResponse,
     ListDatasourcesResponse,
+    ListGrafanaProductDashboardsResponse,
     ListGrafanaUsersResponse,
     ListPlansResponse,
     ListTokensResponse,
@@ -54,12 +56,14 @@ from .content import (
 from .marshalling import (
     unmarshal_ContactPoint,
     unmarshal_Datasource,
+    unmarshal_GrafanaProductDashboard,
     unmarshal_GrafanaUser,
     unmarshal_Token,
     unmarshal_Cockpit,
     unmarshal_CockpitMetrics,
     unmarshal_ListContactPointsResponse,
     unmarshal_ListDatasourcesResponse,
+    unmarshal_ListGrafanaProductDashboardsResponse,
     unmarshal_ListGrafanaUsersResponse,
     unmarshal_ListPlansResponse,
     unmarshal_ListTokensResponse,
@@ -396,24 +400,22 @@ class CockpitV1Beta1API(API):
     async def create_token(
         self,
         *,
-        scopes: TokenScopes,
         project_id: Optional[str] = None,
         name: Optional[str] = None,
+        scopes: Optional[TokenScopes] = None,
     ) -> Token:
         """
         Create a token associated with the specified Project ID.
         Create a token associated with the specified Project ID.
-        :param scopes: Token's permissions.
         :param project_id: ID of the Project.
         :param name: Name of the token.
+        :param scopes: Token's permissions.
         :return: :class:`Token <Token>`
 
         Usage:
         ::
 
-            result = await api.create_token(
-                scopes=TokenScopes(),
-            )
+            result = await api.create_token()
         """
 
         res = self._request(
@@ -421,9 +423,9 @@ class CockpitV1Beta1API(API):
             "/cockpit/v1beta1/tokens",
             body=marshal_CreateTokenRequest(
                 CreateTokenRequest(
-                    scopes=scopes,
                     project_id=project_id,
                     name=name or random_name(prefix="token"),
+                    scopes=scopes,
                 ),
                 self.client,
             ),
@@ -893,14 +895,14 @@ class CockpitV1Beta1API(API):
     async def delete_grafana_user(
         self,
         *,
-        grafana_user_id: int,
         project_id: Optional[str] = None,
+        grafana_user_id: int,
     ) -> None:
         """
         Delete a Grafana user from a Grafana instance, specified by the Cockpit's Project ID and the Grafana user ID.
         Delete a Grafana user from a Grafana instance, specified by the Cockpit's Project ID and the Grafana user ID.
-        :param grafana_user_id: ID of the Grafana user.
         :param project_id: ID of the Project.
+        :param grafana_user_id: ID of the Grafana user.
 
         Usage:
         ::
@@ -917,8 +919,8 @@ class CockpitV1Beta1API(API):
             f"/cockpit/v1beta1/grafana-users/{param_grafana_user_id}/delete",
             body=marshal_DeleteGrafanaUserRequest(
                 DeleteGrafanaUserRequest(
-                    grafana_user_id=grafana_user_id,
                     project_id=project_id,
+                    grafana_user_id=grafana_user_id,
                 ),
                 self.client,
             ),
@@ -929,14 +931,14 @@ class CockpitV1Beta1API(API):
     async def reset_grafana_user_password(
         self,
         *,
-        grafana_user_id: int,
         project_id: Optional[str] = None,
+        grafana_user_id: int,
     ) -> GrafanaUser:
         """
         Reset a Grafana user's password specified by the Cockpit's Project ID and the Grafana user ID.
         Reset a Grafana user's password specified by the Cockpit's Project ID and the Grafana user ID.
-        :param grafana_user_id: ID of the Grafana user.
         :param project_id: ID of the Project.
+        :param grafana_user_id: ID of the Grafana user.
         :return: :class:`GrafanaUser <GrafanaUser>`
 
         Usage:
@@ -954,8 +956,8 @@ class CockpitV1Beta1API(API):
             f"/cockpit/v1beta1/grafana-users/{param_grafana_user_id}/reset-password",
             body=marshal_ResetGrafanaUserPasswordRequest(
                 ResetGrafanaUserPasswordRequest(
-                    grafana_user_id=grafana_user_id,
                     project_id=project_id,
+                    grafana_user_id=grafana_user_id,
                 ),
                 self.client,
             ),
@@ -1065,3 +1067,109 @@ class CockpitV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_SelectPlanResponse(res.json())
+
+    async def list_grafana_product_dashboards(
+        self,
+        *,
+        project_id: Optional[str] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        tags: Optional[List[str]] = None,
+    ) -> ListGrafanaProductDashboardsResponse:
+        """
+        List product dashboards.
+        Get a list of available product dashboards.
+        :param project_id: ID of the Project.
+        :param page: Page number.
+        :param page_size: Page size.
+        :param tags: Tags to filter the dashboards.
+        :return: :class:`ListGrafanaProductDashboardsResponse <ListGrafanaProductDashboardsResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_grafana_product_dashboards()
+        """
+
+        res = self._request(
+            "GET",
+            "/cockpit/v1beta1/grafana-product-dashboards",
+            params={
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+                "project_id": project_id or self.client.default_project_id,
+                "tags": tags,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListGrafanaProductDashboardsResponse(res.json())
+
+    async def list_grafana_product_dashboards_all(
+        self,
+        *,
+        project_id: Optional[str] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        tags: Optional[List[str]] = None,
+    ) -> List[GrafanaProductDashboard]:
+        """
+        List product dashboards.
+        Get a list of available product dashboards.
+        :param project_id: ID of the Project.
+        :param page: Page number.
+        :param page_size: Page size.
+        :param tags: Tags to filter the dashboards.
+        :return: :class:`List[GrafanaProductDashboard] <List[GrafanaProductDashboard]>`
+
+        Usage:
+        ::
+
+            result = await api.list_grafana_product_dashboards_all()
+        """
+
+        return await fetch_all_pages_async(
+            type=ListGrafanaProductDashboardsResponse,
+            key="dashboards",
+            fetcher=self.list_grafana_product_dashboards,
+            args={
+                "project_id": project_id,
+                "page": page,
+                "page_size": page_size,
+                "tags": tags,
+            },
+        )
+
+    async def get_grafana_product_dashboard(
+        self,
+        *,
+        project_id: Optional[str] = None,
+        dashboard_name: str,
+    ) -> GrafanaProductDashboard:
+        """
+        Get a product dashboard.
+        Get a product dashboard specified by the dashboard ID.
+        :param project_id: ID of the Project.
+        :param dashboard_name: Name of the dashboard.
+        :return: :class:`GrafanaProductDashboard <GrafanaProductDashboard>`
+
+        Usage:
+        ::
+
+            result = await api.get_grafana_product_dashboard(
+                dashboard_name="example",
+            )
+        """
+
+        param_dashboard_name = validate_path_param("dashboard_name", dashboard_name)
+
+        res = self._request(
+            "GET",
+            f"/cockpit/v1beta1/grafana-product-dashboards/{param_dashboard_name}",
+            params={
+                "project_id": project_id or self.client.default_project_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_GrafanaProductDashboard(res.json())

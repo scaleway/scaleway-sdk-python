@@ -21,17 +21,17 @@ def unmarshal_Project(data: Any) -> Project:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("description", None)
-    args["description"] = field
-
-    field = data.get("organization_id", None)
-    args["organization_id"] = field
+    field = data.get("id", None)
+    args["id"] = field
 
     field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("id", None)
-    args["id"] = field
+    field = data.get("organization_id", None)
+    args["organization_id"] = field
+
+    field = data.get("description", None)
+    args["description"] = field
 
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -50,13 +50,13 @@ def unmarshal_ListProjectsResponse(data: Any) -> ListProjectsResponse:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("total_count", None)
+    args["total_count"] = field
+
     field = data.get("projects", None)
     args["projects"] = (
         [unmarshal_Project(v) for v in field] if field is not None else None
     )
-
-    field = data.get("total_count", None)
-    args["total_count"] = field
 
     return ListProjectsResponse(**args)
 

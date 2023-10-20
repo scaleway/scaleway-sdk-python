@@ -56,6 +56,7 @@ class SecretType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_SECRET_TYPE = "unknown_secret_type"
     OPAQUE = "opaque"
     CERTIFICATE = "certificate"
+    KEY_VALUE = "key_value"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -73,19 +74,9 @@ class SecretVersionStatus(str, Enum, metaclass=StrEnumMeta):
 
 @dataclass
 class PasswordGenerationParams:
-    additional_chars: str
+    length: int
     """
-    Additional ascii characters to be included in the alphabet.
-    """
-
-    no_digits: bool
-    """
-    Do not include digits by default in the alphabet.
-    """
-
-    no_uppercase_letters: bool
-    """
-    Do not include upper case letters by default in the alphabet.
+    Length of the password to generate (between 1 and 1024).
     """
 
     no_lowercase_letters: bool
@@ -93,22 +84,27 @@ class PasswordGenerationParams:
     Do not include lower case letters by default in the alphabet.
     """
 
-    length: int
+    no_uppercase_letters: bool
     """
-    Length of the password to generate (between 1 and 1024).
+    Do not include upper case letters by default in the alphabet.
+    """
+
+    no_digits: bool
+    """
+    Do not include digits by default in the alphabet.
+    """
+
+    additional_chars: str
+    """
+    Additional ascii characters to be included in the alphabet.
     """
 
 
 @dataclass
 class Folder:
-    path: str
+    id: str
     """
-    Location of the folder in the directory structure.
-    """
-
-    name: str
-    """
-    Name of the folder.
+    ID of the folder.
     """
 
     project_id: str
@@ -116,9 +112,14 @@ class Folder:
     ID of the Project containing the folder.
     """
 
-    id: str
+    name: str
     """
-    ID of the folder.
+    Name of the folder.
+    """
+
+    path: str
+    """
+    Location of the folder in the directory structure.
     """
 
     created_at: Optional[datetime]
@@ -129,9 +130,14 @@ class Folder:
 
 @dataclass
 class SecretVersion:
-    is_latest: bool
+    revision: int
     """
-    Returns `true` if the version is the latest.
+    The first version of the secret is numbered 1, and all subsequent revisions augment by 1.
+    """
+
+    secret_id: str
+    """
+    ID of the secret.
     """
 
     status: SecretVersionStatus
@@ -142,14 +148,9 @@ class SecretVersion:
 * `destroyed`: the version is permanently deleted. It is not possible to recover it.
     """
 
-    secret_id: str
+    is_latest: bool
     """
-    ID of the secret.
-    """
-
-    revision: int
-    """
-    The first version of the secret is numbered 1, and all subsequent revisions augment by 1.
+    Returns `true` if the version is the latest.
     """
 
     created_at: Optional[datetime]
@@ -170,14 +171,40 @@ class SecretVersion:
 
 @dataclass
 class Secret:
-    is_managed: bool
+    id: str
     """
-    Returns `true` for secrets that are managed by another product.
+    ID of the secret.
     """
 
-    type_: SecretType
+    project_id: str
     """
-    See `Secret.Type` enum for description of values.
+    ID of the Project containing the secret.
+    """
+
+    name: str
+    """
+    Name of the secret.
+    """
+
+    status: SecretStatus
+    """
+    * `ready`: the secret can be read, modified and deleted.
+* `locked`: no action can be performed on the secret. This status can only be applied and removed by Scaleway.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Date and time of the secret's creation.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Last update of the secret.
+    """
+
+    tags: List[str]
+    """
+    List of the secret's tags.
     """
 
     version_count: int
@@ -185,9 +212,19 @@ class Secret:
     Number of versions for this secret.
     """
 
-    id: str
+    is_managed: bool
     """
-    ID of the secret.
+    Returns `true` for secrets that are managed by another product.
+    """
+
+    is_protected: bool
+    """
+    Returns `true` for protected secrets that cannot be deleted.
+    """
+
+    type_: SecretType
+    """
+    See `Secret.Type` enum for description of values.
     """
 
     path: str
@@ -200,61 +237,25 @@ class Secret:
     Region of the secret.
     """
 
-    status: SecretStatus
-    """
-    * `ready`: the secret can be read, modified and deleted.
-* `locked`: no action can be performed on the secret. This status can only be applied and removed by Scaleway.
-    """
-
-    name: str
-    """
-    Name of the secret.
-    """
-
-    project_id: str
-    """
-    ID of the Project containing the secret.
-    """
-
-    is_protected: bool
-    """
-    Returns `true` for protected secrets that cannot be deleted.
-    """
-
-    tags: List[str]
-    """
-    List of the secret's tags.
-    """
-
     description: Optional[str]
     """
     Updated description of the secret.
     """
 
-    updated_at: Optional[datetime]
-    """
-    Last update of the secret.
-    """
-
-    created_at: Optional[datetime]
-    """
-    Date and time of the secret's creation.
-    """
-
 
 @dataclass
 class AccessSecretVersionByNameRequest:
+    secret_name: str
+    """
+    Name of the secret.
+    """
+
     revision: str
     """
     The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
 - a number (the revision number)
 - "latest" (the latest revision)
 - "latest_enabled" (the latest enabled revision).
-    """
-
-    secret_name: str
-    """
-    Name of the secret.
     """
 
     region: Optional[Region]
@@ -270,17 +271,17 @@ class AccessSecretVersionByNameRequest:
 
 @dataclass
 class AccessSecretVersionRequest:
+    secret_id: str
+    """
+    ID of the secret.
+    """
+
     revision: str
     """
     The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
 - a number (the revision number)
 - "latest" (the latest revision)
 - "latest_enabled" (the latest enabled revision).
-    """
-
-    secret_id: str
-    """
-    ID of the secret.
     """
 
     region: Optional[Region]
@@ -291,9 +292,9 @@ class AccessSecretVersionRequest:
 
 @dataclass
 class AccessSecretVersionResponse:
-    data: str
+    secret_id: str
     """
-    The base64-encoded secret payload of the version.
+    ID of the secret.
     """
 
     revision: int
@@ -301,9 +302,9 @@ class AccessSecretVersionResponse:
     The first version of the secret is numbered 1, and all subsequent revisions augment by 1.
     """
 
-    secret_id: str
+    data: str
     """
-    ID of the secret.
+    The base64-encoded secret payload of the version.
     """
 
     data_crc32: Optional[int]
@@ -398,14 +399,14 @@ class CreateSecretRequest:
 
 @dataclass
 class CreateSecretVersionRequest:
-    data: str
-    """
-    The base64-encoded secret payload of the version.
-    """
-
     secret_id: str
     """
     ID of the secret.
+    """
+
+    data: str
+    """
+    The base64-encoded secret payload of the version.
     """
 
     region: Optional[Region]
@@ -462,17 +463,17 @@ class DeleteSecretRequest:
 
 @dataclass
 class DestroySecretVersionRequest:
+    secret_id: str
+    """
+    ID of the secret.
+    """
+
     revision: str
     """
     The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
 - a number (the revision number)
 - "latest" (the latest revision)
 - "latest_enabled" (the latest enabled revision).
-    """
-
-    secret_id: str
-    """
-    ID of the secret.
     """
 
     region: Optional[Region]
@@ -483,17 +484,17 @@ class DestroySecretVersionRequest:
 
 @dataclass
 class DisableSecretVersionRequest:
+    secret_id: str
+    """
+    ID of the secret.
+    """
+
     revision: str
     """
     The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
 - a number (the revision number)
 - "latest" (the latest revision)
 - "latest_enabled" (the latest enabled revision).
-    """
-
-    secret_id: str
-    """
-    ID of the secret.
     """
 
     region: Optional[Region]
@@ -504,17 +505,17 @@ class DisableSecretVersionRequest:
 
 @dataclass
 class EnableSecretVersionRequest:
+    secret_id: str
+    """
+    ID of the secret.
+    """
+
     revision: str
     """
     The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
 - a number (the revision number)
 - "latest" (the latest revision)
 - "latest_enabled" (the latest enabled revision).
-    """
-
-    secret_id: str
-    """
-    ID of the secret.
     """
 
     region: Optional[Region]
@@ -525,14 +526,14 @@ class EnableSecretVersionRequest:
 
 @dataclass
 class GeneratePasswordRequest:
-    length: int
-    """
-    Length of the password to generate (between 1 and 1024 characters).
-    """
-
     secret_id: str
     """
     ID of the secret.
+    """
+
+    length: int
+    """
+    Length of the password to generate (between 1 and 1024 characters).
     """
 
     region: Optional[Region]
@@ -604,17 +605,17 @@ class GetSecretRequest:
 
 @dataclass
 class GetSecretVersionByNameRequest:
+    secret_name: str
+    """
+    Name of the secret.
+    """
+
     revision: str
     """
     The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
 - a number (the revision number)
 - "latest" (the latest revision)
 - "latest_enabled" (the latest enabled revision).
-    """
-
-    secret_name: str
-    """
-    Name of the secret.
     """
 
     region: Optional[Region]
@@ -630,17 +631,17 @@ class GetSecretVersionByNameRequest:
 
 @dataclass
 class GetSecretVersionRequest:
+    secret_id: str
+    """
+    ID of the secret.
+    """
+
     revision: str
     """
     The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
 - a number (the revision number)
 - "latest" (the latest revision)
 - "latest_enabled" (the latest enabled revision).
-    """
-
-    secret_id: str
-    """
-    ID of the secret.
     """
 
     region: Optional[Region]
@@ -675,14 +676,14 @@ class ListFoldersRequest:
 
 @dataclass
 class ListFoldersResponse:
-    total_count: int
-    """
-    Count of all folders matching the requested criteria.
-    """
-
     folders: List[Folder]
     """
     List of folders.
+    """
+
+    total_count: int
+    """
+    Count of all folders matching the requested criteria.
     """
 
 
@@ -737,14 +738,14 @@ class ListSecretVersionsRequest:
 
 @dataclass
 class ListSecretVersionsResponse:
-    total_count: int
-    """
-    Number of versions.
-    """
-
     versions: List[SecretVersion]
     """
     Single page of versions.
+    """
+
+    total_count: int
+    """
+    Number of versions.
     """
 
 
@@ -794,14 +795,14 @@ class ListSecretsRequest:
 
 @dataclass
 class ListSecretsResponse:
-    total_count: int
-    """
-    Count of all secrets matching the requested criteria.
-    """
-
     secrets: List[Secret]
     """
     Single page of secrets matching the requested criteria.
+    """
+
+    total_count: int
+    """
+    Count of all secrets matching the requested criteria.
     """
 
 
@@ -824,14 +825,14 @@ class ListTagsRequest:
 
 @dataclass
 class ListTagsResponse:
-    total_count: int
-    """
-    Count of all tags matching the requested criteria.
-    """
-
     tags: List[str]
     """
     List of tags.
+    """
+
+    total_count: int
+    """
+    Count of all tags matching the requested criteria.
     """
 
 
@@ -896,17 +897,17 @@ class UpdateSecretRequest:
 
 @dataclass
 class UpdateSecretVersionRequest:
+    secret_id: str
+    """
+    ID of the secret.
+    """
+
     revision: str
     """
     The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
 - a number (the revision number)
 - "latest" (the latest revision)
 - "latest_enabled" (the latest enabled revision).
-    """
-
-    secret_id: str
-    """
-    ID of the secret.
     """
 
     region: Optional[Region]

@@ -15,6 +15,7 @@ from .types import CockpitEndpoints
 from .types import Plan
 from .types import ContactPoint
 from .types import Datasource
+from .types import GrafanaProductDashboard
 from .types import GrafanaUser
 from .types import Token
 from .types import ActivateCockpitRequest
@@ -32,11 +33,14 @@ from .types import DisableManagedAlertsRequest
 from .types import EnableManagedAlertsRequest
 from .types import GetCockpitMetricsRequest
 from .types import GetCockpitRequest
+from .types import GetGrafanaProductDashboardRequest
 from .types import GetTokenRequest
 from .types import ListContactPointsRequest
 from .types import ListContactPointsResponse
 from .types import ListDatasourcesRequest
 from .types import ListDatasourcesResponse
+from .types import ListGrafanaProductDashboardsRequest
+from .types import ListGrafanaProductDashboardsResponse
 from .types import ListGrafanaUsersRequest
 from .types import ListGrafanaUsersResponse
 from .types import ListPlansRequest
@@ -66,6 +70,7 @@ __all__ = [
     "Plan",
     "ContactPoint",
     "Datasource",
+    "GrafanaProductDashboard",
     "GrafanaUser",
     "Token",
     "ActivateCockpitRequest",
@@ -83,11 +88,14 @@ __all__ = [
     "EnableManagedAlertsRequest",
     "GetCockpitMetricsRequest",
     "GetCockpitRequest",
+    "GetGrafanaProductDashboardRequest",
     "GetTokenRequest",
     "ListContactPointsRequest",
     "ListContactPointsResponse",
     "ListDatasourcesRequest",
     "ListDatasourcesResponse",
+    "ListGrafanaProductDashboardsRequest",
+    "ListGrafanaProductDashboardsResponse",
     "ListGrafanaUsersRequest",
     "ListGrafanaUsersResponse",
     "ListPlansRequest",

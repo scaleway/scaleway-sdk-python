@@ -167,28 +167,18 @@ class SettingType(str, Enum, metaclass=StrEnumMeta):
 
 @dataclass
 class OSOSField:
-    required: bool
-
     editable: bool
+
+    required: bool
 
     default_value: Optional[str]
 
 
 @dataclass
 class CPU:
-    benchmark: str
+    name: str
     """
-    Benchmark of the CPU.
-    """
-
-    frequency: int
-    """
-    Frequency of the CPU in MHz.
-    """
-
-    thread_count: int
-    """
-    Number CPU threads.
+    Name of the CPU.
     """
 
     core_count: int
@@ -196,35 +186,40 @@ class CPU:
     Number of CPU cores.
     """
 
-    name: str
+    thread_count: int
     """
-    Name of the CPU.
+    Number CPU threads.
+    """
+
+    frequency: int
+    """
+    Frequency of the CPU in MHz.
+    """
+
+    benchmark: str
+    """
+    Benchmark of the CPU.
     """
 
 
 @dataclass
 class Disk:
-    type_: str
-    """
-    Type of the disk.
-    """
-
     capacity: int
     """
     Capacity of the disk in bytes.
     """
 
+    type_: str
+    """
+    Type of the disk.
+    """
+
 
 @dataclass
 class Memory:
-    is_ecc: bool
+    capacity: int
     """
-    True if the memory is an error-correcting code memory.
-    """
-
-    frequency: int
-    """
-    Frequency of the memory in MHz.
+    Capacity of the memory in bytes.
     """
 
     type_: str
@@ -232,22 +227,27 @@ class Memory:
     Type of the memory.
     """
 
-    capacity: int
+    frequency: int
     """
-    Capacity of the memory in bytes.
+    Frequency of the memory in MHz.
+    """
+
+    is_ecc: bool
+    """
+    True if the memory is an error-correcting code memory.
     """
 
 
 @dataclass
 class OfferOptionOffer:
-    manageable: bool
+    id: str
     """
-    Boolean to know if option could be managed.
+    ID of the option.
     """
 
-    subscription_period: OfferSubscriptionPeriod
+    name: str
     """
-    Period of subscription for the offer.
+    Name of the option.
     """
 
     enabled: bool
@@ -256,14 +256,14 @@ class OfferOptionOffer:
 If false the option is available for the offer but not included by default.
     """
 
-    name: str
+    subscription_period: OfferSubscriptionPeriod
     """
-    Name of the option.
+    Period of subscription for the offer.
     """
 
-    id: str
+    manageable: bool
     """
-    ID of the option.
+    Boolean to know if option could be managed.
     """
 
     price: Optional[Money]
@@ -279,9 +279,9 @@ If false the option is available for the offer but not included by default.
 
 @dataclass
 class PersistentMemory:
-    frequency: int
+    capacity: int
     """
-    Frequency of the memory in MHz.
+    Capacity of the memory in bytes.
     """
 
     type_: str
@@ -289,39 +289,24 @@ class PersistentMemory:
     Type of the memory.
     """
 
-    capacity: int
+    frequency: int
     """
-    Capacity of the memory in bytes.
+    Frequency of the memory in MHz.
     """
 
 
 @dataclass
 class RaidController:
-    raid_level: List[str]
-
     model: str
+
+    raid_level: List[str]
 
 
 @dataclass
 class IP:
-    reverse_status_message: str
+    id: str
     """
-    A message related to the reverse status, e.g. in case of an error.
-    """
-
-    reverse_status: IPReverseStatus
-    """
-    Status of the reverse.
-    """
-
-    version: IPVersion
-    """
-    Version of IP (v4 or v6).
-    """
-
-    reverse: str
-    """
-    Reverse IP value.
+    ID of the IP.
     """
 
     address: str
@@ -329,37 +314,32 @@ class IP:
     Address of the IP.
     """
 
-    id: str
+    reverse: str
     """
-    ID of the IP.
+    Reverse IP value.
+    """
+
+    version: IPVersion
+    """
+    Version of IP (v4 or v6).
+    """
+
+    reverse_status: IPReverseStatus
+    """
+    Status of the reverse.
+    """
+
+    reverse_status_message: str
+    """
+    A message related to the reverse status, e.g. in case of an error.
     """
 
 
 @dataclass
 class ServerInstall:
-    service_url: str
+    os_id: str
     """
-    Address of the installed service.
-    """
-
-    service_user: str
-    """
-    Service user defined in the server installation, or the default user if none were specified.
-    """
-
-    user: str
-    """
-    User defined in the server installation, or the default user if none were specified.
-    """
-
-    status: ServerInstallStatus
-    """
-    Status of the server installation.
-    """
-
-    ssh_key_ids: List[str]
-    """
-    SSH public key IDs defined during server installation.
+    ID of the OS.
     """
 
     hostname: str
@@ -367,22 +347,37 @@ class ServerInstall:
     Host defined during the server installation.
     """
 
-    os_id: str
+    ssh_key_ids: List[str]
     """
-    ID of the OS.
+    SSH public key IDs defined during server installation.
+    """
+
+    status: ServerInstallStatus
+    """
+    Status of the server installation.
+    """
+
+    user: str
+    """
+    User defined in the server installation, or the default user if none were specified.
+    """
+
+    service_user: str
+    """
+    Service user defined in the server installation, or the default user if none were specified.
+    """
+
+    service_url: str
+    """
+    Address of the installed service.
     """
 
 
 @dataclass
 class ServerOption:
-    manageable: bool
+    id: str
     """
-    Defines whether the option can be managed (added or removed).
-    """
-
-    status: ServerOptionOptionStatus
-    """
-    Status of the option on this server.
+    ID of the option.
     """
 
     name: str
@@ -390,9 +385,14 @@ class ServerOption:
     Name of the option.
     """
 
-    id: str
+    status: ServerOptionOptionStatus
     """
-    ID of the option.
+    Status of the option on this server.
+    """
+
+    manageable: bool
+    """
+    Defines whether the option can be managed (added or removed).
     """
 
     expires_at: Optional[datetime]
@@ -403,22 +403,22 @@ class ServerOption:
 
 @dataclass
 class ServerRescueServer:
-    password: str
-    """
-    Rescue password.
-    """
-
     user: str
     """
     Rescue user name.
     """
 
+    password: str
+    """
+    Rescue password.
+    """
+
 
 @dataclass
 class CreateServerRequestInstall:
-    ssh_key_ids: List[str]
+    os_id: str
     """
-    SSH key IDs authorized on the server.
+    ID of the OS to installation on the server.
     """
 
     hostname: str
@@ -426,9 +426,9 @@ class CreateServerRequestInstall:
     Hostname of the server.
     """
 
-    os_id: str
+    ssh_key_ids: List[str]
     """
-    ID of the OS to installation on the server.
+    SSH key IDs authorized on the server.
     """
 
     user: Optional[str]
@@ -454,54 +454,9 @@ class CreateServerRequestInstall:
 
 @dataclass
 class OS:
-    allowed: bool
+    id: str
     """
-    Defines if a specific Organization is allowed to install this OS type.
-    """
-
-    license_required: bool
-    """
-    License required (check server options for pricing details).
-    """
-
-    enabled: bool
-    """
-    Defines if the operating system is enabled or not.
-    """
-
-    service_password: OSOSField
-    """
-    Object defining the password requirements to install the service.
-    """
-
-    service_user: OSOSField
-    """
-    Object defining the username requirements to install the service.
-    """
-
-    password: OSOSField
-    """
-    Object defining the password requirements to install the OS.
-    """
-
-    user: OSOSField
-    """
-    Object defining the username requirements to install the OS.
-    """
-
-    ssh: OSOSField
-    """
-    Object defining the SSH requirements to install the OS.
-    """
-
-    logo_url: str
-    """
-    URL of this OS's logo.
-    """
-
-    version: str
-    """
-    Version of the OS.
+    ID of the OS.
     """
 
     name: str
@@ -509,92 +464,62 @@ class OS:
     Name of the OS.
     """
 
-    id: str
+    version: str
     """
-    ID of the OS.
+    Version of the OS.
+    """
+
+    logo_url: str
+    """
+    URL of this OS's logo.
+    """
+
+    ssh: OSOSField
+    """
+    Object defining the SSH requirements to install the OS.
+    """
+
+    user: OSOSField
+    """
+    Object defining the username requirements to install the OS.
+    """
+
+    password: OSOSField
+    """
+    Object defining the password requirements to install the OS.
+    """
+
+    service_user: OSOSField
+    """
+    Object defining the username requirements to install the service.
+    """
+
+    service_password: OSOSField
+    """
+    Object defining the password requirements to install the service.
+    """
+
+    enabled: bool
+    """
+    Defines if the operating system is enabled or not.
+    """
+
+    license_required: bool
+    """
+    License required (check server options for pricing details).
+    """
+
+    allowed: bool
+    """
+    Defines if a specific Organization is allowed to install this OS type.
     """
 
 
 @dataclass
 class Offer:
-    quota_name: str
-    """
-    Name of the quota associated to the offer.
-    """
-
     id: str
     """
     ID of the offer.
-    """
-
-    shared_bandwidth: bool
-    """
-    Defines whether the offer's bandwidth is shared or not.
-    """
-
-    disks: List[Disk]
-    """
-    Disks specifications of the offer.
-    """
-
-    private_bandwidth: int
-    """
-    Private bandwidth available in bits/s with the offer.
-    """
-
-    raid_controllers: List[RaidController]
-    """
-    Raid controller specifications of the offer.
-    """
-
-    subscription_period: OfferSubscriptionPeriod
-    """
-    Period of subscription for the offer.
-    """
-
-    commercial_range: str
-    """
-    Commercial range of the offer.
-    """
-
-    options: List[OfferOptionOffer]
-    """
-    Available options for customization of the server.
-    """
-
-    cpus: List[CPU]
-    """
-    CPU specifications of the offer.
-    """
-
-    operation_path: str
-    """
-    Operation path of the service.
-    """
-
-    persistent_memories: List[PersistentMemory]
-    """
-    Persistent memory specifications of the offer.
-    """
-
-    incompatible_os_ids: List[str]
-    """
-    Array of OS images IDs incompatible with the server.
-    """
-
-    stock: OfferStock
-    """
-    Stock level.
-    """
-
-    tags: List[str]
-    """
-    Array of tags attached to the offer.
-    """
-
-    bandwidth: int
-    """
-    Public bandwidth available (in bits/s) with the offer.
     """
 
     name: str
@@ -602,24 +527,29 @@ class Offer:
     Name of the offer.
     """
 
+    stock: OfferStock
+    """
+    Stock level.
+    """
+
+    bandwidth: int
+    """
+    Public bandwidth available (in bits/s) with the offer.
+    """
+
+    commercial_range: str
+    """
+    Commercial range of the offer.
+    """
+
+    disks: List[Disk]
+    """
+    Disks specifications of the offer.
+    """
+
     enable: bool
     """
     Defines whether the offer is currently available.
-    """
-
-    memories: List[Memory]
-    """
-    Memory specifications of the offer.
-    """
-
-    fee: Optional[Money]
-    """
-    One time fee invoiced by Scaleway for the setup and activation of the server.
-    """
-
-    price_per_month: Optional[Money]
-    """
-    Monthly price of the offer, if subscribing on a monthly basis.
     """
 
     price_per_hour: Optional[Money]
@@ -627,12 +557,82 @@ class Offer:
     Price of the offer for the next 60 minutes (a server order at 11h32 will be payed until 12h32).
     """
 
+    price_per_month: Optional[Money]
+    """
+    Monthly price of the offer, if subscribing on a monthly basis.
+    """
+
+    cpus: List[CPU]
+    """
+    CPU specifications of the offer.
+    """
+
+    memories: List[Memory]
+    """
+    Memory specifications of the offer.
+    """
+
+    quota_name: str
+    """
+    Name of the quota associated to the offer.
+    """
+
+    persistent_memories: List[PersistentMemory]
+    """
+    Persistent memory specifications of the offer.
+    """
+
+    raid_controllers: List[RaidController]
+    """
+    Raid controller specifications of the offer.
+    """
+
+    incompatible_os_ids: List[str]
+    """
+    Array of OS images IDs incompatible with the server.
+    """
+
+    subscription_period: OfferSubscriptionPeriod
+    """
+    Period of subscription for the offer.
+    """
+
+    operation_path: str
+    """
+    Operation path of the service.
+    """
+
+    options: List[OfferOptionOffer]
+    """
+    Available options for customization of the server.
+    """
+
+    private_bandwidth: int
+    """
+    Private bandwidth available in bits/s with the offer.
+    """
+
+    shared_bandwidth: bool
+    """
+    Defines whether the offer's bandwidth is shared or not.
+    """
+
+    tags: List[str]
+    """
+    Array of tags attached to the offer.
+    """
+
+    fee: Optional[Money]
+    """
+    One time fee invoiced by Scaleway for the setup and activation of the server.
+    """
+
 
 @dataclass
 class Option:
-    manageable: bool
+    id: str
     """
-    Defines whether the option is manageable (could be added or removed).
+    ID of the option.
     """
 
     name: str
@@ -640,22 +640,22 @@ class Option:
     Name of the option.
     """
 
-    id: str
+    manageable: bool
     """
-    ID of the option.
+    Defines whether the option is manageable (could be added or removed).
     """
 
 
 @dataclass
 class ServerEvent:
-    action: str
-    """
-    The action that will be applied to the server.
-    """
-
     id: str
     """
     ID of the server to which the action will be applied.
+    """
+
+    action: str
+    """
+    The action that will be applied to the server.
     """
 
     updated_at: Optional[datetime]
@@ -671,19 +671,9 @@ class ServerEvent:
 
 @dataclass
 class ServerPrivateNetwork:
-    status: ServerPrivateNetworkStatus
-    """
-    The configuration status of the Private Network.
-    """
-
-    private_network_id: str
+    id: str
     """
     The Private Network ID.
-    """
-
-    server_id: str
-    """
-    The server ID.
     """
 
     project_id: str
@@ -691,9 +681,19 @@ class ServerPrivateNetwork:
     The Private Network Project ID.
     """
 
-    id: str
+    server_id: str
+    """
+    The server ID.
+    """
+
+    private_network_id: str
     """
     The Private Network ID.
+    """
+
+    status: ServerPrivateNetworkStatus
+    """
+    The configuration status of the Private Network.
     """
 
     vlan: Optional[int]
@@ -714,39 +714,24 @@ class ServerPrivateNetwork:
 
 @dataclass
 class Server:
-    ips: List[IP]
+    id: str
     """
-    Array of IPs attached to the server.
-    """
-
-    tags: List[str]
-    """
-    Array of custom tags attached to the server.
+    ID of the server.
     """
 
-    offer_name: str
+    organization_id: str
     """
-    Offer name of the server.
+    Organization ID the server is attached to.
     """
 
-    ping_status: ServerPingStatus
+    project_id: str
     """
-    Status of server ping.
+    Project ID the server is attached to.
     """
 
     name: str
     """
     Name of the server.
-    """
-
-    boot_type: ServerBootType
-    """
-    Boot type of the server.
-    """
-
-    install: ServerInstall
-    """
-    Configuration of the installation.
     """
 
     description: str
@@ -759,14 +744,34 @@ class Server:
     Status of the server.
     """
 
-    project_id: str
+    updated_at: Optional[datetime]
     """
-    Project ID the server is attached to.
+    Last modification date of the server.
     """
 
-    organization_id: str
+    created_at: Optional[datetime]
     """
-    Organization ID the server is attached to.
+    Creation date of the server.
+    """
+
+    offer_id: str
+    """
+    Offer ID of the server.
+    """
+
+    offer_name: str
+    """
+    Offer name of the server.
+    """
+
+    tags: List[str]
+    """
+    Array of custom tags attached to the server.
+    """
+
+    ips: List[IP]
+    """
+    Array of IPs attached to the server.
     """
 
     domain: str
@@ -774,9 +779,24 @@ class Server:
     Domain of the server.
     """
 
+    boot_type: ServerBootType
+    """
+    Boot type of the server.
+    """
+
     zone: Zone
     """
     Zone in which is the server located.
+    """
+
+    install: ServerInstall
+    """
+    Configuration of the installation.
+    """
+
+    ping_status: ServerPingStatus
+    """
+    Status of server ping.
     """
 
     options: List[ServerOption]
@@ -789,37 +809,12 @@ class Server:
     Configuration of rescue boot.
     """
 
-    id: str
-    """
-    ID of the server.
-    """
-
-    offer_id: str
-    """
-    Offer ID of the server.
-    """
-
-    created_at: Optional[datetime]
-    """
-    Creation date of the server.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Last modification date of the server.
-    """
-
 
 @dataclass
 class Setting:
-    enabled: bool
+    id: str
     """
-    Defines whether the setting is enabled.
-    """
-
-    project_id: str
-    """
-    ID of the Project ID.
+    ID of the setting.
     """
 
     type_: SettingType
@@ -827,22 +822,27 @@ class Setting:
     Type of the setting.
     """
 
-    id: str
+    project_id: str
     """
-    ID of the setting.
+    ID of the Project ID.
+    """
+
+    enabled: bool
+    """
+    Defines whether the setting is enabled.
     """
 
 
 @dataclass
 class AddOptionServerRequest:
-    option_id: str
-    """
-    ID of the option to add.
-    """
-
     server_id: str
     """
     ID of the server.
+    """
+
+    option_id: str
+    """
+    ID of the option to add.
     """
 
     zone: Optional[Zone]
@@ -858,9 +858,9 @@ class AddOptionServerRequest:
 
 @dataclass
 class BMCAccess:
-    password: str
+    url: str
     """
-    The password to use for the BMC (Baseboard Management Controller) access authentification.
+    URL to access to the server console.
     """
 
     login: str
@@ -868,9 +868,9 @@ class BMCAccess:
     The login to use for the BMC (Baseboard Management Controller) access authentification.
     """
 
-    url: str
+    password: str
     """
-    URL to access to the server console.
+    The password to use for the BMC (Baseboard Management Controller) access authentification.
     """
 
     expires_at: Optional[datetime]
@@ -881,14 +881,9 @@ class BMCAccess:
 
 @dataclass
 class CreateServerRequest:
-    install: CreateServerRequestInstall
+    offer_id: str
     """
-    Object describing the configuration details of the OS installation on the server.
-    """
-
-    description: str
-    """
-    Description associated with the server, max 255 characters.
+    Offer ID of the new server.
     """
 
     name: str
@@ -896,9 +891,9 @@ class CreateServerRequest:
     Name of the server (≠hostname).
     """
 
-    offer_id: str
+    description: str
     """
-    Offer ID of the new server.
+    Description associated with the server, max 255 characters.
     """
 
     zone: Optional[Zone]
@@ -909,6 +904,11 @@ class CreateServerRequest:
     tags: Optional[List[str]]
     """
     Tags to associate to the server.
+    """
+
+    install: Optional[CreateServerRequestInstall]
+    """
+    Object describing the configuration details of the OS installation on the server.
     """
 
     option_ids: Optional[List[str]]
@@ -923,14 +923,14 @@ class CreateServerRequest:
 
 @dataclass
 class DeleteOptionServerRequest:
-    option_id: str
-    """
-    ID of the option to delete.
-    """
-
     server_id: str
     """
     ID of the server.
+    """
+
+    option_id: str
+    """
+    ID of the option to delete.
     """
 
     zone: Optional[Zone]
@@ -1040,9 +1040,9 @@ class GetServerRequest:
 
 @dataclass
 class InstallServerRequest:
-    hostname: str
+    server_id: str
     """
-    Hostname of the server.
+    Server ID to install.
     """
 
     os_id: str
@@ -1050,19 +1050,19 @@ class InstallServerRequest:
     ID of the OS to installation on the server.
     """
 
-    server_id: str
+    hostname: str
     """
-    Server ID to install.
+    Hostname of the server.
+    """
+
+    ssh_key_ids: List[str]
+    """
+    SSH key IDs authorized on the server.
     """
 
     zone: Optional[Zone]
     """
     Zone to target. If none is passed will use default zone from the config.
-    """
-
-    ssh_key_ids: Optional[List[str]]
-    """
-    SSH key IDs authorized on the server.
     """
 
     user: Optional[str]
@@ -1111,14 +1111,14 @@ class ListOSRequest:
 
 @dataclass
 class ListOSResponse:
-    os: List[OS]
-    """
-    OS that match filters.
-    """
-
     total_count: int
     """
     Total count of matching OS.
+    """
+
+    os: List[OS]
+    """
+    OS that match filters.
     """
 
 
@@ -1147,14 +1147,14 @@ class ListOffersRequest:
 
 @dataclass
 class ListOffersResponse:
-    offers: List[Offer]
-    """
-    Offers that match filters.
-    """
-
     total_count: int
     """
     Total count of matching offers.
+    """
+
+    offers: List[Offer]
+    """
+    Offers that match filters.
     """
 
 
@@ -1188,14 +1188,14 @@ class ListOptionsRequest:
 
 @dataclass
 class ListOptionsResponse:
-    options: List[Option]
-    """
-    Options that match filters.
-    """
-
     total_count: int
     """
     Total count of matching options.
+    """
+
+    options: List[Option]
+    """
+    Options that match filters.
     """
 
 
@@ -1229,22 +1229,22 @@ class ListServerEventsRequest:
 
 @dataclass
 class ListServerEventsResponse:
-    events: List[ServerEvent]
-    """
-    Server events that match filters.
-    """
-
     total_count: int
     """
     Total count of matching events.
     """
 
+    events: List[ServerEvent]
+    """
+    Server events that match filters.
+    """
+
 
 @dataclass
 class ListServerPrivateNetworksResponse:
-    total_count: int
-
     server_private_networks: List[ServerPrivateNetwork]
+
+    total_count: int
 
 
 @dataclass
@@ -1302,14 +1302,14 @@ class ListServersRequest:
 
 @dataclass
 class ListServersResponse:
-    servers: List[Server]
-    """
-    Array of Elastic Metal server objects matching the filters in the request.
-    """
-
     total_count: int
     """
     Total count of matching servers.
+    """
+
+    servers: List[Server]
+    """
+    Array of Elastic Metal server objects matching the filters in the request.
     """
 
 
@@ -1343,27 +1343,27 @@ class ListSettingsRequest:
 
 @dataclass
 class ListSettingsResponse:
-    settings: List[Setting]
-    """
-    Settings that match filters.
-    """
-
     total_count: int
     """
     Total count of matching settings.
     """
 
+    settings: List[Setting]
+    """
+    Settings that match filters.
+    """
+
 
 @dataclass
 class PrivateNetworkApiAddServerPrivateNetworkRequest:
-    private_network_id: str
-    """
-    The ID of the Private Network.
-    """
-
     server_id: str
     """
     The ID of the server.
+    """
+
+    private_network_id: str
+    """
+    The ID of the Private Network.
     """
 
     zone: Optional[Zone]
@@ -1374,14 +1374,14 @@ class PrivateNetworkApiAddServerPrivateNetworkRequest:
 
 @dataclass
 class PrivateNetworkApiDeleteServerPrivateNetworkRequest:
-    private_network_id: str
-    """
-    The ID of the Private Network.
-    """
-
     server_id: str
     """
     The ID of the server.
+    """
+
+    private_network_id: str
+    """
+    The ID of the Private Network.
     """
 
     zone: Optional[Zone]
@@ -1440,14 +1440,14 @@ class PrivateNetworkApiSetServerPrivateNetworksRequest:
     The ID of the server.
     """
 
+    private_network_ids: List[str]
+    """
+    The IDs of the Private Networks.
+    """
+
     zone: Optional[Zone]
     """
     Zone to target. If none is passed will use default zone from the config.
-    """
-
-    private_network_ids: Optional[List[str]]
-    """
-    The IDs of the Private Networks.
     """
 
 
@@ -1476,14 +1476,14 @@ class SetServerPrivateNetworksResponse:
 
 @dataclass
 class StartBMCAccessRequest:
-    ip: str
-    """
-    The IP authorized to connect to the server.
-    """
-
     server_id: str
     """
     ID of the server.
+    """
+
+    ip: str
+    """
+    The IP authorized to connect to the server.
     """
 
     zone: Optional[Zone]
@@ -1538,14 +1538,14 @@ class StopServerRequest:
 
 @dataclass
 class UpdateIPRequest:
-    ip_id: str
-    """
-    ID of the IP to update.
-    """
-
     server_id: str
     """
     ID of the server.
+    """
+
+    ip_id: str
+    """
+    ID of the IP to update.
     """
 
     zone: Optional[Zone]

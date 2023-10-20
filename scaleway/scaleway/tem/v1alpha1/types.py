@@ -94,9 +94,9 @@ class ListEmailsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 
 @dataclass
 class EmailTry:
-    message: str
+    rank: int
     """
-    The SMTP message received. If the attempt did not reach an SMTP server, the message returned explains what happened.
+    Rank number of this attempt to send the email.
     """
 
     code: int
@@ -104,9 +104,9 @@ class EmailTry:
     The SMTP status code received after the attempt. 0 if the attempt did not reach an SMTP server.
     """
 
-    rank: int
+    message: str
     """
-    Rank number of this attempt to send the email.
+    The SMTP message received. If the attempt did not reach an SMTP server, the message returned explains what happened.
     """
 
     tried_at: Optional[datetime]
@@ -117,13 +117,13 @@ class EmailTry:
 
 @dataclass
 class DomainStatistics:
-    canceled_count: int
-
-    failed_count: int
+    total_count: int
 
     sent_count: int
 
-    total_count: int
+    failed_count: int
+
+    canceled_count: int
 
 
 @dataclass
@@ -141,9 +141,9 @@ class CreateEmailRequestAddress:
 
 @dataclass
 class CreateEmailRequestAttachment:
-    content: str
+    name: str
     """
-    Content of the attachment encoded in base64.
+    Filename of the attachment.
     """
 
     type_: str
@@ -151,14 +151,59 @@ class CreateEmailRequestAttachment:
     MIME type of the attachment.
     """
 
-    name: str
+    content: str
     """
-    Filename of the attachment.
+    Content of the attachment encoded in base64.
     """
 
 
 @dataclass
 class Email:
+    id: str
+    """
+    Technical ID of the email.
+    """
+
+    message_id: str
+    """
+    Message ID of the email.
+    """
+
+    project_id: str
+    """
+    ID of the Project to which the email belongs.
+    """
+
+    mail_from: str
+    """
+    Email address of the sender.
+    """
+
+    mail_rcpt: str
+    """
+    Email address of the recipient.
+    """
+
+    rcpt_to: Optional[str]
+    """
+    Email address of the recipient.
+    """
+
+    rcpt_type: EmailRcptType
+    """
+    Type of recipient.
+    """
+
+    subject: str
+    """
+    Subject of the email.
+    """
+
+    status: EmailStatus
+    """
+    Status of the email.
+    """
+
     try_count: int
     """
     Number of attempts to send the email.
@@ -169,59 +214,9 @@ class Email:
     Information about the last three attempts to send the email.
     """
 
-    subject: str
-    """
-    Subject of the email.
-    """
-
-    id: str
-    """
-    Technical ID of the email.
-    """
-
-    mail_rcpt: str
-    """
-    Email address of the recipient.
-    """
-
     flags: List[EmailFlag]
     """
     Flags categorize emails. They allow you to obtain more information about recurring errors, for example.
-    """
-
-    mail_from: str
-    """
-    Email address of the sender.
-    """
-
-    project_id: str
-    """
-    ID of the Project to which the email belongs.
-    """
-
-    message_id: str
-    """
-    Message ID of the email.
-    """
-
-    status: EmailStatus
-    """
-    Status of the email.
-    """
-
-    rcpt_type: EmailRcptType
-    """
-    Type of recipient.
-    """
-
-    status_details: Optional[str]
-    """
-    Additional status information.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Last update of the email object.
     """
 
     created_at: Optional[datetime]
@@ -229,9 +224,14 @@ class Email:
     Creation date of the email object.
     """
 
-    rcpt_to: Optional[str]
+    updated_at: Optional[datetime]
     """
-    Email address of the recipient.
+    Last update of the email object.
+    """
+
+    status_details: Optional[str]
+    """
+    Additional status information.
     """
 
 
@@ -273,6 +273,41 @@ class DomainLastStatusSpfRecord:
 
 @dataclass
 class Domain:
+    id: str
+    """
+    ID of the domain.
+    """
+
+    organization_id: str
+    """
+    ID of the domain's Organization.
+    """
+
+    project_id: str
+    """
+    ID of the domain's Project.
+    """
+
+    name: str
+    """
+    Domain name (example.com).
+    """
+
+    status: DomainStatus
+    """
+    Status of the domain.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Date and time of domain creation.
+    """
+
+    spf_config: str
+    """
+    Snippet of the SPF record to register in the DNS zone.
+    """
+
     dkim_config: str
     """
     DKIM public key to record in the DNS zone.
@@ -283,39 +318,9 @@ class Domain:
     Domain's statistics.
     """
 
-    id: str
-    """
-    ID of the domain.
-    """
-
     region: Region
     """
     Region to target. If none is passed will use default region from the config.
-    """
-
-    status: DomainStatus
-    """
-    Status of the domain.
-    """
-
-    name: str
-    """
-    Domain name (example.com).
-    """
-
-    project_id: str
-    """
-    ID of the domain's Project.
-    """
-
-    organization_id: str
-    """
-    ID of the domain's Organization.
-    """
-
-    spf_config: str
-    """
-    Snippet of the SPF record to register in the DNS zone.
     """
 
     next_check_at: Optional[datetime]
@@ -323,9 +328,9 @@ class Domain:
     Date and time of the next scheduled check.
     """
 
-    last_error: Optional[str]
+    last_valid_at: Optional[datetime]
     """
-    Error message returned if the last check failed.
+    Date and time the domain was last valid.
     """
 
     revoked_at: Optional[datetime]
@@ -333,14 +338,9 @@ class Domain:
     Date and time of the domain's deletion.
     """
 
-    last_valid_at: Optional[datetime]
+    last_error: Optional[str]
     """
-    Date and time the domain was last valid.
-    """
-
-    created_at: Optional[datetime]
-    """
-    Date and time of domain creation.
+    Error message returned if the last check failed.
     """
 
 
@@ -372,14 +372,14 @@ class CheckDomainRequest:
 
 @dataclass
 class CreateDomainRequest:
-    accept_tos: bool
-    """
-    Accept Scaleway's Terms of Service.
-    """
-
     domain_name: str
     """
     Fully qualified domain dame.
+    """
+
+    accept_tos: bool
+    """
+    Accept Scaleway's Terms of Service.
     """
 
     region: Optional[Region]
@@ -395,9 +395,9 @@ class CreateDomainRequest:
 
 @dataclass
 class CreateEmailRequest:
-    html: str
+    subject: str
     """
-    HTML content.
+    Subject of the email.
     """
 
     text: str
@@ -405,19 +405,19 @@ class CreateEmailRequest:
     Text content.
     """
 
-    subject: str
+    html: str
     """
-    Subject of the email.
-    """
-
-    from_: CreateEmailRequestAddress
-    """
-    Sender information. Must be from a checked domain declared in the Project.
+    HTML content.
     """
 
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
+    """
+
+    from_: Optional[CreateEmailRequestAddress]
+    """
+    Sender information. Must be from a checked domain declared in the Project.
     """
 
     to: Optional[List[CreateEmailRequestAddress]]
@@ -461,14 +461,9 @@ class CreateEmailResponse:
 
 @dataclass
 class DomainLastStatus:
-    dkim_record: DomainLastStatusDkimRecord
+    domain_id: str
     """
-    The DKIM record verification data.
-    """
-
-    spf_record: DomainLastStatusSpfRecord
-    """
-    The SPF record verification data.
+    The id of the domain.
     """
 
     domain_name: str
@@ -476,9 +471,14 @@ class DomainLastStatus:
     The domain name (example.com).
     """
 
-    domain_id: str
+    spf_record: DomainLastStatusSpfRecord
     """
-    The id of the domain.
+    The SPF record verification data.
+    """
+
+    dkim_record: DomainLastStatusDkimRecord
+    """
+    The DKIM record verification data.
     """
 
 
@@ -582,12 +582,12 @@ class ListDomainsRequest:
 
 @dataclass
 class ListDomainsResponse:
-    domains: List[Domain]
-
     total_count: int
     """
     Number of domains that match the request (without pagination).
     """
+
+    domains: List[Domain]
 
 
 @dataclass
@@ -669,14 +669,14 @@ class ListEmailsRequest:
 
 @dataclass
 class ListEmailsResponse:
-    emails: List[Email]
-    """
-    Single page of emails matching the requested criteria.
-    """
-
     total_count: int
     """
     Number of emails matching the requested criteria.
+    """
+
+    emails: List[Email]
+    """
+    Single page of emails matching the requested criteria.
     """
 
 
@@ -695,24 +695,9 @@ class RevokeDomainRequest:
 
 @dataclass
 class Statistics:
-    canceled_count: int
+    total_count: int
     """
-    Number of emails in the final `canceled` state. This means emails that have been canceled upon request.
-    """
-
-    failed_count: int
-    """
-    Number of emails in the final `failed` state. This means emails that have been refused by the target mail system with a final error status.
-    """
-
-    sent_count: int
-    """
-    Number of emails in the final `sent` state. This means emails that have been delivered to the target mail system.
-    """
-
-    sending_count: int
-    """
-    Number of emails still in the `sending` transient state. This means emails received from the API but not yet in their final status.
+    Total number of emails matching the requested criteria.
     """
 
     new_count: int
@@ -720,7 +705,22 @@ class Statistics:
     Number of emails still in the `new` transient state. This means emails received from the API but not yet processed.
     """
 
-    total_count: int
+    sending_count: int
     """
-    Total number of emails matching the requested criteria.
+    Number of emails still in the `sending` transient state. This means emails received from the API but not yet in their final status.
+    """
+
+    sent_count: int
+    """
+    Number of emails in the final `sent` state. This means emails that have been delivered to the target mail system.
+    """
+
+    failed_count: int
+    """
+    Number of emails in the final `failed` state. This means emails that have been refused by the target mail system with a final error status.
+    """
+
+    canceled_count: int
+    """
+    Number of emails in the final `canceled` state. This means emails that have been canceled upon request.
     """

@@ -33,17 +33,17 @@ def unmarshal_Folder(data: Any) -> Folder:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("path", None)
-    args["path"] = field
-
-    field = data.get("name", None)
-    args["name"] = field
+    field = data.get("id", None)
+    args["id"] = field
 
     field = data.get("project_id", None)
     args["project_id"] = field
 
-    field = data.get("id", None)
-    args["id"] = field
+    field = data.get("name", None)
+    args["name"] = field
+
+    field = data.get("path", None)
+    args["path"] = field
 
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -59,17 +59,17 @@ def unmarshal_SecretVersion(data: Any) -> SecretVersion:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("is_latest", None)
-    args["is_latest"] = field
-
-    field = data.get("status", None)
-    args["status"] = field
+    field = data.get("revision", None)
+    args["revision"] = field
 
     field = data.get("secret_id", None)
     args["secret_id"] = field
 
-    field = data.get("revision", None)
-    args["revision"] = field
+    field = data.get("status", None)
+    args["status"] = field
+
+    field = data.get("is_latest", None)
+    args["is_latest"] = field
 
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -91,17 +91,38 @@ def unmarshal_Secret(data: Any) -> Secret:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("is_managed", None)
-    args["is_managed"] = field
+    field = data.get("id", None)
+    args["id"] = field
 
-    field = data.get("type_", None)
-    args["type_"] = field
+    field = data.get("project_id", None)
+    args["project_id"] = field
+
+    field = data.get("name", None)
+    args["name"] = field
+
+    field = data.get("status", None)
+    args["status"] = field
+
+    field = data.get("created_at", None)
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+
+    field = data.get("updated_at", None)
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+
+    field = data.get("tags", None)
+    args["tags"] = field
 
     field = data.get("version_count", None)
     args["version_count"] = field
 
-    field = data.get("id", None)
-    args["id"] = field
+    field = data.get("is_managed", None)
+    args["is_managed"] = field
+
+    field = data.get("is_protected", None)
+    args["is_protected"] = field
+
+    field = data.get("type_", None)
+    args["type_"] = field
 
     field = data.get("path", None)
     args["path"] = field
@@ -109,29 +130,8 @@ def unmarshal_Secret(data: Any) -> Secret:
     field = data.get("region", None)
     args["region"] = field
 
-    field = data.get("status", None)
-    args["status"] = field
-
-    field = data.get("name", None)
-    args["name"] = field
-
-    field = data.get("project_id", None)
-    args["project_id"] = field
-
-    field = data.get("is_protected", None)
-    args["is_protected"] = field
-
-    field = data.get("tags", None)
-    args["tags"] = field
-
     field = data.get("description", None)
     args["description"] = field
-
-    field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-
-    field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return Secret(**args)
 
@@ -144,14 +144,14 @@ def unmarshal_AccessSecretVersionResponse(data: Any) -> AccessSecretVersionRespo
 
     args: Dict[str, Any] = {}
 
-    field = data.get("data", None)
-    args["data"] = field
+    field = data.get("secret_id", None)
+    args["secret_id"] = field
 
     field = data.get("revision", None)
     args["revision"] = field
 
-    field = data.get("secret_id", None)
-    args["secret_id"] = field
+    field = data.get("data", None)
+    args["data"] = field
 
     field = data.get("data_crc32", None)
     args["data_crc32"] = field
@@ -167,13 +167,13 @@ def unmarshal_ListFoldersResponse(data: Any) -> ListFoldersResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    args["total_count"] = field
-
     field = data.get("folders", None)
     args["folders"] = (
         [unmarshal_Folder(v) for v in field] if field is not None else None
     )
+
+    field = data.get("total_count", None)
+    args["total_count"] = field
 
     return ListFoldersResponse(**args)
 
@@ -186,13 +186,13 @@ def unmarshal_ListSecretVersionsResponse(data: Any) -> ListSecretVersionsRespons
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    args["total_count"] = field
-
     field = data.get("versions", None)
     args["versions"] = (
         [unmarshal_SecretVersion(v) for v in field] if field is not None else None
     )
+
+    field = data.get("total_count", None)
+    args["total_count"] = field
 
     return ListSecretVersionsResponse(**args)
 
@@ -205,13 +205,13 @@ def unmarshal_ListSecretsResponse(data: Any) -> ListSecretsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    args["total_count"] = field
-
     field = data.get("secrets", None)
     args["secrets"] = (
         [unmarshal_Secret(v) for v in field] if field is not None else None
     )
+
+    field = data.get("total_count", None)
+    args["total_count"] = field
 
     return ListSecretsResponse(**args)
 
@@ -224,11 +224,11 @@ def unmarshal_ListTagsResponse(data: Any) -> ListTagsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    args["total_count"] = field
-
     field = data.get("tags", None)
     args["tags"] = field
+
+    field = data.get("total_count", None)
+    args["total_count"] = field
 
     return ListTagsResponse(**args)
 
@@ -299,20 +299,20 @@ def marshal_PasswordGenerationParams(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.additional_chars is not None:
-        output["additional_chars"] = request.additional_chars
-
-    if request.no_digits is not None:
-        output["no_digits"] = request.no_digits
-
-    if request.no_uppercase_letters is not None:
-        output["no_uppercase_letters"] = request.no_uppercase_letters
+    if request.length is not None:
+        output["length"] = request.length
 
     if request.no_lowercase_letters is not None:
         output["no_lowercase_letters"] = request.no_lowercase_letters
 
-    if request.length is not None:
-        output["length"] = request.length
+    if request.no_uppercase_letters is not None:
+        output["no_uppercase_letters"] = request.no_uppercase_letters
+
+    if request.no_digits is not None:
+        output["no_digits"] = request.no_digits
+
+    if request.additional_chars is not None:
+        output["additional_chars"] = request.additional_chars
 
     return output
 
