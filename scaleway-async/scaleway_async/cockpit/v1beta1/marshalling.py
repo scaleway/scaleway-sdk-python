@@ -122,6 +122,9 @@ def unmarshal_CockpitEndpoints(data: Any) -> CockpitEndpoints:
     field = data.get("metrics_url", None)
     args["metrics_url"] = field
 
+    field = data.get("traces_url", None)
+    args["traces_url"] = field
+
     return CockpitEndpoints(**args)
 
 
