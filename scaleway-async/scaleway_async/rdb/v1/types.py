@@ -270,9 +270,9 @@ class EndpointLoadBalancerDetails:
 
 @dataclass
 class EndpointPrivateNetworkDetails:
-    zone: Zone
+    private_network_id: str
     """
-    Private network zone.
+    UUID of the private network.
     """
 
     service_ip: str
@@ -280,9 +280,9 @@ class EndpointPrivateNetworkDetails:
     CIDR notation of the endpoint IPv4 address.
     """
 
-    private_network_id: str
+    zone: Zone
     """
-    UUID of the private network.
+    Private network zone.
     """
 
 
@@ -298,19 +298,9 @@ class ReadReplicaEndpointSpecPrivateNetworkIpamConfig:
 
 @dataclass
 class EngineSetting:
-    property_type: EngineSettingPropertyType
+    name: str
     """
-    Setting type.
-    """
-
-    description: str
-    """
-    Setting description.
-    """
-
-    hot_configurable: bool
-    """
-    Setting can be applied without restarting.
+    Setting name from the database engine.
     """
 
     default_value: str
@@ -318,9 +308,19 @@ class EngineSetting:
     Value set when not specified.
     """
 
-    name: str
+    hot_configurable: bool
     """
-    Setting name from the database engine.
+    Setting can be applied without restarting.
+    """
+
+    description: str
+    """
+    Setting description.
+    """
+
+    property_type: EngineSettingPropertyType
+    """
+    Setting type.
     """
 
     unit: Optional[str]
@@ -356,14 +356,14 @@ class EngineSetting:
 
 @dataclass
 class Endpoint:
-    port: int
-    """
-    TCP port of the endpoint.
-    """
-
     id: str
     """
     UUID of the endpoint.
+    """
+
+    port: int
+    """
+    TCP port of the endpoint.
     """
 
     name: Optional[str]
@@ -418,24 +418,9 @@ class ReadReplicaEndpointSpecPrivateNetwork:
 
 @dataclass
 class EngineVersion:
-    available_init_settings: List[EngineSetting]
+    version: str
     """
-    Engine settings available to be set at database initialization.
-    """
-
-    beta: bool
-    """
-    Beta status of engine version.
-    """
-
-    disabled: bool
-    """
-    Disabled versions cannot be created.
-    """
-
-    available_settings: List[EngineSetting]
-    """
-    Engine settings available to be set.
+    Database engine version.
     """
 
     name: str
@@ -443,9 +428,24 @@ class EngineVersion:
     Database engine name.
     """
 
-    version: str
+    available_settings: List[EngineSetting]
     """
-    Database engine version.
+    Engine settings available to be set.
+    """
+
+    disabled: bool
+    """
+    Disabled versions cannot be created.
+    """
+
+    beta: bool
+    """
+    Beta status of engine version.
+    """
+
+    available_init_settings: List[EngineSetting]
+    """
+    Engine settings available to be set at database initialization.
     """
 
     end_of_life: Optional[datetime]
@@ -456,9 +456,9 @@ class EngineVersion:
 
 @dataclass
 class BackupSchedule:
-    disabled: bool
+    frequency: int
     """
-    Defines whether the backup schedule feature is disabled.
+    Frequency of the backup schedule (in hours).
     """
 
     retention: int
@@ -466,9 +466,9 @@ class BackupSchedule:
     Default retention period of backups (in days).
     """
 
-    frequency: int
+    disabled: bool
     """
-    Frequency of the backup schedule (in hours).
+    Defines whether the backup schedule feature is disabled.
     """
 
     next_run_at: Optional[datetime]
@@ -479,9 +479,9 @@ class BackupSchedule:
 
 @dataclass
 class InstanceSetting:
-    value: str
-
     name: str
+
+    value: str
 
 
 @dataclass
@@ -499,14 +499,14 @@ class LogsPolicy:
 
 @dataclass
 class Maintenance:
-    status: MaintenanceStatus
-    """
-    Status of the maintenance.
-    """
-
     reason: str
     """
     Maintenance information message.
+    """
+
+    status: MaintenanceStatus
+    """
+    Status of the maintenance.
     """
 
     starts_at: Optional[datetime]
@@ -527,19 +527,9 @@ class Maintenance:
 
 @dataclass
 class ReadReplica:
-    same_zone: bool
+    id: str
     """
-    Whether the replica is in the same availability zone as the main instance nodes or not.
-    """
-
-    region: Region
-    """
-    Region the Read Replica is in.
-    """
-
-    status: ReadReplicaStatus
-    """
-    Read replica status.
+    UUID of the Read Replica.
     """
 
     endpoints: List[Endpoint]
@@ -547,58 +537,60 @@ class ReadReplica:
     Display Read Replica connection information.
     """
 
-    id: str
+    status: ReadReplicaStatus
     """
-    UUID of the Read Replica.
+    Read replica status.
+    """
+
+    region: Region
+    """
+    Region the Read Replica is in.
+    """
+
+    same_zone: bool
+    """
+    Whether the replica is in the same availability zone as the main instance nodes or not.
     """
 
 
 @dataclass
 class UpgradableVersion:
-    minor_version: str
-
-    version: str
+    id: str
 
     name: str
 
-    id: str
+    version: str
+
+    minor_version: str
 
 
 @dataclass
 class Volume:
+    type_: VolumeType
+
     size: int
 
-    type_: VolumeType
+    class_: StorageClass
 
 
 @dataclass
 class NodeTypeVolumeConstraintSizes:
-    max_size: int
-    """
-    [deprecated] Maximum size required for the Volume.
-    """
-
     min_size: int
     """
     [deprecated] Mimimum size required for the Volume.
     """
 
+    max_size: int
+    """
+    [deprecated] Maximum size required for the Volume.
+    """
+
 
 @dataclass
 class NodeTypeVolumeType:
-    chunk_size: int
+    type_: VolumeType
     """
-    Minimum increment level for a Block Storage volume size.
-    """
-
-    max_size: int
-    """
-    Maximum size required for the Volume.
-    """
-
-    min_size: int
-    """
-    Mimimum size required for the Volume.
+    Volume Type.
     """
 
     description: str
@@ -606,30 +598,45 @@ class NodeTypeVolumeType:
     The description of the Volume.
     """
 
-    type_: VolumeType
+    min_size: int
     """
-    Volume Type.
+    Mimimum size required for the Volume.
+    """
+
+    max_size: int
+    """
+    Maximum size required for the Volume.
+    """
+
+    chunk_size: int
+    """
+    Minimum increment level for a Block Storage volume size.
+    """
+
+    class_: StorageClass
+    """
+    The storage class of the volume.
     """
 
 
 @dataclass
 class ACLRuleRequest:
-    description: str
-
     ip: str
+
+    description: str
 
 
 @dataclass
 class ACLRule:
-    description: str
-
-    action: ACLRuleAction
-
-    direction: ACLRuleDirection
+    ip: str
 
     protocol: ACLRuleProtocol
 
-    ip: str
+    direction: ACLRuleDirection
+
+    action: ACLRuleAction
+
+    description: str
 
     port: Optional[int]
 
@@ -650,6 +657,56 @@ class ReadReplicaEndpointSpec:
 
 @dataclass
 class DatabaseBackup:
+    id: str
+    """
+    UUID of the database backup.
+    """
+
+    instance_id: str
+    """
+    UUID of the Database Instance.
+    """
+
+    database_name: str
+    """
+    Name of backed up database.
+    """
+
+    name: str
+    """
+    Name of the backup.
+    """
+
+    status: DatabaseBackupStatus
+    """
+    Status of the backup.
+    """
+
+    size: Optional[int]
+    """
+    Size of the database backup.
+    """
+
+    expires_at: Optional[datetime]
+    """
+    Expiration date (must follow the ISO 8601 format).
+    """
+
+    created_at: Optional[datetime]
+    """
+    Creation date (must follow the ISO 8601 format).
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Updated date (must follow the ISO 8601 format).
+    """
+
+    instance_name: str
+    """
+    Name of the Database Instance of the backup.
+    """
+
     region: Region
     """
     Region of the database backup.
@@ -658,46 +715,6 @@ class DatabaseBackup:
     same_region: bool
     """
     Store logical backups in the same region as the source Database Instance.
-    """
-
-    status: DatabaseBackupStatus
-    """
-    Status of the backup.
-    """
-
-    id: str
-    """
-    UUID of the database backup.
-    """
-
-    database_name: str
-    """
-    Name of backed up database.
-    """
-
-    instance_id: str
-    """
-    UUID of the Database Instance.
-    """
-
-    instance_name: str
-    """
-    Name of the Database Instance of the backup.
-    """
-
-    name: str
-    """
-    Name of the backup.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Updated date (must follow the ISO 8601 format).
-    """
-
-    created_at: Optional[datetime]
-    """
-    Creation date (must follow the ISO 8601 format).
     """
 
     download_url: Optional[str]
@@ -710,27 +727,12 @@ class DatabaseBackup:
     Expiration date of the download link.
     """
 
-    expires_at: Optional[datetime]
-    """
-    Expiration date (must follow the ISO 8601 format).
-    """
-
-    size: Optional[int]
-    """
-    Size of the database backup.
-    """
-
 
 @dataclass
 class DatabaseEngine:
-    region: Region
+    name: str
     """
-    Region of this Database Instance.
-    """
-
-    versions: List[EngineVersion]
-    """
-    Available versions.
+    Engine name.
     """
 
     logo_url: str
@@ -738,22 +740,22 @@ class DatabaseEngine:
     Engine logo URL.
     """
 
-    name: str
+    versions: List[EngineVersion]
     """
-    Engine name.
+    Available versions.
+    """
+
+    region: Region
+    """
+    Region of this Database Instance.
     """
 
 
 @dataclass
 class Database:
-    size: int
+    name: str
     """
-    Size of the database.
-    """
-
-    managed: bool
-    """
-    Defines whether the database is managed or not.
+    Name of the database.
     """
 
     owner: str
@@ -761,29 +763,29 @@ class Database:
     Name of the database owner.
     """
 
-    name: str
+    managed: bool
     """
-    Name of the database.
+    Defines whether the database is managed or not.
+    """
+
+    size: int
+    """
+    Size of the database.
     """
 
 
 @dataclass
 class ListInstanceLogsDetailsResponseInstanceLogDetail:
-    size: int
-
     log_name: str
+
+    size: int
 
 
 @dataclass
 class InstanceLog:
-    region: Region
+    id: str
     """
-    Region the Database Instance is in.
-    """
-
-    node_name: str
-    """
-    Name of the underlying node.
+    UUID of the Database Instance log.
     """
 
     status: InstanceLogStatus
@@ -791,9 +793,14 @@ class InstanceLog:
     Status of the logs in a Database Instance.
     """
 
-    id: str
+    node_name: str
     """
-    UUID of the Database Instance log.
+    Name of the underlying node.
+    """
+
+    region: Region
+    """
+    Region the Database Instance is in.
     """
 
     download_url: Optional[str]
@@ -814,69 +821,9 @@ class InstanceLog:
 
 @dataclass
 class Instance:
-    tags: List[str]
-    """
-    List of tags applied to the Database Instance.
-    """
-
-    upgradable_version: List[UpgradableVersion]
-    """
-    Available database engine versions for upgrade.
-    """
-
-    project_id: str
-    """
-    Project ID the Database Instance belongs to.
-    """
-
     volume: Volume
     """
     Volumes of the Database Instance.
-    """
-
-    logs_policy: LogsPolicy
-    """
-    Logs policy of the Database Instance.
-    """
-
-    backup_schedule: BackupSchedule
-    """
-    Backup schedule of the Database Instance.
-    """
-
-    read_replicas: List[ReadReplica]
-    """
-    Read Replicas of the Database Instance.
-    """
-
-    name: str
-    """
-    Name of the Database Instance.
-    """
-
-    endpoints: List[Endpoint]
-    """
-    List of Database Instance endpoints.
-    """
-
-    backup_same_region: bool
-    """
-    Store logical backups in the same region as the Database Instance.
-    """
-
-    node_type: str
-    """
-    Node type of the Database Instance.
-    """
-
-    settings: List[InstanceSetting]
-    """
-    Advanced settings of the Database Instance.
-    """
-
-    is_ha_cluster: bool
-    """
-    Defines whether or not High-Availability is enabled.
     """
 
     region: Region
@@ -884,29 +831,14 @@ class Instance:
     Region the Database Instance is in.
     """
 
-    maintenances: List[Maintenance]
-    """
-    List of Database Instance maintenance events.
-    """
-
     id: str
     """
     UUID of the Database Instance.
     """
 
-    status: InstanceStatus
+    name: str
     """
-    Status of the Database Instance.
-    """
-
-    init_settings: List[InstanceSetting]
-    """
-    List of engine settings to be set at database initialization.
-    """
-
-    engine: str
-    """
-    Database engine of the database (PostgreSQL, MySQL, ...).
+    Name of the Database Instance.
     """
 
     organization_id: str
@@ -914,27 +846,122 @@ class Instance:
     Organization ID the Database Instance belongs to.
     """
 
-    endpoint: Optional[Endpoint]
-    """
-    Endpoint of the Database Instance.
-    """
-
     created_at: Optional[datetime]
     """
     Creation date (must follow the ISO 8601 format).
     """
 
+    project_id: str
+    """
+    Project ID the Database Instance belongs to.
+    """
+
+    status: InstanceStatus
+    """
+    Status of the Database Instance.
+    """
+
+    engine: str
+    """
+    Database engine of the database (PostgreSQL, MySQL, ...).
+    """
+
+    upgradable_version: List[UpgradableVersion]
+    """
+    Available database engine versions for upgrade.
+    """
+
+    tags: List[str]
+    """
+    List of tags applied to the Database Instance.
+    """
+
+    settings: List[InstanceSetting]
+    """
+    Advanced settings of the Database Instance.
+    """
+
+    backup_schedule: BackupSchedule
+    """
+    Backup schedule of the Database Instance.
+    """
+
+    is_ha_cluster: bool
+    """
+    Defines whether or not High-Availability is enabled.
+    """
+
+    endpoint: Optional[Endpoint]
+    """
+    Endpoint of the Database Instance.
+    """
+
+    read_replicas: List[ReadReplica]
+    """
+    Read Replicas of the Database Instance.
+    """
+
+    node_type: str
+    """
+    Node type of the Database Instance.
+    """
+
+    init_settings: List[InstanceSetting]
+    """
+    List of engine settings to be set at database initialization.
+    """
+
+    endpoints: List[Endpoint]
+    """
+    List of Database Instance endpoints.
+    """
+
+    logs_policy: LogsPolicy
+    """
+    Logs policy of the Database Instance.
+    """
+
+    backup_same_region: bool
+    """
+    Store logical backups in the same region as the Database Instance.
+    """
+
+    maintenances: List[Maintenance]
+    """
+    List of Database Instance maintenance events.
+    """
+
 
 @dataclass
 class NodeType:
-    is_ha_required: bool
+    name: str
     """
-    The Node Type can be used only with high availability option.
+    Node Type name identifier.
     """
 
-    available_volume_types: List[NodeTypeVolumeType]
+    stock_status: NodeTypeStock
     """
-    Available storage options for the Node Type.
+    Current stock status for the Node Type.
+    """
+
+    description: str
+    """
+    Current specs of the offer.
+    """
+
+    vcpus: int
+    """
+    Number of virtual CPUs.
+    """
+
+    memory: int
+    """
+    Quantity of RAM.
+    """
+
+    disabled: bool
+    """
+    The Node Type is currently disabled.
     """
 
     beta: bool
@@ -942,9 +969,29 @@ class NodeType:
     The Node Type is currently in beta.
     """
 
-    disabled: bool
+    volume_constraint: Optional[NodeTypeVolumeConstraintSizes]
     """
-    The Node Type is currently disabled.
+    [deprecated] Node Type volume constraints.
+    """
+
+    is_bssd_compatible: Optional[bool]
+    """
+    The Node Type is compliant with Block Storage.
+    """
+
+    available_volume_types: List[NodeTypeVolumeType]
+    """
+    Available storage options for the Node Type.
+    """
+
+    is_ha_required: bool
+    """
+    The Node Type can be used only with high availability option.
+    """
+
+    generation: NodeTypeGeneration
+    """
+    Generation associated with the NodeType offer.
     """
 
     instance_range: str
@@ -1007,9 +1054,9 @@ class PrepareInstanceLogsResponse:
 
 @dataclass
 class Privilege:
-    user_name: str
+    permission: Permission
     """
-    Name of the user.
+    Permission (Read, Read/Write, All, Custom).
     """
 
     database_name: str
@@ -1017,37 +1064,17 @@ class Privilege:
     Name of the database.
     """
 
-    permission: Permission
+    user_name: str
     """
-    Permission (Read, Read/Write, All, Custom).
+    Name of the user.
     """
 
 
 @dataclass
 class Snapshot:
-    region: Region
+    id: str
     """
-    Region of this snapshot.
-    """
-
-    node_type: str
-    """
-    Source node type.
-    """
-
-    instance_name: str
-    """
-    Name of the Database Instance of the snapshot.
-    """
-
-    status: SnapshotStatus
-    """
-    Status of the snapshot.
-    """
-
-    name: str
-    """
-    Name of the snapshot.
+    UUID of the snapshot.
     """
 
     instance_id: str
@@ -1055,9 +1082,29 @@ class Snapshot:
     UUID of the Database Instance.
     """
 
-    id: str
+    name: str
     """
-    UUID of the snapshot.
+    Name of the snapshot.
+    """
+
+    status: SnapshotStatus
+    """
+    Status of the snapshot.
+    """
+
+    instance_name: str
+    """
+    Name of the Database Instance of the snapshot.
+    """
+
+    node_type: str
+    """
+    Source node type.
+    """
+
+    region: Region
+    """
+    Region of this snapshot.
     """
 
     size: Optional[int]
@@ -1102,14 +1149,14 @@ class UpgradeInstanceRequestMajorUpgradeWorkflow:
 
 @dataclass
 class User:
-    is_admin: bool
-    """
-    Defines whether or not a user got administrative privileges on the Database Instance.
-    """
-
     name: str
     """
     Name of the user (Length must be between 1 and 63 characters for PostgreSQL and between 1 and 32 characters for MySQL. First character must be an alphabet character (a-zA-Z). Your username cannot start with '_rdb' or in PostgreSQL, 'pg_'. Only a-zA-Z0-9_$- characters are accepted).
+    """
+
+    is_admin: bool
+    """
+    Defines whether or not a user got administrative privileges on the Database Instance.
     """
 
 
@@ -1120,14 +1167,14 @@ class AddInstanceACLRulesRequest:
     UUID of the Database Instance you want to add ACL rules to.
     """
 
+    rules: List[ACLRuleRequest]
+    """
+    ACL rules to add to the Database Instance.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
-    """
-
-    rules: Optional[List[ACLRuleRequest]]
-    """
-    ACL rules to add to the Database Instance.
     """
 
 
@@ -1148,14 +1195,14 @@ class AddInstanceSettingsRequest:
     UUID of the Database Instance you want to add settings to.
     """
 
+    settings: List[InstanceSetting]
+    """
+    Settings to add to the Database Instance.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
-    """
-
-    settings: Optional[List[InstanceSetting]]
-    """
-    Settings to add to the Database Instance.
     """
 
 
@@ -1169,14 +1216,14 @@ class AddInstanceSettingsResponse:
 
 @dataclass
 class CloneInstanceRequest:
-    name: str
-    """
-    Name of the Database Instance clone.
-    """
-
     instance_id: str
     """
     UUID of the Database Instance you want to clone.
+    """
+
+    name: str
+    """
+    Name of the Database Instance clone.
     """
 
     region: Optional[Region]
@@ -1192,14 +1239,14 @@ class CloneInstanceRequest:
 
 @dataclass
 class CreateDatabaseBackupRequest:
-    database_name: str
-    """
-    Name of the database you want to back up.
-    """
-
     instance_id: str
     """
     UUID of the Database Instance.
+    """
+
+    database_name: str
+    """
+    Name of the database you want to back up.
     """
 
     region: Optional[Region]
@@ -1220,14 +1267,14 @@ class CreateDatabaseBackupRequest:
 
 @dataclass
 class CreateDatabaseRequest:
-    name: str
-    """
-    Name of the database.
-    """
-
     instance_id: str
     """
     UUID of the Database Instance where to create the database.
+    """
+
+    name: str
+    """
+    Name of the database.
     """
 
     region: Optional[Region]
@@ -1256,14 +1303,14 @@ class CreateEndpointRequest:
 
 @dataclass
 class CreateInstanceFromSnapshotRequest:
-    instance_name: str
-    """
-    Name of the Database Instance created with the snapshot.
-    """
-
     snapshot_id: str
     """
     Block snapshot of the Database Instance.
+    """
+
+    instance_name: str
+    """
+    Name of the Database Instance created with the snapshot.
     """
 
     region: Optional[Region]
@@ -1284,19 +1331,9 @@ class CreateInstanceFromSnapshotRequest:
 
 @dataclass
 class CreateInstanceRequest:
-    volume_size: int
+    engine: str
     """
-    Volume size when volume_type is not lssd.
-    """
-
-    node_type: str
-    """
-    Type of node to use for the Database Instance.
-    """
-
-    password: str
-    """
-    Password of the user.
+    Database engine of the Database Instance (PostgreSQL, MySQL, ...).
     """
 
     user_name: str
@@ -1304,19 +1341,24 @@ class CreateInstanceRequest:
     Username created when the Database Instance is created.
     """
 
-    engine: str
+    password: str
     """
-    Database engine of the Database Instance (PostgreSQL, MySQL, ...).
-    """
-
-    backup_same_region: bool
-    """
-    Defines whether to or not to store logical backups in the same region as the Database Instance.
+    Password of the user.
     """
 
-    disable_backup: bool
+    node_type: str
     """
-    Defines whether or not backups are disabled.
+    Type of node to use for the Database Instance.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    name: Optional[str]
+    """
+    Name of the Database Instance.
     """
 
     is_ha_cluster: bool
@@ -1324,9 +1366,19 @@ class CreateInstanceRequest:
     Defines whether or not High-Availability is enabled.
     """
 
-    region: Optional[Region]
+    disable_backup: bool
     """
-    Region to target. If none is passed will use default region from the config.
+    Defines whether or not backups are disabled.
+    """
+
+    volume_size: int
+    """
+    Volume size when volume_type is not lssd.
+    """
+
+    backup_same_region: bool
+    """
+    Defines whether to or not to store logical backups in the same region as the Database Instance.
     """
 
     tags: Optional[List[str]]
@@ -1349,11 +1401,6 @@ class CreateInstanceRequest:
     One or multiple EndpointSpec used to expose your Database Instance. A load_balancer public endpoint is systematically created.
     """
 
-    name: Optional[str]
-    """
-    Name of the Database Instance.
-    """
-
     organization_id: Optional[str]
 
     project_id: Optional[str]
@@ -1366,14 +1413,14 @@ class CreateReadReplicaEndpointRequest:
     UUID of the Read Replica.
     """
 
+    endpoint_spec: List[ReadReplicaEndpointSpec]
+    """
+    Specification of the endpoint you want to create.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
-    """
-
-    endpoint_spec: Optional[List[ReadReplicaEndpointSpec]]
-    """
-    Specification of the endpoint you want to create.
     """
 
 
@@ -1425,14 +1472,9 @@ class CreateSnapshotRequest:
 
 @dataclass
 class CreateUserRequest:
-    is_admin: bool
+    instance_id: str
     """
-    Defines whether the user will have administrative privileges.
-    """
-
-    password: str
-    """
-    Password of the user you want to create.
+    UUID of the Database Instance in which you want to create a user.
     """
 
     name: str
@@ -1440,9 +1482,14 @@ class CreateUserRequest:
     Name of the user you want to create.
     """
 
-    instance_id: str
+    password: str
     """
-    UUID of the Database Instance in which you want to create a user.
+    Password of the user you want to create.
+    """
+
+    is_admin: bool
+    """
+    Defines whether the user will have administrative privileges.
     """
 
     region: Optional[Region]
@@ -1466,14 +1513,14 @@ class DeleteDatabaseBackupRequest:
 
 @dataclass
 class DeleteDatabaseRequest:
-    name: str
-    """
-    Name of the database to delete.
-    """
-
     instance_id: str
     """
     UUID of the Database Instance where to delete the database.
+    """
+
+    name: str
+    """
+    Name of the database to delete.
     """
 
     region: Optional[Region]
@@ -1502,14 +1549,14 @@ class DeleteInstanceACLRulesRequest:
     UUID of the Database Instance you want to delete an ACL rule from.
     """
 
+    acl_rule_ips: List[str]
+    """
+    IP addresses defined in the ACL rules of the Database Instance.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
-    """
-
-    acl_rule_ips: Optional[List[str]]
-    """
-    IP addresses defined in the ACL rules of the Database Instance.
     """
 
 
@@ -1541,14 +1588,14 @@ class DeleteInstanceSettingsRequest:
     UUID of the Database Instance to delete settings from.
     """
 
+    setting_names: List[str]
+    """
+    Settings names to delete.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
-    """
-
-    setting_names: Optional[List[str]]
-    """
-    Settings names to delete.
     """
 
 
@@ -1588,14 +1635,14 @@ class DeleteSnapshotRequest:
 
 @dataclass
 class DeleteUserRequest:
-    name: str
-    """
-    Name of the user.
-    """
-
     instance_id: str
     """
     UUID of the Database Instance to delete the user from.
+    """
+
+    name: str
+    """
+    Name of the user.
     """
 
     region: Optional[Region]
@@ -1783,14 +1830,14 @@ class ListDatabaseBackupsRequest:
 
 @dataclass
 class ListDatabaseBackupsResponse:
-    total_count: int
-    """
-    Total count of database backups available.
-    """
-
     database_backups: List[DatabaseBackup]
     """
     List of database backups.
+    """
+
+    total_count: int
+    """
+    Total count of database backups available.
     """
 
 
@@ -1818,14 +1865,14 @@ class ListDatabaseEnginesRequest:
 
 @dataclass
 class ListDatabaseEnginesResponse:
-    total_count: int
-    """
-    Total count of database engines available.
-    """
-
     engines: List[DatabaseEngine]
     """
     List of the available database engines.
+    """
+
+    total_count: int
+    """
+    Total count of database engines available.
     """
 
 
@@ -1868,14 +1915,14 @@ class ListDatabasesRequest:
 
 @dataclass
 class ListDatabasesResponse:
-    total_count: int
-    """
-    Total count of databases present on a Database Instance.
-    """
-
     databases: List[Database]
     """
     List of the databases.
+    """
+
+    total_count: int
+    """
+    Total count of databases present on a Database Instance.
     """
 
 
@@ -1898,14 +1945,14 @@ class ListInstanceACLRulesRequest:
 
 @dataclass
 class ListInstanceACLRulesResponse:
-    total_count: int
-    """
-    Total count of ACL rules present on a Database Instance.
-    """
-
     rules: List[ACLRule]
     """
     List of ACL rules present on a Database Instance.
+    """
+
+    total_count: int
+    """
+    Total count of ACL rules present on a Database Instance.
     """
 
 
@@ -2022,14 +2069,14 @@ class ListInstancesRequest:
 
 @dataclass
 class ListInstancesResponse:
-    total_count: int
-    """
-    Total count of Database Instances available in a Organization or Project.
-    """
-
     instances: List[Instance]
     """
     List of all Database Instances available in an Organization or Project.
+    """
+
+    total_count: int
+    """
+    Total count of Database Instances available in a Organization or Project.
     """
 
 
@@ -2052,14 +2099,14 @@ class ListNodeTypesRequest:
 
 @dataclass
 class ListNodeTypesResponse:
-    total_count: int
-    """
-    Total count of node-types available.
-    """
-
     node_types: List[NodeType]
     """
     Types of the node.
+    """
+
+    total_count: int
+    """
+    Total count of node-types available.
     """
 
 
@@ -2097,14 +2144,14 @@ class ListPrivilegesRequest:
 
 @dataclass
 class ListPrivilegesResponse:
-    total_count: int
-    """
-    Total count of privileges present on a database.
-    """
-
     privileges: List[Privilege]
     """
     Privileges of a user in a database in a Database Instance.
+    """
+
+    total_count: int
+    """
+    Total count of privileges present on a database.
     """
 
 
@@ -2147,14 +2194,14 @@ class ListSnapshotsRequest:
 
 @dataclass
 class ListSnapshotsResponse:
-    total_count: int
-    """
-    Total count of snapshots available.
-    """
-
     snapshots: List[Snapshot]
     """
     List of snapshots.
+    """
+
+    total_count: int
+    """
+    Total count of snapshots available.
     """
 
 
@@ -2187,27 +2234,27 @@ class ListUsersRequest:
 
 @dataclass
 class ListUsersResponse:
-    total_count: int
-    """
-    Total count of users present on a Database Instance.
-    """
-
     users: List[User]
     """
     List of users in a Database Instance.
     """
 
+    total_count: int
+    """
+    Total count of users present on a Database Instance.
+    """
+
 
 @dataclass
 class MigrateEndpointRequest:
-    instance_id: str
-    """
-    UUID of the instance you want to attach the endpoint to.
-    """
-
     endpoint_id: str
     """
     UUID of the endpoint you want to migrate.
+    """
+
+    instance_id: str
+    """
+    UUID of the instance you want to attach the endpoint to.
     """
 
     region: Optional[Region]
@@ -2319,14 +2366,14 @@ class RestartInstanceRequest:
 
 @dataclass
 class RestoreDatabaseBackupRequest:
-    instance_id: str
-    """
-    Defines the Database Instance where the backup has to be restored.
-    """
-
     database_backup_id: str
     """
     Backup of a logical database.
+    """
+
+    instance_id: str
+    """
+    Defines the Database Instance where the backup has to be restored.
     """
 
     region: Optional[Region]
@@ -2347,14 +2394,14 @@ class SetInstanceACLRulesRequest:
     UUID of the Database Instance where the ACL rules must be set.
     """
 
+    rules: List[ACLRuleRequest]
+    """
+    ACL rules to define for the Database Instance.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
-    """
-
-    rules: Optional[List[ACLRuleRequest]]
-    """
-    ACL rules to define for the Database Instance.
     """
 
 
@@ -2373,14 +2420,14 @@ class SetInstanceSettingsRequest:
     UUID of the Database Instance where the settings must be set.
     """
 
+    settings: List[InstanceSetting]
+    """
+    Settings to define for the Database Instance.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
-    """
-
-    settings: Optional[List[InstanceSetting]]
-    """
-    Settings to define for the Database Instance.
     """
 
 
@@ -2394,9 +2441,9 @@ class SetInstanceSettingsResponse:
 
 @dataclass
 class SetPrivilegeRequest:
-    user_name: str
+    instance_id: str
     """
-    Name of the user.
+    UUID of the Database Instance.
     """
 
     database_name: str
@@ -2404,9 +2451,9 @@ class SetPrivilegeRequest:
     Name of the database.
     """
 
-    instance_id: str
+    user_name: str
     """
-    UUID of the Database Instance.
+    Name of the user.
     """
 
     region: Optional[Region]
@@ -2521,14 +2568,14 @@ class UpdateSnapshotRequest:
 
 @dataclass
 class UpdateUserRequest:
-    name: str
-    """
-    Name of the database user.
-    """
-
     instance_id: str
     """
     UUID of the Database Instance the user belongs to.
+    """
+
+    name: str
+    """
+    Name of the database user.
     """
 
     region: Optional[Region]

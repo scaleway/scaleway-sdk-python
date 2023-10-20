@@ -29,20 +29,20 @@ def unmarshal_MACAddress(data: Any) -> MACAddress:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("zone", None)
-    args["zone"] = field
-
-    field = data.get("status", None)
-    args["status"] = field
-
-    field = data.get("mac_type", None)
-    args["mac_type"] = field
+    field = data.get("id", None)
+    args["id"] = field
 
     field = data.get("mac_address", None)
     args["mac_address"] = field
 
-    field = data.get("id", None)
-    args["id"] = field
+    field = data.get("mac_type", None)
+    args["mac_type"] = field
+
+    field = data.get("status", None)
+    args["status"] = field
+
+    field = data.get("zone", None)
+    args["zone"] = field
 
     field = data.get("updated_at", None)
     args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -61,11 +61,35 @@ def unmarshal_FlexibleIP(data: Any) -> FlexibleIP:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("ip_address", None)
-    args["ip_address"] = field
+    field = data.get("id", None)
+    args["id"] = field
+
+    field = data.get("organization_id", None)
+    args["organization_id"] = field
+
+    field = data.get("project_id", None)
+    args["project_id"] = field
+
+    field = data.get("description", None)
+    args["description"] = field
+
+    field = data.get("tags", None)
+    args["tags"] = field
 
     field = data.get("status", None)
     args["status"] = field
+
+    field = data.get("ip_address", None)
+    args["ip_address"] = field
+
+    field = data.get("updated_at", None)
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+
+    field = data.get("created_at", None)
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+
+    field = data.get("mac_address", None)
+    args["mac_address"] = unmarshal_MACAddress(field)
 
     field = data.get("reverse", None)
     args["reverse"] = field
@@ -73,32 +97,8 @@ def unmarshal_FlexibleIP(data: Any) -> FlexibleIP:
     field = data.get("zone", None)
     args["zone"] = field
 
-    field = data.get("tags", None)
-    args["tags"] = field
-
-    field = data.get("id", None)
-    args["id"] = field
-
-    field = data.get("project_id", None)
-    args["project_id"] = field
-
-    field = data.get("organization_id", None)
-    args["organization_id"] = field
-
-    field = data.get("mac_address", None)
-    args["mac_address"] = unmarshal_MACAddress(field)
-
-    field = data.get("description", None)
-    args["description"] = field
-
     field = data.get("server_id", None)
     args["server_id"] = field
-
-    field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-
-    field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return FlexibleIP(**args)
 
@@ -111,13 +111,13 @@ def unmarshal_AttachFlexibleIPsResponse(data: Any) -> AttachFlexibleIPsResponse:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("total_count", None)
+    args["total_count"] = field
+
     field = data.get("flexible_ips", None)
     args["flexible_ips"] = (
         [unmarshal_FlexibleIP(v) for v in field] if field is not None else None
     )
-
-    field = data.get("total_count", None)
-    args["total_count"] = field
 
     return AttachFlexibleIPsResponse(**args)
 
@@ -130,13 +130,13 @@ def unmarshal_DetachFlexibleIPsResponse(data: Any) -> DetachFlexibleIPsResponse:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("total_count", None)
+    args["total_count"] = field
+
     field = data.get("flexible_ips", None)
     args["flexible_ips"] = (
         [unmarshal_FlexibleIP(v) for v in field] if field is not None else None
     )
-
-    field = data.get("total_count", None)
-    args["total_count"] = field
 
     return DetachFlexibleIPsResponse(**args)
 
@@ -149,13 +149,13 @@ def unmarshal_ListFlexibleIPsResponse(data: Any) -> ListFlexibleIPsResponse:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("total_count", None)
+    args["total_count"] = field
+
     field = data.get("flexible_ips", None)
     args["flexible_ips"] = (
         [unmarshal_FlexibleIP(v) for v in field] if field is not None else None
     )
-
-    field = data.get("total_count", None)
-    args["total_count"] = field
 
     return ListFlexibleIPsResponse(**args)
 
@@ -166,11 +166,11 @@ def marshal_AttachFlexibleIPRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.server_id is not None:
-        output["server_id"] = request.server_id
-
     if request.fips_ids is not None:
         output["fips_ids"] = request.fips_ids
+
+    if request.server_id is not None:
+        output["server_id"] = request.server_id
 
     return output
 
@@ -181,11 +181,11 @@ def marshal_CreateFlexibleIPRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.is_ipv6 is not None:
-        output["is_ipv6"] = request.is_ipv6
-
     if request.description is not None:
         output["description"] = request.description
+
+    if request.is_ipv6 is not None:
+        output["is_ipv6"] = request.is_ipv6
 
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id

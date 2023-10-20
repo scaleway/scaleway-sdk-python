@@ -147,20 +147,20 @@ class MarketplaceV1API(API):
     def get_version(
         self,
         *,
-        version_id: str,
         image_id: str,
+        version_id: str,
     ) -> GetVersionResponse:
         """
-        :param version_id:
         :param image_id:
+        :param version_id:
         :return: :class:`GetVersionResponse <GetVersionResponse>`
 
         Usage:
         ::
 
             result = api.get_version(
-                version_id="example",
                 image_id="example",
+                version_id="example",
             )
         """
 

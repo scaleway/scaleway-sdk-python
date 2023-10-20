@@ -13,14 +13,9 @@ from scaleway_core.bridge import (
 
 @dataclass
 class LocalImage:
-    zone: Zone
+    id: str
     """
-    Availability Zone where this local image is available.
-    """
-
-    arch: str
-    """
-    Supported architecture for this local image.
+    Version you will typically use to define an image in an API call.
     """
 
     compatible_commercial_types: List[str]
@@ -28,24 +23,29 @@ class LocalImage:
     List of all commercial types that are compatible with this local image.
     """
 
-    id: str
+    arch: str
     """
-    Version you will typically use to define an image in an API call.
+    Supported architecture for this local image.
+    """
+
+    zone: Zone
+    """
+    Availability Zone where this local image is available.
     """
 
 
 @dataclass
 class Organization:
-    name: str
-
     id: str
+
+    name: str
 
 
 @dataclass
 class Version:
-    local_images: List[LocalImage]
+    id: str
     """
-    List of local images available in this version.
+    UUID of this version.
     """
 
     name: str
@@ -53,9 +53,9 @@ class Version:
     Name of this version.
     """
 
-    id: str
+    local_images: List[LocalImage]
     """
-    UUID of this version.
+    List of local images available in this version.
     """
 
     creation_date: Optional[datetime]
@@ -71,36 +71,9 @@ class Version:
 
 @dataclass
 class Image:
-    current_public_version: str
-
-    organization: Organization
+    id: str
     """
-    Organization this image belongs to.
-    """
-
-    versions: List[Version]
-    """
-    List of versions of this image.
-    """
-
-    label: str
-    """
-    Typically an identifier for a distribution (ex. "ubuntu_focal").
-    """
-
-    categories: List[str]
-    """
-    List of categories this image belongs to.
-    """
-
-    logo: str
-    """
-    URL of this image's logo.
-    """
-
-    description: str
-    """
-    Text description of this image.
+    UUID of this image.
     """
 
     name: str
@@ -108,10 +81,37 @@ class Image:
     Name of the image.
     """
 
-    id: str
+    description: str
     """
-    UUID of this image.
+    Text description of this image.
     """
+
+    logo: str
+    """
+    URL of this image's logo.
+    """
+
+    categories: List[str]
+    """
+    List of categories this image belongs to.
+    """
+
+    label: str
+    """
+    Typically an identifier for a distribution (ex. "ubuntu_focal").
+    """
+
+    versions: List[Version]
+    """
+    List of versions of this image.
+    """
+
+    organization: Organization
+    """
+    Organization this image belongs to.
+    """
+
+    current_public_version: str
 
     creation_date: Optional[datetime]
     """
@@ -144,9 +144,9 @@ class GetImageResponse:
 
 @dataclass
 class GetVersionRequest:
-    version_id: str
-
     image_id: str
+
+    version_id: str
 
 
 @dataclass
@@ -169,9 +169,9 @@ class ListImagesRequest:
 
 @dataclass
 class ListImagesResponse:
-    total_count: int
-
     images: List[Image]
+
+    total_count: int
 
 
 @dataclass
@@ -181,6 +181,6 @@ class ListVersionsRequest:
 
 @dataclass
 class ListVersionsResponse:
-    total_count: int
-
     versions: List[Version]
+
+    total_count: int

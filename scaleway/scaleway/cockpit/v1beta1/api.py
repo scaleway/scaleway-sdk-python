@@ -51,12 +51,14 @@ from .content import (
 from .marshalling import (
     unmarshal_ContactPoint,
     unmarshal_Datasource,
+    unmarshal_GrafanaProductDashboard,
     unmarshal_GrafanaUser,
     unmarshal_Token,
     unmarshal_Cockpit,
     unmarshal_CockpitMetrics,
     unmarshal_ListContactPointsResponse,
     unmarshal_ListDatasourcesResponse,
+    unmarshal_ListGrafanaProductDashboardsResponse,
     unmarshal_ListGrafanaUsersResponse,
     unmarshal_ListPlansResponse,
     unmarshal_ListTokensResponse,
@@ -407,24 +409,22 @@ class CockpitV1Beta1API(API):
     def create_token(
         self,
         *,
-        scopes: TokenScopes,
         project_id: Optional[str] = None,
         name: Optional[str] = None,
+        scopes: Optional[TokenScopes] = None,
     ) -> Token:
         """
         Create a token associated with the specified Project ID.
         Create a token associated with the specified Project ID.
-        :param scopes: Token's permissions.
         :param project_id: ID of the Project.
         :param name: Name of the token.
+        :param scopes: Token's permissions.
         :return: :class:`Token <Token>`
 
         Usage:
         ::
 
-            result = api.create_token(
-                scopes=TokenScopes(),
-            )
+            result = api.create_token()
         """
 
         res = self._request(
@@ -432,9 +432,9 @@ class CockpitV1Beta1API(API):
             "/cockpit/v1beta1/tokens",
             body=marshal_CreateTokenRequest(
                 CreateTokenRequest(
-                    scopes=scopes,
                     project_id=project_id,
                     name=name or random_name(prefix="token"),
+                    scopes=scopes,
                 ),
                 self.client,
             ),
@@ -904,14 +904,14 @@ class CockpitV1Beta1API(API):
     def delete_grafana_user(
         self,
         *,
-        grafana_user_id: int,
         project_id: Optional[str] = None,
+        grafana_user_id: int,
     ) -> None:
         """
         Delete a Grafana user from a Grafana instance, specified by the Cockpit's Project ID and the Grafana user ID.
         Delete a Grafana user from a Grafana instance, specified by the Cockpit's Project ID and the Grafana user ID.
-        :param grafana_user_id: ID of the Grafana user.
         :param project_id: ID of the Project.
+        :param grafana_user_id: ID of the Grafana user.
 
         Usage:
         ::
@@ -928,8 +928,8 @@ class CockpitV1Beta1API(API):
             f"/cockpit/v1beta1/grafana-users/{param_grafana_user_id}/delete",
             body=marshal_DeleteGrafanaUserRequest(
                 DeleteGrafanaUserRequest(
-                    grafana_user_id=grafana_user_id,
                     project_id=project_id,
+                    grafana_user_id=grafana_user_id,
                 ),
                 self.client,
             ),
@@ -940,14 +940,14 @@ class CockpitV1Beta1API(API):
     def reset_grafana_user_password(
         self,
         *,
-        grafana_user_id: int,
         project_id: Optional[str] = None,
+        grafana_user_id: int,
     ) -> GrafanaUser:
         """
         Reset a Grafana user's password specified by the Cockpit's Project ID and the Grafana user ID.
         Reset a Grafana user's password specified by the Cockpit's Project ID and the Grafana user ID.
-        :param grafana_user_id: ID of the Grafana user.
         :param project_id: ID of the Project.
+        :param grafana_user_id: ID of the Grafana user.
         :return: :class:`GrafanaUser <GrafanaUser>`
 
         Usage:
@@ -965,8 +965,8 @@ class CockpitV1Beta1API(API):
             f"/cockpit/v1beta1/grafana-users/{param_grafana_user_id}/reset-password",
             body=marshal_ResetGrafanaUserPasswordRequest(
                 ResetGrafanaUserPasswordRequest(
-                    grafana_user_id=grafana_user_id,
                     project_id=project_id,
+                    grafana_user_id=grafana_user_id,
                 ),
                 self.client,
             ),

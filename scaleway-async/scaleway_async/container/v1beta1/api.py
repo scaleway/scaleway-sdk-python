@@ -579,17 +579,17 @@ class ContainerV1Beta1API(API):
     async def create_container(
         self,
         *,
-        name: str,
         namespace_id: str,
+        name: str,
         region: Optional[Region] = None,
-        timeout: Optional[str] = None,
-        description: Optional[str] = None,
+        environment_variables: Optional[Dict[str, str]] = None,
+        min_scale: Optional[int] = None,
         max_scale: Optional[int] = None,
         memory_limit: Optional[int] = None,
         cpu_limit: Optional[int] = None,
-        environment_variables: Optional[Dict[str, str]] = None,
+        timeout: Optional[str] = None,
         privacy: Optional[ContainerPrivacy] = None,
-        min_scale: Optional[int] = None,
+        description: Optional[str] = None,
         registry_image: Optional[str] = None,
         max_concurrency: Optional[int] = None,
         protocol: Optional[ContainerProtocol] = None,
@@ -600,17 +600,17 @@ class ContainerV1Beta1API(API):
         """
         Create a new container.
         Create a new container in the specified region.
-        :param name: Name of the container.
         :param namespace_id: UUID of the namespace the container belongs to.
+        :param name: Name of the container.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param timeout: Processing time limit for the container.
-        :param description: Description of the container.
+        :param environment_variables: Environment variables of the container.
+        :param min_scale: Minimum number of instances to scale the container to.
         :param max_scale: Maximum number of instances to scale the container to.
         :param memory_limit: Memory limit of the container in MB.
         :param cpu_limit: CPU limit of the container in mvCPU.
-        :param environment_variables: Environment variables of the container.
+        :param timeout: Processing time limit for the container.
         :param privacy: Privacy setting of the container.
-        :param min_scale: Minimum number of instances to scale the container to.
+        :param description: Description of the container.
         :param registry_image: Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag").
         :param max_concurrency: Number of maximum concurrent executions of the container.
         :param protocol: Protocol the container uses.
@@ -625,8 +625,8 @@ class ContainerV1Beta1API(API):
         ::
 
             result = await api.create_container(
-                name="example",
                 namespace_id="example",
+                name="example",
             )
         """
 
@@ -639,17 +639,17 @@ class ContainerV1Beta1API(API):
             f"/containers/v1beta1/regions/{param_region}/containers",
             body=marshal_CreateContainerRequest(
                 CreateContainerRequest(
-                    name=name,
                     namespace_id=namespace_id,
+                    name=name,
                     region=region,
-                    timeout=timeout,
-                    description=description,
+                    environment_variables=environment_variables,
+                    min_scale=min_scale,
                     max_scale=max_scale,
                     memory_limit=memory_limit,
                     cpu_limit=cpu_limit,
-                    environment_variables=environment_variables,
+                    timeout=timeout,
                     privacy=privacy,
-                    min_scale=min_scale,
+                    description=description,
                     registry_image=registry_image,
                     max_concurrency=max_concurrency,
                     protocol=protocol,
@@ -669,14 +669,14 @@ class ContainerV1Beta1API(API):
         *,
         container_id: str,
         region: Optional[Region] = None,
-        redeploy: Optional[bool] = None,
-        privacy: Optional[ContainerPrivacy] = None,
+        environment_variables: Optional[Dict[str, str]] = None,
+        min_scale: Optional[int] = None,
         max_scale: Optional[int] = None,
         memory_limit: Optional[int] = None,
         cpu_limit: Optional[int] = None,
         timeout: Optional[str] = None,
-        environment_variables: Optional[Dict[str, str]] = None,
-        min_scale: Optional[int] = None,
+        redeploy: Optional[bool] = None,
+        privacy: Optional[ContainerPrivacy] = None,
         description: Optional[str] = None,
         registry_image: Optional[str] = None,
         max_concurrency: Optional[int] = None,
@@ -690,14 +690,14 @@ class ContainerV1Beta1API(API):
         Update the container associated with the specified ID.
         :param container_id: UUID of the container to update.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param redeploy: Defines whether to redeploy failed containers.
-        :param privacy: Privacy settings of the container.
+        :param environment_variables: Environment variables of the container.
+        :param min_scale: Minimum number of instances to scale the container to.
         :param max_scale: Maximum number of instances to scale the container to.
         :param memory_limit: Memory limit of the container in MB.
         :param cpu_limit: CPU limit of the container in mvCPU.
         :param timeout: Processing time limit for the container.
-        :param environment_variables: Environment variables of the container.
-        :param min_scale: Minimum number of instances to scale the container to.
+        :param redeploy: Defines whether to redeploy failed containers.
+        :param privacy: Privacy settings of the container.
         :param description: Description of the container.
         :param registry_image: Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag").
         :param max_concurrency: Number of maximum concurrent executions of the container.
@@ -729,14 +729,14 @@ class ContainerV1Beta1API(API):
                 UpdateContainerRequest(
                     container_id=container_id,
                     region=region,
-                    redeploy=redeploy,
-                    privacy=privacy,
+                    environment_variables=environment_variables,
+                    min_scale=min_scale,
                     max_scale=max_scale,
                     memory_limit=memory_limit,
                     cpu_limit=cpu_limit,
                     timeout=timeout,
-                    environment_variables=environment_variables,
-                    min_scale=min_scale,
+                    redeploy=redeploy,
+                    privacy=privacy,
                     description=description,
                     registry_image=registry_image,
                     max_concurrency=max_concurrency,
@@ -980,8 +980,8 @@ class ContainerV1Beta1API(API):
     async def create_cron(
         self,
         *,
-        schedule: str,
         container_id: str,
+        schedule: str,
         region: Optional[Region] = None,
         args: Optional[Dict[str, Any]] = None,
         name: Optional[str] = None,
@@ -989,8 +989,8 @@ class ContainerV1Beta1API(API):
         """
         Create a new cron.
         Create a new cron.
-        :param schedule: UNIX cron shedule.
         :param container_id: UUID of the container to invoke by the cron.
+        :param schedule: UNIX cron shedule.
         :param region: Region to target. If none is passed will use default region from the config.
         :param args: Arguments to pass with the cron.
         :param name: Name of the cron to create.
@@ -1000,8 +1000,8 @@ class ContainerV1Beta1API(API):
         ::
 
             result = await api.create_cron(
-                schedule="example",
                 container_id="example",
+                schedule="example",
             )
         """
 
@@ -1014,8 +1014,8 @@ class ContainerV1Beta1API(API):
             f"/containers/v1beta1/regions/{param_region}/crons",
             body=marshal_CreateCronRequest(
                 CreateCronRequest(
-                    schedule=schedule,
                     container_id=container_id,
+                    schedule=schedule,
                     region=region,
                     args=args,
                     name=name,
@@ -1358,15 +1358,15 @@ class ContainerV1Beta1API(API):
     async def create_domain(
         self,
         *,
-        container_id: str,
         hostname: str,
+        container_id: str,
         region: Optional[Region] = None,
     ) -> Domain:
         """
         Create a domain name binding.
         Create a domain name binding for the container with the specified ID.
-        :param container_id: UUID of the container to assign the domain to.
         :param hostname: Domain to assign.
+        :param container_id: UUID of the container to assign the domain to.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Domain <Domain>`
 
@@ -1374,8 +1374,8 @@ class ContainerV1Beta1API(API):
         ::
 
             result = await api.create_domain(
-                container_id="example",
                 hostname="example",
+                container_id="example",
             )
         """
 
@@ -1388,8 +1388,8 @@ class ContainerV1Beta1API(API):
             f"/containers/v1beta1/regions/{param_region}/domains",
             body=marshal_CreateDomainRequest(
                 CreateDomainRequest(
-                    container_id=container_id,
                     hostname=hostname,
+                    container_id=container_id,
                     region=region,
                 ),
                 self.client,
@@ -1718,8 +1718,8 @@ class ContainerV1Beta1API(API):
     async def create_trigger(
         self,
         *,
-        container_id: str,
         name: str,
+        container_id: str,
         region: Optional[Region] = None,
         description: Optional[str] = None,
         scw_sqs_config: Optional[CreateTriggerRequestMnqSqsClientConfig] = None,
@@ -1748,8 +1748,8 @@ class ContainerV1Beta1API(API):
         ::
 
             result = await api.create_trigger(
-                container_id="example",
                 name="example",
+                container_id="example",
             )
         """
 
@@ -1762,8 +1762,8 @@ class ContainerV1Beta1API(API):
             f"/containers/v1beta1/regions/{param_region}/triggers",
             body=marshal_CreateTriggerRequest(
                 CreateTriggerRequest(
-                    container_id=container_id,
                     name=name,
+                    container_id=container_id,
                     region=region,
                     description=description,
                     scw_sqs_config=scw_sqs_config,

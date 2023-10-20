@@ -13,6 +13,7 @@ from .types import (
     PATRuleProtocol,
     CreateGatewayNetworkRequestIpamConfig,
     DHCP,
+    IpamConfig,
     GatewayNetwork,
     IP,
     DHCPEntry,
@@ -35,7 +36,6 @@ from .types import (
     UpdateGatewayNetworkRequest,
     CreateDHCPRequest,
     CreateDHCPEntryRequest,
-    IpamConfig,
     CreateGatewayNetworkRequest,
     CreateGatewayRequest,
     CreateIPRequest,
@@ -61,62 +61,62 @@ def unmarshal_DHCP(data: Any) -> DHCP:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("id", None)
+    args["id"] = field
+
+    field = data.get("organization_id", None)
+    args["organization_id"] = field
+
+    field = data.get("project_id", None)
+    args["project_id"] = field
+
+    field = data.get("subnet", None)
+    args["subnet"] = field
+
+    field = data.get("address", None)
+    args["address"] = field
+
+    field = data.get("pool_low", None)
+    args["pool_low"] = field
+
+    field = data.get("created_at", None)
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+
+    field = data.get("updated_at", None)
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+
+    field = data.get("pool_high", None)
+    args["pool_high"] = field
+
+    field = data.get("enable_dynamic", None)
+    args["enable_dynamic"] = field
+
+    field = data.get("push_default_route", None)
+    args["push_default_route"] = field
+
+    field = data.get("push_dns_server", None)
+    args["push_dns_server"] = field
+
+    field = data.get("dns_servers_override", None)
+    args["dns_servers_override"] = field
+
     field = data.get("dns_search", None)
     args["dns_search"] = field
 
     field = data.get("dns_local_name", None)
     args["dns_local_name"] = field
 
-    field = data.get("enable_dynamic", None)
-    args["enable_dynamic"] = field
-
-    field = data.get("pool_high", None)
-    args["pool_high"] = field
-
-    field = data.get("pool_low", None)
-    args["pool_low"] = field
-
-    field = data.get("push_default_route", None)
-    args["push_default_route"] = field
-
-    field = data.get("subnet", None)
-    args["subnet"] = field
-
-    field = data.get("id", None)
-    args["id"] = field
-
     field = data.get("zone", None)
     args["zone"] = field
-
-    field = data.get("project_id", None)
-    args["project_id"] = field
-
-    field = data.get("organization_id", None)
-    args["organization_id"] = field
-
-    field = data.get("dns_servers_override", None)
-    args["dns_servers_override"] = field
-
-    field = data.get("push_dns_server", None)
-    args["push_dns_server"] = field
-
-    field = data.get("address", None)
-    args["address"] = field
-
-    field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-
-    field = data.get("rebind_timer", None)
-    args["rebind_timer"] = field
-
-    field = data.get("renew_timer", None)
-    args["renew_timer"] = field
 
     field = data.get("valid_lifetime", None)
     args["valid_lifetime"] = field
 
-    field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    field = data.get("renew_timer", None)
+    args["renew_timer"] = field
+
+    field = data.get("rebind_timer", None)
+    args["rebind_timer"] = field
 
     return DHCP(**args)
 
@@ -182,8 +182,8 @@ def unmarshal_GatewayNetwork(data: Any) -> GatewayNetwork:
     field = data.get("gateway_id", None)
     args["gateway_id"] = field
 
-    field = data.get("id", None)
-    args["id"] = field
+    field = data.get("private_network_id", None)
+    args["private_network_id"] = field
 
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -193,6 +193,24 @@ def unmarshal_GatewayNetwork(data: Any) -> GatewayNetwork:
 
     field = data.get("mac_address", None)
     args["mac_address"] = field
+
+    field = data.get("enable_masquerade", None)
+    args["enable_masquerade"] = field
+
+    field = data.get("status", None)
+    args["status"] = field
+
+    field = data.get("dhcp", None)
+    args["dhcp"] = unmarshal_DHCP(field)
+
+    field = data.get("enable_dhcp", None)
+    args["enable_dhcp"] = field
+
+    field = data.get("ipam_config", None)
+    args["ipam_config"] = unmarshal_IpamConfig(field)
+
+    field = data.get("zone", None)
+    args["zone"] = field
 
     field = data.get("address", None)
     args["address"] = field
@@ -208,23 +226,23 @@ def unmarshal_IP(data: Any) -> IP:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("zone", None)
-    args["zone"] = field
-
-    field = data.get("address", None)
-    args["address"] = field
-
-    field = data.get("tags", None)
-    args["tags"] = field
-
-    field = data.get("project_id", None)
-    args["project_id"] = field
+    field = data.get("id", None)
+    args["id"] = field
 
     field = data.get("organization_id", None)
     args["organization_id"] = field
 
-    field = data.get("id", None)
-    args["id"] = field
+    field = data.get("project_id", None)
+    args["project_id"] = field
+
+    field = data.get("tags", None)
+    args["tags"] = field
+
+    field = data.get("address", None)
+    args["address"] = field
+
+    field = data.get("zone", None)
+    args["zone"] = field
 
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -249,26 +267,26 @@ def unmarshal_DHCPEntry(data: Any) -> DHCPEntry:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("zone", None)
-    args["zone"] = field
-
-    field = data.get("type_", None)
-    args["type_"] = field
-
-    field = data.get("hostname", None)
-    args["hostname"] = field
-
-    field = data.get("ip_address", None)
-    args["ip_address"] = field
-
-    field = data.get("mac_address", None)
-    args["mac_address"] = field
+    field = data.get("id", None)
+    args["id"] = field
 
     field = data.get("gateway_network_id", None)
     args["gateway_network_id"] = field
 
-    field = data.get("id", None)
-    args["id"] = field
+    field = data.get("mac_address", None)
+    args["mac_address"] = field
+
+    field = data.get("ip_address", None)
+    args["ip_address"] = field
+
+    field = data.get("hostname", None)
+    args["hostname"] = field
+
+    field = data.get("type_", None)
+    args["type_"] = field
+
+    field = data.get("zone", None)
+    args["zone"] = field
 
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -287,14 +305,14 @@ def unmarshal_GatewayType(data: Any) -> GatewayType:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("zone", None)
-    args["zone"] = field
+    field = data.get("name", None)
+    args["name"] = field
 
     field = data.get("bandwidth", None)
     args["bandwidth"] = field
 
-    field = data.get("name", None)
-    args["name"] = field
+    field = data.get("zone", None)
+    args["zone"] = field
 
     return GatewayType(**args)
 
@@ -307,8 +325,35 @@ def unmarshal_Gateway(data: Any) -> Gateway:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("upstream_dns_servers", None)
-    args["upstream_dns_servers"] = field
+    field = data.get("id", None)
+    args["id"] = field
+
+    field = data.get("organization_id", None)
+    args["organization_id"] = field
+
+    field = data.get("project_id", None)
+    args["project_id"] = field
+
+    field = data.get("type_", None)
+    args["type_"] = unmarshal_GatewayType(field)
+
+    field = data.get("status", None)
+    args["status"] = field
+
+    field = data.get("name", None)
+    args["name"] = field
+
+    field = data.get("created_at", None)
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+
+    field = data.get("updated_at", None)
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+
+    field = data.get("tags", None)
+    args["tags"] = field
+
+    field = data.get("ip", None)
+    args["ip"] = unmarshal_IP(field)
 
     field = data.get("gateway_networks", None)
     args["gateway_networks"] = (
@@ -366,20 +411,23 @@ def unmarshal_Gateway(data: Any) -> Gateway:
     field = data.get("bastion_enabled", None)
     args["bastion_enabled"] = field
 
-    field = data.get("status", None)
-    args["status"] = field
+    field = data.get("bastion_port", None)
+    args["bastion_port"] = field
 
-    field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    field = data.get("smtp_enabled", None)
+    args["smtp_enabled"] = field
 
-    field = data.get("can_upgrade_to", None)
-    args["can_upgrade_to"] = field
+    field = data.get("is_legacy", None)
+    args["is_legacy"] = field
+
+    field = data.get("zone", None)
+    args["zone"] = field
 
     field = data.get("version", None)
     args["version"] = field
 
-    field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    field = data.get("can_upgrade_to", None)
+    args["can_upgrade_to"] = field
 
     return Gateway(**args)
 
@@ -392,26 +440,26 @@ def unmarshal_PATRule(data: Any) -> PATRule:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("zone", None)
-    args["zone"] = field
-
-    field = data.get("protocol", None)
-    args["protocol"] = field
-
-    field = data.get("private_port", None)
-    args["private_port"] = field
-
-    field = data.get("private_ip", None)
-    args["private_ip"] = field
-
-    field = data.get("public_port", None)
-    args["public_port"] = field
+    field = data.get("id", None)
+    args["id"] = field
 
     field = data.get("gateway_id", None)
     args["gateway_id"] = field
 
-    field = data.get("id", None)
-    args["id"] = field
+    field = data.get("public_port", None)
+    args["public_port"] = field
+
+    field = data.get("private_ip", None)
+    args["private_ip"] = field
+
+    field = data.get("private_port", None)
+    args["private_port"] = field
+
+    field = data.get("protocol", None)
+    args["protocol"] = field
+
+    field = data.get("zone", None)
+    args["zone"] = field
 
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -430,13 +478,13 @@ def unmarshal_ListDHCPEntriesResponse(data: Any) -> ListDHCPEntriesResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    args["total_count"] = field
-
     field = data.get("dhcp_entries", None)
     args["dhcp_entries"] = (
         [unmarshal_DHCPEntry(v) for v in field] if field is not None else None
     )
+
+    field = data.get("total_count", None)
+    args["total_count"] = field
 
     return ListDHCPEntriesResponse(**args)
 
@@ -449,11 +497,11 @@ def unmarshal_ListDHCPsResponse(data: Any) -> ListDHCPsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    args["total_count"] = field
-
     field = data.get("dhcps", None)
     args["dhcps"] = [unmarshal_DHCP(v) for v in field] if field is not None else None
+
+    field = data.get("total_count", None)
+    args["total_count"] = field
 
     return ListDHCPsResponse(**args)
 
@@ -466,13 +514,13 @@ def unmarshal_ListGatewayNetworksResponse(data: Any) -> ListGatewayNetworksRespo
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    args["total_count"] = field
-
     field = data.get("gateway_networks", None)
     args["gateway_networks"] = (
         [unmarshal_GatewayNetwork(v) for v in field] if field is not None else None
     )
+
+    field = data.get("total_count", None)
+    args["total_count"] = field
 
     return ListGatewayNetworksResponse(**args)
 
@@ -501,13 +549,13 @@ def unmarshal_ListGatewaysResponse(data: Any) -> ListGatewaysResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    args["total_count"] = field
-
     field = data.get("gateways", None)
     args["gateways"] = (
         [unmarshal_Gateway(v) for v in field] if field is not None else None
     )
+
+    field = data.get("total_count", None)
+    args["total_count"] = field
 
     return ListGatewaysResponse(**args)
 
@@ -520,11 +568,11 @@ def unmarshal_ListIPsResponse(data: Any) -> ListIPsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    args["total_count"] = field
-
     field = data.get("ips", None)
     args["ips"] = [unmarshal_IP(v) for v in field] if field is not None else None
+
+    field = data.get("total_count", None)
+    args["total_count"] = field
 
     return ListIPsResponse(**args)
 
@@ -537,13 +585,13 @@ def unmarshal_ListPATRulesResponse(data: Any) -> ListPATRulesResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    args["total_count"] = field
-
     field = data.get("pat_rules", None)
     args["pat_rules"] = (
         [unmarshal_PATRule(v) for v in field] if field is not None else None
     )
+
+    field = data.get("total_count", None)
+    args["total_count"] = field
 
     return ListPATRulesResponse(**args)
 
@@ -589,8 +637,8 @@ def marshal_CreateDHCPRequest(
     if request.subnet is not None:
         output["subnet"] = request.subnet
 
-    if request.enable_dynamic is not None:
-        output["enable_dynamic"] = request.enable_dynamic
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
 
     if request.address is not None:
         output["address"] = request.address
@@ -601,8 +649,8 @@ def marshal_CreateDHCPRequest(
     if request.pool_high is not None:
         output["pool_high"] = request.pool_high
 
-    if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
+    if request.enable_dynamic is not None:
+        output["enable_dynamic"] = request.enable_dynamic
 
     if request.valid_lifetime is not None:
         output["valid_lifetime"] = request.valid_lifetime
@@ -637,14 +685,14 @@ def marshal_CreateDHCPEntryRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.ip_address is not None:
-        output["ip_address"] = request.ip_address
+    if request.gateway_network_id is not None:
+        output["gateway_network_id"] = request.gateway_network_id
 
     if request.mac_address is not None:
         output["mac_address"] = request.mac_address
 
-    if request.gateway_network_id is not None:
-        output["gateway_network_id"] = request.gateway_network_id
+    if request.ip_address is not None:
+        output["ip_address"] = request.ip_address
 
     return output
 
@@ -765,14 +813,14 @@ def marshal_CreateGatewayNetworkRequest(
         ),
     )
 
-    if request.enable_masquerade is not None:
-        output["enable_masquerade"] = request.enable_masquerade
+    if request.gateway_id is not None:
+        output["gateway_id"] = request.gateway_id
 
     if request.private_network_id is not None:
         output["private_network_id"] = request.private_network_id
 
-    if request.gateway_id is not None:
-        output["gateway_id"] = request.gateway_id
+    if request.enable_masquerade is not None:
+        output["enable_masquerade"] = request.enable_masquerade
 
     if request.enable_dhcp is not None:
         output["enable_dhcp"] = request.enable_dhcp
@@ -786,14 +834,14 @@ def marshal_CreateGatewayRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.enable_bastion is not None:
-        output["enable_bastion"] = request.enable_bastion
+    if request.type_ is not None:
+        output["type"] = request.type_
 
     if request.enable_smtp is not None:
         output["enable_smtp"] = request.enable_smtp
 
-    if request.type_ is not None:
-        output["type"] = request.type_
+    if request.enable_bastion is not None:
+        output["enable_bastion"] = request.enable_bastion
 
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id
@@ -837,17 +885,17 @@ def marshal_CreatePATRuleRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.private_port is not None:
-        output["private_port"] = request.private_port
-
-    if request.private_ip is not None:
-        output["private_ip"] = request.private_ip
+    if request.gateway_id is not None:
+        output["gateway_id"] = request.gateway_id
 
     if request.public_port is not None:
         output["public_port"] = request.public_port
 
-    if request.gateway_id is not None:
-        output["gateway_id"] = request.gateway_id
+    if request.private_ip is not None:
+        output["private_ip"] = request.private_ip
+
+    if request.private_port is not None:
+        output["private_port"] = request.private_port
 
     if request.protocol is not None:
         output["protocol"] = str(request.protocol)
@@ -861,11 +909,11 @@ def marshal_SetDHCPEntriesRequestEntry(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.ip_address is not None:
-        output["ip_address"] = request.ip_address
-
     if request.mac_address is not None:
         output["mac_address"] = request.mac_address
+
+    if request.ip_address is not None:
+        output["ip_address"] = request.ip_address
 
     return output
 
@@ -894,17 +942,17 @@ def marshal_SetPATRulesRequestRule(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.protocol is not None:
-        output["protocol"] = str(request.protocol)
-
-    if request.private_port is not None:
-        output["private_port"] = request.private_port
+    if request.public_port is not None:
+        output["public_port"] = request.public_port
 
     if request.private_ip is not None:
         output["private_ip"] = request.private_ip
 
-    if request.public_port is not None:
-        output["public_port"] = request.public_port
+    if request.private_port is not None:
+        output["private_port"] = request.private_port
+
+    if request.protocol is not None:
+        output["protocol"] = str(request.protocol)
 
     return output
 
@@ -944,8 +992,8 @@ def marshal_UpdateDHCPRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.enable_dynamic is not None:
-        output["enable_dynamic"] = request.enable_dynamic
+    if request.subnet is not None:
+        output["subnet"] = request.subnet
 
     if request.address is not None:
         output["address"] = request.address
@@ -956,8 +1004,8 @@ def marshal_UpdateDHCPRequest(
     if request.pool_high is not None:
         output["pool_high"] = request.pool_high
 
-    if request.subnet is not None:
-        output["subnet"] = request.subnet
+    if request.enable_dynamic is not None:
+        output["enable_dynamic"] = request.enable_dynamic
 
     if request.valid_lifetime is not None:
         output["valid_lifetime"] = request.valid_lifetime

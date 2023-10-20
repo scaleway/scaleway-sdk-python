@@ -92,29 +92,9 @@ class TagStatus(str, Enum, metaclass=StrEnumMeta):
 
 @dataclass
 class Image:
-    tags: List[str]
+    id: str
     """
-    List of docker tags of the image.
-    """
-
-    size: int
-    """
-    Image size in bytes, calculated from the size of image layers. One layer used in two tags of the same image is counted once but one layer used in two images is counted twice.
-    """
-
-    visibility: ImageVisibility
-    """
-    Set to `public` to allow the image to be pulled without authentication. Else, set to  `private`. Set to `inherit` to keep the same visibility configuration as the namespace.
-    """
-
-    status: ImageStatus
-    """
-    Status of the image.
-    """
-
-    namespace_id: str
-    """
-    UUID of the namespace the image belongs to.
+    UUID of the image.
     """
 
     name: str
@@ -122,9 +102,29 @@ class Image:
     Name of the image, it must be unique within the namespace.
     """
 
-    id: str
+    namespace_id: str
     """
-    UUID of the image.
+    UUID of the namespace the image belongs to.
+    """
+
+    status: ImageStatus
+    """
+    Status of the image.
+    """
+
+    visibility: ImageVisibility
+    """
+    Set to `public` to allow the image to be pulled without authentication. Else, set to  `private`. Set to `inherit` to keep the same visibility configuration as the namespace.
+    """
+
+    size: int
+    """
+    Image size in bytes, calculated from the size of image layers. One layer used in two tags of the same image is counted once but one layer used in two images is counted twice.
+    """
+
+    tags: List[str]
+    """
+    List of docker tags of the image.
     """
 
     status_message: Optional[str]
@@ -145,49 +145,9 @@ class Image:
 
 @dataclass
 class Namespace:
-    region: Region
-    """
-    Region the namespace belongs to.
-    """
-
-    size: int
-    """
-    Total size of the namespace, calculated as the sum of the size of all images in the namespace.
-    """
-
-    is_public: bool
-    """
-    Defines whether or not namespace is public.
-    """
-
-    endpoint: str
-    """
-    Endpoint reachable by docker.
-    """
-
     id: str
     """
     UUID of the namespace.
-    """
-
-    status: NamespaceStatus
-    """
-    Namespace status.
-    """
-
-    project_id: str
-    """
-    Project of the namespace.
-    """
-
-    organization_id: str
-    """
-    Owner of the namespace.
-    """
-
-    description: str
-    """
-    Description of the namespace.
     """
 
     name: str
@@ -195,9 +155,24 @@ class Namespace:
     Name of the namespace, unique in a region accross all organizations.
     """
 
-    image_count: int
+    description: str
     """
-    Number of images in the namespace.
+    Description of the namespace.
+    """
+
+    organization_id: str
+    """
+    Owner of the namespace.
+    """
+
+    project_id: str
+    """
+    Project of the namespace.
+    """
+
+    status: NamespaceStatus
+    """
+    Namespace status.
     """
 
     status_message: str
@@ -205,9 +180,29 @@ class Namespace:
     Namespace status details.
     """
 
-    updated_at: Optional[datetime]
+    endpoint: str
     """
-    Date and time of last update.
+    Endpoint reachable by docker.
+    """
+
+    is_public: bool
+    """
+    Defines whether or not namespace is public.
+    """
+
+    size: int
+    """
+    Total size of the namespace, calculated as the sum of the size of all images in the namespace.
+    """
+
+    image_count: int
+    """
+    Number of images in the namespace.
+    """
+
+    region: Region
+    """
+    Region the namespace belongs to.
     """
 
     created_at: Optional[datetime]
@@ -215,22 +210,17 @@ class Namespace:
     Date and time of creation.
     """
 
+    updated_at: Optional[datetime]
+    """
+    Date and time of last update.
+    """
+
 
 @dataclass
 class Tag:
-    digest: str
+    id: str
     """
-    Hash of the tag content. Several tags of a same image may have the same digest.
-    """
-
-    status: TagStatus
-    """
-    Tag status.
-    """
-
-    image_id: str
-    """
-    Image ID the of the image the tag belongs to.
+    UUID of the tag.
     """
 
     name: str
@@ -238,9 +228,19 @@ class Tag:
     Tag name, unique to an image.
     """
 
-    id: str
+    image_id: str
     """
-    UUID of the tag.
+    Image ID the of the image the tag belongs to.
+    """
+
+    status: TagStatus
+    """
+    Tag status.
+    """
+
+    digest: str
+    """
+    Hash of the tag content. Several tags of a same image may have the same digest.
     """
 
     created_at: Optional[datetime]
@@ -256,14 +256,14 @@ class Tag:
 
 @dataclass
 class CreateNamespaceRequest:
-    is_public: bool
-    """
-    Defines whether or not namespace is public.
-    """
-
     description: str
     """
     Description of the namespace.
+    """
+
+    is_public: bool
+    """
+    Defines whether or not namespace is public.
     """
 
     region: Optional[Region]
@@ -409,14 +409,14 @@ class ListImagesRequest:
 
 @dataclass
 class ListImagesResponse:
-    total_count: int
-    """
-    Total number of images that match the selected filters.
-    """
-
     images: List[Image]
     """
     Paginated list of images that match the selected filters.
+    """
+
+    total_count: int
+    """
+    Total number of images that match the selected filters.
     """
 
 
@@ -460,14 +460,14 @@ class ListNamespacesRequest:
 
 @dataclass
 class ListNamespacesResponse:
-    total_count: int
-    """
-    Total number of namespaces that match the selected filters.
-    """
-
     namespaces: List[Namespace]
     """
     Paginated list of namespaces that match the selected filters.
+    """
+
+    total_count: int
+    """
+    Total number of namespaces that match the selected filters.
     """
 
 
@@ -506,14 +506,14 @@ class ListTagsRequest:
 
 @dataclass
 class ListTagsResponse:
-    total_count: int
-    """
-    Total number of tags that match the selected filters.
-    """
-
     tags: List[Tag]
     """
     Paginated list of tags that match the selected filters.
+    """
+
+    total_count: int
+    """
+    Total number of tags that match the selected filters.
     """
 
 

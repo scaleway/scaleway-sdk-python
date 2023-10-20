@@ -135,24 +135,26 @@ class MnqV1Alpha1API(API):
     async def create_namespace(
         self,
         *,
+        protocol: NamespaceProtocol,
         region: Optional[Region] = None,
         name: Optional[str] = None,
-        protocol: Optional[NamespaceProtocol] = None,
         project_id: Optional[str] = None,
     ) -> Namespace:
         """
         Create a namespace.
         Create a Messaging and Queuing namespace, set to the desired protocol.
+        :param protocol: Namespace protocol. You must specify a valid protocol (and not `unknown`) to avoid an error.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Namespace name.
-        :param protocol: Namespace protocol. You must specify a valid protocol (and not `unknown`) to avoid an error.
         :param project_id: Project containing the Namespace.
         :return: :class:`Namespace <Namespace>`
 
         Usage:
         ::
 
-            result = await api.create_namespace()
+            result = await api.create_namespace(
+                protocol=NamespaceProtocol.unknown,
+            )
         """
 
         param_region = validate_path_param(
@@ -164,9 +166,9 @@ class MnqV1Alpha1API(API):
             f"/mnq/v1alpha1/regions/{param_region}/namespaces",
             body=marshal_CreateNamespaceRequest(
                 CreateNamespaceRequest(
+                    protocol=protocol,
                     region=region,
                     name=name or random_name(prefix="mnq"),
-                    protocol=protocol,
                     project_id=project_id,
                 ),
                 self.client,

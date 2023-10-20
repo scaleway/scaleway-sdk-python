@@ -28,20 +28,20 @@ def unmarshal_OS(data: Any) -> OS:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("compatible_server_types", None)
-    args["compatible_server_types"] = field
-
-    field = data.get("image_url", None)
-    args["image_url"] = field
-
-    field = data.get("label", None)
-    args["label"] = field
+    field = data.get("id", None)
+    args["id"] = field
 
     field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("id", None)
-    args["id"] = field
+    field = data.get("label", None)
+    args["label"] = field
+
+    field = data.get("image_url", None)
+    args["image_url"] = field
+
+    field = data.get("compatible_server_types", None)
+    args["compatible_server_types"] = field
 
     return OS(**args)
 
@@ -54,11 +54,11 @@ def unmarshal_ServerTypeCPU(data: Any) -> ServerTypeCPU:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("core_count", None)
-    args["core_count"] = field
-
     field = data.get("name", None)
     args["name"] = field
+
+    field = data.get("core_count", None)
+    args["core_count"] = field
 
     return ServerTypeCPU(**args)
 
@@ -71,11 +71,11 @@ def unmarshal_ServerTypeDisk(data: Any) -> ServerTypeDisk:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("type_", None)
-    args["type_"] = field
-
     field = data.get("capacity", None)
     args["capacity"] = field
+
+    field = data.get("type_", None)
+    args["type_"] = field
 
     return ServerTypeDisk(**args)
 
@@ -88,11 +88,11 @@ def unmarshal_ServerTypeMemory(data: Any) -> ServerTypeMemory:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("type_", None)
-    args["type_"] = field
-
     field = data.get("capacity", None)
     args["capacity"] = field
+
+    field = data.get("type_", None)
+    args["type_"] = field
 
     return ServerTypeMemory(**args)
 
@@ -105,20 +105,20 @@ def unmarshal_ServerType(data: Any) -> ServerType:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("stock", None)
-    args["stock"] = field
-
-    field = data.get("memory", None)
-    args["memory"] = unmarshal_ServerTypeMemory(field)
-
-    field = data.get("name", None)
-    args["name"] = field
+    field = data.get("cpu", None)
+    args["cpu"] = unmarshal_ServerTypeCPU(field)
 
     field = data.get("disk", None)
     args["disk"] = unmarshal_ServerTypeDisk(field)
 
-    field = data.get("cpu", None)
-    args["cpu"] = unmarshal_ServerTypeCPU(field)
+    field = data.get("name", None)
+    args["name"] = field
+
+    field = data.get("memory", None)
+    args["memory"] = unmarshal_ServerTypeMemory(field)
+
+    field = data.get("stock", None)
+    args["stock"] = field
 
     field = data.get("minimum_lease_duration", None)
     args["minimum_lease_duration"] = field
@@ -134,32 +134,32 @@ def unmarshal_Server(data: Any) -> Server:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("zone", None)
-    args["zone"] = field
-
-    field = data.get("status", None)
-    args["status"] = field
-
-    field = data.get("vnc_url", None)
-    args["vnc_url"] = field
-
-    field = data.get("ip", None)
-    args["ip"] = field
-
-    field = data.get("organization_id", None)
-    args["organization_id"] = field
-
-    field = data.get("project_id", None)
-    args["project_id"] = field
-
-    field = data.get("name", None)
-    args["name"] = field
+    field = data.get("id", None)
+    args["id"] = field
 
     field = data.get("type_", None)
     args["type_"] = field
 
-    field = data.get("id", None)
-    args["id"] = field
+    field = data.get("name", None)
+    args["name"] = field
+
+    field = data.get("project_id", None)
+    args["project_id"] = field
+
+    field = data.get("organization_id", None)
+    args["organization_id"] = field
+
+    field = data.get("ip", None)
+    args["ip"] = field
+
+    field = data.get("vnc_url", None)
+    args["vnc_url"] = field
+
+    field = data.get("status", None)
+    args["status"] = field
+
+    field = data.get("zone", None)
+    args["zone"] = field
 
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -181,11 +181,11 @@ def unmarshal_ListOSResponse(data: Any) -> ListOSResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("os", None)
-    args["os"] = [unmarshal_OS(v) for v in field] if field is not None else None
-
     field = data.get("total_count", None)
     args["total_count"] = field
+
+    field = data.get("os", None)
+    args["os"] = [unmarshal_OS(v) for v in field] if field is not None else None
 
     return ListOSResponse(**args)
 
@@ -214,13 +214,13 @@ def unmarshal_ListServersResponse(data: Any) -> ListServersResponse:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("total_count", None)
+    args["total_count"] = field
+
     field = data.get("servers", None)
     args["servers"] = (
         [unmarshal_Server(v) for v in field] if field is not None else None
     )
-
-    field = data.get("total_count", None)
-    args["total_count"] = field
 
     return ListServersResponse(**args)
 

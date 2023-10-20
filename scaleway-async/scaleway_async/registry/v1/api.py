@@ -222,8 +222,8 @@ class RegistryV1API(API):
     async def create_namespace(
         self,
         *,
-        is_public: bool,
         description: str,
+        is_public: bool,
         region: Optional[Region] = None,
         name: Optional[str] = None,
         organization_id: Optional[str] = None,
@@ -232,8 +232,8 @@ class RegistryV1API(API):
         """
         Create a namespace.
         Create a new Container Registry namespace. You must specify the namespace name and region in which you want it to be created. Optionally, you can specify the `project_id` and `is_public` in the request payload.
-        :param is_public: Defines whether or not namespace is public.
         :param description: Description of the namespace.
+        :param is_public: Defines whether or not namespace is public.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the namespace.
         :param organization_id: Namespace owner (deprecated).
@@ -244,8 +244,8 @@ class RegistryV1API(API):
         ::
 
             result = await api.create_namespace(
-                is_public=False,
                 description="example",
+                is_public=False,
             )
         """
 
@@ -258,8 +258,8 @@ class RegistryV1API(API):
             f"/registry/v1/regions/{param_region}/namespaces",
             body=marshal_CreateNamespaceRequest(
                 CreateNamespaceRequest(
-                    is_public=is_public,
                     description=description,
+                    is_public=is_public,
                     region=region,
                     name=name or random_name(prefix="ns"),
                     organization_id=organization_id,

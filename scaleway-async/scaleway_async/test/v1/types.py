@@ -50,54 +50,54 @@ class ListHumansRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 
 @dataclass
 class Human:
-    eyes_color: EyeColors
-
-    is_happy: bool
-
-    hair_count: int
-
-    fingers_count: int
-
-    altitude_in_millimeter: int
-
     id: str
+
+    organization_id: str
+
+    height: float
 
     shoe_size: float
 
-    height: float
+    altitude_in_meter: int
+
+    altitude_in_millimeter: int
+
+    fingers_count: int
+
+    created_at: Optional[datetime]
+
+    updated_at: Optional[datetime]
+
+    hair_count: int
+
+    is_happy: bool
+
+    eyes_color: EyeColors
+
+    status: HumanStatus
 
     name: str
 
     project_id: str
 
-    organization_id: str
-
-    status: HumanStatus
-
-    altitude_in_meter: int
-
-    updated_at: Optional[datetime]
-
-    created_at: Optional[datetime]
-
 
 @dataclass
 class CreateHumanRequest:
-    name: str
-
-    is_happy: bool
-
-    hair_count: int
-
-    fingers_count: int
-
-    altitude_in_millimeter: int
-
-    altitude_in_meter: int
+    height: float
 
     shoe_size: float
 
-    height: float
+    altitude_in_meter: int
+
+    altitude_in_millimeter: int
+
+    fingers_count: int
+
+    hair_count: int
+
+    is_happy: bool
+
+    name: str
 
     eyes_color: Optional[EyeColors]
 
@@ -137,9 +137,9 @@ class ListHumansRequest:
 
 @dataclass
 class ListHumansResponse:
-    humans: List[Human]
-
     total_count: int
+
+    humans: List[Human]
 
 
 @dataclass
@@ -149,9 +149,9 @@ class RegisterRequest:
 
 @dataclass
 class RegisterResponse:
-    access_key: str
-
     secret_key: str
+
+    access_key: str
 
 
 @dataclass

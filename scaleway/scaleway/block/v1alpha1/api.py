@@ -20,6 +20,7 @@ from .types import (
     CreateVolumeRequest,
     CreateVolumeRequestFromEmpty,
     CreateVolumeRequestFromSnapshot,
+    ImportSnapshotFromS3Request,
     ListSnapshotsResponse,
     ListVolumeTypesResponse,
     ListVolumesResponse,
@@ -52,6 +53,7 @@ from .marshalling import (
     unmarshal_Snapshot,
     marshal_CreateSnapshotRequest,
     marshal_CreateVolumeRequest,
+    marshal_ImportSnapshotFromS3Request,
     marshal_UpdateSnapshotRequest,
     marshal_UpdateVolumeRequest,
 )
@@ -589,8 +591,8 @@ class BlockV1Alpha1API(API):
     def create_snapshot(
         self,
         *,
-        name: str,
         volume_id: str,
+        name: str,
         zone: Optional[Zone] = None,
         project_id: Optional[str] = None,
         tags: Optional[List[str]] = None,
@@ -599,8 +601,8 @@ class BlockV1Alpha1API(API):
         Create a snapshot of a volume.
         To create a snapshot, the volume must be in the `in_use` or the `available` status.
         If your volume is in a transient state, you need to wait until the end of the current operation.
-        :param name: Name of the snapshot.
         :param volume_id: UUID of the volume to snapshot.
+        :param name: Name of the snapshot.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param project_id: UUID of the project to which the volume and the snapshot belong.
         :param tags: List of tags assigned to the snapshot.
@@ -610,8 +612,8 @@ class BlockV1Alpha1API(API):
         ::
 
             result = api.create_snapshot(
-                name="example",
                 volume_id="example",
+                name="example",
             )
         """
 
@@ -622,8 +624,58 @@ class BlockV1Alpha1API(API):
             f"/block/v1alpha1/zones/{param_zone}/snapshots",
             body=marshal_CreateSnapshotRequest(
                 CreateSnapshotRequest(
-                    name=name,
                     volume_id=volume_id,
+                    name=name,
+                    zone=zone,
+                    project_id=project_id,
+                    tags=tags,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Snapshot(res.json())
+
+    def import_snapshot_from_s3(
+        self,
+        *,
+        bucket: str,
+        key: str,
+        name: str,
+        zone: Optional[Zone] = None,
+        project_id: Optional[str] = None,
+        tags: Optional[List[str]] = None,
+    ) -> Snapshot:
+        """
+        :param bucket:
+        :param key:
+        :param name:
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param project_id:
+        :param tags:
+        :return: :class:`Snapshot <Snapshot>`
+
+        Usage:
+        ::
+
+            result = api.import_snapshot_from_s3(
+                bucket="example",
+                key="example",
+                name="example",
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+
+        res = self._request(
+            "POST",
+            f"/block/v1alpha1/zones/{param_zone}/snapshots/import-from-s3",
+            body=marshal_ImportSnapshotFromS3Request(
+                ImportSnapshotFromS3Request(
+                    bucket=bucket,
+                    key=key,
+                    name=name,
                     zone=zone,
                     project_id=project_id,
                     tags=tags,

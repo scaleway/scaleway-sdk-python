@@ -54,11 +54,11 @@ class TemV1Alpha1API(API):
     async def create_email(
         self,
         *,
-        html: str,
-        text: str,
         subject: str,
-        from_: CreateEmailRequestAddress,
+        text: str,
+        html: str,
         region: Optional[Region] = None,
+        from_: Optional[CreateEmailRequestAddress] = None,
         to: Optional[List[CreateEmailRequestAddress]] = None,
         cc: Optional[List[CreateEmailRequestAddress]] = None,
         bcc: Optional[List[CreateEmailRequestAddress]] = None,
@@ -69,11 +69,11 @@ class TemV1Alpha1API(API):
         """
         Send an email.
         You must specify the `region`, the sender and the recipient's information and the `project_id` to send an email from a checked domain. The subject of the email must contain at least 6 characters.
-        :param html: HTML content.
-        :param text: Text content.
         :param subject: Subject of the email.
-        :param from_: Sender information. Must be from a checked domain declared in the Project.
+        :param text: Text content.
+        :param html: HTML content.
         :param region: Region to target. If none is passed will use default region from the config.
+        :param from_: Sender information. Must be from a checked domain declared in the Project.
         :param to: An array of the primary recipient's information.
         :param cc: An array of the carbon copy recipient's information.
         :param bcc: An array of the blind carbon copy recipient's information.
@@ -86,10 +86,9 @@ class TemV1Alpha1API(API):
         ::
 
             result = await api.create_email(
-                html="example",
-                text="example",
                 subject="example",
-                from=CreateEmailRequestAddress(),
+                text="example",
+                html="example",
             )
         """
 
@@ -102,11 +101,11 @@ class TemV1Alpha1API(API):
             f"/transactional-email/v1alpha1/regions/{param_region}/emails",
             body=marshal_CreateEmailRequest(
                 CreateEmailRequest(
-                    html=html,
-                    text=text,
                     subject=subject,
-                    from_=from_,
+                    text=text,
+                    html=html,
                     region=region,
+                    from_=from_,
                     to=to,
                     cc=cc,
                     bcc=bcc,
@@ -423,16 +422,16 @@ class TemV1Alpha1API(API):
     async def create_domain(
         self,
         *,
-        accept_tos: bool,
         domain_name: str,
+        accept_tos: bool,
         region: Optional[Region] = None,
         project_id: Optional[str] = None,
     ) -> Domain:
         """
         Register a domain in a project.
         You must specify the `region`, `project_id` and `domain_name` to register a domain in a specific Project.
-        :param accept_tos: Accept Scaleway's Terms of Service.
         :param domain_name: Fully qualified domain dame.
+        :param accept_tos: Accept Scaleway's Terms of Service.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the project to which the domain belongs.
         :return: :class:`Domain <Domain>`
@@ -441,8 +440,8 @@ class TemV1Alpha1API(API):
         ::
 
             result = await api.create_domain(
-                accept_tos=False,
                 domain_name="example",
+                accept_tos=False,
             )
         """
 
@@ -455,8 +454,8 @@ class TemV1Alpha1API(API):
             f"/transactional-email/v1alpha1/regions/{param_region}/domains",
             body=marshal_CreateDomainRequest(
                 CreateDomainRequest(
-                    accept_tos=accept_tos,
                     domain_name=domain_name,
+                    accept_tos=accept_tos,
                     region=region,
                     project_id=project_id,
                 ),

@@ -54,33 +54,18 @@ class LocalImageType(str, Enum, metaclass=StrEnumMeta):
 
 @dataclass
 class Category:
-    description: str
+    id: str
 
     name: str
 
-    id: str
+    description: str
 
 
 @dataclass
 class Image:
-    label: str
+    id: str
     """
-    Typically an identifier for a distribution (ex. "ubuntu_focal").
-    """
-
-    categories: List[str]
-    """
-    List of categories this image belongs to.
-    """
-
-    logo: str
-    """
-    URL of this image's logo.
-    """
-
-    description: str
-    """
-    Text description of this image.
+    UUID of this image.
     """
 
     name: str
@@ -88,9 +73,24 @@ class Image:
     Name of the image.
     """
 
-    id: str
+    description: str
     """
-    UUID of this image.
+    Text description of this image.
+    """
+
+    logo: str
+    """
+    URL of this image's logo.
+    """
+
+    categories: List[str]
+    """
+    List of categories this image belongs to.
+    """
+
+    label: str
+    """
+    Typically an identifier for a distribution (ex. "ubuntu_focal").
     """
 
     created_at: Optional[datetime]
@@ -111,24 +111,9 @@ class Image:
 
 @dataclass
 class LocalImage:
-    type_: LocalImageType
+    id: str
     """
-    Type of this local image.
-    """
-
-    label: str
-    """
-    Image label this image belongs to.
-    """
-
-    zone: Zone
-    """
-    Availability Zone where this local image is available.
-    """
-
-    arch: str
-    """
-    Supported architecture for this local image.
+    Version you will typically use to define an image in an API call.
     """
 
     compatible_commercial_types: List[str]
@@ -136,22 +121,37 @@ class LocalImage:
     List of all commercial types that are compatible with this local image.
     """
 
-    id: str
+    arch: str
     """
-    Version you will typically use to define an image in an API call.
+    Supported architecture for this local image.
+    """
+
+    zone: Zone
+    """
+    Availability Zone where this local image is available.
+    """
+
+    label: str
+    """
+    Image label this image belongs to.
+    """
+
+    type_: LocalImageType
+    """
+    Type of this local image.
     """
 
 
 @dataclass
 class Version:
-    name: str
-    """
-    Name of this version.
-    """
-
     id: str
     """
     UUID of this version.
+    """
+
+    name: str
+    """
+    Name of this version.
     """
 
     created_at: Optional[datetime]
@@ -202,9 +202,9 @@ class ListCategoriesRequest:
 
 @dataclass
 class ListCategoriesResponse:
-    total_count: int
-
     categories: List[Category]
+
+    total_count: int
 
 
 @dataclass
@@ -242,9 +242,9 @@ class ListImagesRequest:
 
 @dataclass
 class ListImagesResponse:
-    total_count: int
-
     images: List[Image]
+
+    total_count: int
 
 
 @dataclass
@@ -271,9 +271,9 @@ class ListLocalImagesRequest:
 
 @dataclass
 class ListLocalImagesResponse:
-    total_count: int
-
     local_images: List[LocalImage]
+
+    total_count: int
 
 
 @dataclass
@@ -289,6 +289,6 @@ class ListVersionsRequest:
 
 @dataclass
 class ListVersionsResponse:
-    total_count: int
-
     versions: List[Version]
+
+    total_count: int

@@ -150,6 +150,71 @@ class CreateGatewayNetworkRequestIpamConfig:
 
 @dataclass
 class DHCP:
+    id: str
+    """
+    ID of the DHCP config.
+    """
+
+    organization_id: str
+    """
+    Owning Organization.
+    """
+
+    project_id: str
+    """
+    Owning Project.
+    """
+
+    subnet: str
+    """
+    Subnet for the DHCP server.
+    """
+
+    address: str
+    """
+    IP address of the DHCP server. This will be the Public Gateway's address in the Private Network. It must be part of config's subnet.
+    """
+
+    pool_low: str
+    """
+    Low IP (inclusive) of the dynamic address pool. Must be in the config's subnet.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Date the DHCP configuration was created.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Configuration last modification date.
+    """
+
+    pool_high: str
+    """
+    High IP (inclusive) of the dynamic address pool. Must be in the config's subnet.
+    """
+
+    enable_dynamic: bool
+    """
+    Defines whether to enable dynamic pooling of IPs. When false, only pre-existing DHCP reservations will be handed out.
+    """
+
+    push_default_route: bool
+    """
+    Defines whether the gateway should push a default route to DHCP clients, or only hand out IPs.
+    """
+
+    push_dns_server: bool
+    """
+    Defines whether the gateway should push custom DNS servers to clients. This allows for instance hostname -> IP resolution.
+    """
+
+    dns_servers_override: List[str]
+    """
+    Array of DNS server IP addresses used to override the DNS server list pushed to DHCP clients, instead of the gateway itself.
+    """
+
     dns_search: List[str]
     """
     Array of search paths in addition to the pushed DNS configuration.
@@ -160,79 +225,9 @@ class DHCP:
     TLD given to hostnames in the Private Networks. If an Instance with hostname `foo` gets a lease, and this is set to `bar`, `foo.bar` will resolve.
     """
 
-    enable_dynamic: bool
-    """
-    Defines whether to enable dynamic pooling of IPs. When false, only pre-existing DHCP reservations will be handed out.
-    """
-
-    pool_high: str
-    """
-    High IP (inclusive) of the dynamic address pool. Must be in the config's subnet.
-    """
-
-    pool_low: str
-    """
-    Low IP (inclusive) of the dynamic address pool. Must be in the config's subnet.
-    """
-
-    push_default_route: bool
-    """
-    Defines whether the gateway should push a default route to DHCP clients, or only hand out IPs.
-    """
-
-    subnet: str
-    """
-    Subnet for the DHCP server.
-    """
-
-    id: str
-    """
-    ID of the DHCP config.
-    """
-
     zone: Zone
     """
     Zone of this DHCP configuration.
-    """
-
-    project_id: str
-    """
-    Owning Project.
-    """
-
-    organization_id: str
-    """
-    Owning Organization.
-    """
-
-    dns_servers_override: List[str]
-    """
-    Array of DNS server IP addresses used to override the DNS server list pushed to DHCP clients, instead of the gateway itself.
-    """
-
-    push_dns_server: bool
-    """
-    Defines whether the gateway should push custom DNS servers to clients. This allows for instance hostname -> IP resolution.
-    """
-
-    address: str
-    """
-    IP address of the DHCP server. This will be the Public Gateway's address in the Private Network. It must be part of config's subnet.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Configuration last modification date.
-    """
-
-    rebind_timer: Optional[str]
-    """
-    After how long a DHCP client will query for a new lease if previous renews fail. Must be 30s lower than `valid_lifetime`.
-    """
-
-    renew_timer: Optional[str]
-    """
-    After how long a renew will be attempted. Must be 30s lower than `rebind_timer`.
     """
 
     valid_lifetime: Optional[str]
@@ -240,7 +235,7 @@ class DHCP:
     How long DHCP entries will be valid for.
     """
 
-    created_at: Optional[datetime]
+    renew_timer: Optional[str]
     """
     Tags associated with the gateway.
     """
@@ -298,34 +293,9 @@ class DHCP:
 
 @dataclass
 class GatewayNetwork:
-    zone: Zone
+    id: str
     """
-    Zone of the GatewayNetwork connection.
-    """
-
-    enable_dhcp: bool
-    """
-    Defines whether DHCP is enabled on the connected Private Network.
-    """
-
-    dhcp: DHCP
-    """
-    DHCP configuration for the connected Private Network.
-    """
-
-    status: GatewayNetworkStatus
-    """
-    Current status of the Public Gateway's connection to the Private Network.
-    """
-
-    enable_masquerade: bool
-    """
-    Defines whether the gateway masquerades traffic for this Private Network (Dynamic NAT).
-    """
-
-    private_network_id: str
-    """
-    ID of the connected Private Network.
+    ID of the Public Gateway-Private Network connection.
     """
 
     gateway_id: str
@@ -333,9 +303,9 @@ class GatewayNetwork:
     ID of the connected Public Gateway.
     """
 
-    id: str
+    private_network_id: str
     """
-    ID of the Public Gateway-Private Network connection.
+    ID of the connected Private Network.
     """
 
     created_at: Optional[datetime]
@@ -351,6 +321,36 @@ class GatewayNetwork:
     mac_address: Optional[str]
     """
     MAC address of the gateway in the Private Network (if the gateway is up and running).
+    """
+
+    enable_masquerade: bool
+    """
+    Defines whether the gateway masquerades traffic for this Private Network (Dynamic NAT).
+    """
+
+    status: GatewayNetworkStatus
+    """
+    Current status of the Public Gateway's connection to the Private Network.
+    """
+
+    dhcp: DHCP
+    """
+    DHCP configuration for the connected Private Network.
+    """
+
+    enable_dhcp: bool
+    """
+    Defines whether DHCP is enabled on the connected Private Network.
+    """
+
+    ipam_config: IpamConfig
+    """
+    IPAM IP configuration used.
+    """
+
+    zone: Zone
+    """
+    Zone of the GatewayNetwork connection.
     """
 
     address: Optional[str]
@@ -371,9 +371,9 @@ class GatewayNetwork:
 
 @dataclass
 class GatewayType:
-    zone: Zone
+    name: str
     """
-    Zone the Public Gateway type is available in.
+    Public Gateway type name.
     """
 
     bandwidth: int
@@ -381,32 +381,17 @@ class GatewayType:
     Bandwidth, in bps, of the Public Gateway. This is the public bandwidth to the outer Internet, and the internal bandwidth to each connected Private Networks.
     """
 
-    name: str
+    zone: Zone
     """
-    Public Gateway type name.
+    Zone the Public Gateway type is available in.
     """
 
 
 @dataclass
 class IP:
-    zone: Zone
+    id: str
     """
-    Zone of the IP address.
-    """
-
-    address: str
-    """
-    The IP address itself.
-    """
-
-    tags: List[str]
-    """
-    Tags associated with the IP address.
-    """
-
-    project_id: str
-    """
-    Owning Project.
+    IP address ID.
     """
 
     organization_id: str
@@ -414,9 +399,24 @@ class IP:
     Owning Organization.
     """
 
-    id: str
+    project_id: str
     """
-    IP address ID.
+    Owning Project.
+    """
+
+    tags: List[str]
+    """
+    Tags associated with the IP address.
+    """
+
+    address: str
+    """
+    The IP address itself.
+    """
+
+    zone: Zone
+    """
+    Zone of the IP address.
     """
 
     created_at: Optional[datetime]
@@ -452,9 +452,9 @@ class CreateDHCPRequest:
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    enable_dynamic: Optional[bool]
+    project_id: Optional[str]
     """
-    Defines whether to enable dynamic pooling of IPs. When false, only pre-existing DHCP reservations will be handed out. Defaults to true.
+    Project to create the DHCP configuration in.
     """
 
     address: Optional[str]
@@ -472,9 +472,9 @@ class CreateDHCPRequest:
     High IP (inclusive) of the dynamic address pool. Must be in the config's subnet. Defaults to the last address of the subnet.
     """
 
-    project_id: Optional[str]
+    enable_dynamic: Optional[bool]
     """
-    Project to create the DHCP configuration in.
+    Defines whether to enable dynamic pooling of IPs. When false, only pre-existing DHCP reservations will be handed out. Defaults to true.
     """
 
     valid_lifetime: Optional[str]
@@ -533,29 +533,9 @@ class IpamConfig:
 
 @dataclass
 class DHCPEntry:
-    zone: Zone
+    id: str
     """
-    Zone of this DHCP entry.
-    """
-
-    type_: DHCPEntryType
-    """
-    Entry type, either static (DHCP reservation) or dynamic (DHCP lease).
-    """
-
-    hostname: str
-    """
-    Hostname of the client device.
-    """
-
-    ip_address: str
-    """
-    Assigned IP address.
-    """
-
-    mac_address: str
-    """
-    MAC address of the client device.
+    DHCP entry ID.
     """
 
     gateway_network_id: str
@@ -563,9 +543,29 @@ class DHCPEntry:
     Owning GatewayNetwork.
     """
 
-    id: str
+    mac_address: str
     """
-    DHCP entry ID.
+    MAC address of the client device.
+    """
+
+    ip_address: str
+    """
+    Assigned IP address.
+    """
+
+    hostname: str
+    """
+    Hostname of the client device.
+    """
+
+    type_: DHCPEntryType
+    """
+    Entry type, either static (DHCP reservation) or dynamic (DHCP lease).
+    """
+
+    zone: Zone
+    """
+    Zone of this DHCP entry.
     """
 
     created_at: Optional[datetime]
@@ -581,54 +581,9 @@ class DHCPEntry:
 
 @dataclass
 class Gateway:
-    upstream_dns_servers: List[str]
-    """
-    Array of DNS server IP addresses to override the gateway's default recursive DNS servers.
-    """
-
-    gateway_networks: List[GatewayNetwork]
-    """
-    GatewayNetwork objects attached to the gateway (each one represents a connection to a Private Network).
-    """
-
-    ip: IP
-    """
-    Public IP address of the gateway.
-    """
-
-    tags: List[str]
-    """
-    Tags associated with the gateway.
-    """
-
-    name: str
-    """
-    Name of the gateway.
-    """
-
-    bastion_port: int
-    """
-    Port of the SSH bastion.
-    """
-
-    type_: GatewayType
-    """
-    Gateway type (commercial offer).
-    """
-
     id: str
     """
     ID of the gateway.
-    """
-
-    zone: Zone
-    """
-    Zone of the gateway.
-    """
-
-    project_id: str
-    """
-    Owning Project.
     """
 
     organization_id: str
@@ -636,14 +591,14 @@ class Gateway:
     Owning Organization.
     """
 
-    smtp_enabled: bool
+    project_id: str
     """
-    Defines whether SMTP traffic is allowed to pass through the gateway.
+    Owning Project.
     """
 
-    bastion_enabled: bool
+    type_: GatewayType
     """
-    Defines whether SSH bastion is enabled on the gateway.
+    Gateway type (commercial offer).
     """
 
     status: GatewayStatus
@@ -651,19 +606,9 @@ class Gateway:
     Current status of the gateway.
     """
 
-    updated_at: Optional[datetime]
+    name: str
     """
-    Gateway last modification date.
-    """
-
-    can_upgrade_to: Optional[str]
-    """
-    Newly available gateway software version that can be updated to.
-    """
-
-    version: Optional[str]
-    """
-    Version of the running gateway software.
+    Name of the gateway.
     """
 
     created_at: Optional[datetime]
@@ -671,32 +616,72 @@ class Gateway:
     Gateway creation date.
     """
 
+    updated_at: Optional[datetime]
+    """
+    Gateway last modification date.
+    """
+
+    tags: List[str]
+    """
+    Tags associated with the gateway.
+    """
+
+    ip: IP
+    """
+    Public IP address of the gateway.
+    """
+
+    gateway_networks: List[GatewayNetwork]
+    """
+    GatewayNetwork objects attached to the gateway (each one represents a connection to a Private Network).
+    """
+
+    upstream_dns_servers: List[str]
+    """
+    Array of DNS server IP addresses to override the gateway's default recursive DNS servers.
+    """
+
+    bastion_enabled: bool
+    """
+    Defines whether SSH bastion is enabled on the gateway.
+    """
+
+    bastion_port: int
+    """
+    Port of the SSH bastion.
+    """
+
+    smtp_enabled: bool
+    """
+    Defines whether SMTP traffic is allowed to pass through the gateway.
+    """
+
+    is_legacy: bool
+    """
+    Whether this uses non-IPAM IP configurations.
+    """
+
+    zone: Zone
+    """
+    Zone of the gateway.
+    """
+
+    version: Optional[str]
+    """
+    Version of the running gateway software.
+    """
+
+    can_upgrade_to: Optional[str]
+    """
+    Newly available gateway software version that can be updated to.
+    """
+
 
 @dataclass
 class PATRule:
-    zone: Zone
+    id: str
     """
-    Zone of the PAT rule.
-    """
-
-    protocol: PATRuleProtocol
-    """
-    Protocol the rule applies to.
-    """
-
-    private_port: int
-    """
-    Private port to translate to.
-    """
-
-    private_ip: str
-    """
-    Private IP address to forward data to.
-    """
-
-    public_port: int
-    """
-    Public port to listen on.
+    PAT rule ID.
     """
 
     gateway_id: str
@@ -704,9 +689,29 @@ class PATRule:
     Gateway the PAT rule applies to.
     """
 
-    id: str
+    public_port: int
     """
-    PAT rule ID.
+    Public port to listen on.
+    """
+
+    private_ip: str
+    """
+    Private IP address to forward data to.
+    """
+
+    private_port: int
+    """
+    Private port to translate to.
+    """
+
+    protocol: PATRuleProtocol
+    """
+    Protocol the rule applies to.
+    """
+
+    zone: Zone
+    """
+    Zone of the PAT rule.
     """
 
     created_at: Optional[datetime]
@@ -722,27 +727,22 @@ class PATRule:
 
 @dataclass
 class SetDHCPEntriesRequestEntry:
-    ip_address: str
-    """
-    IP address to give to the device.
-    """
-
     mac_address: str
     """
     MAC address to give a static entry to. A matching entry will be upgraded to a reservation, and a matching reservation will be updated.
     """
 
+    ip_address: str
+    """
+    IP address to give to the device.
+    """
+
 
 @dataclass
 class SetPATRulesRequestRule:
-    protocol: PATRuleProtocol
+    public_port: int
     """
-    Protocol the rule should apply to.
-    """
-
-    private_port: int
-    """
-    Private port to translate to.
+    Public port to listen on. Uniquely identifies the rule, and a matching rule will be updated with the new parameters.
     """
 
     private_ip: str
@@ -750,17 +750,22 @@ class SetPATRulesRequestRule:
     Private IP to forward data to.
     """
 
-    public_port: int
+    private_port: int
     """
-    Public port to listen on. Uniquely identifies the rule, and a matching rule will be updated with the new parameters.
+    Private port to translate to.
+    """
+
+    protocol: PATRuleProtocol
+    """
+    Protocol the rule should apply to.
     """
 
 
 @dataclass
 class CreateDHCPEntryRequest:
-    ip_address: str
+    gateway_network_id: str
     """
-    IP address to give to the device.
+    GatewayNetwork on which to create a DHCP reservation.
     """
 
     mac_address: str
@@ -768,9 +773,9 @@ class CreateDHCPEntryRequest:
     MAC address to give a static entry to.
     """
 
-    gateway_network_id: str
+    ip_address: str
     """
-    GatewayNetwork on which to create a DHCP reservation.
+    IP address to give to the device.
     """
 
     zone: Optional[Zone]
@@ -781,9 +786,9 @@ class CreateDHCPEntryRequest:
 
 @dataclass
 class CreateGatewayNetworkRequest:
-    enable_masquerade: bool
+    gateway_id: str
     """
-    Note: this setting is ignored when passing `ipam_config`.
+    Public Gateway to connect.
     """
 
     private_network_id: str
@@ -791,9 +796,9 @@ class CreateGatewayNetworkRequest:
     Private Network to connect.
     """
 
-    gateway_id: str
+    enable_masquerade: bool
     """
-    Public Gateway to connect.
+    Note: this setting is ignored when passing `ipam_config`.
     """
 
     zone: Optional[Zone]
@@ -818,9 +823,9 @@ Note: this setting is ignored when passing `ipam_config`.
 
 @dataclass
 class CreateGatewayRequest:
-    enable_bastion: bool
+    type_: str
     """
-    Defines whether SSH bastion should be enabled the gateway.
+    Gateway type (commercial offer type).
     """
 
     enable_smtp: bool
@@ -828,9 +833,9 @@ class CreateGatewayRequest:
     Defines whether SMTP traffic should be allowed pass through the gateway.
     """
 
-    type_: str
+    enable_bastion: bool
     """
-    Gateway type (commercial offer type).
+    Defines whether SSH bastion should be enabled the gateway.
     """
 
     zone: Optional[Zone]
@@ -889,14 +894,9 @@ class CreateIPRequest:
 
 @dataclass
 class CreatePATRuleRequest:
-    private_port: int
+    gateway_id: str
     """
-    Private port to translate to.
-    """
-
-    private_ip: str
-    """
-    Private IP to forward data to.
+    ID of the Gateway on which to create the rule.
     """
 
     public_port: int
@@ -904,9 +904,14 @@ class CreatePATRuleRequest:
     Public port to listen on.
     """
 
-    gateway_id: str
+    private_ip: str
     """
-    ID of the Gateway on which to create the rule.
+    Private IP to forward data to.
+    """
+
+    private_port: int
+    """
+    Private port to translate to.
     """
 
     zone: Optional[Zone]
@@ -948,14 +953,14 @@ class DeleteDHCPRequest:
 
 @dataclass
 class DeleteGatewayNetworkRequest:
-    cleanup_dhcp: bool
-    """
-    Defines whether to clean up attached DHCP configurations (if any, and if not attached to another Gateway Network).
-    """
-
     gateway_network_id: str
     """
     ID of the GatewayNetwork to delete.
+    """
+
+    cleanup_dhcp: bool
+    """
+    Defines whether to clean up attached DHCP configurations (if any, and if not attached to another Gateway Network).
     """
 
     zone: Optional[Zone]
@@ -966,14 +971,14 @@ class DeleteGatewayNetworkRequest:
 
 @dataclass
 class DeleteGatewayRequest:
-    cleanup_dhcp: bool
-    """
-    Defines whether to clean up attached DHCP configurations (if any, and if not attached to another Gateway Network).
-    """
-
     gateway_id: str
     """
     ID of the gateway to delete.
+    """
+
+    cleanup_dhcp: bool
+    """
+    Defines whether to clean up attached DHCP configurations (if any, and if not attached to another Gateway Network).
     """
 
     zone: Optional[Zone]
@@ -1136,14 +1141,14 @@ class ListDHCPEntriesRequest:
 
 @dataclass
 class ListDHCPEntriesResponse:
-    total_count: int
-    """
-    Total count of DHCP entries matching the filter.
-    """
-
     dhcp_entries: List[DHCPEntry]
     """
     DHCP entries in this page.
+    """
+
+    total_count: int
+    """
+    Total count of DHCP entries matching the filter.
     """
 
 
@@ -1192,14 +1197,14 @@ class ListDHCPsRequest:
 
 @dataclass
 class ListDHCPsResponse:
-    total_count: int
-    """
-    Total count of DHCP configuration objects matching the filter.
-    """
-
     dhcps: List[DHCP]
     """
     First page of DHCP configuration objects.
+    """
+
+    total_count: int
+    """
+    Total count of DHCP configuration objects matching the filter.
     """
 
 
@@ -1253,14 +1258,14 @@ class ListGatewayNetworksRequest:
 
 @dataclass
 class ListGatewayNetworksResponse:
-    total_count: int
-    """
-    Total GatewayNetworks count matching the filter.
-    """
-
     gateway_networks: List[GatewayNetwork]
     """
     GatewayNetworks on this page.
+    """
+
+    total_count: int
+    """
+    Total GatewayNetworks count matching the filter.
     """
 
 
@@ -1357,11 +1362,6 @@ class ListGatewaysRequest:
 
 @dataclass
 class ListGatewaysResponse:
-    total_count: int
-    """
-    Total count of gateways matching the filter.
-    """
-
     gateways: List[Gateway]
     """
     ID of the gateway to fetch.
@@ -2195,6 +2195,11 @@ class ListGatewayTypesRequest:
     Zone to target. If none is passed will use default zone from the config.
     """
 
+    total_count: int
+    """
+    Total count of gateways matching the filter.
+    """
+
 
 @dataclass
 class ListIPsRequest:
@@ -2246,14 +2251,14 @@ class ListIPsRequest:
 
 @dataclass
 class ListIPsResponse:
-    total_count: int
-    """
-    Total count of IP addresses matching the filter.
-    """
-
     ips: List[IP]
     """
     IP addresses on this page.
+    """
+
+    total_count: int
+    """
+    Total count of IP addresses matching the filter.
     """
 
 
@@ -2297,14 +2302,14 @@ class ListPATRulesRequest:
 
 @dataclass
 class ListPATRulesResponse:
-    total_count: int
-    """
-    Total count of PAT rules matching the filter.
-    """
-
     pat_rules: List[PATRule]
     """
     Array of PAT rules matching the filter.
+    """
+
+    total_count: int
+    """
+    Total count of PAT rules matching the filter.
     """
 
 
@@ -2354,14 +2359,14 @@ class SetPATRulesRequest:
     ID of the gateway on which to set the PAT rules.
     """
 
+    pat_rules: List[SetPATRulesRequestRule]
+    """
+    New list of PAT rules.
+    """
+
     zone: Optional[Zone]
     """
     Zone to target. If none is passed will use default zone from the config.
-    """
-
-    pat_rules: Optional[List[SetPATRulesRequestRule]]
-    """
-    New list of PAT rules.
     """
 
 
@@ -2403,9 +2408,9 @@ class UpdateDHCPRequest:
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    enable_dynamic: Optional[bool]
+    subnet: Optional[str]
     """
-    Defines whether to enable dynamic pooling of IPs. When false, only pre-existing DHCP reservations will be handed out. Defaults to true.
+    Subnet for the DHCP server.
     """
 
     address: Optional[str]
@@ -2423,9 +2428,9 @@ class UpdateDHCPRequest:
     High IP (inclusive) of the dynamic address pool. Must be in the config's subnet.
     """
 
-    subnet: Optional[str]
+    enable_dynamic: Optional[bool]
     """
-    Subnet for the DHCP server.
+    Defines whether to enable dynamic pooling of IPs. When false, only pre-existing DHCP reservations will be handed out. Defaults to true.
     """
 
     valid_lifetime: Optional[str]

@@ -534,56 +534,56 @@ class DocumentDbV1Beta1API(API):
     async def create_instance(
         self,
         *,
-        password: str,
-        user_name: str,
         engine: str,
+        user_name: str,
+        password: str,
+        node_type: str,
+        region: Optional[Region] = None,
+        organization_id: Optional[str] = None,
+        project_id: Optional[str] = None,
+        name: Optional[str] = None,
+        is_ha_cluster: bool,
         disable_backup: bool,
         volume_size: int,
         backup_same_region: bool,
-        node_type: str,
-        is_ha_cluster: bool,
-        region: Optional[Region] = None,
-        name: Optional[str] = None,
         tags: Optional[List[str]] = None,
         init_settings: Optional[List[InstanceSetting]] = None,
         volume_type: Optional[VolumeType] = None,
-        project_id: Optional[str] = None,
         init_endpoints: Optional[List[EndpointSpec]] = None,
-        organization_id: Optional[str] = None,
     ) -> Instance:
         """
         Create a Database Instance.
         Create a new Database Instance. You must set the `engine`, `user_name`, `password` and `node_type` parameters. Optionally, you can specify the volume type and size.
-        :param password: Password of the user.
-        :param user_name: Username created when the Database Instance is created.
         :param engine: Database engine of the Database Instance.
+        :param user_name: Username created when the Database Instance is created.
+        :param password: Password of the user.
+        :param node_type: Type of node to use for the Database Instance.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param organization_id: Please use project_id instead.
+        :param project_id: The Project ID on which the Database Instance will be created.
+        :param name: Name of the Database Instance.
+        :param is_ha_cluster: Defines whether or not High-Availability is enabled.
         :param disable_backup: Defines whether or not backups are disabled.
         :param volume_size: Volume size when volume_type is not lssd.
         :param backup_same_region: Defines whether to or not to store logical backups in the same region as the Database Instance.
-        :param node_type: Type of node to use for the Database Instance.
-        :param is_ha_cluster: Defines whether or not High-Availability is enabled.
-        :param region: Region to target. If none is passed will use default region from the config.
-        :param name: Name of the Database Instance.
         :param tags: Tags to apply to the Database Instance.
         :param init_settings: List of engine settings to be set upon Database Instance initialization.
         :param volume_type: Type of volume where data is stored (lssd, bssd, ...).
-        :param project_id: The Project ID on which the Database Instance will be created.
         :param init_endpoints: One or multiple EndpointSpec used to expose your Database Instance. A load_balancer public endpoint is systematically created.
-        :param organization_id: Please use project_id instead.
         :return: :class:`Instance <Instance>`
 
         Usage:
         ::
 
             result = await api.create_instance(
-                password="example",
-                user_name="example",
                 engine="example",
+                user_name="example",
+                password="example",
+                node_type="example",
+                is_ha_cluster=False,
                 disable_backup=False,
                 volume_size=1,
                 backup_same_region=False,
-                node_type="example",
-                is_ha_cluster=False,
             )
         """
 
@@ -596,20 +596,20 @@ class DocumentDbV1Beta1API(API):
             f"/document-db/v1beta1/regions/{param_region}/instances",
             body=marshal_CreateInstanceRequest(
                 CreateInstanceRequest(
-                    volume_size=volume_size,
-                    node_type=node_type,
-                    password=password,
-                    user_name=user_name,
                     engine=engine,
-                    backup_same_region=backup_same_region,
-                    disable_backup=disable_backup,
-                    is_ha_cluster=is_ha_cluster,
+                    user_name=user_name,
+                    password=password,
+                    node_type=node_type,
                     region=region,
+                    name=name or random_name(prefix="ins"),
+                    is_ha_cluster=is_ha_cluster,
+                    disable_backup=disable_backup,
+                    volume_size=volume_size,
+                    backup_same_region=backup_same_region,
                     tags=tags,
                     init_settings=init_settings,
                     volume_type=volume_type,
                     init_endpoints=init_endpoints,
-                    name=name or random_name(prefix="ins"),
                     organization_id=organization_id,
                     project_id=project_id,
                 ),
@@ -722,16 +722,16 @@ class DocumentDbV1Beta1API(API):
     async def clone_instance(
         self,
         *,
-        name: str,
         instance_id: str,
+        name: str,
         region: Optional[Region] = None,
         node_type: Optional[str] = None,
     ) -> Instance:
         """
         Clone a Database Instance.
         Clone a given Database Instance, specified by the `region` and `instance_id` parameters. The clone feature allows you to create a new Database Instance from an existing one. The clone includes all existing databases, users and permissions. You can create a clone on a Database Instance bigger than your current one.
-        :param name: Name of the Database Instance clone.
         :param instance_id: UUID of the Database Instance you want to clone.
+        :param name: Name of the Database Instance clone.
         :param region: Region to target. If none is passed will use default region from the config.
         :param node_type: Node type of the clone.
         :return: :class:`Instance <Instance>`
@@ -740,8 +740,8 @@ class DocumentDbV1Beta1API(API):
         ::
 
             result = await api.clone_instance(
-                name="example",
                 instance_id="example",
+                name="example",
             )
         """
 
@@ -755,8 +755,8 @@ class DocumentDbV1Beta1API(API):
             f"/document-db/v1beta1/regions/{param_region}/instances/{param_instance_id}/clone",
             body=marshal_CloneInstanceRequest(
                 CloneInstanceRequest(
-                    name=name,
                     instance_id=instance_id,
+                    name=name,
                     region=region,
                     node_type=node_type,
                 ),
@@ -1142,15 +1142,15 @@ class DocumentDbV1Beta1API(API):
         self,
         *,
         read_replica_id: str,
+        endpoint_spec: List[ReadReplicaEndpointSpec],
         region: Optional[Region] = None,
-        endpoint_spec: Optional[List[ReadReplicaEndpointSpec]] = None,
     ) -> ReadReplica:
         """
         Create an endpoint for a Read Replica.
         Create a new endpoint for a Read Replica. Read Replicas can have at most one direct access and one Private Network endpoint.
         :param read_replica_id: UUID of the Read Replica.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param endpoint_spec: Specification of the endpoint you want to create.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`ReadReplica <ReadReplica>`
 
         Usage:
@@ -1158,6 +1158,7 @@ class DocumentDbV1Beta1API(API):
 
             result = await api.create_read_replica_endpoint(
                 read_replica_id="example",
+                endpoint_spec=[],
             )
         """
 
@@ -1172,8 +1173,8 @@ class DocumentDbV1Beta1API(API):
             body=marshal_CreateReadReplicaEndpointRequest(
                 CreateReadReplicaEndpointRequest(
                     read_replica_id=read_replica_id,
-                    region=region,
                     endpoint_spec=endpoint_spec,
+                    region=region,
                 ),
                 self.client,
             ),
@@ -1374,15 +1375,15 @@ class DocumentDbV1Beta1API(API):
         self,
         *,
         instance_id: str,
+        settings: List[InstanceSetting],
         region: Optional[Region] = None,
-        settings: Optional[List[InstanceSetting]] = None,
     ) -> AddInstanceSettingsResponse:
         """
         Add Database Instance advanced settings.
         Add an advanced setting to a Database Instance. You must set the `name` and the `value` of each setting.
         :param instance_id: UUID of the Database Instance you want to add settings to.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param settings: Settings to add to the Database Instance.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`AddInstanceSettingsResponse <AddInstanceSettingsResponse>`
 
         Usage:
@@ -1390,6 +1391,7 @@ class DocumentDbV1Beta1API(API):
 
             result = await api.add_instance_settings(
                 instance_id="example",
+                settings=[],
             )
         """
 
@@ -1404,8 +1406,8 @@ class DocumentDbV1Beta1API(API):
             body=marshal_AddInstanceSettingsRequest(
                 AddInstanceSettingsRequest(
                     instance_id=instance_id,
-                    region=region,
                     settings=settings,
+                    region=region,
                 ),
                 self.client,
             ),
@@ -1418,15 +1420,15 @@ class DocumentDbV1Beta1API(API):
         self,
         *,
         instance_id: str,
+        setting_names: List[str],
         region: Optional[Region] = None,
-        setting_names: Optional[List[str]] = None,
     ) -> DeleteInstanceSettingsResponse:
         """
         Delete Database Instance advanced settings.
         Delete an advanced setting in a Database Instance. You must specify the names of the settings you want to delete in the request.
         :param instance_id: UUID of the Database Instance to delete settings from.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param setting_names: Settings names to delete.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`DeleteInstanceSettingsResponse <DeleteInstanceSettingsResponse>`
 
         Usage:
@@ -1434,6 +1436,7 @@ class DocumentDbV1Beta1API(API):
 
             result = await api.delete_instance_settings(
                 instance_id="example",
+                setting_names=[],
             )
         """
 
@@ -1448,8 +1451,8 @@ class DocumentDbV1Beta1API(API):
             body=marshal_DeleteInstanceSettingsRequest(
                 DeleteInstanceSettingsRequest(
                     instance_id=instance_id,
-                    region=region,
                     setting_names=setting_names,
+                    region=region,
                 ),
                 self.client,
             ),
@@ -1462,15 +1465,15 @@ class DocumentDbV1Beta1API(API):
         self,
         *,
         instance_id: str,
+        settings: List[InstanceSetting],
         region: Optional[Region] = None,
-        settings: Optional[List[InstanceSetting]] = None,
     ) -> SetInstanceSettingsResponse:
         """
         Set Database Instance advanced settings.
         Update an advanced setting for a Database Instance. Settings added upon database engine initalization can only be defined once, and cannot, therefore, be updated.
         :param instance_id: UUID of the Database Instance where the settings must be set.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param settings: Settings to define for the Database Instance.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`SetInstanceSettingsResponse <SetInstanceSettingsResponse>`
 
         Usage:
@@ -1478,6 +1481,7 @@ class DocumentDbV1Beta1API(API):
 
             result = await api.set_instance_settings(
                 instance_id="example",
+                settings=[],
             )
         """
 
@@ -1492,8 +1496,8 @@ class DocumentDbV1Beta1API(API):
             body=marshal_SetInstanceSettingsRequest(
                 SetInstanceSettingsRequest(
                     instance_id=instance_id,
-                    region=region,
                     settings=settings,
+                    region=region,
                 ),
                 self.client,
             ),
@@ -1585,15 +1589,15 @@ class DocumentDbV1Beta1API(API):
         self,
         *,
         instance_id: str,
+        rules: List[ACLRuleRequest],
         region: Optional[Region] = None,
-        rules: Optional[List[ACLRuleRequest]] = None,
     ) -> AddInstanceACLRulesResponse:
         """
         Add an ACL rule to a Database Instance.
         Add an additional ACL rule to a Database Instance.
         :param instance_id: UUID of the Database Instance you want to add ACL rules to.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param rules: ACL rules to add to the Database Instance.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`AddInstanceACLRulesResponse <AddInstanceACLRulesResponse>`
 
         Usage:
@@ -1601,6 +1605,7 @@ class DocumentDbV1Beta1API(API):
 
             result = await api.add_instance_acl_rules(
                 instance_id="example",
+                rules=[],
             )
         """
 
@@ -1615,8 +1620,8 @@ class DocumentDbV1Beta1API(API):
             body=marshal_AddInstanceACLRulesRequest(
                 AddInstanceACLRulesRequest(
                     instance_id=instance_id,
-                    region=region,
                     rules=rules,
+                    region=region,
                 ),
                 self.client,
             ),
@@ -1629,15 +1634,15 @@ class DocumentDbV1Beta1API(API):
         self,
         *,
         instance_id: str,
+        rules: List[ACLRuleRequest],
         region: Optional[Region] = None,
-        rules: Optional[List[ACLRuleRequest]] = None,
     ) -> SetInstanceACLRulesResponse:
         """
         Set ACL rules for a Database Instance.
         Replace all the ACL rules of a Database Instance.
         :param instance_id: UUID of the Database Instance where the ACL rules must be set.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param rules: ACL rules to define for the Database Instance.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`SetInstanceACLRulesResponse <SetInstanceACLRulesResponse>`
 
         Usage:
@@ -1645,6 +1650,7 @@ class DocumentDbV1Beta1API(API):
 
             result = await api.set_instance_acl_rules(
                 instance_id="example",
+                rules=[],
             )
         """
 
@@ -1659,8 +1665,8 @@ class DocumentDbV1Beta1API(API):
             body=marshal_SetInstanceACLRulesRequest(
                 SetInstanceACLRulesRequest(
                     instance_id=instance_id,
-                    region=region,
                     rules=rules,
+                    region=region,
                 ),
                 self.client,
             ),
@@ -1673,15 +1679,15 @@ class DocumentDbV1Beta1API(API):
         self,
         *,
         instance_id: str,
+        acl_rule_ips: List[str],
         region: Optional[Region] = None,
-        acl_rule_ips: Optional[List[str]] = None,
     ) -> DeleteInstanceACLRulesResponse:
         """
         Delete ACL rules of a Database Instance.
         Delete one or more ACL rules of a Database Instance.
         :param instance_id: UUID of the Database Instance you want to delete an ACL rule from.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param acl_rule_ips: IP addresses defined in the ACL rules of the Database Instance.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`DeleteInstanceACLRulesResponse <DeleteInstanceACLRulesResponse>`
 
         Usage:
@@ -1689,6 +1695,7 @@ class DocumentDbV1Beta1API(API):
 
             result = await api.delete_instance_acl_rules(
                 instance_id="example",
+                acl_rule_ips=[],
             )
         """
 
@@ -1703,8 +1710,8 @@ class DocumentDbV1Beta1API(API):
             body=marshal_DeleteInstanceACLRulesRequest(
                 DeleteInstanceACLRulesRequest(
                     instance_id=instance_id,
-                    region=region,
                     acl_rule_ips=acl_rule_ips,
+                    region=region,
                 ),
                 self.client,
             ),
@@ -1807,19 +1814,19 @@ class DocumentDbV1Beta1API(API):
     async def create_user(
         self,
         *,
-        is_admin: bool,
-        password: str,
-        name: str,
         instance_id: str,
+        name: str,
+        password: str,
+        is_admin: bool,
         region: Optional[Region] = None,
     ) -> User:
         """
         Create a user for a Database Instance.
         Create a new user for a Database Instance. You must define the `name`, `password` and `is_admin` parameters.
-        :param is_admin: Defines whether the user will have administrative privileges.
-        :param password: Password of the user you want to create.
-        :param name: Name of the user you want to create.
         :param instance_id: UUID of the Database Instance in which you want to create a user.
+        :param name: Name of the user you want to create.
+        :param password: Password of the user you want to create.
+        :param is_admin: Defines whether the user will have administrative privileges.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`User <User>`
 
@@ -1827,10 +1834,10 @@ class DocumentDbV1Beta1API(API):
         ::
 
             result = await api.create_user(
-                is_admin=False,
-                password="example",
-                name="example",
                 instance_id="example",
+                name="example",
+                password="example",
+                is_admin=False,
             )
         """
 
@@ -1844,10 +1851,10 @@ class DocumentDbV1Beta1API(API):
             f"/document-db/v1beta1/regions/{param_region}/instances/{param_instance_id}/users",
             body=marshal_CreateUserRequest(
                 CreateUserRequest(
-                    is_admin=is_admin,
-                    password=password,
-                    name=name,
                     instance_id=instance_id,
+                    name=name,
+                    password=password,
+                    is_admin=is_admin,
                     region=region,
                 ),
                 self.client,
@@ -1860,8 +1867,8 @@ class DocumentDbV1Beta1API(API):
     async def update_user(
         self,
         *,
-        name: str,
         instance_id: str,
+        name: str,
         region: Optional[Region] = None,
         password: Optional[str] = None,
         is_admin: Optional[bool] = None,
@@ -1869,8 +1876,8 @@ class DocumentDbV1Beta1API(API):
         """
         Update a user on a Database Instance.
         Update the parameters of a user on a Database Instance. You can update the `password` and `is_admin` parameters, but you cannot change the name of the user.
-        :param name: Name of the database user.
         :param instance_id: UUID of the Database Instance the user belongs to.
+        :param name: Name of the database user.
         :param region: Region to target. If none is passed will use default region from the config.
         :param password: Password of the database user.
         :param is_admin: Defines whether or not this user got administrative privileges.
@@ -1880,8 +1887,8 @@ class DocumentDbV1Beta1API(API):
         ::
 
             result = await api.update_user(
-                name="example",
                 instance_id="example",
+                name="example",
             )
         """
 
@@ -1896,8 +1903,8 @@ class DocumentDbV1Beta1API(API):
             f"/document-db/v1beta1/regions/{param_region}/instances/{param_instance_id}/users/{param_name}",
             body=marshal_UpdateUserRequest(
                 UpdateUserRequest(
-                    name=name,
                     instance_id=instance_id,
+                    name=name,
                     region=region,
                     password=password,
                     is_admin=is_admin,
@@ -1912,23 +1919,23 @@ class DocumentDbV1Beta1API(API):
     async def delete_user(
         self,
         *,
-        name: str,
         instance_id: str,
+        name: str,
         region: Optional[Region] = None,
     ) -> None:
         """
         Delete a user on a Database Instance.
         Delete a given user on a Database Instance. You must specify, in the endpoint,  the `region`, `instance_id` and `name` parameters of the user you want to delete.
-        :param name: Name of the user.
         :param instance_id: UUID of the Database Instance to delete the user from.
+        :param name: Name of the user.
         :param region: Region to target. If none is passed will use default region from the config.
 
         Usage:
         ::
 
             result = await api.delete_user(
-                name="example",
                 instance_id="example",
+                name="example",
             )
         """
 
@@ -2051,15 +2058,15 @@ class DocumentDbV1Beta1API(API):
     async def create_database(
         self,
         *,
-        name: str,
         instance_id: str,
+        name: str,
         region: Optional[Region] = None,
     ) -> Database:
         """
         Create a database in a Database Instance.
         Create a new database. You must define the `name` parameter in the request.
-        :param name: Name of the database.
         :param instance_id: UUID of the Database Instance where to create the database.
+        :param name: Name of the database.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Database <Database>`
 
@@ -2067,8 +2074,8 @@ class DocumentDbV1Beta1API(API):
         ::
 
             result = await api.create_database(
-                name="example",
                 instance_id="example",
+                name="example",
             )
         """
 
@@ -2082,8 +2089,8 @@ class DocumentDbV1Beta1API(API):
             f"/document-db/v1beta1/regions/{param_region}/instances/{param_instance_id}/databases",
             body=marshal_CreateDatabaseRequest(
                 CreateDatabaseRequest(
-                    name=name,
                     instance_id=instance_id,
+                    name=name,
                     region=region,
                 ),
                 self.client,
@@ -2096,23 +2103,23 @@ class DocumentDbV1Beta1API(API):
     async def delete_database(
         self,
         *,
-        name: str,
         instance_id: str,
+        name: str,
         region: Optional[Region] = None,
     ) -> None:
         """
         Delete a database in a Database Instance.
         Delete a given database on a Database Instance. You must specify, in the endpoint, the `region`, `instance_id` and `name` parameters of the database you want to delete.
-        :param name: Name of the database to delete.
         :param instance_id: UUID of the Database Instance where to delete the database.
+        :param name: Name of the database to delete.
         :param region: Region to target. If none is passed will use default region from the config.
 
         Usage:
         ::
 
             result = await api.delete_database(
-                name="example",
                 instance_id="example",
+                name="example",
             )
         """
 
@@ -2229,18 +2236,18 @@ class DocumentDbV1Beta1API(API):
     async def set_privilege(
         self,
         *,
-        user_name: str,
-        database_name: str,
         instance_id: str,
+        database_name: str,
+        user_name: str,
         region: Optional[Region] = None,
         permission: Optional[Permission] = None,
     ) -> Privilege:
         """
         Set user privileges for a database.
         Set the privileges of a user on a database. You must define `database_name`, `user_name` and `permission` in the request body.
-        :param user_name: Name of the user.
-        :param database_name: Name of the database.
         :param instance_id: UUID of the Database Instance.
+        :param database_name: Name of the database.
+        :param user_name: Name of the user.
         :param region: Region to target. If none is passed will use default region from the config.
         :param permission: Permission to set (Read, Read/Write, All, Custom).
         :return: :class:`Privilege <Privilege>`
@@ -2249,9 +2256,9 @@ class DocumentDbV1Beta1API(API):
         ::
 
             result = await api.set_privilege(
-                user_name="example",
-                database_name="example",
                 instance_id="example",
+                database_name="example",
+                user_name="example",
             )
         """
 
@@ -2265,9 +2272,9 @@ class DocumentDbV1Beta1API(API):
             f"/document-db/v1beta1/regions/{param_region}/instances/{param_instance_id}/privileges",
             body=marshal_SetPrivilegeRequest(
                 SetPrivilegeRequest(
-                    user_name=user_name,
-                    database_name=database_name,
                     instance_id=instance_id,
+                    database_name=database_name,
+                    user_name=user_name,
                     region=region,
                     permission=permission,
                 ),
@@ -2582,8 +2589,8 @@ class DocumentDbV1Beta1API(API):
     async def create_instance_from_snapshot(
         self,
         *,
-        instance_name: str,
         snapshot_id: str,
+        instance_name: str,
         region: Optional[Region] = None,
         is_ha_cluster: Optional[bool] = None,
         node_type: Optional[str] = None,
@@ -2591,8 +2598,8 @@ class DocumentDbV1Beta1API(API):
         """
         Create a new Database Instance from a snapshot.
         Restore a snapshot. When you restore a snapshot, a new Instance is created and billed to your account. Note that is possible to select a larger node type for your new Database Instance. However, the Block volume size will be the same as the size of the restored snapshot. All Instance settings will be restored if you chose a node type with the same or more memory size than the initial Instance. Settings will be reset to the default if your node type has less memory.
-        :param instance_name: Name of the Database Instance created with the snapshot.
         :param snapshot_id: Block snapshot of the Database Instance.
+        :param instance_name: Name of the Database Instance created with the snapshot.
         :param region: Region to target. If none is passed will use default region from the config.
         :param is_ha_cluster: Defines whether or not High Availability is enabled on the new Database Instance.
         :param node_type: The node type used to restore the snapshot.
@@ -2602,8 +2609,8 @@ class DocumentDbV1Beta1API(API):
         ::
 
             result = await api.create_instance_from_snapshot(
-                instance_name="example",
                 snapshot_id="example",
+                instance_name="example",
             )
         """
 
@@ -2617,8 +2624,8 @@ class DocumentDbV1Beta1API(API):
             f"/document-db/v1beta1/regions/{param_region}/snapshots/{param_snapshot_id}/create-instance",
             body=marshal_CreateInstanceFromSnapshotRequest(
                 CreateInstanceFromSnapshotRequest(
-                    instance_name=instance_name,
                     snapshot_id=snapshot_id,
+                    instance_name=instance_name,
                     region=region,
                     is_ha_cluster=is_ha_cluster,
                     node_type=node_type,
@@ -2743,15 +2750,15 @@ class DocumentDbV1Beta1API(API):
     async def migrate_endpoint(
         self,
         *,
-        instance_id: str,
         endpoint_id: str,
+        instance_id: str,
         region: Optional[Region] = None,
     ) -> Endpoint:
         """
         Migrate Database Instance endpoint.
         Migrate an existing Database Instance endpoint to another Database Instance.
-        :param instance_id: UUID of the instance you want to attach the endpoint to.
         :param endpoint_id: UUID of the endpoint you want to migrate.
+        :param instance_id: UUID of the instance you want to attach the endpoint to.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Endpoint <Endpoint>`
 
@@ -2759,8 +2766,8 @@ class DocumentDbV1Beta1API(API):
         ::
 
             result = await api.migrate_endpoint(
-                instance_id="example",
                 endpoint_id="example",
+                instance_id="example",
             )
         """
 
@@ -2774,8 +2781,8 @@ class DocumentDbV1Beta1API(API):
             f"/document-db/v1beta1/regions/{param_region}/endpoints/{param_endpoint_id}/migrate",
             body=marshal_MigrateEndpointRequest(
                 MigrateEndpointRequest(
-                    instance_id=instance_id,
                     endpoint_id=endpoint_id,
+                    instance_id=instance_id,
                     region=region,
                 ),
                 self.client,

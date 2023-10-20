@@ -60,19 +60,9 @@ class MACAddressType(str, Enum, metaclass=StrEnumMeta):
 
 @dataclass
 class MACAddress:
-    zone: Zone
+    id: str
     """
-    MAC address IP Availability Zone.
-    """
-
-    status: MACAddressStatus
-    """
-    Status of virtual MAC.
-    """
-
-    mac_type: MACAddressType
-    """
-    Type of virtual MAC.
+    ID of the flexible IP.
     """
 
     mac_address: str
@@ -80,9 +70,19 @@ class MACAddress:
     MAC address of the Virtual MAC.
     """
 
-    id: str
+    mac_type: MACAddressType
     """
-    ID of the flexible IP.
+    Type of virtual MAC.
+    """
+
+    status: MACAddressStatus
+    """
+    Status of virtual MAC.
+    """
+
+    zone: Zone
+    """
+    MAC address IP Availability Zone.
     """
 
     updated_at: Optional[datetime]
@@ -98,9 +98,29 @@ class MACAddress:
 
 @dataclass
 class FlexibleIP:
-    ip_address: str
+    id: str
     """
-    IP of the flexible IP.
+    ID of the flexible IP.
+    """
+
+    organization_id: str
+    """
+    ID of the Organization the flexible IP is attached to.
+    """
+
+    project_id: str
+    """
+    ID of the Project the flexible IP is attached to.
+    """
+
+    description: str
+    """
+    Flexible IP description.
+    """
+
+    tags: List[str]
+    """
+    Flexible IP tags.
     """
 
     status: FlexibleIPStatus
@@ -113,6 +133,26 @@ class FlexibleIP:
 - locked: the resource of the flexible IP is locked.
     """
 
+    ip_address: str
+    """
+    IP of the flexible IP.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Date on which the flexible IP was last updated.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Date on which the flexible IP was created.
+    """
+
+    mac_address: MACAddress
+    """
+    MAC address of the flexible IP.
+    """
+
     reverse: str
     """
     Reverse DNS value.
@@ -123,54 +163,19 @@ class FlexibleIP:
     Availability Zone of the flexible IP.
     """
 
-    tags: List[str]
-    """
-    Flexible IP tags.
-    """
-
-    id: str
-    """
-    ID of the flexible IP.
-    """
-
-    project_id: str
-    """
-    ID of the Project the flexible IP is attached to.
-    """
-
-    organization_id: str
-    """
-    ID of the Organization the flexible IP is attached to.
-    """
-
-    mac_address: MACAddress
-    """
-    MAC address of the flexible IP.
-    """
-
-    description: str
-    """
-    Flexible IP description.
-    """
-
     server_id: Optional[str]
     """
     ID of the server linked to the flexible IP.
     """
 
-    created_at: Optional[datetime]
-    """
-    Date on which the flexible IP was created.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Date on which the flexible IP was last updated.
-    """
-
 
 @dataclass
 class AttachFlexibleIPRequest:
+    fips_ids: List[str]
+    """
+    Multiple IDs can be provided, but note that flexible IPs must belong to the same MAC group (see details about MAC groups).
+    """
+
     server_id: str
     """
     ID of the server on which to attach the flexible IPs.
@@ -181,35 +186,30 @@ class AttachFlexibleIPRequest:
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    fips_ids: Optional[List[str]]
-    """
-    Multiple IDs can be provided, but note that flexible IPs must belong to the same MAC group (see details about MAC groups).
-    """
-
 
 @dataclass
 class AttachFlexibleIPsResponse:
-    flexible_ips: List[FlexibleIP]
-    """
-    List of flexible IPs in an updating state.
-    """
-
     total_count: int
     """
     Total count of flexible IPs that are being updated.
     """
 
+    flexible_ips: List[FlexibleIP]
+    """
+    List of flexible IPs in an updating state.
+    """
+
 
 @dataclass
 class CreateFlexibleIPRequest:
-    is_ipv6: bool
-    """
-    Defines whether the flexible IP has an IPv6 address.
-    """
-
     description: str
     """
     Flexible IP description (max. of 255 characters).
+    """
+
+    is_ipv6: bool
+    """
+    Defines whether the flexible IP has an IPv6 address.
     """
 
     zone: Optional[Zone]
@@ -266,40 +266,40 @@ class DeleteMACAddrRequest:
 
 @dataclass
 class DetachFlexibleIPRequest:
+    fips_ids: List[str]
+    """
+    List of flexible IP IDs to detach from a server. Multiple IDs can be provided. Note that flexible IPs must belong to the same MAC group.
+    """
+
     zone: Optional[Zone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    fips_ids: Optional[List[str]]
-    """
-    List of flexible IP IDs to detach from a server. Multiple IDs can be provided. Note that flexible IPs must belong to the same MAC group.
-    """
-
 
 @dataclass
 class DetachFlexibleIPsResponse:
-    flexible_ips: List[FlexibleIP]
-    """
-    List of flexible IPs in a detaching state.
-    """
-
     total_count: int
     """
     Total count of flexible IPs that are being detached.
     """
 
+    flexible_ips: List[FlexibleIP]
+    """
+    List of flexible IPs in a detaching state.
+    """
+
 
 @dataclass
 class DuplicateMACAddrRequest:
-    duplicate_from_fip_id: str
-    """
-    Note that flexible IPs need to be attached to the same server.
-    """
-
     fip_id: str
     """
     Note that the flexible IPs need to be attached to the same server.
+    """
+
+    duplicate_from_fip_id: str
+    """
+    Note that flexible IPs need to be attached to the same server.
     """
 
     zone: Optional[Zone]
@@ -315,14 +315,14 @@ class GenerateMACAddrRequest:
     ID of the flexible IP for which to generate a virtual MAC.
     """
 
+    mac_type: MACAddressType
+    """
+    TODO.
+    """
+
     zone: Optional[Zone]
     """
     Zone to target. If none is passed will use default zone from the config.
-    """
-
-    mac_type: Optional[MACAddressType]
-    """
-    TODO.
     """
 
 
@@ -389,22 +389,22 @@ class ListFlexibleIPsRequest:
 
 @dataclass
 class ListFlexibleIPsResponse:
-    flexible_ips: List[FlexibleIP]
-    """
-    List of all flexible IPs.
-    """
-
     total_count: int
     """
     Total count of matching flexible IPs.
     """
 
+    flexible_ips: List[FlexibleIP]
+    """
+    List of all flexible IPs.
+    """
+
 
 @dataclass
 class MoveMACAddrRequest:
-    dst_fip_id: str
-
     fip_id: str
+
+    dst_fip_id: str
 
     zone: Optional[Zone]
     """

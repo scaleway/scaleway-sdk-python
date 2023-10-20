@@ -585,11 +585,11 @@ class FunctionV1Beta1API(API):
         *,
         namespace_id: str,
         region: Optional[Region] = None,
-        runtime: Optional[FunctionRuntime] = None,
+        name: Optional[str] = None,
         environment_variables: Optional[Dict[str, str]] = None,
         min_scale: Optional[int] = None,
         max_scale: Optional[int] = None,
-        name: Optional[str] = None,
+        runtime: Optional[FunctionRuntime] = None,
         memory_limit: Optional[int] = None,
         timeout: Optional[str] = None,
         handler: Optional[str] = None,
@@ -603,11 +603,11 @@ class FunctionV1Beta1API(API):
         Create a new function in the specified region for a specified Organization or Project.
         :param namespace_id: UUID of the namespace the function will be created in.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param runtime: Runtime to use with the function.
+        :param name: Name of the function to create.
         :param environment_variables: Environment variables of the function.
         :param min_scale: Minumum number of instances to scale the function to.
         :param max_scale: Maximum number of instances to scale the function to.
-        :param name: Name of the function to create.
+        :param runtime: Runtime to use with the function.
         :param memory_limit: Memory limit of the function in MB.
         :param timeout: Request processing time limit for the function.
         :param handler: Handler to use with the function.
@@ -638,11 +638,11 @@ class FunctionV1Beta1API(API):
                 CreateFunctionRequest(
                     namespace_id=namespace_id,
                     region=region,
-                    runtime=runtime,
+                    name=name or random_name(prefix="fn"),
                     environment_variables=environment_variables,
                     min_scale=min_scale,
                     max_scale=max_scale,
-                    name=name or random_name(prefix="fn"),
+                    runtime=runtime,
                     memory_limit=memory_limit,
                     timeout=timeout,
                     handler=handler,
@@ -663,11 +663,11 @@ class FunctionV1Beta1API(API):
         *,
         function_id: str,
         region: Optional[Region] = None,
-        memory_limit: Optional[int] = None,
+        environment_variables: Optional[Dict[str, str]] = None,
         min_scale: Optional[int] = None,
         max_scale: Optional[int] = None,
         runtime: Optional[FunctionRuntime] = None,
-        environment_variables: Optional[Dict[str, str]] = None,
+        memory_limit: Optional[int] = None,
         timeout: Optional[str] = None,
         redeploy: Optional[bool] = None,
         handler: Optional[str] = None,
@@ -681,11 +681,11 @@ class FunctionV1Beta1API(API):
         Update the function associated with the specified ID.
         :param function_id: UUID of the function to update.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param memory_limit: Memory limit of the function in MB.
+        :param environment_variables: Environment variables of the function to update.
         :param min_scale: Minumum number of instances to scale the function to.
         :param max_scale: Maximum number of instances to scale the function to.
         :param runtime: Runtime to use with the function.
-        :param environment_variables: Environment variables of the function to update.
+        :param memory_limit: Memory limit of the function in MB.
         :param timeout: Processing time limit for the function.
         :param redeploy: Redeploy failed function.
         :param handler: Handler to use with the function.
@@ -717,11 +717,11 @@ class FunctionV1Beta1API(API):
                 UpdateFunctionRequest(
                     function_id=function_id,
                     region=region,
-                    memory_limit=memory_limit,
+                    environment_variables=environment_variables,
                     min_scale=min_scale,
                     max_scale=max_scale,
                     runtime=runtime,
-                    environment_variables=environment_variables,
+                    memory_limit=memory_limit,
                     timeout=timeout,
                     redeploy=redeploy,
                     handler=handler,
@@ -838,15 +838,15 @@ class FunctionV1Beta1API(API):
     async def get_function_upload_url(
         self,
         *,
-        content_length: int,
         function_id: str,
+        content_length: int,
         region: Optional[Region] = None,
     ) -> UploadURL:
         """
         Get an upload URL of a function.
         Get an upload URL of a function associated with the specified ID.
-        :param content_length: Size of the archive to upload in bytes.
         :param function_id: UUID of the function to get the upload URL for.
+        :param content_length: Size of the archive to upload in bytes.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`UploadURL <UploadURL>`
 
@@ -854,8 +854,8 @@ class FunctionV1Beta1API(API):
         ::
 
             result = await api.get_function_upload_url(
-                content_length=1,
                 function_id="example",
+                content_length=1,
             )
         """
 
@@ -1068,8 +1068,8 @@ class FunctionV1Beta1API(API):
     async def create_cron(
         self,
         *,
-        schedule: str,
         function_id: str,
+        schedule: str,
         region: Optional[Region] = None,
         args: Optional[Dict[str, Any]] = None,
         name: Optional[str] = None,
@@ -1077,8 +1077,8 @@ class FunctionV1Beta1API(API):
         """
         Create a new cron.
         Create a new cronjob for a function with the specified ID.
-        :param schedule: Schedule of the cron in UNIX cron format.
         :param function_id: UUID of the function to use the cron with.
+        :param schedule: Schedule of the cron in UNIX cron format.
         :param region: Region to target. If none is passed will use default region from the config.
         :param args: Arguments to use with the cron.
         :param name: Name of the cron.
@@ -1088,8 +1088,8 @@ class FunctionV1Beta1API(API):
         ::
 
             result = await api.create_cron(
-                schedule="example",
                 function_id="example",
+                schedule="example",
             )
         """
 
@@ -1102,8 +1102,8 @@ class FunctionV1Beta1API(API):
             f"/functions/v1beta1/regions/{param_region}/crons",
             body=marshal_CreateCronRequest(
                 CreateCronRequest(
-                    schedule=schedule,
                     function_id=function_id,
+                    schedule=schedule,
                     region=region,
                     args=args,
                     name=name,
@@ -1446,15 +1446,15 @@ class FunctionV1Beta1API(API):
     async def create_domain(
         self,
         *,
-        function_id: str,
         hostname: str,
+        function_id: str,
         region: Optional[Region] = None,
     ) -> Domain:
         """
         Create a domain name binding.
         Create a domain name binding for the function with the specified ID.
-        :param function_id: UUID of the function to associate the domain with.
         :param hostname: Hostame to create.
+        :param function_id: UUID of the function to associate the domain with.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Domain <Domain>`
 
@@ -1462,8 +1462,8 @@ class FunctionV1Beta1API(API):
         ::
 
             result = await api.create_domain(
-                function_id="example",
                 hostname="example",
+                function_id="example",
             )
         """
 
@@ -1476,8 +1476,8 @@ class FunctionV1Beta1API(API):
             f"/functions/v1beta1/regions/{param_region}/domains",
             body=marshal_CreateDomainRequest(
                 CreateDomainRequest(
-                    function_id=function_id,
                     hostname=hostname,
+                    function_id=function_id,
                     region=region,
                 ),
                 self.client,
@@ -1806,8 +1806,8 @@ class FunctionV1Beta1API(API):
     async def create_trigger(
         self,
         *,
-        function_id: str,
         name: str,
+        function_id: str,
         region: Optional[Region] = None,
         description: Optional[str] = None,
         scw_sqs_config: Optional[CreateTriggerRequestMnqSqsClientConfig] = None,
@@ -1836,8 +1836,8 @@ class FunctionV1Beta1API(API):
         ::
 
             result = await api.create_trigger(
-                function_id="example",
                 name="example",
+                function_id="example",
             )
         """
 
@@ -1850,8 +1850,8 @@ class FunctionV1Beta1API(API):
             f"/functions/v1beta1/regions/{param_region}/triggers",
             body=marshal_CreateTriggerRequest(
                 CreateTriggerRequest(
-                    function_id=function_id,
                     name=name,
+                    function_id=function_id,
                     region=region,
                     description=description,
                     scw_sqs_config=scw_sqs_config,

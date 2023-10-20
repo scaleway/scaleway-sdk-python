@@ -38,20 +38,20 @@ def unmarshal_Reference(data: Any) -> Reference:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("status", None)
-    args["status"] = field
-
-    field = data.get("type_", None)
-    args["type_"] = field
-
-    field = data.get("product_resource_id", None)
-    args["product_resource_id"] = field
+    field = data.get("id", None)
+    args["id"] = field
 
     field = data.get("product_resource_type", None)
     args["product_resource_type"] = field
 
-    field = data.get("id", None)
-    args["id"] = field
+    field = data.get("product_resource_id", None)
+    args["product_resource_id"] = field
+
+    field = data.get("type_", None)
+    args["type_"] = field
+
+    field = data.get("status", None)
+    args["status"] = field
 
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -84,46 +84,46 @@ def unmarshal_Volume(data: Any) -> Volume:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("tags", None)
-    args["tags"] = field
+    field = data.get("id", None)
+    args["id"] = field
+
+    field = data.get("name", None)
+    args["name"] = field
+
+    field = data.get("type_", None)
+    args["type_"] = field
+
+    field = data.get("size", None)
+    args["size"] = field
+
+    field = data.get("project_id", None)
+    args["project_id"] = field
 
     field = data.get("references", None)
     args["references"] = (
         [unmarshal_Reference(v) for v in field] if field is not None else None
     )
 
+    field = data.get("created_at", None)
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+
+    field = data.get("updated_at", None)
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+
+    field = data.get("parent_snapshot_id", None)
+    args["parent_snapshot_id"] = field
+
+    field = data.get("status", None)
+    args["status"] = field
+
+    field = data.get("tags", None)
+    args["tags"] = field
+
     field = data.get("zone", None)
     args["zone"] = field
 
     field = data.get("specs", None)
     args["specs"] = unmarshal_VolumeSpecifications(field)
-
-    field = data.get("project_id", None)
-    args["project_id"] = field
-
-    field = data.get("id", None)
-    args["id"] = field
-
-    field = data.get("type_", None)
-    args["type_"] = field
-
-    field = data.get("name", None)
-    args["name"] = field
-
-    field = data.get("status", None)
-    args["status"] = field
-
-    field = data.get("size", None)
-    args["size"] = field
-
-    field = data.get("parent_snapshot_id", None)
-    args["parent_snapshot_id"] = field
-
-    field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-
-    field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return Volume(**args)
 
@@ -136,17 +136,17 @@ def unmarshal_SnapshotParentVolume(data: Any) -> SnapshotParentVolume:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("status", None)
-    args["status"] = field
-
-    field = data.get("type_", None)
-    args["type_"] = field
+    field = data.get("id", None)
+    args["id"] = field
 
     field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("id", None)
-    args["id"] = field
+    field = data.get("type_", None)
+    args["type_"] = field
+
+    field = data.get("status", None)
+    args["status"] = field
 
     return SnapshotParentVolume(**args)
 
@@ -159,32 +159,32 @@ def unmarshal_SnapshotSummary(data: Any) -> SnapshotSummary:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("class_", None)
-    args["class_"] = field
-
-    field = data.get("zone", None)
-    args["zone"] = field
-
-    field = data.get("tags", None)
-    args["tags"] = field
-
-    field = data.get("status", None)
-    args["status"] = field
-
-    field = data.get("project_id", None)
-    args["project_id"] = field
-
-    field = data.get("size", None)
-    args["size"] = field
-
-    field = data.get("parent_volume", None)
-    args["parent_volume"] = unmarshal_SnapshotParentVolume(field)
+    field = data.get("id", None)
+    args["id"] = field
 
     field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("id", None)
-    args["id"] = field
+    field = data.get("parent_volume", None)
+    args["parent_volume"] = unmarshal_SnapshotParentVolume(field)
+
+    field = data.get("size", None)
+    args["size"] = field
+
+    field = data.get("project_id", None)
+    args["project_id"] = field
+
+    field = data.get("status", None)
+    args["status"] = field
+
+    field = data.get("tags", None)
+    args["tags"] = field
+
+    field = data.get("zone", None)
+    args["zone"] = field
+
+    field = data.get("class_", None)
+    args["class_"] = field
 
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -203,13 +203,13 @@ def unmarshal_ListSnapshotsResponse(data: Any) -> ListSnapshotsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    args["total_count"] = field
-
     field = data.get("snapshots", None)
     args["snapshots"] = (
         [unmarshal_SnapshotSummary(v) for v in field] if field is not None else None
     )
+
+    field = data.get("total_count", None)
+    args["total_count"] = field
 
     return ListSnapshotsResponse(**args)
 
@@ -222,11 +222,11 @@ def unmarshal_VolumeType(data: Any) -> VolumeType:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("specs", None)
-    args["specs"] = unmarshal_VolumeSpecifications(field)
-
     field = data.get("type_", None)
     args["type_"] = field
+
+    field = data.get("specs", None)
+    args["specs"] = unmarshal_VolumeSpecifications(field)
 
     field = data.get("pricing", None)
     args["pricing"] = unmarshal_Money(field)
@@ -245,13 +245,13 @@ def unmarshal_ListVolumeTypesResponse(data: Any) -> ListVolumeTypesResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    args["total_count"] = field
-
     field = data.get("volume_types", None)
     args["volume_types"] = (
         [unmarshal_VolumeType(v) for v in field] if field is not None else None
     )
+
+    field = data.get("total_count", None)
+    args["total_count"] = field
 
     return ListVolumeTypesResponse(**args)
 
@@ -264,13 +264,13 @@ def unmarshal_ListVolumesResponse(data: Any) -> ListVolumesResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("total_count", None)
-    args["total_count"] = field
-
     field = data.get("volumes", None)
     args["volumes"] = (
         [unmarshal_Volume(v) for v in field] if field is not None else None
     )
+
+    field = data.get("total_count", None)
+    args["total_count"] = field
 
     return ListVolumesResponse(**args)
 
@@ -283,37 +283,37 @@ def unmarshal_Snapshot(data: Any) -> Snapshot:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("class_", None)
-    args["class_"] = field
+    field = data.get("id", None)
+    args["id"] = field
 
-    field = data.get("zone", None)
-    args["zone"] = field
+    field = data.get("name", None)
+    args["name"] = field
 
-    field = data.get("tags", None)
-    args["tags"] = field
+    field = data.get("parent_volume", None)
+    args["parent_volume"] = unmarshal_SnapshotParentVolume(field)
 
-    field = data.get("status", None)
-    args["status"] = field
+    field = data.get("size", None)
+    args["size"] = field
+
+    field = data.get("project_id", None)
+    args["project_id"] = field
 
     field = data.get("references", None)
     args["references"] = (
         [unmarshal_Reference(v) for v in field] if field is not None else None
     )
 
-    field = data.get("project_id", None)
-    args["project_id"] = field
+    field = data.get("status", None)
+    args["status"] = field
 
-    field = data.get("size", None)
-    args["size"] = field
+    field = data.get("tags", None)
+    args["tags"] = field
 
-    field = data.get("parent_volume", None)
-    args["parent_volume"] = unmarshal_SnapshotParentVolume(field)
+    field = data.get("zone", None)
+    args["zone"] = field
 
-    field = data.get("name", None)
-    args["name"] = field
-
-    field = data.get("id", None)
-    args["id"] = field
+    field = data.get("class_", None)
+    args["class_"] = field
 
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -330,11 +330,11 @@ def marshal_CreateSnapshotRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.name is not None:
-        output["name"] = request.name
-
     if request.volume_id is not None:
         output["volume_id"] = request.volume_id
+
+    if request.name is not None:
+        output["name"] = request.name
 
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id

@@ -274,27 +274,27 @@ class BaremetalV1API(API):
     async def create_server(
         self,
         *,
-        install: CreateServerRequestInstall,
-        description: str,
-        name: str,
         offer_id: str,
+        name: str,
+        description: str,
         zone: Optional[Zone] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         tags: Optional[List[str]] = None,
+        install: Optional[CreateServerRequestInstall] = None,
         option_ids: Optional[List[str]] = None,
     ) -> Server:
         """
         Create an Elastic Metal server.
         Create a new Elastic Metal server. Once the server is created, proceed with the [installation of an OS](#post-3e949e).
-        :param install: Object describing the configuration details of the OS installation on the server.
-        :param description: Description associated with the server, max 255 characters.
-        :param name: Name of the server (≠hostname).
         :param offer_id: Offer ID of the new server.
+        :param name: Name of the server (≠hostname).
+        :param description: Description associated with the server, max 255 characters.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param organization_id: Organization ID with which the server will be created.
         :param project_id: Project ID with which the server will be created.
         :param tags: Tags to associate to the server.
+        :param install: Object describing the configuration details of the OS installation on the server.
         :param option_ids: IDs of options to enable on server.
         :return: :class:`Server <Server>`
 
@@ -302,10 +302,9 @@ class BaremetalV1API(API):
         ::
 
             result = await api.create_server(
-                install=CreateServerRequestInstall(),
-                description="example",
-                name="example",
                 offer_id="example",
+                name="example",
+                description="example",
             )
         """
 
@@ -316,12 +315,12 @@ class BaremetalV1API(API):
             f"/baremetal/v1/zones/{param_zone}/servers",
             body=marshal_CreateServerRequest(
                 CreateServerRequest(
-                    install=install,
-                    description=description,
-                    name=name,
                     offer_id=offer_id,
+                    name=name,
+                    description=description,
                     zone=zone,
                     tags=tags,
+                    install=install,
                     option_ids=option_ids,
                     organization_id=organization_id,
                     project_id=project_id,
@@ -384,11 +383,11 @@ class BaremetalV1API(API):
     async def install_server(
         self,
         *,
-        hostname: str,
-        os_id: str,
         server_id: str,
+        os_id: str,
+        hostname: str,
+        ssh_key_ids: List[str],
         zone: Optional[Zone] = None,
-        ssh_key_ids: Optional[List[str]] = None,
         user: Optional[str] = None,
         password: Optional[str] = None,
         service_user: Optional[str] = None,
@@ -397,11 +396,11 @@ class BaremetalV1API(API):
         """
         Install an Elastic Metal server.
         Install an Operating System (OS) on the Elastic Metal server with a specific ID.
-        :param hostname: Hostname of the server.
-        :param os_id: ID of the OS to installation on the server.
         :param server_id: Server ID to install.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param os_id: ID of the OS to installation on the server.
+        :param hostname: Hostname of the server.
         :param ssh_key_ids: SSH key IDs authorized on the server.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param user: User used for the installation.
         :param password: Password used for the installation.
         :param service_user: User used for the service to install.
@@ -412,9 +411,10 @@ class BaremetalV1API(API):
         ::
 
             result = await api.install_server(
-                hostname="example",
-                os_id="example",
                 server_id="example",
+                os_id="example",
+                hostname="example",
+                ssh_key_ids=[],
             )
         """
 
@@ -426,11 +426,11 @@ class BaremetalV1API(API):
             f"/baremetal/v1/zones/{param_zone}/servers/{param_server_id}/install",
             body=marshal_InstallServerRequest(
                 InstallServerRequest(
-                    hostname=hostname,
-                    os_id=os_id,
                     server_id=server_id,
-                    zone=zone,
+                    os_id=os_id,
+                    hostname=hostname,
                     ssh_key_ids=ssh_key_ids,
+                    zone=zone,
                     user=user,
                     password=password,
                     service_user=service_user,
@@ -710,8 +710,8 @@ class BaremetalV1API(API):
     async def start_bmc_access(
         self,
         *,
-        ip: str,
         server_id: str,
+        ip: str,
         zone: Optional[Zone] = None,
     ) -> BMCAccess:
         """
@@ -720,8 +720,8 @@ class BaremetalV1API(API):
         The BMC (Baseboard Management Controller) access is available one hour after the installation of the server.
         You need first to create an option Remote Access. You will find the ID and the price with a call to listOffers (https://developers.scaleway.com/en/products/baremetal/api/#get-78db92). Then add the option https://developers.scaleway.com/en/products/baremetal/api/#post-b14abd.
         After adding the BMC option, you need to Get Remote Access to get the login/password https://developers.scaleway.com/en/products/baremetal/api/#get-cefc0f. Do not forget to delete the Option after use.
-        :param ip: The IP authorized to connect to the server.
         :param server_id: ID of the server.
+        :param ip: The IP authorized to connect to the server.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`BMCAccess <BMCAccess>`
 
@@ -729,8 +729,8 @@ class BaremetalV1API(API):
         ::
 
             result = await api.start_bmc_access(
-                ip="example",
                 server_id="example",
+                ip="example",
             )
         """
 
@@ -742,8 +742,8 @@ class BaremetalV1API(API):
             f"/baremetal/v1/zones/{param_zone}/servers/{param_server_id}/bmc-access",
             body=marshal_StartBMCAccessRequest(
                 StartBMCAccessRequest(
-                    ip=ip,
                     server_id=server_id,
+                    ip=ip,
                     zone=zone,
                 ),
                 self.client,
@@ -818,16 +818,16 @@ class BaremetalV1API(API):
     async def update_ip(
         self,
         *,
-        ip_id: str,
         server_id: str,
+        ip_id: str,
         zone: Optional[Zone] = None,
         reverse: Optional[str] = None,
     ) -> IP:
         """
         Update IP.
         Configure the IP address associated with the server ID and IP ID. You can use this method to set a reverse DNS for an IP address.
-        :param ip_id: ID of the IP to update.
         :param server_id: ID of the server.
+        :param ip_id: ID of the IP to update.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param reverse: New reverse IP to update, not updated if null.
         :return: :class:`IP <IP>`
@@ -836,8 +836,8 @@ class BaremetalV1API(API):
         ::
 
             result = await api.update_ip(
-                ip_id="example",
                 server_id="example",
+                ip_id="example",
             )
         """
 
@@ -850,8 +850,8 @@ class BaremetalV1API(API):
             f"/baremetal/v1/zones/{param_zone}/servers/{param_server_id}/ips/{param_ip_id}",
             body=marshal_UpdateIPRequest(
                 UpdateIPRequest(
-                    ip_id=ip_id,
                     server_id=server_id,
+                    ip_id=ip_id,
                     zone=zone,
                     reverse=reverse,
                 ),
@@ -865,16 +865,16 @@ class BaremetalV1API(API):
     async def add_option_server(
         self,
         *,
-        option_id: str,
         server_id: str,
+        option_id: str,
         zone: Optional[Zone] = None,
         expires_at: Optional[datetime] = None,
     ) -> Server:
         """
         Add server option.
         Add an option, such as Private Networks, to a specific server.
-        :param option_id: ID of the option to add.
         :param server_id: ID of the server.
+        :param option_id: ID of the option to add.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param expires_at: Auto expire the option after this date.
         :return: :class:`Server <Server>`
@@ -883,8 +883,8 @@ class BaremetalV1API(API):
         ::
 
             result = await api.add_option_server(
-                option_id="example",
                 server_id="example",
+                option_id="example",
             )
         """
 
@@ -897,8 +897,8 @@ class BaremetalV1API(API):
             f"/baremetal/v1/zones/{param_zone}/servers/{param_server_id}/options/{param_option_id}",
             body=marshal_AddOptionServerRequest(
                 AddOptionServerRequest(
-                    option_id=option_id,
                     server_id=server_id,
+                    option_id=option_id,
                     zone=zone,
                     expires_at=expires_at,
                 ),
@@ -912,15 +912,15 @@ class BaremetalV1API(API):
     async def delete_option_server(
         self,
         *,
-        option_id: str,
         server_id: str,
+        option_id: str,
         zone: Optional[Zone] = None,
     ) -> Server:
         """
         Delete server option.
         Delete an option from a specific server.
-        :param option_id: ID of the option to delete.
         :param server_id: ID of the server.
+        :param option_id: ID of the option to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Server <Server>`
 
@@ -928,8 +928,8 @@ class BaremetalV1API(API):
         ::
 
             result = await api.delete_option_server(
-                option_id="example",
                 server_id="example",
+                option_id="example",
             )
         """
 
@@ -1396,15 +1396,15 @@ class BaremetalV1PrivateNetworkAPI(API):
     async def add_server_private_network(
         self,
         *,
-        private_network_id: str,
         server_id: str,
+        private_network_id: str,
         zone: Optional[Zone] = None,
     ) -> ServerPrivateNetwork:
         """
         Add a server to a Private Network.
         Add a server to a Private Network.
-        :param private_network_id: The ID of the Private Network.
         :param server_id: The ID of the server.
+        :param private_network_id: The ID of the Private Network.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`ServerPrivateNetwork <ServerPrivateNetwork>`
 
@@ -1412,8 +1412,8 @@ class BaremetalV1PrivateNetworkAPI(API):
         ::
 
             result = await api.add_server_private_network(
-                private_network_id="example",
                 server_id="example",
+                private_network_id="example",
             )
         """
 
@@ -1425,8 +1425,8 @@ class BaremetalV1PrivateNetworkAPI(API):
             f"/baremetal/v1/zones/{param_zone}/servers/{param_server_id}/private-networks",
             body=marshal_PrivateNetworkApiAddServerPrivateNetworkRequest(
                 PrivateNetworkApiAddServerPrivateNetworkRequest(
-                    private_network_id=private_network_id,
                     server_id=server_id,
+                    private_network_id=private_network_id,
                     zone=zone,
                 ),
                 self.client,
@@ -1440,15 +1440,15 @@ class BaremetalV1PrivateNetworkAPI(API):
         self,
         *,
         server_id: str,
+        private_network_ids: List[str],
         zone: Optional[Zone] = None,
-        private_network_ids: Optional[List[str]] = None,
     ) -> SetServerPrivateNetworksResponse:
         """
         Set multiple Private Networks on a server.
         Set multiple Private Networks on a server.
         :param server_id: The ID of the server.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param private_network_ids: The IDs of the Private Networks.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`SetServerPrivateNetworksResponse <SetServerPrivateNetworksResponse>`
 
         Usage:
@@ -1456,6 +1456,7 @@ class BaremetalV1PrivateNetworkAPI(API):
 
             result = await api.set_server_private_networks(
                 server_id="example",
+                private_network_ids=[],
             )
         """
 
@@ -1468,8 +1469,8 @@ class BaremetalV1PrivateNetworkAPI(API):
             body=marshal_PrivateNetworkApiSetServerPrivateNetworksRequest(
                 PrivateNetworkApiSetServerPrivateNetworksRequest(
                     server_id=server_id,
-                    zone=zone,
                     private_network_ids=private_network_ids,
+                    zone=zone,
                 ),
                 self.client,
             ),
@@ -1579,23 +1580,23 @@ class BaremetalV1PrivateNetworkAPI(API):
     async def delete_server_private_network(
         self,
         *,
-        private_network_id: str,
         server_id: str,
+        private_network_id: str,
         zone: Optional[Zone] = None,
     ) -> None:
         """
         Delete a Private Network.
         Delete a Private Network.
-        :param private_network_id: The ID of the Private Network.
         :param server_id: The ID of the server.
+        :param private_network_id: The ID of the Private Network.
         :param zone: Zone to target. If none is passed will use default zone from the config.
 
         Usage:
         ::
 
             result = await api.delete_server_private_network(
-                private_network_id="example",
                 server_id="example",
+                private_network_id="example",
             )
         """
 

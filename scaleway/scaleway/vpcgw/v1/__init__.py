@@ -14,11 +14,11 @@ from .types import ListPATRulesRequestOrderBy
 from .types import PATRuleProtocol
 from .types import CreateGatewayNetworkRequestIpamConfig
 from .types import DHCP
+from .types import IpamConfig
 from .types import GatewayNetwork
 from .types import GatewayType
 from .types import IP
 from .types import CreateDHCPRequest
-from .types import IpamConfig
 from .types import DHCPEntry
 from .types import Gateway
 from .types import PATRule
@@ -80,11 +80,11 @@ __all__ = [
     "PATRuleProtocol",
     "CreateGatewayNetworkRequestIpamConfig",
     "DHCP",
+    "IpamConfig",
     "GatewayNetwork",
     "GatewayType",
     "IP",
     "CreateDHCPRequest",
-    "IpamConfig",
     "DHCPEntry",
     "Gateway",
     "PATRule",

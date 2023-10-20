@@ -105,64 +105,29 @@ class OfferQuotaWarning(str, Enum, metaclass=StrEnumMeta):
 
 @dataclass
 class HostingCpanelUrls:
-    webmail: str
-
     dashboard: str
+
+    webmail: str
 
 
 @dataclass
 class HostingOption:
-    name: str
-    """
-    Option name.
-    """
-
     id: str
     """
     Option ID.
     """
 
+    name: str
+    """
+    Option name.
+    """
+
 
 @dataclass
 class OfferProduct:
-    max_addon_domains: int
+    name: str
     """
-    Limit number of add-on domains.
-    """
-
-    ram: int
-    """
-    Limit quantity of memory in gigabytes.
-    """
-
-    v_cpu: int
-    """
-    Limit number of virtual CPU.
-    """
-
-    support_included: bool
-    """
-    Whether or not support is included.
-    """
-
-    hosting_storage_quota: int
-    """
-    Limit quantity of hosting storage in gigabytes.
-    """
-
-    databases_quota: int
-    """
-    Limit number of databases.
-    """
-
-    email_storage_quota: int
-    """
-    Limit quantity of email storage in gigabytes.
-    """
-
-    email_accounts_quota: int
-    """
-    Limit number of email accounts.
+    Product name.
     """
 
     option: bool
@@ -170,27 +135,52 @@ class OfferProduct:
     Product option.
     """
 
-    name: str
+    email_accounts_quota: int
     """
-    Product name.
+    Limit number of email accounts.
+    """
+
+    email_storage_quota: int
+    """
+    Limit quantity of email storage in gigabytes.
+    """
+
+    databases_quota: int
+    """
+    Limit number of databases.
+    """
+
+    hosting_storage_quota: int
+    """
+    Limit quantity of hosting storage in gigabytes.
+    """
+
+    support_included: bool
+    """
+    Whether or not support is included.
+    """
+
+    v_cpu: int
+    """
+    Limit number of virtual CPU.
+    """
+
+    ram: int
+    """
+    Limit quantity of memory in gigabytes.
+    """
+
+    max_addon_domains: int
+    """
+    Limit number of add-on domains.
     """
 
 
 @dataclass
 class DnsRecord:
-    status: DnsRecordStatus
+    name: str
     """
-    Record status.
-    """
-
-    value: str
-    """
-    Record value.
-    """
-
-    ttl: int
-    """
-    Record time-to-live.
+    Record name.
     """
 
     type_: DnsRecordType
@@ -198,9 +188,19 @@ class DnsRecord:
     Record type.
     """
 
-    name: str
+    ttl: int
     """
-    Record name.
+    Record time-to-live.
+    """
+
+    value: str
+    """
+    Record value.
+    """
+
+    status: DnsRecordStatus
+    """
+    Record status.
     """
 
     priority: Optional[int]
@@ -211,9 +211,9 @@ class DnsRecord:
 
 @dataclass
 class Nameserver:
-    is_default: bool
+    hostname: str
     """
-    Defines whether the nameserver is the default one.
+    Hostname of the nameserver.
     """
 
     status: NameserverStatus
@@ -221,62 +221,17 @@ class Nameserver:
     Status of the nameserver.
     """
 
-    hostname: str
+    is_default: bool
     """
-    Hostname of the nameserver.
+    Defines whether the nameserver is the default one.
     """
 
 
 @dataclass
 class Hosting:
-    tags: List[str]
-    """
-    List of tags associated with the Web Hosting plan.
-    """
-
-    domain: str
-    """
-    Main domain associated with the Web Hosting plan.
-    """
-
-    offer_name: str
-    """
-    Name of the active offer for the Web Hosting plan.
-    """
-
     id: str
     """
     ID of the Web Hosting plan.
-    """
-
-    username: str
-    """
-    Main Web Hosting cPanel username.
-    """
-
-    dns_status: HostingDnsStatus
-    """
-    DNS status of the Web Hosting plan.
-    """
-
-    status: HostingStatus
-    """
-    Status of the Web Hosting plan.
-    """
-
-    offer_end_of_life: bool
-    """
-    Indicates if the hosting offer has reached its end of life.
-    """
-
-    region: Region
-    """
-    Region where the Web Hosting plan is hosted.
-    """
-
-    project_id: str
-    """
-    ID of the Scaleway Project the Web Hosting plan belongs to.
     """
 
     organization_id: str
@@ -284,14 +239,14 @@ class Hosting:
     ID of the Scaleway Organization the Web Hosting plan belongs to.
     """
 
-    options: List[HostingOption]
+    project_id: str
     """
-    Array of any options activated for the Web Hosting plan.
+    ID of the Scaleway Project the Web Hosting plan belongs to.
     """
 
-    cpanel_urls: HostingCpanelUrls
+    status: HostingStatus
     """
-    URL to connect to cPanel dashboard and to Webmail interface.
+    Status of the Web Hosting plan.
     """
 
     platform_hostname: str
@@ -304,14 +259,19 @@ class Hosting:
     ID of the active offer for the Web Hosting plan.
     """
 
-    platform_number: Optional[int]
+    offer_name: str
     """
-    Number of the host platform.
+    Name of the active offer for the Web Hosting plan.
     """
 
-    created_at: Optional[datetime]
+    domain: str
     """
-    Date on which the Web Hosting plan was created.
+    Main domain associated with the Web Hosting plan.
+    """
+
+    tags: List[str]
+    """
+    List of tags associated with the Web Hosting plan.
     """
 
     updated_at: Optional[datetime]
@@ -319,27 +279,52 @@ class Hosting:
     Date on which the Web Hosting plan was last updated.
     """
 
+    created_at: Optional[datetime]
+    """
+    Date on which the Web Hosting plan was created.
+    """
+
+    platform_number: Optional[int]
+    """
+    Number of the host platform.
+    """
+
+    options: List[HostingOption]
+    """
+    Array of any options activated for the Web Hosting plan.
+    """
+
+    dns_status: HostingDnsStatus
+    """
+    DNS status of the Web Hosting plan.
+    """
+
+    cpanel_urls: HostingCpanelUrls
+    """
+    URL to connect to cPanel dashboard and to Webmail interface.
+    """
+
+    username: str
+    """
+    Main Web Hosting cPanel username.
+    """
+
+    offer_end_of_life: bool
+    """
+    Indicates if the hosting offer has reached its end of life.
+    """
+
+    region: Region
+    """
+    Region where the Web Hosting plan is hosted.
+    """
+
 
 @dataclass
 class Offer:
-    end_of_life: bool
+    id: str
     """
-    Indicates if the offer has reached its end of life.
-    """
-
-    quota_warnings: List[OfferQuotaWarning]
-    """
-    Quota warnings, if the offer is not available for the specified hosting_id.
-    """
-
-    available: bool
-    """
-    If a hosting_id was specified in the call, defines whether this offer is available for that Web Hosting plan to migrate (update) to.
-    """
-
-    product: OfferProduct
-    """
-    Product constituting this offer.
+    Offer ID.
     """
 
     billing_operation_path: str
@@ -347,9 +332,24 @@ class Offer:
     Unique identifier used for billing.
     """
 
-    id: str
+    product: OfferProduct
     """
-    Offer ID.
+    Product constituting this offer.
+    """
+
+    available: bool
+    """
+    If a hosting_id was specified in the call, defines whether this offer is available for that Web Hosting plan to migrate (update) to.
+    """
+
+    quota_warnings: List[OfferQuotaWarning]
+    """
+    Quota warnings, if the offer is not available for the specified hosting_id.
+    """
+
+    end_of_life: bool
+    """
+    Indicates if the offer has reached its end of life.
     """
 
     price: Optional[Money]
@@ -360,14 +360,14 @@ class Offer:
 
 @dataclass
 class CreateHostingRequest:
-    domain: str
-    """
-    Domain name to link to the Web Hosting plan. You must already own this domain name, and have completed the DNS validation process beforehand.
-    """
-
     offer_id: str
     """
     ID of the selected offer for the Web Hosting plan.
+    """
+
+    domain: str
+    """
+    Domain name to link to the Web Hosting plan. You must already own this domain name, and have completed the DNS validation process beforehand.
     """
 
     region: Optional[Region]
@@ -411,9 +411,9 @@ class DeleteHostingRequest:
 
 @dataclass
 class DnsRecords:
-    status: DnsRecordsStatus
+    records: List[DnsRecord]
     """
-    Status of the records.
+    List of DNS records.
     """
 
     name_servers: List[Nameserver]
@@ -421,9 +421,9 @@ class DnsRecords:
     List of nameservers.
     """
 
-    records: List[DnsRecord]
+    status: DnsRecordsStatus
     """
-    List of DNS records.
+    Status of the records.
     """
 
 
@@ -503,27 +503,27 @@ class ListHostingsRequest:
 
 @dataclass
 class ListHostingsResponse:
-    hostings: List[Hosting]
-    """
-    List of Web Hosting plans.
-    """
-
     total_count: int
     """
     Number of Web Hosting plans returned.
     """
 
+    hostings: List[Hosting]
+    """
+    List of Web Hosting plans.
+    """
+
 
 @dataclass
 class ListOffersRequest:
-    only_options: bool
-    """
-    Defines whether the response should consist of options only, without offers.
-    """
-
     without_options: bool
     """
     Defines whether the response should consist of offers only, without options.
+    """
+
+    only_options: bool
+    """
+    Defines whether the response should consist of options only, without offers.
     """
 
     region: Optional[Region]

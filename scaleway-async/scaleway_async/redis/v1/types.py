@@ -77,14 +77,9 @@ class EndpointSpecPrivateNetworkSpecIpamConfig:
 
 @dataclass
 class PrivateNetwork:
-    provisioning_mode: PrivateNetworkProvisioningMode
+    id: str
     """
-    How your endpoint ips are provisioned.
-    """
-
-    zone: Zone
-    """
-    Zone of the Private Network.
+    UUID of the Private Network.
     """
 
     service_ips: List[str]
@@ -92,9 +87,14 @@ class PrivateNetwork:
     List of IPv4 CIDR notation addresses of the endpoint.
     """
 
-    id: str
+    zone: Zone
     """
-    UUID of the Private Network.
+    Zone of the Private Network.
+    """
+
+    provisioning_mode: PrivateNetworkProvisioningMode
+    """
+    How your endpoint ips are provisioned.
     """
 
 
@@ -105,9 +105,9 @@ class PublicNetwork:
 
 @dataclass
 class EndpointSpecPrivateNetworkSpec:
-    ipam_config: EndpointSpecPrivateNetworkSpecIpamConfig
+    id: str
     """
-    Automated configuration of your Private Network endpoint with Scaleway IPAM service.
+    UUID of the Private Network to connect to the Database Instance.
     """
 
     service_ips: List[str]
@@ -115,9 +115,9 @@ class EndpointSpecPrivateNetworkSpec:
     Endpoint IPv4 address with a CIDR notation. You must provide at least one IPv4 per node.
     """
 
-    id: str
+    ipam_config: EndpointSpecPrivateNetworkSpecIpamConfig
     """
-    UUID of the Private Network to connect to the Database Instance.
+    Automated configuration of your Private Network endpoint with Scaleway IPAM service.
     """
 
 
@@ -128,14 +128,9 @@ class EndpointSpecPublicNetworkSpec:
 
 @dataclass
 class AvailableClusterSetting:
-    deprecated: bool
+    name: str
     """
-    Defines whether or not the setting is deprecated.
-    """
-
-    description: str
-    """
-    Description of the setting.
+    Name of the setting.
     """
 
     type_: AvailableClusterSettingPropertyType
@@ -143,9 +138,14 @@ class AvailableClusterSetting:
     Type of setting.
     """
 
-    name: str
+    description: str
     """
-    Name of the setting.
+    Description of the setting.
+    """
+
+    deprecated: bool
+    """
+    Defines whether or not the setting is deprecated.
     """
 
     default_value: Optional[str]
@@ -189,22 +189,22 @@ class ACLRule:
 
 @dataclass
 class ClusterSetting:
-    name: str
-    """
-    Name of the setting.
-    """
-
     value: str
     """
     Value of the setting.
     """
 
+    name: str
+    """
+    Name of the setting.
+    """
+
 
 @dataclass
 class Endpoint:
-    id: str
+    port: int
     """
-    UUID of the endpoint.
+    TCP port of the endpoint.
     """
 
     ips: List[str]
@@ -212,9 +212,9 @@ class Endpoint:
     List of IPv4 addresses of the endpoint.
     """
 
-    port: int
+    id: str
     """
-    TCP port of the endpoint.
+    UUID of the endpoint.
     """
 
     private_network: Optional[PrivateNetwork]
@@ -224,14 +224,14 @@ class Endpoint:
 
 @dataclass
 class ACLRuleSpec:
-    description: str
-    """
-    Description of the rule.
-    """
-
     ip_cidr: str
     """
     IPv4 network address of the rule.
+    """
+
+    description: str
+    """
+    Description of the rule.
     """
 
 
@@ -244,14 +244,9 @@ class EndpointSpec:
 
 @dataclass
 class ClusterVersion:
-    zone: Zone
+    version: str
     """
-    Zone of the Redis™ Database Instance.
-    """
-
-    logo_url: str
-    """
-    Redis™ logo url.
+    Redis™ engine version.
     """
 
     available_settings: List[AvailableClusterSetting]
@@ -259,9 +254,14 @@ class ClusterVersion:
     Cluster settings available to be updated.
     """
 
-    version: str
+    logo_url: str
     """
-    Redis™ engine version.
+    Redis™ logo url.
+    """
+
+    zone: Zone
+    """
+    Zone of the Redis™ Database Instance.
     """
 
     end_of_life_at: Optional[datetime]
@@ -272,14 +272,79 @@ class ClusterVersion:
 
 @dataclass
 class Cluster:
-    cluster_settings: List[ClusterSetting]
+    id: str
     """
-    List of Database Instance settings.
+    UUID of the Database Instance.
+    """
+
+    name: str
+    """
+    Name of the Database Instance.
+    """
+
+    project_id: str
+    """
+    Project ID the Database Instance belongs to.
+    """
+
+    status: ClusterStatus
+    """
+    Status of the Database Instance.
+    """
+
+    version: str
+    """
+    Redis™ engine version of the Database Instance.
+    """
+
+    endpoints: List[Endpoint]
+    """
+    List of Database Instance endpoints.
+    """
+
+    tags: List[str]
+    """
+    List of tags applied to the Database Instance.
+    """
+
+    node_type: str
+    """
+    Node type of the Database Instance.
     """
 
     tls_enabled: bool
     """
     Defines whether or not TLS is enabled.
+    """
+
+    cluster_settings: List[ClusterSetting]
+    """
+    List of Database Instance settings.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Creation date (Format ISO 8601).
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Update date (Format ISO 8601).
+    """
+
+    acl_rules: List[ACLRule]
+    """
+    List of ACL rules.
+    """
+
+    cluster_size: int
+    """
+    Number of nodes of the Database Instance cluster.
+    """
+
+    zone: Zone
+    """
+    Zone of the Database Instance.
     """
 
     user_name: str
@@ -292,102 +357,12 @@ class Cluster:
     List of engine versions the Database Instance can upgrade to.
     """
 
-    node_type: str
-    """
-    Node type of the Database Instance.
-    """
-
-    cluster_size: int
-    """
-    Number of nodes of the Database Instance cluster.
-    """
-
-    endpoints: List[Endpoint]
-    """
-    List of Database Instance endpoints.
-    """
-
-    id: str
-    """
-    UUID of the Database Instance.
-    """
-
-    status: ClusterStatus
-    """
-    Status of the Database Instance.
-    """
-
-    project_id: str
-    """
-    Project ID the Database Instance belongs to.
-    """
-
-    name: str
-    """
-    Name of the Database Instance.
-    """
-
-    acl_rules: List[ACLRule]
-    """
-    List of ACL rules.
-    """
-
-    zone: Zone
-    """
-    Zone of the Database Instance.
-    """
-
-    tags: List[str]
-    """
-    List of tags applied to the Database Instance.
-    """
-
-    version: str
-    """
-    Redis™ engine version of the Database Instance.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Update date (Format ISO 8601).
-    """
-
-    created_at: Optional[datetime]
-    """
-    Creation date (Format ISO 8601).
-    """
-
 
 @dataclass
 class NodeType:
-    zone: Zone
+    name: str
     """
-    Zone of the node type.
-    """
-
-    beta: bool
-    """
-    Defines whether node type is currently in beta.
-    """
-
-    disabled: bool
-    """
-    Defines whether node type is currently disabled or not.
-    """
-
-    memory: int
-    """
-    Quantity of RAM.
-    """
-
-    vcpus: int
-    """
-    Number of virtual CPUs.
-    """
-
-    description: str
-    """
-    Current specifications of the offer.
+    Node type name.
     """
 
     stock_status: NodeTypeStock
@@ -395,9 +370,34 @@ class NodeType:
     Current stock status of the node type.
     """
 
-    name: str
+    description: str
     """
-    Node type name.
+    Current specifications of the offer.
+    """
+
+    vcpus: int
+    """
+    Number of virtual CPUs.
+    """
+
+    memory: int
+    """
+    Quantity of RAM.
+    """
+
+    disabled: bool
+    """
+    Defines whether node type is currently disabled or not.
+    """
+
+    beta: bool
+    """
+    Defines whether node type is currently in beta.
+    """
+
+    zone: Zone
+    """
+    Zone of the node type.
     """
 
 
@@ -408,27 +408,27 @@ class AddAclRulesRequest:
     UUID of the Database Instance you want to add ACL rules to.
     """
 
+    acl_rules: List[ACLRuleSpec]
+    """
+    ACLs rules to add to the cluster.
+    """
+
     zone: Optional[Zone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    acl_rules: Optional[List[ACLRuleSpec]]
-    """
-    ACLs rules to add to the cluster.
-    """
-
 
 @dataclass
 class AddAclRulesResponse:
-    total_count: int
-    """
-    Total count of ACL rules of the Database Instance.
-    """
-
     acl_rules: List[ACLRule]
     """
     ACL Rules enabled for the Database Instance.
+    """
+
+    total_count: int
+    """
+    Total count of ACL rules of the Database Instance.
     """
 
 
@@ -439,14 +439,14 @@ class AddClusterSettingsRequest:
     UUID of the Database Instance you want to add settings to.
     """
 
+    settings: List[ClusterSetting]
+    """
+    Settings to add to the cluster.
+    """
+
     zone: Optional[Zone]
     """
     Zone to target. If none is passed will use default zone from the config.
-    """
-
-    settings: Optional[List[ClusterSetting]]
-    """
-    Settings to add to the cluster.
     """
 
 
@@ -457,27 +457,27 @@ class AddEndpointsRequest:
     UUID of the Database Instance you want to add endpoints to.
     """
 
+    endpoints: List[EndpointSpec]
+    """
+    Endpoints to add to the Database Instance.
+    """
+
     zone: Optional[Zone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    endpoints: Optional[List[EndpointSpec]]
-    """
-    Endpoints to add to the Database Instance.
-    """
-
 
 @dataclass
 class AddEndpointsResponse:
-    total_count: int
-    """
-    Total count of endpoints of the Database Instance.
-    """
-
     endpoints: List[Endpoint]
     """
     Endpoints defined on the Database Instance.
+    """
+
+    total_count: int
+    """
+    Total count of endpoints of the Database Instance.
     """
 
 
@@ -504,6 +504,36 @@ class CreateClusterRequest:
     Redis™ engine version of the Database Instance.
     """
 
+    node_type: str
+    """
+    Type of node to use for the Database Instance.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    Project ID in which to create the Database Instance.
+    """
+
+    name: Optional[str]
+    """
+    Name of the Database Instance.
+    """
+
+    tags: Optional[List[str]]
+    """
+    Tags to apply to the Database Instance.
+    """
+
+    user_name: str
+    """
+    Name of the user created upon Database Instance creation.
+    """
+
     password: str
     """
     Password of the user.
@@ -512,31 +542,6 @@ class CreateClusterRequest:
     tls_enabled: bool
     """
     Defines whether or not TLS is enabled.
-    """
-
-    node_type: str
-    """
-    Type of node to use for the Database Instance.
-    """
-
-    user_name: str
-    """
-    Name of the user created upon Database Instance creation.
-    """
-
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    tags: Optional[List[str]]
-    """
-    Tags to apply to the Database Instance.
-    """
-
-    name: Optional[str]
-    """
-    Name of the Database Instance.
     """
 
     cluster_size: Optional[int]
@@ -552,11 +557,6 @@ class CreateClusterRequest:
     endpoints: Optional[List[EndpointSpec]]
     """
     Zero or multiple EndpointSpec used to expose your cluster publicly and inside private networks. If no EndpoindSpec is given the cluster will be publicly exposed by default.
-    """
-
-    project_id: Optional[str]
-    """
-    Project ID in which to create the Database Instance.
     """
 
     cluster_settings: Optional[List[ClusterSetting]]
@@ -593,14 +593,14 @@ class DeleteClusterRequest:
 
 @dataclass
 class DeleteClusterSettingRequest:
-    setting_name: str
-    """
-    Setting name to delete.
-    """
-
     cluster_id: str
     """
     UUID of the Database Instance where the settings must be set.
+    """
+
+    setting_name: str
+    """
+    Setting name to delete.
     """
 
     zone: Optional[Zone]
@@ -704,9 +704,9 @@ class GetEndpointRequest:
 
 @dataclass
 class ListClusterVersionsRequest:
-    include_deprecated: bool
+    include_disabled: bool
     """
-    Defines whether or not to include deprecated Redis™ engine versions.
+    Defines whether or not to include disabled Redis™ engine versions.
     """
 
     include_beta: bool
@@ -714,9 +714,9 @@ class ListClusterVersionsRequest:
     Defines whether or not to include beta Redis™ engine versions.
     """
 
-    include_disabled: bool
+    include_deprecated: bool
     """
-    Defines whether or not to include disabled Redis™ engine versions.
+    Defines whether or not to include deprecated Redis™ engine versions.
     """
 
     zone: Optional[Zone]
@@ -736,14 +736,14 @@ class ListClusterVersionsRequest:
 
 @dataclass
 class ListClusterVersionsResponse:
-    total_count: int
-    """
-    Total count of available Redis™ engine versions.
-    """
-
     versions: List[ClusterVersion]
     """
     List of available Redis™ engine versions.
+    """
+
+    total_count: int
+    """
+    Total count of available Redis™ engine versions.
     """
 
 
@@ -791,14 +791,14 @@ class ListClustersRequest:
 
 @dataclass
 class ListClustersResponse:
-    total_count: int
-    """
-    Total count of Database Instances.
-    """
-
     clusters: List[Cluster]
     """
     List all Database Instances.
+    """
+
+    total_count: int
+    """
+    Total count of Database Instances.
     """
 
 
@@ -821,14 +821,14 @@ class ListNodeTypesRequest:
 
 @dataclass
 class ListNodeTypesResponse:
-    total_count: int
-    """
-    Total count of node types available.
-    """
-
     node_types: List[NodeType]
     """
     Types of node.
+    """
+
+    total_count: int
+    """
+    Total count of node types available.
     """
 
 
@@ -871,14 +871,14 @@ class SetAclRulesRequest:
     UUID of the Database Instance where the ACL rules have to be set.
     """
 
+    acl_rules: List[ACLRuleSpec]
+    """
+    ACLs rules to define for the cluster.
+    """
+
     zone: Optional[Zone]
     """
     Zone to target. If none is passed will use default zone from the config.
-    """
-
-    acl_rules: Optional[List[ACLRuleSpec]]
-    """
-    ACLs rules to define for the cluster.
     """
 
 
@@ -897,14 +897,14 @@ class SetClusterSettingsRequest:
     UUID of the Database Instance where the settings must be set.
     """
 
+    settings: List[ClusterSetting]
+    """
+    Settings to define for the Database Instance.
+    """
+
     zone: Optional[Zone]
     """
     Zone to target. If none is passed will use default zone from the config.
-    """
-
-    settings: Optional[List[ClusterSetting]]
-    """
-    Settings to define for the Database Instance.
     """
 
 
@@ -915,14 +915,14 @@ class SetEndpointsRequest:
     UUID of the Database Instance where the endpoints have to be set.
     """
 
+    endpoints: List[EndpointSpec]
+    """
+    Endpoints to define for the Database Instance.
+    """
+
     zone: Optional[Zone]
     """
     Zone to target. If none is passed will use default zone from the config.
-    """
-
-    endpoints: Optional[List[EndpointSpec]]
-    """
-    Endpoints to define for the Database Instance.
     """
 
 

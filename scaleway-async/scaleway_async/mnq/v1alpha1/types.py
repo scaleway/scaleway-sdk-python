@@ -70,14 +70,14 @@ class Permissions:
 
 @dataclass
 class CredentialSummarySQSSNSCreds:
-    permissions: Permissions
-    """
-    Permissions associated with these credentials.
-    """
-
     access_key: str
     """
     Access key ID.
+    """
+
+    permissions: Permissions
+    """
+    Permissions associated with these credentials.
     """
 
 
@@ -91,14 +91,14 @@ class CredentialNATSCredsFile:
 
 @dataclass
 class CredentialSQSSNSCreds:
-    permissions: Permissions
-    """
-    Permissions associated with these credentials.
-    """
-
     access_key: str
     """
     Access key ID.
+    """
+
+    permissions: Permissions
+    """
+    Permissions associated with these credentials.
     """
 
     secret_key: Optional[str]
@@ -109,14 +109,9 @@ class CredentialSQSSNSCreds:
 
 @dataclass
 class CredentialSummary:
-    protocol: NamespaceProtocol
+    id: str
     """
-    Protocol associated with the credentials.
-    """
-
-    namespace_id: str
-    """
-    Namespace containing the credentials.
+    ID of the credentials.
     """
 
     name: str
@@ -124,9 +119,14 @@ class CredentialSummary:
     Name of the credentials.
     """
 
-    id: str
+    namespace_id: str
     """
-    ID of the credentials.
+    Namespace containing the credentials.
+    """
+
+    protocol: NamespaceProtocol
+    """
+    Protocol associated with the credentials.
     """
 
     sqs_sns_credentials: Optional[CredentialSummarySQSSNSCreds]
@@ -134,24 +134,9 @@ class CredentialSummary:
 
 @dataclass
 class Namespace:
-    region: Region
+    id: str
     """
-    Region where the namespace is deployed.
-    """
-
-    project_id: str
-    """
-    Project ID of the Project containing the namespace.
-    """
-
-    protocol: NamespaceProtocol
-    """
-    Namespace protocol.
-    """
-
-    endpoint: str
-    """
-    Endpoint of the service matching the namespace's protocol.
+    Namespace ID.
     """
 
     name: str
@@ -159,9 +144,24 @@ class Namespace:
     Namespace name.
     """
 
-    id: str
+    endpoint: str
     """
-    Namespace ID.
+    Endpoint of the service matching the namespace's protocol.
+    """
+
+    protocol: NamespaceProtocol
+    """
+    Namespace protocol.
+    """
+
+    project_id: str
+    """
+    Project ID of the Project containing the namespace.
+    """
+
+    region: Region
+    """
+    Region where the namespace is deployed.
     """
 
     created_at: Optional[datetime]
@@ -200,6 +200,11 @@ class CreateCredentialRequest:
 
 @dataclass
 class CreateNamespaceRequest:
+    protocol: NamespaceProtocol
+    """
+    Namespace protocol. You must specify a valid protocol (and not `unknown`) to avoid an error.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
@@ -210,11 +215,6 @@ class CreateNamespaceRequest:
     Namespace name.
     """
 
-    protocol: Optional[NamespaceProtocol]
-    """
-    Namespace protocol. You must specify a valid protocol (and not `unknown`) to avoid an error.
-    """
-
     project_id: Optional[str]
     """
     Project containing the Namespace.
@@ -223,14 +223,9 @@ class CreateNamespaceRequest:
 
 @dataclass
 class Credential:
-    protocol: NamespaceProtocol
+    id: str
     """
-    Protocol associated with the credentials.
-    """
-
-    namespace_id: str
-    """
-    Namespace containing the credentials.
+    ID of the credentials.
     """
 
     name: str
@@ -238,9 +233,14 @@ class Credential:
     Name of the credentials.
     """
 
-    id: str
+    namespace_id: str
     """
-    ID of the credentials.
+    Namespace containing the credentials.
+    """
+
+    protocol: NamespaceProtocol
+    """
+    Protocol associated with the credentials.
     """
 
     nats_credentials: Optional[CredentialNATSCredsFile]
@@ -330,14 +330,14 @@ class ListCredentialsRequest:
 
 @dataclass
 class ListCredentialsResponse:
-    credentials: List[CredentialSummary]
-    """
-    Credentials on this page.
-    """
-
     total_count: int
     """
     Total count of existing credentials (matching any filters specified).
+    """
+
+    credentials: List[CredentialSummary]
+    """
+    Credentials on this page.
     """
 
 
@@ -376,14 +376,14 @@ class ListNamespacesRequest:
 
 @dataclass
 class ListNamespacesResponse:
-    namespaces: List[Namespace]
-    """
-    Namespaces on this page.
-    """
-
     total_count: int
     """
     Total count of existing namespaces (matching any filters specified).
+    """
+
+    namespaces: List[Namespace]
+    """
+    Namespaces on this page.
     """
 
 

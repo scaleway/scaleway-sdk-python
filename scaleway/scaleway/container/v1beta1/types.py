@@ -201,46 +201,48 @@ class TriggerStatus(str, Enum, metaclass=StrEnumMeta):
 
 @dataclass
 class SecretHashedValue:
-    hashed_value: str
-
     key: str
+
+    hashed_value: str
 
 
 @dataclass
 class TriggerMnqNatsClientConfig:
-    mnq_region: str
+    subject: str
 
     mnq_project_id: str
 
-    subject: str
+    mnq_region: str
 
-    mnq_namespace_id: str
+    mnq_nats_account_id: str
+
+    mnq_namespace_id: Optional[str]
 
     mnq_credential_id: Optional[str]
 
 
 @dataclass
 class TriggerMnqSqsClientConfig:
-    mnq_region: str
+    queue: str
 
     mnq_project_id: str
 
-    queue: str
+    mnq_region: str
 
-    mnq_namespace_id: str
+    mnq_namespace_id: Optional[str]
 
     mnq_credential_id: Optional[str]
 
 
 @dataclass
 class TriggerSqsClientConfig:
-    secret_key: str
-
-    access_key: str
+    endpoint: str
 
     queue_url: str
 
-    endpoint: str
+    access_key: str
+
+    secret_key: str
 
 
 @dataclass
@@ -252,81 +254,44 @@ class Secret:
 
 @dataclass
 class CreateTriggerRequestMnqNatsClientConfig:
-    mnq_nats_account_id: str
-
-    mnq_region: str
+    subject: str
 
     mnq_project_id: str
 
-    subject: str
+    mnq_region: str
 
-    mnq_namespace_id: str
+    mnq_nats_account_id: str
+
+    mnq_namespace_id: Optional[str]
 
 
 @dataclass
 class CreateTriggerRequestMnqSqsClientConfig:
-    mnq_region: str
+    queue: str
 
     mnq_project_id: str
 
-    queue: str
+    mnq_region: str
 
-    mnq_namespace_id: str
+    mnq_namespace_id: Optional[str]
 
 
 @dataclass
 class CreateTriggerRequestSqsClientConfig:
-    secret_key: str
-
-    access_key: str
+    endpoint: str
 
     queue_url: str
 
-    endpoint: str
+    access_key: str
+
+    secret_key: str
 
 
 @dataclass
 class Container:
-    privacy: ContainerPrivacy
+    id: str
     """
-    Privacy setting of the container.
-    """
-
-    http_option: ContainerHttpOption
-    """
-    Possible values:
- - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
- - enabled: Serve both HTTP and HTTPS traffic.
-    """
-
-    max_scale: int
-    """
-    Maximum number of instances to scale the container to.
-    """
-
-    protocol: ContainerProtocol
-    """
-    Protocol the container uses.
-    """
-
-    port: int
-    """
-    Port the container listens on.
-    """
-
-    registry_image: str
-    """
-    Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag").
-    """
-
-    domain_name: str
-    """
-    Domain name attributed to the contaioner.
-    """
-
-    environment_variables: Dict[str, str]
-    """
-    Environment variables of the container.
+    UUID of the container.
     """
 
     name: str
@@ -395,6 +360,48 @@ class CreateTriggerRequestMnqNatsClientConfig:
     Region of the M&Q project.
     """
 
+    error_message: Optional[str]
+    """
+    Last error message of the container.
+    """
+
+    description: Optional[str]
+    """
+    Description of the container.
+    """
+
+    domain_name: str
+    """
+    Domain name attributed to the contaioner.
+    """
+
+    protocol: ContainerProtocol
+    """
+    Protocol the container uses.
+    """
+
+    port: int
+    """
+    Port the container listens on.
+    """
+
+    secret_environment_variables: List[SecretHashedValue]
+    """
+    Secret environment variables of the container.
+    """
+
+    http_option: ContainerHttpOption
+    """
+    Possible values:
+ - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
+ - enabled: Serve both HTTP and HTTPS traffic.
+    """
+
+    region: Region
+    """
+    Region in which the container will be deployed.
+    """
+
 
 @dataclass
 class CreateTriggerRequestMnqSqsClientConfig:
@@ -437,19 +444,9 @@ class CreateTriggerRequestSqsClientConfig:
 
 @dataclass
 class Cron:
-    name: str
+    id: str
     """
-    Name of the cron.
-    """
-
-    status: CronStatus
-    """
-    Status of the cron.
-    """
-
-    schedule: str
-    """
-    UNIX cron shedule.
+    UUID of the cron.
     """
 
     container_id: str
@@ -457,9 +454,19 @@ class Cron:
     UUID of the container invoked by this cron.
     """
 
-    id: str
+    schedule: str
     """
-    UUID of the cron.
+    UNIX cron shedule.
+    """
+
+    status: CronStatus
+    """
+    Status of the cron.
+    """
+
+    name: str
+    """
+    Name of the cron.
     """
 
     args: Optional[Dict[str, Any]]
@@ -470,19 +477,9 @@ class Cron:
 
 @dataclass
 class Domain:
-    status: DomainStatus
+    id: str
     """
-    Status of the domain.
-    """
-
-    url: str
-    """
-    URL (TBD).
-    """
-
-    container_id: str
-    """
-    UUID of the container.
+    UUID of the domain.
     """
 
     hostname: str
@@ -490,9 +487,19 @@ class Domain:
     Domain assigned to the container.
     """
 
-    id: str
+    container_id: str
     """
-    UUID of the domain.
+    UUID of the container.
+    """
+
+    url: str
+    """
+    URL (TBD).
+    """
+
+    status: DomainStatus
+    """
+    Status of the domain.
     """
 
     error_message: Optional[str]
@@ -606,9 +613,13 @@ class ListTriggersResponse:
 
 @dataclass
 class Log:
-    stream: LogStream
+    message: str
+
+    id: str
+
+    level: str
     """
-    Can be stdout or stderr.
+    Contains the severity of the log (info, debug, error, ...).
     """
 
     source: str
@@ -616,58 +627,19 @@ class Log:
     Source of the log (core runtime or user code).
     """
 
-    level: str
+    stream: LogStream
     """
-    Contains the severity of the log (info, debug, error, ...).
+    Can be stdout or stderr.
     """
-
-    id: str
-
-    message: str
 
     timestamp: Optional[datetime]
 
 
 @dataclass
 class Namespace:
-    region: Region
+    id: str
     """
-    Region in which the namespace will be created.
-    """
-
-    secret_environment_variables: List[SecretHashedValue]
-    """
-    Secret environment variables of the namespace.
-    """
-
-    registry_endpoint: str
-    """
-    Registry endpoint of the namespace.
-    """
-
-    registry_namespace_id: str
-    """
-    UUID of the registry namespace.
-    """
-
-    status: NamespaceStatus
-    """
-    Status of the namespace.
-    """
-
-    project_id: str
-    """
-    UUID of the Project the namespace belongs to.
-    """
-
-    organization_id: str
-    """
-    UUID of the Organization the namespace belongs to.
-    """
-
-    environment_variables: Dict[str, str]
-    """
-    Environment variables of the namespace.
+    UUID of the namespace.
     """
 
     name: str
@@ -675,9 +647,44 @@ class Namespace:
     Name of the namespace.
     """
 
-    id: str
+    environment_variables: Dict[str, str]
     """
-    UUID of the namespace.
+    Environment variables of the namespace.
+    """
+
+    organization_id: str
+    """
+    UUID of the Organization the namespace belongs to.
+    """
+
+    project_id: str
+    """
+    UUID of the Project the namespace belongs to.
+    """
+
+    status: NamespaceStatus
+    """
+    Status of the namespace.
+    """
+
+    registry_namespace_id: str
+    """
+    UUID of the registry namespace.
+    """
+
+    registry_endpoint: str
+    """
+    Registry endpoint of the namespace.
+    """
+
+    secret_environment_variables: List[SecretHashedValue]
+    """
+    Secret environment variables of the namespace.
+    """
+
+    region: Region
+    """
+    Region in which the namespace will be created.
     """
 
     error_message: Optional[str]
@@ -693,9 +700,9 @@ class Namespace:
 
 @dataclass
 class Token:
-    status: TokenStatus
+    id: str
     """
-    Status of the token.
+    UUID of the token.
     """
 
     token: str
@@ -703,9 +710,9 @@ class Token:
     Identifier of the token.
     """
 
-    id: str
+    status: TokenStatus
     """
-    UUID of the token.
+    Status of the token.
     """
 
     public_key: Optional[str]
@@ -880,14 +887,14 @@ class UpdateTriggerRequestSqsClientConfig:
 
 @dataclass
 class CreateContainerRequest:
-    name: str
-    """
-    Name of the container.
-    """
-
     namespace_id: str
     """
     UUID of the namespace the container belongs to.
+    """
+
+    name: str
+    """
+    Name of the container.
     """
 
     region: Optional[Region]
@@ -895,14 +902,14 @@ class CreateContainerRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    timeout: Optional[str]
+    environment_variables: Optional[Dict[str, str]]
     """
-    Processing time limit for the container.
+    Environment variables of the container.
     """
 
-    description: Optional[str]
+    min_scale: Optional[int]
     """
-    Description of the container.
+    Minimum number of instances to scale the container to.
     """
 
     max_scale: Optional[int]
@@ -920,9 +927,9 @@ class CreateContainerRequest:
     CPU limit of the container in mvCPU.
     """
 
-    environment_variables: Optional[Dict[str, str]]
+    timeout: Optional[str]
     """
-    Environment variables of the container.
+    Processing time limit for the container.
     """
 
     privacy: Optional[ContainerPrivacy]
@@ -930,9 +937,9 @@ class CreateContainerRequest:
     Privacy setting of the container.
     """
 
-    min_scale: Optional[int]
+    description: Optional[str]
     """
-    Minimum number of instances to scale the container to.
+    Description of the container.
     """
 
     registry_image: Optional[str]
@@ -970,14 +977,14 @@ class CreateContainerRequest:
 
 @dataclass
 class CreateCronRequest:
-    schedule: str
-    """
-    UNIX cron shedule.
-    """
-
     container_id: str
     """
     UUID of the container to invoke by the cron.
+    """
+
+    schedule: str
+    """
+    UNIX cron shedule.
     """
 
     region: Optional[Region]
@@ -998,14 +1005,14 @@ class CreateCronRequest:
 
 @dataclass
 class CreateDomainRequest:
-    container_id: str
-    """
-    UUID of the container to assign the domain to.
-    """
-
     hostname: str
     """
     Domain to assign.
+    """
+
+    container_id: str
+    """
+    UUID of the container to assign the domain to.
     """
 
     region: Optional[Region]
@@ -1071,9 +1078,9 @@ class CreateTokenRequest:
 
 @dataclass
 class CreateTriggerRequest:
-    container_id: str
-
     name: str
+
+    container_id: str
 
     region: Optional[Region]
     """
@@ -1311,14 +1318,14 @@ class ListContainersRequest:
 
 @dataclass
 class ListContainersResponse:
-    total_count: int
-    """
-    Total number of containers.
-    """
-
     containers: List[Container]
     """
     Array of containers.
+    """
+
+    total_count: int
+    """
+    Total number of containers.
     """
 
 
@@ -1352,14 +1359,14 @@ class ListCronsRequest:
 
 @dataclass
 class ListCronsResponse:
-    total_count: int
-    """
-    Total number of crons.
-    """
-
     crons: List[Cron]
     """
     Array of crons.
+    """
+
+    total_count: int
+    """
+    Total number of crons.
     """
 
 
@@ -1393,14 +1400,14 @@ class ListDomainsRequest:
 
 @dataclass
 class ListDomainsResponse:
-    total_count: int
-    """
-    Total number of domains.
-    """
-
     domains: List[Domain]
     """
     Array of domains.
+    """
+
+    total_count: int
+    """
+    Total number of domains.
     """
 
 
@@ -1434,9 +1441,9 @@ class ListLogsRequest:
 
 @dataclass
 class ListLogsResponse:
-    total_count: int
-
     logs: List[Log]
+
+    total_count: int
 
 
 @dataclass
@@ -1479,14 +1486,14 @@ class ListNamespacesRequest:
 
 @dataclass
 class ListNamespacesResponse:
-    total_count: int
-    """
-    Total number of namespaces.
-    """
-
     namespaces: List[Namespace]
     """
     Array of the namespaces.
+    """
+
+    total_count: int
+    """
+    Total number of namespaces.
     """
 
 
@@ -1589,6 +1596,8 @@ class GetTriggerRequest:
     ID of the trigger to get.
     """
 
+    total_count: int
+
 
 @dataclass
 class ListTriggersRequest:
@@ -1636,9 +1645,9 @@ class ListTriggersRequest:
 
 @dataclass
 class ListTriggersResponse:
-    total_count: int
-
     triggers: List[Trigger]
+
+    total_count: int
 
 
 @dataclass
@@ -1653,14 +1662,14 @@ class UpdateContainerRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    redeploy: Optional[bool]
+    environment_variables: Optional[Dict[str, str]]
     """
-    Defines whether to redeploy failed containers.
+    Environment variables of the container.
     """
 
-    privacy: Optional[ContainerPrivacy]
+    min_scale: Optional[int]
     """
-    Privacy settings of the container.
+    Minimum number of instances to scale the container to.
     """
 
     max_scale: Optional[int]
@@ -1683,14 +1692,14 @@ class UpdateContainerRequest:
     Processing time limit for the container.
     """
 
-    environment_variables: Optional[Dict[str, str]]
+    redeploy: Optional[bool]
     """
-    Environment variables of the container.
+    Defines whether to redeploy failed containers.
     """
 
-    min_scale: Optional[int]
+    privacy: Optional[ContainerPrivacy]
     """
-    Minimum number of instances to scale the container to.
+    Privacy settings of the container.
     """
 
     description: Optional[str]

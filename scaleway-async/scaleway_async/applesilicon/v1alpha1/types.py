@@ -51,40 +51,30 @@ class ServerTypeStock(str, Enum, metaclass=StrEnumMeta):
 
 @dataclass
 class ServerTypeCPU:
-    core_count: int
-
     name: str
+
+    core_count: int
 
 
 @dataclass
 class ServerTypeDisk:
-    type_: str
-
     capacity: int
+
+    type_: str
 
 
 @dataclass
 class ServerTypeMemory:
-    type_: str
-
     capacity: int
+
+    type_: str
 
 
 @dataclass
 class OS:
-    compatible_server_types: List[str]
+    id: str
     """
-    List of compatible server types.
-    """
-
-    image_url: str
-    """
-    URL of the image.
-    """
-
-    label: str
-    """
-    OS name as it should be displayed.
+    Unique ID of the OS.
     """
 
     name: str
@@ -92,27 +82,27 @@ class OS:
     OS name.
     """
 
-    id: str
+    label: str
     """
-    Unique ID of the OS.
+    OS name as it should be displayed.
+    """
+
+    image_url: str
+    """
+    URL of the image.
+    """
+
+    compatible_server_types: List[str]
+    """
+    List of compatible server types.
     """
 
 
 @dataclass
 class ServerType:
-    stock: ServerTypeStock
+    cpu: ServerTypeCPU
     """
-    Current stock.
-    """
-
-    memory: ServerTypeMemory
-    """
-    Size of memory available.
-    """
-
-    name: str
-    """
-    Name of the type.
+    CPU description.
     """
 
     disk: ServerTypeDisk
@@ -120,9 +110,19 @@ class ServerType:
     Size of the local disk of the server.
     """
 
-    cpu: ServerTypeCPU
+    name: str
     """
-    CPU description.
+    Name of the type.
+    """
+
+    memory: ServerTypeMemory
+    """
+    Size of memory available.
+    """
+
+    stock: ServerTypeStock
+    """
+    Current stock.
     """
 
     minimum_lease_duration: Optional[str]
@@ -133,39 +133,9 @@ class ServerType:
 
 @dataclass
 class Server:
-    zone: Zone
+    id: str
     """
-    Zone of the server.
-    """
-
-    status: ServerStatus
-    """
-    Current status of the server.
-    """
-
-    vnc_url: str
-    """
-    URL of the VNC.
-    """
-
-    ip: str
-    """
-    IPv4 address of the server.
-    """
-
-    organization_id: str
-    """
-    Organization this server is associated with.
-    """
-
-    project_id: str
-    """
-    Project this server is associated with.
-    """
-
-    name: str
-    """
-    Name of the server.
+    UUID of the server.
     """
 
     type_: str
@@ -173,9 +143,39 @@ class Server:
     Type of the server.
     """
 
-    id: str
+    name: str
     """
-    UUID of the server.
+    Name of the server.
+    """
+
+    project_id: str
+    """
+    Project this server is associated with.
+    """
+
+    organization_id: str
+    """
+    Organization this server is associated with.
+    """
+
+    ip: str
+    """
+    IPv4 address of the server.
+    """
+
+    vnc_url: str
+    """
+    URL of the VNC.
+    """
+
+    status: ServerStatus
+    """
+    Current status of the server.
+    """
+
+    zone: Zone
+    """
+    Zone of the server.
     """
 
     created_at: Optional[datetime]
@@ -299,14 +299,14 @@ class ListOSRequest:
 
 @dataclass
 class ListOSResponse:
-    os: List[OS]
-    """
-    List of OS.
-    """
-
     total_count: int
     """
     Total number of OS.
+    """
+
+    os: List[OS]
+    """
+    List of OS.
     """
 
 
@@ -361,14 +361,14 @@ class ListServersRequest:
 
 @dataclass
 class ListServersResponse:
-    servers: List[Server]
-    """
-    Paginated returned servers.
-    """
-
     total_count: int
     """
     Total number of servers.
+    """
+
+    servers: List[Server]
+    """
+    Paginated returned servers.
     """
 
 

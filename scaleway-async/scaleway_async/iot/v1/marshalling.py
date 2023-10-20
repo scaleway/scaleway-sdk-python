@@ -85,11 +85,11 @@ def unmarshal_DeviceMessageFilters(data: Any) -> DeviceMessageFilters:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("subscribe", None)
-    args["subscribe"] = unmarshal_DeviceMessageFiltersRule(field)
-
     field = data.get("publish", None)
     args["publish"] = unmarshal_DeviceMessageFiltersRule(field)
+
+    field = data.get("subscribe", None)
+    args["subscribe"] = unmarshal_DeviceMessageFiltersRule(field)
 
     return DeviceMessageFilters(**args)
 
@@ -102,40 +102,40 @@ def unmarshal_Device(data: Any) -> Device:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("allow_multiple_connections", None)
-    args["allow_multiple_connections"] = field
-
-    field = data.get("allow_insecure", None)
-    args["allow_insecure"] = field
-
     field = data.get("id", None)
     args["id"] = field
-
-    field = data.get("has_custom_certificate", None)
-    args["has_custom_certificate"] = field
-
-    field = data.get("hub_id", None)
-    args["hub_id"] = field
-
-    field = data.get("status", None)
-    args["status"] = field
-
-    field = data.get("description", None)
-    args["description"] = field
 
     field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("message_filters", None)
-    args["message_filters"] = unmarshal_DeviceMessageFilters(field)
+    field = data.get("description", None)
+    args["description"] = field
 
-    field = data.get("is_connected", None)
-    args["is_connected"] = field
+    field = data.get("status", None)
+    args["status"] = field
+
+    field = data.get("hub_id", None)
+    args["hub_id"] = field
 
     field = data.get("last_activity_at", None)
     args["last_activity_at"] = (
         parser.isoparse(field) if isinstance(field, str) else field
     )
+
+    field = data.get("is_connected", None)
+    args["is_connected"] = field
+
+    field = data.get("allow_insecure", None)
+    args["allow_insecure"] = field
+
+    field = data.get("allow_multiple_connections", None)
+    args["allow_multiple_connections"] = field
+
+    field = data.get("message_filters", None)
+    args["message_filters"] = unmarshal_DeviceMessageFilters(field)
+
+    field = data.get("has_custom_certificate", None)
+    args["has_custom_certificate"] = field
 
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -154,23 +154,23 @@ def unmarshal_Network(data: Any) -> Network:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("topic_prefix", None)
-    args["topic_prefix"] = field
-
-    field = data.get("hub_id", None)
-    args["hub_id"] = field
-
-    field = data.get("endpoint", None)
-    args["endpoint"] = field
-
-    field = data.get("type_", None)
-    args["type_"] = field
+    field = data.get("id", None)
+    args["id"] = field
 
     field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("id", None)
-    args["id"] = field
+    field = data.get("type_", None)
+    args["type_"] = field
+
+    field = data.get("endpoint", None)
+    args["endpoint"] = field
+
+    field = data.get("hub_id", None)
+    args["hub_id"] = field
+
+    field = data.get("topic_prefix", None)
+    args["topic_prefix"] = field
 
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -200,56 +200,56 @@ def unmarshal_Hub(data: Any) -> Hub:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("has_custom_ca", None)
-    args["has_custom_ca"] = field
-
-    field = data.get("region", None)
-    args["region"] = field
-
-    field = data.get("events_topic_prefix", None)
-    args["events_topic_prefix"] = field
-
     field = data.get("id", None)
     args["id"] = field
-
-    field = data.get("endpoint", None)
-    args["endpoint"] = field
-
-    field = data.get("project_id", None)
-    args["project_id"] = field
-
-    field = data.get("device_count", None)
-    args["device_count"] = field
-
-    field = data.get("enabled", None)
-    args["enabled"] = field
-
-    field = data.get("product_plan", None)
-    args["product_plan"] = field
-
-    field = data.get("status", None)
-    args["status"] = field
 
     field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("enable_device_auto_provisioning", None)
-    args["enable_device_auto_provisioning"] = field
+    field = data.get("status", None)
+    args["status"] = field
 
-    field = data.get("organization_id", None)
-    args["organization_id"] = field
+    field = data.get("product_plan", None)
+    args["product_plan"] = field
+
+    field = data.get("enabled", None)
+    args["enabled"] = field
+
+    field = data.get("device_count", None)
+    args["device_count"] = field
 
     field = data.get("connected_device_count", None)
     args["connected_device_count"] = field
 
+    field = data.get("endpoint", None)
+    args["endpoint"] = field
+
     field = data.get("disable_events", None)
     args["disable_events"] = field
 
-    field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    field = data.get("events_topic_prefix", None)
+    args["events_topic_prefix"] = field
+
+    field = data.get("region", None)
+    args["region"] = field
+
+    field = data.get("project_id", None)
+    args["project_id"] = field
+
+    field = data.get("organization_id", None)
+    args["organization_id"] = field
+
+    field = data.get("enable_device_auto_provisioning", None)
+    args["enable_device_auto_provisioning"] = field
+
+    field = data.get("has_custom_ca", None)
+    args["has_custom_ca"] = field
 
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+
+    field = data.get("updated_at", None)
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("twins_graphite_config", None)
     args["twins_graphite_config"] = unmarshal_HubTwinsGraphiteConfig(field)
@@ -265,11 +265,11 @@ def unmarshal_Certificate(data: Any) -> Certificate:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("key", None)
-    args["key"] = field
-
     field = data.get("crt", None)
     args["crt"] = field
+
+    field = data.get("key", None)
+    args["key"] = field
 
     return Certificate(**args)
 
@@ -282,11 +282,11 @@ def unmarshal_CreateDeviceResponse(data: Any) -> CreateDeviceResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("certificate", None)
-    args["certificate"] = unmarshal_Certificate(field)
-
     field = data.get("device", None)
     args["device"] = unmarshal_Device(field)
+
+    field = data.get("certificate", None)
+    args["certificate"] = unmarshal_Certificate(field)
 
     return CreateDeviceResponse(**args)
 
@@ -299,11 +299,11 @@ def unmarshal_CreateNetworkResponse(data: Any) -> CreateNetworkResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("secret", None)
-    args["secret"] = field
-
     field = data.get("network", None)
     args["network"] = unmarshal_Network(field)
+
+    field = data.get("secret", None)
+    args["secret"] = field
 
     return CreateNetworkResponse(**args)
 
@@ -316,11 +316,11 @@ def unmarshal_GetDeviceCertificateResponse(data: Any) -> GetDeviceCertificateRes
 
     args: Dict[str, Any] = {}
 
-    field = data.get("certificate_pem", None)
-    args["certificate_pem"] = field
-
     field = data.get("device", None)
     args["device"] = unmarshal_Device(field)
+
+    field = data.get("certificate_pem", None)
+    args["certificate_pem"] = field
 
     return GetDeviceCertificateResponse(**args)
 
@@ -379,13 +379,13 @@ def unmarshal_ListDevicesResponse(data: Any) -> ListDevicesResponse:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("total_count", None)
+    args["total_count"] = field
+
     field = data.get("devices", None)
     args["devices"] = (
         [unmarshal_Device(v) for v in field] if field is not None else None
     )
-
-    field = data.get("total_count", None)
-    args["total_count"] = field
 
     return ListDevicesResponse(**args)
 
@@ -398,11 +398,11 @@ def unmarshal_ListHubsResponse(data: Any) -> ListHubsResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("hubs", None)
-    args["hubs"] = [unmarshal_Hub(v) for v in field] if field is not None else None
-
     field = data.get("total_count", None)
     args["total_count"] = field
+
+    field = data.get("hubs", None)
+    args["hubs"] = [unmarshal_Hub(v) for v in field] if field is not None else None
 
     return ListHubsResponse(**args)
 
@@ -415,13 +415,13 @@ def unmarshal_ListNetworksResponse(data: Any) -> ListNetworksResponse:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("total_count", None)
+    args["total_count"] = field
+
     field = data.get("networks", None)
     args["networks"] = (
         [unmarshal_Network(v) for v in field] if field is not None else None
     )
-
-    field = data.get("total_count", None)
-    args["total_count"] = field
 
     return ListNetworksResponse(**args)
 
@@ -434,20 +434,20 @@ def unmarshal_RouteSummary(data: Any) -> RouteSummary:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("type_", None)
-    args["type_"] = field
-
-    field = data.get("topic", None)
-    args["topic"] = field
-
-    field = data.get("hub_id", None)
-    args["hub_id"] = field
+    field = data.get("id", None)
+    args["id"] = field
 
     field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("id", None)
-    args["id"] = field
+    field = data.get("hub_id", None)
+    args["hub_id"] = field
+
+    field = data.get("topic", None)
+    args["topic"] = field
+
+    field = data.get("type_", None)
+    args["type_"] = field
 
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -466,13 +466,13 @@ def unmarshal_ListRoutesResponse(data: Any) -> ListRoutesResponse:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("total_count", None)
+    args["total_count"] = field
+
     field = data.get("routes", None)
     args["routes"] = (
         [unmarshal_RouteSummary(v) for v in field] if field is not None else None
     )
-
-    field = data.get("total_count", None)
-    args["total_count"] = field
 
     return ListRoutesResponse(**args)
 
@@ -521,11 +521,11 @@ def unmarshal_RenewDeviceCertificateResponse(
 
     args: Dict[str, Any] = {}
 
-    field = data.get("certificate", None)
-    args["certificate"] = unmarshal_Certificate(field)
-
     field = data.get("device", None)
     args["device"] = unmarshal_Device(field)
+
+    field = data.get("certificate", None)
+    args["certificate"] = unmarshal_Certificate(field)
 
     return RenewDeviceCertificateResponse(**args)
 
@@ -538,26 +538,26 @@ def unmarshal_RouteDatabaseConfig(data: Any) -> RouteDatabaseConfig:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("query", None)
-    args["query"] = field
-
-    field = data.get("password", None)
-    args["password"] = field
-
-    field = data.get("username", None)
-    args["username"] = field
-
-    field = data.get("dbname", None)
-    args["dbname"] = field
-
-    field = data.get("port", None)
-    args["port"] = field
+    field = data.get("engine", None)
+    args["engine"] = field
 
     field = data.get("host", None)
     args["host"] = field
 
-    field = data.get("engine", None)
-    args["engine"] = field
+    field = data.get("port", None)
+    args["port"] = field
+
+    field = data.get("dbname", None)
+    args["dbname"] = field
+
+    field = data.get("username", None)
+    args["username"] = field
+
+    field = data.get("password", None)
+    args["password"] = field
+
+    field = data.get("query", None)
+    args["query"] = field
 
     return RouteDatabaseConfig(**args)
 
@@ -570,14 +570,14 @@ def unmarshal_RouteRestConfig(data: Any) -> RouteRestConfig:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("headers", None)
-    args["headers"] = field
+    field = data.get("verb", None)
+    args["verb"] = field
 
     field = data.get("uri", None)
     args["uri"] = field
 
-    field = data.get("verb", None)
-    args["verb"] = field
+    field = data.get("headers", None)
+    args["headers"] = field
 
     return RouteRestConfig(**args)
 
@@ -590,17 +590,17 @@ def unmarshal_RouteS3Config(data: Any) -> RouteS3Config:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("strategy", None)
-    args["strategy"] = field
-
-    field = data.get("object_prefix", None)
-    args["object_prefix"] = field
+    field = data.get("bucket_region", None)
+    args["bucket_region"] = field
 
     field = data.get("bucket_name", None)
     args["bucket_name"] = field
 
-    field = data.get("bucket_region", None)
-    args["bucket_region"] = field
+    field = data.get("object_prefix", None)
+    args["object_prefix"] = field
+
+    field = data.get("strategy", None)
+    args["strategy"] = field
 
     return RouteS3Config(**args)
 
@@ -613,20 +613,20 @@ def unmarshal_Route(data: Any) -> Route:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("type_", None)
-    args["type_"] = field
-
-    field = data.get("topic", None)
-    args["topic"] = field
-
-    field = data.get("hub_id", None)
-    args["hub_id"] = field
+    field = data.get("id", None)
+    args["id"] = field
 
     field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("id", None)
-    args["id"] = field
+    field = data.get("hub_id", None)
+    args["hub_id"] = field
+
+    field = data.get("topic", None)
+    args["topic"] = field
+
+    field = data.get("type_", None)
+    args["type_"] = field
 
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -654,11 +654,11 @@ def unmarshal_SetDeviceCertificateResponse(data: Any) -> SetDeviceCertificateRes
 
     args: Dict[str, Any] = {}
 
-    field = data.get("certificate_pem", None)
-    args["certificate_pem"] = field
-
     field = data.get("device", None)
     args["device"] = unmarshal_Device(field)
+
+    field = data.get("certificate_pem", None)
+    args["certificate_pem"] = field
 
     return SetDeviceCertificateResponse(**args)
 
@@ -671,14 +671,14 @@ def unmarshal_TwinDocument(data: Any) -> TwinDocument:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("version", None)
-    args["version"] = field
+    field = data.get("twin_id", None)
+    args["twin_id"] = field
 
     field = data.get("document_name", None)
     args["document_name"] = field
 
-    field = data.get("twin_id", None)
-    args["twin_id"] = field
+    field = data.get("version", None)
+    args["version"] = field
 
     field = data.get("data", None)
     args["data"] = field
@@ -707,14 +707,14 @@ def marshal_DeviceMessageFilters(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.subscribe is not None:
-        output["subscribe"] = (
-            marshal_DeviceMessageFiltersRule(request.subscribe, defaults),
-        )
-
     if request.publish is not None:
         output["publish"] = (
             marshal_DeviceMessageFiltersRule(request.publish, defaults),
+        )
+
+    if request.subscribe is not None:
+        output["subscribe"] = (
+            marshal_DeviceMessageFiltersRule(request.subscribe, defaults),
         )
 
     return output
@@ -726,22 +726,22 @@ def marshal_CreateDeviceRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.message_filters is not None:
-        output["message_filters"] = (
-            marshal_DeviceMessageFilters(request.message_filters, defaults),
-        )
-
-    if request.allow_multiple_connections is not None:
-        output["allow_multiple_connections"] = request.allow_multiple_connections
+    if request.hub_id is not None:
+        output["hub_id"] = request.hub_id
 
     if request.allow_insecure is not None:
         output["allow_insecure"] = request.allow_insecure
 
-    if request.hub_id is not None:
-        output["hub_id"] = request.hub_id
+    if request.allow_multiple_connections is not None:
+        output["allow_multiple_connections"] = request.allow_multiple_connections
 
     if request.name is not None:
         output["name"] = request.name
+
+    if request.message_filters is not None:
+        output["message_filters"] = (
+            marshal_DeviceMessageFilters(request.message_filters, defaults),
+        )
 
     if request.description is not None:
         output["description"] = request.description
@@ -776,14 +776,14 @@ def marshal_CreateHubRequest(
         ),
     )
 
+    if request.product_plan is not None:
+        output["product_plan"] = str(request.product_plan)
+
     if request.name is not None:
         output["name"] = request.name
 
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id
-
-    if request.product_plan is not None:
-        output["product_plan"] = str(request.product_plan)
 
     if request.disable_events is not None:
         output["disable_events"] = request.disable_events
@@ -800,17 +800,17 @@ def marshal_CreateNetworkRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.topic_prefix is not None:
-        output["topic_prefix"] = request.topic_prefix
+    if request.type_ is not None:
+        output["type"] = str(request.type_)
 
     if request.hub_id is not None:
         output["hub_id"] = request.hub_id
 
+    if request.topic_prefix is not None:
+        output["topic_prefix"] = request.topic_prefix
+
     if request.name is not None:
         output["name"] = request.name
-
-    if request.type_ is not None:
-        output["type"] = str(request.type_)
 
     return output
 
@@ -821,26 +821,26 @@ def marshal_CreateRouteRequestDatabaseConfig(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.engine is not None:
-        output["engine"] = str(request.engine)
-
-    if request.query is not None:
-        output["query"] = request.query
-
-    if request.password is not None:
-        output["password"] = request.password
-
-    if request.username is not None:
-        output["username"] = request.username
-
-    if request.dbname is not None:
-        output["dbname"] = request.dbname
+    if request.host is not None:
+        output["host"] = request.host
 
     if request.port is not None:
         output["port"] = request.port
 
-    if request.host is not None:
-        output["host"] = request.host
+    if request.dbname is not None:
+        output["dbname"] = request.dbname
+
+    if request.username is not None:
+        output["username"] = request.username
+
+    if request.password is not None:
+        output["password"] = request.password
+
+    if request.query is not None:
+        output["query"] = request.query
+
+    if request.engine is not None:
+        output["engine"] = str(request.engine)
 
     return output
 
@@ -851,14 +851,14 @@ def marshal_CreateRouteRequestRestConfig(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.headers is not None:
-        output["headers"] = {key: value for key, value in request.headers.items()}
+    if request.verb is not None:
+        output["verb"] = str(request.verb)
 
     if request.uri is not None:
         output["uri"] = request.uri
 
-    if request.verb is not None:
-        output["verb"] = str(request.verb)
+    if request.headers is not None:
+        output["headers"] = {key: value for key, value in request.headers.items()}
 
     return output
 
@@ -869,17 +869,17 @@ def marshal_CreateRouteRequestS3Config(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.strategy is not None:
-        output["strategy"] = str(request.strategy)
-
-    if request.object_prefix is not None:
-        output["object_prefix"] = request.object_prefix
+    if request.bucket_region is not None:
+        output["bucket_region"] = request.bucket_region
 
     if request.bucket_name is not None:
         output["bucket_name"] = request.bucket_name
 
-    if request.bucket_region is not None:
-        output["bucket_region"] = request.bucket_region
+    if request.object_prefix is not None:
+        output["object_prefix"] = request.object_prefix
+
+    if request.strategy is not None:
+        output["strategy"] = str(request.strategy)
 
     return output
 
@@ -899,11 +899,11 @@ def marshal_CreateRouteRequest(
         ),
     )
 
-    if request.topic is not None:
-        output["topic"] = request.topic
-
     if request.hub_id is not None:
         output["hub_id"] = request.hub_id
+
+    if request.topic is not None:
+        output["topic"] = request.topic
 
     if request.name is not None:
         output["name"] = request.name
@@ -959,11 +959,11 @@ def marshal_SetHubCARequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.challenge_cert_pem is not None:
-        output["challenge_cert_pem"] = request.challenge_cert_pem
-
     if request.ca_cert_pem is not None:
         output["ca_cert_pem"] = request.ca_cert_pem
+
+    if request.challenge_cert_pem is not None:
+        output["challenge_cert_pem"] = request.challenge_cert_pem
 
     return output
 
@@ -974,11 +974,6 @@ def marshal_UpdateDeviceRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.message_filters is not None:
-        output["message_filters"] = (
-            marshal_DeviceMessageFilters(request.message_filters, defaults),
-        )
-
     if request.description is not None:
         output["description"] = request.description
 
@@ -987,6 +982,11 @@ def marshal_UpdateDeviceRequest(
 
     if request.allow_multiple_connections is not None:
         output["allow_multiple_connections"] = request.allow_multiple_connections
+
+    if request.message_filters is not None:
+        output["message_filters"] = (
+            marshal_DeviceMessageFilters(request.message_filters, defaults),
+        )
 
     if request.hub_id is not None:
         output["hub_id"] = request.hub_id

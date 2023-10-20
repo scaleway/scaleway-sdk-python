@@ -110,17 +110,17 @@ def unmarshal_GetConsumptionResponseConsumption(
 
     args: Dict[str, Any] = {}
 
-    field = data.get("operation_path", None)
-    args["operation_path"] = field
-
-    field = data.get("category", None)
-    args["category"] = field
+    field = data.get("description", None)
+    args["description"] = field
 
     field = data.get("project_id", None)
     args["project_id"] = field
 
-    field = data.get("description", None)
-    args["description"] = field
+    field = data.get("category", None)
+    args["category"] = field
+
+    field = data.get("operation_path", None)
+    args["operation_path"] = field
 
     field = data.get("value", None)
     args["value"] = unmarshal_Money(field)
@@ -176,14 +176,14 @@ def unmarshal_ListInvoicesResponse(data: Any) -> ListInvoicesResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("number", None)
-    args["number"] = field
+    field = data.get("id", None)
+    args["id"] = field
 
     field = data.get("invoice_type", None)
     args["invoice_type"] = field
 
-    field = data.get("id", None)
-    args["id"] = field
+    field = data.get("number", None)
+    args["number"] = field
 
     field = data.get("start_date", None)
     args["start_date"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -211,12 +211,12 @@ def unmarshal_ListInvoicesResponse(data: Any) -> ListInvoicesResponse:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("total_count", None)
+    args["total_count"] = field
+
     field = data.get("invoices", None)
     args["invoices"] = (
         [unmarshal_Invoice(v) for v in field] if field is not None else None
     )
-
-    field = data.get("total_count", None)
-    args["total_count"] = field
 
     return ListInvoicesResponse(**args)

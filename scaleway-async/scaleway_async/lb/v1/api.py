@@ -299,8 +299,8 @@ class LbV1ZonedAPI(API):
     async def create_lb(
         self,
         *,
-        type_: str,
         description: str,
+        type_: str,
         zone: Optional[Zone] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -313,8 +313,8 @@ class LbV1ZonedAPI(API):
         """
         Create a Load Balancer.
         Create a new Load Balancer. Note that the Load Balancer will be created without frontends or backends; these must be created separately via the dedicated endpoints.
-        :param type_: Load Balancer commercial offer type. Use the Load Balancer types endpoint to retrieve a list of available offer types.
         :param description: Description for the Load Balancer.
+        :param type_: Load Balancer commercial offer type. Use the Load Balancer types endpoint to retrieve a list of available offer types.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param organization_id: Scaleway Organization to create the Load Balancer in.
         :param project_id: Scaleway Project to create the Load Balancer in.
@@ -329,8 +329,8 @@ class LbV1ZonedAPI(API):
         ::
 
             result = await api.create_lb(
-                type="example",
                 description="example",
+                type="example",
             )
         """
 
@@ -341,8 +341,8 @@ class LbV1ZonedAPI(API):
             f"/lb/v1/zones/{param_zone}/lbs",
             body=marshal_ZonedApiCreateLbRequest(
                 ZonedApiCreateLbRequest(
-                    type_=type_,
                     description=description,
+                    type_=type_,
                     zone=zone,
                     name=name or random_name(prefix="lb"),
                     ip_id=ip_id,
@@ -431,9 +431,9 @@ class LbV1ZonedAPI(API):
     async def update_lb(
         self,
         *,
-        description: str,
-        name: str,
         lb_id: str,
+        name: str,
+        description: str,
         zone: Optional[Zone] = None,
         tags: Optional[List[str]] = None,
         ssl_compatibility_level: Optional[SSLCompatibilityLevel] = None,
@@ -441,9 +441,9 @@ class LbV1ZonedAPI(API):
         """
         Update a Load Balancer.
         Update the parameters of an existing Load Balancer, specified by its Load Balancer ID. Note that the request type is PUT and not PATCH. You must set all parameters.
-        :param description: Load Balancer description.
-        :param name: Load Balancer name.
         :param lb_id: Load Balancer ID.
+        :param name: Load Balancer name.
+        :param description: Load Balancer description.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param tags: List of tags for the Load Balancer.
         :param ssl_compatibility_level: Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and don't need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort.
@@ -453,9 +453,9 @@ class LbV1ZonedAPI(API):
         ::
 
             result = await api.update_lb(
-                description="example",
-                name="example",
                 lb_id="example",
+                name="example",
+                description="example",
             )
         """
 
@@ -467,9 +467,9 @@ class LbV1ZonedAPI(API):
             f"/lb/v1/zones/{param_zone}/lbs/{param_lb_id}",
             body=marshal_ZonedApiUpdateLbRequest(
                 ZonedApiUpdateLbRequest(
-                    description=description,
-                    name=name,
                     lb_id=lb_id,
+                    name=name,
+                    description=description,
                     zone=zone,
                     tags=tags,
                     ssl_compatibility_level=ssl_compatibility_level,
@@ -484,23 +484,23 @@ class LbV1ZonedAPI(API):
     async def delete_lb(
         self,
         *,
-        release_ip: bool,
         lb_id: str,
+        release_ip: bool,
         zone: Optional[Zone] = None,
     ) -> None:
         """
         Delete a Load Balancer.
         Delete an existing Load Balancer, specified by its Load Balancer ID. Deleting a Load Balancer is permanent, and cannot be undone. The Load Balancer's flexible IP address can either be deleted with the Load Balancer, or kept in your account for future use.
-        :param release_ip: Defines whether the Load Balancer's flexible IP should be deleted. Set to true to release the flexible IP, or false to keep it available in your account for future Load Balancers.
         :param lb_id: ID of the Load Balancer to delete.
+        :param release_ip: Defines whether the Load Balancer's flexible IP should be deleted. Set to true to release the flexible IP, or false to keep it available in your account for future Load Balancers.
         :param zone: Zone to target. If none is passed will use default zone from the config.
 
         Usage:
         ::
 
             result = await api.delete_lb(
-                release_ip=False,
                 lb_id="example",
+                release_ip=False,
             )
         """
 
@@ -520,15 +520,15 @@ class LbV1ZonedAPI(API):
     async def migrate_lb(
         self,
         *,
-        type_: str,
         lb_id: str,
+        type_: str,
         zone: Optional[Zone] = None,
     ) -> Lb:
         """
         Migrate a Load Balancer.
         Migrate an existing Load Balancer from one commercial type to another. Allows you to scale your Load Balancer up or down in terms of bandwidth or multi-cloud provision.
-        :param type_: Load Balancer type to migrate to (use the List all Load Balancer offer types endpoint to get a list of available offer types).
         :param lb_id: Load Balancer ID.
+        :param type_: Load Balancer type to migrate to (use the List all Load Balancer offer types endpoint to get a list of available offer types).
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Lb <Lb>`
 
@@ -536,8 +536,8 @@ class LbV1ZonedAPI(API):
         ::
 
             result = await api.migrate_lb(
-                type="example",
                 lb_id="example",
+                type="example",
             )
         """
 
@@ -549,8 +549,8 @@ class LbV1ZonedAPI(API):
             f"/lb/v1/zones/{param_zone}/lbs/{param_lb_id}/migrate",
             body=marshal_ZonedApiMigrateLbRequest(
                 ZonedApiMigrateLbRequest(
-                    type_=type_,
                     lb_id=lb_id,
+                    type_=type_,
                     zone=zone,
                 ),
                 self.client,
@@ -884,21 +884,21 @@ class LbV1ZonedAPI(API):
     async def create_backend(
         self,
         *,
+        forward_protocol: Protocol,
         forward_port: int,
-        health_check: HealthCheck,
-        lb_id: str,
+        forward_port_algorithm: ForwardPortAlgorithm,
+        sticky_sessions: StickySessionsType,
         sticky_sessions_cookie_name: str,
+        lb_id: str,
+        health_check: HealthCheck,
+        server_ip: List[str],
         zone: Optional[Zone] = None,
-        send_proxy_v2: Optional[bool] = None,
-        on_marked_down_action: Optional[OnMarkedDownAction] = None,
-        forward_port_algorithm: Optional[ForwardPortAlgorithm] = None,
-        forward_protocol: Optional[Protocol] = None,
-        server_ip: Optional[List[str]] = None,
         name: Optional[str] = None,
+        send_proxy_v2: Optional[bool] = None,
         timeout_server: Optional[str] = None,
         timeout_connect: Optional[str] = None,
         timeout_tunnel: Optional[str] = None,
-        sticky_sessions: Optional[StickySessionsType] = None,
+        on_marked_down_action: Optional[OnMarkedDownAction] = None,
         proxy_protocol: Optional[ProxyProtocol] = None,
         failover_host: Optional[str] = None,
         ssl_bridging: Optional[bool] = None,
@@ -911,21 +911,21 @@ class LbV1ZonedAPI(API):
         """
         Create a backend for a given Load Balancer.
         Create a new backend for a given Load Balancer, specifying its full configuration including protocol, port and forwarding algorithm.
-        :param forward_port: Port to be used by the backend when forwarding traffic to backend servers.
-        :param health_check: Object defining the health check to be carried out by the backend when checking the status and health of backend servers.
-        :param lb_id: Load Balancer ID.
-        :param sticky_sessions_cookie_name: Cookie name for cookie-based sticky sessions.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param send_proxy_v2: Deprecated in favor of proxy_protocol field.
-        :param on_marked_down_action: Action to take when a backend server is marked as down.
-        :param forward_port_algorithm: Load balancing algorithm to be used when determining which backend server to forward new traffic to.
         :param forward_protocol: Protocol to be used by the backend when forwarding traffic to backend servers.
+        :param forward_port: Port to be used by the backend when forwarding traffic to backend servers.
+        :param forward_port_algorithm: Load balancing algorithm to be used when determining which backend server to forward new traffic to.
+        :param sticky_sessions: Defines whether to activate sticky sessions (binding a particular session to a particular backend server) and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie TO stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server.
+        :param sticky_sessions_cookie_name: Cookie name for cookie-based sticky sessions.
+        :param lb_id: Load Balancer ID.
+        :param health_check: Object defining the health check to be carried out by the backend when checking the status and health of backend servers.
         :param server_ip: List of backend server IP addresses (IPv4 or IPv6) the backend should forward traffic to.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: Name for the backend.
+        :param send_proxy_v2: Deprecated in favor of proxy_protocol field.
         :param timeout_server: Maximum allowed time for a backend server to process a request.
         :param timeout_connect: Maximum allowed time for establishing a connection to a backend server.
         :param timeout_tunnel: Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout).
-        :param sticky_sessions: Defines whether to activate sticky sessions (binding a particular session to a particular backend server) and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie TO stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server.
+        :param on_marked_down_action: Action to take when a backend server is marked as down.
         :param proxy_protocol: Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software.
         :param failover_host: Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
         :param ssl_bridging: Defines whether to enable SSL bridging between the Load Balancer and backend servers.
@@ -940,10 +940,14 @@ class LbV1ZonedAPI(API):
         ::
 
             result = await api.create_backend(
+                forward_protocol=Protocol.tcp,
                 forward_port=1,
-                health_check=HealthCheck(),
-                lb_id="example",
+                forward_port_algorithm=ForwardPortAlgorithm.roundrobin,
+                sticky_sessions=StickySessionsType.none,
                 sticky_sessions_cookie_name="example",
+                lb_id="example",
+                health_check=HealthCheck(),
+                server_ip=[],
             )
         """
 
@@ -955,21 +959,21 @@ class LbV1ZonedAPI(API):
             f"/lb/v1/zones/{param_zone}/lbs/{param_lb_id}/backends",
             body=marshal_ZonedApiCreateBackendRequest(
                 ZonedApiCreateBackendRequest(
-                    forward_port=forward_port,
-                    health_check=health_check,
-                    lb_id=lb_id,
-                    sticky_sessions_cookie_name=sticky_sessions_cookie_name,
-                    zone=zone,
-                    send_proxy_v2=send_proxy_v2,
-                    on_marked_down_action=on_marked_down_action,
-                    forward_port_algorithm=forward_port_algorithm,
                     forward_protocol=forward_protocol,
+                    forward_port=forward_port,
+                    forward_port_algorithm=forward_port_algorithm,
+                    sticky_sessions=sticky_sessions,
+                    sticky_sessions_cookie_name=sticky_sessions_cookie_name,
+                    lb_id=lb_id,
+                    health_check=health_check,
                     server_ip=server_ip,
+                    zone=zone,
                     name=name or random_name(prefix="lbb"),
+                    send_proxy_v2=send_proxy_v2,
                     timeout_server=timeout_server,
                     timeout_connect=timeout_connect,
                     timeout_tunnel=timeout_tunnel,
-                    sticky_sessions=sticky_sessions,
+                    on_marked_down_action=on_marked_down_action,
                     proxy_protocol=proxy_protocol,
                     failover_host=failover_host,
                     ssl_bridging=ssl_bridging,
@@ -1021,19 +1025,19 @@ class LbV1ZonedAPI(API):
     async def update_backend(
         self,
         *,
-        forward_port: int,
-        name: str,
         backend_id: str,
+        name: str,
+        forward_protocol: Protocol,
+        forward_port: int,
+        forward_port_algorithm: ForwardPortAlgorithm,
+        sticky_sessions: StickySessionsType,
         sticky_sessions_cookie_name: str,
         zone: Optional[Zone] = None,
-        timeout_connect: Optional[str] = None,
-        on_marked_down_action: Optional[OnMarkedDownAction] = None,
-        forward_port_algorithm: Optional[ForwardPortAlgorithm] = None,
         send_proxy_v2: Optional[bool] = None,
         timeout_server: Optional[str] = None,
-        forward_protocol: Optional[Protocol] = None,
+        timeout_connect: Optional[str] = None,
         timeout_tunnel: Optional[str] = None,
-        sticky_sessions: Optional[StickySessionsType] = None,
+        on_marked_down_action: Optional[OnMarkedDownAction] = None,
         proxy_protocol: Optional[ProxyProtocol] = None,
         failover_host: Optional[str] = None,
         ssl_bridging: Optional[bool] = None,
@@ -1046,19 +1050,19 @@ class LbV1ZonedAPI(API):
         """
         Update a backend of a given Load Balancer.
         Update a backend of a given Load Balancer, specified by its backend ID. Note that the request type is PUT and not PATCH. You must set all parameters.
-        :param forward_port: Port to be used by the backend when forwarding traffic to backend servers.
-        :param name: Backend name.
         :param backend_id: Backend ID.
+        :param name: Backend name.
+        :param forward_protocol: Protocol to be used by the backend when forwarding traffic to backend servers.
+        :param forward_port: Port to be used by the backend when forwarding traffic to backend servers.
+        :param forward_port_algorithm: Load balancing algorithm to be used when determining which backend server to forward new traffic to.
+        :param sticky_sessions: Defines whether to activate sticky sessions (binding a particular session to a particular backend server) and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie to stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server.
         :param sticky_sessions_cookie_name: Cookie name for cookie-based sticky sessions.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param timeout_connect: Maximum allowed time for establishing a connection to a backend server.
-        :param on_marked_down_action: Action to take when a backend server is marked as down.
-        :param forward_port_algorithm: Load balancing algorithm to be used when determining which backend server to forward new traffic to.
         :param send_proxy_v2: Deprecated in favor of proxy_protocol field.
         :param timeout_server: Maximum allowed time for a backend server to process a request.
-        :param forward_protocol: Protocol to be used by the backend when forwarding traffic to backend servers.
+        :param timeout_connect: Maximum allowed time for establishing a connection to a backend server.
         :param timeout_tunnel: Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout).
-        :param sticky_sessions: Defines whether to activate sticky sessions (binding a particular session to a particular backend server) and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie to stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server.
+        :param on_marked_down_action: Action to take when a backend server is marked as down.
         :param proxy_protocol: Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software.
         :param failover_host: Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
         :param ssl_bridging: Defines whether to enable SSL bridging between the Load Balancer and backend servers.
@@ -1073,9 +1077,12 @@ class LbV1ZonedAPI(API):
         ::
 
             result = await api.update_backend(
-                forward_port=1,
-                name="example",
                 backend_id="example",
+                name="example",
+                forward_protocol=Protocol.tcp,
+                forward_port=1,
+                forward_port_algorithm=ForwardPortAlgorithm.roundrobin,
+                sticky_sessions=StickySessionsType.none,
                 sticky_sessions_cookie_name="example",
             )
         """
@@ -1088,19 +1095,19 @@ class LbV1ZonedAPI(API):
             f"/lb/v1/zones/{param_zone}/backends/{param_backend_id}",
             body=marshal_ZonedApiUpdateBackendRequest(
                 ZonedApiUpdateBackendRequest(
-                    forward_port=forward_port,
-                    name=name,
                     backend_id=backend_id,
+                    name=name,
+                    forward_protocol=forward_protocol,
+                    forward_port=forward_port,
+                    forward_port_algorithm=forward_port_algorithm,
+                    sticky_sessions=sticky_sessions,
                     sticky_sessions_cookie_name=sticky_sessions_cookie_name,
                     zone=zone,
-                    timeout_connect=timeout_connect,
-                    on_marked_down_action=on_marked_down_action,
-                    forward_port_algorithm=forward_port_algorithm,
                     send_proxy_v2=send_proxy_v2,
                     timeout_server=timeout_server,
-                    forward_protocol=forward_protocol,
+                    timeout_connect=timeout_connect,
                     timeout_tunnel=timeout_tunnel,
-                    sticky_sessions=sticky_sessions,
+                    on_marked_down_action=on_marked_down_action,
                     proxy_protocol=proxy_protocol,
                     failover_host=failover_host,
                     ssl_bridging=ssl_bridging,
@@ -1151,15 +1158,15 @@ class LbV1ZonedAPI(API):
         self,
         *,
         backend_id: str,
+        server_ip: List[str],
         zone: Optional[Zone] = None,
-        server_ip: Optional[List[str]] = None,
     ) -> Backend:
         """
         Add a set of backend servers to a given backend.
         For a given backend specified by its backend ID, add a set of backend servers (identified by their IP addresses) it should forward traffic to. These will be appended to any existing set of backend servers for this backend.
         :param backend_id: Backend ID.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_ip: List of IP addresses to add to backend servers.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Backend <Backend>`
 
         Usage:
@@ -1167,6 +1174,7 @@ class LbV1ZonedAPI(API):
 
             result = await api.add_backend_servers(
                 backend_id="example",
+                server_ip=[],
             )
         """
 
@@ -1179,8 +1187,8 @@ class LbV1ZonedAPI(API):
             body=marshal_ZonedApiAddBackendServersRequest(
                 ZonedApiAddBackendServersRequest(
                     backend_id=backend_id,
-                    zone=zone,
                     server_ip=server_ip,
+                    zone=zone,
                 ),
                 self.client,
             ),
@@ -1193,15 +1201,15 @@ class LbV1ZonedAPI(API):
         self,
         *,
         backend_id: str,
+        server_ip: List[str],
         zone: Optional[Zone] = None,
-        server_ip: Optional[List[str]] = None,
     ) -> Backend:
         """
         Remove a set of servers for a given backend.
         For a given backend specified by its backend ID, remove the specified backend servers (identified by their IP addresses) so that it no longer forwards traffic to them.
         :param backend_id: Backend ID.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_ip: List of IP addresses to remove from backend servers.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Backend <Backend>`
 
         Usage:
@@ -1209,6 +1217,7 @@ class LbV1ZonedAPI(API):
 
             result = await api.remove_backend_servers(
                 backend_id="example",
+                server_ip=[],
             )
         """
 
@@ -1221,8 +1230,8 @@ class LbV1ZonedAPI(API):
             body=marshal_ZonedApiRemoveBackendServersRequest(
                 ZonedApiRemoveBackendServersRequest(
                     backend_id=backend_id,
-                    zone=zone,
                     server_ip=server_ip,
+                    zone=zone,
                 ),
                 self.client,
             ),
@@ -1235,15 +1244,15 @@ class LbV1ZonedAPI(API):
         self,
         *,
         backend_id: str,
+        server_ip: List[str],
         zone: Optional[Zone] = None,
-        server_ip: Optional[List[str]] = None,
     ) -> Backend:
         """
         Define all backend servers for a given backend.
         For a given backend specified by its backend ID, define the set of backend servers (identified by their IP addresses) that it should forward traffic to. Any existing backend servers configured for this backend will be removed.
         :param backend_id: Backend ID.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_ip: List of IP addresses for backend servers. Any other existing backend servers will be removed.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Backend <Backend>`
 
         Usage:
@@ -1251,6 +1260,7 @@ class LbV1ZonedAPI(API):
 
             result = await api.set_backend_servers(
                 backend_id="example",
+                server_ip=[],
             )
         """
 
@@ -1263,8 +1273,8 @@ class LbV1ZonedAPI(API):
             body=marshal_ZonedApiSetBackendServersRequest(
                 ZonedApiSetBackendServersRequest(
                     backend_id=backend_id,
-                    zone=zone,
                     server_ip=server_ip,
+                    zone=zone,
                 ),
                 self.client,
             ),
@@ -1276,13 +1286,13 @@ class LbV1ZonedAPI(API):
     async def update_health_check(
         self,
         *,
-        check_send_proxy: bool,
         port: int,
-        backend_id: str,
         check_max_retries: int,
+        backend_id: str,
         zone: Optional[Zone] = None,
         check_delay: Optional[str] = None,
         check_timeout: Optional[str] = None,
+        check_send_proxy: bool,
         tcp_config: Optional[HealthCheckTcpConfig] = None,
         mysql_config: Optional[HealthCheckMysqlConfig] = None,
         pgsql_config: Optional[HealthCheckPgsqlConfig] = None,
@@ -1295,13 +1305,13 @@ class LbV1ZonedAPI(API):
         """
         Update a health check for a given backend.
         Update the configuration of the health check performed by a given backend to verify the health of its backend servers, identified by its backend ID. Note that the request type is PUT and not PATCH. You must set all parameters.
-        :param check_send_proxy: Defines whether proxy protocol should be activated for the health check.
         :param port: Port to use for the backend server health check.
-        :param backend_id: Backend ID.
         :param check_max_retries: Number of consecutive unsuccessful health checks after which the server will be considered dead.
+        :param backend_id: Backend ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param check_delay: Time to wait between two consecutive health checks.
         :param check_timeout: Maximum time a backend server has to reply to the health check.
+        :param check_send_proxy: Defines whether proxy protocol should be activated for the health check.
         :param tcp_config: Object to configure a basic TCP health check.
         :param mysql_config: Object to configure a MySQL health check. The check requires MySQL >=3.22, for older versions, use a TCP health check.
         :param pgsql_config: Object to configure a PostgreSQL health check.
@@ -1316,10 +1326,10 @@ class LbV1ZonedAPI(API):
         ::
 
             result = await api.update_health_check(
-                check_send_proxy=False,
                 port=1,
-                backend_id="example",
                 check_max_retries=1,
+                backend_id="example",
+                check_send_proxy=False,
             )
         """
 
@@ -1331,10 +1341,10 @@ class LbV1ZonedAPI(API):
             f"/lb/v1/zones/{param_zone}/backends/{param_backend_id}/healthcheck",
             body=marshal_ZonedApiUpdateHealthCheckRequest(
                 ZonedApiUpdateHealthCheckRequest(
-                    check_send_proxy=check_send_proxy,
-                    check_max_retries=check_max_retries,
                     port=port,
+                    check_max_retries=check_max_retries,
                     backend_id=backend_id,
+                    check_send_proxy=check_send_proxy,
                     zone=zone,
                     check_delay=check_delay,
                     check_timeout=check_timeout,
@@ -1446,10 +1456,10 @@ class LbV1ZonedAPI(API):
     async def create_frontend(
         self,
         *,
-        enable_http3: bool,
-        backend_id: str,
         inbound_port: int,
         lb_id: str,
+        backend_id: str,
+        enable_http3: bool,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
         timeout_client: Optional[str] = None,
@@ -1459,10 +1469,10 @@ class LbV1ZonedAPI(API):
         """
         Create a frontend in a given Load Balancer.
         Create a new frontend for a given Load Balancer, specifying its configuration including the port it should listen on and the backend to attach it to.
-        :param enable_http3: Defines whether to enable HTTP/3 protocol on the frontend.
-        :param backend_id: Backend ID (ID of the backend the frontend should pass traffic to).
         :param inbound_port: Port the frontend should listen on.
         :param lb_id: Load Balancer ID (ID of the Load Balancer to attach the frontend to).
+        :param backend_id: Backend ID (ID of the backend the frontend should pass traffic to).
+        :param enable_http3: Defines whether to enable HTTP/3 protocol on the frontend.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: Name for the frontend.
         :param timeout_client: Maximum allowed inactivity time on the client side.
@@ -1474,10 +1484,10 @@ class LbV1ZonedAPI(API):
         ::
 
             result = await api.create_frontend(
-                enable_http3=False,
-                backend_id="example",
                 inbound_port=1,
                 lb_id="example",
+                backend_id="example",
+                enable_http3=False,
             )
         """
 
@@ -1489,10 +1499,10 @@ class LbV1ZonedAPI(API):
             f"/lb/v1/zones/{param_zone}/lbs/{param_lb_id}/frontends",
             body=marshal_ZonedApiCreateFrontendRequest(
                 ZonedApiCreateFrontendRequest(
-                    enable_http3=enable_http3,
-                    backend_id=backend_id,
                     inbound_port=inbound_port,
                     lb_id=lb_id,
+                    backend_id=backend_id,
+                    enable_http3=enable_http3,
                     zone=zone,
                     name=name or random_name(prefix="lbf"),
                     timeout_client=timeout_client,
@@ -1541,11 +1551,11 @@ class LbV1ZonedAPI(API):
     async def update_frontend(
         self,
         *,
-        enable_http3: bool,
-        backend_id: str,
-        inbound_port: int,
-        name: str,
         frontend_id: str,
+        name: str,
+        inbound_port: int,
+        backend_id: str,
+        enable_http3: bool,
         zone: Optional[Zone] = None,
         timeout_client: Optional[str] = None,
         certificate_id: Optional[str] = None,
@@ -1554,11 +1564,11 @@ class LbV1ZonedAPI(API):
         """
         Update a frontend.
         Update a given frontend, specified by its frontend ID. You can update configuration parameters including its name and the port it listens on. Note that the request type is PUT and not PATCH. You must set all parameters.
-        :param enable_http3: Defines whether to enable HTTP/3 protocol on the frontend.
-        :param backend_id: Backend ID (ID of the backend the frontend should pass traffic to).
-        :param inbound_port: Port the frontend should listen on.
-        :param name: Frontend name.
         :param frontend_id: Frontend ID.
+        :param name: Frontend name.
+        :param inbound_port: Port the frontend should listen on.
+        :param backend_id: Backend ID (ID of the backend the frontend should pass traffic to).
+        :param enable_http3: Defines whether to enable HTTP/3 protocol on the frontend.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param timeout_client: Maximum allowed inactivity time on the client side.
         :param certificate_id: Certificate ID, deprecated in favor of certificate_ids array.
@@ -1569,11 +1579,11 @@ class LbV1ZonedAPI(API):
         ::
 
             result = await api.update_frontend(
-                enable_http3=False,
-                backend_id="example",
-                inbound_port=1,
-                name="example",
                 frontend_id="example",
+                name="example",
+                inbound_port=1,
+                backend_id="example",
+                enable_http3=False,
             )
         """
 
@@ -1585,11 +1595,11 @@ class LbV1ZonedAPI(API):
             f"/lb/v1/zones/{param_zone}/frontends/{param_frontend_id}",
             body=marshal_ZonedApiUpdateFrontendRequest(
                 ZonedApiUpdateFrontendRequest(
-                    enable_http3=enable_http3,
-                    backend_id=backend_id,
-                    inbound_port=inbound_port,
-                    name=name,
                     frontend_id=frontend_id,
+                    name=name,
+                    inbound_port=inbound_port,
+                    backend_id=backend_id,
+                    enable_http3=enable_http3,
                     zone=zone,
                     timeout_client=timeout_client,
                     certificate_id=certificate_id,
@@ -1714,16 +1724,16 @@ class LbV1ZonedAPI(API):
     async def create_route(
         self,
         *,
-        backend_id: str,
         frontend_id: str,
+        backend_id: str,
         zone: Optional[Zone] = None,
         match: Optional[RouteMatch] = None,
     ) -> Route:
         """
         Create a route.
         Create a new route on a given frontend. To configure a route, specify the backend to direct to if a certain condition is matched (based on the value of the SNI field or HTTP Host header).
-        :param backend_id: ID of the target backend for the route.
         :param frontend_id: ID of the source frontend to create the route on.
+        :param backend_id: ID of the target backend for the route.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param match: Object defining the match condition for a route to be applied. If an incoming client session matches the specified condition (i.e. it has a matching SNI value or HTTP Host header value), it will be passed to the target backend.
         :return: :class:`Route <Route>`
@@ -1732,8 +1742,8 @@ class LbV1ZonedAPI(API):
         ::
 
             result = await api.create_route(
-                backend_id="example",
                 frontend_id="example",
+                backend_id="example",
             )
         """
 
@@ -1744,8 +1754,8 @@ class LbV1ZonedAPI(API):
             f"/lb/v1/zones/{param_zone}/routes",
             body=marshal_ZonedApiCreateRouteRequest(
                 ZonedApiCreateRouteRequest(
-                    backend_id=backend_id,
                     frontend_id=frontend_id,
+                    backend_id=backend_id,
                     zone=zone,
                     match=match,
                 ),
@@ -1791,16 +1801,16 @@ class LbV1ZonedAPI(API):
     async def update_route(
         self,
         *,
-        backend_id: str,
         route_id: str,
+        backend_id: str,
         zone: Optional[Zone] = None,
         match: Optional[RouteMatch] = None,
     ) -> Route:
         """
         Update a route.
         Update the configuration of an existing route, specified by its route ID.
-        :param backend_id: ID of the target backend for the route.
         :param route_id: Route ID.
+        :param backend_id: ID of the target backend for the route.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param match: Object defining the match condition for a route to be applied. If an incoming client session matches the specified condition (i.e. it has a matching SNI value or HTTP Host header value), it will be passed to the target backend.
         :return: :class:`Route <Route>`
@@ -1809,8 +1819,8 @@ class LbV1ZonedAPI(API):
         ::
 
             result = await api.update_route(
-                backend_id="example",
                 route_id="example",
+                backend_id="example",
             )
         """
 
@@ -1822,8 +1832,8 @@ class LbV1ZonedAPI(API):
             f"/lb/v1/zones/{param_zone}/routes/{param_route_id}",
             body=marshal_ZonedApiUpdateRouteRequest(
                 ZonedApiUpdateRouteRequest(
-                    backend_id=backend_id,
                     route_id=route_id,
+                    backend_id=backend_id,
                     zone=zone,
                     match=match,
                 ),
@@ -2077,35 +2087,34 @@ class LbV1ZonedAPI(API):
     async def create_acl(
         self,
         *,
-        description: str,
-        index: int,
-        match: AclMatch,
-        action: AclAction,
         frontend_id: str,
+        action: AclAction,
+        index: int,
+        description: str,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
+        match: Optional[AclMatch] = None,
     ) -> Acl:
         """
         Create an ACL for a given frontend.
         Create a new ACL for a given frontend. Each ACL must have a name, an action to perform (allow or deny), and a match rule (the action is carried out when the incoming traffic matches the rule).
-        :param description: ACL description.
-        :param index: Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
-        :param match: ACL match filter object. One of `ip_subnet` or `http_filter` & `http_filter_value` are required.
-        :param action: Action to take when incoming traffic matches an ACL filter.
         :param frontend_id: Frontend ID to attach the ACL to.
+        :param action: Action to take when incoming traffic matches an ACL filter.
+        :param index: Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
+        :param description: ACL description.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: ACL name.
+        :param match: ACL match filter object. One of `ip_subnet` or `http_filter` & `http_filter_value` are required.
         :return: :class:`Acl <Acl>`
 
         Usage:
         ::
 
             result = await api.create_acl(
-                description="example",
-                index=1,
-                match=AclMatch(),
-                action=AclAction(),
                 frontend_id="example",
+                action=AclAction(),
+                index=1,
+                description="example",
             )
         """
 
@@ -2117,13 +2126,13 @@ class LbV1ZonedAPI(API):
             f"/lb/v1/zones/{param_zone}/frontends/{param_frontend_id}/acls",
             body=marshal_ZonedApiCreateAclRequest(
                 ZonedApiCreateAclRequest(
-                    description=description,
-                    index=index,
-                    match=match,
-                    action=action,
                     frontend_id=frontend_id,
+                    action=action,
+                    index=index,
+                    description=description,
                     zone=zone,
                     name=name or random_name(prefix="acl"),
+                    match=match,
                 ),
                 self.client,
             ),
@@ -2167,23 +2176,23 @@ class LbV1ZonedAPI(API):
     async def update_acl(
         self,
         *,
-        index: int,
-        match: AclMatch,
-        action: AclAction,
-        name: str,
         acl_id: str,
+        name: str,
+        action: AclAction,
+        index: int,
         zone: Optional[Zone] = None,
+        match: Optional[AclMatch] = None,
         description: Optional[str] = None,
     ) -> Acl:
         """
         Update an ACL.
         Update a particular ACL, specified by its ACL ID. You can update details including its name, action and match rule.
-        :param index: Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
-        :param match: ACL match filter object. One of `ip_subnet` or `http_filter` & `http_filter_value` are required.
-        :param action: Action to take when incoming traffic matches an ACL filter.
-        :param name: ACL name.
         :param acl_id: ACL ID.
+        :param name: ACL name.
+        :param action: Action to take when incoming traffic matches an ACL filter.
+        :param index: Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
         :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param match: ACL match filter object. One of `ip_subnet` or `http_filter` & `http_filter_value` are required.
         :param description: ACL description.
         :return: :class:`Acl <Acl>`
 
@@ -2191,11 +2200,10 @@ class LbV1ZonedAPI(API):
         ::
 
             result = await api.update_acl(
-                index=1,
-                match=AclMatch(),
-                action=AclAction(),
-                name="example",
                 acl_id="example",
+                name="example",
+                action=AclAction(),
+                index=1,
             )
         """
 
@@ -2207,12 +2215,12 @@ class LbV1ZonedAPI(API):
             f"/lb/v1/zones/{param_zone}/acls/{param_acl_id}",
             body=marshal_ZonedApiUpdateAclRequest(
                 ZonedApiUpdateAclRequest(
-                    index=index,
-                    match=match,
-                    action=action,
-                    name=name,
                     acl_id=acl_id,
+                    name=name,
+                    action=action,
+                    index=index,
                     zone=zone,
+                    match=match,
                     description=description,
                 ),
                 self.client,
@@ -2255,22 +2263,23 @@ class LbV1ZonedAPI(API):
     async def set_acls(
         self,
         *,
+        acls: List[AclSpec],
         frontend_id: str,
         zone: Optional[Zone] = None,
-        acls: Optional[List[AclSpec]] = None,
     ) -> SetAclsResponse:
         """
         Define all ACLs for a given frontend.
         For a given frontend specified by its frontend ID, define and add the complete set of ACLS for that frontend. Any existing ACLs on this frontend will be removed.
+        :param acls: List of ACLs for this frontend. Any other existing ACLs on this frontend will be removed.
         :param frontend_id: Frontend ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param acls: List of ACLs for this frontend. Any other existing ACLs on this frontend will be removed.
         :return: :class:`SetAclsResponse <SetAclsResponse>`
 
         Usage:
         ::
 
             result = await api.set_acls(
+                acls=[],
                 frontend_id="example",
             )
         """
@@ -2283,9 +2292,9 @@ class LbV1ZonedAPI(API):
             f"/lb/v1/zones/{param_zone}/frontends/{param_frontend_id}/acls",
             body=marshal_ZonedApiSetAclsRequest(
                 ZonedApiSetAclsRequest(
+                    acls=acls,
                     frontend_id=frontend_id,
                     zone=zone,
-                    acls=acls,
                 ),
                 self.client,
             ),
@@ -2505,15 +2514,15 @@ class LbV1ZonedAPI(API):
     async def update_certificate(
         self,
         *,
-        name: str,
         certificate_id: str,
+        name: str,
         zone: Optional[Zone] = None,
     ) -> Certificate:
         """
         Update an SSL/TLS certificate.
         Update the name of a particular SSL/TLS certificate, specified by its certificate ID.
-        :param name: Certificate name.
         :param certificate_id: Certificate ID.
+        :param name: Certificate name.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Certificate <Certificate>`
 
@@ -2521,8 +2530,8 @@ class LbV1ZonedAPI(API):
         ::
 
             result = await api.update_certificate(
-                name="example",
                 certificate_id="example",
+                name="example",
             )
         """
 
@@ -2534,8 +2543,8 @@ class LbV1ZonedAPI(API):
             f"/lb/v1/zones/{param_zone}/certificates/{param_certificate_id}",
             body=marshal_ZonedApiUpdateCertificateRequest(
                 ZonedApiUpdateCertificateRequest(
-                    name=name,
                     certificate_id=certificate_id,
+                    name=name,
                     zone=zone,
                 ),
                 self.client,
@@ -2819,8 +2828,8 @@ class LbV1ZonedAPI(API):
     async def update_subscriber(
         self,
         *,
-        name: str,
         subscriber_id: str,
+        name: str,
         zone: Optional[Zone] = None,
         email_config: Optional[SubscriberEmailConfig] = None,
         webhook_config: Optional[SubscriberWebhookConfig] = None,
@@ -2828,8 +2837,8 @@ class LbV1ZonedAPI(API):
         """
         Update a subscriber.
         Update the parameters of a given subscriber (e.g. name, webhook configuration, email configuration), specified by its subscriber ID.
-        :param name: Subscriber name.
         :param subscriber_id: Subscriber ID.
+        :param name: Subscriber name.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param email_config: Email address configuration.
         :param webhook_config: Webhook URI configuration.
@@ -2839,8 +2848,8 @@ class LbV1ZonedAPI(API):
         ::
 
             result = await api.update_subscriber(
-                name="example",
                 subscriber_id="example",
+                name="example",
             )
         """
 
@@ -2852,8 +2861,8 @@ class LbV1ZonedAPI(API):
             f"/lb/v1/zones/{param_zone}/subscribers/{param_subscriber_id}",
             body=marshal_ZonedApiUpdateSubscriberRequest(
                 ZonedApiUpdateSubscriberRequest(
-                    name=name,
                     subscriber_id=subscriber_id,
+                    name=name,
                     zone=zone,
                     email_config=email_config,
                     webhook_config=webhook_config,
@@ -2898,15 +2907,15 @@ class LbV1ZonedAPI(API):
     async def subscribe_to_lb(
         self,
         *,
-        subscriber_id: str,
         lb_id: str,
+        subscriber_id: str,
         zone: Optional[Zone] = None,
     ) -> Lb:
         """
         Subscribe a subscriber to alerts for a given Load Balancer.
         Subscribe an existing subscriber to alerts for a given Load Balancer.
-        :param subscriber_id: Subscriber ID.
         :param lb_id: Load Balancer ID.
+        :param subscriber_id: Subscriber ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Lb <Lb>`
 
@@ -2914,8 +2923,8 @@ class LbV1ZonedAPI(API):
         ::
 
             result = await api.subscribe_to_lb(
-                subscriber_id="example",
                 lb_id="example",
+                subscriber_id="example",
             )
         """
 
@@ -2927,8 +2936,8 @@ class LbV1ZonedAPI(API):
             f"/lb/v1/zones/{param_zone}/lb/{param_lb_id}/subscribe",
             body=marshal_ZonedApiSubscribeToLbRequest(
                 ZonedApiSubscribeToLbRequest(
-                    subscriber_id=subscriber_id,
                     lb_id=lb_id,
+                    subscriber_id=subscriber_id,
                     zone=zone,
                 ),
                 self.client,
@@ -3056,8 +3065,8 @@ class LbV1ZonedAPI(API):
     async def attach_private_network(
         self,
         *,
-        private_network_id: str,
         lb_id: str,
+        private_network_id: str,
         zone: Optional[Zone] = None,
         static_config: Optional[PrivateNetworkStaticConfig] = None,
         dhcp_config: Optional[PrivateNetworkDHCPConfig] = None,
@@ -3066,8 +3075,8 @@ class LbV1ZonedAPI(API):
         """
         Attach a Load Balancer to a Private Network.
         Attach a specified Load Balancer to a specified Private Network, defining a static or DHCP configuration for the Load Balancer on the network.
-        :param private_network_id: Private Network ID.
         :param lb_id: Load Balancer ID.
+        :param private_network_id: Private Network ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param static_config: Object containing an array of a local IP address for the Load Balancer on this Private Network.
         :param dhcp_config: Defines whether to let DHCP assign IP addresses.
@@ -3078,8 +3087,8 @@ class LbV1ZonedAPI(API):
         ::
 
             result = await api.attach_private_network(
-                private_network_id="example",
                 lb_id="example",
+                private_network_id="example",
             )
         """
 
@@ -3094,8 +3103,8 @@ class LbV1ZonedAPI(API):
             f"/lb/v1/zones/{param_zone}/lbs/{param_lb_id}/private-networks/{param_private_network_id}/attach",
             body=marshal_ZonedApiAttachPrivateNetworkRequest(
                 ZonedApiAttachPrivateNetworkRequest(
-                    private_network_id=private_network_id,
                     lb_id=lb_id,
+                    private_network_id=private_network_id,
                     zone=zone,
                     static_config=static_config,
                     dhcp_config=dhcp_config,
@@ -3111,23 +3120,23 @@ class LbV1ZonedAPI(API):
     async def detach_private_network(
         self,
         *,
-        private_network_id: str,
         lb_id: str,
+        private_network_id: str,
         zone: Optional[Zone] = None,
     ) -> None:
         """
         Detach Load Balancer from Private Network.
         Detach a specified Load Balancer from a specified Private Network.
-        :param private_network_id: Set your instance private network id.
         :param lb_id: Load balancer ID.
+        :param private_network_id: Set your instance private network id.
         :param zone: Zone to target. If none is passed will use default zone from the config.
 
         Usage:
         ::
 
             result = await api.detach_private_network(
-                private_network_id="example",
                 lb_id="example",
+                private_network_id="example",
             )
         """
 
@@ -3248,8 +3257,8 @@ class LbV1API(API):
     async def create_lb(
         self,
         *,
-        type_: str,
         description: str,
+        type_: str,
         region: Optional[Region] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -3262,8 +3271,8 @@ class LbV1API(API):
         """
         Create a load balancer.
         Create a load balancer.
-        :param type_: Load Balancer commercial offer type. Use the Load Balancer types endpoint to retrieve a list of available offer types.
         :param description: Description for the Load Balancer.
+        :param type_: Load Balancer commercial offer type. Use the Load Balancer types endpoint to retrieve a list of available offer types.
         :param region: Region to target. If none is passed will use default region from the config.
         :param organization_id: Scaleway Organization to create the Load Balancer in.
         :param project_id: Scaleway Project to create the Load Balancer in.
@@ -3278,8 +3287,8 @@ class LbV1API(API):
         ::
 
             result = await api.create_lb(
-                type="example",
                 description="example",
+                type="example",
             )
         """
 
@@ -3292,8 +3301,8 @@ class LbV1API(API):
             f"/lb/v1/regions/{param_region}/lbs",
             body=marshal_CreateLbRequest(
                 CreateLbRequest(
-                    type_=type_,
                     description=description,
+                    type_=type_,
                     region=region,
                     name=name or random_name(prefix="lb"),
                     ip_id=ip_id,
@@ -3384,9 +3393,9 @@ class LbV1API(API):
     async def update_lb(
         self,
         *,
-        description: str,
-        name: str,
         lb_id: str,
+        name: str,
+        description: str,
         region: Optional[Region] = None,
         tags: Optional[List[str]] = None,
         ssl_compatibility_level: Optional[SSLCompatibilityLevel] = None,
@@ -3394,9 +3403,9 @@ class LbV1API(API):
         """
         Update a load balancer.
         Update a load balancer.
-        :param description: Load Balancer description.
-        :param name: Load Balancer name.
         :param lb_id: Load Balancer ID.
+        :param name: Load Balancer name.
+        :param description: Load Balancer description.
         :param region: Region to target. If none is passed will use default region from the config.
         :param tags: List of tags for the Load Balancer.
         :param ssl_compatibility_level: Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and don't need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort.
@@ -3406,9 +3415,9 @@ class LbV1API(API):
         ::
 
             result = await api.update_lb(
-                description="example",
-                name="example",
                 lb_id="example",
+                name="example",
+                description="example",
             )
         """
 
@@ -3422,9 +3431,9 @@ class LbV1API(API):
             f"/lb/v1/regions/{param_region}/lbs/{param_lb_id}",
             body=marshal_UpdateLbRequest(
                 UpdateLbRequest(
-                    description=description,
-                    name=name,
                     lb_id=lb_id,
+                    name=name,
+                    description=description,
                     region=region,
                     tags=tags,
                     ssl_compatibility_level=ssl_compatibility_level,
@@ -3439,23 +3448,23 @@ class LbV1API(API):
     async def delete_lb(
         self,
         *,
-        release_ip: bool,
         lb_id: str,
+        release_ip: bool,
         region: Optional[Region] = None,
     ) -> None:
         """
         Delete a load balancer.
         Delete a load balancer.
-        :param release_ip: Defines whether the Load Balancer's flexible IP should be deleted. Set to true to release the flexible IP, or false to keep it available in your account for future Load Balancers.
         :param lb_id: ID of the Load Balancer to delete.
+        :param release_ip: Defines whether the Load Balancer's flexible IP should be deleted. Set to true to release the flexible IP, or false to keep it available in your account for future Load Balancers.
         :param region: Region to target. If none is passed will use default region from the config.
 
         Usage:
         ::
 
             result = await api.delete_lb(
-                release_ip=False,
                 lb_id="example",
+                release_ip=False,
             )
         """
 
@@ -3477,15 +3486,15 @@ class LbV1API(API):
     async def migrate_lb(
         self,
         *,
-        type_: str,
         lb_id: str,
+        type_: str,
         region: Optional[Region] = None,
     ) -> Lb:
         """
         Migrate a load balancer.
         Migrate a load balancer.
-        :param type_: Load Balancer type to migrate to (use the List all Load Balancer offer types endpoint to get a list of available offer types).
         :param lb_id: Load Balancer ID.
+        :param type_: Load Balancer type to migrate to (use the List all Load Balancer offer types endpoint to get a list of available offer types).
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Lb <Lb>`
 
@@ -3493,8 +3502,8 @@ class LbV1API(API):
         ::
 
             result = await api.migrate_lb(
-                type="example",
                 lb_id="example",
+                type="example",
             )
         """
 
@@ -3508,8 +3517,8 @@ class LbV1API(API):
             f"/lb/v1/regions/{param_region}/lbs/{param_lb_id}/migrate",
             body=marshal_MigrateLbRequest(
                 MigrateLbRequest(
-                    type_=type_,
                     lb_id=lb_id,
+                    type_=type_,
                     region=region,
                 ),
                 self.client,
@@ -3855,21 +3864,21 @@ class LbV1API(API):
     async def create_backend(
         self,
         *,
+        forward_protocol: Protocol,
         forward_port: int,
-        health_check: HealthCheck,
-        lb_id: str,
+        forward_port_algorithm: ForwardPortAlgorithm,
+        sticky_sessions: StickySessionsType,
         sticky_sessions_cookie_name: str,
+        lb_id: str,
+        health_check: HealthCheck,
+        server_ip: List[str],
         region: Optional[Region] = None,
-        send_proxy_v2: Optional[bool] = None,
-        on_marked_down_action: Optional[OnMarkedDownAction] = None,
-        forward_port_algorithm: Optional[ForwardPortAlgorithm] = None,
-        forward_protocol: Optional[Protocol] = None,
-        server_ip: Optional[List[str]] = None,
         name: Optional[str] = None,
+        send_proxy_v2: Optional[bool] = None,
         timeout_server: Optional[str] = None,
         timeout_connect: Optional[str] = None,
         timeout_tunnel: Optional[str] = None,
-        sticky_sessions: Optional[StickySessionsType] = None,
+        on_marked_down_action: Optional[OnMarkedDownAction] = None,
         proxy_protocol: Optional[ProxyProtocol] = None,
         failover_host: Optional[str] = None,
         ssl_bridging: Optional[bool] = None,
@@ -3882,21 +3891,21 @@ class LbV1API(API):
         """
         Create a backend in a given load balancer.
         Create a backend in a given load balancer.
-        :param forward_port: Port to be used by the backend when forwarding traffic to backend servers.
-        :param health_check: Object defining the health check to be carried out by the backend when checking the status and health of backend servers.
-        :param lb_id: Load Balancer ID.
-        :param sticky_sessions_cookie_name: Cookie name for cookie-based sticky sessions.
-        :param region: Region to target. If none is passed will use default region from the config.
-        :param send_proxy_v2: Deprecated in favor of proxy_protocol field.
-        :param on_marked_down_action: Action to take when a backend server is marked as down.
-        :param forward_port_algorithm: Load balancing algorithm to be used when determining which backend server to forward new traffic to.
         :param forward_protocol: Protocol to be used by the backend when forwarding traffic to backend servers.
+        :param forward_port: Port to be used by the backend when forwarding traffic to backend servers.
+        :param forward_port_algorithm: Load balancing algorithm to be used when determining which backend server to forward new traffic to.
+        :param sticky_sessions: Defines whether to activate sticky sessions (binding a particular session to a particular backend server) and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie TO stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server.
+        :param sticky_sessions_cookie_name: Cookie name for cookie-based sticky sessions.
+        :param lb_id: Load Balancer ID.
+        :param health_check: Object defining the health check to be carried out by the backend when checking the status and health of backend servers.
         :param server_ip: List of backend server IP addresses (IPv4 or IPv6) the backend should forward traffic to.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name for the backend.
+        :param send_proxy_v2: Deprecated in favor of proxy_protocol field.
         :param timeout_server: Maximum allowed time for a backend server to process a request.
         :param timeout_connect: Maximum allowed time for establishing a connection to a backend server.
         :param timeout_tunnel: Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout).
-        :param sticky_sessions: Defines whether to activate sticky sessions (binding a particular session to a particular backend server) and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie TO stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server.
+        :param on_marked_down_action: Action to take when a backend server is marked as down.
         :param proxy_protocol: Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software.
         :param failover_host: Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
         :param ssl_bridging: Defines whether to enable SSL bridging between the Load Balancer and backend servers.
@@ -3911,10 +3920,14 @@ class LbV1API(API):
         ::
 
             result = await api.create_backend(
+                forward_protocol=Protocol.tcp,
                 forward_port=1,
-                health_check=HealthCheck(),
-                lb_id="example",
+                forward_port_algorithm=ForwardPortAlgorithm.roundrobin,
+                sticky_sessions=StickySessionsType.none,
                 sticky_sessions_cookie_name="example",
+                lb_id="example",
+                health_check=HealthCheck(),
+                server_ip=[],
             )
         """
 
@@ -3928,21 +3941,21 @@ class LbV1API(API):
             f"/lb/v1/regions/{param_region}/lbs/{param_lb_id}/backends",
             body=marshal_CreateBackendRequest(
                 CreateBackendRequest(
-                    forward_port=forward_port,
-                    health_check=health_check,
-                    lb_id=lb_id,
-                    sticky_sessions_cookie_name=sticky_sessions_cookie_name,
-                    region=region,
-                    send_proxy_v2=send_proxy_v2,
-                    on_marked_down_action=on_marked_down_action,
-                    forward_port_algorithm=forward_port_algorithm,
                     forward_protocol=forward_protocol,
+                    forward_port=forward_port,
+                    forward_port_algorithm=forward_port_algorithm,
+                    sticky_sessions=sticky_sessions,
+                    sticky_sessions_cookie_name=sticky_sessions_cookie_name,
+                    lb_id=lb_id,
+                    health_check=health_check,
                     server_ip=server_ip,
+                    region=region,
                     name=name or random_name(prefix="lbb"),
+                    send_proxy_v2=send_proxy_v2,
                     timeout_server=timeout_server,
                     timeout_connect=timeout_connect,
                     timeout_tunnel=timeout_tunnel,
-                    sticky_sessions=sticky_sessions,
+                    on_marked_down_action=on_marked_down_action,
                     proxy_protocol=proxy_protocol,
                     failover_host=failover_host,
                     ssl_bridging=ssl_bridging,
@@ -3996,19 +4009,19 @@ class LbV1API(API):
     async def update_backend(
         self,
         *,
-        forward_port: int,
-        name: str,
         backend_id: str,
+        name: str,
+        forward_protocol: Protocol,
+        forward_port: int,
+        forward_port_algorithm: ForwardPortAlgorithm,
+        sticky_sessions: StickySessionsType,
         sticky_sessions_cookie_name: str,
         region: Optional[Region] = None,
-        timeout_connect: Optional[str] = None,
-        on_marked_down_action: Optional[OnMarkedDownAction] = None,
-        forward_port_algorithm: Optional[ForwardPortAlgorithm] = None,
         send_proxy_v2: Optional[bool] = None,
         timeout_server: Optional[str] = None,
-        forward_protocol: Optional[Protocol] = None,
+        timeout_connect: Optional[str] = None,
         timeout_tunnel: Optional[str] = None,
-        sticky_sessions: Optional[StickySessionsType] = None,
+        on_marked_down_action: Optional[OnMarkedDownAction] = None,
         proxy_protocol: Optional[ProxyProtocol] = None,
         failover_host: Optional[str] = None,
         ssl_bridging: Optional[bool] = None,
@@ -4021,19 +4034,19 @@ class LbV1API(API):
         """
         Update a backend in a given load balancer.
         Update a backend in a given load balancer.
-        :param forward_port: Port to be used by the backend when forwarding traffic to backend servers.
-        :param name: Backend name.
         :param backend_id: Backend ID.
+        :param name: Backend name.
+        :param forward_protocol: Protocol to be used by the backend when forwarding traffic to backend servers.
+        :param forward_port: Port to be used by the backend when forwarding traffic to backend servers.
+        :param forward_port_algorithm: Load balancing algorithm to be used when determining which backend server to forward new traffic to.
+        :param sticky_sessions: Defines whether to activate sticky sessions (binding a particular session to a particular backend server) and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie to stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server.
         :param sticky_sessions_cookie_name: Cookie name for cookie-based sticky sessions.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param timeout_connect: Maximum allowed time for establishing a connection to a backend server.
-        :param on_marked_down_action: Action to take when a backend server is marked as down.
-        :param forward_port_algorithm: Load balancing algorithm to be used when determining which backend server to forward new traffic to.
         :param send_proxy_v2: Deprecated in favor of proxy_protocol field.
         :param timeout_server: Maximum allowed time for a backend server to process a request.
-        :param forward_protocol: Protocol to be used by the backend when forwarding traffic to backend servers.
+        :param timeout_connect: Maximum allowed time for establishing a connection to a backend server.
         :param timeout_tunnel: Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout).
-        :param sticky_sessions: Defines whether to activate sticky sessions (binding a particular session to a particular backend server) and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie to stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server.
+        :param on_marked_down_action: Action to take when a backend server is marked as down.
         :param proxy_protocol: Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software.
         :param failover_host: Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
         :param ssl_bridging: Defines whether to enable SSL bridging between the Load Balancer and backend servers.
@@ -4048,9 +4061,12 @@ class LbV1API(API):
         ::
 
             result = await api.update_backend(
-                forward_port=1,
-                name="example",
                 backend_id="example",
+                name="example",
+                forward_protocol=Protocol.tcp,
+                forward_port=1,
+                forward_port_algorithm=ForwardPortAlgorithm.roundrobin,
+                sticky_sessions=StickySessionsType.none,
                 sticky_sessions_cookie_name="example",
             )
         """
@@ -4065,19 +4081,19 @@ class LbV1API(API):
             f"/lb/v1/regions/{param_region}/backends/{param_backend_id}",
             body=marshal_UpdateBackendRequest(
                 UpdateBackendRequest(
-                    forward_port=forward_port,
-                    name=name,
                     backend_id=backend_id,
+                    name=name,
+                    forward_protocol=forward_protocol,
+                    forward_port=forward_port,
+                    forward_port_algorithm=forward_port_algorithm,
+                    sticky_sessions=sticky_sessions,
                     sticky_sessions_cookie_name=sticky_sessions_cookie_name,
                     region=region,
-                    timeout_connect=timeout_connect,
-                    on_marked_down_action=on_marked_down_action,
-                    forward_port_algorithm=forward_port_algorithm,
                     send_proxy_v2=send_proxy_v2,
                     timeout_server=timeout_server,
-                    forward_protocol=forward_protocol,
+                    timeout_connect=timeout_connect,
                     timeout_tunnel=timeout_tunnel,
-                    sticky_sessions=sticky_sessions,
+                    on_marked_down_action=on_marked_down_action,
                     proxy_protocol=proxy_protocol,
                     failover_host=failover_host,
                     ssl_bridging=ssl_bridging,
@@ -4130,15 +4146,15 @@ class LbV1API(API):
         self,
         *,
         backend_id: str,
+        server_ip: List[str],
         region: Optional[Region] = None,
-        server_ip: Optional[List[str]] = None,
     ) -> Backend:
         """
         Add a set of servers in a given backend.
         Add a set of servers in a given backend.
         :param backend_id: Backend ID.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param server_ip: List of IP addresses to add to backend servers.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Backend <Backend>`
 
         Usage:
@@ -4146,6 +4162,7 @@ class LbV1API(API):
 
             result = await api.add_backend_servers(
                 backend_id="example",
+                server_ip=[],
             )
         """
 
@@ -4160,8 +4177,8 @@ class LbV1API(API):
             body=marshal_AddBackendServersRequest(
                 AddBackendServersRequest(
                     backend_id=backend_id,
-                    region=region,
                     server_ip=server_ip,
+                    region=region,
                 ),
                 self.client,
             ),
@@ -4174,15 +4191,15 @@ class LbV1API(API):
         self,
         *,
         backend_id: str,
+        server_ip: List[str],
         region: Optional[Region] = None,
-        server_ip: Optional[List[str]] = None,
     ) -> Backend:
         """
         Remove a set of servers for a given backend.
         Remove a set of servers for a given backend.
         :param backend_id: Backend ID.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param server_ip: List of IP addresses to remove from backend servers.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Backend <Backend>`
 
         Usage:
@@ -4190,6 +4207,7 @@ class LbV1API(API):
 
             result = await api.remove_backend_servers(
                 backend_id="example",
+                server_ip=[],
             )
         """
 
@@ -4204,8 +4222,8 @@ class LbV1API(API):
             body=marshal_RemoveBackendServersRequest(
                 RemoveBackendServersRequest(
                     backend_id=backend_id,
-                    region=region,
                     server_ip=server_ip,
+                    region=region,
                 ),
                 self.client,
             ),
@@ -4218,15 +4236,15 @@ class LbV1API(API):
         self,
         *,
         backend_id: str,
+        server_ip: List[str],
         region: Optional[Region] = None,
-        server_ip: Optional[List[str]] = None,
     ) -> Backend:
         """
         Define all servers in a given backend.
         Define all servers in a given backend.
         :param backend_id: Backend ID.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param server_ip: List of IP addresses for backend servers. Any other existing backend servers will be removed.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Backend <Backend>`
 
         Usage:
@@ -4234,6 +4252,7 @@ class LbV1API(API):
 
             result = await api.set_backend_servers(
                 backend_id="example",
+                server_ip=[],
             )
         """
 
@@ -4248,8 +4267,8 @@ class LbV1API(API):
             body=marshal_SetBackendServersRequest(
                 SetBackendServersRequest(
                     backend_id=backend_id,
-                    region=region,
                     server_ip=server_ip,
+                    region=region,
                 ),
                 self.client,
             ),
@@ -4261,13 +4280,13 @@ class LbV1API(API):
     async def update_health_check(
         self,
         *,
-        check_send_proxy: bool,
         port: int,
-        backend_id: str,
         check_max_retries: int,
+        backend_id: str,
         region: Optional[Region] = None,
         check_delay: Optional[str] = None,
         check_timeout: Optional[str] = None,
+        check_send_proxy: bool,
         tcp_config: Optional[HealthCheckTcpConfig] = None,
         mysql_config: Optional[HealthCheckMysqlConfig] = None,
         pgsql_config: Optional[HealthCheckPgsqlConfig] = None,
@@ -4280,13 +4299,13 @@ class LbV1API(API):
         """
         Update an health check for a given backend.
         Update an health check for a given backend.
-        :param check_send_proxy: Defines whether proxy protocol should be activated for the health check.
         :param port: Port to use for the backend server health check.
-        :param backend_id: Backend ID.
         :param check_max_retries: Number of consecutive unsuccessful health checks after which the server will be considered dead.
+        :param backend_id: Backend ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :param check_delay: Time to wait between two consecutive health checks.
         :param check_timeout: Maximum time a backend server has to reply to the health check.
+        :param check_send_proxy: Defines whether proxy protocol should be activated for the health check.
         :param tcp_config: Object to configure a basic TCP health check.
         :param mysql_config: Object to configure a MySQL health check. The check requires MySQL >=3.22, for older versions, use a TCP health check.
         :param pgsql_config: Object to configure a PostgreSQL health check.
@@ -4301,10 +4320,10 @@ class LbV1API(API):
         ::
 
             result = await api.update_health_check(
-                check_send_proxy=False,
                 port=1,
-                backend_id="example",
                 check_max_retries=1,
+                backend_id="example",
+                check_send_proxy=False,
             )
         """
 
@@ -4318,10 +4337,10 @@ class LbV1API(API):
             f"/lb/v1/regions/{param_region}/backends/{param_backend_id}/healthcheck",
             body=marshal_UpdateHealthCheckRequest(
                 UpdateHealthCheckRequest(
-                    check_send_proxy=check_send_proxy,
-                    check_max_retries=check_max_retries,
                     port=port,
+                    check_max_retries=check_max_retries,
                     backend_id=backend_id,
+                    check_send_proxy=check_send_proxy,
                     region=region,
                     check_delay=check_delay,
                     check_timeout=check_timeout,
@@ -4435,10 +4454,10 @@ class LbV1API(API):
     async def create_frontend(
         self,
         *,
-        enable_http3: bool,
-        backend_id: str,
         inbound_port: int,
         lb_id: str,
+        backend_id: str,
+        enable_http3: bool,
         region: Optional[Region] = None,
         name: Optional[str] = None,
         timeout_client: Optional[str] = None,
@@ -4448,10 +4467,10 @@ class LbV1API(API):
         """
         Create a frontend in a given load balancer.
         Create a frontend in a given load balancer.
-        :param enable_http3: Defines whether to enable HTTP/3 protocol on the frontend.
-        :param backend_id: Backend ID (ID of the backend the frontend should pass traffic to).
         :param inbound_port: Port the frontend should listen on.
         :param lb_id: Load Balancer ID (ID of the Load Balancer to attach the frontend to).
+        :param backend_id: Backend ID (ID of the backend the frontend should pass traffic to).
+        :param enable_http3: Defines whether to enable HTTP/3 protocol on the frontend.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name for the frontend.
         :param timeout_client: Maximum allowed inactivity time on the client side.
@@ -4463,10 +4482,10 @@ class LbV1API(API):
         ::
 
             result = await api.create_frontend(
-                enable_http3=False,
-                backend_id="example",
                 inbound_port=1,
                 lb_id="example",
+                backend_id="example",
+                enable_http3=False,
             )
         """
 
@@ -4480,10 +4499,10 @@ class LbV1API(API):
             f"/lb/v1/regions/{param_region}/lbs/{param_lb_id}/frontends",
             body=marshal_CreateFrontendRequest(
                 CreateFrontendRequest(
-                    enable_http3=enable_http3,
-                    backend_id=backend_id,
                     inbound_port=inbound_port,
                     lb_id=lb_id,
+                    backend_id=backend_id,
+                    enable_http3=enable_http3,
                     region=region,
                     name=name or random_name(prefix="lbf"),
                     timeout_client=timeout_client,
@@ -4534,11 +4553,11 @@ class LbV1API(API):
     async def update_frontend(
         self,
         *,
-        enable_http3: bool,
-        backend_id: str,
-        inbound_port: int,
-        name: str,
         frontend_id: str,
+        name: str,
+        inbound_port: int,
+        backend_id: str,
+        enable_http3: bool,
         region: Optional[Region] = None,
         timeout_client: Optional[str] = None,
         certificate_id: Optional[str] = None,
@@ -4547,11 +4566,11 @@ class LbV1API(API):
         """
         Update a frontend.
         Update a frontend.
-        :param enable_http3: Defines whether to enable HTTP/3 protocol on the frontend.
-        :param backend_id: Backend ID (ID of the backend the frontend should pass traffic to).
-        :param inbound_port: Port the frontend should listen on.
-        :param name: Frontend name.
         :param frontend_id: Frontend ID.
+        :param name: Frontend name.
+        :param inbound_port: Port the frontend should listen on.
+        :param backend_id: Backend ID (ID of the backend the frontend should pass traffic to).
+        :param enable_http3: Defines whether to enable HTTP/3 protocol on the frontend.
         :param region: Region to target. If none is passed will use default region from the config.
         :param timeout_client: Maximum allowed inactivity time on the client side.
         :param certificate_id: Certificate ID, deprecated in favor of certificate_ids array.
@@ -4562,11 +4581,11 @@ class LbV1API(API):
         ::
 
             result = await api.update_frontend(
-                enable_http3=False,
-                backend_id="example",
-                inbound_port=1,
-                name="example",
                 frontend_id="example",
+                name="example",
+                inbound_port=1,
+                backend_id="example",
+                enable_http3=False,
             )
         """
 
@@ -4580,11 +4599,11 @@ class LbV1API(API):
             f"/lb/v1/regions/{param_region}/frontends/{param_frontend_id}",
             body=marshal_UpdateFrontendRequest(
                 UpdateFrontendRequest(
-                    enable_http3=enable_http3,
-                    backend_id=backend_id,
-                    inbound_port=inbound_port,
-                    name=name,
                     frontend_id=frontend_id,
+                    name=name,
+                    inbound_port=inbound_port,
+                    backend_id=backend_id,
+                    enable_http3=enable_http3,
                     region=region,
                     timeout_client=timeout_client,
                     certificate_id=certificate_id,
@@ -4713,16 +4732,16 @@ class LbV1API(API):
     async def create_route(
         self,
         *,
-        backend_id: str,
         frontend_id: str,
+        backend_id: str,
         region: Optional[Region] = None,
         match: Optional[RouteMatch] = None,
     ) -> Route:
         """
         Create a backend redirection.
         Create a backend redirection.
-        :param backend_id: ID of the target backend for the route.
         :param frontend_id: ID of the source frontend to create the route on.
+        :param backend_id: ID of the target backend for the route.
         :param region: Region to target. If none is passed will use default region from the config.
         :param match: Object defining the match condition for a route to be applied. If an incoming client session matches the specified condition (i.e. it has a matching SNI value or HTTP Host header value), it will be passed to the target backend.
         :return: :class:`Route <Route>`
@@ -4731,8 +4750,8 @@ class LbV1API(API):
         ::
 
             result = await api.create_route(
-                backend_id="example",
                 frontend_id="example",
+                backend_id="example",
             )
         """
 
@@ -4745,8 +4764,8 @@ class LbV1API(API):
             f"/lb/v1/regions/{param_region}/routes",
             body=marshal_CreateRouteRequest(
                 CreateRouteRequest(
-                    backend_id=backend_id,
                     frontend_id=frontend_id,
+                    backend_id=backend_id,
                     region=region,
                     match=match,
                 ),
@@ -4794,16 +4813,16 @@ class LbV1API(API):
     async def update_route(
         self,
         *,
-        backend_id: str,
         route_id: str,
+        backend_id: str,
         region: Optional[Region] = None,
         match: Optional[RouteMatch] = None,
     ) -> Route:
         """
         Edit a backend redirection.
         Edit a backend redirection.
-        :param backend_id: ID of the target backend for the route.
         :param route_id: Route ID.
+        :param backend_id: ID of the target backend for the route.
         :param region: Region to target. If none is passed will use default region from the config.
         :param match: Object defining the match condition for a route to be applied. If an incoming client session matches the specified condition (i.e. it has a matching SNI value or HTTP Host header value), it will be passed to the target backend.
         :return: :class:`Route <Route>`
@@ -4812,8 +4831,8 @@ class LbV1API(API):
         ::
 
             result = await api.update_route(
-                backend_id="example",
                 route_id="example",
+                backend_id="example",
             )
         """
 
@@ -4827,8 +4846,8 @@ class LbV1API(API):
             f"/lb/v1/regions/{param_region}/routes/{param_route_id}",
             body=marshal_UpdateRouteRequest(
                 UpdateRouteRequest(
-                    backend_id=backend_id,
                     route_id=route_id,
+                    backend_id=backend_id,
                     region=region,
                     match=match,
                 ),
@@ -5090,35 +5109,34 @@ class LbV1API(API):
     async def create_acl(
         self,
         *,
-        description: str,
-        index: int,
-        match: AclMatch,
-        action: AclAction,
         frontend_id: str,
+        action: AclAction,
+        index: int,
+        description: str,
         region: Optional[Region] = None,
         name: Optional[str] = None,
+        match: Optional[AclMatch] = None,
     ) -> Acl:
         """
         Create an ACL for a given frontend.
         Create an ACL for a given frontend.
-        :param description: ACL description.
-        :param index: Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
-        :param match: ACL match filter object. One of `ip_subnet` or `http_filter` & `http_filter_value` are required.
-        :param action: Action to take when incoming traffic matches an ACL filter.
         :param frontend_id: Frontend ID to attach the ACL to.
+        :param action: Action to take when incoming traffic matches an ACL filter.
+        :param index: Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
+        :param description: ACL description.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: ACL name.
+        :param match: ACL match filter object. One of `ip_subnet` or `http_filter` & `http_filter_value` are required.
         :return: :class:`Acl <Acl>`
 
         Usage:
         ::
 
             result = await api.create_acl(
-                description="example",
-                index=1,
-                match=AclMatch(),
-                action=AclAction(),
                 frontend_id="example",
+                action=AclAction(),
+                index=1,
+                description="example",
             )
         """
 
@@ -5132,13 +5150,13 @@ class LbV1API(API):
             f"/lb/v1/regions/{param_region}/frontends/{param_frontend_id}/acls",
             body=marshal_CreateAclRequest(
                 CreateAclRequest(
-                    description=description,
-                    index=index,
-                    match=match,
-                    action=action,
                     frontend_id=frontend_id,
+                    action=action,
+                    index=index,
+                    description=description,
                     region=region,
                     name=name or random_name(prefix="acl"),
+                    match=match,
                 ),
                 self.client,
             ),
@@ -5184,23 +5202,23 @@ class LbV1API(API):
     async def update_acl(
         self,
         *,
-        index: int,
-        match: AclMatch,
-        action: AclAction,
-        name: str,
         acl_id: str,
+        name: str,
+        action: AclAction,
+        index: int,
         region: Optional[Region] = None,
+        match: Optional[AclMatch] = None,
         description: Optional[str] = None,
     ) -> Acl:
         """
         Update an ACL.
         Update an ACL.
-        :param index: Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
-        :param match: ACL match filter object. One of `ip_subnet` or `http_filter` & `http_filter_value` are required.
-        :param action: Action to take when incoming traffic matches an ACL filter.
-        :param name: ACL name.
         :param acl_id: ACL ID.
+        :param name: ACL name.
+        :param action: Action to take when incoming traffic matches an ACL filter.
+        :param index: Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
         :param region: Region to target. If none is passed will use default region from the config.
+        :param match: ACL match filter object. One of `ip_subnet` or `http_filter` & `http_filter_value` are required.
         :param description: ACL description.
         :return: :class:`Acl <Acl>`
 
@@ -5208,11 +5226,10 @@ class LbV1API(API):
         ::
 
             result = await api.update_acl(
-                index=1,
-                match=AclMatch(),
-                action=AclAction(),
-                name="example",
                 acl_id="example",
+                name="example",
+                action=AclAction(),
+                index=1,
             )
         """
 
@@ -5226,12 +5243,12 @@ class LbV1API(API):
             f"/lb/v1/regions/{param_region}/acls/{param_acl_id}",
             body=marshal_UpdateAclRequest(
                 UpdateAclRequest(
-                    index=index,
-                    match=match,
-                    action=action,
-                    name=name,
                     acl_id=acl_id,
+                    name=name,
+                    action=action,
+                    index=index,
                     region=region,
+                    match=match,
                     description=description,
                 ),
                 self.client,
@@ -5490,15 +5507,15 @@ class LbV1API(API):
     async def update_certificate(
         self,
         *,
-        name: str,
         certificate_id: str,
+        name: str,
         region: Optional[Region] = None,
     ) -> Certificate:
         """
         Update a TLS certificate.
         Update a TLS certificate.
-        :param name: Certificate name.
         :param certificate_id: Certificate ID.
+        :param name: Certificate name.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Certificate <Certificate>`
 
@@ -5506,8 +5523,8 @@ class LbV1API(API):
         ::
 
             result = await api.update_certificate(
-                name="example",
                 certificate_id="example",
+                name="example",
             )
         """
 
@@ -5521,8 +5538,8 @@ class LbV1API(API):
             f"/lb/v1/regions/{param_region}/certificates/{param_certificate_id}",
             body=marshal_UpdateCertificateRequest(
                 UpdateCertificateRequest(
-                    name=name,
                     certificate_id=certificate_id,
+                    name=name,
                     region=region,
                 ),
                 self.client,
@@ -5816,8 +5833,8 @@ class LbV1API(API):
     async def update_subscriber(
         self,
         *,
-        name: str,
         subscriber_id: str,
+        name: str,
         region: Optional[Region] = None,
         email_config: Optional[SubscriberEmailConfig] = None,
         webhook_config: Optional[SubscriberWebhookConfig] = None,
@@ -5825,8 +5842,8 @@ class LbV1API(API):
         """
         Update a subscriber.
         Update a subscriber.
-        :param name: Subscriber name.
         :param subscriber_id: Subscriber ID.
+        :param name: Subscriber name.
         :param region: Region to target. If none is passed will use default region from the config.
         :param email_config: Email address configuration.
         :param webhook_config: Webhook URI configuration.
@@ -5836,8 +5853,8 @@ class LbV1API(API):
         ::
 
             result = await api.update_subscriber(
-                name="example",
                 subscriber_id="example",
+                name="example",
             )
         """
 
@@ -5851,8 +5868,8 @@ class LbV1API(API):
             f"/lb/v1/regions/{param_region}/subscribers/{param_subscriber_id}",
             body=marshal_UpdateSubscriberRequest(
                 UpdateSubscriberRequest(
-                    name=name,
                     subscriber_id=subscriber_id,
+                    name=name,
                     region=region,
                     email_config=email_config,
                     webhook_config=webhook_config,
@@ -5899,15 +5916,15 @@ class LbV1API(API):
     async def subscribe_to_lb(
         self,
         *,
-        subscriber_id: str,
         lb_id: str,
+        subscriber_id: str,
         region: Optional[Region] = None,
     ) -> Lb:
         """
         Subscribe a subscriber to a given load balancer.
         Subscribe a subscriber to a given load balancer.
-        :param subscriber_id: Subscriber ID.
         :param lb_id: Load Balancer ID.
+        :param subscriber_id: Subscriber ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Lb <Lb>`
 
@@ -5915,8 +5932,8 @@ class LbV1API(API):
         ::
 
             result = await api.subscribe_to_lb(
-                subscriber_id="example",
                 lb_id="example",
+                subscriber_id="example",
             )
         """
 
@@ -5930,8 +5947,8 @@ class LbV1API(API):
             f"/lb/v1/regions/{param_region}/lb/{param_lb_id}/subscribe",
             body=marshal_SubscribeToLbRequest(
                 SubscribeToLbRequest(
-                    subscriber_id=subscriber_id,
                     lb_id=lb_id,
+                    subscriber_id=subscriber_id,
                     region=region,
                 ),
                 self.client,
@@ -6063,8 +6080,8 @@ class LbV1API(API):
     async def attach_private_network(
         self,
         *,
-        private_network_id: str,
         lb_id: str,
+        private_network_id: str,
         region: Optional[Region] = None,
         static_config: Optional[PrivateNetworkStaticConfig] = None,
         dhcp_config: Optional[PrivateNetworkDHCPConfig] = None,
@@ -6073,8 +6090,8 @@ class LbV1API(API):
         """
         Add load balancer on instance private network.
         Add load balancer on instance private network.
-        :param private_network_id: Private Network ID.
         :param lb_id: Load Balancer ID.
+        :param private_network_id: Private Network ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :param static_config: Object containing an array of a local IP address for the Load Balancer on this Private Network.
         :param dhcp_config: Defines whether to let DHCP assign IP addresses.
@@ -6085,8 +6102,8 @@ class LbV1API(API):
         ::
 
             result = await api.attach_private_network(
-                private_network_id="example",
                 lb_id="example",
+                private_network_id="example",
             )
         """
 
@@ -6103,8 +6120,8 @@ class LbV1API(API):
             f"/lb/v1/regions/{param_region}/lbs/{param_lb_id}/private-networks/{param_private_network_id}/attach",
             body=marshal_AttachPrivateNetworkRequest(
                 AttachPrivateNetworkRequest(
-                    private_network_id=private_network_id,
                     lb_id=lb_id,
+                    private_network_id=private_network_id,
                     region=region,
                     static_config=static_config,
                     dhcp_config=dhcp_config,
@@ -6120,23 +6137,23 @@ class LbV1API(API):
     async def detach_private_network(
         self,
         *,
-        private_network_id: str,
         lb_id: str,
+        private_network_id: str,
         region: Optional[Region] = None,
     ) -> None:
         """
         Remove load balancer of private network.
         Remove load balancer of private network.
-        :param private_network_id: Set your instance private network id.
         :param lb_id: Load balancer ID.
+        :param private_network_id: Set your instance private network id.
         :param region: Region to target. If none is passed will use default region from the config.
 
         Usage:
         ::
 
             result = await api.detach_private_network(
-                private_network_id="example",
                 lb_id="example",
+                private_network_id="example",
             )
         """
 

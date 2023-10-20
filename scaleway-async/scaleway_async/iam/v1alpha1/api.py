@@ -973,8 +973,8 @@ class IamV1Alpha1API(API):
         self,
         *,
         group_id: str,
-        user_ids: Optional[List[str]] = None,
-        application_ids: Optional[List[str]] = None,
+        user_ids: List[str],
+        application_ids: List[str],
     ) -> Group:
         """
         Overwrite users and applications of a group.
@@ -989,6 +989,8 @@ class IamV1Alpha1API(API):
 
             result = await api.set_group_members(
                 group_id="example",
+                user_ids=[],
+                application_ids=[],
             )
         """
 
@@ -1466,7 +1468,7 @@ class IamV1Alpha1API(API):
         self,
         *,
         policy_id: str,
-        rules: Optional[List[RuleSpecs]] = None,
+        rules: List[RuleSpecs],
     ) -> SetRulesResponse:
         """
         Set rules of a given policy.
@@ -1480,6 +1482,7 @@ class IamV1Alpha1API(API):
 
             result = await api.set_rules(
                 policy_id="example",
+                rules=[],
             )
         """
 

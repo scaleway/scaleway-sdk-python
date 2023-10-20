@@ -197,14 +197,9 @@ class GetConsumptionResponse:
 
 @dataclass
 class GetConsumptionResponseConsumption:
-    operation_path: str
+    description: str
     """
-    Unique identifier of the product.
-    """
-
-    category: str
-    """
-    Category of the consumption.
+    Description of the consumption.
     """
 
     project_id: str
@@ -212,9 +207,14 @@ class GetConsumptionResponseConsumption:
     Project ID of the consumption.
     """
 
-    description: str
+    category: str
     """
-    Description of the consumption.
+    Category of the consumption.
+    """
+
+    operation_path: str
+    """
+    Unique identifier of the product.
     """
 
     value: Optional[Money]
@@ -225,9 +225,9 @@ class GetConsumptionResponseConsumption:
 
 @dataclass
 class Invoice:
-    number: int
+    id: str
     """
-    Invoice number.
+    Invoice ID.
     """
 
     invoice_type: InvoiceType
@@ -235,9 +235,9 @@ class Invoice:
     Type of invoice.
     """
 
-    id: str
+    number: int
     """
-    Invoice ID.
+    Invoice number.
     """
 
     start_date: Optional[datetime]
@@ -356,11 +356,6 @@ class ListInvoicesRequest:
 
 @dataclass
 class ListInvoicesResponse:
-    invoices: List[Invoice]
-    """
-    Paginated returned invoices.
-    """
-
     total_count: int
     """
     Total number of invoices.
