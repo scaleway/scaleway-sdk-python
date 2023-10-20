@@ -1760,8 +1760,8 @@ class FunctionV1Beta1API(API):
         region: Optional[Region] = None,
         description: Optional[str] = None,
         scw_sqs_config: Optional[CreateTriggerRequestMnqSqsClientConfig] = None,
-        sqs_config: Optional[CreateTriggerRequestSqsClientConfig] = None,
         scw_nats_config: Optional[CreateTriggerRequestMnqNatsClientConfig] = None,
+        sqs_config: Optional[CreateTriggerRequestSqsClientConfig] = None,
     ) -> Trigger:
         """
 
@@ -1788,8 +1788,8 @@ class FunctionV1Beta1API(API):
                     region=region,
                     description=description,
                     scw_sqs_config=scw_sqs_config,
-                    sqs_config=sqs_config,
                     scw_nats_config=scw_nats_config,
+                    sqs_config=sqs_config,
                 ),
                 self.client,
             ),
@@ -1835,7 +1835,7 @@ class FunctionV1Beta1API(API):
         """
         Waits for :class:`Trigger <Trigger>` to be in a final state.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param trigger_id:
+        :param trigger_id: ID of the trigger to get.
         :param options: The options for the waiter
         :return: :class:`Trigger <Trigger>`
 
