@@ -25,6 +25,17 @@ class DomainLastStatusRecordStatus(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class DomainReputationStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN = "unknown"
+    EXCELLENT = "excellent"
+    GOOD = "good"
+    AVERAGE = "average"
+    BAD = "bad"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class DomainStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     CHECKED = "checked"
@@ -215,6 +226,11 @@ class Domain:
     Domain's statistics.
     """
 
+    reputation: Optional[DomainReputation]
+    """
+    Domain's reputation, available when your domain is checked and has sent enough emails.
+    """
+
     region: Region
 
 
@@ -253,7 +269,7 @@ class DomainLastStatusDkimRecord:
 
     status: DomainLastStatusRecordStatus
     """
-    Status of the DKIM record's configurartion.
+    Status of the DKIM record's configuration.
     """
 
     last_valid_at: Optional[datetime]
@@ -275,7 +291,7 @@ class DomainLastStatusSpfRecord:
 
     status: DomainLastStatusRecordStatus
     """
-    Status of the SPF record's configurartion.
+    Status of the SPF record's configuration.
     """
 
     last_valid_at: Optional[datetime]
@@ -286,6 +302,38 @@ class DomainLastStatusSpfRecord:
     error: Optional[str]
     """
     An error text displays in case the record is not valid.
+    """
+
+
+@dataclass
+class DomainReputation:
+    """
+    Domain. reputation.
+    """
+
+    status: DomainReputationStatus
+    """
+    Status of your domain reputation.
+    """
+
+    score: int
+    """
+    Represent a number between 0 and 100 of your domain reputation score.
+    """
+
+    scored_at: Optional[datetime]
+    """
+    Time and date the score was calculated.
+    """
+
+    previous_score: Optional[int]
+    """
+    The domain reputation score previously calculated.
+    """
+
+    previous_scored_at: Optional[datetime]
+    """
+    Time and date the previous score was calculated.
     """
 
 
