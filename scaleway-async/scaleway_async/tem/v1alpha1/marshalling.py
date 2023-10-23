@@ -13,6 +13,7 @@ from .types import (
     DomainLastStatus,
     DomainLastStatusDkimRecord,
     DomainLastStatusSpfRecord,
+    DomainReputation,
     DomainStatistics,
     Email,
     EmailTry,
@@ -22,6 +23,32 @@ from .types import (
     CreateEmailRequest,
     CreateDomainRequest,
 )
+
+
+def unmarshal_DomainReputation(data: Any) -> DomainReputation:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'DomainReputation' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("previous_score", None)
+    args["previous_score"] = field
+
+    field = data.get("previous_scored_at", None)
+    args["previous_scored_at"] = parser.isoparse(field) if type(field) is str else field
+
+    field = data.get("score", None)
+    args["score"] = field
+
+    field = data.get("scored_at", None)
+    args["scored_at"] = parser.isoparse(field) if type(field) is str else field
+
+    field = data.get("status", None)
+    args["status"] = field
+
+    return DomainReputation(**args)
 
 
 def unmarshal_DomainStatistics(data: Any) -> DomainStatistics:
@@ -107,6 +134,11 @@ def unmarshal_Domain(data: Any) -> Domain:
 
     field = data.get("region", None)
     args["region"] = field
+
+    field = data.get("reputation", None)
+    args["reputation"] = (
+        unmarshal_DomainReputation(field) if field is not None else None
+    )
 
     field = data.get("revoked_at", None)
     args["revoked_at"] = parser.isoparse(field) if type(field) is str else field
