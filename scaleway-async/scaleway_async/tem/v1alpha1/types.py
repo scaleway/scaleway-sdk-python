@@ -25,6 +25,17 @@ class DomainLastStatusRecordStatus(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class DomainReputationStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATUS = "unknown_status"
+    EXCELLENT = "excellent"
+    GOOD = "good"
+    AVERAGE = "average"
+    BAD = "bad"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class DomainStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     CHECKED = "checked"
@@ -215,6 +226,11 @@ class Domain:
     Domain's statistics.
     """
 
+    reputation: Optional[DomainReputation]
+    """
+    The domain's reputation is available when your domain is checked and has sent enough emails.
+    """
+
     region: Region
 
 
@@ -253,7 +269,7 @@ class DomainLastStatusDkimRecord:
 
     status: DomainLastStatusRecordStatus
     """
-    Status of the DKIM record's configurartion.
+    Status of the DKIM record's configuration.
     """
 
     last_valid_at: Optional[datetime]
@@ -275,7 +291,7 @@ class DomainLastStatusSpfRecord:
 
     status: DomainLastStatusRecordStatus
     """
-    Status of the SPF record's configurartion.
+    Status of the SPF record's configuration.
     """
 
     last_valid_at: Optional[datetime]
@@ -286,6 +302,38 @@ class DomainLastStatusSpfRecord:
     error: Optional[str]
     """
     An error text displays in case the record is not valid.
+    """
+
+
+@dataclass
+class DomainReputation:
+    """
+    Domain. reputation.
+    """
+
+    status: DomainReputationStatus
+    """
+    Status of your domain's reputation.
+    """
+
+    score: int
+    """
+    A range from 0 to 100 that determines your domain's reputation score. A score of `0` means a bad domain reputation and a score of `100` means an excellent domain reputation.
+    """
+
+    scored_at: Optional[datetime]
+    """
+    Time and date the score was calculated.
+    """
+
+    previous_score: Optional[int]
+    """
+    The previously-calculated domain's reputation score.
+    """
+
+    previous_scored_at: Optional[datetime]
+    """
+    Time and date the previous reputation score was calculated.
     """
 
 
