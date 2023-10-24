@@ -132,6 +132,23 @@ class PATRuleProtocol(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
+class CreateGatewayNetworkRequestIpamConfig:
+    """
+    Create gateway network request. ipam config.
+    """
+
+    push_default_route: bool
+    """
+    Enabling the default route also enables masquerading.
+    """
+
+    ipam_ip_id: Optional[str]
+    """
+    Use this IPAM-booked IP ID as the Gateway's IP in this Private Network.
+    """
+
+
+@dataclass
 class DHCP:
     """
     Dhcp.
@@ -549,6 +566,11 @@ class IpamConfig:
     Defines whether the default route is enabled on that Gateway Network.
     """
 
+    ipam_ip_id: str
+    """
+    IPAM-booked IP ID as the Gateway's IP in this Private Network.
+    """
+
 
 @dataclass
 class ListDHCPEntriesResponse:
@@ -783,6 +805,23 @@ class SetPATRulesResponse:
     pat_rules: List[PATRule]
     """
     List of PAT rules.
+    """
+
+
+@dataclass
+class UpdateGatewayNetworkRequestIpamConfig:
+    """
+    Update gateway network request. ipam config.
+    """
+
+    push_default_route: Optional[bool]
+    """
+    Enabling the default route also enables masquerading.
+    """
+
+    ipam_ip_id: Optional[str]
+    """
+    Use this IPAM-booked IP ID as the Gateway's IP in this Private Network.
     """
 
 
@@ -1096,7 +1135,7 @@ class CreateGatewayNetworkRequest:
     One-of ('ip_config'): at most one of 'dhcp_id', 'dhcp', 'address', 'ipam_config' could be set.
     """
 
-    ipam_config: Optional[IpamConfig]
+    ipam_config: Optional[CreateGatewayNetworkRequestIpamConfig]
     """
     Auto-configure the GatewayNetwork using Scaleway's IPAM (IP address management service).
     Note: all or none of the GatewayNetworks for a single gateway can use the IPAM. DHCP and IPAM configurations cannot be mixed. Some products may require that the Public Gateway uses the IPAM, to ensure correct functionality.
@@ -1144,7 +1183,7 @@ class UpdateGatewayNetworkRequest:
     One-of ('ip_config'): at most one of 'dhcp_id', 'address', 'ipam_config' could be set.
     """
 
-    ipam_config: Optional[IpamConfig]
+    ipam_config: Optional[UpdateGatewayNetworkRequestIpamConfig]
     """
     Auto-configure the GatewayNetwork using Scaleway's IPAM (IP address management service).
     Note: all or none of the GatewayNetworks for a single gateway can use the IPAM. DHCP and IPAM configurations cannot be mixed. Some products may require that the Public Gateway uses the IPAM, to ensure correct functionality.

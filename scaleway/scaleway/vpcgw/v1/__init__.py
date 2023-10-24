@@ -10,6 +10,7 @@ from .types import ListGatewaysRequestOrderBy
 from .types import ListIPsRequestOrderBy
 from .types import ListPATRulesRequestOrderBy
 from .types import PATRuleProtocol
+from .types import CreateGatewayNetworkRequestIpamConfig
 from .types import DHCP
 from .types import DHCPEntry
 from .types import Gateway
@@ -29,6 +30,7 @@ from .types import SetDHCPEntriesRequestEntry
 from .types import SetDHCPEntriesResponse
 from .types import SetPATRulesRequestRule
 from .types import SetPATRulesResponse
+from .types import UpdateGatewayNetworkRequestIpamConfig
 from .content import GATEWAY_NETWORK_TRANSIENT_STATUSES
 from .content import GATEWAY_TRANSIENT_STATUSES
 from .api import VpcgwV1API
@@ -44,6 +46,7 @@ __all__ = [
     "ListIPsRequestOrderBy",
     "ListPATRulesRequestOrderBy",
     "PATRuleProtocol",
+    "CreateGatewayNetworkRequestIpamConfig",
     "DHCP",
     "DHCPEntry",
     "Gateway",
@@ -63,6 +66,7 @@ __all__ = [
     "SetDHCPEntriesResponse",
     "SetPATRulesRequestRule",
     "SetPATRulesResponse",
+    "UpdateGatewayNetworkRequestIpamConfig",
     "GATEWAY_NETWORK_TRANSIENT_STATUSES",
     "GATEWAY_TRANSIENT_STATUSES",
     "VpcgwV1API",
