@@ -11,6 +11,7 @@ from scaleway_core.utils import (
 from dateutil import parser
 from .types import (
     PATRuleProtocol,
+    CreateGatewayNetworkRequestIpamConfig,
     DHCP,
     DHCPEntry,
     Gateway,
@@ -30,6 +31,7 @@ from .types import (
     SetDHCPEntriesResponse,
     SetPATRulesRequestRule,
     SetPATRulesResponse,
+    UpdateGatewayNetworkRequestIpamConfig,
     CreateGatewayRequest,
     UpdateGatewayRequest,
     CreateGatewayNetworkRequest,
@@ -122,6 +124,9 @@ def unmarshal_IpamConfig(data: Any) -> IpamConfig:
         )
 
     args: Dict[str, Any] = {}
+
+    field = data.get("ipam_ip_id", None)
+    args["ipam_ip_id"] = field
 
     field = data.get("push_default_route", None)
     args["push_default_route"] = field
@@ -595,11 +600,14 @@ def marshal_CreateDHCPRequest(
     return output
 
 
-def marshal_IpamConfig(
-    request: IpamConfig,
+def marshal_CreateGatewayNetworkRequestIpamConfig(
+    request: CreateGatewayNetworkRequestIpamConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
+
+    if request.ipam_ip_id is not None:
+        output["ipam_ip_id"] = request.ipam_ip_id
 
     if request.push_default_route is not None:
         output["push_default_route"] = request.push_default_route
@@ -639,6 +647,21 @@ def marshal_SetPATRulesRequestRule(
 
     if request.public_port is not None:
         output["public_port"] = request.public_port
+
+    return output
+
+
+def marshal_UpdateGatewayNetworkRequestIpamConfig(
+    request: UpdateGatewayNetworkRequestIpamConfig,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.ipam_ip_id is not None:
+        output["ipam_ip_id"] = request.ipam_ip_id
+
+    if request.push_default_route is not None:
+        output["push_default_route"] = request.push_default_route
 
     return output
 
@@ -683,7 +706,9 @@ def marshal_CreateGatewayNetworkRequest(
                 ),
                 OneOfPossibility(
                     "ipam_config",
-                    marshal_IpamConfig(request.ipam_config, defaults)
+                    marshal_CreateGatewayNetworkRequestIpamConfig(
+                        request.ipam_config, defaults
+                    )
                     if request.ipam_config is not None
                     else None,
                 ),
@@ -892,7 +917,9 @@ def marshal_UpdateGatewayNetworkRequest(
                 ),
                 OneOfPossibility(
                     "ipam_config",
-                    marshal_IpamConfig(request.ipam_config, defaults)
+                    marshal_UpdateGatewayNetworkRequestIpamConfig(
+                        request.ipam_config, defaults
+                    )
                     if request.ipam_config is not None
                     else None,
                 ),

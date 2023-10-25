@@ -25,12 +25,12 @@ from .types import (
     ListIPsRequestOrderBy,
     ListPATRulesRequestOrderBy,
     PATRuleProtocol,
+    CreateGatewayNetworkRequestIpamConfig,
     DHCP,
     DHCPEntry,
     Gateway,
     GatewayNetwork,
     IP,
-    IpamConfig,
     ListDHCPEntriesResponse,
     ListDHCPsResponse,
     ListGatewayNetworksResponse,
@@ -43,6 +43,7 @@ from .types import (
     SetDHCPEntriesResponse,
     SetPATRulesRequestRule,
     SetPATRulesResponse,
+    UpdateGatewayNetworkRequestIpamConfig,
     CreateGatewayRequest,
     UpdateGatewayRequest,
     CreateGatewayNetworkRequest,
@@ -652,7 +653,7 @@ class VpcgwV1API(API):
         dhcp_id: Optional[str] = None,
         dhcp: Optional[CreateDHCPRequest] = None,
         address: Optional[str] = None,
-        ipam_config: Optional[IpamConfig] = None,
+        ipam_config: Optional[CreateGatewayNetworkRequestIpamConfig] = None,
     ) -> GatewayNetwork:
         """
         Attach a Public Gateway to a Private Network.
@@ -723,7 +724,7 @@ class VpcgwV1API(API):
         enable_dhcp: Optional[bool] = None,
         dhcp_id: Optional[str] = None,
         address: Optional[str] = None,
-        ipam_config: Optional[IpamConfig] = None,
+        ipam_config: Optional[UpdateGatewayNetworkRequestIpamConfig] = None,
     ) -> GatewayNetwork:
         """
         Update a Public Gateway's connection to a Private Network.
