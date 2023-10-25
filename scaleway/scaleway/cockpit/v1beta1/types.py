@@ -426,22 +426,32 @@ class Plan:
 
     retention_metrics_interval: Optional[str]
     """
-    Retention for metrics.
+    Interval of time during which Scaleway's Cockpit keeps your metrics.
     """
 
     retention_logs_interval: Optional[str]
     """
-    Retention for logs.
+    Interval of time during which Scaleway's Cockpit keeps your logs.
+    """
+
+    retention_traces_interval: Optional[str]
+    """
+    Interval of time during which Scaleway's Cockpit keeps your traces.
     """
 
     sample_ingestion_price: int
     """
-    Ingestion price for 1 million samples in cents.
+    Ingestion price in cents for 1 million samples.
     """
 
     logs_ingestion_price: int
     """
-    Ingestion price for 1 GB of logs in cents.
+    Ingestion price in cents for 1 GB of logs.
+    """
+
+    traces_ingestion_price: int
+    """
+    Ingestion price in cents for 1 GB of traces.
     """
 
     retention_price: int

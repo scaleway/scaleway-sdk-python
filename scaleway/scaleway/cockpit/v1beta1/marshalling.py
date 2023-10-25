@@ -243,8 +243,14 @@ def unmarshal_Plan(data: Any) -> Plan:
     field = data.get("retention_price", None)
     args["retention_price"] = field
 
+    field = data.get("retention_traces_interval", None)
+    args["retention_traces_interval"] = field
+
     field = data.get("sample_ingestion_price", None)
     args["sample_ingestion_price"] = field
+
+    field = data.get("traces_ingestion_price", None)
+    args["traces_ingestion_price"] = field
 
     return Plan(**args)
 
