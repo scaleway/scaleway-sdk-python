@@ -1764,6 +1764,22 @@ class FunctionV1Beta1API(API):
         sqs_config: Optional[CreateTriggerRequestSqsClientConfig] = None,
     ) -> Trigger:
         """
+        Create a trigger.
+        Create a new trigger for a specified function.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param name: Name of the trigger.
+        :param function_id: ID of the function to trigger.
+        :param description: Description of the trigger.
+        :param scw_sqs_config: Configuration for a Scaleway M&Q SQS queue.
+
+        One-of ('config'): at most one of 'scw_sqs_config', 'scw_nats_config', 'sqs_config' could be set.
+        :param scw_nats_config: Configuration for a Scaleway M&Q NATS subject.
+
+        One-of ('config'): at most one of 'scw_sqs_config', 'scw_nats_config', 'sqs_config' could be set.
+        :param sqs_config: Configuration for an AWS SQS queue.
+
+        One-of ('config'): at most one of 'scw_sqs_config', 'scw_nats_config', 'sqs_config' could be set.
+        :return: :class:`Trigger <Trigger>`
 
         Usage:
         ::
@@ -1805,6 +1821,11 @@ class FunctionV1Beta1API(API):
         region: Optional[Region] = None,
     ) -> Trigger:
         """
+        Get a trigger.
+        Get a trigger with a specified ID.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param trigger_id: ID of the trigger to get.
+        :return: :class:`Trigger <Trigger>`
 
         Usage:
         ::
@@ -1872,6 +1893,22 @@ class FunctionV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> ListTriggersResponse:
         """
+        List all triggers.
+        List all triggers belonging to a specified Organization or Project.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page: Page number to return.
+        :param page_size: Maximum number of triggers to return per page.
+        :param order_by: Order in which to return results.
+        :param function_id: ID of the function the triggers belongs to.
+
+        One-of ('scope'): at most one of 'function_id', 'namespace_id', 'project_id' could be set.
+        :param namespace_id: ID of the namespace the triggers belongs to.
+
+        One-of ('scope'): at most one of 'function_id', 'namespace_id', 'project_id' could be set.
+        :param project_id: ID of the project the triggers belongs to.
+
+        One-of ('scope'): at most one of 'function_id', 'namespace_id', 'project_id' could be set.
+        :return: :class:`ListTriggersResponse <ListTriggersResponse>`
 
         Usage:
         ::
@@ -1917,6 +1954,21 @@ class FunctionV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> List[Trigger]:
         """
+        List all triggers.
+        List all triggers belonging to a specified Organization or Project.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page: Page number to return.
+        :param page_size: Maximum number of triggers to return per page.
+        :param order_by: Order in which to return results.
+        :param function_id: ID of the function the triggers belongs to.
+
+        One-of ('scope'): at most one of 'function_id', 'namespace_id', 'project_id' could be set.
+        :param namespace_id: ID of the namespace the triggers belongs to.
+
+        One-of ('scope'): at most one of 'function_id', 'namespace_id', 'project_id' could be set.
+        :param project_id: ID of the project the triggers belongs to.
+
+        One-of ('scope'): at most one of 'function_id', 'namespace_id', 'project_id' could be set.
         :return: :class:`List[ListTriggersResponse] <List[ListTriggersResponse]>`
 
         Usage:
@@ -1950,6 +2002,16 @@ class FunctionV1Beta1API(API):
         sqs_config: Optional[UpdateTriggerRequestSqsClientConfig] = None,
     ) -> Trigger:
         """
+        Update a trigger.
+        Update a trigger with a specified ID.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param trigger_id: ID of the trigger to update.
+        :param name: Name of the trigger.
+        :param description: Description of the trigger.
+        :param sqs_config: Configuration for an AWS SQS queue.
+
+        One-of ('config'): at most one of 'sqs_config' could be set.
+        :return: :class:`Trigger <Trigger>`
 
         Usage:
         ::
@@ -1987,6 +2049,11 @@ class FunctionV1Beta1API(API):
         region: Optional[Region] = None,
     ) -> Trigger:
         """
+        Delete a trigger.
+        Delete a trigger with a specified ID.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param trigger_id: ID of the trigger to delete.
+        :return: :class:`Trigger <Trigger>`
 
         Usage:
         ::
