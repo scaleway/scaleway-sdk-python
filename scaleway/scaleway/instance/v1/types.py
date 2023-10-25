@@ -171,6 +171,17 @@ class ServerIpProvisioningMode(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ServerIpState(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATE = "unknown_state"
+    DETACHED = "detached"
+    ATTACHED = "attached"
+    PENDING = "pending"
+    ERROR = "error"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ServerState(str, Enum, metaclass=StrEnumMeta):
     RUNNING = "running"
     STOPPED = "stopped"
@@ -1271,6 +1282,8 @@ class ServerIp:
     """
     Tags associated with the IP.
     """
+
+    state: ServerIpState
 
 
 @dataclass
