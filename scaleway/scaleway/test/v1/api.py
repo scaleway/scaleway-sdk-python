@@ -304,7 +304,7 @@ class TestV1API(API):
         Update an existing human.
         Update the human associated with the given id.
         :param human_id: UUID of the human you want to update.
-        :param height:
+        :param height: Height of the human in meters.
         :param shoe_size:
         :param altitude_in_meter:
         :param altitude_in_millimeter:
