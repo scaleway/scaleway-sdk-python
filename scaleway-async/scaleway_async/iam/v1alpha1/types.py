@@ -69,6 +69,14 @@ class ListJWTsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ListLogsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListPermissionSetsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     NAME_ASC = "name_asc"
     NAME_DESC = "name_desc"
@@ -118,6 +126,28 @@ class ListUsersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     EMAIL_DESC = "email_desc"
     LAST_LOGIN_ASC = "last_login_asc"
     LAST_LOGIN_DESC = "last_login_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class LogAction(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_ACTION = "unknown_action"
+    CREATED = "created"
+    UPDATED = "updated"
+    DELETED = "deleted"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class LogResourceType(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_RESOURCE_TYPE = "unknown_resource_type"
+    API_KEY = "api_key"
+    USER = "user"
+    APPLICATION = "application"
+    GROUP = "group"
+    POLICY = "policy"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -417,6 +447,23 @@ class ListJWTsResponse:
 
 
 @dataclass
+class ListLogsResponse:
+    """
+    List logs response.
+    """
+
+    logs: List[Log]
+    """
+    List of logs.
+    """
+
+    total_count: int
+    """
+    Total count of logs.
+    """
+
+
+@dataclass
 class ListPermissionSetsResponse:
     """
     List permission sets response.
@@ -515,6 +562,58 @@ class ListUsersResponse:
     total_count: int
     """
     Total count of users.
+    """
+
+
+@dataclass
+class Log:
+    """
+    Log.
+    """
+
+    id: str
+    """
+    Log ID.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Creation date of the log.
+    """
+
+    ip: str
+    """
+    IP address of the HTTP request linked to the log.
+    """
+
+    user_agent: str
+    """
+    User-Agent of the HTTP request linked to the log.
+    """
+
+    action: LogAction
+    """
+    Action linked to the log.
+    """
+
+    bearer_id: str
+    """
+    ID of the principal at the origin of the log.
+    """
+
+    organization_id: str
+    """
+    ID of Organization linked to the log.
+    """
+
+    resource_type: LogResourceType
+    """
+    Type of the resource linked to the log.
+    """
+
+    resource_id: str
+    """
+    ID of the resource linked  to the log.
     """
 
 
@@ -1701,4 +1800,60 @@ class DeleteJWTRequest:
     jti: str
     """
     JWT ID of the JWT to delete.
+    """
+
+
+@dataclass
+class ListLogsRequest:
+    order_by: Optional[ListLogsRequestOrderBy]
+    """
+    Criteria for sorting results.
+    """
+
+    organization_id: Optional[str]
+    """
+    Filter by Organization ID.
+    """
+
+    page_size: Optional[int]
+    """
+    Number of results per page. Value must be between 1 and 100.
+    """
+
+    page: Optional[int]
+    """
+    Page number. Value must be greater to 1.
+    """
+
+    created_after: Optional[datetime]
+    """
+    Defined whether or not to filter out logs created after this timestamp.
+    """
+
+    created_before: Optional[datetime]
+    """
+    Defined whether or not to filter out logs created before this timestamp.
+    """
+
+    action: Optional[LogAction]
+    """
+    Defined whether or not to filter out by a specific action.
+    """
+
+    resource_type: Optional[LogResourceType]
+    """
+    Defined whether or not to filter out by a specific type of resource.
+    """
+
+    search: Optional[str]
+    """
+    Defined whether or not to filter out log by bearer ID or resource ID.
+    """
+
+
+@dataclass
+class GetLogRequest:
+    log_id: str
+    """
+    ID of the log.
     """

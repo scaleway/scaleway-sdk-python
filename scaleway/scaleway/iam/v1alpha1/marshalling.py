@@ -18,12 +18,14 @@ from .types import (
     ListApplicationsResponse,
     ListGroupsResponse,
     ListJWTsResponse,
+    ListLogsResponse,
     ListPermissionSetsResponse,
     ListPoliciesResponse,
     ListQuotaResponse,
     ListRulesResponse,
     ListSSHKeysResponse,
     ListUsersResponse,
+    Log,
     PermissionSet,
     Policy,
     Quotum,
@@ -198,6 +200,44 @@ def unmarshal_JWT(data: Any) -> JWT:
     args["user_agent"] = field
 
     return JWT(**args)
+
+
+def unmarshal_Log(data: Any) -> Log:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'Log' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("action", None)
+    args["action"] = field
+
+    field = data.get("bearer_id", None)
+    args["bearer_id"] = field
+
+    field = data.get("created_at", None)
+    args["created_at"] = parser.isoparse(field) if type(field) is str else field
+
+    field = data.get("id", None)
+    args["id"] = field
+
+    field = data.get("ip", None)
+    args["ip"] = field
+
+    field = data.get("organization_id", None)
+    args["organization_id"] = field
+
+    field = data.get("resource_id", None)
+    args["resource_id"] = field
+
+    field = data.get("resource_type", None)
+    args["resource_type"] = field
+
+    field = data.get("user_agent", None)
+    args["user_agent"] = field
+
+    return Log(**args)
 
 
 def unmarshal_PermissionSet(data: Any) -> PermissionSet:
@@ -483,6 +523,23 @@ def unmarshal_ListJWTsResponse(data: Any) -> ListJWTsResponse:
     args["total_count"] = field
 
     return ListJWTsResponse(**args)
+
+
+def unmarshal_ListLogsResponse(data: Any) -> ListLogsResponse:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'ListLogsResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("logs", None)
+    args["logs"] = [unmarshal_Log(v) for v in field] if field is not None else None
+
+    field = data.get("total_count", None)
+    args["total_count"] = field
+
+    return ListLogsResponse(**args)
 
 
 def unmarshal_ListPermissionSetsResponse(data: Any) -> ListPermissionSetsResponse:

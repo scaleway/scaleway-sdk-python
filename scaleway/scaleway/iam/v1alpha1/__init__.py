@@ -5,11 +5,14 @@ from .types import ListAPIKeysRequestOrderBy
 from .types import ListApplicationsRequestOrderBy
 from .types import ListGroupsRequestOrderBy
 from .types import ListJWTsRequestOrderBy
+from .types import ListLogsRequestOrderBy
 from .types import ListPermissionSetsRequestOrderBy
 from .types import ListPoliciesRequestOrderBy
 from .types import ListQuotaRequestOrderBy
 from .types import ListSSHKeysRequestOrderBy
 from .types import ListUsersRequestOrderBy
+from .types import LogAction
+from .types import LogResourceType
 from .types import PermissionSetScopeType
 from .types import UserStatus
 from .types import UserType
@@ -21,12 +24,14 @@ from .types import ListAPIKeysResponse
 from .types import ListApplicationsResponse
 from .types import ListGroupsResponse
 from .types import ListJWTsResponse
+from .types import ListLogsResponse
 from .types import ListPermissionSetsResponse
 from .types import ListPoliciesResponse
 from .types import ListQuotaResponse
 from .types import ListRulesResponse
 from .types import ListSSHKeysResponse
 from .types import ListUsersResponse
+from .types import Log
 from .types import PermissionSet
 from .types import Policy
 from .types import Quotum
@@ -43,11 +48,14 @@ __all__ = [
     "ListApplicationsRequestOrderBy",
     "ListGroupsRequestOrderBy",
     "ListJWTsRequestOrderBy",
+    "ListLogsRequestOrderBy",
     "ListPermissionSetsRequestOrderBy",
     "ListPoliciesRequestOrderBy",
     "ListQuotaRequestOrderBy",
     "ListSSHKeysRequestOrderBy",
     "ListUsersRequestOrderBy",
+    "LogAction",
+    "LogResourceType",
     "PermissionSetScopeType",
     "UserStatus",
     "UserType",
@@ -59,12 +67,14 @@ __all__ = [
     "ListApplicationsResponse",
     "ListGroupsResponse",
     "ListJWTsResponse",
+    "ListLogsResponse",
     "ListPermissionSetsResponse",
     "ListPoliciesResponse",
     "ListQuotaResponse",
     "ListRulesResponse",
     "ListSSHKeysResponse",
     "ListUsersResponse",
+    "Log",
     "PermissionSet",
     "Policy",
     "Quotum",
