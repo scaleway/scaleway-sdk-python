@@ -1509,6 +1509,25 @@ class UpgradableVersion:
 
 
 @dataclass
+class UpgradeInstanceRequestMajorUpgradeWorkflow:
+    """
+    Upgrade instance request. major upgrade workflow.
+    """
+
+    upgradable_version_id: str
+    """
+    Update your database engine to a newer version.
+    This will create a new Database Instance with same specifications as the current one and perform a Database Engine upgrade.
+    """
+
+    with_endpoints: bool
+    """
+    Include endpoint during the migration.
+    At the end of the migration procedure this option let you migrate all your database endpoint to the upgraded instance.
+    """
+
+
+@dataclass
 class User:
     """
     User.
@@ -1739,28 +1758,28 @@ class UpgradeInstanceRequest:
     """
     Node type of the Database Instance you want to upgrade to.
     
-    One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id' could be set.
+    One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
     """
 
     enable_ha: Optional[bool]
     """
     Defines whether or not high availability should be enabled on the Database Instance.
     
-    One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id' could be set.
+    One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
     """
 
     volume_size: Optional[int]
     """
     Increase your block storage volume size.
     
-    One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id' could be set.
+    One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
     """
 
     volume_type: Optional[VolumeType]
     """
     Change your Database Instance storage type.
     
-    One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id' could be set.
+    One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
     """
 
     upgradable_version_id: Optional[str]
@@ -1768,7 +1787,14 @@ class UpgradeInstanceRequest:
     Update your database engine to a newer version.
     This will create a new Database Instance with same specifications as the current one and perform a Database Engine upgrade.
     
-    One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id' could be set.
+    One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
+    """
+
+    major_upgrade_workflow: Optional[UpgradeInstanceRequestMajorUpgradeWorkflow]
+    """
+    Upgrade your database engine to a new major version including instance endpoints.
+    
+    One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
     """
 
 

@@ -67,6 +67,7 @@ from .types import (
     SetInstanceSettingsResponse,
     Snapshot,
     UpgradableVersion,
+    UpgradeInstanceRequestMajorUpgradeWorkflow,
     User,
     Volume,
     CreateDatabaseBackupRequest,
@@ -1403,6 +1404,21 @@ def marshal_ReadReplicaEndpointSpec(
     return output
 
 
+def marshal_UpgradeInstanceRequestMajorUpgradeWorkflow(
+    request: UpgradeInstanceRequestMajorUpgradeWorkflow,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.upgradable_version_id is not None:
+        output["upgradable_version_id"] = request.upgradable_version_id
+
+    if request.with_endpoints is not None:
+        output["with_endpoints"] = request.with_endpoints
+
+    return output
+
+
 def marshal_AddInstanceACLRulesRequest(
     request: AddInstanceACLRulesRequest,
     defaults: ProfileDefaults,
@@ -1876,6 +1892,14 @@ def marshal_UpgradeInstanceRequest(
                     "upgradable_version_id",
                     request.upgradable_version_id
                     if request.upgradable_version_id is not None
+                    else None,
+                ),
+                OneOfPossibility(
+                    "major_upgrade_workflow",
+                    marshal_UpgradeInstanceRequestMajorUpgradeWorkflow(
+                        request.major_upgrade_workflow, defaults
+                    )
+                    if request.major_upgrade_workflow is not None
                     else None,
                 ),
             ]

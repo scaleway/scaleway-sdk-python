@@ -62,6 +62,7 @@ from .types import (
     SetInstanceACLRulesResponse,
     SetInstanceSettingsResponse,
     Snapshot,
+    UpgradeInstanceRequestMajorUpgradeWorkflow,
     User,
     CreateDatabaseBackupRequest,
     UpdateDatabaseBackupRequest,
@@ -714,6 +715,9 @@ class RdbV1API(API):
         volume_size: Optional[int] = None,
         volume_type: Optional[VolumeType] = None,
         upgradable_version_id: Optional[str] = None,
+        major_upgrade_workflow: Optional[
+            UpgradeInstanceRequestMajorUpgradeWorkflow
+        ] = None,
     ) -> Instance:
         """
         Upgrade a Database Instance.
@@ -722,20 +726,23 @@ class RdbV1API(API):
         :param instance_id: UUID of the Database Instance you want to upgrade.
         :param node_type: Node type of the Database Instance you want to upgrade to.
 
-        One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id' could be set.
+        One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
         :param enable_ha: Defines whether or not high availability should be enabled on the Database Instance.
 
-        One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id' could be set.
+        One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
         :param volume_size: Increase your block storage volume size.
 
-        One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id' could be set.
+        One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
         :param volume_type: Change your Database Instance storage type.
 
-        One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id' could be set.
+        One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
         :param upgradable_version_id: Update your database engine to a newer version.
         This will create a new Database Instance with same specifications as the current one and perform a Database Engine upgrade.
 
-        One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id' could be set.
+        One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
+        :param major_upgrade_workflow: Upgrade your database engine to a new major version including instance endpoints.
+
+        One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
         :return: :class:`Instance <Instance>`
 
         Usage:
@@ -761,6 +768,7 @@ class RdbV1API(API):
                     volume_size=volume_size,
                     volume_type=volume_type,
                     upgradable_version_id=upgradable_version_id,
+                    major_upgrade_workflow=major_upgrade_workflow,
                 ),
                 self.client,
             ),
