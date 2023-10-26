@@ -161,9 +161,6 @@ def unmarshal_Domain(data: Any) -> Domain:
     field = data.get("dkim_config", None)
     args["dkim_config"] = field
 
-    field = data.get("statistics", None)
-    args["statistics"] = unmarshal_DomainStatistics(field)
-
     field = data.get("region", None)
     args["region"] = field
 
@@ -178,6 +175,9 @@ def unmarshal_Domain(data: Any) -> Domain:
 
     field = data.get("last_error", None)
     args["last_error"] = field
+
+    field = data.get("statistics", None)
+    args["statistics"] = unmarshal_DomainStatistics(field)
 
     return Domain(**args)
 

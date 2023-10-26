@@ -38,20 +38,20 @@ class IpamV1API(API):
     async def book_ip(
         self,
         *,
+        source: Source,
         is_ipv6: bool,
         region: Optional[Region] = None,
         project_id: Optional[str] = None,
-        source: Optional[Source] = None,
         address: Optional[str] = None,
         tags: Optional[List[str]] = None,
     ) -> IP:
         """
         Book a new IP.
         Book a new IP from the specified source. Currently IPs can only be booked from a Private Network.
+        :param source: Source in which to book the IP. Not all sources are available for booking.
         :param is_ipv6: Request an IPv6 instead of an IPv4.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: When creating an IP in a Private Network, the Project must match the Private Network's Project.
-        :param source: Source in which to book the IP. Not all sources are available for booking.
         :param address: Note that only the Private Network source allows you to pick a specific IP. If the requested IP is already booked, then the call will fail.
         :param tags: Tags for the IP.
         :return: :class:`IP <IP>`
@@ -60,6 +60,7 @@ class IpamV1API(API):
         ::
 
             result = await api.book_ip(
+                source=Source(),
                 is_ipv6=False,
             )
         """
@@ -73,10 +74,10 @@ class IpamV1API(API):
             f"/ipam/v1/regions/{param_region}/ips",
             body=marshal_BookIPRequest(
                 BookIPRequest(
+                    source=source,
                     is_ipv6=is_ipv6,
                     region=region,
                     project_id=project_id,
-                    source=source,
                     address=address,
                     tags=tags,
                 ),

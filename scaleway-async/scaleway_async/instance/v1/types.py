@@ -395,11 +395,6 @@ class Volume:
     Volume tags.
     """
 
-    server: ServerSummary
-    """
-    Instance attached to the volume.
-    """
-
     state: VolumeState
     """
     Volume state.
@@ -408,6 +403,11 @@ class Volume:
     zone: Zone
     """
     Zone in which the volume is located.
+    """
+
+    server: Optional[ServerSummary]
+    """
+    Instance attached to the volume.
     """
 
 
@@ -470,8 +470,6 @@ class Image:
 
     public: bool
 
-    root_volume: VolumeSummary
-
     state: ImageState
 
     project: str
@@ -482,6 +480,8 @@ class Image:
     """
     Zone to target. If none is passed will use default zone from the config.
     """
+
+    root_volume: Optional[VolumeSummary]
 
 
 @dataclass
@@ -661,9 +661,9 @@ class VolumeServer:
 
     organization: str
 
-    server: ServerSummary
-
     size: int
+
+    server: Optional[ServerSummary]
 
     volume_type: VolumeServerVolumeType
 
@@ -734,7 +734,7 @@ class ServerTypeNetwork:
 
 @dataclass
 class ServerTypeVolumeConstraintsByType:
-    l_ssd: ServerTypeVolumeConstraintSizes
+    l_ssd: Optional[ServerTypeVolumeConstraintSizes]
     """
     Local SSD volumes.
     """
@@ -785,8 +785,6 @@ class Ip:
 
     address: str
 
-    server: ServerSummary
-
     organization: str
 
     tags: List[str]
@@ -805,6 +803,8 @@ class Ip:
     """
 
     reverse: Optional[str]
+
+    server: Optional[ServerSummary]
 
 
 @dataclass
@@ -1026,24 +1026,24 @@ class Server:
     Instance host name.
     """
 
-    image: Image
-    """
-    Information about the Instance image.
-    """
-
     protected: bool
     """
     Defines whether the Instance protection option is activated.
     """
 
-    public_ip: ServerIp
+    image: Optional[Image]
     """
-    Information about the public IP.
+    Information about the Instance image.
     """
 
     private_ip: Optional[str]
     """
     Private IP address of the Instance.
+    """
+
+    public_ip: Optional[ServerIp]
+    """
+    Information about the public IP.
     """
 
     public_ips: List[ServerIp]
@@ -1061,26 +1061,6 @@ class Server:
     Instance state.
     """
 
-    location: ServerLocation
-    """
-    Instance location.
-    """
-
-    ipv6: ServerIpv6
-    """
-    Instance IPv6 address.
-    """
-
-    modification_date: Optional[datetime]
-    """
-    Instance modification date.
-    """
-
-    bootscript: Optional[Bootscript]
-    """
-    Instance bootscript.
-    """
-
     boot_type: BootType
     """
     Instance boot type.
@@ -1091,7 +1071,27 @@ class Server:
     Instance volumes.
     """
 
-    security_group: SecurityGroupSummary
+    modification_date: Optional[datetime]
+    """
+    Instance modification date.
+    """
+
+    location: Optional[ServerLocation]
+    """
+    Instance location.
+    """
+
+    ipv6: Optional[ServerIpv6]
+    """
+    Instance IPv6 address.
+    """
+
+    bootscript: Optional[Bootscript]
+    """
+    Instance bootscript.
+    """
+
+    security_group: Optional[SecurityGroupSummary]
     """
     Instance security group.
     """
@@ -1111,11 +1111,6 @@ class Server:
     Instance architecture.
     """
 
-    placement_group: PlacementGroup
-    """
-    Instance placement group.
-    """
-
     private_nics: List[PrivateNIC]
     """
     Instance private NICs.
@@ -1124,6 +1119,11 @@ class Server:
     zone: Zone
     """
     Zone in which the Instance is located.
+    """
+
+    placement_group: Optional[PlacementGroup]
+    """
+    Instance placement group.
     """
 
 
@@ -1169,14 +1169,14 @@ class Snapshot:
     Snapshot state.
     """
 
-    base_volume: SnapshotBaseVolume
-    """
-    Volume on which the snapshot is based on.
-    """
-
     zone: Zone
     """
     Snapshot zone.
+    """
+
+    base_volume: Optional[SnapshotBaseVolume]
+    """
+    Volume on which the snapshot is based on.
     """
 
     creation_date: Optional[datetime]
@@ -1295,6 +1295,11 @@ class GetServerTypesAvailabilityResponseAvailability:
 
 @dataclass
 class ServerType:
+    monthly_price: Optional[float]
+    """
+    Estimated monthly price, for a 30 days month, in Euro.
+    """
+
     hourly_price: float
     """
     Hourly price in Euro.
@@ -1303,16 +1308,6 @@ class ServerType:
     alt_names: List[str]
     """
     Alternative Instance name, if any.
-    """
-
-    per_volume_constraint: ServerTypeVolumeConstraintsByType
-    """
-    Additional volume constraints.
-    """
-
-    volumes_constraint: ServerTypeVolumeConstraintSizes
-    """
-    Initial volume constraints.
     """
 
     ncpus: int
@@ -1330,9 +1325,19 @@ class ServerType:
     CPU architecture.
     """
 
-    monthly_price: Optional[float]
+    baremetal: bool
     """
-    Estimated monthly price, for a 30 days month, in Euro.
+    True if it is a baremetal Instance.
+    """
+
+    per_volume_constraint: Optional[ServerTypeVolumeConstraintsByType]
+    """
+    Additional volume constraints.
+    """
+
+    volumes_constraint: Optional[ServerTypeVolumeConstraintSizes]
+    """
+    Initial volume constraints.
     """
 
     gpu: Optional[int]
@@ -1340,17 +1345,12 @@ class ServerType:
     Number of GPU.
     """
 
-    baremetal: bool
-    """
-    True if it is a baremetal Instance.
-    """
-
-    network: ServerTypeNetwork
+    network: Optional[ServerTypeNetwork]
     """
     Network available for the Instance.
     """
 
-    capabilities: ServerTypeCapabilities
+    capabilities: Optional[ServerTypeCapabilities]
     """
     Capabilities.
     """
@@ -1365,9 +1365,9 @@ class ServerType:
 class VolumeType:
     display_name: str
 
-    capabilities: VolumeTypeCapabilities
+    capabilities: Optional[VolumeTypeCapabilities]
 
-    constraints: VolumeTypeConstraints
+    constraints: Optional[VolumeTypeConstraints]
 
 
 @dataclass
@@ -1505,7 +1505,7 @@ class CreateImageRequest:
 
 @dataclass
 class CreateImageResponse:
-    image: Image
+    image: Optional[Image]
 
 
 @dataclass
@@ -1537,7 +1537,7 @@ class CreateIpRequest:
 
 @dataclass
 class CreateIpResponse:
-    ip: Ip
+    ip: Optional[Ip]
 
 
 @dataclass
@@ -1574,7 +1574,7 @@ class CreatePlacementGroupRequest:
 
 @dataclass
 class CreatePlacementGroupResponse:
-    placement_group: PlacementGroup
+    placement_group: Optional[PlacementGroup]
 
 
 @dataclass
@@ -1607,7 +1607,7 @@ class CreatePrivateNICRequest:
 
 @dataclass
 class CreatePrivateNICResponse:
-    private_nic: PrivateNIC
+    private_nic: Optional[PrivateNIC]
 
 
 @dataclass
@@ -1663,7 +1663,7 @@ class CreateSecurityGroupRequest:
 
 @dataclass
 class CreateSecurityGroupResponse:
-    security_group: SecurityGroup
+    security_group: Optional[SecurityGroup]
 
 
 @dataclass
@@ -1709,7 +1709,7 @@ class CreateSecurityGroupRuleRequest:
 
 @dataclass
 class CreateSecurityGroupRuleResponse:
-    rule: SecurityGroupRule
+    rule: Optional[SecurityGroupRule]
 
 
 @dataclass
@@ -1796,7 +1796,7 @@ class CreateServerRequest:
 
 @dataclass
 class CreateServerResponse:
-    server: Server
+    server: Optional[Server]
 
 
 @dataclass
@@ -1849,9 +1849,9 @@ If omitted, the volume type of the original volume will be used.
 
 @dataclass
 class CreateSnapshotResponse:
-    snapshot: Snapshot
+    snapshot: Optional[Snapshot]
 
-    task: Task
+    task: Optional[Task]
 
 
 @dataclass
@@ -1889,7 +1889,7 @@ class CreateVolumeRequest:
 
 @dataclass
 class CreateVolumeResponse:
-    volume: Volume
+    volume: Optional[Volume]
 
 
 @dataclass
@@ -2053,7 +2053,7 @@ class ExportSnapshotRequest:
 
 @dataclass
 class ExportSnapshotResponse:
-    task: Task
+    task: Optional[Task]
 
 
 @dataclass
@@ -2068,7 +2068,7 @@ class GetBootscriptRequest:
 
 @dataclass
 class GetBootscriptResponse:
-    bootscript: Bootscript
+    bootscript: Optional[Bootscript]
 
 
 @dataclass
@@ -2085,7 +2085,7 @@ class GetDashboardRequest:
 
 @dataclass
 class GetDashboardResponse:
-    dashboard: Dashboard
+    dashboard: Optional[Dashboard]
 
 
 @dataclass
@@ -2103,7 +2103,7 @@ class GetImageRequest:
 
 @dataclass
 class GetImageResponse:
-    image: Image
+    image: Optional[Image]
 
 
 @dataclass
@@ -2121,7 +2121,7 @@ class GetIpRequest:
 
 @dataclass
 class GetIpResponse:
-    ip: Ip
+    ip: Optional[Ip]
 
 
 @dataclass
@@ -2139,7 +2139,7 @@ class GetPlacementGroupRequest:
 
 @dataclass
 class GetPlacementGroupResponse:
-    placement_group: PlacementGroup
+    placement_group: Optional[PlacementGroup]
 
 
 @dataclass
@@ -2183,7 +2183,7 @@ class GetPrivateNICRequest:
 
 @dataclass
 class GetPrivateNICResponse:
-    private_nic: PrivateNIC
+    private_nic: Optional[PrivateNIC]
 
 
 @dataclass
@@ -2201,7 +2201,7 @@ class GetSecurityGroupRequest:
 
 @dataclass
 class GetSecurityGroupResponse:
-    security_group: SecurityGroup
+    security_group: Optional[SecurityGroup]
 
 
 @dataclass
@@ -2218,7 +2218,7 @@ class GetSecurityGroupRuleRequest:
 
 @dataclass
 class GetSecurityGroupRuleResponse:
-    rule: SecurityGroupRule
+    rule: Optional[SecurityGroupRule]
 
 
 @dataclass
@@ -2236,7 +2236,7 @@ class GetServerRequest:
 
 @dataclass
 class GetServerResponse:
-    server: Server
+    server: Optional[Server]
 
 
 @dataclass
@@ -2282,7 +2282,7 @@ class GetSnapshotRequest:
 
 @dataclass
 class GetSnapshotResponse:
-    snapshot: Snapshot
+    snapshot: Optional[Snapshot]
 
 
 @dataclass
@@ -2300,7 +2300,7 @@ class GetVolumeRequest:
 
 @dataclass
 class GetVolumeResponse:
-    volume: Volume
+    volume: Optional[Volume]
 
 
 @dataclass
@@ -2908,11 +2908,6 @@ class ListVolumesTypesResponse:
 
 @dataclass
 class MigrationPlan:
-    volume: Volume
-    """
-    A volume which will be migrated to SBS together with the snapshots, if present.
-    """
-
     snapshots: List[Snapshot]
     """
     A list of snapshots which will be migrated to SBS together and with the volume, if present.
@@ -2921,6 +2916,11 @@ class MigrationPlan:
     validation_key: str
     """
     A value to be passed to ApplyBlockMigrationRequest, to confirm that the execution of the plan is being requested.
+    """
+
+    volume: Optional[Volume]
+    """
+    A volume which will be migrated to SBS together with the snapshots, if present.
     """
 
 
@@ -2968,7 +2968,7 @@ This field should only be specified when performing a backup action.
 
 @dataclass
 class ServerActionResponse:
-    task: Task
+    task: Optional[Task]
 
 
 @dataclass
@@ -3031,7 +3031,7 @@ class SetPlacementGroupRequest:
 
 @dataclass
 class SetPlacementGroupResponse:
-    placement_group: PlacementGroup
+    placement_group: Optional[PlacementGroup]
 
 
 @dataclass
@@ -3115,7 +3115,7 @@ class UpdateIpRequest:
 
 @dataclass
 class UpdateIpResponse:
-    ip: Ip
+    ip: Optional[Ip]
 
 
 @dataclass
@@ -3153,7 +3153,7 @@ class UpdatePlacementGroupRequest:
 
 @dataclass
 class UpdatePlacementGroupResponse:
-    placement_group: PlacementGroup
+    placement_group: Optional[PlacementGroup]
 
 
 @dataclass
@@ -3272,7 +3272,7 @@ class UpdateServerRequest:
 
 @dataclass
 class UpdateServerResponse:
-    server: Server
+    server: Optional[Server]
 
 
 @dataclass
@@ -3305,12 +3305,12 @@ class UpdateVolumeRequest:
 
 @dataclass
 class UpdateVolumeResponse:
-    volume: Volume
+    volume: Optional[Volume]
 
 
 @dataclass
 class _SetImageResponse:
-    image: Image
+    image: Optional[Image]
 
 
 @dataclass
@@ -3398,7 +3398,7 @@ class _SetSecurityGroupRequest:
 
 @dataclass
 class _SetSecurityGroupResponse:
-    security_group: SecurityGroup
+    security_group: Optional[SecurityGroup]
 
 
 @dataclass
@@ -3433,7 +3433,7 @@ class _SetSecurityGroupRuleRequest:
 
 @dataclass
 class _SetSecurityGroupRuleResponse:
-    rule: SecurityGroupRule
+    rule: Optional[SecurityGroupRule]
 
 
 @dataclass
@@ -3596,7 +3596,7 @@ class _SetServerRequest:
 
 @dataclass
 class _SetServerResponse:
-    server: Server
+    server: Optional[Server]
 
 
 @dataclass
@@ -3633,4 +3633,4 @@ class _SetSnapshotRequest:
 
 @dataclass
 class _SetSnapshotResponse:
-    snapshot: Snapshot
+    snapshot: Optional[Snapshot]

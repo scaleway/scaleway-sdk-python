@@ -185,11 +185,6 @@ class NatsCredentials:
     NATS account containing the credentials.
     """
 
-    credentials: File
-    """
-    Object containing the credentials file (Only returned by **Create Nats Credentials** call).
-    """
-
     checksum: str
     """
     Checksum of the credentials file.
@@ -203,6 +198,11 @@ class NatsCredentials:
     updated_at: Optional[datetime]
     """
     NATS credentials last modification date.
+    """
+
+    credentials: Optional[File]
+    """
+    Object containing the credentials file (Only returned by **Create Nats Credentials** call).
     """
 
 
@@ -243,11 +243,6 @@ class SnsCredentials:
     Checksum of the Secret key.
     """
 
-    permissions: SnsPermissions
-    """
-    Permissions associated with these credentials.
-    """
-
     created_at: Optional[datetime]
     """
     Credentials creation date.
@@ -256,6 +251,11 @@ class SnsCredentials:
     updated_at: Optional[datetime]
     """
     Credentials last modification date.
+    """
+
+    permissions: Optional[SnsPermissions]
+    """
+    Permissions associated with these credentials.
     """
 
 
@@ -296,11 +296,6 @@ class SqsCredentials:
     Checksum of the Secret key.
     """
 
-    permissions: SqsPermissions
-    """
-    Permissions associated with these credentials.
-    """
-
     created_at: Optional[datetime]
     """
     Credentials creation date.
@@ -309,6 +304,11 @@ class SqsCredentials:
     updated_at: Optional[datetime]
     """
     Credentials last modification date.
+    """
+
+    permissions: Optional[SqsPermissions]
+    """
+    Permissions associated with these credentials.
     """
 
 

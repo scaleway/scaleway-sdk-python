@@ -445,9 +445,6 @@ def unmarshal_Instance(data: Any) -> Instance:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("volume", None)
-    args["volume"] = unmarshal_Volume(field)
-
     field = data.get("region", None)
     args["region"] = field
 
@@ -462,6 +459,9 @@ def unmarshal_Instance(data: Any) -> Instance:
 
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+
+    field = data.get("volume", None)
+    args["volume"] = unmarshal_Volume(field)
 
     field = data.get("project_id", None)
     args["project_id"] = field
@@ -485,14 +485,14 @@ def unmarshal_Instance(data: Any) -> Instance:
         [unmarshal_InstanceSetting(v) for v in field] if field is not None else None
     )
 
-    field = data.get("backup_schedule", None)
-    args["backup_schedule"] = unmarshal_BackupSchedule(field)
-
     field = data.get("is_ha_cluster", None)
     args["is_ha_cluster"] = field
 
     field = data.get("endpoint", None)
     args["endpoint"] = unmarshal_Endpoint(field)
+
+    field = data.get("backup_schedule", None)
+    args["backup_schedule"] = unmarshal_BackupSchedule(field)
 
     field = data.get("read_replicas", None)
     args["read_replicas"] = (
@@ -512,9 +512,6 @@ def unmarshal_Instance(data: Any) -> Instance:
         [unmarshal_Endpoint(v) for v in field] if field is not None else None
     )
 
-    field = data.get("logs_policy", None)
-    args["logs_policy"] = unmarshal_LogsPolicy(field)
-
     field = data.get("backup_same_region", None)
     args["backup_same_region"] = field
 
@@ -522,6 +519,9 @@ def unmarshal_Instance(data: Any) -> Instance:
     args["maintenances"] = (
         [unmarshal_Maintenance(v) for v in field] if field is not None else None
     )
+
+    field = data.get("logs_policy", None)
+    args["logs_policy"] = unmarshal_LogsPolicy(field)
 
     return Instance(**args)
 

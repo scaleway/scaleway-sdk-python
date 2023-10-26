@@ -206,14 +206,14 @@ def unmarshal_Token(data: Any) -> Token:
     field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("scopes", None)
-    args["scopes"] = unmarshal_TokenScopes(field)
-
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
     args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+
+    field = data.get("scopes", None)
+    args["scopes"] = unmarshal_TokenScopes(field)
 
     field = data.get("secret_key", None)
     args["secret_key"] = field
@@ -290,23 +290,23 @@ def unmarshal_Cockpit(data: Any) -> Cockpit:
     field = data.get("project_id", None)
     args["project_id"] = field
 
-    field = data.get("endpoints", None)
-    args["endpoints"] = unmarshal_CockpitEndpoints(field)
-
     field = data.get("status", None)
     args["status"] = field
 
     field = data.get("managed_alerts_enabled", None)
     args["managed_alerts_enabled"] = field
 
-    field = data.get("plan", None)
-    args["plan"] = unmarshal_Plan(field)
-
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
     args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+
+    field = data.get("endpoints", None)
+    args["endpoints"] = unmarshal_CockpitEndpoints(field)
+
+    field = data.get("plan", None)
+    args["plan"] = unmarshal_Plan(field)
 
     return Cockpit(**args)
 

@@ -168,9 +168,6 @@ def unmarshal_SnapshotSummary(data: Any) -> SnapshotSummary:
     field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("parent_volume", None)
-    args["parent_volume"] = unmarshal_SnapshotParentVolume(field)
-
     field = data.get("size", None)
     args["size"] = field
 
@@ -188,6 +185,9 @@ def unmarshal_SnapshotSummary(data: Any) -> SnapshotSummary:
 
     field = data.get("class_", None)
     args["class_"] = field
+
+    field = data.get("parent_volume", None)
+    args["parent_volume"] = unmarshal_SnapshotParentVolume(field)
 
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -228,14 +228,14 @@ def unmarshal_VolumeType(data: Any) -> VolumeType:
     field = data.get("type_", None)
     args["type_"] = field
 
-    field = data.get("specs", None)
-    args["specs"] = unmarshal_VolumeSpecifications(field)
-
     field = data.get("pricing", None)
     args["pricing"] = unmarshal_Money(field)
 
     field = data.get("snapshot_pricing", None)
     args["snapshot_pricing"] = unmarshal_Money(field)
+
+    field = data.get("specs", None)
+    args["specs"] = unmarshal_VolumeSpecifications(field)
 
     return VolumeType(**args)
 
@@ -292,9 +292,6 @@ def unmarshal_Snapshot(data: Any) -> Snapshot:
     field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("parent_volume", None)
-    args["parent_volume"] = unmarshal_SnapshotParentVolume(field)
-
     field = data.get("size", None)
     args["size"] = field
 
@@ -317,6 +314,9 @@ def unmarshal_Snapshot(data: Any) -> Snapshot:
 
     field = data.get("class_", None)
     args["class_"] = field
+
+    field = data.get("parent_volume", None)
+    args["parent_volume"] = unmarshal_SnapshotParentVolume(field)
 
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field

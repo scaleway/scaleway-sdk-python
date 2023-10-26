@@ -106,11 +106,6 @@ class IP:
     Source pool where the IP was booked in.
     """
 
-    resource: Resource
-    """
-    Resource which the IP is attached to.
-    """
-
     tags: List[str]
     """
     Tags for the IP.
@@ -131,6 +126,11 @@ class IP:
     Date the IP was last modified.
     """
 
+    resource: Optional[Resource]
+    """
+    Resource which the IP is attached to.
+    """
+
     zone: Optional[Zone]
     """
     Zone of the IP, if zonal.
@@ -139,6 +139,11 @@ class IP:
 
 @dataclass
 class BookIPRequest:
+    source: Source
+    """
+    Source in which to book the IP. Not all sources are available for booking.
+    """
+
     is_ipv6: bool
     """
     Request an IPv6 instead of an IPv4.
@@ -152,11 +157,6 @@ class BookIPRequest:
     project_id: Optional[str]
     """
     When creating an IP in a Private Network, the Project must match the Private Network's Project.
-    """
-
-    source: Optional[Source]
-    """
-    Source in which to book the IP. Not all sources are available for booking.
     """
 
     address: Optional[str]

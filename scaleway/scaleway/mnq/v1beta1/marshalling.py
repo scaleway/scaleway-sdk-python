@@ -99,9 +99,6 @@ def unmarshal_NatsCredentials(data: Any) -> NatsCredentials:
     field = data.get("nats_account_id", None)
     args["nats_account_id"] = field
 
-    field = data.get("credentials", None)
-    args["credentials"] = unmarshal_File(field)
-
     field = data.get("checksum", None)
     args["checksum"] = field
 
@@ -110,6 +107,9 @@ def unmarshal_NatsCredentials(data: Any) -> NatsCredentials:
 
     field = data.get("updated_at", None)
     args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+
+    field = data.get("credentials", None)
+    args["credentials"] = unmarshal_File(field)
 
     return NatsCredentials(**args)
 
@@ -163,14 +163,14 @@ def unmarshal_SnsCredentials(data: Any) -> SnsCredentials:
     field = data.get("secret_checksum", None)
     args["secret_checksum"] = field
 
-    field = data.get("permissions", None)
-    args["permissions"] = unmarshal_SnsPermissions(field)
-
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
     args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+
+    field = data.get("permissions", None)
+    args["permissions"] = unmarshal_SnsPermissions(field)
 
     return SnsCredentials(**args)
 
@@ -224,14 +224,14 @@ def unmarshal_SqsCredentials(data: Any) -> SqsCredentials:
     field = data.get("secret_checksum", None)
     args["secret_checksum"] = field
 
-    field = data.get("permissions", None)
-    args["permissions"] = unmarshal_SqsPermissions(field)
-
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
     args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+
+    field = data.get("permissions", None)
+    args["permissions"] = unmarshal_SqsPermissions(field)
 
     return SqsCredentials(**args)
 

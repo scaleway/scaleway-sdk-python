@@ -126,6 +126,15 @@ def unmarshal_OS(data: Any) -> OS:
     field = data.get("logo_url", None)
     args["logo_url"] = field
 
+    field = data.get("enabled", None)
+    args["enabled"] = field
+
+    field = data.get("license_required", None)
+    args["license_required"] = field
+
+    field = data.get("allowed", None)
+    args["allowed"] = field
+
     field = data.get("ssh", None)
     args["ssh"] = unmarshal_OSOSField(field)
 
@@ -140,15 +149,6 @@ def unmarshal_OS(data: Any) -> OS:
 
     field = data.get("service_password", None)
     args["service_password"] = unmarshal_OSOSField(field)
-
-    field = data.get("enabled", None)
-    args["enabled"] = field
-
-    field = data.get("license_required", None)
-    args["license_required"] = field
-
-    field = data.get("allowed", None)
-    args["allowed"] = field
 
     return OS(**args)
 
@@ -556,9 +556,6 @@ def unmarshal_Server(data: Any) -> Server:
     field = data.get("zone", None)
     args["zone"] = field
 
-    field = data.get("install", None)
-    args["install"] = unmarshal_ServerInstall(field)
-
     field = data.get("ping_status", None)
     args["ping_status"] = field
 
@@ -566,6 +563,9 @@ def unmarshal_Server(data: Any) -> Server:
     args["options"] = (
         [unmarshal_ServerOption(v) for v in field] if field is not None else None
     )
+
+    field = data.get("install", None)
+    args["install"] = unmarshal_ServerInstall(field)
 
     field = data.get("rescue_server", None)
     args["rescue_server"] = unmarshal_ServerRescueServer(field)

@@ -106,11 +106,6 @@ class Image:
     List of versions of this image.
     """
 
-    organization: Organization
-    """
-    Organization this image belongs to.
-    """
-
     current_public_version: str
 
     creation_date: Optional[datetime]
@@ -128,6 +123,11 @@ class Image:
     Expiration date of this image.
     """
 
+    organization: Optional[Organization]
+    """
+    Organization this image belongs to.
+    """
+
 
 @dataclass
 class GetImageRequest:
@@ -139,7 +139,7 @@ class GetImageRequest:
 
 @dataclass
 class GetImageResponse:
-    image: Image
+    image: Optional[Image]
 
 
 @dataclass
@@ -151,7 +151,7 @@ class GetVersionRequest:
 
 @dataclass
 class GetVersionResponse:
-    version: Version
+    version: Optional[Version]
 
 
 @dataclass

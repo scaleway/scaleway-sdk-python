@@ -95,14 +95,14 @@ def unmarshal_PinCID(data: Any) -> PinCID:
     field = data.get("origins", None)
     args["origins"] = field
 
-    field = data.get("meta", None)
-    args["meta"] = unmarshal_PinCIDMeta(field)
-
     field = data.get("cid", None)
     args["cid"] = field
 
     field = data.get("name", None)
     args["name"] = field
+
+    field = data.get("meta", None)
+    args["meta"] = unmarshal_PinCIDMeta(field)
 
     return PinCID(**args)
 
@@ -147,17 +147,17 @@ def unmarshal_Pin(data: Any) -> Pin:
     field = data.get("status", None)
     args["status"] = field
 
-    field = data.get("cid", None)
-    args["cid"] = unmarshal_PinCID(field)
-
     field = data.get("delegates", None)
     args["delegates"] = field
 
-    field = data.get("info", None)
-    args["info"] = unmarshal_PinInfo(field)
-
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+
+    field = data.get("cid", None)
+    args["cid"] = unmarshal_PinCID(field)
+
+    field = data.get("info", None)
+    args["info"] = unmarshal_PinInfo(field)
 
     return Pin(**args)
 

@@ -115,7 +115,7 @@ class EndpointSpecPrivateNetworkSpec:
     Endpoint IPv4 address with a CIDR notation. You must provide at least one IPv4 per node.
     """
 
-    ipam_config: EndpointSpecPrivateNetworkSpecIpamConfig
+    ipam_config: Optional[EndpointSpecPrivateNetworkSpecIpamConfig]
     """
     Automated configuration of your Private Network endpoint with Scaleway IPAM service.
     """

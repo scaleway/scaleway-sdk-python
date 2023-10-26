@@ -111,9 +111,6 @@ def unmarshal_Hosting(data: Any) -> Hosting:
     field = data.get("dns_status", None)
     args["dns_status"] = field
 
-    field = data.get("cpanel_urls", None)
-    args["cpanel_urls"] = unmarshal_HostingCpanelUrls(field)
-
     field = data.get("username", None)
     args["username"] = field
 
@@ -122,6 +119,9 @@ def unmarshal_Hosting(data: Any) -> Hosting:
 
     field = data.get("region", None)
     args["region"] = field
+
+    field = data.get("cpanel_urls", None)
+    args["cpanel_urls"] = unmarshal_HostingCpanelUrls(field)
 
     return Hosting(**args)
 
@@ -273,9 +273,6 @@ def unmarshal_Offer(data: Any) -> Offer:
     field = data.get("billing_operation_path", None)
     args["billing_operation_path"] = field
 
-    field = data.get("product", None)
-    args["product"] = unmarshal_OfferProduct(field)
-
     field = data.get("available", None)
     args["available"] = field
 
@@ -286,6 +283,9 @@ def unmarshal_Offer(data: Any) -> Offer:
 
     field = data.get("end_of_life", None)
     args["end_of_life"] = field
+
+    field = data.get("product", None)
+    args["product"] = unmarshal_OfferProduct(field)
 
     field = data.get("price", None)
     args["price"] = unmarshal_Money(field)

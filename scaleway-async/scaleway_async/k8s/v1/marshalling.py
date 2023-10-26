@@ -125,9 +125,6 @@ def unmarshal_Pool(data: Any) -> Pool:
     field = data.get("kubelet_args", None)
     args["kubelet_args"] = field
 
-    field = data.get("upgrade_policy", None)
-    args["upgrade_policy"] = unmarshal_PoolUpgradePolicy(field)
-
     field = data.get("zone", None)
     args["zone"] = field
 
@@ -142,6 +139,9 @@ def unmarshal_Pool(data: Any) -> Pool:
 
     field = data.get("placement_group_id", None)
     args["placement_group_id"] = field
+
+    field = data.get("upgrade_policy", None)
+    args["upgrade_policy"] = unmarshal_PoolUpgradePolicy(field)
 
     field = data.get("root_volume_size", None)
     args["root_volume_size"] = field
@@ -345,8 +345,20 @@ def unmarshal_Cluster(data: Any) -> Cluster:
     field = data.get("dns_wildcard", None)
     args["dns_wildcard"] = field
 
+    field = data.get("created_at", None)
+    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+
+    field = data.get("updated_at", None)
+    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+
     field = data.get("autoscaler_config", None)
     args["autoscaler_config"] = unmarshal_ClusterAutoscalerConfig(field)
+
+    field = data.get("dashboard_enabled", None)
+    args["dashboard_enabled"] = field
+
+    field = data.get("ingress", None)
+    args["ingress"] = field
 
     field = data.get("auto_upgrade", None)
     args["auto_upgrade"] = unmarshal_ClusterAutoUpgrade(field)
@@ -360,23 +372,11 @@ def unmarshal_Cluster(data: Any) -> Cluster:
     field = data.get("admission_plugins", None)
     args["admission_plugins"] = field
 
-    field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-
-    field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-
-    field = data.get("dashboard_enabled", None)
-    args["dashboard_enabled"] = field
-
-    field = data.get("ingress", None)
-    args["ingress"] = field
+    field = data.get("apiserver_cert_sans", None)
+    args["apiserver_cert_sans"] = field
 
     field = data.get("open_id_connect_config", None)
     args["open_id_connect_config"] = unmarshal_ClusterOpenIDConnectConfig(field)
-
-    field = data.get("apiserver_cert_sans", None)
-    args["apiserver_cert_sans"] = field
 
     field = data.get("private_network_id", None)
     args["private_network_id"] = field
@@ -797,13 +797,6 @@ def marshal_CreateClusterRequestPoolConfig(
             key: value for key, value in request.kubelet_args.items()
         }
 
-    if request.upgrade_policy is not None:
-        output["upgrade_policy"] = (
-            marshal_CreateClusterRequestPoolConfigUpgradePolicy(
-                request.upgrade_policy, defaults
-            ),
-        )
-
     if request.zone is not None:
         output["zone"] = request.zone or defaults.default_zone
 
@@ -812,6 +805,13 @@ def marshal_CreateClusterRequestPoolConfig(
 
     if request.public_ip_disabled is not None:
         output["public_ip_disabled"] = request.public_ip_disabled
+
+    if request.upgrade_policy is not None:
+        output["upgrade_policy"] = (
+            marshal_CreateClusterRequestPoolConfigUpgradePolicy(
+                request.upgrade_policy, defaults
+            ),
+        )
 
     if request.root_volume_size is not None:
         output["root_volume_size"] = request.root_volume_size
@@ -1009,13 +1009,13 @@ def marshal_UpdateClusterRequestAutoUpgrade(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
+    if request.enable is not None:
+        output["enable"] = request.enable
+
     if request.maintenance_window is not None:
         output["maintenance_window"] = (
             marshal_MaintenanceWindow(request.maintenance_window, defaults),
         )
-
-    if request.enable is not None:
-        output["enable"] = request.enable
 
     return output
 

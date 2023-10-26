@@ -313,11 +313,6 @@ class Domain:
     DKIM public key to record in the DNS zone.
     """
 
-    statistics: DomainStatistics
-    """
-    Domain's statistics.
-    """
-
     region: Region
     """
     Region to target. If none is passed will use default region from the config.
@@ -341,6 +336,11 @@ class Domain:
     last_error: Optional[str]
     """
     Error message returned if the last check failed.
+    """
+
+    statistics: Optional[DomainStatistics]
+    """
+    Domain's statistics.
     """
 
 
@@ -471,12 +471,12 @@ class DomainLastStatus:
     The domain name (example.com).
     """
 
-    spf_record: DomainLastStatusSpfRecord
+    spf_record: Optional[DomainLastStatusSpfRecord]
     """
     The SPF record verification data.
     """
 
-    dkim_record: DomainLastStatusDkimRecord
+    dkim_record: Optional[DomainLastStatusDkimRecord]
     """
     The DKIM record verification data.
     """

@@ -429,9 +429,6 @@ def unmarshal_Lb(data: Any) -> Lb:
     field = data.get("type_", None)
     args["type_"] = field
 
-    field = data.get("subscriber", None)
-    args["subscriber"] = unmarshal_Subscriber(field)
-
     field = data.get("ssl_compatibility_level", None)
     args["ssl_compatibility_level"] = field
 
@@ -443,6 +440,9 @@ def unmarshal_Lb(data: Any) -> Lb:
 
     field = data.get("zone", None)
     args["zone"] = field
+
+    field = data.get("subscriber", None)
+    args["subscriber"] = unmarshal_Subscriber(field)
 
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -485,20 +485,20 @@ def unmarshal_Backend(data: Any) -> Backend:
     field = data.get("sticky_sessions_cookie_name", None)
     args["sticky_sessions_cookie_name"] = field
 
-    field = data.get("health_check", None)
-    args["health_check"] = unmarshal_HealthCheck(field)
-
     field = data.get("pool", None)
     args["pool"] = field
-
-    field = data.get("lb", None)
-    args["lb"] = unmarshal_Lb(field)
 
     field = data.get("on_marked_down_action", None)
     args["on_marked_down_action"] = field
 
     field = data.get("proxy_protocol", None)
     args["proxy_protocol"] = field
+
+    field = data.get("health_check", None)
+    args["health_check"] = unmarshal_HealthCheck(field)
+
+    field = data.get("lb", None)
+    args["lb"] = unmarshal_Lb(field)
 
     field = data.get("send_proxy_v2", None)
     args["send_proxy_v2"] = field
@@ -568,9 +568,6 @@ def unmarshal_Certificate(data: Any) -> Certificate:
     field = data.get("status", None)
     args["status"] = field
 
-    field = data.get("lb", None)
-    args["lb"] = unmarshal_Lb(field)
-
     field = data.get("not_valid_before", None)
     args["not_valid_before"] = (
         parser.isoparse(field) if isinstance(field, str) else field
@@ -580,6 +577,9 @@ def unmarshal_Certificate(data: Any) -> Certificate:
     args["not_valid_after"] = (
         parser.isoparse(field) if isinstance(field, str) else field
     )
+
+    field = data.get("lb", None)
+    args["lb"] = unmarshal_Lb(field)
 
     field = data.get("name", None)
     args["name"] = field
@@ -613,17 +613,17 @@ def unmarshal_Frontend(data: Any) -> Frontend:
     field = data.get("inbound_port", None)
     args["inbound_port"] = field
 
-    field = data.get("backend", None)
-    args["backend"] = unmarshal_Backend(field)
-
-    field = data.get("lb", None)
-    args["lb"] = unmarshal_Lb(field)
-
     field = data.get("certificate_ids", None)
     args["certificate_ids"] = field
 
     field = data.get("enable_http3", None)
     args["enable_http3"] = field
+
+    field = data.get("backend", None)
+    args["backend"] = unmarshal_Backend(field)
+
+    field = data.get("lb", None)
+    args["lb"] = unmarshal_Lb(field)
 
     field = data.get("timeout_client", None)
     args["timeout_client"] = field
@@ -717,6 +717,12 @@ def unmarshal_Acl(data: Any) -> Acl:
     field = data.get("name", None)
     args["name"] = field
 
+    field = data.get("index", None)
+    args["index"] = field
+
+    field = data.get("description", None)
+    args["description"] = field
+
     field = data.get("match", None)
     args["match"] = unmarshal_AclMatch(field)
 
@@ -725,12 +731,6 @@ def unmarshal_Acl(data: Any) -> Acl:
 
     field = data.get("frontend", None)
     args["frontend"] = unmarshal_Frontend(field)
-
-    field = data.get("index", None)
-    args["index"] = field
-
-    field = data.get("description", None)
-    args["description"] = field
 
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -788,9 +788,6 @@ def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("lb", None)
-    args["lb"] = unmarshal_Lb(field)
-
     field = data.get("ipam_ids", None)
     args["ipam_ids"] = field
 
@@ -799,6 +796,9 @@ def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
 
     field = data.get("status", None)
     args["status"] = field
+
+    field = data.get("lb", None)
+    args["lb"] = unmarshal_Lb(field)
 
     field = data.get("static_config", None)
     args["static_config"] = unmarshal_PrivateNetworkStaticConfig(field)
@@ -2369,14 +2369,14 @@ def marshal_AclSpec(
     if request.action is not None:
         output["action"] = (marshal_AclAction(request.action, defaults),)
 
-    if request.match is not None:
-        output["match"] = (marshal_AclMatch(request.match, defaults),)
-
     if request.index is not None:
         output["index"] = request.index
 
     if request.description is not None:
         output["description"] = request.description
+
+    if request.match is not None:
+        output["match"] = (marshal_AclMatch(request.match, defaults),)
 
     return output
 

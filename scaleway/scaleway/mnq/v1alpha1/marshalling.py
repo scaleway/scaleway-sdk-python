@@ -102,11 +102,11 @@ def unmarshal_CredentialSQSSNSCreds(data: Any) -> CredentialSQSSNSCreds:
     field = data.get("access_key", None)
     args["access_key"] = field
 
-    field = data.get("permissions", None)
-    args["permissions"] = unmarshal_Permissions(field)
-
     field = data.get("secret_key", None)
     args["secret_key"] = field
+
+    field = data.get("permissions", None)
+    args["permissions"] = unmarshal_Permissions(field)
 
     return CredentialSQSSNSCreds(**args)
 

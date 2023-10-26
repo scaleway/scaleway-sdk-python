@@ -333,11 +333,6 @@ class Token:
     Name of the token.
     """
 
-    scopes: TokenScopes
-    """
-    Token's permissions.
-    """
-
     created_at: Optional[datetime]
     """
     Date and time of the token's creation.
@@ -346,6 +341,11 @@ class Token:
     updated_at: Optional[datetime]
     """
     Date and time of the token's last update.
+    """
+
+    scopes: Optional[TokenScopes]
+    """
+    Token's permissions.
     """
 
     secret_key: Optional[str]
@@ -373,11 +373,6 @@ class Cockpit:
     ID of the Project the Cockpit belongs to.
     """
 
-    endpoints: CockpitEndpoints
-    """
-    Endpoints of the Cockpit.
-    """
-
     status: CockpitStatus
     """
     Status of the Cockpit.
@@ -388,11 +383,6 @@ class Cockpit:
     Specifies whether managed alerts are enabled or disabled.
     """
 
-    plan: Plan
-    """
-    Pricing plan information.
-    """
-
     created_at: Optional[datetime]
     """
     Date and time of the Cockpit's creation.
@@ -401,6 +391,16 @@ class Cockpit:
     updated_at: Optional[datetime]
     """
     Date and time of the Cockpit's last update.
+    """
+
+    endpoints: Optional[CockpitEndpoints]
+    """
+    Endpoints of the Cockpit.
+    """
+
+    plan: Optional[Plan]
+    """
+    Pricing plan information.
     """
 
 

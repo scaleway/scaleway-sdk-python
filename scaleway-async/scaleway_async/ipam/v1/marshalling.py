@@ -85,9 +85,6 @@ def unmarshal_IP(data: Any) -> IP:
     field = data.get("source", None)
     args["source"] = unmarshal_Source(field)
 
-    field = data.get("resource", None)
-    args["resource"] = unmarshal_Resource(field)
-
     field = data.get("tags", None)
     args["tags"] = field
 
@@ -99,6 +96,9 @@ def unmarshal_IP(data: Any) -> IP:
 
     field = data.get("updated_at", None)
     args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+
+    field = data.get("resource", None)
+    args["resource"] = unmarshal_Resource(field)
 
     field = data.get("zone", None)
     args["zone"] = field
@@ -147,14 +147,14 @@ def marshal_BookIPRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
+    if request.source is not None:
+        output["source"] = (marshal_Source(request.source, defaults),)
+
     if request.is_ipv6 is not None:
         output["is_ipv6"] = request.is_ipv6
 
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id
-
-    if request.source is not None:
-        output["source"] = (marshal_Source(request.source, defaults),)
 
     if request.address is not None:
         output["address"] = request.address
