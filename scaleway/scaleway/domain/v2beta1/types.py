@@ -443,7 +443,7 @@ class DSRecordDigest:
 
     digest: str
 
-    public_key: DSRecordPublicKey
+    public_key: Optional[DSRecordPublicKey]
 
 
 @dataclass
@@ -609,19 +609,19 @@ class Contact:
 
     resale: bool
 
-    extension_fr: ContactExtensionFR
-
-    extension_eu: ContactExtensionEU
-
     whois_opt_in: bool
 
     email_status: ContactEmailStatus
 
     state: str
 
-    extension_nl: ContactExtensionNL
-
     questions: Optional[List[ContactQuestion]]
+
+    extension_fr: Optional[ContactExtensionFR]
+
+    extension_eu: Optional[ContactExtensionEU]
+
+    extension_nl: Optional[ContactExtensionNL]
 
 
 @dataclass
@@ -700,17 +700,17 @@ class NewContact:
 
     resale: bool
 
-    extension_fr: ContactExtensionFR
-
-    extension_eu: ContactExtensionEU
-
     whois_opt_in: bool
-
-    extension_nl: ContactExtensionNL
 
     questions: Optional[List[ContactQuestion]]
 
+    extension_fr: Optional[ContactExtensionFR]
+
+    extension_eu: Optional[ContactExtensionEU]
+
     state: Optional[str]
+
+    extension_nl: Optional[ContactExtensionNL]
 
 
 @dataclass
@@ -768,7 +768,7 @@ class ImportProviderDNSZoneRequestOnlineV1:
 class ImportRawDNSZoneRequestAXFRSource:
     name_server: str
 
-    tsig_key: ImportRawDNSZoneRequestTsigKey
+    tsig_key: Optional[ImportRawDNSZoneRequestTsigKey]
 
 
 @dataclass
@@ -778,9 +778,9 @@ class ImportRawDNSZoneRequestBindSource:
 
 @dataclass
 class ContactRoles:
-    contact: Contact
-
     roles: Dict[str, ContactRolesRoles]
+
+    contact: Optional[Contact]
 
 
 @dataclass
@@ -849,8 +849,6 @@ class RenewableDomain:
 
     status: RenewableDomainStatus
 
-    tld: Tld
-
     renewable_duration_in_years: Optional[int]
 
     expired_at: Optional[datetime]
@@ -860,6 +858,8 @@ class RenewableDomain:
     limit_redemption_at: Optional[datetime]
 
     estimated_delete_at: Optional[datetime]
+
+    tld: Optional[Tld]
 
 
 @dataclass
@@ -920,18 +920,22 @@ class AvailableDomain:
 
     available: bool
 
-    tld: Tld
+    tld: Optional[Tld]
 
 
 @dataclass
 class CheckContactsCompatibilityResponse:
     compatible: bool
 
-    owner_check_result: CheckContactsCompatibilityResponseContactCheckResult
+    owner_check_result: Optional[CheckContactsCompatibilityResponseContactCheckResult]
 
-    administrative_check_result: CheckContactsCompatibilityResponseContactCheckResult
+    administrative_check_result: Optional[
+        CheckContactsCompatibilityResponseContactCheckResult
+    ]
 
-    technical_check_result: CheckContactsCompatibilityResponseContactCheckResult
+    technical_check_result: Optional[
+        CheckContactsCompatibilityResponseContactCheckResult
+    ]
 
 
 @dataclass
@@ -1043,9 +1047,9 @@ class Domain:
 
     auto_renew_status: DomainFeatureStatus
 
-    dnssec: DomainDNSSEC
-
     epp_code: List[str]
+
+    dnssec: Optional[DomainDNSSEC]
 
     expired_at: Optional[datetime]
 
@@ -1059,13 +1063,13 @@ class Domain:
 
     dns_zones: List[DNSZone]
 
-    owner_contact: Contact
+    owner_contact: Optional[Contact]
 
-    technical_contact: Contact
+    technical_contact: Optional[Contact]
 
-    administrative_contact: Contact
+    administrative_contact: Optional[Contact]
 
-    tld: Tld
+    tld: Optional[Tld]
 
     external_domain_registration_status: Optional[
         DomainRegistrationStatusExternalDomain

@@ -75,7 +75,7 @@ class CredentialSummarySQSSNSCreds:
     Access key ID.
     """
 
-    permissions: Permissions
+    permissions: Optional[Permissions]
     """
     Permissions associated with these credentials.
     """
@@ -96,14 +96,14 @@ class CredentialSQSSNSCreds:
     Access key ID.
     """
 
-    permissions: Permissions
-    """
-    Permissions associated with these credentials.
-    """
-
     secret_key: Optional[str]
     """
     Secret key ID.
+    """
+
+    permissions: Optional[Permissions]
+    """
+    Permissions associated with these credentials.
     """
 
 

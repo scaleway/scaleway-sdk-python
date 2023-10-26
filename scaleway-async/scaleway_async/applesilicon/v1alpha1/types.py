@@ -100,29 +100,29 @@ class OS:
 
 @dataclass
 class ServerType:
-    cpu: ServerTypeCPU
-    """
-    CPU description.
-    """
-
-    disk: ServerTypeDisk
-    """
-    Size of the local disk of the server.
-    """
-
     name: str
     """
     Name of the type.
     """
 
-    memory: ServerTypeMemory
-    """
-    Size of memory available.
-    """
-
     stock: ServerTypeStock
     """
     Current stock.
+    """
+
+    cpu: Optional[ServerTypeCPU]
+    """
+    CPU description.
+    """
+
+    disk: Optional[ServerTypeDisk]
+    """
+    Size of the local disk of the server.
+    """
+
+    memory: Optional[ServerTypeMemory]
+    """
+    Size of memory available.
     """
 
     minimum_lease_duration: Optional[str]

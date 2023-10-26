@@ -202,11 +202,6 @@ class SnapshotSummary:
     Name of the snapshot.
     """
 
-    parent_volume: SnapshotParentVolume
-    """
-    If the parent volume has been deleted, value is null.
-    """
-
     size: int
     """
     Size of the snapshot in bytes.
@@ -237,6 +232,11 @@ class SnapshotSummary:
     Storage class of the snapshot.
     """
 
+    parent_volume: Optional[SnapshotParentVolume]
+    """
+    If the parent volume has been deleted, value is null.
+    """
+
     created_at: Optional[datetime]
     """
     Creation date of the snapshot.
@@ -255,11 +255,6 @@ class VolumeType:
     Volume type.
     """
 
-    specs: VolumeSpecifications
-    """
-    Volume specifications of the volume type.
-    """
-
     pricing: Optional[Money]
     """
     Price of the volume billed in GB/hour.
@@ -268,6 +263,11 @@ class VolumeType:
     snapshot_pricing: Optional[Money]
     """
     Price of the snapshot billed in GB/hour.
+    """
+
+    specs: Optional[VolumeSpecifications]
+    """
+    Volume specifications of the volume type.
     """
 
 
@@ -333,7 +333,7 @@ class Volume:
     Volume zone.
     """
 
-    specs: VolumeSpecifications
+    specs: Optional[VolumeSpecifications]
     """
     Specifications of the volume.
     """
@@ -685,6 +685,11 @@ class DeleteSnapshotRequest:
     class_: StorageClass
     """
     Storage class of the snapshot.
+    """
+
+    parent_volume: Optional[SnapshotParentVolume]
+    """
+    If the parent volume was deleted, value is null.
     """
 
     created_at: Optional[datetime]

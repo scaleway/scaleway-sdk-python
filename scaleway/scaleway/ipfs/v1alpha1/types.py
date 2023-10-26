@@ -97,11 +97,11 @@ class PinCIDMeta:
 class PinCID:
     origins: List[str]
 
-    meta: PinCIDMeta
-
     cid: Optional[str]
 
     name: Optional[str]
+
+    meta: Optional[PinCIDMeta]
 
 
 @dataclass
@@ -156,13 +156,13 @@ class Pin:
 
     status: PinStatus
 
-    cid: PinCID
-
     delegates: List[str]
 
-    info: PinInfo
-
     created_at: Optional[datetime]
+
+    cid: Optional[PinCID]
+
+    info: Optional[PinInfo]
 
 
 @dataclass
@@ -628,7 +628,7 @@ class ReplacePinRequest:
 
 @dataclass
 class ReplacePinResponse:
-    pin: Pin
+    pin: Optional[Pin]
 
 
 @dataclass

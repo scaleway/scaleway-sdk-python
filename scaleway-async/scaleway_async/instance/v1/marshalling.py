@@ -270,14 +270,14 @@ def unmarshal_Volume(data: Any) -> Volume:
     field = data.get("tags", None)
     args["tags"] = field
 
-    field = data.get("server", None)
-    args["server"] = unmarshal_ServerSummary(field)
-
     field = data.get("state", None)
     args["state"] = field
 
     field = data.get("zone", None)
     args["zone"] = field
+
+    field = data.get("server", None)
+    args["server"] = unmarshal_ServerSummary(field)
 
     return Volume(**args)
 
@@ -349,9 +349,6 @@ def unmarshal_Image(data: Any) -> Image:
     field = data.get("public", None)
     args["public"] = field
 
-    field = data.get("root_volume", None)
-    args["root_volume"] = unmarshal_VolumeSummary(field)
-
     field = data.get("state", None)
     args["state"] = field
 
@@ -363,6 +360,9 @@ def unmarshal_Image(data: Any) -> Image:
 
     field = data.get("zone", None)
     args["zone"] = field
+
+    field = data.get("root_volume", None)
+    args["root_volume"] = unmarshal_VolumeSummary(field)
 
     return Image(**args)
 
@@ -395,9 +395,6 @@ def unmarshal_Ip(data: Any) -> Ip:
     field = data.get("address", None)
     args["address"] = field
 
-    field = data.get("server", None)
-    args["server"] = unmarshal_ServerSummary(field)
-
     field = data.get("organization", None)
     args["organization"] = field
 
@@ -421,6 +418,9 @@ def unmarshal_Ip(data: Any) -> Ip:
 
     field = data.get("reverse", None)
     args["reverse"] = field
+
+    field = data.get("server", None)
+    args["server"] = unmarshal_ServerSummary(field)
 
     return Ip(**args)
 
@@ -780,11 +780,11 @@ def unmarshal_VolumeServer(data: Any) -> VolumeServer:
     field = data.get("organization", None)
     args["organization"] = field
 
-    field = data.get("server", None)
-    args["server"] = unmarshal_ServerSummary(field)
-
     field = data.get("size", None)
     args["size"] = field
+
+    field = data.get("server", None)
+    args["server"] = unmarshal_ServerSummary(field)
 
     field = data.get("volume_type", None)
     args["volume_type"] = field
@@ -858,17 +858,17 @@ def unmarshal_Server(data: Any) -> Server:
     field = data.get("hostname", None)
     args["hostname"] = field
 
-    field = data.get("image", None)
-    args["image"] = unmarshal_Image(field)
-
     field = data.get("protected", None)
     args["protected"] = field
 
-    field = data.get("public_ip", None)
-    args["public_ip"] = unmarshal_ServerIp(field)
+    field = data.get("image", None)
+    args["image"] = unmarshal_Image(field)
 
     field = data.get("private_ip", None)
     args["private_ip"] = field
+
+    field = data.get("public_ip", None)
+    args["public_ip"] = unmarshal_ServerIp(field)
 
     field = data.get("public_ips", None)
     args["public_ips"] = (
@@ -881,20 +881,6 @@ def unmarshal_Server(data: Any) -> Server:
     field = data.get("state", None)
     args["state"] = field
 
-    field = data.get("location", None)
-    args["location"] = unmarshal_ServerLocation(field)
-
-    field = data.get("ipv6", None)
-    args["ipv6"] = unmarshal_ServerIpv6(field)
-
-    field = data.get("modification_date", None)
-    args["modification_date"] = (
-        parser.isoparse(field) if isinstance(field, str) else field
-    )
-
-    field = data.get("bootscript", None)
-    args["bootscript"] = unmarshal_Bootscript(field)
-
     field = data.get("boot_type", None)
     args["boot_type"] = field
 
@@ -904,6 +890,20 @@ def unmarshal_Server(data: Any) -> Server:
         if field is not None
         else None
     )
+
+    field = data.get("modification_date", None)
+    args["modification_date"] = (
+        parser.isoparse(field) if isinstance(field, str) else field
+    )
+
+    field = data.get("location", None)
+    args["location"] = unmarshal_ServerLocation(field)
+
+    field = data.get("ipv6", None)
+    args["ipv6"] = unmarshal_ServerIpv6(field)
+
+    field = data.get("bootscript", None)
+    args["bootscript"] = unmarshal_Bootscript(field)
 
     field = data.get("security_group", None)
     args["security_group"] = unmarshal_SecurityGroupSummary(field)
@@ -919,9 +919,6 @@ def unmarshal_Server(data: Any) -> Server:
     field = data.get("arch", None)
     args["arch"] = field
 
-    field = data.get("placement_group", None)
-    args["placement_group"] = unmarshal_PlacementGroup(field)
-
     field = data.get("private_nics", None)
     args["private_nics"] = (
         [unmarshal_PrivateNIC(v) for v in field] if field is not None else None
@@ -929,6 +926,9 @@ def unmarshal_Server(data: Any) -> Server:
 
     field = data.get("zone", None)
     args["zone"] = field
+
+    field = data.get("placement_group", None)
+    args["placement_group"] = unmarshal_PlacementGroup(field)
 
     return Server(**args)
 
@@ -996,11 +996,11 @@ def unmarshal_Snapshot(data: Any) -> Snapshot:
     field = data.get("state", None)
     args["state"] = field
 
-    field = data.get("base_volume", None)
-    args["base_volume"] = unmarshal_SnapshotBaseVolume(field)
-
     field = data.get("zone", None)
     args["zone"] = field
+
+    field = data.get("base_volume", None)
+    args["base_volume"] = unmarshal_SnapshotBaseVolume(field)
 
     field = data.get("creation_date", None)
     args["creation_date"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -1673,17 +1673,14 @@ def unmarshal_ServerType(data: Any) -> ServerType:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("monthly_price", None)
+    args["monthly_price"] = field
+
     field = data.get("hourly_price", None)
     args["hourly_price"] = field
 
     field = data.get("alt_names", None)
     args["alt_names"] = field
-
-    field = data.get("per_volume_constraint", None)
-    args["per_volume_constraint"] = unmarshal_ServerTypeVolumeConstraintsByType(field)
-
-    field = data.get("volumes_constraint", None)
-    args["volumes_constraint"] = unmarshal_ServerTypeVolumeConstraintSizes(field)
 
     field = data.get("ncpus", None)
     args["ncpus"] = field
@@ -1694,14 +1691,17 @@ def unmarshal_ServerType(data: Any) -> ServerType:
     field = data.get("arch", None)
     args["arch"] = field
 
-    field = data.get("monthly_price", None)
-    args["monthly_price"] = field
+    field = data.get("baremetal", None)
+    args["baremetal"] = field
+
+    field = data.get("per_volume_constraint", None)
+    args["per_volume_constraint"] = unmarshal_ServerTypeVolumeConstraintsByType(field)
+
+    field = data.get("volumes_constraint", None)
+    args["volumes_constraint"] = unmarshal_ServerTypeVolumeConstraintSizes(field)
 
     field = data.get("gpu", None)
     args["gpu"] = field
-
-    field = data.get("baremetal", None)
-    args["baremetal"] = field
 
     field = data.get("network", None)
     args["network"] = unmarshal_ServerTypeNetwork(field)
@@ -1854,9 +1854,6 @@ def unmarshal_MigrationPlan(data: Any) -> MigrationPlan:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("volume", None)
-    args["volume"] = unmarshal_Volume(field)
-
     field = data.get("snapshots", None)
     args["snapshots"] = (
         [unmarshal_Snapshot(v) for v in field] if field is not None else None
@@ -1864,6 +1861,9 @@ def unmarshal_MigrationPlan(data: Any) -> MigrationPlan:
 
     field = data.get("validation_key", None)
     args["validation_key"] = field
+
+    field = data.get("volume", None)
+    args["volume"] = unmarshal_Volume(field)
 
     return MigrationPlan(**args)
 
@@ -3152,14 +3152,14 @@ def marshal_Volume(
     if request.tags is not None:
         output["tags"] = request.tags
 
-    if request.server is not None:
-        output["server"] = (marshal_ServerSummary(request.server, defaults),)
-
     if request.state is not None:
         output["state"] = str(request.state)
 
     if request.zone is not None:
         output["zone"] = request.zone or defaults.default_zone
+
+    if request.server is not None:
+        output["server"] = (marshal_ServerSummary(request.server, defaults),)
 
     return output
 
@@ -3624,9 +3624,6 @@ def marshal_Image(
     if request.public is not None:
         output["public"] = request.public
 
-    if request.root_volume is not None:
-        output["root_volume"] = (marshal_VolumeSummary(request.root_volume, defaults),)
-
     if request.state is not None:
         output["state"] = str(request.state)
 
@@ -3638,6 +3635,9 @@ def marshal_Image(
 
     if request.zone is not None:
         output["zone"] = request.zone or defaults.default_zone
+
+    if request.root_volume is not None:
+        output["root_volume"] = (marshal_VolumeSummary(request.root_volume, defaults),)
 
     return output
 

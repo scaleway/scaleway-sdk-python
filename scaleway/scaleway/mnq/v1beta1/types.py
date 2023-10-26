@@ -365,6 +365,11 @@ class SnsPermissions:
     Defines whether the credentials bearer can manage the associated SNS topics or subscriptions.
     """
 
+    permissions: Optional[SnsPermissions]
+    """
+    Permissions associated with these credentials.
+    """
+
 
 @dataclass
 class SqsCredentials:
@@ -457,6 +462,11 @@ class SqsInfo:
     sqs_endpoint_url: str
     """
     Endpoint of the SQS service for this region and project.
+    """
+
+    permissions: Optional[SqsPermissions]
+    """
+    Permissions associated with these credentials.
     """
 
 

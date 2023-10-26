@@ -117,9 +117,6 @@ def unmarshal_Image(data: Any) -> Image:
         [unmarshal_Version(v) for v in field] if field is not None else None
     )
 
-    field = data.get("organization", None)
-    args["organization"] = unmarshal_Organization(field)
-
     field = data.get("current_public_version", None)
     args["current_public_version"] = field
 
@@ -133,6 +130,9 @@ def unmarshal_Image(data: Any) -> Image:
 
     field = data.get("valid_until", None)
     args["valid_until"] = parser.isoparse(field) if isinstance(field, str) else field
+
+    field = data.get("organization", None)
+    args["organization"] = unmarshal_Organization(field)
 
     return Image(**args)
 

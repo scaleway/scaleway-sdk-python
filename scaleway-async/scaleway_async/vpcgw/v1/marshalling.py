@@ -200,20 +200,20 @@ def unmarshal_GatewayNetwork(data: Any) -> GatewayNetwork:
     field = data.get("status", None)
     args["status"] = field
 
-    field = data.get("dhcp", None)
-    args["dhcp"] = unmarshal_DHCP(field)
-
     field = data.get("enable_dhcp", None)
     args["enable_dhcp"] = field
-
-    field = data.get("ipam_config", None)
-    args["ipam_config"] = unmarshal_IpamConfig(field)
 
     field = data.get("zone", None)
     args["zone"] = field
 
+    field = data.get("dhcp", None)
+    args["dhcp"] = unmarshal_DHCP(field)
+
     field = data.get("address", None)
     args["address"] = field
+
+    field = data.get("ipam_config", None)
+    args["ipam_config"] = unmarshal_IpamConfig(field)
 
     return GatewayNetwork(**args)
 
@@ -334,9 +334,6 @@ def unmarshal_Gateway(data: Any) -> Gateway:
     field = data.get("project_id", None)
     args["project_id"] = field
 
-    field = data.get("type_", None)
-    args["type_"] = unmarshal_GatewayType(field)
-
     field = data.get("status", None)
     args["status"] = field
 
@@ -349,11 +346,11 @@ def unmarshal_Gateway(data: Any) -> Gateway:
     field = data.get("updated_at", None)
     args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
+    field = data.get("type_", None)
+    args["type_"] = unmarshal_GatewayType(field)
+
     field = data.get("tags", None)
     args["tags"] = field
-
-    field = data.get("ip", None)
-    args["ip"] = unmarshal_IP(field)
 
     field = data.get("gateway_networks", None)
     args["gateway_networks"] = (
@@ -422,6 +419,9 @@ def unmarshal_Gateway(data: Any) -> Gateway:
 
     field = data.get("zone", None)
     args["zone"] = field
+
+    field = data.get("ip", None)
+    args["ip"] = unmarshal_IP(field)
 
     field = data.get("version", None)
     args["version"] = field

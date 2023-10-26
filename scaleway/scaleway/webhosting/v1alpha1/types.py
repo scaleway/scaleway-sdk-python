@@ -299,11 +299,6 @@ class Hosting:
     DNS status of the Web Hosting plan.
     """
 
-    cpanel_urls: HostingCpanelUrls
-    """
-    URL to connect to cPanel dashboard and to Webmail interface.
-    """
-
     username: str
     """
     Main Web Hosting cPanel username.
@@ -319,6 +314,11 @@ class Hosting:
     Region where the Web Hosting plan is hosted.
     """
 
+    cpanel_urls: Optional[HostingCpanelUrls]
+    """
+    URL to connect to cPanel dashboard and to Webmail interface.
+    """
+
 
 @dataclass
 class Offer:
@@ -330,11 +330,6 @@ class Offer:
     billing_operation_path: str
     """
     Unique identifier used for billing.
-    """
-
-    product: OfferProduct
-    """
-    Product constituting this offer.
     """
 
     available: bool
@@ -350,6 +345,11 @@ class Offer:
     end_of_life: bool
     """
     Indicates if the offer has reached its end of life.
+    """
+
+    product: Optional[OfferProduct]
+    """
+    Product constituting this offer.
     """
 
     price: Optional[Money]

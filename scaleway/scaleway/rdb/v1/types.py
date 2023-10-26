@@ -821,11 +821,6 @@ class InstanceLog:
 
 @dataclass
 class Instance:
-    volume: Volume
-    """
-    Volumes of the Database Instance.
-    """
-
     region: Region
     """
     Region the Database Instance is in.
@@ -849,6 +844,11 @@ class Instance:
     created_at: Optional[datetime]
     """
     Creation date (must follow the ISO 8601 format).
+    """
+
+    volume: Optional[Volume]
+    """
+    Volumes of the Database Instance.
     """
 
     project_id: str
@@ -881,11 +881,6 @@ class Instance:
     Advanced settings of the Database Instance.
     """
 
-    backup_schedule: BackupSchedule
-    """
-    Backup schedule of the Database Instance.
-    """
-
     is_ha_cluster: bool
     """
     Defines whether or not High-Availability is enabled.
@@ -894,6 +889,11 @@ class Instance:
     endpoint: Optional[Endpoint]
     """
     Endpoint of the Database Instance.
+    """
+
+    backup_schedule: Optional[BackupSchedule]
+    """
+    Backup schedule of the Database Instance.
     """
 
     read_replicas: List[ReadReplica]
@@ -916,11 +916,6 @@ class Instance:
     List of Database Instance endpoints.
     """
 
-    logs_policy: LogsPolicy
-    """
-    Logs policy of the Database Instance.
-    """
-
     backup_same_region: bool
     """
     Store logical backups in the same region as the Database Instance.
@@ -929,6 +924,11 @@ class Instance:
     maintenances: List[Maintenance]
     """
     List of Database Instance maintenance events.
+    """
+
+    logs_policy: Optional[LogsPolicy]
+    """
+    Logs policy of the Database Instance.
     """
 
 

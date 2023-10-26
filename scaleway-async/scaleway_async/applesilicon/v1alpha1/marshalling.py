@@ -105,20 +105,20 @@ def unmarshal_ServerType(data: Any) -> ServerType:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("name", None)
+    args["name"] = field
+
+    field = data.get("stock", None)
+    args["stock"] = field
+
     field = data.get("cpu", None)
     args["cpu"] = unmarshal_ServerTypeCPU(field)
 
     field = data.get("disk", None)
     args["disk"] = unmarshal_ServerTypeDisk(field)
 
-    field = data.get("name", None)
-    args["name"] = field
-
     field = data.get("memory", None)
     args["memory"] = unmarshal_ServerTypeMemory(field)
-
-    field = data.get("stock", None)
-    args["stock"] = field
 
     field = data.get("minimum_lease_duration", None)
     args["minimum_lease_duration"] = field

@@ -474,31 +474,6 @@ class OS:
     URL of this OS's logo.
     """
 
-    ssh: OSOSField
-    """
-    Object defining the SSH requirements to install the OS.
-    """
-
-    user: OSOSField
-    """
-    Object defining the username requirements to install the OS.
-    """
-
-    password: OSOSField
-    """
-    Object defining the password requirements to install the OS.
-    """
-
-    service_user: OSOSField
-    """
-    Object defining the username requirements to install the service.
-    """
-
-    service_password: OSOSField
-    """
-    Object defining the password requirements to install the service.
-    """
-
     enabled: bool
     """
     Defines if the operating system is enabled or not.
@@ -512,6 +487,31 @@ class OS:
     allowed: bool
     """
     Defines if a specific Organization is allowed to install this OS type.
+    """
+
+    ssh: Optional[OSOSField]
+    """
+    Object defining the SSH requirements to install the OS.
+    """
+
+    user: Optional[OSOSField]
+    """
+    Object defining the username requirements to install the OS.
+    """
+
+    password: Optional[OSOSField]
+    """
+    Object defining the password requirements to install the OS.
+    """
+
+    service_user: Optional[OSOSField]
+    """
+    Object defining the username requirements to install the service.
+    """
+
+    service_password: Optional[OSOSField]
+    """
+    Object defining the password requirements to install the service.
     """
 
 
@@ -789,11 +789,6 @@ class Server:
     Zone in which is the server located.
     """
 
-    install: ServerInstall
-    """
-    Configuration of the installation.
-    """
-
     ping_status: ServerPingStatus
     """
     Status of server ping.
@@ -804,7 +799,12 @@ class Server:
     Options enabled on the server.
     """
 
-    rescue_server: ServerRescueServer
+    install: Optional[ServerInstall]
+    """
+    Configuration of the installation.
+    """
+
+    rescue_server: Optional[ServerRescueServer]
     """
     Configuration of rescue boot.
     """

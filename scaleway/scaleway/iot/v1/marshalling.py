@@ -131,11 +131,11 @@ def unmarshal_Device(data: Any) -> Device:
     field = data.get("allow_multiple_connections", None)
     args["allow_multiple_connections"] = field
 
-    field = data.get("message_filters", None)
-    args["message_filters"] = unmarshal_DeviceMessageFilters(field)
-
     field = data.get("has_custom_certificate", None)
     args["has_custom_certificate"] = field
+
+    field = data.get("message_filters", None)
+    args["message_filters"] = unmarshal_DeviceMessageFilters(field)
 
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -299,11 +299,11 @@ def unmarshal_CreateNetworkResponse(data: Any) -> CreateNetworkResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("network", None)
-    args["network"] = unmarshal_Network(field)
-
     field = data.get("secret", None)
     args["secret"] = field
+
+    field = data.get("network", None)
+    args["network"] = unmarshal_Network(field)
 
     return CreateNetworkResponse(**args)
 
@@ -316,11 +316,11 @@ def unmarshal_GetDeviceCertificateResponse(data: Any) -> GetDeviceCertificateRes
 
     args: Dict[str, Any] = {}
 
-    field = data.get("device", None)
-    args["device"] = unmarshal_Device(field)
-
     field = data.get("certificate_pem", None)
     args["certificate_pem"] = field
+
+    field = data.get("device", None)
+    args["device"] = unmarshal_Device(field)
 
     return GetDeviceCertificateResponse(**args)
 
@@ -654,11 +654,11 @@ def unmarshal_SetDeviceCertificateResponse(data: Any) -> SetDeviceCertificateRes
 
     args: Dict[str, Any] = {}
 
-    field = data.get("device", None)
-    args["device"] = unmarshal_Device(field)
-
     field = data.get("certificate_pem", None)
     args["certificate_pem"] = field
+
+    field = data.get("device", None)
+    args["device"] = unmarshal_Device(field)
 
     return SetDeviceCertificateResponse(**args)
 

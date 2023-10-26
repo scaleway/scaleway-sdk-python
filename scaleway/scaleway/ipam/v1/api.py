@@ -41,10 +41,10 @@ class IpamV1API(API):
     def book_ip(
         self,
         *,
+        source: Source,
         is_ipv6: bool,
         region: Optional[Region] = None,
         project_id: Optional[str] = None,
-        source: Optional[Source] = None,
         address: Optional[str] = None,
         tags: Optional[List[str]] = None,
     ) -> IP:
@@ -76,10 +76,10 @@ class IpamV1API(API):
             f"/ipam/v1/regions/{param_region}/ips",
             body=marshal_BookIPRequest(
                 BookIPRequest(
+                    source=source,
                     is_ipv6=is_ipv6,
                     region=region,
                     project_id=project_id,
-                    source=source,
                     address=address,
                     tags=tags,
                 ),

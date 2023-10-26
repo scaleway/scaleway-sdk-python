@@ -333,24 +333,19 @@ class GatewayNetwork:
     Current status of the Public Gateway's connection to the Private Network.
     """
 
-    dhcp: DHCP
-    """
-    DHCP configuration for the connected Private Network.
-    """
-
     enable_dhcp: bool
     """
     Defines whether DHCP is enabled on the connected Private Network.
     """
 
-    ipam_config: IpamConfig
-    """
-    IPAM IP configuration used.
-    """
-
     zone: Zone
     """
     Zone of the GatewayNetwork connection.
+    """
+
+    dhcp: Optional[DHCP]
+    """
+    DHCP configuration for the connected Private Network.
     """
 
     address: Optional[str]
@@ -596,11 +591,6 @@ class Gateway:
     Owning Project.
     """
 
-    type_: GatewayType
-    """
-    Gateway type (commercial offer).
-    """
-
     status: GatewayStatus
     """
     Current status of the gateway.
@@ -621,14 +611,14 @@ class Gateway:
     Gateway last modification date.
     """
 
+    type_: Optional[GatewayType]
+    """
+    Gateway type (commercial offer).
+    """
+
     tags: List[str]
     """
     Tags associated with the gateway.
-    """
-
-    ip: IP
-    """
-    Public IP address of the gateway.
     """
 
     gateway_networks: List[GatewayNetwork]
@@ -664,6 +654,11 @@ class Gateway:
     zone: Zone
     """
     Zone of the gateway.
+    """
+
+    ip: Optional[IP]
+    """
+    Public IP address of the gateway.
     """
 
     version: Optional[str]

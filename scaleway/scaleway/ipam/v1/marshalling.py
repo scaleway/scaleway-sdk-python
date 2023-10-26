@@ -100,6 +100,9 @@ def unmarshal_IP(data: Any) -> IP:
     field = data.get("updated_at", None)
     args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
+    field = data.get("resource", None)
+    args["resource"] = unmarshal_Resource(field)
+
     field = data.get("zone", None)
     args["zone"] = field
 

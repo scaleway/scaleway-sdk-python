@@ -577,11 +577,6 @@ class Lb:
     Load Balancer offer type.
     """
 
-    subscriber: Subscriber
-    """
-    Subscriber information.
-    """
-
     ssl_compatibility_level: SSLCompatibilityLevel
     """
     Determines the minimal SSL version which needs to be supported on client side.
@@ -600,6 +595,11 @@ class Lb:
     zone: Zone
     """
     The zone the Load Balancer is in.
+    """
+
+    subscriber: Optional[Subscriber]
+    """
+    Subscriber information.
     """
 
     created_at: Optional[datetime]
@@ -673,19 +673,9 @@ class Backend:
     Cookie name for cookie-based sticky sessions.
     """
 
-    health_check: HealthCheck
-    """
-    Object defining the health check to be carried out by the backend when checking the status and health of backend servers.
-    """
-
     pool: List[str]
     """
     List of IP addresses of backend servers attached to this backend.
-    """
-
-    lb: Lb
-    """
-    Load Balancer the backend is attached to.
     """
 
     on_marked_down_action: OnMarkedDownAction
@@ -696,6 +686,16 @@ class Backend:
     proxy_protocol: ProxyProtocol
     """
     Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software.
+    """
+
+    health_check: Optional[HealthCheck]
+    """
+    Object defining the health check to be carried out by the backend when checking the status and health of backend servers.
+    """
+
+    lb: Optional[Lb]
+    """
+    Load Balancer the backend is attached to.
     """
 
     send_proxy_v2: Optional[bool]
@@ -796,11 +796,6 @@ class Certificate:
     Certificate status.
     """
 
-    lb: Lb
-    """
-    Load Balancer object the certificate is attached to.
-    """
-
     not_valid_before: Optional[datetime]
     """
     Lower validity bound.
@@ -809,6 +804,11 @@ class Certificate:
     not_valid_after: Optional[datetime]
     """
     Upper validity bound.
+    """
+
+    lb: Optional[Lb]
+    """
+    Load Balancer object the certificate is attached to.
     """
 
     name: str
@@ -839,7 +839,7 @@ class AclAction:
     Action to take when incoming traffic matches an ACL filter.
     """
 
-    redirect: AclActionRedirect
+    redirect: Optional[AclActionRedirect]
     """
     Redirection parameters when using an ACL with a `redirect` action.
     """
@@ -890,16 +890,6 @@ class Frontend:
     Port the frontend listens on.
     """
 
-    backend: Backend
-    """
-    Backend object the frontend is attached to.
-    """
-
-    lb: Lb
-    """
-    Load Balancer object the frontend is attached to.
-    """
-
     certificate_ids: List[str]
     """
     List of SSL/TLS certificate IDs to bind to the frontend.
@@ -908,6 +898,16 @@ class Frontend:
     enable_http3: bool
     """
     Defines whether to enable HTTP/3 protocol on the frontend.
+    """
+
+    backend: Optional[Backend]
+    """
+    Backend object the frontend is attached to.
+    """
+
+    lb: Optional[Lb]
+    """
+    Load Balancer object the frontend is attached to.
     """
 
     timeout_client: Optional[str]
@@ -1022,21 +1022,6 @@ class Acl:
     ACL name.
     """
 
-    match: AclMatch
-    """
-    ACL match filter object. One of `ip_subnet` or `http_filter` & `http_filter_value` are required.
-    """
-
-    action: AclAction
-    """
-    Action to take when incoming traffic matches an ACL filter.
-    """
-
-    frontend: Frontend
-    """
-    ACL is attached to this frontend object.
-    """
-
     index: int
     """
     Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
@@ -1045,6 +1030,21 @@ class Acl:
     description: str
     """
     ACL description.
+    """
+
+    match: Optional[AclMatch]
+    """
+    ACL match filter object. One of `ip_subnet` or `http_filter` & `http_filter_value` are required.
+    """
+
+    action: Optional[AclAction]
+    """
+    Action to take when incoming traffic matches an ACL filter.
+    """
+
+    frontend: Optional[Frontend]
+    """
+    ACL is attached to this frontend object.
     """
 
     created_at: Optional[datetime]
@@ -1060,11 +1060,6 @@ class Acl:
 
 @dataclass
 class PrivateNetwork:
-    lb: Lb
-    """
-    Load Balancer object which is attached to the Private Network.
-    """
-
     ipam_ids: List[str]
     """
     IPAM IDs of the booked IP addresses.
@@ -1078,6 +1073,11 @@ class PrivateNetwork:
     status: PrivateNetworkStatus
     """
     Status of Private Network connection.
+    """
+
+    lb: Optional[Lb]
+    """
+    Load Balancer object which is attached to the Private Network.
     """
 
     created_at: Optional[datetime]
@@ -1142,7 +1142,7 @@ class Route:
     ID of the target backend.
     """
 
-    match: RouteMatch
+    match: Optional[RouteMatch]
     """
     Object defining the match condition for a route to be applied. If an incoming client session matches the specified condition (i.e. it has a matching SNI value or HTTP Host header value), it will be passed to the target backend.
     """
@@ -1170,11 +1170,6 @@ class AclSpec:
     Action to take when incoming traffic matches an ACL filter.
     """
 
-    match: AclMatch
-    """
-    ACL match filter object. One of `ip_subnet` or `http_filter` and `http_filter_value` are required.
-    """
-
     index: int
     """
     Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
@@ -1183,6 +1178,11 @@ class AclSpec:
     description: str
     """
     ACL description.
+    """
+
+    match: Optional[AclMatch]
+    """
+    ACL match filter object. One of `ip_subnet` or `http_filter` and `http_filter_value` are required.
     """
 
 

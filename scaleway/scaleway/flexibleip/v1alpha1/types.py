@@ -143,16 +143,6 @@ class FlexibleIP:
     Date on which the flexible IP was last updated.
     """
 
-    created_at: Optional[datetime]
-    """
-    Date on which the flexible IP was created.
-    """
-
-    mac_address: MACAddress
-    """
-    MAC address of the flexible IP.
-    """
-
     reverse: str
     """
     Reverse DNS value.
@@ -161,6 +151,16 @@ class FlexibleIP:
     zone: Zone
     """
     Availability Zone of the flexible IP.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Date on which the flexible IP was created.
+    """
+
+    mac_address: Optional[MACAddress]
+    """
+    MAC address of the flexible IP.
     """
 
     server_id: Optional[str]

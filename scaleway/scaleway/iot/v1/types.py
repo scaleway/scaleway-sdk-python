@@ -182,12 +182,12 @@ If set to `reject`, all topics in the topics list will be denied, with all other
 
 @dataclass
 class DeviceMessageFilters:
-    publish: DeviceMessageFiltersRule
+    publish: Optional[DeviceMessageFiltersRule]
     """
     Filtering rule to restrict topics the device can publish to.
     """
 
-    subscribe: DeviceMessageFiltersRule
+    subscribe: Optional[DeviceMessageFiltersRule]
     """
     Filtering rule to restrict topics the device can subscribe to.
     """
@@ -252,14 +252,14 @@ class Device:
     Defines whether to allow multiple physical devices to connect to the Hub with this device's credentials.
     """
 
-    message_filters: DeviceMessageFilters
-    """
-    Filter-sets to restrict the topics the device can publish/subscribe to.
-    """
-
     has_custom_certificate: bool
     """
     Assigning a custom certificate allows a device to authenticate using that specific certificate without checking the Hub's CA certificate.
+    """
+
+    message_filters: Optional[DeviceMessageFilters]
+    """
+    Filter-sets to restrict the topics the device can publish/subscribe to.
     """
 
     created_at: Optional[datetime]
@@ -640,12 +640,12 @@ class CreateDeviceRequest:
 
 @dataclass
 class CreateDeviceResponse:
-    device: Device
+    device: Optional[Device]
     """
     Information related to the created device.
     """
 
-    certificate: Certificate
+    certificate: Optional[Certificate]
     """
     Device certificate.
     """
@@ -716,14 +716,14 @@ class CreateNetworkRequest:
 
 @dataclass
 class CreateNetworkResponse:
-    network: Network
-    """
-    Information related to the created network.
-    """
-
     secret: str
     """
     Endpoint Key to keep secret. This cannot be retrieved later.
+    """
+
+    network: Optional[Network]
+    """
+    Information related to the created network.
     """
 
 
@@ -911,14 +911,14 @@ class GetDeviceCertificateRequest:
 
 @dataclass
 class GetDeviceCertificateResponse:
-    device: Device
-    """
-    Information related to the created device.
-    """
-
     certificate_pem: str
     """
     Device certificate.
+    """
+
+    device: Optional[Device]
+    """
+    Information related to the created device.
     """
 
 
@@ -1360,12 +1360,12 @@ class RenewDeviceCertificateRequest:
 
 @dataclass
 class RenewDeviceCertificateResponse:
-    device: Device
+    device: Optional[Device]
     """
     Information related to the created device.
     """
 
-    certificate: Certificate
+    certificate: Optional[Certificate]
     """
     Device certificate.
     """
@@ -1435,9 +1435,9 @@ class SetDeviceCertificateRequest:
 
 @dataclass
 class SetDeviceCertificateResponse:
-    device: Device
-
     certificate_pem: str
+
+    device: Optional[Device]
 
 
 @dataclass

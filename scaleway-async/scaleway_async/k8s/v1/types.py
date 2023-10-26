@@ -236,7 +236,7 @@ class ClusterAutoUpgrade:
     Defines whether auto upgrade is enabled for the cluster.
     """
 
-    maintenance_window: MaintenanceWindow
+    maintenance_window: Optional[MaintenanceWindow]
     """
     Maintenance window of the cluster auto upgrades.
     """
@@ -415,11 +415,6 @@ class Pool:
     Kubelet arguments to be used by this pool. Note that this feature is experimental.
     """
 
-    upgrade_policy: PoolUpgradePolicy
-    """
-    Pool upgrade policy.
-    """
-
     zone: Zone
     """
     Zone in which the pool's nodes will be spawned.
@@ -445,6 +440,11 @@ class Pool:
     Placement group ID in which all the nodes of the pool will be created.
     """
 
+    upgrade_policy: Optional[PoolUpgradePolicy]
+    """
+    Pool upgrade policy.
+    """
+
     root_volume_size: Optional[int]
     """
     System volume disk size.
@@ -458,7 +458,7 @@ class CreateClusterRequestAutoUpgrade:
     Defines whether auto upgrade is enabled for the cluster.
     """
 
-    maintenance_window: MaintenanceWindow
+    maintenance_window: Optional[MaintenanceWindow]
     """
     Maintenance window of the cluster auto upgrades.
     """
@@ -612,11 +612,6 @@ class CreateClusterRequestPoolConfig:
     Kubelet arguments to be used by this pool. Note that this feature is experimental.
     """
 
-    upgrade_policy: CreateClusterRequestPoolConfigUpgradePolicy
-    """
-    Pool upgrade policy.
-    """
-
     zone: Zone
     """
     Zone in which the pool's nodes will be spawned.
@@ -630,6 +625,11 @@ class CreateClusterRequestPoolConfig:
     public_ip_disabled: bool
     """
     Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway.
+    """
+
+    upgrade_policy: Optional[CreateClusterRequestPoolConfigUpgradePolicy]
+    """
+    Pool upgrade policy.
     """
 
     root_volume_size: Optional[int]
@@ -803,12 +803,32 @@ class Cluster:
     Wildcard DNS resolving all the ready cluster nodes.
     """
 
-    autoscaler_config: ClusterAutoscalerConfig
+    created_at: Optional[datetime]
+    """
+    Date on which the cluster was created.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Date on which the cluster was last updated.
+    """
+
+    autoscaler_config: Optional[ClusterAutoscalerConfig]
     """
     Autoscaler config for the cluster.
     """
 
-    auto_upgrade: ClusterAutoUpgrade
+    dashboard_enabled: Optional[bool]
+    """
+    Defines whether the Kubernetes dashboard is enabled for the cluster.
+    """
+
+    ingress: Optional[Ingress]
+    """
+    Managed Ingress controller used in the cluster (deprecated feature).
+    """
+
+    auto_upgrade: Optional[ClusterAutoUpgrade]
     """
     Auto upgrade configuration of the cluster.
     """
@@ -828,34 +848,14 @@ class Cluster:
     List of enabled admission plugins.
     """
 
-    created_at: Optional[datetime]
-    """
-    Date on which the cluster was created.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Date on which the cluster was last updated.
-    """
-
-    dashboard_enabled: Optional[bool]
-    """
-    Defines whether the Kubernetes dashboard is enabled for the cluster.
-    """
-
-    ingress: Optional[Ingress]
-    """
-    Managed Ingress controller used in the cluster (deprecated feature).
-    """
-
-    open_id_connect_config: ClusterOpenIDConnectConfig
-    """
-    This configuration enables to update the OpenID Connect configuration of the Kubernetes API server.
-    """
-
     apiserver_cert_sans: List[str]
     """
     Additional Subject Alternative Names for the Kubernetes API server certificate.
+    """
+
+    open_id_connect_config: Optional[ClusterOpenIDConnectConfig]
+    """
+    This configuration enables to update the OpenID Connect configuration of the Kubernetes API server.
     """
 
     private_network_id: Optional[str]
@@ -939,14 +939,14 @@ class Node:
 
 @dataclass
 class UpdateClusterRequestAutoUpgrade:
-    maintenance_window: MaintenanceWindow
-    """
-    Maintenance window of the cluster auto upgrades.
-    """
-
     enable: Optional[bool]
     """
     Defines whether auto upgrade is enabled for the cluster.
+    """
+
+    maintenance_window: Optional[MaintenanceWindow]
+    """
+    Maintenance window of the cluster auto upgrades.
     """
 
 

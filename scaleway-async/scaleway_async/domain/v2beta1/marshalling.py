@@ -340,12 +340,6 @@ def unmarshal_Contact(data: Any) -> Contact:
     field = data.get("resale", None)
     args["resale"] = field
 
-    field = data.get("extension_fr", None)
-    args["extension_fr"] = unmarshal_ContactExtensionFR(field)
-
-    field = data.get("extension_eu", None)
-    args["extension_eu"] = unmarshal_ContactExtensionEU(field)
-
     field = data.get("whois_opt_in", None)
     args["whois_opt_in"] = field
 
@@ -355,13 +349,19 @@ def unmarshal_Contact(data: Any) -> Contact:
     field = data.get("state", None)
     args["state"] = field
 
-    field = data.get("extension_nl", None)
-    args["extension_nl"] = unmarshal_ContactExtensionNL(field)
-
     field = data.get("questions", None)
     args["questions"] = (
         [unmarshal_ContactQuestion(v) for v in field] if field is not None else None
     )
+
+    field = data.get("extension_fr", None)
+    args["extension_fr"] = unmarshal_ContactExtensionFR(field)
+
+    field = data.get("extension_eu", None)
+    args["extension_eu"] = unmarshal_ContactExtensionEU(field)
+
+    field = data.get("extension_nl", None)
+    args["extension_nl"] = unmarshal_ContactExtensionNL(field)
 
     return Contact(**args)
 
@@ -743,11 +743,11 @@ def unmarshal_Domain(data: Any) -> Domain:
     field = data.get("auto_renew_status", None)
     args["auto_renew_status"] = field
 
-    field = data.get("dnssec", None)
-    args["dnssec"] = unmarshal_DomainDNSSEC(field)
-
     field = data.get("epp_code", None)
     args["epp_code"] = field
+
+    field = data.get("dnssec", None)
+    args["dnssec"] = unmarshal_DomainDNSSEC(field)
 
     field = data.get("expired_at", None)
     args["expired_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -778,9 +778,6 @@ def unmarshal_Domain(data: Any) -> Domain:
     field = data.get("administrative_contact", None)
     args["administrative_contact"] = unmarshal_Contact(field)
 
-    field = data.get("tld", None)
-    args["tld"] = unmarshal_Tld(field)
-
     field = data.get("external_domain_registration_status", None)
     args[
         "external_domain_registration_status"
@@ -790,6 +787,9 @@ def unmarshal_Domain(data: Any) -> Domain:
     args["transfer_registration_status"] = unmarshal_DomainRegistrationStatusTransfer(
         field
     )
+
+    field = data.get("tld", None)
+    args["tld"] = unmarshal_Tld(field)
 
     return Domain(**args)
 
@@ -1199,15 +1199,15 @@ def unmarshal_ContactRoles(data: Any) -> ContactRoles:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("contact", None)
-    args["contact"] = unmarshal_Contact(field)
-
     field = data.get("roles", None)
     args["roles"] = (
         {key: unmarshal_ContactRolesRoles(value) for key, value in field.items()}
         if field is not None
         else None
     )
+
+    field = data.get("contact", None)
+    args["contact"] = unmarshal_Contact(field)
 
     return ContactRoles(**args)
 
@@ -1469,9 +1469,6 @@ def unmarshal_RenewableDomain(data: Any) -> RenewableDomain:
     field = data.get("status", None)
     args["status"] = field
 
-    field = data.get("tld", None)
-    args["tld"] = unmarshal_Tld(field)
-
     field = data.get("renewable_duration_in_years", None)
     args["renewable_duration_in_years"] = field
 
@@ -1490,6 +1487,9 @@ def unmarshal_RenewableDomain(data: Any) -> RenewableDomain:
     args["estimated_delete_at"] = (
         parser.isoparse(field) if isinstance(field, str) else field
     )
+
+    field = data.get("tld", None)
+    args["tld"] = unmarshal_Tld(field)
 
     return RenewableDomain(**args)
 
@@ -2112,6 +2112,14 @@ def marshal_NewContact(
     if request.resale is not None:
         output["resale"] = request.resale
 
+    if request.whois_opt_in is not None:
+        output["whois_opt_in"] = request.whois_opt_in
+
+    if request.questions is not None:
+        output["questions"] = [
+            marshal_ContactQuestion(item, defaults) for item in request.questions
+        ]
+
     if request.extension_fr is not None:
         output["extension_fr"] = (
             marshal_ContactExtensionFR(request.extension_fr, defaults),
@@ -2122,21 +2130,13 @@ def marshal_NewContact(
             marshal_ContactExtensionEU(request.extension_eu, defaults),
         )
 
-    if request.whois_opt_in is not None:
-        output["whois_opt_in"] = request.whois_opt_in
+    if request.state is not None:
+        output["state"] = request.state
 
     if request.extension_nl is not None:
         output["extension_nl"] = (
             marshal_ContactExtensionNL(request.extension_nl, defaults),
         )
-
-    if request.questions is not None:
-        output["questions"] = [
-            marshal_ContactQuestion(item, defaults) for item in request.questions
-        ]
-
-    if request.state is not None:
-        output["state"] = request.state
 
     return output
 
