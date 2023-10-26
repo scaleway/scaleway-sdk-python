@@ -74,6 +74,7 @@ from .types import SetInstanceACLRulesResponse
 from .types import SetInstanceSettingsResponse
 from .types import Snapshot
 from .types import UpgradableVersion
+from .types import UpgradeInstanceRequestMajorUpgradeWorkflow
 from .types import User
 from .types import Volume
 from .content import DATABASE_BACKUP_TRANSIENT_STATUSES
@@ -159,6 +160,7 @@ __all__ = [
     "SetInstanceSettingsResponse",
     "Snapshot",
     "UpgradableVersion",
+    "UpgradeInstanceRequestMajorUpgradeWorkflow",
     "User",
     "Volume",
     "DATABASE_BACKUP_TRANSIENT_STATUSES",
