@@ -4,13 +4,40 @@ on:
   release:
     types: [created]
 
-jobs:
+jobs: 
+  release-core:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: scaleway-core
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
+      - name: Install poetry
+        run: |
+          pip install poetry
+          poetry --version
+      - name: Update lock file
+        run: poetry lock
+      - name: Install dependencies and library
+        run: poetry install
+      - name: Set package version
+        run: poetry version $(echo "${{ github.ref }}" | cut -d "/" -f 3)
+      - name: Build package
+        run: poetry build
+      - name: Publish package
+        run: poetry publish
+        env:
+          POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_TOKEN }}
+
   release:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         lib:
-          - scaleway-core
           - scaleway
           - scaleway-async
     defaults:
@@ -26,10 +53,8 @@ jobs:
         run: |
           pip install poetry
           poetry --version
-      - name: Set scaleway-core version
-        run: poetry version $(echo "${{ github.ref }}" | cut -d "/" -f 3)
-        working-directory: scaleway-core
-        if: matrix.lib != 'scaleway-core'
+      - name: Set scaleway-core version in the package
+        run: poetry add scaleway-core@$(echo "${{ github.ref }}" | cut -d "/" -f 3)
       - name: Update lock file
         run: poetry lock
       - name: Install dependencies and library
