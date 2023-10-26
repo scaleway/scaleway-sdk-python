@@ -234,20 +234,30 @@ class TriggerStatus(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
-class CreateTriggerRequestMnqNatsClientConfig:
-    """
-    Create trigger request. mnq nats client config.
-    """
+class SecretHashedValue:
+    key: str
+
+    hashed_value: str
+
+
+@dataclass
+class TriggerMnqNatsClientConfig:
+    subject: str
+
+    mnq_project_id: str
+
+    mnq_region: str
+
+    mnq_nats_account_id: str
 
     mnq_namespace_id: Optional[str]
-    """
-    :deprecated
-    """
 
-    subject: str
-    """
-    Name of the NATS subject the trigger should listen to.
-    """
+    mnq_credential_id: Optional[str]
+
+
+@dataclass
+class TriggerMnqSqsClientConfig:
+    queue: str
 
     mnq_project_id: str
 
@@ -278,22 +288,7 @@ class Secret:
 
 @dataclass
 class CreateTriggerRequestMnqNatsClientConfig:
-    mnq_nats_account_id: str
-    """
-    ID of the M&Q NATS account.
-    """
-
-    mnq_project_id: str
-    """
-    ID of the M&Q project.
-    """
-
-    mnq_region: str
-    """
-    Region of the M&Q project.
-    """
-
-    mnq_region: str
+    subject: str
 
     mnq_project_id: str
 
@@ -306,30 +301,13 @@ class CreateTriggerRequestMnqNatsClientConfig:
 
 @dataclass
 class CreateTriggerRequestMnqSqsClientConfig:
-    """
-    Create trigger request. mnq sqs client config.
-    """
-
-    mnq_namespace_id: Optional[str]
-    """
-    :deprecated
-    """
-
     queue: str
-    """
-    Name of the SQS queue the trigger should listen to.
-    """
 
     mnq_project_id: str
-    """
-    ID of the M&Q project.
-    You must have activated SQS on this project.
-    """
 
     mnq_region: str
-    """
-    Region in which the M&Q project is activated.
-    """
+
+    mnq_namespace_id: Optional[str]
 
 
 @dataclass
@@ -540,78 +518,6 @@ class Function:
 
 
 @dataclass
-class ListFunctionsResponse:
-    """
-    List functions response.
-    """
-
-    functions: List[Function]
-    """
-    Array of functions.
-    """
-
-    total_count: int
-    """
-    Total number of functions.
-    """
-
-
-@dataclass
-class ListLogsResponse:
-    """
-    List logs response.
-    """
-
-    logs: List[Log]
-    """
-    Array of logs.
-    """
-
-    total_count: int
-    """
-    Total number of logs.
-    """
-
-
-@dataclass
-class ListNamespacesResponse:
-    """
-    List namespaces response.
-    """
-
-    namespaces: List[Namespace]
-
-    total_count: int
-    """
-    Total number of namespaces.
-    """
-
-
-@dataclass
-class ListTokensResponse:
-    tokens: List[Token]
-
-    total_count: int
-
-
-@dataclass
-class ListTriggersResponse:
-    """
-    List triggers response.
-    """
-
-    total_count: int
-    """
-    Total count of existing triggers (matching any filters specified).
-    """
-
-    triggers: List[Trigger]
-    """
-    Triggers on this page.
-    """
-
-
-@dataclass
 class Log:
     message: str
     """
@@ -746,145 +652,25 @@ class Token:
 
 @dataclass
 class Trigger:
-    """
-    Trigger.
-    """
-
     id: str
-    """
-    ID of the trigger.
-    """
 
     name: str
-    """
-    Name of the trigger.
-    """
 
     description: str
-    """
-    Description of the trigger.
-    """
-
-    function_id: str
-    """
-    ID of the function to trigger.
-    """
 
     input_type: TriggerInputType
-    """
-    Type of the input.
-    """
 
     status: TriggerStatus
-    """
-    Status of the trigger.
-    """
+
+    function_id: str
 
     error_message: Optional[str]
-    """
-    Error message of the trigger.
-    """
 
     scw_sqs_config: Optional[TriggerMnqSqsClientConfig]
-    """
-    Configuration for a Scaleway M&Q SQS queue.
-    
-    One-of ('config'): at most one of 'scw_sqs_config', 'scw_nats_config', 'sqs_config' could be set.
-    """
-
-    scw_nats_config: Optional[TriggerMnqNatsClientConfig]
-    """
-    Configuration for a Scaleway M&Q NATS subject.
-    
-    One-of ('config'): at most one of 'scw_sqs_config', 'scw_nats_config', 'sqs_config' could be set.
-    """
 
     sqs_config: Optional[TriggerSqsClientConfig]
-    """
-    Configuration for an AWS SQS queue.
-    
-    One-of ('config'): at most one of 'scw_sqs_config', 'scw_nats_config', 'sqs_config' could be set.
-    """
 
-
-@dataclass
-class TriggerMnqNatsClientConfig:
-    """
-    Trigger. mnq nats client config.
-    """
-
-    subject: str
-    """
-    Name of the NATS subject the trigger listens to.
-    """
-
-    mnq_namespace_id: Optional[str]
-    """
-    :deprecated
-    """
-
-    mnq_nats_account_id: str
-    """
-    ID of the M&Q NATS account.
-    """
-
-    mnq_project_id: str
-    """
-    ID of the M&Q project.
-    """
-
-    mnq_region: str
-    """
-    Region of the M&Q project.
-    """
-
-    mnq_credential_id: Optional[str]
-    """
-    ID of the M&Q credentials used to subscribe to the NATS subject.
-    """
-
-
-@dataclass
-class TriggerMnqSqsClientConfig:
-    """
-    Trigger. mnq sqs client config.
-    """
-
-    mnq_namespace_id: Optional[str]
-    """
-    :deprecated
-    """
-
-    queue: str
-    """
-    Name of the SQS queue the trigger listens to.
-    """
-
-    mnq_project_id: str
-    """
-    ID of the M&Q project.
-    """
-
-    mnq_region: str
-    """
-    Region in which the M&Q project is activated.
-    """
-
-    mnq_credential_id: Optional[str]
-    """
-    ID of the M&Q credentials used to read from the SQS queue.
-    """
-
-
-@dataclass
-class TriggerSqsClientConfig:
-    endpoint: str
-
-    queue_url: str
-
-    access_key: str
-
-    secret_key: str
+    scw_nats_config: Optional[TriggerMnqNatsClientConfig]
 
 
 @dataclass
@@ -1582,69 +1368,7 @@ class ListTokensRequest:
 
 @dataclass
 class ListTokensResponse:
-    total_count: int
-
-    token_id: str
-    """
-    UUID of the token to delete.
-    """
-
-
-@dataclass
-class CreateTriggerRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    name: str
-    """
-    Name of the trigger.
-    """
-
-    function_id: str
-    """
-    ID of the function to trigger.
-    """
-
-    description: Optional[str]
-    """
-    Description of the trigger.
-    """
-
-    scw_sqs_config: Optional[CreateTriggerRequestMnqSqsClientConfig]
-    """
-    Configuration for a Scaleway M&Q SQS queue.
-    
-    One-of ('config'): at most one of 'scw_sqs_config', 'scw_nats_config', 'sqs_config' could be set.
-    """
-
-    scw_nats_config: Optional[CreateTriggerRequestMnqNatsClientConfig]
-    """
-    Configuration for a Scaleway M&Q NATS subject.
-    
-    One-of ('config'): at most one of 'scw_sqs_config', 'scw_nats_config', 'sqs_config' could be set.
-    """
-
-    sqs_config: Optional[CreateTriggerRequestSqsClientConfig]
-    """
-    Configuration for an AWS SQS queue.
-    
-    One-of ('config'): at most one of 'scw_sqs_config', 'scw_nats_config', 'sqs_config' could be set.
-    """
-
-
-@dataclass
-class GetTriggerRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    trigger_id: str
-    """
-    ID of the trigger to get.
-    """
+    tokens: List[Token]
 
     total_count: int
 
@@ -1657,40 +1381,16 @@ class ListTriggersRequest:
     """
 
     page: Optional[int]
-    """
-    Page number to return.
-    """
 
     page_size: Optional[int]
-    """
-    Maximum number of triggers to return per page.
-    """
 
     order_by: Optional[ListTriggersRequestOrderBy]
-    """
-    Order in which to return results.
-    """
 
     function_id: Optional[str]
-    """
-    ID of the function the triggers belongs to.
-    
-    One-of ('scope'): at most one of 'function_id', 'namespace_id', 'project_id' could be set.
-    """
 
     namespace_id: Optional[str]
-    """
-    ID of the namespace the triggers belongs to.
-    
-    One-of ('scope'): at most one of 'function_id', 'namespace_id', 'project_id' could be set.
-    """
 
     project_id: Optional[str]
-    """
-    ID of the project the triggers belongs to.
-    
-    One-of ('scope'): at most one of 'function_id', 'namespace_id', 'project_id' could be set.
-    """
 
 
 @dataclass
@@ -1839,9 +1539,6 @@ class UpdateNamespaceRequest:
 @dataclass
 class UpdateTriggerRequest:
     trigger_id: str
-    """
-    ID of the trigger to update.
-    """
 
     region: Optional[Region]
     """
@@ -1849,33 +1546,17 @@ class UpdateTriggerRequest:
     """
 
     name: Optional[str]
-    """
-    Name of the trigger.
-    """
 
     description: Optional[str]
-    """
-    Description of the trigger.
-    """
 
     sqs_config: Optional[UpdateTriggerRequestSqsClientConfig]
-    """
-    Configuration for an AWS SQS queue.
-    
-    One-of ('config'): at most one of 'sqs_config' could be set.
-    """
 
 
 @dataclass
 class UploadURL:
-    headers: Dict[str, List[str]]
+    url: str
     """
-    HTTP headers.
-    """
-
-    trigger_id: str
-    """
-    ID of the trigger to delete.
+    Upload URL to upload the function to.
     """
 
     headers: Dict[str, List[str]]

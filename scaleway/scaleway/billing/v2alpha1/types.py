@@ -15,29 +15,6 @@ from scaleway_core.utils import (
 )
 
 
-class DiscountDiscountMode(str, Enum, metaclass=StrEnumMeta):
-    UNKNOWN_DISCOUNT_MODE = "unknown_discount_mode"
-    DISCOUNT_MODE_RATE = "discount_mode_rate"
-    DISCOUNT_MODE_VALUE = "discount_mode_value"
-    DISCOUNT_MODE_SPLITTABLE = "discount_mode_splittable"
-
-    def __str__(self) -> str:
-        return str(self.value)
-
-
-class DiscountFilterType(str, Enum, metaclass=StrEnumMeta):
-    UNKNOWN_TYPE = "unknown_type"
-    PRODUCT_CATEGORY = "product_category"
-    PRODUCT = "product"
-    PRODUCT_OFFER = "product_offer"
-    PRODUCT_REFERENCE = "product_reference"
-    REGION = "region"
-    ZONE = "zone"
-
-    def __str__(self) -> str:
-        return str(self.value)
-
-
 class DownloadInvoiceRequestFileType(str, Enum, metaclass=StrEnumMeta):
     PDF = "pdf"
 
@@ -49,14 +26,6 @@ class InvoiceType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_TYPE = "unknown_type"
     PERIODIC = "periodic"
     PURCHASE = "purchase"
-
-    def __str__(self) -> str:
-        return str(self.value)
-
-
-class ListDiscountsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
-    CREATION_DATE_DESC = "creation_date_desc"
-    CREATION_DATE_ASC = "creation_date_asc"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -80,119 +49,6 @@ class ListInvoicesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 
     def __str__(self) -> str:
         return str(self.value)
-
-
-@dataclass
-class Discount:
-    """
-    Discount.
-    """
-
-    id: str
-    """
-    The ID of the discount.
-    """
-
-    creation_date: Optional[datetime]
-    """
-    The creation date of the discount.
-    """
-
-    organization_id: str
-    """
-    The organization ID of the discount.
-    """
-
-    description: str
-    """
-    The description of the discount.
-    """
-
-    value: float
-    """
-    The initial value of the discount.
-    """
-
-    value_used: float
-    """
-    The value indicating how much of the discount has been used.
-    """
-
-    value_remaining: float
-    """
-    The remaining value of the discount.
-    """
-
-    mode: DiscountDiscountMode
-    """
-    The mode of the discount.
-    """
-
-    start_date: Optional[datetime]
-    """
-    The start date of the discount.
-    """
-
-    stop_date: Optional[datetime]
-    """
-    The stop date of the discount.
-    """
-
-    coupon: Optional[DiscountCoupon]
-    """
-    The description of the coupon.
-    """
-
-    filters: List[DiscountFilter]
-    """
-    List of products/ranges/regions/zones to limit the usability of discounts.
-    """
-
-
-@dataclass
-class DiscountCoupon:
-    """
-    Discount. coupon.
-    """
-
-    description: Optional[str]
-    """
-    The description of the coupon.
-    """
-
-
-@dataclass
-class DiscountFilter:
-    """
-    Discount. filter.
-    """
-
-    type_: DiscountFilterType
-    """
-    Type of the filter.
-    """
-
-    value: str
-    """
-    Value of filter, it can be a product/range/region/zone value.
-    """
-
-
-@dataclass
-class GetConsumptionResponse:
-    """
-    Get consumption response.
-    """
-
-    consumptions: List[GetConsumptionResponseConsumption]
-    """
-    Detailed consumption list.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Last consumption update date.
-    """
 
 
 @dataclass
@@ -267,24 +123,8 @@ class Invoice:
 
 
 @dataclass
-class ListDiscountsResponse:
-    """
-    List discounts response.
-    """
-
-    total_count: int
-    """
-    Total number of discounts.
-    """
-
-    discounts: List[Discount]
-    """
-    Paginated returned discounts.
-    """
-
-
-@dataclass
-class ListInvoicesResponse:
+class DownloadInvoiceRequest:
+    invoice_id: str
     """
     Invoice ID.
     """
@@ -361,25 +201,7 @@ class ListInvoicesResponse:
     Total number of invoices.
     """
 
-
-@dataclass
-class ListDiscountsRequest:
-    order_by: Optional[ListDiscountsRequestOrderBy]
+    invoices: List[Invoice]
     """
-    Order discounts in the response by their description.
-    """
-
-    page: Optional[int]
-    """
-    Positive integer to choose the page to return.
-    """
-
-    page_size: Optional[int]
-    """
-    Positive integer lower or equal to 100 to select the number of items to return.
-    """
-
-    organization_id: Optional[str]
-    """
-    ID of the organization.
+    Paginated returned invoices.
     """

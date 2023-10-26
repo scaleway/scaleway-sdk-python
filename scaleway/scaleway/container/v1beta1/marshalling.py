@@ -63,84 +63,6 @@ def unmarshal_SecretHashedValue(data: Any) -> SecretHashedValue:
     return SecretHashedValue(**args)
 
 
-def unmarshal_TriggerMnqNatsClientConfig(data: Any) -> TriggerMnqNatsClientConfig:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'TriggerMnqNatsClientConfig' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("mnq_credential_id", None)
-    args["mnq_credential_id"] = field
-
-    field = data.get("mnq_namespace_id", None)
-    args["mnq_namespace_id"] = field
-
-    field = data.get("mnq_nats_account_id", None)
-    args["mnq_nats_account_id"] = field
-
-    field = data.get("mnq_project_id", None)
-    args["mnq_project_id"] = field
-
-    field = data.get("mnq_region", None)
-    args["mnq_region"] = field
-
-    field = data.get("subject", None)
-    args["subject"] = field
-
-    return TriggerMnqNatsClientConfig(**args)
-
-
-def unmarshal_TriggerMnqSqsClientConfig(data: Any) -> TriggerMnqSqsClientConfig:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'TriggerMnqSqsClientConfig' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("mnq_credential_id", None)
-    args["mnq_credential_id"] = field
-
-    field = data.get("mnq_namespace_id", None)
-    args["mnq_namespace_id"] = field
-
-    field = data.get("mnq_project_id", None)
-    args["mnq_project_id"] = field
-
-    field = data.get("mnq_region", None)
-    args["mnq_region"] = field
-
-    field = data.get("queue", None)
-    args["queue"] = field
-
-    return TriggerMnqSqsClientConfig(**args)
-
-
-def unmarshal_TriggerSqsClientConfig(data: Any) -> TriggerSqsClientConfig:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'TriggerSqsClientConfig' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("access_key", None)
-    args["access_key"] = field
-
-    field = data.get("endpoint", None)
-    args["endpoint"] = field
-
-    field = data.get("queue_url", None)
-    args["queue_url"] = field
-
-    field = data.get("secret_key", None)
-    args["secret_key"] = field
-
-    return TriggerSqsClientConfig(**args)
-
-
 def unmarshal_Container(data: Any) -> Container:
     if not isinstance(data, dict):
         raise TypeError(
@@ -869,30 +791,9 @@ def marshal_CreateTriggerRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility(
-                    "scw_sqs_config",
-                    marshal_CreateTriggerRequestMnqSqsClientConfig(
-                        request.scw_sqs_config, defaults
-                    )
-                    if request.scw_sqs_config is not None
-                    else None,
-                ),
-                OneOfPossibility(
-                    "scw_nats_config",
-                    marshal_CreateTriggerRequestMnqNatsClientConfig(
-                        request.scw_nats_config, defaults
-                    )
-                    if request.scw_nats_config is not None
-                    else None,
-                ),
-                OneOfPossibility(
-                    "sqs_config",
-                    marshal_CreateTriggerRequestSqsClientConfig(
-                        request.sqs_config, defaults
-                    )
-                    if request.sqs_config is not None
-                    else None,
-                ),
+                OneOfPossibility("scw_sqs_config", request.scw_sqs_config),
+                OneOfPossibility("sqs_config", request.sqs_config),
+                OneOfPossibility("scw_nats_config", request.scw_nats_config),
             ]
         ),
     )

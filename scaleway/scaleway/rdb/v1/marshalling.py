@@ -58,17 +58,9 @@ from .types import (
     PrepareInstanceLogsResponse,
     SetInstanceACLRulesResponse,
     SetInstanceSettingsResponse,
-    Snapshot,
-    UpgradableVersion,
-    UpgradeInstanceRequestMajorUpgradeWorkflow,
-    User,
-    Volume,
-    CreateDatabaseBackupRequest,
-    UpdateDatabaseBackupRequest,
-    RestoreDatabaseBackupRequest,
-    UpgradeInstanceRequest,
-    CreateInstanceRequest,
-    UpdateInstanceRequest,
+    ACLRuleRequest,
+    AddInstanceACLRulesRequest,
+    AddInstanceSettingsRequest,
     CloneInstanceRequest,
     CreateDatabaseBackupRequest,
     CreateDatabaseRequest,
@@ -402,80 +394,6 @@ def unmarshal_Maintenance(data: Any) -> Maintenance:
     return Maintenance(**args)
 
 
-def unmarshal_NodeTypeVolumeConstraintSizes(data: Any) -> NodeTypeVolumeConstraintSizes:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'NodeTypeVolumeConstraintSizes' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("max_size", None)
-    args["max_size"] = field
-
-    field = data.get("min_size", None)
-    args["min_size"] = field
-
-    return NodeTypeVolumeConstraintSizes(**args)
-
-
-def unmarshal_NodeTypeVolumeType(data: Any) -> NodeTypeVolumeType:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'NodeTypeVolumeType' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("chunk_size", None)
-    args["chunk_size"] = field
-
-    field = data.get("class", None)
-    args["class_"] = field
-
-    field = data.get("description", None)
-    args["description"] = field
-
-    field = data.get("max_size", None)
-    args["max_size"] = field
-
-    field = data.get("min_size", None)
-    args["min_size"] = field
-
-    field = data.get("type", None)
-    args["type_"] = field
-
-    return NodeTypeVolumeType(**args)
-
-
-def unmarshal_ReadReplica(data: Any) -> ReadReplica:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'ReadReplica' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("endpoints", None)
-    args["endpoints"] = (
-        [unmarshal_Endpoint(v) for v in field] if field is not None else None
-    )
-
-    field = data.get("id", None)
-    args["id"] = field
-
-    field = data.get("region", None)
-    args["region"] = field
-
-    field = data.get("same_zone", None)
-    args["same_zone"] = field
-
-    field = data.get("status", None)
-    args["status"] = field
-
-    return ReadReplica(**args)
-
-
 def unmarshal_UpgradableVersion(data: Any) -> UpgradableVersion:
     if not isinstance(data, dict):
         raise TypeError(
@@ -507,8 +425,8 @@ def unmarshal_Volume(data: Any) -> Volume:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("class", None)
-    args["class_"] = field
+    field = data.get("type_", None)
+    args["type_"] = field
 
     field = data.get("size", None)
     args["size"] = field
@@ -1307,81 +1225,8 @@ def marshal_InstanceSetting(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.value is not None:
-        output["value"] = request.value
-
-    return output
-
-
-def marshal_LogsPolicy(
-    request: LogsPolicy,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-
-    if request.max_age_retention is not None:
-        output["max_age_retention"] = request.max_age_retention
-
-    if request.total_disk_retention is not None:
-        output["total_disk_retention"] = request.total_disk_retention
-
-    return output
-
-
-def marshal_ReadReplicaEndpointSpec(
-    request: ReadReplicaEndpointSpec,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-    output.update(
-        resolve_one_of(
-            [
-                OneOfPossibility(
-                    "direct_access",
-                    marshal_ReadReplicaEndpointSpecDirectAccess(
-                        request.direct_access, defaults
-                    )
-                    if request.direct_access is not None
-                    else None,
-                ),
-                OneOfPossibility(
-                    "private_network",
-                    marshal_ReadReplicaEndpointSpecPrivateNetwork(
-                        request.private_network, defaults
-                    )
-                    if request.private_network is not None
-                    else None,
-                ),
-            ]
-        ),
-    )
-
-    return output
-
-
-def marshal_UpgradeInstanceRequestMajorUpgradeWorkflow(
-    request: UpgradeInstanceRequestMajorUpgradeWorkflow,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-
-    if request.upgradable_version_id is not None:
-        output["upgradable_version_id"] = request.upgradable_version_id
-
-    if request.with_endpoints is not None:
-        output["with_endpoints"] = request.with_endpoints
-
-    return output
-
-
-def marshal_AddInstanceACLRulesRequest(
-    request: AddInstanceACLRulesRequest,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-
-    if request.rules is not None:
-        output["rules"] = [marshal_ACLRuleRequest(v, defaults) for v in request.rules]
+    if request.name is not None:
+        output["name"] = request.name
 
     if request.value is not None:
         output["value"] = request.value
@@ -1959,14 +1804,6 @@ def marshal_UpgradeInstanceRequest(
                 OneOfPossibility("volume_type", request.volume_type),
                 OneOfPossibility(
                     "upgradable_version_id", request.upgradable_version_id
-                ),
-                OneOfPossibility(
-                    "major_upgrade_workflow",
-                    marshal_UpgradeInstanceRequestMajorUpgradeWorkflow(
-                        request.major_upgrade_workflow, defaults
-                    )
-                    if request.major_upgrade_workflow is not None
-                    else None,
                 ),
             ]
         ),

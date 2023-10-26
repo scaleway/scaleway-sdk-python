@@ -244,99 +244,7 @@ def unmarshal_CockpitEndpoints(data: Any) -> CockpitEndpoints:
     field = data.get("grafana_url", None)
     args["grafana_url"] = field
 
-    field = data.get("traces_url", None)
-    args["traces_url"] = field
-
     return CockpitEndpoints(**args)
-
-
-def unmarshal_ContactPoint(data: Any) -> ContactPoint:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'ContactPoint' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("email", None)
-    args["email"] = unmarshal_ContactPointEmail(field) if field is not None else None
-
-    return ContactPoint(**args)
-
-
-def unmarshal_Datasource(data: Any) -> Datasource:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'Datasource' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("id", None)
-    args["id"] = field
-
-    field = data.get("name", None)
-    args["name"] = field
-
-    field = data.get("project_id", None)
-    args["project_id"] = field
-
-    field = data.get("type", None)
-    args["type_"] = field
-
-    field = data.get("url", None)
-    args["url"] = field
-
-    return Datasource(**args)
-
-
-def unmarshal_GrafanaProductDashboard(data: Any) -> GrafanaProductDashboard:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'GrafanaProductDashboard' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("dashboard_name", None)
-    args["dashboard_name"] = field
-
-    field = data.get("tags", None)
-    args["tags"] = field
-
-    field = data.get("title", None)
-    args["title"] = field
-
-    field = data.get("url", None)
-    args["url"] = field
-
-    field = data.get("variables", None)
-    args["variables"] = field
-
-    return GrafanaProductDashboard(**args)
-
-
-def unmarshal_GrafanaUser(data: Any) -> GrafanaUser:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'GrafanaUser' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("id", None)
-    args["id"] = field
-
-    field = data.get("login", None)
-    args["login"] = field
-
-    field = data.get("password", None)
-    args["password"] = field
-
-    field = data.get("role", None)
-    args["role"] = field
-
-    return GrafanaUser(**args)
 
 
 def unmarshal_Plan(data: Any) -> Plan:
@@ -346,32 +254,6 @@ def unmarshal_Plan(data: Any) -> Plan:
         )
 
     args: Dict[str, Any] = {}
-
-    field = data.get("retention_price", None)
-    args["retention_price"] = field
-
-    field = data.get("retention_traces_interval", None)
-    args["retention_traces_interval"] = field
-
-    field = data.get("sample_ingestion_price", None)
-    args["sample_ingestion_price"] = field
-
-    field = data.get("traces_ingestion_price", None)
-    args["traces_ingestion_price"] = field
-
-    return Plan(**args)
-
-
-def unmarshal_Token(data: Any) -> Token:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'Token' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
     field = data.get("id", None)
     args["id"] = field
@@ -508,29 +390,6 @@ def unmarshal_ListGrafanaProductDashboardsResponse(
         if field is not None
         else None
     )
-
-    return ListGrafanaProductDashboardsResponse(**args)
-
-
-def unmarshal_ListGrafanaProductDashboardsResponse(
-    data: Any,
-) -> ListGrafanaProductDashboardsResponse:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'ListGrafanaProductDashboardsResponse' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("dashboards", None)
-    args["dashboards"] = (
-        [unmarshal_GrafanaProductDashboard(v) for v in field]
-        if field is not None
-        else None
-    )
-
-    field = data.get("total_count", None)
-    args["total_count"] = field
 
     return ListGrafanaProductDashboardsResponse(**args)
 

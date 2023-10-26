@@ -611,47 +611,6 @@ class Snapshot:
     Name of the snapshot.
     """
 
-    project_id: Optional[str]
-    """
-    UUID of the project to which the volume and the snapshot belong.
-    """
-
-    tags: Optional[List[str]]
-    """
-    List of tags assigned to the snapshot.
-    """
-
-
-@dataclass
-class ImportSnapshotFromS3Request:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    bucket: str
-
-    key: str
-
-    name: str
-
-    project_id: Optional[str]
-
-    tags: Optional[List[str]]
-
-
-@dataclass
-class DeleteSnapshotRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    snapshot_id: str
-    """
-    If the parent volume was deleted, value is null.
-    """
-
     size: int
     """
     Size in bytes of the snapshot.

@@ -14,10 +14,7 @@ from .types import (
     CreateEmailResponse,
     DomainLastStatusDkimRecord,
     DomainLastStatusSpfRecord,
-    DomainReputation,
-    DomainStatistics,
-    Email,
-    EmailTry,
+    DomainLastStatus,
     ListDomainsResponse,
     ListEmailsResponse,
     Statistics,
@@ -28,34 +25,8 @@ from .types import (
 )
 
 
-def unmarshal_DomainReputation(data: Any) -> DomainReputation:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'DomainReputation' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("previous_score", None)
-    args["previous_score"] = field
-
-    field = data.get("previous_scored_at", None)
-    args["previous_scored_at"] = parser.isoparse(field) if type(field) is str else field
-
-    field = data.get("score", None)
-    args["score"] = field
-
-    field = data.get("scored_at", None)
-    args["scored_at"] = parser.isoparse(field) if type(field) is str else field
-
-    field = data.get("status", None)
-    args["status"] = field
-
-    return DomainReputation(**args)
-
-
-def unmarshal_DomainStatistics(data: Any) -> DomainStatistics:
-    if type(data) is not dict:
+def unmarshal_EmailTry(data: Any) -> EmailTry:
+    if not isinstance(data, dict):
         raise TypeError(
             "Unmarshalling the type 'EmailTry' failed as data isn't a dictionary."
         )
@@ -192,37 +163,6 @@ def unmarshal_Domain(data: Any) -> Domain:
 
     field = data.get("region", None)
     args["region"] = field
-
-    field = data.get("reputation", None)
-    args["reputation"] = (
-        unmarshal_DomainReputation(field) if field is not None else None
-    )
-
-    field = data.get("revoked_at", None)
-    args["revoked_at"] = parser.isoparse(field) if type(field) is str else field
-
-    field = data.get("spf_config", None)
-    args["spf_config"] = field
-
-    field = data.get("statistics", None)
-    args["statistics"] = (
-        unmarshal_DomainStatistics(field) if field is not None else None
-    )
-
-    field = data.get("status", None)
-    args["status"] = field
-
-    field = data.get("name", None)
-    args["name"] = field
-
-    field = data.get("project_id", None)
-    args["project_id"] = field
-
-    field = data.get("organization_id", None)
-    args["organization_id"] = field
-
-    field = data.get("spf_config", None)
-    args["spf_config"] = field
 
     field = data.get("next_check_at", None)
     args["next_check_at"] = parser.isoparse(field) if isinstance(field, str) else field

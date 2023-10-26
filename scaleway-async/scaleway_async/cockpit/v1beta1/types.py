@@ -398,51 +398,9 @@ class Cockpit:
     Endpoints of the Cockpit.
     """
 
-    status: CockpitStatus
-    """
-    Status of the Cockpit.
-    """
-
-    managed_alerts_enabled: bool
-    """
-    Specifies whether managed alerts are enabled or disabled.
-    """
-
     plan: Optional[Plan]
     """
     Pricing plan information.
-    """
-
-
-@dataclass
-class CockpitEndpoints:
-    """
-    Cockpit. endpoints.
-    """
-
-    metrics_url: str
-    """
-    URL for metrics.
-    """
-
-    logs_url: str
-    """
-    URL for logs.
-    """
-
-    traces_url: str
-    """
-    URL for traces.
-    """
-
-    alertmanager_url: str
-    """
-    URL for the alert manager.
-    """
-
-    grafana_url: str
-    """
-    URL for the Grafana dashboard.
     """
 
 
@@ -498,40 +456,7 @@ class CreateDatasourceRequest:
 
 
 @dataclass
-class GrafanaProductDashboard:
-    """
-    Grafana dashboard.
-    Grafana product dashboard.
-    """
-
-    dashboard_name: str
-    """
-    Name of the dashboard.
-    """
-
-    title: str
-    """
-    Title of the dashboard.
-    """
-
-    url: str
-    """
-    URL of the dashboard.
-    """
-
-    tags: List[str]
-    """
-    Tags of the dashboard.
-    """
-
-    variables: List[str]
-    """
-    Variables of the dashboard.
-    """
-
-
-@dataclass
-class GrafanaUser:
+class CreateGrafanaUserRequest:
     """
     Request to create a Grafana user.
     """
@@ -541,206 +466,7 @@ class GrafanaUser:
     Username of the Grafana user.
     """
 
-    role: GrafanaUserRole
-    """
-    Role assigned to the Grafana user.
-    """
-
-    password: Optional[str]
-    """
-    The Grafana user's password.
-    """
-
-
-@dataclass
-class ListContactPointsResponse:
-    """
-    Response returned when listing contact points.
-    List contact points response.
-    """
-
-    total_count: int
-    """
-    Count of all contact points created.
-    """
-
-    contact_points: List[ContactPoint]
-    """
-    Array of contact points.
-    """
-
-    has_additional_receivers: bool
-    """
-    Specifies whether the contact point has other receivers than the default receiver.
-    """
-
-    has_additional_contact_points: bool
-    """
-    Specifies whether there are unmanaged contact points.
-    """
-
-
-@dataclass
-class ListDatasourcesResponse:
-    """
-    List datasources response.
-    """
-
-    total_count: int
-    """
-    Count of all datasources corresponding to the request.
-    """
-
-    datasources: List[Datasource]
-    """
-    List of the datasources within the pagination.
-    """
-
-
-@dataclass
-class ListGrafanaProductDashboardsResponse:
-    """
-    Response returned when getting a list of dashboards.
-    List grafana product dashboards response.
-    """
-
-    total_count: int
-    """
-    Count of grafana dasboards.
-    """
-
-    dashboards: List[GrafanaProductDashboard]
-    """
-    Information on grafana dashboards.
-    """
-
-
-@dataclass
-class ListGrafanaUsersResponse:
-    """
-    Response returned when listing Grafana users.
-    List grafana users response.
-    """
-
-    total_count: int
-    """
-    Count of all Grafana users.
-    """
-
-    grafana_users: List[GrafanaUser]
-    """
-    Information on all Grafana users.
-    """
-
-
-@dataclass
-class ListPlansResponse:
-    """
-    Response returned when listing all pricing plans.
-    List plans response.
-    """
-
-    total_count: int
-    """
-    Count of all pricing plans.
-    """
-
-    plans: List[Plan]
-    """
-    Information on plans.
-    """
-
-
-@dataclass
-class ListTokensResponse:
-    """
-    List tokens response.
-    """
-
-    total_count: int
-    """
-    Count of all tokens created.
-    """
-
-    tokens: List[Token]
-    """
-    List of all tokens created.
-    """
-
-
-@dataclass
-class Plan:
-    """
-    Pricing plan.
-    Plan.
-    """
-
-    id: str
-    """
-    ID of a given pricing plan.
-    """
-
-    name: PlanName
-    """
-    Name of a given pricing plan.
-    """
-
-    retention_metrics_interval: Optional[str]
-    """
-    Interval of time during which Scaleway's Cockpit keeps your metrics.
-    """
-
-    retention_logs_interval: Optional[str]
-    """
-    Interval of time during which Scaleway's Cockpit keeps your logs.
-    """
-
-    retention_traces_interval: Optional[str]
-    """
-    Interval of time during which Scaleway's Cockpit keeps your traces.
-    """
-
-    sample_ingestion_price: int
-    """
-    Ingestion price in cents for 1 million samples.
-    """
-
-    logs_ingestion_price: int
-    """
-    Ingestion price in cents for 1 GB of logs.
-    """
-
-    traces_ingestion_price: int
-    """
-    Ingestion price in cents for 1 GB of traces.
-    """
-
-    retention_price: int
-    """
-    Retention price in euros per month.
-    """
-
-
-@dataclass
-class SelectPlanResponse:
-    """
-    Response returned when selecting a pricing plan.
-    Select plan response.
-    """
-
-
-@dataclass
-class Token:
-    """
-    Token.
-    """
-
-    id: str
-    """
-    ID of the token.
-    """
-
-    project_id: str
+    project_id: Optional[str]
     """
     ID of the Project.
     """
@@ -1186,38 +912,21 @@ class SelectPlanRequest:
     ID of the pricing plan.
     """
 
-
-@dataclass
-class ListGrafanaProductDashboardsRequest:
     project_id: Optional[str]
     """
     ID of the Project.
     """
 
-    page: Optional[int]
+
+@dataclass
+class SelectPlanResponse:
     """
-    Page number.
+    Response returned when selecting a pricing plan.
     """
 
-    page_size: Optional[int]
-    """
-    Page size.
-    """
-
-    tags: Optional[List[str]]
-    """
-    Tags to filter the dashboards.
-    """
+    pass
 
 
 @dataclass
-class GetGrafanaProductDashboardRequest:
-    dashboard_name: str
-    """
-    Name of the dashboard.
-    """
-
+class TriggerTestAlertRequest:
     project_id: Optional[str]
-    """
-    ID of the Project.
-    """

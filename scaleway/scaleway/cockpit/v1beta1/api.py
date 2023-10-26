@@ -28,6 +28,11 @@ from .types import (
     CreateGrafanaUserRequest,
     CreateTokenRequest,
     Datasource,
+    DeactivateCockpitRequest,
+    DeleteContactPointRequest,
+    DeleteGrafanaUserRequest,
+    DisableManagedAlertsRequest,
+    EnableManagedAlertsRequest,
     GrafanaProductDashboard,
     GrafanaUser,
     ListContactPointsResponse,
@@ -77,20 +82,6 @@ from .marshalling import (
     marshal_ResetGrafanaUserPasswordRequest,
     marshal_SelectPlanRequest,
     marshal_TriggerTestAlertRequest,
-    unmarshal_ContactPoint,
-    unmarshal_Datasource,
-    unmarshal_GrafanaProductDashboard,
-    unmarshal_GrafanaUser,
-    unmarshal_Token,
-    unmarshal_Cockpit,
-    unmarshal_CockpitMetrics,
-    unmarshal_ListContactPointsResponse,
-    unmarshal_ListDatasourcesResponse,
-    unmarshal_ListGrafanaProductDashboardsResponse,
-    unmarshal_ListGrafanaUsersResponse,
-    unmarshal_ListPlansResponse,
-    unmarshal_ListTokensResponse,
-    unmarshal_SelectPlanResponse,
 )
 
 
@@ -1102,7 +1093,7 @@ class CockpitV1Beta1API(API):
 
         res = self._request(
             "GET",
-            f"/cockpit/v1beta1/grafana-product-dashboards",
+            "/cockpit/v1beta1/grafana-product-dashboards",
             params={
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
@@ -1129,7 +1120,7 @@ class CockpitV1Beta1API(API):
         :param page: Page number.
         :param page_size: Page size.
         :param tags: Tags to filter the dashboards.
-        :return: :class:`List[ListGrafanaProductDashboardsResponse] <List[ListGrafanaProductDashboardsResponse]>`
+        :return: :class:`List[GrafanaProductDashboard] <List[GrafanaProductDashboard]>`
 
         Usage:
         ::
@@ -1152,20 +1143,22 @@ class CockpitV1Beta1API(API):
     def get_grafana_product_dashboard(
         self,
         *,
-        dashboard_name: str,
         project_id: Optional[str] = None,
+        dashboard_name: str,
     ) -> GrafanaProductDashboard:
         """
         Get a product dashboard.
         Get a product dashboard specified by the dashboard ID.
-        :param dashboard_name: Name of the dashboard.
         :param project_id: ID of the Project.
+        :param dashboard_name: Name of the dashboard.
         :return: :class:`GrafanaProductDashboard <GrafanaProductDashboard>`
 
         Usage:
         ::
 
-            result = api.get_grafana_product_dashboard(dashboard_name="example")
+            result = api.get_grafana_product_dashboard(
+                dashboard_name="example",
+            )
         """
 
         param_dashboard_name = validate_path_param("dashboard_name", dashboard_name)

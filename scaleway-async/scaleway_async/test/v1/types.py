@@ -178,9 +178,6 @@ class UpdateHumanRequest:
     """
 
     height: Optional[float]
-    """
-    Height of the human in meters.
-    """
 
     shoe_size: Optional[float]
 

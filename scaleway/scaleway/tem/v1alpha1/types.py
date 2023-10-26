@@ -25,17 +25,6 @@ class DomainLastStatusRecordStatus(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class DomainReputationStatus(str, Enum, metaclass=StrEnumMeta):
-    UNKNOWN = "unknown"
-    EXCELLENT = "excellent"
-    GOOD = "good"
-    AVERAGE = "average"
-    BAD = "bad"
-
-    def __str__(self) -> str:
-        return str(self.value)
-
-
 class DomainStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     CHECKED = "checked"
@@ -237,72 +226,12 @@ class Email:
 
     updated_at: Optional[datetime]
     """
-    Date and time of the next scheduled check.
+    Last update of the email object.
     """
 
-    last_valid_at: Optional[datetime]
+    status_details: Optional[str]
     """
-    Date and time the domain was last valid.
-    """
-
-    revoked_at: Optional[datetime]
-    """
-    Date and time of the domain's deletion.
-    """
-
-    last_error: Optional[str]
-    """
-    Error message returned if the last check failed.
-    :deprecated
-    """
-
-    spf_config: str
-    """
-    Snippet of the SPF record to register in the DNS zone.
-    """
-
-    dkim_config: str
-    """
-    DKIM public key to record in the DNS zone.
-    """
-
-    statistics: Optional[DomainStatistics]
-    """
-    Domain's statistics.
-    """
-
-    reputation: Optional[DomainReputation]
-    """
-    Domain's reputation, available when your domain is checked and has sent enough emails.
-    """
-
-    region: Region
-
-
-@dataclass
-class DomainLastStatus:
-    """
-    Domain last status.
-    """
-
-    domain_id: str
-    """
-    The id of the domain.
-    """
-
-    domain_name: str
-    """
-    The domain name (example.com).
-    """
-
-    spf_record: Optional[DomainLastStatusSpfRecord]
-    """
-    The SPF record verification data.
-    """
-
-    dkim_record: Optional[DomainLastStatusDkimRecord]
-    """
-    The DKIM record verification data.
+    Additional status information.
     """
 
 
@@ -310,7 +239,7 @@ class DomainLastStatus:
 class DomainLastStatusDkimRecord:
     status: DomainLastStatusRecordStatus
     """
-    Status of the DKIM record's configuration.
+    Status of the DKIM record's configurartion.
     """
 
     last_valid_at: Optional[datetime]
@@ -328,7 +257,7 @@ class DomainLastStatusDkimRecord:
 class DomainLastStatusSpfRecord:
     status: DomainLastStatusRecordStatus
     """
-    Status of the SPF record's configuration.
+    Status of the SPF record's configurartion.
     """
 
     last_valid_at: Optional[datetime]
@@ -343,50 +272,43 @@ class DomainLastStatusSpfRecord:
 
 
 @dataclass
-class DomainReputation:
+class Domain:
+    id: str
     """
-    Domain. reputation.
-    """
-
-    status: DomainReputationStatus
-    """
-    Status of your domain reputation.
+    ID of the domain.
     """
 
-    score: int
+    organization_id: str
     """
-    Represent a number between 0 and 100 of your domain reputation score.
-    """
-
-    scored_at: Optional[datetime]
-    """
-    Time and date the score was calculated.
+    ID of the domain's Organization.
     """
 
-    previous_score: Optional[int]
+    project_id: str
     """
-    The domain reputation score previously calculated.
-    """
-
-    previous_scored_at: Optional[datetime]
-    """
-    Time and date the previous score was calculated.
+    ID of the domain's Project.
     """
 
+    name: str
+    """
+    Domain name (example.com).
+    """
 
-@dataclass
-class DomainStatistics:
-    total_count: int
+    status: DomainStatus
+    """
+    Status of the domain.
+    """
 
-    sent_count: int
+    created_at: Optional[datetime]
+    """
+    Date and time of domain creation.
+    """
 
-    failed_count: int
+    spf_config: str
+    """
+    Snippet of the SPF record to register in the DNS zone.
+    """
 
-    canceled_count: int
-
-
-@dataclass
-class Email:
+    dkim_config: str
     """
     DKIM public key to record in the DNS zone.
     """

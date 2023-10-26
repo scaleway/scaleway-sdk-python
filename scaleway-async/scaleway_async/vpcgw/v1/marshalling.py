@@ -10,8 +10,6 @@ from scaleway_core.utils import (
     resolve_one_of,
 )
 from .types import (
-    PATRuleProtocol,
-    CreateGatewayNetworkRequestIpamConfig,
     DHCP,
     IpamConfig,
     GatewayNetwork,
@@ -29,11 +27,6 @@ from .types import (
     ListPATRulesResponse,
     SetDHCPEntriesResponse,
     SetPATRulesResponse,
-    UpdateGatewayNetworkRequestIpamConfig,
-    CreateGatewayRequest,
-    UpdateGatewayRequest,
-    CreateGatewayNetworkRequest,
-    UpdateGatewayNetworkRequest,
     CreateDHCPRequest,
     CreateDHCPEntryRequest,
     CreateGatewayNetworkRequest,
@@ -122,15 +115,12 @@ def unmarshal_DHCP(data: Any) -> DHCP:
 
 
 def unmarshal_IpamConfig(data: Any) -> IpamConfig:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'IpamConfig' failed as data isn't a dictionary."
+            "Unmarshalling the type 'IpamConfig' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
-
-    field = data.get("ipam_ip_id", None)
-    args["ipam_ip_id"] = field
 
     field = data.get("push_default_route", None)
     args["push_default_route"] = field
@@ -146,38 +136,8 @@ def unmarshal_GatewayNetwork(data: Any) -> GatewayNetwork:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("zone", None)
-    args["zone"] = field
-
-    field = data.get("enable_dhcp", None)
-    args["enable_dhcp"] = field
-
-    field = data.get("enable_masquerade", None)
-    args["enable_masquerade"] = field
-
-    field = data.get("gateway_id", None)
-    args["gateway_id"] = field
-
     field = data.get("id", None)
     args["id"] = field
-
-    field = data.get("ipam_config", None)
-    args["ipam_config"] = unmarshal_IpamConfig(field) if field is not None else None
-
-    field = data.get("mac_address", None)
-    args["mac_address"] = field
-
-    field = data.get("private_network_id", None)
-    args["private_network_id"] = field
-
-    field = data.get("status", None)
-    args["status"] = field
-
-    field = data.get("enable_masquerade", None)
-    args["enable_masquerade"] = field
-
-    field = data.get("private_network_id", None)
-    args["private_network_id"] = field
 
     field = data.get("gateway_id", None)
     args["gateway_id"] = field
@@ -357,53 +317,8 @@ def unmarshal_Gateway(data: Any) -> Gateway:
         [unmarshal_GatewayNetwork(v) for v in field] if field is not None else None
     )
 
-    field = data.get("ip", None)
-    args["ip"] = unmarshal_IP(field) if field is not None else None
-
-    field = data.get("is_legacy", None)
-    args["is_legacy"] = field
-
-    field = data.get("name", None)
-    args["name"] = field
-
-    field = data.get("organization_id", None)
-    args["organization_id"] = field
-
-    field = data.get("project_id", None)
-    args["project_id"] = field
-
-    field = data.get("smtp_enabled", None)
-    args["smtp_enabled"] = field
-
-    field = data.get("status", None)
-    args["status"] = field
-
-    field = data.get("tags", None)
-    args["tags"] = field
-
-    field = data.get("name", None)
-    args["name"] = field
-
-    field = data.get("bastion_port", None)
-    args["bastion_port"] = field
-
-    field = data.get("type_", None)
-    args["type_"] = unmarshal_GatewayType(field)
-
-    field = data.get("id", None)
-    args["id"] = field
-
-    field = data.get("zone", None)
-    args["zone"] = field
-
-    field = data.get("project_id", None)
-    args["project_id"] = field
-
-    field = data.get("organization_id", None)
-    args["organization_id"] = field
-
-    field = data.get("smtp_enabled", None)
-    args["smtp_enabled"] = field
+    field = data.get("upstream_dns_servers", None)
+    args["upstream_dns_servers"] = field
 
     field = data.get("bastion_enabled", None)
     args["bastion_enabled"] = field
@@ -697,86 +612,14 @@ def marshal_CreateDHCPEntryRequest(
     return output
 
 
-def marshal_CreateGatewayNetworkRequestIpamConfig(
-    request: CreateGatewayNetworkRequestIpamConfig,
+def marshal_IpamConfig(
+    request: IpamConfig,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
-
-    if request.ipam_ip_id is not None:
-        output["ipam_ip_id"] = request.ipam_ip_id
 
     if request.push_default_route is not None:
         output["push_default_route"] = request.push_default_route
-
-    return output
-
-
-def marshal_SetDHCPEntriesRequestEntry(
-    request: SetDHCPEntriesRequestEntry,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-
-    if request.ip_address is not None:
-        output["ip_address"] = request.ip_address
-
-    if request.mac_address is not None:
-        output["mac_address"] = request.mac_address
-
-    return output
-
-
-def marshal_SetPATRulesRequestRule(
-    request: SetPATRulesRequestRule,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-
-    if request.private_ip is not None:
-        output["private_ip"] = request.private_ip
-
-    if request.private_port is not None:
-        output["private_port"] = request.private_port
-
-    if request.protocol is not None:
-        output["protocol"] = PATRuleProtocol(request.protocol)
-
-    if request.public_port is not None:
-        output["public_port"] = request.public_port
-
-    return output
-
-
-def marshal_UpdateGatewayNetworkRequestIpamConfig(
-    request: UpdateGatewayNetworkRequestIpamConfig,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-
-    if request.ipam_ip_id is not None:
-        output["ipam_ip_id"] = request.ipam_ip_id
-
-    if request.push_default_route is not None:
-        output["push_default_route"] = request.push_default_route
-
-    return output
-
-
-def marshal_CreateDHCPEntryRequest(
-    request: CreateDHCPEntryRequest,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-
-    if request.gateway_network_id is not None:
-        output["gateway_network_id"] = request.gateway_network_id
-
-    if request.ip_address is not None:
-        output["ip_address"] = request.ip_address
-
-    if request.mac_address is not None:
-        output["mac_address"] = request.mac_address
 
     return output
 
@@ -789,26 +632,10 @@ def marshal_CreateGatewayNetworkRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility(
-                    "dhcp_id", request.dhcp_id if request.dhcp_id is not None else None
-                ),
-                OneOfPossibility(
-                    "dhcp",
-                    marshal_CreateDHCPRequest(request.dhcp, defaults)
-                    if request.dhcp is not None
-                    else None,
-                ),
-                OneOfPossibility(
-                    "address", request.address if request.address is not None else None
-                ),
-                OneOfPossibility(
-                    "ipam_config",
-                    marshal_CreateGatewayNetworkRequestIpamConfig(
-                        request.ipam_config, defaults
-                    )
-                    if request.ipam_config is not None
-                    else None,
-                ),
+                OneOfPossibility("dhcp_id", request.dhcp_id),
+                OneOfPossibility("dhcp", request.dhcp),
+                OneOfPossibility("address", request.address),
+                OneOfPossibility("ipam_config", request.ipam_config),
             ]
         ),
     )
@@ -1042,20 +869,9 @@ def marshal_UpdateGatewayNetworkRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility(
-                    "dhcp_id", request.dhcp_id if request.dhcp_id is not None else None
-                ),
-                OneOfPossibility(
-                    "address", request.address if request.address is not None else None
-                ),
-                OneOfPossibility(
-                    "ipam_config",
-                    marshal_UpdateGatewayNetworkRequestIpamConfig(
-                        request.ipam_config, defaults
-                    )
-                    if request.ipam_config is not None
-                    else None,
-                ),
+                OneOfPossibility("dhcp_id", request.dhcp_id),
+                OneOfPossibility("address", request.address),
+                OneOfPossibility("ipam_config", request.ipam_config),
             ]
         ),
     )

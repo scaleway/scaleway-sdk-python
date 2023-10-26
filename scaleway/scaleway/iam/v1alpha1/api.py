@@ -18,14 +18,11 @@ from .types import (
     ListApplicationsRequestOrderBy,
     ListGroupsRequestOrderBy,
     ListJWTsRequestOrderBy,
-    ListLogsRequestOrderBy,
     ListPermissionSetsRequestOrderBy,
     ListPoliciesRequestOrderBy,
     ListQuotaRequestOrderBy,
     ListSSHKeysRequestOrderBy,
     ListUsersRequestOrderBy,
-    LogAction,
-    LogResourceType,
     APIKey,
     AddGroupMemberRequest,
     AddGroupMembersRequest,
@@ -42,14 +39,12 @@ from .types import (
     ListApplicationsResponse,
     ListGroupsResponse,
     ListJWTsResponse,
-    ListLogsResponse,
     ListPermissionSetsResponse,
     ListPoliciesResponse,
     ListQuotaResponse,
     ListRulesResponse,
     ListSSHKeysResponse,
     ListUsersResponse,
-    Log,
     PermissionSet,
     Policy,
     Quotum,
@@ -103,27 +98,6 @@ from .marshalling import (
     marshal_UpdateGroupRequest,
     marshal_UpdatePolicyRequest,
     marshal_UpdateSSHKeyRequest,
-    unmarshal_APIKey,
-    unmarshal_Application,
-    unmarshal_Group,
-    unmarshal_JWT,
-    unmarshal_Log,
-    unmarshal_Policy,
-    unmarshal_Quotum,
-    unmarshal_SSHKey,
-    unmarshal_User,
-    unmarshal_ListAPIKeysResponse,
-    unmarshal_ListApplicationsResponse,
-    unmarshal_ListGroupsResponse,
-    unmarshal_ListJWTsResponse,
-    unmarshal_ListLogsResponse,
-    unmarshal_ListPermissionSetsResponse,
-    unmarshal_ListPoliciesResponse,
-    unmarshal_ListQuotaResponse,
-    unmarshal_ListRulesResponse,
-    unmarshal_ListSSHKeysResponse,
-    unmarshal_ListUsersResponse,
-    unmarshal_SetRulesResponse,
 )
 
 
@@ -2152,107 +2126,3 @@ class IamV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
-        return None
-
-    def list_logs(
-        self,
-        *,
-        order_by: ListLogsRequestOrderBy = ListLogsRequestOrderBy.CREATED_AT_ASC,
-        organization_id: Optional[str] = None,
-        page_size: Optional[int] = None,
-        page: Optional[int] = None,
-        created_after: Optional[datetime] = None,
-        created_before: Optional[datetime] = None,
-        action: LogAction = LogAction.UNKNOWN_ACTION,
-        resource_type: LogResourceType = LogResourceType.UNKNOWN_RESOURCE_TYPE,
-        search: Optional[str] = None,
-    ) -> ListLogsResponse:
-        """
-
-        Usage:
-        ::
-
-            result = api.list_logs()
-        """
-
-        res = self._request(
-            "GET",
-            f"/iam/v1alpha1/logs",
-            params={
-                "action": action,
-                "created_after": created_after,
-                "created_before": created_before,
-                "order_by": order_by,
-                "organization_id": organization_id
-                or self.client.default_organization_id,
-                "page": page,
-                "page_size": page_size or self.client.default_page_size,
-                "resource_type": resource_type,
-                "search": search,
-            },
-        )
-
-        self._throw_on_error(res)
-        return unmarshal_ListLogsResponse(res.json())
-
-    def list_logs_all(
-        self,
-        *,
-        order_by: Optional[ListLogsRequestOrderBy] = None,
-        organization_id: Optional[str] = None,
-        page_size: Optional[int] = None,
-        page: Optional[int] = None,
-        created_after: Optional[datetime] = None,
-        created_before: Optional[datetime] = None,
-        action: Optional[LogAction] = None,
-        resource_type: Optional[LogResourceType] = None,
-        search: Optional[str] = None,
-    ) -> List[Log]:
-        """
-        :return: :class:`List[ListLogsResponse] <List[ListLogsResponse]>`
-
-        Usage:
-        ::
-
-            result = api.list_logs_all()
-        """
-
-        return fetch_all_pages(
-            type=ListLogsResponse,
-            key="logs",
-            fetcher=self.list_logs,
-            args={
-                "order_by": order_by,
-                "organization_id": organization_id,
-                "page_size": page_size,
-                "page": page,
-                "created_after": created_after,
-                "created_before": created_before,
-                "action": action,
-                "resource_type": resource_type,
-                "search": search,
-            },
-        )
-
-    def get_log(
-        self,
-        *,
-        log_id: str,
-    ) -> Log:
-        """
-
-        Usage:
-        ::
-
-            result = api.get_log(log_id="example")
-        """
-
-        param_log_id = validate_path_param("log_id", log_id)
-
-        res = self._request(
-            "GET",
-            f"/iam/v1alpha1/logs/{param_log_id}",
-        )
-
-        self._throw_on_error(res)
-        return unmarshal_Log(res.json())

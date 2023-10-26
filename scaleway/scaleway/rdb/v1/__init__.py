@@ -25,6 +25,7 @@ from .types import Permission
 from .types import ReadReplicaStatus
 from .content import READREPLICA_TRANSIENT_STATUSES
 from .types import SnapshotStatus
+from .content import SNAPSHOT_TRANSIENT_STATUSES
 from .types import StorageClass
 from .types import VolumeType
 from .types import EndpointDirectAccessDetails
@@ -45,8 +46,6 @@ from .types import LogsPolicy
 from .types import Maintenance
 from .types import ReadReplica
 from .types import UpgradableVersion
-from .types import UpgradeInstanceRequestMajorUpgradeWorkflow
-from .types import User
 from .types import Volume
 from .types import NodeTypeVolumeConstraintSizes
 from .types import NodeTypeVolumeType
@@ -168,6 +167,7 @@ __all__ = [
     "ReadReplicaStatus",
     "READREPLICA_TRANSIENT_STATUSES",
     "SnapshotStatus",
+    "SNAPSHOT_TRANSIENT_STATUSES",
     "StorageClass",
     "VolumeType",
     "EndpointDirectAccessDetails",
@@ -188,8 +188,6 @@ __all__ = [
     "Maintenance",
     "ReadReplica",
     "UpgradableVersion",
-    "UpgradeInstanceRequestMajorUpgradeWorkflow",
-    "User",
     "Volume",
     "NodeTypeVolumeConstraintSizes",
     "NodeTypeVolumeType",

@@ -1004,53 +1004,6 @@ class NodeType:
     Region the Node Type is in.
     """
 
-    memory: int
-    """
-    Quantity of RAM.
-    """
-
-    name: str
-    """
-    Node Type name identifier.
-    """
-
-    description: str
-    """
-    Current specs of the offer.
-    """
-
-    stock_status: NodeTypeStock
-    """
-    Current stock status for the Node Type.
-    """
-
-    generation: NodeTypeGeneration
-    """
-    Generation associated with the NodeType offer.
-    """
-
-    vcpus: int
-    """
-    Number of virtual CPUs.
-    """
-
-    class_: StorageClass
-    """
-    The storage class of the volume.
-    """
-
-
-@dataclass
-class PrepareInstanceLogsResponse:
-    """
-    The Node Type is compliant with Block Storage.
-    """
-
-    volume_constraint: Optional[NodeTypeVolumeConstraintSizes]
-    """
-    [deprecated] Node Type volume constraints.
-    """
-
 
 @dataclass
 class Privilege:
@@ -1129,25 +1082,6 @@ class Snapshot:
 
 
 @dataclass
-class UpgradeInstanceRequestMajorUpgradeWorkflow:
-    """
-    Upgrade instance request. major upgrade workflow.
-    """
-
-    upgradable_version_id: str
-    """
-    Update your database engine to a newer version.
-    This will create a new Database Instance with same specifications as the current one and perform a Database Engine upgrade.
-    """
-
-    with_endpoints: bool
-    """
-    Include endpoint during the migration.
-    At the end of the migration procedure this option let you migrate all your database endpoint to the upgraded instance.
-    """
-
-
-@dataclass
 class User:
     name: str
     """
@@ -1184,8 +1118,6 @@ class AddInstanceACLRulesResponse:
     """
     ACL Rules enabled for the Database Instance.
     """
-
-    class_: StorageClass
 
 
 @dataclass
@@ -1986,47 +1918,20 @@ class ListInstanceLogsRequest:
 
     region: Optional[Region]
     """
-    Node type of the Database Instance you want to upgrade to.
-    
-    One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
+    Region to target. If none is passed will use default region from the config.
     """
 
     order_by: Optional[ListInstanceLogsRequestOrderBy]
     """
-    Defines whether or not high availability should be enabled on the Database Instance.
-    
-    One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
+    Criteria to use when ordering Database Instance logs listing.
     """
 
-    volume_size: Optional[int]
-    """
-    Increase your block storage volume size.
-    
-    One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
-    """
 
 @dataclass
 class ListInstanceLogsResponse:
     instance_logs: List[InstanceLog]
     """
-    Change your Database Instance storage type.
-    
-    One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
-    """
-
-    upgradable_version_id: Optional[str]
-    """
-    Update your database engine to a newer version.
-    This will create a new Database Instance with same specifications as the current one and perform a Database Engine upgrade.
-    
-    One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
-    """
-
-    major_upgrade_workflow: Optional[UpgradeInstanceRequestMajorUpgradeWorkflow]
-    """
-    Upgrade your database engine to a new major version including instance endpoints.
-    
-    One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
+    Available logs in a Database Instance.
     """
 
 
