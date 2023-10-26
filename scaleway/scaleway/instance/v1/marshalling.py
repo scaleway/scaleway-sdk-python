@@ -24,6 +24,7 @@ from .types import (
     ServerAction,
     ServerIpIpFamily,
     ServerIpProvisioningMode,
+    ServerIpState,
     ServerState,
     SnapshotState,
     SnapshotVolumeType,
@@ -497,6 +498,9 @@ def unmarshal_ServerIp(data: Any) -> ServerIp:
 
     field = data.get("provisioning_mode", None)
     args["provisioning_mode"] = field
+
+    field = data.get("state", None)
+    args["state"] = field
 
     field = data.get("tags", None)
     args["tags"] = field
@@ -2427,6 +2431,9 @@ def marshal_ServerIp(
         output["provisioning_mode"] = ServerIpProvisioningMode(
             request.provisioning_mode
         )
+
+    if request.state is not None:
+        output["state"] = ServerIpState(request.state)
 
     if request.tags is not None:
         output["tags"] = request.tags

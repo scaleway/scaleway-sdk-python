@@ -17,6 +17,7 @@ from .types import SecurityGroupState
 from .types import ServerAction
 from .types import ServerIpIpFamily
 from .types import ServerIpProvisioningMode
+from .types import ServerIpState
 from .types import ServerState
 from .types import ServerTypesAvailability
 from .types import SnapshotState
@@ -114,6 +115,7 @@ from .content import IMAGE_TRANSIENT_STATUSES
 from .content import IP_TRANSIENT_STATUSES
 from .content import PRIVATE_NIC_TRANSIENT_STATUSES
 from .content import SECURITY_GROUP_TRANSIENT_STATUSES
+from .content import SERVER_IP_TRANSIENT_STATUSES
 from .content import SERVER_TRANSIENT_STATUSES
 from .content import SNAPSHOT_TRANSIENT_STATUSES
 from .content import TASK_TRANSIENT_STATUSES
@@ -139,6 +141,7 @@ __all__ = [
     "ServerAction",
     "ServerIpIpFamily",
     "ServerIpProvisioningMode",
+    "ServerIpState",
     "ServerState",
     "ServerTypesAvailability",
     "SnapshotState",
@@ -236,6 +239,7 @@ __all__ = [
     "IP_TRANSIENT_STATUSES",
     "PRIVATE_NIC_TRANSIENT_STATUSES",
     "SECURITY_GROUP_TRANSIENT_STATUSES",
+    "SERVER_IP_TRANSIENT_STATUSES",
     "SERVER_TRANSIENT_STATUSES",
     "SNAPSHOT_TRANSIENT_STATUSES",
     "TASK_TRANSIENT_STATUSES",
