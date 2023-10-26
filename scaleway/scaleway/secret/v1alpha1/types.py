@@ -44,6 +44,15 @@ class Product(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class SecretEphemeralAction(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_EPHEMERAL_ACTION = "unknown_ephemeral_action"
+    DELETE_SECRET = "delete_secret"
+    DISABLE_SECRET = "disable_secret"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class SecretStatus(str, Enum, metaclass=StrEnumMeta):
     READY = "ready"
     LOCKED = "locked"
@@ -309,6 +318,23 @@ class Secret:
     Location of the secret in the directory structure.
     """
 
+    expires_at: Optional[datetime]
+    """
+    Expiration date of the secret.
+    (Optional.) Date on which the secret will be deleted or deactivated.
+    """
+
+    ephemeral_action: SecretEphemeralAction
+    """
+    Action to be taken when the secret expires.
+    See `Secret.EphemeralAction` enum for description of values.
+    """
+
+    is_ephemeral: bool
+    """
+    Returns `true` for secrets that are ephemeral.
+    """
+
     region: Region
     """
     Region of the secret.
@@ -399,6 +425,17 @@ class CreateSecretRequest:
     """
     Path of the secret.
     (Optional.) Location of the secret in the directory structure. If not specified, the path is `/`.
+    """
+
+    expires_at: Optional[datetime]
+    """
+    Expiration date of the secret.
+    (Optional.) Date on which the secret will be deleted or deactivated.
+    """
+
+    ephemeral_action: SecretEphemeralAction
+    """
+    Action to be taken when the secret expires.
     """
 
 
@@ -533,6 +570,11 @@ class ListSecretsRequest:
     path: Optional[str]
     """
     Filter by path (optional).
+    """
+
+    is_ephemeral: Optional[bool]
+    """
+    Filter by ephemeral / not ephemeral (optional).
     """
 
 
