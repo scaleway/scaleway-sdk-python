@@ -330,11 +330,6 @@ class Secret:
     See `Secret.EphemeralAction` enum for description of values.
     """
 
-    is_ephemeral: bool
-    """
-    Returns `true` for secrets that are ephemeral.
-    """
-
     region: Region
     """
     Region of the secret.
