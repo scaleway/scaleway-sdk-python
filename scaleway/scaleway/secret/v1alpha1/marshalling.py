@@ -11,6 +11,7 @@ from scaleway_core.utils import (
 from dateutil import parser
 from .types import (
     Product,
+    SecretEphemeralAction,
     SecretType,
     AccessSecretVersionResponse,
     Folder,
@@ -71,8 +72,17 @@ def unmarshal_Secret(data: Any) -> Secret:
     field = data.get("description", None)
     args["description"] = field
 
+    field = data.get("ephemeral_action", None)
+    args["ephemeral_action"] = field
+
+    field = data.get("expires_at", None)
+    args["expires_at"] = parser.isoparse(field) if type(field) is str else field
+
     field = data.get("id", None)
     args["id"] = field
+
+    field = data.get("is_ephemeral", None)
+    args["is_ephemeral"] = field
 
     field = data.get("is_managed", None)
     args["is_managed"] = field
@@ -304,6 +314,12 @@ def marshal_CreateSecretRequest(
 
     if request.description is not None:
         output["description"] = request.description
+
+    if request.ephemeral_action is not None:
+        output["ephemeral_action"] = SecretEphemeralAction(request.ephemeral_action)
+
+    if request.expires_at is not None:
+        output["expires_at"] = request.expires_at.astimezone().isoformat()
 
     if request.name is not None:
         output["name"] = request.name

@@ -1,6 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
+from datetime import datetime
 from typing import List, Optional
 
 from scaleway_core.api import API
@@ -15,6 +16,7 @@ from .types import (
     ListFoldersRequestOrderBy,
     ListSecretsRequestOrderBy,
     Product,
+    SecretEphemeralAction,
     SecretType,
     SecretVersionStatus,
     AccessSecretVersionResponse,
@@ -66,11 +68,13 @@ class SecretV1Alpha1API(API):
         *,
         name: str,
         type_: SecretType,
+        ephemeral_action: SecretEphemeralAction,
         region: Optional[Region] = None,
         project_id: Optional[str] = None,
         tags: Optional[List[str]] = None,
         description: Optional[str] = None,
         path: Optional[str] = None,
+        expires_at: Optional[datetime] = None,
     ) -> Secret:
         """
         Create a secret.
@@ -84,6 +88,9 @@ class SecretV1Alpha1API(API):
         (Optional.) See `Secret.Type` enum for description of values. If not specified, the type is `Opaque`.
         :param path: Path of the secret.
         (Optional.) Location of the secret in the directory structure. If not specified, the path is `/`.
+        :param expires_at: Expiration date of the secret.
+        (Optional.) Date on which the secret will be deleted or deactivated.
+        :param ephemeral_action: Action to be taken when the secret expires.
         :return: :class:`Secret <Secret>`
 
         Usage:
@@ -92,6 +99,7 @@ class SecretV1Alpha1API(API):
             result = await api.create_secret(
                 name="example",
                 type_=unknown_secret_type,
+                ephemeral_action=unknown_ephemeral_action,
             )
         """
 
@@ -106,11 +114,13 @@ class SecretV1Alpha1API(API):
                 CreateSecretRequest(
                     name=name,
                     type_=type_,
+                    ephemeral_action=ephemeral_action,
                     region=region,
                     project_id=project_id,
                     tags=tags,
                     description=description,
                     path=path,
+                    expires_at=expires_at,
                 ),
                 self.client,
             ),
@@ -303,6 +313,7 @@ class SecretV1Alpha1API(API):
         name: Optional[str] = None,
         is_managed: Optional[bool] = None,
         path: Optional[str] = None,
+        is_ephemeral: Optional[bool] = None,
     ) -> ListSecretsResponse:
         """
         List secrets.
@@ -317,6 +328,7 @@ class SecretV1Alpha1API(API):
         :param name: Filter by secret name (optional).
         :param is_managed: Filter by managed / not managed (optional).
         :param path: Filter by path (optional).
+        :param is_ephemeral: Filter by ephemeral / not ephemeral (optional).
         :return: :class:`ListSecretsResponse <ListSecretsResponse>`
 
         Usage:
@@ -333,6 +345,7 @@ class SecretV1Alpha1API(API):
             "GET",
             f"/secret-manager/v1alpha1/regions/{param_region}/secrets",
             params={
+                "is_ephemeral": is_ephemeral,
                 "is_managed": is_managed,
                 "name": name,
                 "order_by": order_by,
@@ -362,6 +375,7 @@ class SecretV1Alpha1API(API):
         name: Optional[str] = None,
         is_managed: Optional[bool] = None,
         path: Optional[str] = None,
+        is_ephemeral: Optional[bool] = None,
     ) -> List[Secret]:
         """
         List secrets.
@@ -376,6 +390,7 @@ class SecretV1Alpha1API(API):
         :param name: Filter by secret name (optional).
         :param is_managed: Filter by managed / not managed (optional).
         :param path: Filter by path (optional).
+        :param is_ephemeral: Filter by ephemeral / not ephemeral (optional).
         :return: :class:`List[ListSecretsResponse] <List[ListSecretsResponse]>`
 
         Usage:
@@ -399,6 +414,7 @@ class SecretV1Alpha1API(API):
                 "name": name,
                 "is_managed": is_managed,
                 "path": path,
+                "is_ephemeral": is_ephemeral,
             },
         )
 

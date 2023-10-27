@@ -3,6 +3,7 @@
 from .types import ListFoldersRequestOrderBy
 from .types import ListSecretsRequestOrderBy
 from .types import Product
+from .types import SecretEphemeralAction
 from .types import SecretStatus
 from .types import SecretType
 from .types import SecretVersionStatus
@@ -21,6 +22,7 @@ __all__ = [
     "ListFoldersRequestOrderBy",
     "ListSecretsRequestOrderBy",
     "Product",
+    "SecretEphemeralAction",
     "SecretStatus",
     "SecretType",
     "SecretVersionStatus",
