@@ -471,7 +471,7 @@ class TemV1Alpha1API(API):
     ) -> Domain:
         """
         Get information about a domain.
-        Retrieve information about a specific domain using the `region` and `domain_id` parameters.
+        Retrieve information about a specific domain using the `region` and `domain_id` parameters. Monitor your domain's reputation and improve **average** and **bad** reputation statuses, using your domain's **Email activity** tab on the [Scaleway console](https://console.scaleway.com/transactional-email/domains) to get a more detailed report. Check out our [dedicated documentation](https://www.scaleway.com/en/docs/managed-services/transactional-email/reference-content/understanding-tem-reputation-score/) to improve your domain's reputation.
         :param region: Region to target. If none is passed will use default region from the config.
         :param domain_id: ID of the domain.
         :return: :class:`Domain <Domain>`
@@ -543,7 +543,7 @@ class TemV1Alpha1API(API):
     ) -> ListDomainsResponse:
         """
         List domains.
-        Retrieve domains in a specific project or in a specific Organization using the `region` parameter.
+        Retrieve domains in a specific Project or in a specific Organization using the `region` parameter.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Requested page number. Value must be greater or equal to 1.
         :param page_size: Page size.
@@ -593,7 +593,7 @@ class TemV1Alpha1API(API):
     ) -> List[Domain]:
         """
         List domains.
-        Retrieve domains in a specific project or in a specific Organization using the `region` parameter.
+        Retrieve domains in a specific Project or in a specific Organization using the `region` parameter.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Requested page number. Value must be greater or equal to 1.
         :param page_size: Page size.

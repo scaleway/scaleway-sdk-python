@@ -26,7 +26,7 @@ class DomainLastStatusRecordStatus(str, Enum, metaclass=StrEnumMeta):
 
 
 class DomainReputationStatus(str, Enum, metaclass=StrEnumMeta):
-    UNKNOWN = "unknown"
+    UNKNOWN_STATUS = "unknown_status"
     EXCELLENT = "excellent"
     GOOD = "good"
     AVERAGE = "average"
@@ -228,7 +228,7 @@ class Domain:
 
     reputation: Optional[DomainReputation]
     """
-    Domain's reputation, available when your domain is checked and has sent enough emails.
+    The domain's reputation is available when your domain is checked and has sent enough emails.
     """
 
     region: Region
@@ -242,7 +242,7 @@ class DomainLastStatus:
 
     domain_id: str
     """
-    The id of the domain.
+    The ID of the domain.
     """
 
     domain_name: str
@@ -313,12 +313,12 @@ class DomainReputation:
 
     status: DomainReputationStatus
     """
-    Status of your domain reputation.
+    Status of your domain's reputation.
     """
 
     score: int
     """
-    Represent a number between 0 and 100 of your domain reputation score.
+    A range from 0 to 100 that determines your domain's reputation score. A score of `0` means a bad domain reputation and a score of `100` means an excellent domain reputation.
     """
 
     scored_at: Optional[datetime]
@@ -328,12 +328,12 @@ class DomainReputation:
 
     previous_score: Optional[int]
     """
-    The domain reputation score previously calculated.
+    The previously-calculated domain's reputation score.
     """
 
     previous_scored_at: Optional[datetime]
     """
-    Time and date the previous score was calculated.
+    Time and date the previous reputation score was calculated.
     """
 
 
