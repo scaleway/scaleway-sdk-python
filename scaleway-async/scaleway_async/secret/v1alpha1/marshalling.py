@@ -81,9 +81,6 @@ def unmarshal_Secret(data: Any) -> Secret:
     field = data.get("id", None)
     args["id"] = field
 
-    field = data.get("is_ephemeral", None)
-    args["is_ephemeral"] = field
-
     field = data.get("is_managed", None)
     args["is_managed"] = field
 
