@@ -142,6 +142,11 @@ class Folder:
     Date and time of the folder's creation.
     """
 
+    region: Region
+    """
+    Region of the folder.
+    """
+
 
 @dataclass
 class ListFoldersResponse:

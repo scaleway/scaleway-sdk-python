@@ -55,6 +55,9 @@ def unmarshal_Folder(data: Any) -> Folder:
     field = data.get("project_id", None)
     args["project_id"] = field
 
+    field = data.get("region", None)
+    args["region"] = field
+
     return Folder(**args)
 
 
