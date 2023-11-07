@@ -2075,11 +2075,13 @@ class RegistrarApiUpdateDomainRequest:
     owner_contact_id: Optional[str]
     """
     One-of ('owner_contact_info'): at most one of 'owner_contact_id', 'owner_contact' could be set.
+    :deprecated
     """
 
     owner_contact: Optional[NewContact]
     """
     One-of ('owner_contact_info'): at most one of 'owner_contact_id', 'owner_contact' could be set.
+    :deprecated
     """
 
     administrative_contact_id: Optional[str]
