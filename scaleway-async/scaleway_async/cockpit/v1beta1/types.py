@@ -634,6 +634,11 @@ class CreateDatasourceRequest:
     Datasource type.
     """
 
+    is_default: bool
+    """
+    Specifies that the returned output is the default datasource per type.
+    """
+
 
 @dataclass
 class ListDatasourcesRequest:

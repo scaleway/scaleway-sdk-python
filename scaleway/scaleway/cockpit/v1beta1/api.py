@@ -283,6 +283,7 @@ class CockpitV1Beta1API(API):
         *,
         name: str,
         type_: DatasourceType,
+        is_default: bool,
         project_id: Optional[str] = None,
     ) -> Datasource:
         """
@@ -290,6 +291,7 @@ class CockpitV1Beta1API(API):
         :param project_id: ID of the Project the Cockpit belongs to.
         :param name: Datasource name.
         :param type_: Datasource type.
+        :param is_default: Specifies that the returned output is the default datasource per type.
         :return: :class:`Datasource <Datasource>`
 
         Usage:
@@ -298,6 +300,7 @@ class CockpitV1Beta1API(API):
             result = api.create_datasource(
                 name="example",
                 type_=unknown_datasource_type,
+                is_default=True,
             )
         """
 
@@ -308,6 +311,7 @@ class CockpitV1Beta1API(API):
                 CreateDatasourceRequest(
                     name=name,
                     type_=type_,
+                    is_default=is_default,
                     project_id=project_id,
                 ),
                 self.client,
