@@ -125,7 +125,7 @@ class JobsV1Alpha1API(API):
     async def get_job_definition(
         self,
         *,
-        job_definition_id: str,
+        id: str,
         region: Optional[Region] = None,
     ) -> JobDefinition:
         """
@@ -133,19 +133,17 @@ class JobsV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.get_job_definition(job_definition_id="example")
+            result = await api.get_job_definition(id="example")
         """
 
         param_region = validate_path_param(
             "region", region or self.client.default_region
         )
-        param_job_definition_id = validate_path_param(
-            "job_definition_id", job_definition_id
-        )
+        param_id = validate_path_param("id", id)
 
         res = self._request(
             "GET",
-            f"/serverless-jobs/v1alpha1/regions/{param_region}/job-definitions/{param_job_definition_id}",
+            f"/serverless-jobs/v1alpha1/regions/{param_region}/job-definitions/{param_id}",
         )
 
         self._throw_on_error(res)
@@ -220,7 +218,7 @@ class JobsV1Alpha1API(API):
     async def update_job_definition(
         self,
         *,
-        job_definition_id: str,
+        id: str,
         region: Optional[Region] = None,
         name: Optional[str] = None,
         cpu_limit: Optional[int] = None,
@@ -236,22 +234,20 @@ class JobsV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.update_job_definition(job_definition_id="example")
+            result = await api.update_job_definition(id="example")
         """
 
         param_region = validate_path_param(
             "region", region or self.client.default_region
         )
-        param_job_definition_id = validate_path_param(
-            "job_definition_id", job_definition_id
-        )
+        param_id = validate_path_param("id", id)
 
         res = self._request(
             "PATCH",
-            f"/serverless-jobs/v1alpha1/regions/{param_region}/job-definitions/{param_job_definition_id}",
+            f"/serverless-jobs/v1alpha1/regions/{param_region}/job-definitions/{param_id}",
             body=marshal_UpdateJobDefinitionRequest(
                 UpdateJobDefinitionRequest(
-                    job_definition_id=job_definition_id,
+                    id=id,
                     region=region,
                     name=name,
                     cpu_limit=cpu_limit,
@@ -272,7 +268,7 @@ class JobsV1Alpha1API(API):
     async def delete_job_definition(
         self,
         *,
-        job_definition_id: str,
+        id: str,
         region: Optional[Region] = None,
     ) -> Optional[None]:
         """
@@ -280,19 +276,17 @@ class JobsV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.delete_job_definition(job_definition_id="example")
+            result = await api.delete_job_definition(id="example")
         """
 
         param_region = validate_path_param(
             "region", region or self.client.default_region
         )
-        param_job_definition_id = validate_path_param(
-            "job_definition_id", job_definition_id
-        )
+        param_id = validate_path_param("id", id)
 
         res = self._request(
             "DELETE",
-            f"/serverless-jobs/v1alpha1/regions/{param_region}/job-definitions/{param_job_definition_id}",
+            f"/serverless-jobs/v1alpha1/regions/{param_region}/job-definitions/{param_id}",
         )
 
         self._throw_on_error(res)
@@ -301,7 +295,7 @@ class JobsV1Alpha1API(API):
     async def start_job_definition(
         self,
         *,
-        job_definition_id: str,
+        id: str,
         region: Optional[Region] = None,
     ) -> JobRun:
         """
@@ -309,19 +303,17 @@ class JobsV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.start_job_definition(job_definition_id="example")
+            result = await api.start_job_definition(id="example")
         """
 
         param_region = validate_path_param(
             "region", region or self.client.default_region
         )
-        param_job_definition_id = validate_path_param(
-            "job_definition_id", job_definition_id
-        )
+        param_id = validate_path_param("id", id)
 
         res = self._request(
             "POST",
-            f"/serverless-jobs/v1alpha1/regions/{param_region}/job-definitions/{param_job_definition_id}/start",
+            f"/serverless-jobs/v1alpha1/regions/{param_region}/job-definitions/{param_id}/start",
         )
 
         self._throw_on_error(res)
@@ -330,7 +322,7 @@ class JobsV1Alpha1API(API):
     async def get_job_run(
         self,
         *,
-        job_run_id: str,
+        id: str,
         region: Optional[Region] = None,
     ) -> JobRun:
         """
@@ -338,17 +330,17 @@ class JobsV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.get_job_run(job_run_id="example")
+            result = await api.get_job_run(id="example")
         """
 
         param_region = validate_path_param(
             "region", region or self.client.default_region
         )
-        param_job_run_id = validate_path_param("job_run_id", job_run_id)
+        param_id = validate_path_param("id", id)
 
         res = self._request(
             "GET",
-            f"/serverless-jobs/v1alpha1/regions/{param_region}/job-runs/{param_job_run_id}",
+            f"/serverless-jobs/v1alpha1/regions/{param_region}/job-runs/{param_id}",
         )
 
         self._throw_on_error(res)
@@ -357,7 +349,7 @@ class JobsV1Alpha1API(API):
     async def stop_job_run(
         self,
         *,
-        job_run_id: str,
+        id: str,
         region: Optional[Region] = None,
     ) -> JobRun:
         """
@@ -365,17 +357,17 @@ class JobsV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.stop_job_run(job_run_id="example")
+            result = await api.stop_job_run(id="example")
         """
 
         param_region = validate_path_param(
             "region", region or self.client.default_region
         )
-        param_job_run_id = validate_path_param("job_run_id", job_run_id)
+        param_id = validate_path_param("id", id)
 
         res = self._request(
             "POST",
-            f"/serverless-jobs/v1alpha1/regions/{param_region}/job-runs/{param_job_run_id}/stop",
+            f"/serverless-jobs/v1alpha1/regions/{param_region}/job-runs/{param_id}/stop",
         )
 
         self._throw_on_error(res)
@@ -388,7 +380,7 @@ class JobsV1Alpha1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: ListJobRunsRequestOrderBy = ListJobRunsRequestOrderBy.CREATED_AT_ASC,
-        job_definition_id: Optional[str] = None,
+        id: Optional[str] = None,
         project_id: Optional[str] = None,
     ) -> ListJobRunsResponse:
         """
@@ -407,7 +399,7 @@ class JobsV1Alpha1API(API):
             "GET",
             f"/serverless-jobs/v1alpha1/regions/{param_region}/job-runs",
             params={
-                "job_definition_id": job_definition_id,
+                "id": id,
                 "order_by": order_by,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
@@ -425,7 +417,7 @@ class JobsV1Alpha1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListJobRunsRequestOrderBy] = None,
-        job_definition_id: Optional[str] = None,
+        id: Optional[str] = None,
         project_id: Optional[str] = None,
     ) -> List[JobRun]:
         """
@@ -446,7 +438,7 @@ class JobsV1Alpha1API(API):
                 "page": page,
                 "page_size": page_size,
                 "order_by": order_by,
-                "job_definition_id": job_definition_id,
+                "id": id,
                 "project_id": project_id,
             },
         )

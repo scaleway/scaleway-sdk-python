@@ -38,11 +38,11 @@ def unmarshal_JobDefinition(data: Any) -> JobDefinition:
     field = data.get("environment_variables", None)
     args["environment_variables"] = field
 
+    field = data.get("id", None)
+    args["id"] = field
+
     field = data.get("image_uri", None)
     args["image_uri"] = field
-
-    field = data.get("job_definition_id", None)
-    args["job_definition_id"] = field
 
     field = data.get("job_timeout", None)
     args["job_timeout"] = field
@@ -82,11 +82,11 @@ def unmarshal_JobRun(data: Any) -> JobRun:
     field = data.get("exit_code", None)
     args["exit_code"] = field
 
+    field = data.get("id", None)
+    args["id"] = field
+
     field = data.get("job_definition_id", None)
     args["job_definition_id"] = field
-
-    field = data.get("job_run_id", None)
-    args["job_run_id"] = field
 
     field = data.get("region", None)
     args["region"] = field
