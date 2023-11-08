@@ -568,6 +568,9 @@ def marshal_CreateDatasourceRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
+    if request.is_default is not None:
+        output["is_default"] = request.is_default
+
     if request.name is not None:
         output["name"] = request.name
 
