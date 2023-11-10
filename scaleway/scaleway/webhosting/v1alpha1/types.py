@@ -104,6 +104,28 @@ class OfferQuotaWarning(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
+class ControlPanel:
+    """
+    Control panel.
+    """
+
+    name: str
+    """
+    Control panel name.
+    """
+
+    available: bool
+    """
+    Define if the control panel type is available to order.
+    """
+
+    logo_url: str
+    """
+    URL of this control panel's logo.
+    """
+
+
+@dataclass
 class DnsRecord:
     """
     Dns record.
@@ -253,6 +275,11 @@ class Hosting:
     Indicates if the hosting offer has reached its end of life.
     """
 
+    control_panel_name: str
+    """
+    Name of the control panel.
+    """
+
     region: Region
     """
     Region where the Web Hosting plan is hosted.
@@ -280,6 +307,23 @@ class HostingOption:
     name: str
     """
     Option name.
+    """
+
+
+@dataclass
+class ListControlPanelsResponse:
+    """
+    List control panels response.
+    """
+
+    total_count: int
+    """
+    Number of control panels returned.
+    """
+
+    control_panels: List[ControlPanel]
+    """
+    List of control panels.
     """
 
 
@@ -373,6 +417,11 @@ class Offer:
     end_of_life: bool
     """
     Indicates if the offer has reached its end of life.
+    """
+
+    control_panel_name: str
+    """
+    Name of the control panel.
     """
 
 
@@ -518,6 +567,11 @@ class ListHostingsRequest:
     Organization ID to filter for, only Web Hosting plans from this Organization will be returned.
     """
 
+    control_panels: Optional[List[str]]
+    """
+    Name of the control panel to filter for, only Web Hosting plans from this control panel will be returned.
+    """
+
 
 @dataclass
 class GetHostingRequest:
@@ -629,4 +683,22 @@ class ListOffersRequest:
     hosting_id: Optional[str]
     """
     ID of a Web Hosting plan, to check compatibility with returned offers (in case of wanting to update the plan).
+    """
+
+
+@dataclass
+class ListControlPanelsRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    page: Optional[int]
+    """
+    Page number to return, from the paginated results (must be a positive integer).
+    """
+
+    page_size: Optional[int]
+    """
+    Number of control panels to return (must be a positive integer lower or equal to 100).
     """

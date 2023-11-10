@@ -9,11 +9,13 @@ from scaleway_core.bridge import (
 )
 from dateutil import parser
 from .types import (
+    ControlPanel,
     DnsRecord,
     DnsRecords,
     Hosting,
     HostingCpanelUrls,
     HostingOption,
+    ListControlPanelsResponse,
     ListHostingsResponse,
     ListOffersResponse,
     Nameserver,
@@ -99,6 +101,26 @@ def unmarshal_OfferProduct(data: Any) -> OfferProduct:
     return OfferProduct(**args)
 
 
+def unmarshal_ControlPanel(data: Any) -> ControlPanel:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'ControlPanel' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("available", None)
+    args["available"] = field
+
+    field = data.get("logo_url", None)
+    args["logo_url"] = field
+
+    field = data.get("name", None)
+    args["name"] = field
+
+    return ControlPanel(**args)
+
+
 def unmarshal_DnsRecord(data: Any) -> DnsRecord:
     if type(data) is not dict:
         raise TypeError(
@@ -135,6 +157,9 @@ def unmarshal_Hosting(data: Any) -> Hosting:
         )
 
     args: Dict[str, Any] = {}
+
+    field = data.get("control_panel_name", None)
+    args["control_panel_name"] = field
 
     field = data.get("cpanel_urls", None)
     args["cpanel_urls"] = (
@@ -231,6 +256,9 @@ def unmarshal_Offer(data: Any) -> Offer:
     field = data.get("billing_operation_path", None)
     args["billing_operation_path"] = field
 
+    field = data.get("control_panel_name", None)
+    args["control_panel_name"] = field
+
     field = data.get("end_of_life", None)
     args["end_of_life"] = field
 
@@ -271,6 +299,25 @@ def unmarshal_DnsRecords(data: Any) -> DnsRecords:
     args["status"] = field
 
     return DnsRecords(**args)
+
+
+def unmarshal_ListControlPanelsResponse(data: Any) -> ListControlPanelsResponse:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'ListControlPanelsResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("control_panels", None)
+    args["control_panels"] = (
+        [unmarshal_ControlPanel(v) for v in field] if field is not None else None
+    )
+
+    field = data.get("total_count", None)
+    args["total_count"] = field
+
+    return ListControlPanelsResponse(**args)
 
 
 def unmarshal_ListHostingsResponse(data: Any) -> ListHostingsResponse:

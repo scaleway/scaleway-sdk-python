@@ -9,11 +9,13 @@ from .types import ListHostingsRequestOrderBy
 from .types import ListOffersRequestOrderBy
 from .types import NameserverStatus
 from .types import OfferQuotaWarning
+from .types import ControlPanel
 from .types import DnsRecord
 from .types import DnsRecords
 from .types import Hosting
 from .types import HostingCpanelUrls
 from .types import HostingOption
+from .types import ListControlPanelsResponse
 from .types import ListHostingsResponse
 from .types import ListOffersResponse
 from .types import Nameserver
@@ -32,11 +34,13 @@ __all__ = [
     "ListOffersRequestOrderBy",
     "NameserverStatus",
     "OfferQuotaWarning",
+    "ControlPanel",
     "DnsRecord",
     "DnsRecords",
     "Hosting",
     "HostingCpanelUrls",
     "HostingOption",
+    "ListControlPanelsResponse",
     "ListHostingsResponse",
     "ListOffersResponse",
     "Nameserver",
