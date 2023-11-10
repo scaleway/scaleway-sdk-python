@@ -153,6 +153,9 @@ def unmarshal_Datasource(data: Any) -> Datasource:
     field = data.get("id", None)
     args["id"] = field
 
+    field = data.get("is_managed_by_scaleway", None)
+    args["is_managed_by_scaleway"] = field
+
     field = data.get("name", None)
     args["name"] = field
 

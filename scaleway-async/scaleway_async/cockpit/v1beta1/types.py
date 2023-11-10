@@ -230,6 +230,11 @@ class Datasource:
     Datasource type.
     """
 
+    is_managed_by_scaleway: bool
+    """
+    Specifies that the datasource receives data from Scaleway products and is managed by Scaleway.
+    """
+
 
 @dataclass
 class GrafanaProductDashboard:
@@ -665,6 +670,11 @@ class ListDatasourcesRequest:
     types: Optional[List[DatasourceType]]
     """
     Filter by datasource types.
+    """
+
+    is_managed_by_scaleway: Optional[bool]
+    """
+    Filter by managed datasources.
     """
 
 

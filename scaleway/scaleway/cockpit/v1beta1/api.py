@@ -329,6 +329,7 @@ class CockpitV1Beta1API(API):
         order_by: ListDatasourcesRequestOrderBy = ListDatasourcesRequestOrderBy.CREATED_AT_ASC,
         project_id: Optional[str] = None,
         types: Optional[List[DatasourceType]] = None,
+        is_managed_by_scaleway: Optional[bool] = None,
     ) -> ListDatasourcesResponse:
         """
         Get a list of datasources for the specified Project ID.
@@ -337,6 +338,7 @@ class CockpitV1Beta1API(API):
         :param order_by: How the response is ordered.
         :param project_id: ID of the Project.
         :param types: Filter by datasource types.
+        :param is_managed_by_scaleway: Filter by managed datasources.
         :return: :class:`ListDatasourcesResponse <ListDatasourcesResponse>`
 
         Usage:
@@ -349,6 +351,7 @@ class CockpitV1Beta1API(API):
             "GET",
             f"/cockpit/v1beta1/datasources",
             params={
+                "is_managed_by_scaleway": is_managed_by_scaleway,
                 "order_by": order_by,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
@@ -368,6 +371,7 @@ class CockpitV1Beta1API(API):
         order_by: Optional[ListDatasourcesRequestOrderBy] = None,
         project_id: Optional[str] = None,
         types: Optional[List[DatasourceType]] = None,
+        is_managed_by_scaleway: Optional[bool] = None,
     ) -> List[Datasource]:
         """
         Get a list of datasources for the specified Project ID.
@@ -376,6 +380,7 @@ class CockpitV1Beta1API(API):
         :param order_by: How the response is ordered.
         :param project_id: ID of the Project.
         :param types: Filter by datasource types.
+        :param is_managed_by_scaleway: Filter by managed datasources.
         :return: :class:`List[ListDatasourcesResponse] <List[ListDatasourcesResponse]>`
 
         Usage:
@@ -394,6 +399,7 @@ class CockpitV1Beta1API(API):
                 "order_by": order_by,
                 "project_id": project_id,
                 "types": types,
+                "is_managed_by_scaleway": is_managed_by_scaleway,
             },
         )
 
