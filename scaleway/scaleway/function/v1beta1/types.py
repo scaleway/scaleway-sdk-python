@@ -926,14 +926,14 @@ class TriggerMnqSqsClientConfig:
     Trigger. mnq sqs client config.
     """
 
-    mnq_namespace_id: Optional[str]
-    """
-    :deprecated
-    """
-
     queue: str
     """
     Name of the SQS queue the trigger listens to.
+    """
+
+    mnq_namespace_id: Optional[str]
+    """
+    :deprecated
     """
 
     mnq_project_id: str
