@@ -17,8 +17,10 @@ from .types import (
     HostingStatus,
     ListHostingsRequestOrderBy,
     ListOffersRequestOrderBy,
+    ControlPanel,
     DnsRecords,
     Hosting,
+    ListControlPanelsResponse,
     ListHostingsResponse,
     ListOffersResponse,
     CreateHostingRequest,
@@ -32,6 +34,7 @@ from .marshalling import (
     marshal_UpdateHostingRequest,
     unmarshal_Hosting,
     unmarshal_DnsRecords,
+    unmarshal_ListControlPanelsResponse,
     unmarshal_ListHostingsResponse,
     unmarshal_ListOffersResponse,
 )
@@ -112,6 +115,7 @@ class WebhostingV1Alpha1API(API):
         domain: Optional[str] = None,
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
+        control_panels: Optional[List[str]] = None,
     ) -> ListHostingsResponse:
         """
         List all Web Hosting plans.
@@ -125,6 +129,7 @@ class WebhostingV1Alpha1API(API):
         :param domain: Domain to filter for, only Web Hosting plans associated with this domain will be returned.
         :param project_id: Project ID to filter for, only Web Hosting plans from this Project will be returned.
         :param organization_id: Organization ID to filter for, only Web Hosting plans from this Organization will be returned.
+        :param control_panels: Name of the control panel to filter for, only Web Hosting plans from this control panel will be returned.
         :return: :class:`ListHostingsResponse <ListHostingsResponse>`
 
         Usage:
@@ -141,6 +146,7 @@ class WebhostingV1Alpha1API(API):
             "GET",
             f"/webhosting/v1alpha1/regions/{param_region}/hostings",
             params={
+                "control_panels": control_panels,
                 "domain": domain,
                 "order_by": order_by,
                 "organization_id": organization_id
@@ -168,6 +174,7 @@ class WebhostingV1Alpha1API(API):
         domain: Optional[str] = None,
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
+        control_panels: Optional[List[str]] = None,
     ) -> List[Hosting]:
         """
         List all Web Hosting plans.
@@ -181,6 +188,7 @@ class WebhostingV1Alpha1API(API):
         :param domain: Domain to filter for, only Web Hosting plans associated with this domain will be returned.
         :param project_id: Project ID to filter for, only Web Hosting plans from this Project will be returned.
         :param organization_id: Organization ID to filter for, only Web Hosting plans from this Organization will be returned.
+        :param control_panels: Name of the control panel to filter for, only Web Hosting plans from this control panel will be returned.
         :return: :class:`List[ListHostingsResponse] <List[ListHostingsResponse]>`
 
         Usage:
@@ -203,6 +211,7 @@ class WebhostingV1Alpha1API(API):
                 "domain": domain,
                 "project_id": project_id,
                 "organization_id": organization_id,
+                "control_panels": control_panels,
             },
         )
 
@@ -466,3 +475,72 @@ class WebhostingV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListOffersResponse(res.json())
+
+    async def list_control_panels(
+        self,
+        *,
+        region: Optional[Region] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ListControlPanelsResponse:
+        """
+        List all control panels type.
+        List the control panels type: cpanel or plesk.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page: Page number to return, from the paginated results (must be a positive integer).
+        :param page_size: Number of control panels to return (must be a positive integer lower or equal to 100).
+        :return: :class:`ListControlPanelsResponse <ListControlPanelsResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_control_panels()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/webhosting/v1alpha1/regions/{param_region}/control-panels",
+            params={
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListControlPanelsResponse(res.json())
+
+    async def list_control_panels_all(
+        self,
+        *,
+        region: Optional[Region] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[ControlPanel]:
+        """
+        List all control panels type.
+        List the control panels type: cpanel or plesk.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page: Page number to return, from the paginated results (must be a positive integer).
+        :param page_size: Number of control panels to return (must be a positive integer lower or equal to 100).
+        :return: :class:`List[ListControlPanelsResponse] <List[ListControlPanelsResponse]>`
+
+        Usage:
+        ::
+
+            result = await api.list_control_panels_all()
+        """
+
+        return await fetch_all_pages_async(
+            type=ListControlPanelsResponse,
+            key="control_panels",
+            fetcher=self.list_control_panels,
+            args={
+                "region": region,
+                "page": page,
+                "page_size": page_size,
+            },
+        )
