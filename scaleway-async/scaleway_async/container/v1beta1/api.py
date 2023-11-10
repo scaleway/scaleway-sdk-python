@@ -1402,6 +1402,13 @@ class ContainerV1Beta1API(API):
         expires_at: Optional[datetime] = None,
     ) -> Token:
         """
+        Create a JWT token.
+        Deprecated in favor of CreateToken.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param container_id: One-of ('scope'): at most one of 'container_id', 'namespace_id' could be set.
+        :param namespace_id: One-of ('scope'): at most one of 'container_id', 'namespace_id' could be set.
+        :param expires_at:
+        :return: :class:`Token <Token>`
         :deprecated
 
         Usage:
