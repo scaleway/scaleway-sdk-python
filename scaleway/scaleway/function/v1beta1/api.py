@@ -1773,10 +1773,10 @@ class FunctionV1Beta1API(API):
         :param name: Name of the trigger.
         :param function_id: ID of the function to trigger.
         :param description: Description of the trigger.
-        :param scw_sqs_config: Configuration for a Scaleway M&Q SQS queue.
+        :param scw_sqs_config: Configuration for a Scaleway Messaging and Queuing SQS queue.
 
         One-of ('config'): at most one of 'scw_sqs_config', 'scw_nats_config', 'sqs_config' could be set.
-        :param scw_nats_config: Configuration for a Scaleway M&Q NATS subject.
+        :param scw_nats_config: Configuration for a Scaleway Messaging and Queuing NATS subject.
 
         One-of ('config'): at most one of 'scw_sqs_config', 'scw_nats_config', 'sqs_config' could be set.
         :param sqs_config: Configuration for an AWS SQS queue.

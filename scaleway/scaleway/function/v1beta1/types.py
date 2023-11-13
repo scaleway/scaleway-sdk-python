@@ -258,17 +258,18 @@ class CreateTriggerRequestMnqNatsClientConfig:
 
     mnq_nats_account_id: str
     """
-    ID of the M&Q NATS account.
+    ID of the Messaging and Queuing NATS account.
     """
 
     mnq_project_id: str
     """
-    ID of the M&Q project.
+    ID of the Messaging and Queuing project.
     """
 
     mnq_region: str
     """
-    Region of the M&Q project.
+    Region in which the Messaging and Queuing project is activated.
+    Currently, only the `fr-par` region is available.
     """
 
 
@@ -278,25 +279,26 @@ class CreateTriggerRequestMnqSqsClientConfig:
     Create trigger request. mnq sqs client config.
     """
 
-    mnq_namespace_id: Optional[str]
-    """
-    :deprecated
-    """
-
     queue: str
     """
     Name of the SQS queue the trigger should listen to.
     """
 
+    mnq_namespace_id: Optional[str]
+    """
+    :deprecated
+    """
+
     mnq_project_id: str
     """
-    ID of the M&Q project.
+    ID of the Messaging and Queuing project.
     You must have activated SQS on this project.
     """
 
     mnq_region: str
     """
-    Region in which the M&Q project is activated.
+    Region in which the Messaging and Queuing project is activated.
+    Currently, only the `fr-par` region is available.
     """
 
 
@@ -863,14 +865,14 @@ class Trigger:
 
     scw_sqs_config: Optional[TriggerMnqSqsClientConfig]
     """
-    Configuration for a Scaleway M&Q SQS queue.
+    Configuration for a Scaleway Messaging and Queuing SQS queue.
     
     One-of ('config'): at most one of 'scw_sqs_config', 'scw_nats_config', 'sqs_config' could be set.
     """
 
     scw_nats_config: Optional[TriggerMnqNatsClientConfig]
     """
-    Configuration for a Scaleway M&Q NATS subject.
+    Configuration for a Scaleway Messaging and Queuing NATS subject.
     
     One-of ('config'): at most one of 'scw_sqs_config', 'scw_nats_config', 'sqs_config' could be set.
     """
@@ -901,22 +903,23 @@ class TriggerMnqNatsClientConfig:
 
     mnq_nats_account_id: str
     """
-    ID of the M&Q NATS account.
+    ID of the Messaging and Queuing NATS account.
     """
 
     mnq_project_id: str
     """
-    ID of the M&Q project.
+    ID of the Messaging and Queuing project.
     """
 
     mnq_region: str
     """
-    Region of the M&Q project.
+    Region in which the Messaging and Queuing project is activated.
+    Currently, only the `fr-par` region is available.
     """
 
     mnq_credential_id: Optional[str]
     """
-    ID of the M&Q credentials used to subscribe to the NATS subject.
+    ID of the Messaging and Queuing credentials used to subscribe to the NATS subject.
     """
 
 
@@ -926,29 +929,30 @@ class TriggerMnqSqsClientConfig:
     Trigger. mnq sqs client config.
     """
 
-    queue: str
-    """
-    Name of the SQS queue the trigger listens to.
-    """
-
     mnq_namespace_id: Optional[str]
     """
     :deprecated
     """
 
+    queue: str
+    """
+    Name of the SQS queue the trigger listens to.
+    """
+
     mnq_project_id: str
     """
-    ID of the M&Q project.
+    ID of the Messaging and Queuing project.
     """
 
     mnq_region: str
     """
-    Region in which the M&Q project is activated.
+    Region in which the Messaging and Queuing project is activated.
+    Currently, only the `fr-par` region is available.
     """
 
     mnq_credential_id: Optional[str]
     """
-    ID of the M&Q credentials used to read from the SQS queue.
+    ID of the Messaging and Queuing credentials used to read from the SQS queue.
     """
 
 
@@ -1729,14 +1733,14 @@ class CreateTriggerRequest:
 
     scw_sqs_config: Optional[CreateTriggerRequestMnqSqsClientConfig]
     """
-    Configuration for a Scaleway M&Q SQS queue.
+    Configuration for a Scaleway Messaging and Queuing SQS queue.
     
     One-of ('config'): at most one of 'scw_sqs_config', 'scw_nats_config', 'sqs_config' could be set.
     """
 
     scw_nats_config: Optional[CreateTriggerRequestMnqNatsClientConfig]
     """
-    Configuration for a Scaleway M&Q NATS subject.
+    Configuration for a Scaleway Messaging and Queuing NATS subject.
     
     One-of ('config'): at most one of 'scw_sqs_config', 'scw_nats_config', 'sqs_config' could be set.
     """
