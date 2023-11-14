@@ -2539,6 +2539,7 @@ class CreateVolumeRequest:
     ID of the volume on which this volume will be based.
     
     One-of ('from_'): at most one of 'size', 'base_volume', 'base_snapshot' could be set.
+    :deprecated
     """
 
     base_snapshot: Optional[str]
