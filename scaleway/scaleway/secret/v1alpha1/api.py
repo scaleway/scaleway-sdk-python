@@ -856,6 +856,10 @@ class SecretV1Alpha1API(API):
         """
         Get metadata of a secret's version using the secret's name.
         Retrieve the metadata of a secret's given version specified by the `region`, `secret_name`, `revision` and `project_id` parameters.
+
+        This method is deprecated.
+
+        Scaleway recommends that you use the `ListSecrets` request with the `name` filter to specify the secret version desired, then use the `GetSecretVersion` request.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_name: Name of the secret.
         :param revision: Version number.
@@ -866,6 +870,7 @@ class SecretV1Alpha1API(API):
         :param project_id: ID of the Project to target.
         (Optional.) If not specified, Secret Manager will look for the secret version in all Projects.
         :return: :class:`SecretVersion <SecretVersion>`
+        :deprecated
 
         Usage:
         ::
@@ -1040,6 +1045,10 @@ class SecretV1Alpha1API(API):
         """
         List versions of a secret using the secret's name.
         Retrieve the list of a given secret's versions specified by the `secret_name`,`region` and `project_id` parameters.
+
+        This method is deprecated.
+
+        Scaleway recommends that you use the `ListSecrets` request with the `name` filter to specify the secret version desired, then use the `ListSecretVersions` request.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_name: Name of the secret.
         :param page:
@@ -1048,6 +1057,7 @@ class SecretV1Alpha1API(API):
         :param project_id: ID of the Project to target.
         (Optional.) If not specified, Secret Manager will look for the secret in all Projects.
         :return: :class:`ListSecretVersionsResponse <ListSecretVersionsResponse>`
+        :deprecated
 
         Usage:
         ::
@@ -1087,6 +1097,10 @@ class SecretV1Alpha1API(API):
         """
         List versions of a secret using the secret's name.
         Retrieve the list of a given secret's versions specified by the `secret_name`,`region` and `project_id` parameters.
+
+        This method is deprecated.
+
+        Scaleway recommends that you use the `ListSecrets` request with the `name` filter to specify the secret version desired, then use the `ListSecretVersions` request.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_name: Name of the secret.
         :param page:
@@ -1095,6 +1109,7 @@ class SecretV1Alpha1API(API):
         :param project_id: ID of the Project to target.
         (Optional.) If not specified, Secret Manager will look for the secret in all Projects.
         :return: :class:`List[ListSecretVersionsResponse] <List[ListSecretVersionsResponse]>`
+        :deprecated
 
         Usage:
         ::
@@ -1253,6 +1268,10 @@ class SecretV1Alpha1API(API):
         """
         Access a secret's version using the secret's name.
         Access sensitive data in a secret's version specified by the `region`, `secret_name`, `revision` and `project_id` parameters.
+
+        This method is deprecated.
+
+        Scaleway recommends that you use the `ListSecrets` request with the `name` filter to specify the secret version desired, then use the `AccessSecretVersion` request.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_name: Name of the secret.
         :param revision: Version number.
@@ -1263,6 +1282,7 @@ class SecretV1Alpha1API(API):
         :param project_id: ID of the Project to target.
         (Optional.) If not specified, Secret Manager will look for the secret version in all Projects.
         :return: :class:`AccessSecretVersionResponse <AccessSecretVersionResponse>`
+        :deprecated
 
         Usage:
         ::
