@@ -1161,9 +1161,13 @@ class RedisV1API(API):
         Update an endpoint.
         Update information about a Redis™ Database Instance (Redis™ cluster) endpoint. Full details about the endpoint, like `ips`, `port`, `private_network` and `public_network` specifications are returned in the response.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param endpoint_id:
-        :param private_network: One-of ('endpoint_type'): at most one of 'private_network', 'public_network' could be set.
-        :param public_network: One-of ('endpoint_type'): at most one of 'private_network', 'public_network' could be set.
+        :param endpoint_id: UUID of the endpoint you want to get.
+        :param private_network: Private Network details.
+
+        One-of ('endpoint_type'): at most one of 'private_network', 'public_network' could be set.
+        :param public_network: Public network details.
+
+        One-of ('endpoint_type'): at most one of 'private_network', 'public_network' could be set.
         :return: :class:`Endpoint <Endpoint>`
 
         Usage:

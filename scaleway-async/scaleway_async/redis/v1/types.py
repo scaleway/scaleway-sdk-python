@@ -1093,13 +1093,20 @@ class UpdateEndpointRequest:
     """
 
     endpoint_id: str
+    """
+    UUID of the endpoint you want to get.
+    """
 
     private_network: Optional[EndpointSpecPrivateNetworkSpec]
     """
+    Private Network details.
+    
     One-of ('endpoint_type'): at most one of 'private_network', 'public_network' could be set.
     """
 
     public_network: Optional[EndpointSpecPublicNetworkSpec]
     """
+    Public network details.
+    
     One-of ('endpoint_type'): at most one of 'private_network', 'public_network' could be set.
     """
