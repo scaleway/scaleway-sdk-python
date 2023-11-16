@@ -448,6 +448,11 @@ class Volume:
     Specifications of the volume.
     """
 
+    last_detached_at: Optional[datetime]
+    """
+    Last time the volume was detached.
+    """
+
 
 @dataclass
 class VolumeSpecifications:
