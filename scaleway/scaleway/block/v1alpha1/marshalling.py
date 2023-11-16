@@ -162,6 +162,9 @@ def unmarshal_Volume(data: Any) -> Volume:
     field = data.get("id", None)
     args["id"] = field
 
+    field = data.get("last_detached_at", None)
+    args["last_detached_at"] = parser.isoparse(field) if type(field) is str else field
+
     field = data.get("name", None)
     args["name"] = field
 
