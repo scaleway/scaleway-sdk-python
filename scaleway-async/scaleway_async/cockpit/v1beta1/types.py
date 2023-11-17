@@ -615,14 +615,6 @@ class DeactivateCockpitRequest:
 
 
 @dataclass
-class ResetCockpitGrafanaRequest:
-    project_id: Optional[str]
-    """
-    ID of the Project the Cockpit belongs to.
-    """
-
-
-@dataclass
 class CreateDatasourceRequest:
     project_id: Optional[str]
     """
