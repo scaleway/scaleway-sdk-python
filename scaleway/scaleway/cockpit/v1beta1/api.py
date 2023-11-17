@@ -37,7 +37,6 @@ from .types import (
     TokenScopes,
     ActivateCockpitRequest,
     DeactivateCockpitRequest,
-    ResetCockpitGrafanaRequest,
     CreateDatasourceRequest,
     CreateTokenRequest,
     CreateContactPointRequest,
@@ -64,7 +63,6 @@ from .marshalling import (
     marshal_DeleteGrafanaUserRequest,
     marshal_DisableManagedAlertsRequest,
     marshal_EnableManagedAlertsRequest,
-    marshal_ResetCockpitGrafanaRequest,
     marshal_ResetGrafanaUserPasswordRequest,
     marshal_SelectPlanRequest,
     marshal_TriggerTestAlertRequest,
@@ -239,36 +237,6 @@ class CockpitV1Beta1API(API):
             f"/cockpit/v1beta1/deactivate",
             body=marshal_DeactivateCockpitRequest(
                 DeactivateCockpitRequest(
-                    project_id=project_id,
-                ),
-                self.client,
-            ),
-        )
-
-        self._throw_on_error(res)
-        return unmarshal_Cockpit(res.json())
-
-    def reset_cockpit_grafana(
-        self,
-        *,
-        project_id: Optional[str] = None,
-    ) -> Cockpit:
-        """
-        Reset your Cockpit's Grafana associated with the specified Project ID.
-        :param project_id: ID of the Project the Cockpit belongs to.
-        :return: :class:`Cockpit <Cockpit>`
-
-        Usage:
-        ::
-
-            result = api.reset_cockpit_grafana()
-        """
-
-        res = self._request(
-            "POST",
-            f"/cockpit/v1beta1/reset-grafana",
-            body=marshal_ResetCockpitGrafanaRequest(
-                ResetCockpitGrafanaRequest(
                     project_id=project_id,
                 ),
                 self.client,

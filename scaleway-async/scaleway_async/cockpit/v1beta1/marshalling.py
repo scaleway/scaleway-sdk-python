@@ -35,7 +35,6 @@ from .types import (
     TokenScopes,
     ActivateCockpitRequest,
     DeactivateCockpitRequest,
-    ResetCockpitGrafanaRequest,
     CreateDatasourceRequest,
     CreateTokenRequest,
     CreateContactPointRequest,
@@ -675,18 +674,6 @@ def marshal_DisableManagedAlertsRequest(
 
 def marshal_EnableManagedAlertsRequest(
     request: EnableManagedAlertsRequest,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-
-    if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
-
-    return output
-
-
-def marshal_ResetCockpitGrafanaRequest(
-    request: ResetCockpitGrafanaRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
