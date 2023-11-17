@@ -15,6 +15,7 @@ from scaleway_core.utils import (
 )
 from .types import (
     Arch,
+    AttachServerVolumeRequestVolumeType,
     BootType,
     ImageState,
     IpType,
@@ -30,6 +31,7 @@ from .types import (
     SnapshotState,
     SnapshotVolumeType,
     VolumeVolumeType,
+    AttachServerVolumeResponse,
     Bootscript,
     CreateImageResponse,
     CreateIpResponse,
@@ -40,6 +42,7 @@ from .types import (
     CreateServerResponse,
     CreateSnapshotResponse,
     CreateVolumeResponse,
+    DetachServerVolumeResponse,
     ExportSnapshotResponse,
     GetBootscriptResponse,
     GetDashboardResponse,
@@ -101,6 +104,8 @@ from .types import (
     VolumeSummary,
     VolumeTemplate,
     ServerActionRequest,
+    AttachServerVolumeRequest,
+    DetachServerVolumeRequest,
     CreateImageRequest,
     CreateSnapshotRequest,
     ExportSnapshotRequest,
@@ -137,6 +142,7 @@ from .types_private import (
 )
 from .marshalling import (
     marshal_ApplyBlockMigrationRequest,
+    marshal_AttachServerVolumeRequest,
     marshal_CreateImageRequest,
     marshal_CreateIpRequest,
     marshal_CreatePlacementGroupRequest,
@@ -145,6 +151,7 @@ from .marshalling import (
     marshal_CreateSecurityGroupRuleRequest,
     marshal_CreateSnapshotRequest,
     marshal_CreateVolumeRequest,
+    marshal_DetachServerVolumeRequest,
     marshal_ExportSnapshotRequest,
     marshal_PlanBlockMigrationRequest,
     marshal_ServerActionRequest,
@@ -164,6 +171,7 @@ from .marshalling import (
     marshal__SetSnapshotRequest,
     marshal__UpdateServerRequest,
     unmarshal_PrivateNIC,
+    unmarshal_AttachServerVolumeResponse,
     unmarshal_CreateImageResponse,
     unmarshal_CreateIpResponse,
     unmarshal_CreatePlacementGroupResponse,
@@ -173,6 +181,7 @@ from .marshalling import (
     unmarshal_CreateServerResponse,
     unmarshal_CreateSnapshotResponse,
     unmarshal_CreateVolumeResponse,
+    unmarshal_DetachServerVolumeResponse,
     unmarshal_ExportSnapshotResponse,
     unmarshal_GetBootscriptResponse,
     unmarshal_GetDashboardResponse,
@@ -971,6 +980,97 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return None
+
+    async def attach_server_volume(
+        self,
+        *,
+        server_id: str,
+        volume_id: str,
+        volume_type: AttachServerVolumeRequestVolumeType,
+        zone: Optional[Zone] = None,
+        boot: Optional[bool] = None,
+    ) -> AttachServerVolumeResponse:
+        """
+        Attach a volume to a server.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param server_id: UUID of the Instance.
+        :param volume_id: UUID of the Volume to attach.
+        :param volume_type: Type of the volume to attach.
+        :param boot: Force the Instance to boot on this volume.
+        :return: :class:`AttachServerVolumeResponse <AttachServerVolumeResponse>`
+
+        Usage:
+        ::
+
+            result = await api.attach_server_volume(
+                server_id="example",
+                volume_id="example",
+                volume_type=unknown_volume_type,
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_server_id = validate_path_param("server_id", server_id)
+
+        res = self._request(
+            "POST",
+            f"/instance/v1/zones/{param_zone}/servers/{param_server_id}/attach-volume",
+            body=marshal_AttachServerVolumeRequest(
+                AttachServerVolumeRequest(
+                    server_id=server_id,
+                    volume_id=volume_id,
+                    volume_type=volume_type,
+                    zone=zone,
+                    boot=boot,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_AttachServerVolumeResponse(res.json())
+
+    async def detach_server_volume(
+        self,
+        *,
+        server_id: str,
+        volume_id: str,
+        zone: Optional[Zone] = None,
+    ) -> DetachServerVolumeResponse:
+        """
+        Detach a volume from a server.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param server_id: UUID of the Instance.
+        :param volume_id: UUID of the Volume to detach.
+        :return: :class:`DetachServerVolumeResponse <DetachServerVolumeResponse>`
+
+        Usage:
+        ::
+
+            result = await api.detach_server_volume(
+                server_id="example",
+                volume_id="example",
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_server_id = validate_path_param("server_id", server_id)
+
+        res = self._request(
+            "POST",
+            f"/instance/v1/zones/{param_zone}/servers/{param_server_id}/detach-volume",
+            body=marshal_DetachServerVolumeRequest(
+                DetachServerVolumeRequest(
+                    server_id=server_id,
+                    volume_id=volume_id,
+                    zone=zone,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_DetachServerVolumeResponse(res.json())
 
     async def list_images(
         self,
