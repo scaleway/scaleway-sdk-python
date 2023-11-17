@@ -11,6 +11,7 @@ from scaleway_core.utils import (
 from dateutil import parser
 from .types import (
     Arch,
+    AttachServerVolumeRequestVolumeType,
     BootType,
     ImageState,
     IpType,
@@ -30,6 +31,7 @@ from .types import (
     SnapshotVolumeType,
     VolumeState,
     VolumeVolumeType,
+    AttachServerVolumeResponse,
     Bootscript,
     CreateImageResponse,
     CreateIpResponse,
@@ -41,6 +43,7 @@ from .types import (
     CreateSnapshotResponse,
     CreateVolumeResponse,
     Dashboard,
+    DetachServerVolumeResponse,
     ExportSnapshotResponse,
     GetBootscriptResponse,
     GetDashboardResponse,
@@ -115,6 +118,8 @@ from .types import (
     VolumeTypeCapabilities,
     VolumeTypeConstraints,
     ServerActionRequest,
+    AttachServerVolumeRequest,
+    DetachServerVolumeRequest,
     CreateImageRequest,
     CreateSnapshotRequest,
     ExportSnapshotRequest,
@@ -1262,6 +1267,20 @@ def unmarshal_VolumeType(data: Any) -> VolumeType:
     return VolumeType(**args)
 
 
+def unmarshal_AttachServerVolumeResponse(data: Any) -> AttachServerVolumeResponse:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'AttachServerVolumeResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("server", None)
+    args["server"] = unmarshal_Server(field) if field is not None else None
+
+    return AttachServerVolumeResponse(**args)
+
+
 def unmarshal_CreateImageResponse(data: Any) -> CreateImageResponse:
     if type(data) is not dict:
         raise TypeError(
@@ -1395,6 +1414,20 @@ def unmarshal_CreateVolumeResponse(data: Any) -> CreateVolumeResponse:
     args["volume"] = unmarshal_Volume(field) if field is not None else None
 
     return CreateVolumeResponse(**args)
+
+
+def unmarshal_DetachServerVolumeResponse(data: Any) -> DetachServerVolumeResponse:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'DetachServerVolumeResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("server", None)
+    args["server"] = unmarshal_Server(field) if field is not None else None
+
+    return DetachServerVolumeResponse(**args)
 
 
 def unmarshal_ExportSnapshotResponse(data: Any) -> ExportSnapshotResponse:
@@ -2645,6 +2678,24 @@ def marshal_ApplyBlockMigrationRequest(
     return output
 
 
+def marshal_AttachServerVolumeRequest(
+    request: AttachServerVolumeRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.boot is not None:
+        output["boot"] = request.boot
+
+    if request.volume_id is not None:
+        output["volume_id"] = request.volume_id
+
+    if request.volume_type is not None:
+        output["volume_type"] = AttachServerVolumeRequestVolumeType(request.volume_type)
+
+    return output
+
+
 def marshal_CreateImageRequest(
     request: CreateImageRequest,
     defaults: ProfileDefaults,
@@ -3003,6 +3054,18 @@ def marshal_CreateVolumeRequest(
 
     if request.volume_type is not None:
         output["volume_type"] = VolumeVolumeType(request.volume_type)
+
+    return output
+
+
+def marshal_DetachServerVolumeRequest(
+    request: DetachServerVolumeRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.volume_id is not None:
+        output["volume_id"] = request.volume_id
 
     return output
 

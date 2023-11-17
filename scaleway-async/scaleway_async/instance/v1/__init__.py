@@ -1,6 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 from .types import Arch
+from .types import AttachServerVolumeRequestVolumeType
 from .types import BootType
 from .types import ImageState
 from .types import IpState
@@ -27,6 +28,7 @@ from .types import VolumeServerState
 from .types import VolumeServerVolumeType
 from .types import VolumeState
 from .types import VolumeVolumeType
+from .types import AttachServerVolumeResponse
 from .types import Bootscript
 from .types import CreateImageResponse
 from .types import CreateIpResponse
@@ -38,6 +40,7 @@ from .types import CreateServerResponse
 from .types import CreateSnapshotResponse
 from .types import CreateVolumeResponse
 from .types import Dashboard
+from .types import DetachServerVolumeResponse
 from .types import ExportSnapshotResponse
 from .types import GetBootscriptResponse
 from .types import GetDashboardResponse
@@ -125,6 +128,7 @@ from .api import InstanceV1API
 
 __all__ = [
     "Arch",
+    "AttachServerVolumeRequestVolumeType",
     "BootType",
     "ImageState",
     "IpState",
@@ -151,6 +155,7 @@ __all__ = [
     "VolumeServerVolumeType",
     "VolumeState",
     "VolumeVolumeType",
+    "AttachServerVolumeResponse",
     "Bootscript",
     "CreateImageResponse",
     "CreateIpResponse",
@@ -162,6 +167,7 @@ __all__ = [
     "CreateSnapshotResponse",
     "CreateVolumeResponse",
     "Dashboard",
+    "DetachServerVolumeResponse",
     "ExportSnapshotResponse",
     "GetBootscriptResponse",
     "GetDashboardResponse",

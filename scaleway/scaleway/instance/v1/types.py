@@ -24,6 +24,16 @@ class Arch(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class AttachServerVolumeRequestVolumeType(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_VOLUME_TYPE = "unknown_volume_type"
+    L_SSD = "l_ssd"
+    B_SSD = "b_ssd"
+    SBS_VOLUME = "sbs_volume"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class BootType(str, Enum, metaclass=StrEnumMeta):
     LOCAL = "local"
     BOOTSCRIPT = "bootscript"
@@ -285,6 +295,11 @@ class VolumeVolumeType(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
+class AttachServerVolumeResponse:
+    server: Optional[Server]
+
+
+@dataclass
 class Bootscript:
     """
     Bootscript.
@@ -429,6 +444,11 @@ class Dashboard:
     private_nics_count: int
 
     placement_groups_count: int
+
+
+@dataclass
+class DetachServerVolumeResponse:
+    server: Optional[Server]
 
 
 @dataclass
@@ -2183,6 +2203,52 @@ class DeleteServerUserDataRequest:
     key: str
     """
     Key of the user data to delete.
+    """
+
+
+@dataclass
+class AttachServerVolumeRequest:
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    server_id: str
+    """
+    UUID of the Instance.
+    """
+
+    volume_id: str
+    """
+    UUID of the Volume to attach.
+    """
+
+    volume_type: AttachServerVolumeRequestVolumeType
+    """
+    Type of the volume to attach.
+    """
+
+    boot: Optional[bool]
+    """
+    Force the Instance to boot on this volume.
+    """
+
+
+@dataclass
+class DetachServerVolumeRequest:
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    server_id: str
+    """
+    UUID of the Instance.
+    """
+
+    volume_id: str
+    """
+    UUID of the Volume to detach.
     """
 
 
