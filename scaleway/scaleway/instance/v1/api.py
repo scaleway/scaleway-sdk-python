@@ -1834,7 +1834,6 @@ class InstanceV1API(API):
         project: Optional[str] = None,
         tags: Optional[List[str]] = None,
         size: Optional[int] = None,
-        base_volume: Optional[str] = None,
         base_snapshot: Optional[str] = None,
     ) -> CreateVolumeResponse:
         """
@@ -1852,13 +1851,10 @@ class InstanceV1API(API):
         :param volume_type: Volume type.
         :param size: Volume disk size, must be a multiple of 512.
 
-        One-of ('from_'): at most one of 'size', 'base_volume', 'base_snapshot' could be set.
-        :param base_volume: ID of the volume on which this volume will be based.
-
-        One-of ('from_'): at most one of 'size', 'base_volume', 'base_snapshot' could be set.
+        One-of ('from_'): at most one of 'size', 'base_snapshot' could be set.
         :param base_snapshot: ID of the snapshot on which this volume will be based.
 
-        One-of ('from_'): at most one of 'size', 'base_volume', 'base_snapshot' could be set.
+        One-of ('from_'): at most one of 'size', 'base_snapshot' could be set.
         :return: :class:`CreateVolumeResponse <CreateVolumeResponse>`
 
         Usage:
@@ -1881,7 +1877,6 @@ class InstanceV1API(API):
                     project=project,
                     tags=tags,
                     size=size,
-                    base_volume=base_volume,
                     base_snapshot=base_snapshot,
                 ),
                 self.client,
