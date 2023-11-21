@@ -293,6 +293,11 @@ class Application:
     Number of API keys attributed to the application.
     """
 
+    tags: List[str]
+    """
+    Tags associated with the user.
+    """
+
 
 @dataclass
 class Group:
@@ -338,6 +343,11 @@ class Group:
     application_ids: List[str]
     """
     IDs of applications attached to this group.
+    """
+
+    tags: List[str]
+    """
+    Tags associated to the group.
     """
 
 
@@ -705,6 +715,11 @@ class Policy:
     Number of permission sets of the policy.
     """
 
+    tags: List[str]
+    """
+    Tags associated with the policy.
+    """
+
     user_id: Optional[str]
     """
     ID of the user attributed to the policy.
@@ -960,6 +975,11 @@ class User:
     ID of the account root user associated with the user.
     """
 
+    tags: List[str]
+    """
+    Tags associated with the user.
+    """
+
 
 @dataclass
 class ListSSHKeysRequest:
@@ -1077,6 +1097,11 @@ class ListUsersRequest:
     Filter by MFA status.
     """
 
+    tag: Optional[str]
+    """
+    Filter by tags containing a given string.
+    """
+
 
 @dataclass
 class GetUserRequest:
@@ -1104,6 +1129,11 @@ class CreateUserRequest:
     email: str
     """
     Email of the user.
+    """
+
+    tags: Optional[List[str]]
+    """
+    Tags associated with the user.
     """
 
 
@@ -1144,6 +1174,11 @@ class ListApplicationsRequest:
     Filter by list of IDs.
     """
 
+    tag: Optional[str]
+    """
+    Filter by tags containing a given string.
+    """
+
 
 @dataclass
 class CreateApplicationRequest:
@@ -1160,6 +1195,11 @@ class CreateApplicationRequest:
     description: str
     """
     Description of the application (max length is 200 characters).
+    """
+
+    tags: Optional[List[str]]
+    """
+    Tags associated with the application (maximum of 10 tags).
     """
 
 
@@ -1186,6 +1226,11 @@ class UpdateApplicationRequest:
     description: Optional[str]
     """
     New description for the application (max length is 200 chars).
+    """
+
+    tags: Optional[List[str]]
+    """
+    New tags for the application (maximum of 10 tags).
     """
 
 
@@ -1239,6 +1284,11 @@ class ListGroupsRequest:
     Filter by a list of group IDs.
     """
 
+    tag: Optional[str]
+    """
+    Filter by tags containing a given string.
+    """
+
 
 @dataclass
 class CreateGroupRequest:
@@ -1255,6 +1305,11 @@ class CreateGroupRequest:
     description: str
     """
     Description of the group to create (max length is 200 chars).
+    """
+
+    tags: Optional[List[str]]
+    """
+    Tags associated with the group (maximum of 10 tags).
     """
 
 
@@ -1281,6 +1336,11 @@ class UpdateGroupRequest:
     description: Optional[str]
     """
     New description for the group (max length is 200 chars).
+    """
+
+    tags: Optional[List[str]]
+    """
+    New tags for the group (maximum of 10 tags).
     """
 
 
@@ -1415,6 +1475,11 @@ class ListPoliciesRequest:
     Name of the policy to fetch.
     """
 
+    tag: Optional[str]
+    """
+    Filter by tags containing a given string.
+    """
+
 
 @dataclass
 class CreatePolicyRequest:
@@ -1436,6 +1501,11 @@ class CreatePolicyRequest:
     rules: Optional[List[RuleSpecs]]
     """
     Rules of the policy to create.
+    """
+
+    tags: Optional[List[str]]
+    """
+    Tags associated with the policy (maximum of 10 tags).
     """
 
     user_id: Optional[str]
@@ -1490,6 +1560,11 @@ class UpdatePolicyRequest:
     description: Optional[str]
     """
     New description of policy (max length is 200 characters).
+    """
+
+    tags: Optional[List[str]]
+    """
+    New tags for the policy (maximum of 10 tags).
     """
 
     user_id: Optional[str]
