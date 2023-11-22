@@ -38,6 +38,7 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     VPC_GATEWAY = "vpc_gateway"
     VPC_GATEWAY_NETWORK = "vpc_gateway_network"
     K8S_NODE = "k8s_node"
+    K8S_CLUSTER = "k8s_cluster"
     RDB_INSTANCE = "rdb_instance"
     REDIS_CLUSTER = "redis_cluster"
     BAREMETAL_SERVER = "baremetal_server"
