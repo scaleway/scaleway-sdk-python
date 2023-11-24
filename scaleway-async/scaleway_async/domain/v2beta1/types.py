@@ -351,6 +351,7 @@ class TaskType(str, Enum, metaclass=StrEnumMeta):
     UPDATE_HOST = "update_host"
     DELETE_HOST = "delete_host"
     MOVE_PROJECT = "move_project"
+    TRANSFER_ONLINE_DOMAIN = "transfer_online_domain"
 
     def __str__(self) -> str:
         return str(self.value)
