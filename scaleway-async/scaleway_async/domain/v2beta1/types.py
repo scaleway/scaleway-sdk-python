@@ -216,6 +216,14 @@ class LanguageCode(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class LinkedProduct(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_PRODUCT = "unknown_product"
+    VPC = "vpc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListContactsRequestRole(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_ROLE = "unknown_role"
     OWNER = "owner"
@@ -573,6 +581,8 @@ class DNSZone:
 
     project_id: str
 
+    linked_products: List[LinkedProduct]
+
 
 @dataclass
 class DNSZoneVersion:
@@ -682,6 +692,8 @@ class Domain:
     """
 
     tld: Optional[Tld]
+
+    linked_products: List[LinkedProduct]
 
 
 @dataclass

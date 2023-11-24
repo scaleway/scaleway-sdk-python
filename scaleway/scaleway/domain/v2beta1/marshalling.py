@@ -921,6 +921,9 @@ def unmarshal_DNSZone(data: Any) -> DNSZone:
     field = data.get("domain", None)
     args["domain"] = field
 
+    field = data.get("linked_products", None)
+    args["linked_products"] = field
+
     field = data.get("message", None)
     args["message"] = field
 
@@ -1341,6 +1344,9 @@ def unmarshal_Domain(data: Any) -> Domain:
 
     field = data.get("is_external", None)
     args["is_external"] = field
+
+    field = data.get("linked_products", None)
+    args["linked_products"] = field
 
     field = data.get("organization_id", None)
     args["organization_id"] = field
