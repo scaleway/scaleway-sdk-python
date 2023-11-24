@@ -344,6 +344,7 @@ class IamV1Alpha1API(API):
         organization_id: Optional[str] = None,
         user_ids: Optional[List[str]] = None,
         mfa: Optional[bool] = None,
+        tag: Optional[str] = None,
     ) -> ListUsersResponse:
         """
         List users of an Organization.
@@ -354,6 +355,7 @@ class IamV1Alpha1API(API):
         :param organization_id: ID of the Organization to filter.
         :param user_ids: Filter by list of IDs.
         :param mfa: Filter by MFA status.
+        :param tag: Filter by tags containing a given string.
         :return: :class:`ListUsersResponse <ListUsersResponse>`
 
         Usage:
@@ -372,6 +374,7 @@ class IamV1Alpha1API(API):
                 or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
+                "tag": tag,
                 "user_ids": user_ids,
             },
         )
@@ -388,6 +391,7 @@ class IamV1Alpha1API(API):
         organization_id: Optional[str] = None,
         user_ids: Optional[List[str]] = None,
         mfa: Optional[bool] = None,
+        tag: Optional[str] = None,
     ) -> List[User]:
         """
         List users of an Organization.
@@ -398,6 +402,7 @@ class IamV1Alpha1API(API):
         :param organization_id: ID of the Organization to filter.
         :param user_ids: Filter by list of IDs.
         :param mfa: Filter by MFA status.
+        :param tag: Filter by tags containing a given string.
         :return: :class:`List[ListUsersResponse] <List[ListUsersResponse]>`
 
         Usage:
@@ -417,6 +422,7 @@ class IamV1Alpha1API(API):
                 "organization_id": organization_id,
                 "user_ids": user_ids,
                 "mfa": mfa,
+                "tag": tag,
             },
         )
 
@@ -478,12 +484,14 @@ class IamV1Alpha1API(API):
         *,
         email: str,
         organization_id: Optional[str] = None,
+        tags: Optional[List[str]] = None,
     ) -> User:
         """
         Create a new user.
         Create a new user. You must define the `organization_id` and the `email` in your request.
         :param organization_id: ID of the Organization.
         :param email: Email of the user.
+        :param tags: Tags associated with the user.
         :return: :class:`User <User>`
 
         Usage:
@@ -499,6 +507,7 @@ class IamV1Alpha1API(API):
                 CreateUserRequest(
                     email=email,
                     organization_id=organization_id,
+                    tags=tags,
                 ),
                 self.client,
             ),
@@ -517,6 +526,7 @@ class IamV1Alpha1API(API):
         organization_id: Optional[str] = None,
         editable: Optional[bool] = None,
         application_ids: Optional[List[str]] = None,
+        tag: Optional[str] = None,
     ) -> ListApplicationsResponse:
         """
         List applications of an Organization.
@@ -528,6 +538,7 @@ class IamV1Alpha1API(API):
         :param organization_id: ID of the Organization to filter.
         :param editable: Defines whether to filter out editable applications or not.
         :param application_ids: Filter by list of IDs.
+        :param tag: Filter by tags containing a given string.
         :return: :class:`ListApplicationsResponse <ListApplicationsResponse>`
 
         Usage:
@@ -548,6 +559,7 @@ class IamV1Alpha1API(API):
                 or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
+                "tag": tag,
             },
         )
 
@@ -564,6 +576,7 @@ class IamV1Alpha1API(API):
         organization_id: Optional[str] = None,
         editable: Optional[bool] = None,
         application_ids: Optional[List[str]] = None,
+        tag: Optional[str] = None,
     ) -> List[Application]:
         """
         List applications of an Organization.
@@ -575,6 +588,7 @@ class IamV1Alpha1API(API):
         :param organization_id: ID of the Organization to filter.
         :param editable: Defines whether to filter out editable applications or not.
         :param application_ids: Filter by list of IDs.
+        :param tag: Filter by tags containing a given string.
         :return: :class:`List[ListApplicationsResponse] <List[ListApplicationsResponse]>`
 
         Usage:
@@ -595,6 +609,7 @@ class IamV1Alpha1API(API):
                 "organization_id": organization_id,
                 "editable": editable,
                 "application_ids": application_ids,
+                "tag": tag,
             },
         )
 
@@ -604,6 +619,7 @@ class IamV1Alpha1API(API):
         description: str,
         name: Optional[str] = None,
         organization_id: Optional[str] = None,
+        tags: Optional[List[str]] = None,
     ) -> Application:
         """
         Create a new application.
@@ -611,6 +627,7 @@ class IamV1Alpha1API(API):
         :param name: Name of the application to create (max length is 64 characters).
         :param organization_id: ID of the Organization.
         :param description: Description of the application (max length is 200 characters).
+        :param tags: Tags associated with the application (maximum of 10 tags).
         :return: :class:`Application <Application>`
 
         Usage:
@@ -627,6 +644,7 @@ class IamV1Alpha1API(API):
                     description=description,
                     name=name or random_name(prefix="app"),
                     organization_id=organization_id,
+                    tags=tags,
                 ),
                 self.client,
             ),
@@ -668,6 +686,7 @@ class IamV1Alpha1API(API):
         application_id: str,
         name: Optional[str] = None,
         description: Optional[str] = None,
+        tags: Optional[List[str]] = None,
     ) -> Application:
         """
         Update an application.
@@ -675,6 +694,7 @@ class IamV1Alpha1API(API):
         :param application_id: ID of the application to update.
         :param name: New name for the application (max length is 64 chars).
         :param description: New description for the application (max length is 200 chars).
+        :param tags: New tags for the application (maximum of 10 tags).
         :return: :class:`Application <Application>`
 
         Usage:
@@ -693,6 +713,7 @@ class IamV1Alpha1API(API):
                     application_id=application_id,
                     name=name,
                     description=description,
+                    tags=tags,
                 ),
                 self.client,
             ),
@@ -738,6 +759,7 @@ class IamV1Alpha1API(API):
         application_ids: Optional[List[str]] = None,
         user_ids: Optional[List[str]] = None,
         group_ids: Optional[List[str]] = None,
+        tag: Optional[str] = None,
     ) -> ListGroupsResponse:
         """
         List groups.
@@ -750,6 +772,7 @@ class IamV1Alpha1API(API):
         :param application_ids: Filter by a list of application IDs.
         :param user_ids: Filter by a list of user IDs.
         :param group_ids: Filter by a list of group IDs.
+        :param tag: Filter by tags containing a given string.
         :return: :class:`ListGroupsResponse <ListGroupsResponse>`
 
         Usage:
@@ -770,6 +793,7 @@ class IamV1Alpha1API(API):
                 or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
+                "tag": tag,
                 "user_ids": user_ids,
             },
         )
@@ -788,6 +812,7 @@ class IamV1Alpha1API(API):
         application_ids: Optional[List[str]] = None,
         user_ids: Optional[List[str]] = None,
         group_ids: Optional[List[str]] = None,
+        tag: Optional[str] = None,
     ) -> List[Group]:
         """
         List groups.
@@ -800,6 +825,7 @@ class IamV1Alpha1API(API):
         :param application_ids: Filter by a list of application IDs.
         :param user_ids: Filter by a list of user IDs.
         :param group_ids: Filter by a list of group IDs.
+        :param tag: Filter by tags containing a given string.
         :return: :class:`List[ListGroupsResponse] <List[ListGroupsResponse]>`
 
         Usage:
@@ -821,6 +847,7 @@ class IamV1Alpha1API(API):
                 "application_ids": application_ids,
                 "user_ids": user_ids,
                 "group_ids": group_ids,
+                "tag": tag,
             },
         )
 
@@ -830,6 +857,7 @@ class IamV1Alpha1API(API):
         description: str,
         organization_id: Optional[str] = None,
         name: Optional[str] = None,
+        tags: Optional[List[str]] = None,
     ) -> Group:
         """
         Create a group.
@@ -837,6 +865,7 @@ class IamV1Alpha1API(API):
         :param organization_id: ID of Organization linked to the group.
         :param name: Name of the group to create (max length is 64 chars). MUST be unique inside an Organization.
         :param description: Description of the group to create (max length is 200 chars).
+        :param tags: Tags associated with the group (maximum of 10 tags).
         :return: :class:`Group <Group>`
 
         Usage:
@@ -853,6 +882,7 @@ class IamV1Alpha1API(API):
                     description=description,
                     organization_id=organization_id,
                     name=name or random_name(prefix="grp"),
+                    tags=tags,
                 ),
                 self.client,
             ),
@@ -894,6 +924,7 @@ class IamV1Alpha1API(API):
         group_id: str,
         name: Optional[str] = None,
         description: Optional[str] = None,
+        tags: Optional[List[str]] = None,
     ) -> Group:
         """
         Update a group.
@@ -901,6 +932,7 @@ class IamV1Alpha1API(API):
         :param group_id: ID of the group to update.
         :param name: New name for the group (max length is 64 chars). MUST be unique inside an Organization.
         :param description: New description for the group (max length is 200 chars).
+        :param tags: New tags for the group (maximum of 10 tags).
         :return: :class:`Group <Group>`
 
         Usage:
@@ -919,6 +951,7 @@ class IamV1Alpha1API(API):
                     group_id=group_id,
                     name=name,
                     description=description,
+                    tags=tags,
                 ),
                 self.client,
             ),
@@ -1134,6 +1167,7 @@ class IamV1Alpha1API(API):
         application_ids: Optional[List[str]] = None,
         no_principal: Optional[bool] = None,
         policy_name: Optional[str] = None,
+        tag: Optional[str] = None,
     ) -> ListPoliciesResponse:
         """
         List policies of an Organization.
@@ -1148,6 +1182,7 @@ class IamV1Alpha1API(API):
         :param application_ids: Filter by a list of application IDs.
         :param no_principal: Defines whether or not the policy is attributed to a principal.
         :param policy_name: Name of the policy to fetch.
+        :param tag: Filter by tags containing a given string.
         :return: :class:`ListPoliciesResponse <ListPoliciesResponse>`
 
         Usage:
@@ -1170,6 +1205,7 @@ class IamV1Alpha1API(API):
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "policy_name": policy_name,
+                "tag": tag,
                 "user_ids": user_ids,
             },
         )
@@ -1190,6 +1226,7 @@ class IamV1Alpha1API(API):
         application_ids: Optional[List[str]] = None,
         no_principal: Optional[bool] = None,
         policy_name: Optional[str] = None,
+        tag: Optional[str] = None,
     ) -> List[Policy]:
         """
         List policies of an Organization.
@@ -1204,6 +1241,7 @@ class IamV1Alpha1API(API):
         :param application_ids: Filter by a list of application IDs.
         :param no_principal: Defines whether or not the policy is attributed to a principal.
         :param policy_name: Name of the policy to fetch.
+        :param tag: Filter by tags containing a given string.
         :return: :class:`List[ListPoliciesResponse] <List[ListPoliciesResponse]>`
 
         Usage:
@@ -1227,6 +1265,7 @@ class IamV1Alpha1API(API):
                 "application_ids": application_ids,
                 "no_principal": no_principal,
                 "policy_name": policy_name,
+                "tag": tag,
             },
         )
 
@@ -1237,6 +1276,7 @@ class IamV1Alpha1API(API):
         name: Optional[str] = None,
         organization_id: Optional[str] = None,
         rules: Optional[List[RuleSpecs]] = None,
+        tags: Optional[List[str]] = None,
         user_id: Optional[str] = None,
         group_id: Optional[str] = None,
         application_id: Optional[str] = None,
@@ -1249,6 +1289,7 @@ class IamV1Alpha1API(API):
         :param description: Description of the policy to create (max length is 200 characters).
         :param organization_id: ID of the Organization.
         :param rules: Rules of the policy to create.
+        :param tags: Tags associated with the policy (maximum of 10 tags).
         :param user_id: ID of user attributed to the policy.
 
         One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
@@ -1278,6 +1319,7 @@ class IamV1Alpha1API(API):
                     name=name or random_name(prefix="pol"),
                     organization_id=organization_id,
                     rules=rules,
+                    tags=tags,
                     user_id=user_id,
                     group_id=group_id,
                     application_id=application_id,
@@ -1323,6 +1365,7 @@ class IamV1Alpha1API(API):
         policy_id: str,
         name: Optional[str] = None,
         description: Optional[str] = None,
+        tags: Optional[List[str]] = None,
         user_id: Optional[str] = None,
         group_id: Optional[str] = None,
         application_id: Optional[str] = None,
@@ -1334,6 +1377,7 @@ class IamV1Alpha1API(API):
         :param policy_id: Id of policy to update.
         :param name: New name for the policy (max length is 64 characters).
         :param description: New description of policy (max length is 200 characters).
+        :param tags: New tags for the policy (maximum of 10 tags).
         :param user_id: New ID of user attributed to the policy.
 
         One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
@@ -1364,6 +1408,7 @@ class IamV1Alpha1API(API):
                     policy_id=policy_id,
                     name=name,
                     description=description,
+                    tags=tags,
                     user_id=user_id,
                     group_id=group_id,
                     application_id=application_id,

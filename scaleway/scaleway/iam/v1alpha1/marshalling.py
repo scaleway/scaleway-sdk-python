@@ -126,6 +126,9 @@ def unmarshal_Application(data: Any) -> Application:
     field = data.get("organization_id", None)
     args["organization_id"] = field
 
+    field = data.get("tags", None)
+    args["tags"] = field
+
     field = data.get("updated_at", None)
     args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
@@ -157,6 +160,9 @@ def unmarshal_Group(data: Any) -> Group:
 
     field = data.get("organization_id", None)
     args["organization_id"] = field
+
+    field = data.get("tags", None)
+    args["tags"] = field
 
     field = data.get("updated_at", None)
     args["updated_at"] = parser.isoparse(field) if type(field) is str else field
@@ -310,6 +316,9 @@ def unmarshal_Policy(data: Any) -> Policy:
     field = data.get("organization_id", None)
     args["organization_id"] = field
 
+    field = data.get("tags", None)
+    args["tags"] = field
+
     field = data.get("updated_at", None)
     args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
@@ -440,6 +449,9 @@ def unmarshal_User(data: Any) -> User:
 
     field = data.get("status", None)
     args["status"] = field
+
+    field = data.get("tags", None)
+    args["tags"] = field
 
     field = data.get("two_factor_enabled", None)
     args["two_factor_enabled"] = field
@@ -782,6 +794,9 @@ def marshal_CreateApplicationRequest(
             request.organization_id or defaults.default_organization_id
         )
 
+    if request.tags is not None:
+        output["tags"] = request.tags
+
     return output
 
 
@@ -801,6 +816,9 @@ def marshal_CreateGroupRequest(
         output["organization_id"] = (
             request.organization_id or defaults.default_organization_id
         )
+
+    if request.tags is not None:
+        output["tags"] = request.tags
 
     return output
 
@@ -848,6 +866,9 @@ def marshal_CreatePolicyRequest(
     if request.rules is not None:
         output["rules"] = [marshal_RuleSpecs(v, defaults) for v in request.rules]
 
+    if request.tags is not None:
+        output["tags"] = request.tags
+
     return output
 
 
@@ -882,6 +903,9 @@ def marshal_CreateUserRequest(
         output["organization_id"] = (
             request.organization_id or defaults.default_organization_id
         )
+
+    if request.tags is not None:
+        output["tags"] = request.tags
 
     return output
 
@@ -967,6 +991,9 @@ def marshal_UpdateApplicationRequest(
     if request.name is not None:
         output["name"] = request.name
 
+    if request.tags is not None:
+        output["tags"] = request.tags
+
     return output
 
 
@@ -981,6 +1008,9 @@ def marshal_UpdateGroupRequest(
 
     if request.name is not None:
         output["name"] = request.name
+
+    if request.tags is not None:
+        output["tags"] = request.tags
 
     return output
 
@@ -1019,6 +1049,9 @@ def marshal_UpdatePolicyRequest(
 
     if request.name is not None:
         output["name"] = request.name
+
+    if request.tags is not None:
+        output["tags"] = request.tags
 
     return output
 
