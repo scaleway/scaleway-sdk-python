@@ -130,6 +130,7 @@ class BlockV1Alpha1API(API):
         zone: Optional[Zone] = None,
         order_by: ListVolumesRequestOrderBy = ListVolumesRequestOrderBy.CREATED_AT_ASC,
         project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         name: Optional[str] = None,
@@ -141,6 +142,7 @@ class BlockV1Alpha1API(API):
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param order_by: Criteria to use when ordering the list.
         :param project_id: Filter by Project ID.
+        :param organization_id: Filter by Organization ID.
         :param page: Page number.
         :param page_size: Page size, defines how many entries are returned in one page, must be lower or equal to 100.
         :param name: Filter the return volumes by their names.
@@ -161,6 +163,8 @@ class BlockV1Alpha1API(API):
             params={
                 "name": name,
                 "order_by": order_by,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "product_resource_id": product_resource_id,
@@ -177,6 +181,7 @@ class BlockV1Alpha1API(API):
         zone: Optional[Zone] = None,
         order_by: Optional[ListVolumesRequestOrderBy] = None,
         project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         name: Optional[str] = None,
@@ -188,6 +193,7 @@ class BlockV1Alpha1API(API):
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param order_by: Criteria to use when ordering the list.
         :param project_id: Filter by Project ID.
+        :param organization_id: Filter by Organization ID.
         :param page: Page number.
         :param page_size: Page size, defines how many entries are returned in one page, must be lower or equal to 100.
         :param name: Filter the return volumes by their names.
@@ -208,6 +214,7 @@ class BlockV1Alpha1API(API):
                 "zone": zone,
                 "order_by": order_by,
                 "project_id": project_id,
+                "organization_id": organization_id,
                 "page": page,
                 "page_size": page_size,
                 "name": name,
@@ -426,6 +433,7 @@ class BlockV1Alpha1API(API):
         zone: Optional[Zone] = None,
         order_by: ListSnapshotsRequestOrderBy = ListSnapshotsRequestOrderBy.CREATED_AT_ASC,
         project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         volume_id: Optional[str] = None,
@@ -437,6 +445,7 @@ class BlockV1Alpha1API(API):
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param order_by: Criteria to use when ordering the list.
         :param project_id: Filter by Project ID.
+        :param organization_id: Filter by Organization ID.
         :param page: Page number.
         :param page_size: Page size, defines how many entries are returned in one page, must be lower or equal to 100.
         :param volume_id: Filter snapshots by the ID of the original volume.
@@ -457,6 +466,8 @@ class BlockV1Alpha1API(API):
             params={
                 "name": name,
                 "order_by": order_by,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -473,6 +484,7 @@ class BlockV1Alpha1API(API):
         zone: Optional[Zone] = None,
         order_by: Optional[ListSnapshotsRequestOrderBy] = None,
         project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         volume_id: Optional[str] = None,
@@ -484,6 +496,7 @@ class BlockV1Alpha1API(API):
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param order_by: Criteria to use when ordering the list.
         :param project_id: Filter by Project ID.
+        :param organization_id: Filter by Organization ID.
         :param page: Page number.
         :param page_size: Page size, defines how many entries are returned in one page, must be lower or equal to 100.
         :param volume_id: Filter snapshots by the ID of the original volume.
@@ -504,6 +517,7 @@ class BlockV1Alpha1API(API):
                 "zone": zone,
                 "order_by": order_by,
                 "project_id": project_id,
+                "organization_id": organization_id,
                 "page": page,
                 "page_size": page_size,
                 "volume_id": volume_id,

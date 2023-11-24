@@ -533,6 +533,11 @@ class ListVolumesRequest:
     Filter by Project ID.
     """
 
+    organization_id: Optional[str]
+    """
+    Filter by Organization ID.
+    """
+
     page: Optional[int]
     """
     Page number.
@@ -675,6 +680,11 @@ class ListSnapshotsRequest:
     project_id: Optional[str]
     """
     Filter by Project ID.
+    """
+
+    organization_id: Optional[str]
+    """
+    Filter by Organization ID.
     """
 
     page: Optional[int]
