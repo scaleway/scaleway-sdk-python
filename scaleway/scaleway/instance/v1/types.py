@@ -2597,22 +2597,14 @@ class CreateVolumeRequest:
     """
     Volume disk size, must be a multiple of 512.
     
-    One-of ('from_'): at most one of 'size', 'base_volume', 'base_snapshot' could be set.
-    """
-
-    base_volume: Optional[str]
-    """
-    ID of the volume on which this volume will be based.
-    
-    One-of ('from_'): at most one of 'size', 'base_volume', 'base_snapshot' could be set.
-    :deprecated
+    One-of ('from_'): at most one of 'size', 'base_snapshot' could be set.
     """
 
     base_snapshot: Optional[str]
     """
     ID of the snapshot on which this volume will be based.
     
-    One-of ('from_'): at most one of 'size', 'base_volume', 'base_snapshot' could be set.
+    One-of ('from_'): at most one of 'size', 'base_snapshot' could be set.
     """
 
 

@@ -3033,10 +3033,6 @@ def marshal_CreateVolumeRequest(
                     "size", request.size if request.size is not None else None
                 ),
                 OneOfPossibility(
-                    "base_volume",
-                    request.base_volume if request.base_volume is not None else None,
-                ),
-                OneOfPossibility(
                     "base_snapshot",
                     request.base_snapshot
                     if request.base_snapshot is not None
