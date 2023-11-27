@@ -34,6 +34,8 @@ jobs:
           POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_TOKEN }}
 
   release:
+    needs:
+      - release-core
     runs-on: ubuntu-latest
     strategy:
       matrix:
