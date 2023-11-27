@@ -9,62 +9,60 @@ from scaleway_core.bridge import (
 )
 from scaleway_core.utils import (
     OneOfPossibility,
-    fetch_all_pages,
     resolve_one_of,
     validate_path_param,
+    fetch_all_pages,
 )
 from .types import (
     ListIPsRequestOrderBy,
     ResourceType,
+    BookIPRequest,
     IP,
     ListIPsResponse,
     Source,
-    BookIPRequest,
     UpdateIPRequest,
 )
 from .marshalling import (
-    marshal_BookIPRequest,
-    marshal_UpdateIPRequest,
     unmarshal_IP,
     unmarshal_ListIPsResponse,
+    marshal_BookIPRequest,
+    marshal_UpdateIPRequest,
 )
 
 
 class IpamV1API(API):
     """
-    IPAM API.
-
     This API allows you to manage IP addresses with Scaleway's IP Address Management tool.
-    IPAM API.
     """
 
     def book_ip(
         self,
         *,
+        source: Source,
         is_ipv6: bool,
         region: Optional[Region] = None,
         project_id: Optional[str] = None,
-        source: Optional[Source] = None,
         address: Optional[str] = None,
         tags: Optional[List[str]] = None,
     ) -> IP:
         """
         Book a new IP.
         Book a new IP from the specified source. Currently IPs can only be booked from a Private Network.
-        :param region: Region to target. If none is passed will use default region from the config.
-        :param project_id: Scaleway Project in which to create the IP.
-        When creating an IP in a Private Network, the Project must match the Private Network's Project.
         :param source: Source in which to book the IP. Not all sources are available for booking.
         :param is_ipv6: Request an IPv6 instead of an IPv4.
-        :param address: Request a specific IP in the requested source pool.
-        Note that only the Private Network source allows you to pick a specific IP. If the requested IP is already booked, then the call will fail.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: When creating an IP in a Private Network, the Project must match the Private Network's Project.
+        :param address: Note that only the Private Network source allows you to pick a specific IP. If the requested IP is already booked, then the call will fail.
         :param tags: Tags for the IP.
         :return: :class:`IP <IP>`
 
         Usage:
         ::
 
-            result = api.book_ip(is_ipv6=True)
+            result = api.book_ip(
+                source=Source(),
+                is_ipv6=False,
+            )
         """
 
         param_region = validate_path_param(
@@ -76,10 +74,10 @@ class IpamV1API(API):
             f"/ipam/v1/regions/{param_region}/ips",
             body=marshal_BookIPRequest(
                 BookIPRequest(
+                    source=source,
                     is_ipv6=is_ipv6,
                     region=region,
                     project_id=project_id,
-                    source=source,
                     address=address,
                     tags=tags,
                 ),
@@ -95,17 +93,19 @@ class IpamV1API(API):
         *,
         ip_id: str,
         region: Optional[Region] = None,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Release an IP.
         Release an IP not currently attached to a resource, and returns it to the available IP pool.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param ip_id: IP ID.
+        :param region: Region to target. If none is passed will use default region from the config.
 
         Usage:
         ::
 
-            result = api.release_ip(ip_id="example")
+            result = api.release_ip(
+                ip_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -116,10 +116,10 @@ class IpamV1API(API):
         res = self._request(
             "DELETE",
             f"/ipam/v1/regions/{param_region}/ips/{param_ip_id}",
+            body={},
         )
 
         self._throw_on_error(res)
-        return None
 
     def get_ip(
         self,
@@ -130,14 +130,16 @@ class IpamV1API(API):
         """
         Get an IP.
         Retrieve details of an existing IP, specified by its IP ID.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param ip_id: IP ID.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`IP <IP>`
 
         Usage:
         ::
 
-            result = api.get_ip(ip_id="example")
+            result = api.get_ip(
+                ip_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -163,15 +165,17 @@ class IpamV1API(API):
         """
         Update an IP.
         Update parameters including tags of the specified IP.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param ip_id: IP ID.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param tags: Tags for the IP.
         :return: :class:`IP <IP>`
 
         Usage:
         ::
 
-            result = api.update_ip(ip_id="example")
+            result = api.update_ip(
+                ip_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -199,7 +203,7 @@ class IpamV1API(API):
         self,
         *,
         region: Optional[Region] = None,
-        order_by: ListIPsRequestOrderBy = ListIPsRequestOrderBy.CREATED_AT_DESC,
+        order_by: Optional[ListIPsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         project_id: Optional[str] = None,
@@ -207,7 +211,7 @@ class IpamV1API(API):
         private_network_id: Optional[str] = None,
         attached: Optional[bool] = None,
         resource_id: Optional[str] = None,
-        resource_type: ResourceType = ResourceType.UNKNOWN_TYPE,
+        resource_type: Optional[ResourceType] = None,
         mac_address: Optional[str] = None,
         tags: Optional[List[str]] = None,
         organization_id: Optional[str] = None,
@@ -223,12 +227,7 @@ class IpamV1API(API):
         :param page_size: Maximum number of IPs to return per page.
         :param project_id: Project ID to filter for. Only IPs belonging to this Project will be returned.
         :param zonal: Zone to filter for. Only IPs that are zonal, and in this zone, will be returned.
-
-        One-of ('source'): at most one of 'zonal', 'private_network_id' could be set.
-        :param private_network_id: Private Network to filter for.
-        Only IPs that are private, and in this Private Network, will be returned.
-
-        One-of ('source'): at most one of 'zonal', 'private_network_id' could be set.
+        :param private_network_id: Only IPs that are private, and in this Private Network, will be returned.
         :param attached: Defines whether to filter only for IPs which are attached to a resource.
         :param resource_id: Resource ID to filter for. Only IPs attached to this resource will be returned.
         :param resource_type: Resource type to filter for. Only IPs attached to this type of resource will be returned.
@@ -268,8 +267,8 @@ class IpamV1API(API):
                 "tags": tags,
                 **resolve_one_of(
                     [
-                        OneOfPossibility("zonal", zonal),
                         OneOfPossibility("private_network_id", private_network_id),
+                        OneOfPossibility("zonal", zonal),
                     ]
                 ),
             },
@@ -306,12 +305,7 @@ class IpamV1API(API):
         :param page_size: Maximum number of IPs to return per page.
         :param project_id: Project ID to filter for. Only IPs belonging to this Project will be returned.
         :param zonal: Zone to filter for. Only IPs that are zonal, and in this zone, will be returned.
-
-        One-of ('source'): at most one of 'zonal', 'private_network_id' could be set.
-        :param private_network_id: Private Network to filter for.
-        Only IPs that are private, and in this Private Network, will be returned.
-
-        One-of ('source'): at most one of 'zonal', 'private_network_id' could be set.
+        :param private_network_id: Only IPs that are private, and in this Private Network, will be returned.
         :param attached: Defines whether to filter only for IPs which are attached to a resource.
         :param resource_id: Resource ID to filter for. Only IPs attached to this resource will be returned.
         :param resource_type: Resource type to filter for. Only IPs attached to this type of resource will be returned.
@@ -320,7 +314,7 @@ class IpamV1API(API):
         :param organization_id: Organization ID to filter for. Only IPs belonging to this Organization will be returned.
         :param is_ipv6: Defines whether to filter only for IPv4s or IPv6s.
         :param resource_name: Attached resource name to filter for, only IPs attached to a resource with this string within their name will be returned.
-        :return: :class:`List[ListIPsResponse] <List[ListIPsResponse]>`
+        :return: :class:`List[IP] <List[IP]>`
 
         Usage:
         ::
@@ -338,8 +332,6 @@ class IpamV1API(API):
                 "page": page,
                 "page_size": page_size,
                 "project_id": project_id,
-                "zonal": zonal,
-                "private_network_id": private_network_id,
                 "attached": attached,
                 "resource_id": resource_id,
                 "resource_type": resource_type,
@@ -348,5 +340,7 @@ class IpamV1API(API):
                 "organization_id": organization_id,
                 "is_ipv6": is_ipv6,
                 "resource_name": resource_name,
+                "zonal": zonal,
+                "private_network_id": private_network_id,
             },
         )

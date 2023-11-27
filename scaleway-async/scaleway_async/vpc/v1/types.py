@@ -26,18 +26,7 @@ class ListPrivateNetworksRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
-class ListPrivateNetworksResponse:
-    private_networks: List[PrivateNetwork]
-
-    total_count: int
-
-
-@dataclass
 class PrivateNetwork:
-    """
-    Private network.
-    """
-
     id: str
     """
     Private Network ID.
@@ -68,6 +57,11 @@ class PrivateNetwork:
     Tags of the Private Network.
     """
 
+    subnets: List[str]
+    """
+    Private Network subnets CIDR.
+    """
+
     created_at: Optional[datetime]
     """
     Date the Private Network was created.
@@ -78,9 +72,58 @@ class PrivateNetwork:
     Date the Private Network was last modified.
     """
 
-    subnets: List[str]
+
+@dataclass
+class CreatePrivateNetworkRequest:
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    name: Optional[str]
+    """
+    Name for the Private Network.
+    """
+
+    project_id: Optional[str]
+    """
+    Scaleway Project in which to create the Private Network.
+    """
+
+    tags: Optional[List[str]]
+    """
+    Tags for the Private Network.
+    """
+
+    subnets: Optional[List[str]]
     """
     Private Network subnets CIDR.
+    """
+
+
+@dataclass
+class DeletePrivateNetworkRequest:
+    private_network_id: str
+    """
+    Private Network ID.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class GetPrivateNetworkRequest:
+    private_network_id: str
+    """
+    Private Network ID.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
     """
 
 
@@ -138,56 +181,22 @@ class ListPrivateNetworksRequest:
 
 
 @dataclass
-class CreatePrivateNetworkRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
+class ListPrivateNetworksResponse:
+    private_networks: List[PrivateNetwork]
 
-    name: Optional[str]
-    """
-    Name for the Private Network.
-    """
-
-    project_id: Optional[str]
-    """
-    Scaleway Project in which to create the Private Network.
-    """
-
-    tags: Optional[List[str]]
-    """
-    Tags for the Private Network.
-    """
-
-    subnets: Optional[List[str]]
-    """
-    Private Network subnets CIDR.
-    """
-
-
-@dataclass
-class GetPrivateNetworkRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    private_network_id: str
-    """
-    Private Network ID.
-    """
+    total_count: int
 
 
 @dataclass
 class UpdatePrivateNetworkRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
     private_network_id: str
     """
     Private Network ID.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     name: Optional[str]
@@ -203,18 +212,4 @@ class UpdatePrivateNetworkRequest:
     subnets: Optional[List[str]]
     """
     Private Network subnets CIDR (deprecated).
-    :deprecated
-    """
-
-
-@dataclass
-class DeletePrivateNetworkRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    private_network_id: str
-    """
-    Private Network ID.
     """

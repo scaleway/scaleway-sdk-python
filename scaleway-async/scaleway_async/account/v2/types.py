@@ -23,28 +23,7 @@ class ListProjectsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
-class ListProjectsResponse:
-    """
-    List projects response.
-    """
-
-    total_count: int
-    """
-    Total number of Projects.
-    """
-
-    projects: List[Project]
-    """
-    Paginated returned Projects.
-    """
-
-
-@dataclass
 class Project:
-    """
-    Project.
-    """
-
     id: str
     """
     ID of the Project.
@@ -60,6 +39,11 @@ class Project:
     Organization ID of the Project.
     """
 
+    description: str
+    """
+    Description of the Project.
+    """
+
     created_at: Optional[datetime]
     """
     Creation date of the Project.
@@ -68,11 +52,6 @@ class Project:
     updated_at: Optional[datetime]
     """
     Update date of the Project.
-    """
-
-    description: str
-    """
-    Description of the Project.
     """
 
 
@@ -91,6 +70,22 @@ class CreateProjectRequest:
     description: Optional[str]
     """
     Description of the Project.
+    """
+
+
+@dataclass
+class DeleteProjectRequest:
+    project_id: Optional[str]
+    """
+    Project ID of the Project.
+    """
+
+
+@dataclass
+class GetProjectRequest:
+    project_id: Optional[str]
+    """
+    Project ID of the Project.
     """
 
 
@@ -128,18 +123,15 @@ class ListProjectsRequest:
 
 
 @dataclass
-class GetProjectRequest:
-    project_id: Optional[str]
+class ListProjectsResponse:
+    total_count: int
     """
-    Project ID of the Project.
+    Total number of Projects.
     """
 
-
-@dataclass
-class DeleteProjectRequest:
-    project_id: Optional[str]
+    projects: List[Project]
     """
-    Project ID of the Project.
+    Paginated returned Projects.
     """
 
 

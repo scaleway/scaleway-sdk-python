@@ -6,7 +6,6 @@ from .types import (
     ServerStatus,
 )
 
-
 SERVER_TRANSIENT_STATUSES: List[ServerStatus] = [
     ServerStatus.STARTING,
     ServerStatus.REBOOTING,

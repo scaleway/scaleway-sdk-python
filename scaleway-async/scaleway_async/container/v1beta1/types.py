@@ -165,13 +165,6 @@ class NamespaceStatus(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class NullValue(str, Enum, metaclass=StrEnumMeta):
-    NULL_VALUE = "NULL_VALUE"
-
-    def __str__(self) -> str:
-        return str(self.value)
-
-
 class TokenStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     READY = "ready"
@@ -207,11 +200,143 @@ class TriggerStatus(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
-class Container:
+class SecretHashedValue:
+    key: str
+
+    hashed_value: str
+
+
+@dataclass
+class TriggerMnqNatsClientConfig:
+    subject: str
     """
-    Container.
+    Name of the NATS subject the trigger listens to.
     """
 
+    mnq_nats_account_id: str
+    """
+    ID of the Messaging and Queuing NATS account.
+    """
+
+    mnq_project_id: str
+    """
+    ID of the Messaging and Queuing project.
+    """
+
+    mnq_region: str
+    """
+    Currently, only the `fr-par` region is available.
+    """
+
+    mnq_namespace_id: Optional[str]
+
+    mnq_credential_id: Optional[str]
+    """
+    ID of the Messaging and Queuing credentials used to subscribe to the NATS subject.
+    """
+
+
+@dataclass
+class TriggerMnqSqsClientConfig:
+    queue: str
+    """
+    Name of the SQS queue the trigger listens to.
+    """
+
+    mnq_project_id: str
+    """
+    ID of the Messaging and Queuing project.
+    """
+
+    mnq_region: str
+    """
+    Currently, only the `fr-par` region is available.
+    """
+
+    mnq_namespace_id: Optional[str]
+
+    mnq_credential_id: Optional[str]
+    """
+    ID of the Messaging and Queuing credentials used to read from the SQS queue.
+    """
+
+
+@dataclass
+class TriggerSqsClientConfig:
+    endpoint: str
+
+    queue_url: str
+
+    access_key: str
+
+    secret_key: str
+
+
+@dataclass
+class Secret:
+    key: str
+
+    value: Optional[str]
+
+
+@dataclass
+class CreateTriggerRequestMnqNatsClientConfig:
+    subject: str
+    """
+    Name of the NATS subject the trigger should listen to.
+    """
+
+    mnq_nats_account_id: str
+    """
+    ID of the Messaging and Queuing NATS account.
+    """
+
+    mnq_project_id: str
+    """
+    ID of the Messaging and Queuing project.
+    """
+
+    mnq_region: str
+    """
+    Currently, only the `fr-par` region is available.
+    """
+
+    mnq_namespace_id: Optional[str]
+
+
+@dataclass
+class CreateTriggerRequestMnqSqsClientConfig:
+    queue: str
+    """
+    Name of the SQS queue the trigger should listen to.
+    """
+
+    mnq_project_id: str
+    """
+    You must have activated SQS on this project.
+    """
+
+    mnq_region: str
+    """
+    Currently, only the `fr-par` region is available.
+    """
+
+    mnq_namespace_id: Optional[str]
+
+
+@dataclass
+class CreateTriggerRequestSqsClientConfig:
+    endpoint: str
+
+    queue_url: str
+
+    access_key: str
+
+    secret_key: str
+
+
+@dataclass
+class Container:
     id: str
     """
     UUID of the container.
@@ -257,24 +382,9 @@ class Container:
     CPU limit of the container in mvCPU.
     """
 
-    timeout: Optional[str]
-    """
-    Processing time limit for the container.
-    """
-
-    error_message: Optional[str]
-    """
-    Last error message of the container.
-    """
-
     privacy: ContainerPrivacy
     """
     Privacy setting of the container.
-    """
-
-    description: Optional[str]
-    """
-    Description of the container.
     """
 
     registry_image: str
@@ -285,6 +395,21 @@ class Container:
     max_concurrency: int
     """
     Number of maximum concurrent executions of the container.
+    """
+
+    timeout: Optional[str]
+    """
+    Processing time limit for the container.
+    """
+
+    error_message: Optional[str]
+    """
+    Last error message of the container.
+    """
+
+    description: Optional[str]
+    """
+    Description of the container.
     """
 
     domain_name: str
@@ -309,10 +434,9 @@ class Container:
 
     http_option: ContainerHttpOption
     """
-    Configuration for the handling of HTTP and HTTPS requests.
     Possible values:
-     - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
-     - enabled: Serve both HTTP and HTTPS traffic.
+ - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
+ - enabled: Serve both HTTP and HTTPS traffic.
     """
 
     region: Region
@@ -322,84 +446,7 @@ class Container:
 
 
 @dataclass
-class CreateTriggerRequestMnqNatsClientConfig:
-    """
-    Create trigger request. mnq nats client config.
-    """
-
-    subject: str
-    """
-    Name of the NATS subject the trigger should listen to.
-    """
-
-    mnq_namespace_id: Optional[str]
-    """
-    :deprecated
-    """
-
-    mnq_nats_account_id: str
-    """
-    ID of the Messaging and Queuing NATS account.
-    """
-
-    mnq_project_id: str
-    """
-    ID of the Messaging and Queuing project.
-    """
-
-    mnq_region: str
-    """
-    Region in which the Messaging and Queuing project is activated.
-    Currently, only the `fr-par` region is available.
-    """
-
-
-@dataclass
-class CreateTriggerRequestMnqSqsClientConfig:
-    """
-    Create trigger request. mnq sqs client config.
-    """
-
-    mnq_namespace_id: Optional[str]
-    """
-    :deprecated
-    """
-
-    queue: str
-    """
-    Name of the SQS queue the trigger should listen to.
-    """
-
-    mnq_project_id: str
-    """
-    ID of the Messaging and Queuing project.
-    You must have activated SQS on this project.
-    """
-
-    mnq_region: str
-    """
-    Region in which the Messaging and Queuing project is activated.
-    Currently, only the `fr-par` region is available.
-    """
-
-
-@dataclass
-class CreateTriggerRequestSqsClientConfig:
-    endpoint: str
-
-    queue_url: str
-
-    access_key: str
-
-    secret_key: str
-
-
-@dataclass
 class Cron:
-    """
-    Cron.
-    """
-
     id: str
     """
     UUID of the cron.
@@ -415,11 +462,6 @@ class Cron:
     UNIX cron shedule.
     """
 
-    args: Optional[Dict[str, Any]]
-    """
-    Arguments to pass with the cron.
-    """
-
     status: CronStatus
     """
     Status of the cron.
@@ -430,13 +472,14 @@ class Cron:
     Name of the cron.
     """
 
+    args: Optional[Dict[str, Any]]
+    """
+    Arguments to pass with the cron.
+    """
+
 
 @dataclass
 class Domain:
-    """
-    Domain.
-    """
-
     id: str
     """
     UUID of the domain.
@@ -469,117 +512,8 @@ class Domain:
 
 
 @dataclass
-class ListContainersResponse:
-    """
-    List containers response.
-    """
-
-    containers: List[Container]
-    """
-    Array of containers.
-    """
-
-    total_count: int
-    """
-    Total number of containers.
-    """
-
-
-@dataclass
-class ListCronsResponse:
-    """
-    List crons response.
-    """
-
-    crons: List[Cron]
-    """
-    Array of crons.
-    """
-
-    total_count: int
-    """
-    Total number of crons.
-    """
-
-
-@dataclass
-class ListDomainsResponse:
-    """
-    List domains response.
-    """
-
-    domains: List[Domain]
-    """
-    Array of domains.
-    """
-
-    total_count: int
-    """
-    Total number of domains.
-    """
-
-
-@dataclass
-class ListLogsResponse:
-    """
-    List logs response.
-    """
-
-    logs: List[Log]
-
-    total_count: int
-
-
-@dataclass
-class ListNamespacesResponse:
-    """
-    List namespaces response.
-    """
-
-    namespaces: List[Namespace]
-    """
-    Array of the namespaces.
-    """
-
-    total_count: int
-    """
-    Total number of namespaces.
-    """
-
-
-@dataclass
-class ListTokensResponse:
-    tokens: List[Token]
-
-    total_count: int
-
-
-@dataclass
-class ListTriggersResponse:
-    """
-    List triggers response.
-    """
-
-    total_count: int
-    """
-    Total count of existing triggers (matching any filters specified).
-    """
-
-    triggers: List[Trigger]
-    """
-    Triggers on this page.
-    """
-
-
-@dataclass
 class Log:
-    """
-    Log.
-    """
-
     message: str
-
-    timestamp: Optional[datetime]
 
     id: str
 
@@ -598,13 +532,11 @@ class Log:
     Can be stdout or stderr.
     """
 
+    timestamp: Optional[datetime]
+
 
 @dataclass
 class Namespace:
-    """
-    Namespace.
-    """
-
     id: str
     """
     UUID of the namespace.
@@ -640,19 +572,9 @@ class Namespace:
     UUID of the registry namespace.
     """
 
-    error_message: Optional[str]
-    """
-    Last error message of the namesace.
-    """
-
     registry_endpoint: str
     """
     Registry endpoint of the namespace.
-    """
-
-    description: Optional[str]
-    """
-    Description of the endpoint.
     """
 
     secret_environment_variables: List[SecretHashedValue]
@@ -665,27 +587,19 @@ class Namespace:
     Region in which the namespace will be created.
     """
 
+    error_message: Optional[str]
+    """
+    Last error message of the namesace.
+    """
 
-@dataclass
-class Secret:
-    key: str
-
-    value: Optional[str]
-
-
-@dataclass
-class SecretHashedValue:
-    key: str
-
-    hashed_value: str
+    description: Optional[str]
+    """
+    Description of the endpoint.
+    """
 
 
 @dataclass
 class Token:
-    """
-    Token.
-    """
-
     id: str
     """
     UUID of the token.
@@ -696,29 +610,14 @@ class Token:
     Identifier of the token.
     """
 
-    container_id: Optional[str]
+    status: TokenStatus
     """
-    UUID of the container the token belongs to.
-    
-    One-of ('scope'): at most one of 'container_id', 'namespace_id' could be set.
-    """
-
-    namespace_id: Optional[str]
-    """
-    UUID of the namespace the token belongs to.
-    
-    One-of ('scope'): at most one of 'container_id', 'namespace_id' could be set.
+    Status of the token.
     """
 
     public_key: Optional[str]
     """
     Public key of the token.
-    :deprecated
-    """
-
-    status: TokenStatus
-    """
-    Status of the token.
     """
 
     description: Optional[str]
@@ -731,13 +630,13 @@ class Token:
     Expiry date of the token.
     """
 
+    container_id: Optional[str]
+
+    namespace_id: Optional[str]
+
 
 @dataclass
 class Trigger:
-    """
-    Trigger.
-    """
-
     id: str
     """
     ID of the trigger.
@@ -774,107 +673,10 @@ class Trigger:
     """
 
     scw_sqs_config: Optional[TriggerMnqSqsClientConfig]
-    """
-    Configuration for a Scaleway Messaging and Queuing SQS queue.
-    
-    One-of ('config'): at most one of 'scw_sqs_config', 'scw_nats_config', 'sqs_config' could be set.
-    """
 
     scw_nats_config: Optional[TriggerMnqNatsClientConfig]
-    """
-    Configuration for a Scaleway Messaging and Queuing NATS subject.
-    
-    One-of ('config'): at most one of 'scw_sqs_config', 'scw_nats_config', 'sqs_config' could be set.
-    """
 
     sqs_config: Optional[TriggerSqsClientConfig]
-    """
-    Configuration for an AWS SQS queue.
-    
-    One-of ('config'): at most one of 'scw_sqs_config', 'scw_nats_config', 'sqs_config' could be set.
-    """
-
-
-@dataclass
-class TriggerMnqNatsClientConfig:
-    """
-    Trigger. mnq nats client config.
-    """
-
-    mnq_namespace_id: Optional[str]
-    """
-    :deprecated
-    """
-
-    subject: str
-    """
-    Name of the NATS subject the trigger listens to.
-    """
-
-    mnq_nats_account_id: str
-    """
-    ID of the Messaging and Queuing NATS account.
-    """
-
-    mnq_project_id: str
-    """
-    ID of the Messaging and Queuing project.
-    """
-
-    mnq_region: str
-    """
-    Region in which the Messaging and Queuing project is activated.
-    Currently, only the `fr-par` region is available.
-    """
-
-    mnq_credential_id: Optional[str]
-    """
-    ID of the Messaging and Queuing credentials used to subscribe to the NATS subject.
-    """
-
-
-@dataclass
-class TriggerMnqSqsClientConfig:
-    """
-    Trigger. mnq sqs client config.
-    """
-
-    mnq_namespace_id: Optional[str]
-    """
-    :deprecated
-    """
-
-    queue: str
-    """
-    Name of the SQS queue the trigger listens to.
-    """
-
-    mnq_project_id: str
-    """
-    ID of the Messaging and Queuing project.
-    """
-
-    mnq_region: str
-    """
-    Region in which the Messaging and Queuing project is activated.
-    Currently, only the `fr-par` region is available.
-    """
-
-    mnq_credential_id: Optional[str]
-    """
-    ID of the Messaging and Queuing credentials used to read from the SQS queue.
-    """
-
-
-@dataclass
-class TriggerSqsClientConfig:
-    endpoint: str
-
-    queue_url: str
-
-    access_key: str
-
-    secret_key: str
 
 
 @dataclass
@@ -882,6 +684,582 @@ class UpdateTriggerRequestSqsClientConfig:
     access_key: Optional[str]
 
     secret_key: Optional[str]
+
+
+@dataclass
+class CreateContainerRequest:
+    namespace_id: str
+    """
+    UUID of the namespace the container belongs to.
+    """
+
+    name: str
+    """
+    Name of the container.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    environment_variables: Optional[Dict[str, str]]
+    """
+    Environment variables of the container.
+    """
+
+    min_scale: Optional[int]
+    """
+    Minimum number of instances to scale the container to.
+    """
+
+    max_scale: Optional[int]
+    """
+    Maximum number of instances to scale the container to.
+    """
+
+    memory_limit: Optional[int]
+    """
+    Memory limit of the container in MB.
+    """
+
+    cpu_limit: Optional[int]
+    """
+    CPU limit of the container in mvCPU.
+    """
+
+    timeout: Optional[str]
+    """
+    Processing time limit for the container.
+    """
+
+    privacy: Optional[ContainerPrivacy]
+    """
+    Privacy setting of the container.
+    """
+
+    description: Optional[str]
+    """
+    Description of the container.
+    """
+
+    registry_image: Optional[str]
+    """
+    Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag").
+    """
+
+    max_concurrency: Optional[int]
+    """
+    Number of maximum concurrent executions of the container.
+    """
+
+    protocol: Optional[ContainerProtocol]
+    """
+    Protocol the container uses.
+    """
+
+    port: Optional[int]
+    """
+    Port the container listens on.
+    """
+
+    secret_environment_variables: Optional[List[Secret]]
+    """
+    Secret environment variables of the container.
+    """
+
+    http_option: Optional[ContainerHttpOption]
+    """
+    Possible values:
+ - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
+ - enabled: Serve both HTTP and HTTPS traffic.
+    """
+
+
+@dataclass
+class CreateCronRequest:
+    container_id: str
+    """
+    UUID of the container to invoke by the cron.
+    """
+
+    schedule: str
+    """
+    UNIX cron shedule.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    args: Optional[Dict[str, Any]]
+    """
+    Arguments to pass with the cron.
+    """
+
+    name: Optional[str]
+    """
+    Name of the cron to create.
+    """
+
+
+@dataclass
+class CreateDomainRequest:
+    hostname: str
+    """
+    Domain to assign.
+    """
+
+    container_id: str
+    """
+    UUID of the container to assign the domain to.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class CreateNamespaceRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    name: Optional[str]
+    """
+    Name of the namespace to create.
+    """
+
+    environment_variables: Optional[Dict[str, str]]
+    """
+    Environment variables of the namespace to create.
+    """
+
+    project_id: Optional[str]
+    """
+    UUID of the Project in which the namespace will be created.
+    """
+
+    description: Optional[str]
+    """
+    Description of the namespace to create.
+    """
+
+    secret_environment_variables: Optional[List[Secret]]
+    """
+    Secret environment variables of the namespace to create.
+    """
+
+
+@dataclass
+class CreateTokenRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    description: Optional[str]
+    """
+    Description of the token.
+    """
+
+    expires_at: Optional[datetime]
+    """
+    Expiry date of the token.
+    """
+
+    container_id: Optional[str]
+
+    namespace_id: Optional[str]
+
+
+@dataclass
+class CreateTriggerRequest:
+    name: str
+    """
+    Name of the trigger.
+    """
+
+    container_id: str
+    """
+    ID of the container to trigger.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    description: Optional[str]
+    """
+    Description of the trigger.
+    """
+
+    scw_sqs_config: Optional[CreateTriggerRequestMnqSqsClientConfig]
+
+    scw_nats_config: Optional[CreateTriggerRequestMnqNatsClientConfig]
+
+    sqs_config: Optional[CreateTriggerRequestSqsClientConfig]
+
+
+@dataclass
+class DeleteContainerRequest:
+    container_id: str
+    """
+    UUID of the container to delete.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class DeleteCronRequest:
+    cron_id: str
+    """
+    UUID of the cron to delete.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class DeleteDomainRequest:
+    domain_id: str
+    """
+    UUID of the domain to delete.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class DeleteNamespaceRequest:
+    namespace_id: str
+    """
+    UUID of the namespace to delete.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class DeleteTokenRequest:
+    token_id: str
+    """
+    UUID of the token to delete.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class DeleteTriggerRequest:
+    trigger_id: str
+    """
+    ID of the trigger to delete.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class DeployContainerRequest:
+    container_id: str
+    """
+    UUID of the container to deploy.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetContainerRequest:
+    container_id: str
+    """
+    UUID of the container to get.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetCronRequest:
+    cron_id: str
+    """
+    UUID of the cron to get.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetDomainRequest:
+    domain_id: str
+    """
+    UUID of the domain to get.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetNamespaceRequest:
+    namespace_id: str
+    """
+    UUID of the namespace to get.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetTokenRequest:
+    token_id: str
+    """
+    UUID of the token to get.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetTriggerRequest:
+    trigger_id: str
+    """
+    ID of the trigger to get.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class IssueJWTRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    expires_at: Optional[datetime]
+
+    container_id: Optional[str]
+
+    namespace_id: Optional[str]
+
+
+@dataclass
+class ListContainersRequest:
+    namespace_id: str
+    """
+    UUID of the namespace the container belongs to.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    page: Optional[int]
+    """
+    Page number.
+    """
+
+    page_size: Optional[int]
+    """
+    Number of containers per page.
+    """
+
+    order_by: Optional[ListContainersRequestOrderBy]
+    """
+    Order of the containers.
+    """
+
+    name: Optional[str]
+    """
+    Name of the container.
+    """
+
+    organization_id: Optional[str]
+    """
+    UUID of the Organization the container belongs to.
+    """
+
+    project_id: Optional[str]
+    """
+    UUID of the Project the container belongs to.
+    """
+
+
+@dataclass
+class ListContainersResponse:
+    containers: List[Container]
+    """
+    Array of containers.
+    """
+
+    total_count: int
+    """
+    Total number of containers.
+    """
+
+
+@dataclass
+class ListCronsRequest:
+    container_id: str
+    """
+    UUID of the container invoked by the cron.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    page: Optional[int]
+    """
+    Page number.
+    """
+
+    page_size: Optional[int]
+    """
+    Number of crons per page.
+    """
+
+    order_by: Optional[ListCronsRequestOrderBy]
+    """
+    Order of the crons.
+    """
+
+
+@dataclass
+class ListCronsResponse:
+    crons: List[Cron]
+    """
+    Array of crons.
+    """
+
+    total_count: int
+    """
+    Total number of crons.
+    """
+
+
+@dataclass
+class ListDomainsRequest:
+    container_id: str
+    """
+    UUID of the container the domain belongs to.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    page: Optional[int]
+    """
+    Page number.
+    """
+
+    page_size: Optional[int]
+    """
+    Number of domains per page.
+    """
+
+    order_by: Optional[ListDomainsRequestOrderBy]
+    """
+    Order of the domains.
+    """
+
+
+@dataclass
+class ListDomainsResponse:
+    domains: List[Domain]
+    """
+    Array of domains.
+    """
+
+    total_count: int
+    """
+    Total number of domains.
+    """
+
+
+@dataclass
+class ListLogsRequest:
+    container_id: str
+    """
+    UUID of the container.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    page: Optional[int]
+    """
+    Page number.
+    """
+
+    page_size: Optional[int]
+    """
+    Number of logs per page.
+    """
+
+    order_by: Optional[ListLogsRequestOrderBy]
+    """
+    Order of the logs.
+    """
+
+
+@dataclass
+class ListLogsResponse:
+    logs: List[Log]
+
+    total_count: int
 
 
 @dataclass
@@ -923,624 +1301,15 @@ class ListNamespacesRequest:
 
 
 @dataclass
-class GetNamespaceRequest:
-    region: Optional[Region]
+class ListNamespacesResponse:
+    namespaces: List[Namespace]
     """
-    Region to target. If none is passed will use default region from the config.
+    Array of the namespaces.
     """
 
-    namespace_id: str
+    total_count: int
     """
-    UUID of the namespace to get.
-    """
-
-
-@dataclass
-class CreateNamespaceRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    name: Optional[str]
-    """
-    Name of the namespace to create.
-    """
-
-    environment_variables: Optional[Dict[str, str]]
-    """
-    Environment variables of the namespace to create.
-    """
-
-    project_id: Optional[str]
-    """
-    UUID of the Project in which the namespace will be created.
-    """
-
-    description: Optional[str]
-    """
-    Description of the namespace to create.
-    """
-
-    secret_environment_variables: Optional[List[Secret]]
-    """
-    Secret environment variables of the namespace to create.
-    """
-
-
-@dataclass
-class UpdateNamespaceRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    namespace_id: str
-    """
-    UUID of the namespace to update.
-    """
-
-    environment_variables: Optional[Dict[str, str]]
-    """
-    Environment variables of the namespace to update.
-    """
-
-    description: Optional[str]
-    """
-    Description of the namespace to update.
-    """
-
-    secret_environment_variables: Optional[List[Secret]]
-    """
-    Secret environment variables of the namespace to update.
-    """
-
-
-@dataclass
-class DeleteNamespaceRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    namespace_id: str
-    """
-    UUID of the namespace to delete.
-    """
-
-
-@dataclass
-class ListContainersRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    page: Optional[int]
-    """
-    Page number.
-    """
-
-    page_size: Optional[int]
-    """
-    Number of containers per page.
-    """
-
-    order_by: Optional[ListContainersRequestOrderBy]
-    """
-    Order of the containers.
-    """
-
-    namespace_id: str
-    """
-    UUID of the namespace the container belongs to.
-    """
-
-    name: Optional[str]
-    """
-    Name of the container.
-    """
-
-    organization_id: Optional[str]
-    """
-    UUID of the Organization the container belongs to.
-    """
-
-    project_id: Optional[str]
-    """
-    UUID of the Project the container belongs to.
-    """
-
-
-@dataclass
-class GetContainerRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    container_id: str
-    """
-    UUID of the container to get.
-    """
-
-
-@dataclass
-class CreateContainerRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    namespace_id: str
-    """
-    UUID of the namespace the container belongs to.
-    """
-
-    name: str
-    """
-    Name of the container.
-    """
-
-    environment_variables: Optional[Dict[str, str]]
-    """
-    Environment variables of the container.
-    """
-
-    min_scale: Optional[int]
-    """
-    Minimum number of instances to scale the container to.
-    """
-
-    max_scale: Optional[int]
-    """
-    Maximum number of instances to scale the container to.
-    """
-
-    memory_limit: Optional[int]
-    """
-    Memory limit of the container in MB.
-    """
-
-    cpu_limit: Optional[int]
-    """
-    CPU limit of the container in mvCPU.
-    """
-
-    timeout: Optional[str]
-    """
-    Processing time limit for the container.
-    """
-
-    privacy: ContainerPrivacy
-    """
-    Privacy setting of the container.
-    """
-
-    description: Optional[str]
-    """
-    Description of the container.
-    """
-
-    registry_image: Optional[str]
-    """
-    Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag").
-    """
-
-    max_concurrency: Optional[int]
-    """
-    Number of maximum concurrent executions of the container.
-    """
-
-    protocol: ContainerProtocol
-    """
-    Protocol the container uses.
-    """
-
-    port: Optional[int]
-    """
-    Port the container listens on.
-    """
-
-    secret_environment_variables: Optional[List[Secret]]
-    """
-    Secret environment variables of the container.
-    """
-
-    http_option: ContainerHttpOption
-    """
-    Configure how HTTP and HTTPS requests are handled.
-    Possible values:
-     - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
-     - enabled: Serve both HTTP and HTTPS traffic.
-    """
-
-
-@dataclass
-class UpdateContainerRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    container_id: str
-    """
-    UUID of the container to update.
-    """
-
-    environment_variables: Optional[Dict[str, str]]
-    """
-    Environment variables of the container.
-    """
-
-    min_scale: Optional[int]
-    """
-    Minimum number of instances to scale the container to.
-    """
-
-    max_scale: Optional[int]
-    """
-    Maximum number of instances to scale the container to.
-    """
-
-    memory_limit: Optional[int]
-    """
-    Memory limit of the container in MB.
-    """
-
-    cpu_limit: Optional[int]
-    """
-    CPU limit of the container in mvCPU.
-    """
-
-    timeout: Optional[str]
-    """
-    Processing time limit for the container.
-    """
-
-    redeploy: Optional[bool]
-    """
-    Defines whether to redeploy failed containers.
-    """
-
-    privacy: ContainerPrivacy
-    """
-    Privacy settings of the container.
-    """
-
-    description: Optional[str]
-    """
-    Description of the container.
-    """
-
-    registry_image: Optional[str]
-    """
-    Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag").
-    """
-
-    max_concurrency: Optional[int]
-    """
-    Number of maximum concurrent executions of the container.
-    """
-
-    protocol: ContainerProtocol
-
-    port: Optional[int]
-
-    secret_environment_variables: Optional[List[Secret]]
-
-    http_option: ContainerHttpOption
-    """
-    Configure how HTTP and HTTPS requests are handled.
-    Possible values:
-     - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
-     - enabled: Serve both HTTP and HTTPS traffic.
-    """
-
-
-@dataclass
-class DeleteContainerRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    container_id: str
-    """
-    UUID of the container to delete.
-    """
-
-
-@dataclass
-class DeployContainerRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    container_id: str
-    """
-    UUID of the container to deploy.
-    """
-
-
-@dataclass
-class ListCronsRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    page: Optional[int]
-    """
-    Page number.
-    """
-
-    page_size: Optional[int]
-    """
-    Number of crons per page.
-    """
-
-    order_by: Optional[ListCronsRequestOrderBy]
-    """
-    Order of the crons.
-    """
-
-    container_id: str
-    """
-    UUID of the container invoked by the cron.
-    """
-
-
-@dataclass
-class GetCronRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    cron_id: str
-    """
-    UUID of the cron to get.
-    """
-
-
-@dataclass
-class CreateCronRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    container_id: str
-    """
-    UUID of the container to invoke by the cron.
-    """
-
-    schedule: str
-    """
-    UNIX cron shedule.
-    """
-
-    args: Optional[Dict[str, Any]]
-    """
-    Arguments to pass with the cron.
-    """
-
-    name: Optional[str]
-    """
-    Name of the cron to create.
-    """
-
-
-@dataclass
-class UpdateCronRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    cron_id: str
-    """
-    UUID of the cron to update.
-    """
-
-    container_id: Optional[str]
-    """
-    UUID of the container invoked by the cron.
-    """
-
-    schedule: Optional[str]
-    """
-    UNIX cron schedule.
-    """
-
-    args: Optional[Dict[str, Any]]
-    """
-    Arguments to pass with the cron.
-    """
-
-    name: Optional[str]
-    """
-    Name of the cron.
-    """
-
-
-@dataclass
-class DeleteCronRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    cron_id: str
-    """
-    UUID of the cron to delete.
-    """
-
-
-@dataclass
-class ListLogsRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    container_id: str
-    """
-    UUID of the container.
-    """
-
-    page: Optional[int]
-    """
-    Page number.
-    """
-
-    page_size: Optional[int]
-    """
-    Number of logs per page.
-    """
-
-    order_by: Optional[ListLogsRequestOrderBy]
-    """
-    Order of the logs.
-    """
-
-
-@dataclass
-class ListDomainsRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    page: Optional[int]
-    """
-    Page number.
-    """
-
-    page_size: Optional[int]
-    """
-    Number of domains per page.
-    """
-
-    order_by: Optional[ListDomainsRequestOrderBy]
-    """
-    Order of the domains.
-    """
-
-    container_id: str
-    """
-    UUID of the container the domain belongs to.
-    """
-
-
-@dataclass
-class GetDomainRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    domain_id: str
-    """
-    UUID of the domain to get.
-    """
-
-
-@dataclass
-class CreateDomainRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    hostname: str
-    """
-    Domain to assign.
-    """
-
-    container_id: str
-    """
-    UUID of the container to assign the domain to.
-    """
-
-
-@dataclass
-class DeleteDomainRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    domain_id: str
-    """
-    UUID of the domain to delete.
-    """
-
-
-@dataclass
-class IssueJWTRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    container_id: Optional[str]
-    """
-    One-of ('scope'): at most one of 'container_id', 'namespace_id' could be set.
-    """
-
-    namespace_id: Optional[str]
-    """
-    One-of ('scope'): at most one of 'container_id', 'namespace_id' could be set.
-    """
-
-    expires_at: Optional[datetime]
-
-
-@dataclass
-class CreateTokenRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    container_id: Optional[str]
-    """
-    UUID of the container to create the token for.
-    
-    One-of ('scope'): at most one of 'container_id', 'namespace_id' could be set.
-    """
-
-    namespace_id: Optional[str]
-    """
-    UUID of the namespace to create the token for.
-    
-    One-of ('scope'): at most one of 'container_id', 'namespace_id' could be set.
-    """
-
-    description: Optional[str]
-    """
-    Description of the token.
-    """
-
-    expires_at: Optional[datetime]
-    """
-    Expiry date of the token.
-    """
-
-
-@dataclass
-class GetTokenRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    token_id: str
-    """
-    UUID of the token to get.
+    Total number of namespaces.
     """
 
 
@@ -1578,73 +1347,10 @@ class ListTokensRequest:
 
 
 @dataclass
-class DeleteTokenRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
+class ListTokensResponse:
+    tokens: List[Token]
 
-    token_id: str
-    """
-    UUID of the token to delete.
-    """
-
-
-@dataclass
-class CreateTriggerRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    name: str
-    """
-    Name of the trigger.
-    """
-
-    container_id: str
-    """
-    ID of the container to trigger.
-    """
-
-    description: Optional[str]
-    """
-    Description of the trigger.
-    """
-
-    scw_sqs_config: Optional[CreateTriggerRequestMnqSqsClientConfig]
-    """
-    Configuration for a Scaleway Messaging and Queuing SQS queue.
-    
-    One-of ('config'): at most one of 'scw_sqs_config', 'scw_nats_config', 'sqs_config' could be set.
-    """
-
-    scw_nats_config: Optional[CreateTriggerRequestMnqNatsClientConfig]
-    """
-    Configuration for a Scaleway Messaging and Queuing NATS subject.
-    
-    One-of ('config'): at most one of 'scw_sqs_config', 'scw_nats_config', 'sqs_config' could be set.
-    """
-
-    sqs_config: Optional[CreateTriggerRequestSqsClientConfig]
-    """
-    Configuration for an AWS SQS queue.
-    
-    One-of ('config'): at most one of 'scw_sqs_config', 'scw_nats_config', 'sqs_config' could be set.
-    """
-
-
-@dataclass
-class GetTriggerRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    trigger_id: str
-    """
-    ID of the trigger to get.
-    """
+    total_count: int
 
 
 @dataclass
@@ -1670,37 +1376,177 @@ class ListTriggersRequest:
     """
 
     container_id: Optional[str]
-    """
-    ID of the container the triggers belongs to.
-    
-    One-of ('scope'): at most one of 'container_id', 'namespace_id', 'project_id' could be set.
-    """
 
     namespace_id: Optional[str]
-    """
-    ID of the namespace the triggers belongs to.
-    
-    One-of ('scope'): at most one of 'container_id', 'namespace_id', 'project_id' could be set.
-    """
 
     project_id: Optional[str]
+
+
+@dataclass
+class ListTriggersResponse:
+    total_count: int
     """
-    ID of the project the triggers belongs to.
-    
-    One-of ('scope'): at most one of 'container_id', 'namespace_id', 'project_id' could be set.
+    Total count of existing triggers (matching any filters specified).
+    """
+
+    triggers: List[Trigger]
+    """
+    Triggers on this page.
     """
 
 
 @dataclass
-class UpdateTriggerRequest:
+class UpdateContainerRequest:
+    container_id: str
+    """
+    UUID of the container to update.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
+    environment_variables: Optional[Dict[str, str]]
+    """
+    Environment variables of the container.
+    """
+
+    min_scale: Optional[int]
+    """
+    Minimum number of instances to scale the container to.
+    """
+
+    max_scale: Optional[int]
+    """
+    Maximum number of instances to scale the container to.
+    """
+
+    memory_limit: Optional[int]
+    """
+    Memory limit of the container in MB.
+    """
+
+    cpu_limit: Optional[int]
+    """
+    CPU limit of the container in mvCPU.
+    """
+
+    timeout: Optional[str]
+    """
+    Processing time limit for the container.
+    """
+
+    redeploy: Optional[bool]
+    """
+    Defines whether to redeploy failed containers.
+    """
+
+    privacy: Optional[ContainerPrivacy]
+    """
+    Privacy settings of the container.
+    """
+
+    description: Optional[str]
+    """
+    Description of the container.
+    """
+
+    registry_image: Optional[str]
+    """
+    Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag").
+    """
+
+    max_concurrency: Optional[int]
+    """
+    Number of maximum concurrent executions of the container.
+    """
+
+    protocol: Optional[ContainerProtocol]
+
+    port: Optional[int]
+
+    secret_environment_variables: Optional[List[Secret]]
+
+    http_option: Optional[ContainerHttpOption]
+    """
+    Possible values:
+ - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
+ - enabled: Serve both HTTP and HTTPS traffic.
+    """
+
+
+@dataclass
+class UpdateCronRequest:
+    cron_id: str
+    """
+    UUID of the cron to update.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    container_id: Optional[str]
+    """
+    UUID of the container invoked by the cron.
+    """
+
+    schedule: Optional[str]
+    """
+    UNIX cron schedule.
+    """
+
+    args: Optional[Dict[str, Any]]
+    """
+    Arguments to pass with the cron.
+    """
+
+    name: Optional[str]
+    """
+    Name of the cron.
+    """
+
+
+@dataclass
+class UpdateNamespaceRequest:
+    namespace_id: str
+    """
+    UUID of the namespace to update.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    environment_variables: Optional[Dict[str, str]]
+    """
+    Environment variables of the namespace to update.
+    """
+
+    description: Optional[str]
+    """
+    Description of the namespace to update.
+    """
+
+    secret_environment_variables: Optional[List[Secret]]
+    """
+    Secret environment variables of the namespace to update.
+    """
+
+
+@dataclass
+class UpdateTriggerRequest:
     trigger_id: str
     """
     ID of the trigger to update.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
     """
 
     name: Optional[str]
@@ -1714,21 +1560,3 @@ class UpdateTriggerRequest:
     """
 
     sqs_config: Optional[UpdateTriggerRequestSqsClientConfig]
-    """
-    Configuration for an AWS SQS queue.
-    
-    One-of ('config'): at most one of 'sqs_config' could be set.
-    """
-
-
-@dataclass
-class DeleteTriggerRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    trigger_id: str
-    """
-    ID of the trigger to delete.
-    """

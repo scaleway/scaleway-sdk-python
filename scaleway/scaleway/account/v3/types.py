@@ -23,28 +23,7 @@ class ListProjectsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
-class ListProjectsResponse:
-    """
-    List projects response.
-    """
-
-    total_count: int
-    """
-    Total number of Projects.
-    """
-
-    projects: List[Project]
-    """
-    Paginated returned Projects.
-    """
-
-
-@dataclass
 class Project:
-    """
-    Project.
-    """
-
     id: str
     """
     ID of the Project.
@@ -60,6 +39,11 @@ class Project:
     Organization ID of the Project.
     """
 
+    description: str
+    """
+    Description of the Project.
+    """
+
     created_at: Optional[datetime]
     """
     Creation date of the Project.
@@ -70,14 +54,27 @@ class Project:
     Update date of the Project.
     """
 
-    description: str
+
+@dataclass
+class ListProjectsResponse:
+    total_count: int
     """
-    Description of the Project.
+    Total number of Projects.
+    """
+
+    projects: List[Project]
+    """
+    Paginated returned Projects.
     """
 
 
 @dataclass
 class ProjectApiCreateProjectRequest:
+    description: str
+    """
+    Description of the Project.
+    """
+
     name: Optional[str]
     """
     Name of the Project.
@@ -88,9 +85,20 @@ class ProjectApiCreateProjectRequest:
     Organization ID of the Project.
     """
 
-    description: str
+
+@dataclass
+class ProjectApiDeleteProjectRequest:
+    project_id: Optional[str]
     """
-    Description of the Project.
+    Project ID of the Project.
+    """
+
+
+@dataclass
+class ProjectApiGetProjectRequest:
+    project_id: Optional[str]
+    """
+    Project ID of the Project.
     """
 
 
@@ -124,22 +132,6 @@ class ProjectApiListProjectsRequest:
     project_ids: Optional[List[str]]
     """
     Project IDs to filter for. The results will be limited to any Projects with an ID in this array.
-    """
-
-
-@dataclass
-class ProjectApiGetProjectRequest:
-    project_id: Optional[str]
-    """
-    Project ID of the Project.
-    """
-
-
-@dataclass
-class ProjectApiDeleteProjectRequest:
-    project_id: Optional[str]
-    """
-    Project ID of the Project.
     """
 
 

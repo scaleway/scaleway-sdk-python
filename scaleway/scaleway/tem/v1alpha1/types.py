@@ -104,213 +104,30 @@ class ListEmailsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
-class CreateEmailRequestAddress:
+class EmailTry:
+    rank: int
     """
-    Create email request. address.
-    """
-
-    email: str
-    """
-    Email address.
+    Rank number of this attempt to send the email.
     """
 
-    name: Optional[str]
+    code: int
     """
-    (Optional) Name displayed.
-    """
-
-
-@dataclass
-class CreateEmailRequestAttachment:
-    """
-    Create email request. attachment.
+    The SMTP status code received after the attempt. 0 if the attempt did not reach an SMTP server.
     """
 
-    name: str
+    message: str
     """
-    Filename of the attachment.
-    """
-
-    type_: str
-    """
-    MIME type of the attachment.
+    The SMTP message received. If the attempt did not reach an SMTP server, the message returned explains what happened.
     """
 
-    content: str
+    tried_at: Optional[datetime]
     """
-    Content of the attachment encoded in base64.
-    """
-
-
-@dataclass
-class CreateEmailResponse:
-    """
-    Create email response.
-    """
-
-    emails: List[Email]
-    """
-    Single page of emails matching the requested criteria.
-    """
-
-
-@dataclass
-class Domain:
-    """
-    Domain.
-    """
-
-    id: str
-    """
-    ID of the domain.
-    """
-
-    organization_id: str
-    """
-    ID of the domain's Organization.
-    """
-
-    project_id: str
-    """
-    ID of the domain's Project.
-    """
-
-    name: str
-    """
-    Domain name (example.com).
-    """
-
-    status: DomainStatus
-    """
-    Status of the domain.
-    """
-
-    created_at: Optional[datetime]
-    """
-    Date and time of domain creation.
-    """
-
-    next_check_at: Optional[datetime]
-    """
-    Date and time of the next scheduled check.
-    """
-
-    last_valid_at: Optional[datetime]
-    """
-    Date and time the domain was last valid.
-    """
-
-    revoked_at: Optional[datetime]
-    """
-    Date and time of the domain's deletion.
-    """
-
-    last_error: Optional[str]
-    """
-    Error message returned if the last check failed.
-    :deprecated
-    """
-
-    spf_config: str
-    """
-    Snippet of the SPF record to register in the DNS zone.
-    """
-
-    dkim_config: str
-    """
-    DKIM public key to record in the DNS zone.
-    """
-
-    statistics: Optional[DomainStatistics]
-    """
-    Domain's statistics.
-    """
-
-    reputation: Optional[DomainReputation]
-    """
-    The domain's reputation is available when your domain is checked and has sent enough emails.
-    """
-
-    region: Region
-
-
-@dataclass
-class DomainLastStatus:
-    """
-    Domain last status.
-    """
-
-    domain_id: str
-    """
-    The ID of the domain.
-    """
-
-    domain_name: str
-    """
-    The domain name (example.com).
-    """
-
-    spf_record: Optional[DomainLastStatusSpfRecord]
-    """
-    The SPF record verification data.
-    """
-
-    dkim_record: Optional[DomainLastStatusDkimRecord]
-    """
-    The DKIM record verification data.
-    """
-
-
-@dataclass
-class DomainLastStatusDkimRecord:
-    """
-    Domain last status. dkim record.
-    """
-
-    status: DomainLastStatusRecordStatus
-    """
-    Status of the DKIM record's configuration.
-    """
-
-    last_valid_at: Optional[datetime]
-    """
-    Time and date the DKIM record was last valid.
-    """
-
-    error: Optional[str]
-    """
-    An error text displays in case the record is not valid.
-    """
-
-
-@dataclass
-class DomainLastStatusSpfRecord:
-    """
-    Domain last status. spf record.
-    """
-
-    status: DomainLastStatusRecordStatus
-    """
-    Status of the SPF record's configuration.
-    """
-
-    last_valid_at: Optional[datetime]
-    """
-    Time and date the SPF record was last valid.
-    """
-
-    error: Optional[str]
-    """
-    An error text displays in case the record is not valid.
+    Date of the attempt to send the email.
     """
 
 
 @dataclass
 class DomainReputation:
-    """
-    Domain. reputation.
-    """
-
     status: DomainReputationStatus
     """
     Status of your domain's reputation.
@@ -349,11 +166,38 @@ class DomainStatistics:
 
 
 @dataclass
-class Email:
+class CreateEmailRequestAddress:
+    email: str
     """
-    Email.
+    Email address.
     """
 
+    name: Optional[str]
+    """
+    (Optional) Name displayed.
+    """
+
+
+@dataclass
+class CreateEmailRequestAttachment:
+    name: str
+    """
+    Filename of the attachment.
+    """
+
+    type_: str
+    """
+    MIME type of the attachment.
+    """
+
+    content: str
+    """
+    Content of the attachment encoded in base64.
+    """
+
+
+@dataclass
+class Email:
     id: str
     """
     Technical ID of the email.
@@ -374,13 +218,12 @@ class Email:
     Email address of the sender.
     """
 
-    rcpt_to: Optional[str]
+    mail_rcpt: str
     """
     Email address of the recipient.
-    :deprecated
     """
 
-    mail_rcpt: str
+    rcpt_to: Optional[str]
     """
     Email address of the recipient.
     """
@@ -395,24 +238,9 @@ class Email:
     Subject of the email.
     """
 
-    created_at: Optional[datetime]
-    """
-    Creation date of the email object.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Last update of the email object.
-    """
-
     status: EmailStatus
     """
     Status of the email.
-    """
-
-    status_details: Optional[str]
-    """
-    Additional status information.
     """
 
     try_count: int
@@ -430,104 +258,202 @@ class Email:
     Flags categorize emails. They allow you to obtain more information about recurring errors, for example.
     """
 
-
-@dataclass
-class EmailTry:
+    created_at: Optional[datetime]
     """
-    Email. try.
+    Creation date of the email object.
     """
 
-    rank: int
+    updated_at: Optional[datetime]
     """
-    Rank number of this attempt to send the email.
-    """
-
-    tried_at: Optional[datetime]
-    """
-    Date of the attempt to send the email.
+    Last update of the email object.
     """
 
-    code: int
+    status_details: Optional[str]
     """
-    The SMTP status code received after the attempt. 0 if the attempt did not reach an SMTP server.
-    """
-
-    message: str
-    """
-    The SMTP message received. If the attempt did not reach an SMTP server, the message returned explains what happened.
+    Additional status information.
     """
 
 
 @dataclass
-class ListDomainsResponse:
+class DomainLastStatusDkimRecord:
+    status: DomainLastStatusRecordStatus
     """
-    List domains response.
-    """
-
-    total_count: int
-    """
-    Number of domains that match the request (without pagination).
+    Status of the DKIM record's configuration.
     """
 
-    domains: List[Domain]
-
-
-@dataclass
-class ListEmailsResponse:
+    last_valid_at: Optional[datetime]
     """
-    List emails response.
+    Time and date the DKIM record was last valid.
     """
 
-    total_count: int
+    error: Optional[str]
     """
-    Number of emails matching the requested criteria.
-    """
-
-    emails: List[Email]
-    """
-    Single page of emails matching the requested criteria.
+    An error text displays in case the record is not valid.
     """
 
 
 @dataclass
-class Statistics:
+class DomainLastStatusSpfRecord:
+    status: DomainLastStatusRecordStatus
     """
-    Statistics.
-    """
-
-    total_count: int
-    """
-    Total number of emails matching the requested criteria.
+    Status of the SPF record's configuration.
     """
 
-    new_count: int
+    last_valid_at: Optional[datetime]
     """
-    Number of emails still in the `new` transient state. This means emails received from the API but not yet processed.
-    """
-
-    sending_count: int
-    """
-    Number of emails still in the `sending` transient state. This means emails received from the API but not yet in their final status.
+    Time and date the SPF record was last valid.
     """
 
-    sent_count: int
+    error: Optional[str]
     """
-    Number of emails in the final `sent` state. This means emails that have been delivered to the target mail system.
-    """
-
-    failed_count: int
-    """
-    Number of emails in the final `failed` state. This means emails that have been refused by the target mail system with a final error status.
+    An error text displays in case the record is not valid.
     """
 
-    canceled_count: int
+
+@dataclass
+class Domain:
+    id: str
     """
-    Number of emails in the final `canceled` state. This means emails that have been canceled upon request.
+    ID of the domain.
+    """
+
+    organization_id: str
+    """
+    ID of the domain's Organization.
+    """
+
+    project_id: str
+    """
+    ID of the domain's Project.
+    """
+
+    name: str
+    """
+    Domain name (example.com).
+    """
+
+    status: DomainStatus
+    """
+    Status of the domain.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Date and time of domain creation.
+    """
+
+    spf_config: str
+    """
+    Snippet of the SPF record to register in the DNS zone.
+    """
+
+    dkim_config: str
+    """
+    DKIM public key to record in the DNS zone.
+    """
+
+    region: Region
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    next_check_at: Optional[datetime]
+    """
+    Date and time of the next scheduled check.
+    """
+
+    last_valid_at: Optional[datetime]
+    """
+    Date and time the domain was last valid.
+    """
+
+    revoked_at: Optional[datetime]
+    """
+    Date and time of the domain's deletion.
+    """
+
+    last_error: Optional[str]
+    """
+    Error message returned if the last check failed.
+    """
+
+    statistics: Optional[DomainStatistics]
+    """
+    Domain's statistics.
+    """
+
+    reputation: Optional[DomainReputation]
+    """
+    The domain's reputation is available when your domain is checked and has sent enough emails.
+    """
+
+
+@dataclass
+class CancelEmailRequest:
+    email_id: str
+    """
+    ID of the email to cancel.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class CheckDomainRequest:
+    domain_id: str
+    """
+    ID of the domain to check.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class CreateDomainRequest:
+    domain_name: str
+    """
+    Fully qualified domain dame.
+    """
+
+    accept_tos: bool
+    """
+    Accept Scaleway's Terms of Service.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    ID of the project to which the domain belongs.
     """
 
 
 @dataclass
 class CreateEmailRequest:
+    subject: str
+    """
+    Subject of the email.
+    """
+
+    text: str
+    """
+    Text content.
+    """
+
+    html: str
+    """
+    HTML content.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
@@ -553,21 +479,6 @@ class CreateEmailRequest:
     An array of the blind carbon copy recipient's information.
     """
 
-    subject: str
-    """
-    Subject of the email.
-    """
-
-    text: str
-    """
-    Text content.
-    """
-
-    html: str
-    """
-    HTML content.
-    """
-
     project_id: Optional[str]
     """
     ID of the Project in which to create the email.
@@ -585,16 +496,142 @@ class CreateEmailRequest:
 
 
 @dataclass
-class GetEmailRequest:
+class CreateEmailResponse:
+    emails: List[Email]
+    """
+    Single page of emails matching the requested criteria.
+    """
+
+
+@dataclass
+class DomainLastStatus:
+    domain_id: str
+    """
+    The ID of the domain.
+    """
+
+    domain_name: str
+    """
+    The domain name (example.com).
+    """
+
+    spf_record: Optional[DomainLastStatusSpfRecord]
+    """
+    The SPF record verification data.
+    """
+
+    dkim_record: Optional[DomainLastStatusDkimRecord]
+    """
+    The DKIM record verification data.
+    """
+
+
+@dataclass
+class GetDomainLastStatusRequest:
+    domain_id: str
+    """
+    ID of the domain to delete.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
+
+@dataclass
+class GetDomainRequest:
+    domain_id: str
+    """
+    ID of the domain.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetEmailRequest:
     email_id: str
     """
     ID of the email to retrieve.
     """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetStatisticsRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    (Optional) Number of emails for this Project.
+    """
+
+    domain_id: Optional[str]
+    """
+    (Optional) Number of emails sent from this domain (must be coherent with the `project_id` and the `organization_id`).
+    """
+
+    since: Optional[datetime]
+    """
+    (Optional) Number of emails created after this date.
+    """
+
+    until: Optional[datetime]
+    """
+    (Optional) Number of emails created before this date.
+    """
+
+    mail_from: Optional[str]
+    """
+    (Optional) Number of emails sent with this sender's email address.
+    """
+
+
+@dataclass
+class ListDomainsRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    page: Optional[int]
+    """
+    Requested page number. Value must be greater or equal to 1.
+    """
+
+    page_size: Optional[int]
+    """
+    Page size.
+    """
+
+    project_id: Optional[str]
+
+    status: Optional[List[DomainStatus]]
+
+    organization_id: Optional[str]
+
+    name: Optional[str]
+
+
+@dataclass
+class ListDomainsResponse:
+    total_count: int
+    """
+    Number of domains that match the request (without pagination).
+    """
+
+    domains: List[Domain]
 
 
 @dataclass
@@ -641,7 +678,6 @@ class ListEmailsRequest:
     mail_to: Optional[str]
     """
     List emails sent to this recipient's email address.
-    :deprecated
     """
 
     mail_rcpt: Optional[str]
@@ -676,147 +712,59 @@ class ListEmailsRequest:
 
 
 @dataclass
-class GetStatisticsRequest:
-    region: Optional[Region]
+class ListEmailsResponse:
+    total_count: int
     """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    project_id: Optional[str]
-    """
-    (Optional) Number of emails for this Project.
+    Number of emails matching the requested criteria.
     """
 
-    domain_id: Optional[str]
+    emails: List[Email]
     """
-    (Optional) Number of emails sent from this domain (must be coherent with the `project_id` and the `organization_id`).
+    Single page of emails matching the requested criteria.
     """
-
-    since: Optional[datetime]
-    """
-    (Optional) Number of emails created after this date.
-    """
-
-    until: Optional[datetime]
-    """
-    (Optional) Number of emails created before this date.
-    """
-
-    mail_from: Optional[str]
-    """
-    (Optional) Number of emails sent with this sender's email address.
-    """
-
-
-@dataclass
-class CancelEmailRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    email_id: str
-    """
-    ID of the email to cancel.
-    """
-
-
-@dataclass
-class CreateDomainRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    project_id: Optional[str]
-    """
-    ID of the project to which the domain belongs.
-    """
-
-    domain_name: str
-    """
-    Fully qualified domain dame.
-    """
-
-    accept_tos: bool
-    """
-    Accept Scaleway's Terms of Service.
-    """
-
-
-@dataclass
-class GetDomainRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    domain_id: str
-    """
-    ID of the domain.
-    """
-
-
-@dataclass
-class ListDomainsRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    page: Optional[int]
-    """
-    Requested page number. Value must be greater or equal to 1.
-    """
-
-    page_size: Optional[int]
-    """
-    Page size.
-    """
-
-    project_id: Optional[str]
-
-    status: Optional[List[DomainStatus]]
-
-    organization_id: Optional[str]
-
-    name: Optional[str]
 
 
 @dataclass
 class RevokeDomainRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
     domain_id: str
     """
     ID of the domain to delete.
     """
 
-
-@dataclass
-class CheckDomainRequest:
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    domain_id: str
-    """
-    ID of the domain to check.
-    """
-
 
 @dataclass
-class GetDomainLastStatusRequest:
-    region: Optional[Region]
+class Statistics:
+    total_count: int
     """
-    Region to target. If none is passed will use default region from the config.
+    Total number of emails matching the requested criteria.
     """
 
-    domain_id: str
+    new_count: int
     """
-    ID of the domain to delete.
+    Number of emails still in the `new` transient state. This means emails received from the API but not yet processed.
+    """
+
+    sending_count: int
+    """
+    Number of emails still in the `sending` transient state. This means emails received from the API but not yet in their final status.
+    """
+
+    sent_count: int
+    """
+    Number of emails in the final `sent` state. This means emails that have been delivered to the target mail system.
+    """
+
+    failed_count: int
+    """
+    Number of emails in the final `failed` state. This means emails that have been refused by the target mail system with a final error status.
+    """
+
+    canceled_count: int
+    """
+    Number of emails in the final `canceled` state. This means emails that have been canceled upon request.
     """

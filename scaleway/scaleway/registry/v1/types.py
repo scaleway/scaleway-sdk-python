@@ -92,10 +92,6 @@ class TagStatus(str, Enum, metaclass=StrEnumMeta):
 
 @dataclass
 class Image:
-    """
-    Image.
-    """
-
     id: str
     """
     UUID of the image.
@@ -116,11 +112,6 @@ class Image:
     Status of the image.
     """
 
-    status_message: Optional[str]
-    """
-    Details of the image status.
-    """
-
     visibility: ImageVisibility
     """
     Set to `public` to allow the image to be pulled without authentication. Else, set to  `private`. Set to `inherit` to keep the same visibility configuration as the namespace.
@@ -128,8 +119,17 @@ class Image:
 
     size: int
     """
-    Image size in bytes, calculated from the size of image layers.
     Image size in bytes, calculated from the size of image layers. One layer used in two tags of the same image is counted once but one layer used in two images is counted twice.
+    """
+
+    tags: List[str]
+    """
+    List of docker tags of the image.
+    """
+
+    status_message: Optional[str]
+    """
+    Details of the image status.
     """
 
     created_at: Optional[datetime]
@@ -142,69 +142,9 @@ class Image:
     Date and time of last update.
     """
 
-    tags: List[str]
-    """
-    List of docker tags of the image.
-    """
-
-
-@dataclass
-class ListImagesResponse:
-    """
-    List images response.
-    """
-
-    images: List[Image]
-    """
-    Paginated list of images that match the selected filters.
-    """
-
-    total_count: int
-    """
-    Total number of images that match the selected filters.
-    """
-
-
-@dataclass
-class ListNamespacesResponse:
-    """
-    List namespaces response.
-    """
-
-    namespaces: List[Namespace]
-    """
-    Paginated list of namespaces that match the selected filters.
-    """
-
-    total_count: int
-    """
-    Total number of namespaces that match the selected filters.
-    """
-
-
-@dataclass
-class ListTagsResponse:
-    """
-    List tags response.
-    """
-
-    tags: List[Tag]
-    """
-    Paginated list of tags that match the selected filters.
-    """
-
-    total_count: int
-    """
-    Total number of tags that match the selected filters.
-    """
-
 
 @dataclass
 class Namespace:
-    """
-    Namespace.
-    """
-
     id: str
     """
     UUID of the namespace.
@@ -255,16 +195,6 @@ class Namespace:
     Total size of the namespace, calculated as the sum of the size of all images in the namespace.
     """
 
-    created_at: Optional[datetime]
-    """
-    Date and time of creation.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Date and time of last update.
-    """
-
     image_count: int
     """
     Number of images in the namespace.
@@ -275,13 +205,19 @@ class Namespace:
     Region the namespace belongs to.
     """
 
+    created_at: Optional[datetime]
+    """
+    Date and time of creation.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Date and time of last update.
+    """
+
 
 @dataclass
 class Tag:
-    """
-    Tag.
-    """
-
     id: str
     """
     UUID of the tag.
@@ -319,58 +255,17 @@ class Tag:
 
 
 @dataclass
-class ListNamespacesRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    page: Optional[int]
-    """
-    A positive integer to choose the page to display.
-    """
-
-    page_size: Optional[int]
-    """
-    A positive integer lower or equal to 100 to select the number of items to display.
-    """
-
-    order_by: Optional[ListNamespacesRequestOrderBy]
-    """
-    Criteria to use when ordering namespace listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`.
-    """
-
-    organization_id: Optional[str]
-    """
-    Filter by Organization ID.
-    """
-
-    project_id: Optional[str]
-    """
-    Filter by Project ID.
-    """
-
-    name: Optional[str]
-    """
-    Filter by the namespace name (exact match).
-    """
-
-
-@dataclass
-class GetNamespaceRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    namespace_id: str
-    """
-    UUID of the namespace.
-    """
-
-
-@dataclass
 class CreateNamespaceRequest:
+    description: str
+    """
+    Description of the namespace.
+    """
+
+    is_public: bool
+    """
+    Defines whether or not namespace is public.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
@@ -381,65 +276,91 @@ class CreateNamespaceRequest:
     Name of the namespace.
     """
 
-    description: str
-    """
-    Description of the namespace.
-    """
+    project_id: Optional[str]
 
     organization_id: Optional[str]
-    """
-    Namespace owner (deprecated).
-    
-    One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
-    :deprecated
-    """
-
-    project_id: Optional[str]
-    """
-    Project ID on which the namespace will be created.
-    
-    One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
-    """
-
-    is_public: bool
-    """
-    Defines whether or not namespace is public.
-    """
 
 
 @dataclass
-class UpdateNamespaceRequest:
+class DeleteImageRequest:
+    image_id: str
+    """
+    UUID of the image.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
-    """
-
-    namespace_id: str
-    """
-    ID of the namespace to update.
-    """
-
-    description: Optional[str]
-    """
-    Namespace description.
-    """
-
-    is_public: Optional[bool]
-    """
-    Defines whether or not the namespace is public.
     """
 
 
 @dataclass
 class DeleteNamespaceRequest:
+    namespace_id: str
+    """
+    UUID of the namespace.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
+
+@dataclass
+class DeleteTagRequest:
+    tag_id: str
+    """
+    UUID of the tag.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    force: Optional[bool]
+    """
+    If two tags share the same digest the deletion will fail unless this parameter is set to true (deprecated).
+    """
+
+
+@dataclass
+class GetImageRequest:
+    image_id: str
+    """
+    UUID of the image.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetNamespaceRequest:
     namespace_id: str
     """
     UUID of the namespace.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetTagRequest:
+    tag_id: str
+    """
+    UUID of the tag.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
     """
 
 
@@ -487,59 +408,79 @@ class ListImagesRequest:
 
 
 @dataclass
-class GetImageRequest:
-    region: Optional[Region]
+class ListImagesResponse:
+    images: List[Image]
     """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    image_id: str
-    """
-    UUID of the image.
+    Paginated list of images that match the selected filters.
     """
 
-
-@dataclass
-class UpdateImageRequest:
-    region: Optional[Region]
+    total_count: int
     """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    image_id: str
-    """
-    ID of the image to update.
-    """
-
-    visibility: ImageVisibility
-    """
-    Set to `public` to allow the image to be pulled without authentication. Else, set to  `private`. Set to `inherit` to keep the same visibility configuration as the namespace.
+    Total number of images that match the selected filters.
     """
 
 
 @dataclass
-class DeleteImageRequest:
+class ListNamespacesRequest:
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    image_id: str
+    page: Optional[int]
     """
-    UUID of the image.
+    A positive integer to choose the page to display.
+    """
+
+    page_size: Optional[int]
+    """
+    A positive integer lower or equal to 100 to select the number of items to display.
+    """
+
+    order_by: Optional[ListNamespacesRequestOrderBy]
+    """
+    Criteria to use when ordering namespace listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`.
+    """
+
+    organization_id: Optional[str]
+    """
+    Filter by Organization ID.
+    """
+
+    project_id: Optional[str]
+    """
+    Filter by Project ID.
+    """
+
+    name: Optional[str]
+    """
+    Filter by the namespace name (exact match).
+    """
+
+
+@dataclass
+class ListNamespacesResponse:
+    namespaces: List[Namespace]
+    """
+    Paginated list of namespaces that match the selected filters.
+    """
+
+    total_count: int
+    """
+    Total number of namespaces that match the selected filters.
     """
 
 
 @dataclass
 class ListTagsRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
     image_id: str
     """
     UUID of the image.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
     """
 
     page: Optional[int]
@@ -564,32 +505,54 @@ class ListTagsRequest:
 
 
 @dataclass
-class GetTagRequest:
-    region: Optional[Region]
+class ListTagsResponse:
+    tags: List[Tag]
     """
-    Region to target. If none is passed will use default region from the config.
+    Paginated list of tags that match the selected filters.
     """
 
-    tag_id: str
+    total_count: int
     """
-    UUID of the tag.
+    Total number of tags that match the selected filters.
     """
 
 
 @dataclass
-class DeleteTagRequest:
+class UpdateImageRequest:
+    image_id: str
+    """
+    ID of the image to update.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    tag_id: str
+    visibility: Optional[ImageVisibility]
     """
-    UUID of the tag.
+    Set to `public` to allow the image to be pulled without authentication. Else, set to  `private`. Set to `inherit` to keep the same visibility configuration as the namespace.
     """
 
-    force: Optional[bool]
+
+@dataclass
+class UpdateNamespaceRequest:
+    namespace_id: str
     """
-    If two tags share the same digest the deletion will fail unless this parameter is set to true (deprecated).
-    :deprecated
+    ID of the namespace to update.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    description: Optional[str]
+    """
+    Namespace description.
+    """
+
+    is_public: Optional[bool]
+    """
+    Defines whether or not the namespace is public.
     """

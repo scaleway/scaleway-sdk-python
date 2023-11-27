@@ -83,146 +83,7 @@ class SecretVersionStatus(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
-class AccessSecretVersionResponse:
-    """
-    Access secret version response.
-    """
-
-    secret_id: str
-    """
-    ID of the secret.
-    """
-
-    revision: int
-    """
-    Version number.
-    The first version of the secret is numbered 1, and all subsequent revisions augment by 1.
-    """
-
-    data: str
-    """
-    The base64-encoded secret payload of the version.
-    """
-
-    data_crc32: Optional[int]
-    """
-    The CRC32 checksum of the data as a base-10 integer.
-    This field is only available if a CRC32 was supplied during the creation of the version.
-    """
-
-
-@dataclass
-class Folder:
-    """
-    Folder.
-    """
-
-    id: str
-    """
-    ID of the folder.
-    """
-
-    project_id: str
-    """
-    ID of the Project containing the folder.
-    """
-
-    name: str
-    """
-    Name of the folder.
-    """
-
-    path: str
-    """
-    Path of the folder.
-    Location of the folder in the directory structure.
-    """
-
-    created_at: Optional[datetime]
-    """
-    Date and time of the folder's creation.
-    """
-
-    region: Region
-    """
-    Region of the folder.
-    """
-
-
-@dataclass
-class ListFoldersResponse:
-    """
-    List folders response.
-    """
-
-    folders: List[Folder]
-    """
-    List of folders.
-    """
-
-    total_count: int
-    """
-    Count of all folders matching the requested criteria.
-    """
-
-
-@dataclass
-class ListSecretVersionsResponse:
-    """
-    List secret versions response.
-    """
-
-    versions: List[SecretVersion]
-    """
-    Single page of versions.
-    """
-
-    total_count: int
-    """
-    Number of versions.
-    """
-
-
-@dataclass
-class ListSecretsResponse:
-    """
-    List secrets response.
-    """
-
-    secrets: List[Secret]
-    """
-    Single page of secrets matching the requested criteria.
-    """
-
-    total_count: int
-    """
-    Count of all secrets matching the requested criteria.
-    """
-
-
-@dataclass
-class ListTagsResponse:
-    """
-    List tags response.
-    """
-
-    tags: List[str]
-    """
-    List of tags.
-    """
-
-    total_count: int
-    """
-    Count of all tags matching the requested criteria.
-    """
-
-
-@dataclass
 class PasswordGenerationParams:
-    """
-    Password generation params.
-    """
-
     length: int
     """
     Length of the password to generate (between 1 and 1024).
@@ -250,107 +111,42 @@ class PasswordGenerationParams:
 
 
 @dataclass
-class Secret:
-    """
-    Secret.
-    """
-
+class Folder:
     id: str
     """
-    ID of the secret.
+    ID of the folder.
     """
 
     project_id: str
     """
-    ID of the Project containing the secret.
+    ID of the Project containing the folder.
     """
 
     name: str
     """
-    Name of the secret.
-    """
-
-    status: SecretStatus
-    """
-    Current status of the secret.
-    * `ready`: the secret can be read, modified and deleted.
-    * `locked`: no action can be performed on the secret. This status can only be applied and removed by Scaleway.
-    """
-
-    created_at: Optional[datetime]
-    """
-    Date and time of the secret's creation.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Last update of the secret.
-    """
-
-    tags: List[str]
-    """
-    List of the secret's tags.
-    """
-
-    version_count: int
-    """
-    Number of versions for this secret.
-    """
-
-    description: Optional[str]
-    """
-    Updated description of the secret.
-    """
-
-    is_managed: bool
-    """
-    Returns `true` for secrets that are managed by another product.
-    """
-
-    is_protected: bool
-    """
-    Returns `true` for protected secrets that cannot be deleted.
-    """
-
-    type_: SecretType
-    """
-    Type of the secret.
-    See `Secret.Type` enum for description of values.
+    Name of the folder.
     """
 
     path: str
     """
-    Path of the secret.
-    Location of the secret in the directory structure.
-    """
-
-    expires_at: Optional[datetime]
-    """
-    Expiration date of the secret.
-    (Optional.) Date on which the secret will be deleted or deactivated.
-    """
-
-    ephemeral_action: SecretEphemeralAction
-    """
-    Action to be taken when the secret expires.
-    See `Secret.EphemeralAction` enum for description of values.
+    Location of the folder in the directory structure.
     """
 
     region: Region
     """
-    Region of the secret.
+    Region of the folder.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Date and time of the folder's creation.
     """
 
 
 @dataclass
 class SecretVersion:
-    """
-    Secret version.
-    """
-
     revision: int
     """
-    Version number.
     The first version of the secret is numbered 1, and all subsequent revisions augment by 1.
     """
 
@@ -361,11 +157,15 @@ class SecretVersion:
 
     status: SecretVersionStatus
     """
-    Current status of the version.
     * `unknown`: the version is in an invalid state.
-    * `enabled`: the version is accessible.
-    * `disabled`: the version is not accessible but can be enabled.
-    * `destroyed`: the version is permanently deleted. It is not possible to recover it.
+* `enabled`: the version is accessible.
+* `disabled`: the version is not accessible but can be enabled.
+* `destroyed`: the version is permanently deleted. It is not possible to recover it.
+    """
+
+    is_latest: bool
+    """
+    Returns `true` if the version is the latest.
     """
 
     created_at: Optional[datetime]
@@ -383,14 +183,214 @@ class SecretVersion:
     Description of the version.
     """
 
-    is_latest: bool
+
+@dataclass
+class Secret:
+    id: str
     """
-    Returns `true` if the version is the latest.
+    ID of the secret.
+    """
+
+    project_id: str
+    """
+    ID of the Project containing the secret.
+    """
+
+    name: str
+    """
+    Name of the secret.
+    """
+
+    status: SecretStatus
+    """
+    * `ready`: the secret can be read, modified and deleted.
+* `locked`: no action can be performed on the secret. This status can only be applied and removed by Scaleway.
+    """
+
+    tags: List[str]
+    """
+    List of the secret's tags.
+    """
+
+    version_count: int
+    """
+    Number of versions for this secret.
+    """
+
+    is_managed: bool
+    """
+    Returns `true` for secrets that are managed by another product.
+    """
+
+    is_protected: bool
+    """
+    Returns `true` for protected secrets that cannot be deleted.
+    """
+
+    type_: SecretType
+    """
+    See `Secret.Type` enum for description of values.
+    """
+
+    path: str
+    """
+    Location of the secret in the directory structure.
+    """
+
+    ephemeral_action: SecretEphemeralAction
+    """
+    See `Secret.EphemeralAction` enum for description of values.
+    """
+
+    region: Region
+    """
+    Region of the secret.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Date and time of the secret's creation.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Last update of the secret.
+    """
+
+    description: Optional[str]
+    """
+    Updated description of the secret.
+    """
+
+    expires_at: Optional[datetime]
+    """
+    (Optional.) Date on which the secret will be deleted or deactivated.
+    """
+
+
+@dataclass
+class AccessSecretVersionByNameRequest:
+    secret_name: str
+    """
+    Name of the secret.
+    """
+
+    revision: str
+    """
+    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
+- a number (the revision number)
+- "latest" (the latest revision)
+- "latest_enabled" (the latest enabled revision).
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    (Optional.) If not specified, Secret Manager will look for the secret version in all Projects.
+    """
+
+
+@dataclass
+class AccessSecretVersionRequest:
+    secret_id: str
+    """
+    ID of the secret.
+    """
+
+    revision: str
+    """
+    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
+- a number (the revision number)
+- "latest" (the latest revision)
+- "latest_enabled" (the latest enabled revision).
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class AccessSecretVersionResponse:
+    secret_id: str
+    """
+    ID of the secret.
+    """
+
+    revision: int
+    """
+    The first version of the secret is numbered 1, and all subsequent revisions augment by 1.
+    """
+
+    data: str
+    """
+    The base64-encoded secret payload of the version.
+    """
+
+    data_crc32: Optional[int]
+    """
+    This field is only available if a CRC32 was supplied during the creation of the version.
+    """
+
+
+@dataclass
+class AddSecretOwnerRequest:
+    secret_id: str
+    """
+    ID of the secret.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    product_name: Optional[str]
+    """
+    (Deprecated: use `product` field) Name of the product to add.
+    """
+
+    product: Optional[Product]
+    """
+    See `Product` enum for description of values.
+    """
+
+
+@dataclass
+class CreateFolderRequest:
+    name: str
+    """
+    Name of the folder.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    ID of the Project containing the folder.
+    """
+
+    path: Optional[str]
+    """
+    (Optional.) Location of the folder in the directory structure. If not specified, the path is `/`.
     """
 
 
 @dataclass
 class CreateSecretRequest:
+    name: str
+    """
+    Name of the secret.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
@@ -399,11 +399,6 @@ class CreateSecretRequest:
     project_id: Optional[str]
     """
     ID of the Project containing the secret.
-    """
-
-    name: str
-    """
-    Name of the secret.
     """
 
     tags: Optional[List[str]]
@@ -416,117 +411,376 @@ class CreateSecretRequest:
     Description of the secret.
     """
 
-    type_: SecretType
+    type_: Optional[SecretType]
     """
-    Type of the secret.
     (Optional.) See `Secret.Type` enum for description of values. If not specified, the type is `Opaque`.
     """
 
     path: Optional[str]
     """
-    Path of the secret.
     (Optional.) Location of the secret in the directory structure. If not specified, the path is `/`.
     """
 
     expires_at: Optional[datetime]
     """
-    Expiration date of the secret.
     (Optional.) Date on which the secret will be deleted or deactivated.
     """
 
-    ephemeral_action: SecretEphemeralAction
+    ephemeral_action: Optional[SecretEphemeralAction]
     """
     Action to be taken when the secret expires.
     """
 
 
 @dataclass
-class CreateFolderRequest:
+class CreateSecretVersionRequest:
+    secret_id: str
+    """
+    ID of the secret.
+    """
+
+    data: str
+    """
+    The base64-encoded secret payload of the version.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    project_id: Optional[str]
+    description: Optional[str]
     """
-    ID of the Project containing the folder.
-    """
-
-    name: str
-    """
-    Name of the folder.
+    Description of the version.
     """
 
-    path: Optional[str]
+    disable_previous: Optional[bool]
     """
-    Path of the folder.
-    (Optional.) Location of the folder in the directory structure. If not specified, the path is `/`.
+    (Optional.) If there is no previous version or if the previous version was already disabled, does nothing.
+    """
+
+    password_generation: Optional[PasswordGenerationParams]
+    """
+    (Optional.) If specified, a random password will be generated. The `data` and `data_crc32` fields must be empty. By default, the generator will use upper and lower case letters, and digits. This behavior can be tuned using the generation parameters.
+    """
+
+    data_crc32: Optional[int]
+    """
+    If specified, Secret Manager will verify the integrity of the data received against the given CRC32 checksum. An error is returned if the CRC32 does not match. If, however, the CRC32 matches, it will be stored and returned along with the SecretVersion on future access requests.
     """
 
 
 @dataclass
-class GetSecretRequest:
+class DeleteFolderRequest:
+    folder_id: str
+    """
+    ID of the folder.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
+
+@dataclass
+class DeleteSecretRequest:
     secret_id: str
     """
     ID of the secret.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class DestroySecretVersionRequest:
+    secret_id: str
+    """
+    ID of the secret.
+    """
+
+    revision: str
+    """
+    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
+- a number (the revision number)
+- "latest" (the latest revision)
+- "latest_enabled" (the latest enabled revision).
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class DisableSecretVersionRequest:
+    secret_id: str
+    """
+    ID of the secret.
+    """
+
+    revision: str
+    """
+    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
+- a number (the revision number)
+- "latest" (the latest revision)
+- "latest_enabled" (the latest enabled revision).
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class EnableSecretVersionRequest:
+    secret_id: str
+    """
+    ID of the secret.
+    """
+
+    revision: str
+    """
+    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
+- a number (the revision number)
+- "latest" (the latest revision)
+- "latest_enabled" (the latest enabled revision).
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GeneratePasswordRequest:
+    secret_id: str
+    """
+    ID of the secret.
+    """
+
+    length: int
+    """
+    Length of the password to generate (between 1 and 1024 characters).
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    description: Optional[str]
+    """
+    Description of the version.
+    """
+
+    disable_previous: Optional[bool]
+    """
+    This has no effect if there is no previous version or if the previous version was already disabled.
+    """
+
+    no_lowercase_letters: Optional[bool]
+    """
+    (Optional.) Exclude lower case letters by default in the password character set.
+    """
+
+    no_uppercase_letters: Optional[bool]
+    """
+    (Optional.) Exclude upper case letters by default in the password character set.
+    """
+
+    no_digits: Optional[bool]
+    """
+    (Optional.) Exclude digits by default in the password character set.
+    """
+
+    additional_chars: Optional[str]
+    """
+    (Optional.) Additional ASCII characters to be included in the password character set.
     """
 
 
 @dataclass
 class GetSecretByNameRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
     secret_name: str
     """
     Name of the secret.
     """
 
-    project_id: Optional[str]
-    """
-    ID of the Project to target.
-    (Optional.) If not specified, Secret Manager will look for the secret in all Projects.
-    """
-
-
-@dataclass
-class UpdateSecretRequest:
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
+    project_id: Optional[str]
+    """
+    (Optional.) If not specified, Secret Manager will look for the secret in all Projects.
+    """
+
+
+@dataclass
+class GetSecretRequest:
     secret_id: str
     """
     ID of the secret.
     """
 
-    name: Optional[str]
+    region: Optional[Region]
     """
-    Secret's updated name (optional).
-    """
-
-    tags: Optional[List[str]]
-    """
-    Secret's updated list of tags (optional).
+    Region to target. If none is passed will use default region from the config.
     """
 
-    description: Optional[str]
+
+@dataclass
+class GetSecretVersionByNameRequest:
+    secret_name: str
     """
-    Description of the secret.
+    Name of the secret.
+    """
+
+    revision: str
+    """
+    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
+- a number (the revision number)
+- "latest" (the latest revision)
+- "latest_enabled" (the latest enabled revision).
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    (Optional.) If not specified, Secret Manager will look for the secret version in all Projects.
+    """
+
+
+@dataclass
+class GetSecretVersionRequest:
+    secret_id: str
+    """
+    ID of the secret.
+    """
+
+    revision: str
+    """
+    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
+- a number (the revision number)
+- "latest" (the latest revision)
+- "latest_enabled" (the latest enabled revision).
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class ListFoldersRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    Filter by Project ID (optional).
     """
 
     path: Optional[str]
     """
-    Path of the folder.
-    (Optional.) Location of the folder in the directory structure. If not specified, the path is `/`.
+    Filter by path (optional).
+    """
+
+    page: Optional[int]
+
+    page_size: Optional[int]
+
+    order_by: Optional[ListFoldersRequestOrderBy]
+
+
+@dataclass
+class ListFoldersResponse:
+    folders: List[Folder]
+    """
+    List of folders.
+    """
+
+    total_count: int
+    """
+    Count of all folders matching the requested criteria.
+    """
+
+
+@dataclass
+class ListSecretVersionsByNameRequest:
+    secret_name: str
+    """
+    Name of the secret.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    page: Optional[int]
+
+    page_size: Optional[int]
+
+    status: Optional[List[SecretVersionStatus]]
+    """
+    Filter results by status.
+    """
+
+    project_id: Optional[str]
+    """
+    (Optional.) If not specified, Secret Manager will look for the secret in all Projects.
+    """
+
+
+@dataclass
+class ListSecretVersionsRequest:
+    secret_id: str
+    """
+    ID of the secret.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    page: Optional[int]
+
+    page_size: Optional[int]
+
+    status: Optional[List[SecretVersionStatus]]
+    """
+    Filter results by status.
+    """
+
+
+@dataclass
+class ListSecretVersionsResponse:
+    versions: List[SecretVersion]
+    """
+    Single page of versions.
+    """
+
+    total_count: int
+    """
+    Number of versions.
     """
 
 
@@ -580,439 +834,15 @@ class ListSecretsRequest:
 
 
 @dataclass
-class ListFoldersRequest:
-    region: Optional[Region]
+class ListSecretsResponse:
+    secrets: List[Secret]
     """
-    Region to target. If none is passed will use default region from the config.
+    Single page of secrets matching the requested criteria.
     """
 
-    project_id: Optional[str]
+    total_count: int
     """
-    Filter by Project ID (optional).
-    """
-
-    path: Optional[str]
-    """
-    Filter by path (optional).
-    """
-
-    page: Optional[int]
-
-    page_size: Optional[int]
-
-    order_by: Optional[ListFoldersRequestOrderBy]
-
-
-@dataclass
-class DeleteSecretRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    secret_id: str
-    """
-    ID of the secret.
-    """
-
-
-@dataclass
-class DeleteFolderRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    folder_id: str
-    """
-    ID of the folder.
-    """
-
-
-@dataclass
-class ProtectSecretRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    secret_id: str
-    """
-    ID of the secret to protect.
-    """
-
-
-@dataclass
-class UnprotectSecretRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    secret_id: str
-    """
-    ID of the secret to unprotect.
-    """
-
-
-@dataclass
-class AddSecretOwnerRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    secret_id: str
-    """
-    ID of the secret.
-    """
-
-    product_name: Optional[str]
-    """
-    (Deprecated: use `product` field) Name of the product to add.
-    :deprecated
-    """
-
-    product: Product
-    """
-    ID of the product to add.
-    See `Product` enum for description of values.
-    """
-
-
-@dataclass
-class CreateSecretVersionRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    secret_id: str
-    """
-    ID of the secret.
-    """
-
-    data: str
-    """
-    The base64-encoded secret payload of the version.
-    """
-
-    description: Optional[str]
-    """
-    Description of the version.
-    """
-
-    disable_previous: Optional[bool]
-    """
-    Disable the previous secret version.
-    (Optional.) If there is no previous version or if the previous version was already disabled, does nothing.
-    """
-
-    password_generation: Optional[PasswordGenerationParams]
-    """
-    Options to generate a password.
-    (Optional.) If specified, a random password will be generated. The `data` and `data_crc32` fields must be empty. By default, the generator will use upper and lower case letters, and digits. This behavior can be tuned using the generation parameters.
-    
-    One-of ('_password_generation'): at most one of 'password_generation' could be set.
-    :deprecated
-    """
-
-    data_crc32: Optional[int]
-    """
-    (Optional.) The CRC32 checksum of the data as a base-10 integer.
-    If specified, Secret Manager will verify the integrity of the data received against the given CRC32 checksum. An error is returned if the CRC32 does not match. If, however, the CRC32 matches, it will be stored and returned along with the SecretVersion on future access requests.
-    """
-
-
-@dataclass
-class GeneratePasswordRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    secret_id: str
-    """
-    ID of the secret.
-    """
-
-    description: Optional[str]
-    """
-    Description of the version.
-    """
-
-    disable_previous: Optional[bool]
-    """
-    (Optional.) Disable the previous secret version.
-    This has no effect if there is no previous version or if the previous version was already disabled.
-    """
-
-    length: int
-    """
-    Length of the password to generate (between 1 and 1024 characters).
-    """
-
-    no_lowercase_letters: Optional[bool]
-    """
-    (Optional.) Exclude lower case letters by default in the password character set.
-    """
-
-    no_uppercase_letters: Optional[bool]
-    """
-    (Optional.) Exclude upper case letters by default in the password character set.
-    """
-
-    no_digits: Optional[bool]
-    """
-    (Optional.) Exclude digits by default in the password character set.
-    """
-
-    additional_chars: Optional[str]
-    """
-    (Optional.) Additional ASCII characters to be included in the password character set.
-    """
-
-
-@dataclass
-class GetSecretVersionRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    secret_id: str
-    """
-    ID of the secret.
-    """
-
-    revision: str
-    """
-    Version number.
-    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
-    - a number (the revision number)
-    - "latest" (the latest revision)
-    - "latest_enabled" (the latest enabled revision).
-    """
-
-
-@dataclass
-class GetSecretVersionByNameRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    secret_name: str
-    """
-    Name of the secret.
-    """
-
-    revision: str
-    """
-    Version number.
-    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
-    - a number (the revision number)
-    - "latest" (the latest revision)
-    - "latest_enabled" (the latest enabled revision).
-    """
-
-    project_id: Optional[str]
-    """
-    ID of the Project to target.
-    (Optional.) If not specified, Secret Manager will look for the secret version in all Projects.
-    """
-
-
-@dataclass
-class UpdateSecretVersionRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    secret_id: str
-    """
-    ID of the secret.
-    """
-
-    revision: str
-    """
-    Version number.
-    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
-    - a number (the revision number)
-    - "latest" (the latest revision)
-    - "latest_enabled" (the latest enabled revision).
-    """
-
-    description: Optional[str]
-    """
-    Description of the version.
-    """
-
-
-@dataclass
-class ListSecretVersionsRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    secret_id: str
-    """
-    ID of the secret.
-    """
-
-    page: Optional[int]
-
-    page_size: Optional[int]
-
-    status: Optional[List[SecretVersionStatus]]
-    """
-    Filter results by status.
-    """
-
-
-@dataclass
-class ListSecretVersionsByNameRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    secret_name: str
-    """
-    Name of the secret.
-    """
-
-    page: Optional[int]
-
-    page_size: Optional[int]
-
-    status: Optional[List[SecretVersionStatus]]
-    """
-    Filter results by status.
-    """
-
-    project_id: Optional[str]
-    """
-    ID of the Project to target.
-    (Optional.) If not specified, Secret Manager will look for the secret in all Projects.
-    """
-
-
-@dataclass
-class EnableSecretVersionRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    secret_id: str
-    """
-    ID of the secret.
-    """
-
-    revision: str
-    """
-    Version number.
-    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
-    - a number (the revision number)
-    - "latest" (the latest revision)
-    - "latest_enabled" (the latest enabled revision).
-    """
-
-
-@dataclass
-class DisableSecretVersionRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    secret_id: str
-    """
-    ID of the secret.
-    """
-
-    revision: str
-    """
-    Version number.
-    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
-    - a number (the revision number)
-    - "latest" (the latest revision)
-    - "latest_enabled" (the latest enabled revision).
-    """
-
-
-@dataclass
-class AccessSecretVersionRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    secret_id: str
-    """
-    ID of the secret.
-    """
-
-    revision: str
-    """
-    Version number.
-    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
-    - a number (the revision number)
-    - "latest" (the latest revision)
-    - "latest_enabled" (the latest enabled revision).
-    """
-
-
-@dataclass
-class AccessSecretVersionByNameRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    secret_name: str
-    """
-    Name of the secret.
-    """
-
-    revision: str
-    """
-    Version number.
-    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
-    - a number (the revision number)
-    - "latest" (the latest revision)
-    - "latest_enabled" (the latest enabled revision).
-    """
-
-    project_id: Optional[str]
-    """
-    ID of the Project to target.
-    (Optional.) If not specified, Secret Manager will look for the secret version in all Projects.
-    """
-
-
-@dataclass
-class DestroySecretVersionRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    secret_id: str
-    """
-    ID of the secret.
-    """
-
-    revision: str
-    """
-    Version number.
-    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
-    - a number (the revision number)
-    - "latest" (the latest revision)
-    - "latest_enabled" (the latest enabled revision).
+    Count of all secrets matching the requested criteria.
     """
 
 
@@ -1025,10 +855,107 @@ class ListTagsRequest:
 
     project_id: Optional[str]
     """
-    ID of the Project to target.
     (Optional.) If not specified, Secret Manager will look for tags in all Projects.
     """
 
     page: Optional[int]
 
     page_size: Optional[int]
+
+
+@dataclass
+class ListTagsResponse:
+    tags: List[str]
+    """
+    List of tags.
+    """
+
+    total_count: int
+    """
+    Count of all tags matching the requested criteria.
+    """
+
+
+@dataclass
+class ProtectSecretRequest:
+    secret_id: str
+    """
+    ID of the secret to protect.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class UnprotectSecretRequest:
+    secret_id: str
+    """
+    ID of the secret to unprotect.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class UpdateSecretRequest:
+    secret_id: str
+    """
+    ID of the secret.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    name: Optional[str]
+    """
+    Secret's updated name (optional).
+    """
+
+    tags: Optional[List[str]]
+    """
+    Secret's updated list of tags (optional).
+    """
+
+    description: Optional[str]
+    """
+    Description of the secret.
+    """
+
+    path: Optional[str]
+    """
+    (Optional.) Location of the folder in the directory structure. If not specified, the path is `/`.
+    """
+
+
+@dataclass
+class UpdateSecretVersionRequest:
+    secret_id: str
+    """
+    ID of the secret.
+    """
+
+    revision: str
+    """
+    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
+- a number (the revision number)
+- "latest" (the latest revision)
+- "latest_enabled" (the latest enabled revision).
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    description: Optional[str]
+    """
+    Description of the version.
+    """

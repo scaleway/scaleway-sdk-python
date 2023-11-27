@@ -5,15 +5,17 @@ from .types import ContactExtensionFRMode
 from .types import ContactExtensionNLLegalForm
 from .types import ContactLegalForm
 from .types import DNSZoneStatus
+from .content import DNSZONE_TRANSIENT_STATUSES
 from .types import DSRecordAlgorithm
 from .types import DSRecordDigestType
 from .types import DomainFeatureStatus
-from .types import DomainRecordHTTPServiceConfigStrategy
-from .types import DomainRecordType
+from .content import DOMAINFEATURE_TRANSIENT_STATUSES
 from .types import DomainRegistrationStatusTransferStatus
+from .content import DOMAINREGISTRATIONSTATUSTRANSFER_TRANSIENT_STATUSES
 from .types import DomainStatus
+from .content import DOMAIN_TRANSIENT_STATUSES
 from .types import HostStatus
-from .types import LanguageCode
+from .content import HOST_TRANSIENT_STATUSES
 from .types import LinkedProduct
 from .types import ListContactsRequestRole
 from .types import ListDNSZoneRecordsRequestOrderBy
@@ -23,100 +25,149 @@ from .types import ListRenewableDomainsRequestOrderBy
 from .types import ListTasksRequestOrderBy
 from .types import ListTldsRequestOrderBy
 from .types import RawFormat
+from .types import RecordHTTPServiceConfigStrategy
+from .types import RecordType
 from .types import RenewableDomainStatus
 from .types import SSLCertificateStatus
+from .content import SSLCERTIFICATE_TRANSIENT_STATUSES
 from .types import TaskStatus
+from .content import TASK_TRANSIENT_STATUSES
 from .types import TaskType
-from .types import AvailableDomain
-from .types import CheckContactsCompatibilityResponse
-from .types import CheckContactsCompatibilityResponseContactCheckResult
-from .types import ClearDNSZoneRecordsResponse
-from .types import Contact
-from .types import ContactExtensionEU
-from .types import ContactExtensionFR
+from .types import RecordGeoIPConfigMatch
+from .types import RecordViewConfigView
+from .types import RecordWeightedConfigWeightedIP
+from .types import DSRecordPublicKey
+from .types import RecordGeoIPConfig
+from .types import RecordHTTPServiceConfig
+from .types import RecordViewConfig
+from .types import RecordWeightedConfig
 from .types import ContactExtensionFRAssociationInfo
 from .types import ContactExtensionFRCodeAuthAfnicInfo
 from .types import ContactExtensionFRDunsInfo
 from .types import ContactExtensionFRIndividualInfo
 from .types import ContactExtensionFRTrademarkInfo
+from .types import DSRecordDigest
+from .types import Record
+from .types import RecordIdentifier
+from .types import ContactExtensionEU
+from .types import ContactExtensionFR
 from .types import ContactExtensionNL
 from .types import ContactQuestion
-from .types import ContactRoles
-from .types import ContactRolesRoles
-from .types import DNSZone
-from .types import DNSZoneVersion
+from .types import TldOffer
 from .types import DSRecord
-from .types import DSRecordDigest
-from .types import DSRecordPublicKey
-from .types import DeleteDNSZoneResponse
-from .types import DeleteExternalDomainResponse
-from .types import DeleteSSLCertificateResponse
-from .types import Domain
-from .types import DomainDNSSEC
-from .types import DomainRecord
-from .types import DomainRecordGeoIPConfig
-from .types import DomainRecordGeoIPConfigMatch
-from .types import DomainRecordHTTPServiceConfig
-from .types import DomainRecordViewConfig
-from .types import DomainRecordViewConfigView
-from .types import DomainRecordWeightedConfig
-from .types import DomainRecordWeightedConfigWeightedIP
-from .types import DomainRegistrationStatusExternalDomain
-from .types import DomainRegistrationStatusTransfer
-from .types import DomainSummary
-from .types import GetDNSZoneTsigKeyResponse
-from .types import GetDNSZoneVersionDiffResponse
-from .types import GetDomainAuthCodeResponse
-from .types import Host
-from .types import ImportProviderDNSZoneRequestOnlineV1
-from .types import ImportProviderDNSZoneResponse
-from .types import ImportRawDNSZoneRequestAXFRSource
-from .types import ImportRawDNSZoneRequestBindSource
-from .types import ImportRawDNSZoneRequestTsigKey
-from .types import ImportRawDNSZoneResponse
-from .types import ListContactsResponse
-from .types import ListDNSZoneNameserversResponse
-from .types import ListDNSZoneRecordsResponse
-from .types import ListDNSZoneVersionRecordsResponse
-from .types import ListDNSZoneVersionsResponse
-from .types import ListDNSZonesResponse
-from .types import ListDomainHostsResponse
-from .types import ListDomainsResponse
-from .types import ListRenewableDomainsResponse
-from .types import ListSSLCertificatesResponse
-from .types import ListTasksResponse
-from .types import ListTldsResponse
-from .types import Nameserver
-from .types import NewContact
-from .types import OrderResponse
-from .types import RecordChange
 from .types import RecordChangeAdd
 from .types import RecordChangeClear
 from .types import RecordChangeDelete
 from .types import RecordChangeSet
-from .types import RecordIdentifier
-from .types import RefreshDNSZoneResponse
-from .types import RegisterExternalDomainResponse
-from .types import RenewableDomain
-from .types import RestoreDNSZoneVersionResponse
-from .types import SSLCertificate
-from .types import SearchAvailableDomainsResponse
-from .types import Task
+from .types import ImportRawDNSZoneRequestTsigKey
+from .types import Contact
+from .types import ContactRolesRoles
+from .types import DomainRegistrationStatusExternalDomain
+from .types import DomainRegistrationStatusTransfer
 from .types import Tld
-from .types import TldOffer
+from .types import NewContact
+from .types import CheckContactsCompatibilityResponseContactCheckResult
+from .types import DNSZone
+from .types import DomainDNSSEC
+from .types import RecordChange
+from .types import ImportProviderDNSZoneRequestOnlineV1
+from .types import ImportRawDNSZoneRequestAXFRSource
+from .types import ImportRawDNSZoneRequestBindSource
+from .types import ContactRoles
+from .types import Nameserver
+from .types import DNSZoneVersion
+from .types import Host
+from .types import DomainSummary
+from .types import RenewableDomain
+from .types import SSLCertificate
+from .types import Task
 from .types import TransferInDomainRequestTransferRequest
 from .types import UpdateContactRequestQuestion
+from .types import AvailableDomain
+from .types import CheckContactsCompatibilityResponse
+from .types import ClearDNSZoneRecordsRequest
+from .types import ClearDNSZoneRecordsResponse
+from .types import CloneDNSZoneRequest
+from .types import CreateDNSZoneRequest
+from .types import CreateSSLCertificateRequest
+from .types import DeleteDNSZoneRequest
+from .types import DeleteDNSZoneResponse
+from .types import DeleteDNSZoneTsigKeyRequest
+from .types import DeleteExternalDomainResponse
+from .types import DeleteSSLCertificateRequest
+from .types import DeleteSSLCertificateResponse
+from .types import Domain
+from .types import ExportRawDNSZoneRequest
+from .types import GetDNSZoneTsigKeyRequest
+from .types import GetDNSZoneTsigKeyResponse
+from .types import GetDNSZoneVersionDiffRequest
+from .types import GetDNSZoneVersionDiffResponse
+from .types import GetDomainAuthCodeResponse
+from .types import GetSSLCertificateRequest
+from .types import ImportProviderDNSZoneRequest
+from .types import ImportProviderDNSZoneResponse
+from .types import ImportRawDNSZoneRequest
+from .types import ImportRawDNSZoneResponse
+from .types import ListContactsResponse
+from .types import ListDNSZoneNameserversRequest
+from .types import ListDNSZoneNameserversResponse
+from .types import ListDNSZoneRecordsRequest
+from .types import ListDNSZoneRecordsResponse
+from .types import ListDNSZoneVersionRecordsRequest
+from .types import ListDNSZoneVersionRecordsResponse
+from .types import ListDNSZoneVersionsRequest
+from .types import ListDNSZoneVersionsResponse
+from .types import ListDNSZonesRequest
+from .types import ListDNSZonesResponse
+from .types import ListDomainHostsResponse
+from .types import ListDomainsResponse
+from .types import ListRenewableDomainsResponse
+from .types import ListSSLCertificatesRequest
+from .types import ListSSLCertificatesResponse
+from .types import ListTasksResponse
+from .types import ListTldsResponse
+from .types import OrderResponse
+from .types import RefreshDNSZoneRequest
+from .types import RefreshDNSZoneResponse
+from .types import RegisterExternalDomainResponse
+from .types import RegistrarApiBuyDomainsRequest
+from .types import RegistrarApiCheckContactsCompatibilityRequest
+from .types import RegistrarApiCreateDomainHostRequest
+from .types import RegistrarApiDeleteDomainHostRequest
+from .types import RegistrarApiDeleteExternalDomainRequest
+from .types import RegistrarApiDisableDomainAutoRenewRequest
+from .types import RegistrarApiDisableDomainDNSSECRequest
+from .types import RegistrarApiEnableDomainAutoRenewRequest
+from .types import RegistrarApiEnableDomainDNSSECRequest
+from .types import RegistrarApiGetContactRequest
+from .types import RegistrarApiGetDomainAuthCodeRequest
+from .types import RegistrarApiGetDomainRequest
+from .types import RegistrarApiListContactsRequest
+from .types import RegistrarApiListDomainHostsRequest
+from .types import RegistrarApiListDomainsRequest
+from .types import RegistrarApiListRenewableDomainsRequest
+from .types import RegistrarApiListTasksRequest
+from .types import RegistrarApiListTldsRequest
+from .types import RegistrarApiLockDomainTransferRequest
+from .types import RegistrarApiRegisterExternalDomainRequest
+from .types import RegistrarApiRenewDomainsRequest
+from .types import RegistrarApiSearchAvailableDomainsRequest
+from .types import RegistrarApiTradeDomainRequest
+from .types import RegistrarApiTransferInDomainRequest
+from .types import RegistrarApiUnlockDomainTransferRequest
+from .types import RegistrarApiUpdateContactRequest
+from .types import RegistrarApiUpdateDomainHostRequest
+from .types import RegistrarApiUpdateDomainRequest
+from .types import RestoreDNSZoneVersionRequest
+from .types import RestoreDNSZoneVersionResponse
+from .types import SearchAvailableDomainsResponse
+from .types import UpdateDNSZoneNameserversRequest
 from .types import UpdateDNSZoneNameserversResponse
+from .types import UpdateDNSZoneRecordsRequest
 from .types import UpdateDNSZoneRecordsResponse
-from .content import DNS_ZONE_TRANSIENT_STATUSES
-from .content import DOMAIN_FEATURE_TRANSIENT_STATUSES
-from .content import DOMAIN_REGISTRATION_STATUS_TRANSFER_TRANSIENT_STATUSES
-from .content import DOMAIN_TRANSIENT_STATUSES
-from .content import HOST_TRANSIENT_STATUSES
-from .content import SSL_CERTIFICATE_TRANSIENT_STATUSES
-from .content import TASK_TRANSIENT_STATUSES
+from .types import UpdateDNSZoneRequest
 from .api import DomainV2Beta1API
-from .api import DomainRegistrarV2Beta1API
+from .api import DomainV2Beta1RegistrarAPI
 
 __all__ = [
     "ContactEmailStatus",
@@ -124,15 +175,17 @@ __all__ = [
     "ContactExtensionNLLegalForm",
     "ContactLegalForm",
     "DNSZoneStatus",
+    "DNSZONE_TRANSIENT_STATUSES",
     "DSRecordAlgorithm",
     "DSRecordDigestType",
     "DomainFeatureStatus",
-    "DomainRecordHTTPServiceConfigStrategy",
-    "DomainRecordType",
+    "DOMAINFEATURE_TRANSIENT_STATUSES",
     "DomainRegistrationStatusTransferStatus",
+    "DOMAINREGISTRATIONSTATUSTRANSFER_TRANSIENT_STATUSES",
     "DomainStatus",
+    "DOMAIN_TRANSIENT_STATUSES",
     "HostStatus",
-    "LanguageCode",
+    "HOST_TRANSIENT_STATUSES",
     "LinkedProduct",
     "ListContactsRequestRole",
     "ListDNSZoneRecordsRequestOrderBy",
@@ -142,98 +195,147 @@ __all__ = [
     "ListTasksRequestOrderBy",
     "ListTldsRequestOrderBy",
     "RawFormat",
+    "RecordHTTPServiceConfigStrategy",
+    "RecordType",
     "RenewableDomainStatus",
     "SSLCertificateStatus",
+    "SSLCERTIFICATE_TRANSIENT_STATUSES",
     "TaskStatus",
+    "TASK_TRANSIENT_STATUSES",
     "TaskType",
-    "AvailableDomain",
-    "CheckContactsCompatibilityResponse",
-    "CheckContactsCompatibilityResponseContactCheckResult",
-    "ClearDNSZoneRecordsResponse",
-    "Contact",
-    "ContactExtensionEU",
-    "ContactExtensionFR",
+    "RecordGeoIPConfigMatch",
+    "RecordViewConfigView",
+    "RecordWeightedConfigWeightedIP",
+    "DSRecordPublicKey",
+    "RecordGeoIPConfig",
+    "RecordHTTPServiceConfig",
+    "RecordViewConfig",
+    "RecordWeightedConfig",
     "ContactExtensionFRAssociationInfo",
     "ContactExtensionFRCodeAuthAfnicInfo",
     "ContactExtensionFRDunsInfo",
     "ContactExtensionFRIndividualInfo",
     "ContactExtensionFRTrademarkInfo",
+    "DSRecordDigest",
+    "Record",
+    "RecordIdentifier",
+    "ContactExtensionEU",
+    "ContactExtensionFR",
     "ContactExtensionNL",
     "ContactQuestion",
-    "ContactRoles",
-    "ContactRolesRoles",
-    "DNSZone",
-    "DNSZoneVersion",
+    "TldOffer",
     "DSRecord",
-    "DSRecordDigest",
-    "DSRecordPublicKey",
-    "DeleteDNSZoneResponse",
-    "DeleteExternalDomainResponse",
-    "DeleteSSLCertificateResponse",
-    "Domain",
-    "DomainDNSSEC",
-    "DomainRecord",
-    "DomainRecordGeoIPConfig",
-    "DomainRecordGeoIPConfigMatch",
-    "DomainRecordHTTPServiceConfig",
-    "DomainRecordViewConfig",
-    "DomainRecordViewConfigView",
-    "DomainRecordWeightedConfig",
-    "DomainRecordWeightedConfigWeightedIP",
-    "DomainRegistrationStatusExternalDomain",
-    "DomainRegistrationStatusTransfer",
-    "DomainSummary",
-    "GetDNSZoneTsigKeyResponse",
-    "GetDNSZoneVersionDiffResponse",
-    "GetDomainAuthCodeResponse",
-    "Host",
-    "ImportProviderDNSZoneRequestOnlineV1",
-    "ImportProviderDNSZoneResponse",
-    "ImportRawDNSZoneRequestAXFRSource",
-    "ImportRawDNSZoneRequestBindSource",
-    "ImportRawDNSZoneRequestTsigKey",
-    "ImportRawDNSZoneResponse",
-    "ListContactsResponse",
-    "ListDNSZoneNameserversResponse",
-    "ListDNSZoneRecordsResponse",
-    "ListDNSZoneVersionRecordsResponse",
-    "ListDNSZoneVersionsResponse",
-    "ListDNSZonesResponse",
-    "ListDomainHostsResponse",
-    "ListDomainsResponse",
-    "ListRenewableDomainsResponse",
-    "ListSSLCertificatesResponse",
-    "ListTasksResponse",
-    "ListTldsResponse",
-    "Nameserver",
-    "NewContact",
-    "OrderResponse",
-    "RecordChange",
     "RecordChangeAdd",
     "RecordChangeClear",
     "RecordChangeDelete",
     "RecordChangeSet",
-    "RecordIdentifier",
-    "RefreshDNSZoneResponse",
-    "RegisterExternalDomainResponse",
-    "RenewableDomain",
-    "RestoreDNSZoneVersionResponse",
-    "SSLCertificate",
-    "SearchAvailableDomainsResponse",
-    "Task",
+    "ImportRawDNSZoneRequestTsigKey",
+    "Contact",
+    "ContactRolesRoles",
+    "DomainRegistrationStatusExternalDomain",
+    "DomainRegistrationStatusTransfer",
     "Tld",
-    "TldOffer",
+    "NewContact",
+    "CheckContactsCompatibilityResponseContactCheckResult",
+    "DNSZone",
+    "DomainDNSSEC",
+    "RecordChange",
+    "ImportProviderDNSZoneRequestOnlineV1",
+    "ImportRawDNSZoneRequestAXFRSource",
+    "ImportRawDNSZoneRequestBindSource",
+    "ContactRoles",
+    "Nameserver",
+    "DNSZoneVersion",
+    "Host",
+    "DomainSummary",
+    "RenewableDomain",
+    "SSLCertificate",
+    "Task",
     "TransferInDomainRequestTransferRequest",
     "UpdateContactRequestQuestion",
+    "AvailableDomain",
+    "CheckContactsCompatibilityResponse",
+    "ClearDNSZoneRecordsRequest",
+    "ClearDNSZoneRecordsResponse",
+    "CloneDNSZoneRequest",
+    "CreateDNSZoneRequest",
+    "CreateSSLCertificateRequest",
+    "DeleteDNSZoneRequest",
+    "DeleteDNSZoneResponse",
+    "DeleteDNSZoneTsigKeyRequest",
+    "DeleteExternalDomainResponse",
+    "DeleteSSLCertificateRequest",
+    "DeleteSSLCertificateResponse",
+    "Domain",
+    "ExportRawDNSZoneRequest",
+    "GetDNSZoneTsigKeyRequest",
+    "GetDNSZoneTsigKeyResponse",
+    "GetDNSZoneVersionDiffRequest",
+    "GetDNSZoneVersionDiffResponse",
+    "GetDomainAuthCodeResponse",
+    "GetSSLCertificateRequest",
+    "ImportProviderDNSZoneRequest",
+    "ImportProviderDNSZoneResponse",
+    "ImportRawDNSZoneRequest",
+    "ImportRawDNSZoneResponse",
+    "ListContactsResponse",
+    "ListDNSZoneNameserversRequest",
+    "ListDNSZoneNameserversResponse",
+    "ListDNSZoneRecordsRequest",
+    "ListDNSZoneRecordsResponse",
+    "ListDNSZoneVersionRecordsRequest",
+    "ListDNSZoneVersionRecordsResponse",
+    "ListDNSZoneVersionsRequest",
+    "ListDNSZoneVersionsResponse",
+    "ListDNSZonesRequest",
+    "ListDNSZonesResponse",
+    "ListDomainHostsResponse",
+    "ListDomainsResponse",
+    "ListRenewableDomainsResponse",
+    "ListSSLCertificatesRequest",
+    "ListSSLCertificatesResponse",
+    "ListTasksResponse",
+    "ListTldsResponse",
+    "OrderResponse",
+    "RefreshDNSZoneRequest",
+    "RefreshDNSZoneResponse",
+    "RegisterExternalDomainResponse",
+    "RegistrarApiBuyDomainsRequest",
+    "RegistrarApiCheckContactsCompatibilityRequest",
+    "RegistrarApiCreateDomainHostRequest",
+    "RegistrarApiDeleteDomainHostRequest",
+    "RegistrarApiDeleteExternalDomainRequest",
+    "RegistrarApiDisableDomainAutoRenewRequest",
+    "RegistrarApiDisableDomainDNSSECRequest",
+    "RegistrarApiEnableDomainAutoRenewRequest",
+    "RegistrarApiEnableDomainDNSSECRequest",
+    "RegistrarApiGetContactRequest",
+    "RegistrarApiGetDomainAuthCodeRequest",
+    "RegistrarApiGetDomainRequest",
+    "RegistrarApiListContactsRequest",
+    "RegistrarApiListDomainHostsRequest",
+    "RegistrarApiListDomainsRequest",
+    "RegistrarApiListRenewableDomainsRequest",
+    "RegistrarApiListTasksRequest",
+    "RegistrarApiListTldsRequest",
+    "RegistrarApiLockDomainTransferRequest",
+    "RegistrarApiRegisterExternalDomainRequest",
+    "RegistrarApiRenewDomainsRequest",
+    "RegistrarApiSearchAvailableDomainsRequest",
+    "RegistrarApiTradeDomainRequest",
+    "RegistrarApiTransferInDomainRequest",
+    "RegistrarApiUnlockDomainTransferRequest",
+    "RegistrarApiUpdateContactRequest",
+    "RegistrarApiUpdateDomainHostRequest",
+    "RegistrarApiUpdateDomainRequest",
+    "RestoreDNSZoneVersionRequest",
+    "RestoreDNSZoneVersionResponse",
+    "SearchAvailableDomainsResponse",
+    "UpdateDNSZoneNameserversRequest",
     "UpdateDNSZoneNameserversResponse",
+    "UpdateDNSZoneRecordsRequest",
     "UpdateDNSZoneRecordsResponse",
-    "DNS_ZONE_TRANSIENT_STATUSES",
-    "DOMAIN_FEATURE_TRANSIENT_STATUSES",
-    "DOMAIN_REGISTRATION_STATUS_TRANSFER_TRANSIENT_STATUSES",
-    "DOMAIN_TRANSIENT_STATUSES",
-    "HOST_TRANSIENT_STATUSES",
-    "SSL_CERTIFICATE_TRANSIENT_STATUSES",
-    "TASK_TRANSIENT_STATUSES",
+    "UpdateDNSZoneRequest",
     "DomainV2Beta1API",
-    "DomainRegistrarV2Beta1API",
+    "DomainV2Beta1RegistrarAPI",
 ]
