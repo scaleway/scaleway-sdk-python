@@ -32,7 +32,9 @@ jobs:
         run: poetry publish
         env:
           POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_TOKEN }}
-
+      - name: Wait for package to be available
+        run: sleep 10
+  
   release:
     needs:
       - release-core
