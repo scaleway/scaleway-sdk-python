@@ -32,8 +32,12 @@ jobs:
         run: poetry publish
         env:
           POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_TOKEN }}
-
+      - name: Wait for package to be available
+        run: sleep 10
+  
   release:
+    needs:
+      - release-core
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -53,6 +57,9 @@ jobs:
         run: |
           pip install poetry
           poetry --version
+      - name: Set local scaleway-core version
+        run: poetry version $(echo "${{ github.ref }}" | cut -d "/" -f 3)
+        working-directory: scaleway-core
       - name: Set scaleway-core version in the package
         run: poetry add scaleway-core@$(echo "${{ github.ref }}" | cut -d "/" -f 3)
       - name: Update lock file
