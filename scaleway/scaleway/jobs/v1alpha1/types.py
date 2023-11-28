@@ -151,7 +151,7 @@ class GetJobDefinitionRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    id: str
+    job_definition_id: str
 
 
 @dataclass
@@ -177,7 +177,7 @@ class UpdateJobDefinitionRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    id: str
+    job_definition_id: str
 
     name: Optional[str]
 
@@ -203,7 +203,7 @@ class DeleteJobDefinitionRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    id: str
+    job_definition_id: str
 
 
 @dataclass
@@ -213,7 +213,7 @@ class StartJobDefinitionRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    id: str
+    job_definition_id: str
 
 
 @dataclass
@@ -223,7 +223,7 @@ class GetJobRunRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    id: str
+    job_run_id: str
 
 
 @dataclass
@@ -233,7 +233,7 @@ class StopJobRunRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
-    id: str
+    job_run_id: str
 
 
 @dataclass
@@ -249,6 +249,6 @@ class ListJobRunsRequest:
 
     order_by: Optional[ListJobRunsRequestOrderBy]
 
-    id: Optional[str]
+    job_definition_id: Optional[str]
 
     project_id: Optional[str]
