@@ -496,6 +496,12 @@ def unmarshal_ExternalNode(data: Any) -> ExternalNode:
     field = data.get("cluster_url", None)
     args["cluster_url"] = field
 
+    field = data.get("cni_plugins_version", None)
+    args["cni_plugins_version"] = field
+
+    field = data.get("containerd_version", None)
+    args["containerd_version"] = field
+
     field = data.get("external_ip", None)
     args["external_ip"] = field
 
@@ -513,6 +519,9 @@ def unmarshal_ExternalNode(data: Any) -> ExternalNode:
 
     field = data.get("pool_version", None)
     args["pool_version"] = field
+
+    field = data.get("runc_version", None)
+    args["runc_version"] = field
 
     return ExternalNode(**args)
 
