@@ -743,6 +743,12 @@ class ExternalNode:
 
     external_ip: str
 
+    containerd_version: str
+
+    runc_version: str
+
+    cni_plugins_version: str
+
 
 @dataclass
 class ListClusterAvailableTypesResponse:
