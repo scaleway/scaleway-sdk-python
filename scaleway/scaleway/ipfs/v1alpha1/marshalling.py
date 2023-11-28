@@ -37,34 +37,44 @@ def unmarshal_Name(data: Any) -> Name:
     args: Dict[str, Any] = {}
 
     field = data.get("name_id", None)
-    args["name_id"] = field
+    if field is not None:
+        args["name_id"] = field
 
     field = data.get("project_id", None)
-    args["project_id"] = field
+    if field is not None:
+        args["project_id"] = field
 
     field = data.get("tags", None)
-    args["tags"] = field
+    if field is not None:
+        args["tags"] = field
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("key", None)
-    args["key"] = field
+    if field is not None:
+        args["key"] = field
 
     field = data.get("status", None)
-    args["status"] = field
+    if field is not None:
+        args["status"] = field
 
     field = data.get("value", None)
-    args["value"] = field
+    if field is not None:
+        args["value"] = field
 
     field = data.get("region", None)
-    args["region"] = field
+    if field is not None:
+        args["region"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return Name(**args)
 
@@ -78,7 +88,8 @@ def unmarshal_PinCIDMeta(data: Any) -> PinCIDMeta:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     return PinCIDMeta(**args)
 
@@ -92,16 +103,20 @@ def unmarshal_PinCID(data: Any) -> PinCID:
     args: Dict[str, Any] = {}
 
     field = data.get("origins", None)
-    args["origins"] = field
+    if field is not None:
+        args["origins"] = field
 
     field = data.get("cid", None)
-    args["cid"] = field
+    if field is not None:
+        args["cid"] = field
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("meta", None)
-    args["meta"] = unmarshal_PinCIDMeta(field)
+    if field is not None:
+        args["meta"] = unmarshal_PinCIDMeta(field)
 
     return PinCID(**args)
 
@@ -115,19 +130,24 @@ def unmarshal_PinInfo(data: Any) -> PinInfo:
     args: Dict[str, Any] = {}
 
     field = data.get("status_details", None)
-    args["status_details"] = field
+    if field is not None:
+        args["status_details"] = field
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("url", None)
-    args["url"] = field
+    if field is not None:
+        args["url"] = field
 
     field = data.get("size", None)
-    args["size"] = field
+    if field is not None:
+        args["size"] = field
 
     field = data.get("progress", None)
-    args["progress"] = field
+    if field is not None:
+        args["progress"] = field
 
     return PinInfo(**args)
 
@@ -141,22 +161,28 @@ def unmarshal_Pin(data: Any) -> Pin:
     args: Dict[str, Any] = {}
 
     field = data.get("pin_id", None)
-    args["pin_id"] = field
+    if field is not None:
+        args["pin_id"] = field
 
     field = data.get("status", None)
-    args["status"] = field
+    if field is not None:
+        args["status"] = field
 
     field = data.get("delegates", None)
-    args["delegates"] = field
+    if field is not None:
+        args["delegates"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("cid", None)
-    args["cid"] = unmarshal_PinCID(field)
+    if field is not None:
+        args["cid"] = unmarshal_PinCID(field)
 
     field = data.get("info", None)
-    args["info"] = unmarshal_PinInfo(field)
+    if field is not None:
+        args["info"] = unmarshal_PinInfo(field)
 
     return Pin(**args)
 
@@ -170,31 +196,40 @@ def unmarshal_Volume(data: Any) -> Volume:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("project_id", None)
-    args["project_id"] = field
+    if field is not None:
+        args["project_id"] = field
 
     field = data.get("region", None)
-    args["region"] = field
+    if field is not None:
+        args["region"] = field
 
     field = data.get("count_pin", None)
-    args["count_pin"] = field
+    if field is not None:
+        args["count_pin"] = field
 
     field = data.get("tags", None)
-    args["tags"] = field
+    if field is not None:
+        args["tags"] = field
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("size", None)
-    args["size"] = field
+    if field is not None:
+        args["size"] = field
 
     return Volume(**args)
 
@@ -208,22 +243,28 @@ def unmarshal_ExportKeyNameResponse(data: Any) -> ExportKeyNameResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("name_id", None)
-    args["name_id"] = field
+    if field is not None:
+        args["name_id"] = field
 
     field = data.get("project_id", None)
-    args["project_id"] = field
+    if field is not None:
+        args["project_id"] = field
 
     field = data.get("public_key", None)
-    args["public_key"] = field
+    if field is not None:
+        args["public_key"] = field
 
     field = data.get("private_key", None)
-    args["private_key"] = field
+    if field is not None:
+        args["private_key"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return ExportKeyNameResponse(**args)
 
@@ -237,10 +278,14 @@ def unmarshal_ListNamesResponse(data: Any) -> ListNamesResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("names", None)
-    args["names"] = [unmarshal_Name(v) for v in field] if field is not None else None
+    if field is not None:
+        args["names"] = (
+            [unmarshal_Name(v) for v in field] if field is not None else None
+        )
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     return ListNamesResponse(**args)
 
@@ -254,10 +299,12 @@ def unmarshal_ListPinsResponse(data: Any) -> ListPinsResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     field = data.get("pins", None)
-    args["pins"] = [unmarshal_Pin(v) for v in field] if field is not None else None
+    if field is not None:
+        args["pins"] = [unmarshal_Pin(v) for v in field] if field is not None else None
 
     return ListPinsResponse(**args)
 
@@ -271,12 +318,14 @@ def unmarshal_ListVolumesResponse(data: Any) -> ListVolumesResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("volumes", None)
-    args["volumes"] = (
-        [unmarshal_Volume(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["volumes"] = (
+            [unmarshal_Volume(v) for v in field] if field is not None else None
+        )
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     return ListVolumesResponse(**args)
 
@@ -290,7 +339,8 @@ def unmarshal_ReplacePinResponse(data: Any) -> ReplacePinResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("pin", None)
-    args["pin"] = unmarshal_Pin(field)
+    if field is not None:
+        args["pin"] = unmarshal_Pin(field)
 
     return ReplacePinResponse(**args)
 

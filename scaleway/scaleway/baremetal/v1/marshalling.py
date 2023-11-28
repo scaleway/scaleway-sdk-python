@@ -66,22 +66,28 @@ def unmarshal_IP(data: Any) -> IP:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("address", None)
-    args["address"] = field
+    if field is not None:
+        args["address"] = field
 
     field = data.get("reverse", None)
-    args["reverse"] = field
+    if field is not None:
+        args["reverse"] = field
 
     field = data.get("version", None)
-    args["version"] = field
+    if field is not None:
+        args["version"] = field
 
     field = data.get("reverse_status", None)
-    args["reverse_status"] = field
+    if field is not None:
+        args["reverse_status"] = field
 
     field = data.get("reverse_status_message", None)
-    args["reverse_status_message"] = field
+    if field is not None:
+        args["reverse_status_message"] = field
 
     return IP(**args)
 
@@ -95,13 +101,16 @@ def unmarshal_OSOSField(data: Any) -> OSOSField:
     args: Dict[str, Any] = {}
 
     field = data.get("editable", None)
-    args["editable"] = field
+    if field is not None:
+        args["editable"] = field
 
     field = data.get("required", None)
-    args["required"] = field
+    if field is not None:
+        args["required"] = field
 
     field = data.get("default_value", None)
-    args["default_value"] = field
+    if field is not None:
+        args["default_value"] = field
 
     return OSOSField(**args)
 
@@ -115,40 +124,52 @@ def unmarshal_OS(data: Any) -> OS:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("version", None)
-    args["version"] = field
+    if field is not None:
+        args["version"] = field
 
     field = data.get("logo_url", None)
-    args["logo_url"] = field
+    if field is not None:
+        args["logo_url"] = field
 
     field = data.get("enabled", None)
-    args["enabled"] = field
+    if field is not None:
+        args["enabled"] = field
 
     field = data.get("license_required", None)
-    args["license_required"] = field
+    if field is not None:
+        args["license_required"] = field
 
     field = data.get("allowed", None)
-    args["allowed"] = field
+    if field is not None:
+        args["allowed"] = field
 
     field = data.get("ssh", None)
-    args["ssh"] = unmarshal_OSOSField(field)
+    if field is not None:
+        args["ssh"] = unmarshal_OSOSField(field)
 
     field = data.get("user", None)
-    args["user"] = unmarshal_OSOSField(field)
+    if field is not None:
+        args["user"] = unmarshal_OSOSField(field)
 
     field = data.get("password", None)
-    args["password"] = unmarshal_OSOSField(field)
+    if field is not None:
+        args["password"] = unmarshal_OSOSField(field)
 
     field = data.get("service_user", None)
-    args["service_user"] = unmarshal_OSOSField(field)
+    if field is not None:
+        args["service_user"] = unmarshal_OSOSField(field)
 
     field = data.get("service_password", None)
-    args["service_password"] = unmarshal_OSOSField(field)
+    if field is not None:
+        args["service_password"] = unmarshal_OSOSField(field)
 
     return OS(**args)
 
@@ -162,19 +183,24 @@ def unmarshal_CPU(data: Any) -> CPU:
     args: Dict[str, Any] = {}
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("core_count", None)
-    args["core_count"] = field
+    if field is not None:
+        args["core_count"] = field
 
     field = data.get("thread_count", None)
-    args["thread_count"] = field
+    if field is not None:
+        args["thread_count"] = field
 
     field = data.get("frequency", None)
-    args["frequency"] = field
+    if field is not None:
+        args["frequency"] = field
 
     field = data.get("benchmark", None)
-    args["benchmark"] = field
+    if field is not None:
+        args["benchmark"] = field
 
     return CPU(**args)
 
@@ -188,10 +214,12 @@ def unmarshal_Disk(data: Any) -> Disk:
     args: Dict[str, Any] = {}
 
     field = data.get("capacity", None)
-    args["capacity"] = field
+    if field is not None:
+        args["capacity"] = field
 
     field = data.get("type_", None)
-    args["type_"] = field
+    if field is not None:
+        args["type_"] = field
 
     return Disk(**args)
 
@@ -205,16 +233,20 @@ def unmarshal_Memory(data: Any) -> Memory:
     args: Dict[str, Any] = {}
 
     field = data.get("capacity", None)
-    args["capacity"] = field
+    if field is not None:
+        args["capacity"] = field
 
     field = data.get("type_", None)
-    args["type_"] = field
+    if field is not None:
+        args["type_"] = field
 
     field = data.get("frequency", None)
-    args["frequency"] = field
+    if field is not None:
+        args["frequency"] = field
 
     field = data.get("is_ecc", None)
-    args["is_ecc"] = field
+    if field is not None:
+        args["is_ecc"] = field
 
     return Memory(**args)
 
@@ -228,25 +260,32 @@ def unmarshal_OfferOptionOffer(data: Any) -> OfferOptionOffer:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("enabled", None)
-    args["enabled"] = field
+    if field is not None:
+        args["enabled"] = field
 
     field = data.get("subscription_period", None)
-    args["subscription_period"] = field
+    if field is not None:
+        args["subscription_period"] = field
 
     field = data.get("manageable", None)
-    args["manageable"] = field
+    if field is not None:
+        args["manageable"] = field
 
     field = data.get("price", None)
-    args["price"] = unmarshal_Money(field)
+    if field is not None:
+        args["price"] = unmarshal_Money(field)
 
     field = data.get("os_id", None)
-    args["os_id"] = field
+    if field is not None:
+        args["os_id"] = field
 
     return OfferOptionOffer(**args)
 
@@ -260,13 +299,16 @@ def unmarshal_PersistentMemory(data: Any) -> PersistentMemory:
     args: Dict[str, Any] = {}
 
     field = data.get("capacity", None)
-    args["capacity"] = field
+    if field is not None:
+        args["capacity"] = field
 
     field = data.get("type_", None)
-    args["type_"] = field
+    if field is not None:
+        args["type_"] = field
 
     field = data.get("frequency", None)
-    args["frequency"] = field
+    if field is not None:
+        args["frequency"] = field
 
     return PersistentMemory(**args)
 
@@ -280,10 +322,12 @@ def unmarshal_RaidController(data: Any) -> RaidController:
     args: Dict[str, Any] = {}
 
     field = data.get("model", None)
-    args["model"] = field
+    if field is not None:
+        args["model"] = field
 
     field = data.get("raid_level", None)
-    args["raid_level"] = field
+    if field is not None:
+        args["raid_level"] = field
 
     return RaidController(**args)
 
@@ -297,78 +341,106 @@ def unmarshal_Offer(data: Any) -> Offer:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("stock", None)
-    args["stock"] = field
+    if field is not None:
+        args["stock"] = field
 
     field = data.get("bandwidth", None)
-    args["bandwidth"] = field
+    if field is not None:
+        args["bandwidth"] = field
 
     field = data.get("commercial_range", None)
-    args["commercial_range"] = field
+    if field is not None:
+        args["commercial_range"] = field
 
     field = data.get("disks", None)
-    args["disks"] = [unmarshal_Disk(v) for v in field] if field is not None else None
+    if field is not None:
+        args["disks"] = (
+            [unmarshal_Disk(v) for v in field] if field is not None else None
+        )
 
     field = data.get("enable", None)
-    args["enable"] = field
+    if field is not None:
+        args["enable"] = field
 
     field = data.get("price_per_hour", None)
-    args["price_per_hour"] = unmarshal_Money(field)
+    if field is not None:
+        args["price_per_hour"] = unmarshal_Money(field)
 
     field = data.get("price_per_month", None)
-    args["price_per_month"] = unmarshal_Money(field)
+    if field is not None:
+        args["price_per_month"] = unmarshal_Money(field)
 
     field = data.get("cpus", None)
-    args["cpus"] = [unmarshal_CPU(v) for v in field] if field is not None else None
+    if field is not None:
+        args["cpus"] = [unmarshal_CPU(v) for v in field] if field is not None else None
 
     field = data.get("memories", None)
-    args["memories"] = (
-        [unmarshal_Memory(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["memories"] = (
+            [unmarshal_Memory(v) for v in field] if field is not None else None
+        )
 
     field = data.get("quota_name", None)
-    args["quota_name"] = field
+    if field is not None:
+        args["quota_name"] = field
 
     field = data.get("persistent_memories", None)
-    args["persistent_memories"] = (
-        [unmarshal_PersistentMemory(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["persistent_memories"] = (
+            [unmarshal_PersistentMemory(v) for v in field]
+            if field is not None
+            else None
+        )
 
     field = data.get("raid_controllers", None)
-    args["raid_controllers"] = (
-        [unmarshal_RaidController(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["raid_controllers"] = (
+            [unmarshal_RaidController(v) for v in field] if field is not None else None
+        )
 
     field = data.get("incompatible_os_ids", None)
-    args["incompatible_os_ids"] = field
+    if field is not None:
+        args["incompatible_os_ids"] = field
 
     field = data.get("subscription_period", None)
-    args["subscription_period"] = field
+    if field is not None:
+        args["subscription_period"] = field
 
     field = data.get("operation_path", None)
-    args["operation_path"] = field
+    if field is not None:
+        args["operation_path"] = field
 
     field = data.get("options", None)
-    args["options"] = (
-        [unmarshal_OfferOptionOffer(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["options"] = (
+            [unmarshal_OfferOptionOffer(v) for v in field]
+            if field is not None
+            else None
+        )
 
     field = data.get("private_bandwidth", None)
-    args["private_bandwidth"] = field
+    if field is not None:
+        args["private_bandwidth"] = field
 
     field = data.get("shared_bandwidth", None)
-    args["shared_bandwidth"] = field
+    if field is not None:
+        args["shared_bandwidth"] = field
 
     field = data.get("tags", None)
-    args["tags"] = field
+    if field is not None:
+        args["tags"] = field
 
     field = data.get("fee", None)
-    args["fee"] = unmarshal_Money(field)
+    if field is not None:
+        args["fee"] = unmarshal_Money(field)
 
     return Offer(**args)
 
@@ -382,13 +454,16 @@ def unmarshal_Option(data: Any) -> Option:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("manageable", None)
-    args["manageable"] = field
+    if field is not None:
+        args["manageable"] = field
 
     return Option(**args)
 
@@ -402,28 +477,36 @@ def unmarshal_ServerPrivateNetwork(data: Any) -> ServerPrivateNetwork:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("project_id", None)
-    args["project_id"] = field
+    if field is not None:
+        args["project_id"] = field
 
     field = data.get("server_id", None)
-    args["server_id"] = field
+    if field is not None:
+        args["server_id"] = field
 
     field = data.get("private_network_id", None)
-    args["private_network_id"] = field
+    if field is not None:
+        args["private_network_id"] = field
 
     field = data.get("status", None)
-    args["status"] = field
+    if field is not None:
+        args["status"] = field
 
     field = data.get("vlan", None)
-    args["vlan"] = field
+    if field is not None:
+        args["vlan"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return ServerPrivateNetwork(**args)
 
@@ -437,25 +520,32 @@ def unmarshal_ServerInstall(data: Any) -> ServerInstall:
     args: Dict[str, Any] = {}
 
     field = data.get("os_id", None)
-    args["os_id"] = field
+    if field is not None:
+        args["os_id"] = field
 
     field = data.get("hostname", None)
-    args["hostname"] = field
+    if field is not None:
+        args["hostname"] = field
 
     field = data.get("ssh_key_ids", None)
-    args["ssh_key_ids"] = field
+    if field is not None:
+        args["ssh_key_ids"] = field
 
     field = data.get("status", None)
-    args["status"] = field
+    if field is not None:
+        args["status"] = field
 
     field = data.get("user", None)
-    args["user"] = field
+    if field is not None:
+        args["user"] = field
 
     field = data.get("service_user", None)
-    args["service_user"] = field
+    if field is not None:
+        args["service_user"] = field
 
     field = data.get("service_url", None)
-    args["service_url"] = field
+    if field is not None:
+        args["service_url"] = field
 
     return ServerInstall(**args)
 
@@ -469,19 +559,24 @@ def unmarshal_ServerOption(data: Any) -> ServerOption:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("status", None)
-    args["status"] = field
+    if field is not None:
+        args["status"] = field
 
     field = data.get("manageable", None)
-    args["manageable"] = field
+    if field is not None:
+        args["manageable"] = field
 
     field = data.get("expires_at", None)
-    args["expires_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["expires_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return ServerOption(**args)
 
@@ -495,10 +590,12 @@ def unmarshal_ServerRescueServer(data: Any) -> ServerRescueServer:
     args: Dict[str, Any] = {}
 
     field = data.get("user", None)
-    args["user"] = field
+    if field is not None:
+        args["user"] = field
 
     field = data.get("password", None)
-    args["password"] = field
+    if field is not None:
+        args["password"] = field
 
     return ServerRescueServer(**args)
 
@@ -512,63 +609,82 @@ def unmarshal_Server(data: Any) -> Server:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("organization_id", None)
-    args["organization_id"] = field
+    if field is not None:
+        args["organization_id"] = field
 
     field = data.get("project_id", None)
-    args["project_id"] = field
+    if field is not None:
+        args["project_id"] = field
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("description", None)
-    args["description"] = field
+    if field is not None:
+        args["description"] = field
 
     field = data.get("status", None)
-    args["status"] = field
+    if field is not None:
+        args["status"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("offer_id", None)
-    args["offer_id"] = field
+    if field is not None:
+        args["offer_id"] = field
 
     field = data.get("offer_name", None)
-    args["offer_name"] = field
+    if field is not None:
+        args["offer_name"] = field
 
     field = data.get("tags", None)
-    args["tags"] = field
+    if field is not None:
+        args["tags"] = field
 
     field = data.get("ips", None)
-    args["ips"] = [unmarshal_IP(v) for v in field] if field is not None else None
+    if field is not None:
+        args["ips"] = [unmarshal_IP(v) for v in field] if field is not None else None
 
     field = data.get("domain", None)
-    args["domain"] = field
+    if field is not None:
+        args["domain"] = field
 
     field = data.get("boot_type", None)
-    args["boot_type"] = field
+    if field is not None:
+        args["boot_type"] = field
 
     field = data.get("zone", None)
-    args["zone"] = field
+    if field is not None:
+        args["zone"] = field
 
     field = data.get("ping_status", None)
-    args["ping_status"] = field
+    if field is not None:
+        args["ping_status"] = field
 
     field = data.get("options", None)
-    args["options"] = (
-        [unmarshal_ServerOption(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["options"] = (
+            [unmarshal_ServerOption(v) for v in field] if field is not None else None
+        )
 
     field = data.get("install", None)
-    args["install"] = unmarshal_ServerInstall(field)
+    if field is not None:
+        args["install"] = unmarshal_ServerInstall(field)
 
     field = data.get("rescue_server", None)
-    args["rescue_server"] = unmarshal_ServerRescueServer(field)
+    if field is not None:
+        args["rescue_server"] = unmarshal_ServerRescueServer(field)
 
     return Server(**args)
 
@@ -582,16 +698,20 @@ def unmarshal_Setting(data: Any) -> Setting:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("type_", None)
-    args["type_"] = field
+    if field is not None:
+        args["type_"] = field
 
     field = data.get("project_id", None)
-    args["project_id"] = field
+    if field is not None:
+        args["project_id"] = field
 
     field = data.get("enabled", None)
-    args["enabled"] = field
+    if field is not None:
+        args["enabled"] = field
 
     return Setting(**args)
 
@@ -605,16 +725,20 @@ def unmarshal_BMCAccess(data: Any) -> BMCAccess:
     args: Dict[str, Any] = {}
 
     field = data.get("url", None)
-    args["url"] = field
+    if field is not None:
+        args["url"] = field
 
     field = data.get("login", None)
-    args["login"] = field
+    if field is not None:
+        args["login"] = field
 
     field = data.get("password", None)
-    args["password"] = field
+    if field is not None:
+        args["password"] = field
 
     field = data.get("expires_at", None)
-    args["expires_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["expires_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return BMCAccess(**args)
 
@@ -628,7 +752,8 @@ def unmarshal_GetServerMetricsResponse(data: Any) -> GetServerMetricsResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("pings", None)
-    args["pings"] = unmarshal_TimeSeries(field)
+    if field is not None:
+        args["pings"] = unmarshal_TimeSeries(field)
 
     return GetServerMetricsResponse(**args)
 
@@ -642,10 +767,12 @@ def unmarshal_ListOSResponse(data: Any) -> ListOSResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     field = data.get("os", None)
-    args["os"] = [unmarshal_OS(v) for v in field] if field is not None else None
+    if field is not None:
+        args["os"] = [unmarshal_OS(v) for v in field] if field is not None else None
 
     return ListOSResponse(**args)
 
@@ -659,10 +786,14 @@ def unmarshal_ListOffersResponse(data: Any) -> ListOffersResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     field = data.get("offers", None)
-    args["offers"] = [unmarshal_Offer(v) for v in field] if field is not None else None
+    if field is not None:
+        args["offers"] = (
+            [unmarshal_Offer(v) for v in field] if field is not None else None
+        )
 
     return ListOffersResponse(**args)
 
@@ -676,12 +807,14 @@ def unmarshal_ListOptionsResponse(data: Any) -> ListOptionsResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     field = data.get("options", None)
-    args["options"] = (
-        [unmarshal_Option(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["options"] = (
+            [unmarshal_Option(v) for v in field] if field is not None else None
+        )
 
     return ListOptionsResponse(**args)
 
@@ -695,16 +828,20 @@ def unmarshal_ServerEvent(data: Any) -> ServerEvent:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("action", None)
-    args["action"] = field
+    if field is not None:
+        args["action"] = field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return ServerEvent(**args)
 
@@ -718,12 +855,14 @@ def unmarshal_ListServerEventsResponse(data: Any) -> ListServerEventsResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     field = data.get("events", None)
-    args["events"] = (
-        [unmarshal_ServerEvent(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["events"] = (
+            [unmarshal_ServerEvent(v) for v in field] if field is not None else None
+        )
 
     return ListServerEventsResponse(**args)
 
@@ -739,14 +878,16 @@ def unmarshal_ListServerPrivateNetworksResponse(
     args: Dict[str, Any] = {}
 
     field = data.get("server_private_networks", None)
-    args["server_private_networks"] = (
-        [unmarshal_ServerPrivateNetwork(v) for v in field]
-        if field is not None
-        else None
-    )
+    if field is not None:
+        args["server_private_networks"] = (
+            [unmarshal_ServerPrivateNetwork(v) for v in field]
+            if field is not None
+            else None
+        )
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     return ListServerPrivateNetworksResponse(**args)
 
@@ -760,12 +901,14 @@ def unmarshal_ListServersResponse(data: Any) -> ListServersResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     field = data.get("servers", None)
-    args["servers"] = (
-        [unmarshal_Server(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["servers"] = (
+            [unmarshal_Server(v) for v in field] if field is not None else None
+        )
 
     return ListServersResponse(**args)
 
@@ -779,12 +922,14 @@ def unmarshal_ListSettingsResponse(data: Any) -> ListSettingsResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     field = data.get("settings", None)
-    args["settings"] = (
-        [unmarshal_Setting(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["settings"] = (
+            [unmarshal_Setting(v) for v in field] if field is not None else None
+        )
 
     return ListSettingsResponse(**args)
 
@@ -800,11 +945,12 @@ def unmarshal_SetServerPrivateNetworksResponse(
     args: Dict[str, Any] = {}
 
     field = data.get("server_private_networks", None)
-    args["server_private_networks"] = (
-        [unmarshal_ServerPrivateNetwork(v) for v in field]
-        if field is not None
-        else None
-    )
+    if field is not None:
+        args["server_private_networks"] = (
+            [unmarshal_ServerPrivateNetwork(v) for v in field]
+            if field is not None
+            else None
+        )
 
     return SetServerPrivateNetworksResponse(**args)
 

@@ -57,61 +57,80 @@ def unmarshal_DHCP(data: Any) -> DHCP:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("organization_id", None)
-    args["organization_id"] = field
+    if field is not None:
+        args["organization_id"] = field
 
     field = data.get("project_id", None)
-    args["project_id"] = field
+    if field is not None:
+        args["project_id"] = field
 
     field = data.get("subnet", None)
-    args["subnet"] = field
+    if field is not None:
+        args["subnet"] = field
 
     field = data.get("address", None)
-    args["address"] = field
+    if field is not None:
+        args["address"] = field
 
     field = data.get("pool_low", None)
-    args["pool_low"] = field
+    if field is not None:
+        args["pool_low"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("pool_high", None)
-    args["pool_high"] = field
+    if field is not None:
+        args["pool_high"] = field
 
     field = data.get("enable_dynamic", None)
-    args["enable_dynamic"] = field
+    if field is not None:
+        args["enable_dynamic"] = field
 
     field = data.get("push_default_route", None)
-    args["push_default_route"] = field
+    if field is not None:
+        args["push_default_route"] = field
 
     field = data.get("push_dns_server", None)
-    args["push_dns_server"] = field
+    if field is not None:
+        args["push_dns_server"] = field
 
     field = data.get("dns_servers_override", None)
-    args["dns_servers_override"] = field
+    if field is not None:
+        args["dns_servers_override"] = field
 
     field = data.get("dns_search", None)
-    args["dns_search"] = field
+    if field is not None:
+        args["dns_search"] = field
 
     field = data.get("dns_local_name", None)
-    args["dns_local_name"] = field
+    if field is not None:
+        args["dns_local_name"] = field
 
     field = data.get("zone", None)
-    args["zone"] = field
+    if field is not None:
+        args["zone"] = field
 
     field = data.get("valid_lifetime", None)
-    args["valid_lifetime"] = field
+    if field is not None:
+        args["valid_lifetime"] = field
 
     field = data.get("renew_timer", None)
-    args["renew_timer"] = field
+    if field is not None:
+        args["renew_timer"] = field
 
     field = data.get("rebind_timer", None)
-    args["rebind_timer"] = field
+    if field is not None:
+        args["rebind_timer"] = field
 
     return DHCP(**args)
 
@@ -125,10 +144,12 @@ def unmarshal_IpamConfig(data: Any) -> IpamConfig:
     args: Dict[str, Any] = {}
 
     field = data.get("push_default_route", None)
-    args["push_default_route"] = field
+    if field is not None:
+        args["push_default_route"] = field
 
     field = data.get("ipam_ip_id", None)
-    args["ipam_ip_id"] = field
+    if field is not None:
+        args["ipam_ip_id"] = field
 
     return IpamConfig(**args)
 
@@ -142,43 +163,56 @@ def unmarshal_GatewayNetwork(data: Any) -> GatewayNetwork:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("gateway_id", None)
-    args["gateway_id"] = field
+    if field is not None:
+        args["gateway_id"] = field
 
     field = data.get("private_network_id", None)
-    args["private_network_id"] = field
+    if field is not None:
+        args["private_network_id"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("mac_address", None)
-    args["mac_address"] = field
+    if field is not None:
+        args["mac_address"] = field
 
     field = data.get("enable_masquerade", None)
-    args["enable_masquerade"] = field
+    if field is not None:
+        args["enable_masquerade"] = field
 
     field = data.get("status", None)
-    args["status"] = field
+    if field is not None:
+        args["status"] = field
 
     field = data.get("enable_dhcp", None)
-    args["enable_dhcp"] = field
+    if field is not None:
+        args["enable_dhcp"] = field
 
     field = data.get("zone", None)
-    args["zone"] = field
+    if field is not None:
+        args["zone"] = field
 
     field = data.get("dhcp", None)
-    args["dhcp"] = unmarshal_DHCP(field)
+    if field is not None:
+        args["dhcp"] = unmarshal_DHCP(field)
 
     field = data.get("address", None)
-    args["address"] = field
+    if field is not None:
+        args["address"] = field
 
     field = data.get("ipam_config", None)
-    args["ipam_config"] = unmarshal_IpamConfig(field)
+    if field is not None:
+        args["ipam_config"] = unmarshal_IpamConfig(field)
 
     return GatewayNetwork(**args)
 
@@ -192,34 +226,44 @@ def unmarshal_IP(data: Any) -> IP:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("organization_id", None)
-    args["organization_id"] = field
+    if field is not None:
+        args["organization_id"] = field
 
     field = data.get("project_id", None)
-    args["project_id"] = field
+    if field is not None:
+        args["project_id"] = field
 
     field = data.get("tags", None)
-    args["tags"] = field
+    if field is not None:
+        args["tags"] = field
 
     field = data.get("address", None)
-    args["address"] = field
+    if field is not None:
+        args["address"] = field
 
     field = data.get("zone", None)
-    args["zone"] = field
+    if field is not None:
+        args["zone"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("reverse", None)
-    args["reverse"] = field
+    if field is not None:
+        args["reverse"] = field
 
     field = data.get("gateway_id", None)
-    args["gateway_id"] = field
+    if field is not None:
+        args["gateway_id"] = field
 
     return IP(**args)
 
@@ -233,31 +277,40 @@ def unmarshal_DHCPEntry(data: Any) -> DHCPEntry:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("gateway_network_id", None)
-    args["gateway_network_id"] = field
+    if field is not None:
+        args["gateway_network_id"] = field
 
     field = data.get("mac_address", None)
-    args["mac_address"] = field
+    if field is not None:
+        args["mac_address"] = field
 
     field = data.get("ip_address", None)
-    args["ip_address"] = field
+    if field is not None:
+        args["ip_address"] = field
 
     field = data.get("hostname", None)
-    args["hostname"] = field
+    if field is not None:
+        args["hostname"] = field
 
     field = data.get("type_", None)
-    args["type_"] = field
+    if field is not None:
+        args["type_"] = field
 
     field = data.get("zone", None)
-    args["zone"] = field
+    if field is not None:
+        args["zone"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return DHCPEntry(**args)
 
@@ -271,13 +324,16 @@ def unmarshal_GatewayType(data: Any) -> GatewayType:
     args: Dict[str, Any] = {}
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("bandwidth", None)
-    args["bandwidth"] = field
+    if field is not None:
+        args["bandwidth"] = field
 
     field = data.get("zone", None)
-    args["zone"] = field
+    if field is not None:
+        args["zone"] = field
 
     return GatewayType(**args)
 
@@ -291,63 +347,82 @@ def unmarshal_Gateway(data: Any) -> Gateway:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("organization_id", None)
-    args["organization_id"] = field
+    if field is not None:
+        args["organization_id"] = field
 
     field = data.get("project_id", None)
-    args["project_id"] = field
+    if field is not None:
+        args["project_id"] = field
 
     field = data.get("status", None)
-    args["status"] = field
+    if field is not None:
+        args["status"] = field
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("type_", None)
-    args["type_"] = unmarshal_GatewayType(field)
+    if field is not None:
+        args["type_"] = unmarshal_GatewayType(field)
 
     field = data.get("tags", None)
-    args["tags"] = field
+    if field is not None:
+        args["tags"] = field
 
     field = data.get("gateway_networks", None)
-    args["gateway_networks"] = (
-        [unmarshal_GatewayNetwork(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["gateway_networks"] = (
+            [unmarshal_GatewayNetwork(v) for v in field] if field is not None else None
+        )
 
     field = data.get("upstream_dns_servers", None)
-    args["upstream_dns_servers"] = field
+    if field is not None:
+        args["upstream_dns_servers"] = field
 
     field = data.get("bastion_enabled", None)
-    args["bastion_enabled"] = field
+    if field is not None:
+        args["bastion_enabled"] = field
 
     field = data.get("bastion_port", None)
-    args["bastion_port"] = field
+    if field is not None:
+        args["bastion_port"] = field
 
     field = data.get("smtp_enabled", None)
-    args["smtp_enabled"] = field
+    if field is not None:
+        args["smtp_enabled"] = field
 
     field = data.get("is_legacy", None)
-    args["is_legacy"] = field
+    if field is not None:
+        args["is_legacy"] = field
 
     field = data.get("zone", None)
-    args["zone"] = field
+    if field is not None:
+        args["zone"] = field
 
     field = data.get("ip", None)
-    args["ip"] = unmarshal_IP(field)
+    if field is not None:
+        args["ip"] = unmarshal_IP(field)
 
     field = data.get("version", None)
-    args["version"] = field
+    if field is not None:
+        args["version"] = field
 
     field = data.get("can_upgrade_to", None)
-    args["can_upgrade_to"] = field
+    if field is not None:
+        args["can_upgrade_to"] = field
 
     return Gateway(**args)
 
@@ -361,31 +436,40 @@ def unmarshal_PATRule(data: Any) -> PATRule:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("gateway_id", None)
-    args["gateway_id"] = field
+    if field is not None:
+        args["gateway_id"] = field
 
     field = data.get("public_port", None)
-    args["public_port"] = field
+    if field is not None:
+        args["public_port"] = field
 
     field = data.get("private_ip", None)
-    args["private_ip"] = field
+    if field is not None:
+        args["private_ip"] = field
 
     field = data.get("private_port", None)
-    args["private_port"] = field
+    if field is not None:
+        args["private_port"] = field
 
     field = data.get("protocol", None)
-    args["protocol"] = field
+    if field is not None:
+        args["protocol"] = field
 
     field = data.get("zone", None)
-    args["zone"] = field
+    if field is not None:
+        args["zone"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return PATRule(**args)
 
@@ -399,12 +483,14 @@ def unmarshal_ListDHCPEntriesResponse(data: Any) -> ListDHCPEntriesResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("dhcp_entries", None)
-    args["dhcp_entries"] = (
-        [unmarshal_DHCPEntry(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["dhcp_entries"] = (
+            [unmarshal_DHCPEntry(v) for v in field] if field is not None else None
+        )
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     return ListDHCPEntriesResponse(**args)
 
@@ -418,10 +504,14 @@ def unmarshal_ListDHCPsResponse(data: Any) -> ListDHCPsResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("dhcps", None)
-    args["dhcps"] = [unmarshal_DHCP(v) for v in field] if field is not None else None
+    if field is not None:
+        args["dhcps"] = (
+            [unmarshal_DHCP(v) for v in field] if field is not None else None
+        )
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     return ListDHCPsResponse(**args)
 
@@ -435,12 +525,14 @@ def unmarshal_ListGatewayNetworksResponse(data: Any) -> ListGatewayNetworksRespo
     args: Dict[str, Any] = {}
 
     field = data.get("gateway_networks", None)
-    args["gateway_networks"] = (
-        [unmarshal_GatewayNetwork(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["gateway_networks"] = (
+            [unmarshal_GatewayNetwork(v) for v in field] if field is not None else None
+        )
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     return ListGatewayNetworksResponse(**args)
 
@@ -454,9 +546,10 @@ def unmarshal_ListGatewayTypesResponse(data: Any) -> ListGatewayTypesResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("types", None)
-    args["types"] = (
-        [unmarshal_GatewayType(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["types"] = (
+            [unmarshal_GatewayType(v) for v in field] if field is not None else None
+        )
 
     return ListGatewayTypesResponse(**args)
 
@@ -470,12 +563,14 @@ def unmarshal_ListGatewaysResponse(data: Any) -> ListGatewaysResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("gateways", None)
-    args["gateways"] = (
-        [unmarshal_Gateway(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["gateways"] = (
+            [unmarshal_Gateway(v) for v in field] if field is not None else None
+        )
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     return ListGatewaysResponse(**args)
 
@@ -489,10 +584,12 @@ def unmarshal_ListIPsResponse(data: Any) -> ListIPsResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("ips", None)
-    args["ips"] = [unmarshal_IP(v) for v in field] if field is not None else None
+    if field is not None:
+        args["ips"] = [unmarshal_IP(v) for v in field] if field is not None else None
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     return ListIPsResponse(**args)
 
@@ -506,12 +603,14 @@ def unmarshal_ListPATRulesResponse(data: Any) -> ListPATRulesResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("pat_rules", None)
-    args["pat_rules"] = (
-        [unmarshal_PATRule(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["pat_rules"] = (
+            [unmarshal_PATRule(v) for v in field] if field is not None else None
+        )
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     return ListPATRulesResponse(**args)
 
@@ -525,9 +624,10 @@ def unmarshal_SetDHCPEntriesResponse(data: Any) -> SetDHCPEntriesResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("dhcp_entries", None)
-    args["dhcp_entries"] = (
-        [unmarshal_DHCPEntry(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["dhcp_entries"] = (
+            [unmarshal_DHCPEntry(v) for v in field] if field is not None else None
+        )
 
     return SetDHCPEntriesResponse(**args)
 
@@ -541,9 +641,10 @@ def unmarshal_SetPATRulesResponse(data: Any) -> SetPATRulesResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("pat_rules", None)
-    args["pat_rules"] = (
-        [unmarshal_PATRule(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["pat_rules"] = (
+            [unmarshal_PATRule(v) for v in field] if field is not None else None
+        )
 
     return SetPATRulesResponse(**args)
 

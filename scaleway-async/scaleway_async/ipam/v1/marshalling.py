@@ -28,16 +28,20 @@ def unmarshal_Resource(data: Any) -> Resource:
     args: Dict[str, Any] = {}
 
     field = data.get("type_", None)
-    args["type_"] = field
+    if field is not None:
+        args["type_"] = field
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("mac_address", None)
-    args["mac_address"] = field
+    if field is not None:
+        args["mac_address"] = field
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     return Resource(**args)
 
@@ -51,13 +55,16 @@ def unmarshal_Source(data: Any) -> Source:
     args: Dict[str, Any] = {}
 
     field = data.get("zonal", None)
-    args["zonal"] = field
+    if field is not None:
+        args["zonal"] = field
 
     field = data.get("private_network_id", None)
-    args["private_network_id"] = field
+    if field is not None:
+        args["private_network_id"] = field
 
     field = data.get("subnet_id", None)
-    args["subnet_id"] = field
+    if field is not None:
+        args["subnet_id"] = field
 
     return Source(**args)
 
@@ -71,37 +78,48 @@ def unmarshal_IP(data: Any) -> IP:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("address", None)
-    args["address"] = field
+    if field is not None:
+        args["address"] = field
 
     field = data.get("project_id", None)
-    args["project_id"] = field
+    if field is not None:
+        args["project_id"] = field
 
     field = data.get("is_ipv6", None)
-    args["is_ipv6"] = field
+    if field is not None:
+        args["is_ipv6"] = field
 
     field = data.get("source", None)
-    args["source"] = unmarshal_Source(field)
+    if field is not None:
+        args["source"] = unmarshal_Source(field)
 
     field = data.get("tags", None)
-    args["tags"] = field
+    if field is not None:
+        args["tags"] = field
 
     field = data.get("region", None)
-    args["region"] = field
+    if field is not None:
+        args["region"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("resource", None)
-    args["resource"] = unmarshal_Resource(field)
+    if field is not None:
+        args["resource"] = unmarshal_Resource(field)
 
     field = data.get("zone", None)
-    args["zone"] = field
+    if field is not None:
+        args["zone"] = field
 
     return IP(**args)
 
@@ -115,10 +133,12 @@ def unmarshal_ListIPsResponse(data: Any) -> ListIPsResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     field = data.get("ips", None)
-    args["ips"] = [unmarshal_IP(v) for v in field] if field is not None else None
+    if field is not None:
+        args["ips"] = [unmarshal_IP(v) for v in field] if field is not None else None
 
     return ListIPsResponse(**args)
 

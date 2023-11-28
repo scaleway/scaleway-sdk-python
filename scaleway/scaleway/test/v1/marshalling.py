@@ -28,49 +28,64 @@ def unmarshal_Human(data: Any) -> Human:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("organization_id", None)
-    args["organization_id"] = field
+    if field is not None:
+        args["organization_id"] = field
 
     field = data.get("height", None)
-    args["height"] = field
+    if field is not None:
+        args["height"] = field
 
     field = data.get("shoe_size", None)
-    args["shoe_size"] = field
+    if field is not None:
+        args["shoe_size"] = field
 
     field = data.get("altitude_in_meter", None)
-    args["altitude_in_meter"] = field
+    if field is not None:
+        args["altitude_in_meter"] = field
 
     field = data.get("altitude_in_millimeter", None)
-    args["altitude_in_millimeter"] = field
+    if field is not None:
+        args["altitude_in_millimeter"] = field
 
     field = data.get("fingers_count", None)
-    args["fingers_count"] = field
+    if field is not None:
+        args["fingers_count"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("hair_count", None)
-    args["hair_count"] = field
+    if field is not None:
+        args["hair_count"] = field
 
     field = data.get("is_happy", None)
-    args["is_happy"] = field
+    if field is not None:
+        args["is_happy"] = field
 
     field = data.get("eyes_color", None)
-    args["eyes_color"] = field
+    if field is not None:
+        args["eyes_color"] = field
 
     field = data.get("status", None)
-    args["status"] = field
+    if field is not None:
+        args["status"] = field
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("project_id", None)
-    args["project_id"] = field
+    if field is not None:
+        args["project_id"] = field
 
     return Human(**args)
 
@@ -84,10 +99,14 @@ def unmarshal_ListHumansResponse(data: Any) -> ListHumansResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     field = data.get("humans", None)
-    args["humans"] = [unmarshal_Human(v) for v in field] if field is not None else None
+    if field is not None:
+        args["humans"] = (
+            [unmarshal_Human(v) for v in field] if field is not None else None
+        )
 
     return ListHumansResponse(**args)
 
@@ -101,10 +120,12 @@ def unmarshal_RegisterResponse(data: Any) -> RegisterResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("secret_key", None)
-    args["secret_key"] = field
+    if field is not None:
+        args["secret_key"] = field
 
     field = data.get("access_key", None)
-    args["access_key"] = field
+    if field is not None:
+        args["access_key"] = field
 
     return RegisterResponse(**args)
 

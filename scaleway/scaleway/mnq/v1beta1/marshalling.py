@@ -42,25 +42,32 @@ def unmarshal_NatsAccount(data: Any) -> NatsAccount:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("endpoint", None)
-    args["endpoint"] = field
+    if field is not None:
+        args["endpoint"] = field
 
     field = data.get("project_id", None)
-    args["project_id"] = field
+    if field is not None:
+        args["project_id"] = field
 
     field = data.get("region", None)
-    args["region"] = field
+    if field is not None:
+        args["region"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return NatsAccount(**args)
 
@@ -74,10 +81,12 @@ def unmarshal_File(data: Any) -> File:
     args: Dict[str, Any] = {}
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("content", None)
-    args["content"] = field
+    if field is not None:
+        args["content"] = field
 
     return File(**args)
 
@@ -91,25 +100,32 @@ def unmarshal_NatsCredentials(data: Any) -> NatsCredentials:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("nats_account_id", None)
-    args["nats_account_id"] = field
+    if field is not None:
+        args["nats_account_id"] = field
 
     field = data.get("checksum", None)
-    args["checksum"] = field
+    if field is not None:
+        args["checksum"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("credentials", None)
-    args["credentials"] = unmarshal_File(field)
+    if field is not None:
+        args["credentials"] = unmarshal_File(field)
 
     return NatsCredentials(**args)
 
@@ -123,13 +139,16 @@ def unmarshal_SnsPermissions(data: Any) -> SnsPermissions:
     args: Dict[str, Any] = {}
 
     field = data.get("can_publish", None)
-    args["can_publish"] = field
+    if field is not None:
+        args["can_publish"] = field
 
     field = data.get("can_receive", None)
-    args["can_receive"] = field
+    if field is not None:
+        args["can_receive"] = field
 
     field = data.get("can_manage", None)
-    args["can_manage"] = field
+    if field is not None:
+        args["can_manage"] = field
 
     return SnsPermissions(**args)
 
@@ -143,34 +162,44 @@ def unmarshal_SnsCredentials(data: Any) -> SnsCredentials:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("project_id", None)
-    args["project_id"] = field
+    if field is not None:
+        args["project_id"] = field
 
     field = data.get("region", None)
-    args["region"] = field
+    if field is not None:
+        args["region"] = field
 
     field = data.get("access_key", None)
-    args["access_key"] = field
+    if field is not None:
+        args["access_key"] = field
 
     field = data.get("secret_key", None)
-    args["secret_key"] = field
+    if field is not None:
+        args["secret_key"] = field
 
     field = data.get("secret_checksum", None)
-    args["secret_checksum"] = field
+    if field is not None:
+        args["secret_checksum"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("permissions", None)
-    args["permissions"] = unmarshal_SnsPermissions(field)
+    if field is not None:
+        args["permissions"] = unmarshal_SnsPermissions(field)
 
     return SnsCredentials(**args)
 
@@ -184,13 +213,16 @@ def unmarshal_SqsPermissions(data: Any) -> SqsPermissions:
     args: Dict[str, Any] = {}
 
     field = data.get("can_publish", None)
-    args["can_publish"] = field
+    if field is not None:
+        args["can_publish"] = field
 
     field = data.get("can_receive", None)
-    args["can_receive"] = field
+    if field is not None:
+        args["can_receive"] = field
 
     field = data.get("can_manage", None)
-    args["can_manage"] = field
+    if field is not None:
+        args["can_manage"] = field
 
     return SqsPermissions(**args)
 
@@ -204,34 +236,44 @@ def unmarshal_SqsCredentials(data: Any) -> SqsCredentials:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("project_id", None)
-    args["project_id"] = field
+    if field is not None:
+        args["project_id"] = field
 
     field = data.get("region", None)
-    args["region"] = field
+    if field is not None:
+        args["region"] = field
 
     field = data.get("access_key", None)
-    args["access_key"] = field
+    if field is not None:
+        args["access_key"] = field
 
     field = data.get("secret_key", None)
-    args["secret_key"] = field
+    if field is not None:
+        args["secret_key"] = field
 
     field = data.get("secret_checksum", None)
-    args["secret_checksum"] = field
+    if field is not None:
+        args["secret_checksum"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("permissions", None)
-    args["permissions"] = unmarshal_SqsPermissions(field)
+    if field is not None:
+        args["permissions"] = unmarshal_SqsPermissions(field)
 
     return SqsCredentials(**args)
 
@@ -245,12 +287,14 @@ def unmarshal_ListNatsAccountsResponse(data: Any) -> ListNatsAccountsResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     field = data.get("nats_accounts", None)
-    args["nats_accounts"] = (
-        [unmarshal_NatsAccount(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["nats_accounts"] = (
+            [unmarshal_NatsAccount(v) for v in field] if field is not None else None
+        )
 
     return ListNatsAccountsResponse(**args)
 
@@ -264,12 +308,14 @@ def unmarshal_ListNatsCredentialsResponse(data: Any) -> ListNatsCredentialsRespo
     args: Dict[str, Any] = {}
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     field = data.get("nats_credentials", None)
-    args["nats_credentials"] = (
-        [unmarshal_NatsCredentials(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["nats_credentials"] = (
+            [unmarshal_NatsCredentials(v) for v in field] if field is not None else None
+        )
 
     return ListNatsCredentialsResponse(**args)
 
@@ -283,12 +329,14 @@ def unmarshal_ListSnsCredentialsResponse(data: Any) -> ListSnsCredentialsRespons
     args: Dict[str, Any] = {}
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     field = data.get("sns_credentials", None)
-    args["sns_credentials"] = (
-        [unmarshal_SnsCredentials(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["sns_credentials"] = (
+            [unmarshal_SnsCredentials(v) for v in field] if field is not None else None
+        )
 
     return ListSnsCredentialsResponse(**args)
 
@@ -302,12 +350,14 @@ def unmarshal_ListSqsCredentialsResponse(data: Any) -> ListSqsCredentialsRespons
     args: Dict[str, Any] = {}
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     field = data.get("sqs_credentials", None)
-    args["sqs_credentials"] = (
-        [unmarshal_SqsCredentials(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["sqs_credentials"] = (
+            [unmarshal_SqsCredentials(v) for v in field] if field is not None else None
+        )
 
     return ListSqsCredentialsResponse(**args)
 
@@ -321,22 +371,28 @@ def unmarshal_SnsInfo(data: Any) -> SnsInfo:
     args: Dict[str, Any] = {}
 
     field = data.get("project_id", None)
-    args["project_id"] = field
+    if field is not None:
+        args["project_id"] = field
 
     field = data.get("region", None)
-    args["region"] = field
+    if field is not None:
+        args["region"] = field
 
     field = data.get("status", None)
-    args["status"] = field
+    if field is not None:
+        args["status"] = field
 
     field = data.get("sns_endpoint_url", None)
-    args["sns_endpoint_url"] = field
+    if field is not None:
+        args["sns_endpoint_url"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return SnsInfo(**args)
 
@@ -350,22 +406,28 @@ def unmarshal_SqsInfo(data: Any) -> SqsInfo:
     args: Dict[str, Any] = {}
 
     field = data.get("project_id", None)
-    args["project_id"] = field
+    if field is not None:
+        args["project_id"] = field
 
     field = data.get("region", None)
-    args["region"] = field
+    if field is not None:
+        args["region"] = field
 
     field = data.get("status", None)
-    args["status"] = field
+    if field is not None:
+        args["status"] = field
 
     field = data.get("sqs_endpoint_url", None)
-    args["sqs_endpoint_url"] = field
+    if field is not None:
+        args["sqs_endpoint_url"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return SqsInfo(**args)
 

@@ -24,43 +24,56 @@ def unmarshal_JobDefinition(data: Any) -> JobDefinition:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("cpu_limit", None)
-    args["cpu_limit"] = field
+    if field is not None:
+        args["cpu_limit"] = field
 
     field = data.get("memory_limit", None)
-    args["memory_limit"] = field
+    if field is not None:
+        args["memory_limit"] = field
 
     field = data.get("image_uri", None)
-    args["image_uri"] = field
+    if field is not None:
+        args["image_uri"] = field
 
     field = data.get("command", None)
-    args["command"] = field
+    if field is not None:
+        args["command"] = field
 
     field = data.get("project_id", None)
-    args["project_id"] = field
+    if field is not None:
+        args["project_id"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("environment_variables", None)
-    args["environment_variables"] = field
+    if field is not None:
+        args["environment_variables"] = field
 
     field = data.get("description", None)
-    args["description"] = field
+    if field is not None:
+        args["description"] = field
 
     field = data.get("region", None)
-    args["region"] = field
+    if field is not None:
+        args["region"] = field
 
     field = data.get("job_timeout", None)
-    args["job_timeout"] = field
+    if field is not None:
+        args["job_timeout"] = field
 
     return JobDefinition(**args)
 
@@ -74,34 +87,46 @@ def unmarshal_JobRun(data: Any) -> JobRun:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("job_definition_id", None)
-    args["job_definition_id"] = field
+    if field is not None:
+        args["job_definition_id"] = field
 
     field = data.get("state", None)
-    args["state"] = field
+    if field is not None:
+        args["state"] = field
 
     field = data.get("error_message", None)
-    args["error_message"] = field
+    if field is not None:
+        args["error_message"] = field
 
     field = data.get("region", None)
-    args["region"] = field
+    if field is not None:
+        args["region"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("terminated_at", None)
-    args["terminated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["terminated_at"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
 
     field = data.get("exit_code", None)
-    args["exit_code"] = field
+    if field is not None:
+        args["exit_code"] = field
 
     field = data.get("run_duration", None)
-    args["run_duration"] = field
+    if field is not None:
+        args["run_duration"] = field
 
     return JobRun(**args)
 
@@ -115,12 +140,14 @@ def unmarshal_ListJobDefinitionsResponse(data: Any) -> ListJobDefinitionsRespons
     args: Dict[str, Any] = {}
 
     field = data.get("job_definitions", None)
-    args["job_definitions"] = (
-        [unmarshal_JobDefinition(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["job_definitions"] = (
+            [unmarshal_JobDefinition(v) for v in field] if field is not None else None
+        )
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     return ListJobDefinitionsResponse(**args)
 
@@ -134,12 +161,14 @@ def unmarshal_ListJobRunsResponse(data: Any) -> ListJobRunsResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("job_runs", None)
-    args["job_runs"] = (
-        [unmarshal_JobRun(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["job_runs"] = (
+            [unmarshal_JobRun(v) for v in field] if field is not None else None
+        )
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     return ListJobRunsResponse(**args)
 

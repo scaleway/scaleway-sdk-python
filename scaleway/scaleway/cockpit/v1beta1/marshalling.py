@@ -56,7 +56,8 @@ def unmarshal_ContactPointEmail(data: Any) -> ContactPointEmail:
     args: Dict[str, Any] = {}
 
     field = data.get("to", None)
-    args["to"] = field
+    if field is not None:
+        args["to"] = field
 
     return ContactPointEmail(**args)
 
@@ -70,7 +71,8 @@ def unmarshal_ContactPoint(data: Any) -> ContactPoint:
     args: Dict[str, Any] = {}
 
     field = data.get("email", None)
-    args["email"] = unmarshal_ContactPointEmail(field)
+    if field is not None:
+        args["email"] = unmarshal_ContactPointEmail(field)
 
     return ContactPoint(**args)
 
@@ -84,22 +86,28 @@ def unmarshal_Datasource(data: Any) -> Datasource:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("project_id", None)
-    args["project_id"] = field
+    if field is not None:
+        args["project_id"] = field
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("url", None)
-    args["url"] = field
+    if field is not None:
+        args["url"] = field
 
     field = data.get("type_", None)
-    args["type_"] = field
+    if field is not None:
+        args["type_"] = field
 
     field = data.get("is_managed_by_scaleway", None)
-    args["is_managed_by_scaleway"] = field
+    if field is not None:
+        args["is_managed_by_scaleway"] = field
 
     return Datasource(**args)
 
@@ -113,19 +121,24 @@ def unmarshal_GrafanaProductDashboard(data: Any) -> GrafanaProductDashboard:
     args: Dict[str, Any] = {}
 
     field = data.get("dashboard_name", None)
-    args["dashboard_name"] = field
+    if field is not None:
+        args["dashboard_name"] = field
 
     field = data.get("title", None)
-    args["title"] = field
+    if field is not None:
+        args["title"] = field
 
     field = data.get("url", None)
-    args["url"] = field
+    if field is not None:
+        args["url"] = field
 
     field = data.get("tags", None)
-    args["tags"] = field
+    if field is not None:
+        args["tags"] = field
 
     field = data.get("variables", None)
-    args["variables"] = field
+    if field is not None:
+        args["variables"] = field
 
     return GrafanaProductDashboard(**args)
 
@@ -139,16 +152,20 @@ def unmarshal_GrafanaUser(data: Any) -> GrafanaUser:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("login", None)
-    args["login"] = field
+    if field is not None:
+        args["login"] = field
 
     field = data.get("role", None)
-    args["role"] = field
+    if field is not None:
+        args["role"] = field
 
     field = data.get("password", None)
-    args["password"] = field
+    if field is not None:
+        args["password"] = field
 
     return GrafanaUser(**args)
 
@@ -162,31 +179,40 @@ def unmarshal_TokenScopes(data: Any) -> TokenScopes:
     args: Dict[str, Any] = {}
 
     field = data.get("query_metrics", None)
-    args["query_metrics"] = field
+    if field is not None:
+        args["query_metrics"] = field
 
     field = data.get("write_metrics", None)
-    args["write_metrics"] = field
+    if field is not None:
+        args["write_metrics"] = field
 
     field = data.get("setup_metrics_rules", None)
-    args["setup_metrics_rules"] = field
+    if field is not None:
+        args["setup_metrics_rules"] = field
 
     field = data.get("query_logs", None)
-    args["query_logs"] = field
+    if field is not None:
+        args["query_logs"] = field
 
     field = data.get("write_logs", None)
-    args["write_logs"] = field
+    if field is not None:
+        args["write_logs"] = field
 
     field = data.get("setup_logs_rules", None)
-    args["setup_logs_rules"] = field
+    if field is not None:
+        args["setup_logs_rules"] = field
 
     field = data.get("setup_alerts", None)
-    args["setup_alerts"] = field
+    if field is not None:
+        args["setup_alerts"] = field
 
     field = data.get("query_traces", None)
-    args["query_traces"] = field
+    if field is not None:
+        args["query_traces"] = field
 
     field = data.get("write_traces", None)
-    args["write_traces"] = field
+    if field is not None:
+        args["write_traces"] = field
 
     return TokenScopes(**args)
 
@@ -200,25 +226,32 @@ def unmarshal_Token(data: Any) -> Token:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("project_id", None)
-    args["project_id"] = field
+    if field is not None:
+        args["project_id"] = field
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("scopes", None)
-    args["scopes"] = unmarshal_TokenScopes(field)
+    if field is not None:
+        args["scopes"] = unmarshal_TokenScopes(field)
 
     field = data.get("secret_key", None)
-    args["secret_key"] = field
+    if field is not None:
+        args["secret_key"] = field
 
     return Token(**args)
 
@@ -232,19 +265,24 @@ def unmarshal_CockpitEndpoints(data: Any) -> CockpitEndpoints:
     args: Dict[str, Any] = {}
 
     field = data.get("metrics_url", None)
-    args["metrics_url"] = field
+    if field is not None:
+        args["metrics_url"] = field
 
     field = data.get("logs_url", None)
-    args["logs_url"] = field
+    if field is not None:
+        args["logs_url"] = field
 
     field = data.get("traces_url", None)
-    args["traces_url"] = field
+    if field is not None:
+        args["traces_url"] = field
 
     field = data.get("alertmanager_url", None)
-    args["alertmanager_url"] = field
+    if field is not None:
+        args["alertmanager_url"] = field
 
     field = data.get("grafana_url", None)
-    args["grafana_url"] = field
+    if field is not None:
+        args["grafana_url"] = field
 
     return CockpitEndpoints(**args)
 
@@ -258,31 +296,40 @@ def unmarshal_Plan(data: Any) -> Plan:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("sample_ingestion_price", None)
-    args["sample_ingestion_price"] = field
+    if field is not None:
+        args["sample_ingestion_price"] = field
 
     field = data.get("logs_ingestion_price", None)
-    args["logs_ingestion_price"] = field
+    if field is not None:
+        args["logs_ingestion_price"] = field
 
     field = data.get("traces_ingestion_price", None)
-    args["traces_ingestion_price"] = field
+    if field is not None:
+        args["traces_ingestion_price"] = field
 
     field = data.get("retention_price", None)
-    args["retention_price"] = field
+    if field is not None:
+        args["retention_price"] = field
 
     field = data.get("retention_metrics_interval", None)
-    args["retention_metrics_interval"] = field
+    if field is not None:
+        args["retention_metrics_interval"] = field
 
     field = data.get("retention_logs_interval", None)
-    args["retention_logs_interval"] = field
+    if field is not None:
+        args["retention_logs_interval"] = field
 
     field = data.get("retention_traces_interval", None)
-    args["retention_traces_interval"] = field
+    if field is not None:
+        args["retention_traces_interval"] = field
 
     return Plan(**args)
 
@@ -296,25 +343,32 @@ def unmarshal_Cockpit(data: Any) -> Cockpit:
     args: Dict[str, Any] = {}
 
     field = data.get("project_id", None)
-    args["project_id"] = field
+    if field is not None:
+        args["project_id"] = field
 
     field = data.get("status", None)
-    args["status"] = field
+    if field is not None:
+        args["status"] = field
 
     field = data.get("managed_alerts_enabled", None)
-    args["managed_alerts_enabled"] = field
+    if field is not None:
+        args["managed_alerts_enabled"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("endpoints", None)
-    args["endpoints"] = unmarshal_CockpitEndpoints(field)
+    if field is not None:
+        args["endpoints"] = unmarshal_CockpitEndpoints(field)
 
     field = data.get("plan", None)
-    args["plan"] = unmarshal_Plan(field)
+    if field is not None:
+        args["plan"] = unmarshal_Plan(field)
 
     return Cockpit(**args)
 
@@ -328,9 +382,10 @@ def unmarshal_CockpitMetrics(data: Any) -> CockpitMetrics:
     args: Dict[str, Any] = {}
 
     field = data.get("timeseries", None)
-    args["timeseries"] = (
-        [unmarshal_TimeSeries(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["timeseries"] = (
+            [unmarshal_TimeSeries(v) for v in field] if field is not None else None
+        )
 
     return CockpitMetrics(**args)
 
@@ -344,18 +399,22 @@ def unmarshal_ListContactPointsResponse(data: Any) -> ListContactPointsResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     field = data.get("contact_points", None)
-    args["contact_points"] = (
-        [unmarshal_ContactPoint(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["contact_points"] = (
+            [unmarshal_ContactPoint(v) for v in field] if field is not None else None
+        )
 
     field = data.get("has_additional_receivers", None)
-    args["has_additional_receivers"] = field
+    if field is not None:
+        args["has_additional_receivers"] = field
 
     field = data.get("has_additional_contact_points", None)
-    args["has_additional_contact_points"] = field
+    if field is not None:
+        args["has_additional_contact_points"] = field
 
     return ListContactPointsResponse(**args)
 
@@ -369,12 +428,14 @@ def unmarshal_ListDatasourcesResponse(data: Any) -> ListDatasourcesResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     field = data.get("datasources", None)
-    args["datasources"] = (
-        [unmarshal_Datasource(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["datasources"] = (
+            [unmarshal_Datasource(v) for v in field] if field is not None else None
+        )
 
     return ListDatasourcesResponse(**args)
 
@@ -390,14 +451,16 @@ def unmarshal_ListGrafanaProductDashboardsResponse(
     args: Dict[str, Any] = {}
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     field = data.get("dashboards", None)
-    args["dashboards"] = (
-        [unmarshal_GrafanaProductDashboard(v) for v in field]
-        if field is not None
-        else None
-    )
+    if field is not None:
+        args["dashboards"] = (
+            [unmarshal_GrafanaProductDashboard(v) for v in field]
+            if field is not None
+            else None
+        )
 
     return ListGrafanaProductDashboardsResponse(**args)
 
@@ -411,12 +474,14 @@ def unmarshal_ListGrafanaUsersResponse(data: Any) -> ListGrafanaUsersResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     field = data.get("grafana_users", None)
-    args["grafana_users"] = (
-        [unmarshal_GrafanaUser(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["grafana_users"] = (
+            [unmarshal_GrafanaUser(v) for v in field] if field is not None else None
+        )
 
     return ListGrafanaUsersResponse(**args)
 
@@ -430,10 +495,14 @@ def unmarshal_ListPlansResponse(data: Any) -> ListPlansResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     field = data.get("plans", None)
-    args["plans"] = [unmarshal_Plan(v) for v in field] if field is not None else None
+    if field is not None:
+        args["plans"] = (
+            [unmarshal_Plan(v) for v in field] if field is not None else None
+        )
 
     return ListPlansResponse(**args)
 
@@ -447,10 +516,14 @@ def unmarshal_ListTokensResponse(data: Any) -> ListTokensResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     field = data.get("tokens", None)
-    args["tokens"] = [unmarshal_Token(v) for v in field] if field is not None else None
+    if field is not None:
+        args["tokens"] = (
+            [unmarshal_Token(v) for v in field] if field is not None else None
+        )
 
     return ListTokensResponse(**args)
 

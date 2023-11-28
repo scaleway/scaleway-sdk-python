@@ -35,16 +35,20 @@ def unmarshal_EmailTry(data: Any) -> EmailTry:
     args: Dict[str, Any] = {}
 
     field = data.get("rank", None)
-    args["rank"] = field
+    if field is not None:
+        args["rank"] = field
 
     field = data.get("code", None)
-    args["code"] = field
+    if field is not None:
+        args["code"] = field
 
     field = data.get("message", None)
-    args["message"] = field
+    if field is not None:
+        args["message"] = field
 
     field = data.get("tried_at", None)
-    args["tried_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["tried_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return EmailTry(**args)
 
@@ -58,51 +62,66 @@ def unmarshal_Email(data: Any) -> Email:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("message_id", None)
-    args["message_id"] = field
+    if field is not None:
+        args["message_id"] = field
 
     field = data.get("project_id", None)
-    args["project_id"] = field
+    if field is not None:
+        args["project_id"] = field
 
     field = data.get("mail_from", None)
-    args["mail_from"] = field
+    if field is not None:
+        args["mail_from"] = field
 
     field = data.get("mail_rcpt", None)
-    args["mail_rcpt"] = field
+    if field is not None:
+        args["mail_rcpt"] = field
 
     field = data.get("rcpt_to", None)
-    args["rcpt_to"] = field
+    if field is not None:
+        args["rcpt_to"] = field
 
     field = data.get("rcpt_type", None)
-    args["rcpt_type"] = field
+    if field is not None:
+        args["rcpt_type"] = field
 
     field = data.get("subject", None)
-    args["subject"] = field
+    if field is not None:
+        args["subject"] = field
 
     field = data.get("status", None)
-    args["status"] = field
+    if field is not None:
+        args["status"] = field
 
     field = data.get("try_count", None)
-    args["try_count"] = field
+    if field is not None:
+        args["try_count"] = field
 
     field = data.get("last_tries", None)
-    args["last_tries"] = (
-        [unmarshal_EmailTry(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["last_tries"] = (
+            [unmarshal_EmailTry(v) for v in field] if field is not None else None
+        )
 
     field = data.get("flags", None)
-    args["flags"] = [EmailFlag(v) for v in field] if field is not None else None
+    if field is not None:
+        args["flags"] = [EmailFlag(v) for v in field] if field is not None else None
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("status_details", None)
-    args["status_details"] = field
+    if field is not None:
+        args["status_details"] = field
 
     return Email(**args)
 
@@ -116,21 +135,26 @@ def unmarshal_DomainReputation(data: Any) -> DomainReputation:
     args: Dict[str, Any] = {}
 
     field = data.get("status", None)
-    args["status"] = field
+    if field is not None:
+        args["status"] = field
 
     field = data.get("score", None)
-    args["score"] = field
+    if field is not None:
+        args["score"] = field
 
     field = data.get("scored_at", None)
-    args["scored_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["scored_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("previous_score", None)
-    args["previous_score"] = field
+    if field is not None:
+        args["previous_score"] = field
 
     field = data.get("previous_scored_at", None)
-    args["previous_scored_at"] = (
-        parser.isoparse(field) if isinstance(field, str) else field
-    )
+    if field is not None:
+        args["previous_scored_at"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
 
     return DomainReputation(**args)
 
@@ -144,16 +168,20 @@ def unmarshal_DomainStatistics(data: Any) -> DomainStatistics:
     args: Dict[str, Any] = {}
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     field = data.get("sent_count", None)
-    args["sent_count"] = field
+    if field is not None:
+        args["sent_count"] = field
 
     field = data.get("failed_count", None)
-    args["failed_count"] = field
+    if field is not None:
+        args["failed_count"] = field
 
     field = data.get("canceled_count", None)
-    args["canceled_count"] = field
+    if field is not None:
+        args["canceled_count"] = field
 
     return DomainStatistics(**args)
 
@@ -167,49 +195,68 @@ def unmarshal_Domain(data: Any) -> Domain:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("organization_id", None)
-    args["organization_id"] = field
+    if field is not None:
+        args["organization_id"] = field
 
     field = data.get("project_id", None)
-    args["project_id"] = field
+    if field is not None:
+        args["project_id"] = field
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("status", None)
-    args["status"] = field
+    if field is not None:
+        args["status"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("spf_config", None)
-    args["spf_config"] = field
+    if field is not None:
+        args["spf_config"] = field
 
     field = data.get("dkim_config", None)
-    args["dkim_config"] = field
+    if field is not None:
+        args["dkim_config"] = field
 
     field = data.get("region", None)
-    args["region"] = field
+    if field is not None:
+        args["region"] = field
 
     field = data.get("next_check_at", None)
-    args["next_check_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["next_check_at"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
 
     field = data.get("last_valid_at", None)
-    args["last_valid_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["last_valid_at"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
 
     field = data.get("revoked_at", None)
-    args["revoked_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["revoked_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("last_error", None)
-    args["last_error"] = field
+    if field is not None:
+        args["last_error"] = field
 
     field = data.get("statistics", None)
-    args["statistics"] = unmarshal_DomainStatistics(field)
+    if field is not None:
+        args["statistics"] = unmarshal_DomainStatistics(field)
 
     field = data.get("reputation", None)
-    args["reputation"] = unmarshal_DomainReputation(field)
+    if field is not None:
+        args["reputation"] = unmarshal_DomainReputation(field)
 
     return Domain(**args)
 
@@ -223,7 +270,10 @@ def unmarshal_CreateEmailResponse(data: Any) -> CreateEmailResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("emails", None)
-    args["emails"] = [unmarshal_Email(v) for v in field] if field is not None else None
+    if field is not None:
+        args["emails"] = (
+            [unmarshal_Email(v) for v in field] if field is not None else None
+        )
 
     return CreateEmailResponse(**args)
 
@@ -237,13 +287,18 @@ def unmarshal_DomainLastStatusDkimRecord(data: Any) -> DomainLastStatusDkimRecor
     args: Dict[str, Any] = {}
 
     field = data.get("status", None)
-    args["status"] = field
+    if field is not None:
+        args["status"] = field
 
     field = data.get("last_valid_at", None)
-    args["last_valid_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["last_valid_at"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
 
     field = data.get("error", None)
-    args["error"] = field
+    if field is not None:
+        args["error"] = field
 
     return DomainLastStatusDkimRecord(**args)
 
@@ -257,13 +312,18 @@ def unmarshal_DomainLastStatusSpfRecord(data: Any) -> DomainLastStatusSpfRecord:
     args: Dict[str, Any] = {}
 
     field = data.get("status", None)
-    args["status"] = field
+    if field is not None:
+        args["status"] = field
 
     field = data.get("last_valid_at", None)
-    args["last_valid_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["last_valid_at"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
 
     field = data.get("error", None)
-    args["error"] = field
+    if field is not None:
+        args["error"] = field
 
     return DomainLastStatusSpfRecord(**args)
 
@@ -277,16 +337,20 @@ def unmarshal_DomainLastStatus(data: Any) -> DomainLastStatus:
     args: Dict[str, Any] = {}
 
     field = data.get("domain_id", None)
-    args["domain_id"] = field
+    if field is not None:
+        args["domain_id"] = field
 
     field = data.get("domain_name", None)
-    args["domain_name"] = field
+    if field is not None:
+        args["domain_name"] = field
 
     field = data.get("spf_record", None)
-    args["spf_record"] = unmarshal_DomainLastStatusSpfRecord(field)
+    if field is not None:
+        args["spf_record"] = unmarshal_DomainLastStatusSpfRecord(field)
 
     field = data.get("dkim_record", None)
-    args["dkim_record"] = unmarshal_DomainLastStatusDkimRecord(field)
+    if field is not None:
+        args["dkim_record"] = unmarshal_DomainLastStatusDkimRecord(field)
 
     return DomainLastStatus(**args)
 
@@ -300,12 +364,14 @@ def unmarshal_ListDomainsResponse(data: Any) -> ListDomainsResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     field = data.get("domains", None)
-    args["domains"] = (
-        [unmarshal_Domain(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["domains"] = (
+            [unmarshal_Domain(v) for v in field] if field is not None else None
+        )
 
     return ListDomainsResponse(**args)
 
@@ -319,10 +385,14 @@ def unmarshal_ListEmailsResponse(data: Any) -> ListEmailsResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     field = data.get("emails", None)
-    args["emails"] = [unmarshal_Email(v) for v in field] if field is not None else None
+    if field is not None:
+        args["emails"] = (
+            [unmarshal_Email(v) for v in field] if field is not None else None
+        )
 
     return ListEmailsResponse(**args)
 
@@ -336,22 +406,28 @@ def unmarshal_Statistics(data: Any) -> Statistics:
     args: Dict[str, Any] = {}
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     field = data.get("new_count", None)
-    args["new_count"] = field
+    if field is not None:
+        args["new_count"] = field
 
     field = data.get("sending_count", None)
-    args["sending_count"] = field
+    if field is not None:
+        args["sending_count"] = field
 
     field = data.get("sent_count", None)
-    args["sent_count"] = field
+    if field is not None:
+        args["sent_count"] = field
 
     field = data.get("failed_count", None)
-    args["failed_count"] = field
+    if field is not None:
+        args["failed_count"] = field
 
     field = data.get("canceled_count", None)
-    args["canceled_count"] = field
+    if field is not None:
+        args["canceled_count"] = field
 
     return Statistics(**args)
 

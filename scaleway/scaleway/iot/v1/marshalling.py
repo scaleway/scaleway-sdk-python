@@ -69,10 +69,12 @@ def unmarshal_DeviceMessageFiltersRule(data: Any) -> DeviceMessageFiltersRule:
     args: Dict[str, Any] = {}
 
     field = data.get("policy", None)
-    args["policy"] = field
+    if field is not None:
+        args["policy"] = field
 
     field = data.get("topics", None)
-    args["topics"] = field
+    if field is not None:
+        args["topics"] = field
 
     return DeviceMessageFiltersRule(**args)
 
@@ -86,10 +88,12 @@ def unmarshal_DeviceMessageFilters(data: Any) -> DeviceMessageFilters:
     args: Dict[str, Any] = {}
 
     field = data.get("publish", None)
-    args["publish"] = unmarshal_DeviceMessageFiltersRule(field)
+    if field is not None:
+        args["publish"] = unmarshal_DeviceMessageFiltersRule(field)
 
     field = data.get("subscribe", None)
-    args["subscribe"] = unmarshal_DeviceMessageFiltersRule(field)
+    if field is not None:
+        args["subscribe"] = unmarshal_DeviceMessageFiltersRule(field)
 
     return DeviceMessageFilters(**args)
 
@@ -103,45 +107,58 @@ def unmarshal_Device(data: Any) -> Device:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("description", None)
-    args["description"] = field
+    if field is not None:
+        args["description"] = field
 
     field = data.get("status", None)
-    args["status"] = field
+    if field is not None:
+        args["status"] = field
 
     field = data.get("hub_id", None)
-    args["hub_id"] = field
+    if field is not None:
+        args["hub_id"] = field
 
     field = data.get("last_activity_at", None)
-    args["last_activity_at"] = (
-        parser.isoparse(field) if isinstance(field, str) else field
-    )
+    if field is not None:
+        args["last_activity_at"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
 
     field = data.get("is_connected", None)
-    args["is_connected"] = field
+    if field is not None:
+        args["is_connected"] = field
 
     field = data.get("allow_insecure", None)
-    args["allow_insecure"] = field
+    if field is not None:
+        args["allow_insecure"] = field
 
     field = data.get("allow_multiple_connections", None)
-    args["allow_multiple_connections"] = field
+    if field is not None:
+        args["allow_multiple_connections"] = field
 
     field = data.get("has_custom_certificate", None)
-    args["has_custom_certificate"] = field
+    if field is not None:
+        args["has_custom_certificate"] = field
 
     field = data.get("message_filters", None)
-    args["message_filters"] = unmarshal_DeviceMessageFilters(field)
+    if field is not None:
+        args["message_filters"] = unmarshal_DeviceMessageFilters(field)
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return Device(**args)
 
@@ -155,25 +172,32 @@ def unmarshal_Network(data: Any) -> Network:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("type_", None)
-    args["type_"] = field
+    if field is not None:
+        args["type_"] = field
 
     field = data.get("endpoint", None)
-    args["endpoint"] = field
+    if field is not None:
+        args["endpoint"] = field
 
     field = data.get("hub_id", None)
-    args["hub_id"] = field
+    if field is not None:
+        args["hub_id"] = field
 
     field = data.get("topic_prefix", None)
-    args["topic_prefix"] = field
+    if field is not None:
+        args["topic_prefix"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return Network(**args)
 
@@ -187,7 +211,8 @@ def unmarshal_HubTwinsGraphiteConfig(data: Any) -> HubTwinsGraphiteConfig:
     args: Dict[str, Any] = {}
 
     field = data.get("push_uri", None)
-    args["push_uri"] = field
+    if field is not None:
+        args["push_uri"] = field
 
     return HubTwinsGraphiteConfig(**args)
 
@@ -201,58 +226,76 @@ def unmarshal_Hub(data: Any) -> Hub:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("status", None)
-    args["status"] = field
+    if field is not None:
+        args["status"] = field
 
     field = data.get("product_plan", None)
-    args["product_plan"] = field
+    if field is not None:
+        args["product_plan"] = field
 
     field = data.get("enabled", None)
-    args["enabled"] = field
+    if field is not None:
+        args["enabled"] = field
 
     field = data.get("device_count", None)
-    args["device_count"] = field
+    if field is not None:
+        args["device_count"] = field
 
     field = data.get("connected_device_count", None)
-    args["connected_device_count"] = field
+    if field is not None:
+        args["connected_device_count"] = field
 
     field = data.get("endpoint", None)
-    args["endpoint"] = field
+    if field is not None:
+        args["endpoint"] = field
 
     field = data.get("disable_events", None)
-    args["disable_events"] = field
+    if field is not None:
+        args["disable_events"] = field
 
     field = data.get("events_topic_prefix", None)
-    args["events_topic_prefix"] = field
+    if field is not None:
+        args["events_topic_prefix"] = field
 
     field = data.get("region", None)
-    args["region"] = field
+    if field is not None:
+        args["region"] = field
 
     field = data.get("project_id", None)
-    args["project_id"] = field
+    if field is not None:
+        args["project_id"] = field
 
     field = data.get("organization_id", None)
-    args["organization_id"] = field
+    if field is not None:
+        args["organization_id"] = field
 
     field = data.get("enable_device_auto_provisioning", None)
-    args["enable_device_auto_provisioning"] = field
+    if field is not None:
+        args["enable_device_auto_provisioning"] = field
 
     field = data.get("has_custom_ca", None)
-    args["has_custom_ca"] = field
+    if field is not None:
+        args["has_custom_ca"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("twins_graphite_config", None)
-    args["twins_graphite_config"] = unmarshal_HubTwinsGraphiteConfig(field)
+    if field is not None:
+        args["twins_graphite_config"] = unmarshal_HubTwinsGraphiteConfig(field)
 
     return Hub(**args)
 
@@ -266,10 +309,12 @@ def unmarshal_Certificate(data: Any) -> Certificate:
     args: Dict[str, Any] = {}
 
     field = data.get("crt", None)
-    args["crt"] = field
+    if field is not None:
+        args["crt"] = field
 
     field = data.get("key", None)
-    args["key"] = field
+    if field is not None:
+        args["key"] = field
 
     return Certificate(**args)
 
@@ -283,10 +328,12 @@ def unmarshal_CreateDeviceResponse(data: Any) -> CreateDeviceResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("device", None)
-    args["device"] = unmarshal_Device(field)
+    if field is not None:
+        args["device"] = unmarshal_Device(field)
 
     field = data.get("certificate", None)
-    args["certificate"] = unmarshal_Certificate(field)
+    if field is not None:
+        args["certificate"] = unmarshal_Certificate(field)
 
     return CreateDeviceResponse(**args)
 
@@ -300,10 +347,12 @@ def unmarshal_CreateNetworkResponse(data: Any) -> CreateNetworkResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("secret", None)
-    args["secret"] = field
+    if field is not None:
+        args["secret"] = field
 
     field = data.get("network", None)
-    args["network"] = unmarshal_Network(field)
+    if field is not None:
+        args["network"] = unmarshal_Network(field)
 
     return CreateNetworkResponse(**args)
 
@@ -317,10 +366,12 @@ def unmarshal_GetDeviceCertificateResponse(data: Any) -> GetDeviceCertificateRes
     args: Dict[str, Any] = {}
 
     field = data.get("certificate_pem", None)
-    args["certificate_pem"] = field
+    if field is not None:
+        args["certificate_pem"] = field
 
     field = data.get("device", None)
-    args["device"] = unmarshal_Device(field)
+    if field is not None:
+        args["device"] = unmarshal_Device(field)
 
     return GetDeviceCertificateResponse(**args)
 
@@ -334,9 +385,10 @@ def unmarshal_GetDeviceMetricsResponse(data: Any) -> GetDeviceMetricsResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("metrics", None)
-    args["metrics"] = (
-        [unmarshal_TimeSeries(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["metrics"] = (
+            [unmarshal_TimeSeries(v) for v in field] if field is not None else None
+        )
 
     return GetDeviceMetricsResponse(**args)
 
@@ -350,7 +402,8 @@ def unmarshal_GetHubCAResponse(data: Any) -> GetHubCAResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("ca_cert_pem", None)
-    args["ca_cert_pem"] = field
+    if field is not None:
+        args["ca_cert_pem"] = field
 
     return GetHubCAResponse(**args)
 
@@ -364,9 +417,10 @@ def unmarshal_GetHubMetricsResponse(data: Any) -> GetHubMetricsResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("metrics", None)
-    args["metrics"] = (
-        [unmarshal_TimeSeries(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["metrics"] = (
+            [unmarshal_TimeSeries(v) for v in field] if field is not None else None
+        )
 
     return GetHubMetricsResponse(**args)
 
@@ -380,12 +434,14 @@ def unmarshal_ListDevicesResponse(data: Any) -> ListDevicesResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     field = data.get("devices", None)
-    args["devices"] = (
-        [unmarshal_Device(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["devices"] = (
+            [unmarshal_Device(v) for v in field] if field is not None else None
+        )
 
     return ListDevicesResponse(**args)
 
@@ -399,10 +455,12 @@ def unmarshal_ListHubsResponse(data: Any) -> ListHubsResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     field = data.get("hubs", None)
-    args["hubs"] = [unmarshal_Hub(v) for v in field] if field is not None else None
+    if field is not None:
+        args["hubs"] = [unmarshal_Hub(v) for v in field] if field is not None else None
 
     return ListHubsResponse(**args)
 
@@ -416,12 +474,14 @@ def unmarshal_ListNetworksResponse(data: Any) -> ListNetworksResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     field = data.get("networks", None)
-    args["networks"] = (
-        [unmarshal_Network(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["networks"] = (
+            [unmarshal_Network(v) for v in field] if field is not None else None
+        )
 
     return ListNetworksResponse(**args)
 
@@ -435,25 +495,32 @@ def unmarshal_RouteSummary(data: Any) -> RouteSummary:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("hub_id", None)
-    args["hub_id"] = field
+    if field is not None:
+        args["hub_id"] = field
 
     field = data.get("topic", None)
-    args["topic"] = field
+    if field is not None:
+        args["topic"] = field
 
     field = data.get("type_", None)
-    args["type_"] = field
+    if field is not None:
+        args["type_"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return RouteSummary(**args)
 
@@ -467,12 +534,14 @@ def unmarshal_ListRoutesResponse(data: Any) -> ListRoutesResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     field = data.get("routes", None)
-    args["routes"] = (
-        [unmarshal_RouteSummary(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["routes"] = (
+            [unmarshal_RouteSummary(v) for v in field] if field is not None else None
+        )
 
     return ListRoutesResponse(**args)
 
@@ -488,7 +557,8 @@ def unmarshal_ListTwinDocumentsResponseDocumentSummary(
     args: Dict[str, Any] = {}
 
     field = data.get("document_name", None)
-    args["document_name"] = field
+    if field is not None:
+        args["document_name"] = field
 
     return ListTwinDocumentsResponseDocumentSummary(**args)
 
@@ -502,11 +572,12 @@ def unmarshal_ListTwinDocumentsResponse(data: Any) -> ListTwinDocumentsResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("documents", None)
-    args["documents"] = (
-        [unmarshal_ListTwinDocumentsResponseDocumentSummary(v) for v in field]
-        if field is not None
-        else None
-    )
+    if field is not None:
+        args["documents"] = (
+            [unmarshal_ListTwinDocumentsResponseDocumentSummary(v) for v in field]
+            if field is not None
+            else None
+        )
 
     return ListTwinDocumentsResponse(**args)
 
@@ -522,10 +593,12 @@ def unmarshal_RenewDeviceCertificateResponse(
     args: Dict[str, Any] = {}
 
     field = data.get("device", None)
-    args["device"] = unmarshal_Device(field)
+    if field is not None:
+        args["device"] = unmarshal_Device(field)
 
     field = data.get("certificate", None)
-    args["certificate"] = unmarshal_Certificate(field)
+    if field is not None:
+        args["certificate"] = unmarshal_Certificate(field)
 
     return RenewDeviceCertificateResponse(**args)
 
@@ -539,25 +612,32 @@ def unmarshal_RouteDatabaseConfig(data: Any) -> RouteDatabaseConfig:
     args: Dict[str, Any] = {}
 
     field = data.get("engine", None)
-    args["engine"] = field
+    if field is not None:
+        args["engine"] = field
 
     field = data.get("host", None)
-    args["host"] = field
+    if field is not None:
+        args["host"] = field
 
     field = data.get("port", None)
-    args["port"] = field
+    if field is not None:
+        args["port"] = field
 
     field = data.get("dbname", None)
-    args["dbname"] = field
+    if field is not None:
+        args["dbname"] = field
 
     field = data.get("username", None)
-    args["username"] = field
+    if field is not None:
+        args["username"] = field
 
     field = data.get("password", None)
-    args["password"] = field
+    if field is not None:
+        args["password"] = field
 
     field = data.get("query", None)
-    args["query"] = field
+    if field is not None:
+        args["query"] = field
 
     return RouteDatabaseConfig(**args)
 
@@ -571,13 +651,16 @@ def unmarshal_RouteRestConfig(data: Any) -> RouteRestConfig:
     args: Dict[str, Any] = {}
 
     field = data.get("verb", None)
-    args["verb"] = field
+    if field is not None:
+        args["verb"] = field
 
     field = data.get("uri", None)
-    args["uri"] = field
+    if field is not None:
+        args["uri"] = field
 
     field = data.get("headers", None)
-    args["headers"] = field
+    if field is not None:
+        args["headers"] = field
 
     return RouteRestConfig(**args)
 
@@ -591,16 +674,20 @@ def unmarshal_RouteS3Config(data: Any) -> RouteS3Config:
     args: Dict[str, Any] = {}
 
     field = data.get("bucket_region", None)
-    args["bucket_region"] = field
+    if field is not None:
+        args["bucket_region"] = field
 
     field = data.get("bucket_name", None)
-    args["bucket_name"] = field
+    if field is not None:
+        args["bucket_name"] = field
 
     field = data.get("object_prefix", None)
-    args["object_prefix"] = field
+    if field is not None:
+        args["object_prefix"] = field
 
     field = data.get("strategy", None)
-    args["strategy"] = field
+    if field is not None:
+        args["strategy"] = field
 
     return RouteS3Config(**args)
 
@@ -614,34 +701,44 @@ def unmarshal_Route(data: Any) -> Route:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("hub_id", None)
-    args["hub_id"] = field
+    if field is not None:
+        args["hub_id"] = field
 
     field = data.get("topic", None)
-    args["topic"] = field
+    if field is not None:
+        args["topic"] = field
 
     field = data.get("type_", None)
-    args["type_"] = field
+    if field is not None:
+        args["type_"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("s3_config", None)
-    args["s3_config"] = unmarshal_RouteS3Config(field)
+    if field is not None:
+        args["s3_config"] = unmarshal_RouteS3Config(field)
 
     field = data.get("db_config", None)
-    args["db_config"] = unmarshal_RouteDatabaseConfig(field)
+    if field is not None:
+        args["db_config"] = unmarshal_RouteDatabaseConfig(field)
 
     field = data.get("rest_config", None)
-    args["rest_config"] = unmarshal_RouteRestConfig(field)
+    if field is not None:
+        args["rest_config"] = unmarshal_RouteRestConfig(field)
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return Route(**args)
 
@@ -655,10 +752,12 @@ def unmarshal_SetDeviceCertificateResponse(data: Any) -> SetDeviceCertificateRes
     args: Dict[str, Any] = {}
 
     field = data.get("certificate_pem", None)
-    args["certificate_pem"] = field
+    if field is not None:
+        args["certificate_pem"] = field
 
     field = data.get("device", None)
-    args["device"] = unmarshal_Device(field)
+    if field is not None:
+        args["device"] = unmarshal_Device(field)
 
     return SetDeviceCertificateResponse(**args)
 
@@ -672,16 +771,20 @@ def unmarshal_TwinDocument(data: Any) -> TwinDocument:
     args: Dict[str, Any] = {}
 
     field = data.get("twin_id", None)
-    args["twin_id"] = field
+    if field is not None:
+        args["twin_id"] = field
 
     field = data.get("document_name", None)
-    args["document_name"] = field
+    if field is not None:
+        args["document_name"] = field
 
     field = data.get("version", None)
-    args["version"] = field
+    if field is not None:
+        args["version"] = field
 
     field = data.get("data", None)
-    args["data"] = field
+    if field is not None:
+        args["data"] = field
 
     return TwinDocument(**args)
 

@@ -85,7 +85,8 @@ def unmarshal_PostAllTypesMessageNestedMessage(
     args: Dict[str, Any] = {}
 
     field = data.get("bb", None)
-    args["bb"] = field
+    if field is not None:
+        args["bb"] = field
 
     return PostAllTypesMessageNestedMessage(**args)
 
@@ -99,314 +100,418 @@ def unmarshal_PostAllTypesMessage(data: Any) -> PostAllTypesMessage:
     args: Dict[str, Any] = {}
 
     field = data.get("singular_int32", None)
-    args["singular_int32"] = field
+    if field is not None:
+        args["singular_int32"] = field
 
     field = data.get("singular_int64", None)
-    args["singular_int64"] = field
+    if field is not None:
+        args["singular_int64"] = field
 
     field = data.get("singular_uint32", None)
-    args["singular_uint32"] = field
+    if field is not None:
+        args["singular_uint32"] = field
 
     field = data.get("singular_uint64", None)
-    args["singular_uint64"] = field
+    if field is not None:
+        args["singular_uint64"] = field
 
     field = data.get("singular_sint32", None)
-    args["singular_sint32"] = field
+    if field is not None:
+        args["singular_sint32"] = field
 
     field = data.get("singular_sint64", None)
-    args["singular_sint64"] = field
+    if field is not None:
+        args["singular_sint64"] = field
 
     field = data.get("singular_fixed32", None)
-    args["singular_fixed32"] = field
+    if field is not None:
+        args["singular_fixed32"] = field
 
     field = data.get("singular_fixed64", None)
-    args["singular_fixed64"] = field
+    if field is not None:
+        args["singular_fixed64"] = field
 
     field = data.get("singular_sfixed32", None)
-    args["singular_sfixed32"] = field
+    if field is not None:
+        args["singular_sfixed32"] = field
 
     field = data.get("singular_sfixed64", None)
-    args["singular_sfixed64"] = field
+    if field is not None:
+        args["singular_sfixed64"] = field
 
     field = data.get("singular_float", None)
-    args["singular_float"] = field
+    if field is not None:
+        args["singular_float"] = field
 
     field = data.get("singular_double", None)
-    args["singular_double"] = field
+    if field is not None:
+        args["singular_double"] = field
 
     field = data.get("singular_bool", None)
-    args["singular_bool"] = field
+    if field is not None:
+        args["singular_bool"] = field
 
     field = data.get("singular_string", None)
-    args["singular_string"] = field
+    if field is not None:
+        args["singular_string"] = field
 
     field = data.get("singular_bytes", None)
-    args["singular_bytes"] = field
+    if field is not None:
+        args["singular_bytes"] = field
 
     field = data.get("singular_nested_message", None)
-    args["singular_nested_message"] = unmarshal_PostAllTypesMessageNestedMessage(field)
+    if field is not None:
+        args["singular_nested_message"] = unmarshal_PostAllTypesMessageNestedMessage(
+            field
+        )
 
     field = data.get("singular_nested_enum", None)
-    args["singular_nested_enum"] = field
+    if field is not None:
+        args["singular_nested_enum"] = field
 
     field = data.get("repeated_int32", None)
-    args["repeated_int32"] = field
+    if field is not None:
+        args["repeated_int32"] = field
 
     field = data.get("repeated_int64", None)
-    args["repeated_int64"] = field
+    if field is not None:
+        args["repeated_int64"] = field
 
     field = data.get("repeated_uint32", None)
-    args["repeated_uint32"] = field
+    if field is not None:
+        args["repeated_uint32"] = field
 
     field = data.get("repeated_uint64", None)
-    args["repeated_uint64"] = field
+    if field is not None:
+        args["repeated_uint64"] = field
 
     field = data.get("repeated_sint32", None)
-    args["repeated_sint32"] = field
+    if field is not None:
+        args["repeated_sint32"] = field
 
     field = data.get("repeated_sint64", None)
-    args["repeated_sint64"] = field
+    if field is not None:
+        args["repeated_sint64"] = field
 
     field = data.get("repeated_fixed32", None)
-    args["repeated_fixed32"] = field
+    if field is not None:
+        args["repeated_fixed32"] = field
 
     field = data.get("repeated_fixed64", None)
-    args["repeated_fixed64"] = field
+    if field is not None:
+        args["repeated_fixed64"] = field
 
     field = data.get("repeated_sfixed32", None)
-    args["repeated_sfixed32"] = field
+    if field is not None:
+        args["repeated_sfixed32"] = field
 
     field = data.get("repeated_sfixed64", None)
-    args["repeated_sfixed64"] = field
+    if field is not None:
+        args["repeated_sfixed64"] = field
 
     field = data.get("repeated_float", None)
-    args["repeated_float"] = field
+    if field is not None:
+        args["repeated_float"] = field
 
     field = data.get("repeated_double", None)
-    args["repeated_double"] = field
+    if field is not None:
+        args["repeated_double"] = field
 
     field = data.get("repeated_bool", None)
-    args["repeated_bool"] = field
+    if field is not None:
+        args["repeated_bool"] = field
 
     field = data.get("repeated_string", None)
-    args["repeated_string"] = field
+    if field is not None:
+        args["repeated_string"] = field
 
     field = data.get("repeated_bytes", None)
-    args["repeated_bytes"] = field
+    if field is not None:
+        args["repeated_bytes"] = field
 
     field = data.get("repeated_nested_message", None)
-    args["repeated_nested_message"] = (
-        [unmarshal_PostAllTypesMessageNestedMessage(v) for v in field]
-        if field is not None
-        else None
-    )
+    if field is not None:
+        args["repeated_nested_message"] = (
+            [unmarshal_PostAllTypesMessageNestedMessage(v) for v in field]
+            if field is not None
+            else None
+        )
 
     field = data.get("repeated_nested_enum", None)
-    args["repeated_nested_enum"] = (
-        [PostAllTypesMessageNestedEnum(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["repeated_nested_enum"] = (
+            [PostAllTypesMessageNestedEnum(v) for v in field]
+            if field is not None
+            else None
+        )
 
     field = data.get("oneof_uint32", None)
-    args["oneof_uint32"] = field
+    if field is not None:
+        args["oneof_uint32"] = field
 
     field = data.get("oneof_nested_message", None)
-    args["oneof_nested_message"] = unmarshal_PostAllTypesMessageNestedMessage(field)
+    if field is not None:
+        args["oneof_nested_message"] = unmarshal_PostAllTypesMessageNestedMessage(field)
 
     field = data.get("oneof_string", None)
-    args["oneof_string"] = field
+    if field is not None:
+        args["oneof_string"] = field
 
     field = data.get("oneof_bytes", None)
-    args["oneof_bytes"] = field
+    if field is not None:
+        args["oneof_bytes"] = field
 
     field = data.get("singular_double_value", None)
-    args["singular_double_value"] = field
+    if field is not None:
+        args["singular_double_value"] = field
 
     field = data.get("singular_float_value", None)
-    args["singular_float_value"] = field
+    if field is not None:
+        args["singular_float_value"] = field
 
     field = data.get("singular_int64_value", None)
-    args["singular_int64_value"] = field
+    if field is not None:
+        args["singular_int64_value"] = field
 
     field = data.get("singular_uint64_value", None)
-    args["singular_uint64_value"] = field
+    if field is not None:
+        args["singular_uint64_value"] = field
 
     field = data.get("singular_int32_value", None)
-    args["singular_int32_value"] = field
+    if field is not None:
+        args["singular_int32_value"] = field
 
     field = data.get("singular_uint32_value", None)
-    args["singular_uint32_value"] = field
+    if field is not None:
+        args["singular_uint32_value"] = field
 
     field = data.get("singular_bool_value", None)
-    args["singular_bool_value"] = field
+    if field is not None:
+        args["singular_bool_value"] = field
 
     field = data.get("singular_string_value", None)
-    args["singular_string_value"] = field
+    if field is not None:
+        args["singular_string_value"] = field
 
     field = data.get("singular_bytes_value", None)
-    args["singular_bytes_value"] = field
+    if field is not None:
+        args["singular_bytes_value"] = field
 
     field = data.get("singular_timestamp", None)
-    args["singular_timestamp"] = (
-        parser.isoparse(field) if isinstance(field, str) else field
-    )
+    if field is not None:
+        args["singular_timestamp"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
 
     field = data.get("singular_any", None)
-    args["singular_any"] = field
+    if field is not None:
+        args["singular_any"] = field
 
     field = data.get("singular_struct", None)
-    args["singular_struct"] = field
+    if field is not None:
+        args["singular_struct"] = field
 
     field = data.get("singular_money", None)
-    args["singular_money"] = unmarshal_Money(field)
+    if field is not None:
+        args["singular_money"] = unmarshal_Money(field)
 
     field = data.get("singular_strings_value", None)
-    args["singular_strings_value"] = field
+    if field is not None:
+        args["singular_strings_value"] = field
 
     field = data.get("singular_duration", None)
-    args["singular_duration"] = field
+    if field is not None:
+        args["singular_duration"] = field
 
     field = data.get("singular_ip", None)
-    args["singular_ip"] = field
+    if field is not None:
+        args["singular_ip"] = field
 
     field = data.get("singular_string_ip", None)
-    args["singular_string_ip"] = field
+    if field is not None:
+        args["singular_string_ip"] = field
 
     field = data.get("singular_string_ipv4", None)
-    args["singular_string_ipv4"] = field
+    if field is not None:
+        args["singular_string_ipv4"] = field
 
     field = data.get("singular_string_ipv6", None)
-    args["singular_string_ipv6"] = field
+    if field is not None:
+        args["singular_string_ipv6"] = field
 
     field = data.get("singular_string_value_ip", None)
-    args["singular_string_value_ip"] = field
+    if field is not None:
+        args["singular_string_value_ip"] = field
 
     field = data.get("singular_ipv4", None)
-    args["singular_ipv4"] = field
+    if field is not None:
+        args["singular_ipv4"] = field
 
     field = data.get("singular_string_value_ipv4", None)
-    args["singular_string_value_ipv4"] = field
+    if field is not None:
+        args["singular_string_value_ipv4"] = field
 
     field = data.get("singular_ipv6", None)
-    args["singular_ipv6"] = field
+    if field is not None:
+        args["singular_ipv6"] = field
 
     field = data.get("singular_string_value_ipv6", None)
-    args["singular_string_value_ipv6"] = field
+    if field is not None:
+        args["singular_string_value_ipv6"] = field
 
     field = data.get("singular_std_duration", None)
-    args["singular_std_duration"] = field
+    if field is not None:
+        args["singular_std_duration"] = field
 
     field = data.get("singular_std_long_duration", None)
-    args["singular_std_long_duration"] = field
+    if field is not None:
+        args["singular_std_long_duration"] = field
 
     field = data.get("singular_size", None)
-    args["singular_size"] = field
+    if field is not None:
+        args["singular_size"] = field
 
     field = data.get("singular_uint64_size", None)
-    args["singular_uint64_size"] = field
+    if field is not None:
+        args["singular_uint64_size"] = field
 
     field = data.get("singular_string_ipnet", None)
-    args["singular_string_ipnet"] = field
+    if field is not None:
+        args["singular_string_ipnet"] = field
 
     field = data.get("repeated_double_value", None)
-    args["repeated_double_value"] = field
+    if field is not None:
+        args["repeated_double_value"] = field
 
     field = data.get("repeated_float_value", None)
-    args["repeated_float_value"] = field
+    if field is not None:
+        args["repeated_float_value"] = field
 
     field = data.get("repeated_int64_value", None)
-    args["repeated_int64_value"] = field
+    if field is not None:
+        args["repeated_int64_value"] = field
 
     field = data.get("repeated_uint64_value", None)
-    args["repeated_uint64_value"] = field
+    if field is not None:
+        args["repeated_uint64_value"] = field
 
     field = data.get("repeated_int32_value", None)
-    args["repeated_int32_value"] = field
+    if field is not None:
+        args["repeated_int32_value"] = field
 
     field = data.get("repeated_uint32_value", None)
-    args["repeated_uint32_value"] = field
+    if field is not None:
+        args["repeated_uint32_value"] = field
 
     field = data.get("singular_uint64value_size", None)
-    args["singular_uint64value_size"] = field
+    if field is not None:
+        args["singular_uint64value_size"] = field
 
     field = data.get("singular_string_value_ipnet", None)
-    args["singular_string_value_ipnet"] = field
+    if field is not None:
+        args["singular_string_value_ipnet"] = field
 
     field = data.get("repeated_bool_value", None)
-    args["repeated_bool_value"] = field
+    if field is not None:
+        args["repeated_bool_value"] = field
 
     field = data.get("repeated_string_value", None)
-    args["repeated_string_value"] = field
+    if field is not None:
+        args["repeated_string_value"] = field
 
     field = data.get("repeated_bytes_value", None)
-    args["repeated_bytes_value"] = field
+    if field is not None:
+        args["repeated_bytes_value"] = field
 
     field = data.get("repeated_timestamp", None)
-    args["repeated_timestamp"] = field
+    if field is not None:
+        args["repeated_timestamp"] = field
 
     field = data.get("repeated_any", None)
-    args["repeated_any"] = field
+    if field is not None:
+        args["repeated_any"] = field
 
     field = data.get("repeated_struct", None)
-    args["repeated_struct"] = field
+    if field is not None:
+        args["repeated_struct"] = field
 
     field = data.get("repeated_money", None)
-    args["repeated_money"] = (
-        [unmarshal_Money(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["repeated_money"] = (
+            [unmarshal_Money(v) for v in field] if field is not None else None
+        )
 
     field = data.get("repeated_strings_value", None)
-    args["repeated_strings_value"] = field
+    if field is not None:
+        args["repeated_strings_value"] = field
 
     field = data.get("repeated_duration", None)
-    args["repeated_duration"] = field
+    if field is not None:
+        args["repeated_duration"] = field
 
     field = data.get("repeated_ip", None)
-    args["repeated_ip"] = field
+    if field is not None:
+        args["repeated_ip"] = field
 
     field = data.get("repeated_string_ip", None)
-    args["repeated_string_ip"] = field
+    if field is not None:
+        args["repeated_string_ip"] = field
 
     field = data.get("repeated_string_value_ip", None)
-    args["repeated_string_value_ip"] = field
+    if field is not None:
+        args["repeated_string_value_ip"] = field
 
     field = data.get("repeated_ipv4", None)
-    args["repeated_ipv4"] = field
+    if field is not None:
+        args["repeated_ipv4"] = field
 
     field = data.get("repeated_string_ipv4", None)
-    args["repeated_string_ipv4"] = field
+    if field is not None:
+        args["repeated_string_ipv4"] = field
 
     field = data.get("repeated_string_value_ipv4", None)
-    args["repeated_string_value_ipv4"] = field
+    if field is not None:
+        args["repeated_string_value_ipv4"] = field
 
     field = data.get("repeated_ipv6", None)
-    args["repeated_ipv6"] = field
+    if field is not None:
+        args["repeated_ipv6"] = field
 
     field = data.get("repeated_string_ipv6", None)
-    args["repeated_string_ipv6"] = field
+    if field is not None:
+        args["repeated_string_ipv6"] = field
 
     field = data.get("repeated_string_value_ipv6", None)
-    args["repeated_string_value_ipv6"] = field
+    if field is not None:
+        args["repeated_string_value_ipv6"] = field
 
     field = data.get("repeated_std_duration", None)
-    args["repeated_std_duration"] = field
+    if field is not None:
+        args["repeated_std_duration"] = field
 
     field = data.get("repeated_std_long_duration", None)
-    args["repeated_std_long_duration"] = field
+    if field is not None:
+        args["repeated_std_long_duration"] = field
 
     field = data.get("repeated_size", None)
-    args["repeated_size"] = field
+    if field is not None:
+        args["repeated_size"] = field
 
     field = data.get("repeated_uint64_size", None)
-    args["repeated_uint64_size"] = field
+    if field is not None:
+        args["repeated_uint64_size"] = field
 
     field = data.get("repeated_uint64value_size", None)
-    args["repeated_uint64value_size"] = field
+    if field is not None:
+        args["repeated_uint64value_size"] = field
 
     field = data.get("repeated_string_ipnet", None)
-    args["repeated_string_ipnet"] = field
+    if field is not None:
+        args["repeated_string_ipnet"] = field
 
     field = data.get("repeated_string_value_ipnet", None)
-    args["repeated_string_value_ipnet"] = field
+    if field is not None:
+        args["repeated_string_value_ipnet"] = field
 
     return PostAllTypesMessage(**args)
 
@@ -420,10 +525,12 @@ def unmarshal_PostBodyAndPathSimpleMessage(data: Any) -> PostBodyAndPathSimpleMe
     args: Dict[str, Any] = {}
 
     field = data.get("path", None)
-    args["path"] = field
+    if field is not None:
+        args["path"] = field
 
     field = data.get("body", None)
-    args["body"] = field
+    if field is not None:
+        args["body"] = field
 
     return PostBodyAndPathSimpleMessage(**args)
 
@@ -437,10 +544,12 @@ def unmarshal_EchoMessage(data: Any) -> EchoMessage:
     args: Dict[str, Any] = {}
 
     field = data.get("str_", None)
-    args["str_"] = field
+    if field is not None:
+        args["str_"] = field
 
     field = data.get("strs", None)
-    args["strs"] = field
+    if field is not None:
+        args["strs"] = field
 
     return EchoMessage(**args)
 
@@ -454,7 +563,8 @@ def unmarshal_GetEnumMessage(data: Any) -> GetEnumMessage:
     args: Dict[str, Any] = {}
 
     field = data.get("type_", None)
-    args["type_"] = field
+    if field is not None:
+        args["type_"] = field
 
     return GetEnumMessage(**args)
 
@@ -468,7 +578,8 @@ def unmarshal_GetZoneResponse(data: Any) -> GetZoneResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("zone", None)
-    args["zone"] = field
+    if field is not None:
+        args["zone"] = field
 
     return GetZoneResponse(**args)
 
@@ -482,10 +593,12 @@ def unmarshal_ListCharactersResponse(data: Any) -> ListCharactersResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     field = data.get("characters", None)
-    args["characters"] = field
+    if field is not None:
+        args["characters"] = field
 
     return ListCharactersResponse(**args)
 
@@ -499,7 +612,8 @@ def unmarshal_MetadataResponse(data: Any) -> MetadataResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("metadata", None)
-    args["metadata"] = field
+    if field is not None:
+        args["metadata"] = field
 
     return MetadataResponse(**args)
 
@@ -513,7 +627,8 @@ def unmarshal_PatchEnumMessage(data: Any) -> PatchEnumMessage:
     args: Dict[str, Any] = {}
 
     field = data.get("type_", None)
-    args["type_"] = field
+    if field is not None:
+        args["type_"] = field
 
     return PatchEnumMessage(**args)
 
@@ -527,108 +642,140 @@ def unmarshal_PostAllMapTypesMessage(data: Any) -> PostAllMapTypesMessage:
     args: Dict[str, Any] = {}
 
     field = data.get("map_int32_int32", None)
-    args["map_int32_int32"] = field
+    if field is not None:
+        args["map_int32_int32"] = field
 
     field = data.get("map_int64_int64", None)
-    args["map_int64_int64"] = field
+    if field is not None:
+        args["map_int64_int64"] = field
 
     field = data.get("map_uint32_uint32", None)
-    args["map_uint32_uint32"] = field
+    if field is not None:
+        args["map_uint32_uint32"] = field
 
     field = data.get("map_uint64_uint64", None)
-    args["map_uint64_uint64"] = field
+    if field is not None:
+        args["map_uint64_uint64"] = field
 
     field = data.get("map_sint32_sint32", None)
-    args["map_sint32_sint32"] = field
+    if field is not None:
+        args["map_sint32_sint32"] = field
 
     field = data.get("map_sint64_sint64", None)
-    args["map_sint64_sint64"] = field
+    if field is not None:
+        args["map_sint64_sint64"] = field
 
     field = data.get("map_fixed32_fixed32", None)
-    args["map_fixed32_fixed32"] = field
+    if field is not None:
+        args["map_fixed32_fixed32"] = field
 
     field = data.get("map_fixed64_fixed64", None)
-    args["map_fixed64_fixed64"] = field
+    if field is not None:
+        args["map_fixed64_fixed64"] = field
 
     field = data.get("map_sfixed32_sfixed32", None)
-    args["map_sfixed32_sfixed32"] = field
+    if field is not None:
+        args["map_sfixed32_sfixed32"] = field
 
     field = data.get("map_sfixed64_sfixed64", None)
-    args["map_sfixed64_sfixed64"] = field
+    if field is not None:
+        args["map_sfixed64_sfixed64"] = field
 
     field = data.get("map_int32_float", None)
-    args["map_int32_float"] = field
+    if field is not None:
+        args["map_int32_float"] = field
 
     field = data.get("map_int32_double", None)
-    args["map_int32_double"] = field
+    if field is not None:
+        args["map_int32_double"] = field
 
     field = data.get("map_string_string", None)
-    args["map_string_string"] = field
+    if field is not None:
+        args["map_string_string"] = field
 
     field = data.get("map_int32_bytes", None)
-    args["map_int32_bytes"] = field
+    if field is not None:
+        args["map_int32_bytes"] = field
 
     field = data.get("map_int32_enum", None)
-    args["map_int32_enum"] = (
-        {key: MapEnum(value) for key, value in field.items()}
-        if field is not None
-        else None
-    )
+    if field is not None:
+        args["map_int32_enum"] = (
+            {key: MapEnum(value) for key, value in field.items()}
+            if field is not None
+            else None
+        )
 
     field = data.get("map_int32_all_types", None)
-    args["map_int32_all_types"] = (
-        {key: unmarshal_PostAllTypesMessage(value) for key, value in field.items()}
-        if field is not None
-        else None
-    )
+    if field is not None:
+        args["map_int32_all_types"] = (
+            {key: unmarshal_PostAllTypesMessage(value) for key, value in field.items()}
+            if field is not None
+            else None
+        )
 
     field = data.get("map_int32_ip", None)
-    args["map_int32_ip"] = field
+    if field is not None:
+        args["map_int32_ip"] = field
 
     field = data.get("map_int32_std_duration", None)
-    args["map_int32_std_duration"] = field
+    if field is not None:
+        args["map_int32_std_duration"] = field
 
     field = data.get("map_int32_std_long_duration", None)
-    args["map_int32_std_long_duration"] = field
+    if field is not None:
+        args["map_int32_std_long_duration"] = field
 
     field = data.get("map_int32_size", None)
-    args["map_int32_size"] = field
+    if field is not None:
+        args["map_int32_size"] = field
 
     field = data.get("map_int32_uint64_size", None)
-    args["map_int32_uint64_size"] = field
+    if field is not None:
+        args["map_int32_uint64_size"] = field
 
     field = data.get("map_int32_uint64value_size", None)
-    args["map_int32_uint64value_size"] = field
+    if field is not None:
+        args["map_int32_uint64value_size"] = field
 
     field = data.get("map_int32_string_ip", None)
-    args["map_int32_string_ip"] = field
+    if field is not None:
+        args["map_int32_string_ip"] = field
 
     field = data.get("map_int32_string_value_ip", None)
-    args["map_int32_string_value_ip"] = field
+    if field is not None:
+        args["map_int32_string_value_ip"] = field
 
     field = data.get("map_int32_ipv4", None)
-    args["map_int32_ipv4"] = field
+    if field is not None:
+        args["map_int32_ipv4"] = field
 
     field = data.get("map_int32_string_ipv4", None)
-    args["map_int32_string_ipv4"] = field
+    if field is not None:
+        args["map_int32_string_ipv4"] = field
 
     field = data.get("map_int32_string_value_ipv4", None)
-    args["map_int32_string_value_ipv4"] = field
+    if field is not None:
+        args["map_int32_string_value_ipv4"] = field
 
     field = data.get("map_int32_ipv6", None)
-    args["map_int32_ipv6"] = field
+    if field is not None:
+        args["map_int32_ipv6"] = field
 
     field = data.get("map_int32_string_ipv6", None)
-    args["map_int32_string_ipv6"] = field
+    if field is not None:
+        args["map_int32_string_ipv6"] = field
 
     field = data.get("map_int32_string_value_ipv6", None)
-    args["map_int32_string_value_ipv6"] = field
+    if field is not None:
+        args["map_int32_string_value_ipv6"] = field
 
     field = data.get("map_int32_strings_value", None)
-    args["map_int32_strings_value"] = field
+    if field is not None:
+        args["map_int32_strings_value"] = field
 
     field = data.get("map_int32_duration", None)
-    args["map_int32_duration"] = field
+    if field is not None:
+        args["map_int32_duration"] = field
 
     return PostAllMapTypesMessage(**args)
 
@@ -644,7 +791,8 @@ def unmarshal_PostAllOptionalMessageNestedMessage(
     args: Dict[str, Any] = {}
 
     field = data.get("s", None)
-    args["s"] = field
+    if field is not None:
+        args["s"] = field
 
     return PostAllOptionalMessageNestedMessage(**args)
 
@@ -660,7 +808,8 @@ def unmarshal_PostAllOptionalMessageNestedMessageWithOptional(
     args: Dict[str, Any] = {}
 
     field = data.get("bb", None)
-    args["bb"] = field
+    if field is not None:
+        args["bb"] = field
 
     return PostAllOptionalMessageNestedMessageWithOptional(**args)
 
@@ -674,132 +823,172 @@ def unmarshal_PostAllOptionalMessage(data: Any) -> PostAllOptionalMessage:
     args: Dict[str, Any] = {}
 
     field = data.get("optional_int32", None)
-    args["optional_int32"] = field
+    if field is not None:
+        args["optional_int32"] = field
 
     field = data.get("optional_int64", None)
-    args["optional_int64"] = field
+    if field is not None:
+        args["optional_int64"] = field
 
     field = data.get("optional_uint32", None)
-    args["optional_uint32"] = field
+    if field is not None:
+        args["optional_uint32"] = field
 
     field = data.get("optional_uint64", None)
-    args["optional_uint64"] = field
+    if field is not None:
+        args["optional_uint64"] = field
 
     field = data.get("optional_sint32", None)
-    args["optional_sint32"] = field
+    if field is not None:
+        args["optional_sint32"] = field
 
     field = data.get("optional_sint64", None)
-    args["optional_sint64"] = field
+    if field is not None:
+        args["optional_sint64"] = field
 
     field = data.get("optional_fixed32", None)
-    args["optional_fixed32"] = field
+    if field is not None:
+        args["optional_fixed32"] = field
 
     field = data.get("optional_fixed64", None)
-    args["optional_fixed64"] = field
+    if field is not None:
+        args["optional_fixed64"] = field
 
     field = data.get("optional_sfixed32", None)
-    args["optional_sfixed32"] = field
+    if field is not None:
+        args["optional_sfixed32"] = field
 
     field = data.get("optional_sfixed64", None)
-    args["optional_sfixed64"] = field
+    if field is not None:
+        args["optional_sfixed64"] = field
 
     field = data.get("optional_float", None)
-    args["optional_float"] = field
+    if field is not None:
+        args["optional_float"] = field
 
     field = data.get("optional_double", None)
-    args["optional_double"] = field
+    if field is not None:
+        args["optional_double"] = field
 
     field = data.get("optional_bool", None)
-    args["optional_bool"] = field
+    if field is not None:
+        args["optional_bool"] = field
 
     field = data.get("optional_string", None)
-    args["optional_string"] = field
+    if field is not None:
+        args["optional_string"] = field
 
     field = data.get("optional_bytes", None)
-    args["optional_bytes"] = field
+    if field is not None:
+        args["optional_bytes"] = field
 
     field = data.get("optional_cord", None)
-    args["optional_cord"] = field
+    if field is not None:
+        args["optional_cord"] = field
 
     field = data.get("optional_nested_message_with_optional", None)
-    args[
-        "optional_nested_message_with_optional"
-    ] = unmarshal_PostAllOptionalMessageNestedMessageWithOptional(field)
+    if field is not None:
+        args[
+            "optional_nested_message_with_optional"
+        ] = unmarshal_PostAllOptionalMessageNestedMessageWithOptional(field)
 
     field = data.get("lazy_nested_message_with_optional", None)
-    args[
-        "lazy_nested_message_with_optional"
-    ] = unmarshal_PostAllOptionalMessageNestedMessageWithOptional(field)
+    if field is not None:
+        args[
+            "lazy_nested_message_with_optional"
+        ] = unmarshal_PostAllOptionalMessageNestedMessageWithOptional(field)
 
     field = data.get("optional_nested_enum", None)
-    args["optional_nested_enum"] = field
+    if field is not None:
+        args["optional_nested_enum"] = field
 
     field = data.get("optional_nested_message", None)
-    args["optional_nested_message"] = unmarshal_PostAllOptionalMessageNestedMessage(
-        field
-    )
+    if field is not None:
+        args["optional_nested_message"] = unmarshal_PostAllOptionalMessageNestedMessage(
+            field
+        )
 
     field = data.get("singular_int32", None)
-    args["singular_int32"] = field
+    if field is not None:
+        args["singular_int32"] = field
 
     field = data.get("singular_int64", None)
-    args["singular_int64"] = field
+    if field is not None:
+        args["singular_int64"] = field
 
     field = data.get("nested_message", None)
-    args["nested_message"] = unmarshal_PostAllOptionalMessageNestedMessage(field)
+    if field is not None:
+        args["nested_message"] = unmarshal_PostAllOptionalMessageNestedMessage(field)
 
     field = data.get("singular_double_value", None)
-    args["singular_double_value"] = field
+    if field is not None:
+        args["singular_double_value"] = field
 
     field = data.get("singular_float_value", None)
-    args["singular_float_value"] = field
+    if field is not None:
+        args["singular_float_value"] = field
 
     field = data.get("singular_int64_value", None)
-    args["singular_int64_value"] = field
+    if field is not None:
+        args["singular_int64_value"] = field
 
     field = data.get("singular_uint64_value", None)
-    args["singular_uint64_value"] = field
+    if field is not None:
+        args["singular_uint64_value"] = field
 
     field = data.get("singular_int32_value", None)
-    args["singular_int32_value"] = field
+    if field is not None:
+        args["singular_int32_value"] = field
 
     field = data.get("singular_uint32_value", None)
-    args["singular_uint32_value"] = field
+    if field is not None:
+        args["singular_uint32_value"] = field
 
     field = data.get("singular_bool_value", None)
-    args["singular_bool_value"] = field
+    if field is not None:
+        args["singular_bool_value"] = field
 
     field = data.get("singular_string_value", None)
-    args["singular_string_value"] = field
+    if field is not None:
+        args["singular_string_value"] = field
 
     field = data.get("singular_bytes_value", None)
-    args["singular_bytes_value"] = field
+    if field is not None:
+        args["singular_bytes_value"] = field
 
     field = data.get("singular_timestamp", None)
-    args["singular_timestamp"] = (
-        parser.isoparse(field) if isinstance(field, str) else field
-    )
+    if field is not None:
+        args["singular_timestamp"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
 
     field = data.get("singular_any", None)
-    args["singular_any"] = field
+    if field is not None:
+        args["singular_any"] = field
 
     field = data.get("singular_struct", None)
-    args["singular_struct"] = field
+    if field is not None:
+        args["singular_struct"] = field
 
     field = data.get("singular_money", None)
-    args["singular_money"] = unmarshal_Money(field)
+    if field is not None:
+        args["singular_money"] = unmarshal_Money(field)
 
     field = data.get("singular_strings_value", None)
-    args["singular_strings_value"] = field
+    if field is not None:
+        args["singular_strings_value"] = field
 
     field = data.get("singular_duration", None)
-    args["singular_duration"] = field
+    if field is not None:
+        args["singular_duration"] = field
 
     field = data.get("map_string_string", None)
-    args["map_string_string"] = field
+    if field is not None:
+        args["map_string_string"] = field
 
     field = data.get("timeseries", None)
-    args["timeseries"] = unmarshal_TimeSeries(field)
+    if field is not None:
+        args["timeseries"] = unmarshal_TimeSeries(field)
 
     return PostAllOptionalMessage(**args)
 
@@ -815,13 +1004,16 @@ def unmarshal_PostBodyAndPathAndQueryMessage(
     args: Dict[str, Any] = {}
 
     field = data.get("path", None)
-    args["path"] = field
+    if field is not None:
+        args["path"] = field
 
     field = data.get("query", None)
-    args["query"] = field
+    if field is not None:
+        args["query"] = field
 
     field = data.get("body", None)
-    args["body"] = unmarshal_PostBodyAndPathSimpleMessage(field)
+    if field is not None:
+        args["body"] = unmarshal_PostBodyAndPathSimpleMessage(field)
 
     return PostBodyAndPathAndQueryMessage(**args)
 
@@ -835,10 +1027,12 @@ def unmarshal_PostBodyAndPathComplexMessage(data: Any) -> PostBodyAndPathComplex
     args: Dict[str, Any] = {}
 
     field = data.get("path", None)
-    args["path"] = field
+    if field is not None:
+        args["path"] = field
 
     field = data.get("body", None)
-    args["body"] = unmarshal_PostBodyAndPathSimpleMessage(field)
+    if field is not None:
+        args["body"] = unmarshal_PostBodyAndPathSimpleMessage(field)
 
     return PostBodyAndPathComplexMessage(**args)
 
@@ -852,10 +1046,12 @@ def unmarshal_PostBodyAndPathSimple2Message(data: Any) -> PostBodyAndPathSimple2
     args: Dict[str, Any] = {}
 
     field = data.get("path", None)
-    args["path"] = field
+    if field is not None:
+        args["path"] = field
 
     field = data.get("body", None)
-    args["body"] = field
+    if field is not None:
+        args["body"] = field
 
     return PostBodyAndPathSimple2Message(**args)
 
@@ -869,55 +1065,72 @@ def unmarshal_ComplexValidateMsg(data: Any) -> ComplexValidateMsg:
     args: Dict[str, Any] = {}
 
     field = data.get("const", None)
-    args["const"] = field
+    if field is not None:
+        args["const"] = field
 
     field = data.get("int_const", None)
-    args["int_const"] = field
+    if field is not None:
+        args["int_const"] = field
 
     field = data.get("bool_const", None)
-    args["bool_const"] = field
+    if field is not None:
+        args["bool_const"] = field
 
     field = data.get("float_const", None)
-    args["float_const"] = field
+    if field is not None:
+        args["float_const"] = field
 
     field = data.get("double_in", None)
-    args["double_in"] = field
+    if field is not None:
+        args["double_in"] = field
 
     field = data.get("enum_const", None)
-    args["enum_const"] = field
+    if field is not None:
+        args["enum_const"] = field
 
     field = data.get("nested", None)
-    args["nested"] = unmarshal_ComplexValidateMsg(field)
+    if field is not None:
+        args["nested"] = unmarshal_ComplexValidateMsg(field)
 
     field = data.get("float_val", None)
-    args["float_val"] = field
+    if field is not None:
+        args["float_val"] = field
 
     field = data.get("dur_val", None)
-    args["dur_val"] = field
+    if field is not None:
+        args["dur_val"] = field
 
     field = data.get("ts_val", None)
-    args["ts_val"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["ts_val"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("another", None)
-    args["another"] = unmarshal_ComplexValidateMsg(field)
+    if field is not None:
+        args["another"] = unmarshal_ComplexValidateMsg(field)
 
     field = data.get("any_val", None)
-    args["any_val"] = field
+    if field is not None:
+        args["any_val"] = field
 
     field = data.get("rep_ts_val", None)
-    args["rep_ts_val"] = field
+    if field is not None:
+        args["rep_ts_val"] = field
 
     field = data.get("map_val", None)
-    args["map_val"] = field
+    if field is not None:
+        args["map_val"] = field
 
     field = data.get("bytes_val", None)
-    args["bytes_val"] = field
+    if field is not None:
+        args["bytes_val"] = field
 
     field = data.get("x", None)
-    args["x"] = field
+    if field is not None:
+        args["x"] = field
 
     field = data.get("y", None)
-    args["y"] = field
+    if field is not None:
+        args["y"] = field
 
     return ComplexValidateMsg(**args)
 
@@ -931,7 +1144,8 @@ def unmarshal_PostComplexValidateMessage(data: Any) -> PostComplexValidateMessag
     args: Dict[str, Any] = {}
 
     field = data.get("val", None)
-    args["val"] = unmarshal_ComplexValidateMsg(field)
+    if field is not None:
+        args["val"] = unmarshal_ComplexValidateMsg(field)
 
     return PostComplexValidateMessage(**args)
 
@@ -947,7 +1161,8 @@ def unmarshal_PostDeprecatedOrganizationMessage(
     args: Dict[str, Any] = {}
 
     field = data.get("organization", None)
-    args["organization"] = field
+    if field is not None:
+        args["organization"] = field
 
     return PostDeprecatedOrganizationMessage(**args)
 
@@ -961,7 +1176,8 @@ def unmarshal_PostDeprecatedProjectMessage(data: Any) -> PostDeprecatedProjectMe
     args: Dict[str, Any] = {}
 
     field = data.get("project", None)
-    args["project"] = field
+    if field is not None:
+        args["project"] = field
 
     return PostDeprecatedProjectMessage(**args)
 
@@ -975,7 +1191,8 @@ def unmarshal_PostEchoTimeSeriesMessage(data: Any) -> PostEchoTimeSeriesMessage:
     args: Dict[str, Any] = {}
 
     field = data.get("metrics", None)
-    args["metrics"] = unmarshal_TimeSeries(field)
+    if field is not None:
+        args["metrics"] = unmarshal_TimeSeries(field)
 
     return PostEchoTimeSeriesMessage(**args)
 
@@ -989,13 +1206,16 @@ def unmarshal_PostEnumMessage(data: Any) -> PostEnumMessage:
     args: Dict[str, Any] = {}
 
     field = data.get("type_", None)
-    args["type_"] = field
+    if field is not None:
+        args["type_"] = field
 
     field = data.get("type2", None)
-    args["type2"] = field
+    if field is not None:
+        args["type2"] = field
 
     field = data.get("type3", None)
-    args["type3"] = field
+    if field is not None:
+        args["type3"] = field
 
     return PostEnumMessage(**args)
 
@@ -1009,13 +1229,16 @@ def unmarshal_PostIPMessage(data: Any) -> PostIPMessage:
     args: Dict[str, Any] = {}
 
     field = data.get("ip_v4", None)
-    args["ip_v4"] = field
+    if field is not None:
+        args["ip_v4"] = field
 
     field = data.get("ip_v6", None)
-    args["ip_v6"] = field
+    if field is not None:
+        args["ip_v6"] = field
 
     field = data.get("ip", None)
-    args["ip"] = field
+    if field is not None:
+        args["ip"] = field
 
     return PostIPMessage(**args)
 
@@ -1029,16 +1252,20 @@ def unmarshal_PostOneOfMessage(data: Any) -> PostOneOfMessage:
     args: Dict[str, Any] = {}
 
     field = data.get("test", None)
-    args["test"] = field
+    if field is not None:
+        args["test"] = field
 
     field = data.get("test2", None)
-    args["test2"] = field
+    if field is not None:
+        args["test2"] = field
 
     field = data.get("test_nested", None)
-    args["test_nested"] = unmarshal_EchoMessage(field)
+    if field is not None:
+        args["test_nested"] = unmarshal_EchoMessage(field)
 
     field = data.get("test3", None)
-    args["test3"] = field
+    if field is not None:
+        args["test3"] = field
 
     return PostOneOfMessage(**args)
 
@@ -1052,7 +1279,8 @@ def unmarshal_PostOrganizationIdMessage(data: Any) -> PostOrganizationIdMessage:
     args: Dict[str, Any] = {}
 
     field = data.get("organization_id", None)
-    args["organization_id"] = field
+    if field is not None:
+        args["organization_id"] = field
 
     return PostOrganizationIdMessage(**args)
 
@@ -1066,7 +1294,8 @@ def unmarshal_PostProjectIdMessage(data: Any) -> PostProjectIdMessage:
     args: Dict[str, Any] = {}
 
     field = data.get("project_id", None)
-    args["project_id"] = field
+    if field is not None:
+        args["project_id"] = field
 
     return PostProjectIdMessage(**args)
 
@@ -1080,28 +1309,36 @@ def unmarshal_PostScalarTypesMessage(data: Any) -> PostScalarTypesMessage:
     args: Dict[str, Any] = {}
 
     field = data.get("double_field", None)
-    args["double_field"] = field
+    if field is not None:
+        args["double_field"] = field
 
     field = data.get("float_field", None)
-    args["float_field"] = field
+    if field is not None:
+        args["float_field"] = field
 
     field = data.get("int32_field", None)
-    args["int32_field"] = field
+    if field is not None:
+        args["int32_field"] = field
 
     field = data.get("int64_field", None)
-    args["int64_field"] = field
+    if field is not None:
+        args["int64_field"] = field
 
     field = data.get("uint32_field", None)
-    args["uint32_field"] = field
+    if field is not None:
+        args["uint32_field"] = field
 
     field = data.get("uint64_field", None)
-    args["uint64_field"] = field
+    if field is not None:
+        args["uint64_field"] = field
 
     field = data.get("bool_field", None)
-    args["bool_field"] = field
+    if field is not None:
+        args["bool_field"] = field
 
     field = data.get("string_field", None)
-    args["string_field"] = field
+    if field is not None:
+        args["string_field"] = field
 
     return PostScalarTypesMessage(**args)
 
@@ -1115,7 +1352,8 @@ def unmarshal_PostTagsMessage(data: Any) -> PostTagsMessage:
     args: Dict[str, Any] = {}
 
     field = data.get("tags", None)
-    args["tags"] = field
+    if field is not None:
+        args["tags"] = field
 
     return PostTagsMessage(**args)
 
@@ -1129,7 +1367,8 @@ def unmarshal_Transient(data: Any) -> Transient:
     args: Dict[str, Any] = {}
 
     field = data.get("status", None)
-    args["status"] = field
+    if field is not None:
+        args["status"] = field
 
     return Transient(**args)
 
@@ -1143,7 +1382,8 @@ def unmarshal__GetRegionResponse(data: Any) -> _GetRegionResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("region", None)
-    args["region"] = field
+    if field is not None:
+        args["region"] = field
 
     return _GetRegionResponse(**args)
 

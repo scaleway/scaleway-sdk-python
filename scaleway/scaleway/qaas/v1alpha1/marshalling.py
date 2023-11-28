@@ -33,7 +33,8 @@ def unmarshal_JobCircuit(data: Any) -> JobCircuit:
     args: Dict[str, Any] = {}
 
     field = data.get("perceval_circuit", None)
-    args["perceval_circuit"] = field
+    if field is not None:
+        args["perceval_circuit"] = field
 
     return JobCircuit(**args)
 
@@ -47,37 +48,48 @@ def unmarshal_Job(data: Any) -> Job:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("session_id", None)
-    args["session_id"] = field
+    if field is not None:
+        args["session_id"] = field
 
     field = data.get("status", None)
-    args["status"] = field
+    if field is not None:
+        args["status"] = field
 
     field = data.get("tags", None)
-    args["tags"] = field
+    if field is not None:
+        args["tags"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("started_at", None)
-    args["started_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["started_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("progress_message", None)
-    args["progress_message"] = field
+    if field is not None:
+        args["progress_message"] = field
 
     field = data.get("job_duration", None)
-    args["job_duration"] = field
+    if field is not None:
+        args["job_duration"] = field
 
     field = data.get("result_distribution", None)
-    args["result_distribution"] = field
+    if field is not None:
+        args["result_distribution"] = field
 
     return Job(**args)
 
@@ -91,28 +103,36 @@ def unmarshal_Platform(data: Any) -> Platform:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("version", None)
-    args["version"] = field
+    if field is not None:
+        args["version"] = field
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("provider_name", None)
-    args["provider_name"] = field
+    if field is not None:
+        args["provider_name"] = field
 
     field = data.get("type_", None)
-    args["type_"] = field
+    if field is not None:
+        args["type_"] = field
 
     field = data.get("technology", None)
-    args["technology"] = field
+    if field is not None:
+        args["technology"] = field
 
     field = data.get("max_qubit_count", None)
-    args["max_qubit_count"] = field
+    if field is not None:
+        args["max_qubit_count"] = field
 
     field = data.get("metadata", None)
-    args["metadata"] = field
+    if field is not None:
+        args["metadata"] = field
 
     return Platform(**args)
 
@@ -126,46 +146,60 @@ def unmarshal_Session(data: Any) -> Session:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("platform_id", None)
-    args["platform_id"] = field
+    if field is not None:
+        args["platform_id"] = field
 
     field = data.get("waiting_job_count", None)
-    args["waiting_job_count"] = field
+    if field is not None:
+        args["waiting_job_count"] = field
 
     field = data.get("finished_job_count", None)
-    args["finished_job_count"] = field
+    if field is not None:
+        args["finished_job_count"] = field
 
     field = data.get("status", None)
-    args["status"] = field
+    if field is not None:
+        args["status"] = field
 
     field = data.get("project_id", None)
-    args["project_id"] = field
+    if field is not None:
+        args["project_id"] = field
 
     field = data.get("deduplication_id", None)
-    args["deduplication_id"] = field
+    if field is not None:
+        args["deduplication_id"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("started_at", None)
-    args["started_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["started_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("update_at", None)
-    args["update_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["update_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("max_idle_duration", None)
-    args["max_idle_duration"] = field
+    if field is not None:
+        args["max_idle_duration"] = field
 
     field = data.get("max_duration", None)
-    args["max_duration"] = field
+    if field is not None:
+        args["max_duration"] = field
 
     field = data.get("tags", None)
-    args["tags"] = field
+    if field is not None:
+        args["tags"] = field
 
     return Session(**args)
 
@@ -179,10 +213,12 @@ def unmarshal_ListJobsResponse(data: Any) -> ListJobsResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     field = data.get("jobs", None)
-    args["jobs"] = [unmarshal_Job(v) for v in field] if field is not None else None
+    if field is not None:
+        args["jobs"] = [unmarshal_Job(v) for v in field] if field is not None else None
 
     return ListJobsResponse(**args)
 
@@ -196,12 +232,14 @@ def unmarshal_ListPlatformsResponse(data: Any) -> ListPlatformsResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     field = data.get("platforms", None)
-    args["platforms"] = (
-        [unmarshal_Platform(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["platforms"] = (
+            [unmarshal_Platform(v) for v in field] if field is not None else None
+        )
 
     return ListPlatformsResponse(**args)
 
@@ -215,12 +253,14 @@ def unmarshal_ListSessionsResponse(data: Any) -> ListSessionsResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     field = data.get("sessions", None)
-    args["sessions"] = (
-        [unmarshal_Session(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["sessions"] = (
+            [unmarshal_Session(v) for v in field] if field is not None else None
+        )
 
     return ListSessionsResponse(**args)
 

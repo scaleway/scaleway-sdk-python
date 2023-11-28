@@ -22,31 +22,40 @@ def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("organization_id", None)
-    args["organization_id"] = field
+    if field is not None:
+        args["organization_id"] = field
 
     field = data.get("project_id", None)
-    args["project_id"] = field
+    if field is not None:
+        args["project_id"] = field
 
     field = data.get("zone", None)
-    args["zone"] = field
+    if field is not None:
+        args["zone"] = field
 
     field = data.get("tags", None)
-    args["tags"] = field
+    if field is not None:
+        args["tags"] = field
 
     field = data.get("subnets", None)
-    args["subnets"] = field
+    if field is not None:
+        args["subnets"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return PrivateNetwork(**args)
 
@@ -60,12 +69,14 @@ def unmarshal_ListPrivateNetworksResponse(data: Any) -> ListPrivateNetworksRespo
     args: Dict[str, Any] = {}
 
     field = data.get("private_networks", None)
-    args["private_networks"] = (
-        [unmarshal_PrivateNetwork(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["private_networks"] = (
+            [unmarshal_PrivateNetwork(v) for v in field] if field is not None else None
+        )
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     return ListPrivateNetworksResponse(**args)
 

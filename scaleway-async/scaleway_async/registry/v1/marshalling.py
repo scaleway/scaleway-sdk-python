@@ -31,34 +31,44 @@ def unmarshal_Image(data: Any) -> Image:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("namespace_id", None)
-    args["namespace_id"] = field
+    if field is not None:
+        args["namespace_id"] = field
 
     field = data.get("status", None)
-    args["status"] = field
+    if field is not None:
+        args["status"] = field
 
     field = data.get("visibility", None)
-    args["visibility"] = field
+    if field is not None:
+        args["visibility"] = field
 
     field = data.get("size", None)
-    args["size"] = field
+    if field is not None:
+        args["size"] = field
 
     field = data.get("tags", None)
-    args["tags"] = field
+    if field is not None:
+        args["tags"] = field
 
     field = data.get("status_message", None)
-    args["status_message"] = field
+    if field is not None:
+        args["status_message"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return Image(**args)
 
@@ -72,46 +82,60 @@ def unmarshal_Namespace(data: Any) -> Namespace:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("description", None)
-    args["description"] = field
+    if field is not None:
+        args["description"] = field
 
     field = data.get("organization_id", None)
-    args["organization_id"] = field
+    if field is not None:
+        args["organization_id"] = field
 
     field = data.get("project_id", None)
-    args["project_id"] = field
+    if field is not None:
+        args["project_id"] = field
 
     field = data.get("status", None)
-    args["status"] = field
+    if field is not None:
+        args["status"] = field
 
     field = data.get("status_message", None)
-    args["status_message"] = field
+    if field is not None:
+        args["status_message"] = field
 
     field = data.get("endpoint", None)
-    args["endpoint"] = field
+    if field is not None:
+        args["endpoint"] = field
 
     field = data.get("is_public", None)
-    args["is_public"] = field
+    if field is not None:
+        args["is_public"] = field
 
     field = data.get("size", None)
-    args["size"] = field
+    if field is not None:
+        args["size"] = field
 
     field = data.get("image_count", None)
-    args["image_count"] = field
+    if field is not None:
+        args["image_count"] = field
 
     field = data.get("region", None)
-    args["region"] = field
+    if field is not None:
+        args["region"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return Namespace(**args)
 
@@ -125,25 +149,32 @@ def unmarshal_Tag(data: Any) -> Tag:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("image_id", None)
-    args["image_id"] = field
+    if field is not None:
+        args["image_id"] = field
 
     field = data.get("status", None)
-    args["status"] = field
+    if field is not None:
+        args["status"] = field
 
     field = data.get("digest", None)
-    args["digest"] = field
+    if field is not None:
+        args["digest"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return Tag(**args)
 
@@ -157,10 +188,14 @@ def unmarshal_ListImagesResponse(data: Any) -> ListImagesResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("images", None)
-    args["images"] = [unmarshal_Image(v) for v in field] if field is not None else None
+    if field is not None:
+        args["images"] = (
+            [unmarshal_Image(v) for v in field] if field is not None else None
+        )
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     return ListImagesResponse(**args)
 
@@ -174,12 +209,14 @@ def unmarshal_ListNamespacesResponse(data: Any) -> ListNamespacesResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("namespaces", None)
-    args["namespaces"] = (
-        [unmarshal_Namespace(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["namespaces"] = (
+            [unmarshal_Namespace(v) for v in field] if field is not None else None
+        )
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     return ListNamespacesResponse(**args)
 
@@ -193,10 +230,12 @@ def unmarshal_ListTagsResponse(data: Any) -> ListTagsResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("tags", None)
-    args["tags"] = [unmarshal_Tag(v) for v in field] if field is not None else None
+    if field is not None:
+        args["tags"] = [unmarshal_Tag(v) for v in field] if field is not None else None
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     return ListTagsResponse(**args)
 

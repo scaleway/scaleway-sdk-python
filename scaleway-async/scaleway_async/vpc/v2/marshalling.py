@@ -38,16 +38,20 @@ def unmarshal_Subnet(data: Any) -> Subnet:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("subnet", None)
-    args["subnet"] = field
+    if field is not None:
+        args["subnet"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return Subnet(**args)
 
@@ -61,39 +65,50 @@ def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("organization_id", None)
-    args["organization_id"] = field
+    if field is not None:
+        args["organization_id"] = field
 
     field = data.get("project_id", None)
-    args["project_id"] = field
+    if field is not None:
+        args["project_id"] = field
 
     field = data.get("region", None)
-    args["region"] = field
+    if field is not None:
+        args["region"] = field
 
     field = data.get("tags", None)
-    args["tags"] = field
+    if field is not None:
+        args["tags"] = field
 
     field = data.get("subnets", None)
-    args["subnets"] = (
-        [unmarshal_Subnet(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["subnets"] = (
+            [unmarshal_Subnet(v) for v in field] if field is not None else None
+        )
 
     field = data.get("vpc_id", None)
-    args["vpc_id"] = field
+    if field is not None:
+        args["vpc_id"] = field
 
     field = data.get("dhcp_enabled", None)
-    args["dhcp_enabled"] = field
+    if field is not None:
+        args["dhcp_enabled"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return PrivateNetwork(**args)
 
@@ -107,34 +122,44 @@ def unmarshal_VPC(data: Any) -> VPC:
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("organization_id", None)
-    args["organization_id"] = field
+    if field is not None:
+        args["organization_id"] = field
 
     field = data.get("project_id", None)
-    args["project_id"] = field
+    if field is not None:
+        args["project_id"] = field
 
     field = data.get("region", None)
-    args["region"] = field
+    if field is not None:
+        args["region"] = field
 
     field = data.get("tags", None)
-    args["tags"] = field
+    if field is not None:
+        args["tags"] = field
 
     field = data.get("is_default", None)
-    args["is_default"] = field
+    if field is not None:
+        args["is_default"] = field
 
     field = data.get("private_network_count", None)
-    args["private_network_count"] = field
+    if field is not None:
+        args["private_network_count"] = field
 
     field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return VPC(**args)
 
@@ -148,7 +173,8 @@ def unmarshal_AddSubnetsResponse(data: Any) -> AddSubnetsResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("subnets", None)
-    args["subnets"] = field
+    if field is not None:
+        args["subnets"] = field
 
     return AddSubnetsResponse(**args)
 
@@ -162,7 +188,8 @@ def unmarshal_DeleteSubnetsResponse(data: Any) -> DeleteSubnetsResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("subnets", None)
-    args["subnets"] = field
+    if field is not None:
+        args["subnets"] = field
 
     return DeleteSubnetsResponse(**args)
 
@@ -176,12 +203,14 @@ def unmarshal_ListPrivateNetworksResponse(data: Any) -> ListPrivateNetworksRespo
     args: Dict[str, Any] = {}
 
     field = data.get("private_networks", None)
-    args["private_networks"] = (
-        [unmarshal_PrivateNetwork(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["private_networks"] = (
+            [unmarshal_PrivateNetwork(v) for v in field] if field is not None else None
+        )
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     return ListPrivateNetworksResponse(**args)
 
@@ -195,10 +224,12 @@ def unmarshal_ListVPCsResponse(data: Any) -> ListVPCsResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("vpcs", None)
-    args["vpcs"] = [unmarshal_VPC(v) for v in field] if field is not None else None
+    if field is not None:
+        args["vpcs"] = [unmarshal_VPC(v) for v in field] if field is not None else None
 
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
 
     return ListVPCsResponse(**args)
 
@@ -212,7 +243,8 @@ def unmarshal_SetSubnetsResponse(data: Any) -> SetSubnetsResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("subnets", None)
-    args["subnets"] = field
+    if field is not None:
+        args["subnets"] = field
 
     return SetSubnetsResponse(**args)
 
