@@ -178,6 +178,12 @@ def unmarshal_Hosting(data: Any) -> Hosting:
     field = data.get("id", None)
     args["id"] = field
 
+    field = data.get("ipv4", None)
+    args["ipv4"] = field
+
+    field = data.get("ipv6", None)
+    args["ipv6"] = field
+
     field = data.get("offer_end_of_life", None)
     args["offer_end_of_life"] = field
 
@@ -194,6 +200,9 @@ def unmarshal_Hosting(data: Any) -> Hosting:
 
     field = data.get("organization_id", None)
     args["organization_id"] = field
+
+    field = data.get("platform_group", None)
+    args["platform_group"] = field
 
     field = data.get("platform_hostname", None)
     args["platform_hostname"] = field

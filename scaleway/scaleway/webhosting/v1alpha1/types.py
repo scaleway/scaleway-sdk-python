@@ -280,6 +280,21 @@ class Hosting:
     Name of the control panel.
     """
 
+    platform_group: str
+    """
+    Group of the hosting's host server/platform.
+    """
+
+    ipv4: str
+    """
+    IPv4 address of the hosting's host server.
+    """
+
+    ipv6: str
+    """
+    IPv6 address of the hosting's host server.
+    """
+
     region: Region
     """
     Region where the Web Hosting plan is hosted.
