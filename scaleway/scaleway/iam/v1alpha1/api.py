@@ -2003,7 +2003,7 @@ class IamV1Alpha1API(API):
     ) -> Quotum:
         """
         Get a quota in the Organization.
-        Retrieve information about a resource quota, speficified by the `quotum_name` parameter. The quota's `limit`, or whether it is unlimited, is returned in the response.
+        Retrieve information about a resource quota, specified by the `quotum_name` parameter. The quota's `limit`, or whether it is unlimited, is returned in the response.
         :param quotum_name: Name of the quota to get.
         :param organization_id: ID of the Organization.
         :return: :class:`Quotum <Quotum>`
@@ -2169,6 +2169,18 @@ class IamV1Alpha1API(API):
         search: Optional[str] = None,
     ) -> ListLogsResponse:
         """
+        List logs.
+        List logs available for given Organization. You must define the `organization_id` in the query path of your request.
+        :param order_by: Criteria for sorting results.
+        :param organization_id: Filter by Organization ID.
+        :param page_size: Number of results per page. Value must be between 1 and 100.
+        :param page: Page number. Value must be greater to 1.
+        :param created_after: Defined whether or not to filter out logs created after this timestamp.
+        :param created_before: Defined whether or not to filter out logs created before this timestamp.
+        :param action: Defined whether or not to filter out by a specific action.
+        :param resource_type: Defined whether or not to filter out by a specific type of resource.
+        :param search: Defined whether or not to filter out log by bearer ID or resource ID.
+        :return: :class:`ListLogsResponse <ListLogsResponse>`
 
         Usage:
         ::
@@ -2210,6 +2222,17 @@ class IamV1Alpha1API(API):
         search: Optional[str] = None,
     ) -> List[Log]:
         """
+        List logs.
+        List logs available for given Organization. You must define the `organization_id` in the query path of your request.
+        :param order_by: Criteria for sorting results.
+        :param organization_id: Filter by Organization ID.
+        :param page_size: Number of results per page. Value must be between 1 and 100.
+        :param page: Page number. Value must be greater to 1.
+        :param created_after: Defined whether or not to filter out logs created after this timestamp.
+        :param created_before: Defined whether or not to filter out logs created before this timestamp.
+        :param action: Defined whether or not to filter out by a specific action.
+        :param resource_type: Defined whether or not to filter out by a specific type of resource.
+        :param search: Defined whether or not to filter out log by bearer ID or resource ID.
         :return: :class:`List[ListLogsResponse] <List[ListLogsResponse]>`
 
         Usage:
@@ -2241,6 +2264,10 @@ class IamV1Alpha1API(API):
         log_id: str,
     ) -> Log:
         """
+        Get a log.
+        Retrieve information about a log, specified by the `log_id` parameter. The log's full details, including `id`, `ip`, `user_agent`, `action`, `bearer_id`, `resource_type` and `resource_id` are returned in the response.
+        :param log_id: ID of the log.
+        :return: :class:`Log <Log>`
 
         Usage:
         ::
