@@ -202,12 +202,13 @@ class ContactPointEmail:
 @dataclass
 class Datasource:
     """
+    Data source.
     Datasource.
     """
 
     id: str
     """
-    ID of the datasource.
+    ID of the data source.
     """
 
     project_id: str
@@ -217,22 +218,22 @@ class Datasource:
 
     name: str
     """
-    Datasource name.
+    Data source name.
     """
 
     url: str
     """
-    Datasource URL.
+    Data source URL.
     """
 
     type_: DatasourceType
     """
-    Datasource type.
+    Data source type.
     """
 
     is_managed_by_scaleway: bool
     """
-    Specifies that the datasource receives data from Scaleway products and is managed by Scaleway.
+    Specifies that the data source receives data from Scaleway products and is managed by Scaleway.
     """
 
 
@@ -623,17 +624,25 @@ class CreateDatasourceRequest:
 
     name: str
     """
-    Datasource name.
+    Data source name.
     """
 
     type_: DatasourceType
     """
-    Datasource type.
+    Data source type.
     """
 
     is_default: bool
     """
-    Specifies that the returned output is the default datasource per type.
+    Specifies that the returned output is the default data source per type.
+    """
+
+
+@dataclass
+class DeleteDatasourceRequest:
+    datasource_id: str
+    """
+    ID of the data source.
     """
 
 
