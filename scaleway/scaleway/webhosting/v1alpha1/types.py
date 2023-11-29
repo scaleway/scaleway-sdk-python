@@ -700,6 +700,11 @@ class ListOffersRequest:
     ID of a Web Hosting plan, to check compatibility with returned offers (in case of wanting to update the plan).
     """
 
+    control_panels: Optional[List[str]]
+    """
+    Name of the control panel to filter for.
+    """
+
 
 @dataclass
 class ListControlPanelsRequest:

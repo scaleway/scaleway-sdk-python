@@ -437,6 +437,7 @@ class WebhostingV1Alpha1API(API):
         only_options: bool,
         region: Optional[Region] = None,
         hosting_id: Optional[str] = None,
+        control_panels: Optional[List[str]] = None,
     ) -> ListOffersResponse:
         """
         List all offers.
@@ -446,6 +447,7 @@ class WebhostingV1Alpha1API(API):
         :param without_options: Defines whether the response should consist of offers only, without options.
         :param only_options: Defines whether the response should consist of options only, without offers.
         :param hosting_id: ID of a Web Hosting plan, to check compatibility with returned offers (in case of wanting to update the plan).
+        :param control_panels: Name of the control panel to filter for.
         :return: :class:`ListOffersResponse <ListOffersResponse>`
 
         Usage:
@@ -466,6 +468,7 @@ class WebhostingV1Alpha1API(API):
             "GET",
             f"/webhosting/v1alpha1/regions/{param_region}/offers",
             params={
+                "control_panels": control_panels,
                 "hosting_id": hosting_id,
                 "only_options": only_options,
                 "order_by": order_by,
