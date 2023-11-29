@@ -257,9 +257,9 @@ class CockpitV1Beta1API(API):
         """
         Create a datasource for the specified Project ID and the given type.
         :param project_id: ID of the Project the Cockpit belongs to.
-        :param name: Datasource name.
-        :param type_: Datasource type.
-        :param is_default: Specifies that the returned output is the default datasource per type.
+        :param name: Data source name.
+        :param type_: Data source type.
+        :param is_default: Specifies that the returned output is the default data source per type.
         :return: :class:`Datasource <Datasource>`
 
         Usage:
@@ -288,6 +288,31 @@ class CockpitV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Datasource(res.json())
+
+    async def delete_datasource(
+        self,
+        *,
+        datasource_id: str,
+    ) -> Optional[None]:
+        """
+        Delete the datasource associated with the specified datasource ID.
+        :param datasource_id: ID of the data source.
+
+        Usage:
+        ::
+
+            result = await api.delete_datasource(datasource_id="example")
+        """
+
+        param_datasource_id = validate_path_param("datasource_id", datasource_id)
+
+        res = self._request(
+            "DELETE",
+            f"/cockpit/v1beta1/datasources/{param_datasource_id}",
+        )
+
+        self._throw_on_error(res)
+        return None
 
     async def list_datasources(
         self,
