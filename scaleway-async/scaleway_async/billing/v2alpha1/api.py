@@ -10,8 +10,8 @@ from scaleway_core.bridge import (
     unmarshal_ScwFile,
 )
 from scaleway_core.utils import (
-    fetch_all_pages_async,
     validate_path_param,
+    fetch_all_pages_async,
 )
 from .types import (
     DownloadInvoiceRequestFileType,
@@ -33,10 +33,7 @@ from .marshalling import (
 
 class BillingV2Alpha1API(API):
     """
-    Billing API.
-
     This API allows you to query your consumption.
-    Billing API.
     """
 
     async def get_consumption(
@@ -59,7 +56,7 @@ class BillingV2Alpha1API(API):
 
         res = self._request(
             "GET",
-            f"/billing/v2alpha1/consumption",
+            "/billing/v2alpha1/consumption",
             params={
                 "organization_id": organization_id
                 or self.client.default_organization_id,
@@ -75,10 +72,10 @@ class BillingV2Alpha1API(API):
         organization_id: Optional[str] = None,
         started_after: Optional[datetime] = None,
         started_before: Optional[datetime] = None,
-        invoice_type: InvoiceType = InvoiceType.UNKNOWN_TYPE,
+        invoice_type: Optional[InvoiceType] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        order_by: ListInvoicesRequestOrderBy = ListInvoicesRequestOrderBy.INVOICE_NUMBER_DESC,
+        order_by: Optional[ListInvoicesRequestOrderBy] = None,
     ) -> ListInvoicesResponse:
         """
         List invoices.
@@ -100,7 +97,7 @@ class BillingV2Alpha1API(API):
 
         res = self._request(
             "GET",
-            f"/billing/v2alpha1/invoices",
+            "/billing/v2alpha1/invoices",
             params={
                 "invoice_type": invoice_type,
                 "order_by": order_by,
@@ -137,7 +134,7 @@ class BillingV2Alpha1API(API):
         :param page: Positive integer to choose the page to return.
         :param page_size: Positive integer lower or equal to 100 to select the number of items to return.
         :param order_by: How invoices are ordered in the response.
-        :return: :class:`List[ListInvoicesResponse] <List[ListInvoicesResponse]>`
+        :return: :class:`List[Invoice] <List[Invoice]>`
 
         Usage:
         ::
@@ -164,21 +161,20 @@ class BillingV2Alpha1API(API):
         self,
         *,
         invoice_id: str,
-        file_type: DownloadInvoiceRequestFileType,
-    ) -> Optional[ScwFile]:
+        file_type: Optional[DownloadInvoiceRequestFileType] = None,
+    ) -> ScwFile:
         """
         Download an invoice.
         Download a specific invoice, specified by its ID.
         :param invoice_id: Invoice ID.
         :param file_type: Wanted file type.
-        :return: :class:`Optional[ScwFile] <Optional[ScwFile]>`
+        :return: :class:`ScwFile <ScwFile>`
 
         Usage:
         ::
 
             result = await api.download_invoice(
                 invoice_id="example",
-                file_type=pdf,
             )
         """
 
@@ -193,13 +189,12 @@ class BillingV2Alpha1API(API):
         )
 
         self._throw_on_error(res)
-        json = res.json()
-        return unmarshal_ScwFile(json) if json is not None else None
+        return unmarshal_ScwFile(res.json())
 
     async def list_discounts(
         self,
         *,
-        order_by: ListDiscountsRequestOrderBy = ListDiscountsRequestOrderBy.CREATION_DATE_DESC,
+        order_by: Optional[ListDiscountsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         organization_id: Optional[str] = None,
@@ -221,7 +216,7 @@ class BillingV2Alpha1API(API):
 
         res = self._request(
             "GET",
-            f"/billing/v2alpha1/discounts",
+            "/billing/v2alpha1/discounts",
             params={
                 "order_by": order_by,
                 "organization_id": organization_id
@@ -249,7 +244,7 @@ class BillingV2Alpha1API(API):
         :param page: Positive integer to choose the page to return.
         :param page_size: Positive integer lower or equal to 100 to select the number of items to return.
         :param organization_id: ID of the organization.
-        :return: :class:`List[ListDiscountsResponse] <List[ListDiscountsResponse]>`
+        :return: :class:`List[Discount] <List[Discount]>`
 
         Usage:
         ::

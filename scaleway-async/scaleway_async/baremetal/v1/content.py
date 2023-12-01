@@ -8,23 +8,20 @@ from .types import (
     ServerStatus,
 )
 
-
-SERVER_INSTALL_TRANSIENT_STATUSES: List[ServerInstallStatus] = [
+SERVERINSTALL_TRANSIENT_STATUSES: List[ServerInstallStatus] = [
     ServerInstallStatus.TO_INSTALL,
     ServerInstallStatus.INSTALLING,
 ]
 """
 Lists transient statutes of the enum :class:`ServerInstallStatus <ServerInstallStatus>`.
 """
-
-SERVER_PRIVATE_NETWORK_TRANSIENT_STATUSES: List[ServerPrivateNetworkStatus] = [
+SERVERPRIVATENETWORK_TRANSIENT_STATUSES: List[ServerPrivateNetworkStatus] = [
     ServerPrivateNetworkStatus.ATTACHING,
     ServerPrivateNetworkStatus.DETACHING,
 ]
 """
 Lists transient statutes of the enum :class:`ServerPrivateNetworkStatus <ServerPrivateNetworkStatus>`.
 """
-
 SERVER_TRANSIENT_STATUSES: List[ServerStatus] = [
     ServerStatus.DELIVERING,
     ServerStatus.STOPPING,

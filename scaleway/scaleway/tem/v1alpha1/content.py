@@ -7,14 +7,12 @@ from .types import (
     EmailStatus,
 )
 
-
 DOMAIN_TRANSIENT_STATUSES: List[DomainStatus] = [
     DomainStatus.PENDING,
 ]
 """
 Lists transient statutes of the enum :class:`DomainStatus <DomainStatus>`.
 """
-
 EMAIL_TRANSIENT_STATUSES: List[EmailStatus] = [
     EmailStatus.NEW,
     EmailStatus.SENDING,

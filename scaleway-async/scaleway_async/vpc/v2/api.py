@@ -8,30 +8,37 @@ from scaleway_core.bridge import (
     Region,
 )
 from scaleway_core.utils import (
-    fetch_all_pages_async,
     random_name,
     validate_path_param,
+    fetch_all_pages_async,
 )
 from .types import (
     ListPrivateNetworksRequestOrderBy,
     ListVPCsRequestOrderBy,
+    AddSubnetsRequest,
     AddSubnetsResponse,
+    CreatePrivateNetworkRequest,
+    CreateVPCRequest,
+    DeleteSubnetsRequest,
     DeleteSubnetsResponse,
     ListPrivateNetworksResponse,
     ListVPCsResponse,
-    PrivateNetwork,
-    SetSubnetsResponse,
-    VPC,
-    CreateVPCRequest,
-    UpdateVPCRequest,
-    CreatePrivateNetworkRequest,
-    UpdatePrivateNetworkRequest,
     MigrateZonalPrivateNetworksRequest,
+    PrivateNetwork,
     SetSubnetsRequest,
-    AddSubnetsRequest,
-    DeleteSubnetsRequest,
+    SetSubnetsResponse,
+    UpdatePrivateNetworkRequest,
+    UpdateVPCRequest,
+    VPC,
 )
 from .marshalling import (
+    unmarshal_PrivateNetwork,
+    unmarshal_VPC,
+    unmarshal_AddSubnetsResponse,
+    unmarshal_DeleteSubnetsResponse,
+    unmarshal_ListPrivateNetworksResponse,
+    unmarshal_ListVPCsResponse,
+    unmarshal_SetSubnetsResponse,
     marshal_AddSubnetsRequest,
     marshal_CreatePrivateNetworkRequest,
     marshal_CreateVPCRequest,
@@ -40,20 +47,11 @@ from .marshalling import (
     marshal_SetSubnetsRequest,
     marshal_UpdatePrivateNetworkRequest,
     marshal_UpdateVPCRequest,
-    unmarshal_PrivateNetwork,
-    unmarshal_VPC,
-    unmarshal_AddSubnetsResponse,
-    unmarshal_DeleteSubnetsResponse,
-    unmarshal_ListPrivateNetworksResponse,
-    unmarshal_ListVPCsResponse,
-    unmarshal_SetSubnetsResponse,
 )
 
 
 class VpcV2API(API):
     """
-    VPC API.
-
     VPC API.
     """
 
@@ -61,7 +59,7 @@ class VpcV2API(API):
         self,
         *,
         region: Optional[Region] = None,
-        order_by: ListVPCsRequestOrderBy = ListVPCsRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListVPCsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         name: Optional[str] = None,
@@ -138,7 +136,7 @@ class VpcV2API(API):
         :param organization_id: Organization ID to filter for. Only VPCs belonging to this Organization will be returned.
         :param project_id: Project ID to filter for. Only VPCs belonging to this Project will be returned.
         :param is_default: Defines whether to filter only for VPCs which are the default one for their Project.
-        :return: :class:`List[ListVPCsResponse] <List[ListVPCsResponse]>`
+        :return: :class:`List[VPC] <List[VPC]>`
 
         Usage:
         ::
@@ -216,14 +214,16 @@ class VpcV2API(API):
         """
         Get a VPC.
         Retrieve details of an existing VPC, specified by its VPC ID.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param vpc_id: VPC ID.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`VPC <VPC>`
 
         Usage:
         ::
 
-            result = await api.get_vpc(vpc_id="example")
+            result = await api.get_vpc(
+                vpc_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -250,8 +250,8 @@ class VpcV2API(API):
         """
         Update VPC.
         Update parameters including name and tags of the specified VPC.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param vpc_id: VPC ID.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name for the VPC.
         :param tags: Tags for the VPC.
         :return: :class:`VPC <VPC>`
@@ -259,7 +259,9 @@ class VpcV2API(API):
         Usage:
         ::
 
-            result = await api.update_vpc(vpc_id="example")
+            result = await api.update_vpc(
+                vpc_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -289,17 +291,19 @@ class VpcV2API(API):
         *,
         vpc_id: str,
         region: Optional[Region] = None,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Delete a VPC.
         Delete a VPC specified by its VPC ID.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param vpc_id: VPC ID.
+        :param region: Region to target. If none is passed will use default region from the config.
 
         Usage:
         ::
 
-            result = await api.delete_vpc(vpc_id="example")
+            result = await api.delete_vpc(
+                vpc_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -313,13 +317,12 @@ class VpcV2API(API):
         )
 
         self._throw_on_error(res)
-        return None
 
     async def list_private_networks(
         self,
         *,
         region: Optional[Region] = None,
-        order_by: ListPrivateNetworksRequestOrderBy = ListPrivateNetworksRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListPrivateNetworksRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         name: Optional[str] = None,
@@ -406,7 +409,7 @@ class VpcV2API(API):
         :param private_network_ids: Private Network IDs to filter for. Only Private Networks with one of these IDs will be returned.
         :param vpc_id: VPC ID to filter for. Only Private Networks belonging to this VPC will be returned.
         :param dhcp_enabled: DHCP status to filter for. When true, only Private Networks with managed DHCP enabled will be returned.
-        :return: :class:`List[ListPrivateNetworksResponse] <List[ListPrivateNetworksResponse]>`
+        :return: :class:`List[PrivateNetwork] <List[PrivateNetwork]>`
 
         Usage:
         ::
@@ -492,14 +495,16 @@ class VpcV2API(API):
         """
         Get a Private Network.
         Retrieve information about an existing Private Network, specified by its Private Network ID. Its full details are returned in the response object.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param private_network_id: Private Network ID.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`PrivateNetwork <PrivateNetwork>`
 
         Usage:
         ::
 
-            result = await api.get_private_network(private_network_id="example")
+            result = await api.get_private_network(
+                private_network_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -528,8 +533,8 @@ class VpcV2API(API):
         """
         Update Private Network.
         Update parameters (such as name or tags) of an existing Private Network, specified by its Private Network ID.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param private_network_id: Private Network ID.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name for the Private Network.
         :param tags: Tags for the Private Network.
         :return: :class:`PrivateNetwork <PrivateNetwork>`
@@ -537,7 +542,9 @@ class VpcV2API(API):
         Usage:
         ::
 
-            result = await api.update_private_network(private_network_id="example")
+            result = await api.update_private_network(
+                private_network_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -569,17 +576,19 @@ class VpcV2API(API):
         *,
         private_network_id: str,
         region: Optional[Region] = None,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Delete a Private Network.
         Delete an existing Private Network. Note that you must first detach all resources from the network, in order to delete it.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param private_network_id: Private Network ID.
+        :param region: Region to target. If none is passed will use default region from the config.
 
         Usage:
         ::
 
-            result = await api.delete_private_network(private_network_id="example")
+            result = await api.delete_private_network(
+                private_network_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -595,7 +604,6 @@ class VpcV2API(API):
         )
 
         self._throw_on_error(res)
-        return None
 
     async def migrate_zonal_private_networks(
         self,
@@ -604,17 +612,13 @@ class VpcV2API(API):
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         private_network_ids: Optional[List[str]] = None,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Migrate Private Networks from zoned to regional.
         Transform multiple existing zoned Private Networks (scoped to a single Availability Zone) into regional Private Networks, scoped to an entire region. You can transform one or many Private Networks (specified by their Private Network IDs) within a single Scaleway Organization or Project, with the same call.
         :param region: Region to target. If none is passed will use default region from the config.
         :param organization_id: Organization ID to target. The specified zoned Private Networks within this Organization will be migrated to regional.
-
-        One-of ('scope'): at most one of 'organization_id', 'project_id' could be set.
         :param project_id: Project to target. The specified zoned Private Networks within this Project will be migrated to regional.
-
-        One-of ('scope'): at most one of 'organization_id', 'project_id' could be set.
         :param private_network_ids: IDs of the Private Networks to migrate.
 
         Usage:
@@ -633,16 +637,15 @@ class VpcV2API(API):
             body=marshal_MigrateZonalPrivateNetworksRequest(
                 MigrateZonalPrivateNetworksRequest(
                     region=region,
+                    private_network_ids=private_network_ids,
                     organization_id=organization_id,
                     project_id=project_id,
-                    private_network_ids=private_network_ids,
                 ),
                 self.client,
             ),
         )
 
         self._throw_on_error(res)
-        return None
 
     async def enable_dhcp(
         self,
@@ -653,14 +656,16 @@ class VpcV2API(API):
         """
         Enable DHCP on a Private Network.
         Enable DHCP managed on an existing Private Network. Note that you will not be able to deactivate it afterwards.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param private_network_id: Private Network ID.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`PrivateNetwork <PrivateNetwork>`
 
         Usage:
         ::
 
-            result = await api.enable_dhcp(private_network_id="example")
+            result = await api.enable_dhcp(
+                private_network_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -673,6 +678,7 @@ class VpcV2API(API):
         res = self._request(
             "POST",
             f"/vpc/v2/regions/{param_region}/private-networks/{param_private_network_id}/enable-dhcp",
+            body={},
         )
 
         self._throw_on_error(res)
@@ -688,15 +694,17 @@ class VpcV2API(API):
         """
         Set the subnets of a Private Network.
         Set subnets for an existing Private Network. Note that the method is PUT and not PATCH. Any existing subnets will be removed in favor of the new specified set of subnets.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param private_network_id: Private Network ID.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param subnets: Private Network subnets CIDR.
         :return: :class:`SetSubnetsResponse <SetSubnetsResponse>`
 
         Usage:
         ::
 
-            result = await api.set_subnets(private_network_id="example")
+            result = await api.set_subnets(
+                private_network_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -732,15 +740,17 @@ class VpcV2API(API):
         """
         Add subnets to a Private Network.
         Add new subnets to an existing Private Network.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param private_network_id: Private Network ID.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param subnets: Private Network subnets CIDR.
         :return: :class:`AddSubnetsResponse <AddSubnetsResponse>`
 
         Usage:
         ::
 
-            result = await api.add_subnets(private_network_id="example")
+            result = await api.add_subnets(
+                private_network_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -776,15 +786,17 @@ class VpcV2API(API):
         """
         Delete subnets from a Private Network.
         Delete the specified subnets from a Private Network.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param private_network_id: Private Network ID.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param subnets: Private Network subnets CIDR.
         :return: :class:`DeleteSubnetsResponse <DeleteSubnetsResponse>`
 
         Usage:
         ::
 
-            result = await api.delete_subnets(private_network_id="example")
+            result = await api.delete_subnets(
+                private_network_id="example",
+            )
         """
 
         param_region = validate_path_param(

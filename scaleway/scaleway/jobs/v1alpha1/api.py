@@ -10,34 +10,32 @@ from scaleway_core.bridge import (
     unmarshal_ServiceInfo,
 )
 from scaleway_core.utils import (
-    fetch_all_pages,
     random_name,
     validate_path_param,
+    fetch_all_pages,
 )
 from .types import (
     ListJobDefinitionsRequestOrderBy,
     ListJobRunsRequestOrderBy,
+    CreateJobDefinitionRequest,
     JobDefinition,
     JobRun,
     ListJobDefinitionsResponse,
     ListJobRunsResponse,
-    CreateJobDefinitionRequest,
     UpdateJobDefinitionRequest,
 )
 from .marshalling import (
-    marshal_CreateJobDefinitionRequest,
-    marshal_UpdateJobDefinitionRequest,
     unmarshal_JobDefinition,
     unmarshal_JobRun,
     unmarshal_ListJobDefinitionsResponse,
     unmarshal_ListJobRunsResponse,
+    marshal_CreateJobDefinitionRequest,
+    marshal_UpdateJobDefinitionRequest,
 )
 
 
 class JobsV1Alpha1API(API):
     """
-    Serverless Jobs API.
-
     Serverless Jobs API.
     """
 
@@ -45,8 +43,10 @@ class JobsV1Alpha1API(API):
         self,
         *,
         region: Optional[Region] = None,
-    ) -> Optional[ServiceInfo]:
+    ) -> ServiceInfo:
         """
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`ServiceInfo <ServiceInfo>`
 
         Usage:
         ::
@@ -64,8 +64,7 @@ class JobsV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
-        json = res.json()
-        return unmarshal_ServiceInfo(json) if json is not None else None
+        return unmarshal_ServiceInfo(res.json())
 
     def create_job_definition(
         self,
@@ -82,6 +81,17 @@ class JobsV1Alpha1API(API):
         job_timeout: Optional[str] = None,
     ) -> JobDefinition:
         """
+        :param cpu_limit:
+        :param memory_limit:
+        :param image_uri:
+        :param command:
+        :param description:
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param name:
+        :param project_id:
+        :param environment_variables:
+        :param job_timeout:
+        :return: :class:`JobDefinition <JobDefinition>`
 
         Usage:
         ::
@@ -129,11 +139,16 @@ class JobsV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> JobDefinition:
         """
+        :param job_definition_id:
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`JobDefinition <JobDefinition>`
 
         Usage:
         ::
 
-            result = api.get_job_definition(job_definition_id="example")
+            result = api.get_job_definition(
+                job_definition_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -157,10 +172,16 @@ class JobsV1Alpha1API(API):
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        order_by: ListJobDefinitionsRequestOrderBy = ListJobDefinitionsRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListJobDefinitionsRequestOrderBy] = None,
         project_id: Optional[str] = None,
     ) -> ListJobDefinitionsResponse:
         """
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page:
+        :param page_size:
+        :param order_by:
+        :param project_id:
+        :return: :class:`ListJobDefinitionsResponse <ListJobDefinitionsResponse>`
 
         Usage:
         ::
@@ -196,7 +217,12 @@ class JobsV1Alpha1API(API):
         project_id: Optional[str] = None,
     ) -> List[JobDefinition]:
         """
-        :return: :class:`List[ListJobDefinitionsResponse] <List[ListJobDefinitionsResponse]>`
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page:
+        :param page_size:
+        :param order_by:
+        :param project_id:
+        :return: :class:`List[JobDefinition] <List[JobDefinition]>`
 
         Usage:
         ::
@@ -232,11 +258,24 @@ class JobsV1Alpha1API(API):
         job_timeout: Optional[str] = None,
     ) -> JobDefinition:
         """
+        :param job_definition_id:
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param name:
+        :param cpu_limit:
+        :param memory_limit:
+        :param image_uri:
+        :param command:
+        :param environment_variables:
+        :param description:
+        :param job_timeout:
+        :return: :class:`JobDefinition <JobDefinition>`
 
         Usage:
         ::
 
-            result = api.update_job_definition(job_definition_id="example")
+            result = api.update_job_definition(
+                job_definition_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -274,13 +313,17 @@ class JobsV1Alpha1API(API):
         *,
         job_definition_id: str,
         region: Optional[Region] = None,
-    ) -> Optional[None]:
+    ) -> None:
         """
+        :param job_definition_id:
+        :param region: Region to target. If none is passed will use default region from the config.
 
         Usage:
         ::
 
-            result = api.delete_job_definition(job_definition_id="example")
+            result = api.delete_job_definition(
+                job_definition_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -296,7 +339,6 @@ class JobsV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
-        return None
 
     def start_job_definition(
         self,
@@ -305,11 +347,16 @@ class JobsV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> JobRun:
         """
+        :param job_definition_id:
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`JobRun <JobRun>`
 
         Usage:
         ::
 
-            result = api.start_job_definition(job_definition_id="example")
+            result = api.start_job_definition(
+                job_definition_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -322,6 +369,7 @@ class JobsV1Alpha1API(API):
         res = self._request(
             "POST",
             f"/serverless-jobs/v1alpha1/regions/{param_region}/job-definitions/{param_job_definition_id}/start",
+            body={},
         )
 
         self._throw_on_error(res)
@@ -334,11 +382,16 @@ class JobsV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> JobRun:
         """
+        :param job_run_id:
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`JobRun <JobRun>`
 
         Usage:
         ::
 
-            result = api.get_job_run(job_run_id="example")
+            result = api.get_job_run(
+                job_run_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -361,11 +414,16 @@ class JobsV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> JobRun:
         """
+        :param job_run_id:
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`JobRun <JobRun>`
 
         Usage:
         ::
 
-            result = api.stop_job_run(job_run_id="example")
+            result = api.stop_job_run(
+                job_run_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -376,6 +434,7 @@ class JobsV1Alpha1API(API):
         res = self._request(
             "POST",
             f"/serverless-jobs/v1alpha1/regions/{param_region}/job-runs/{param_job_run_id}/stop",
+            body={},
         )
 
         self._throw_on_error(res)
@@ -387,11 +446,18 @@ class JobsV1Alpha1API(API):
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        order_by: ListJobRunsRequestOrderBy = ListJobRunsRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListJobRunsRequestOrderBy] = None,
         job_definition_id: Optional[str] = None,
         project_id: Optional[str] = None,
     ) -> ListJobRunsResponse:
         """
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page:
+        :param page_size:
+        :param order_by:
+        :param job_definition_id:
+        :param project_id:
+        :return: :class:`ListJobRunsResponse <ListJobRunsResponse>`
 
         Usage:
         ::
@@ -429,7 +495,13 @@ class JobsV1Alpha1API(API):
         project_id: Optional[str] = None,
     ) -> List[JobRun]:
         """
-        :return: :class:`List[ListJobRunsResponse] <List[ListJobRunsResponse]>`
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page:
+        :param page_size:
+        :param order_by:
+        :param job_definition_id:
+        :param project_id:
+        :return: :class:`List[JobRun] <List[JobRun]>`
 
         Usage:
         ::

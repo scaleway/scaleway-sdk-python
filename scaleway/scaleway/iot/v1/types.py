@@ -126,13 +126,6 @@ class NetworkNetworkType(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class NullValue(str, Enum, metaclass=StrEnumMeta):
-    NULL_VALUE = "NULL_VALUE"
-
-    def __str__(self) -> str:
-        return str(self.value)
-
-
 class RouteDatabaseConfigEngine(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     POSTGRESQL = "postgresql"
@@ -174,6 +167,38 @@ class RouteS3ConfigS3Strategy(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
+class DeviceMessageFiltersRule:
+    policy: DeviceMessageFiltersRulePolicy
+    """
+    If set to `accept`, all topics in the topics list will be allowed, with all other topics being denied.
+If set to `reject`, all topics in the topics list will be denied, with all other topics being allowed.
+    """
+
+    topics: Optional[List[str]]
+    """
+    List of topics to accept or reject. It must be valid MQTT topics and up to 65535 characters.
+    """
+
+
+@dataclass
+class DeviceMessageFilters:
+    publish: Optional[DeviceMessageFiltersRule]
+    """
+    Filtering rule to restrict topics the device can publish to.
+    """
+
+    subscribe: Optional[DeviceMessageFiltersRule]
+    """
+    Filtering rule to restrict topics the device can subscribe to.
+    """
+
+
+@dataclass
+class HubTwinsGraphiteConfig:
+    push_uri: str
+
+
+@dataclass
 class Certificate:
     crt: str
 
@@ -181,82 +206,7 @@ class Certificate:
 
 
 @dataclass
-class CreateDeviceResponse:
-    """
-    Create device response.
-    """
-
-    device: Optional[Device]
-    """
-    Information related to the created device.
-    """
-
-    certificate: Optional[Certificate]
-    """
-    Device certificate.
-    """
-
-
-@dataclass
-class CreateNetworkResponse:
-    """
-    Create network response.
-    """
-
-    network: Optional[Network]
-    """
-    Information related to the created network.
-    """
-
-    secret: str
-    """
-    Endpoint Key to keep secret. This cannot be retrieved later.
-    """
-
-
-@dataclass
-class CreateRouteRequestDatabaseConfig:
-    host: str
-
-    port: int
-
-    dbname: str
-
-    username: str
-
-    password: str
-
-    query: str
-
-    engine: RouteDatabaseConfigEngine
-
-
-@dataclass
-class CreateRouteRequestRestConfig:
-    verb: RouteRestConfigHttpVerb
-
-    uri: str
-
-    headers: Dict[str, str]
-
-
-@dataclass
-class CreateRouteRequestS3Config:
-    bucket_region: str
-
-    bucket_name: str
-
-    object_prefix: str
-
-    strategy: RouteS3ConfigS3Strategy
-
-
-@dataclass
 class Device:
-    """
-    Device.
-    """
-
     id: str
     """
     Device ID, also used as MQTT Client ID or username.
@@ -302,15 +252,14 @@ class Device:
     Defines whether to allow multiple physical devices to connect to the Hub with this device's credentials.
     """
 
+    has_custom_certificate: bool
+    """
+    Assigning a custom certificate allows a device to authenticate using that specific certificate without checking the Hub's CA certificate.
+    """
+
     message_filters: Optional[DeviceMessageFilters]
     """
     Filter-sets to restrict the topics the device can publish/subscribe to.
-    """
-
-    has_custom_certificate: bool
-    """
-    Defines whether the device was assigned a custom certificate.
-    Assigning a custom certificate allows a device to authenticate using that specific certificate without checking the Hub's CA certificate.
     """
 
     created_at: Optional[datetime]
@@ -325,93 +274,82 @@ class Device:
 
 
 @dataclass
-class DeviceMessageFilters:
+class Network:
+    id: str
     """
-    Device. message filters.
-    """
-
-    publish: Optional[DeviceMessageFiltersRule]
-    """
-    Filtering rule to restrict topics the device can publish to.
+    Network ID.
     """
 
-    subscribe: Optional[DeviceMessageFiltersRule]
+    name: str
     """
-    Filtering rule to restrict topics the device can subscribe to.
-    """
-
-
-@dataclass
-class DeviceMessageFiltersRule:
-    """
-    Device. message filters. rule.
+    Network name.
     """
 
-    policy: DeviceMessageFiltersRulePolicy
+    type_: NetworkNetworkType
     """
-    How to use the topic list.
-    If set to `accept`, all topics in the topics list will be allowed, with all other topics being denied.
-    If set to `reject`, all topics in the topics list will be denied, with all other topics being allowed.
+    Type of network to connect with.
     """
 
-    topics: Optional[List[str]]
+    endpoint: str
     """
-    List of topics to accept or reject. It must be valid MQTT topics and up to 65535 characters.
-    """
-
-
-@dataclass
-class GetDeviceCertificateResponse:
-    """
-    Get device certificate response.
+    Endpoint to use for interacting with the network.
     """
 
-    device: Optional[Device]
+    hub_id: str
     """
-    Information related to the created device.
+    Hub ID to connect the Network to.
     """
 
-    certificate_pem: str
+    topic_prefix: str
     """
-    Device certificate.
+    This prefix will be prepended to all topics for this Network.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Date at which the network was created.
     """
 
 
 @dataclass
-class GetDeviceMetricsResponse:
-    """
-    Get device metrics response.
-    """
+class CreateRouteRequestDatabaseConfig:
+    host: str
 
-    metrics: List[TimeSeries]
-    """
-    Metrics for a device over the requested period.
-    """
+    port: int
+
+    dbname: str
+
+    username: str
+
+    password: str
+
+    query: str
+
+    engine: RouteDatabaseConfigEngine
 
 
 @dataclass
-class GetHubCAResponse:
-    ca_cert_pem: str
+class CreateRouteRequestRestConfig:
+    verb: RouteRestConfigHttpVerb
+
+    uri: str
+
+    headers: Dict[str, str]
 
 
 @dataclass
-class GetHubMetricsResponse:
-    """
-    Get hub metrics response.
-    """
+class CreateRouteRequestS3Config:
+    bucket_region: str
 
-    metrics: List[TimeSeries]
-    """
-    Metrics for a Hub over the requested period.
-    """
+    bucket_name: str
+
+    object_prefix: str
+
+    strategy: RouteS3ConfigS3Strategy
 
 
 @dataclass
 class Hub:
-    """
-    Hub.
-    """
-
     id: str
     """
     Hub ID.
@@ -449,7 +387,6 @@ class Hub:
 
     endpoint: str
     """
-    Host to connect your devices to.
     Devices should be connected to this host. Port may be 1883 (MQTT), 8883 (MQTT over TLS), 80 (MQTT over Websocket) or 443 (MQTT over Websocket over TLS).
     """
 
@@ -468,16 +405,6 @@ class Hub:
     Region of the Hub.
     """
 
-    created_at: Optional[datetime]
-    """
-    Hub creation date.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Hub last modification date.
-    """
-
     project_id: str
     """
     Project owning the resource.
@@ -490,187 +417,29 @@ class Hub:
 
     enable_device_auto_provisioning: bool
     """
-    Defines whether to enable device auto provisioning.
     When an unknown device connects to your hub using a valid certificate chain, it will be automatically provisioned inside your Hub. The Hub uses the common name of the device certifcate to find out if a device with the same name already exists. This setting can only be enabled on a hub with a custom certificate authority.
     """
 
     has_custom_ca: bool
     """
-    Defines whether the hub is using a custom certificate authority.
     Flag is automatically set to `false` after Hub creation, as Hub certificates are managed by Scaleway. Once a custom certificate authority is set, the flag will be set to `true`.
-    """
-
-    twins_graphite_config: Optional[HubTwinsGraphiteConfig]
-    """
-    BETA - not implemented yet.
-    
-    One-of ('twins_db_config'): at most one of 'twins_graphite_config' could be set.
-    """
-
-
-@dataclass
-class HubTwinsGraphiteConfig:
-    push_uri: str
-
-
-@dataclass
-class ListDevicesResponse:
-    """
-    List devices response.
-    """
-
-    total_count: int
-    """
-    Total number of devices.
-    """
-
-    devices: List[Device]
-    """
-    Page of devices.
-    """
-
-
-@dataclass
-class ListHubsResponse:
-    """
-    List hubs response.
-    """
-
-    total_count: int
-    """
-    Total number of Hubs.
-    """
-
-    hubs: List[Hub]
-    """
-    A page of hubs.
-    """
-
-
-@dataclass
-class ListNetworksResponse:
-    """
-    List networks response.
-    """
-
-    total_count: int
-    """
-    Total number of Networks.
-    """
-
-    networks: List[Network]
-    """
-    Page of networks.
-    """
-
-
-@dataclass
-class ListRoutesResponse:
-    """
-    List routes response.
-    """
-
-    total_count: int
-    """
-    Total number of routes.
-    """
-
-    routes: List[RouteSummary]
-    """
-    Page of routes.
-    """
-
-
-@dataclass
-class ListTwinDocumentsResponse:
-    """
-    List twin documents response.
-    """
-
-    documents: List[ListTwinDocumentsResponseDocumentSummary]
-    """
-    List of the twin document.
-    """
-
-
-@dataclass
-class ListTwinDocumentsResponseDocumentSummary:
-    """
-    List twin documents response. document summary.
-    """
-
-    document_name: str
-    """
-    Name of the document.
-    """
-
-
-@dataclass
-class Network:
-    """
-    Network.
-    """
-
-    id: str
-    """
-    Network ID.
-    """
-
-    name: str
-    """
-    Network name.
-    """
-
-    type_: NetworkNetworkType
-    """
-    Type of network to connect with.
-    """
-
-    endpoint: str
-    """
-    Endpoint to use for interacting with the network.
-    """
-
-    hub_id: str
-    """
-    Hub ID to connect the Network to.
     """
 
     created_at: Optional[datetime]
     """
-    Date at which the network was created.
+    Hub creation date.
     """
 
-    topic_prefix: str
+    updated_at: Optional[datetime]
     """
-    Topic prefix for the Network.
-    This prefix will be prepended to all topics for this Network.
-    """
-
-
-@dataclass
-class RenewDeviceCertificateResponse:
-    """
-    Renew device certificate response.
+    Hub last modification date.
     """
 
-    device: Optional[Device]
-    """
-    Information related to the created device.
-    """
-
-    certificate: Optional[Certificate]
-    """
-    Device certificate.
-    """
+    twins_graphite_config: Optional[HubTwinsGraphiteConfig]
 
 
 @dataclass
-class Route:
-    """
-    Route.
-    """
-
+class RouteSummary:
     id: str
     """
     Route ID.
@@ -701,27 +470,6 @@ class Route:
     Date at which the route was created.
     """
 
-    s3_config: Optional[RouteS3Config]
-    """
-    When using S3 Route, S3-specific configuration fields.
-    
-    One-of ('config'): at most one of 's3_config', 'db_config', 'rest_config' could be set.
-    """
-
-    db_config: Optional[RouteDatabaseConfig]
-    """
-    When using Database Route, DB-specific configuration fields.
-    
-    One-of ('config'): at most one of 's3_config', 'db_config', 'rest_config' could be set.
-    """
-
-    rest_config: Optional[RouteRestConfig]
-    """
-    When using Rest Route, Rest-specific configuration fields.
-    
-    One-of ('config'): at most one of 's3_config', 'db_config', 'rest_config' could be set.
-    """
-
     updated_at: Optional[datetime]
     """
     Date at which the route was last updated.
@@ -729,11 +477,15 @@ class Route:
 
 
 @dataclass
-class RouteDatabaseConfig:
+class ListTwinDocumentsResponseDocumentSummary:
+    document_name: str
     """
-    Route. database config.
+    Name of the document.
     """
 
+
+@dataclass
+class RouteDatabaseConfig:
     engine: RouteDatabaseConfigEngine
     """
     Database engine the route will connect to. If not specified, the default database will be 'PostgreSQL'.
@@ -772,10 +524,6 @@ class RouteDatabaseConfig:
 
 @dataclass
 class RouteRestConfig:
-    """
-    Route. rest config.
-    """
-
     verb: RouteRestConfigHttpVerb
     """
     HTTP verb used to call REST URI.
@@ -794,10 +542,6 @@ class RouteRestConfig:
 
 @dataclass
 class RouteS3Config:
-    """
-    Route.s3 config.
-    """
-
     bucket_region: str
     """
     Region of the S3 route's destination bucket (e.g., 'fr-par').
@@ -820,83 +564,9 @@ class RouteS3Config:
 
 
 @dataclass
-class RouteSummary:
-    """
-    Route summary.
-    """
-
-    id: str
-    """
-    Route ID.
-    """
-
-    name: str
-    """
-    Route name.
-    """
-
-    hub_id: str
-    """
-    Hub ID of the route.
-    """
-
-    topic: str
-    """
-    Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters.
-    """
-
-    type_: RouteRouteType
-    """
-    Route type.
-    """
-
-    created_at: Optional[datetime]
-    """
-    Date at which the route was created.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Date at which the route was last updated.
-    """
-
-
-@dataclass
-class SetDeviceCertificateResponse:
-    device: Optional[Device]
-
-    certificate_pem: str
-
-
-@dataclass
-class TwinDocument:
-    """
-    Twin document.
-    """
-
-    twin_id: str
-    """
-    Parent twin ID of the document.
-    """
-
-    document_name: str
-    """
-    Name of the document.
-    """
-
-    version: int
-    """
-    New version of the document.
-    """
-
-    data: Optional[Dict[str, Any]]
-    """
-    New data related to the document.
-    """
-
-
-@dataclass
 class UpdateRouteRequestDatabaseConfig:
+    engine: RouteDatabaseConfigEngine
+
     host: Optional[str]
 
     port: Optional[int]
@@ -908,8 +578,6 @@ class UpdateRouteRequestDatabaseConfig:
     password: Optional[str]
 
     query: Optional[str]
-
-    engine: RouteDatabaseConfigEngine
 
 
 @dataclass
@@ -923,55 +591,73 @@ class UpdateRouteRequestRestConfig:
 
 @dataclass
 class UpdateRouteRequestS3Config:
+    strategy: RouteS3ConfigS3Strategy
+
     bucket_region: Optional[str]
 
     bucket_name: Optional[str]
 
     object_prefix: Optional[str]
 
-    strategy: RouteS3ConfigS3Strategy
-
 
 @dataclass
-class ListHubsRequest:
+class CreateDeviceRequest:
+    hub_id: str
+    """
+    Hub ID of the device.
+    """
+
+    allow_insecure: bool
+    """
+    Defines whether to allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones.
+    """
+
+    allow_multiple_connections: bool
+    """
+    Defines whether to allow multiple physical devices to connect with this device's credentials.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    page: Optional[int]
-    """
-    Page number to return, from the paginated results.
-    """
-
-    page_size: Optional[int]
-    """
-    Number of Hubs to return within a page. Maximum value is 100.
-    """
-
-    order_by: Optional[ListHubsRequestOrderBy]
-    """
-    Sort order of Hubs in the response.
-    """
-
-    project_id: Optional[str]
-    """
-    Only list Hubs of this Project ID.
-    """
-
-    organization_id: Optional[str]
-    """
-    Only list Hubs of this Organization ID.
-    """
-
     name: Optional[str]
     """
-    Hub name.
+    Device name.
+    """
+
+    message_filters: Optional[DeviceMessageFilters]
+    """
+    Filter-sets to authorize or deny the device to publish/subscribe to specific topics.
+    """
+
+    description: Optional[str]
+    """
+    Device description.
+    """
+
+
+@dataclass
+class CreateDeviceResponse:
+    device: Optional[Device]
+    """
+    Information related to the created device.
+    """
+
+    certificate: Optional[Certificate]
+    """
+    Device certificate.
     """
 
 
 @dataclass
 class CreateHubRequest:
+    product_plan: HubProductPlan
+    """
+    Hub product plan.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
@@ -987,11 +673,6 @@ class CreateHubRequest:
     Project/Organization ID to filter for, only Hubs from this Project/Organization will be returned.
     """
 
-    product_plan: Optional[HubProductPlan]
-    """
-    Hub product plan.
-    """
-
     disable_events: Optional[bool]
     """
     Disable Hub events.
@@ -1003,107 +684,101 @@ class CreateHubRequest:
     """
 
     twins_graphite_config: Optional[HubTwinsGraphiteConfig]
-    """
-    BETA - not implemented yet.
-    
-    One-of ('twins_db_config'): at most one of 'twins_graphite_config' could be set.
-    """
 
 
 @dataclass
-class GetHubRequest:
-    region: Optional[Region]
+class CreateNetworkRequest:
+    type_: NetworkNetworkType
     """
-    Region to target. If none is passed will use default region from the config.
+    Type of network to connect with.
     """
 
     hub_id: str
     """
-    Hub ID.
+    Hub ID to connect the Network to.
     """
 
+    topic_prefix: str
+    """
+    Topic prefix for the Network.
+    """
 
-@dataclass
-class UpdateHubRequest:
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
-    """
-
-    hub_id: str
-    """
-    ID of the Hub you want to update.
     """
 
     name: Optional[str]
     """
-    Hub name (up to 255 characters).
-    """
-
-    product_plan: HubProductPlan
-    """
-    Hub product plan.
-    """
-
-    disable_events: Optional[bool]
-    """
-    Disable Hub events.
-    """
-
-    events_topic_prefix: Optional[str]
-    """
-    Topic prefix of Hub events.
-    """
-
-    enable_device_auto_provisioning: Optional[bool]
-    """
-    Enable device auto provisioning.
-    """
-
-    twins_graphite_config: Optional[HubTwinsGraphiteConfig]
-    """
-    BETA - not implemented yet.
-    
-    One-of ('twins_db_config'): at most one of 'twins_graphite_config' could be set.
+    Network name.
     """
 
 
 @dataclass
-class EnableHubRequest:
+class CreateNetworkResponse:
+    secret: str
+    """
+    Endpoint Key to keep secret. This cannot be retrieved later.
+    """
+
+    network: Optional[Network]
+    """
+    Information related to the created network.
+    """
+
+
+@dataclass
+class CreateRouteRequest:
+    hub_id: str
+    """
+    Hub ID of the route.
+    """
+
+    topic: str
+    """
+    Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    hub_id: str
+    name: Optional[str]
     """
-    Hub ID.
+    Route name.
     """
+
+    s3_config: Optional[CreateRouteRequestS3Config]
+
+    db_config: Optional[CreateRouteRequestDatabaseConfig]
+
+    rest_config: Optional[CreateRouteRequestRestConfig]
 
 
 @dataclass
-class DisableHubRequest:
+class DeleteDeviceRequest:
+    device_id: str
+    """
+    Device ID.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
-    """
-
-    hub_id: str
-    """
-    Hub ID.
     """
 
 
 @dataclass
 class DeleteHubRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
     hub_id: str
     """
     Hub ID.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
     """
 
     delete_devices: Optional[bool]
@@ -1113,55 +788,275 @@ class DeleteHubRequest:
 
 
 @dataclass
-class GetHubMetricsRequest:
+class DeleteNetworkRequest:
+    network_id: str
+    """
+    Network ID.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
+
+@dataclass
+class DeleteRouteRequest:
+    route_id: str
+    """
+    Route ID.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class DeleteTwinDocumentRequest:
+    twin_id: str
+    """
+    Twin ID.
+    """
+
+    document_name: str
+    """
+    Name of the document.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class DeleteTwinDocumentsRequest:
+    twin_id: str
+    """
+    Twin ID.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class DisableDeviceRequest:
+    device_id: str
+    """
+    Device ID.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class DisableHubRequest:
     hub_id: str
     """
     Hub ID.
     """
 
-    start_date: datetime
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class EnableDeviceRequest:
+    device_id: str
+    """
+    Device ID.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class EnableHubRequest:
+    hub_id: str
+    """
+    Hub ID.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetDeviceCertificateRequest:
+    device_id: str
+    """
+    Device ID.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetDeviceCertificateResponse:
+    certificate_pem: str
+    """
+    Device certificate.
+    """
+
+    device: Optional[Device]
+    """
+    Information related to the created device.
+    """
+
+
+@dataclass
+class GetDeviceMetricsRequest:
+    device_id: str
+    """
+    Device ID.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    start_date: Optional[datetime]
+    """
+    Start date used to compute the best scale for the returned metrics.
+    """
+
+
+@dataclass
+class GetDeviceMetricsResponse:
+    metrics: List[TimeSeries]
+    """
+    Metrics for a device over the requested period.
+    """
+
+
+@dataclass
+class GetDeviceRequest:
+    device_id: str
+    """
+    Device ID.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetHubCARequest:
+    hub_id: str
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetHubCAResponse:
+    ca_cert_pem: str
+
+
+@dataclass
+class GetHubMetricsRequest:
+    hub_id: str
+    """
+    Hub ID.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    start_date: Optional[datetime]
     """
     Start date used to compute the best scale for returned metrics.
     """
 
 
 @dataclass
-class SetHubCARequest:
-    region: Optional[Region]
+class GetHubMetricsResponse:
+    metrics: List[TimeSeries]
     """
-    Region to target. If none is passed will use default region from the config.
+    Metrics for a Hub over the requested period.
     """
 
+
+@dataclass
+class GetHubRequest:
     hub_id: str
     """
     Hub ID.
     """
 
-    ca_cert_pem: str
-    """
-    CA's PEM-encoded certificate.
-    """
-
-    challenge_cert_pem: str
-    """
-    Proof of possession of PEM-encoded certificate.
-    Challenge is a PEM-encoded certificate that acts as proof of possession of the CA. It must be signed by the CA, and have a Common Name equal to the Hub ID.
-    """
-
-
-@dataclass
-class GetHubCARequest:
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    hub_id: str
+
+@dataclass
+class GetNetworkRequest:
+    network_id: str
+    """
+    Network ID.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetRouteRequest:
+    route_id: str
+    """
+    Route ID.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetTwinDocumentRequest:
+    twin_id: str
+    """
+    Twin ID.
+    """
+
+    document_name: str
+    """
+    Name of the document.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
 
 
 @dataclass
@@ -1208,197 +1103,20 @@ class ListDevicesRequest:
 
 
 @dataclass
-class CreateDeviceRequest:
-    region: Optional[Region]
+class ListDevicesResponse:
+    total_count: int
     """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    name: Optional[str]
-    """
-    Device name.
+    Total number of devices.
     """
 
-    hub_id: str
+    devices: List[Device]
     """
-    Hub ID of the device.
-    """
-
-    allow_insecure: bool
-    """
-    Defines whether to allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones.
-    """
-
-    allow_multiple_connections: bool
-    """
-    Defines whether to allow multiple physical devices to connect with this device's credentials.
-    """
-
-    message_filters: Optional[DeviceMessageFilters]
-    """
-    Filter-sets to authorize or deny the device to publish/subscribe to specific topics.
-    """
-
-    description: Optional[str]
-    """
-    Device description.
+    Page of devices.
     """
 
 
 @dataclass
-class GetDeviceRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    device_id: str
-    """
-    Device ID.
-    """
-
-
-@dataclass
-class UpdateDeviceRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    device_id: str
-    """
-    Device ID.
-    """
-
-    description: Optional[str]
-    """
-    Description for the device.
-    """
-
-    allow_insecure: Optional[bool]
-    """
-    Defines whether to allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones.
-    """
-
-    allow_multiple_connections: Optional[bool]
-    """
-    Defines whether to allow multiple physical devices to connect with this device's credentials.
-    """
-
-    message_filters: Optional[DeviceMessageFilters]
-    """
-    Filter-sets to restrict the topics the device can publish/subscribe to.
-    """
-
-    hub_id: Optional[str]
-    """
-    Change Hub for this device, additional fees may apply, see IoT Hub pricing.
-    """
-
-
-@dataclass
-class EnableDeviceRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    device_id: str
-    """
-    Device ID.
-    """
-
-
-@dataclass
-class DisableDeviceRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    device_id: str
-    """
-    Device ID.
-    """
-
-
-@dataclass
-class RenewDeviceCertificateRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    device_id: str
-    """
-    Device ID.
-    """
-
-
-@dataclass
-class SetDeviceCertificateRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    device_id: str
-    """
-    Device ID.
-    """
-
-    certificate_pem: str
-    """
-    PEM-encoded custom certificate.
-    """
-
-
-@dataclass
-class GetDeviceCertificateRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    device_id: str
-    """
-    Device ID.
-    """
-
-
-@dataclass
-class DeleteDeviceRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    device_id: str
-    """
-    Device ID.
-    """
-
-
-@dataclass
-class GetDeviceMetricsRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    device_id: str
-    """
-    Device ID.
-    """
-
-    start_date: datetime
-    """
-    Start date used to compute the best scale for the returned metrics.
-    """
-
-
-@dataclass
-class ListRoutesRequest:
+class ListHubsRequest:
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
@@ -1411,136 +1129,40 @@ class ListRoutesRequest:
 
     page_size: Optional[int]
     """
-    Number of routes to return within a page. Maximum value is 100.
+    Number of Hubs to return within a page. Maximum value is 100.
     """
 
-    order_by: Optional[ListRoutesRequestOrderBy]
+    order_by: Optional[ListHubsRequestOrderBy]
     """
-    Ordering of requested routes.
-    """
-
-    hub_id: Optional[str]
-    """
-    Hub ID to filter for.
+    Sort order of Hubs in the response.
     """
 
-    name: Optional[str]
+    project_id: Optional[str]
     """
-    Route name to filter for.
+    Only list Hubs of this Project ID.
     """
 
-
-@dataclass
-class CreateRouteRequest:
-    region: Optional[Region]
+    organization_id: Optional[str]
     """
-    Region to target. If none is passed will use default region from the config.
+    Only list Hubs of this Organization ID.
     """
 
     name: Optional[str]
     """
-    Route name.
-    """
-
-    hub_id: str
-    """
-    Hub ID of the route.
-    """
-
-    topic: str
-    """
-    Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters.
-    """
-
-    s3_config: Optional[CreateRouteRequestS3Config]
-    """
-    If creating S3 Route, S3-specific configuration fields.
-    
-    One-of ('config'): at most one of 's3_config', 'db_config', 'rest_config' could be set.
-    """
-
-    db_config: Optional[CreateRouteRequestDatabaseConfig]
-    """
-    If creating Database Route, DB-specific configuration fields.
-    
-    One-of ('config'): at most one of 's3_config', 'db_config', 'rest_config' could be set.
-    """
-
-    rest_config: Optional[CreateRouteRequestRestConfig]
-    """
-    If creating Rest Route, Rest-specific configuration fields.
-    
-    One-of ('config'): at most one of 's3_config', 'db_config', 'rest_config' could be set.
+    Hub name.
     """
 
 
 @dataclass
-class UpdateRouteRequest:
-    region: Optional[Region]
+class ListHubsResponse:
+    total_count: int
     """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    route_id: str
-    """
-    Route id.
+    Total number of Hubs.
     """
 
-    name: Optional[str]
+    hubs: List[Hub]
     """
-    Route name.
-    """
-
-    topic: Optional[str]
-    """
-    Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters.
-    """
-
-    s3_config: Optional[UpdateRouteRequestS3Config]
-    """
-    When updating S3 Route, S3-specific configuration fields.
-    
-    One-of ('config'): at most one of 's3_config', 'db_config', 'rest_config' could be set.
-    """
-
-    db_config: Optional[UpdateRouteRequestDatabaseConfig]
-    """
-    When updating Database Route, DB-specific configuration fields.
-    
-    One-of ('config'): at most one of 's3_config', 'db_config', 'rest_config' could be set.
-    """
-
-    rest_config: Optional[UpdateRouteRequestRestConfig]
-    """
-    When updating Rest Route, Rest-specific configuration fields.
-    
-    One-of ('config'): at most one of 's3_config', 'db_config', 'rest_config' could be set.
-    """
-
-
-@dataclass
-class GetRouteRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    route_id: str
-    """
-    Route ID.
-    """
-
-
-@dataclass
-class DeleteRouteRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    route_id: str
-    """
-    Route ID.
+    A page of hubs.
     """
 
 
@@ -1583,7 +1205,332 @@ class ListNetworksRequest:
 
 
 @dataclass
-class CreateNetworkRequest:
+class ListNetworksResponse:
+    total_count: int
+    """
+    Total number of Networks.
+    """
+
+    networks: List[Network]
+    """
+    Page of networks.
+    """
+
+
+@dataclass
+class ListRoutesRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    page: Optional[int]
+    """
+    Page number to return, from the paginated results.
+    """
+
+    page_size: Optional[int]
+    """
+    Number of routes to return within a page. Maximum value is 100.
+    """
+
+    order_by: Optional[ListRoutesRequestOrderBy]
+    """
+    Ordering of requested routes.
+    """
+
+    hub_id: Optional[str]
+    """
+    Hub ID to filter for.
+    """
+
+    name: Optional[str]
+    """
+    Route name to filter for.
+    """
+
+
+@dataclass
+class ListRoutesResponse:
+    total_count: int
+    """
+    Total number of routes.
+    """
+
+    routes: List[RouteSummary]
+    """
+    Page of routes.
+    """
+
+
+@dataclass
+class ListTwinDocumentsRequest:
+    twin_id: str
+    """
+    Twin ID.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class ListTwinDocumentsResponse:
+    documents: List[ListTwinDocumentsResponseDocumentSummary]
+    """
+    List of the twin document.
+    """
+
+
+@dataclass
+class PatchTwinDocumentRequest:
+    twin_id: str
+    """
+    Twin ID.
+    """
+
+    document_name: str
+    """
+    Name of the document.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    version: Optional[int]
+    """
+    If set, ensures that the current version of the document matches before persisting the update.
+    """
+
+    data: Optional[Dict[str, Any]]
+    """
+    A json data that will be applied on the document's current data.
+Patching rules:
+* The patch goes recursively through the patch objects.
+* If the patch object property is null, it is removed from the final object.
+* If the patch object property is a value (number, strings, bool, arrays), it is replaced.
+* If the patch object property is an object, the previous rules will be applied recursively on it.
+    """
+
+
+@dataclass
+class PutTwinDocumentRequest:
+    twin_id: str
+    """
+    Twin ID.
+    """
+
+    document_name: str
+    """
+    Name of the document.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    version: Optional[int]
+    """
+    If set, ensures that the current version of the document matches before persisting the update.
+    """
+
+    data: Optional[Dict[str, Any]]
+    """
+    New data that will replace the contents of the document.
+    """
+
+
+@dataclass
+class RenewDeviceCertificateRequest:
+    device_id: str
+    """
+    Device ID.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class RenewDeviceCertificateResponse:
+    device: Optional[Device]
+    """
+    Information related to the created device.
+    """
+
+    certificate: Optional[Certificate]
+    """
+    Device certificate.
+    """
+
+
+@dataclass
+class Route:
+    id: str
+    """
+    Route ID.
+    """
+
+    name: str
+    """
+    Route name.
+    """
+
+    hub_id: str
+    """
+    Hub ID of the route.
+    """
+
+    topic: str
+    """
+    Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters.
+    """
+
+    type_: RouteRouteType
+    """
+    Route type.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Date at which the route was created.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Date at which the route was last updated.
+    """
+
+    s3_config: Optional[RouteS3Config]
+
+    db_config: Optional[RouteDatabaseConfig]
+
+    rest_config: Optional[RouteRestConfig]
+
+
+@dataclass
+class SetDeviceCertificateRequest:
+    device_id: str
+    """
+    Device ID.
+    """
+
+    certificate_pem: str
+    """
+    PEM-encoded custom certificate.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class SetDeviceCertificateResponse:
+    certificate_pem: str
+
+    device: Optional[Device]
+
+
+@dataclass
+class SetHubCARequest:
+    hub_id: str
+    """
+    Hub ID.
+    """
+
+    ca_cert_pem: str
+    """
+    CA's PEM-encoded certificate.
+    """
+
+    challenge_cert_pem: str
+    """
+    Challenge is a PEM-encoded certificate that acts as proof of possession of the CA. It must be signed by the CA, and have a Common Name equal to the Hub ID.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class TwinDocument:
+    twin_id: str
+    """
+    Parent twin ID of the document.
+    """
+
+    document_name: str
+    """
+    Name of the document.
+    """
+
+    version: int
+    """
+    New version of the document.
+    """
+
+    data: Optional[Dict[str, Any]]
+    """
+    New data related to the document.
+    """
+
+
+@dataclass
+class UpdateDeviceRequest:
+    device_id: str
+    """
+    Device ID.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    description: Optional[str]
+    """
+    Description for the device.
+    """
+
+    allow_insecure: Optional[bool]
+    """
+    Defines whether to allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones.
+    """
+
+    allow_multiple_connections: Optional[bool]
+    """
+    Defines whether to allow multiple physical devices to connect with this device's credentials.
+    """
+
+    message_filters: Optional[DeviceMessageFilters]
+    """
+    Filter-sets to restrict the topics the device can publish/subscribe to.
+    """
+
+    hub_id: Optional[str]
+    """
+    Change Hub for this device, additional fees may apply, see IoT Hub pricing.
+    """
+
+
+@dataclass
+class UpdateHubRequest:
+    hub_id: str
+    """
+    ID of the Hub you want to update.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
@@ -1591,173 +1538,56 @@ class CreateNetworkRequest:
 
     name: Optional[str]
     """
-    Network name.
+    Hub name (up to 255 characters).
     """
 
-    type_: Optional[NetworkNetworkType]
+    product_plan: Optional[HubProductPlan]
     """
-    Type of network to connect with.
-    """
-
-    hub_id: str
-    """
-    Hub ID to connect the Network to.
+    Hub product plan.
     """
 
-    topic_prefix: str
+    disable_events: Optional[bool]
     """
-    Topic prefix for the Network.
+    Disable Hub events.
     """
+
+    events_topic_prefix: Optional[str]
+    """
+    Topic prefix of Hub events.
+    """
+
+    enable_device_auto_provisioning: Optional[bool]
+    """
+    Enable device auto provisioning.
+    """
+
+    twins_graphite_config: Optional[HubTwinsGraphiteConfig]
 
 
 @dataclass
-class GetNetworkRequest:
+class UpdateRouteRequest:
+    route_id: str
+    """
+    Route id.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    network_id: str
+    name: Optional[str]
     """
-    Network ID.
-    """
-
-
-@dataclass
-class DeleteNetworkRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
+    Route name.
     """
 
-    network_id: str
+    topic: Optional[str]
     """
-    Network ID.
-    """
-
-
-@dataclass
-class GetTwinDocumentRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
+    Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters.
     """
 
-    twin_id: str
-    """
-    Twin ID.
-    """
+    s3_config: Optional[UpdateRouteRequestS3Config]
 
-    document_name: str
-    """
-    Name of the document.
-    """
+    db_config: Optional[UpdateRouteRequestDatabaseConfig]
 
-
-@dataclass
-class PutTwinDocumentRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    twin_id: str
-    """
-    Twin ID.
-    """
-
-    document_name: str
-    """
-    Name of the document.
-    """
-
-    version: Optional[int]
-    """
-    Version of the document to update.
-    If set, ensures that the current version of the document matches before persisting the update.
-    """
-
-    data: Optional[Dict[str, Any]]
-    """
-    Data of the new document.
-    New data that will replace the contents of the document.
-    """
-
-
-@dataclass
-class PatchTwinDocumentRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    twin_id: str
-    """
-    Twin ID.
-    """
-
-    document_name: str
-    """
-    Name of the document.
-    """
-
-    version: Optional[int]
-    """
-    The version of the document to update.
-    If set, ensures that the current version of the document matches before persisting the update.
-    """
-
-    data: Optional[Dict[str, Any]]
-    """
-    Patch data.
-    A json data that will be applied on the document's current data.
-    Patching rules:
-    * The patch goes recursively through the patch objects.
-    * If the patch object property is null, it is removed from the final object.
-    * If the patch object property is a value (number, strings, bool, arrays), it is replaced.
-    * If the patch object property is an object, the previous rules will be applied recursively on it.
-    """
-
-
-@dataclass
-class DeleteTwinDocumentRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    twin_id: str
-    """
-    Twin ID.
-    """
-
-    document_name: str
-    """
-    Name of the document.
-    """
-
-
-@dataclass
-class ListTwinDocumentsRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    twin_id: str
-    """
-    Twin ID.
-    """
-
-
-@dataclass
-class DeleteTwinDocumentsRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    twin_id: str
-    """
-    Twin ID.
-    """
+    rest_config: Optional[UpdateRouteRequestRestConfig]

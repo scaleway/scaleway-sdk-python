@@ -2,61 +2,69 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 
 from typing import Any, Dict
+from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
-from dateutil import parser
 from .types import (
-    ListProjectsResponse,
     Project,
+    ListProjectsResponse,
     ProjectApiCreateProjectRequest,
     ProjectApiUpdateProjectRequest,
 )
 
 
 def unmarshal_Project(data: Any) -> Project:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Project' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Project' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
-    field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
-
-    field = data.get("description", None)
-    args["description"] = field
-
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["name"] = field
 
     field = data.get("organization_id", None)
-    args["organization_id"] = field
+    if field is not None:
+        args["organization_id"] = field
+
+    field = data.get("description", None)
+    if field is not None:
+        args["description"] = field
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return Project(**args)
 
 
 def unmarshal_ListProjectsResponse(data: Any) -> ListProjectsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListProjectsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListProjectsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
-    field = data.get("projects", None)
-    args["projects"] = (
-        [unmarshal_Project(v) for v in field] if field is not None else None
-    )
-
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
+
+    field = data.get("projects", None)
+    if field is not None:
+        args["projects"] = (
+            [unmarshal_Project(v) for v in field] if field is not None else None
+        )
 
     return ListProjectsResponse(**args)
 
@@ -87,10 +95,10 @@ def marshal_ProjectApiUpdateProjectRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.description is not None:
-        output["description"] = request.description
-
     if request.name is not None:
         output["name"] = request.name
+
+    if request.description is not None:
+        output["description"] = request.description
 
     return output

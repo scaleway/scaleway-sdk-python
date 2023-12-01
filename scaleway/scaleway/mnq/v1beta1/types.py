@@ -83,10 +83,6 @@ class SqsInfoStatus(str, Enum, metaclass=StrEnumMeta):
 
 @dataclass
 class File:
-    """
-    File.
-    """
-
     name: str
     """
     File name.
@@ -99,79 +95,43 @@ class File:
 
 
 @dataclass
-class ListNatsAccountsResponse:
+class SnsPermissions:
+    can_publish: Optional[bool]
     """
-    List nats accounts response.
-    """
-
-    total_count: int
-    """
-    Total count of existing NATS accounts (matching any filters specified).
+    Defines whether the credentials bearer can publish messages to the service (publish to SNS topics).
     """
 
-    nats_accounts: List[NatsAccount]
+    can_receive: Optional[bool]
     """
-    NATS accounts on this page.
-    """
-
-
-@dataclass
-class ListNatsCredentialsResponse:
-    """
-    List nats credentials response.
+    Defines whether the credentials bearer can receive messages from the service (configure subscriptions).
     """
 
-    total_count: int
+    can_manage: Optional[bool]
     """
-    Total count of existing credentials (matching any filters specified).
-    """
-
-    nats_credentials: List[NatsCredentials]
-    """
-    Credentials on this page.
+    Defines whether the credentials bearer can manage the associated SNS topics or subscriptions.
     """
 
 
 @dataclass
-class ListSnsCredentialsResponse:
+class SqsPermissions:
+    can_publish: Optional[bool]
     """
-    List sns credentials response.
-    """
-
-    total_count: int
-    """
-    Total count of existing credentials (matching any filters specified).
+    Defines whether the credentials bearer can publish messages to the service (send messages to SQS queues).
     """
 
-    sns_credentials: List[SnsCredentials]
+    can_receive: Optional[bool]
     """
-    SNS credentials on this page.
-    """
-
-
-@dataclass
-class ListSqsCredentialsResponse:
-    """
-    List sqs credentials response.
+    Defines whether the credentials bearer can receive messages from SQS queues.
     """
 
-    total_count: int
+    can_manage: Optional[bool]
     """
-    Total count of existing credentials (matching any filters specified).
-    """
-
-    sqs_credentials: List[SqsCredentials]
-    """
-    SQS credentials on this page.
+    Defines whether the credentials bearer can manage the associated SQS queues.
     """
 
 
 @dataclass
 class NatsAccount:
-    """
-    Nats account.
-    """
-
     id: str
     """
     NATS account ID.
@@ -210,10 +170,6 @@ class NatsAccount:
 
 @dataclass
 class NatsCredentials:
-    """
-    Nats credentials.
-    """
-
     id: str
     """
     ID of the credentials.
@@ -227,6 +183,11 @@ class NatsCredentials:
     nats_account_id: str
     """
     NATS account containing the credentials.
+    """
+
+    checksum: str
+    """
+    Checksum of the credentials file.
     """
 
     created_at: Optional[datetime]
@@ -244,18 +205,9 @@ class NatsCredentials:
     Object containing the credentials file (Only returned by **Create Nats Credentials** call).
     """
 
-    checksum: str
-    """
-    Checksum of the credentials file.
-    """
-
 
 @dataclass
 class SnsCredentials:
-    """
-    Sns credentials.
-    """
-
     id: str
     """
     ID of the credentials.
@@ -274,16 +226,6 @@ class SnsCredentials:
     region: Region
     """
     Region where the credentials exists.
-    """
-
-    created_at: Optional[datetime]
-    """
-    Credentials creation date.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Credentials last modification date.
     """
 
     access_key: str
@@ -301,6 +243,16 @@ class SnsCredentials:
     Checksum of the Secret key.
     """
 
+    created_at: Optional[datetime]
+    """
+    Credentials creation date.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Credentials last modification date.
+    """
+
     permissions: Optional[SnsPermissions]
     """
     Permissions associated with these credentials.
@@ -308,70 +260,7 @@ class SnsCredentials:
 
 
 @dataclass
-class SnsInfo:
-    """
-    Sns info.
-    """
-
-    project_id: str
-    """
-    Project ID of the Project containing the service.
-    """
-
-    region: Region
-    """
-    Region of the service.
-    """
-
-    created_at: Optional[datetime]
-    """
-    SNS creation date.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    SNS last modification date.
-    """
-
-    status: SnsInfoStatus
-    """
-    SNS activation status.
-    """
-
-    sns_endpoint_url: str
-    """
-    Endpoint of the SNS service for this region and project.
-    """
-
-
-@dataclass
-class SnsPermissions:
-    """
-    Sns permissions.
-    """
-
-    can_publish: Optional[bool]
-    """
-    Defines whether the credentials bearer can publish messages to the service (publish to SNS topics).
-    """
-
-    can_receive: Optional[bool]
-    """
-    Defines whether the credentials bearer can receive messages from the service (configure subscriptions).
-    """
-
-    can_manage: Optional[bool]
-    """
-    Defines whether the credentials bearer can manage the associated SNS topics or subscriptions.
-    """
-
-
-@dataclass
 class SqsCredentials:
-    """
-    Sqs credentials.
-    """
-
     id: str
     """
     ID of the credentials.
@@ -392,16 +281,6 @@ class SqsCredentials:
     Region where the credentials exists.
     """
 
-    created_at: Optional[datetime]
-    """
-    Credentials creation date.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Credentials last modification date.
-    """
-
     access_key: str
     """
     Access key ID.
@@ -417,6 +296,16 @@ class SqsCredentials:
     Checksum of the Secret key.
     """
 
+    created_at: Optional[datetime]
+    """
+    Credentials creation date.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Credentials last modification date.
+    """
+
     permissions: Optional[SqsPermissions]
     """
     Permissions associated with these credentials.
@@ -424,61 +313,54 @@ class SqsCredentials:
 
 
 @dataclass
-class SqsInfo:
+class ListNatsAccountsResponse:
+    total_count: int
     """
-    Sqs info.
-    """
-
-    project_id: str
-    """
-    Project ID of the Project containing the service.
+    Total count of existing NATS accounts (matching any filters specified).
     """
 
-    region: Region
+    nats_accounts: List[NatsAccount]
     """
-    Region of the service.
-    """
-
-    created_at: Optional[datetime]
-    """
-    SQS creation date.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    SQS last modification date.
-    """
-
-    status: SqsInfoStatus
-    """
-    SQS activation status.
-    """
-
-    sqs_endpoint_url: str
-    """
-    Endpoint of the SQS service for this region and project.
+    NATS accounts on this page.
     """
 
 
 @dataclass
-class SqsPermissions:
+class ListNatsCredentialsResponse:
+    total_count: int
     """
-    Sqs permissions.
-    """
-
-    can_publish: Optional[bool]
-    """
-    Defines whether the credentials bearer can publish messages to the service (send messages to SQS queues).
+    Total count of existing credentials (matching any filters specified).
     """
 
-    can_receive: Optional[bool]
+    nats_credentials: List[NatsCredentials]
     """
-    Defines whether the credentials bearer can receive messages from SQS queues.
+    Credentials on this page.
     """
 
-    can_manage: Optional[bool]
+
+@dataclass
+class ListSnsCredentialsResponse:
+    total_count: int
     """
-    Defines whether the credentials bearer can manage the associated SQS queues.
+    Total count of existing credentials (matching any filters specified).
+    """
+
+    sns_credentials: List[SnsCredentials]
+    """
+    SNS credentials on this page.
+    """
+
+
+@dataclass
+class ListSqsCredentialsResponse:
+    total_count: int
+    """
+    Total count of existing credentials (matching any filters specified).
+    """
+
+    sqs_credentials: List[SqsCredentials]
+    """
+    SQS credentials on this page.
     """
 
 
@@ -501,46 +383,72 @@ class NatsApiCreateNatsAccountRequest:
 
 
 @dataclass
-class NatsApiDeleteNatsAccountRequest:
+class NatsApiCreateNatsCredentialsRequest:
+    nats_account_id: str
+    """
+    NATS account containing the credentials.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
+    name: Optional[str]
+    """
+    Name of the credentials.
+    """
+
+
+@dataclass
+class NatsApiDeleteNatsAccountRequest:
     nats_account_id: str
     """
     ID of the NATS account to delete.
     """
 
-
-@dataclass
-class NatsApiUpdateNatsAccountRequest:
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    nats_account_id: str
+
+@dataclass
+class NatsApiDeleteNatsCredentialsRequest:
+    nats_credentials_id: str
     """
-    ID of the NATS account to update.
+    ID of the credentials to delete.
     """
 
-    name: Optional[str]
+    region: Optional[Region]
     """
-    NATS account name.
+    Region to target. If none is passed will use default region from the config.
     """
 
 
 @dataclass
 class NatsApiGetNatsAccountRequest:
+    nats_account_id: str
+    """
+    ID of the NATS account to get.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    nats_account_id: str
+
+@dataclass
+class NatsApiGetNatsCredentialsRequest:
+    nats_credentials_id: str
     """
-    ID of the NATS account to get.
+    ID of the credentials to get.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
     """
 
 
@@ -573,57 +481,13 @@ class NatsApiListNatsAccountsRequest:
 
 
 @dataclass
-class NatsApiCreateNatsCredentialsRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    nats_account_id: str
-    """
-    NATS account containing the credentials.
-    """
-
-    name: Optional[str]
-    """
-    Name of the credentials.
-    """
-
-
-@dataclass
-class NatsApiDeleteNatsCredentialsRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    nats_credentials_id: str
-    """
-    ID of the credentials to delete.
-    """
-
-
-@dataclass
-class NatsApiGetNatsCredentialsRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    nats_credentials_id: str
-    """
-    ID of the credentials to get.
-    """
-
-
-@dataclass
 class NatsApiListNatsCredentialsRequest:
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    nats_account_id: str
+    nats_account_id: Optional[str]
     """
     Include only credentials for this NATS account.
     """
@@ -645,6 +509,24 @@ class NatsApiListNatsCredentialsRequest:
 
 
 @dataclass
+class NatsApiUpdateNatsAccountRequest:
+    nats_account_id: str
+    """
+    ID of the NATS account to update.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    name: Optional[str]
+    """
+    NATS account name.
+    """
+
+
+@dataclass
 class SnsApiActivateSnsRequest:
     region: Optional[Region]
     """
@@ -654,32 +536,6 @@ class SnsApiActivateSnsRequest:
     project_id: Optional[str]
     """
     Project on which to activate the SNS service.
-    """
-
-
-@dataclass
-class SnsApiGetSnsInfoRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    project_id: Optional[str]
-    """
-    Project to retrieve SNS info from.
-    """
-
-
-@dataclass
-class SnsApiDeactivateSnsRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    project_id: Optional[str]
-    """
-    Project on which to deactivate the SNS service.
     """
 
 
@@ -707,51 +563,54 @@ class SnsApiCreateSnsCredentialsRequest:
 
 
 @dataclass
-class SnsApiDeleteSnsCredentialsRequest:
+class SnsApiDeactivateSnsRequest:
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
+    project_id: Optional[str]
+    """
+    Project on which to deactivate the SNS service.
+    """
+
+
+@dataclass
+class SnsApiDeleteSnsCredentialsRequest:
     sns_credentials_id: str
     """
     ID of the credentials to delete.
     """
 
-
-@dataclass
-class SnsApiUpdateSnsCredentialsRequest:
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
-    """
-
-    sns_credentials_id: str
-    """
-    ID of the SNS credentials to update.
-    """
-
-    name: Optional[str]
-    """
-    Name of the credentials.
-    """
-
-    permissions: Optional[SnsPermissions]
-    """
-    Permissions associated with these credentials.
     """
 
 
 @dataclass
 class SnsApiGetSnsCredentialsRequest:
+    sns_credentials_id: str
+    """
+    ID of the SNS credentials to get.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    sns_credentials_id: str
+
+@dataclass
+class SnsApiGetSnsInfoRequest:
+    region: Optional[Region]
     """
-    ID of the SNS credentials to get.
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    Project to retrieve SNS info from.
     """
 
 
@@ -784,6 +643,62 @@ class SnsApiListSnsCredentialsRequest:
 
 
 @dataclass
+class SnsApiUpdateSnsCredentialsRequest:
+    sns_credentials_id: str
+    """
+    ID of the SNS credentials to update.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    name: Optional[str]
+    """
+    Name of the credentials.
+    """
+
+    permissions: Optional[SnsPermissions]
+    """
+    Permissions associated with these credentials.
+    """
+
+
+@dataclass
+class SnsInfo:
+    project_id: str
+    """
+    Project ID of the Project containing the service.
+    """
+
+    region: Region
+    """
+    Region of the service.
+    """
+
+    status: SnsInfoStatus
+    """
+    SNS activation status.
+    """
+
+    sns_endpoint_url: str
+    """
+    Endpoint of the SNS service for this region and project.
+    """
+
+    created_at: Optional[datetime]
+    """
+    SNS creation date.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    SNS last modification date.
+    """
+
+
+@dataclass
 class SqsApiActivateSqsRequest:
     region: Optional[Region]
     """
@@ -793,32 +708,6 @@ class SqsApiActivateSqsRequest:
     project_id: Optional[str]
     """
     Project on which to activate the SQS service.
-    """
-
-
-@dataclass
-class SqsApiGetSqsInfoRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    project_id: Optional[str]
-    """
-    Project to retrieve SQS info from.
-    """
-
-
-@dataclass
-class SqsApiDeactivateSqsRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    project_id: Optional[str]
-    """
-    Project on which to deactivate the SQS service.
     """
 
 
@@ -846,51 +735,54 @@ class SqsApiCreateSqsCredentialsRequest:
 
 
 @dataclass
-class SqsApiDeleteSqsCredentialsRequest:
+class SqsApiDeactivateSqsRequest:
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
+    project_id: Optional[str]
+    """
+    Project on which to deactivate the SQS service.
+    """
+
+
+@dataclass
+class SqsApiDeleteSqsCredentialsRequest:
     sqs_credentials_id: str
     """
     ID of the credentials to delete.
     """
 
-
-@dataclass
-class SqsApiUpdateSqsCredentialsRequest:
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
-    """
-
-    sqs_credentials_id: str
-    """
-    ID of the SQS credentials to update.
-    """
-
-    name: Optional[str]
-    """
-    Name of the credentials.
-    """
-
-    permissions: Optional[SqsPermissions]
-    """
-    Permissions associated with these credentials.
     """
 
 
 @dataclass
 class SqsApiGetSqsCredentialsRequest:
+    sqs_credentials_id: str
+    """
+    ID of the SQS credentials to get.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    sqs_credentials_id: str
+
+@dataclass
+class SqsApiGetSqsInfoRequest:
+    region: Optional[Region]
     """
-    ID of the SQS credentials to get.
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    Project to retrieve SQS info from.
     """
 
 
@@ -919,4 +811,60 @@ class SqsApiListSqsCredentialsRequest:
     order_by: Optional[ListSqsCredentialsRequestOrderBy]
     """
     Order in which to return results.
+    """
+
+
+@dataclass
+class SqsApiUpdateSqsCredentialsRequest:
+    sqs_credentials_id: str
+    """
+    ID of the SQS credentials to update.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    name: Optional[str]
+    """
+    Name of the credentials.
+    """
+
+    permissions: Optional[SqsPermissions]
+    """
+    Permissions associated with these credentials.
+    """
+
+
+@dataclass
+class SqsInfo:
+    project_id: str
+    """
+    Project ID of the Project containing the service.
+    """
+
+    region: Region
+    """
+    Region of the service.
+    """
+
+    status: SqsInfoStatus
+    """
+    SQS activation status.
+    """
+
+    sqs_endpoint_url: str
+    """
+    Endpoint of the SQS service for this region and project.
+    """
+
+    created_at: Optional[datetime]
+    """
+    SQS creation date.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    SQS last modification date.
     """

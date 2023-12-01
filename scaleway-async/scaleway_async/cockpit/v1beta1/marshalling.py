@@ -2,6 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 
 from typing import Any, Dict
+from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
 from scaleway_core.bridge import (
@@ -11,372 +12,430 @@ from scaleway_core.utils import (
     OneOfPossibility,
     resolve_one_of,
 )
-from dateutil import parser
 from .types import (
-    DatasourceType,
-    GrafanaUserRole,
-    Cockpit,
-    CockpitEndpoints,
-    CockpitMetrics,
-    ContactPoint,
     ContactPointEmail,
+    ContactPoint,
     Datasource,
     GrafanaProductDashboard,
     GrafanaUser,
+    TokenScopes,
+    Token,
+    CockpitEndpoints,
+    Plan,
+    Cockpit,
+    CockpitMetrics,
     ListContactPointsResponse,
     ListDatasourcesResponse,
     ListGrafanaProductDashboardsResponse,
     ListGrafanaUsersResponse,
     ListPlansResponse,
     ListTokensResponse,
-    Plan,
     SelectPlanResponse,
-    Token,
-    TokenScopes,
     ActivateCockpitRequest,
-    DeactivateCockpitRequest,
-    CreateDatasourceRequest,
-    CreateTokenRequest,
     CreateContactPointRequest,
-    DeleteContactPointRequest,
-    EnableManagedAlertsRequest,
-    DisableManagedAlertsRequest,
-    TriggerTestAlertRequest,
+    CreateDatasourceRequest,
     CreateGrafanaUserRequest,
+    CreateTokenRequest,
+    DeactivateCockpitRequest,
+    DeleteContactPointRequest,
     DeleteGrafanaUserRequest,
+    DisableManagedAlertsRequest,
+    EnableManagedAlertsRequest,
     ResetGrafanaUserPasswordRequest,
     SelectPlanRequest,
+    TriggerTestAlertRequest,
 )
 
 
 def unmarshal_ContactPointEmail(data: Any) -> ContactPointEmail:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ContactPointEmail' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ContactPointEmail' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
     field = data.get("to", None)
-    args["to"] = field
+    if field is not None:
+        args["to"] = field
 
     return ContactPointEmail(**args)
 
 
-def unmarshal_TokenScopes(data: Any) -> TokenScopes:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'TokenScopes' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("query_logs", None)
-    args["query_logs"] = field
-
-    field = data.get("query_metrics", None)
-    args["query_metrics"] = field
-
-    field = data.get("query_traces", None)
-    args["query_traces"] = field
-
-    field = data.get("setup_alerts", None)
-    args["setup_alerts"] = field
-
-    field = data.get("setup_logs_rules", None)
-    args["setup_logs_rules"] = field
-
-    field = data.get("setup_metrics_rules", None)
-    args["setup_metrics_rules"] = field
-
-    field = data.get("write_logs", None)
-    args["write_logs"] = field
-
-    field = data.get("write_metrics", None)
-    args["write_metrics"] = field
-
-    field = data.get("write_traces", None)
-    args["write_traces"] = field
-
-    return TokenScopes(**args)
-
-
-def unmarshal_CockpitEndpoints(data: Any) -> CockpitEndpoints:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'CockpitEndpoints' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("alertmanager_url", None)
-    args["alertmanager_url"] = field
-
-    field = data.get("grafana_url", None)
-    args["grafana_url"] = field
-
-    field = data.get("logs_url", None)
-    args["logs_url"] = field
-
-    field = data.get("metrics_url", None)
-    args["metrics_url"] = field
-
-    field = data.get("traces_url", None)
-    args["traces_url"] = field
-
-    return CockpitEndpoints(**args)
-
-
 def unmarshal_ContactPoint(data: Any) -> ContactPoint:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ContactPoint' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ContactPoint' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
     field = data.get("email", None)
-    args["email"] = unmarshal_ContactPointEmail(field) if field is not None else None
+    if field is not None:
+        args["email"] = unmarshal_ContactPointEmail(field)
 
     return ContactPoint(**args)
 
 
 def unmarshal_Datasource(data: Any) -> Datasource:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Datasource' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Datasource' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
-
-    field = data.get("is_managed_by_scaleway", None)
-    args["is_managed_by_scaleway"] = field
-
-    field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("project_id", None)
-    args["project_id"] = field
+    if field is not None:
+        args["project_id"] = field
 
-    field = data.get("type", None)
-    args["type_"] = field
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
 
     field = data.get("url", None)
-    args["url"] = field
+    if field is not None:
+        args["url"] = field
+
+    field = data.get("type_", None)
+    if field is not None:
+        args["type_"] = field
+
+    field = data.get("is_managed_by_scaleway", None)
+    if field is not None:
+        args["is_managed_by_scaleway"] = field
 
     return Datasource(**args)
 
 
 def unmarshal_GrafanaProductDashboard(data: Any) -> GrafanaProductDashboard:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'GrafanaProductDashboard' failed as data isn't a dictionary."
+            "Unmarshalling the type 'GrafanaProductDashboard' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
     field = data.get("dashboard_name", None)
-    args["dashboard_name"] = field
-
-    field = data.get("tags", None)
-    args["tags"] = field
+    if field is not None:
+        args["dashboard_name"] = field
 
     field = data.get("title", None)
-    args["title"] = field
+    if field is not None:
+        args["title"] = field
 
     field = data.get("url", None)
-    args["url"] = field
+    if field is not None:
+        args["url"] = field
+
+    field = data.get("tags", None)
+    if field is not None:
+        args["tags"] = field
 
     field = data.get("variables", None)
-    args["variables"] = field
+    if field is not None:
+        args["variables"] = field
 
     return GrafanaProductDashboard(**args)
 
 
 def unmarshal_GrafanaUser(data: Any) -> GrafanaUser:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'GrafanaUser' failed as data isn't a dictionary."
+            "Unmarshalling the type 'GrafanaUser' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
     field = data.get("id", None)
-    args["id"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("login", None)
-    args["login"] = field
-
-    field = data.get("password", None)
-    args["password"] = field
+    if field is not None:
+        args["login"] = field
 
     field = data.get("role", None)
-    args["role"] = field
+    if field is not None:
+        args["role"] = field
+
+    field = data.get("password", None)
+    if field is not None:
+        args["password"] = field
 
     return GrafanaUser(**args)
 
 
-def unmarshal_Plan(data: Any) -> Plan:
-    if type(data) is not dict:
+def unmarshal_TokenScopes(data: Any) -> TokenScopes:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Plan' failed as data isn't a dictionary."
+            "Unmarshalling the type 'TokenScopes' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
-    field = data.get("id", None)
-    args["id"] = field
+    field = data.get("query_metrics", None)
+    if field is not None:
+        args["query_metrics"] = field
 
-    field = data.get("logs_ingestion_price", None)
-    args["logs_ingestion_price"] = field
+    field = data.get("write_metrics", None)
+    if field is not None:
+        args["write_metrics"] = field
 
-    field = data.get("name", None)
-    args["name"] = field
+    field = data.get("setup_metrics_rules", None)
+    if field is not None:
+        args["setup_metrics_rules"] = field
 
-    field = data.get("retention_logs_interval", None)
-    args["retention_logs_interval"] = field
+    field = data.get("query_logs", None)
+    if field is not None:
+        args["query_logs"] = field
 
-    field = data.get("retention_metrics_interval", None)
-    args["retention_metrics_interval"] = field
+    field = data.get("write_logs", None)
+    if field is not None:
+        args["write_logs"] = field
 
-    field = data.get("retention_price", None)
-    args["retention_price"] = field
+    field = data.get("setup_logs_rules", None)
+    if field is not None:
+        args["setup_logs_rules"] = field
 
-    field = data.get("retention_traces_interval", None)
-    args["retention_traces_interval"] = field
+    field = data.get("setup_alerts", None)
+    if field is not None:
+        args["setup_alerts"] = field
 
-    field = data.get("sample_ingestion_price", None)
-    args["sample_ingestion_price"] = field
+    field = data.get("query_traces", None)
+    if field is not None:
+        args["query_traces"] = field
 
-    field = data.get("traces_ingestion_price", None)
-    args["traces_ingestion_price"] = field
+    field = data.get("write_traces", None)
+    if field is not None:
+        args["write_traces"] = field
 
-    return Plan(**args)
+    return TokenScopes(**args)
 
 
 def unmarshal_Token(data: Any) -> Token:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Token' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Token' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
-    field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
-
     field = data.get("id", None)
-    args["id"] = field
-
-    field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["id"] = field
 
     field = data.get("project_id", None)
-    args["project_id"] = field
+    if field is not None:
+        args["project_id"] = field
 
-    field = data.get("scopes", None)
-    args["scopes"] = unmarshal_TokenScopes(field) if field is not None else None
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
 
-    field = data.get("secret_key", None)
-    args["secret_key"] = field
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+
+    field = data.get("scopes", None)
+    if field is not None:
+        args["scopes"] = unmarshal_TokenScopes(field)
+
+    field = data.get("secret_key", None)
+    if field is not None:
+        args["secret_key"] = field
 
     return Token(**args)
 
 
-def unmarshal_Cockpit(data: Any) -> Cockpit:
-    if type(data) is not dict:
+def unmarshal_CockpitEndpoints(data: Any) -> CockpitEndpoints:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Cockpit' failed as data isn't a dictionary."
+            "Unmarshalling the type 'CockpitEndpoints' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
-    field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
+    field = data.get("metrics_url", None)
+    if field is not None:
+        args["metrics_url"] = field
 
-    field = data.get("endpoints", None)
-    args["endpoints"] = unmarshal_CockpitEndpoints(field) if field is not None else None
+    field = data.get("logs_url", None)
+    if field is not None:
+        args["logs_url"] = field
 
-    field = data.get("managed_alerts_enabled", None)
-    args["managed_alerts_enabled"] = field
+    field = data.get("traces_url", None)
+    if field is not None:
+        args["traces_url"] = field
 
-    field = data.get("plan", None)
-    args["plan"] = unmarshal_Plan(field) if field is not None else None
+    field = data.get("alertmanager_url", None)
+    if field is not None:
+        args["alertmanager_url"] = field
+
+    field = data.get("grafana_url", None)
+    if field is not None:
+        args["grafana_url"] = field
+
+    return CockpitEndpoints(**args)
+
+
+def unmarshal_Plan(data: Any) -> Plan:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Plan' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+
+    field = data.get("sample_ingestion_price", None)
+    if field is not None:
+        args["sample_ingestion_price"] = field
+
+    field = data.get("logs_ingestion_price", None)
+    if field is not None:
+        args["logs_ingestion_price"] = field
+
+    field = data.get("traces_ingestion_price", None)
+    if field is not None:
+        args["traces_ingestion_price"] = field
+
+    field = data.get("retention_price", None)
+    if field is not None:
+        args["retention_price"] = field
+
+    field = data.get("retention_metrics_interval", None)
+    if field is not None:
+        args["retention_metrics_interval"] = field
+
+    field = data.get("retention_logs_interval", None)
+    if field is not None:
+        args["retention_logs_interval"] = field
+
+    field = data.get("retention_traces_interval", None)
+    if field is not None:
+        args["retention_traces_interval"] = field
+
+    return Plan(**args)
+
+
+def unmarshal_Cockpit(data: Any) -> Cockpit:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Cockpit' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
 
     field = data.get("project_id", None)
-    args["project_id"] = field
+    if field is not None:
+        args["project_id"] = field
 
     field = data.get("status", None)
-    args["status"] = field
+    if field is not None:
+        args["status"] = field
+
+    field = data.get("managed_alerts_enabled", None)
+    if field is not None:
+        args["managed_alerts_enabled"] = field
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+
+    field = data.get("endpoints", None)
+    if field is not None:
+        args["endpoints"] = unmarshal_CockpitEndpoints(field)
+
+    field = data.get("plan", None)
+    if field is not None:
+        args["plan"] = unmarshal_Plan(field)
 
     return Cockpit(**args)
 
 
 def unmarshal_CockpitMetrics(data: Any) -> CockpitMetrics:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'CockpitMetrics' failed as data isn't a dictionary."
+            "Unmarshalling the type 'CockpitMetrics' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
     field = data.get("timeseries", None)
-    args["timeseries"] = (
-        [unmarshal_TimeSeries(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["timeseries"] = (
+            [unmarshal_TimeSeries(v) for v in field] if field is not None else None
+        )
 
     return CockpitMetrics(**args)
 
 
 def unmarshal_ListContactPointsResponse(data: Any) -> ListContactPointsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListContactPointsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListContactPointsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
-    field = data.get("contact_points", None)
-    args["contact_points"] = (
-        [unmarshal_ContactPoint(v) for v in field] if field is not None else None
-    )
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
 
-    field = data.get("has_additional_contact_points", None)
-    args["has_additional_contact_points"] = field
+    field = data.get("contact_points", None)
+    if field is not None:
+        args["contact_points"] = (
+            [unmarshal_ContactPoint(v) for v in field] if field is not None else None
+        )
 
     field = data.get("has_additional_receivers", None)
-    args["has_additional_receivers"] = field
+    if field is not None:
+        args["has_additional_receivers"] = field
 
-    field = data.get("total_count", None)
-    args["total_count"] = field
+    field = data.get("has_additional_contact_points", None)
+    if field is not None:
+        args["has_additional_contact_points"] = field
 
     return ListContactPointsResponse(**args)
 
 
 def unmarshal_ListDatasourcesResponse(data: Any) -> ListDatasourcesResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListDatasourcesResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListDatasourcesResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
-    field = data.get("datasources", None)
-    args["datasources"] = (
-        [unmarshal_Datasource(v) for v in field] if field is not None else None
-    )
-
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
+
+    field = data.get("datasources", None)
+    if field is not None:
+        args["datasources"] = (
+            [unmarshal_Datasource(v) for v in field] if field is not None else None
+        )
 
     return ListDatasourcesResponse(**args)
 
@@ -384,88 +443,112 @@ def unmarshal_ListDatasourcesResponse(data: Any) -> ListDatasourcesResponse:
 def unmarshal_ListGrafanaProductDashboardsResponse(
     data: Any,
 ) -> ListGrafanaProductDashboardsResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListGrafanaProductDashboardsResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListGrafanaProductDashboardsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
-    field = data.get("dashboards", None)
-    args["dashboards"] = (
-        [unmarshal_GrafanaProductDashboard(v) for v in field]
-        if field is not None
-        else None
-    )
-
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
+
+    field = data.get("dashboards", None)
+    if field is not None:
+        args["dashboards"] = (
+            [unmarshal_GrafanaProductDashboard(v) for v in field]
+            if field is not None
+            else None
+        )
 
     return ListGrafanaProductDashboardsResponse(**args)
 
 
 def unmarshal_ListGrafanaUsersResponse(data: Any) -> ListGrafanaUsersResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListGrafanaUsersResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListGrafanaUsersResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
-    field = data.get("grafana_users", None)
-    args["grafana_users"] = (
-        [unmarshal_GrafanaUser(v) for v in field] if field is not None else None
-    )
-
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
+
+    field = data.get("grafana_users", None)
+    if field is not None:
+        args["grafana_users"] = (
+            [unmarshal_GrafanaUser(v) for v in field] if field is not None else None
+        )
 
     return ListGrafanaUsersResponse(**args)
 
 
 def unmarshal_ListPlansResponse(data: Any) -> ListPlansResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListPlansResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListPlansResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
-    field = data.get("plans", None)
-    args["plans"] = [unmarshal_Plan(v) for v in field] if field is not None else None
-
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
+
+    field = data.get("plans", None)
+    if field is not None:
+        args["plans"] = (
+            [unmarshal_Plan(v) for v in field] if field is not None else None
+        )
 
     return ListPlansResponse(**args)
 
 
 def unmarshal_ListTokensResponse(data: Any) -> ListTokensResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'ListTokensResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ListTokensResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
-    field = data.get("tokens", None)
-    args["tokens"] = [unmarshal_Token(v) for v in field] if field is not None else None
-
     field = data.get("total_count", None)
-    args["total_count"] = field
+    if field is not None:
+        args["total_count"] = field
+
+    field = data.get("tokens", None)
+    if field is not None:
+        args["tokens"] = (
+            [unmarshal_Token(v) for v in field] if field is not None else None
+        )
 
     return ListTokensResponse(**args)
 
 
 def unmarshal_SelectPlanResponse(data: Any) -> SelectPlanResponse:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'SelectPlanResponse' failed as data isn't a dictionary."
+            "Unmarshalling the type 'SelectPlanResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
     return SelectPlanResponse(**args)
+
+
+def marshal_ActivateCockpitRequest(
+    request: ActivateCockpitRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    return output
 
 
 def marshal_ContactPointEmail(
@@ -488,63 +571,10 @@ def marshal_ContactPoint(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility(
-                    "email",
-                    marshal_ContactPointEmail(request.email, defaults)
-                    if request.email is not None
-                    else None,
-                ),
+                OneOfPossibility("email", request.email),
             ]
         ),
     )
-
-    return output
-
-
-def marshal_TokenScopes(
-    request: TokenScopes,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-
-    if request.query_logs is not None:
-        output["query_logs"] = request.query_logs
-
-    if request.query_metrics is not None:
-        output["query_metrics"] = request.query_metrics
-
-    if request.query_traces is not None:
-        output["query_traces"] = request.query_traces
-
-    if request.setup_alerts is not None:
-        output["setup_alerts"] = request.setup_alerts
-
-    if request.setup_logs_rules is not None:
-        output["setup_logs_rules"] = request.setup_logs_rules
-
-    if request.setup_metrics_rules is not None:
-        output["setup_metrics_rules"] = request.setup_metrics_rules
-
-    if request.write_logs is not None:
-        output["write_logs"] = request.write_logs
-
-    if request.write_metrics is not None:
-        output["write_metrics"] = request.write_metrics
-
-    if request.write_traces is not None:
-        output["write_traces"] = request.write_traces
-
-    return output
-
-
-def marshal_ActivateCockpitRequest(
-    request: ActivateCockpitRequest,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-
-    if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
 
     return output
 
@@ -555,11 +585,13 @@ def marshal_CreateContactPointRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.contact_point is not None:
-        output["contact_point"] = marshal_ContactPoint(request.contact_point, defaults)
-
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id
+
+    if request.contact_point is not None:
+        output["contact_point"] = (
+            marshal_ContactPoint(request.contact_point, defaults),
+        )
 
     return output
 
@@ -570,17 +602,17 @@ def marshal_CreateDatasourceRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.is_default is not None:
-        output["is_default"] = request.is_default
-
     if request.name is not None:
         output["name"] = request.name
+
+    if request.is_default is not None:
+        output["is_default"] = request.is_default
 
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id
 
     if request.type_ is not None:
-        output["type"] = DatasourceType(request.type_)
+        output["type"] = str(request.type_)
 
     return output
 
@@ -598,7 +630,43 @@ def marshal_CreateGrafanaUserRequest(
         output["project_id"] = request.project_id or defaults.default_project_id
 
     if request.role is not None:
-        output["role"] = GrafanaUserRole(request.role)
+        output["role"] = str(request.role)
+
+    return output
+
+
+def marshal_TokenScopes(
+    request: TokenScopes,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.query_metrics is not None:
+        output["query_metrics"] = request.query_metrics
+
+    if request.write_metrics is not None:
+        output["write_metrics"] = request.write_metrics
+
+    if request.setup_metrics_rules is not None:
+        output["setup_metrics_rules"] = request.setup_metrics_rules
+
+    if request.query_logs is not None:
+        output["query_logs"] = request.query_logs
+
+    if request.write_logs is not None:
+        output["write_logs"] = request.write_logs
+
+    if request.setup_logs_rules is not None:
+        output["setup_logs_rules"] = request.setup_logs_rules
+
+    if request.setup_alerts is not None:
+        output["setup_alerts"] = request.setup_alerts
+
+    if request.query_traces is not None:
+        output["query_traces"] = request.query_traces
+
+    if request.write_traces is not None:
+        output["write_traces"] = request.write_traces
 
     return output
 
@@ -609,14 +677,14 @@ def marshal_CreateTokenRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.name is not None:
-        output["name"] = request.name
-
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id
 
+    if request.name is not None:
+        output["name"] = request.name
+
     if request.scopes is not None:
-        output["scopes"] = marshal_TokenScopes(request.scopes, defaults)
+        output["scopes"] = (marshal_TokenScopes(request.scopes, defaults),)
 
     return output
 
@@ -639,11 +707,13 @@ def marshal_DeleteContactPointRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.contact_point is not None:
-        output["contact_point"] = marshal_ContactPoint(request.contact_point, defaults)
-
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id
+
+    if request.contact_point is not None:
+        output["contact_point"] = (
+            marshal_ContactPoint(request.contact_point, defaults),
+        )
 
     return output
 

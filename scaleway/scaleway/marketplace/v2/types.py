@@ -63,10 +63,6 @@ class Category:
 
 @dataclass
 class Image:
-    """
-    Image.
-    """
-
     id: str
     """
     UUID of this image.
@@ -92,6 +88,11 @@ class Image:
     List of categories this image belongs to.
     """
 
+    label: str
+    """
+    Typically an identifier for a distribution (ex. "ubuntu_focal").
+    """
+
     created_at: Optional[datetime]
     """
     Creation date of this image.
@@ -107,50 +108,11 @@ class Image:
     Expiration date of this image.
     """
 
-    label: str
-    """
-    Label of this image.
-    Typically an identifier for a distribution (ex. "ubuntu_focal").
-    """
-
-
-@dataclass
-class ListCategoriesResponse:
-    categories: List[Category]
-
-    total_count: int
-
-
-@dataclass
-class ListImagesResponse:
-    images: List[Image]
-
-    total_count: int
-
-
-@dataclass
-class ListLocalImagesResponse:
-    local_images: List[LocalImage]
-
-    total_count: int
-
-
-@dataclass
-class ListVersionsResponse:
-    versions: List[Version]
-
-    total_count: int
-
 
 @dataclass
 class LocalImage:
-    """
-    Local image.
-    """
-
     id: str
     """
-    UUID of this local image.
     Version you will typically use to define an image in an API call.
     """
 
@@ -182,10 +144,6 @@ class LocalImage:
 
 @dataclass
 class Version:
-    """
-    Version.
-    """
-
     id: str
     """
     UUID of this version.
@@ -213,7 +171,49 @@ class Version:
 
 
 @dataclass
+class GetCategoryRequest:
+    category_id: str
+
+
+@dataclass
+class GetImageRequest:
+    image_id: str
+    """
+    Display the image name.
+    """
+
+
+@dataclass
+class GetLocalImageRequest:
+    local_image_id: str
+
+
+@dataclass
+class GetVersionRequest:
+    version_id: str
+
+
+@dataclass
+class ListCategoriesRequest:
+    page_size: Optional[int]
+
+    page: Optional[int]
+
+
+@dataclass
+class ListCategoriesResponse:
+    categories: List[Category]
+
+    total_count: int
+
+
+@dataclass
 class ListImagesRequest:
+    include_eol: bool
+    """
+    Choose to include end-of-life images.
+    """
+
     page_size: Optional[int]
     """
     A positive integer lower or equal to 100 to select the number of items to display.
@@ -239,18 +239,41 @@ class ListImagesRequest:
     Choose the category of images to get.
     """
 
-    include_eol: bool
-    """
-    Choose to include end-of-life images.
-    """
+
+@dataclass
+class ListImagesResponse:
+    images: List[Image]
+
+    total_count: int
 
 
 @dataclass
-class GetImageRequest:
-    image_id: str
+class ListLocalImagesRequest:
+    page_size: Optional[int]
+
+    page: Optional[int]
+
+    order_by: Optional[ListLocalImagesRequestOrderBy]
+
+    zone: Optional[Zone]
     """
-    Display the image name.
+    Zone to target. If none is passed will use default zone from the config.
     """
+
+    type_: Optional[LocalImageType]
+
+    image_id: Optional[str]
+
+    version_id: Optional[str]
+
+    image_label: Optional[str]
+
+
+@dataclass
+class ListLocalImagesResponse:
+    local_images: List[LocalImage]
+
+    total_count: int
 
 
 @dataclass
@@ -265,50 +288,7 @@ class ListVersionsRequest:
 
 
 @dataclass
-class GetVersionRequest:
-    version_id: str
+class ListVersionsResponse:
+    versions: List[Version]
 
-
-@dataclass
-class ListLocalImagesRequest:
-    image_id: Optional[str]
-    """
-    One-of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
-    """
-
-    version_id: Optional[str]
-    """
-    One-of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
-    """
-
-    page_size: Optional[int]
-
-    page: Optional[int]
-
-    order_by: Optional[ListLocalImagesRequestOrderBy]
-
-    image_label: Optional[str]
-    """
-    One-of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
-    """
-
-    zone: Optional[Zone]
-
-    type_: Optional[LocalImageType]
-
-
-@dataclass
-class GetLocalImageRequest:
-    local_image_id: str
-
-
-@dataclass
-class ListCategoriesRequest:
-    page_size: Optional[int]
-
-    page: Optional[int]
-
-
-@dataclass
-class GetCategoryRequest:
-    category_id: str
+    total_count: int

@@ -49,11 +49,39 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
-class IP:
+class Resource:
+    type_: ResourceType
     """
-    Ip.
+    Type of resource the IP is attached to.
     """
 
+    id: str
+    """
+    ID of the resource the IP is attached to.
+    """
+
+    mac_address: Optional[str]
+    """
+    MAC of the resource the IP is attached to.
+    """
+
+    name: Optional[str]
+    """
+    When the IP is in a Private Network, then a DNS record is available to resolve the resource name to this IP.
+    """
+
+
+@dataclass
+class Source:
+    zonal: Optional[str]
+
+    private_network_id: Optional[str]
+
+    subnet_id: Optional[str]
+
+
+@dataclass
+class IP:
     id: str
     """
     IP ID.
@@ -74,24 +102,9 @@ class IP:
     Defines whether the IP is an IPv6 (false = IPv4).
     """
 
-    created_at: Optional[datetime]
-    """
-    Date the IP was booked.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Date the IP was last modified.
-    """
-
-    source: Optional[Source]
+    source: Source
     """
     Source pool where the IP was booked in.
-    """
-
-    resource: Optional[Resource]
-    """
-    Resource which the IP is attached to.
     """
 
     tags: List[str]
@@ -104,92 +117,30 @@ class IP:
     Region of the IP.
     """
 
-    zone: Zone
+    created_at: Optional[datetime]
+    """
+    Date the IP was booked.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Date the IP was last modified.
+    """
+
+    resource: Optional[Resource]
+    """
+    Resource which the IP is attached to.
+    """
+
+    zone: Optional[Zone]
     """
     Zone of the IP, if zonal.
     """
 
 
 @dataclass
-class ListIPsResponse:
-    total_count: int
-
-    ips: List[IP]
-
-
-@dataclass
-class Resource:
-    """
-    Resource.
-    """
-
-    type_: ResourceType
-    """
-    Type of resource the IP is attached to.
-    """
-
-    id: str
-    """
-    ID of the resource the IP is attached to.
-    """
-
-    mac_address: Optional[str]
-    """
-    MAC of the resource the IP is attached to.
-    """
-
-    name: Optional[str]
-    """
-    Name of the resource the IP is attached to.
-    When the IP is in a Private Network, then a DNS record is available to resolve the resource name to this IP.
-    """
-
-
-@dataclass
-class Source:
-    """
-    Source.
-    """
-
-    zonal: Optional[str]
-    """
-    Zone the IP lives in if the IP is a public zoned IP.
-    This source is global.
-    
-    One-of ('source'): at most one of 'zonal', 'private_network_id', 'subnet_id' could be set.
-    """
-
-    private_network_id: Optional[str]
-    """
-    Private Network the IP lives in if the IP is a private IP.
-    This source is specific.
-    
-    One-of ('source'): at most one of 'zonal', 'private_network_id', 'subnet_id' could be set.
-    """
-
-    subnet_id: Optional[str]
-    """
-    Private Network subnet the IP lives in if the IP is a private IP in a Private Network.
-    This source is specific.
-    
-    One-of ('source'): at most one of 'zonal', 'private_network_id', 'subnet_id' could be set.
-    """
-
-
-@dataclass
 class BookIPRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    project_id: Optional[str]
-    """
-    Scaleway Project in which to create the IP.
-    When creating an IP in a Private Network, the Project must match the Private Network's Project.
-    """
-
-    source: Optional[Source]
+    source: Source
     """
     Source in which to book the IP. Not all sources are available for booking.
     """
@@ -199,9 +150,18 @@ class BookIPRequest:
     Request an IPv6 instead of an IPv4.
     """
 
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    When creating an IP in a Private Network, the Project must match the Private Network's Project.
+    """
+
     address: Optional[str]
     """
-    Request a specific IP in the requested source pool.
     Note that only the Private Network source allows you to pick a specific IP. If the requested IP is already booked, then the call will fail.
     """
 
@@ -212,46 +172,15 @@ class BookIPRequest:
 
 
 @dataclass
-class ReleaseIPRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    ip_id: str
-    """
-    IP ID.
-    """
-
-
-@dataclass
 class GetIPRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
     ip_id: str
     """
     IP ID.
     """
 
-
-@dataclass
-class UpdateIPRequest:
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
-    """
-
-    ip_id: str
-    """
-    IP ID.
-    """
-
-    tags: Optional[List[str]]
-    """
-    Tags for the IP.
     """
 
 
@@ -280,21 +209,6 @@ class ListIPsRequest:
     project_id: Optional[str]
     """
     Project ID to filter for. Only IPs belonging to this Project will be returned.
-    """
-
-    zonal: Optional[str]
-    """
-    Zone to filter for. Only IPs that are zonal, and in this zone, will be returned.
-    
-    One-of ('source'): at most one of 'zonal', 'private_network_id' could be set.
-    """
-
-    private_network_id: Optional[str]
-    """
-    Private Network to filter for.
-    Only IPs that are private, and in this Private Network, will be returned.
-    
-    One-of ('source'): at most one of 'zonal', 'private_network_id' could be set.
     """
 
     attached: Optional[bool]
@@ -335,4 +249,46 @@ class ListIPsRequest:
     resource_name: Optional[str]
     """
     Attached resource name to filter for, only IPs attached to a resource with this string within their name will be returned.
+    """
+
+    zonal: Optional[str]
+
+    private_network_id: Optional[str]
+
+
+@dataclass
+class ListIPsResponse:
+    total_count: int
+
+    ips: List[IP]
+
+
+@dataclass
+class ReleaseIPRequest:
+    ip_id: str
+    """
+    IP ID.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class UpdateIPRequest:
+    ip_id: str
+    """
+    IP ID.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    tags: Optional[List[str]]
+    """
+    Tags for the IP.
     """

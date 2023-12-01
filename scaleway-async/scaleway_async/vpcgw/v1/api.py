@@ -9,9 +9,9 @@ from scaleway_core.bridge import (
 )
 from scaleway_core.utils import (
     WaitForOptions,
-    fetch_all_pages_async,
     random_name,
     validate_path_param,
+    fetch_all_pages_async,
     wait_for_resource_async,
 )
 from .types import (
@@ -25,7 +25,13 @@ from .types import (
     ListIPsRequestOrderBy,
     ListPATRulesRequestOrderBy,
     PATRuleProtocol,
+    CreateDHCPEntryRequest,
+    CreateDHCPRequest,
+    CreateGatewayNetworkRequest,
     CreateGatewayNetworkRequestIpamConfig,
+    CreateGatewayRequest,
+    CreateIPRequest,
+    CreatePATRuleRequest,
     DHCP,
     DHCPEntry,
     Gateway,
@@ -39,45 +45,25 @@ from .types import (
     ListIPsResponse,
     ListPATRulesResponse,
     PATRule,
+    SetDHCPEntriesRequest,
     SetDHCPEntriesRequestEntry,
     SetDHCPEntriesResponse,
+    SetPATRulesRequest,
     SetPATRulesRequestRule,
     SetPATRulesResponse,
-    UpdateGatewayNetworkRequestIpamConfig,
-    CreateGatewayRequest,
-    UpdateGatewayRequest,
-    CreateGatewayNetworkRequest,
-    UpdateGatewayNetworkRequest,
-    CreateDHCPRequest,
-    UpdateDHCPRequest,
-    CreateDHCPEntryRequest,
     UpdateDHCPEntryRequest,
-    SetDHCPEntriesRequest,
-    CreatePATRuleRequest,
-    UpdatePATRuleRequest,
-    SetPATRulesRequest,
-    CreateIPRequest,
+    UpdateDHCPRequest,
+    UpdateGatewayNetworkRequest,
+    UpdateGatewayNetworkRequestIpamConfig,
+    UpdateGatewayRequest,
     UpdateIPRequest,
+    UpdatePATRuleRequest,
 )
 from .content import (
-    GATEWAY_NETWORK_TRANSIENT_STATUSES,
+    GATEWAYNETWORK_TRANSIENT_STATUSES,
     GATEWAY_TRANSIENT_STATUSES,
 )
 from .marshalling import (
-    marshal_CreateDHCPRequest,
-    marshal_CreateDHCPEntryRequest,
-    marshal_CreateGatewayNetworkRequest,
-    marshal_CreateGatewayRequest,
-    marshal_CreateIPRequest,
-    marshal_CreatePATRuleRequest,
-    marshal_SetDHCPEntriesRequest,
-    marshal_SetPATRulesRequest,
-    marshal_UpdateDHCPEntryRequest,
-    marshal_UpdateDHCPRequest,
-    marshal_UpdateGatewayNetworkRequest,
-    marshal_UpdateGatewayRequest,
-    marshal_UpdateIPRequest,
-    marshal_UpdatePATRuleRequest,
     unmarshal_DHCP,
     unmarshal_GatewayNetwork,
     unmarshal_IP,
@@ -93,13 +79,25 @@ from .marshalling import (
     unmarshal_ListPATRulesResponse,
     unmarshal_SetDHCPEntriesResponse,
     unmarshal_SetPATRulesResponse,
+    marshal_CreateDHCPRequest,
+    marshal_CreateDHCPEntryRequest,
+    marshal_CreateGatewayNetworkRequest,
+    marshal_CreateGatewayRequest,
+    marshal_CreateIPRequest,
+    marshal_CreatePATRuleRequest,
+    marshal_SetDHCPEntriesRequest,
+    marshal_SetPATRulesRequest,
+    marshal_UpdateDHCPEntryRequest,
+    marshal_UpdateDHCPRequest,
+    marshal_UpdateGatewayNetworkRequest,
+    marshal_UpdateGatewayRequest,
+    marshal_UpdateIPRequest,
+    marshal_UpdatePATRuleRequest,
 )
 
 
 class VpcgwV1API(API):
     """
-    Public Gateways API.
-
     Public Gateways API.
     """
 
@@ -107,7 +105,7 @@ class VpcgwV1API(API):
         self,
         *,
         zone: Optional[Zone] = None,
-        order_by: ListGatewaysRequestOrderBy = ListGatewaysRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListGatewaysRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         organization_id: Optional[str] = None,
@@ -115,7 +113,7 @@ class VpcgwV1API(API):
         name: Optional[str] = None,
         tags: Optional[List[str]] = None,
         type_: Optional[str] = None,
-        status: GatewayStatus = GatewayStatus.UNKNOWN,
+        status: Optional[GatewayStatus] = None,
         private_network_id: Optional[str] = None,
     ) -> ListGatewaysResponse:
         """
@@ -192,7 +190,7 @@ class VpcgwV1API(API):
         :param type_: Filter for gateways of this type.
         :param status: Filter for gateways with this current status. Use `unknown` to include all statuses.
         :param private_network_id: Filter for gateways attached to this Private nNetwork.
-        :return: :class:`List[ListGatewaysResponse] <List[ListGatewaysResponse]>`
+        :return: :class:`List[Gateway] <List[Gateway]>`
 
         Usage:
         ::
@@ -228,14 +226,16 @@ class VpcgwV1API(API):
         """
         Get a Public Gateway.
         Get details of a Public Gateway, specified by its gateway ID. The response object contains full details of the gateway, including its **name**, **type**, **status** and more.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param gateway_id: ID of the gateway to fetch.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Gateway <Gateway>`
 
         Usage:
         ::
 
-            result = await api.get_gateway(gateway_id="example")
+            result = await api.get_gateway(
+                gateway_id="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -257,16 +257,18 @@ class VpcgwV1API(API):
         options: Optional[WaitForOptions[Gateway, Union[bool, Awaitable[bool]]]] = None,
     ) -> Gateway:
         """
-        Waits for :class:`Gateway <Gateway>` to be in a final state.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
+        Get a Public Gateway.
+        Get details of a Public Gateway, specified by its gateway ID. The response object contains full details of the gateway, including its **name**, **type**, **status** and more.
         :param gateway_id: ID of the gateway to fetch.
-        :param options: The options for the waiter
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Gateway <Gateway>`
 
         Usage:
         ::
 
-            result = api.wait_for_gateway(gateway_id="example")
+            result = await api.get_gateway(
+                gateway_id="example",
+            )
         """
 
         if not options:
@@ -301,15 +303,15 @@ class VpcgwV1API(API):
         """
         Create a Public Gateway.
         Create a new Public Gateway in the specified Scaleway Project, defining its **name**, **type** and other configuration details such as whether to enable SSH bastion.
+        :param type_: Gateway type (commercial offer type).
+        :param enable_smtp: Defines whether SMTP traffic should be allowed pass through the gateway.
+        :param enable_bastion: Defines whether SSH bastion should be enabled the gateway.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param project_id: Scaleway Project to create the gateway in.
         :param name: Name for the gateway.
         :param tags: Tags for the gateway.
-        :param type_: Gateway type (commercial offer type).
         :param upstream_dns_servers: Array of DNS server IP addresses to override the gateway's default recursive DNS servers.
         :param ip_id: Existing IP address to attach to the gateway.
-        :param enable_smtp: Defines whether SMTP traffic should be allowed pass through the gateway.
-        :param enable_bastion: Defines whether SSH bastion should be enabled the gateway.
         :param bastion_port: Port of the SSH bastion.
         :return: :class:`Gateway <Gateway>`
 
@@ -317,9 +319,9 @@ class VpcgwV1API(API):
         ::
 
             result = await api.create_gateway(
-                type_="example",
-                enable_smtp=True,
-                enable_bastion=True,
+                type="example",
+                enable_smtp=False,
+                enable_bastion=False,
             )
         """
 
@@ -363,8 +365,8 @@ class VpcgwV1API(API):
         """
         Update a Public Gateway.
         Update the parameters of an existing Public Gateway, for example, its **name**, **tags**, **SSH bastion configuration**, and **DNS servers**.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param gateway_id: ID of the gateway to update.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: Name for the gateway.
         :param tags: Tags for the gateway.
         :param upstream_dns_servers: Array of DNS server IP addresses to override the gateway's default recursive DNS servers.
@@ -376,7 +378,9 @@ class VpcgwV1API(API):
         Usage:
         ::
 
-            result = await api.update_gateway(gateway_id="example")
+            result = await api.update_gateway(
+                gateway_id="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -409,20 +413,20 @@ class VpcgwV1API(API):
         gateway_id: str,
         cleanup_dhcp: bool,
         zone: Optional[Zone] = None,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Delete a Public Gateway.
         Delete an existing Public Gateway, specified by its gateway ID. This action is irreversible.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param gateway_id: ID of the gateway to delete.
         :param cleanup_dhcp: Defines whether to clean up attached DHCP configurations (if any, and if not attached to another Gateway Network).
+        :param zone: Zone to target. If none is passed will use default zone from the config.
 
         Usage:
         ::
 
             result = await api.delete_gateway(
                 gateway_id="example",
-                cleanup_dhcp=True,
+                cleanup_dhcp=False,
             )
         """
 
@@ -438,7 +442,6 @@ class VpcgwV1API(API):
         )
 
         self._throw_on_error(res)
-        return None
 
     async def upgrade_gateway(
         self,
@@ -449,14 +452,16 @@ class VpcgwV1API(API):
         """
         Upgrade a Public Gateway to the latest version.
         Upgrade a given Public Gateway to the newest software version. This applies the latest bugfixes and features to your Public Gateway, but its service will be interrupted during the update.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param gateway_id: ID of the gateway to upgrade.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Gateway <Gateway>`
 
         Usage:
         ::
 
-            result = await api.upgrade_gateway(gateway_id="example")
+            result = await api.upgrade_gateway(
+                gateway_id="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -465,6 +470,7 @@ class VpcgwV1API(API):
         res = self._request(
             "POST",
             f"/vpc-gw/v1/zones/{param_zone}/gateways/{param_gateway_id}/upgrade",
+            body={},
         )
 
         self._throw_on_error(res)
@@ -474,14 +480,14 @@ class VpcgwV1API(API):
         self,
         *,
         zone: Optional[Zone] = None,
-        order_by: ListGatewayNetworksRequestOrderBy = ListGatewayNetworksRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListGatewayNetworksRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         gateway_id: Optional[str] = None,
         private_network_id: Optional[str] = None,
         enable_masquerade: Optional[bool] = None,
         dhcp_id: Optional[str] = None,
-        status: GatewayNetworkStatus = GatewayNetworkStatus.UNKNOWN,
+        status: Optional[GatewayNetworkStatus] = None,
     ) -> ListGatewayNetworksResponse:
         """
         List Public Gateway connections to Private Networks.
@@ -548,7 +554,7 @@ class VpcgwV1API(API):
         :param enable_masquerade: Filter for GatewayNetworks with this `enable_masquerade` setting.
         :param dhcp_id: Filter for GatewayNetworks using this DHCP configuration.
         :param status: Filter for GatewayNetworks with this current status this status. Use `unknown` to include all statuses.
-        :return: :class:`List[ListGatewayNetworksResponse] <List[ListGatewayNetworksResponse]>`
+        :return: :class:`List[GatewayNetwork] <List[GatewayNetwork]>`
 
         Usage:
         ::
@@ -582,14 +588,16 @@ class VpcgwV1API(API):
         """
         Get a Public Gateway connection to a Private Network.
         Get details of a given connection between a Public Gateway and a Private Network (this connection = a GatewayNetwork), specified by its `gateway_network_id`. The response object contains details of the connection including the IDs of the Public Gateway and Private Network, the dates the connection was created/updated and its configuration settings.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param gateway_network_id: ID of the GatewayNetwork to fetch.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`GatewayNetwork <GatewayNetwork>`
 
         Usage:
         ::
 
-            result = await api.get_gateway_network(gateway_network_id="example")
+            result = await api.get_gateway_network(
+                gateway_network_id="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -615,16 +623,18 @@ class VpcgwV1API(API):
         ] = None,
     ) -> GatewayNetwork:
         """
-        Waits for :class:`GatewayNetwork <GatewayNetwork>` to be in a final state.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
+        Get a Public Gateway connection to a Private Network.
+        Get details of a given connection between a Public Gateway and a Private Network (this connection = a GatewayNetwork), specified by its `gateway_network_id`. The response object contains details of the connection including the IDs of the Public Gateway and Private Network, the dates the connection was created/updated and its configuration settings.
         :param gateway_network_id: ID of the GatewayNetwork to fetch.
-        :param options: The options for the waiter
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`GatewayNetwork <GatewayNetwork>`
 
         Usage:
         ::
 
-            result = api.wait_for_gateway_network(gateway_network_id="example")
+            result = await api.get_gateway_network(
+                gateway_network_id="example",
+            )
         """
 
         if not options:
@@ -632,7 +642,7 @@ class VpcgwV1API(API):
 
         if not options.stop:
             options.stop = (
-                lambda res: res.status not in GATEWAY_NETWORK_TRANSIENT_STATUSES
+                lambda res: res.status not in GATEWAYNETWORK_TRANSIENT_STATUSES
             )
 
         return await wait_for_resource_async(
@@ -660,27 +670,16 @@ class VpcgwV1API(API):
         """
         Attach a Public Gateway to a Private Network.
         Attach a specific Public Gateway to a specific Private Network (create a GatewayNetwork). You can configure parameters for the connection including DHCP settings, whether to enable masquerade (dynamic NAT), and more.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param gateway_id: Public Gateway to connect.
         :param private_network_id: Private Network to connect.
-        :param enable_masquerade: Defines whether to enable masquerade (dynamic NAT) on the GatewayNetwork.
-        Note: this setting is ignored when passing `ipam_config`.
-        :param enable_dhcp: Defines whether to enable DHCP on this Private Network.
-        Defaults to `true` if either `dhcp_id` or `dhcp` are present. If set to `true`, either `dhcp_id` or `dhcp` must be present.
+        :param enable_masquerade: Note: this setting is ignored when passing `ipam_config`.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param enable_dhcp: Defaults to `true` if either `dhcp_id` or `dhcp` are present. If set to `true`, either `dhcp_id` or `dhcp` must be present.
         Note: this setting is ignored when passing `ipam_config`.
         :param dhcp_id: ID of an existing DHCP configuration object to use for this GatewayNetwork.
-
-        One-of ('ip_config'): at most one of 'dhcp_id', 'dhcp', 'address', 'ipam_config' could be set.
         :param dhcp: New DHCP configuration object to use for this GatewayNetwork.
-
-        One-of ('ip_config'): at most one of 'dhcp_id', 'dhcp', 'address', 'ipam_config' could be set.
         :param address: Static IP address in CIDR format to to use without DHCP.
-
-        One-of ('ip_config'): at most one of 'dhcp_id', 'dhcp', 'address', 'ipam_config' could be set.
-        :param ipam_config: Auto-configure the GatewayNetwork using Scaleway's IPAM (IP address management service).
-        Note: all or none of the GatewayNetworks for a single gateway can use the IPAM. DHCP and IPAM configurations cannot be mixed. Some products may require that the Public Gateway uses the IPAM, to ensure correct functionality.
-
-        One-of ('ip_config'): at most one of 'dhcp_id', 'dhcp', 'address', 'ipam_config' could be set.
+        :param ipam_config: Note: all or none of the GatewayNetworks for a single gateway can use the IPAM. DHCP and IPAM configurations cannot be mixed. Some products may require that the Public Gateway uses the IPAM, to ensure correct functionality.
         :return: :class:`GatewayNetwork <GatewayNetwork>`
 
         Usage:
@@ -689,7 +688,7 @@ class VpcgwV1API(API):
             result = await api.create_gateway_network(
                 gateway_id="example",
                 private_network_id="example",
-                enable_masquerade=True,
+                enable_masquerade=False,
             )
         """
 
@@ -731,29 +730,22 @@ class VpcgwV1API(API):
         """
         Update a Public Gateway's connection to a Private Network.
         Update the configuration parameters of a connection between a given Public Gateway and Private Network (the connection = a GatewayNetwork). Updatable parameters include DHCP settings and whether to enable traffic masquerade (dynamic NAT).
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param gateway_network_id: ID of the GatewayNetwork to update.
-        :param enable_masquerade: Defines whether to enable masquerade (dynamic NAT) on the GatewayNetwork.
-        Note: this setting is ignored when passing `ipam_config`.
-        :param enable_dhcp: Defines whether to enable DHCP on this Private Network.
-        Defaults to `true` if `dhcp_id` is present. If set to `true`, `dhcp_id` must be present.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param enable_masquerade: Note: this setting is ignored when passing `ipam_config`.
+        :param enable_dhcp: Defaults to `true` if `dhcp_id` is present. If set to `true`, `dhcp_id` must be present.
         Note: this setting is ignored when passing `ipam_config`.
         :param dhcp_id: ID of the new DHCP configuration object to use with this GatewayNetwork.
-
-        One-of ('ip_config'): at most one of 'dhcp_id', 'address', 'ipam_config' could be set.
         :param address: New static IP address.
-
-        One-of ('ip_config'): at most one of 'dhcp_id', 'address', 'ipam_config' could be set.
-        :param ipam_config: Auto-configure the GatewayNetwork using Scaleway's IPAM (IP address management service).
-        Note: all or none of the GatewayNetworks for a single gateway can use the IPAM. DHCP and IPAM configurations cannot be mixed. Some products may require that the Public Gateway uses the IPAM, to ensure correct functionality.
-
-        One-of ('ip_config'): at most one of 'dhcp_id', 'address', 'ipam_config' could be set.
+        :param ipam_config: Note: all or none of the GatewayNetworks for a single gateway can use the IPAM. DHCP and IPAM configurations cannot be mixed. Some products may require that the Public Gateway uses the IPAM, to ensure correct functionality.
         :return: :class:`GatewayNetwork <GatewayNetwork>`
 
         Usage:
         ::
 
-            result = await api.update_gateway_network(gateway_network_id="example")
+            result = await api.update_gateway_network(
+                gateway_network_id="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -787,20 +779,20 @@ class VpcgwV1API(API):
         gateway_network_id: str,
         cleanup_dhcp: bool,
         zone: Optional[Zone] = None,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Detach a Public Gateway from a Private Network.
         Detach a given Public Gateway from a given Private Network, i.e. delete a GatewayNetwork specified by a gateway_network_id.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param gateway_network_id: ID of the GatewayNetwork to delete.
         :param cleanup_dhcp: Defines whether to clean up attached DHCP configurations (if any, and if not attached to another Gateway Network).
+        :param zone: Zone to target. If none is passed will use default zone from the config.
 
         Usage:
         ::
 
             result = await api.delete_gateway_network(
                 gateway_network_id="example",
-                cleanup_dhcp=True,
+                cleanup_dhcp=False,
             )
         """
 
@@ -818,13 +810,12 @@ class VpcgwV1API(API):
         )
 
         self._throw_on_error(res)
-        return None
 
     async def list_dhc_ps(
         self,
         *,
         zone: Optional[Zone] = None,
-        order_by: ListDHCPsRequestOrderBy = ListDHCPsRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListDHCPsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         organization_id: Optional[str] = None,
@@ -894,7 +885,7 @@ class VpcgwV1API(API):
         :param project_id: Include only DHCP configuration objects in this Project.
         :param address: Filter for DHCP configuration objects with this DHCP server IP address (the gateway's address in the Private Network).
         :param has_address: Filter for DHCP configuration objects with subnets containing this IP address.
-        :return: :class:`List[ListDHCPsResponse] <List[ListDHCPsResponse]>`
+        :return: :class:`List[DHCP] <List[DHCP]>`
 
         Usage:
         ::
@@ -927,14 +918,16 @@ class VpcgwV1API(API):
         """
         Get a DHCP configuration.
         Get a DHCP configuration object, identified by its DHCP ID. The response object contains configuration settings for the assignment of IP addresses to devices on a Private Network attached to a Public Gateway. Note that the response does not contain the IDs of any Private Network / Public Gateway the configuration is attached to. Use the `List Public Gateway connections to Private Networks` method for that purpose, filtering on DHCP ID.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param dhcp_id: ID of the DHCP configuration to fetch.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`DHCP <DHCP>`
 
         Usage:
         ::
 
-            result = await api.get_dhcp(dhcp_id="example")
+            result = await api.get_dhcp(
+                dhcp_id="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -970,9 +963,9 @@ class VpcgwV1API(API):
         """
         Create a DHCP configuration.
         Create a new DHCP configuration object, containing settings for the assignment of IP addresses to devices on a Private Network attached to a Public Gateway. The response object includes the ID of the DHCP configuration object. You can use this ID as part of a call to `Create a Public Gateway connection to a Private Network` or `Update a Public Gateway connection to a Private Network` to directly apply this DHCP configuration.
+        :param subnet: Subnet for the DHCP server.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param project_id: Project to create the DHCP configuration in.
-        :param subnet: Subnet for the DHCP server.
         :param address: IP address of the DHCP server. This will be the gateway's address in the Private Network. Defaults to the first address of the subnet.
         :param pool_low: Low IP (inclusive) of the dynamic address pool. Must be in the config's subnet. Defaults to the second address of the subnet.
         :param pool_high: High IP (inclusive) of the dynamic address pool. Must be in the config's subnet. Defaults to the last address of the subnet.
@@ -990,7 +983,9 @@ class VpcgwV1API(API):
         Usage:
         ::
 
-            result = await api.create_dhcp(subnet="example")
+            result = await api.create_dhcp(
+                subnet="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -1045,8 +1040,8 @@ class VpcgwV1API(API):
         """
         Update a DHCP configuration.
         Update a DHCP configuration object, identified by its DHCP ID.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param dhcp_id: DHCP configuration to update.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param subnet: Subnet for the DHCP server.
         :param address: IP address of the DHCP server. This will be the Public Gateway's address in the Private Network. It must be part of config's subnet.
         :param pool_low: Low IP (inclusive) of the dynamic address pool. Must be in the config's subnet.
@@ -1065,7 +1060,9 @@ class VpcgwV1API(API):
         Usage:
         ::
 
-            result = await api.update_dhcp(dhcp_id="example")
+            result = await api.update_dhcp(
+                dhcp_id="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -1104,17 +1101,19 @@ class VpcgwV1API(API):
         *,
         dhcp_id: str,
         zone: Optional[Zone] = None,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Delete a DHCP configuration.
         Delete a DHCP configuration object, identified by its DHCP ID. Note that you cannot delete a DHCP configuration object that is currently being used by a Gateway Network.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param dhcp_id: DHCP configuration ID to delete.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
 
         Usage:
         ::
 
-            result = await api.delete_dhcp(dhcp_id="example")
+            result = await api.delete_dhcp(
+                dhcp_id="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -1126,20 +1125,19 @@ class VpcgwV1API(API):
         )
 
         self._throw_on_error(res)
-        return None
 
     async def list_dhcp_entries(
         self,
         *,
         zone: Optional[Zone] = None,
-        order_by: ListDHCPEntriesRequestOrderBy = ListDHCPEntriesRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListDHCPEntriesRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         gateway_network_id: Optional[str] = None,
         mac_address: Optional[str] = None,
         ip_address: Optional[str] = None,
         hostname: Optional[str] = None,
-        type_: DHCPEntryType = DHCPEntryType.UNKNOWN,
+        type_: Optional[DHCPEntryType] = None,
     ) -> ListDHCPEntriesResponse:
         """
         List DHCP entries.
@@ -1206,7 +1204,7 @@ class VpcgwV1API(API):
         :param ip_address: Filter for entries with this IP address.
         :param hostname: Filter for entries with this hostname substring.
         :param type_: Filter for entries of this type.
-        :return: :class:`List[ListDHCPEntriesResponse] <List[ListDHCPEntriesResponse]>`
+        :return: :class:`List[DHCPEntry] <List[DHCPEntry]>`
 
         Usage:
         ::
@@ -1240,14 +1238,16 @@ class VpcgwV1API(API):
         """
         Get a DHCP entry.
         Get a DHCP entry, specified by its DHCP entry ID.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param dhcp_entry_id: ID of the DHCP entry to fetch.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`DHCPEntry <DHCPEntry>`
 
         Usage:
         ::
 
-            result = await api.get_dhcp_entry(dhcp_entry_id="example")
+            result = await api.get_dhcp_entry(
+                dhcp_entry_id="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -1272,10 +1272,10 @@ class VpcgwV1API(API):
         """
         Create a DHCP entry.
         Create a static DHCP reservation, specifying the Gateway Network for the reservation, the MAC address of the target device and the IP address to assign this device. The response is a DHCP entry object, confirming the ID and configuration details of the static DHCP reservation.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param gateway_network_id: GatewayNetwork on which to create a DHCP reservation.
         :param mac_address: MAC address to give a static entry to.
         :param ip_address: IP address to give to the device.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`DHCPEntry <DHCPEntry>`
 
         Usage:
@@ -1317,15 +1317,17 @@ class VpcgwV1API(API):
         """
         Update a DHCP entry.
         Update the IP address for a DHCP entry, specified by its DHCP entry ID. You can update an existing DHCP entry of any type (`reservation` (static), `lease` (dynamic) or `unknown`), but in manually updating the IP address the entry will necessarily be of type `reservation` after the update.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param dhcp_entry_id: ID of the DHCP entry to update.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param ip_address: New IP address to give to the device.
         :return: :class:`DHCPEntry <DHCPEntry>`
 
         Usage:
         ::
 
-            result = await api.update_dhcp_entry(dhcp_entry_id="example")
+            result = await api.update_dhcp_entry(
+                dhcp_entry_id="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -1357,15 +1359,17 @@ class VpcgwV1API(API):
         """
         Set all DHCP reservations on a Gateway Network.
         Set the list of DHCP reservations attached to a Gateway Network. Reservations are identified by their MAC address, and will sync the current DHCP entry list to the given list, creating, updating or deleting DHCP entries accordingly.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param gateway_network_id: ID of the Gateway Network on which to set DHCP reservation list.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param dhcp_entries: New list of DHCP reservations.
         :return: :class:`SetDHCPEntriesResponse <SetDHCPEntriesResponse>`
 
         Usage:
         ::
 
-            result = await api.set_dhcp_entries(gateway_network_id="example")
+            result = await api.set_dhcp_entries(
+                gateway_network_id="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -1391,17 +1395,19 @@ class VpcgwV1API(API):
         *,
         dhcp_entry_id: str,
         zone: Optional[Zone] = None,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Delete a DHCP entry.
         Delete a static DHCP reservation, identified by its DHCP entry ID. Note that you cannot delete DHCP entries of type `lease`, these are deleted automatically when their time-to-live expires.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param dhcp_entry_id: ID of the DHCP entry to delete.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
 
         Usage:
         ::
 
-            result = await api.delete_dhcp_entry(dhcp_entry_id="example")
+            result = await api.delete_dhcp_entry(
+                dhcp_entry_id="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -1413,18 +1419,17 @@ class VpcgwV1API(API):
         )
 
         self._throw_on_error(res)
-        return None
 
     async def list_pat_rules(
         self,
         *,
         zone: Optional[Zone] = None,
-        order_by: ListPATRulesRequestOrderBy = ListPATRulesRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListPATRulesRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         gateway_id: Optional[str] = None,
         private_ip: Optional[str] = None,
-        protocol: PATRuleProtocol = PATRuleProtocol.UNKNOWN,
+        protocol: Optional[PATRuleProtocol] = None,
     ) -> ListPATRulesResponse:
         """
         List PAT rules.
@@ -1483,7 +1488,7 @@ class VpcgwV1API(API):
         :param gateway_id: Filter for PAT rules on this Gateway.
         :param private_ip: Filter for PAT rules targeting this private ip.
         :param protocol: Filter for PAT rules with this protocol.
-        :return: :class:`List[ListPATRulesResponse] <List[ListPATRulesResponse]>`
+        :return: :class:`List[PATRule] <List[PATRule]>`
 
         Usage:
         ::
@@ -1515,14 +1520,16 @@ class VpcgwV1API(API):
         """
         Get a PAT rule.
         Get a PAT rule, specified by its PAT rule ID. The response object gives full details of the PAT rule, including the Public Gateway it belongs to and the configuration settings in terms of public / private ports, private IP and protocol.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param pat_rule_id: ID of the PAT rule to get.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`PATRule <PATRule>`
 
         Usage:
         ::
 
-            result = await api.get_pat_rule(pat_rule_id="example")
+            result = await api.get_pat_rule(
+                pat_rule_id="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -1543,17 +1550,17 @@ class VpcgwV1API(API):
         public_port: int,
         private_ip: str,
         private_port: int,
-        protocol: PATRuleProtocol,
         zone: Optional[Zone] = None,
+        protocol: Optional[PATRuleProtocol] = None,
     ) -> PATRule:
         """
         Create a PAT rule.
         Create a new PAT rule on a specified Public Gateway, defining the protocol to use, public port to listen on, and private port / IP address to map to.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param gateway_id: ID of the Gateway on which to create the rule.
         :param public_port: Public port to listen on.
         :param private_ip: Private IP to forward data to.
         :param private_port: Private port to translate to.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param protocol: Protocol the rule should apply to.
         :return: :class:`PATRule <PATRule>`
 
@@ -1565,7 +1572,6 @@ class VpcgwV1API(API):
                 public_port=1,
                 private_ip="example",
                 private_port=1,
-                protocol=unknown,
             )
         """
 
@@ -1580,8 +1586,8 @@ class VpcgwV1API(API):
                     public_port=public_port,
                     private_ip=private_ip,
                     private_port=private_port,
-                    protocol=protocol,
                     zone=zone,
+                    protocol=protocol,
                 ),
                 self.client,
             ),
@@ -1594,17 +1600,17 @@ class VpcgwV1API(API):
         self,
         *,
         pat_rule_id: str,
-        protocol: PATRuleProtocol,
         zone: Optional[Zone] = None,
         public_port: Optional[int] = None,
         private_ip: Optional[str] = None,
         private_port: Optional[int] = None,
+        protocol: Optional[PATRuleProtocol] = None,
     ) -> PATRule:
         """
         Update a PAT rule.
         Update a PAT rule, specified by its PAT rule ID. Configuration settings including private/public port, private IP address and protocol can all be updated.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param pat_rule_id: ID of the PAT rule to update.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param public_port: Public port to listen on.
         :param private_ip: Private IP to forward data to.
         :param private_port: Private port to translate to.
@@ -1616,7 +1622,6 @@ class VpcgwV1API(API):
 
             result = await api.update_pat_rule(
                 pat_rule_id="example",
-                protocol=unknown,
             )
         """
 
@@ -1629,11 +1634,11 @@ class VpcgwV1API(API):
             body=marshal_UpdatePATRuleRequest(
                 UpdatePATRuleRequest(
                     pat_rule_id=pat_rule_id,
-                    protocol=protocol,
                     zone=zone,
                     public_port=public_port,
                     private_ip=private_ip,
                     private_port=private_port,
+                    protocol=protocol,
                 ),
                 self.client,
             ),
@@ -1652,9 +1657,9 @@ class VpcgwV1API(API):
         """
         Set all PAT rules.
         Set a definitive list of PAT rules attached to a Public Gateway. Each rule is identified by its public port and protocol. This will sync the current PAT rule list on the gateway with the new list, creating, updating or deleting PAT rules accordingly.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param gateway_id: ID of the gateway on which to set the PAT rules.
         :param pat_rules: New list of PAT rules.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`SetPATRulesResponse <SetPATRulesResponse>`
 
         Usage:
@@ -1662,7 +1667,7 @@ class VpcgwV1API(API):
 
             result = await api.set_pat_rules(
                 gateway_id="example",
-                pat_rules=[SetPATRulesRequestRule(...)],
+                pat_rules=[],
             )
         """
 
@@ -1689,17 +1694,19 @@ class VpcgwV1API(API):
         *,
         pat_rule_id: str,
         zone: Optional[Zone] = None,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Delete a PAT rule.
         Delete a PAT rule, identified by its PAT rule ID. This action is irreversible.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param pat_rule_id: ID of the PAT rule to delete.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
 
         Usage:
         ::
 
-            result = await api.delete_pat_rule(pat_rule_id="example")
+            result = await api.delete_pat_rule(
+                pat_rule_id="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -1711,7 +1718,6 @@ class VpcgwV1API(API):
         )
 
         self._throw_on_error(res)
-        return None
 
     async def list_gateway_types(
         self,
@@ -1744,7 +1750,7 @@ class VpcgwV1API(API):
         self,
         *,
         zone: Optional[Zone] = None,
-        order_by: ListIPsRequestOrderBy = ListIPsRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListIPsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         organization_id: Optional[str] = None,
@@ -1819,7 +1825,7 @@ class VpcgwV1API(API):
         :param tags: Filter for IP addresses with these tags.
         :param reverse: Filter for IP addresses that have a reverse containing this string.
         :param is_free: Filter based on whether the IP is attached to a gateway or not.
-        :return: :class:`List[ListIPsResponse] <List[ListIPsResponse]>`
+        :return: :class:`List[IP] <List[IP]>`
 
         Usage:
         ::
@@ -1853,14 +1859,16 @@ class VpcgwV1API(API):
         """
         Get an IP.
         Get details of a Public Gateway flexible IP address, identified by its IP ID. The response object contains information including which (if any) Public Gateway using this IP address, the reverse and various other metadata.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param ip_id: ID of the IP address to get.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`IP <IP>`
 
         Usage:
         ::
 
-            result = await api.get_ip(ip_id="example")
+            result = await api.get_ip(
+                ip_id="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -1925,8 +1933,8 @@ class VpcgwV1API(API):
         """
         Update an IP.
         Update details of an existing flexible IP address, including its tags, reverse and the Public Gateway it is assigned to.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param ip_id: ID of the IP address to update.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param tags: Tags to give to the IP address.
         :param reverse: Reverse to set on the address. Empty string to unset.
         :param gateway_id: Gateway to attach the IP address to. Empty string to detach.
@@ -1935,7 +1943,9 @@ class VpcgwV1API(API):
         Usage:
         ::
 
-            result = await api.update_ip(ip_id="example")
+            result = await api.update_ip(
+                ip_id="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -1964,17 +1974,19 @@ class VpcgwV1API(API):
         *,
         ip_id: str,
         zone: Optional[Zone] = None,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Delete an IP.
         Delete a flexible IP address from your account. This action is irreversible.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param ip_id: ID of the IP address to delete.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
 
         Usage:
         ::
 
-            result = await api.delete_ip(ip_id="example")
+            result = await api.delete_ip(
+                ip_id="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -1986,7 +1998,6 @@ class VpcgwV1API(API):
         )
 
         self._throw_on_error(res)
-        return None
 
     async def refresh_ssh_keys(
         self,
@@ -1997,14 +2008,16 @@ class VpcgwV1API(API):
         """
         Refresh a Public Gateway's SSH keys.
         Refresh the SSH keys of a given Public Gateway, specified by its gateway ID. This adds any new SSH keys in the gateway's Scaleway Project to the gateway itself.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param gateway_id: ID of the gateway to refresh SSH keys on.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Gateway <Gateway>`
 
         Usage:
         ::
 
-            result = await api.refresh_ssh_keys(gateway_id="example")
+            result = await api.refresh_ssh_keys(
+                gateway_id="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -2013,6 +2026,7 @@ class VpcgwV1API(API):
         res = self._request(
             "POST",
             f"/vpc-gw/v1/zones/{param_zone}/gateways/{param_gateway_id}/refresh-ssh-keys",
+            body={},
         )
 
         self._throw_on_error(res)

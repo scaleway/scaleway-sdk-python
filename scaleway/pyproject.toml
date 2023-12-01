@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "scaleway"
-version = "1.0.0"
+version = "2.0.0"
 description = "Scaleway SDK for Python"
 authors = ["Scaleway <opensource@scaleway.com>"]
 license = "BSD"
@@ -24,7 +24,7 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.8"
-scaleway-core = "^1"
+scaleway-core = "*"
 
 [tool.poetry.group.dev.dependencies]
 scaleway-core = { path = "../scaleway-core", develop = true }

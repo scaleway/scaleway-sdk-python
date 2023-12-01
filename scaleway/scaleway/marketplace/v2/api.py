@@ -9,9 +9,9 @@ from scaleway_core.bridge import (
 )
 from scaleway_core.utils import (
     OneOfPossibility,
-    fetch_all_pages,
     resolve_one_of,
     validate_path_param,
+    fetch_all_pages,
 )
 from .types import (
     ListImagesRequestOrderBy,
@@ -40,11 +40,7 @@ from .marshalling import (
 
 
 class MarketplaceV2API(API):
-    """
-    Marketplace API.
-
-    Marketplace API.
-    """
+    """ """
 
     def list_images(
         self,
@@ -52,30 +48,32 @@ class MarketplaceV2API(API):
         include_eol: bool,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
-        order_by: ListImagesRequestOrderBy = ListImagesRequestOrderBy.NAME_ASC,
+        order_by: Optional[ListImagesRequestOrderBy] = None,
         arch: Optional[str] = None,
         category: Optional[str] = None,
     ) -> ListImagesResponse:
         """
         List marketplace images.
         List all available images on the marketplace, their UUID, CPU architecture and description.
+        :param include_eol: Choose to include end-of-life images.
         :param page_size: A positive integer lower or equal to 100 to select the number of items to display.
         :param page: A positive integer to choose the page to display.
         :param order_by: Ordering to use.
         :param arch: Choose for which machine architecture to return images.
         :param category: Choose the category of images to get.
-        :param include_eol: Choose to include end-of-life images.
         :return: :class:`ListImagesResponse <ListImagesResponse>`
 
         Usage:
         ::
 
-            result = api.list_images(include_eol=True)
+            result = api.list_images(
+                include_eol=False,
+            )
         """
 
         res = self._request(
             "GET",
-            f"/marketplace/v2/images",
+            "/marketplace/v2/images",
             params={
                 "arch": arch,
                 "category": category,
@@ -102,18 +100,20 @@ class MarketplaceV2API(API):
         """
         List marketplace images.
         List all available images on the marketplace, their UUID, CPU architecture and description.
+        :param include_eol: Choose to include end-of-life images.
         :param page_size: A positive integer lower or equal to 100 to select the number of items to display.
         :param page: A positive integer to choose the page to display.
         :param order_by: Ordering to use.
         :param arch: Choose for which machine architecture to return images.
         :param category: Choose the category of images to get.
-        :param include_eol: Choose to include end-of-life images.
-        :return: :class:`List[ListImagesResponse] <List[ListImagesResponse]>`
+        :return: :class:`List[Image] <List[Image]>`
 
         Usage:
         ::
 
-            result = api.list_images_all(include_eol=True)
+            result = api.list_images_all(
+                include_eol=False,
+            )
         """
 
         return fetch_all_pages(
@@ -144,7 +144,9 @@ class MarketplaceV2API(API):
         Usage:
         ::
 
-            result = api.get_image(image_id="example")
+            result = api.get_image(
+                image_id="example",
+            )
         """
 
         param_image_id = validate_path_param("image_id", image_id)
@@ -163,7 +165,7 @@ class MarketplaceV2API(API):
         image_id: str,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
-        order_by: ListVersionsRequestOrderBy = ListVersionsRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListVersionsRequestOrderBy] = None,
     ) -> ListVersionsResponse:
         """
         List versions of an Image.
@@ -177,12 +179,14 @@ class MarketplaceV2API(API):
         Usage:
         ::
 
-            result = api.list_versions(image_id="example")
+            result = api.list_versions(
+                image_id="example",
+            )
         """
 
         res = self._request(
             "GET",
-            f"/marketplace/v2/versions",
+            "/marketplace/v2/versions",
             params={
                 "image_id": image_id,
                 "order_by": order_by,
@@ -209,12 +213,14 @@ class MarketplaceV2API(API):
         :param page_size:
         :param page:
         :param order_by:
-        :return: :class:`List[ListVersionsResponse] <List[ListVersionsResponse]>`
+        :return: :class:`List[Version] <List[Version]>`
 
         Usage:
         ::
 
-            result = api.list_versions_all(image_id="example")
+            result = api.list_versions_all(
+                image_id="example",
+            )
         """
 
         return fetch_all_pages(
@@ -243,7 +249,9 @@ class MarketplaceV2API(API):
         Usage:
         ::
 
-            result = api.get_version(version_id="example")
+            result = api.get_version(
+                version_id="example",
+            )
         """
 
         param_version_id = validate_path_param("version_id", version_id)
@@ -263,21 +271,21 @@ class MarketplaceV2API(API):
         version_id: Optional[str] = None,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
-        order_by: ListLocalImagesRequestOrderBy = ListLocalImagesRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListLocalImagesRequestOrderBy] = None,
         image_label: Optional[str] = None,
         zone: Optional[Zone] = None,
-        type_: LocalImageType = LocalImageType.UNKNOWN_TYPE,
+        type_: Optional[LocalImageType] = None,
     ) -> ListLocalImagesResponse:
         """
         List local images from a specific image or version.
         List information about local images in a specific Availability Zone, specified by its `image_id` (UUID format), `version_id` (UUID format) or `image_label`. Only one of these three parameters may be set.
-        :param image_id: One-of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
-        :param version_id: One-of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
+        :param image_id:
+        :param version_id:
         :param page_size:
         :param page:
         :param order_by:
-        :param image_label: One-of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
-        :param zone:
+        :param image_label:
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param type_:
         :return: :class:`ListLocalImagesResponse <ListLocalImagesResponse>`
 
@@ -289,7 +297,7 @@ class MarketplaceV2API(API):
 
         res = self._request(
             "GET",
-            f"/marketplace/v2/local-images",
+            "/marketplace/v2/local-images",
             params={
                 "order_by": order_by,
                 "page": page,
@@ -299,8 +307,8 @@ class MarketplaceV2API(API):
                 **resolve_one_of(
                     [
                         OneOfPossibility("image_id", image_id),
-                        OneOfPossibility("version_id", version_id),
                         OneOfPossibility("image_label", image_label),
+                        OneOfPossibility("version_id", version_id),
                     ]
                 ),
             },
@@ -324,15 +332,15 @@ class MarketplaceV2API(API):
         """
         List local images from a specific image or version.
         List information about local images in a specific Availability Zone, specified by its `image_id` (UUID format), `version_id` (UUID format) or `image_label`. Only one of these three parameters may be set.
-        :param image_id: One-of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
-        :param version_id: One-of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
+        :param image_id:
+        :param version_id:
         :param page_size:
         :param page:
         :param order_by:
-        :param image_label: One-of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
-        :param zone:
+        :param image_label:
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param type_:
-        :return: :class:`List[ListLocalImagesResponse] <List[ListLocalImagesResponse]>`
+        :return: :class:`List[LocalImage] <List[LocalImage]>`
 
         Usage:
         ::
@@ -345,14 +353,14 @@ class MarketplaceV2API(API):
             key="local_images",
             fetcher=self.list_local_images,
             args={
-                "image_id": image_id,
-                "version_id": version_id,
                 "page_size": page_size,
                 "page": page,
                 "order_by": order_by,
-                "image_label": image_label,
                 "zone": zone,
                 "type_": type_,
+                "image_id": image_id,
+                "version_id": version_id,
+                "image_label": image_label,
             },
         )
 
@@ -370,7 +378,9 @@ class MarketplaceV2API(API):
         Usage:
         ::
 
-            result = api.get_local_image(local_image_id="example")
+            result = api.get_local_image(
+                local_image_id="example",
+            )
         """
 
         param_local_image_id = validate_path_param("local_image_id", local_image_id)
@@ -404,7 +414,7 @@ class MarketplaceV2API(API):
 
         res = self._request(
             "GET",
-            f"/marketplace/v2/categories",
+            "/marketplace/v2/categories",
             params={
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
@@ -425,7 +435,7 @@ class MarketplaceV2API(API):
         Get a list of all existing categories. The output can be paginated.
         :param page_size:
         :param page:
-        :return: :class:`List[ListCategoriesResponse] <List[ListCategoriesResponse]>`
+        :return: :class:`List[Category] <List[Category]>`
 
         Usage:
         ::
@@ -457,7 +467,9 @@ class MarketplaceV2API(API):
         Usage:
         ::
 
-            result = api.get_category(category_id="example")
+            result = api.get_category(
+                category_id="example",
+            )
         """
 
         param_category_id = validate_path_param("category_id", category_id)

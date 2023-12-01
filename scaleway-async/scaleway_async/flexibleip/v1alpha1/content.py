@@ -7,16 +7,14 @@ from .types import (
     MACAddressStatus,
 )
 
-
-FLEXIBLE_IP_TRANSIENT_STATUSES: List[FlexibleIPStatus] = [
+FLEXIBLEIP_TRANSIENT_STATUSES: List[FlexibleIPStatus] = [
     FlexibleIPStatus.UPDATING,
     FlexibleIPStatus.DETACHING,
 ]
 """
 Lists transient statutes of the enum :class:`FlexibleIPStatus <FlexibleIPStatus>`.
 """
-
-MAC_ADDRESS_TRANSIENT_STATUSES: List[MACAddressStatus] = [
+MACADDRESS_TRANSIENT_STATUSES: List[MACAddressStatus] = [
     MACAddressStatus.UPDATING,
     MACAddressStatus.DELETING,
 ]

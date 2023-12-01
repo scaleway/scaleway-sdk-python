@@ -6,7 +6,6 @@ from .types import (
     HostingStatus,
 )
 
-
 HOSTING_TRANSIENT_STATUSES: List[HostingStatus] = [
     HostingStatus.DELIVERING,
     HostingStatus.DELETING,

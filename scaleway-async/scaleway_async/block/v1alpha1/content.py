@@ -8,7 +8,6 @@ from .types import (
     VolumeStatus,
 )
 
-
 REFERENCE_TRANSIENT_STATUSES: List[ReferenceStatus] = [
     ReferenceStatus.ATTACHING,
     ReferenceStatus.DETACHING,
@@ -17,7 +16,6 @@ REFERENCE_TRANSIENT_STATUSES: List[ReferenceStatus] = [
 """
 Lists transient statutes of the enum :class:`ReferenceStatus <ReferenceStatus>`.
 """
-
 SNAPSHOT_TRANSIENT_STATUSES: List[SnapshotStatus] = [
     SnapshotStatus.CREATING,
     SnapshotStatus.DELETING,
@@ -25,7 +23,6 @@ SNAPSHOT_TRANSIENT_STATUSES: List[SnapshotStatus] = [
 """
 Lists transient statutes of the enum :class:`SnapshotStatus <SnapshotStatus>`.
 """
-
 VOLUME_TRANSIENT_STATUSES: List[VolumeStatus] = [
     VolumeStatus.CREATING,
     VolumeStatus.DELETING,

@@ -6,7 +6,6 @@ from .types import (
     ClusterStatus,
 )
 
-
 CLUSTER_TRANSIENT_STATUSES: List[ClusterStatus] = [
     ClusterStatus.PROVISIONING,
     ClusterStatus.CONFIGURING,

@@ -9,8 +9,8 @@ from scaleway_core.bridge import (
     Region,
 )
 from scaleway_core.utils import (
-    fetch_all_pages,
     validate_path_param,
+    fetch_all_pages,
 )
 from .types import (
     ListFoldersRequestOrderBy,
@@ -20,7 +20,12 @@ from .types import (
     SecretType,
     SecretVersionStatus,
     AccessSecretVersionResponse,
+    AddSecretOwnerRequest,
+    CreateFolderRequest,
+    CreateSecretRequest,
+    CreateSecretVersionRequest,
     Folder,
+    GeneratePasswordRequest,
     ListFoldersResponse,
     ListSecretVersionsResponse,
     ListSecretsResponse,
@@ -28,15 +33,18 @@ from .types import (
     PasswordGenerationParams,
     Secret,
     SecretVersion,
-    CreateSecretRequest,
-    CreateFolderRequest,
     UpdateSecretRequest,
-    AddSecretOwnerRequest,
-    CreateSecretVersionRequest,
-    GeneratePasswordRequest,
     UpdateSecretVersionRequest,
 )
 from .marshalling import (
+    unmarshal_Folder,
+    unmarshal_SecretVersion,
+    unmarshal_Secret,
+    unmarshal_AccessSecretVersionResponse,
+    unmarshal_ListFoldersResponse,
+    unmarshal_ListSecretVersionsResponse,
+    unmarshal_ListSecretsResponse,
+    unmarshal_ListTagsResponse,
     marshal_AddSecretOwnerRequest,
     marshal_CreateFolderRequest,
     marshal_CreateSecretRequest,
@@ -44,22 +52,11 @@ from .marshalling import (
     marshal_GeneratePasswordRequest,
     marshal_UpdateSecretRequest,
     marshal_UpdateSecretVersionRequest,
-    unmarshal_Folder,
-    unmarshal_Secret,
-    unmarshal_SecretVersion,
-    unmarshal_AccessSecretVersionResponse,
-    unmarshal_ListFoldersResponse,
-    unmarshal_ListSecretVersionsResponse,
-    unmarshal_ListSecretsResponse,
-    unmarshal_ListTagsResponse,
 )
 
 
 class SecretV1Alpha1API(API):
     """
-    Secret Manager API.
-
-    Secret Manager API.
     This API allows you to conveniently store, access and share sensitive data.
     """
 
@@ -67,29 +64,26 @@ class SecretV1Alpha1API(API):
         self,
         *,
         name: str,
-        type_: SecretType,
-        ephemeral_action: SecretEphemeralAction,
         region: Optional[Region] = None,
         project_id: Optional[str] = None,
         tags: Optional[List[str]] = None,
         description: Optional[str] = None,
+        type_: Optional[SecretType] = None,
         path: Optional[str] = None,
         expires_at: Optional[datetime] = None,
+        ephemeral_action: Optional[SecretEphemeralAction] = None,
     ) -> Secret:
         """
         Create a secret.
         You must specify the `region` to create a secret.
+        :param name: Name of the secret.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the Project containing the secret.
-        :param name: Name of the secret.
         :param tags: List of the secret's tags.
         :param description: Description of the secret.
-        :param type_: Type of the secret.
-        (Optional.) See `Secret.Type` enum for description of values. If not specified, the type is `Opaque`.
-        :param path: Path of the secret.
-        (Optional.) Location of the secret in the directory structure. If not specified, the path is `/`.
-        :param expires_at: Expiration date of the secret.
-        (Optional.) Date on which the secret will be deleted or deactivated.
+        :param type_: (Optional.) See `Secret.Type` enum for description of values. If not specified, the type is `Opaque`.
+        :param path: (Optional.) Location of the secret in the directory structure. If not specified, the path is `/`.
+        :param expires_at: (Optional.) Date on which the secret will be deleted or deactivated.
         :param ephemeral_action: Action to be taken when the secret expires.
         :return: :class:`Secret <Secret>`
 
@@ -98,8 +92,6 @@ class SecretV1Alpha1API(API):
 
             result = api.create_secret(
                 name="example",
-                type_=unknown_secret_type,
-                ephemeral_action=unknown_ephemeral_action,
             )
         """
 
@@ -113,14 +105,14 @@ class SecretV1Alpha1API(API):
             body=marshal_CreateSecretRequest(
                 CreateSecretRequest(
                     name=name,
-                    type_=type_,
-                    ephemeral_action=ephemeral_action,
                     region=region,
                     project_id=project_id,
                     tags=tags,
                     description=description,
+                    type_=type_,
                     path=path,
                     expires_at=expires_at,
+                    ephemeral_action=ephemeral_action,
                 ),
                 self.client,
             ),
@@ -139,17 +131,19 @@ class SecretV1Alpha1API(API):
     ) -> Folder:
         """
         Create folder.
+        Create folder.
+        :param name: Name of the folder.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the Project containing the folder.
-        :param name: Name of the folder.
-        :param path: Path of the folder.
-        (Optional.) Location of the folder in the directory structure. If not specified, the path is `/`.
+        :param path: (Optional.) Location of the folder in the directory structure. If not specified, the path is `/`.
         :return: :class:`Folder <Folder>`
 
         Usage:
         ::
 
-            result = api.create_folder(name="example")
+            result = api.create_folder(
+                name="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -182,14 +176,16 @@ class SecretV1Alpha1API(API):
         """
         Get metadata using the secret's ID.
         Retrieve the metadata of a secret specified by the `region` and `secret_id` parameters.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the secret.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Secret <Secret>`
 
         Usage:
         ::
 
-            result = api.get_secret(secret_id="example")
+            result = api.get_secret(
+                secret_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -219,17 +215,18 @@ class SecretV1Alpha1API(API):
         GetSecretByName usage is now deprecated.
 
         Scaleway recommends that you use the `ListSecrets` request with the `name` filter.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param secret_name: Name of the secret.
-        :param project_id: ID of the Project to target.
-        (Optional.) If not specified, Secret Manager will look for the secret in all Projects.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: (Optional.) If not specified, Secret Manager will look for the secret in all Projects.
         :return: :class:`Secret <Secret>`
         :deprecated
 
         Usage:
         ::
 
-            result = api.get_secret_by_name(secret_name="example")
+            result = api.get_secret_by_name(
+                secret_name="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -261,19 +258,20 @@ class SecretV1Alpha1API(API):
         """
         Update metadata of a secret.
         Edit a secret's metadata such as name, tag(s) and description. The secret to update is specified by the `secret_id` and `region` parameters.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the secret.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param name: Secret's updated name (optional).
         :param tags: Secret's updated list of tags (optional).
         :param description: Description of the secret.
-        :param path: Path of the folder.
-        (Optional.) Location of the folder in the directory structure. If not specified, the path is `/`.
+        :param path: (Optional.) Location of the folder in the directory structure. If not specified, the path is `/`.
         :return: :class:`Secret <Secret>`
 
         Usage:
         ::
 
-            result = api.update_secret(secret_id="example")
+            result = api.update_secret(
+                secret_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -306,7 +304,7 @@ class SecretV1Alpha1API(API):
         region: Optional[Region] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
-        order_by: ListSecretsRequestOrderBy = ListSecretsRequestOrderBy.NAME_ASC,
+        order_by: Optional[ListSecretsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         tags: Optional[List[str]] = None,
@@ -391,7 +389,7 @@ class SecretV1Alpha1API(API):
         :param is_managed: Filter by managed / not managed (optional).
         :param path: Filter by path (optional).
         :param is_ephemeral: Filter by ephemeral / not ephemeral (optional).
-        :return: :class:`List[ListSecretsResponse] <List[ListSecretsResponse]>`
+        :return: :class:`List[Secret] <List[Secret]>`
 
         Usage:
         ::
@@ -426,7 +424,7 @@ class SecretV1Alpha1API(API):
         path: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        order_by: ListFoldersRequestOrderBy = ListFoldersRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListFoldersRequestOrderBy] = None,
     ) -> ListFoldersResponse:
         """
         List folders.
@@ -483,7 +481,7 @@ class SecretV1Alpha1API(API):
         :param page:
         :param page_size:
         :param order_by:
-        :return: :class:`List[ListFoldersResponse] <List[ListFoldersResponse]>`
+        :return: :class:`List[Folder] <List[Folder]>`
 
         Usage:
         ::
@@ -510,17 +508,19 @@ class SecretV1Alpha1API(API):
         *,
         secret_id: str,
         region: Optional[Region] = None,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Delete a secret.
         Delete a given secret specified by the `region` and `secret_id` parameters.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the secret.
+        :param region: Region to target. If none is passed will use default region from the config.
 
         Usage:
         ::
 
-            result = api.delete_secret(secret_id="example")
+            result = api.delete_secret(
+                secret_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -534,23 +534,25 @@ class SecretV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
-        return None
 
     def delete_folder(
         self,
         *,
         folder_id: str,
         region: Optional[Region] = None,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Delete a given folder specified by the `region` and `folder_id` parameters.
-        :param region: Region to target. If none is passed will use default region from the config.
+        Delete a given folder specified by the `region` and `folder_id` parameters.
         :param folder_id: ID of the folder.
+        :param region: Region to target. If none is passed will use default region from the config.
 
         Usage:
         ::
 
-            result = api.delete_folder(folder_id="example")
+            result = api.delete_folder(
+                folder_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -564,7 +566,6 @@ class SecretV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
-        return None
 
     def protect_secret(
         self,
@@ -575,14 +576,16 @@ class SecretV1Alpha1API(API):
         """
         Protect a secret.
         Protect a given secret specified by the `secret_id` parameter. A protected secret can be read and modified but cannot be deleted.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the secret to protect.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Secret <Secret>`
 
         Usage:
         ::
 
-            result = api.protect_secret(secret_id="example")
+            result = api.protect_secret(
+                secret_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -593,6 +596,7 @@ class SecretV1Alpha1API(API):
         res = self._request(
             "POST",
             f"/secret-manager/v1alpha1/regions/{param_region}/secrets/{param_secret_id}/protect",
+            body={},
         )
 
         self._throw_on_error(res)
@@ -607,14 +611,16 @@ class SecretV1Alpha1API(API):
         """
         Unprotect a secret.
         Unprotect a given secret specified by the `secret_id` parameter. An unprotected secret can be read, modified and deleted.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the secret to unprotect.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Secret <Secret>`
 
         Usage:
         ::
 
-            result = api.unprotect_secret(secret_id="example")
+            result = api.unprotect_secret(
+                secret_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -625,6 +631,7 @@ class SecretV1Alpha1API(API):
         res = self._request(
             "POST",
             f"/secret-manager/v1alpha1/regions/{param_region}/secrets/{param_secret_id}/unprotect",
+            body={},
         )
 
         self._throw_on_error(res)
@@ -634,24 +641,23 @@ class SecretV1Alpha1API(API):
         self,
         *,
         secret_id: str,
-        product: Product,
         region: Optional[Region] = None,
         product_name: Optional[str] = None,
-    ) -> Optional[None]:
+        product: Optional[Product] = None,
+    ) -> None:
         """
         Allow a product to use the secret.
-        :param region: Region to target. If none is passed will use default region from the config.
+        Allow a product to use the secret.
         :param secret_id: ID of the secret.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param product_name: (Deprecated: use `product` field) Name of the product to add.
-        :param product: ID of the product to add.
-        See `Product` enum for description of values.
+        :param product: See `Product` enum for description of values.
 
         Usage:
         ::
 
             result = api.add_secret_owner(
                 secret_id="example",
-                product=unknown,
             )
         """
 
@@ -666,16 +672,15 @@ class SecretV1Alpha1API(API):
             body=marshal_AddSecretOwnerRequest(
                 AddSecretOwnerRequest(
                     secret_id=secret_id,
-                    product=product,
                     region=region,
                     product_name=product_name,
+                    product=product,
                 ),
                 self.client,
             ),
         )
 
         self._throw_on_error(res)
-        return None
 
     def create_secret_version(
         self,
@@ -691,18 +696,13 @@ class SecretV1Alpha1API(API):
         """
         Create a version.
         Create a version of a given secret specified by the `region` and `secret_id` parameters.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the secret.
         :param data: The base64-encoded secret payload of the version.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param description: Description of the version.
-        :param disable_previous: Disable the previous secret version.
-        (Optional.) If there is no previous version or if the previous version was already disabled, does nothing.
-        :param password_generation: Options to generate a password.
-        (Optional.) If specified, a random password will be generated. The `data` and `data_crc32` fields must be empty. By default, the generator will use upper and lower case letters, and digits. This behavior can be tuned using the generation parameters.
-
-        One-of ('_password_generation'): at most one of 'password_generation' could be set.
-        :param data_crc32: (Optional.) The CRC32 checksum of the data as a base-10 integer.
-        If specified, Secret Manager will verify the integrity of the data received against the given CRC32 checksum. An error is returned if the CRC32 does not match. If, however, the CRC32 matches, it will be stored and returned along with the SecretVersion on future access requests.
+        :param disable_previous: (Optional.) If there is no previous version or if the previous version was already disabled, does nothing.
+        :param password_generation: (Optional.) If specified, a random password will be generated. The `data` and `data_crc32` fields must be empty. By default, the generator will use upper and lower case letters, and digits. This behavior can be tuned using the generation parameters.
+        :param data_crc32: If specified, Secret Manager will verify the integrity of the data received against the given CRC32 checksum. An error is returned if the CRC32 does not match. If, however, the CRC32 matches, it will be stored and returned along with the SecretVersion on future access requests.
         :return: :class:`SecretVersion <SecretVersion>`
 
         Usage:
@@ -755,12 +755,11 @@ class SecretV1Alpha1API(API):
         """
         Generate a password in a new version.
         Generate a password for the given secret specified by the `region` and `secret_id` parameters. This will also create a new version of the secret that will store the password.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the secret.
-        :param description: Description of the version.
-        :param disable_previous: (Optional.) Disable the previous secret version.
-        This has no effect if there is no previous version or if the previous version was already disabled.
         :param length: Length of the password to generate (between 1 and 1024 characters).
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param description: Description of the version.
+        :param disable_previous: This has no effect if there is no previous version or if the previous version was already disabled.
         :param no_lowercase_letters: (Optional.) Exclude lower case letters by default in the password character set.
         :param no_uppercase_letters: (Optional.) Exclude upper case letters by default in the password character set.
         :param no_digits: (Optional.) Exclude digits by default in the password character set.
@@ -813,13 +812,12 @@ class SecretV1Alpha1API(API):
         """
         Get metadata of a secret's version using the secret's ID.
         Retrieve the metadata of a secret's given version specified by the `region`, `secret_id` and `revision` parameters.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the secret.
-        :param revision: Version number.
-        The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
+        :param revision: The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
         - a number (the revision number)
         - "latest" (the latest revision)
         - "latest_enabled" (the latest enabled revision).
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`SecretVersion <SecretVersion>`
 
         Usage:
@@ -860,15 +858,13 @@ class SecretV1Alpha1API(API):
         This method is deprecated.
 
         Scaleway recommends that you use the `ListSecrets` request with the `name` filter to specify the secret version desired, then use the `GetSecretVersion` request.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param secret_name: Name of the secret.
-        :param revision: Version number.
-        The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
+        :param revision: The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
         - a number (the revision number)
         - "latest" (the latest revision)
         - "latest_enabled" (the latest enabled revision).
-        :param project_id: ID of the Project to target.
-        (Optional.) If not specified, Secret Manager will look for the secret version in all Projects.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: (Optional.) If not specified, Secret Manager will look for the secret version in all Projects.
         :return: :class:`SecretVersion <SecretVersion>`
         :deprecated
 
@@ -909,13 +905,12 @@ class SecretV1Alpha1API(API):
         """
         Update metadata of a version.
         Edit the metadata of a secret's given version, specified by the `region`, `secret_id` and `revision` parameters.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the secret.
-        :param revision: Version number.
-        The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
+        :param revision: The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
         - a number (the revision number)
         - "latest" (the latest revision)
         - "latest_enabled" (the latest enabled revision).
+        :param region: Region to target. If none is passed will use default region from the config.
         :param description: Description of the version.
         :return: :class:`SecretVersion <SecretVersion>`
 
@@ -963,8 +958,8 @@ class SecretV1Alpha1API(API):
         """
         List versions of a secret using the secret's ID.
         Retrieve the list of a given secret's versions specified by the `secret_id` and `region` parameters.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the secret.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
         :param status: Filter results by status.
@@ -973,7 +968,9 @@ class SecretV1Alpha1API(API):
         Usage:
         ::
 
-            result = api.list_secret_versions(secret_id="example")
+            result = api.list_secret_versions(
+                secret_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -1006,17 +1003,19 @@ class SecretV1Alpha1API(API):
         """
         List versions of a secret using the secret's ID.
         Retrieve the list of a given secret's versions specified by the `secret_id` and `region` parameters.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the secret.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
         :param status: Filter results by status.
-        :return: :class:`List[ListSecretVersionsResponse] <List[ListSecretVersionsResponse]>`
+        :return: :class:`List[SecretVersion] <List[SecretVersion]>`
 
         Usage:
         ::
 
-            result = api.list_secret_versions_all(secret_id="example")
+            result = api.list_secret_versions_all(
+                secret_id="example",
+            )
         """
 
         return fetch_all_pages(
@@ -1049,20 +1048,21 @@ class SecretV1Alpha1API(API):
         This method is deprecated.
 
         Scaleway recommends that you use the `ListSecrets` request with the `name` filter to specify the secret version desired, then use the `ListSecretVersions` request.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param secret_name: Name of the secret.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
         :param status: Filter results by status.
-        :param project_id: ID of the Project to target.
-        (Optional.) If not specified, Secret Manager will look for the secret in all Projects.
+        :param project_id: (Optional.) If not specified, Secret Manager will look for the secret in all Projects.
         :return: :class:`ListSecretVersionsResponse <ListSecretVersionsResponse>`
         :deprecated
 
         Usage:
         ::
 
-            result = api.list_secret_versions_by_name(secret_name="example")
+            result = api.list_secret_versions_by_name(
+                secret_name="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -1101,20 +1101,21 @@ class SecretV1Alpha1API(API):
         This method is deprecated.
 
         Scaleway recommends that you use the `ListSecrets` request with the `name` filter to specify the secret version desired, then use the `ListSecretVersions` request.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param secret_name: Name of the secret.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
         :param status: Filter results by status.
-        :param project_id: ID of the Project to target.
-        (Optional.) If not specified, Secret Manager will look for the secret in all Projects.
-        :return: :class:`List[ListSecretVersionsResponse] <List[ListSecretVersionsResponse]>`
+        :param project_id: (Optional.) If not specified, Secret Manager will look for the secret in all Projects.
+        :return: :class:`List[SecretVersion] <List[SecretVersion]>`
         :deprecated
 
         Usage:
         ::
 
-            result = api.list_secret_versions_by_name_all(secret_name="example")
+            result = api.list_secret_versions_by_name_all(
+                secret_name="example",
+            )
         """
 
         return fetch_all_pages(
@@ -1141,13 +1142,12 @@ class SecretV1Alpha1API(API):
         """
         Enable a version.
         Make a specific version accessible. You must specify the `region`, `secret_id` and `revision` parameters.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the secret.
-        :param revision: Version number.
-        The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
+        :param revision: The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
         - a number (the revision number)
         - "latest" (the latest revision)
         - "latest_enabled" (the latest enabled revision).
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`SecretVersion <SecretVersion>`
 
         Usage:
@@ -1168,6 +1168,7 @@ class SecretV1Alpha1API(API):
         res = self._request(
             "POST",
             f"/secret-manager/v1alpha1/regions/{param_region}/secrets/{param_secret_id}/versions/{param_revision}/enable",
+            body={},
         )
 
         self._throw_on_error(res)
@@ -1183,13 +1184,12 @@ class SecretV1Alpha1API(API):
         """
         Disable a version.
         Make a specific version inaccessible. You must specify the `region`, `secret_id` and `revision` parameters.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the secret.
-        :param revision: Version number.
-        The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
+        :param revision: The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
         - a number (the revision number)
         - "latest" (the latest revision)
         - "latest_enabled" (the latest enabled revision).
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`SecretVersion <SecretVersion>`
 
         Usage:
@@ -1210,6 +1210,7 @@ class SecretV1Alpha1API(API):
         res = self._request(
             "POST",
             f"/secret-manager/v1alpha1/regions/{param_region}/secrets/{param_secret_id}/versions/{param_revision}/disable",
+            body={},
         )
 
         self._throw_on_error(res)
@@ -1225,13 +1226,12 @@ class SecretV1Alpha1API(API):
         """
         Access a secret's version using the secret's ID.
         Access sensitive data in a secret's version specified by the `region`, `secret_id` and `revision` parameters.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the secret.
-        :param revision: Version number.
-        The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
+        :param revision: The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
         - a number (the revision number)
         - "latest" (the latest revision)
         - "latest_enabled" (the latest enabled revision).
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`AccessSecretVersionResponse <AccessSecretVersionResponse>`
 
         Usage:
@@ -1272,15 +1272,13 @@ class SecretV1Alpha1API(API):
         This method is deprecated.
 
         Scaleway recommends that you use the `ListSecrets` request with the `name` filter to specify the secret version desired, then use the `AccessSecretVersion` request.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param secret_name: Name of the secret.
-        :param revision: Version number.
-        The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
+        :param revision: The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
         - a number (the revision number)
         - "latest" (the latest revision)
         - "latest_enabled" (the latest enabled revision).
-        :param project_id: ID of the Project to target.
-        (Optional.) If not specified, Secret Manager will look for the secret version in all Projects.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: (Optional.) If not specified, Secret Manager will look for the secret version in all Projects.
         :return: :class:`AccessSecretVersionResponse <AccessSecretVersionResponse>`
         :deprecated
 
@@ -1320,13 +1318,12 @@ class SecretV1Alpha1API(API):
         """
         Delete a version.
         Delete a secret's version and the sensitive data contained in it. Deleting a version is permanent and cannot be undone.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the secret.
-        :param revision: Version number.
-        The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
+        :param revision: The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
         - a number (the revision number)
         - "latest" (the latest revision)
         - "latest_enabled" (the latest enabled revision).
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`SecretVersion <SecretVersion>`
 
         Usage:
@@ -1347,6 +1344,7 @@ class SecretV1Alpha1API(API):
         res = self._request(
             "POST",
             f"/secret-manager/v1alpha1/regions/{param_region}/secrets/{param_secret_id}/versions/{param_revision}/destroy",
+            body={},
         )
 
         self._throw_on_error(res)
@@ -1364,8 +1362,7 @@ class SecretV1Alpha1API(API):
         List tags.
         List all tags associated with secrets within a given Project.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param project_id: ID of the Project to target.
-        (Optional.) If not specified, Secret Manager will look for tags in all Projects.
+        :param project_id: (Optional.) If not specified, Secret Manager will look for tags in all Projects.
         :param page:
         :param page_size:
         :return: :class:`ListTagsResponse <ListTagsResponse>`
@@ -1405,11 +1402,10 @@ class SecretV1Alpha1API(API):
         List tags.
         List all tags associated with secrets within a given Project.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param project_id: ID of the Project to target.
-        (Optional.) If not specified, Secret Manager will look for tags in all Projects.
+        :param project_id: (Optional.) If not specified, Secret Manager will look for tags in all Projects.
         :param page:
         :param page_size:
-        :return: :class:`List[ListTagsResponse] <List[ListTagsResponse]>`
+        :return: :class:`List[str] <List[str]>`
 
         Usage:
         ::

@@ -50,10 +50,6 @@ class JobDefinition:
 
     name: str
 
-    created_at: Optional[datetime]
-
-    updated_at: Optional[datetime]
-
     cpu_limit: int
 
     memory_limit: int
@@ -64,13 +60,20 @@ class JobDefinition:
 
     project_id: str
 
+    created_at: Optional[datetime]
+
+    updated_at: Optional[datetime]
+
     environment_variables: Dict[str, str]
 
     description: str
 
-    job_timeout: Optional[str]
-
     region: Region
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    job_timeout: Optional[str]
 
 
 @dataclass
@@ -80,6 +83,13 @@ class JobRun:
     job_definition_id: str
 
     state: JobRunState
+
+    error_message: str
+
+    region: Region
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
 
     created_at: Optional[datetime]
 
@@ -91,42 +101,9 @@ class JobRun:
 
     run_duration: Optional[str]
 
-    error_message: str
-
-    region: Region
-
-
-@dataclass
-class ListJobDefinitionsResponse:
-    job_definitions: List[JobDefinition]
-
-    total_count: int
-
-
-@dataclass
-class ListJobRunsResponse:
-    job_runs: List[JobRun]
-
-    total_count: int
-
-
-@dataclass
-class GetServiceInfoRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
 
 @dataclass
 class CreateJobDefinitionRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    name: Optional[str]
-
     cpu_limit: int
 
     memory_limit: int
@@ -135,23 +112,58 @@ class CreateJobDefinitionRequest:
 
     command: str
 
-    project_id: Optional[str]
-
-    environment_variables: Optional[Dict[str, str]]
-
     description: str
 
-    job_timeout: Optional[str]
-
-
-@dataclass
-class GetJobDefinitionRequest:
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
+    name: Optional[str]
+
+    project_id: Optional[str]
+
+    environment_variables: Optional[Dict[str, str]]
+
+    job_timeout: Optional[str]
+
+
+@dataclass
+class DeleteJobDefinitionRequest:
     job_definition_id: str
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetJobDefinitionRequest:
+    job_definition_id: str
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetJobRunRequest:
+    job_run_id: str
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetServiceInfoRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
 
 
 @dataclass
@@ -171,69 +183,10 @@ class ListJobDefinitionsRequest:
 
 
 @dataclass
-class UpdateJobDefinitionRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
+class ListJobDefinitionsResponse:
+    job_definitions: List[JobDefinition]
 
-    job_definition_id: str
-
-    name: Optional[str]
-
-    cpu_limit: Optional[int]
-
-    memory_limit: Optional[int]
-
-    image_uri: Optional[str]
-
-    command: Optional[str]
-
-    environment_variables: Optional[Dict[str, str]]
-
-    description: Optional[str]
-
-    job_timeout: Optional[str]
-
-
-@dataclass
-class DeleteJobDefinitionRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    job_definition_id: str
-
-
-@dataclass
-class StartJobDefinitionRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    job_definition_id: str
-
-
-@dataclass
-class GetJobRunRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    job_run_id: str
-
-
-@dataclass
-class StopJobRunRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    job_run_id: str
+    total_count: int
 
 
 @dataclass
@@ -252,3 +205,56 @@ class ListJobRunsRequest:
     job_definition_id: Optional[str]
 
     project_id: Optional[str]
+
+
+@dataclass
+class ListJobRunsResponse:
+    job_runs: List[JobRun]
+
+    total_count: int
+
+
+@dataclass
+class StartJobDefinitionRequest:
+    job_definition_id: str
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class StopJobRunRequest:
+    job_run_id: str
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class UpdateJobDefinitionRequest:
+    job_definition_id: str
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    name: Optional[str]
+
+    cpu_limit: Optional[int]
+
+    memory_limit: Optional[int]
+
+    image_uri: Optional[str]
+
+    command: Optional[str]
+
+    environment_variables: Optional[Dict[str, str]]
+
+    description: Optional[str]
+
+    job_timeout: Optional[str]
