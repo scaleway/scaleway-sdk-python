@@ -8,43 +8,40 @@ from scaleway_core.bridge import (
     Region,
 )
 from scaleway_core.utils import (
-    fetch_all_pages_async,
     random_name,
     validate_path_param,
+    fetch_all_pages_async,
 )
 from .types import (
     ListCredentialsRequestOrderBy,
     ListNamespacesRequestOrderBy,
     NamespaceProtocol,
+    CreateCredentialRequest,
+    CreateNamespaceRequest,
     Credential,
     CredentialSummary,
     ListCredentialsResponse,
     ListNamespacesResponse,
     Namespace,
     Permissions,
-    CreateNamespaceRequest,
-    UpdateNamespaceRequest,
-    CreateCredentialRequest,
     UpdateCredentialRequest,
+    UpdateNamespaceRequest,
 )
 from .marshalling import (
-    marshal_CreateCredentialRequest,
-    marshal_CreateNamespaceRequest,
-    marshal_UpdateCredentialRequest,
-    marshal_UpdateNamespaceRequest,
     unmarshal_Namespace,
     unmarshal_Credential,
     unmarshal_ListCredentialsResponse,
     unmarshal_ListNamespacesResponse,
+    marshal_CreateCredentialRequest,
+    marshal_CreateNamespaceRequest,
+    marshal_UpdateCredentialRequest,
+    marshal_UpdateNamespaceRequest,
 )
 
 
 class MnqV1Alpha1API(API):
     """
-    Messaging and Queuing API.
-
     This API allows you to manage Scaleway Messaging and Queueing brokers.
-    Messaging and Queuing API.
     """
 
     async def list_namespaces(
@@ -55,7 +52,7 @@ class MnqV1Alpha1API(API):
         project_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        order_by: ListNamespacesRequestOrderBy = ListNamespacesRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListNamespacesRequestOrderBy] = None,
     ) -> ListNamespacesResponse:
         """
         List namespaces.
@@ -113,7 +110,7 @@ class MnqV1Alpha1API(API):
         :param page: Page number to return.
         :param page_size: Maximum number of namespaces to return per page.
         :param order_by: Order in which to return results.
-        :return: :class:`List[ListNamespacesResponse] <List[ListNamespacesResponse]>`
+        :return: :class:`List[Namespace] <List[Namespace]>`
 
         Usage:
         ::
@@ -138,24 +135,26 @@ class MnqV1Alpha1API(API):
     async def create_namespace(
         self,
         *,
+        protocol: NamespaceProtocol,
         region: Optional[Region] = None,
         name: Optional[str] = None,
-        protocol: NamespaceProtocol = NamespaceProtocol.UNKNOWN,
         project_id: Optional[str] = None,
     ) -> Namespace:
         """
         Create a namespace.
         Create a Messaging and Queuing namespace, set to the desired protocol.
+        :param protocol: Namespace protocol. You must specify a valid protocol (and not `unknown`) to avoid an error.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Namespace name.
-        :param protocol: Namespace protocol. You must specify a valid protocol (and not `unknown`) to avoid an error.
         :param project_id: Project containing the Namespace.
         :return: :class:`Namespace <Namespace>`
 
         Usage:
         ::
 
-            result = await api.create_namespace()
+            result = await api.create_namespace(
+                protocol=NamespaceProtocol.unknown,
+            )
         """
 
         param_region = validate_path_param(
@@ -167,9 +166,9 @@ class MnqV1Alpha1API(API):
             f"/mnq/v1alpha1/regions/{param_region}/namespaces",
             body=marshal_CreateNamespaceRequest(
                 CreateNamespaceRequest(
+                    protocol=protocol,
                     region=region,
                     name=name or random_name(prefix="mnq"),
-                    protocol=protocol,
                     project_id=project_id,
                 ),
                 self.client,
@@ -189,15 +188,17 @@ class MnqV1Alpha1API(API):
         """
         Update the name of a namespace.
         Update the name of a Messaging and Queuing namespace, specified by its namespace ID.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param namespace_id: ID of the Namespace to update.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param name: Namespace name.
         :return: :class:`Namespace <Namespace>`
 
         Usage:
         ::
 
-            result = await api.update_namespace(namespace_id="example")
+            result = await api.update_namespace(
+                namespace_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -229,14 +230,16 @@ class MnqV1Alpha1API(API):
         """
         Get a namespace.
         Retrieve information about an existing Messaging and Queuing namespace, identified by its namespace ID. Its full details, including name, endpoint and protocol, are returned in the response.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param namespace_id: ID of the Namespace to get.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Namespace <Namespace>`
 
         Usage:
         ::
 
-            result = await api.get_namespace(namespace_id="example")
+            result = await api.get_namespace(
+                namespace_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -257,17 +260,19 @@ class MnqV1Alpha1API(API):
         *,
         namespace_id: str,
         region: Optional[Region] = None,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Delete a namespace.
         Delete a Messaging and Queuing namespace, specified by its namespace ID. Note that deleting a namespace is irreversible, and any URLs, credentials and queued messages belonging to this namespace will also be deleted.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param namespace_id: ID of the namespace to delete.
+        :param region: Region to target. If none is passed will use default region from the config.
 
         Usage:
         ::
 
-            result = await api.delete_namespace(namespace_id="example")
+            result = await api.delete_namespace(
+                namespace_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -281,7 +286,6 @@ class MnqV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
-        return None
 
     async def create_credential(
         self,
@@ -294,8 +298,8 @@ class MnqV1Alpha1API(API):
         """
         Create credentials.
         Create a set of credentials for a Messaging and Queuing namespace, specified by its namespace ID. If creating credentials for a NATS namespace, the `permissions` object must not be included in the request. If creating credentials for an SQS/SNS namespace, the `permissions` object is required, with all three of its child attributes.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param namespace_id: Namespace containing the credentials.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the credentials.
         :param permissions: Permissions associated with these credentials.
         :return: :class:`Credential <Credential>`
@@ -303,7 +307,9 @@ class MnqV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.create_credential(namespace_id="example")
+            result = await api.create_credential(
+                namespace_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -332,17 +338,19 @@ class MnqV1Alpha1API(API):
         *,
         credential_id: str,
         region: Optional[Region] = None,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Delete credentials.
         Delete a set of credentials, specified by their credential ID. Deleting credentials is irreversible and cannot be undone. The credentials can no longer be used to access the namespace.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param credential_id: ID of the credentials to delete.
+        :param region: Region to target. If none is passed will use default region from the config.
 
         Usage:
         ::
 
-            result = await api.delete_credential(credential_id="example")
+            result = await api.delete_credential(
+                credential_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -356,7 +364,6 @@ class MnqV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
-        return None
 
     async def list_credentials(
         self,
@@ -365,7 +372,7 @@ class MnqV1Alpha1API(API):
         namespace_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        order_by: ListCredentialsRequestOrderBy = ListCredentialsRequestOrderBy.ID_ASC,
+        order_by: Optional[ListCredentialsRequestOrderBy] = None,
     ) -> ListCredentialsResponse:
         """
         List credentials.
@@ -418,7 +425,7 @@ class MnqV1Alpha1API(API):
         :param page: Page number to return.
         :param page_size: Maximum number of credentials to return per page.
         :param order_by: Order in which to return results.
-        :return: :class:`List[ListCredentialsResponse] <List[ListCredentialsResponse]>`
+        :return: :class:`List[CredentialSummary] <List[CredentialSummary]>`
 
         Usage:
         ::
@@ -450,8 +457,8 @@ class MnqV1Alpha1API(API):
         """
         Update credentials.
         Update a set of credentials. You can update the credentials' name, or (in the case of SQS/SNS credentials only) their permissions. To update the name of NATS credentials, do not include the `permissions` object in your request.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param credential_id: ID of the credentials to update.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the credentials.
         :param permissions: Permissions associated with these credentials.
         :return: :class:`Credential <Credential>`
@@ -459,7 +466,9 @@ class MnqV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.update_credential(credential_id="example")
+            result = await api.update_credential(
+                credential_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -493,14 +502,16 @@ class MnqV1Alpha1API(API):
         """
         Get credentials.
         Retrieve an existing set of credentials, identified by the `credential_id`. The credentials themselves, as well as their metadata (protocol, namespace ID etc), are returned in the response.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param credential_id: ID of the credentials to get.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Credential <Credential>`
 
         Usage:
         ::
 
-            result = await api.get_credential(credential_id="example")
+            result = await api.get_credential(
+                credential_id="example",
+            )
         """
 
         param_region = validate_path_param(

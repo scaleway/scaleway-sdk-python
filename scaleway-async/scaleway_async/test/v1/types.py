@@ -54,10 +54,6 @@ class Human:
 
     organization_id: str
 
-    created_at: Optional[datetime]
-
-    updated_at: Optional[datetime]
-
     height: float
 
     shoe_size: float
@@ -67,6 +63,10 @@ class Human:
     altitude_in_millimeter: int
 
     fingers_count: int
+
+    created_at: Optional[datetime]
+
+    updated_at: Optional[datetime]
 
     hair_count: int
 
@@ -79,46 +79,6 @@ class Human:
     name: str
 
     project_id: str
-
-
-@dataclass
-class ListHumansResponse:
-    total_count: int
-
-    humans: List[Human]
-
-
-@dataclass
-class RegisterResponse:
-    secret_key: str
-
-    access_key: str
-
-
-@dataclass
-class RegisterRequest:
-    username: str
-
-
-@dataclass
-class ListHumansRequest:
-    page: Optional[int]
-
-    page_size: Optional[int]
-
-    order_by: Optional[ListHumansRequestOrderBy]
-
-    organization_id: Optional[str]
-
-    project_id: Optional[str]
-
-
-@dataclass
-class GetHumanRequest:
-    human_id: str
-    """
-    UUID of the human you want to get.
-    """
 
 
 @dataclass
@@ -137,19 +97,76 @@ class CreateHumanRequest:
 
     is_happy: bool
 
-    eyes_color: EyeColors
-
-    organization_id: Optional[str]
-    """
-    One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
-    :deprecated
-    """
-
     name: str
 
+    eyes_color: Optional[EyeColors]
+
     project_id: Optional[str]
+
+    organization_id: Optional[str]
+
+
+@dataclass
+class DeleteHumanRequest:
+    human_id: str
     """
-    One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
+    UUID of the human you want to delete.
+    """
+
+
+@dataclass
+class GetHumanRequest:
+    human_id: str
+    """
+    UUID of the human you want to get.
+    """
+
+
+@dataclass
+class ListHumansRequest:
+    page: Optional[int]
+
+    page_size: Optional[int]
+
+    order_by: Optional[ListHumansRequestOrderBy]
+
+    organization_id: Optional[str]
+
+    project_id: Optional[str]
+
+
+@dataclass
+class ListHumansResponse:
+    total_count: int
+
+    humans: List[Human]
+
+
+@dataclass
+class RegisterRequest:
+    username: str
+
+
+@dataclass
+class RegisterResponse:
+    secret_key: str
+
+    access_key: str
+
+
+@dataclass
+class RunHumanRequest:
+    human_id: str
+    """
+    UUID of the human you want to make run.
+    """
+
+
+@dataclass
+class SmokeHumanRequest:
+    human_id: str
+    """
+    UUID of the human you want to make smoking.
     """
 
 
@@ -177,31 +194,6 @@ class UpdateHumanRequest:
 
     is_happy: Optional[bool]
 
-    eyes_color: EyeColors
+    eyes_color: Optional[EyeColors]
 
     name: Optional[str]
-
-
-@dataclass
-class DeleteHumanRequest:
-    human_id: str
-    """
-    UUID of the human you want to delete.
-    """
-
-
-@dataclass
-class RunHumanRequest:
-    human_id: str
-    """
-    UUID of the human you want to make run.
-    """
-
-
-@dataclass
-class SmokeHumanRequest:
-    human_id: Optional[str]
-    """
-    UUID of the human you want to make smoking.
-    :deprecated
-    """

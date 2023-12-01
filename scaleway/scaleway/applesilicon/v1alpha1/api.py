@@ -9,43 +9,39 @@ from scaleway_core.bridge import (
 )
 from scaleway_core.utils import (
     WaitForOptions,
-    fetch_all_pages,
     random_name,
     validate_path_param,
+    fetch_all_pages,
     wait_for_resource,
 )
 from .types import (
     ListServersRequestOrderBy,
+    CreateServerRequest,
     ListOSResponse,
     ListServerTypesResponse,
     ListServersResponse,
     OS,
     Server,
     ServerType,
-    CreateServerRequest,
     UpdateServerRequest,
 )
 from .content import (
     SERVER_TRANSIENT_STATUSES,
 )
 from .marshalling import (
-    marshal_CreateServerRequest,
-    marshal_UpdateServerRequest,
     unmarshal_OS,
-    unmarshal_Server,
     unmarshal_ServerType,
+    unmarshal_Server,
     unmarshal_ListOSResponse,
     unmarshal_ListServerTypesResponse,
     unmarshal_ListServersResponse,
+    marshal_CreateServerRequest,
+    marshal_UpdateServerRequest,
 )
 
 
 class ApplesiliconV1Alpha1API(API):
-    """
-    Apple silicon API.
-
-    Apple silicon API.
-    """
+    """ """
 
     def list_server_types(
         self,
@@ -83,14 +79,16 @@ class ApplesiliconV1Alpha1API(API):
         """
         Get a server type.
         Get technical details (CPU, disk size etc.) of a server type.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_type: Server type identifier.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`ServerType <ServerType>`
 
         Usage:
         ::
 
-            result = api.get_server_type(server_type="example")
+            result = api.get_server_type(
+                server_type="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -115,16 +113,18 @@ class ApplesiliconV1Alpha1API(API):
         """
         Create a server.
         Create a new server in the targeted zone, specifying its configuration including name and type.
+        :param type_: Create a server of the given type.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: Create a server with this given name.
         :param project_id: Create a server in the given project ID.
-        :param type_: Create a server of the given type.
         :return: :class:`Server <Server>`
 
         Usage:
         ::
 
-            result = api.create_server(type_="example")
+            result = api.create_server(
+                type="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -150,7 +150,7 @@ class ApplesiliconV1Alpha1API(API):
         self,
         *,
         zone: Optional[Zone] = None,
-        order_by: ListServersRequestOrderBy = ListServersRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListServersRequestOrderBy] = None,
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
         page: Optional[int] = None,
@@ -210,7 +210,7 @@ class ApplesiliconV1Alpha1API(API):
         :param organization_id: Only list servers of this Organization ID.
         :param page: Positive integer to choose the page to return.
         :param page_size: Positive integer lower or equal to 100 to select the number of items to return.
-        :return: :class:`List[ListServersResponse] <List[ListServersResponse]>`
+        :return: :class:`List[Server] <List[Server]>`
 
         Usage:
         ::
@@ -290,7 +290,7 @@ class ApplesiliconV1Alpha1API(API):
         :param page_size: Positive integer lower or equal to 100 to select the number of items to return.
         :param server_type: List of compatible server types.
         :param name: Filter OS by name (note that "11.1" will return "11.1.2" and "11.1" but not "12")).
-        :return: :class:`List[ListOSResponse] <List[ListOSResponse]>`
+        :return: :class:`List[OS] <List[OS]>`
 
         Usage:
         ::
@@ -320,14 +320,16 @@ class ApplesiliconV1Alpha1API(API):
         """
         Get an Operating System (OS).
         Get an Operating System (OS).  The response will include the OS's unique ID as well as its name and label.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param os_id: UUID of the OS you want to get.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`OS <OS>`
 
         Usage:
         ::
 
-            result = api.get_os(os_id="example")
+            result = api.get_os(
+                os_id="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -350,14 +352,16 @@ class ApplesiliconV1Alpha1API(API):
         """
         Get a server.
         Retrieve information about an existing Apple silicon server, specified by its server ID. Its full details, including name, status and IP address, are returned in the response object.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_id: UUID of the server you want to get.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Server <Server>`
 
         Usage:
         ::
 
-            result = api.get_server(server_id="example")
+            result = api.get_server(
+                server_id="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -379,16 +383,18 @@ class ApplesiliconV1Alpha1API(API):
         options: Optional[WaitForOptions[Server, bool]] = None,
     ) -> Server:
         """
-        Waits for :class:`Server <Server>` to be in a final state.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
+        Get a server.
+        Retrieve information about an existing Apple silicon server, specified by its server ID. Its full details, including name, status and IP address, are returned in the response object.
         :param server_id: UUID of the server you want to get.
-        :param options: The options for the waiter
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Server <Server>`
 
         Usage:
         ::
 
-            result = api.wait_for_server(server_id="example")
+            result = api.get_server(
+                server_id="example",
+            )
         """
 
         if not options:
@@ -410,14 +416,14 @@ class ApplesiliconV1Alpha1API(API):
         self,
         *,
         server_id: str,
-        name: str,
         zone: Optional[Zone] = None,
+        name: Optional[str] = None,
     ) -> Server:
         """
         Update a server.
         Update the parameters of an existing Apple silicon server, specified by its server ID.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_id: UUID of the server you want to update.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: Updated name for your server.
         :return: :class:`Server <Server>`
 
@@ -426,7 +432,6 @@ class ApplesiliconV1Alpha1API(API):
 
             result = api.update_server(
                 server_id="example",
-                name="example",
             )
         """
 
@@ -439,8 +444,8 @@ class ApplesiliconV1Alpha1API(API):
             body=marshal_UpdateServerRequest(
                 UpdateServerRequest(
                     server_id=server_id,
-                    name=name,
                     zone=zone,
+                    name=name,
                 ),
                 self.client,
             ),
@@ -454,17 +459,19 @@ class ApplesiliconV1Alpha1API(API):
         *,
         server_id: str,
         zone: Optional[Zone] = None,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Delete a server.
         Delete an existing Apple silicon server, specified by its server ID. Deleting a server is permanent, and cannot be undone. Note that the minimum allocation period for Apple silicon-as-a-service is 24 hours, meaning you cannot delete your server prior to that.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_id: UUID of the server you want to delete.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
 
         Usage:
         ::
 
-            result = api.delete_server(server_id="example")
+            result = api.delete_server(
+                server_id="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -476,7 +483,6 @@ class ApplesiliconV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
-        return None
 
     def reboot_server(
         self,
@@ -487,14 +493,16 @@ class ApplesiliconV1Alpha1API(API):
         """
         Reboot a server.
         Reboot an existing Apple silicon server, specified by its server ID.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_id: UUID of the server you want to reboot.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Server <Server>`
 
         Usage:
         ::
 
-            result = api.reboot_server(server_id="example")
+            result = api.reboot_server(
+                server_id="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -503,6 +511,7 @@ class ApplesiliconV1Alpha1API(API):
         res = self._request(
             "POST",
             f"/apple-silicon/v1alpha1/zones/{param_zone}/servers/{param_server_id}/reboot",
+            body={},
         )
 
         self._throw_on_error(res)
@@ -517,14 +526,16 @@ class ApplesiliconV1Alpha1API(API):
         """
         Reinstall a server.
         Reinstall an existing Apple silicon server (specified by its server ID) from a new image (OS). All the data on the disk is deleted and all configuration is reset to the defailt configuration values of the image (OS).
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param server_id: UUID of the server you want to reinstall.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Server <Server>`
 
         Usage:
         ::
 
-            result = api.reinstall_server(server_id="example")
+            result = api.reinstall_server(
+                server_id="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -533,6 +544,7 @@ class ApplesiliconV1Alpha1API(API):
         res = self._request(
             "POST",
             f"/apple-silicon/v1alpha1/zones/{param_zone}/servers/{param_server_id}/reinstall",
+            body={},
         )
 
         self._throw_on_error(res)

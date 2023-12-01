@@ -8,9 +8,9 @@ from scaleway_core.bridge import (
     Region,
 )
 from scaleway_core.utils import (
-    fetch_all_pages_async,
     random_name,
     validate_path_param,
+    fetch_all_pages_async,
 )
 from .types import (
     ListNatsAccountsRequestOrderBy,
@@ -22,26 +22,36 @@ from .types import (
     ListSnsCredentialsResponse,
     ListSqsCredentialsResponse,
     NatsAccount,
+    NatsApiCreateNatsAccountRequest,
+    NatsApiCreateNatsCredentialsRequest,
+    NatsApiUpdateNatsAccountRequest,
     NatsCredentials,
+    SnsApiActivateSnsRequest,
+    SnsApiCreateSnsCredentialsRequest,
+    SnsApiDeactivateSnsRequest,
+    SnsApiUpdateSnsCredentialsRequest,
     SnsCredentials,
     SnsInfo,
     SnsPermissions,
+    SqsApiActivateSqsRequest,
+    SqsApiCreateSqsCredentialsRequest,
+    SqsApiDeactivateSqsRequest,
+    SqsApiUpdateSqsCredentialsRequest,
     SqsCredentials,
     SqsInfo,
     SqsPermissions,
-    NatsApiCreateNatsAccountRequest,
-    NatsApiUpdateNatsAccountRequest,
-    NatsApiCreateNatsCredentialsRequest,
-    SnsApiActivateSnsRequest,
-    SnsApiDeactivateSnsRequest,
-    SnsApiCreateSnsCredentialsRequest,
-    SnsApiUpdateSnsCredentialsRequest,
-    SqsApiActivateSqsRequest,
-    SqsApiDeactivateSqsRequest,
-    SqsApiCreateSqsCredentialsRequest,
-    SqsApiUpdateSqsCredentialsRequest,
 )
 from .marshalling import (
+    unmarshal_NatsAccount,
+    unmarshal_NatsCredentials,
+    unmarshal_SnsCredentials,
+    unmarshal_SqsCredentials,
+    unmarshal_ListNatsAccountsResponse,
+    unmarshal_ListNatsCredentialsResponse,
+    unmarshal_ListSnsCredentialsResponse,
+    unmarshal_ListSqsCredentialsResponse,
+    unmarshal_SnsInfo,
+    unmarshal_SqsInfo,
     marshal_NatsApiCreateNatsAccountRequest,
     marshal_NatsApiCreateNatsCredentialsRequest,
     marshal_NatsApiUpdateNatsAccountRequest,
@@ -53,25 +63,12 @@ from .marshalling import (
     marshal_SqsApiCreateSqsCredentialsRequest,
     marshal_SqsApiDeactivateSqsRequest,
     marshal_SqsApiUpdateSqsCredentialsRequest,
-    unmarshal_NatsAccount,
-    unmarshal_NatsCredentials,
-    unmarshal_SnsCredentials,
-    unmarshal_SqsCredentials,
-    unmarshal_ListNatsAccountsResponse,
-    unmarshal_ListNatsCredentialsResponse,
-    unmarshal_ListSnsCredentialsResponse,
-    unmarshal_ListSqsCredentialsResponse,
-    unmarshal_SnsInfo,
-    unmarshal_SqsInfo,
 )
 
 
-class MnqNatsV1Beta1API(API):
+class MnqV1Beta1NatsAPI(API):
     """
-    Messaging and Queuing NATS API.
-
     This API allows you to manage Scaleway Messaging and Queueing NATS accounts.
-    Messaging and Queuing NATS API.
     """
 
     async def create_nats_account(
@@ -120,17 +117,19 @@ class MnqNatsV1Beta1API(API):
         *,
         nats_account_id: str,
         region: Optional[Region] = None,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Delete a NATS account.
         Delete a NATS account, specified by its NATS account ID. Note that deleting a NATS account is irreversible, and any credentials, streams, consumer and stored messages belonging to this NATS account will also be deleted.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param nats_account_id: ID of the NATS account to delete.
+        :param region: Region to target. If none is passed will use default region from the config.
 
         Usage:
         ::
 
-            result = await api.delete_nats_account(nats_account_id="example")
+            result = await api.delete_nats_account(
+                nats_account_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -144,7 +143,6 @@ class MnqNatsV1Beta1API(API):
         )
 
         self._throw_on_error(res)
-        return None
 
     async def update_nats_account(
         self,
@@ -156,15 +154,17 @@ class MnqNatsV1Beta1API(API):
         """
         Update the name of a NATS account.
         Update the name of a NATS account, specified by its NATS account ID.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param nats_account_id: ID of the NATS account to update.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param name: NATS account name.
         :return: :class:`NatsAccount <NatsAccount>`
 
         Usage:
         ::
 
-            result = await api.update_nats_account(nats_account_id="example")
+            result = await api.update_nats_account(
+                nats_account_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -197,14 +197,16 @@ class MnqNatsV1Beta1API(API):
         """
         Get a NATS account.
         Retrieve information about an existing NATS account identified by its NATS account ID. Its full details, including name and endpoint, are returned in the response.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param nats_account_id: ID of the NATS account to get.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`NatsAccount <NatsAccount>`
 
         Usage:
         ::
 
-            result = await api.get_nats_account(nats_account_id="example")
+            result = await api.get_nats_account(
+                nats_account_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -227,7 +229,7 @@ class MnqNatsV1Beta1API(API):
         project_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        order_by: ListNatsAccountsRequestOrderBy = ListNatsAccountsRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListNatsAccountsRequestOrderBy] = None,
     ) -> ListNatsAccountsResponse:
         """
         List NATS accounts.
@@ -280,7 +282,7 @@ class MnqNatsV1Beta1API(API):
         :param page: Page number to return.
         :param page_size: Maximum number of NATS accounts to return per page.
         :param order_by: Order in which to return results.
-        :return: :class:`List[ListNatsAccountsResponse] <List[ListNatsAccountsResponse]>`
+        :return: :class:`List[NatsAccount] <List[NatsAccount]>`
 
         Usage:
         ::
@@ -311,15 +313,17 @@ class MnqNatsV1Beta1API(API):
         """
         Create NATS credentials.
         Create a set of credentials for a NATS account, specified by its NATS account ID.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param nats_account_id: NATS account containing the credentials.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the credentials.
         :return: :class:`NatsCredentials <NatsCredentials>`
 
         Usage:
         ::
 
-            result = await api.create_nats_credentials(nats_account_id="example")
+            result = await api.create_nats_credentials(
+                nats_account_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -347,17 +351,19 @@ class MnqNatsV1Beta1API(API):
         *,
         nats_credentials_id: str,
         region: Optional[Region] = None,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Delete NATS credentials.
         Delete a set of credentials, specified by their credentials ID. Deleting credentials is irreversible and cannot be undone. The credentials can no longer be used to access the NATS account, and active connections using this credentials will be closed.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param nats_credentials_id: ID of the credentials to delete.
+        :param region: Region to target. If none is passed will use default region from the config.
 
         Usage:
         ::
 
-            result = await api.delete_nats_credentials(nats_credentials_id="example")
+            result = await api.delete_nats_credentials(
+                nats_credentials_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -373,7 +379,6 @@ class MnqNatsV1Beta1API(API):
         )
 
         self._throw_on_error(res)
-        return None
 
     async def get_nats_credentials(
         self,
@@ -384,14 +389,16 @@ class MnqNatsV1Beta1API(API):
         """
         Get NATS credentials.
         Retrieve an existing set of credentials, identified by the `nats_credentials_id`. The credentials themselves are NOT returned, only their metadata (NATS account ID, credentials name, etc), are returned in the response.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param nats_credentials_id: ID of the credentials to get.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`NatsCredentials <NatsCredentials>`
 
         Usage:
         ::
 
-            result = await api.get_nats_credentials(nats_credentials_id="example")
+            result = await api.get_nats_credentials(
+                nats_credentials_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -412,11 +419,11 @@ class MnqNatsV1Beta1API(API):
     async def list_nats_credentials(
         self,
         *,
-        nats_account_id: str,
         region: Optional[Region] = None,
+        nats_account_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        order_by: ListNatsCredentialsRequestOrderBy = ListNatsCredentialsRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListNatsCredentialsRequestOrderBy] = None,
     ) -> ListNatsCredentialsResponse:
         """
         List NATS credentials.
@@ -431,7 +438,7 @@ class MnqNatsV1Beta1API(API):
         Usage:
         ::
 
-            result = await api.list_nats_credentials(nats_account_id="example")
+            result = await api.list_nats_credentials()
         """
 
         param_region = validate_path_param(
@@ -455,8 +462,8 @@ class MnqNatsV1Beta1API(API):
     async def list_nats_credentials_all(
         self,
         *,
-        nats_account_id: str,
         region: Optional[Region] = None,
+        nats_account_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListNatsCredentialsRequestOrderBy] = None,
@@ -469,12 +476,12 @@ class MnqNatsV1Beta1API(API):
         :param page: Page number to return.
         :param page_size: Maximum number of credentials to return per page.
         :param order_by: Order in which to return results.
-        :return: :class:`List[ListNatsCredentialsResponse] <List[ListNatsCredentialsResponse]>`
+        :return: :class:`List[NatsCredentials] <List[NatsCredentials]>`
 
         Usage:
         ::
 
-            result = await api.list_nats_credentials_all(nats_account_id="example")
+            result = await api.list_nats_credentials_all()
         """
 
         return await fetch_all_pages_async(
@@ -482,8 +489,8 @@ class MnqNatsV1Beta1API(API):
             key="nats_credentials",
             fetcher=self.list_nats_credentials,
             args={
-                "nats_account_id": nats_account_id,
                 "region": region,
+                "nats_account_id": nats_account_id,
                 "page": page,
                 "page_size": page_size,
                 "order_by": order_by,
@@ -491,12 +498,9 @@ class MnqNatsV1Beta1API(API):
         )
 
 
-class MnqSnsV1Beta1API(API):
+class MnqV1Beta1SnsAPI(API):
     """
-    Messaging and Queuing SNS API.
-
     This API allows you to manage Scaleway Messaging and Queueing SNS brokers.
-    Messaging and Queuing SNS API.
     """
 
     async def activate_sns(
@@ -658,17 +662,19 @@ class MnqSnsV1Beta1API(API):
         *,
         sns_credentials_id: str,
         region: Optional[Region] = None,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Delete SNS credentials.
         Delete a set of SNS credentials, specified by their credentials ID. Deleting credentials is irreversible and cannot be undone. The credentials can then no longer be used to access SNS.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param sns_credentials_id: ID of the credentials to delete.
+        :param region: Region to target. If none is passed will use default region from the config.
 
         Usage:
         ::
 
-            result = await api.delete_sns_credentials(sns_credentials_id="example")
+            result = await api.delete_sns_credentials(
+                sns_credentials_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -684,7 +690,6 @@ class MnqSnsV1Beta1API(API):
         )
 
         self._throw_on_error(res)
-        return None
 
     async def update_sns_credentials(
         self,
@@ -697,8 +702,8 @@ class MnqSnsV1Beta1API(API):
         """
         Update SNS credentials.
         Update a set of SNS credentials. You can update the credentials' name, or their permissions.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param sns_credentials_id: ID of the SNS credentials to update.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the credentials.
         :param permissions: Permissions associated with these credentials.
         :return: :class:`SnsCredentials <SnsCredentials>`
@@ -706,7 +711,9 @@ class MnqSnsV1Beta1API(API):
         Usage:
         ::
 
-            result = await api.update_sns_credentials(sns_credentials_id="example")
+            result = await api.update_sns_credentials(
+                sns_credentials_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -742,14 +749,16 @@ class MnqSnsV1Beta1API(API):
         """
         Get SNS credentials.
         Retrieve an existing set of credentials, identified by the `credentials_id`. The credentials themselves, as well as their metadata (name, project ID etc), are returned in the response.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param sns_credentials_id: ID of the SNS credentials to get.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`SnsCredentials <SnsCredentials>`
 
         Usage:
         ::
 
-            result = await api.get_sns_credentials(sns_credentials_id="example")
+            result = await api.get_sns_credentials(
+                sns_credentials_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -774,7 +783,7 @@ class MnqSnsV1Beta1API(API):
         project_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        order_by: ListSnsCredentialsRequestOrderBy = ListSnsCredentialsRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListSnsCredentialsRequestOrderBy] = None,
     ) -> ListSnsCredentialsResponse:
         """
         List SNS credentials.
@@ -827,7 +836,7 @@ class MnqSnsV1Beta1API(API):
         :param page: Page number to return.
         :param page_size: Maximum number of credentials to return per page.
         :param order_by: Order in which to return results.
-        :return: :class:`List[ListSnsCredentialsResponse] <List[ListSnsCredentialsResponse]>`
+        :return: :class:`List[SnsCredentials] <List[SnsCredentials]>`
 
         Usage:
         ::
@@ -849,12 +858,9 @@ class MnqSnsV1Beta1API(API):
         )
 
 
-class MnqSqsV1Beta1API(API):
+class MnqV1Beta1SqsAPI(API):
     """
-    Messaging and Queuing SQS API.
-
     This API allows you to manage Scaleway Messaging and Queueing SQS brokers.
-    Messaging and Queuing SQS API.
     """
 
     async def activate_sqs(
@@ -1016,17 +1022,19 @@ class MnqSqsV1Beta1API(API):
         *,
         sqs_credentials_id: str,
         region: Optional[Region] = None,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Delete SQS credentials.
         Delete a set of SQS credentials, specified by their credentials ID. Deleting credentials is irreversible and cannot be undone. The credentials can then no longer be used to access SQS.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param sqs_credentials_id: ID of the credentials to delete.
+        :param region: Region to target. If none is passed will use default region from the config.
 
         Usage:
         ::
 
-            result = await api.delete_sqs_credentials(sqs_credentials_id="example")
+            result = await api.delete_sqs_credentials(
+                sqs_credentials_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -1042,7 +1050,6 @@ class MnqSqsV1Beta1API(API):
         )
 
         self._throw_on_error(res)
-        return None
 
     async def update_sqs_credentials(
         self,
@@ -1055,8 +1062,8 @@ class MnqSqsV1Beta1API(API):
         """
         Update SQS credentials.
         Update a set of SQS credentials. You can update the credentials' name, or their permissions.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param sqs_credentials_id: ID of the SQS credentials to update.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the credentials.
         :param permissions: Permissions associated with these credentials.
         :return: :class:`SqsCredentials <SqsCredentials>`
@@ -1064,7 +1071,9 @@ class MnqSqsV1Beta1API(API):
         Usage:
         ::
 
-            result = await api.update_sqs_credentials(sqs_credentials_id="example")
+            result = await api.update_sqs_credentials(
+                sqs_credentials_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -1100,14 +1109,16 @@ class MnqSqsV1Beta1API(API):
         """
         Get SQS credentials.
         Retrieve an existing set of credentials, identified by the `credentials_id`. The credentials themselves, as well as their metadata (name, project ID etc), are returned in the response.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param sqs_credentials_id: ID of the SQS credentials to get.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`SqsCredentials <SqsCredentials>`
 
         Usage:
         ::
 
-            result = await api.get_sqs_credentials(sqs_credentials_id="example")
+            result = await api.get_sqs_credentials(
+                sqs_credentials_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -1132,7 +1143,7 @@ class MnqSqsV1Beta1API(API):
         project_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        order_by: ListSqsCredentialsRequestOrderBy = ListSqsCredentialsRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListSqsCredentialsRequestOrderBy] = None,
     ) -> ListSqsCredentialsResponse:
         """
         List SQS credentials.
@@ -1185,7 +1196,7 @@ class MnqSqsV1Beta1API(API):
         :param page: Page number to return.
         :param page_size: Maximum number of credentials to return per page.
         :param order_by: Order in which to return results.
-        :return: :class:`List[ListSqsCredentialsResponse] <List[ListSqsCredentialsResponse]>`
+        :return: :class:`List[SqsCredentials] <List[SqsCredentials]>`
 
         Usage:
         ::

@@ -7,10 +7,10 @@ from typing import List, Optional
 from scaleway_core.api import API
 from scaleway_core.utils import (
     OneOfPossibility,
-    fetch_all_pages_async,
     random_name,
     resolve_one_of,
     validate_path_param,
+    fetch_all_pages_async,
 )
 from .types import (
     BearerType,
@@ -27,7 +27,17 @@ from .types import (
     LogAction,
     LogResourceType,
     APIKey,
+    AddGroupMemberRequest,
+    AddGroupMembersRequest,
     Application,
+    CreateAPIKeyRequest,
+    CreateApplicationRequest,
+    CreateGroupRequest,
+    CreateJWTRequest,
+    CreatePolicyRequest,
+    CreateSSHKeyRequest,
+    CreateUserRequest,
+    EncodedJWT,
     Group,
     JWT,
     ListAPIKeysResponse,
@@ -45,6 +55,7 @@ from .types import (
     PermissionSet,
     Policy,
     Quotum,
+    RemoveGroupMemberRequest,
     Rule,
     RuleSpecs,
     SSHKey,
@@ -59,14 +70,15 @@ from .types import (
     CreateGroupRequest,
     UpdateGroupRequest,
     SetGroupMembersRequest,
-    AddGroupMemberRequest,
-    AddGroupMembersRequest,
-    RemoveGroupMemberRequest,
-    CreatePolicyRequest,
-    UpdatePolicyRequest,
     SetRulesRequest,
-    CreateAPIKeyRequest,
+    SetRulesResponse,
     UpdateAPIKeyRequest,
+    UpdateApplicationRequest,
+    UpdateGroupRequest,
+    UpdatePolicyRequest,
+    UpdateSSHKeyRequest,
+    UpdateUserRequest,
+    User,
 )
 from .marshalling import (
     marshal_AddGroupMemberRequest,
@@ -89,12 +101,12 @@ from .marshalling import (
     unmarshal_APIKey,
     unmarshal_Application,
     unmarshal_Group,
-    unmarshal_JWT,
     unmarshal_Log,
     unmarshal_Policy,
     unmarshal_Quotum,
     unmarshal_SSHKey,
     unmarshal_User,
+    unmarshal_EncodedJWT,
     unmarshal_ListAPIKeysResponse,
     unmarshal_ListApplicationsResponse,
     unmarshal_ListGroupsResponse,
@@ -107,20 +119,36 @@ from .marshalling import (
     unmarshal_ListSSHKeysResponse,
     unmarshal_ListUsersResponse,
     unmarshal_SetRulesResponse,
+    marshal_AddGroupMemberRequest,
+    marshal_AddGroupMembersRequest,
+    marshal_CreateAPIKeyRequest,
+    marshal_CreateApplicationRequest,
+    marshal_CreateGroupRequest,
+    marshal_CreateJWTRequest,
+    marshal_CreatePolicyRequest,
+    marshal_CreateSSHKeyRequest,
+    marshal_CreateUserRequest,
+    marshal_RemoveGroupMemberRequest,
+    marshal_SetGroupMembersRequest,
+    marshal_SetRulesRequest,
+    marshal_UpdateAPIKeyRequest,
+    marshal_UpdateApplicationRequest,
+    marshal_UpdateGroupRequest,
+    marshal_UpdatePolicyRequest,
+    marshal_UpdateSSHKeyRequest,
+    marshal_UpdateUserRequest,
 )
 
 
 class IamV1Alpha1API(API):
     """
     IAM API.
-
-    IAM API.
     """
 
     async def list_ssh_keys(
         self,
         *,
-        order_by: ListSSHKeysRequestOrderBy = ListSSHKeysRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListSSHKeysRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         organization_id: Optional[str] = None,
@@ -148,7 +176,7 @@ class IamV1Alpha1API(API):
 
         res = self._request(
             "GET",
-            f"/iam/v1alpha1/ssh-keys",
+            "/iam/v1alpha1/ssh-keys",
             params={
                 "disabled": disabled,
                 "name": name,
@@ -185,7 +213,7 @@ class IamV1Alpha1API(API):
         :param name: Name of group to find.
         :param project_id: Filter by Project ID.
         :param disabled: Defines whether to include disabled SSH keys or not.
-        :return: :class:`List[ListSSHKeysResponse] <List[ListSSHKeysResponse]>`
+        :return: :class:`List[SSHKey] <List[SSHKey]>`
 
         Usage:
         ::
@@ -218,20 +246,22 @@ class IamV1Alpha1API(API):
         """
         Create an SSH key.
         Add a new SSH key to a Scaleway Project. You must specify the `name`, `public_key` and `project_id`.
-        :param name: Name of the SSH key. Max length is 1000.
         :param public_key: SSH public key. Currently only the ssh-rsa, ssh-dss (DSA), ssh-ed25519 and ecdsa keys with NIST curves are supported. Max length is 65000.
+        :param name: Name of the SSH key. Max length is 1000.
         :param project_id: Project the resource is attributed to.
         :return: :class:`SSHKey <SSHKey>`
 
         Usage:
         ::
 
-            result = await api.create_ssh_key(public_key="example")
+            result = await api.create_ssh_key(
+                public_key="example",
+            )
         """
 
         res = self._request(
             "POST",
-            f"/iam/v1alpha1/ssh-keys",
+            "/iam/v1alpha1/ssh-keys",
             body=marshal_CreateSSHKeyRequest(
                 CreateSSHKeyRequest(
                     public_key=public_key,
@@ -259,7 +289,9 @@ class IamV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.get_ssh_key(ssh_key_id="example")
+            result = await api.get_ssh_key(
+                ssh_key_id="example",
+            )
         """
 
         param_ssh_key_id = validate_path_param("ssh_key_id", ssh_key_id)
@@ -290,7 +322,9 @@ class IamV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.update_ssh_key(ssh_key_id="example")
+            result = await api.update_ssh_key(
+                ssh_key_id="example",
+            )
         """
 
         param_ssh_key_id = validate_path_param("ssh_key_id", ssh_key_id)
@@ -315,7 +349,7 @@ class IamV1Alpha1API(API):
         self,
         *,
         ssh_key_id: str,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Delete an SSH key.
         Delete a given SSH key, specified by the `ssh_key_id`. Deleting an SSH is permanent, and cannot be undone. Note that you might need to update any configurations that used the SSH key.
@@ -324,7 +358,9 @@ class IamV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.delete_ssh_key(ssh_key_id="example")
+            result = await api.delete_ssh_key(
+                ssh_key_id="example",
+            )
         """
 
         param_ssh_key_id = validate_path_param("ssh_key_id", ssh_key_id)
@@ -335,12 +371,11 @@ class IamV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
-        return None
 
     async def list_users(
         self,
         *,
-        order_by: ListUsersRequestOrderBy = ListUsersRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListUsersRequestOrderBy] = None,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
         organization_id: Optional[str] = None,
@@ -368,7 +403,7 @@ class IamV1Alpha1API(API):
 
         res = self._request(
             "GET",
-            f"/iam/v1alpha1/users",
+            "/iam/v1alpha1/users",
             params={
                 "mfa": mfa,
                 "order_by": order_by,
@@ -405,7 +440,7 @@ class IamV1Alpha1API(API):
         :param user_ids: Filter by list of IDs.
         :param mfa: Filter by MFA status.
         :param tag: Filter by tags containing a given string.
-        :return: :class:`List[ListUsersResponse] <List[ListUsersResponse]>`
+        :return: :class:`List[User] <List[User]>`
 
         Usage:
         ::
@@ -442,7 +477,9 @@ class IamV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.get_user(user_id="example")
+            result = await api.get_user(
+                user_id="example",
+            )
         """
 
         param_user_id = validate_path_param("user_id", user_id)
@@ -495,7 +532,7 @@ class IamV1Alpha1API(API):
         self,
         *,
         user_id: str,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Delete a guest user from an Organization.
         Remove a user from an Organization in which they are a guest. You must define the `user_id` in your request. Note that removing a user from an Organization automatically deletes their API keys, and any policies directly attached to them become orphaned.
@@ -504,7 +541,9 @@ class IamV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.delete_user(user_id="example")
+            result = await api.delete_user(
+                user_id="example",
+            )
         """
 
         param_user_id = validate_path_param("user_id", user_id)
@@ -515,7 +554,6 @@ class IamV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
-        return None
 
     async def create_user(
         self,
@@ -527,20 +565,22 @@ class IamV1Alpha1API(API):
         """
         Create a new user.
         Create a new user. You must define the `organization_id` and the `email` in your request.
-        :param organization_id: ID of the Organization.
         :param email: Email of the user.
+        :param organization_id: ID of the Organization.
         :param tags: Tags associated with the user.
         :return: :class:`User <User>`
 
         Usage:
         ::
 
-            result = await api.create_user(email="example")
+            result = await api.create_user(
+                email="example",
+            )
         """
 
         res = self._request(
             "POST",
-            f"/iam/v1alpha1/users",
+            "/iam/v1alpha1/users",
             body=marshal_CreateUserRequest(
                 CreateUserRequest(
                     email=email,
@@ -557,7 +597,7 @@ class IamV1Alpha1API(API):
     async def list_applications(
         self,
         *,
-        order_by: ListApplicationsRequestOrderBy = ListApplicationsRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListApplicationsRequestOrderBy] = None,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
         name: Optional[str] = None,
@@ -587,7 +627,7 @@ class IamV1Alpha1API(API):
 
         res = self._request(
             "GET",
-            f"/iam/v1alpha1/applications",
+            "/iam/v1alpha1/applications",
             params={
                 "application_ids": application_ids,
                 "editable": editable,
@@ -627,7 +667,7 @@ class IamV1Alpha1API(API):
         :param editable: Defines whether to filter out editable applications or not.
         :param application_ids: Filter by list of IDs.
         :param tag: Filter by tags containing a given string.
-        :return: :class:`List[ListApplicationsResponse] <List[ListApplicationsResponse]>`
+        :return: :class:`List[Application] <List[Application]>`
 
         Usage:
         ::
@@ -662,21 +702,23 @@ class IamV1Alpha1API(API):
         """
         Create a new application.
         Create a new application. You must define the `name` parameter in the request.
+        :param description: Description of the application (max length is 200 characters).
         :param name: Name of the application to create (max length is 64 characters).
         :param organization_id: ID of the Organization.
-        :param description: Description of the application (max length is 200 characters).
         :param tags: Tags associated with the application (maximum of 10 tags).
         :return: :class:`Application <Application>`
 
         Usage:
         ::
 
-            result = await api.create_application(description="example")
+            result = await api.create_application(
+                description="example",
+            )
         """
 
         res = self._request(
             "POST",
-            f"/iam/v1alpha1/applications",
+            "/iam/v1alpha1/applications",
             body=marshal_CreateApplicationRequest(
                 CreateApplicationRequest(
                     description=description,
@@ -705,7 +747,9 @@ class IamV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.get_application(application_id="example")
+            result = await api.get_application(
+                application_id="example",
+            )
         """
 
         param_application_id = validate_path_param("application_id", application_id)
@@ -738,7 +782,9 @@ class IamV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.update_application(application_id="example")
+            result = await api.update_application(
+                application_id="example",
+            )
         """
 
         param_application_id = validate_path_param("application_id", application_id)
@@ -764,7 +810,7 @@ class IamV1Alpha1API(API):
         self,
         *,
         application_id: str,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Delete an application.
         Delete an application. Note that this action is irreversible and will automatically delete the application's API keys. Policies attached to users and applications via this group will no longer apply.
@@ -773,7 +819,9 @@ class IamV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.delete_application(application_id="example")
+            result = await api.delete_application(
+                application_id="example",
+            )
         """
 
         param_application_id = validate_path_param("application_id", application_id)
@@ -784,12 +832,11 @@ class IamV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
-        return None
 
     async def list_groups(
         self,
         *,
-        order_by: ListGroupsRequestOrderBy = ListGroupsRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListGroupsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         organization_id: Optional[str] = None,
@@ -821,7 +868,7 @@ class IamV1Alpha1API(API):
 
         res = self._request(
             "GET",
-            f"/iam/v1alpha1/groups",
+            "/iam/v1alpha1/groups",
             params={
                 "application_ids": application_ids,
                 "group_ids": group_ids,
@@ -864,7 +911,7 @@ class IamV1Alpha1API(API):
         :param user_ids: Filter by a list of user IDs.
         :param group_ids: Filter by a list of group IDs.
         :param tag: Filter by tags containing a given string.
-        :return: :class:`List[ListGroupsResponse] <List[ListGroupsResponse]>`
+        :return: :class:`List[Group] <List[Group]>`
 
         Usage:
         ::
@@ -900,21 +947,23 @@ class IamV1Alpha1API(API):
         """
         Create a group.
         Create a new group. You must define the `name` and `organization_id` parameters in the request.
+        :param description: Description of the group to create (max length is 200 chars).
         :param organization_id: ID of Organization linked to the group.
         :param name: Name of the group to create (max length is 64 chars). MUST be unique inside an Organization.
-        :param description: Description of the group to create (max length is 200 chars).
         :param tags: Tags associated with the group (maximum of 10 tags).
         :return: :class:`Group <Group>`
 
         Usage:
         ::
 
-            result = await api.create_group(description="example")
+            result = await api.create_group(
+                description="example",
+            )
         """
 
         res = self._request(
             "POST",
-            f"/iam/v1alpha1/groups",
+            "/iam/v1alpha1/groups",
             body=marshal_CreateGroupRequest(
                 CreateGroupRequest(
                     description=description,
@@ -943,7 +992,9 @@ class IamV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.get_group(group_id="example")
+            result = await api.get_group(
+                group_id="example",
+            )
         """
 
         param_group_id = validate_path_param("group_id", group_id)
@@ -976,7 +1027,9 @@ class IamV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.update_group(group_id="example")
+            result = await api.update_group(
+                group_id="example",
+            )
         """
 
         param_group_id = validate_path_param("group_id", group_id)
@@ -1018,8 +1071,8 @@ class IamV1Alpha1API(API):
 
             result = await api.set_group_members(
                 group_id="example",
-                user_ids=["example"],
-                application_ids=["example"],
+                user_ids=[],
+                application_ids=[],
             )
         """
 
@@ -1053,17 +1106,17 @@ class IamV1Alpha1API(API):
         Add a user or an application to a group. You can specify a `user_id` and and `application_id` in the body of your request. Note that you can only add one of each per request.
         :param group_id: ID of the group.
         :param user_id: ID of the user to add.
-
-        One-of ('member'): at most one of 'user_id', 'application_id' could be set.
+        One-Of ('member'): at most one of 'user_id', 'application_id' could be set.
         :param application_id: ID of the application to add.
-
-        One-of ('member'): at most one of 'user_id', 'application_id' could be set.
+        One-Of ('member'): at most one of 'user_id', 'application_id' could be set.
         :return: :class:`Group <Group>`
 
         Usage:
         ::
 
-            result = await api.add_group_member(group_id="example")
+            result = await api.add_group_member(
+                group_id="example",
+            )
         """
 
         param_group_id = validate_path_param("group_id", group_id)
@@ -1102,7 +1155,9 @@ class IamV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.add_group_members(group_id="example")
+            result = await api.add_group_members(
+                group_id="example",
+            )
         """
 
         param_group_id = validate_path_param("group_id", group_id)
@@ -1135,17 +1190,17 @@ class IamV1Alpha1API(API):
         Remove a user or an application from a group. You can specify a `user_id` and and `application_id` in the body of your request. Note that you can only remove one of each per request. Removing a user from a group means that any permissions given to them via the group (i.e. from an attached policy) will no longer apply. Be sure you want to remove these permissions from the user before proceeding.
         :param group_id: ID of the group.
         :param user_id: ID of the user to remove.
-
-        One-of ('member'): at most one of 'user_id', 'application_id' could be set.
+        One-Of ('member'): at most one of 'user_id', 'application_id' could be set.
         :param application_id: ID of the application to remove.
-
-        One-of ('member'): at most one of 'user_id', 'application_id' could be set.
+        One-Of ('member'): at most one of 'user_id', 'application_id' could be set.
         :return: :class:`Group <Group>`
 
         Usage:
         ::
 
-            result = await api.remove_group_member(group_id="example")
+            result = await api.remove_group_member(
+                group_id="example",
+            )
         """
 
         param_group_id = validate_path_param("group_id", group_id)
@@ -1170,7 +1225,7 @@ class IamV1Alpha1API(API):
         self,
         *,
         group_id: str,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Delete a group.
         Delete a group. Note that this action is irreversible and could delete permissions for group members. Policies attached to users and applications via this group will no longer apply.
@@ -1179,7 +1234,9 @@ class IamV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.delete_group(group_id="example")
+            result = await api.delete_group(
+                group_id="example",
+            )
         """
 
         param_group_id = validate_path_param("group_id", group_id)
@@ -1190,12 +1247,11 @@ class IamV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
-        return None
 
     async def list_policies(
         self,
         *,
-        order_by: ListPoliciesRequestOrderBy = ListPoliciesRequestOrderBy.POLICY_NAME_ASC,
+        order_by: Optional[ListPoliciesRequestOrderBy] = None,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
         organization_id: Optional[str] = None,
@@ -1233,7 +1289,7 @@ class IamV1Alpha1API(API):
 
         res = self._request(
             "GET",
-            f"/iam/v1alpha1/policies",
+            "/iam/v1alpha1/policies",
             params={
                 "application_ids": application_ids,
                 "editable": editable,
@@ -1329,34 +1385,32 @@ class IamV1Alpha1API(API):
         """
         Create a new policy.
         Create a new application. You must define the `name` parameter in the request. You can specify parameters such as `user_id`, `groups_id`, `application_id`, `no_principal`, `rules` and its child attributes.
-        :param name: Name of the policy to create (max length is 64 characters).
         :param description: Description of the policy to create (max length is 200 characters).
+        :param name: Name of the policy to create (max length is 64 characters).
         :param organization_id: ID of the Organization.
         :param rules: Rules of the policy to create.
         :param tags: Tags associated with the policy (maximum of 10 tags).
         :param user_id: ID of user attributed to the policy.
-
-        One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
+        One-Of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
         :param group_id: ID of group attributed to the policy.
-
-        One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
+        One-Of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
         :param application_id: ID of application attributed to the policy.
-
-        One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
+        One-Of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
         :param no_principal: Defines whether or not a policy is attributed to a principal.
-
-        One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
+        One-Of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
         :return: :class:`Policy <Policy>`
 
         Usage:
         ::
 
-            result = await api.create_policy(description="example")
+            result = await api.create_policy(
+                description="example",
+            )
         """
 
         res = self._request(
             "POST",
-            f"/iam/v1alpha1/policies",
+            "/iam/v1alpha1/policies",
             body=marshal_CreatePolicyRequest(
                 CreatePolicyRequest(
                     description=description,
@@ -1390,7 +1444,9 @@ class IamV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.get_policy(policy_id="example")
+            result = await api.get_policy(
+                policy_id="example",
+            )
         """
 
         param_policy_id = validate_path_param("policy_id", policy_id)
@@ -1423,23 +1479,21 @@ class IamV1Alpha1API(API):
         :param description: New description of policy (max length is 200 characters).
         :param tags: New tags for the policy (maximum of 10 tags).
         :param user_id: New ID of user attributed to the policy.
-
-        One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
+        One-Of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
         :param group_id: New ID of group attributed to the policy.
-
-        One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
+        One-Of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
         :param application_id: New ID of application attributed to the policy.
-
-        One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
+        One-Of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
         :param no_principal: Defines whether or not the policy is attributed to a principal.
-
-        One-of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
+        One-Of ('principal'): at most one of 'user_id', 'group_id', 'application_id', 'no_principal' could be set.
         :return: :class:`Policy <Policy>`
 
         Usage:
         ::
 
-            result = await api.update_policy(policy_id="example")
+            result = await api.update_policy(
+                policy_id="example",
+            )
         """
 
         param_policy_id = validate_path_param("policy_id", policy_id)
@@ -1469,7 +1523,7 @@ class IamV1Alpha1API(API):
         self,
         *,
         policy_id: str,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Delete a policy.
         Delete a policy. You must define specify the `policy_id` parameter in your request. Note that when deleting a policy, all permissions it gives to its principal (user, group or application) will be revoked.
@@ -1478,7 +1532,9 @@ class IamV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.delete_policy(policy_id="example")
+            result = await api.delete_policy(
+                policy_id="example",
+            )
         """
 
         param_policy_id = validate_path_param("policy_id", policy_id)
@@ -1489,7 +1545,6 @@ class IamV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
-        return None
 
     async def clone_policy(
         self,
@@ -1505,7 +1560,9 @@ class IamV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.clone_policy(policy_id="example")
+            result = await api.clone_policy(
+                policy_id="example",
+            )
         """
 
         param_policy_id = validate_path_param("policy_id", policy_id)
@@ -1513,6 +1570,7 @@ class IamV1Alpha1API(API):
         res = self._request(
             "POST",
             f"/iam/v1alpha1/policies/{param_policy_id}/clone",
+            body={},
         )
 
         self._throw_on_error(res)
@@ -1536,13 +1594,13 @@ class IamV1Alpha1API(API):
 
             result = await api.set_rules(
                 policy_id="example",
-                rules=[RuleSpecs(...)],
+                rules=[],
             )
         """
 
         res = self._request(
             "PUT",
-            f"/iam/v1alpha1/rules",
+            "/iam/v1alpha1/rules",
             body=marshal_SetRulesRequest(
                 SetRulesRequest(
                     policy_id=policy_id,
@@ -1573,12 +1631,14 @@ class IamV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.list_rules(policy_id="example")
+            result = await api.list_rules(
+                policy_id="example",
+            )
         """
 
         res = self._request(
             "GET",
-            f"/iam/v1alpha1/rules",
+            "/iam/v1alpha1/rules",
             params={
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
@@ -1602,12 +1662,14 @@ class IamV1Alpha1API(API):
         :param policy_id: Id of policy to search.
         :param page_size: Number of results per page. Value must be between 1 and 100.
         :param page: Page number. Value must be greater than 1.
-        :return: :class:`List[ListRulesResponse] <List[ListRulesResponse]>`
+        :return: :class:`List[Rule] <List[Rule]>`
 
         Usage:
         ::
 
-            result = await api.list_rules_all(policy_id="example")
+            result = await api.list_rules_all(
+                policy_id="example",
+            )
         """
 
         return await fetch_all_pages_async(
@@ -1624,7 +1686,7 @@ class IamV1Alpha1API(API):
     async def list_permission_sets(
         self,
         *,
-        order_by: ListPermissionSetsRequestOrderBy = ListPermissionSetsRequestOrderBy.NAME_ASC,
+        order_by: Optional[ListPermissionSetsRequestOrderBy] = None,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
         organization_id: Optional[str] = None,
@@ -1646,7 +1708,7 @@ class IamV1Alpha1API(API):
 
         res = self._request(
             "GET",
-            f"/iam/v1alpha1/permission-sets",
+            "/iam/v1alpha1/permission-sets",
             params={
                 "order_by": order_by,
                 "organization_id": organization_id
@@ -1674,7 +1736,7 @@ class IamV1Alpha1API(API):
         :param page_size: Number of results per page. Value must be between 1 and 100.
         :param page: Page number. Value must be greater than 1.
         :param organization_id: Filter by Organization ID.
-        :return: :class:`List[ListPermissionSetsResponse] <List[ListPermissionSetsResponse]>`
+        :return: :class:`List[PermissionSet] <List[PermissionSet]>`
 
         Usage:
         ::
@@ -1697,7 +1759,7 @@ class IamV1Alpha1API(API):
     async def list_api_keys(
         self,
         *,
-        order_by: ListAPIKeysRequestOrderBy = ListAPIKeysRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListAPIKeysRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         organization_id: Optional[str] = None,
@@ -1719,11 +1781,9 @@ class IamV1Alpha1API(API):
         :param page_size: Number of results per page. Value must be between 1 and 100.
         :param organization_id: ID of Organization.
         :param application_id: ID of application that bears the API key.
-
-        One-of ('bearer'): at most one of 'application_id', 'user_id' could be set.
+        One-Of ('bearer'): at most one of 'application_id', 'user_id' could be set.
         :param user_id: ID of user that bears the API key.
-
-        One-of ('bearer'): at most one of 'application_id', 'user_id' could be set.
+        One-Of ('bearer'): at most one of 'application_id', 'user_id' could be set.
         :param editable: Defines whether to filter out editable API keys or not.
         :param expired: Defines whether to filter out expired API keys or not.
         :param access_key: Filter by access key (deprecated in favor of `access_keys`).
@@ -1741,7 +1801,7 @@ class IamV1Alpha1API(API):
 
         res = self._request(
             "GET",
-            f"/iam/v1alpha1/api-keys",
+            "/iam/v1alpha1/api-keys",
             params={
                 "access_key": access_key,
                 "access_keys": access_keys,
@@ -1792,11 +1852,9 @@ class IamV1Alpha1API(API):
         :param page_size: Number of results per page. Value must be between 1 and 100.
         :param organization_id: ID of Organization.
         :param application_id: ID of application that bears the API key.
-
-        One-of ('bearer'): at most one of 'application_id', 'user_id' could be set.
+        One-Of ('bearer'): at most one of 'application_id', 'user_id' could be set.
         :param user_id: ID of user that bears the API key.
-
-        One-of ('bearer'): at most one of 'application_id', 'user_id' could be set.
+        One-Of ('bearer'): at most one of 'application_id', 'user_id' could be set.
         :param editable: Defines whether to filter out editable API keys or not.
         :param expired: Defines whether to filter out expired API keys or not.
         :param access_key: Filter by access key (deprecated in favor of `access_keys`).
@@ -1821,8 +1879,6 @@ class IamV1Alpha1API(API):
                 "page": page,
                 "page_size": page_size,
                 "organization_id": organization_id,
-                "application_id": application_id,
-                "user_id": user_id,
                 "editable": editable,
                 "expired": expired,
                 "access_key": access_key,
@@ -1845,33 +1901,33 @@ class IamV1Alpha1API(API):
         """
         Create an API key.
         Create an API key. You must specify the `application_id` or the `user_id` and the description. You can also specify the `default_project_id` which is the Project ID of your preferred Project, to use with Object Storage. The `access_key` and `secret_key` values are returned in the response. Note that he secret key is only showed once. Make sure that you copy and store both keys somewhere safe.
+        :param description: Description of the API key (max length is 200 characters).
         :param application_id: ID of the application.
-
-        One-of ('bearer'): at most one of 'application_id', 'user_id' could be set.
+        One-Of ('bearer'): at most one of 'application_id', 'user_id' could be set.
         :param user_id: ID of the user.
-
-        One-of ('bearer'): at most one of 'application_id', 'user_id' could be set.
+        One-Of ('bearer'): at most one of 'application_id', 'user_id' could be set.
         :param expires_at: Expiration date of the API key.
         :param default_project_id: Default Project ID to use with Object Storage.
-        :param description: Description of the API key (max length is 200 characters).
         :return: :class:`APIKey <APIKey>`
 
         Usage:
         ::
 
-            result = await api.create_api_key(description="example")
+            result = await api.create_api_key(
+                description="example",
+            )
         """
 
         res = self._request(
             "POST",
-            f"/iam/v1alpha1/api-keys",
+            "/iam/v1alpha1/api-keys",
             body=marshal_CreateAPIKeyRequest(
                 CreateAPIKeyRequest(
                     description=description,
-                    application_id=application_id,
-                    user_id=user_id,
                     expires_at=expires_at,
                     default_project_id=default_project_id,
+                    application_id=application_id,
+                    user_id=user_id,
                 ),
                 self.client,
             ),
@@ -1894,7 +1950,9 @@ class IamV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.get_api_key(access_key="example")
+            result = await api.get_api_key(
+                access_key="example",
+            )
         """
 
         param_access_key = validate_path_param("access_key", access_key)
@@ -1925,7 +1983,9 @@ class IamV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.update_api_key(access_key="example")
+            result = await api.update_api_key(
+                access_key="example",
+            )
         """
 
         param_access_key = validate_path_param("access_key", access_key)
@@ -1950,7 +2010,7 @@ class IamV1Alpha1API(API):
         self,
         *,
         access_key: str,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Delete an API key.
         Delete an API key. Note that this action is irreversible and cannot be undone. Make sure you update any configurations using the API keys you delete.
@@ -1959,7 +2019,9 @@ class IamV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.delete_api_key(access_key="example")
+            result = await api.delete_api_key(
+                access_key="example",
+            )
         """
 
         param_access_key = validate_path_param("access_key", access_key)
@@ -1970,12 +2032,11 @@ class IamV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
-        return None
 
     async def list_quota(
         self,
         *,
-        order_by: ListQuotaRequestOrderBy = ListQuotaRequestOrderBy.NAME_ASC,
+        order_by: Optional[ListQuotaRequestOrderBy] = None,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
         organization_id: Optional[str] = None,
@@ -1997,7 +2058,7 @@ class IamV1Alpha1API(API):
 
         res = self._request(
             "GET",
-            f"/iam/v1alpha1/quota",
+            "/iam/v1alpha1/quota",
             params={
                 "order_by": order_by,
                 "organization_id": organization_id
@@ -2025,7 +2086,7 @@ class IamV1Alpha1API(API):
         :param page_size: Number of results per page. Value must be between 1 and 100.
         :param page: Page number. Value must be greater than 1.
         :param organization_id: Filter by Organization ID.
-        :return: :class:`List[ListQuotaResponse] <List[ListQuotaResponse]>`
+        :return: :class:`List[Quotum] <List[Quotum]>`
 
         Usage:
         ::
@@ -2061,7 +2122,9 @@ class IamV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.get_quotum(quotum_name="example")
+            result = await api.get_quotum(
+                quotum_name="example",
+            )
         """
 
         param_quotum_name = validate_path_param("quotum_name", quotum_name)
@@ -2081,8 +2144,8 @@ class IamV1Alpha1API(API):
     async def list_jw_ts(
         self,
         *,
-        audience_id: str,
-        order_by: ListJWTsRequestOrderBy = ListJWTsRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListJWTsRequestOrderBy] = None,
+        audience_id: Optional[str] = None,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
         expired: Optional[bool] = None,
@@ -2099,12 +2162,12 @@ class IamV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.list_jw_ts(audience_id="example")
+            result = await api.list_jw_ts()
         """
 
         res = self._request(
             "GET",
-            f"/iam/v1alpha1/jwts",
+            "/iam/v1alpha1/jwts",
             params={
                 "audience_id": audience_id,
                 "expired": expired,
@@ -2120,8 +2183,8 @@ class IamV1Alpha1API(API):
     async def list_jw_ts_all(
         self,
         *,
-        audience_id: str,
         order_by: Optional[ListJWTsRequestOrderBy] = None,
+        audience_id: Optional[str] = None,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
         expired: Optional[bool] = None,
@@ -2133,12 +2196,12 @@ class IamV1Alpha1API(API):
         :param page_size: Number of results per page. Value must be between 1 and 100.
         :param page: Page number. Value must be greater to 1.
         :param expired: Filter out expired JWTs or not.
-        :return: :class:`List[ListJWTsResponse] <List[ListJWTsResponse]>`
+        :return: :class:`List[JWT] <List[JWT]>`
 
         Usage:
         ::
 
-            result = await api.list_jw_ts_all(audience_id="example")
+            result = await api.list_jw_ts_all()
         """
 
         return await fetch_all_pages_async(
@@ -2146,13 +2209,49 @@ class IamV1Alpha1API(API):
             key="jwts",
             fetcher=self.list_jw_ts,
             args={
-                "audience_id": audience_id,
                 "order_by": order_by,
+                "audience_id": audience_id,
                 "page_size": page_size,
                 "page": page,
                 "expired": expired,
             },
         )
+
+    async def create_jwt(
+        self,
+        *,
+        user_id: str,
+        referrer: str,
+    ) -> EncodedJWT:
+        """
+        Create a JWT.
+        :param user_id: ID of the user the JWT will be created for.
+        :param referrer: Referrer of the JWT.
+        :return: :class:`EncodedJWT <EncodedJWT>`
+
+        Usage:
+        ::
+
+            result = await api.create_jwt(
+                user_id="example",
+                referrer="example",
+            )
+        """
+
+        res = self._request(
+            "POST",
+            "/iam/v1alpha1/jwts",
+            body=marshal_CreateJWTRequest(
+                CreateJWTRequest(
+                    user_id=user_id,
+                    referrer=referrer,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_EncodedJWT(res.json())
 
     async def get_jwt(
         self,
@@ -2167,7 +2266,9 @@ class IamV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.get_jwt(jti="example")
+            result = await api.get_jwt(
+                jti="example",
+            )
         """
 
         param_jti = validate_path_param("jti", jti)
@@ -2184,7 +2285,7 @@ class IamV1Alpha1API(API):
         self,
         *,
         jti: str,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Delete a JWT.
         :param jti: JWT ID of the JWT to delete.
@@ -2192,7 +2293,9 @@ class IamV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.delete_jwt(jti="example")
+            result = await api.delete_jwt(
+                jti="example",
+            )
         """
 
         param_jti = validate_path_param("jti", jti)
@@ -2203,19 +2306,18 @@ class IamV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
-        return None
 
     async def list_logs(
         self,
         *,
-        order_by: ListLogsRequestOrderBy = ListLogsRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListLogsRequestOrderBy] = None,
         organization_id: Optional[str] = None,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
         created_after: Optional[datetime] = None,
         created_before: Optional[datetime] = None,
-        action: LogAction = LogAction.UNKNOWN_ACTION,
-        resource_type: LogResourceType = LogResourceType.UNKNOWN_RESOURCE_TYPE,
+        action: Optional[LogAction] = None,
+        resource_type: Optional[LogResourceType] = None,
         search: Optional[str] = None,
     ) -> ListLogsResponse:
         """
@@ -2240,7 +2342,7 @@ class IamV1Alpha1API(API):
 
         res = self._request(
             "GET",
-            f"/iam/v1alpha1/logs",
+            "/iam/v1alpha1/logs",
             params={
                 "action": action,
                 "created_after": created_after,
@@ -2283,7 +2385,7 @@ class IamV1Alpha1API(API):
         :param action: Defined whether or not to filter out by a specific action.
         :param resource_type: Defined whether or not to filter out by a specific type of resource.
         :param search: Defined whether or not to filter out log by bearer ID or resource ID.
-        :return: :class:`List[ListLogsResponse] <List[ListLogsResponse]>`
+        :return: :class:`List[Log] <List[Log]>`
 
         Usage:
         ::
@@ -2322,7 +2424,9 @@ class IamV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.get_log(log_id="example")
+            result = await api.get_log(
+                log_id="example",
+            )
         """
 
         param_log_id = validate_path_param("log_id", log_id)

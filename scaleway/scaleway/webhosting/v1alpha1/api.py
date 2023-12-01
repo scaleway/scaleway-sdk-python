@@ -9,8 +9,8 @@ from scaleway_core.bridge import (
 )
 from scaleway_core.utils import (
     WaitForOptions,
-    fetch_all_pages,
     validate_path_param,
+    fetch_all_pages,
     wait_for_resource,
 )
 from .types import (
@@ -19,32 +19,34 @@ from .types import (
     ListHostingsRequestOrderBy,
     ListOffersRequestOrderBy,
     ControlPanel,
+    CreateHostingRequest,
+    CreateHostingRequestDomainConfiguration,
     DnsRecords,
     Hosting,
     ListControlPanelsResponse,
     ListHostingsResponse,
     ListOffersResponse,
-    CreateHostingRequest,
     UpdateHostingRequest,
 )
 from .content import (
     HOSTING_TRANSIENT_STATUSES,
 )
 from .marshalling import (
-    marshal_CreateHostingRequest,
-    marshal_UpdateHostingRequest,
     unmarshal_Hosting,
     unmarshal_DnsRecords,
     unmarshal_ListControlPanelsResponse,
     unmarshal_ListHostingsResponse,
     unmarshal_ListOffersResponse,
+    marshal_CreateHostingRequest,
+    marshal_UpdateHostingRequest,
+)
+from ...std.types import (
+    LanguageCode as StdLanguageCode,
 )
 
 
 class WebhostingV1Alpha1API(API):
     """
-    Web Hosting API.
-
     Web Hosting API.
     """
 
@@ -59,16 +61,18 @@ class WebhostingV1Alpha1API(API):
         email: Optional[str] = None,
         tags: Optional[List[str]] = None,
         option_ids: Optional[List[str]] = None,
+        language: Optional[StdLanguageCode] = None,
+        domain_configuration: Optional[CreateHostingRequestDomainConfiguration] = None,
     ) -> Hosting:
         """
         Order a Web Hosting plan.
         Order a Web Hosting plan, specifying the offer type required via the `offer_id` parameter.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param offer_id: ID of the selected offer for the Web Hosting plan.
+        :param domain: Domain name to link to the Web Hosting plan. You must already own this domain name, and have completed the DNS validation process beforehand.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the Scaleway Project in which to create the Web Hosting plan.
         :param email: Contact email for the Web Hosting client.
         :param tags: List of tags for the Web Hosting plan.
-        :param domain: Domain name to link to the Web Hosting plan. You must already own this domain name, and have completed the DNS validation process beforehand.
         :param option_ids: IDs of any selected additional options for the Web Hosting plan.
         :param language: Default language for the control panel interface.
         :return: :class:`Hosting <Hosting>`
@@ -100,6 +104,8 @@ class WebhostingV1Alpha1API(API):
                     email=email,
                     tags=tags,
                     option_ids=option_ids,
+                    language=language,
+                    domain_configuration=domain_configuration,
                 ),
                 self.client,
             ),
@@ -114,7 +120,7 @@ class WebhostingV1Alpha1API(API):
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        order_by: ListHostingsRequestOrderBy = ListHostingsRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListHostingsRequestOrderBy] = None,
         tags: Optional[List[str]] = None,
         statuses: Optional[List[HostingStatus]] = None,
         domain: Optional[str] = None,
@@ -194,7 +200,7 @@ class WebhostingV1Alpha1API(API):
         :param project_id: Project ID to filter for, only Web Hosting plans from this Project will be returned.
         :param organization_id: Organization ID to filter for, only Web Hosting plans from this Organization will be returned.
         :param control_panels: Name of the control panel to filter for, only Web Hosting plans from this control panel will be returned.
-        :return: :class:`List[ListHostingsResponse] <List[ListHostingsResponse]>`
+        :return: :class:`List[Hosting] <List[Hosting]>`
 
         Usage:
         ::
@@ -229,14 +235,16 @@ class WebhostingV1Alpha1API(API):
         """
         Get a Web Hosting plan.
         Get the details of one of your existing Web Hosting plans, specified by its `hosting_id`.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param hosting_id: Hosting ID.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Hosting <Hosting>`
 
         Usage:
         ::
 
-            result = api.get_hosting(hosting_id="example")
+            result = api.get_hosting(
+                hosting_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -260,16 +268,18 @@ class WebhostingV1Alpha1API(API):
         options: Optional[WaitForOptions[Hosting, bool]] = None,
     ) -> Hosting:
         """
-        Waits for :class:`Hosting <Hosting>` to be in a final state.
-        :param region: Region to target. If none is passed will use default region from the config.
+        Get a Web Hosting plan.
+        Get the details of one of your existing Web Hosting plans, specified by its `hosting_id`.
         :param hosting_id: Hosting ID.
-        :param options: The options for the waiter
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Hosting <Hosting>`
 
         Usage:
         ::
 
-            result = api.wait_for_hosting(hosting_id="example")
+            result = api.get_hosting(
+                hosting_id="example",
+            )
         """
 
         if not options:
@@ -296,22 +306,26 @@ class WebhostingV1Alpha1API(API):
         tags: Optional[List[str]] = None,
         option_ids: Optional[List[str]] = None,
         offer_id: Optional[str] = None,
+        protected: Optional[bool] = None,
     ) -> Hosting:
         """
         Update a Web Hosting plan.
         Update the details of one of your existing Web Hosting plans, specified by its `hosting_id`. You can update parameters including the contact email address, tags, options and offer.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param hosting_id: Hosting ID.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param email: New contact email for the Web Hosting plan.
         :param tags: New tags for the Web Hosting plan.
         :param option_ids: IDs of the new options for the Web Hosting plan.
         :param offer_id: ID of the new offer for the Web Hosting plan.
+        :param protected: Whether the hosting is protected or not.
         :return: :class:`Hosting <Hosting>`
 
         Usage:
         ::
 
-            result = api.update_hosting(hosting_id="example")
+            result = api.update_hosting(
+                hosting_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -330,6 +344,7 @@ class WebhostingV1Alpha1API(API):
                     tags=tags,
                     option_ids=option_ids,
                     offer_id=offer_id,
+                    protected=protected,
                 ),
                 self.client,
             ),
@@ -347,14 +362,16 @@ class WebhostingV1Alpha1API(API):
         """
         Delete a Web Hosting plan.
         Delete a Web Hosting plan, specified by its `hosting_id`. Note that deletion is not immediate: it will take place at the end of the calendar month, after which time your Web Hosting plan and all its data (files and emails) will be irreversibly lost.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param hosting_id: Hosting ID.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Hosting <Hosting>`
 
         Usage:
         ::
 
-            result = api.delete_hosting(hosting_id="example")
+            result = api.delete_hosting(
+                hosting_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -379,14 +396,16 @@ class WebhostingV1Alpha1API(API):
         """
         Restore a Web Hosting plan.
         When you [delete a Web Hosting plan](#path-hostings-delete-a-hosting), definitive deletion does not take place until the end of the calendar month. In the time between initiating the deletion, and definitive deletion at the end of the month, you can choose to **restore** the Web Hosting plan, using this endpoint and specifying its `hosting_id`.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param hosting_id: Hosting ID.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Hosting <Hosting>`
 
         Usage:
         ::
 
-            result = api.restore_hosting(hosting_id="example")
+            result = api.restore_hosting(
+                hosting_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -397,6 +416,7 @@ class WebhostingV1Alpha1API(API):
         res = self._request(
             "POST",
             f"/webhosting/v1alpha1/regions/{param_region}/hostings/{param_hosting_id}/restore",
+            body={},
         )
 
         self._throw_on_error(res)
@@ -411,14 +431,16 @@ class WebhostingV1Alpha1API(API):
         """
         Get DNS records.
         Get the set of DNS records of a specified domain associated with a Web Hosting plan.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param domain: Domain associated with the DNS records.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`DnsRecords <DnsRecords>`
 
         Usage:
         ::
 
-            result = api.get_domain_dns_records(domain="example")
+            result = api.get_domain_dns_records(
+                domain="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -437,20 +459,20 @@ class WebhostingV1Alpha1API(API):
     def list_offers(
         self,
         *,
-        order_by: ListOffersRequestOrderBy,
         without_options: bool,
         only_options: bool,
         region: Optional[Region] = None,
+        order_by: Optional[ListOffersRequestOrderBy] = None,
         hosting_id: Optional[str] = None,
         control_panels: Optional[List[str]] = None,
     ) -> ListOffersResponse:
         """
         List all offers.
         List the different Web Hosting offers, and their options, available to order from Scaleway.
-        :param region: Region to target. If none is passed will use default region from the config.
-        :param order_by: Sort order of offers in the response.
         :param without_options: Defines whether the response should consist of offers only, without options.
         :param only_options: Defines whether the response should consist of options only, without offers.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param order_by: Sort order of offers in the response.
         :param hosting_id: ID of a Web Hosting plan, to check compatibility with returned offers (in case of wanting to update the plan).
         :param control_panels: Name of the control panel to filter for.
         :return: :class:`ListOffersResponse <ListOffersResponse>`
@@ -459,9 +481,8 @@ class WebhostingV1Alpha1API(API):
         ::
 
             result = api.list_offers(
-                order_by=price_asc,
-                without_options=True,
-                only_options=True,
+                without_options=False,
+                only_options=False,
             )
         """
 
@@ -534,7 +555,7 @@ class WebhostingV1Alpha1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number to return, from the paginated results (must be a positive integer).
         :param page_size: Number of control panels to return (must be a positive integer lower or equal to 100).
-        :return: :class:`List[ListControlPanelsResponse] <List[ListControlPanelsResponse]>`
+        :return: :class:`List[ControlPanel] <List[ControlPanel]>`
 
         Usage:
         ::

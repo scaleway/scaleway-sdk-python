@@ -8,9 +8,9 @@ from scaleway_core.bridge import (
     Region,
 )
 from scaleway_core.utils import (
-    fetch_all_pages,
     random_name,
     validate_path_param,
+    fetch_all_pages,
 )
 from .types import (
     ListJobDefinitionsRequestOrderBy,
@@ -40,8 +40,6 @@ from .marshalling import (
 
 class JobsV1Alpha1API(API):
     """
-    Serverless Jobs API.
-
     Serverless Jobs API.
     """
 
@@ -133,7 +131,9 @@ class JobsV1Alpha1API(API):
         Usage:
         ::
 
-            result = api.get_job_definition(job_definition_id="example")
+            result = api.get_job_definition(
+                job_definition_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -157,7 +157,7 @@ class JobsV1Alpha1API(API):
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        order_by: ListJobDefinitionsRequestOrderBy = ListJobDefinitionsRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListJobDefinitionsRequestOrderBy] = None,
         project_id: Optional[str] = None,
     ) -> ListJobDefinitionsResponse:
         """
@@ -265,7 +265,9 @@ class JobsV1Alpha1API(API):
         Usage:
         ::
 
-            result = api.update_job_definition(job_definition_id="example")
+            result = api.update_job_definition(
+                job_definition_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -305,7 +307,7 @@ class JobsV1Alpha1API(API):
         *,
         job_definition_id: str,
         region: Optional[Region] = None,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Delete an exsisting job definition by its unique identifier.
         :param region: Region to target. If none is passed will use default region from the config.
@@ -314,7 +316,9 @@ class JobsV1Alpha1API(API):
         Usage:
         ::
 
-            result = api.delete_job_definition(job_definition_id="example")
+            result = api.delete_job_definition(
+                job_definition_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -330,7 +334,6 @@ class JobsV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
-        return None
 
     def start_job_definition(
         self,
@@ -357,7 +360,9 @@ class JobsV1Alpha1API(API):
         Usage:
         ::
 
-            result = api.start_job_definition(job_definition_id="example")
+            result = api.start_job_definition(
+                job_definition_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -400,7 +405,9 @@ class JobsV1Alpha1API(API):
         Usage:
         ::
 
-            result = api.get_job_run(job_run_id="example")
+            result = api.get_job_run(
+                job_run_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -431,7 +438,9 @@ class JobsV1Alpha1API(API):
         Usage:
         ::
 
-            result = api.stop_job_run(job_run_id="example")
+            result = api.stop_job_run(
+                job_run_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -442,6 +451,7 @@ class JobsV1Alpha1API(API):
         res = self._request(
             "POST",
             f"/serverless-jobs/v1alpha1/regions/{param_region}/job-runs/{param_job_run_id}/stop",
+            body={},
         )
 
         self._throw_on_error(res)
@@ -453,7 +463,7 @@ class JobsV1Alpha1API(API):
         region: Optional[Region] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        order_by: ListJobRunsRequestOrderBy = ListJobRunsRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListJobRunsRequestOrderBy] = None,
         job_definition_id: Optional[str] = None,
         project_id: Optional[str] = None,
     ) -> ListJobRunsResponse:

@@ -69,10 +69,6 @@ class JobDefinition:
 
     name: str
 
-    created_at: Optional[datetime]
-
-    updated_at: Optional[datetime]
-
     cpu_limit: int
 
     memory_limit: int
@@ -83,17 +79,28 @@ class JobDefinition:
 
     project_id: str
 
+    created_at: Optional[datetime]
+
+    updated_at: Optional[datetime]
+
     environment_variables: Dict[str, str]
 
     description: str
 
-    job_timeout: Optional[str]
+    local_storage_capacity: int
 
     cron_schedule: Optional[CronSchedule]
 
     local_storage_capacity: int
 
     region: Region
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    job_timeout: Optional[str]
+
+    cron_schedule: Optional[CronSchedule]
 
 
 @dataclass
@@ -103,6 +110,23 @@ class JobRun:
     job_definition_id: str
 
     state: JobRunState
+
+    error_message: str
+
+    cpu_limit: int
+
+    memory_limit: int
+
+    command: str
+
+    environment_variables: Dict[str, str]
+
+    local_storage_capacity: int
+
+    region: Region
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
 
     created_at: Optional[datetime]
 
@@ -130,8 +154,8 @@ class JobRun:
 
 
 @dataclass
-class ListJobDefinitionsResponse:
-    job_definitions: List[JobDefinition]
+class UpdateJobDefinitionRequestCronScheduleConfig:
+    schedule: Optional[str]
 
     total_count: int
 
@@ -163,6 +187,31 @@ class UpdateJobDefinitionRequestCronScheduleConfig:
 
 @dataclass
 class CreateJobDefinitionRequest:
+    cpu_limit: int
+    """
+    CPU limit of the job.
+    """
+
+    memory_limit: int
+    """
+    Memory limit of the job (in MiB).
+    """
+
+    image_uri: str
+    """
+    Image to use for the job.
+    """
+
+    command: str
+    """
+    Startup command.
+    """
+
+    description: str
+    """
+    Description of the job.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
@@ -222,12 +271,20 @@ class CreateJobDefinitionRequest:
 
 
 @dataclass
-class GetJobDefinitionRequest:
+class DeleteJobDefinitionRequest:
+    job_definition_id: str
+    """
+    UUID of the job definition to delete.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
+
+@dataclass
+class GetJobDefinitionRequest:
     job_definition_id: str
     """
     UUID of the job definition to get.
@@ -251,11 +308,8 @@ class ListJobDefinitionsRequest:
 
 
 @dataclass
-class UpdateJobDefinitionRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
+class ListJobDefinitionsResponse:
+    job_definitions: List[JobDefinition]
 
     job_definition_id: str
     """
@@ -397,3 +451,116 @@ class ListJobRunsRequest:
     job_definition_id: Optional[str]
 
     project_id: Optional[str]
+
+
+@dataclass
+class ListJobRunsResponse:
+    job_runs: List[JobRun]
+
+    total_count: int
+
+
+@dataclass
+class StartJobDefinitionRequest:
+    job_definition_id: str
+    """
+    UUID of the job definition to start.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    command: Optional[str]
+    """
+    Contextual startup command for this specific job run.
+    """
+
+    environment_variables: Optional[Dict[str, str]]
+    """
+    Contextual environment variables for this specific job run.
+    """
+
+    replicas: Optional[int]
+    """
+    Number of jobs to run.
+    """
+
+
+@dataclass
+class StartJobDefinitionResponse:
+    job_runs: List[JobRun]
+
+
+@dataclass
+class StopJobRunRequest:
+    job_run_id: str
+    """
+    UUID of the job run to stop.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class UpdateJobDefinitionRequest:
+    job_definition_id: str
+    """
+    UUID of the job definition to update.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    name: Optional[str]
+    """
+    Name of the job definition.
+    """
+
+    cpu_limit: Optional[int]
+    """
+    CPU limit of the job.
+    """
+
+    memory_limit: Optional[int]
+    """
+    Memory limit of the job (in MiB).
+    """
+
+    local_storage_capacity: Optional[int]
+    """
+    Local storage capacity of the job (in MiB).
+    """
+
+    image_uri: Optional[str]
+    """
+    Image to use for the job.
+    """
+
+    command: Optional[str]
+    """
+    Startup command.
+    """
+
+    environment_variables: Optional[Dict[str, str]]
+    """
+    Environment variables of the job.
+    """
+
+    description: Optional[str]
+    """
+    Description of the job.
+    """
+
+    job_timeout: Optional[str]
+    """
+    Timeout of the job in seconds.
+    """
+
+    cron_schedule: Optional[UpdateJobDefinitionRequestCronScheduleConfig]

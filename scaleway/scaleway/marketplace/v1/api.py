@@ -5,8 +5,8 @@ from typing import List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.utils import (
-    fetch_all_pages,
     validate_path_param,
+    fetch_all_pages,
 )
 from .types import (
     GetImageResponse,
@@ -22,8 +22,6 @@ from .marshalling import (
 class MarketplaceV1API(API):
     """
     Marketplace API.
-
-    Marketplace API.
     """
 
     def list_images(
@@ -33,6 +31,7 @@ class MarketplaceV1API(API):
         page: Optional[int] = None,
     ) -> ListImagesResponse:
         """
+        List marketplace images.
         List marketplace images.
         :param per_page: A positive integer lower or equal to 100 to select the number of items to display.
         :param page: A positive integer to choose the page to display.
@@ -46,7 +45,7 @@ class MarketplaceV1API(API):
 
         res = self._request(
             "GET",
-            f"/marketplace/v1/images",
+            "/marketplace/v1/images",
             params={
                 "page": page,
                 "per_page": per_page or self.client.default_page_size,
@@ -64,9 +63,10 @@ class MarketplaceV1API(API):
     ) -> List[Image]:
         """
         List marketplace images.
+        List marketplace images.
         :param per_page: A positive integer lower or equal to 100 to select the number of items to display.
         :param page: A positive integer to choose the page to display.
-        :return: :class:`List[ListImagesResponse] <List[ListImagesResponse]>`
+        :return: :class:`List[Image] <List[Image]>`
 
         Usage:
         ::
@@ -91,13 +91,16 @@ class MarketplaceV1API(API):
     ) -> GetImageResponse:
         """
         Get a specific marketplace image.
+        Get a specific marketplace image.
         :param image_id: Display the image name.
         :return: :class:`GetImageResponse <GetImageResponse>`
 
         Usage:
         ::
 
-            result = api.get_image(image_id="example")
+            result = api.get_image(
+                image_id="example",
+            )
         """
 
         param_image_id = validate_path_param("image_id", image_id)

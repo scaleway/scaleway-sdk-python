@@ -184,10 +184,6 @@ class ListVolumesResponse:
 
 @dataclass
 class Reference:
-    """
-    Reference.
-    """
-
     id: str
     """
     UUID of the reference.
@@ -218,13 +214,72 @@ class Reference:
     Status of reference (attaching, attached, detaching).
     """
 
+    created_at: Optional[datetime]
+    """
+    Creation date of the reference.
+    """
+
+
+@dataclass
+class SnapshotParentVolume:
+    id: str
+    """
+    Parent volume UUID (volume from which the snapshot originates).
+    """
+
+    name: str
+    """
+    Name of the parent volume.
+    """
+
+    type_: str
+    """
+    Volume type of the parent volume.
+    """
+
+    status: VolumeStatus
+    """
+    Current status the parent volume.
+    """
+
+
+@dataclass
+class VolumeSpecifications:
+    class_: StorageClass
+    """
+    The storage class of the volume.
+    """
+
+    perf_iops: Optional[int]
+    """
+    The maximum IO/s expected, according to the different options available in stock (`5000 | 15000`).
+    """
+
+
+@dataclass
+class CreateVolumeRequestFromEmpty:
+    size: int
+    """
+    Must be compliant with the minimum (1 GB) and maximum (10 TB) allowed size.
+    """
+
+
+@dataclass
+class CreateVolumeRequestFromSnapshot:
+    snapshot_id: str
+    """
+    Source snapshot from which volume will be created.
+    """
+
+    size: Optional[int]
+    """
+    Must be compliant with the minimum (1 GB) and maximum (10 TB) allowed size.
+Size is optional and is used only if a resize of the volume is requested, otherwise original snapshot size will be used.
+    """
+
 
 @dataclass
 class Snapshot:
-    """
-    Snapshot.
-    """
-
     id: str
     """
     UUID of the snapshot.
@@ -235,12 +290,6 @@ class Snapshot:
     Name of the snapshot.
     """
 
-    parent_volume: Optional[SnapshotParentVolume]
-    """
-    Information about the parent volume.
-    If the parent volume was deleted, value is null.
-    """
-
     size: int
     """
     Size in bytes of the snapshot.
@@ -249,16 +298,6 @@ class Snapshot:
     project_id: str
     """
     UUID of the project the snapshot belongs to.
-    """
-
-    created_at: Optional[datetime]
-    """
-    Creation date of the snapshot.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Last modification date of the properties of a snapshot.
     """
 
     references: List[Reference]
@@ -316,10 +355,6 @@ class SnapshotParentVolume:
 
 @dataclass
 class Volume:
-    """
-    Volume.
-    """
-
     id: str
     """
     UUID of the volume.
@@ -345,6 +380,11 @@ class Volume:
     UUID of the project to which the volume belongs.
     """
 
+    references: List[Reference]
+    """
+    List of the references to the volume.
+    """
+
     created_at: Optional[datetime]
     """
     Creation date of the volume.
@@ -353,11 +393,6 @@ class Volume:
     updated_at: Optional[datetime]
     """
     Last update of the properties of a volume.
-    """
-
-    references: List[Reference]
-    """
-    List of the references to the volume.
     """
 
     parent_snapshot_id: Optional[str]
@@ -392,127 +427,43 @@ class Volume:
 
 
 @dataclass
-class VolumeSpecifications:
+class CreateSnapshotRequest:
+    volume_id: str
     """
-    Volume specifications.
-    """
-
-    perf_iops: Optional[int]
-    """
-    The maximum IO/s expected, according to the different options available in stock (`5000 | 15000`).
+    UUID of the volume to snapshot.
     """
 
-    class_: StorageClass
+    name: str
     """
-    The storage class of the volume.
-    """
-
-
-@dataclass
-class VolumeType:
-    """
-    Volume type.
+    Name of the snapshot.
     """
 
-    type_: str
-    """
-    Volume type.
-    """
-
-    pricing: Optional[Money]
-    """
-    Price of the volume billed in GB/hour.
-    """
-
-    snapshot_pricing: Optional[Money]
-    """
-    Price of the snapshot billed in GB/hour.
-    """
-
-    specs: Optional[VolumeSpecifications]
-    """
-    Volume specifications of the volume type.
-    """
-
-
-@dataclass
-class ListVolumeTypesRequest:
     zone: Optional[Zone]
     """
     Zone to target. If none is passed will use default zone from the config.
-    """
-
-    page: Optional[int]
-    """
-    Page number.
-    """
-
-    page_size: Optional[int]
-    """
-    Page size, defines how many entries are returned in one page, must be lower or equal to 100.
-    """
-
-
-@dataclass
-class ListVolumesRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    order_by: Optional[ListVolumesRequestOrderBy]
-    """
-    Criteria to use when ordering the list.
     """
 
     project_id: Optional[str]
     """
-    Filter by Project ID.
+    UUID of the project to which the volume and the snapshot belong.
     """
 
-    organization_id: Optional[str]
+    tags: Optional[List[str]]
     """
-    Filter by Organization ID.
-    """
-
-    page: Optional[int]
-    """
-    Page number.
-    """
-
-    page_size: Optional[int]
-    """
-    Page size, defines how many entries are returned in one page, must be lower or equal to 100.
-    """
-
-    name: Optional[str]
-    """
-    Filter the return volumes by their names.
-    """
-
-    product_resource_id: Optional[str]
-    """
-    Filter by a product resource ID linked to this volume (such as an Instance ID).
+    List of tags assigned to the snapshot.
     """
 
 
 @dataclass
 class CreateVolumeRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
     name: str
     """
     Name of the volume.
     """
 
-    perf_iops: Optional[int]
+    zone: Optional[Zone]
     """
-    The maximum IO/s expected, according to the different options available in stock (`5000 | 15000`).
-    
-    One-of ('requirements'): at most one of 'perf_iops' could be set.
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     project_id: Optional[str]
@@ -520,85 +471,67 @@ class CreateVolumeRequest:
     UUID of the project the volume belongs to.
     """
 
-    from_empty: Optional[CreateVolumeRequestFromEmpty]
-    """
-    Specify the size of the new volume if creating a new one from scratch.
-    
-    One-of ('from_'): at most one of 'from_empty', 'from_snapshot' could be set.
-    """
-
-    from_snapshot: Optional[CreateVolumeRequestFromSnapshot]
-    """
-    Specify the snapshot ID of the original snapshot.
-    
-    One-of ('from_'): at most one of 'from_empty', 'from_snapshot' could be set.
-    """
-
     tags: Optional[List[str]]
     """
     List of tags assigned to the volume.
     """
 
+    from_empty: Optional[CreateVolumeRequestFromEmpty]
+
+    from_snapshot: Optional[CreateVolumeRequestFromSnapshot]
+
+    perf_iops: Optional[int]
+
 
 @dataclass
-class GetVolumeRequest:
+class DeleteSnapshotRequest:
+    snapshot_id: str
+    """
+    UUID of the snapshot.
+    """
+
     zone: Optional[Zone]
     """
     Zone to target. If none is passed will use default zone from the config.
-    """
-
-    volume_id: str
-    """
-    UUID of the volume.
     """
 
 
 @dataclass
 class DeleteVolumeRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
     volume_id: str
     """
     UUID of the volume.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
     """
 
 
 @dataclass
-class UpdateVolumeRequest:
+class GetSnapshotRequest:
+    snapshot_id: str
+    """
+    UUID of the snapshot.
+    """
+
     zone: Optional[Zone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
+
+@dataclass
+class GetVolumeRequest:
     volume_id: str
     """
     UUID of the volume.
     """
 
-    name: Optional[str]
+    zone: Optional[Zone]
     """
-    When defined, is the new name of the volume.
-    """
-
-    size: Optional[int]
-    """
-    Optional field for increasing the size of a volume (size must be equal or larger than the current one).
-    Size in bytes of the volume, with a granularity of 1 GB (10^9 bytes).
-    Must be compliant with the minimum (1GB) and maximum (10TB) allowed size.
-    """
-
-    tags: Optional[List[str]]
-    """
-    List of tags assigned to the volume.
-    """
-
-    perf_iops: Optional[int]
-    """
-    The maximum IO/s expected, according to the different options available in stock (`5000 | 15000`).
-    The selected value must be available for the volume's current storage class.
+    Zone to target. If none is passed will use default zone from the config.
     """
 
 
@@ -646,43 +579,89 @@ class ListSnapshotsRequest:
 
 
 @dataclass
-class GetSnapshotRequest:
-    zone: Optional[Zone]
+class ListSnapshotsResponse:
+    snapshots: List[Snapshot]
     """
-    Zone to target. If none is passed will use default zone from the config.
+    Paginated returned list of snapshots.
     """
 
-    snapshot_id: str
+    total_count: int
     """
-    UUID of the snapshot.
+    Total number of snpashots in the project.
     """
 
 
 @dataclass
-class CreateSnapshotRequest:
+class ListVolumeTypesRequest:
     zone: Optional[Zone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
 
-    volume_id: str
+    page: Optional[int]
     """
-    UUID of the volume to snapshot.
+    Page number.
     """
 
-    name: str
+    page_size: Optional[int]
     """
-    Name of the snapshot.
+    Page size, defines how many entries are returned in one page, must be lower or equal to 100.
+    """
+
+
+@dataclass
+class ListVolumeTypesResponse:
+    volume_types: List[VolumeType]
+    """
+    Returns paginated list of volume-types.
+    """
+
+    total_count: int
+    """
+    Total number of volume-types currently available in stock.
+    """
+
+
+@dataclass
+class ListVolumesRequest:
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    order_by: Optional[ListVolumesRequestOrderBy]
+    """
+    Criteria to use when ordering the list.
     """
 
     project_id: Optional[str]
     """
-    UUID of the project to which the volume and the snapshot belong.
+    Filter by Project ID.
     """
 
-    tags: Optional[List[str]]
+    organization_id: Optional[str]
     """
-    List of tags assigned to the snapshot.
+    Filter by Organization ID.
+    """
+
+    page: Optional[int]
+    """
+    Page number.
+    """
+
+    page_size: Optional[int]
+    """
+    Page size, defines how many entries are returned in one page, must be lower or equal to 100.
+    """
+
+    name: Optional[str]
+    """
+    Filter the return volumes by their names.
+    """
+
+    product_resource_id: Optional[str]
+    """
+    Filter by a product resource ID linked to this volume (such as an Instance ID).
     """
 
 
@@ -690,25 +669,20 @@ class CreateSnapshotRequest:
 class DeleteSnapshotRequest:
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    snapshot_id: str
-    """
-    UUID of the snapshot.
+    Total number of volumes in the project.
     """
 
 
 @dataclass
 class UpdateSnapshotRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
     snapshot_id: str
     """
     UUID of the snapshot.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     name: Optional[str]
@@ -719,4 +693,38 @@ class UpdateSnapshotRequest:
     tags: Optional[List[str]]
     """
     List of tags assigned to the snapshot.
+    """
+
+
+@dataclass
+class UpdateVolumeRequest:
+    volume_id: str
+    """
+    UUID of the volume.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    name: Optional[str]
+    """
+    When defined, is the new name of the volume.
+    """
+
+    size: Optional[int]
+    """
+    Size in bytes of the volume, with a granularity of 1 GB (10^9 bytes).
+Must be compliant with the minimum (1GB) and maximum (10TB) allowed size.
+    """
+
+    tags: Optional[List[str]]
+    """
+    List of tags assigned to the volume.
+    """
+
+    perf_iops: Optional[int]
+    """
+    The selected value must be available for the volume's current storage class.
     """
