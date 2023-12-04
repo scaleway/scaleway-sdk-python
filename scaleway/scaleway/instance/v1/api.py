@@ -94,12 +94,17 @@ from .types import (
     SetSecurityGroupRulesResponse,
     Snapshot,
     SnapshotBaseVolume,
+    UpdateImageResponse,
     UpdateIpResponse,
     UpdatePlacementGroupResponse,
     UpdatePlacementGroupServersResponse,
+    UpdateSecurityGroupResponse,
+    UpdateSecurityGroupRuleResponse,
     UpdateServerResponse,
+    UpdateSnapshotResponse,
     UpdateVolumeResponse,
     Volume,
+    VolumeImageUpdateTemplate,
     VolumeServerTemplate,
     VolumeSummary,
     VolumeTemplate,
@@ -107,13 +112,17 @@ from .types import (
     AttachServerVolumeRequest,
     DetachServerVolumeRequest,
     CreateImageRequest,
+    UpdateImageRequest,
     CreateSnapshotRequest,
+    UpdateSnapshotRequest,
     ExportSnapshotRequest,
     CreateVolumeRequest,
     UpdateVolumeRequest,
     CreateSecurityGroupRequest,
+    UpdateSecurityGroupRequest,
     CreateSecurityGroupRuleRequest,
     SetSecurityGroupRulesRequest,
+    UpdateSecurityGroupRuleRequest,
     CreatePlacementGroupRequest,
     SetPlacementGroupRequest,
     UpdatePlacementGroupRequest,
@@ -158,10 +167,14 @@ from .marshalling import (
     marshal_SetPlacementGroupRequest,
     marshal_SetPlacementGroupServersRequest,
     marshal_SetSecurityGroupRulesRequest,
+    marshal_UpdateImageRequest,
     marshal_UpdateIpRequest,
     marshal_UpdatePlacementGroupRequest,
     marshal_UpdatePlacementGroupServersRequest,
     marshal_UpdatePrivateNICRequest,
+    marshal_UpdateSecurityGroupRequest,
+    marshal_UpdateSecurityGroupRuleRequest,
+    marshal_UpdateSnapshotRequest,
     marshal_UpdateVolumeRequest,
     marshal__CreateServerRequest,
     marshal__SetImageRequest,
@@ -215,10 +228,14 @@ from .marshalling import (
     unmarshal_SetPlacementGroupResponse,
     unmarshal_SetPlacementGroupServersResponse,
     unmarshal_SetSecurityGroupRulesResponse,
+    unmarshal_UpdateImageResponse,
     unmarshal_UpdateIpResponse,
     unmarshal_UpdatePlacementGroupResponse,
     unmarshal_UpdatePlacementGroupServersResponse,
+    unmarshal_UpdateSecurityGroupResponse,
+    unmarshal_UpdateSecurityGroupRuleResponse,
     unmarshal_UpdateServerResponse,
+    unmarshal_UpdateSnapshotResponse,
     unmarshal_UpdateVolumeResponse,
     unmarshal__SetImageResponse,
     unmarshal__SetSecurityGroupResponse,
@@ -687,7 +704,7 @@ class InstanceV1API(API):
                 state=running,
                 boot_type=local,
                 state_detail="example",
-                arch=x86_64,
+                arch=unknown_arch,
             )
         """
 
@@ -991,13 +1008,6 @@ class InstanceV1API(API):
         boot: Optional[bool] = None,
     ) -> AttachServerVolumeResponse:
         """
-        Attach a volume to a server.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param server_id: UUID of the Instance.
-        :param volume_id: UUID of the Volume to attach.
-        :param volume_type: Type of the volume to attach.
-        :param boot: Force the Instance to boot on this volume.
-        :return: :class:`AttachServerVolumeResponse <AttachServerVolumeResponse>`
 
         Usage:
         ::
@@ -1038,11 +1048,6 @@ class InstanceV1API(API):
         zone: Optional[Zone] = None,
     ) -> DetachServerVolumeResponse:
         """
-        Detach a volume from a server.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param server_id: UUID of the Instance.
-        :param volume_id: UUID of the Volume to detach.
-        :return: :class:`DetachServerVolumeResponse <DetachServerVolumeResponse>`
 
         Usage:
         ::
@@ -1211,7 +1216,7 @@ class InstanceV1API(API):
         root_volume: str,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
-        arch: Arch = Arch.X86_64,
+        arch: Arch = Arch.UNKNOWN_ARCH,
         default_bootscript: Optional[str] = None,
         extra_volumes: Optional[Dict[str, VolumeTemplate]] = None,
         organization: Optional[str] = None,
@@ -1314,7 +1319,7 @@ class InstanceV1API(API):
             result = api._set_image(
                 id="example",
                 name="example",
-                arch=x86_64,
+                arch=unknown_arch,
                 from_server="example",
                 public=True,
                 state=available,
@@ -1351,6 +1356,61 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal__SetImageResponse(res.json())
+
+    def update_image(
+        self,
+        *,
+        image_id: str,
+        arch: Arch,
+        zone: Optional[Zone] = None,
+        name: Optional[str] = None,
+        extra_volumes: Optional[Dict[str, VolumeImageUpdateTemplate]] = None,
+        tags: Optional[List[str]] = None,
+        public: Optional[bool] = None,
+    ) -> UpdateImageResponse:
+        """
+        Update image.
+        Update the properties of an image.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param image_id: UUID of the image.
+        :param name: Name of the image.
+        :param arch: Architecture of the image.
+        :param extra_volumes: Additional snapshots of the image, with extra_volumeKey being the position of the snapshot in the image.
+        :param tags: Tags of the image.
+        :param public: True to set the image as public.
+        :return: :class:`UpdateImageResponse <UpdateImageResponse>`
+
+        Usage:
+        ::
+
+            result = api.update_image(
+                image_id="example",
+                arch=unknown_arch,
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_image_id = validate_path_param("image_id", image_id)
+
+        res = self._request(
+            "PATCH",
+            f"/instance/v1/zones/{param_zone}/images/{param_image_id}",
+            body=marshal_UpdateImageRequest(
+                UpdateImageRequest(
+                    image_id=image_id,
+                    arch=arch,
+                    zone=zone,
+                    name=name,
+                    extra_volumes=extra_volumes,
+                    tags=tags,
+                    public=public,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_UpdateImageResponse(res.json())
 
     def delete_image(
         self,
@@ -1592,8 +1652,8 @@ class InstanceV1API(API):
         tags: Optional[List[str]] = None,
     ) -> _SetSnapshotResponse:
         """
-        Update snapshot.
-        Replace all snapshot properties with a snapshot message.
+        Set snapshot.
+        Replace all the properties of a snapshot.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param snapshot_id:
         :param id:
@@ -1650,6 +1710,49 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal__SetSnapshotResponse(res.json())
+
+    def update_snapshot(
+        self,
+        *,
+        snapshot_id: str,
+        zone: Optional[Zone] = None,
+        name: Optional[str] = None,
+        tags: Optional[List[str]] = None,
+    ) -> UpdateSnapshotResponse:
+        """
+        Update a snapshot.
+        Update the properties of a snapshot.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param snapshot_id: UUID of the snapshot.
+        :param name: Name of the snapshot.
+        :param tags: Tags of the snapshot.
+        :return: :class:`UpdateSnapshotResponse <UpdateSnapshotResponse>`
+
+        Usage:
+        ::
+
+            result = api.update_snapshot(snapshot_id="example")
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_snapshot_id = validate_path_param("snapshot_id", snapshot_id)
+
+        res = self._request(
+            "PATCH",
+            f"/instance/v1/zones/{param_zone}/snapshots/{param_snapshot_id}",
+            body=marshal_UpdateSnapshotRequest(
+                UpdateSnapshotRequest(
+                    snapshot_id=snapshot_id,
+                    zone=zone,
+                    name=name,
+                    tags=tags,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_UpdateSnapshotResponse(res.json())
 
     def delete_snapshot(
         self,
@@ -2135,8 +2238,8 @@ class InstanceV1API(API):
             result = api.create_security_group(
                 description="example",
                 stateful=True,
-                inbound_default_policy=accept,
-                outbound_default_policy=accept,
+                inbound_default_policy=unknown_policy,
+                outbound_default_policy=unknown_policy,
             )
         """
 
@@ -2254,7 +2357,7 @@ class InstanceV1API(API):
         Update a security group.
         Replace all security group properties with a security group message.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param id: ID of the security group (will be ignored).
+        :param id: UUID of the security group.
         :param name: Name of the security group.
         :param tags: Tags of the security group.
         :param creation_date: Creation date of the security group (will be ignored).
@@ -2279,8 +2382,8 @@ class InstanceV1API(API):
                 name="example",
                 description="example",
                 enable_default_security=True,
-                inbound_default_policy=accept,
-                outbound_default_policy=accept,
+                inbound_default_policy=unknown_policy,
+                outbound_default_policy=unknown_policy,
                 project_default=True,
                 stateful=True,
             )
@@ -2317,6 +2420,76 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal__SetSecurityGroupResponse(res.json())
+
+    def update_security_group(
+        self,
+        *,
+        security_group_id: str,
+        inbound_default_policy: SecurityGroupPolicy,
+        outbound_default_policy: SecurityGroupPolicy,
+        zone: Optional[Zone] = None,
+        name: Optional[str] = None,
+        description: Optional[str] = None,
+        enable_default_security: Optional[bool] = None,
+        tags: Optional[List[str]] = None,
+        organization_default: Optional[bool] = None,
+        project_default: Optional[bool] = None,
+        stateful: Optional[bool] = None,
+    ) -> UpdateSecurityGroupResponse:
+        """
+        Update a security group.
+        Update the properties of security group.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param security_group_id: UUID of the security group.
+        :param name: Name of the security group.
+        :param description: Description of the security group.
+        :param enable_default_security: True to block SMTP on IPv4 and IPv6. This feature is read only, please open a support ticket if you need to make it configurable.
+        :param inbound_default_policy: Default inbound policy.
+        :param tags: Tags of the security group.
+        :param organization_default: Please use project_default instead.
+        :param project_default: True use this security group for future Instances created in this project.
+        :param outbound_default_policy: Default outbound policy.
+        :param stateful: True to set the security group as stateful.
+        :return: :class:`UpdateSecurityGroupResponse <UpdateSecurityGroupResponse>`
+
+        Usage:
+        ::
+
+            result = api.update_security_group(
+                security_group_id="example",
+                inbound_default_policy=unknown_policy,
+                outbound_default_policy=unknown_policy,
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_security_group_id = validate_path_param(
+            "security_group_id", security_group_id
+        )
+
+        res = self._request(
+            "PATCH",
+            f"/instance/v1/zones/{param_zone}/security_groups/{param_security_group_id}",
+            body=marshal_UpdateSecurityGroupRequest(
+                UpdateSecurityGroupRequest(
+                    security_group_id=security_group_id,
+                    inbound_default_policy=inbound_default_policy,
+                    outbound_default_policy=outbound_default_policy,
+                    zone=zone,
+                    name=name,
+                    description=description,
+                    enable_default_security=enable_default_security,
+                    tags=tags,
+                    organization_default=organization_default,
+                    project_default=project_default,
+                    stateful=stateful,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_UpdateSecurityGroupResponse(res.json())
 
     def list_default_security_group_rules(
         self,
@@ -2428,9 +2601,9 @@ class InstanceV1API(API):
         position: int,
         editable: bool,
         zone: Optional[Zone] = None,
-        protocol: SecurityGroupRuleProtocol = SecurityGroupRuleProtocol.TCP,
-        direction: SecurityGroupRuleDirection = SecurityGroupRuleDirection.INBOUND,
-        action: SecurityGroupRuleAction = SecurityGroupRuleAction.ACCEPT,
+        protocol: SecurityGroupRuleProtocol = SecurityGroupRuleProtocol.UNKNOWN_PROTOCOL,
+        direction: SecurityGroupRuleDirection = SecurityGroupRuleDirection.UNKNOWN_DIRECTION,
+        action: SecurityGroupRuleAction = SecurityGroupRuleAction.UNKNOWN_ACTION,
         dest_port_from: Optional[int] = None,
         dest_port_to: Optional[int] = None,
     ) -> CreateSecurityGroupRuleResponse:
@@ -2626,8 +2799,8 @@ class InstanceV1API(API):
         dest_port_to: Optional[int] = None,
     ) -> _SetSecurityGroupRuleResponse:
         """
-        Update security group rule.
-        Update the rule of a specified security group ID.
+        Set security group rule.
+        Replace all the properties of a rule from a specified security group.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param security_group_id:
         :param security_group_rule_id:
@@ -2649,9 +2822,9 @@ class InstanceV1API(API):
                 security_group_id="example",
                 security_group_rule_id="example",
                 id="example",
-                protocol=TCP,
-                direction=inbound,
-                action=accept,
+                protocol=unknown_protocol,
+                direction=unknown_direction,
+                action=unknown_action,
                 ip_range="example",
                 position=1,
                 editable=True,
@@ -2690,6 +2863,78 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal__SetSecurityGroupRuleResponse(res.json())
+
+    def update_security_group_rule(
+        self,
+        *,
+        security_group_id: str,
+        security_group_rule_id: str,
+        protocol: SecurityGroupRuleProtocol,
+        direction: SecurityGroupRuleDirection,
+        action: SecurityGroupRuleAction,
+        zone: Optional[Zone] = None,
+        ip_range: Optional[str] = None,
+        dest_port_from: Optional[int] = None,
+        dest_port_to: Optional[int] = None,
+        position: Optional[int] = None,
+    ) -> UpdateSecurityGroupRuleResponse:
+        """
+        Update security group rule.
+        Update the properties of a rule from a specified security group.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param security_group_id: UUID of the security group.
+        :param security_group_rule_id: UUID of the rule.
+        :param protocol: Protocol family this rule applies to.
+        :param direction: Direction the rule applies to.
+        :param action: Action to apply when the rule matches a packet.
+        :param ip_range: Range of IP addresses these rules apply to.
+        :param dest_port_from: Beginning of the range of ports this rule applies to (inclusive). If 0 is provided, unset the parameter.
+        :param dest_port_to: End of the range of ports this rule applies to (inclusive). If 0 is provided, unset the parameter.
+        :param position: Position of this rule in the security group rules list.
+        :return: :class:`UpdateSecurityGroupRuleResponse <UpdateSecurityGroupRuleResponse>`
+
+        Usage:
+        ::
+
+            result = api.update_security_group_rule(
+                security_group_id="example",
+                security_group_rule_id="example",
+                protocol=unknown_protocol,
+                direction=unknown_direction,
+                action=unknown_action,
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_security_group_id = validate_path_param(
+            "security_group_id", security_group_id
+        )
+        param_security_group_rule_id = validate_path_param(
+            "security_group_rule_id", security_group_rule_id
+        )
+
+        res = self._request(
+            "PATCH",
+            f"/instance/v1/zones/{param_zone}/security_groups/{param_security_group_id}/rules/{param_security_group_rule_id}",
+            body=marshal_UpdateSecurityGroupRuleRequest(
+                UpdateSecurityGroupRuleRequest(
+                    security_group_id=security_group_id,
+                    security_group_rule_id=security_group_rule_id,
+                    protocol=protocol,
+                    direction=direction,
+                    action=action,
+                    zone=zone,
+                    ip_range=ip_range,
+                    dest_port_from=dest_port_from,
+                    dest_port_to=dest_port_to,
+                    position=position,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_UpdateSecurityGroupRuleResponse(res.json())
 
     def list_placement_groups(
         self,
