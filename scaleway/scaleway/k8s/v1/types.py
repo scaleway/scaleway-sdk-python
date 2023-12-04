@@ -749,6 +749,8 @@ class ExternalNode:
 
     cni_plugins_version: str
 
+    node_labels: Dict[str, str]
+
 
 @dataclass
 class ListClusterAvailableTypesResponse:

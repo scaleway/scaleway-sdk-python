@@ -517,6 +517,9 @@ def unmarshal_ExternalNode(data: Any) -> ExternalNode:
     field = data.get("name", None)
     args["name"] = field
 
+    field = data.get("node_labels", None)
+    args["node_labels"] = field
+
     field = data.get("pool_version", None)
     args["pool_version"] = field
 
