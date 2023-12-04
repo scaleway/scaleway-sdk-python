@@ -16,6 +16,7 @@ from scaleway_core.utils import (
 
 
 class Arch(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_ARCH = "unknown_arch"
     X86_64 = "x86_64"
     ARM = "arm"
     ARM64 = "arm64"
@@ -109,6 +110,7 @@ class PrivateNICState(str, Enum, metaclass=StrEnumMeta):
 
 
 class SecurityGroupPolicy(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_POLICY = "unknown_policy"
     ACCEPT = "accept"
     DROP = "drop"
 
@@ -117,6 +119,7 @@ class SecurityGroupPolicy(str, Enum, metaclass=StrEnumMeta):
 
 
 class SecurityGroupRuleAction(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_ACTION = "unknown_action"
     ACCEPT = "accept"
     DROP = "drop"
 
@@ -125,6 +128,7 @@ class SecurityGroupRuleAction(str, Enum, metaclass=StrEnumMeta):
 
 
 class SecurityGroupRuleDirection(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_DIRECTION = "unknown_direction"
     INBOUND = "inbound"
     OUTBOUND = "outbound"
 
@@ -133,6 +137,7 @@ class SecurityGroupRuleDirection(str, Enum, metaclass=StrEnumMeta):
 
 
 class SecurityGroupRuleProtocol(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_PROTOCOL = "unknown_protocol"
     TCP = "TCP"
     UDP = "UDP"
     ICMP = "ICMP"
@@ -1731,6 +1736,11 @@ class Task:
 
 
 @dataclass
+class UpdateImageResponse:
+    image: Optional[Image]
+
+
+@dataclass
 class UpdateIpResponse:
     ip: Optional[Ip]
 
@@ -1753,8 +1763,23 @@ class UpdatePlacementGroupServersResponse:
 
 
 @dataclass
+class UpdateSecurityGroupResponse:
+    security_group: Optional[SecurityGroup]
+
+
+@dataclass
+class UpdateSecurityGroupRuleResponse:
+    rule: Optional[SecurityGroupRule]
+
+
+@dataclass
 class UpdateServerResponse:
     server: Optional[Server]
+
+
+@dataclass
+class UpdateSnapshotResponse:
+    snapshot: Optional[Snapshot]
 
 
 @dataclass
@@ -1832,6 +1857,18 @@ class Volume:
     zone: Zone
     """
     Zone in which the volume is located.
+    """
+
+
+@dataclass
+class VolumeImageUpdateTemplate:
+    """
+    Volume image update template.
+    """
+
+    id: str
+    """
+    UUID of the snapshot.
     """
 
 
@@ -2214,24 +2251,12 @@ class AttachServerVolumeRequest:
     """
 
     server_id: str
-    """
-    UUID of the Instance.
-    """
 
     volume_id: str
-    """
-    UUID of the Volume to attach.
-    """
 
     volume_type: AttachServerVolumeRequestVolumeType
-    """
-    Type of the volume to attach.
-    """
 
     boot: Optional[bool]
-    """
-    Force the Instance to boot on this volume.
-    """
 
 
 @dataclass
@@ -2242,14 +2267,8 @@ class DetachServerVolumeRequest:
     """
 
     server_id: str
-    """
-    UUID of the Instance.
-    """
 
     volume_id: str
-    """
-    UUID of the Volume to detach.
-    """
 
 
 @dataclass
@@ -2345,6 +2364,44 @@ class CreateImageRequest:
     public: Optional[bool]
     """
     True to create a public image.
+    """
+
+
+@dataclass
+class UpdateImageRequest:
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    image_id: str
+    """
+    UUID of the image.
+    """
+
+    name: Optional[str]
+    """
+    Name of the image.
+    """
+
+    arch: Arch
+    """
+    Architecture of the image.
+    """
+
+    extra_volumes: Optional[Dict[str, VolumeImageUpdateTemplate]]
+    """
+    Additional snapshots of the image, with extra_volumeKey being the position of the snapshot in the image.
+    """
+
+    tags: Optional[List[str]]
+    """
+    Tags of the image.
+    """
+
+    public: Optional[bool]
+    """
+    True to set the image as public.
     """
 
 
@@ -2474,6 +2531,29 @@ class GetSnapshotRequest:
     snapshot_id: str
     """
     UUID of the snapshot you want to get.
+    """
+
+
+@dataclass
+class UpdateSnapshotRequest:
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    snapshot_id: str
+    """
+    UUID of the snapshot.
+    """
+
+    name: Optional[str]
+    """
+    Name of the snapshot.
+    """
+
+    tags: Optional[List[str]]
+    """
+    Tags of the snapshot.
     """
 
 
@@ -2805,6 +2885,65 @@ class DeleteSecurityGroupRequest:
 
 
 @dataclass
+class UpdateSecurityGroupRequest:
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    security_group_id: str
+    """
+    UUID of the security group.
+    """
+
+    name: Optional[str]
+    """
+    Name of the security group.
+    """
+
+    description: Optional[str]
+    """
+    Description of the security group.
+    """
+
+    enable_default_security: Optional[bool]
+    """
+    True to block SMTP on IPv4 and IPv6. This feature is read only, please open a support ticket if you need to make it configurable.
+    """
+
+    inbound_default_policy: SecurityGroupPolicy
+    """
+    Default inbound policy.
+    """
+
+    tags: Optional[List[str]]
+    """
+    Tags of the security group.
+    """
+
+    organization_default: Optional[bool]
+    """
+    Please use project_default instead.
+    :deprecated
+    """
+
+    project_default: Optional[bool]
+    """
+    True use this security group for future Instances created in this project.
+    """
+
+    outbound_default_policy: SecurityGroupPolicy
+    """
+    Default outbound policy.
+    """
+
+    stateful: Optional[bool]
+    """
+    True to set the security group as stateful.
+    """
+
+
+@dataclass
 class ListDefaultSecurityGroupRulesRequest:
     zone: Optional[Zone]
     """
@@ -2916,6 +3055,59 @@ class GetSecurityGroupRuleRequest:
     security_group_id: str
 
     security_group_rule_id: str
+
+
+@dataclass
+class UpdateSecurityGroupRuleRequest:
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    security_group_id: str
+    """
+    UUID of the security group.
+    """
+
+    security_group_rule_id: str
+    """
+    UUID of the rule.
+    """
+
+    protocol: SecurityGroupRuleProtocol
+    """
+    Protocol family this rule applies to.
+    """
+
+    direction: SecurityGroupRuleDirection
+    """
+    Direction the rule applies to.
+    """
+
+    action: SecurityGroupRuleAction
+    """
+    Action to apply when the rule matches a packet.
+    """
+
+    ip_range: Optional[str]
+    """
+    Range of IP addresses these rules apply to.
+    """
+
+    dest_port_from: Optional[int]
+    """
+    Beginning of the range of ports this rule applies to (inclusive). If 0 is provided, unset the parameter.
+    """
+
+    dest_port_to: Optional[int]
+    """
+    End of the range of ports this rule applies to (inclusive). If 0 is provided, unset the parameter.
+    """
+
+    position: Optional[int]
+    """
+    Position of this rule in the security group rules list.
+    """
 
 
 @dataclass

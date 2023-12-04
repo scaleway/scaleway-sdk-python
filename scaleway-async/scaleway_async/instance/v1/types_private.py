@@ -490,7 +490,7 @@ class _SetSecurityGroupRequest:
 
     id: str
     """
-    ID of the security group (will be ignored).
+    UUID of the security group.
     """
 
     name: str

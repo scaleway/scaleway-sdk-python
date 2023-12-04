@@ -104,12 +104,17 @@ from .types import (
     Snapshot,
     SnapshotBaseVolume,
     Task,
+    UpdateImageResponse,
     UpdateIpResponse,
     UpdatePlacementGroupResponse,
     UpdatePlacementGroupServersResponse,
+    UpdateSecurityGroupResponse,
+    UpdateSecurityGroupRuleResponse,
     UpdateServerResponse,
+    UpdateSnapshotResponse,
     UpdateVolumeResponse,
     Volume,
+    VolumeImageUpdateTemplate,
     VolumeServer,
     VolumeServerTemplate,
     VolumeSummary,
@@ -121,13 +126,17 @@ from .types import (
     AttachServerVolumeRequest,
     DetachServerVolumeRequest,
     CreateImageRequest,
+    UpdateImageRequest,
     CreateSnapshotRequest,
+    UpdateSnapshotRequest,
     ExportSnapshotRequest,
     CreateVolumeRequest,
     UpdateVolumeRequest,
     CreateSecurityGroupRequest,
+    UpdateSecurityGroupRequest,
     CreateSecurityGroupRuleRequest,
     SetSecurityGroupRulesRequest,
+    UpdateSecurityGroupRuleRequest,
     CreatePlacementGroupRequest,
     SetPlacementGroupRequest,
     UpdatePlacementGroupRequest,
@@ -1994,6 +2003,20 @@ def unmarshal_SetSecurityGroupRulesResponse(data: Any) -> SetSecurityGroupRulesR
     return SetSecurityGroupRulesResponse(**args)
 
 
+def unmarshal_UpdateImageResponse(data: Any) -> UpdateImageResponse:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'UpdateImageResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("image", None)
+    args["image"] = unmarshal_Image(field) if field is not None else None
+
+    return UpdateImageResponse(**args)
+
+
 def unmarshal_UpdateIpResponse(data: Any) -> UpdateIpResponse:
     if type(data) is not dict:
         raise TypeError(
@@ -2044,6 +2067,38 @@ def unmarshal_UpdatePlacementGroupServersResponse(
     return UpdatePlacementGroupServersResponse(**args)
 
 
+def unmarshal_UpdateSecurityGroupResponse(data: Any) -> UpdateSecurityGroupResponse:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'UpdateSecurityGroupResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("security_group", None)
+    args["security_group"] = (
+        unmarshal_SecurityGroup(field) if field is not None else None
+    )
+
+    return UpdateSecurityGroupResponse(**args)
+
+
+def unmarshal_UpdateSecurityGroupRuleResponse(
+    data: Any,
+) -> UpdateSecurityGroupRuleResponse:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'UpdateSecurityGroupRuleResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("rule", None)
+    args["rule"] = unmarshal_SecurityGroupRule(field) if field is not None else None
+
+    return UpdateSecurityGroupRuleResponse(**args)
+
+
 def unmarshal_UpdateServerResponse(data: Any) -> UpdateServerResponse:
     if type(data) is not dict:
         raise TypeError(
@@ -2056,6 +2111,20 @@ def unmarshal_UpdateServerResponse(data: Any) -> UpdateServerResponse:
     args["server"] = unmarshal_Server(field) if field is not None else None
 
     return UpdateServerResponse(**args)
+
+
+def unmarshal_UpdateSnapshotResponse(data: Any) -> UpdateSnapshotResponse:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'UpdateSnapshotResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("snapshot", None)
+    args["snapshot"] = unmarshal_Snapshot(field) if field is not None else None
+
+    return UpdateSnapshotResponse(**args)
 
 
 def unmarshal_UpdateVolumeResponse(data: Any) -> UpdateVolumeResponse:
@@ -2578,6 +2647,18 @@ def marshal_SnapshotBaseVolume(
 
     if request.name is not None:
         output["name"] = request.name
+
+    return output
+
+
+def marshal_VolumeImageUpdateTemplate(
+    request: VolumeImageUpdateTemplate,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.id is not None:
+        output["id"] = request.id
 
     return output
 
@@ -3180,6 +3261,33 @@ def marshal_SetSecurityGroupRulesRequest(
     return output
 
 
+def marshal_UpdateImageRequest(
+    request: UpdateImageRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.arch is not None:
+        output["arch"] = Arch(request.arch)
+
+    if request.extra_volumes is not None:
+        output["extra_volumes"] = {
+            k: marshal_VolumeImageUpdateTemplate(v, defaults)
+            for k, v in request.extra_volumes.items()
+        }
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.public is not None:
+        output["public"] = request.public
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    return output
+
+
 def marshal_UpdateIpRequest(
     request: UpdateIpRequest,
     defaults: ProfileDefaults,
@@ -3239,6 +3347,91 @@ def marshal_UpdatePrivateNICRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    return output
+
+
+def marshal_UpdateSecurityGroupRequest(
+    request: UpdateSecurityGroupRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.enable_default_security is not None:
+        output["enable_default_security"] = request.enable_default_security
+
+    if request.inbound_default_policy is not None:
+        output["inbound_default_policy"] = SecurityGroupPolicy(
+            request.inbound_default_policy
+        )
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.organization_default is not None:
+        output["organization_default"] = request.organization_default
+
+    if request.outbound_default_policy is not None:
+        output["outbound_default_policy"] = SecurityGroupPolicy(
+            request.outbound_default_policy
+        )
+
+    if request.project_default is not None:
+        output["project_default"] = request.project_default
+
+    if request.stateful is not None:
+        output["stateful"] = request.stateful
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    return output
+
+
+def marshal_UpdateSecurityGroupRuleRequest(
+    request: UpdateSecurityGroupRuleRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.action is not None:
+        output["action"] = SecurityGroupRuleAction(request.action)
+
+    if request.dest_port_from is not None:
+        output["dest_port_from"] = request.dest_port_from
+
+    if request.dest_port_to is not None:
+        output["dest_port_to"] = request.dest_port_to
+
+    if request.direction is not None:
+        output["direction"] = SecurityGroupRuleDirection(request.direction)
+
+    if request.ip_range is not None:
+        output["ip_range"] = request.ip_range
+
+    if request.position is not None:
+        output["position"] = request.position
+
+    if request.protocol is not None:
+        output["protocol"] = SecurityGroupRuleProtocol(request.protocol)
+
+    return output
+
+
+def marshal_UpdateSnapshotRequest(
+    request: UpdateSnapshotRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
 
     if request.tags is not None:
         output["tags"] = request.tags
