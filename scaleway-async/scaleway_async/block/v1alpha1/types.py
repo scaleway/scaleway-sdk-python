@@ -195,12 +195,12 @@ class Reference:
 
     product_resource_type: str
     """
-    Type of resoruce to which the reference is associated (snapshot or volume).
+    Type of resource to which the reference is associated.
     """
 
     product_resource_id: str
     """
-    UUID of the volume or the snapshot it refers to (according to the product_resource_type).
+    UUID of the product resource it refers to (according to the product_resource_type).
     """
 
     created_at: Optional[datetime]
