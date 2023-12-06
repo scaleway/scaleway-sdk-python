@@ -6,8 +6,6 @@ from typing import Dict, List, Optional
 from scaleway_core.api import API
 from scaleway_core.bridge import (
     Region,
-    ServiceInfo,
-    unmarshal_ServiceInfo,
 )
 from scaleway_core.utils import (
     fetch_all_pages,
@@ -40,32 +38,6 @@ class JobsV1Alpha1API(API):
 
     Serverless Jobs API.
     """
-
-    def get_service_info(
-        self,
-        *,
-        region: Optional[Region] = None,
-    ) -> Optional[ServiceInfo]:
-        """
-
-        Usage:
-        ::
-
-            result = api.get_service_info()
-        """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
-        res = self._request(
-            "GET",
-            f"/serverless-jobs/v1alpha1/regions/{param_region}",
-        )
-
-        self._throw_on_error(res)
-        json = res.json()
-        return unmarshal_ServiceInfo(json) if json is not None else None
 
     def create_job_definition(
         self,
