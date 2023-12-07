@@ -17,11 +17,6 @@ class GetImageResponse:
 
 
 @dataclass
-class GetVersionResponse:
-    version: Optional[Version]
-
-
-@dataclass
 class Image:
     """
     Image.
@@ -89,13 +84,6 @@ class Image:
 @dataclass
 class ListImagesResponse:
     images: List[Image]
-
-    total_count: int
-
-
-@dataclass
-class ListVersionsResponse:
-    versions: List[Version]
 
     total_count: int
 
@@ -186,15 +174,3 @@ class GetImageRequest:
     """
     Display the image name.
     """
-
-
-@dataclass
-class ListVersionsRequest:
-    image_id: str
-
-
-@dataclass
-class GetVersionRequest:
-    image_id: str
-
-    version_id: str

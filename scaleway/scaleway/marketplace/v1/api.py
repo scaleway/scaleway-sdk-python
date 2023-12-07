@@ -10,16 +10,12 @@ from scaleway_core.utils import (
 )
 from .types import (
     GetImageResponse,
-    GetVersionResponse,
     Image,
     ListImagesResponse,
-    ListVersionsResponse,
 )
 from .marshalling import (
     unmarshal_GetImageResponse,
-    unmarshal_GetVersionResponse,
     unmarshal_ListImagesResponse,
-    unmarshal_ListVersionsResponse,
 )
 
 
@@ -113,54 +109,3 @@ class MarketplaceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_GetImageResponse(res.json())
-
-    def list_versions(
-        self,
-        *,
-        image_id: str,
-    ) -> ListVersionsResponse:
-        """
-
-        Usage:
-        ::
-
-            result = api.list_versions(image_id="example")
-        """
-
-        param_image_id = validate_path_param("image_id", image_id)
-
-        res = self._request(
-            "GET",
-            f"/marketplace/v1/images/{param_image_id}/versions",
-        )
-
-        self._throw_on_error(res)
-        return unmarshal_ListVersionsResponse(res.json())
-
-    def get_version(
-        self,
-        *,
-        image_id: str,
-        version_id: str,
-    ) -> GetVersionResponse:
-        """
-
-        Usage:
-        ::
-
-            result = api.get_version(
-                image_id="example",
-                version_id="example",
-            )
-        """
-
-        param_image_id = validate_path_param("image_id", image_id)
-        param_version_id = validate_path_param("version_id", version_id)
-
-        res = self._request(
-            "GET",
-            f"/marketplace/v1/images/{param_image_id}/versions/{param_version_id}",
-        )
-
-        self._throw_on_error(res)
-        return unmarshal_GetVersionResponse(res.json())

@@ -6,10 +6,8 @@ from typing import Any, Dict
 from dateutil import parser
 from .types import (
     GetImageResponse,
-    GetVersionResponse,
     Image,
     ListImagesResponse,
-    ListVersionsResponse,
     LocalImage,
     Organization,
     Version,
@@ -147,20 +145,6 @@ def unmarshal_GetImageResponse(data: Any) -> GetImageResponse:
     return GetImageResponse(**args)
 
 
-def unmarshal_GetVersionResponse(data: Any) -> GetVersionResponse:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'GetVersionResponse' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("version", None)
-    args["version"] = unmarshal_Version(field) if field is not None else None
-
-    return GetVersionResponse(**args)
-
-
 def unmarshal_ListImagesResponse(data: Any) -> ListImagesResponse:
     if type(data) is not dict:
         raise TypeError(
@@ -176,22 +160,3 @@ def unmarshal_ListImagesResponse(data: Any) -> ListImagesResponse:
     args["total_count"] = field
 
     return ListImagesResponse(**args)
-
-
-def unmarshal_ListVersionsResponse(data: Any) -> ListVersionsResponse:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'ListVersionsResponse' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("total_count", None)
-    args["total_count"] = field
-
-    field = data.get("versions", None)
-    args["versions"] = (
-        [unmarshal_Version(v) for v in field] if field is not None else None
-    )
-
-    return ListVersionsResponse(**args)
