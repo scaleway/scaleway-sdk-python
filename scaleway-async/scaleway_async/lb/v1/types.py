@@ -171,6 +171,15 @@ class ListFrontendsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ListIpsRequestIpType(str, Enum, metaclass=StrEnumMeta):
+    ALL = "all"
+    IPV4 = "ipv4"
+    IPV6 = "ipv6"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListLbsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
