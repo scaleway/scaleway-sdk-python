@@ -15,6 +15,7 @@ from .types import ListAclRequestOrderBy
 from .types import ListBackendsRequestOrderBy
 from .types import ListCertificatesRequestOrderBy
 from .types import ListFrontendsRequestOrderBy
+from .types import ListIpsRequestIpType
 from .types import ListLbsRequestOrderBy
 from .types import ListPrivateNetworksRequestOrderBy
 from .types import ListRoutesRequestOrderBy
@@ -93,6 +94,7 @@ __all__ = [
     "ListBackendsRequestOrderBy",
     "ListCertificatesRequestOrderBy",
     "ListFrontendsRequestOrderBy",
+    "ListIpsRequestIpType",
     "ListLbsRequestOrderBy",
     "ListPrivateNetworksRequestOrderBy",
     "ListRoutesRequestOrderBy",
