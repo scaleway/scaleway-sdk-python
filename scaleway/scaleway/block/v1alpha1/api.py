@@ -648,6 +648,7 @@ class BlockV1Alpha1API(API):
         zone: Optional[Zone] = None,
         project_id: Optional[str] = None,
         tags: Optional[List[str]] = None,
+        size: Optional[int] = None,
     ) -> Snapshot:
         """
 
@@ -674,6 +675,7 @@ class BlockV1Alpha1API(API):
                     zone=zone,
                     project_id=project_id,
                     tags=tags,
+                    size=size,
                 ),
                 self.client,
             ),
