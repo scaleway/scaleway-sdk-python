@@ -93,6 +93,10 @@ class JobRun:
 
     error_message: str
 
+    cpu_limit: int
+
+    memory_limit: int
+
     region: Region
 
 
