@@ -73,6 +73,9 @@ def unmarshal_JobRun(data: Any) -> JobRun:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("cpu_limit", None)
+    args["cpu_limit"] = field
+
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
@@ -87,6 +90,9 @@ def unmarshal_JobRun(data: Any) -> JobRun:
 
     field = data.get("job_definition_id", None)
     args["job_definition_id"] = field
+
+    field = data.get("memory_limit", None)
+    args["memory_limit"] = field
 
     field = data.get("region", None)
     args["region"] = field
