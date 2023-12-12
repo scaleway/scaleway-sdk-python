@@ -766,6 +766,8 @@ class ImportSnapshotFromS3Request:
 
     tags: Optional[List[str]]
 
+    size: Optional[int]
+
 
 @dataclass
 class DeleteSnapshotRequest:

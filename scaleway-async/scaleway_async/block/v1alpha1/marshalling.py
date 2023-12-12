@@ -448,6 +448,9 @@ def marshal_ImportSnapshotFromS3Request(
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id
 
+    if request.size is not None:
+        output["size"] = request.size
+
     if request.tags is not None:
         output["tags"] = request.tags
 
