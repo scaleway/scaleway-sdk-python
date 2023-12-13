@@ -73,6 +73,7 @@ from .types import ReadReplicaEndpointSpecPrivateNetworkIpamConfig
 from .types import SetInstanceACLRulesResponse
 from .types import SetInstanceSettingsResponse
 from .types import Snapshot
+from .types import SnapshotVolumeType
 from .types import UpgradableVersion
 from .types import UpgradeInstanceRequestMajorUpgradeWorkflow
 from .types import User
@@ -159,6 +160,7 @@ __all__ = [
     "SetInstanceACLRulesResponse",
     "SetInstanceSettingsResponse",
     "Snapshot",
+    "SnapshotVolumeType",
     "UpgradableVersion",
     "UpgradeInstanceRequestMajorUpgradeWorkflow",
     "User",

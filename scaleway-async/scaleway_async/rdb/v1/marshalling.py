@@ -66,6 +66,7 @@ from .types import (
     SetInstanceACLRulesResponse,
     SetInstanceSettingsResponse,
     Snapshot,
+    SnapshotVolumeType,
     UpgradableVersion,
     UpgradeInstanceRequestMajorUpgradeWorkflow,
     User,
@@ -417,6 +418,23 @@ def unmarshal_ReadReplica(data: Any) -> ReadReplica:
     args["status"] = field
 
     return ReadReplica(**args)
+
+
+def unmarshal_SnapshotVolumeType(data: Any) -> SnapshotVolumeType:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'SnapshotVolumeType' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("class", None)
+    args["class_"] = field
+
+    field = data.get("type", None)
+    args["type_"] = field
+
+    return SnapshotVolumeType(**args)
 
 
 def unmarshal_UpgradableVersion(data: Any) -> UpgradableVersion:
@@ -853,6 +871,11 @@ def unmarshal_Snapshot(data: Any) -> Snapshot:
 
     field = data.get("updated_at", None)
     args["updated_at"] = parser.isoparse(field) if type(field) is str else field
+
+    field = data.get("volume_type", None)
+    args["volume_type"] = (
+        unmarshal_SnapshotVolumeType(field) if field is not None else None
+    )
 
     return Snapshot(**args)
 
