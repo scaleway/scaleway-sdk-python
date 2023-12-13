@@ -1491,10 +1491,22 @@ class Snapshot:
     Source node type.
     """
 
+    volume_type: Optional[SnapshotVolumeType]
+    """
+    Type of volume where data is stored (lssd, bssd or sbs).
+    """
+
     region: Region
     """
     Region of this snapshot.
     """
+
+
+@dataclass
+class SnapshotVolumeType:
+    type_: VolumeType
+
+    class_: StorageClass
 
 
 @dataclass
