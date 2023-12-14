@@ -1427,7 +1427,7 @@ class K8SV1API(API):
         Delete a specific Node. Note that when there is not enough space to reschedule all the pods (such as in a one-node cluster), disruption of your applications can be expected.
         :param region: Region to target. If none is passed will use default region from the config.
         :param node_id: ID of the node to replace.
-        :param skip_drain: Skip draining node from its workload.
+        :param skip_drain: Skip draining node from its workload (Note: this parameter is currently inactive).
         :param replace: Add a new node after the deletion of this node.
         :return: :class:`Node <Node>`
 
