@@ -1949,7 +1949,7 @@ class DeleteNodeRequest:
 
     skip_drain: bool
     """
-    Skip draining node from its workload.
+    Skip draining node from its workload (Note: this parameter is currently inactive).
     """
 
     replace: bool
