@@ -63,7 +63,9 @@ from .types import (
     SetInstanceACLRulesResponse,
     SetInstanceSettingsResponse,
     Snapshot,
+    SnapshotVolumeType,
     UpgradableVersion,
+    UpgradeInstanceRequestMajorUpgradeWorkflow,
     User,
     Volume,
     UpgradeInstanceRequest,
@@ -365,6 +367,9 @@ def unmarshal_NodeTypeVolumeType(data: Any) -> NodeTypeVolumeType:
     field = data.get("chunk_size", None)
     args["chunk_size"] = field
 
+    field = data.get("class", None)
+    args["class_"] = field
+
     field = data.get("description", None)
     args["description"] = field
 
@@ -408,6 +413,23 @@ def unmarshal_ReadReplica(data: Any) -> ReadReplica:
     return ReadReplica(**args)
 
 
+def unmarshal_SnapshotVolumeType(data: Any) -> SnapshotVolumeType:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'SnapshotVolumeType' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("class", None)
+    args["class_"] = field
+
+    field = data.get("type", None)
+    args["type_"] = field
+
+    return SnapshotVolumeType(**args)
+
+
 def unmarshal_UpgradableVersion(data: Any) -> UpgradableVersion:
     if type(data) is not dict:
         raise TypeError(
@@ -438,6 +460,9 @@ def unmarshal_Volume(data: Any) -> Volume:
         )
 
     args: Dict[str, Any] = {}
+
+    field = data.get("class", None)
+    args["class_"] = field
 
     field = data.get("size", None)
     args["size"] = field
@@ -784,6 +809,11 @@ def unmarshal_Snapshot(data: Any) -> Snapshot:
 
     field = data.get("updated_at", None)
     args["updated_at"] = parser.isoparse(field) if type(field) is str else field
+
+    field = data.get("volume_type", None)
+    args["volume_type"] = (
+        unmarshal_SnapshotVolumeType(field) if field is not None else None
+    )
 
     return Snapshot(**args)
 
@@ -1300,6 +1330,21 @@ def marshal_ReadReplicaEndpointSpec(
     return output
 
 
+def marshal_UpgradeInstanceRequestMajorUpgradeWorkflow(
+    request: UpgradeInstanceRequestMajorUpgradeWorkflow,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.upgradable_version_id is not None:
+        output["upgradable_version_id"] = request.upgradable_version_id
+
+    if request.with_endpoints is not None:
+        output["with_endpoints"] = request.with_endpoints
+
+    return output
+
+
 def marshal_AddInstanceACLRulesRequest(
     request: AddInstanceACLRulesRequest,
     defaults: ProfileDefaults,
@@ -1707,6 +1752,14 @@ def marshal_UpgradeInstanceRequest(
                     "upgradable_version_id",
                     request.upgradable_version_id
                     if request.upgradable_version_id is not None
+                    else None,
+                ),
+                OneOfPossibility(
+                    "major_upgrade_workflow",
+                    marshal_UpgradeInstanceRequestMajorUpgradeWorkflow(
+                        request.major_upgrade_workflow, defaults
+                    )
+                    if request.major_upgrade_workflow is not None
                     else None,
                 ),
             ]

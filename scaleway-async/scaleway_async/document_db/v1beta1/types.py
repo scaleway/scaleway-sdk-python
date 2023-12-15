@@ -216,9 +216,21 @@ class SnapshotStatus(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class StorageClass(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STORAGE_CLASS = "unknown_storage_class"
+    LSSD = "lssd"
+    BSSD = "bssd"
+    SBS = "sbs"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class VolumeType(str, Enum, metaclass=StrEnumMeta):
     LSSD = "lssd"
     BSSD = "bssd"
+    SBS_5K = "sbs_5k"
+    SBS_15K = "sbs_15k"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -1150,6 +1162,11 @@ class NodeTypeVolumeType:
     Minimum increment level for a Block Storage volume size.
     """
 
+    class_: StorageClass
+    """
+    The storage class of the volume.
+    """
+
 
 @dataclass
 class Privilege:
@@ -1342,10 +1359,22 @@ class Snapshot:
     Source node type.
     """
 
+    volume_type: Optional[SnapshotVolumeType]
+    """
+    Type of volume where data is stored (lssd, bssd or sbs).
+    """
+
     region: Region
     """
     Region of this snapshot.
     """
+
+
+@dataclass
+class SnapshotVolumeType:
+    type_: VolumeType
+
+    class_: StorageClass
 
 
 @dataclass
@@ -1357,6 +1386,25 @@ class UpgradableVersion:
     version: str
 
     minor_version: str
+
+
+@dataclass
+class UpgradeInstanceRequestMajorUpgradeWorkflow:
+    """
+    Upgrade instance request. major upgrade workflow.
+    """
+
+    upgradable_version_id: str
+    """
+    Update your database engine to a newer version.
+    This will create a new Database Instance with same specifications as the current one and perform a Database Engine upgrade.
+    """
+
+    with_endpoints: bool
+    """
+    Include endpoint during the migration.
+    At the end of the migration procedure this option let you migrate all your database endpoint to the upgraded instance.
+    """
 
 
 @dataclass
@@ -1381,6 +1429,8 @@ class Volume:
     type_: VolumeType
 
     size: int
+
+    class_: StorageClass
 
 
 @dataclass
@@ -1438,28 +1488,28 @@ class UpgradeInstanceRequest:
     """
     Node type of the Database Instance you want to upgrade to.
     
-    One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id' could be set.
+    One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
     """
 
     enable_ha: Optional[bool]
     """
     Defines whether or not High Availability should be enabled on the Database Instance.
     
-    One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id' could be set.
+    One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
     """
 
     volume_size: Optional[int]
     """
     Increase your Block volume size.
     
-    One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id' could be set.
+    One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
     """
 
     volume_type: Optional[VolumeType]
     """
     Change your Database Instance storage type.
     
-    One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id' could be set.
+    One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
     """
 
     upgradable_version_id: Optional[str]
@@ -1467,7 +1517,14 @@ class UpgradeInstanceRequest:
     Update your database engine to a newer version.
     This will create a new Database Instance with same specifications as the current one and perform a Database Engine upgrade.
     
-    One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id' could be set.
+    One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
+    """
+
+    major_upgrade_workflow: Optional[UpgradeInstanceRequestMajorUpgradeWorkflow]
+    """
+    Upgrade your database engine to a new major version including instance endpoints.
+    
+    One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
     """
 
 

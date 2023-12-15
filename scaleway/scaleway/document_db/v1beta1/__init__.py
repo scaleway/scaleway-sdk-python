@@ -18,6 +18,7 @@ from .types import NodeTypeStock
 from .types import Permission
 from .types import ReadReplicaStatus
 from .types import SnapshotStatus
+from .types import StorageClass
 from .types import VolumeType
 from .types import ACLRule
 from .types import ACLRuleRequest
@@ -67,7 +68,9 @@ from .types import ReadReplicaEndpointSpecPrivateNetworkIpamConfig
 from .types import SetInstanceACLRulesResponse
 from .types import SetInstanceSettingsResponse
 from .types import Snapshot
+from .types import SnapshotVolumeType
 from .types import UpgradableVersion
+from .types import UpgradeInstanceRequestMajorUpgradeWorkflow
 from .types import User
 from .types import Volume
 from .content import INSTANCE_LOG_TRANSIENT_STATUSES
@@ -96,6 +99,7 @@ __all__ = [
     "Permission",
     "ReadReplicaStatus",
     "SnapshotStatus",
+    "StorageClass",
     "VolumeType",
     "ACLRule",
     "ACLRuleRequest",
@@ -145,7 +149,9 @@ __all__ = [
     "SetInstanceACLRulesResponse",
     "SetInstanceSettingsResponse",
     "Snapshot",
+    "SnapshotVolumeType",
     "UpgradableVersion",
+    "UpgradeInstanceRequestMajorUpgradeWorkflow",
     "User",
     "Volume",
     "INSTANCE_LOG_TRANSIENT_STATUSES",
