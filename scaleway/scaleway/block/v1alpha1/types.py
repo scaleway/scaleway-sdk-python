@@ -750,26 +750,6 @@ class CreateSnapshotRequest:
 
 
 @dataclass
-class ImportSnapshotFromS3Request:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    bucket: str
-
-    key: str
-
-    name: str
-
-    project_id: Optional[str]
-
-    tags: Optional[List[str]]
-
-    size: Optional[int]
-
-
-@dataclass
 class DeleteSnapshotRequest:
     zone: Optional[Zone]
     """

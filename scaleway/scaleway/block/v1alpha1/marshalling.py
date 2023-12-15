@@ -28,7 +28,6 @@ from .types import (
     CreateVolumeRequest,
     UpdateVolumeRequest,
     CreateSnapshotRequest,
-    ImportSnapshotFromS3Request,
     UpdateSnapshotRequest,
 )
 
@@ -423,33 +422,6 @@ def marshal_CreateVolumeRequest(
 
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id
-
-    if request.tags is not None:
-        output["tags"] = request.tags
-
-    return output
-
-
-def marshal_ImportSnapshotFromS3Request(
-    request: ImportSnapshotFromS3Request,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-
-    if request.bucket is not None:
-        output["bucket"] = request.bucket
-
-    if request.key is not None:
-        output["key"] = request.key
-
-    if request.name is not None:
-        output["name"] = request.name
-
-    if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
-
-    if request.size is not None:
-        output["size"] = request.size
 
     if request.tags is not None:
         output["tags"] = request.tags
