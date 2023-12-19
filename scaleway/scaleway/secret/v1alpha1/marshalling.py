@@ -10,10 +10,12 @@ from scaleway_core.utils import (
 )
 from dateutil import parser
 from .types import (
+    EphemeralPolicyAction,
     Product,
-    SecretEphemeralAction,
     SecretType,
     AccessSecretVersionResponse,
+    EphemeralPolicy,
+    EphemeralStatus,
     Folder,
     ListFoldersResponse,
     ListSecretVersionsResponse,
@@ -30,6 +32,46 @@ from .types import (
     GeneratePasswordRequest,
     UpdateSecretVersionRequest,
 )
+
+
+def unmarshal_EphemeralPolicy(data: Any) -> EphemeralPolicy:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'EphemeralPolicy' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("action", None)
+    args["action"] = field
+
+    field = data.get("expires_once_accessed", None)
+    args["expires_once_accessed"] = field
+
+    field = data.get("time_to_live", None)
+    args["time_to_live"] = field
+
+    return EphemeralPolicy(**args)
+
+
+def unmarshal_EphemeralStatus(data: Any) -> EphemeralStatus:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'EphemeralStatus' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("action", None)
+    args["action"] = field
+
+    field = data.get("expires_at", None)
+    args["expires_at"] = parser.isoparse(field) if type(field) is str else field
+
+    field = data.get("expires_once_accessed", None)
+    args["expires_once_accessed"] = field
+
+    return EphemeralStatus(**args)
 
 
 def unmarshal_Folder(data: Any) -> Folder:
@@ -75,11 +117,10 @@ def unmarshal_Secret(data: Any) -> Secret:
     field = data.get("description", None)
     args["description"] = field
 
-    field = data.get("ephemeral_action", None)
-    args["ephemeral_action"] = field
-
-    field = data.get("expires_at", None)
-    args["expires_at"] = parser.isoparse(field) if type(field) is str else field
+    field = data.get("ephemeral_policy_template", None)
+    args["ephemeral_policy_template"] = (
+        unmarshal_EphemeralPolicy(field) if field is not None else None
+    )
 
     field = data.get("id", None)
     args["id"] = field
@@ -133,6 +174,11 @@ def unmarshal_SecretVersion(data: Any) -> SecretVersion:
 
     field = data.get("description", None)
     args["description"] = field
+
+    field = data.get("ephemeral_status", None)
+    args["ephemeral_status"] = (
+        unmarshal_EphemeralStatus(field) if field is not None else None
+    )
 
     field = data.get("is_latest", None)
     args["is_latest"] = field
@@ -249,6 +295,42 @@ def unmarshal_ListTagsResponse(data: Any) -> ListTagsResponse:
     return ListTagsResponse(**args)
 
 
+def marshal_EphemeralPolicy(
+    request: EphemeralPolicy,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.action is not None:
+        output["action"] = EphemeralPolicyAction(request.action)
+
+    if request.expires_once_accessed is not None:
+        output["expires_once_accessed"] = request.expires_once_accessed
+
+    if request.time_to_live is not None:
+        output["time_to_live"] = request.time_to_live
+
+    return output
+
+
+def marshal_EphemeralStatus(
+    request: EphemeralStatus,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.action is not None:
+        output["action"] = EphemeralPolicyAction(request.action)
+
+    if request.expires_at is not None:
+        output["expires_at"] = request.expires_at.astimezone().isoformat()
+
+    if request.expires_once_accessed is not None:
+        output["expires_once_accessed"] = request.expires_once_accessed
+
+    return output
+
+
 def marshal_PasswordGenerationParams(
     request: PasswordGenerationParams,
     defaults: ProfileDefaults,
@@ -315,11 +397,10 @@ def marshal_CreateSecretRequest(
     if request.description is not None:
         output["description"] = request.description
 
-    if request.ephemeral_action is not None:
-        output["ephemeral_action"] = SecretEphemeralAction(request.ephemeral_action)
-
-    if request.expires_at is not None:
-        output["expires_at"] = request.expires_at.astimezone().isoformat()
+    if request.ephemeral_policy_template is not None:
+        output["ephemeral_policy_template"] = marshal_EphemeralPolicy(
+            request.ephemeral_policy_template, defaults
+        )
 
     if request.name is not None:
         output["name"] = request.name
@@ -413,6 +494,11 @@ def marshal_UpdateSecretRequest(
     if request.description is not None:
         output["description"] = request.description
 
+    if request.ephemeral_policy_template is not None:
+        output["ephemeral_policy_template"] = marshal_EphemeralPolicy(
+            request.ephemeral_policy_template, defaults
+        )
+
     if request.name is not None:
         output["name"] = request.name
 
@@ -433,5 +519,10 @@ def marshal_UpdateSecretVersionRequest(
 
     if request.description is not None:
         output["description"] = request.description
+
+    if request.ephemeral_status is not None:
+        output["ephemeral_status"] = marshal_EphemeralStatus(
+            request.ephemeral_status, defaults
+        )
 
     return output

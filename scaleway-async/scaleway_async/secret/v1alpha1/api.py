@@ -1,7 +1,6 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from datetime import datetime
 from typing import List, Optional
 
 from scaleway_core.api import API
@@ -16,10 +15,11 @@ from .types import (
     ListFoldersRequestOrderBy,
     ListSecretsRequestOrderBy,
     Product,
-    SecretEphemeralAction,
     SecretType,
     SecretVersionStatus,
     AccessSecretVersionResponse,
+    EphemeralPolicy,
+    EphemeralStatus,
     Folder,
     ListFoldersResponse,
     ListSecretVersionsResponse,
@@ -68,13 +68,12 @@ class SecretV1Alpha1API(API):
         *,
         name: str,
         type_: SecretType,
-        ephemeral_action: SecretEphemeralAction,
         region: Optional[Region] = None,
         project_id: Optional[str] = None,
         tags: Optional[List[str]] = None,
         description: Optional[str] = None,
         path: Optional[str] = None,
-        expires_at: Optional[datetime] = None,
+        ephemeral_policy_template: Optional[EphemeralPolicy] = None,
     ) -> Secret:
         """
         Create a secret.
@@ -88,9 +87,8 @@ class SecretV1Alpha1API(API):
         (Optional.) See `Secret.Type` enum for description of values. If not specified, the type is `Opaque`.
         :param path: Path of the secret.
         (Optional.) Location of the secret in the directory structure. If not specified, the path is `/`.
-        :param expires_at: Expiration date of the secret.
-        (Optional.) Date on which the secret will be deleted or deactivated.
-        :param ephemeral_action: Action to be taken when the secret expires.
+        :param ephemeral_policy_template: Ephemeral policy of the secret.
+        (Optional.) Policy that defines whether/when a secret's versions expire. By default, the policy is applied to all the secret's versions.
         :return: :class:`Secret <Secret>`
 
         Usage:
@@ -99,7 +97,6 @@ class SecretV1Alpha1API(API):
             result = await api.create_secret(
                 name="example",
                 type_=unknown_secret_type,
-                ephemeral_action=unknown_ephemeral_action,
             )
         """
 
@@ -114,13 +111,12 @@ class SecretV1Alpha1API(API):
                 CreateSecretRequest(
                     name=name,
                     type_=type_,
-                    ephemeral_action=ephemeral_action,
                     region=region,
                     project_id=project_id,
                     tags=tags,
                     description=description,
                     path=path,
-                    expires_at=expires_at,
+                    ephemeral_policy_template=ephemeral_policy_template,
                 ),
                 self.client,
             ),
@@ -257,10 +253,11 @@ class SecretV1Alpha1API(API):
         tags: Optional[List[str]] = None,
         description: Optional[str] = None,
         path: Optional[str] = None,
+        ephemeral_policy_template: Optional[EphemeralPolicy] = None,
     ) -> Secret:
         """
         Update metadata of a secret.
-        Edit a secret's metadata such as name, tag(s) and description. The secret to update is specified by the `secret_id` and `region` parameters.
+        Edit a secret's metadata such as name, tag(s), description and ephemeral policy. The secret to update is specified by the `secret_id` and `region` parameters.
         :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the secret.
         :param name: Secret's updated name (optional).
@@ -268,6 +265,8 @@ class SecretV1Alpha1API(API):
         :param description: Description of the secret.
         :param path: Path of the folder.
         (Optional.) Location of the folder in the directory structure. If not specified, the path is `/`.
+        :param ephemeral_policy_template: Ephemeral policy of the secret.
+        (Optional.) Policy that defines whether/when a secret's versions expire.
         :return: :class:`Secret <Secret>`
 
         Usage:
@@ -292,6 +291,7 @@ class SecretV1Alpha1API(API):
                     tags=tags,
                     description=description,
                     path=path,
+                    ephemeral_policy_template=ephemeral_policy_template,
                 ),
                 self.client,
             ),
@@ -905,6 +905,7 @@ class SecretV1Alpha1API(API):
         revision: str,
         region: Optional[Region] = None,
         description: Optional[str] = None,
+        ephemeral_status: Optional[EphemeralStatus] = None,
     ) -> SecretVersion:
         """
         Update metadata of a version.
@@ -917,6 +918,8 @@ class SecretV1Alpha1API(API):
         - "latest" (the latest revision)
         - "latest_enabled" (the latest enabled revision).
         :param description: Description of the version.
+        :param ephemeral_status: Ephemeral status of the version.
+        (Optional.) Status that defines the version's expiration date, whether it expires after being accessed once, and the action to perform (disable or delete) once the version expires.
         :return: :class:`SecretVersion <SecretVersion>`
 
         Usage:
@@ -943,6 +946,7 @@ class SecretV1Alpha1API(API):
                     revision=revision,
                     region=region,
                     description=description,
+                    ephemeral_status=ephemeral_status,
                 ),
                 self.client,
             ),
