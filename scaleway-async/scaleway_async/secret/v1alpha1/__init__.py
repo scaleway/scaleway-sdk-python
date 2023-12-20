@@ -9,7 +9,7 @@ from .types import SecretType
 from .types import SecretVersionStatus
 from .types import AccessSecretVersionResponse
 from .types import EphemeralPolicy
-from .types import EphemeralStatus
+from .types import EphemeralProperties
 from .types import Folder
 from .types import ListFoldersResponse
 from .types import ListSecretVersionsResponse
@@ -30,7 +30,7 @@ __all__ = [
     "SecretVersionStatus",
     "AccessSecretVersionResponse",
     "EphemeralPolicy",
-    "EphemeralStatus",
+    "EphemeralProperties",
     "Folder",
     "ListFoldersResponse",
     "ListSecretVersionsResponse",

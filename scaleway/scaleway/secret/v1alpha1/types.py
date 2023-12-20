@@ -135,9 +135,9 @@ class EphemeralPolicy:
 
 
 @dataclass
-class EphemeralStatus:
+class EphemeralProperties:
     """
-    Ephemeral status.
+    Ephemeral properties.
     """
 
     expires_at: Optional[datetime]
@@ -372,7 +372,7 @@ class Secret:
     Location of the secret in the directory structure.
     """
 
-    ephemeral_policy_template: Optional[EphemeralPolicy]
+    ephemeral_policy: Optional[EphemeralPolicy]
     """
     Ephemeral policy of the secret.
     (Optional.) Policy that defines whether/when a secret's versions expire. By default, the policy is applied to all the secret's versions.
@@ -430,9 +430,9 @@ class SecretVersion:
     Returns `true` if the version is the latest.
     """
 
-    ephemeral_status: Optional[EphemeralStatus]
+    ephemeral_properties: Optional[EphemeralProperties]
     """
-    Status of the ephemeral version.
+    Properties of the ephemeral version.
     Returns the version's expiration date, whether it expires after being accessed once, and the action to perform (disable or delete) once the version expires.
     """
 
@@ -476,7 +476,7 @@ class CreateSecretRequest:
     (Optional.) Location of the secret in the directory structure. If not specified, the path is `/`.
     """
 
-    ephemeral_policy_template: Optional[EphemeralPolicy]
+    ephemeral_policy: Optional[EphemeralPolicy]
     """
     Ephemeral policy of the secret.
     (Optional.) Policy that defines whether/when a secret's versions expire. By default, the policy is applied to all the secret's versions.
@@ -572,7 +572,7 @@ class UpdateSecretRequest:
     (Optional.) Location of the folder in the directory structure. If not specified, the path is `/`.
     """
 
-    ephemeral_policy_template: Optional[EphemeralPolicy]
+    ephemeral_policy: Optional[EphemeralPolicy]
     """
     Ephemeral policy of the secret.
     (Optional.) Policy that defines whether/when a secret's versions expire.
@@ -898,10 +898,10 @@ class UpdateSecretVersionRequest:
     Description of the version.
     """
 
-    ephemeral_status: Optional[EphemeralStatus]
+    ephemeral_properties: Optional[EphemeralProperties]
     """
-    Ephemeral status of the version.
-    (Optional.) Status that defines the version's expiration date, whether it expires after being accessed once, and the action to perform (disable or delete) once the version expires.
+    Ephemeral properties of the version.
+    (Optional.) Properties that defines the version's expiration date, whether it expires after being accessed once, and the action to perform (disable or delete) once the version expires.
     """
 
 
