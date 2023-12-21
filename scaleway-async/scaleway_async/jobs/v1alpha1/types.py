@@ -45,6 +45,24 @@ class ListJobRunsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
+class CreateJobDefinitionRequestCronScheduleConfig:
+    schedule: str
+
+    timezone: str
+
+
+@dataclass
+class CronSchedule:
+    """
+    Cron schedule.
+    """
+
+    schedule: str
+
+    timezone: str
+
+
+@dataclass
 class JobDefinition:
     id: str
 
@@ -69,6 +87,8 @@ class JobDefinition:
     description: str
 
     job_timeout: Optional[str]
+
+    cron_schedule: Optional[CronSchedule]
 
     region: Region
 
@@ -112,6 +132,19 @@ class ListJobRunsResponse:
     job_runs: List[JobRun]
 
     total_count: int
+
+
+@dataclass
+class UpdateJobDefinitionRequestCronScheduleConfig:
+    schedule: Optional[str]
+    """
+    One-of ('_schedule'): at most one of 'schedule' could be set.
+    """
+
+    timezone: Optional[str]
+    """
+    One-of ('_timezone'): at most one of 'timezone' could be set.
+    """
 
 
 @dataclass
@@ -165,6 +198,8 @@ class CreateJobDefinitionRequest:
     """
     Timeout of the job in seconds.
     """
+
+    cron_schedule: Optional[CreateJobDefinitionRequestCronScheduleConfig]
 
 
 @dataclass
@@ -247,6 +282,8 @@ class UpdateJobDefinitionRequest:
     """
     Timeout of the job in seconds.
     """
+
+    cron_schedule: Optional[UpdateJobDefinitionRequestCronScheduleConfig]
 
 
 @dataclass
