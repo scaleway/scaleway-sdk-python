@@ -54,6 +54,18 @@ class JobsV1Alpha1API(API):
         job_timeout: Optional[str] = None,
     ) -> JobDefinition:
         """
+        Create a new job definition in a specified Project.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param name: Name of the job definition.
+        :param cpu_limit: CPU limit of the job.
+        :param memory_limit: Memory limit of the job.
+        :param image_uri: Image to use for the job.
+        :param command: Startup command.
+        :param project_id: UUID of the Scaleway Project containing the job.
+        :param environment_variables: Environment variables of the job.
+        :param description: Description of the job.
+        :param job_timeout: Timeout of the job in seconds.
+        :return: :class:`JobDefinition <JobDefinition>`
 
         Usage:
         ::
@@ -101,6 +113,10 @@ class JobsV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> JobDefinition:
         """
+        Get a job definition by its unique identifier.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param job_definition_id: UUID of the job definition to get.
+        :return: :class:`JobDefinition <JobDefinition>`
 
         Usage:
         ::
@@ -133,6 +149,13 @@ class JobsV1Alpha1API(API):
         project_id: Optional[str] = None,
     ) -> ListJobDefinitionsResponse:
         """
+        List all your job definitions with filters.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page:
+        :param page_size:
+        :param order_by:
+        :param project_id:
+        :return: :class:`ListJobDefinitionsResponse <ListJobDefinitionsResponse>`
 
         Usage:
         ::
@@ -168,6 +191,12 @@ class JobsV1Alpha1API(API):
         project_id: Optional[str] = None,
     ) -> List[JobDefinition]:
         """
+        List all your job definitions with filters.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page:
+        :param page_size:
+        :param order_by:
+        :param project_id:
         :return: :class:`List[ListJobDefinitionsResponse] <List[ListJobDefinitionsResponse]>`
 
         Usage:
@@ -204,6 +233,18 @@ class JobsV1Alpha1API(API):
         job_timeout: Optional[str] = None,
     ) -> JobDefinition:
         """
+        Update an existing job definition associated with the specified unique identifier.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param job_definition_id: UUID of the job definition to update.
+        :param name: Name of the job definition.
+        :param cpu_limit: CPU limit of the job.
+        :param memory_limit: Memory limit of the job.
+        :param image_uri: Image to use for the job.
+        :param command: Startup command.
+        :param environment_variables: Environment variables of the job.
+        :param description: Description of the job.
+        :param job_timeout: Timeout of the job in seconds.
+        :return: :class:`JobDefinition <JobDefinition>`
 
         Usage:
         ::
@@ -248,6 +289,9 @@ class JobsV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> Optional[None]:
         """
+        Delete an exsisting job definition by its unique identifier.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param job_definition_id: UUID of the job definition to delete.
 
         Usage:
         ::
@@ -277,6 +321,10 @@ class JobsV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> JobRun:
         """
+        Run an existing job definition by its unique identifier. This will create a new job run.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param job_definition_id: UUID of the job definition to start.
+        :return: :class:`JobRun <JobRun>`
 
         Usage:
         ::
@@ -306,6 +354,10 @@ class JobsV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> JobRun:
         """
+        Get a job run by its unique identifier.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param job_run_id: UUID of the job run to get.
+        :return: :class:`JobRun <JobRun>`
 
         Usage:
         ::
@@ -333,6 +385,10 @@ class JobsV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> JobRun:
         """
+        Stop a job run by its unique identifier.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param job_run_id: UUID of the job run to stop.
+        :return: :class:`JobRun <JobRun>`
 
         Usage:
         ::
@@ -364,6 +420,14 @@ class JobsV1Alpha1API(API):
         project_id: Optional[str] = None,
     ) -> ListJobRunsResponse:
         """
+        List all job runs with filters.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page:
+        :param page_size:
+        :param order_by:
+        :param job_definition_id:
+        :param project_id:
+        :return: :class:`ListJobRunsResponse <ListJobRunsResponse>`
 
         Usage:
         ::
@@ -401,6 +465,13 @@ class JobsV1Alpha1API(API):
         project_id: Optional[str] = None,
     ) -> List[JobRun]:
         """
+        List all job runs with filters.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page:
+        :param page_size:
+        :param order_by:
+        :param job_definition_id:
+        :param project_id:
         :return: :class:`List[ListJobRunsResponse] <List[ListJobRunsResponse]>`
 
         Usage:

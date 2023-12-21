@@ -122,22 +122,49 @@ class CreateJobDefinitionRequest:
     """
 
     name: Optional[str]
+    """
+    Name of the job definition.
+    """
 
     cpu_limit: int
+    """
+    CPU limit of the job.
+    """
 
     memory_limit: int
+    """
+    Memory limit of the job.
+    """
 
     image_uri: str
+    """
+    Image to use for the job.
+    """
 
     command: str
+    """
+    Startup command.
+    """
 
     project_id: Optional[str]
+    """
+    UUID of the Scaleway Project containing the job.
+    """
 
     environment_variables: Optional[Dict[str, str]]
+    """
+    Environment variables of the job.
+    """
 
     description: str
+    """
+    Description of the job.
+    """
 
     job_timeout: Optional[str]
+    """
+    Timeout of the job in seconds.
+    """
 
 
 @dataclass
@@ -148,6 +175,9 @@ class GetJobDefinitionRequest:
     """
 
     job_definition_id: str
+    """
+    UUID of the job definition to get.
+    """
 
 
 @dataclass
@@ -174,22 +204,49 @@ class UpdateJobDefinitionRequest:
     """
 
     job_definition_id: str
+    """
+    UUID of the job definition to update.
+    """
 
     name: Optional[str]
+    """
+    Name of the job definition.
+    """
 
     cpu_limit: Optional[int]
+    """
+    CPU limit of the job.
+    """
 
     memory_limit: Optional[int]
+    """
+    Memory limit of the job.
+    """
 
     image_uri: Optional[str]
+    """
+    Image to use for the job.
+    """
 
     command: Optional[str]
+    """
+    Startup command.
+    """
 
     environment_variables: Optional[Dict[str, str]]
+    """
+    Environment variables of the job.
+    """
 
     description: Optional[str]
+    """
+    Description of the job.
+    """
 
     job_timeout: Optional[str]
+    """
+    Timeout of the job in seconds.
+    """
 
 
 @dataclass
@@ -200,6 +257,9 @@ class DeleteJobDefinitionRequest:
     """
 
     job_definition_id: str
+    """
+    UUID of the job definition to delete.
+    """
 
 
 @dataclass
@@ -210,6 +270,9 @@ class StartJobDefinitionRequest:
     """
 
     job_definition_id: str
+    """
+    UUID of the job definition to start.
+    """
 
 
 @dataclass
@@ -220,6 +283,9 @@ class GetJobRunRequest:
     """
 
     job_run_id: str
+    """
+    UUID of the job run to get.
+    """
 
 
 @dataclass
@@ -230,6 +296,9 @@ class StopJobRunRequest:
     """
 
     job_run_id: str
+    """
+    UUID of the job run to stop.
+    """
 
 
 @dataclass
