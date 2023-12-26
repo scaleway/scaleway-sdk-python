@@ -1777,6 +1777,9 @@ def marshal_CreateIpRequest(
         ),
     )
 
+    if request.is_ipv6 is not None:
+        output["is_ipv6"] = request.is_ipv6
+
     if request.reverse is not None:
         output["reverse"] = request.reverse
 
@@ -1812,11 +1815,17 @@ def marshal_CreateLbRequest(
     if request.assign_flexible_ip is not None:
         output["assign_flexible_ip"] = request.assign_flexible_ip
 
+    if request.assign_flexible_ipv6 is not None:
+        output["assign_flexible_ipv6"] = request.assign_flexible_ipv6
+
     if request.description is not None:
         output["description"] = request.description
 
     if request.ip_id is not None:
         output["ip_id"] = request.ip_id
+
+    if request.ip_ids is not None:
+        output["ip_ids"] = request.ip_ids
 
     if request.name is not None:
         output["name"] = request.name
@@ -2168,6 +2177,9 @@ def marshal_UpdateIpRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
+    if request.lb_id is not None:
+        output["lb_id"] = request.lb_id
+
     if request.reverse is not None:
         output["reverse"] = request.reverse
 
@@ -2477,6 +2489,9 @@ def marshal_ZonedApiCreateIpRequest(
         ),
     )
 
+    if request.is_ipv6 is not None:
+        output["is_ipv6"] = request.is_ipv6
+
     if request.reverse is not None:
         output["reverse"] = request.reverse
 
@@ -2512,11 +2527,17 @@ def marshal_ZonedApiCreateLbRequest(
     if request.assign_flexible_ip is not None:
         output["assign_flexible_ip"] = request.assign_flexible_ip
 
+    if request.assign_flexible_ipv6 is not None:
+        output["assign_flexible_ipv6"] = request.assign_flexible_ipv6
+
     if request.description is not None:
         output["description"] = request.description
 
     if request.ip_id is not None:
         output["ip_id"] = request.ip_id
+
+    if request.ip_ids is not None:
+        output["ip_ids"] = request.ip_ids
 
     if request.name is not None:
         output["name"] = request.name
@@ -2879,6 +2900,9 @@ def marshal_ZonedApiUpdateIpRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
+
+    if request.lb_id is not None:
+        output["lb_id"] = request.lb_id
 
     if request.reverse is not None:
         output["reverse"] = request.reverse

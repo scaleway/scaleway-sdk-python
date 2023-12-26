@@ -1692,6 +1692,16 @@ class CreateLbRequest:
     Defines whether to automatically assign a flexible public IP to lb. Default value is `false` (do not assign).
     """
 
+    assign_flexible_ipv6: Optional[bool]
+    """
+    Defines whether to automatically assign a flexible public IPv6 to the Load Balancer. Default value is `false` (do not assign).
+    """
+
+    ip_ids: Optional[List[str]]
+    """
+    List of IP IDs to attach to the Load Balancer.
+    """
+
     tags: Optional[List[str]]
     """
     List of tags for the Load Balancer.
@@ -1850,6 +1860,11 @@ class CreateIpRequest:
     Reverse DNS (domain name) for the IP address.
     """
 
+    is_ipv6: bool
+    """
+    If true, creates a Flexible IP with an ipv6 address.
+    """
+
 
 @dataclass
 class GetIpRequest:
@@ -1892,6 +1907,11 @@ class UpdateIpRequest:
     reverse: Optional[str]
     """
     Reverse DNS (domain name) for the IP address.
+    """
+
+    lb_id: Optional[str]
+    """
+    ID of the server on which to attach the flexible IP.
     """
 
 
@@ -3231,6 +3251,16 @@ class ZonedApiCreateLbRequest:
     Defines whether to automatically assign a flexible public IP to lb. Default value is `false` (do not assign).
     """
 
+    assign_flexible_ipv6: Optional[bool]
+    """
+    Defines whether to automatically assign a flexible public IPv6 to the Load Balancer. Default value is `false` (do not assign).
+    """
+
+    ip_ids: Optional[List[str]]
+    """
+    List of IP IDs to attach to the Load Balancer.
+    """
+
     tags: Optional[List[str]]
     """
     List of tags for the Load Balancer.
@@ -3389,6 +3419,11 @@ class ZonedApiCreateIpRequest:
     Reverse DNS (domain name) for the IP address.
     """
 
+    is_ipv6: bool
+    """
+    If true, creates a Flexible IP with an ipv6 address.
+    """
+
 
 @dataclass
 class ZonedApiGetIpRequest:
@@ -3431,6 +3466,11 @@ class ZonedApiUpdateIpRequest:
     reverse: Optional[str]
     """
     Reverse DNS (domain name) for the IP address.
+    """
+
+    lb_id: Optional[str]
+    """
+    ID of the server on which to attach the flexible IP.
     """
 
 
