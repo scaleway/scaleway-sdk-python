@@ -15,6 +15,15 @@ from scaleway_core.utils import (
 )
 
 
+class EphemeralPolicyAction(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_ACTION = "unknown_action"
+    DELETE = "delete"
+    DISABLE = "disable"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListFoldersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
@@ -40,15 +49,6 @@ class ListSecretsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 class Product(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     EDGE_SERVICES = "edge_services"
-
-    def __str__(self) -> str:
-        return str(self.value)
-
-
-class SecretEphemeralAction(str, Enum, metaclass=StrEnumMeta):
-    UNKNOWN_EPHEMERAL_ACTION = "unknown_ephemeral_action"
-    DELETE_SECRET = "delete_secret"
-    DISABLE_SECRET = "disable_secret"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -108,6 +108,54 @@ class AccessSecretVersionResponse:
     """
     The CRC32 checksum of the data as a base-10 integer.
     This field is only available if a CRC32 was supplied during the creation of the version.
+    """
+
+
+@dataclass
+class EphemeralPolicy:
+    """
+    Ephemeral policy.
+    """
+
+    time_to_live: Optional[str]
+    """
+    Time frame, from one second and up to one year, during which the secret's versions are valid.
+    """
+
+    expires_once_accessed: Optional[bool]
+    """
+    Returns `true` if the version expires after a single user access.
+    """
+
+    action: EphemeralPolicyAction
+    """
+    Action to perform when the version of a secret expires.
+    See the `EphemeralPolicy.Action` enum for a description of values.
+    """
+
+
+@dataclass
+class EphemeralStatus:
+    """
+    Ephemeral status.
+    """
+
+    expires_at: Optional[datetime]
+    """
+    The version's expiration date.
+    (Optional.) If not specified, the version does not have an expiration date.
+    """
+
+    expires_once_accessed: Optional[bool]
+    """
+    Returns `true` if the version expires after a single user access.
+    (Optional.) If not specified, the version can be accessed an unlimited amount of times.
+    """
+
+    action: EphemeralPolicyAction
+    """
+    Action to perform when the version of a secret expires.
+    See `EphemeralPolicy.Action` enum for a description of values.
     """
 
 
@@ -324,16 +372,10 @@ class Secret:
     Location of the secret in the directory structure.
     """
 
-    expires_at: Optional[datetime]
+    ephemeral_policy_template: Optional[EphemeralPolicy]
     """
-    Expiration date of the secret.
-    (Optional.) Date on which the secret will be deleted or deactivated.
-    """
-
-    ephemeral_action: SecretEphemeralAction
-    """
-    Action to be taken when the secret expires.
-    See `Secret.EphemeralAction` enum for description of values.
+    Ephemeral policy of the secret.
+    (Optional.) Policy that defines whether/when a secret's versions expire. By default, the policy is applied to all the secret's versions.
     """
 
     region: Region
@@ -388,6 +430,12 @@ class SecretVersion:
     Returns `true` if the version is the latest.
     """
 
+    ephemeral_status: Optional[EphemeralStatus]
+    """
+    Status of the ephemeral version.
+    Returns the version's expiration date, whether it expires after being accessed once, and the action to perform (disable or delete) once the version expires.
+    """
+
 
 @dataclass
 class CreateSecretRequest:
@@ -428,15 +476,10 @@ class CreateSecretRequest:
     (Optional.) Location of the secret in the directory structure. If not specified, the path is `/`.
     """
 
-    expires_at: Optional[datetime]
+    ephemeral_policy_template: Optional[EphemeralPolicy]
     """
-    Expiration date of the secret.
-    (Optional.) Date on which the secret will be deleted or deactivated.
-    """
-
-    ephemeral_action: SecretEphemeralAction
-    """
-    Action to be taken when the secret expires.
+    Ephemeral policy of the secret.
+    (Optional.) Policy that defines whether/when a secret's versions expire. By default, the policy is applied to all the secret's versions.
     """
 
 
@@ -527,6 +570,12 @@ class UpdateSecretRequest:
     """
     Path of the folder.
     (Optional.) Location of the folder in the directory structure. If not specified, the path is `/`.
+    """
+
+    ephemeral_policy_template: Optional[EphemeralPolicy]
+    """
+    Ephemeral policy of the secret.
+    (Optional.) Policy that defines whether/when a secret's versions expire.
     """
 
 
@@ -847,6 +896,12 @@ class UpdateSecretVersionRequest:
     description: Optional[str]
     """
     Description of the version.
+    """
+
+    ephemeral_status: Optional[EphemeralStatus]
+    """
+    Ephemeral status of the version.
+    (Optional.) Status that defines the version's expiration date, whether it expires after being accessed once, and the action to perform (disable or delete) once the version expires.
     """
 
 
