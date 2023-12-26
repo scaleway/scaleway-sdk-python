@@ -507,6 +507,9 @@ def unmarshal_ServerIp(data: Any) -> ServerIp:
     field = data.get("id", None)
     args["id"] = field
 
+    field = data.get("ipam_id", None)
+    args["ipam_id"] = field
+
     field = data.get("netmask", None)
     args["netmask"] = field
 
@@ -827,6 +830,9 @@ def unmarshal_Ip(data: Any) -> Ip:
 
     field = data.get("id", None)
     args["id"] = field
+
+    field = data.get("ipam_id", None)
+    args["ipam_id"] = field
 
     field = data.get("organization", None)
     args["organization"] = field
@@ -2525,6 +2531,9 @@ def marshal_ServerIp(
 
     if request.id is not None:
         output["id"] = request.id
+
+    if request.ipam_id is not None:
+        output["ipam_id"] = request.ipam_id
 
     if request.netmask is not None:
         output["netmask"] = request.netmask

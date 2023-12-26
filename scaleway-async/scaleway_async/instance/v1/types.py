@@ -605,6 +605,8 @@ class Ip:
 
     prefix: str
 
+    ipam_id: str
+
     zone: Zone
 
 
@@ -1309,6 +1311,11 @@ class ServerIp:
     """
 
     state: ServerIpState
+
+    ipam_id: str
+    """
+    The ip_id of an IPAM ip if the ip is created from IPAM, null if not.
+    """
 
 
 @dataclass
