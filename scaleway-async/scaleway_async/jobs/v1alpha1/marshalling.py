@@ -4,15 +4,39 @@
 from typing import Any, Dict
 
 from scaleway_core.profile import ProfileDefaults
+from scaleway_core.utils import (
+    OneOfPossibility,
+    resolve_one_of,
+)
 from dateutil import parser
 from .types import (
+    CreateJobDefinitionRequestCronScheduleConfig,
+    CronSchedule,
     JobDefinition,
     JobRun,
     ListJobDefinitionsResponse,
     ListJobRunsResponse,
+    UpdateJobDefinitionRequestCronScheduleConfig,
     CreateJobDefinitionRequest,
     UpdateJobDefinitionRequest,
 )
+
+
+def unmarshal_CronSchedule(data: Any) -> CronSchedule:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'CronSchedule' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("schedule", None)
+    args["schedule"] = field
+
+    field = data.get("timezone", None)
+    args["timezone"] = field
+
+    return CronSchedule(**args)
 
 
 def unmarshal_JobDefinition(data: Any) -> JobDefinition:
@@ -31,6 +55,9 @@ def unmarshal_JobDefinition(data: Any) -> JobDefinition:
 
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if type(field) is str else field
+
+    field = data.get("cron_schedule", None)
+    args["cron_schedule"] = unmarshal_CronSchedule(field) if field is not None else None
 
     field = data.get("description", None)
     args["description"] = field
@@ -150,6 +177,50 @@ def unmarshal_ListJobRunsResponse(data: Any) -> ListJobRunsResponse:
     return ListJobRunsResponse(**args)
 
 
+def marshal_CreateJobDefinitionRequestCronScheduleConfig(
+    request: CreateJobDefinitionRequestCronScheduleConfig,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.schedule is not None:
+        output["schedule"] = request.schedule
+
+    if request.timezone is not None:
+        output["timezone"] = request.timezone
+
+    return output
+
+
+def marshal_UpdateJobDefinitionRequestCronScheduleConfig(
+    request: UpdateJobDefinitionRequestCronScheduleConfig,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
+            [
+                OneOfPossibility(
+                    "schedule",
+                    request.schedule if request.schedule is not None else None,
+                ),
+            ]
+        ),
+    )
+    output.update(
+        resolve_one_of(
+            [
+                OneOfPossibility(
+                    "timezone",
+                    request.timezone if request.timezone is not None else None,
+                ),
+            ]
+        ),
+    )
+
+    return output
+
+
 def marshal_CreateJobDefinitionRequest(
     request: CreateJobDefinitionRequest,
     defaults: ProfileDefaults,
@@ -161,6 +232,11 @@ def marshal_CreateJobDefinitionRequest(
 
     if request.cpu_limit is not None:
         output["cpu_limit"] = request.cpu_limit
+
+    if request.cron_schedule is not None:
+        output["cron_schedule"] = marshal_CreateJobDefinitionRequestCronScheduleConfig(
+            request.cron_schedule, defaults
+        )
 
     if request.description is not None:
         output["description"] = request.description
@@ -197,6 +273,11 @@ def marshal_UpdateJobDefinitionRequest(
 
     if request.cpu_limit is not None:
         output["cpu_limit"] = request.cpu_limit
+
+    if request.cron_schedule is not None:
+        output["cron_schedule"] = marshal_UpdateJobDefinitionRequestCronScheduleConfig(
+            request.cron_schedule, defaults
+        )
 
     if request.description is not None:
         output["description"] = request.description

@@ -15,10 +15,12 @@ from scaleway_core.utils import (
 from .types import (
     ListJobDefinitionsRequestOrderBy,
     ListJobRunsRequestOrderBy,
+    CreateJobDefinitionRequestCronScheduleConfig,
     JobDefinition,
     JobRun,
     ListJobDefinitionsResponse,
     ListJobRunsResponse,
+    UpdateJobDefinitionRequestCronScheduleConfig,
     CreateJobDefinitionRequest,
     UpdateJobDefinitionRequest,
 )
@@ -52,6 +54,7 @@ class JobsV1Alpha1API(API):
         project_id: Optional[str] = None,
         environment_variables: Optional[Dict[str, str]] = None,
         job_timeout: Optional[str] = None,
+        cron_schedule: Optional[CreateJobDefinitionRequestCronScheduleConfig] = None,
     ) -> JobDefinition:
         """
         Create a new job definition in a specified Project.
@@ -65,6 +68,7 @@ class JobsV1Alpha1API(API):
         :param environment_variables: Environment variables of the job.
         :param description: Description of the job.
         :param job_timeout: Timeout of the job in seconds.
+        :param cron_schedule:
         :return: :class:`JobDefinition <JobDefinition>`
 
         Usage:
@@ -98,6 +102,7 @@ class JobsV1Alpha1API(API):
                     project_id=project_id,
                     environment_variables=environment_variables,
                     job_timeout=job_timeout,
+                    cron_schedule=cron_schedule,
                 ),
                 self.client,
             ),
@@ -231,6 +236,7 @@ class JobsV1Alpha1API(API):
         environment_variables: Optional[Dict[str, str]] = None,
         description: Optional[str] = None,
         job_timeout: Optional[str] = None,
+        cron_schedule: Optional[UpdateJobDefinitionRequestCronScheduleConfig] = None,
     ) -> JobDefinition:
         """
         Update an existing job definition associated with the specified unique identifier.
@@ -244,6 +250,7 @@ class JobsV1Alpha1API(API):
         :param environment_variables: Environment variables of the job.
         :param description: Description of the job.
         :param job_timeout: Timeout of the job in seconds.
+        :param cron_schedule:
         :return: :class:`JobDefinition <JobDefinition>`
 
         Usage:
@@ -274,6 +281,7 @@ class JobsV1Alpha1API(API):
                     environment_variables=environment_variables,
                     description=description,
                     job_timeout=job_timeout,
+                    cron_schedule=cron_schedule,
                 ),
                 self.client,
             ),
