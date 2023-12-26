@@ -15,7 +15,7 @@ from .types import (
     SecretType,
     AccessSecretVersionResponse,
     EphemeralPolicy,
-    EphemeralStatus,
+    EphemeralProperties,
     Folder,
     ListFoldersResponse,
     ListSecretVersionsResponse,
@@ -54,10 +54,10 @@ def unmarshal_EphemeralPolicy(data: Any) -> EphemeralPolicy:
     return EphemeralPolicy(**args)
 
 
-def unmarshal_EphemeralStatus(data: Any) -> EphemeralStatus:
+def unmarshal_EphemeralProperties(data: Any) -> EphemeralProperties:
     if type(data) is not dict:
         raise TypeError(
-            f"Unmarshalling the type 'EphemeralStatus' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'EphemeralProperties' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -71,7 +71,7 @@ def unmarshal_EphemeralStatus(data: Any) -> EphemeralStatus:
     field = data.get("expires_once_accessed", None)
     args["expires_once_accessed"] = field
 
-    return EphemeralStatus(**args)
+    return EphemeralProperties(**args)
 
 
 def unmarshal_Folder(data: Any) -> Folder:
@@ -117,8 +117,8 @@ def unmarshal_Secret(data: Any) -> Secret:
     field = data.get("description", None)
     args["description"] = field
 
-    field = data.get("ephemeral_policy_template", None)
-    args["ephemeral_policy_template"] = (
+    field = data.get("ephemeral_policy", None)
+    args["ephemeral_policy"] = (
         unmarshal_EphemeralPolicy(field) if field is not None else None
     )
 
@@ -175,9 +175,9 @@ def unmarshal_SecretVersion(data: Any) -> SecretVersion:
     field = data.get("description", None)
     args["description"] = field
 
-    field = data.get("ephemeral_status", None)
-    args["ephemeral_status"] = (
-        unmarshal_EphemeralStatus(field) if field is not None else None
+    field = data.get("ephemeral_properties", None)
+    args["ephemeral_properties"] = (
+        unmarshal_EphemeralProperties(field) if field is not None else None
     )
 
     field = data.get("is_latest", None)
@@ -313,8 +313,8 @@ def marshal_EphemeralPolicy(
     return output
 
 
-def marshal_EphemeralStatus(
-    request: EphemeralStatus,
+def marshal_EphemeralProperties(
+    request: EphemeralProperties,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
@@ -397,9 +397,9 @@ def marshal_CreateSecretRequest(
     if request.description is not None:
         output["description"] = request.description
 
-    if request.ephemeral_policy_template is not None:
-        output["ephemeral_policy_template"] = marshal_EphemeralPolicy(
-            request.ephemeral_policy_template, defaults
+    if request.ephemeral_policy is not None:
+        output["ephemeral_policy"] = marshal_EphemeralPolicy(
+            request.ephemeral_policy, defaults
         )
 
     if request.name is not None:
@@ -494,9 +494,9 @@ def marshal_UpdateSecretRequest(
     if request.description is not None:
         output["description"] = request.description
 
-    if request.ephemeral_policy_template is not None:
-        output["ephemeral_policy_template"] = marshal_EphemeralPolicy(
-            request.ephemeral_policy_template, defaults
+    if request.ephemeral_policy is not None:
+        output["ephemeral_policy"] = marshal_EphemeralPolicy(
+            request.ephemeral_policy, defaults
         )
 
     if request.name is not None:
@@ -520,9 +520,9 @@ def marshal_UpdateSecretVersionRequest(
     if request.description is not None:
         output["description"] = request.description
 
-    if request.ephemeral_status is not None:
-        output["ephemeral_status"] = marshal_EphemeralStatus(
-            request.ephemeral_status, defaults
+    if request.ephemeral_properties is not None:
+        output["ephemeral_properties"] = marshal_EphemeralProperties(
+            request.ephemeral_properties, defaults
         )
 
     return output

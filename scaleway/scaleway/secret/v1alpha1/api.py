@@ -19,7 +19,7 @@ from .types import (
     SecretVersionStatus,
     AccessSecretVersionResponse,
     EphemeralPolicy,
-    EphemeralStatus,
+    EphemeralProperties,
     Folder,
     ListFoldersResponse,
     ListSecretVersionsResponse,
@@ -73,7 +73,7 @@ class SecretV1Alpha1API(API):
         tags: Optional[List[str]] = None,
         description: Optional[str] = None,
         path: Optional[str] = None,
-        ephemeral_policy_template: Optional[EphemeralPolicy] = None,
+        ephemeral_policy: Optional[EphemeralPolicy] = None,
     ) -> Secret:
         """
         Create a secret.
@@ -87,7 +87,7 @@ class SecretV1Alpha1API(API):
         (Optional.) See `Secret.Type` enum for description of values. If not specified, the type is `Opaque`.
         :param path: Path of the secret.
         (Optional.) Location of the secret in the directory structure. If not specified, the path is `/`.
-        :param ephemeral_policy_template: Ephemeral policy of the secret.
+        :param ephemeral_policy: Ephemeral policy of the secret.
         (Optional.) Policy that defines whether/when a secret's versions expire. By default, the policy is applied to all the secret's versions.
         :return: :class:`Secret <Secret>`
 
@@ -116,7 +116,7 @@ class SecretV1Alpha1API(API):
                     tags=tags,
                     description=description,
                     path=path,
-                    ephemeral_policy_template=ephemeral_policy_template,
+                    ephemeral_policy=ephemeral_policy,
                 ),
                 self.client,
             ),
@@ -253,7 +253,7 @@ class SecretV1Alpha1API(API):
         tags: Optional[List[str]] = None,
         description: Optional[str] = None,
         path: Optional[str] = None,
-        ephemeral_policy_template: Optional[EphemeralPolicy] = None,
+        ephemeral_policy: Optional[EphemeralPolicy] = None,
     ) -> Secret:
         """
         Update metadata of a secret.
@@ -265,7 +265,7 @@ class SecretV1Alpha1API(API):
         :param description: Description of the secret.
         :param path: Path of the folder.
         (Optional.) Location of the folder in the directory structure. If not specified, the path is `/`.
-        :param ephemeral_policy_template: Ephemeral policy of the secret.
+        :param ephemeral_policy: Ephemeral policy of the secret.
         (Optional.) Policy that defines whether/when a secret's versions expire.
         :return: :class:`Secret <Secret>`
 
@@ -291,7 +291,7 @@ class SecretV1Alpha1API(API):
                     tags=tags,
                     description=description,
                     path=path,
-                    ephemeral_policy_template=ephemeral_policy_template,
+                    ephemeral_policy=ephemeral_policy,
                 ),
                 self.client,
             ),
@@ -905,7 +905,7 @@ class SecretV1Alpha1API(API):
         revision: str,
         region: Optional[Region] = None,
         description: Optional[str] = None,
-        ephemeral_status: Optional[EphemeralStatus] = None,
+        ephemeral_properties: Optional[EphemeralProperties] = None,
     ) -> SecretVersion:
         """
         Update metadata of a version.
@@ -918,8 +918,8 @@ class SecretV1Alpha1API(API):
         - "latest" (the latest revision)
         - "latest_enabled" (the latest enabled revision).
         :param description: Description of the version.
-        :param ephemeral_status: Ephemeral status of the version.
-        (Optional.) Status that defines the version's expiration date, whether it expires after being accessed once, and the action to perform (disable or delete) once the version expires.
+        :param ephemeral_properties: Ephemeral properties of the version.
+        (Optional.) Properties that defines the version's expiration date, whether it expires after being accessed once, and the action to perform (disable or delete) once the version expires.
         :return: :class:`SecretVersion <SecretVersion>`
 
         Usage:
@@ -946,7 +946,7 @@ class SecretV1Alpha1API(API):
                     revision=revision,
                     region=region,
                     description=description,
-                    ephemeral_status=ephemeral_status,
+                    ephemeral_properties=ephemeral_properties,
                 ),
                 self.client,
             ),
