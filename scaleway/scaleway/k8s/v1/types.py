@@ -751,6 +751,8 @@ class ExternalNode:
 
     node_labels: Dict[str, str]
 
+    node_taints: Dict[str, str]
+
 
 @dataclass
 class ListClusterAvailableTypesResponse:
