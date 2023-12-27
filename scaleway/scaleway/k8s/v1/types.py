@@ -751,6 +751,17 @@ class ExternalNode:
 
     node_labels: Dict[str, str]
 
+    node_taints: List[ExternalNodeCoreV1Taint]
+
+
+@dataclass
+class ExternalNodeCoreV1Taint:
+    key: str
+
+    value: str
+
+    effect: str
+
 
 @dataclass
 class ListClusterAvailableTypesResponse:
