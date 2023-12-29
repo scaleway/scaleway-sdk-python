@@ -27,6 +27,7 @@ from .types import CreateClusterRequestPoolConfig
 from .types import CreateClusterRequestPoolConfigUpgradePolicy
 from .types import CreatePoolRequestUpgradePolicy
 from .types import ExternalNode
+from .types import ExternalNodeCoreV1Taint
 from .types import ListClusterAvailableTypesResponse
 from .types import ListClusterAvailableVersionsResponse
 from .types import ListClusterTypesResponse
@@ -76,6 +77,7 @@ __all__ = [
     "CreateClusterRequestPoolConfigUpgradePolicy",
     "CreatePoolRequestUpgradePolicy",
     "ExternalNode",
+    "ExternalNodeCoreV1Taint",
     "ListClusterAvailableTypesResponse",
     "ListClusterAvailableVersionsResponse",
     "ListClusterTypesResponse",

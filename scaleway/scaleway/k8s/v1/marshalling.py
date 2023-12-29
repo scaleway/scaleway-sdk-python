@@ -29,6 +29,7 @@ from .types import (
     CreateClusterRequestPoolConfigUpgradePolicy,
     CreatePoolRequestUpgradePolicy,
     ExternalNode,
+    ExternalNodeCoreV1Taint,
     ListClusterAvailableTypesResponse,
     ListClusterAvailableVersionsResponse,
     ListClusterTypesResponse,
@@ -312,6 +313,26 @@ def unmarshal_ClusterType(data: Any) -> ClusterType:
     return ClusterType(**args)
 
 
+def unmarshal_ExternalNodeCoreV1Taint(data: Any) -> ExternalNodeCoreV1Taint:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'ExternalNodeCoreV1Taint' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("effect", None)
+    args["effect"] = field
+
+    field = data.get("key", None)
+    args["key"] = field
+
+    field = data.get("value", None)
+    args["value"] = field
+
+    return ExternalNodeCoreV1Taint(**args)
+
+
 def unmarshal_Node(data: Any) -> Node:
     if type(data) is not dict:
         raise TypeError(
@@ -519,6 +540,13 @@ def unmarshal_ExternalNode(data: Any) -> ExternalNode:
 
     field = data.get("node_labels", None)
     args["node_labels"] = field
+
+    field = data.get("node_taints", None)
+    args["node_taints"] = (
+        [unmarshal_ExternalNodeCoreV1Taint(v) for v in field]
+        if field is not None
+        else None
+    )
 
     field = data.get("pool_version", None)
     args["pool_version"] = field
