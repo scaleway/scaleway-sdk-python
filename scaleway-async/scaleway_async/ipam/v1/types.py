@@ -99,6 +99,11 @@ class IP:
     Tags for the IP.
     """
 
+    reverses: List[Reverse]
+    """
+    Array of reverses associated with the IP.
+    """
+
     region: Region
     """
     Region of the IP.
@@ -142,6 +147,23 @@ class Resource:
     """
     Name of the resource the IP is attached to.
     When the IP is in a Private Network, then a DNS record is available to resolve the resource name to this IP.
+    """
+
+
+@dataclass
+class Reverse:
+    """
+    Reverse.
+    """
+
+    hostname: str
+    """
+    Reverse domain name.
+    """
+
+    address: Optional[str]
+    """
+    IP corresponding to the hostname.
     """
 
 
@@ -252,6 +274,11 @@ class UpdateIPRequest:
     tags: Optional[List[str]]
     """
     Tags for the IP.
+    """
+
+    reverses: Optional[List[Reverse]]
+    """
+    Array of reverse domain names associated with an IP in the subnet of the current IP.
     """
 
 
