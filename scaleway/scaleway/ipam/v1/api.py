@@ -18,6 +18,7 @@ from .types import (
     ResourceType,
     IP,
     ListIPsResponse,
+    Reverse,
     Source,
     BookIPRequest,
     UpdateIPRequest,
@@ -159,6 +160,7 @@ class IpamV1API(API):
         ip_id: str,
         region: Optional[Region] = None,
         tags: Optional[List[str]] = None,
+        reverses: Optional[List[Reverse]] = None,
     ) -> IP:
         """
         Update an IP.
@@ -166,6 +168,7 @@ class IpamV1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param ip_id: IP ID.
         :param tags: Tags for the IP.
+        :param reverses: Array of reverse domain names associated with an IP in the subnet of the current IP.
         :return: :class:`IP <IP>`
 
         Usage:
@@ -187,6 +190,7 @@ class IpamV1API(API):
                     ip_id=ip_id,
                     region=region,
                     tags=tags,
+                    reverses=reverses,
                 ),
                 self.client,
             ),

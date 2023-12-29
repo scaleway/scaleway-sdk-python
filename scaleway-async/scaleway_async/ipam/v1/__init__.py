@@ -5,6 +5,7 @@ from .types import ResourceType
 from .types import IP
 from .types import ListIPsResponse
 from .types import Resource
+from .types import Reverse
 from .types import Source
 from .api import IpamV1API
 
@@ -14,6 +15,7 @@ __all__ = [
     "IP",
     "ListIPsResponse",
     "Resource",
+    "Reverse",
     "Source",
     "IpamV1API",
 ]

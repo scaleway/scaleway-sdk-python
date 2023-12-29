@@ -13,6 +13,7 @@ from .types import (
     IP,
     ListIPsResponse,
     Resource,
+    Reverse,
     Source,
     BookIPRequest,
     UpdateIPRequest,
@@ -40,6 +41,23 @@ def unmarshal_Resource(data: Any) -> Resource:
     args["type_"] = field
 
     return Resource(**args)
+
+
+def unmarshal_Reverse(data: Any) -> Reverse:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'Reverse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("address", None)
+    args["address"] = field
+
+    field = data.get("hostname", None)
+    args["hostname"] = field
+
+    return Reverse(**args)
 
 
 def unmarshal_Source(data: Any) -> Source:
@@ -91,6 +109,11 @@ def unmarshal_IP(data: Any) -> IP:
     field = data.get("resource", None)
     args["resource"] = unmarshal_Resource(field) if field is not None else None
 
+    field = data.get("reverses", None)
+    args["reverses"] = (
+        [unmarshal_Reverse(v) for v in field] if field is not None else None
+    )
+
     field = data.get("source", None)
     args["source"] = unmarshal_Source(field) if field is not None else None
 
@@ -121,6 +144,21 @@ def unmarshal_ListIPsResponse(data: Any) -> ListIPsResponse:
     args["total_count"] = field
 
     return ListIPsResponse(**args)
+
+
+def marshal_Reverse(
+    request: Reverse,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.address is not None:
+        output["address"] = request.address
+
+    if request.hostname is not None:
+        output["hostname"] = request.hostname
+
+    return output
 
 
 def marshal_Source(
@@ -180,6 +218,9 @@ def marshal_UpdateIPRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
+
+    if request.reverses is not None:
+        output["reverses"] = [marshal_Reverse(v, defaults) for v in request.reverses]
 
     if request.tags is not None:
         output["tags"] = request.tags
