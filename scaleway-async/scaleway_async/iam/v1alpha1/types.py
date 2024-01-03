@@ -1112,6 +1112,19 @@ class GetUserRequest:
 
 
 @dataclass
+class UpdateUserRequest:
+    user_id: str
+    """
+    ID of the user to update.
+    """
+
+    tags: Optional[List[str]]
+    """
+    New tags for the user (maximum of 10 tags).
+    """
+
+
+@dataclass
 class DeleteUserRequest:
     user_id: str
     """

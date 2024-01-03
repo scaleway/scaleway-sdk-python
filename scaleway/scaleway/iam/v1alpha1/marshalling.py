@@ -36,6 +36,7 @@ from .types import (
     User,
     CreateSSHKeyRequest,
     UpdateSSHKeyRequest,
+    UpdateUserRequest,
     CreateUserRequest,
     CreateApplicationRequest,
     UpdateApplicationRequest,
@@ -1067,5 +1068,17 @@ def marshal_UpdateSSHKeyRequest(
 
     if request.name is not None:
         output["name"] = request.name
+
+    return output
+
+
+def marshal_UpdateUserRequest(
+    request: UpdateUserRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.tags is not None:
+        output["tags"] = request.tags
 
     return output
