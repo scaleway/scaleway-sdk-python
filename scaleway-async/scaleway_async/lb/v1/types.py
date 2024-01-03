@@ -1832,6 +1832,11 @@ class ListIPsRequest:
     Project ID to filter for, only Load Balancer IP addresses from this Project will be returned.
     """
 
+    ip_type: Optional[ListIpsRequestIpType]
+    """
+    IP type to filter for.
+    """
+
 
 @dataclass
 class CreateIpRequest:
@@ -3389,6 +3394,11 @@ class ZonedApiListIPsRequest:
     project_id: Optional[str]
     """
     Project ID to filter for, only Load Balancer IP addresses from this Project will be returned.
+    """
+
+    ip_type: Optional[ListIpsRequestIpType]
+    """
+    IP type to filter for.
     """
 
 

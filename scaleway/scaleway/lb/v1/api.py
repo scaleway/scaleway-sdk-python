@@ -21,6 +21,7 @@ from .types import (
     ListBackendsRequestOrderBy,
     ListCertificatesRequestOrderBy,
     ListFrontendsRequestOrderBy,
+    ListIpsRequestIpType,
     ListLbsRequestOrderBy,
     ListPrivateNetworksRequestOrderBy,
     ListRoutesRequestOrderBy,
@@ -586,6 +587,7 @@ class LbV1API(API):
         ip_address: Optional[str] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
+        ip_type: ListIpsRequestIpType = ListIpsRequestIpType.ALL,
     ) -> ListIpsResponse:
         """
         List IPs.
@@ -595,6 +597,7 @@ class LbV1API(API):
         :param ip_address: IP address to filter for.
         :param organization_id: Organization ID to filter for, only Load Balancer IP addresses from this Organization will be returned.
         :param project_id: Project ID to filter for, only Load Balancer IP addresses from this Project will be returned.
+        :param ip_type: IP type to filter for.
         :return: :class:`ListIpsResponse <ListIpsResponse>`
 
         Usage:
@@ -612,6 +615,7 @@ class LbV1API(API):
             f"/lb/v1/regions/{param_region}/ips",
             params={
                 "ip_address": ip_address,
+                "ip_type": ip_type,
                 "organization_id": organization_id
                 or self.client.default_organization_id,
                 "page": page,
@@ -632,6 +636,7 @@ class LbV1API(API):
         ip_address: Optional[str] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
+        ip_type: Optional[ListIpsRequestIpType] = None,
     ) -> List[Ip]:
         """
         List IPs.
@@ -641,6 +646,7 @@ class LbV1API(API):
         :param ip_address: IP address to filter for.
         :param organization_id: Organization ID to filter for, only Load Balancer IP addresses from this Organization will be returned.
         :param project_id: Project ID to filter for, only Load Balancer IP addresses from this Project will be returned.
+        :param ip_type: IP type to filter for.
         :return: :class:`List[ListIpsResponse] <List[ListIpsResponse]>`
 
         Usage:
@@ -660,6 +666,7 @@ class LbV1API(API):
                 "ip_address": ip_address,
                 "organization_id": organization_id,
                 "project_id": project_id,
+                "ip_type": ip_type,
             },
         )
 
@@ -3536,6 +3543,7 @@ class LbZonedV1API(API):
         ip_address: Optional[str] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
+        ip_type: ListIpsRequestIpType = ListIpsRequestIpType.ALL,
     ) -> ListIpsResponse:
         """
         List IP addresses.
@@ -3546,6 +3554,7 @@ class LbZonedV1API(API):
         :param ip_address: IP address to filter for.
         :param organization_id: Organization ID to filter for, only Load Balancer IP addresses from this Organization will be returned.
         :param project_id: Project ID to filter for, only Load Balancer IP addresses from this Project will be returned.
+        :param ip_type: IP type to filter for.
         :return: :class:`ListIpsResponse <ListIpsResponse>`
 
         Usage:
@@ -3561,6 +3570,7 @@ class LbZonedV1API(API):
             f"/lb/v1/zones/{param_zone}/ips",
             params={
                 "ip_address": ip_address,
+                "ip_type": ip_type,
                 "organization_id": organization_id
                 or self.client.default_organization_id,
                 "page": page,
@@ -3581,6 +3591,7 @@ class LbZonedV1API(API):
         ip_address: Optional[str] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
+        ip_type: Optional[ListIpsRequestIpType] = None,
     ) -> List[Ip]:
         """
         List IP addresses.
@@ -3591,6 +3602,7 @@ class LbZonedV1API(API):
         :param ip_address: IP address to filter for.
         :param organization_id: Organization ID to filter for, only Load Balancer IP addresses from this Organization will be returned.
         :param project_id: Project ID to filter for, only Load Balancer IP addresses from this Project will be returned.
+        :param ip_type: IP type to filter for.
         :return: :class:`List[ListIpsResponse] <List[ListIpsResponse]>`
 
         Usage:
@@ -3610,6 +3622,7 @@ class LbZonedV1API(API):
                 "ip_address": ip_address,
                 "organization_id": organization_id,
                 "project_id": project_id,
+                "ip_type": ip_type,
             },
         )
 
