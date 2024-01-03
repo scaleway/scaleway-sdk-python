@@ -52,6 +52,7 @@ from .types import (
     User,
     CreateSSHKeyRequest,
     UpdateSSHKeyRequest,
+    UpdateUserRequest,
     CreateUserRequest,
     CreateApplicationRequest,
     UpdateApplicationRequest,
@@ -84,6 +85,7 @@ from .marshalling import (
     marshal_UpdateGroupRequest,
     marshal_UpdatePolicyRequest,
     marshal_UpdateSSHKeyRequest,
+    marshal_UpdateUserRequest,
     unmarshal_APIKey,
     unmarshal_Application,
     unmarshal_Group,
@@ -448,6 +450,42 @@ class IamV1Alpha1API(API):
         res = self._request(
             "GET",
             f"/iam/v1alpha1/users/{param_user_id}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_User(res.json())
+
+    async def update_user(
+        self,
+        *,
+        user_id: str,
+        tags: Optional[List[str]] = None,
+    ) -> User:
+        """
+        Update a user.
+        Update the parameters of a user, including `tags`.
+        :param user_id: ID of the user to update.
+        :param tags: New tags for the user (maximum of 10 tags).
+        :return: :class:`User <User>`
+
+        Usage:
+        ::
+
+            result = await api.update_user(user_id="example")
+        """
+
+        param_user_id = validate_path_param("user_id", user_id)
+
+        res = self._request(
+            "PATCH",
+            f"/iam/v1alpha1/users/{param_user_id}",
+            body=marshal_UpdateUserRequest(
+                UpdateUserRequest(
+                    user_id=user_id,
+                    tags=tags,
+                ),
+                self.client,
+            ),
         )
 
         self._throw_on_error(res)
