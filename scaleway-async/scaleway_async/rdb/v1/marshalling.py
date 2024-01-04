@@ -408,6 +408,9 @@ def unmarshal_ReadReplica(data: Any) -> ReadReplica:
     field = data.get("id", None)
     args["id"] = field
 
+    field = data.get("instance_id", None)
+    args["instance_id"] = field
+
     field = data.get("region", None)
     args["region"] = field
 
