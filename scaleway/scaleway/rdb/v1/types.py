@@ -1353,6 +1353,11 @@ class ReadReplica:
     Whether the replica is in the same availability zone as the main instance nodes or not.
     """
 
+    instance_id: str
+    """
+    UUID of the Database Instance.
+    """
+
 
 @dataclass
 class ReadReplicaEndpointSpec:
