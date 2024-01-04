@@ -279,14 +279,14 @@ class CreateTriggerRequestMnqSqsClientConfig:
     Create trigger request. mnq sqs client config.
     """
 
-    queue: str
-    """
-    Name of the SQS queue the trigger should listen to.
-    """
-
     mnq_namespace_id: Optional[str]
     """
     :deprecated
+    """
+
+    queue: str
+    """
+    Name of the SQS queue the trigger should listen to.
     """
 
     mnq_project_id: str
@@ -891,14 +891,14 @@ class TriggerMnqNatsClientConfig:
     Trigger. mnq nats client config.
     """
 
-    mnq_namespace_id: Optional[str]
-    """
-    :deprecated
-    """
-
     subject: str
     """
     Name of the NATS subject the trigger listens to.
+    """
+
+    mnq_namespace_id: Optional[str]
+    """
+    :deprecated
     """
 
     mnq_nats_account_id: str
