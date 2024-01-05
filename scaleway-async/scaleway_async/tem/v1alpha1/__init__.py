@@ -9,6 +9,7 @@ from .types import EmailStatus
 from .types import ListEmailsRequestOrderBy
 from .types import CreateEmailRequestAddress
 from .types import CreateEmailRequestAttachment
+from .types import CreateEmailRequestHeader
 from .types import CreateEmailResponse
 from .types import Domain
 from .types import DomainLastStatus
@@ -35,6 +36,7 @@ __all__ = [
     "ListEmailsRequestOrderBy",
     "CreateEmailRequestAddress",
     "CreateEmailRequestAttachment",
+    "CreateEmailRequestHeader",
     "CreateEmailResponse",
     "Domain",
     "DomainLastStatus",

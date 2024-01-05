@@ -21,6 +21,7 @@ from .types import (
     ListEmailsRequestOrderBy,
     CreateEmailRequestAddress,
     CreateEmailRequestAttachment,
+    CreateEmailRequestHeader,
     CreateEmailResponse,
     Domain,
     DomainLastStatus,
@@ -69,6 +70,7 @@ class TemV1Alpha1API(API):
         project_id: Optional[str] = None,
         attachments: Optional[List[CreateEmailRequestAttachment]] = None,
         send_before: Optional[datetime] = None,
+        additional_headers: Optional[List[CreateEmailRequestHeader]] = None,
     ) -> CreateEmailResponse:
         """
         Send an email.
@@ -84,6 +86,7 @@ class TemV1Alpha1API(API):
         :param project_id: ID of the Project in which to create the email.
         :param attachments: Array of attachments.
         :param send_before: Maximum date to deliver the email.
+        :param additional_headers: Array of additional headers as key-value.
         :return: :class:`CreateEmailResponse <CreateEmailResponse>`
 
         Usage:
@@ -116,6 +119,7 @@ class TemV1Alpha1API(API):
                     project_id=project_id,
                     attachments=attachments,
                     send_before=send_before,
+                    additional_headers=additional_headers,
                 ),
                 self.client,
             ),
