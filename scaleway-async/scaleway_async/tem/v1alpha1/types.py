@@ -143,6 +143,23 @@ class CreateEmailRequestAttachment:
 
 
 @dataclass
+class CreateEmailRequestHeader:
+    """
+    Create email request. header.
+    """
+
+    key: str
+    """
+    Email header key.
+    """
+
+    value: str
+    """
+    Email header value.
+    """
+
+
+@dataclass
 class CreateEmailResponse:
     """
     Create email response.
@@ -581,6 +598,11 @@ class CreateEmailRequest:
     send_before: Optional[datetime]
     """
     Maximum date to deliver the email.
+    """
+
+    additional_headers: Optional[List[CreateEmailRequestHeader]]
+    """
+    Array of additional headers as key-value.
     """
 
 

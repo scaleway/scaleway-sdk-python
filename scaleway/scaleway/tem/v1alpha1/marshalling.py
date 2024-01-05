@@ -8,6 +8,7 @@ from dateutil import parser
 from .types import (
     CreateEmailRequestAddress,
     CreateEmailRequestAttachment,
+    CreateEmailRequestHeader,
     CreateEmailResponse,
     Domain,
     DomainLastStatus,
@@ -394,6 +395,21 @@ def marshal_CreateEmailRequestAttachment(
     return output
 
 
+def marshal_CreateEmailRequestHeader(
+    request: CreateEmailRequestHeader,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.key is not None:
+        output["key"] = request.key
+
+    if request.value is not None:
+        output["value"] = request.value
+
+    return output
+
+
 def marshal_CreateDomainRequest(
     request: CreateDomainRequest,
     defaults: ProfileDefaults,
@@ -417,6 +433,12 @@ def marshal_CreateEmailRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
+
+    if request.additional_headers is not None:
+        output["additional_headers"] = [
+            marshal_CreateEmailRequestHeader(v, defaults)
+            for v in request.additional_headers
+        ]
 
     if request.attachments is not None:
         output["attachments"] = [
