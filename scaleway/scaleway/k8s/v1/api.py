@@ -650,6 +650,7 @@ class K8SV1API(API):
         *,
         cluster_id: str,
         region: Optional[Region] = None,
+        redacted: Optional[bool] = None,
     ) -> Optional[ScwFile]:
         """
         Download the kubeconfig for a Cluster.
@@ -657,6 +658,7 @@ class K8SV1API(API):
         Tip: add `?dl=1` at the end of the URL to directly retrieve the base64 decoded kubeconfig. If you choose not to, the kubeconfig will be base64 encoded.
         :param region: Region to target. If none is passed will use default region from the config.
         :param cluster_id: Cluster ID for which to download the kubeconfig.
+        :param redacted: Hide the legacy token from the kubeconfig.
         :return: :class:`Optional[ScwFile] <Optional[ScwFile]>`
 
         Usage:
@@ -673,6 +675,9 @@ class K8SV1API(API):
         res = self._request(
             "GET",
             f"/k8s/v1/regions/{param_region}/clusters/{param_cluster_id}/kubeconfig",
+            params={
+                "redacted": redacted,
+            },
         )
 
         self._throw_on_error(res)
