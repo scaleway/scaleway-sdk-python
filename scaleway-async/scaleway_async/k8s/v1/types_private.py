@@ -21,3 +21,8 @@ class _GetClusterKubeConfigRequest:
     """
     Cluster ID for which to download the kubeconfig.
     """
+
+    redacted: Optional[bool]
+    """
+    Hide the legacy token from the kubeconfig.
+    """
