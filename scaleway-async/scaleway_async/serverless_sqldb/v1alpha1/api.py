@@ -206,6 +206,7 @@ class ServerlessSqldbV1Alpha1API(API):
         *,
         page: int,
         region: Optional[Region] = None,
+        organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         page_size: Optional[int] = None,
         name: Optional[str] = None,
@@ -215,6 +216,7 @@ class ServerlessSqldbV1Alpha1API(API):
         List your Serverless SQL Databases.
         List all Serverless SQL Databases for a given Scaleway Organization or Scaleway Project. By default, the databases returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. For the `name` parameter, the value you include will be checked against the whole name string to see if it includes the string you put in the parameter.
         :param region: Region to target. If none is passed will use default region from the config.
+        :param organization_id: Filter by the UUID of the Scaleway organization.
         :param project_id: UUID of the Scaleway project.
         :param page: Page number.
         :param page_size: Page size.
@@ -238,6 +240,8 @@ class ServerlessSqldbV1Alpha1API(API):
             params={
                 "name": name,
                 "order_by": order_by,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -252,6 +256,7 @@ class ServerlessSqldbV1Alpha1API(API):
         *,
         page: int,
         region: Optional[Region] = None,
+        organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         page_size: Optional[int] = None,
         name: Optional[str] = None,
@@ -261,6 +266,7 @@ class ServerlessSqldbV1Alpha1API(API):
         List your Serverless SQL Databases.
         List all Serverless SQL Databases for a given Scaleway Organization or Scaleway Project. By default, the databases returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. For the `name` parameter, the value you include will be checked against the whole name string to see if it includes the string you put in the parameter.
         :param region: Region to target. If none is passed will use default region from the config.
+        :param organization_id: Filter by the UUID of the Scaleway organization.
         :param project_id: UUID of the Scaleway project.
         :param page: Page number.
         :param page_size: Page size.
@@ -281,6 +287,7 @@ class ServerlessSqldbV1Alpha1API(API):
             args={
                 "page": page,
                 "region": region,
+                "organization_id": organization_id,
                 "project_id": project_id,
                 "page_size": page_size,
                 "name": name,
@@ -416,6 +423,8 @@ class ServerlessSqldbV1Alpha1API(API):
         database_id: str,
         page: int,
         region: Optional[Region] = None,
+        organization_id: Optional[str] = None,
+        project_id: Optional[str] = None,
         page_size: Optional[int] = None,
         order_by: ListDatabaseBackupsRequestOrderBy = ListDatabaseBackupsRequestOrderBy.CREATED_AT_ASC,
     ) -> ListDatabaseBackupsResponse:
@@ -423,6 +432,8 @@ class ServerlessSqldbV1Alpha1API(API):
         List your Serverless SQL Database backups.
         List all Serverless SQL Database backups for a given Scaleway Project or Database. By default, the backups returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
         :param region: Region to target. If none is passed will use default region from the config.
+        :param organization_id: Filter by the UUID of the Scaleway organization.
+        :param project_id: Filter by the UUID of the Scaleway project.
         :param database_id: Filter by the UUID of the Serverless SQL Database.
         :param page: Page number.
         :param page_size: Page size.
@@ -448,8 +459,11 @@ class ServerlessSqldbV1Alpha1API(API):
             params={
                 "database_id": database_id,
                 "order_by": order_by,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
+                "project_id": project_id or self.client.default_project_id,
             },
         )
 
@@ -462,6 +476,8 @@ class ServerlessSqldbV1Alpha1API(API):
         database_id: str,
         page: int,
         region: Optional[Region] = None,
+        organization_id: Optional[str] = None,
+        project_id: Optional[str] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListDatabaseBackupsRequestOrderBy] = None,
     ) -> List[DatabaseBackup]:
@@ -469,6 +485,8 @@ class ServerlessSqldbV1Alpha1API(API):
         List your Serverless SQL Database backups.
         List all Serverless SQL Database backups for a given Scaleway Project or Database. By default, the backups returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
         :param region: Region to target. If none is passed will use default region from the config.
+        :param organization_id: Filter by the UUID of the Scaleway organization.
+        :param project_id: Filter by the UUID of the Scaleway project.
         :param database_id: Filter by the UUID of the Serverless SQL Database.
         :param page: Page number.
         :param page_size: Page size.
@@ -492,6 +510,8 @@ class ServerlessSqldbV1Alpha1API(API):
                 "database_id": database_id,
                 "page": page,
                 "region": region,
+                "organization_id": organization_id,
+                "project_id": project_id,
                 "page_size": page_size,
                 "order_by": order_by,
             },
