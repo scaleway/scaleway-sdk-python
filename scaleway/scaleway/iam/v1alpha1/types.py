@@ -1493,6 +1493,11 @@ class ListPoliciesRequest:
     Filter by tags containing a given string.
     """
 
+    policy_ids: Optional[List[str]]
+    """
+    Filter by a list of IDs.
+    """
+
 
 @dataclass
 class CreatePolicyRequest:
@@ -1726,7 +1731,8 @@ class ListAPIKeysRequest:
 
     access_key: Optional[str]
     """
-    Filter by access key.
+    Filter by access key (deprecated in favor of `access_keys`).
+    :deprecated
     """
 
     description: Optional[str]
@@ -1742,6 +1748,11 @@ class ListAPIKeysRequest:
     bearer_type: Optional[BearerType]
     """
     Filter by type of bearer.
+    """
+
+    access_keys: Optional[List[str]]
+    """
+    Filter by a list of access keys.
     """
 
 
