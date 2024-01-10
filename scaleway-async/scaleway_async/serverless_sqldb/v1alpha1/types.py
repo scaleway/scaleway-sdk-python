@@ -290,6 +290,11 @@ class ListDatabasesRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
+    organization_id: Optional[str]
+    """
+    Filter by the UUID of the Scaleway organization.
+    """
+
     project_id: Optional[str]
     """
     UUID of the Scaleway project.
@@ -375,6 +380,16 @@ class ListDatabaseBackupsRequest:
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
+    """
+
+    organization_id: Optional[str]
+    """
+    Filter by the UUID of the Scaleway organization.
+    """
+
+    project_id: Optional[str]
+    """
+    Filter by the UUID of the Scaleway project.
     """
 
     database_id: str
