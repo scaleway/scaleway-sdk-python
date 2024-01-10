@@ -1206,6 +1206,7 @@ class IamV1Alpha1API(API):
         no_principal: Optional[bool] = None,
         policy_name: Optional[str] = None,
         tag: Optional[str] = None,
+        policy_ids: Optional[List[str]] = None,
     ) -> ListPoliciesResponse:
         """
         List policies of an Organization.
@@ -1221,6 +1222,7 @@ class IamV1Alpha1API(API):
         :param no_principal: Defines whether or not the policy is attributed to a principal.
         :param policy_name: Name of the policy to fetch.
         :param tag: Filter by tags containing a given string.
+        :param policy_ids: Filter by a list of IDs.
         :return: :class:`ListPoliciesResponse <ListPoliciesResponse>`
 
         Usage:
@@ -1242,6 +1244,7 @@ class IamV1Alpha1API(API):
                 or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
+                "policy_ids": policy_ids,
                 "policy_name": policy_name,
                 "tag": tag,
                 "user_ids": user_ids,
@@ -1265,6 +1268,7 @@ class IamV1Alpha1API(API):
         no_principal: Optional[bool] = None,
         policy_name: Optional[str] = None,
         tag: Optional[str] = None,
+        policy_ids: Optional[List[str]] = None,
     ) -> List[Policy]:
         """
         List policies of an Organization.
@@ -1280,6 +1284,7 @@ class IamV1Alpha1API(API):
         :param no_principal: Defines whether or not the policy is attributed to a principal.
         :param policy_name: Name of the policy to fetch.
         :param tag: Filter by tags containing a given string.
+        :param policy_ids: Filter by a list of IDs.
         :return: :class:`List[ListPoliciesResponse] <List[ListPoliciesResponse]>`
 
         Usage:
@@ -1304,6 +1309,7 @@ class IamV1Alpha1API(API):
                 "no_principal": no_principal,
                 "policy_name": policy_name,
                 "tag": tag,
+                "policy_ids": policy_ids,
             },
         )
 
@@ -1703,6 +1709,7 @@ class IamV1Alpha1API(API):
         description: Optional[str] = None,
         bearer_id: Optional[str] = None,
         bearer_type: BearerType = BearerType.UNKNOWN_BEARER_TYPE,
+        access_keys: Optional[List[str]] = None,
     ) -> ListAPIKeysResponse:
         """
         List API keys.
@@ -1719,10 +1726,11 @@ class IamV1Alpha1API(API):
         One-of ('bearer'): at most one of 'application_id', 'user_id' could be set.
         :param editable: Defines whether to filter out editable API keys or not.
         :param expired: Defines whether to filter out expired API keys or not.
-        :param access_key: Filter by access key.
+        :param access_key: Filter by access key (deprecated in favor of `access_keys`).
         :param description: Filter by description.
         :param bearer_id: Filter by bearer ID.
         :param bearer_type: Filter by type of bearer.
+        :param access_keys: Filter by a list of access keys.
         :return: :class:`ListAPIKeysResponse <ListAPIKeysResponse>`
 
         Usage:
@@ -1736,6 +1744,7 @@ class IamV1Alpha1API(API):
             f"/iam/v1alpha1/api-keys",
             params={
                 "access_key": access_key,
+                "access_keys": access_keys,
                 "bearer_id": bearer_id,
                 "bearer_type": bearer_type,
                 "description": description,
@@ -1773,6 +1782,7 @@ class IamV1Alpha1API(API):
         description: Optional[str] = None,
         bearer_id: Optional[str] = None,
         bearer_type: Optional[BearerType] = None,
+        access_keys: Optional[List[str]] = None,
     ) -> List[APIKey]:
         """
         List API keys.
@@ -1789,10 +1799,11 @@ class IamV1Alpha1API(API):
         One-of ('bearer'): at most one of 'application_id', 'user_id' could be set.
         :param editable: Defines whether to filter out editable API keys or not.
         :param expired: Defines whether to filter out expired API keys or not.
-        :param access_key: Filter by access key.
+        :param access_key: Filter by access key (deprecated in favor of `access_keys`).
         :param description: Filter by description.
         :param bearer_id: Filter by bearer ID.
         :param bearer_type: Filter by type of bearer.
+        :param access_keys: Filter by a list of access keys.
         :return: :class:`List[ListAPIKeysResponse] <List[ListAPIKeysResponse]>`
 
         Usage:
@@ -1818,6 +1829,7 @@ class IamV1Alpha1API(API):
                 "description": description,
                 "bearer_id": bearer_id,
                 "bearer_type": bearer_type,
+                "access_keys": access_keys,
             },
         )
 
