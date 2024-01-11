@@ -582,6 +582,9 @@ def unmarshal_ServerMaintenance(data: Any) -> ServerMaintenance:
     field = data.get("reason", None)
     args["reason"] = field
 
+    field = data.get("start_date", None)
+    args["start_date"] = parser.isoparse(field) if type(field) is str else field
+
     return ServerMaintenance(**args)
 
 
@@ -2602,6 +2605,9 @@ def marshal_ServerMaintenance(
 
     if request.reason is not None:
         output["reason"] = request.reason
+
+    if request.start_date is not None:
+        output["start_date"] = request.start_date.astimezone().isoformat()
 
     return output
 
