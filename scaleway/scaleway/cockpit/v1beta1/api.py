@@ -87,7 +87,7 @@ class CockpitV1Beta1API(API):
     """
     Cockpit API.
 
-    Cockpit's API allows you to activate your Cockpit on your Projects. Scaleway's Cockpit stores metrics and logs and provides a dedicated Grafana for dashboarding to visualize them.
+    The Cockpit API allows you to activate your Cockpit to store metrics and logs. It also provides you with a dedicated Grafana for dashboarding to visualize your metrics and logs.
     Cockpit API.
     """
 
@@ -97,7 +97,7 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> Cockpit:
         """
-        Activate the Cockpit of the specified Project ID.
+        Activate the Cockpit of a given Project specified by the Project ID.
         :param project_id: ID of the Project the Cockpit belongs to.
         :return: :class:`Cockpit <Cockpit>`
 
@@ -127,7 +127,7 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> Cockpit:
         """
-        Retrieve the Cockpit of the specified Project ID.
+        Retrieve the Cockpit of a given Project specified by the Project ID.
         :param project_id: ID of the Project the Cockpit belongs to.
         :return: :class:`Cockpit <Cockpit>`
 
@@ -189,7 +189,7 @@ class CockpitV1Beta1API(API):
         metric_name: Optional[str] = None,
     ) -> CockpitMetrics:
         """
-        Get metrics from your Cockpit with the specified Project ID.
+        Retrieve metrics from your Cockpit specified by the ID of the Project the Cockpit belongs to.
         :param project_id: ID of the Project the Cockpit belongs to.
         :param start_date: Desired time range's start date for the metrics.
         :param end_date: Desired time range's end date for the metrics.
@@ -222,7 +222,7 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> Cockpit:
         """
-        Deactivate the Cockpit of the specified Project ID.
+        Deactivate the Cockpit of a given Project specified by the Project ID.
         :param project_id: ID of the Project the Cockpit belongs to.
         :return: :class:`Cockpit <Cockpit>`
 
@@ -255,7 +255,7 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> Datasource:
         """
-        Create a datasource for the specified Project ID and the given type.
+        Create a data source for a given Project specified by the Project ID and the data source type.
         :param project_id: ID of the Project the Cockpit belongs to.
         :param name: Data source name.
         :param type_: Data source type.
@@ -295,7 +295,7 @@ class CockpitV1Beta1API(API):
         datasource_id: str,
     ) -> Optional[None]:
         """
-        Delete the datasource associated with the specified datasource ID.
+        Delete a given data source specified by the data source ID.
         :param datasource_id: ID of the data source.
 
         Usage:
@@ -325,7 +325,7 @@ class CockpitV1Beta1API(API):
         is_managed_by_scaleway: Optional[bool] = None,
     ) -> ListDatasourcesResponse:
         """
-        Get a list of datasources for the specified Project ID.
+        Get a list of data sources for the specified Project ID.
         :param page: Page number.
         :param page_size: Page size.
         :param order_by: How the response is ordered.
@@ -367,7 +367,7 @@ class CockpitV1Beta1API(API):
         is_managed_by_scaleway: Optional[bool] = None,
     ) -> List[Datasource]:
         """
-        Get a list of datasources for the specified Project ID.
+        Get a list of data sources for the specified Project ID.
         :param page: Page number.
         :param page_size: Page size.
         :param order_by: How the response is ordered.
@@ -404,7 +404,7 @@ class CockpitV1Beta1API(API):
         scopes: Optional[TokenScopes] = None,
     ) -> Token:
         """
-        Create a token associated with the specified Project ID.
+        Create a token in a given Project specified by the Project ID.
         :param project_id: ID of the Project.
         :param name: Name of the token.
         :param scopes: Token's permissions.
@@ -441,7 +441,7 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> ListTokensResponse:
         """
-        Get a list of tokens associated with the specified Project ID.
+        Get a list of tokens in a given Project specified by the Project ID.
         :param page: Page number.
         :param page_size: Page size.
         :param order_by: How the response is ordered.
@@ -477,7 +477,7 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> List[Token]:
         """
-        Get a list of tokens associated with the specified Project ID.
+        Get a list of tokens in a given Project specified by the Project ID.
         :param page: Page number.
         :param page_size: Page size.
         :param order_by: How the response is ordered.
@@ -508,7 +508,7 @@ class CockpitV1Beta1API(API):
         token_id: str,
     ) -> Token:
         """
-        Retrieve the token associated with the specified token ID.
+        Retrieve a given token specified by the token ID.
         :param token_id: ID of the token.
         :return: :class:`Token <Token>`
 
@@ -534,7 +534,7 @@ class CockpitV1Beta1API(API):
         token_id: str,
     ) -> Optional[None]:
         """
-        Delete the token associated with the specified token ID.
+        Delete a given token specified by the token ID.
         :param token_id: ID of the token.
 
         Usage:
@@ -560,7 +560,7 @@ class CockpitV1Beta1API(API):
         contact_point: Optional[ContactPoint] = None,
     ) -> ContactPoint:
         """
-        Create a contact point to receive alerts for the default receiver.
+        Create a contact point associated with the default receiver, to receive alerts.
         :param project_id: ID of the Project in which to create the contact point.
         :param contact_point: Contact point to create.
         :return: :class:`ContactPoint <ContactPoint>`
@@ -594,7 +594,7 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> ListContactPointsResponse:
         """
-        Get a list of contact points for the Cockpit associated with the specified Project ID.
+        Get a list of contact points created for a given Cockpit, specified by the ID of the Project the Cockpit belongs to.
         :param page: Page number.
         :param page_size: Page size.
         :param project_id: ID of the Project from which to list the contact points.
@@ -627,7 +627,7 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> List[ContactPoint]:
         """
-        Get a list of contact points for the Cockpit associated with the specified Project ID.
+        Get a list of contact points created for a given Cockpit, specified by the ID of the Project the Cockpit belongs to.
         :param page: Page number.
         :param page_size: Page size.
         :param project_id: ID of the Project from which to list the contact points.
@@ -657,7 +657,7 @@ class CockpitV1Beta1API(API):
         contact_point: Optional[ContactPoint] = None,
     ) -> Optional[None]:
         """
-        Delete a contact point for the default receiver.
+        Delete a contact point associated with the default receiver.
         :param project_id: ID of the Project.
         :param contact_point: Contact point to delete.
 
@@ -688,7 +688,7 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> Optional[None]:
         """
-        Enable the sending of managed alerts for the specified Project's Cockpit.
+        Enable the sending of managed alerts for a given Cockpit, specified by the ID of the Project the Cockpit belongs to.
         :param project_id: ID of the Project.
 
         Usage:
@@ -717,7 +717,7 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> Optional[None]:
         """
-        Disable the sending of managed alerts for the specified Project's Cockpit.
+        Disable the sending of managed alerts for a given Cockpit, specified by the ID of the Project the Cockpit belongs to.
         :param project_id: ID of the Project.
 
         Usage:
@@ -746,7 +746,7 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> Optional[None]:
         """
-        Trigger a test alert to all of the Cockpit's receivers.
+        Send a test alert to make sure your contact points get notified when an actual alert is triggered.
         :param project_id:
 
         Usage:
@@ -777,7 +777,7 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> GrafanaUser:
         """
-        Create a Grafana user for your Cockpit's Grafana instance. Make sure you save the automatically-generated password and the Grafana user ID.
+        Create a Grafana user for your Cockpit's Grafana. Make sure you save the automatically-generated password and the Grafana user ID.
         :param project_id: ID of the Project.
         :param login: Username of the Grafana user.
         :param role: Role assigned to the Grafana user.
@@ -817,7 +817,7 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> ListGrafanaUsersResponse:
         """
-        Get a list of Grafana users who are able to connect to the Cockpit's Grafana instance.
+        Get a list of all Grafana users created in your Cockpit's Grafana.
         :param page: Page number.
         :param page_size: Page size.
         :param order_by:
@@ -853,7 +853,7 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> List[GrafanaUser]:
         """
-        Get a list of Grafana users who are able to connect to the Cockpit's Grafana instance.
+        Get a list of all Grafana users created in your Cockpit's Grafana.
         :param page: Page number.
         :param page_size: Page size.
         :param order_by:
@@ -885,7 +885,7 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> Optional[None]:
         """
-        Delete a Grafana user from a Grafana instance, specified by the Cockpit's Project ID and the Grafana user ID.
+        Delete a Grafana user from your Cockpit's Grafana, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user.
         :param grafana_user_id: ID of the Grafana user.
         :param project_id: ID of the Project.
 
@@ -919,7 +919,7 @@ class CockpitV1Beta1API(API):
         project_id: Optional[str] = None,
     ) -> GrafanaUser:
         """
-        Reset a Grafana user's password specified by the Cockpit's Project ID and the Grafana user ID.
+        Reset the password of a Grafana user, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user.
         :param grafana_user_id: ID of the Grafana user.
         :param project_id: ID of the Project.
         :return: :class:`GrafanaUser <GrafanaUser>`
