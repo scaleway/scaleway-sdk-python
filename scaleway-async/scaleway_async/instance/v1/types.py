@@ -1357,6 +1357,8 @@ class ServerLocation:
 class ServerMaintenance:
     reason: str
 
+    start_date: Optional[datetime]
+
 
 @dataclass
 class ServerSummary:

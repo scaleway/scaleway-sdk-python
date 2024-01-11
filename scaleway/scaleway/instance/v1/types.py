@@ -1310,12 +1310,12 @@ class ServerIp:
     Tags associated with the IP.
     """
 
+    state: ServerIpState
+
     ipam_id: str
     """
     The ip_id of an IPAM ip if the ip is created from IPAM, null if not.
     """
-
-    state: ServerIpState
 
 
 @dataclass
@@ -1356,6 +1356,8 @@ class ServerLocation:
 @dataclass
 class ServerMaintenance:
     reason: str
+
+    start_date: Optional[datetime]
 
 
 @dataclass
