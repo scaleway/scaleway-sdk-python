@@ -23,9 +23,11 @@ from .types import (
     UpdateJobDefinitionRequestCronScheduleConfig,
     CreateJobDefinitionRequest,
     UpdateJobDefinitionRequest,
+    StartJobDefinitionRequest,
 )
 from .marshalling import (
     marshal_CreateJobDefinitionRequest,
+    marshal_StartJobDefinitionRequest,
     marshal_UpdateJobDefinitionRequest,
     unmarshal_JobDefinition,
     unmarshal_JobRun,
@@ -327,11 +329,21 @@ class JobsV1Alpha1API(API):
         *,
         job_definition_id: str,
         region: Optional[Region] = None,
+        command: Optional[str] = None,
+        environment_variables: Optional[Dict[str, str]] = None,
+        replicas: Optional[int] = None,
     ) -> JobRun:
         """
         Run an existing job definition by its unique identifier. This will create a new job run.
         :param region: Region to target. If none is passed will use default region from the config.
         :param job_definition_id: UUID of the job definition to start.
+        :param command: Contextual startup command for this specific job run.
+
+        One-of ('_command'): at most one of 'command' could be set.
+        :param environment_variables: Contextual environment variables for this specific job run.
+        :param replicas: Number of jobs to run.
+
+        One-of ('_replicas'): at most one of 'replicas' could be set.
         :return: :class:`JobRun <JobRun>`
 
         Usage:
@@ -350,6 +362,16 @@ class JobsV1Alpha1API(API):
         res = self._request(
             "POST",
             f"/serverless-jobs/v1alpha1/regions/{param_region}/job-definitions/{param_job_definition_id}/start",
+            body=marshal_StartJobDefinitionRequest(
+                StartJobDefinitionRequest(
+                    job_definition_id=job_definition_id,
+                    region=region,
+                    command=command,
+                    environment_variables=environment_variables,
+                    replicas=replicas,
+                ),
+                self.client,
+            ),
         )
 
         self._throw_on_error(res)

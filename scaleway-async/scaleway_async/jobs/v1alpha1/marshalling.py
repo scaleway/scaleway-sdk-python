@@ -19,6 +19,7 @@ from .types import (
     UpdateJobDefinitionRequestCronScheduleConfig,
     CreateJobDefinitionRequest,
     UpdateJobDefinitionRequest,
+    StartJobDefinitionRequest,
 )
 
 
@@ -100,11 +101,17 @@ def unmarshal_JobRun(data: Any) -> JobRun:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("command", None)
+    args["command"] = field
+
     field = data.get("cpu_limit", None)
     args["cpu_limit"] = field
 
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if type(field) is str else field
+
+    field = data.get("environment_variables", None)
+    args["environment_variables"] = field
 
     field = data.get("error_message", None)
     args["error_message"] = field
@@ -258,6 +265,37 @@ def marshal_CreateJobDefinitionRequest(
 
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id
+
+    return output
+
+
+def marshal_StartJobDefinitionRequest(
+    request: StartJobDefinitionRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
+            [
+                OneOfPossibility(
+                    "command", request.command if request.command is not None else None
+                ),
+            ]
+        ),
+    )
+    output.update(
+        resolve_one_of(
+            [
+                OneOfPossibility(
+                    "replicas",
+                    request.replicas if request.replicas is not None else None,
+                ),
+            ]
+        ),
+    )
+
+    if request.environment_variables is not None:
+        output["environment_variables"] = request.environment_variables
 
     return output
 

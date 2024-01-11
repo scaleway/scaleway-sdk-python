@@ -117,6 +117,10 @@ class JobRun:
 
     memory_limit: int
 
+    command: str
+
+    environment_variables: Dict[str, str]
+
     region: Region
 
 
@@ -309,6 +313,25 @@ class StartJobDefinitionRequest:
     job_definition_id: str
     """
     UUID of the job definition to start.
+    """
+
+    command: Optional[str]
+    """
+    Contextual startup command for this specific job run.
+    
+    One-of ('_command'): at most one of 'command' could be set.
+    """
+
+    environment_variables: Optional[Dict[str, str]]
+    """
+    Contextual environment variables for this specific job run.
+    """
+
+    replicas: Optional[int]
+    """
+    Number of jobs to run.
+    
+    One-of ('_replicas'): at most one of 'replicas' could be set.
     """
 
 
