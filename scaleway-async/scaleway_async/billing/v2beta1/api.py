@@ -21,11 +21,14 @@ from .types import (
     ExportInvoicesRequestOrderBy,
     InvoiceType,
     ListConsumptionsRequestOrderBy,
+    ListDiscountsRequestOrderBy,
     ListInvoicesRequestOrderBy,
     ListTaxesRequestOrderBy,
+    Discount,
     Invoice,
     ListConsumptionsResponse,
     ListConsumptionsResponseConsumption,
+    ListDiscountsResponse,
     ListInvoicesResponse,
     ListTaxesResponse,
     ListTaxesResponseTax,
@@ -33,6 +36,7 @@ from .types import (
 from .marshalling import (
     unmarshal_Invoice,
     unmarshal_ListConsumptionsResponse,
+    unmarshal_ListDiscountsResponse,
     unmarshal_ListInvoicesResponse,
     unmarshal_ListTaxesResponse,
 )
@@ -49,7 +53,7 @@ class BillingV2Beta1API(API):
     async def list_consumptions(
         self,
         *,
-        order_by: ListConsumptionsRequestOrderBy = ListConsumptionsRequestOrderBy.UPDATED_AT_DATE_DESC,
+        order_by: ListConsumptionsRequestOrderBy = ListConsumptionsRequestOrderBy.UPDATED_AT_DESC,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         organization_id: Optional[str] = None,
@@ -157,7 +161,7 @@ class BillingV2Beta1API(API):
     async def list_taxes(
         self,
         *,
-        order_by: ListTaxesRequestOrderBy = ListTaxesRequestOrderBy.UPDATED_AT_DATE_DESC,
+        order_by: ListTaxesRequestOrderBy = ListTaxesRequestOrderBy.UPDATED_AT_DESC,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         organization_id: Optional[str] = None,
@@ -441,3 +445,63 @@ class BillingV2Beta1API(API):
         self._throw_on_error(res)
         json = res.json()
         return unmarshal_ScwFile(json) if json is not None else None
+
+    async def list_discounts(
+        self,
+        *,
+        order_by: ListDiscountsRequestOrderBy = ListDiscountsRequestOrderBy.CREATION_DATE_DESC,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        organization_id: Optional[str] = None,
+    ) -> ListDiscountsResponse:
+        """
+
+        Usage:
+        ::
+
+            result = await api.list_discounts()
+        """
+
+        res = self._request(
+            "GET",
+            f"/billing/v2beta1/discounts",
+            params={
+                "order_by": order_by,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListDiscountsResponse(res.json())
+
+    async def list_discounts_all(
+        self,
+        *,
+        order_by: Optional[ListDiscountsRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        organization_id: Optional[str] = None,
+    ) -> List[Discount]:
+        """
+        :return: :class:`List[ListDiscountsResponse] <List[ListDiscountsResponse]>`
+
+        Usage:
+        ::
+
+            result = await api.list_discounts_all()
+        """
+
+        return await fetch_all_pages_async(
+            type=ListDiscountsResponse,
+            key="discounts",
+            fetcher=self.list_discounts,
+            args={
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size,
+                "organization_id": organization_id,
+            },
+        )
