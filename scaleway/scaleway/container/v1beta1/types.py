@@ -360,14 +360,14 @@ class CreateTriggerRequestMnqSqsClientConfig:
     Create trigger request. mnq sqs client config.
     """
 
-    queue: str
-    """
-    Name of the SQS queue the trigger should listen to.
-    """
-
     mnq_namespace_id: Optional[str]
     """
     :deprecated
+    """
+
+    queue: str
+    """
+    Name of the SQS queue the trigger should listen to.
     """
 
     mnq_project_id: str
