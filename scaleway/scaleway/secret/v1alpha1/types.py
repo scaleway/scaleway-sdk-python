@@ -482,6 +482,12 @@ class CreateSecretRequest:
     (Optional.) Policy that defines whether/when a secret's versions expire. By default, the policy is applied to all the secret's versions.
     """
 
+    is_protected: bool
+    """
+    Returns `true` if secret protection is enabled on a given secret.
+    A protected secret cannot be deleted.
+    """
+
 
 @dataclass
 class CreateFolderRequest:
