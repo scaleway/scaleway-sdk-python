@@ -277,6 +277,11 @@ class DomainLastStatus:
     The DKIM record verification data.
     """
 
+    dmarc_record: Optional[DomainLastStatusDmarcRecord]
+    """
+    The DMARC record verification data.
+    """
+
 
 @dataclass
 class DomainLastStatusDkimRecord:
@@ -292,6 +297,28 @@ class DomainLastStatusDkimRecord:
     last_valid_at: Optional[datetime]
     """
     Time and date the DKIM record was last valid.
+    """
+
+    error: Optional[str]
+    """
+    An error text displays in case the record is not valid.
+    """
+
+
+@dataclass
+class DomainLastStatusDmarcRecord:
+    """
+    Domain last status. dmarc record.
+    """
+
+    status: DomainLastStatusRecordStatus
+    """
+    Status of the DMARC record's configuration.
+    """
+
+    last_valid_at: Optional[datetime]
+    """
+    Time and date the DMARC record was last valid.
     """
 
     error: Optional[str]
