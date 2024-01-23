@@ -402,6 +402,9 @@ def marshal_CreateSecretRequest(
             request.ephemeral_policy, defaults
         )
 
+    if request.is_protected is not None:
+        output["is_protected"] = request.is_protected
+
     if request.name is not None:
         output["name"] = request.name
 
