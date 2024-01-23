@@ -497,6 +497,11 @@ class ClusterType:
     Returns information if this offer uses dedicated resources.
     """
 
+    audit_logs_supported: bool
+    """
+    True if the offer allows activation of the audit log functionality. Please note that audit logs are sent to Cockpit.
+    """
+
 
 @dataclass
 class CreateClusterRequestAutoUpgrade:

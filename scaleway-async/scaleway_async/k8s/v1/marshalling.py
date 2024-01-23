@@ -286,6 +286,9 @@ def unmarshal_ClusterType(data: Any) -> ClusterType:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("audit_logs_supported", None)
+    args["audit_logs_supported"] = field
+
     field = data.get("availability", None)
     args["availability"] = field
 
