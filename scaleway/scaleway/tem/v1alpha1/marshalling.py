@@ -13,6 +13,7 @@ from .types import (
     Domain,
     DomainLastStatus,
     DomainLastStatusDkimRecord,
+    DomainLastStatusDmarcRecord,
     DomainLastStatusSpfRecord,
     DomainReputation,
     DomainStatistics,
@@ -178,6 +179,26 @@ def unmarshal_DomainLastStatusDkimRecord(data: Any) -> DomainLastStatusDkimRecor
     return DomainLastStatusDkimRecord(**args)
 
 
+def unmarshal_DomainLastStatusDmarcRecord(data: Any) -> DomainLastStatusDmarcRecord:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'DomainLastStatusDmarcRecord' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("error", None)
+    args["error"] = field
+
+    field = data.get("last_valid_at", None)
+    args["last_valid_at"] = parser.isoparse(field) if type(field) is str else field
+
+    field = data.get("status", None)
+    args["status"] = field
+
+    return DomainLastStatusDmarcRecord(**args)
+
+
 def unmarshal_DomainLastStatusSpfRecord(data: Any) -> DomainLastStatusSpfRecord:
     if type(data) is not dict:
         raise TypeError(
@@ -281,6 +302,11 @@ def unmarshal_DomainLastStatus(data: Any) -> DomainLastStatus:
     field = data.get("dkim_record", None)
     args["dkim_record"] = (
         unmarshal_DomainLastStatusDkimRecord(field) if field is not None else None
+    )
+
+    field = data.get("dmarc_record", None)
+    args["dmarc_record"] = (
+        unmarshal_DomainLastStatusDmarcRecord(field) if field is not None else None
     )
 
     field = data.get("domain_id", None)
