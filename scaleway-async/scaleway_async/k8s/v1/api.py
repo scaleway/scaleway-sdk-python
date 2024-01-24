@@ -20,7 +20,6 @@ from scaleway_core.utils import (
 from .types import (
     CNI,
     ClusterStatus,
-    Ingress,
     ListClustersRequestOrderBy,
     ListNodesRequestOrderBy,
     ListPoolsRequestOrderBy,
@@ -219,8 +218,6 @@ class K8SV1API(API):
         name: Optional[str] = None,
         tags: Optional[List[str]] = None,
         cni: CNI = CNI.UNKNOWN_CNI,
-        enable_dashboard: Optional[bool] = None,
-        ingress: Optional[Ingress] = None,
         pools: Optional[List[CreateClusterRequestPoolConfig]] = None,
         autoscaler_config: Optional[CreateClusterRequestAutoscalerConfig] = None,
         auto_upgrade: Optional[CreateClusterRequestAutoUpgrade] = None,
@@ -248,8 +245,6 @@ class K8SV1API(API):
         :param tags: Tags associated with the cluster.
         :param version: Kubernetes version of the cluster.
         :param cni: Container Network Interface (CNI) plugin running in the cluster.
-        :param enable_dashboard: Defines whether the Kubernetes Dashboard is enabled in the cluster.
-        :param ingress: Ingress Controller running in the cluster (deprecated feature).
         :param pools: Pools created along with the cluster.
         :param autoscaler_config: Autoscaler configuration for the cluster. It allows you to set (to an extent) your preferred autoscaler configuration, which is an implementation of the cluster-autoscaler (https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler/).
         :param auto_upgrade: Auto upgrade configuration of the cluster. This configuration enables to set a specific 2-hour time window in which the cluster can be automatically updated to the latest patch version.
@@ -288,8 +283,6 @@ class K8SV1API(API):
                     name=name or random_name(prefix="k8s"),
                     tags=tags,
                     cni=cni,
-                    enable_dashboard=enable_dashboard,
-                    ingress=ingress,
                     pools=pools,
                     autoscaler_config=autoscaler_config,
                     auto_upgrade=auto_upgrade,
@@ -382,8 +375,6 @@ class K8SV1API(API):
         description: Optional[str] = None,
         tags: Optional[List[str]] = None,
         autoscaler_config: Optional[UpdateClusterRequestAutoscalerConfig] = None,
-        enable_dashboard: Optional[bool] = None,
-        ingress: Optional[Ingress] = None,
         auto_upgrade: Optional[UpdateClusterRequestAutoUpgrade] = None,
         feature_gates: Optional[List[str]] = None,
         admission_plugins: Optional[List[str]] = None,
@@ -401,8 +392,6 @@ class K8SV1API(API):
         :param description: New description for the cluster.
         :param tags: New tags associated with the cluster.
         :param autoscaler_config: New autoscaler config for the cluster.
-        :param enable_dashboard: New value for the Kubernetes Dashboard enablement.
-        :param ingress: New Ingress Controller for the cluster (deprecated feature).
         :param auto_upgrade: New auto upgrade configuration for the cluster. Note that all fields need to be set.
         :param feature_gates: List of feature gates to enable.
         :param admission_plugins: List of admission plugins to enable.
@@ -432,8 +421,6 @@ class K8SV1API(API):
                     description=description,
                     tags=tags,
                     autoscaler_config=autoscaler_config,
-                    enable_dashboard=enable_dashboard,
-                    ingress=ingress,
                     auto_upgrade=auto_upgrade,
                     feature_gates=feature_gates,
                     admission_plugins=admission_plugins,

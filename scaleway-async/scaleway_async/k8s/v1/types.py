@@ -80,17 +80,6 @@ class ClusterTypeResiliency(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class Ingress(str, Enum, metaclass=StrEnumMeta):
-    UNKNOWN_INGRESS = "unknown_ingress"
-    NONE = "none"
-    NGINX = "nginx"
-    TRAEFIK = "traefik"
-    TRAEFIK2 = "traefik2"
-
-    def __str__(self) -> str:
-        return str(self.value)
-
-
 class ListClustersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
@@ -280,18 +269,6 @@ class Cluster:
     autoscaler_config: Optional[ClusterAutoscalerConfig]
     """
     Autoscaler config for the cluster.
-    """
-
-    dashboard_enabled: Optional[bool]
-    """
-    Defines whether the Kubernetes dashboard is enabled for the cluster.
-    :deprecated
-    """
-
-    ingress: Optional[Ingress]
-    """
-    Managed Ingress controller used in the cluster (deprecated feature).
-    :deprecated
     """
 
     auto_upgrade: Optional[ClusterAutoUpgrade]
@@ -495,6 +472,11 @@ class ClusterType:
     dedicated: bool
     """
     Returns information if this offer uses dedicated resources.
+    """
+
+    audit_logs_supported: bool
+    """
+    True if the offer allows activation of the audit log functionality. Please note that audit logs are sent to Cockpit.
     """
 
 
@@ -1242,12 +1224,6 @@ class Version:
     Supported Container Network Interface (CNI) plugins for this version.
     """
 
-    available_ingresses: Optional[List[Ingress]]
-    """
-    Supported Ingress Controllers for this version.
-    :deprecated
-    """
-
     available_container_runtimes: List[Runtime]
     """
     Supported container runtimes for this version.
@@ -1374,18 +1350,6 @@ class CreateClusterRequest:
     Container Network Interface (CNI) plugin running in the cluster.
     """
 
-    enable_dashboard: Optional[bool]
-    """
-    Defines whether the Kubernetes Dashboard is enabled in the cluster.
-    :deprecated
-    """
-
-    ingress: Optional[Ingress]
-    """
-    Ingress Controller running in the cluster (deprecated feature).
-    :deprecated
-    """
-
     pools: Optional[List[CreateClusterRequestPoolConfig]]
     """
     Pools created along with the cluster.
@@ -1470,18 +1434,6 @@ class UpdateClusterRequest:
     autoscaler_config: Optional[UpdateClusterRequestAutoscalerConfig]
     """
     New autoscaler config for the cluster.
-    """
-
-    enable_dashboard: Optional[bool]
-    """
-    New value for the Kubernetes Dashboard enablement.
-    :deprecated
-    """
-
-    ingress: Optional[Ingress]
-    """
-    New Ingress Controller for the cluster (deprecated feature).
-    :deprecated
     """
 
     auto_upgrade: Optional[UpdateClusterRequestAutoUpgrade]
