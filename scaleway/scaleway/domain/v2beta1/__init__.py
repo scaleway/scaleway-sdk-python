@@ -4,6 +4,7 @@ from .types import ContactEmailStatus
 from .types import ContactExtensionFRMode
 from .types import ContactExtensionNLLegalForm
 from .types import ContactLegalForm
+from .types import ContactStatus
 from .types import DNSZoneStatus
 from .types import DSRecordAlgorithm
 from .types import DSRecordDigestType
@@ -123,6 +124,7 @@ __all__ = [
     "ContactExtensionFRMode",
     "ContactExtensionNLLegalForm",
     "ContactLegalForm",
+    "ContactStatus",
     "DNSZoneStatus",
     "DSRecordAlgorithm",
     "DSRecordDigestType",
