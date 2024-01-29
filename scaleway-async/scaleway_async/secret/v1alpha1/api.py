@@ -68,6 +68,7 @@ class SecretV1Alpha1API(API):
         *,
         name: str,
         type_: SecretType,
+        is_protected: bool,
         region: Optional[Region] = None,
         project_id: Optional[str] = None,
         tags: Optional[List[str]] = None,
@@ -89,6 +90,8 @@ class SecretV1Alpha1API(API):
         (Optional.) Location of the secret in the directory structure. If not specified, the path is `/`.
         :param ephemeral_policy: Ephemeral policy of the secret.
         (Optional.) Policy that defines whether/when a secret's versions expire. By default, the policy is applied to all the secret's versions.
+        :param is_protected: Returns `true` if secret protection is enabled on a given secret.
+        A protected secret cannot be deleted.
         :return: :class:`Secret <Secret>`
 
         Usage:
@@ -97,6 +100,7 @@ class SecretV1Alpha1API(API):
             result = await api.create_secret(
                 name="example",
                 type_=unknown_secret_type,
+                is_protected=True,
             )
         """
 
@@ -111,6 +115,7 @@ class SecretV1Alpha1API(API):
                 CreateSecretRequest(
                     name=name,
                     type_=type_,
+                    is_protected=is_protected,
                     region=region,
                     project_id=project_id,
                     tags=tags,
