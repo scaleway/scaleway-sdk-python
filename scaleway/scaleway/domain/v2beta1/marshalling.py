@@ -653,6 +653,9 @@ def unmarshal_Contact(data: Any) -> Contact:
     field = data.get("state", None)
     args["state"] = field
 
+    field = data.get("status", None)
+    args["status"] = field
+
     field = data.get("vat_identification_code", None)
     args["vat_identification_code"] = field
 
@@ -1190,6 +1193,9 @@ def unmarshal_Task(data: Any) -> Task:
         )
 
     args: Dict[str, Any] = {}
+
+    field = data.get("contact_identifier", None)
+    args["contact_identifier"] = field
 
     field = data.get("domain", None)
     args["domain"] = field

@@ -78,6 +78,15 @@ class ContactLegalForm(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ContactStatus(str, Enum, metaclass=StrEnumMeta):
+    STATUS_UNKNOWN = "status_unknown"
+    ACTIVE = "active"
+    PENDING = "pending"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class DNSZoneStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     ACTIVE = "active"
@@ -465,6 +474,8 @@ class Contact:
     state: str
 
     extension_nl: Optional[ContactExtensionNL]
+
+    status: ContactStatus
 
 
 @dataclass
@@ -1317,23 +1328,59 @@ class SearchAvailableDomainsResponse:
 
 @dataclass
 class Task:
+    """
+    Task.
+    """
+
     id: str
+    """
+    The unique identifier of the task.
+    """
 
     project_id: str
+    """
+    The project ID associated to the task.
+    """
 
     organization_id: str
+    """
+    The organization ID associated to the task.
+    """
 
     domain: Optional[str]
+    """
+    The domain name associated to the task.
+    """
 
     type_: TaskType
+    """
+    The type of the task.
+    """
 
     status: TaskStatus
+    """
+    The status of the task.
+    """
 
     started_at: Optional[datetime]
+    """
+    Start date of the task.
+    """
 
     updated_at: Optional[datetime]
+    """
+    Last update of the task.
+    """
 
     message: Optional[str]
+    """
+    Error message associated to the task.
+    """
+
+    contact_identifier: Optional[str]
+    """
+    Human-friendly contact identifier used when the task concerns a contact.
+    """
 
 
 @dataclass
