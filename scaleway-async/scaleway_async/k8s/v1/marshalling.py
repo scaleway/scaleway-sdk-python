@@ -13,7 +13,6 @@ from .types import (
     AutoscalerEstimator,
     AutoscalerExpander,
     CNI,
-    Ingress,
     MaintenanceWindowDayOfTheWeek,
     PoolVolumeType,
     Runtime,
@@ -219,9 +218,6 @@ def unmarshal_Cluster(data: Any) -> Cluster:
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
-    field = data.get("dashboard_enabled", None)
-    args["dashboard_enabled"] = field
-
     field = data.get("description", None)
     args["description"] = field
 
@@ -233,9 +229,6 @@ def unmarshal_Cluster(data: Any) -> Cluster:
 
     field = data.get("id", None)
     args["id"] = field
-
-    field = data.get("ingress", None)
-    args["ingress"] = field
 
     field = data.get("name", None)
     args["name"] = field
@@ -487,9 +480,6 @@ def unmarshal_Version(data: Any) -> Version:
 
     field = data.get("available_feature_gates", None)
     args["available_feature_gates"] = field
-
-    field = data.get("available_ingresses", None)
-    args["available_ingresses"] = field
 
     field = data.get("available_kubelet_args", None)
     args["available_kubelet_args"] = field
@@ -1034,14 +1024,8 @@ def marshal_CreateClusterRequest(
     if request.description is not None:
         output["description"] = request.description
 
-    if request.enable_dashboard is not None:
-        output["enable_dashboard"] = request.enable_dashboard
-
     if request.feature_gates is not None:
         output["feature_gates"] = request.feature_gates
-
-    if request.ingress is not None:
-        output["ingress"] = Ingress(request.ingress)
 
     if request.name is not None:
         output["name"] = request.name
@@ -1181,14 +1165,8 @@ def marshal_UpdateClusterRequest(
     if request.description is not None:
         output["description"] = request.description
 
-    if request.enable_dashboard is not None:
-        output["enable_dashboard"] = request.enable_dashboard
-
     if request.feature_gates is not None:
         output["feature_gates"] = request.feature_gates
-
-    if request.ingress is not None:
-        output["ingress"] = Ingress(request.ingress)
 
     if request.name is not None:
         output["name"] = request.name

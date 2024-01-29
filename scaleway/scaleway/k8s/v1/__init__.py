@@ -6,7 +6,6 @@ from .types import CNI
 from .types import ClusterStatus
 from .types import ClusterTypeAvailability
 from .types import ClusterTypeResiliency
-from .types import Ingress
 from .types import ListClustersRequestOrderBy
 from .types import ListNodesRequestOrderBy
 from .types import ListPoolsRequestOrderBy
@@ -56,7 +55,6 @@ __all__ = [
     "ClusterStatus",
     "ClusterTypeAvailability",
     "ClusterTypeResiliency",
-    "Ingress",
     "ListClustersRequestOrderBy",
     "ListNodesRequestOrderBy",
     "ListPoolsRequestOrderBy",
