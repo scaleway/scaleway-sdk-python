@@ -69,6 +69,16 @@ class HostingStatus(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class LanguageCode(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_LANGUAGE_CODE = "unknown_language_code"
+    EN_US = "en_US"
+    FR_FR = "fr_FR"
+    DE_DE = "de_DE"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListHostingsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
@@ -532,6 +542,11 @@ class CreateHostingRequest:
     option_ids: Optional[List[str]]
     """
     IDs of any selected additional options for the Web Hosting plan.
+    """
+
+    language: LanguageCode
+    """
+    Default language for the control panel interface.
     """
 
 
