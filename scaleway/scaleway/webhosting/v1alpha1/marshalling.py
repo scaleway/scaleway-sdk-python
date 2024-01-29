@@ -9,6 +9,7 @@ from scaleway_core.bridge import (
 )
 from dateutil import parser
 from .types import (
+    LanguageCode,
     ControlPanel,
     DnsRecord,
     DnsRecords,
@@ -373,6 +374,9 @@ def marshal_CreateHostingRequest(
 
     if request.email is not None:
         output["email"] = request.email
+
+    if request.language is not None:
+        output["language"] = LanguageCode(request.language)
 
     if request.offer_id is not None:
         output["offer_id"] = request.offer_id
