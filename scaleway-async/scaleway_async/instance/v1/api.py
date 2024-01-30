@@ -418,9 +418,11 @@ class InstanceV1API(API):
                 "per_page": per_page or self.client.default_page_size,
                 "private_ip": private_ip,
                 "private_network": private_network,
-                "private_networks": ",".join(private_networks)
-                if private_networks and len(private_networks) > 0
-                else None,
+                "private_networks": (
+                    ",".join(private_networks)
+                    if private_networks and len(private_networks) > 0
+                    else None
+                ),
                 "private_nic_mac_address": private_nic_mac_address,
                 "project": project or self.client.default_project_id,
                 "servers": ",".join(servers) if servers and len(servers) > 0 else None,

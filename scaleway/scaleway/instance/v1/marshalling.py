@@ -2802,16 +2802,20 @@ def marshal_CreateImageRequest(
             [
                 OneOfPossibility(
                     "project",
-                    request.project or defaults.default_project_id
-                    if request.project is not None
-                    else None,
+                    (
+                        request.project or defaults.default_project_id
+                        if request.project is not None
+                        else None
+                    ),
                     defaults.default_project_id,
                 ),
                 OneOfPossibility(
                     "organization",
-                    request.organization or defaults.default_organization_id
-                    if request.organization is not None
-                    else None,
+                    (
+                        request.organization or defaults.default_organization_id
+                        if request.organization is not None
+                        else None
+                    ),
                     defaults.default_organization_id,
                 ),
             ]
@@ -2855,16 +2859,20 @@ def marshal_CreateIpRequest(
             [
                 OneOfPossibility(
                     "project",
-                    request.project or defaults.default_project_id
-                    if request.project is not None
-                    else None,
+                    (
+                        request.project or defaults.default_project_id
+                        if request.project is not None
+                        else None
+                    ),
                     defaults.default_project_id,
                 ),
                 OneOfPossibility(
                     "organization",
-                    request.organization or defaults.default_organization_id
-                    if request.organization is not None
-                    else None,
+                    (
+                        request.organization or defaults.default_organization_id
+                        if request.organization is not None
+                        else None
+                    ),
                     defaults.default_organization_id,
                 ),
             ]
@@ -2893,16 +2901,20 @@ def marshal_CreatePlacementGroupRequest(
             [
                 OneOfPossibility(
                     "project",
-                    request.project or defaults.default_project_id
-                    if request.project is not None
-                    else None,
+                    (
+                        request.project or defaults.default_project_id
+                        if request.project is not None
+                        else None
+                    ),
                     defaults.default_project_id,
                 ),
                 OneOfPossibility(
                     "organization",
-                    request.organization or defaults.default_organization_id
-                    if request.organization is not None
-                    else None,
+                    (
+                        request.organization or defaults.default_organization_id
+                        if request.organization is not None
+                        else None
+                    ),
                     defaults.default_organization_id,
                 ),
             ]
@@ -2952,15 +2964,19 @@ def marshal_CreateSecurityGroupRequest(
             [
                 OneOfPossibility(
                     "organization_default",
-                    request.organization_default
-                    if request.organization_default is not None
-                    else None,
+                    (
+                        request.organization_default
+                        if request.organization_default is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "project_default",
-                    request.project_default
-                    if request.project_default is not None
-                    else None,
+                    (
+                        request.project_default
+                        if request.project_default is not None
+                        else None
+                    ),
                 ),
             ]
         ),
@@ -2970,16 +2986,20 @@ def marshal_CreateSecurityGroupRequest(
             [
                 OneOfPossibility(
                     "project",
-                    request.project or defaults.default_project_id
-                    if request.project is not None
-                    else None,
+                    (
+                        request.project or defaults.default_project_id
+                        if request.project is not None
+                        else None
+                    ),
                     defaults.default_project_id,
                 ),
                 OneOfPossibility(
                     "organization",
-                    request.organization or defaults.default_organization_id
-                    if request.organization is not None
-                    else None,
+                    (
+                        request.organization or defaults.default_organization_id
+                        if request.organization is not None
+                        else None
+                    ),
                     defaults.default_organization_id,
                 ),
             ]
@@ -3057,16 +3077,20 @@ def marshal_CreateSnapshotRequest(
             [
                 OneOfPossibility(
                     "project",
-                    request.project or defaults.default_project_id
-                    if request.project is not None
-                    else None,
+                    (
+                        request.project or defaults.default_project_id
+                        if request.project is not None
+                        else None
+                    ),
                     defaults.default_project_id,
                 ),
                 OneOfPossibility(
                     "organization",
-                    request.organization or defaults.default_organization_id
-                    if request.organization is not None
-                    else None,
+                    (
+                        request.organization or defaults.default_organization_id
+                        if request.organization is not None
+                        else None
+                    ),
                     defaults.default_organization_id,
                 ),
             ]
@@ -3107,16 +3131,20 @@ def marshal_CreateVolumeRequest(
             [
                 OneOfPossibility(
                     "project",
-                    request.project or defaults.default_project_id
-                    if request.project is not None
-                    else None,
+                    (
+                        request.project or defaults.default_project_id
+                        if request.project is not None
+                        else None
+                    ),
                     defaults.default_project_id,
                 ),
                 OneOfPossibility(
                     "organization",
-                    request.organization or defaults.default_organization_id
-                    if request.organization is not None
-                    else None,
+                    (
+                        request.organization or defaults.default_organization_id
+                        if request.organization is not None
+                        else None
+                    ),
                     defaults.default_organization_id,
                 ),
             ]
@@ -3130,9 +3158,11 @@ def marshal_CreateVolumeRequest(
                 ),
                 OneOfPossibility(
                     "base_snapshot",
-                    request.base_snapshot
-                    if request.base_snapshot is not None
-                    else None,
+                    (
+                        request.base_snapshot
+                        if request.base_snapshot is not None
+                        else None
+                    ),
                 ),
             ]
         ),
@@ -3482,16 +3512,20 @@ def marshal__CreateServerRequest(
             [
                 OneOfPossibility(
                     "project",
-                    request.project or defaults.default_project_id
-                    if request.project is not None
-                    else None,
+                    (
+                        request.project or defaults.default_project_id
+                        if request.project is not None
+                        else None
+                    ),
                     defaults.default_project_id,
                 ),
                 OneOfPossibility(
                     "organization",
-                    request.organization or defaults.default_organization_id
-                    if request.organization is not None
-                    else None,
+                    (
+                        request.organization or defaults.default_organization_id
+                        if request.organization is not None
+                        else None
+                    ),
                     defaults.default_organization_id,
                 ),
             ]
