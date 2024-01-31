@@ -455,6 +455,13 @@ class BillingV2Beta1API(API):
         organization_id: Optional[str] = None,
     ) -> ListDiscountsResponse:
         """
+        List discounts.
+        List all discounts for your organization and usable categories, products, offers, references, regions and zones where the discount can be applied.
+        :param order_by: Order discounts in the response by their description.
+        :param page: Positive integer to choose the page to return.
+        :param page_size: Positive integer lower or equal to 100 to select the number of items to return.
+        :param organization_id: ID of the organization.
+        :return: :class:`ListDiscountsResponse <ListDiscountsResponse>`
 
         Usage:
         ::
@@ -486,6 +493,12 @@ class BillingV2Beta1API(API):
         organization_id: Optional[str] = None,
     ) -> List[Discount]:
         """
+        List discounts.
+        List all discounts for your organization and usable categories, products, offers, references, regions and zones where the discount can be applied.
+        :param order_by: Order discounts in the response by their description.
+        :param page: Positive integer to choose the page to return.
+        :param page_size: Positive integer lower or equal to 100 to select the number of items to return.
+        :param organization_id: ID of the organization.
         :return: :class:`List[ListDiscountsResponse] <List[ListDiscountsResponse]>`
 
         Usage:
