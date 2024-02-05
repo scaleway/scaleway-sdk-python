@@ -43,6 +43,7 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     REDIS_CLUSTER = "redis_cluster"
     BAREMETAL_SERVER = "baremetal_server"
     BAREMETAL_PRIVATE_NIC = "baremetal_private_nic"
+    LLM_DEPLOYMENT = "llm_deployment"
 
     def __str__(self) -> str:
         return str(self.value)

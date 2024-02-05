@@ -174,9 +174,11 @@ def marshal_Source(
                 ),
                 OneOfPossibility(
                     "private_network_id",
-                    request.private_network_id
-                    if request.private_network_id is not None
-                    else None,
+                    (
+                        request.private_network_id
+                        if request.private_network_id is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "subnet_id",
