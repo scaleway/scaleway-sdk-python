@@ -20,6 +20,7 @@ from .types import (
     JobRun,
     ListJobDefinitionsResponse,
     ListJobRunsResponse,
+    StartJobDefinitionResponse,
     UpdateJobDefinitionRequestCronScheduleConfig,
     CreateJobDefinitionRequest,
     UpdateJobDefinitionRequest,
@@ -33,6 +34,7 @@ from .marshalling import (
     unmarshal_JobRun,
     unmarshal_ListJobDefinitionsResponse,
     unmarshal_ListJobRunsResponse,
+    unmarshal_StartJobDefinitionResponse,
 )
 
 
@@ -332,7 +334,7 @@ class JobsV1Alpha1API(API):
         command: Optional[str] = None,
         environment_variables: Optional[Dict[str, str]] = None,
         replicas: Optional[int] = None,
-    ) -> JobRun:
+    ) -> StartJobDefinitionResponse:
         """
         Run an existing job definition by its unique identifier. This will create a new job run.
         :param region: Region to target. If none is passed will use default region from the config.
@@ -344,7 +346,7 @@ class JobsV1Alpha1API(API):
         :param replicas: Number of jobs to run.
 
         One-of ('_replicas'): at most one of 'replicas' could be set.
-        :return: :class:`JobRun <JobRun>`
+        :return: :class:`StartJobDefinitionResponse <StartJobDefinitionResponse>`
 
         Usage:
         ::
@@ -375,7 +377,7 @@ class JobsV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
-        return unmarshal_JobRun(res.json())
+        return unmarshal_StartJobDefinitionResponse(res.json())
 
     def get_job_run(
         self,

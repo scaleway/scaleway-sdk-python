@@ -23,6 +23,7 @@ class JobRunState(str, Enum, metaclass=StrEnumMeta):
     SUCCEEDED = "succeeded"
     FAILED = "failed"
     CANCELED = "canceled"
+    INTERNAL_ERROR = "internal_error"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -136,6 +137,11 @@ class ListJobRunsResponse:
     job_runs: List[JobRun]
 
     total_count: int
+
+
+@dataclass
+class StartJobDefinitionResponse:
+    job_runs: List[JobRun]
 
 
 @dataclass

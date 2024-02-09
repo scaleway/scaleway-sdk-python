@@ -16,6 +16,7 @@ from .types import (
     JobRun,
     ListJobDefinitionsResponse,
     ListJobRunsResponse,
+    StartJobDefinitionResponse,
     UpdateJobDefinitionRequestCronScheduleConfig,
     CreateJobDefinitionRequest,
     UpdateJobDefinitionRequest,
@@ -182,6 +183,22 @@ def unmarshal_ListJobRunsResponse(data: Any) -> ListJobRunsResponse:
     args["total_count"] = field
 
     return ListJobRunsResponse(**args)
+
+
+def unmarshal_StartJobDefinitionResponse(data: Any) -> StartJobDefinitionResponse:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'StartJobDefinitionResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("job_runs", None)
+    args["job_runs"] = (
+        [unmarshal_JobRun(v) for v in field] if field is not None else None
+    )
+
+    return StartJobDefinitionResponse(**args)
 
 
 def marshal_CreateJobDefinitionRequestCronScheduleConfig(
