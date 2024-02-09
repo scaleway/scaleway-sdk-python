@@ -821,27 +821,33 @@ def marshal_CreateTriggerRequest(
             [
                 OneOfPossibility(
                     "scw_sqs_config",
-                    marshal_CreateTriggerRequestMnqSqsClientConfig(
-                        request.scw_sqs_config, defaults
-                    )
-                    if request.scw_sqs_config is not None
-                    else None,
+                    (
+                        marshal_CreateTriggerRequestMnqSqsClientConfig(
+                            request.scw_sqs_config, defaults
+                        )
+                        if request.scw_sqs_config is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "scw_nats_config",
-                    marshal_CreateTriggerRequestMnqNatsClientConfig(
-                        request.scw_nats_config, defaults
-                    )
-                    if request.scw_nats_config is not None
-                    else None,
+                    (
+                        marshal_CreateTriggerRequestMnqNatsClientConfig(
+                            request.scw_nats_config, defaults
+                        )
+                        if request.scw_nats_config is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "sqs_config",
-                    marshal_CreateTriggerRequestSqsClientConfig(
-                        request.sqs_config, defaults
-                    )
-                    if request.sqs_config is not None
-                    else None,
+                    (
+                        marshal_CreateTriggerRequestSqsClientConfig(
+                            request.sqs_config, defaults
+                        )
+                        if request.sqs_config is not None
+                        else None
+                    ),
                 ),
             ]
         ),
@@ -966,11 +972,13 @@ def marshal_UpdateTriggerRequest(
             [
                 OneOfPossibility(
                     "sqs_config",
-                    marshal_UpdateTriggerRequestSqsClientConfig(
-                        request.sqs_config, defaults
-                    )
-                    if request.sqs_config is not None
-                    else None,
+                    (
+                        marshal_UpdateTriggerRequestSqsClientConfig(
+                            request.sqs_config, defaults
+                        )
+                        if request.sqs_config is not None
+                        else None
+                    ),
                 ),
             ]
         ),
