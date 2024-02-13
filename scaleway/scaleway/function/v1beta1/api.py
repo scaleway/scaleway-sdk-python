@@ -1183,14 +1183,15 @@ class FunctionV1Beta1API(API):
         order_by: ListLogsRequestOrderBy = ListLogsRequestOrderBy.TIMESTAMP_DESC,
     ) -> ListLogsResponse:
         """
-        List application logs.
-        List the application logs of the function with the specified ID.
+        Deprecated (replaced by [Cockpit](https://www.scaleway.com/en/developers/api/cockpit/)). List application logs.
+        Deprecated (replaced by [Cockpit](https://www.scaleway.com/en/developers/api/cockpit/)). List the application logs of the function with the specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :param function_id: UUID of the function to get the logs for.
         :param page: Page number.
         :param page_size: Number of logs per page.
         :param order_by: Order of the logs.
         :return: :class:`ListLogsResponse <ListLogsResponse>`
+        :deprecated
 
         Usage:
         ::
@@ -1226,14 +1227,15 @@ class FunctionV1Beta1API(API):
         order_by: Optional[ListLogsRequestOrderBy] = None,
     ) -> List[Log]:
         """
-        List application logs.
-        List the application logs of the function with the specified ID.
+        Deprecated (replaced by [Cockpit](https://www.scaleway.com/en/developers/api/cockpit/)). List application logs.
+        Deprecated (replaced by [Cockpit](https://www.scaleway.com/en/developers/api/cockpit/)). List the application logs of the function with the specified ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :param function_id: UUID of the function to get the logs for.
         :param page: Page number.
         :param page_size: Number of logs per page.
         :param order_by: Order of the logs.
         :return: :class:`List[ListLogsResponse] <List[ListLogsResponse]>`
+        :deprecated
 
         Usage:
         ::
