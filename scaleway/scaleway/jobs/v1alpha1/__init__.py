@@ -9,6 +9,7 @@ from .types import JobDefinition
 from .types import JobRun
 from .types import ListJobDefinitionsResponse
 from .types import ListJobRunsResponse
+from .types import StartJobDefinitionResponse
 from .types import UpdateJobDefinitionRequestCronScheduleConfig
 from .content import JOB_RUN_TRANSIENT_STATUSES
 from .api import JobsV1Alpha1API
@@ -23,6 +24,7 @@ __all__ = [
     "JobRun",
     "ListJobDefinitionsResponse",
     "ListJobRunsResponse",
+    "StartJobDefinitionResponse",
     "UpdateJobDefinitionRequestCronScheduleConfig",
     "JOB_RUN_TRANSIENT_STATUSES",
     "JobsV1Alpha1API",
