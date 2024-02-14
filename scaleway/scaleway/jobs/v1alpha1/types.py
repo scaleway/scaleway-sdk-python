@@ -91,6 +91,8 @@ class JobDefinition:
 
     cron_schedule: Optional[CronSchedule]
 
+    local_storage_capacity: int
+
     region: Region
 
 
@@ -121,6 +123,8 @@ class JobRun:
     command: str
 
     environment_variables: Dict[str, str]
+
+    local_storage_capacity: int
 
     region: Region
 
@@ -176,7 +180,12 @@ class CreateJobDefinitionRequest:
 
     memory_limit: int
     """
-    Memory limit of the job.
+    Memory limit of the job (in MiB).
+    """
+
+    local_storage_capacity: Optional[int]
+    """
+    Local storage capacity of the job (in MiB).
     """
 
     image_uri: str
@@ -265,7 +274,12 @@ class UpdateJobDefinitionRequest:
 
     memory_limit: Optional[int]
     """
-    Memory limit of the job.
+    Memory limit of the job (in MiB).
+    """
+
+    local_storage_capacity: Optional[int]
+    """
+    Local storage capacity of the job (in MiB).
     """
 
     image_uri: Optional[str]

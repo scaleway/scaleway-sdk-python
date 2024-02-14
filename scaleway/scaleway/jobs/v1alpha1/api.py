@@ -55,6 +55,7 @@ class JobsV1Alpha1API(API):
         description: str,
         region: Optional[Region] = None,
         name: Optional[str] = None,
+        local_storage_capacity: Optional[int] = None,
         project_id: Optional[str] = None,
         environment_variables: Optional[Dict[str, str]] = None,
         job_timeout: Optional[str] = None,
@@ -65,7 +66,8 @@ class JobsV1Alpha1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the job definition.
         :param cpu_limit: CPU limit of the job.
-        :param memory_limit: Memory limit of the job.
+        :param memory_limit: Memory limit of the job (in MiB).
+        :param local_storage_capacity: Local storage capacity of the job (in MiB).
         :param image_uri: Image to use for the job.
         :param command: Startup command.
         :param project_id: UUID of the Scaleway Project containing the job.
@@ -103,6 +105,7 @@ class JobsV1Alpha1API(API):
                     description=description,
                     region=region,
                     name=name or random_name(prefix="job"),
+                    local_storage_capacity=local_storage_capacity,
                     project_id=project_id,
                     environment_variables=environment_variables,
                     job_timeout=job_timeout,
@@ -235,6 +238,7 @@ class JobsV1Alpha1API(API):
         name: Optional[str] = None,
         cpu_limit: Optional[int] = None,
         memory_limit: Optional[int] = None,
+        local_storage_capacity: Optional[int] = None,
         image_uri: Optional[str] = None,
         command: Optional[str] = None,
         environment_variables: Optional[Dict[str, str]] = None,
@@ -248,7 +252,8 @@ class JobsV1Alpha1API(API):
         :param job_definition_id: UUID of the job definition to update.
         :param name: Name of the job definition.
         :param cpu_limit: CPU limit of the job.
-        :param memory_limit: Memory limit of the job.
+        :param memory_limit: Memory limit of the job (in MiB).
+        :param local_storage_capacity: Local storage capacity of the job (in MiB).
         :param image_uri: Image to use for the job.
         :param command: Startup command.
         :param environment_variables: Environment variables of the job.
@@ -280,6 +285,7 @@ class JobsV1Alpha1API(API):
                     name=name,
                     cpu_limit=cpu_limit,
                     memory_limit=memory_limit,
+                    local_storage_capacity=local_storage_capacity,
                     image_uri=image_uri,
                     command=command,
                     environment_variables=environment_variables,
