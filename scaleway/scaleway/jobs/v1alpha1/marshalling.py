@@ -76,6 +76,9 @@ def unmarshal_JobDefinition(data: Any) -> JobDefinition:
     field = data.get("job_timeout", None)
     args["job_timeout"] = field
 
+    field = data.get("local_storage_capacity", None)
+    args["local_storage_capacity"] = field
+
     field = data.get("memory_limit", None)
     args["memory_limit"] = field
 
@@ -125,6 +128,9 @@ def unmarshal_JobRun(data: Any) -> JobRun:
 
     field = data.get("job_definition_id", None)
     args["job_definition_id"] = field
+
+    field = data.get("local_storage_capacity", None)
+    args["local_storage_capacity"] = field
 
     field = data.get("memory_limit", None)
     args["memory_limit"] = field
@@ -274,6 +280,9 @@ def marshal_CreateJobDefinitionRequest(
     if request.job_timeout is not None:
         output["job_timeout"] = request.job_timeout
 
+    if request.local_storage_capacity is not None:
+        output["local_storage_capacity"] = request.local_storage_capacity
+
     if request.memory_limit is not None:
         output["memory_limit"] = request.memory_limit
 
@@ -345,6 +354,9 @@ def marshal_UpdateJobDefinitionRequest(
 
     if request.job_timeout is not None:
         output["job_timeout"] = request.job_timeout
+
+    if request.local_storage_capacity is not None:
+        output["local_storage_capacity"] = request.local_storage_capacity
 
     if request.memory_limit is not None:
         output["memory_limit"] = request.memory_limit
