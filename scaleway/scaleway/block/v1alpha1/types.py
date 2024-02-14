@@ -137,7 +137,7 @@ class ListSnapshotsResponse:
     List snapshots response.
     """
 
-    snapshots: List[SnapshotSummary]
+    snapshots: List[Snapshot]
     """
     Paginated returned list of snapshots.
     """
@@ -311,69 +311,6 @@ class SnapshotParentVolume:
     status: VolumeStatus
     """
     Current status the parent volume.
-    """
-
-
-@dataclass
-class SnapshotSummary:
-    """
-    Snapshot summary.
-    """
-
-    id: str
-    """
-    UUID of the snapshot.
-    """
-
-    name: str
-    """
-    Name of the snapshot.
-    """
-
-    parent_volume: Optional[SnapshotParentVolume]
-    """
-    Information about the parent volume.
-    If the parent volume has been deleted, value is null.
-    """
-
-    size: int
-    """
-    Size of the snapshot in bytes.
-    """
-
-    project_id: str
-    """
-    UUID of the project the snapshot belongs to.
-    """
-
-    created_at: Optional[datetime]
-    """
-    Creation date of the snapshot.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Last modification date of the properties of a snapshot.
-    """
-
-    status: SnapshotStatus
-    """
-    Current status of the snapshot (available, in_use, ...).
-    """
-
-    tags: List[str]
-    """
-    List of tags assigned to the volume.
-    """
-
-    zone: Zone
-    """
-    Snapshot Availability Zone.
-    """
-
-    class_: StorageClass
-    """
-    Storage class of the snapshot.
     """
 
 

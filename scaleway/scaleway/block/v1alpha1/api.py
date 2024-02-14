@@ -22,7 +22,6 @@ from .types import (
     ListVolumeTypesResponse,
     ListVolumesResponse,
     Snapshot,
-    SnapshotSummary,
     Volume,
     VolumeType,
     CreateVolumeRequest,
@@ -39,11 +38,11 @@ from .marshalling import (
     marshal_CreateVolumeRequest,
     marshal_UpdateSnapshotRequest,
     marshal_UpdateVolumeRequest,
+    unmarshal_Snapshot,
     unmarshal_Volume,
     unmarshal_ListSnapshotsResponse,
     unmarshal_ListVolumeTypesResponse,
     unmarshal_ListVolumesResponse,
-    unmarshal_Snapshot,
 )
 
 
@@ -487,7 +486,7 @@ class BlockV1Alpha1API(API):
         page_size: Optional[int] = None,
         volume_id: Optional[str] = None,
         name: Optional[str] = None,
-    ) -> List[SnapshotSummary]:
+    ) -> List[Snapshot]:
         """
         List all snapshots.
         List all available snapshots in a specified zone. By default, the snapshots listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.

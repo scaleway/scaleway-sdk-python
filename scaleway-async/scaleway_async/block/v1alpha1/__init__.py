@@ -15,7 +15,6 @@ from .types import ListVolumesResponse
 from .types import Reference
 from .types import Snapshot
 from .types import SnapshotParentVolume
-from .types import SnapshotSummary
 from .types import Volume
 from .types import VolumeSpecifications
 from .types import VolumeType
@@ -40,7 +39,6 @@ __all__ = [
     "Reference",
     "Snapshot",
     "SnapshotParentVolume",
-    "SnapshotSummary",
     "Volume",
     "VolumeSpecifications",
     "VolumeType",
