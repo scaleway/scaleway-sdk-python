@@ -314,6 +314,9 @@ def unmarshal_Gateway(data: Any) -> Gateway:
     field = data.get("ip", None)
     args["ip"] = unmarshal_IP(field) if field is not None else None
 
+    field = data.get("ip_mobility_enabled", None)
+    args["ip_mobility_enabled"] = field
+
     field = data.get("is_legacy", None)
     args["is_legacy"] = field
 
@@ -697,20 +700,24 @@ def marshal_CreateGatewayNetworkRequest(
                 ),
                 OneOfPossibility(
                     "dhcp",
-                    marshal_CreateDHCPRequest(request.dhcp, defaults)
-                    if request.dhcp is not None
-                    else None,
+                    (
+                        marshal_CreateDHCPRequest(request.dhcp, defaults)
+                        if request.dhcp is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "address", request.address if request.address is not None else None
                 ),
                 OneOfPossibility(
                     "ipam_config",
-                    marshal_CreateGatewayNetworkRequestIpamConfig(
-                        request.ipam_config, defaults
-                    )
-                    if request.ipam_config is not None
-                    else None,
+                    (
+                        marshal_CreateGatewayNetworkRequestIpamConfig(
+                            request.ipam_config, defaults
+                        )
+                        if request.ipam_config is not None
+                        else None
+                    ),
                 ),
             ]
         ),
@@ -917,11 +924,13 @@ def marshal_UpdateGatewayNetworkRequest(
                 ),
                 OneOfPossibility(
                     "ipam_config",
-                    marshal_UpdateGatewayNetworkRequestIpamConfig(
-                        request.ipam_config, defaults
-                    )
-                    if request.ipam_config is not None
-                    else None,
+                    (
+                        marshal_UpdateGatewayNetworkRequestIpamConfig(
+                            request.ipam_config, defaults
+                        )
+                        if request.ipam_config is not None
+                        else None
+                    ),
                 ),
             ]
         ),

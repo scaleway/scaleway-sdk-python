@@ -395,7 +395,12 @@ class Gateway:
 
     is_legacy: bool
     """
-    Whether this uses non-IPAM IP configurations.
+    Defines whether the gateway uses non-IPAM IP configurations.
+    """
+
+    ip_mobility_enabled: bool
+    """
+    Defines whether the gateway uses routed IPs (IP mobility) instead of NAT IPs.
     """
 
     zone: Zone
@@ -1020,6 +1025,19 @@ class UpgradeGatewayRequest:
     gateway_id: str
     """
     ID of the gateway to upgrade.
+    """
+
+
+@dataclass
+class EnableIPMobilityRequest:
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    gateway_id: str
+    """
+    ID of the gateway to upgrade to IP mobility.
     """
 
 
