@@ -4,32 +4,26 @@
 from typing import Any, Dict
 
 from scaleway_core.profile import ProfileDefaults
-from scaleway_core.utils import (
-    OneOfPossibility,
-    resolve_one_of,
-)
 from dateutil import parser
 from .types import (
     EphemeralPolicyAction,
     Product,
     SecretType,
     AccessSecretVersionResponse,
+    BrowseSecretsResponse,
+    BrowseSecretsResponseItem,
+    BrowseSecretsResponseItemFolderDetails,
+    BrowseSecretsResponseItemSecretDetails,
     EphemeralPolicy,
     EphemeralProperties,
-    Folder,
-    ListFoldersResponse,
     ListSecretVersionsResponse,
     ListSecretsResponse,
-    ListTagsResponse,
-    PasswordGenerationParams,
     Secret,
     SecretVersion,
     CreateSecretRequest,
-    CreateFolderRequest,
     UpdateSecretRequest,
     AddSecretOwnerRequest,
     CreateSecretVersionRequest,
-    GeneratePasswordRequest,
     UpdateSecretVersionRequest,
 )
 
@@ -54,6 +48,49 @@ def unmarshal_EphemeralPolicy(data: Any) -> EphemeralPolicy:
     return EphemeralPolicy(**args)
 
 
+def unmarshal_BrowseSecretsResponseItemFolderDetails(
+    data: Any,
+) -> BrowseSecretsResponseItemFolderDetails:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'BrowseSecretsResponseItemFolderDetails' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    return BrowseSecretsResponseItemFolderDetails(**args)
+
+
+def unmarshal_BrowseSecretsResponseItemSecretDetails(
+    data: Any,
+) -> BrowseSecretsResponseItemSecretDetails:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'BrowseSecretsResponseItemSecretDetails' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("ephemeral_policy", None)
+    args["ephemeral_policy"] = (
+        unmarshal_EphemeralPolicy(field) if field is not None else None
+    )
+
+    field = data.get("id", None)
+    args["id"] = field
+
+    field = data.get("protected", None)
+    args["protected"] = field
+
+    field = data.get("tags", None)
+    args["tags"] = field
+
+    field = data.get("version_count", None)
+    args["version_count"] = field
+
+    return BrowseSecretsResponseItemSecretDetails(**args)
+
+
 def unmarshal_EphemeralProperties(data: Any) -> EphemeralProperties:
     if type(data) is not dict:
         raise TypeError(
@@ -74,10 +111,10 @@ def unmarshal_EphemeralProperties(data: Any) -> EphemeralProperties:
     return EphemeralProperties(**args)
 
 
-def unmarshal_Folder(data: Any) -> Folder:
+def unmarshal_BrowseSecretsResponseItem(data: Any) -> BrowseSecretsResponseItem:
     if type(data) is not dict:
         raise TypeError(
-            f"Unmarshalling the type 'Folder' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'BrowseSecretsResponseItem' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -85,22 +122,27 @@ def unmarshal_Folder(data: Any) -> Folder:
     field = data.get("created_at", None)
     args["created_at"] = parser.isoparse(field) if type(field) is str else field
 
-    field = data.get("id", None)
-    args["id"] = field
+    field = data.get("folder", None)
+    args["folder"] = (
+        unmarshal_BrowseSecretsResponseItemFolderDetails(field)
+        if field is not None
+        else None
+    )
 
     field = data.get("name", None)
     args["name"] = field
 
-    field = data.get("path", None)
-    args["path"] = field
+    field = data.get("secret", None)
+    args["secret"] = (
+        unmarshal_BrowseSecretsResponseItemSecretDetails(field)
+        if field is not None
+        else None
+    )
 
-    field = data.get("project_id", None)
-    args["project_id"] = field
+    field = data.get("updated_at", None)
+    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
 
-    field = data.get("region", None)
-    args["region"] = field
-
-    return Folder(**args)
+    return BrowseSecretsResponseItem(**args)
 
 
 def unmarshal_Secret(data: Any) -> Secret:
@@ -125,11 +167,8 @@ def unmarshal_Secret(data: Any) -> Secret:
     field = data.get("id", None)
     args["id"] = field
 
-    field = data.get("is_managed", None)
-    args["is_managed"] = field
-
-    field = data.get("is_protected", None)
-    args["is_protected"] = field
+    field = data.get("managed", None)
+    args["managed"] = field
 
     field = data.get("name", None)
     args["name"] = field
@@ -139,6 +178,9 @@ def unmarshal_Secret(data: Any) -> Secret:
 
     field = data.get("project_id", None)
     args["project_id"] = field
+
+    field = data.get("protected", None)
+    args["protected"] = field
 
     field = data.get("region", None)
     args["region"] = field
@@ -180,8 +222,8 @@ def unmarshal_SecretVersion(data: Any) -> SecretVersion:
         unmarshal_EphemeralProperties(field) if field is not None else None
     )
 
-    field = data.get("is_latest", None)
-    args["is_latest"] = field
+    field = data.get("latest", None)
+    args["latest"] = field
 
     field = data.get("revision", None)
     args["revision"] = field
@@ -221,23 +263,28 @@ def unmarshal_AccessSecretVersionResponse(data: Any) -> AccessSecretVersionRespo
     return AccessSecretVersionResponse(**args)
 
 
-def unmarshal_ListFoldersResponse(data: Any) -> ListFoldersResponse:
+def unmarshal_BrowseSecretsResponse(data: Any) -> BrowseSecretsResponse:
     if type(data) is not dict:
         raise TypeError(
-            f"Unmarshalling the type 'ListFoldersResponse' failed as data isn't a dictionary."
+            f"Unmarshalling the type 'BrowseSecretsResponse' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
-    field = data.get("folders", None)
-    args["folders"] = (
-        [unmarshal_Folder(v) for v in field] if field is not None else None
+    field = data.get("current_path", None)
+    args["current_path"] = field
+
+    field = data.get("items", None)
+    args["items"] = (
+        [unmarshal_BrowseSecretsResponseItem(v) for v in field]
+        if field is not None
+        else None
     )
 
     field = data.get("total_count", None)
     args["total_count"] = field
 
-    return ListFoldersResponse(**args)
+    return BrowseSecretsResponse(**args)
 
 
 def unmarshal_ListSecretVersionsResponse(data: Any) -> ListSecretVersionsResponse:
@@ -278,23 +325,6 @@ def unmarshal_ListSecretsResponse(data: Any) -> ListSecretsResponse:
     return ListSecretsResponse(**args)
 
 
-def unmarshal_ListTagsResponse(data: Any) -> ListTagsResponse:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'ListTagsResponse' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("tags", None)
-    args["tags"] = field
-
-    field = data.get("total_count", None)
-    args["total_count"] = field
-
-    return ListTagsResponse(**args)
-
-
 def marshal_EphemeralPolicy(
     request: EphemeralPolicy,
     defaults: ProfileDefaults,
@@ -331,30 +361,6 @@ def marshal_EphemeralProperties(
     return output
 
 
-def marshal_PasswordGenerationParams(
-    request: PasswordGenerationParams,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-
-    if request.additional_chars is not None:
-        output["additional_chars"] = request.additional_chars
-
-    if request.length is not None:
-        output["length"] = request.length
-
-    if request.no_digits is not None:
-        output["no_digits"] = request.no_digits
-
-    if request.no_lowercase_letters is not None:
-        output["no_lowercase_letters"] = request.no_lowercase_letters
-
-    if request.no_uppercase_letters is not None:
-        output["no_uppercase_letters"] = request.no_uppercase_letters
-
-    return output
-
-
 def marshal_AddSecretOwnerRequest(
     request: AddSecretOwnerRequest,
     defaults: ProfileDefaults,
@@ -363,27 +369,6 @@ def marshal_AddSecretOwnerRequest(
 
     if request.product is not None:
         output["product"] = Product(request.product)
-
-    if request.product_name is not None:
-        output["product_name"] = request.product_name
-
-    return output
-
-
-def marshal_CreateFolderRequest(
-    request: CreateFolderRequest,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-
-    if request.name is not None:
-        output["name"] = request.name
-
-    if request.path is not None:
-        output["path"] = request.path
-
-    if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
 
     return output
 
@@ -402,9 +387,6 @@ def marshal_CreateSecretRequest(
             request.ephemeral_policy, defaults
         )
 
-    if request.is_protected is not None:
-        output["is_protected"] = request.is_protected
-
     if request.name is not None:
         output["name"] = request.name
 
@@ -413,6 +395,9 @@ def marshal_CreateSecretRequest(
 
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id
+
+    if request.protected is not None:
+        output["protected"] = request.protected
 
     if request.tags is not None:
         output["tags"] = request.tags
@@ -428,22 +413,6 @@ def marshal_CreateSecretVersionRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
-    output.update(
-        resolve_one_of(
-            [
-                OneOfPossibility(
-                    "password_generation",
-                    (
-                        marshal_PasswordGenerationParams(
-                            request.password_generation, defaults
-                        )
-                        if request.password_generation is not None
-                        else None
-                    ),
-                ),
-            ]
-        ),
-    )
 
     if request.data is not None:
         output["data"] = request.data
@@ -456,36 +425,6 @@ def marshal_CreateSecretVersionRequest(
 
     if request.disable_previous is not None:
         output["disable_previous"] = request.disable_previous
-
-    return output
-
-
-def marshal_GeneratePasswordRequest(
-    request: GeneratePasswordRequest,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-
-    if request.additional_chars is not None:
-        output["additional_chars"] = request.additional_chars
-
-    if request.description is not None:
-        output["description"] = request.description
-
-    if request.disable_previous is not None:
-        output["disable_previous"] = request.disable_previous
-
-    if request.length is not None:
-        output["length"] = request.length
-
-    if request.no_digits is not None:
-        output["no_digits"] = request.no_digits
-
-    if request.no_lowercase_letters is not None:
-        output["no_lowercase_letters"] = request.no_lowercase_letters
-
-    if request.no_uppercase_letters is not None:
-        output["no_uppercase_letters"] = request.no_uppercase_letters
 
     return output
 

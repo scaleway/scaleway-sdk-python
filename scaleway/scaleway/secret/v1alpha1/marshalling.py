@@ -433,11 +433,13 @@ def marshal_CreateSecretVersionRequest(
             [
                 OneOfPossibility(
                     "password_generation",
-                    marshal_PasswordGenerationParams(
-                        request.password_generation, defaults
-                    )
-                    if request.password_generation is not None
-                    else None,
+                    (
+                        marshal_PasswordGenerationParams(
+                            request.password_generation, defaults
+                        )
+                        if request.password_generation is not None
+                        else None
+                    ),
                 ),
             ]
         ),
