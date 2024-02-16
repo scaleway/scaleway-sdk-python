@@ -470,6 +470,36 @@ class VpcgwV1API(API):
         self._throw_on_error(res)
         return unmarshal_Gateway(res.json())
 
+    def enable_ip_mobility(
+        self,
+        *,
+        gateway_id: str,
+        zone: Optional[Zone] = None,
+    ) -> Gateway:
+        """
+        Upgrade a Public Gateway to IP mobility.
+        Upgrade a Public Gateway to IP mobility (move from NAT IP to routed IP). This is idempotent: repeated calls after the first will return no error but have no effect.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param gateway_id: ID of the gateway to upgrade to IP mobility.
+        :return: :class:`Gateway <Gateway>`
+
+        Usage:
+        ::
+
+            result = api.enable_ip_mobility(gateway_id="example")
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_gateway_id = validate_path_param("gateway_id", gateway_id)
+
+        res = self._request(
+            "POST",
+            f"/vpc-gw/v1/zones/{param_zone}/gateways/{param_gateway_id}/enable-ip-mobility",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Gateway(res.json())
+
     def list_gateway_networks(
         self,
         *,
