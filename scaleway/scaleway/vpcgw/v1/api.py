@@ -475,13 +475,12 @@ class VpcgwV1API(API):
         *,
         gateway_id: str,
         zone: Optional[Zone] = None,
-    ) -> Gateway:
+    ) -> Optional[None]:
         """
         Upgrade a Public Gateway to IP mobility.
         Upgrade a Public Gateway to IP mobility (move from NAT IP to routed IP). This is idempotent: repeated calls after the first will return no error but have no effect.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param gateway_id: ID of the gateway to upgrade to IP mobility.
-        :return: :class:`Gateway <Gateway>`
 
         Usage:
         ::
@@ -498,7 +497,7 @@ class VpcgwV1API(API):
         )
 
         self._throw_on_error(res)
-        return unmarshal_Gateway(res.json())
+        return None
 
     def list_gateway_networks(
         self,
