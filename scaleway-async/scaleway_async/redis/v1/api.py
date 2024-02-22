@@ -390,7 +390,7 @@ class RedisV1API(API):
     ) -> Cluster:
         """
         Scale up a Redis™ Database Instance.
-        Upgrade your standalone Redis™ Database Instance node, either by upgrading to a bigger node type (vertical scaling) or by adding more nodes to your Database Instance to increase your number of endpoints and distribute cache (horizontal scaling). Note that scaling horizontally your Redis™ Database Instance will not renew its TLS certificate. In order to refresh the TLS certificate, you must use the Renew TLS certificate endpoint.
+        Upgrade your Redis™ Database Instance, either by upgrading to a bigger node type (vertical scaling) or by adding more nodes to your Database Instance to increase your number of endpoints and distribute cache (horizontal scaling, available for clusters only). Note that scaling horizontally your Redis™ Database Instance will not renew its TLS certificate. In order to refresh the TLS certificate, you must use the Renew TLS certificate endpoint.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param cluster_id: UUID of the Database Instance to update.
         :param version: Redis™ engine version of the Database Instance.
