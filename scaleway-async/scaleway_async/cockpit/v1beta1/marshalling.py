@@ -490,9 +490,11 @@ def marshal_ContactPoint(
             [
                 OneOfPossibility(
                     "email",
-                    marshal_ContactPointEmail(request.email, defaults)
-                    if request.email is not None
-                    else None,
+                    (
+                        marshal_ContactPointEmail(request.email, defaults)
+                        if request.email is not None
+                        else None
+                    ),
                 ),
             ]
         ),
