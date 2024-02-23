@@ -555,19 +555,23 @@ def marshal_EndpointSpec(
             [
                 OneOfPossibility(
                     "private_network",
-                    marshal_EndpointSpecPrivateNetworkSpec(
-                        request.private_network, defaults
-                    )
-                    if request.private_network is not None
-                    else None,
+                    (
+                        marshal_EndpointSpecPrivateNetworkSpec(
+                            request.private_network, defaults
+                        )
+                        if request.private_network is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "public_network",
-                    marshal_EndpointSpecPublicNetworkSpec(
-                        request.public_network, defaults
-                    )
-                    if request.public_network is not None
-                    else None,
+                    (
+                        marshal_EndpointSpecPublicNetworkSpec(
+                            request.public_network, defaults
+                        )
+                        if request.public_network is not None
+                        else None
+                    ),
                 ),
             ]
         ),
@@ -768,19 +772,23 @@ def marshal_UpdateEndpointRequest(
             [
                 OneOfPossibility(
                     "private_network",
-                    marshal_EndpointSpecPrivateNetworkSpec(
-                        request.private_network, defaults
-                    )
-                    if request.private_network is not None
-                    else None,
+                    (
+                        marshal_EndpointSpecPrivateNetworkSpec(
+                            request.private_network, defaults
+                        )
+                        if request.private_network is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "public_network",
-                    marshal_EndpointSpecPublicNetworkSpec(
-                        request.public_network, defaults
-                    )
-                    if request.public_network is not None
-                    else None,
+                    (
+                        marshal_EndpointSpecPublicNetworkSpec(
+                            request.public_network, defaults
+                        )
+                        if request.public_network is not None
+                        else None
+                    ),
                 ),
             ]
         ),
