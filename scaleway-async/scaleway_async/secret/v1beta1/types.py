@@ -256,6 +256,23 @@ class ListSecretsResponse:
 
 
 @dataclass
+class ListTagsResponse:
+    """
+    List tags response.
+    """
+
+    tags: List[str]
+    """
+    List of tags.
+    """
+
+    total_count: int
+    """
+    Count of all tags matching the requested criteria.
+    """
+
+
+@dataclass
 class Secret:
     """
     Secret.
@@ -824,3 +841,20 @@ class DisableSecretVersionRequest:
     - "latest" (the latest revision)
     - "latest_enabled" (the latest enabled revision).
     """
+
+
+@dataclass
+class ListTagsRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    ID of the Project to target.
+    """
+
+    page: Optional[int]
+
+    page_size: Optional[int]
