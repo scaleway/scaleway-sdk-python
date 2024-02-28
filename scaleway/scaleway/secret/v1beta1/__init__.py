@@ -16,6 +16,7 @@ from .types import EphemeralPolicy
 from .types import EphemeralProperties
 from .types import ListSecretVersionsResponse
 from .types import ListSecretsResponse
+from .types import ListTagsResponse
 from .types import Secret
 from .types import SecretVersion
 from .api import SecretV1Beta1API
@@ -37,6 +38,7 @@ __all__ = [
     "EphemeralProperties",
     "ListSecretVersionsResponse",
     "ListSecretsResponse",
+    "ListTagsResponse",
     "Secret",
     "SecretVersion",
     "SecretV1Beta1API",

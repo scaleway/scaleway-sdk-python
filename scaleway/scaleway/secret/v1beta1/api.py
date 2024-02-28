@@ -23,6 +23,7 @@ from .types import (
     EphemeralProperties,
     ListSecretVersionsResponse,
     ListSecretsResponse,
+    ListTagsResponse,
     Secret,
     SecretVersion,
     CreateSecretRequest,
@@ -43,6 +44,7 @@ from .marshalling import (
     unmarshal_BrowseSecretsResponse,
     unmarshal_ListSecretVersionsResponse,
     unmarshal_ListSecretsResponse,
+    unmarshal_ListTagsResponse,
 )
 
 
@@ -911,3 +913,78 @@ class SecretV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_SecretVersion(res.json())
+
+    def list_tags(
+        self,
+        *,
+        region: Optional[Region] = None,
+        project_id: Optional[str] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ListTagsResponse:
+        """
+        List tags.
+        List all tags associated with secrets within a given Project.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: ID of the Project to target.
+        :param page:
+        :param page_size:
+        :return: :class:`ListTagsResponse <ListTagsResponse>`
+
+        Usage:
+        ::
+
+            result = api.list_tags()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/secret-manager/v1beta1/regions/{param_region}/tags",
+            params={
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+                "project_id": project_id or self.client.default_project_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListTagsResponse(res.json())
+
+    def list_tags_all(
+        self,
+        *,
+        region: Optional[Region] = None,
+        project_id: Optional[str] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[str]:
+        """
+        List tags.
+        List all tags associated with secrets within a given Project.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: ID of the Project to target.
+        :param page:
+        :param page_size:
+        :return: :class:`List[ListTagsResponse] <List[ListTagsResponse]>`
+
+        Usage:
+        ::
+
+            result = api.list_tags_all()
+        """
+
+        return fetch_all_pages(
+            type=ListTagsResponse,
+            key="tags",
+            fetcher=self.list_tags,
+            args={
+                "region": region,
+                "project_id": project_id,
+                "page": page,
+                "page_size": page_size,
+            },
+        )
