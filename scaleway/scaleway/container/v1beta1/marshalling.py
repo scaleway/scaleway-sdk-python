@@ -77,9 +77,6 @@ def unmarshal_TriggerMnqNatsClientConfig(data: Any) -> TriggerMnqNatsClientConfi
     field = data.get("mnq_credential_id", None)
     args["mnq_credential_id"] = field
 
-    field = data.get("mnq_namespace_id", None)
-    args["mnq_namespace_id"] = field
-
     field = data.get("mnq_nats_account_id", None)
     args["mnq_nats_account_id"] = field
 
@@ -105,9 +102,6 @@ def unmarshal_TriggerMnqSqsClientConfig(data: Any) -> TriggerMnqSqsClientConfig:
 
     field = data.get("mnq_credential_id", None)
     args["mnq_credential_id"] = field
-
-    field = data.get("mnq_namespace_id", None)
-    args["mnq_namespace_id"] = field
 
     field = data.get("mnq_project_id", None)
     args["mnq_project_id"] = field
@@ -571,9 +565,6 @@ def marshal_CreateTriggerRequestMnqNatsClientConfig(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.mnq_namespace_id is not None:
-        output["mnq_namespace_id"] = request.mnq_namespace_id
-
     if request.mnq_nats_account_id is not None:
         output["mnq_nats_account_id"] = request.mnq_nats_account_id
 
@@ -594,9 +585,6 @@ def marshal_CreateTriggerRequestMnqSqsClientConfig(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
-
-    if request.mnq_namespace_id is not None:
-        output["mnq_namespace_id"] = request.mnq_namespace_id
 
     if request.mnq_project_id is not None:
         output["mnq_project_id"] = request.mnq_project_id
