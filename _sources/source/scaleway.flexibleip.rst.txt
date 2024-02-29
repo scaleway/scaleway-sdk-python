@@ -1,0 +1,18 @@
+scaleway.flexibleip package
+===========================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway.flexibleip.v1alpha1
+
+Module contents
+---------------
+
+.. automodule:: scaleway.flexibleip
+   :members:
+   :undoc-members:
+   :show-inheritance:
