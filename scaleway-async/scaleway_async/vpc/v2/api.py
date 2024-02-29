@@ -69,6 +69,7 @@ class VpcV2API(API):
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         is_default: Optional[bool] = None,
+        routing_enabled: Optional[bool] = None,
     ) -> ListVPCsResponse:
         """
         List VPCs.
@@ -82,6 +83,7 @@ class VpcV2API(API):
         :param organization_id: Organization ID to filter for. Only VPCs belonging to this Organization will be returned.
         :param project_id: Project ID to filter for. Only VPCs belonging to this Project will be returned.
         :param is_default: Defines whether to filter only for VPCs which are the default one for their Project.
+        :param routing_enabled: Defines whether to filter only for VPCs which route traffic between their Private Networks.
         :return: :class:`ListVPCsResponse <ListVPCsResponse>`
 
         Usage:
@@ -106,6 +108,7 @@ class VpcV2API(API):
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
+                "routing_enabled": routing_enabled,
                 "tags": tags,
             },
         )
@@ -125,6 +128,7 @@ class VpcV2API(API):
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         is_default: Optional[bool] = None,
+        routing_enabled: Optional[bool] = None,
     ) -> List[VPC]:
         """
         List VPCs.
@@ -138,6 +142,7 @@ class VpcV2API(API):
         :param organization_id: Organization ID to filter for. Only VPCs belonging to this Organization will be returned.
         :param project_id: Project ID to filter for. Only VPCs belonging to this Project will be returned.
         :param is_default: Defines whether to filter only for VPCs which are the default one for their Project.
+        :param routing_enabled: Defines whether to filter only for VPCs which route traffic between their Private Networks.
         :return: :class:`List[ListVPCsResponse] <List[ListVPCsResponse]>`
 
         Usage:
@@ -160,12 +165,14 @@ class VpcV2API(API):
                 "organization_id": organization_id,
                 "project_id": project_id,
                 "is_default": is_default,
+                "routing_enabled": routing_enabled,
             },
         )
 
     async def create_vpc(
         self,
         *,
+        enable_routing: bool,
         region: Optional[Region] = None,
         name: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -178,12 +185,13 @@ class VpcV2API(API):
         :param name: Name for the VPC.
         :param project_id: Scaleway Project in which to create the VPC.
         :param tags: Tags for the VPC.
+        :param enable_routing: Enable routing between Private Networks in the VPC.
         :return: :class:`VPC <VPC>`
 
         Usage:
         ::
 
-            result = await api.create_vpc()
+            result = await api.create_vpc(enable_routing=True)
         """
 
         param_region = validate_path_param(
@@ -195,6 +203,7 @@ class VpcV2API(API):
             f"/vpc/v2/regions/{param_region}/vpcs",
             body=marshal_CreateVPCRequest(
                 CreateVPCRequest(
+                    enable_routing=enable_routing,
                     region=region,
                     name=name or random_name(prefix="vpc"),
                     project_id=project_id,

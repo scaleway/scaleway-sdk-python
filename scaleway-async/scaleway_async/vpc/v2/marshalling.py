@@ -130,6 +130,9 @@ def unmarshal_VPC(data: Any) -> VPC:
     field = data.get("region", None)
     args["region"] = field
 
+    field = data.get("routing_enabled", None)
+    args["routing_enabled"] = field
+
     field = data.get("tags", None)
     args["tags"] = field
 
@@ -259,6 +262,9 @@ def marshal_CreateVPCRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
+    if request.enable_routing is not None:
+        output["enable_routing"] = request.enable_routing
+
     if request.name is not None:
         output["name"] = request.name
 
@@ -293,16 +299,20 @@ def marshal_MigrateZonalPrivateNetworksRequest(
             [
                 OneOfPossibility(
                     "project_id",
-                    request.project_id or defaults.default_project_id
-                    if request.project_id is not None
-                    else None,
+                    (
+                        request.project_id or defaults.default_project_id
+                        if request.project_id is not None
+                        else None
+                    ),
                     defaults.default_project_id,
                 ),
                 OneOfPossibility(
                     "organization_id",
-                    request.organization_id or defaults.default_organization_id
-                    if request.organization_id is not None
-                    else None,
+                    (
+                        request.organization_id or defaults.default_organization_id
+                        if request.organization_id is not None
+                        else None
+                    ),
                     defaults.default_organization_id,
                 ),
             ]
