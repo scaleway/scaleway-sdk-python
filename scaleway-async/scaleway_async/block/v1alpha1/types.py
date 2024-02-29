@@ -42,7 +42,7 @@ class ReferenceStatus(str, Enum, metaclass=StrEnumMeta):
     ATTACHED = "attached"
     DETACHING = "detaching"
     DETACHED = "detached"
-    SNAPSHOTTING = "snapshotting"
+    CREATING = "creating"
     ERROR = "error"
 
     def __str__(self) -> str:
