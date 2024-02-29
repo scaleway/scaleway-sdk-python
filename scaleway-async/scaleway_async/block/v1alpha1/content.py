@@ -12,7 +12,7 @@ from .types import (
 REFERENCE_TRANSIENT_STATUSES: List[ReferenceStatus] = [
     ReferenceStatus.ATTACHING,
     ReferenceStatus.DETACHING,
-    ReferenceStatus.SNAPSHOTTING,
+    ReferenceStatus.CREATING,
 ]
 """
 Lists transient statutes of the enum :class:`ReferenceStatus <ReferenceStatus>`.
