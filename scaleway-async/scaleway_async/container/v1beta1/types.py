@@ -327,11 +327,6 @@ class CreateTriggerRequestMnqNatsClientConfig:
     Create trigger request. mnq nats client config.
     """
 
-    mnq_namespace_id: Optional[str]
-    """
-    :deprecated
-    """
-
     subject: str
     """
     Name of the NATS subject the trigger should listen to.
@@ -350,7 +345,7 @@ class CreateTriggerRequestMnqNatsClientConfig:
     mnq_region: str
     """
     Region in which the Messaging and Queuing project is activated.
-    Currently, only the `fr-par` region is available.
+    Currently, only the `fr-par` and `nl-ams` regions are available.
     """
 
 
@@ -358,11 +353,6 @@ class CreateTriggerRequestMnqNatsClientConfig:
 class CreateTriggerRequestMnqSqsClientConfig:
     """
     Create trigger request. mnq sqs client config.
-    """
-
-    mnq_namespace_id: Optional[str]
-    """
-    :deprecated
     """
 
     queue: str
@@ -379,7 +369,7 @@ class CreateTriggerRequestMnqSqsClientConfig:
     mnq_region: str
     """
     Region in which the Messaging and Queuing project is activated.
-    Currently, only the `fr-par` region is available.
+    Currently, only the `fr-par` and `nl-ams` regions are available.
     """
 
 
@@ -801,11 +791,6 @@ class TriggerMnqNatsClientConfig:
     Trigger. mnq nats client config.
     """
 
-    mnq_namespace_id: Optional[str]
-    """
-    :deprecated
-    """
-
     subject: str
     """
     Name of the NATS subject the trigger listens to.
@@ -824,7 +809,7 @@ class TriggerMnqNatsClientConfig:
     mnq_region: str
     """
     Region in which the Messaging and Queuing project is activated.
-    Currently, only the `fr-par` region is available.
+    Currently, only the `fr-par` and `nl-ams` regions are available.
     """
 
     mnq_credential_id: Optional[str]
@@ -837,11 +822,6 @@ class TriggerMnqNatsClientConfig:
 class TriggerMnqSqsClientConfig:
     """
     Trigger. mnq sqs client config.
-    """
-
-    mnq_namespace_id: Optional[str]
-    """
-    :deprecated
     """
 
     queue: str
@@ -857,7 +837,7 @@ class TriggerMnqSqsClientConfig:
     mnq_region: str
     """
     Region in which the Messaging and Queuing project is activated.
-    Currently, only the `fr-par` region is available.
+    Currently, only the `fr-par` and `nl-ams` regions are available.
     """
 
     mnq_credential_id: Optional[str]
