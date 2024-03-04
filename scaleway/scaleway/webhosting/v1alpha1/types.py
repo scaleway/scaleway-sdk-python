@@ -136,6 +136,17 @@ class ControlPanel:
 
 
 @dataclass
+class CreateHostingRequestDomainConfiguration:
+    update_nameservers: bool
+
+    update_web_record: bool
+
+    update_mail_record: bool
+
+    update_all_records: bool
+
+
+@dataclass
 class DnsRecord:
     """
     Dns record.
@@ -547,6 +558,11 @@ class CreateHostingRequest:
     language: LanguageCode
     """
     Default language for the control panel interface.
+    """
+
+    domain_configuration: Optional[CreateHostingRequestDomainConfiguration]
+    """
+    Indicates whether to update hosting domain name servers and DNS records for domains managed by Scaleway Elements.
     """
 
 
