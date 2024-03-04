@@ -12,6 +12,7 @@ from dateutil import parser
 from .types import (
     APIKey,
     Application,
+    EncodedJWT,
     Group,
     JWT,
     ListAPIKeysResponse,
@@ -51,6 +52,7 @@ from .types import (
     SetRulesRequest,
     CreateAPIKeyRequest,
     UpdateAPIKeyRequest,
+    CreateJWTRequest,
 )
 
 
@@ -466,6 +468,26 @@ def unmarshal_User(data: Any) -> User:
     return User(**args)
 
 
+def unmarshal_EncodedJWT(data: Any) -> EncodedJWT:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'EncodedJWT' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("jwt", None)
+    args["jwt"] = unmarshal_JWT(field) if field is not None else None
+
+    field = data.get("renew_token", None)
+    args["renew_token"] = field
+
+    field = data.get("token", None)
+    args["token"] = field
+
+    return EncodedJWT(**args)
+
+
 def unmarshal_ListAPIKeysResponse(data: Any) -> ListAPIKeysResponse:
     if type(data) is not dict:
         raise TypeError(
@@ -691,9 +713,11 @@ def marshal_RuleSpecs(
                 ),
                 OneOfPossibility(
                     "organization_id",
-                    request.organization_id
-                    if request.organization_id is not None
-                    else None,
+                    (
+                        request.organization_id
+                        if request.organization_id is not None
+                        else None
+                    ),
                     defaults.default_organization_id,
                 ),
             ]
@@ -719,9 +743,11 @@ def marshal_AddGroupMemberRequest(
                 ),
                 OneOfPossibility(
                     "application_id",
-                    request.application_id
-                    if request.application_id is not None
-                    else None,
+                    (
+                        request.application_id
+                        if request.application_id is not None
+                        else None
+                    ),
                 ),
             ]
         ),
@@ -755,9 +781,11 @@ def marshal_CreateAPIKeyRequest(
             [
                 OneOfPossibility(
                     "application_id",
-                    request.application_id
-                    if request.application_id is not None
-                    else None,
+                    (
+                        request.application_id
+                        if request.application_id is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "user_id", request.user_id if request.user_id is not None else None
@@ -824,6 +852,21 @@ def marshal_CreateGroupRequest(
     return output
 
 
+def marshal_CreateJWTRequest(
+    request: CreateJWTRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.referrer is not None:
+        output["referrer"] = request.referrer
+
+    if request.user_id is not None:
+        output["user_id"] = request.user_id
+
+    return output
+
+
 def marshal_CreatePolicyRequest(
     request: CreatePolicyRequest,
     defaults: ProfileDefaults,
@@ -841,9 +884,11 @@ def marshal_CreatePolicyRequest(
                 ),
                 OneOfPossibility(
                     "application_id",
-                    request.application_id
-                    if request.application_id is not None
-                    else None,
+                    (
+                        request.application_id
+                        if request.application_id is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "no_principal",
@@ -924,9 +969,11 @@ def marshal_RemoveGroupMemberRequest(
                 ),
                 OneOfPossibility(
                     "application_id",
-                    request.application_id
-                    if request.application_id is not None
-                    else None,
+                    (
+                        request.application_id
+                        if request.application_id is not None
+                        else None
+                    ),
                 ),
             ]
         ),
@@ -1033,9 +1080,11 @@ def marshal_UpdatePolicyRequest(
                 ),
                 OneOfPossibility(
                     "application_id",
-                    request.application_id
-                    if request.application_id is not None
-                    else None,
+                    (
+                        request.application_id
+                        if request.application_id is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "no_principal",
