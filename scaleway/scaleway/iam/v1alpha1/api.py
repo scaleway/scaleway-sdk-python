@@ -28,6 +28,7 @@ from .types import (
     LogResourceType,
     APIKey,
     Application,
+    EncodedJWT,
     Group,
     JWT,
     ListAPIKeysResponse,
@@ -67,6 +68,7 @@ from .types import (
     SetRulesRequest,
     CreateAPIKeyRequest,
     UpdateAPIKeyRequest,
+    CreateJWTRequest,
 )
 from .marshalling import (
     marshal_AddGroupMemberRequest,
@@ -74,6 +76,7 @@ from .marshalling import (
     marshal_CreateAPIKeyRequest,
     marshal_CreateApplicationRequest,
     marshal_CreateGroupRequest,
+    marshal_CreateJWTRequest,
     marshal_CreatePolicyRequest,
     marshal_CreateSSHKeyRequest,
     marshal_CreateUserRequest,
@@ -95,6 +98,7 @@ from .marshalling import (
     unmarshal_Quotum,
     unmarshal_SSHKey,
     unmarshal_User,
+    unmarshal_EncodedJWT,
     unmarshal_ListAPIKeysResponse,
     unmarshal_ListApplicationsResponse,
     unmarshal_ListGroupsResponse,
@@ -2153,6 +2157,42 @@ class IamV1Alpha1API(API):
                 "expired": expired,
             },
         )
+
+    def create_jwt(
+        self,
+        *,
+        user_id: str,
+        referrer: str,
+    ) -> EncodedJWT:
+        """
+        Create a JWT.
+        :param user_id: ID of the user the JWT will be created for.
+        :param referrer: Referrer of the JWT.
+        :return: :class:`EncodedJWT <EncodedJWT>`
+
+        Usage:
+        ::
+
+            result = api.create_jwt(
+                user_id="example",
+                referrer="example",
+            )
+        """
+
+        res = self._request(
+            "POST",
+            f"/iam/v1alpha1/jwts",
+            body=marshal_CreateJWTRequest(
+                CreateJWTRequest(
+                    user_id=user_id,
+                    referrer=referrer,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_EncodedJWT(res.json())
 
     def get_jwt(
         self,
