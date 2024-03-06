@@ -19,6 +19,7 @@ from .types import (
     ListHostingsRequestOrderBy,
     ListOffersRequestOrderBy,
     ControlPanel,
+    CreateHostingRequestDomainConfiguration,
     DnsRecords,
     Hosting,
     ListControlPanelsResponse,
@@ -59,6 +60,7 @@ class WebhostingV1Alpha1API(API):
         email: Optional[str] = None,
         tags: Optional[List[str]] = None,
         option_ids: Optional[List[str]] = None,
+        domain_configuration: Optional[CreateHostingRequestDomainConfiguration] = None,
     ) -> Hosting:
         """
         Order a Web Hosting plan.
@@ -71,6 +73,7 @@ class WebhostingV1Alpha1API(API):
         :param domain: Domain name to link to the Web Hosting plan. You must already own this domain name, and have completed the DNS validation process beforehand.
         :param option_ids: IDs of any selected additional options for the Web Hosting plan.
         :param language: Default language for the control panel interface.
+        :param domain_configuration: Indicates whether to update hosting domain name servers and DNS records for domains managed by Scaleway Elements.
         :return: :class:`Hosting <Hosting>`
 
         Usage:
@@ -100,6 +103,7 @@ class WebhostingV1Alpha1API(API):
                     email=email,
                     tags=tags,
                     option_ids=option_ids,
+                    domain_configuration=domain_configuration,
                 ),
                 self.client,
             ),
@@ -296,6 +300,7 @@ class WebhostingV1Alpha1API(API):
         tags: Optional[List[str]] = None,
         option_ids: Optional[List[str]] = None,
         offer_id: Optional[str] = None,
+        protected: Optional[bool] = None,
     ) -> Hosting:
         """
         Update a Web Hosting plan.
@@ -306,6 +311,7 @@ class WebhostingV1Alpha1API(API):
         :param tags: New tags for the Web Hosting plan.
         :param option_ids: IDs of the new options for the Web Hosting plan.
         :param offer_id: ID of the new offer for the Web Hosting plan.
+        :param protected: Whether the hosting is protected or not.
         :return: :class:`Hosting <Hosting>`
 
         Usage:
@@ -330,6 +336,7 @@ class WebhostingV1Alpha1API(API):
                     tags=tags,
                     option_ids=option_ids,
                     offer_id=offer_id,
+                    protected=protected,
                 ),
                 self.client,
             ),

@@ -11,6 +11,7 @@ from .types import ListOffersRequestOrderBy
 from .types import NameserverStatus
 from .types import OfferQuotaWarning
 from .types import ControlPanel
+from .types import CreateHostingRequestDomainConfiguration
 from .types import DnsRecord
 from .types import DnsRecords
 from .types import Hosting
@@ -37,6 +38,7 @@ __all__ = [
     "NameserverStatus",
     "OfferQuotaWarning",
     "ControlPanel",
+    "CreateHostingRequestDomainConfiguration",
     "DnsRecord",
     "DnsRecords",
     "Hosting",
