@@ -11,6 +11,7 @@ from dateutil import parser
 from .types import (
     LanguageCode,
     ControlPanel,
+    CreateHostingRequestDomainConfiguration,
     DnsRecord,
     DnsRecords,
     Hosting,
@@ -214,6 +215,9 @@ def unmarshal_Hosting(data: Any) -> Hosting:
     field = data.get("project_id", None)
     args["project_id"] = field
 
+    field = data.get("protected", None)
+    args["protected"] = field
+
     field = data.get("region", None)
     args["region"] = field
 
@@ -363,6 +367,27 @@ def unmarshal_ListOffersResponse(data: Any) -> ListOffersResponse:
     return ListOffersResponse(**args)
 
 
+def marshal_CreateHostingRequestDomainConfiguration(
+    request: CreateHostingRequestDomainConfiguration,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.update_all_records is not None:
+        output["update_all_records"] = request.update_all_records
+
+    if request.update_mail_record is not None:
+        output["update_mail_record"] = request.update_mail_record
+
+    if request.update_nameservers is not None:
+        output["update_nameservers"] = request.update_nameservers
+
+    if request.update_web_record is not None:
+        output["update_web_record"] = request.update_web_record
+
+    return output
+
+
 def marshal_CreateHostingRequest(
     request: CreateHostingRequest,
     defaults: ProfileDefaults,
@@ -371,6 +396,13 @@ def marshal_CreateHostingRequest(
 
     if request.domain is not None:
         output["domain"] = request.domain
+
+    if request.domain_configuration is not None:
+        output["domain_configuration"] = (
+            marshal_CreateHostingRequestDomainConfiguration(
+                request.domain_configuration, defaults
+            )
+        )
 
     if request.email is not None:
         output["email"] = request.email
@@ -407,6 +439,9 @@ def marshal_UpdateHostingRequest(
 
     if request.option_ids is not None:
         output["option_ids"] = request.option_ids
+
+    if request.protected is not None:
+        output["protected"] = request.protected
 
     if request.tags is not None:
         output["tags"] = request.tags

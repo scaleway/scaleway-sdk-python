@@ -136,6 +136,17 @@ class ControlPanel:
 
 
 @dataclass
+class CreateHostingRequestDomainConfiguration:
+    update_nameservers: bool
+
+    update_web_record: bool
+
+    update_mail_record: bool
+
+    update_all_records: bool
+
+
+@dataclass
 class DnsRecord:
     """
     Dns record.
@@ -303,6 +314,11 @@ class Hosting:
     ipv6: str
     """
     IPv6 address of the hosting's host server.
+    """
+
+    protected: bool
+    """
+    Whether the hosting is protected or not.
     """
 
     region: Region
@@ -549,6 +565,11 @@ class CreateHostingRequest:
     Default language for the control panel interface.
     """
 
+    domain_configuration: Optional[CreateHostingRequestDomainConfiguration]
+    """
+    Indicates whether to update hosting domain name servers and DNS records for domains managed by Scaleway Elements.
+    """
+
 
 @dataclass
 class ListHostingsRequest:
@@ -646,6 +667,11 @@ class UpdateHostingRequest:
     offer_id: Optional[str]
     """
     ID of the new offer for the Web Hosting plan.
+    """
+
+    protected: Optional[bool]
+    """
+    Whether the hosting is protected or not.
     """
 
 
