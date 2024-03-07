@@ -70,6 +70,9 @@ class SecretType(str, Enum, metaclass=StrEnumMeta):
     OPAQUE = "opaque"
     CERTIFICATE = "certificate"
     KEY_VALUE = "key_value"
+    BASIC_CREDENTIALS = "basic_credentials"
+    DATABASE_CREDENTIALS = "database_credentials"
+    SSH_KEY = "ssh_key"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -571,6 +574,11 @@ class ListSecretsRequest:
     ephemeral: Optional[bool]
     """
     Filter by ephemeral / not ephemeral (optional).
+    """
+
+    type_: Optional[SecretType]
+    """
+    Filter by secret type (optional).
     """
 
 

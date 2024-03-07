@@ -255,6 +255,7 @@ class SecretV1Beta1API(API):
         name: Optional[str] = None,
         path: Optional[str] = None,
         ephemeral: Optional[bool] = None,
+        type_: SecretType = SecretType.UNKNOWN_TYPE,
     ) -> ListSecretsResponse:
         """
         List secrets.
@@ -269,6 +270,7 @@ class SecretV1Beta1API(API):
         :param name: Filter by secret name (optional).
         :param path: Filter by exact path (optional).
         :param ephemeral: Filter by ephemeral / not ephemeral (optional).
+        :param type_: Filter by secret type (optional).
         :return: :class:`ListSecretsResponse <ListSecretsResponse>`
 
         Usage:
@@ -295,6 +297,7 @@ class SecretV1Beta1API(API):
                 "path": path,
                 "project_id": project_id or self.client.default_project_id,
                 "tags": tags,
+                "type": type_,
             },
         )
 
@@ -314,6 +317,7 @@ class SecretV1Beta1API(API):
         name: Optional[str] = None,
         path: Optional[str] = None,
         ephemeral: Optional[bool] = None,
+        type_: Optional[SecretType] = None,
     ) -> List[Secret]:
         """
         List secrets.
@@ -328,6 +332,7 @@ class SecretV1Beta1API(API):
         :param name: Filter by secret name (optional).
         :param path: Filter by exact path (optional).
         :param ephemeral: Filter by ephemeral / not ephemeral (optional).
+        :param type_: Filter by secret type (optional).
         :return: :class:`List[ListSecretsResponse] <List[ListSecretsResponse]>`
 
         Usage:
@@ -351,6 +356,7 @@ class SecretV1Beta1API(API):
                 "name": name,
                 "path": path,
                 "ephemeral": ephemeral,
+                "type_": type_,
             },
         )
 
