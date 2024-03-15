@@ -16,6 +16,8 @@ from .types import DomainLastStatus
 from .types import DomainLastStatusDkimRecord
 from .types import DomainLastStatusDmarcRecord
 from .types import DomainLastStatusSpfRecord
+from .types import DomainRecords
+from .types import DomainRecordsDMARC
 from .types import DomainReputation
 from .types import DomainStatistics
 from .types import Email
@@ -44,6 +46,8 @@ __all__ = [
     "DomainLastStatusDkimRecord",
     "DomainLastStatusDmarcRecord",
     "DomainLastStatusSpfRecord",
+    "DomainRecords",
+    "DomainRecordsDMARC",
     "DomainReputation",
     "DomainStatistics",
     "Email",

@@ -15,6 +15,8 @@ from .types import (
     DomainLastStatusDkimRecord,
     DomainLastStatusDmarcRecord,
     DomainLastStatusSpfRecord,
+    DomainRecords,
+    DomainRecordsDMARC,
     DomainReputation,
     DomainStatistics,
     Email,
@@ -25,6 +27,37 @@ from .types import (
     CreateEmailRequest,
     CreateDomainRequest,
 )
+
+
+def unmarshal_DomainRecordsDMARC(data: Any) -> DomainRecordsDMARC:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'DomainRecordsDMARC' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("name", None)
+    args["name"] = field
+
+    field = data.get("value", None)
+    args["value"] = field
+
+    return DomainRecordsDMARC(**args)
+
+
+def unmarshal_DomainRecords(data: Any) -> DomainRecords:
+    if type(data) is not dict:
+        raise TypeError(
+            f"Unmarshalling the type 'DomainRecords' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("dmarc", None)
+    args["dmarc"] = unmarshal_DomainRecordsDMARC(field) if field is not None else None
+
+    return DomainRecords(**args)
 
 
 def unmarshal_DomainReputation(data: Any) -> DomainReputation:
@@ -133,6 +166,9 @@ def unmarshal_Domain(data: Any) -> Domain:
 
     field = data.get("project_id", None)
     args["project_id"] = field
+
+    field = data.get("records", None)
+    args["records"] = unmarshal_DomainRecords(field) if field is not None else None
 
     field = data.get("region", None)
     args["region"] = field
