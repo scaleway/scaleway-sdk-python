@@ -740,9 +740,9 @@ def marshal_CreateClusterRequestAutoscalerConfig(
         output["expander"] = AutoscalerExpander(request.expander)
 
     if request.expendable_pods_priority_cutoff is not None:
-        output[
-            "expendable_pods_priority_cutoff"
-        ] = request.expendable_pods_priority_cutoff
+        output["expendable_pods_priority_cutoff"] = (
+            request.expendable_pods_priority_cutoff
+        )
 
     if request.ignore_daemonsets_utilization is not None:
         output["ignore_daemonsets_utilization"] = request.ignore_daemonsets_utilization
@@ -760,9 +760,9 @@ def marshal_CreateClusterRequestAutoscalerConfig(
         output["scale_down_unneeded_time"] = request.scale_down_unneeded_time
 
     if request.scale_down_utilization_threshold is not None:
-        output[
-            "scale_down_utilization_threshold"
-        ] = request.scale_down_utilization_threshold
+        output["scale_down_utilization_threshold"] = (
+            request.scale_down_utilization_threshold
+        )
 
     return output
 
@@ -904,9 +904,9 @@ def marshal_UpdateClusterRequestAutoscalerConfig(
         output["expander"] = AutoscalerExpander(request.expander)
 
     if request.expendable_pods_priority_cutoff is not None:
-        output[
-            "expendable_pods_priority_cutoff"
-        ] = request.expendable_pods_priority_cutoff
+        output["expendable_pods_priority_cutoff"] = (
+            request.expendable_pods_priority_cutoff
+        )
 
     if request.ignore_daemonsets_utilization is not None:
         output["ignore_daemonsets_utilization"] = request.ignore_daemonsets_utilization
@@ -924,9 +924,9 @@ def marshal_UpdateClusterRequestAutoscalerConfig(
         output["scale_down_unneeded_time"] = request.scale_down_unneeded_time
 
     if request.scale_down_utilization_threshold is not None:
-        output[
-            "scale_down_utilization_threshold"
-        ] = request.scale_down_utilization_threshold
+        output["scale_down_utilization_threshold"] = (
+            request.scale_down_utilization_threshold
+        )
 
     return output
 
@@ -986,16 +986,20 @@ def marshal_CreateClusterRequest(
             [
                 OneOfPossibility(
                     "project_id",
-                    request.project_id or defaults.default_project_id
-                    if request.project_id is not None
-                    else None,
+                    (
+                        request.project_id or defaults.default_project_id
+                        if request.project_id is not None
+                        else None
+                    ),
                     defaults.default_project_id,
                 ),
                 OneOfPossibility(
                     "organization_id",
-                    request.organization_id or defaults.default_organization_id
-                    if request.organization_id is not None
-                    else None,
+                    (
+                        request.organization_id or defaults.default_organization_id
+                        if request.organization_id is not None
+                        else None
+                    ),
                     defaults.default_organization_id,
                 ),
             ]
@@ -1031,10 +1035,10 @@ def marshal_CreateClusterRequest(
         output["name"] = request.name
 
     if request.open_id_connect_config is not None:
-        output[
-            "open_id_connect_config"
-        ] = marshal_CreateClusterRequestOpenIDConnectConfig(
-            request.open_id_connect_config, defaults
+        output["open_id_connect_config"] = (
+            marshal_CreateClusterRequestOpenIDConnectConfig(
+                request.open_id_connect_config, defaults
+            )
         )
 
     if request.pools is not None:
@@ -1172,10 +1176,10 @@ def marshal_UpdateClusterRequest(
         output["name"] = request.name
 
     if request.open_id_connect_config is not None:
-        output[
-            "open_id_connect_config"
-        ] = marshal_UpdateClusterRequestOpenIDConnectConfig(
-            request.open_id_connect_config, defaults
+        output["open_id_connect_config"] = (
+            marshal_UpdateClusterRequestOpenIDConnectConfig(
+                request.open_id_connect_config, defaults
+            )
         )
 
     if request.tags is not None:
