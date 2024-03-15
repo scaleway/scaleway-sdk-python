@@ -1001,6 +1001,9 @@ def unmarshal_DomainSummary(data: Any) -> DomainSummary:
     field = data.get("auto_renew_status", None)
     args["auto_renew_status"] = field
 
+    field = data.get("created_at", None)
+    args["created_at"] = parser.isoparse(field) if type(field) is str else field
+
     field = data.get("dnssec_status", None)
     args["dnssec_status"] = field
 
@@ -1025,6 +1028,9 @@ def unmarshal_DomainSummary(data: Any) -> DomainSummary:
 
     field = data.get("organization_id", None)
     args["organization_id"] = field
+
+    field = data.get("pending_trade", None)
+    args["pending_trade"] = field
 
     field = data.get("project_id", None)
     args["project_id"] = field
@@ -1359,6 +1365,9 @@ def unmarshal_Domain(data: Any) -> Domain:
 
     field = data.get("owner_contact", None)
     args["owner_contact"] = unmarshal_Contact(field) if field is not None else None
+
+    field = data.get("pending_trade", None)
+    args["pending_trade"] = field
 
     field = data.get("project_id", None)
     args["project_id"] = field
@@ -2026,31 +2035,39 @@ def marshal_DomainRecord(
             [
                 OneOfPossibility(
                     "geo_ip_config",
-                    marshal_DomainRecordGeoIPConfig(request.geo_ip_config, defaults)
-                    if request.geo_ip_config is not None
-                    else None,
+                    (
+                        marshal_DomainRecordGeoIPConfig(request.geo_ip_config, defaults)
+                        if request.geo_ip_config is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "http_service_config",
-                    marshal_DomainRecordHTTPServiceConfig(
-                        request.http_service_config, defaults
-                    )
-                    if request.http_service_config is not None
-                    else None,
+                    (
+                        marshal_DomainRecordHTTPServiceConfig(
+                            request.http_service_config, defaults
+                        )
+                        if request.http_service_config is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "weighted_config",
-                    marshal_DomainRecordWeightedConfig(
-                        request.weighted_config, defaults
-                    )
-                    if request.weighted_config is not None
-                    else None,
+                    (
+                        marshal_DomainRecordWeightedConfig(
+                            request.weighted_config, defaults
+                        )
+                        if request.weighted_config is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "view_config",
-                    marshal_DomainRecordViewConfig(request.view_config, defaults)
-                    if request.view_config is not None
-                    else None,
+                    (
+                        marshal_DomainRecordViewConfig(request.view_config, defaults)
+                        if request.view_config is not None
+                        else None
+                    ),
                 ),
             ]
         ),
@@ -2123,41 +2140,51 @@ def marshal_ContactExtensionFR(
             [
                 OneOfPossibility(
                     "individual_info",
-                    marshal_ContactExtensionFRIndividualInfo(
-                        request.individual_info, defaults
-                    )
-                    if request.individual_info is not None
-                    else None,
+                    (
+                        marshal_ContactExtensionFRIndividualInfo(
+                            request.individual_info, defaults
+                        )
+                        if request.individual_info is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "duns_info",
-                    marshal_ContactExtensionFRDunsInfo(request.duns_info, defaults)
-                    if request.duns_info is not None
-                    else None,
+                    (
+                        marshal_ContactExtensionFRDunsInfo(request.duns_info, defaults)
+                        if request.duns_info is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "association_info",
-                    marshal_ContactExtensionFRAssociationInfo(
-                        request.association_info, defaults
-                    )
-                    if request.association_info is not None
-                    else None,
+                    (
+                        marshal_ContactExtensionFRAssociationInfo(
+                            request.association_info, defaults
+                        )
+                        if request.association_info is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "trademark_info",
-                    marshal_ContactExtensionFRTrademarkInfo(
-                        request.trademark_info, defaults
-                    )
-                    if request.trademark_info is not None
-                    else None,
+                    (
+                        marshal_ContactExtensionFRTrademarkInfo(
+                            request.trademark_info, defaults
+                        )
+                        if request.trademark_info is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "code_auth_afnic_info",
-                    marshal_ContactExtensionFRCodeAuthAfnicInfo(
-                        request.code_auth_afnic_info, defaults
-                    )
-                    if request.code_auth_afnic_info is not None
-                    else None,
+                    (
+                        marshal_ContactExtensionFRCodeAuthAfnicInfo(
+                            request.code_auth_afnic_info, defaults
+                        )
+                        if request.code_auth_afnic_info is not None
+                        else None
+                    ),
                 ),
             ]
         ),
@@ -2179,9 +2206,9 @@ def marshal_ContactExtensionNL(
         output["legal_form"] = ContactExtensionNLLegalForm(request.legal_form)
 
     if request.legal_form_registration_number is not None:
-        output[
-            "legal_form_registration_number"
-        ] = request.legal_form_registration_number
+        output["legal_form_registration_number"] = (
+            request.legal_form_registration_number
+        )
 
     return output
 
@@ -2269,9 +2296,11 @@ def marshal_RecordChangeDelete(
                 OneOfPossibility("id", request.id if request.id is not None else None),
                 OneOfPossibility(
                     "id_fields",
-                    marshal_RecordIdentifier(request.id_fields, defaults)
-                    if request.id_fields is not None
-                    else None,
+                    (
+                        marshal_RecordIdentifier(request.id_fields, defaults)
+                        if request.id_fields is not None
+                        else None
+                    ),
                 ),
             ]
         ),
@@ -2291,9 +2320,11 @@ def marshal_RecordChangeSet(
                 OneOfPossibility("id", request.id if request.id is not None else None),
                 OneOfPossibility(
                     "id_fields",
-                    marshal_RecordIdentifier(request.id_fields, defaults)
-                    if request.id_fields is not None
-                    else None,
+                    (
+                        marshal_RecordIdentifier(request.id_fields, defaults)
+                        if request.id_fields is not None
+                        else None
+                    ),
                 ),
             ]
         ),
@@ -2315,15 +2346,19 @@ def marshal_DSRecord(
             [
                 OneOfPossibility(
                     "digest",
-                    marshal_DSRecordDigest(request.digest, defaults)
-                    if request.digest is not None
-                    else None,
+                    (
+                        marshal_DSRecordDigest(request.digest, defaults)
+                        if request.digest is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "public_key",
-                    marshal_DSRecordPublicKey(request.public_key, defaults)
-                    if request.public_key is not None
-                    else None,
+                    (
+                        marshal_DSRecordPublicKey(request.public_key, defaults)
+                        if request.public_key is not None
+                        else None
+                    ),
                 ),
             ]
         ),
@@ -2490,27 +2525,35 @@ def marshal_RecordChange(
             [
                 OneOfPossibility(
                     "add",
-                    marshal_RecordChangeAdd(request.add, defaults)
-                    if request.add is not None
-                    else None,
+                    (
+                        marshal_RecordChangeAdd(request.add, defaults)
+                        if request.add is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "set",
-                    marshal_RecordChangeSet(request.set_, defaults)
-                    if request.set_ is not None
-                    else None,
+                    (
+                        marshal_RecordChangeSet(request.set_, defaults)
+                        if request.set_ is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "delete",
-                    marshal_RecordChangeDelete(request.delete, defaults)
-                    if request.delete is not None
-                    else None,
+                    (
+                        marshal_RecordChangeDelete(request.delete, defaults)
+                        if request.delete is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "clear",
-                    marshal_RecordChangeClear(request.clear, defaults)
-                    if request.clear is not None
-                    else None,
+                    (
+                        marshal_RecordChangeClear(request.clear, defaults)
+                        if request.clear is not None
+                        else None
+                    ),
                 ),
             ]
         ),
@@ -2610,11 +2653,13 @@ def marshal_ImportProviderDNSZoneRequest(
             [
                 OneOfPossibility(
                     "online_v1",
-                    marshal_ImportProviderDNSZoneRequestOnlineV1(
-                        request.online_v1, defaults
-                    )
-                    if request.online_v1 is not None
-                    else None,
+                    (
+                        marshal_ImportProviderDNSZoneRequestOnlineV1(
+                            request.online_v1, defaults
+                        )
+                        if request.online_v1 is not None
+                        else None
+                    ),
                 ),
             ]
         ),
@@ -2633,19 +2678,23 @@ def marshal_ImportRawDNSZoneRequest(
             [
                 OneOfPossibility(
                     "bind_source",
-                    marshal_ImportRawDNSZoneRequestBindSource(
-                        request.bind_source, defaults
-                    )
-                    if request.bind_source is not None
-                    else None,
+                    (
+                        marshal_ImportRawDNSZoneRequestBindSource(
+                            request.bind_source, defaults
+                        )
+                        if request.bind_source is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "axfr_source",
-                    marshal_ImportRawDNSZoneRequestAXFRSource(
-                        request.axfr_source, defaults
-                    )
-                    if request.axfr_source is not None
-                    else None,
+                    (
+                        marshal_ImportRawDNSZoneRequestAXFRSource(
+                            request.axfr_source, defaults
+                        )
+                        if request.axfr_source is not None
+                        else None
+                    ),
                 ),
             ]
         ),
@@ -2688,15 +2737,19 @@ def marshal_RegistrarApiBuyDomainsRequest(
             [
                 OneOfPossibility(
                     "administrative_contact_id",
-                    request.administrative_contact_id
-                    if request.administrative_contact_id is not None
-                    else None,
+                    (
+                        request.administrative_contact_id
+                        if request.administrative_contact_id is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "administrative_contact",
-                    marshal_NewContact(request.administrative_contact, defaults)
-                    if request.administrative_contact is not None
-                    else None,
+                    (
+                        marshal_NewContact(request.administrative_contact, defaults)
+                        if request.administrative_contact is not None
+                        else None
+                    ),
                 ),
             ]
         ),
@@ -2706,15 +2759,19 @@ def marshal_RegistrarApiBuyDomainsRequest(
             [
                 OneOfPossibility(
                     "owner_contact_id",
-                    request.owner_contact_id
-                    if request.owner_contact_id is not None
-                    else None,
+                    (
+                        request.owner_contact_id
+                        if request.owner_contact_id is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "owner_contact",
-                    marshal_NewContact(request.owner_contact, defaults)
-                    if request.owner_contact is not None
-                    else None,
+                    (
+                        marshal_NewContact(request.owner_contact, defaults)
+                        if request.owner_contact is not None
+                        else None
+                    ),
                 ),
             ]
         ),
@@ -2724,15 +2781,19 @@ def marshal_RegistrarApiBuyDomainsRequest(
             [
                 OneOfPossibility(
                     "technical_contact_id",
-                    request.technical_contact_id
-                    if request.technical_contact_id is not None
-                    else None,
+                    (
+                        request.technical_contact_id
+                        if request.technical_contact_id is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "technical_contact",
-                    marshal_NewContact(request.technical_contact, defaults)
-                    if request.technical_contact is not None
-                    else None,
+                    (
+                        marshal_NewContact(request.technical_contact, defaults)
+                        if request.technical_contact is not None
+                        else None
+                    ),
                 ),
             ]
         ),
@@ -2760,15 +2821,19 @@ def marshal_RegistrarApiCheckContactsCompatibilityRequest(
             [
                 OneOfPossibility(
                     "administrative_contact_id",
-                    request.administrative_contact_id
-                    if request.administrative_contact_id is not None
-                    else None,
+                    (
+                        request.administrative_contact_id
+                        if request.administrative_contact_id is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "administrative_contact",
-                    marshal_NewContact(request.administrative_contact, defaults)
-                    if request.administrative_contact is not None
-                    else None,
+                    (
+                        marshal_NewContact(request.administrative_contact, defaults)
+                        if request.administrative_contact is not None
+                        else None
+                    ),
                 ),
             ]
         ),
@@ -2778,15 +2843,19 @@ def marshal_RegistrarApiCheckContactsCompatibilityRequest(
             [
                 OneOfPossibility(
                     "owner_contact_id",
-                    request.owner_contact_id
-                    if request.owner_contact_id is not None
-                    else None,
+                    (
+                        request.owner_contact_id
+                        if request.owner_contact_id is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "owner_contact",
-                    marshal_NewContact(request.owner_contact, defaults)
-                    if request.owner_contact is not None
-                    else None,
+                    (
+                        marshal_NewContact(request.owner_contact, defaults)
+                        if request.owner_contact is not None
+                        else None
+                    ),
                 ),
             ]
         ),
@@ -2796,15 +2865,19 @@ def marshal_RegistrarApiCheckContactsCompatibilityRequest(
             [
                 OneOfPossibility(
                     "technical_contact_id",
-                    request.technical_contact_id
-                    if request.technical_contact_id is not None
-                    else None,
+                    (
+                        request.technical_contact_id
+                        if request.technical_contact_id is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "technical_contact",
-                    marshal_NewContact(request.technical_contact, defaults)
-                    if request.technical_contact is not None
-                    else None,
+                    (
+                        marshal_NewContact(request.technical_contact, defaults)
+                        if request.technical_contact is not None
+                        else None
+                    ),
                 ),
             ]
         ),
@@ -2889,15 +2962,19 @@ def marshal_RegistrarApiTradeDomainRequest(
             [
                 OneOfPossibility(
                     "new_owner_contact_id",
-                    request.new_owner_contact_id
-                    if request.new_owner_contact_id is not None
-                    else None,
+                    (
+                        request.new_owner_contact_id
+                        if request.new_owner_contact_id is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "new_owner_contact",
-                    marshal_NewContact(request.new_owner_contact, defaults)
-                    if request.new_owner_contact is not None
-                    else None,
+                    (
+                        marshal_NewContact(request.new_owner_contact, defaults)
+                        if request.new_owner_contact is not None
+                        else None
+                    ),
                 ),
             ]
         ),
@@ -2919,15 +2996,19 @@ def marshal_RegistrarApiTransferInDomainRequest(
             [
                 OneOfPossibility(
                     "administrative_contact_id",
-                    request.administrative_contact_id
-                    if request.administrative_contact_id is not None
-                    else None,
+                    (
+                        request.administrative_contact_id
+                        if request.administrative_contact_id is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "administrative_contact",
-                    marshal_NewContact(request.administrative_contact, defaults)
-                    if request.administrative_contact is not None
-                    else None,
+                    (
+                        marshal_NewContact(request.administrative_contact, defaults)
+                        if request.administrative_contact is not None
+                        else None
+                    ),
                 ),
             ]
         ),
@@ -2937,15 +3018,19 @@ def marshal_RegistrarApiTransferInDomainRequest(
             [
                 OneOfPossibility(
                     "owner_contact_id",
-                    request.owner_contact_id
-                    if request.owner_contact_id is not None
-                    else None,
+                    (
+                        request.owner_contact_id
+                        if request.owner_contact_id is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "owner_contact",
-                    marshal_NewContact(request.owner_contact, defaults)
-                    if request.owner_contact is not None
-                    else None,
+                    (
+                        marshal_NewContact(request.owner_contact, defaults)
+                        if request.owner_contact is not None
+                        else None
+                    ),
                 ),
             ]
         ),
@@ -2955,15 +3040,19 @@ def marshal_RegistrarApiTransferInDomainRequest(
             [
                 OneOfPossibility(
                     "technical_contact_id",
-                    request.technical_contact_id
-                    if request.technical_contact_id is not None
-                    else None,
+                    (
+                        request.technical_contact_id
+                        if request.technical_contact_id is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "technical_contact",
-                    marshal_NewContact(request.technical_contact, defaults)
-                    if request.technical_contact is not None
-                    else None,
+                    (
+                        marshal_NewContact(request.technical_contact, defaults)
+                        if request.technical_contact is not None
+                        else None
+                    ),
                 ),
             ]
         ),
@@ -3077,15 +3166,19 @@ def marshal_RegistrarApiUpdateDomainRequest(
             [
                 OneOfPossibility(
                     "administrative_contact_id",
-                    request.administrative_contact_id
-                    if request.administrative_contact_id is not None
-                    else None,
+                    (
+                        request.administrative_contact_id
+                        if request.administrative_contact_id is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "administrative_contact",
-                    marshal_NewContact(request.administrative_contact, defaults)
-                    if request.administrative_contact is not None
-                    else None,
+                    (
+                        marshal_NewContact(request.administrative_contact, defaults)
+                        if request.administrative_contact is not None
+                        else None
+                    ),
                 ),
             ]
         ),
@@ -3095,15 +3188,19 @@ def marshal_RegistrarApiUpdateDomainRequest(
             [
                 OneOfPossibility(
                     "owner_contact_id",
-                    request.owner_contact_id
-                    if request.owner_contact_id is not None
-                    else None,
+                    (
+                        request.owner_contact_id
+                        if request.owner_contact_id is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "owner_contact",
-                    marshal_NewContact(request.owner_contact, defaults)
-                    if request.owner_contact is not None
-                    else None,
+                    (
+                        marshal_NewContact(request.owner_contact, defaults)
+                        if request.owner_contact is not None
+                        else None
+                    ),
                 ),
             ]
         ),
@@ -3113,15 +3210,19 @@ def marshal_RegistrarApiUpdateDomainRequest(
             [
                 OneOfPossibility(
                     "technical_contact_id",
-                    request.technical_contact_id
-                    if request.technical_contact_id is not None
-                    else None,
+                    (
+                        request.technical_contact_id
+                        if request.technical_contact_id is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "technical_contact",
-                    marshal_NewContact(request.technical_contact, defaults)
-                    if request.technical_contact is not None
-                    else None,
+                    (
+                        marshal_NewContact(request.technical_contact, defaults)
+                        if request.technical_contact is not None
+                        else None
+                    ),
                 ),
             ]
         ),

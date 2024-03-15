@@ -667,44 +667,92 @@ class Domain:
     project_id: str
 
     auto_renew_status: DomainFeatureStatus
+    """
+    Status of the automatic renewal of the domain.
+    """
 
     dnssec: Optional[DomainDNSSEC]
+    """
+    Status of the DNSSEC configuration of the domain.
+    """
 
     epp_code: List[str]
+    """
+    List of the domain's EPP codes.
+    """
 
     expired_at: Optional[datetime]
+    """
+    Date of expiration of the domain.
+    """
 
     updated_at: Optional[datetime]
+    """
+    Domain's last modification date.
+    """
 
     registrar: str
 
     is_external: bool
+    """
+    Indicates whether Scaleway is the domain's registrar.
+    """
 
     status: DomainStatus
+    """
+    Status of the domain.
+    """
 
     dns_zones: List[DNSZone]
+    """
+    List of the domain's DNS zones.
+    """
 
     owner_contact: Optional[Contact]
+    """
+    Contact information of the domain's owner.
+    """
 
     technical_contact: Optional[Contact]
+    """
+    Contact information of the domain's technical contact.
+    """
 
     administrative_contact: Optional[Contact]
+    """
+    Contact information of the domain's administrative contact.
+    """
 
     external_domain_registration_status: Optional[
         DomainRegistrationStatusExternalDomain
     ]
     """
+    Registration status of an external domain, if available.
+    
     One-of ('registration_status'): at most one of 'external_domain_registration_status', 'transfer_registration_status' could be set.
     """
 
     transfer_registration_status: Optional[DomainRegistrationStatusTransfer]
     """
+    Status of a domain, when available for transfer.
+    
     One-of ('registration_status'): at most one of 'external_domain_registration_status', 'transfer_registration_status' could be set.
     """
 
     tld: Optional[Tld]
+    """
+    Domain's TLD information.
+    """
 
     linked_products: List[LinkedProduct]
+    """
+    List of Scaleway resources linked to the domain.
+    """
+
+    pending_trade: bool
+    """
+    Indicates if a trade is ongoing.
+    """
 
 
 @dataclass
@@ -853,6 +901,10 @@ class DomainSummary:
     """
 
     organization_id: str
+
+    created_at: Optional[datetime]
+
+    pending_trade: bool
 
 
 @dataclass
