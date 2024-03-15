@@ -18,6 +18,7 @@ from .types import UserStatus
 from .types import UserType
 from .types import APIKey
 from .types import Application
+from .types import EncodedJWT
 from .types import Group
 from .types import JWT
 from .types import ListAPIKeysResponse
@@ -61,6 +62,7 @@ __all__ = [
     "UserType",
     "APIKey",
     "Application",
+    "EncodedJWT",
     "Group",
     "JWT",
     "ListAPIKeysResponse",

@@ -300,6 +300,28 @@ class Application:
 
 
 @dataclass
+class EncodedJWT:
+    """
+    Encoded jwt.
+    """
+
+    jwt: Optional[JWT]
+    """
+    The renewed JWT.
+    """
+
+    token: str
+    """
+    The encoded token of the renewed JWT.
+    """
+
+    renew_token: str
+    """
+    The encoded renew token. This token is necessary to renew the JWT.
+    """
+
+
+@dataclass
 class Group:
     """
     Group.
@@ -1883,6 +1905,19 @@ class ListJWTsRequest:
     expired: Optional[bool]
     """
     Filter out expired JWTs or not.
+    """
+
+
+@dataclass
+class CreateJWTRequest:
+    user_id: str
+    """
+    ID of the user the JWT will be created for.
+    """
+
+    referrer: str
+    """
+    Referrer of the JWT.
     """
 
 
