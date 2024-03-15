@@ -22,11 +22,9 @@ from .types import (
     ListContainersResponse,
     ListCronsResponse,
     ListDomainsResponse,
-    ListLogsResponse,
     ListNamespacesResponse,
     ListTokensResponse,
     ListTriggersResponse,
-    Log,
     Namespace,
     Secret,
     SecretHashedValue,
@@ -272,35 +270,6 @@ def unmarshal_Domain(data: Any) -> Domain:
     return Domain(**args)
 
 
-def unmarshal_Log(data: Any) -> Log:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'Log' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("id", None)
-    args["id"] = field
-
-    field = data.get("level", None)
-    args["level"] = field
-
-    field = data.get("message", None)
-    args["message"] = field
-
-    field = data.get("source", None)
-    args["source"] = field
-
-    field = data.get("stream", None)
-    args["stream"] = field
-
-    field = data.get("timestamp", None)
-    args["timestamp"] = parser.isoparse(field) if type(field) is str else field
-
-    return Log(**args)
-
-
 def unmarshal_Namespace(data: Any) -> Namespace:
     if type(data) is not dict:
         raise TypeError(
@@ -485,23 +454,6 @@ def unmarshal_ListDomainsResponse(data: Any) -> ListDomainsResponse:
     args["total_count"] = field
 
     return ListDomainsResponse(**args)
-
-
-def unmarshal_ListLogsResponse(data: Any) -> ListLogsResponse:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'ListLogsResponse' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("logs", None)
-    args["logs"] = [unmarshal_Log(v) for v in field] if field is not None else None
-
-    field = data.get("total_count", None)
-    args["total_count"] = field
-
-    return ListLogsResponse(**args)
 
 
 def unmarshal_ListNamespacesResponse(data: Any) -> ListNamespacesResponse:

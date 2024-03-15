@@ -9,11 +9,9 @@ from .types import DomainStatus
 from .types import ListContainersRequestOrderBy
 from .types import ListCronsRequestOrderBy
 from .types import ListDomainsRequestOrderBy
-from .types import ListLogsRequestOrderBy
 from .types import ListNamespacesRequestOrderBy
 from .types import ListTokensRequestOrderBy
 from .types import ListTriggersRequestOrderBy
-from .types import LogStream
 from .types import NamespaceStatus
 from .types import NullValue
 from .types import TokenStatus
@@ -28,11 +26,9 @@ from .types import Domain
 from .types import ListContainersResponse
 from .types import ListCronsResponse
 from .types import ListDomainsResponse
-from .types import ListLogsResponse
 from .types import ListNamespacesResponse
 from .types import ListTokensResponse
 from .types import ListTriggersResponse
-from .types import Log
 from .types import Namespace
 from .types import Secret
 from .types import SecretHashedValue
@@ -60,11 +56,9 @@ __all__ = [
     "ListContainersRequestOrderBy",
     "ListCronsRequestOrderBy",
     "ListDomainsRequestOrderBy",
-    "ListLogsRequestOrderBy",
     "ListNamespacesRequestOrderBy",
     "ListTokensRequestOrderBy",
     "ListTriggersRequestOrderBy",
-    "LogStream",
     "NamespaceStatus",
     "NullValue",
     "TokenStatus",
@@ -79,11 +73,9 @@ __all__ = [
     "ListContainersResponse",
     "ListCronsResponse",
     "ListDomainsResponse",
-    "ListLogsResponse",
     "ListNamespacesResponse",
     "ListTokensResponse",
     "ListTriggersResponse",
-    "Log",
     "Namespace",
     "Secret",
     "SecretHashedValue",

@@ -24,7 +24,6 @@ from .types import (
     ListCronsRequestOrderBy,
     ListDomainsRequestOrderBy,
     ListFunctionsRequestOrderBy,
-    ListLogsRequestOrderBy,
     ListNamespacesRequestOrderBy,
     ListTokensRequestOrderBy,
     ListTriggersRequestOrderBy,
@@ -39,11 +38,9 @@ from .types import (
     ListDomainsResponse,
     ListFunctionRuntimesResponse,
     ListFunctionsResponse,
-    ListLogsResponse,
     ListNamespacesResponse,
     ListTokensResponse,
     ListTriggersResponse,
-    Log,
     Namespace,
     Secret,
     Token,
@@ -91,7 +88,6 @@ from .marshalling import (
     unmarshal_ListDomainsResponse,
     unmarshal_ListFunctionRuntimesResponse,
     unmarshal_ListFunctionsResponse,
-    unmarshal_ListLogsResponse,
     unmarshal_ListNamespacesResponse,
     unmarshal_ListTokensResponse,
     unmarshal_ListTriggersResponse,
@@ -1172,89 +1168,6 @@ class FunctionV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Cron(res.json())
-
-    def list_logs(
-        self,
-        *,
-        function_id: str,
-        region: Optional[Region] = None,
-        page: Optional[int] = None,
-        page_size: Optional[int] = None,
-        order_by: ListLogsRequestOrderBy = ListLogsRequestOrderBy.TIMESTAMP_DESC,
-    ) -> ListLogsResponse:
-        """
-        Deprecated (replaced by [Cockpit](https://www.scaleway.com/en/developers/api/cockpit/)). List application logs.
-        Deprecated (replaced by [Cockpit](https://www.scaleway.com/en/developers/api/cockpit/)). List the application logs of the function with the specified ID.
-        :param region: Region to target. If none is passed will use default region from the config.
-        :param function_id: UUID of the function to get the logs for.
-        :param page: Page number.
-        :param page_size: Number of logs per page.
-        :param order_by: Order of the logs.
-        :return: :class:`ListLogsResponse <ListLogsResponse>`
-        :deprecated
-
-        Usage:
-        ::
-
-            result = api.list_logs(function_id="example")
-        """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-        param_function_id = validate_path_param("function_id", function_id)
-
-        res = self._request(
-            "GET",
-            f"/functions/v1beta1/regions/{param_region}/functions/{param_function_id}/logs",
-            params={
-                "order_by": order_by,
-                "page": page,
-                "page_size": page_size or self.client.default_page_size,
-            },
-        )
-
-        self._throw_on_error(res)
-        return unmarshal_ListLogsResponse(res.json())
-
-    def list_logs_all(
-        self,
-        *,
-        function_id: str,
-        region: Optional[Region] = None,
-        page: Optional[int] = None,
-        page_size: Optional[int] = None,
-        order_by: Optional[ListLogsRequestOrderBy] = None,
-    ) -> List[Log]:
-        """
-        Deprecated (replaced by [Cockpit](https://www.scaleway.com/en/developers/api/cockpit/)). List application logs.
-        Deprecated (replaced by [Cockpit](https://www.scaleway.com/en/developers/api/cockpit/)). List the application logs of the function with the specified ID.
-        :param region: Region to target. If none is passed will use default region from the config.
-        :param function_id: UUID of the function to get the logs for.
-        :param page: Page number.
-        :param page_size: Number of logs per page.
-        :param order_by: Order of the logs.
-        :return: :class:`List[ListLogsResponse] <List[ListLogsResponse]>`
-        :deprecated
-
-        Usage:
-        ::
-
-            result = api.list_logs_all(function_id="example")
-        """
-
-        return fetch_all_pages(
-            type=ListLogsResponse,
-            key="logs",
-            fetcher=self.list_logs,
-            args={
-                "function_id": function_id,
-                "region": region,
-                "page": page,
-                "page_size": page_size,
-                "order_by": order_by,
-            },
-        )
 
     def list_domains(
         self,
