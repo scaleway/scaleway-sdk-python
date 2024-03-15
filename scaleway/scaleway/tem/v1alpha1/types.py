@@ -248,6 +248,11 @@ class Domain:
     The domain's reputation is available when your domain is checked and has sent enough emails.
     """
 
+    records: Optional[DomainRecords]
+    """
+    List of records to configure to validate a domain.
+    """
+
     region: Region
 
 
@@ -346,6 +351,35 @@ class DomainLastStatusSpfRecord:
     error: Optional[str]
     """
     An error text displays in case the record is not valid.
+    """
+
+
+@dataclass
+class DomainRecords:
+    """
+    Domain. records.
+    """
+
+    dmarc: Optional[DomainRecordsDMARC]
+    """
+    DMARC TXT record specification.
+    """
+
+
+@dataclass
+class DomainRecordsDMARC:
+    """
+    Domain. records.dmarc.
+    """
+
+    name: str
+    """
+    Name of the DMARC TXT record.
+    """
+
+    value: str
+    """
+    Value of the DMARC TXT record.
     """
 
 
