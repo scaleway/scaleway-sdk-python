@@ -131,14 +131,6 @@ class ListFunctionsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListLogsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
-    TIMESTAMP_DESC = "timestamp_desc"
-    TIMESTAMP_ASC = "timestamp_asc"
-
-    def __str__(self) -> str:
-        return str(self.value)
-
-
 class ListNamespacesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
@@ -160,15 +152,6 @@ class ListTokensRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 class ListTriggersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
-
-    def __str__(self) -> str:
-        return str(self.value)
-
-
-class LogStream(str, Enum, metaclass=StrEnumMeta):
-    UNKNOWN = "unknown"
-    STDOUT = "stdout"
-    STDERR = "stderr"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -565,23 +548,6 @@ class ListFunctionsResponse:
 
 
 @dataclass
-class ListLogsResponse:
-    """
-    List logs response.
-    """
-
-    logs: List[Log]
-    """
-    Array of logs.
-    """
-
-    total_count: int
-    """
-    Total number of logs.
-    """
-
-
-@dataclass
 class ListNamespacesResponse:
     """
     List namespaces response.
@@ -616,43 +582,6 @@ class ListTriggersResponse:
     triggers: List[Trigger]
     """
     Triggers on this page.
-    """
-
-
-@dataclass
-class Log:
-    """
-    Log.
-    """
-
-    message: str
-    """
-    Message of the log.
-    """
-
-    timestamp: Optional[datetime]
-    """
-    Timestamp of the log.
-    """
-
-    id: str
-    """
-    UUID of the log.
-    """
-
-    level: str
-    """
-    Severity of the log (info, debug, error etc.).
-    """
-
-    source: str
-    """
-    Source of the log (core runtime or user code).
-    """
-
-    stream: LogStream
-    """
-    Can be stdout or stderr.
     """
 
 
@@ -1475,34 +1404,6 @@ class DeleteCronRequest:
     cron_id: str
     """
     UUID of the cron to delete.
-    """
-
-
-@dataclass
-class ListLogsRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    function_id: str
-    """
-    UUID of the function to get the logs for.
-    """
-
-    page: Optional[int]
-    """
-    Page number.
-    """
-
-    page_size: Optional[int]
-    """
-    Number of logs per page.
-    """
-
-    order_by: Optional[ListLogsRequestOrderBy]
-    """
-    Order of the logs.
     """
 
 

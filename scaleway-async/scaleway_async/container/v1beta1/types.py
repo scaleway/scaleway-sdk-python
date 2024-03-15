@@ -109,14 +109,6 @@ class ListDomainsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class ListLogsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
-    TIMESTAMP_DESC = "timestamp_desc"
-    TIMESTAMP_ASC = "timestamp_asc"
-
-    def __str__(self) -> str:
-        return str(self.value)
-
-
 class ListNamespacesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
@@ -138,15 +130,6 @@ class ListTokensRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 class ListTriggersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
-
-    def __str__(self) -> str:
-        return str(self.value)
-
-
-class LogStream(str, Enum, metaclass=StrEnumMeta):
-    UNKNOWN = "unknown"
-    STDOUT = "stdout"
-    STDERR = "stderr"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -510,17 +493,6 @@ class ListDomainsResponse:
 
 
 @dataclass
-class ListLogsResponse:
-    """
-    List logs response.
-    """
-
-    logs: List[Log]
-
-    total_count: int
-
-
-@dataclass
 class ListNamespacesResponse:
     """
     List namespaces response.
@@ -558,34 +530,6 @@ class ListTriggersResponse:
     triggers: List[Trigger]
     """
     Triggers on this page.
-    """
-
-
-@dataclass
-class Log:
-    """
-    Log.
-    """
-
-    message: str
-
-    timestamp: Optional[datetime]
-
-    id: str
-
-    level: str
-    """
-    Contains the severity of the log (info, debug, error, ...).
-    """
-
-    source: str
-    """
-    Source of the log (core runtime or user code).
-    """
-
-    stream: LogStream
-    """
-    Can be stdout or stderr.
     """
 
 
@@ -1356,34 +1300,6 @@ class DeleteCronRequest:
     cron_id: str
     """
     UUID of the cron to delete.
-    """
-
-
-@dataclass
-class ListLogsRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    container_id: str
-    """
-    UUID of the container.
-    """
-
-    page: Optional[int]
-    """
-    Page number.
-    """
-
-    page_size: Optional[int]
-    """
-    Number of logs per page.
-    """
-
-    order_by: Optional[ListLogsRequestOrderBy]
-    """
-    Order of the logs.
     """
 
 
