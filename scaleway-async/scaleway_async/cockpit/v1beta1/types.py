@@ -88,6 +88,7 @@ class PlanName(str, Enum, metaclass=StrEnumMeta):
     FREE = "free"
     PREMIUM = "premium"
     CUSTOM = "custom"
+    EXPERT = "expert"
 
     def __str__(self) -> str:
         return str(self.value)
