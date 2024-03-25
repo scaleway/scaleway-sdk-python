@@ -218,6 +218,7 @@ class LbV1API(API):
         page: Optional[int] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
+        tags: Optional[List[str]] = None,
     ) -> ListLbsResponse:
         """
         List load balancers.
@@ -228,6 +229,7 @@ class LbV1API(API):
         :param page: Page number to return, from the paginated results.
         :param organization_id: Organization ID to filter for, only Load Balancers from this Organization will be returned.
         :param project_id: Project ID to filter for, only Load Balancers from this Project will be returned.
+        :param tags: Filter by tag, only Load Balancers with one or more matching tags will be returned.
         :return: :class:`ListLbsResponse <ListLbsResponse>`
 
         Usage:
@@ -251,6 +253,7 @@ class LbV1API(API):
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
+                "tags": tags,
             },
         )
 
@@ -267,6 +270,7 @@ class LbV1API(API):
         page: Optional[int] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
+        tags: Optional[List[str]] = None,
     ) -> List[Lb]:
         """
         List load balancers.
@@ -277,6 +281,7 @@ class LbV1API(API):
         :param page: Page number to return, from the paginated results.
         :param organization_id: Organization ID to filter for, only Load Balancers from this Organization will be returned.
         :param project_id: Project ID to filter for, only Load Balancers from this Project will be returned.
+        :param tags: Filter by tag, only Load Balancers with one or more matching tags will be returned.
         :return: :class:`List[ListLbsResponse] <List[ListLbsResponse]>`
 
         Usage:
@@ -297,6 +302,7 @@ class LbV1API(API):
                 "page": page,
                 "organization_id": organization_id,
                 "project_id": project_id,
+                "tags": tags,
             },
         )
 
@@ -3179,6 +3185,7 @@ class LbZonedV1API(API):
         page: Optional[int] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
+        tags: Optional[List[str]] = None,
     ) -> ListLbsResponse:
         """
         List Load Balancers.
@@ -3190,6 +3197,7 @@ class LbZonedV1API(API):
         :param page: Page number to return, from the paginated results.
         :param organization_id: Organization ID to filter for, only Load Balancers from this Organization will be returned.
         :param project_id: Project ID to filter for, only Load Balancers from this Project will be returned.
+        :param tags: Filter by tag, only Load Balancers with one or more matching tags will be returned.
         :return: :class:`ListLbsResponse <ListLbsResponse>`
 
         Usage:
@@ -3211,6 +3219,7 @@ class LbZonedV1API(API):
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
+                "tags": tags,
             },
         )
 
@@ -3227,6 +3236,7 @@ class LbZonedV1API(API):
         page: Optional[int] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
+        tags: Optional[List[str]] = None,
     ) -> List[Lb]:
         """
         List Load Balancers.
@@ -3238,6 +3248,7 @@ class LbZonedV1API(API):
         :param page: Page number to return, from the paginated results.
         :param organization_id: Organization ID to filter for, only Load Balancers from this Organization will be returned.
         :param project_id: Project ID to filter for, only Load Balancers from this Project will be returned.
+        :param tags: Filter by tag, only Load Balancers with one or more matching tags will be returned.
         :return: :class:`List[ListLbsResponse] <List[ListLbsResponse]>`
 
         Usage:
@@ -3258,6 +3269,7 @@ class LbZonedV1API(API):
                 "page": page,
                 "organization_id": organization_id,
                 "project_id": project_id,
+                "tags": tags,
             },
         )
 
