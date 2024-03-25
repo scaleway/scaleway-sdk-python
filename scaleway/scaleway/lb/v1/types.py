@@ -1648,6 +1648,11 @@ class ListLbsRequest:
     Project ID to filter for, only Load Balancers from this Project will be returned.
     """
 
+    tags: Optional[List[str]]
+    """
+    Filter by tag, only Load Balancers with one or more matching tags will be returned.
+    """
+
 
 @dataclass
 class CreateLbRequest:
@@ -3210,6 +3215,11 @@ class ZonedApiListLbsRequest:
     project_id: Optional[str]
     """
     Project ID to filter for, only Load Balancers from this Project will be returned.
+    """
+
+    tags: Optional[List[str]]
+    """
+    Filter by tag, only Load Balancers with one or more matching tags will be returned.
     """
 
 
