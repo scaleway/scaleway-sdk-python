@@ -255,6 +255,7 @@ class SecretV1Beta1API(API):
         name: Optional[str] = None,
         path: Optional[str] = None,
         ephemeral: Optional[bool] = None,
+        type_: SecretType = SecretType.UNKNOWN_TYPE,
     ) -> ListSecretsResponse:
         """
         List secrets.
@@ -269,6 +270,7 @@ class SecretV1Beta1API(API):
         :param name: Filter by secret name (optional).
         :param path: Filter by exact path (optional).
         :param ephemeral: Filter by ephemeral / not ephemeral (optional).
+        :param type_: Filter by secret type (optional).
         :return: :class:`ListSecretsResponse <ListSecretsResponse>`
 
         Usage:
@@ -295,6 +297,7 @@ class SecretV1Beta1API(API):
                 "path": path,
                 "project_id": project_id or self.client.default_project_id,
                 "tags": tags,
+                "type": type_,
             },
         )
 
@@ -314,6 +317,7 @@ class SecretV1Beta1API(API):
         name: Optional[str] = None,
         path: Optional[str] = None,
         ephemeral: Optional[bool] = None,
+        type_: Optional[SecretType] = None,
     ) -> List[Secret]:
         """
         List secrets.
@@ -328,6 +332,7 @@ class SecretV1Beta1API(API):
         :param name: Filter by secret name (optional).
         :param path: Filter by exact path (optional).
         :param ephemeral: Filter by ephemeral / not ephemeral (optional).
+        :param type_: Filter by secret type (optional).
         :return: :class:`List[ListSecretsResponse] <List[ListSecretsResponse]>`
 
         Usage:
@@ -351,6 +356,7 @@ class SecretV1Beta1API(API):
                 "name": name,
                 "path": path,
                 "ephemeral": ephemeral,
+                "type_": type_,
             },
         )
 
@@ -363,6 +369,7 @@ class SecretV1Beta1API(API):
         project_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
+        tags: Optional[List[str]] = None,
     ) -> BrowseSecretsResponse:
         """
         Browse secrets.
@@ -373,6 +380,7 @@ class SecretV1Beta1API(API):
         :param prefix: Filter secrets and folders for a given prefix (default /).
         :param page:
         :param page_size:
+        :param tags: Filter secrets by tags.
         :return: :class:`BrowseSecretsResponse <BrowseSecretsResponse>`
 
         Usage:
@@ -397,6 +405,7 @@ class SecretV1Beta1API(API):
                 "page_size": page_size or self.client.default_page_size,
                 "prefix": prefix,
                 "project_id": project_id or self.client.default_project_id,
+                "tags": tags,
             },
         )
 
