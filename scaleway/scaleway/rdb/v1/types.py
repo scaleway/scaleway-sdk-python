@@ -175,6 +175,7 @@ class MaintenanceStatus(str, Enum, metaclass=StrEnumMeta):
     PENDING = "pending"
     DONE = "done"
     CANCELED = "canceled"
+    ONGOING = "ongoing"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -1152,6 +1153,11 @@ class Maintenance:
     status: MaintenanceStatus
     """
     Status of the maintenance.
+    """
+
+    forced_at: Optional[datetime]
+    """
+    Time when Scaleway-side maintenance will be applied.
     """
 
 
@@ -2843,4 +2849,17 @@ class MigrateEndpointRequest:
     instance_id: str
     """
     UUID of the instance you want to attach the endpoint to.
+    """
+
+
+@dataclass
+class ApplyInstanceMaintenanceRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    instance_id: str
+    """
+    UUID of the Database Instance you want to apply maintenance.
     """
