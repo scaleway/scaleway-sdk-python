@@ -54,6 +54,7 @@ from .types import (
     ListSnapshotsResponse,
     ListUsersResponse,
     LogsPolicy,
+    Maintenance,
     NodeType,
     PrepareInstanceLogsResponse,
     Privilege,
@@ -126,6 +127,7 @@ from .marshalling import (
     marshal_UpdateUserRequest,
     marshal_UpgradeInstanceRequest,
     unmarshal_Endpoint,
+    unmarshal_Maintenance,
     unmarshal_ReadReplica,
     unmarshal_Database,
     unmarshal_DatabaseBackup,
@@ -3188,3 +3190,35 @@ class RdbV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Endpoint(res.json())
+
+    def apply_instance_maintenance(
+        self,
+        *,
+        instance_id: str,
+        region: Optional[Region] = None,
+    ) -> Maintenance:
+        """
+        Apply Database Instance maintenance.
+        Apply maintenance tasks to your Database Instance. This will trigger pending maintenance tasks to start in your Database Instance and can generate service interruption. Maintenance tasks can be applied between `starts_at` and `stops_at` times, and are run directly by Scaleway at `forced_at` timestamp.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param instance_id: UUID of the Database Instance you want to apply maintenance.
+        :return: :class:`Maintenance <Maintenance>`
+
+        Usage:
+        ::
+
+            result = api.apply_instance_maintenance(instance_id="example")
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_instance_id = validate_path_param("instance_id", instance_id)
+
+        res = self._request(
+            "POST",
+            f"/rdb/v1/regions/{param_region}/instances/{param_instance_id}/apply-maintenance",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Maintenance(res.json())

@@ -331,6 +331,9 @@ def unmarshal_Maintenance(data: Any) -> Maintenance:
     field = data.get("closed_at", None)
     args["closed_at"] = parser.isoparse(field) if type(field) is str else field
 
+    field = data.get("forced_at", None)
+    args["forced_at"] = parser.isoparse(field) if type(field) is str else field
+
     field = data.get("reason", None)
     args["reason"] = field
 
@@ -1270,11 +1273,13 @@ def marshal_EndpointSpecPrivateNetwork(
                 ),
                 OneOfPossibility(
                     "ipam_config",
-                    marshal_EndpointSpecPrivateNetworkIpamConfig(
-                        request.ipam_config, defaults
-                    )
-                    if request.ipam_config is not None
-                    else None,
+                    (
+                        marshal_EndpointSpecPrivateNetworkIpamConfig(
+                            request.ipam_config, defaults
+                        )
+                        if request.ipam_config is not None
+                        else None
+                    ),
                 ),
             ]
         ),
@@ -1309,11 +1314,13 @@ def marshal_ReadReplicaEndpointSpecPrivateNetwork(
                 ),
                 OneOfPossibility(
                     "ipam_config",
-                    marshal_ReadReplicaEndpointSpecPrivateNetworkIpamConfig(
-                        request.ipam_config, defaults
-                    )
-                    if request.ipam_config is not None
-                    else None,
+                    (
+                        marshal_ReadReplicaEndpointSpecPrivateNetworkIpamConfig(
+                            request.ipam_config, defaults
+                        )
+                        if request.ipam_config is not None
+                        else None
+                    ),
                 ),
             ]
         ),
@@ -1350,17 +1357,23 @@ def marshal_EndpointSpec(
             [
                 OneOfPossibility(
                     "load_balancer",
-                    marshal_EndpointSpecLoadBalancer(request.load_balancer, defaults)
-                    if request.load_balancer is not None
-                    else None,
+                    (
+                        marshal_EndpointSpecLoadBalancer(
+                            request.load_balancer, defaults
+                        )
+                        if request.load_balancer is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "private_network",
-                    marshal_EndpointSpecPrivateNetwork(
-                        request.private_network, defaults
-                    )
-                    if request.private_network is not None
-                    else None,
+                    (
+                        marshal_EndpointSpecPrivateNetwork(
+                            request.private_network, defaults
+                        )
+                        if request.private_network is not None
+                        else None
+                    ),
                 ),
             ]
         ),
@@ -1409,19 +1422,23 @@ def marshal_ReadReplicaEndpointSpec(
             [
                 OneOfPossibility(
                     "direct_access",
-                    marshal_ReadReplicaEndpointSpecDirectAccess(
-                        request.direct_access, defaults
-                    )
-                    if request.direct_access is not None
-                    else None,
+                    (
+                        marshal_ReadReplicaEndpointSpecDirectAccess(
+                            request.direct_access, defaults
+                        )
+                        if request.direct_access is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "private_network",
-                    marshal_ReadReplicaEndpointSpecPrivateNetwork(
-                        request.private_network, defaults
-                    )
-                    if request.private_network is not None
-                    else None,
+                    (
+                        marshal_ReadReplicaEndpointSpecPrivateNetwork(
+                            request.private_network, defaults
+                        )
+                        if request.private_network is not None
+                        else None
+                    ),
                 ),
             ]
         ),
@@ -1559,16 +1576,20 @@ def marshal_CreateInstanceRequest(
             [
                 OneOfPossibility(
                     "project_id",
-                    request.project_id or defaults.default_project_id
-                    if request.project_id is not None
-                    else None,
+                    (
+                        request.project_id or defaults.default_project_id
+                        if request.project_id is not None
+                        else None
+                    ),
                     defaults.default_project_id,
                 ),
                 OneOfPossibility(
                     "organization_id",
-                    request.organization_id or defaults.default_organization_id
-                    if request.organization_id is not None
-                    else None,
+                    (
+                        request.organization_id or defaults.default_organization_id
+                        if request.organization_id is not None
+                        else None
+                    ),
                     defaults.default_organization_id,
                 ),
             ]
@@ -1910,23 +1931,29 @@ def marshal_UpgradeInstanceRequest(
                 ),
                 OneOfPossibility(
                     "volume_type",
-                    VolumeType(request.volume_type)
-                    if request.volume_type is not None
-                    else None,
+                    (
+                        VolumeType(request.volume_type)
+                        if request.volume_type is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "upgradable_version_id",
-                    request.upgradable_version_id
-                    if request.upgradable_version_id is not None
-                    else None,
+                    (
+                        request.upgradable_version_id
+                        if request.upgradable_version_id is not None
+                        else None
+                    ),
                 ),
                 OneOfPossibility(
                     "major_upgrade_workflow",
-                    marshal_UpgradeInstanceRequestMajorUpgradeWorkflow(
-                        request.major_upgrade_workflow, defaults
-                    )
-                    if request.major_upgrade_workflow is not None
-                    else None,
+                    (
+                        marshal_UpgradeInstanceRequestMajorUpgradeWorkflow(
+                            request.major_upgrade_workflow, defaults
+                        )
+                        if request.major_upgrade_workflow is not None
+                        else None
+                    ),
                 ),
             ]
         ),

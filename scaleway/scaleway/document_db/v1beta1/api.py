@@ -51,6 +51,7 @@ from .types import (
     ListSnapshotsResponse,
     ListUsersResponse,
     LogsPolicy,
+    Maintenance,
     NodeType,
     Privilege,
     ReadReplica,
@@ -113,6 +114,7 @@ from .marshalling import (
     marshal_UpdateUserRequest,
     marshal_UpgradeInstanceRequest,
     unmarshal_Endpoint,
+    unmarshal_Maintenance,
     unmarshal_ReadReplica,
     unmarshal_Database,
     unmarshal_Instance,
@@ -2742,3 +2744,35 @@ class DocumentDbV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Endpoint(res.json())
+
+    def apply_instance_maintenance(
+        self,
+        *,
+        instance_id: str,
+        region: Optional[Region] = None,
+    ) -> Maintenance:
+        """
+        Apply an instance maintenance.
+        Apply a pending instance maintenance on your instance. This action can generate some service interruption.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param instance_id: UUID of the Database Instance to which you want to apply maintenance.
+        :return: :class:`Maintenance <Maintenance>`
+
+        Usage:
+        ::
+
+            result = api.apply_instance_maintenance(instance_id="example")
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_instance_id = validate_path_param("instance_id", instance_id)
+
+        res = self._request(
+            "POST",
+            f"/document-db/v1beta1/regions/{param_region}/instances/{param_instance_id}/apply-maintenance",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Maintenance(res.json())
