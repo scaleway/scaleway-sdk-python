@@ -12,9 +12,9 @@ from scaleway_core.bridge import (
 )
 from scaleway_core.utils import (
     WaitForOptions,
-    fetch_all_pages,
     random_name,
     validate_path_param,
+    fetch_all_pages,
     wait_for_resource,
 )
 from .types import (
@@ -28,11 +28,24 @@ from .types import (
     VolumeType,
     ACLRule,
     ACLRuleRequest,
+    AddInstanceACLRulesRequest,
     AddInstanceACLRulesResponse,
+    AddInstanceSettingsRequest,
     AddInstanceSettingsResponse,
+    CloneInstanceRequest,
+    CreateDatabaseRequest,
+    CreateEndpointRequest,
+    CreateInstanceFromSnapshotRequest,
+    CreateInstanceRequest,
+    CreateReadReplicaEndpointRequest,
+    CreateReadReplicaRequest,
+    CreateSnapshotRequest,
+    CreateUserRequest,
     Database,
     DatabaseEngine,
+    DeleteInstanceACLRulesRequest,
     DeleteInstanceACLRulesResponse,
+    DeleteInstanceSettingsRequest,
     DeleteInstanceSettingsResponse,
     Endpoint,
     EndpointSpec,
@@ -51,37 +64,25 @@ from .types import (
     ListSnapshotsResponse,
     ListUsersResponse,
     LogsPolicy,
+    Maintenance,
+    MigrateEndpointRequest,
     NodeType,
     Privilege,
+    PurgeInstanceLogsRequest,
     ReadReplica,
     ReadReplicaEndpointSpec,
+    SetInstanceACLRulesRequest,
     SetInstanceACLRulesResponse,
+    SetInstanceSettingsRequest,
     SetInstanceSettingsResponse,
+    SetPrivilegeRequest,
     Snapshot,
+    UpdateInstanceRequest,
+    UpdateSnapshotRequest,
+    UpdateUserRequest,
+    UpgradeInstanceRequest,
     UpgradeInstanceRequestMajorUpgradeWorkflow,
     User,
-    UpgradeInstanceRequest,
-    CreateInstanceRequest,
-    UpdateInstanceRequest,
-    CloneInstanceRequest,
-    CreateReadReplicaRequest,
-    CreateReadReplicaEndpointRequest,
-    PurgeInstanceLogsRequest,
-    AddInstanceSettingsRequest,
-    DeleteInstanceSettingsRequest,
-    SetInstanceSettingsRequest,
-    AddInstanceACLRulesRequest,
-    SetInstanceACLRulesRequest,
-    DeleteInstanceACLRulesRequest,
-    CreateUserRequest,
-    UpdateUserRequest,
-    CreateDatabaseRequest,
-    SetPrivilegeRequest,
-    CreateSnapshotRequest,
-    UpdateSnapshotRequest,
-    CreateInstanceFromSnapshotRequest,
-    CreateEndpointRequest,
-    MigrateEndpointRequest,
 )
 from .content import (
     INSTANCE_LOG_TRANSIENT_STATUSES,
@@ -90,6 +91,32 @@ from .content import (
     SNAPSHOT_TRANSIENT_STATUSES,
 )
 from .marshalling import (
+    unmarshal_Endpoint,
+    unmarshal_Maintenance,
+    unmarshal_ReadReplica,
+    unmarshal_Database,
+    unmarshal_InstanceLog,
+    unmarshal_Instance,
+    unmarshal_Privilege,
+    unmarshal_Snapshot,
+    unmarshal_User,
+    unmarshal_AddInstanceACLRulesResponse,
+    unmarshal_AddInstanceSettingsResponse,
+    unmarshal_DeleteInstanceACLRulesResponse,
+    unmarshal_DeleteInstanceSettingsResponse,
+    unmarshal_InstanceMetrics,
+    unmarshal_ListDatabaseEnginesResponse,
+    unmarshal_ListDatabasesResponse,
+    unmarshal_ListInstanceACLRulesResponse,
+    unmarshal_ListInstanceLogsDetailsResponse,
+    unmarshal_ListInstanceLogsResponse,
+    unmarshal_ListInstancesResponse,
+    unmarshal_ListNodeTypesResponse,
+    unmarshal_ListPrivilegesResponse,
+    unmarshal_ListSnapshotsResponse,
+    unmarshal_ListUsersResponse,
+    unmarshal_SetInstanceACLRulesResponse,
+    unmarshal_SetInstanceSettingsResponse,
     marshal_AddInstanceACLRulesRequest,
     marshal_AddInstanceSettingsRequest,
     marshal_CloneInstanceRequest,
@@ -112,40 +139,11 @@ from .marshalling import (
     marshal_UpdateSnapshotRequest,
     marshal_UpdateUserRequest,
     marshal_UpgradeInstanceRequest,
-    unmarshal_Endpoint,
-    unmarshal_ReadReplica,
-    unmarshal_Database,
-    unmarshal_Instance,
-    unmarshal_InstanceLog,
-    unmarshal_Privilege,
-    unmarshal_Snapshot,
-    unmarshal_User,
-    unmarshal_AddInstanceACLRulesResponse,
-    unmarshal_AddInstanceSettingsResponse,
-    unmarshal_DeleteInstanceACLRulesResponse,
-    unmarshal_DeleteInstanceSettingsResponse,
-    unmarshal_InstanceMetrics,
-    unmarshal_ListDatabaseEnginesResponse,
-    unmarshal_ListDatabasesResponse,
-    unmarshal_ListInstanceACLRulesResponse,
-    unmarshal_ListInstanceLogsDetailsResponse,
-    unmarshal_ListInstanceLogsResponse,
-    unmarshal_ListInstancesResponse,
-    unmarshal_ListNodeTypesResponse,
-    unmarshal_ListPrivilegesResponse,
-    unmarshal_ListSnapshotsResponse,
-    unmarshal_ListUsersResponse,
-    unmarshal_SetInstanceACLRulesResponse,
-    unmarshal_SetInstanceSettingsResponse,
 )
 
 
 class DocumentDbV1Beta1API(API):
-    """
-    Managed Document Databases API.
-
-    Managed Document Databases API.
-    """
+    """ """
 
     def list_database_engines(
         self,
@@ -207,7 +205,7 @@ class DocumentDbV1Beta1API(API):
         :param version: Version of the database engine.
         :param page:
         :param page_size:
-        :return: :class:`List[ListDatabaseEnginesResponse] <List[ListDatabaseEnginesResponse]>`
+        :return: :class:`List[DatabaseEngine] <List[DatabaseEngine]>`
 
         Usage:
         ::
@@ -239,8 +237,8 @@ class DocumentDbV1Beta1API(API):
         """
         List available node types.
         List all available node types. By default, the node types returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param include_disabled_types: Defines whether or not to include disabled types.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
         :return: :class:`ListNodeTypesResponse <ListNodeTypesResponse>`
@@ -248,7 +246,9 @@ class DocumentDbV1Beta1API(API):
         Usage:
         ::
 
-            result = api.list_node_types(include_disabled_types=True)
+            result = api.list_node_types(
+                include_disabled_types=False,
+            )
         """
 
         param_region = validate_path_param(
@@ -279,16 +279,18 @@ class DocumentDbV1Beta1API(API):
         """
         List available node types.
         List all available node types. By default, the node types returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param include_disabled_types: Defines whether or not to include disabled types.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
-        :return: :class:`List[ListNodeTypesResponse] <List[ListNodeTypesResponse]>`
+        :return: :class:`List[NodeType] <List[NodeType]>`
 
         Usage:
         ::
 
-            result = api.list_node_types_all(include_disabled_types=True)
+            result = api.list_node_types_all(
+                include_disabled_types=False,
+            )
         """
 
         return fetch_all_pages(
@@ -320,33 +322,28 @@ class DocumentDbV1Beta1API(API):
         """
         Upgrade a Database Instance.
         Upgrade your current Database Instance specifications like node type, high availability, volume, or the database engine version. Note that upon upgrade the `enable_ha` parameter can only be set to `true`.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance you want to upgrade.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param node_type: Node type of the Database Instance you want to upgrade to.
-
-        One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
+        One-Of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
         :param enable_ha: Defines whether or not High Availability should be enabled on the Database Instance.
-
-        One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
+        One-Of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
         :param volume_size: Increase your Block volume size.
-
-        One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
+        One-Of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
         :param volume_type: Change your Database Instance storage type.
-
-        One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
-        :param upgradable_version_id: Update your database engine to a newer version.
-        This will create a new Database Instance with same specifications as the current one and perform a Database Engine upgrade.
-
-        One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
+        One-Of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
+        :param upgradable_version_id: This will create a new Database Instance with same specifications as the current one and perform a Database Engine upgrade.
+        One-Of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
         :param major_upgrade_workflow: Upgrade your database engine to a new major version including instance endpoints.
-
-        One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
+        One-Of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
         :return: :class:`Instance <Instance>`
 
         Usage:
         ::
 
-            result = api.upgrade_instance(instance_id="example")
+            result = api.upgrade_instance(
+                instance_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -381,7 +378,7 @@ class DocumentDbV1Beta1API(API):
         region: Optional[Region] = None,
         tags: Optional[List[str]] = None,
         name: Optional[str] = None,
-        order_by: ListInstancesRequestOrderBy = ListInstancesRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListInstancesRequestOrderBy] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         page: Optional[int] = None,
@@ -451,7 +448,7 @@ class DocumentDbV1Beta1API(API):
         :param project_id: Project ID to list the Database Instance of.
         :param page:
         :param page_size:
-        :return: :class:`List[ListInstancesResponse] <List[ListInstancesResponse]>`
+        :return: :class:`List[Instance] <List[Instance]>`
 
         Usage:
         ::
@@ -484,14 +481,16 @@ class DocumentDbV1Beta1API(API):
         """
         Get a Database Instance.
         Retrieve information about a given Database Instance, specified by the `region` and `instance_id` parameters. Its full details, including name, status, IP address and port, are returned in the response object.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Instance <Instance>`
 
         Usage:
         ::
 
-            result = api.get_instance(instance_id="example")
+            result = api.get_instance(
+                instance_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -515,16 +514,18 @@ class DocumentDbV1Beta1API(API):
         options: Optional[WaitForOptions[Instance, bool]] = None,
     ) -> Instance:
         """
-        Waits for :class:`Instance <Instance>` to be in a final state.
-        :param region: Region to target. If none is passed will use default region from the config.
+        Get a Database Instance.
+        Retrieve information about a given Database Instance, specified by the `region` and `instance_id` parameters. Its full details, including name, status, IP address and port, are returned in the response object.
         :param instance_id: UUID of the Database Instance.
-        :param options: The options for the waiter
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Instance <Instance>`
 
         Usage:
         ::
 
-            result = api.wait_for_instance(instance_id="example")
+            result = api.get_instance(
+                instance_id="example",
+            )
         """
 
         if not options:
@@ -549,42 +550,40 @@ class DocumentDbV1Beta1API(API):
         user_name: str,
         password: str,
         node_type: str,
-        is_ha_cluster: bool,
-        disable_backup: bool,
-        volume_type: VolumeType,
-        volume_size: int,
-        backup_same_region: bool,
         region: Optional[Region] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         name: Optional[str] = None,
+        is_ha_cluster: bool,
+        disable_backup: bool,
+        volume_size: int,
+        backup_same_region: bool,
         tags: Optional[List[str]] = None,
         init_settings: Optional[List[InstanceSetting]] = None,
+        volume_type: Optional[VolumeType] = None,
         init_endpoints: Optional[List[EndpointSpec]] = None,
     ) -> Instance:
         """
         Create a Database Instance.
         Create a new Database Instance. You must set the `engine`, `user_name`, `password` and `node_type` parameters. Optionally, you can specify the volume type and size.
-        :param region: Region to target. If none is passed will use default region from the config.
-        :param organization_id: Please use project_id instead.
-
-        One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
-        :param project_id: The Project ID on which the Database Instance will be created.
-
-        One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
-        :param name: Name of the Database Instance.
         :param engine: Database engine of the Database Instance.
         :param user_name: Username created when the Database Instance is created.
         :param password: Password of the user.
         :param node_type: Type of node to use for the Database Instance.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param organization_id: Please use project_id instead.
+        One-Of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
+        :param project_id: The Project ID on which the Database Instance will be created.
+        One-Of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
+        :param name: Name of the Database Instance.
         :param is_ha_cluster: Defines whether or not High-Availability is enabled.
         :param disable_backup: Defines whether or not backups are disabled.
+        :param volume_size: Volume size when volume_type is not lssd.
+        :param backup_same_region: Defines whether to or not to store logical backups in the same region as the Database Instance.
         :param tags: Tags to apply to the Database Instance.
         :param init_settings: List of engine settings to be set upon Database Instance initialization.
         :param volume_type: Type of volume where data is stored (lssd, bssd, ...).
-        :param volume_size: Volume size when volume_type is not lssd.
         :param init_endpoints: One or multiple EndpointSpec used to expose your Database Instance. A load_balancer public endpoint is systematically created.
-        :param backup_same_region: Defines whether to or not to store logical backups in the same region as the Database Instance.
         :return: :class:`Instance <Instance>`
 
         Usage:
@@ -595,11 +594,10 @@ class DocumentDbV1Beta1API(API):
                 user_name="example",
                 password="example",
                 node_type="example",
-                is_ha_cluster=True,
-                disable_backup=True,
-                volume_type=lssd,
+                is_ha_cluster=False,
+                disable_backup=False,
                 volume_size=1,
-                backup_same_region=True,
+                backup_same_region=False,
             )
         """
 
@@ -616,18 +614,18 @@ class DocumentDbV1Beta1API(API):
                     user_name=user_name,
                     password=password,
                     node_type=node_type,
+                    region=region,
+                    name=name or random_name(prefix="ins"),
                     is_ha_cluster=is_ha_cluster,
                     disable_backup=disable_backup,
-                    volume_type=volume_type,
                     volume_size=volume_size,
                     backup_same_region=backup_same_region,
-                    region=region,
-                    organization_id=organization_id,
-                    project_id=project_id,
-                    name=name or random_name(prefix="ins"),
                     tags=tags,
                     init_settings=init_settings,
+                    volume_type=volume_type,
                     init_endpoints=init_endpoints,
+                    organization_id=organization_id,
+                    project_id=project_id,
                 ),
                 self.client,
             ),
@@ -653,8 +651,8 @@ class DocumentDbV1Beta1API(API):
         """
         Update a Database Instance.
         Update the parameters of a Database Instance, including name, tags and backup schedule details.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance to update.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param backup_schedule_frequency: In hours.
         :param backup_schedule_retention: In days.
         :param is_backup_schedule_disabled: Defines whether or not the backup schedule is disabled.
@@ -668,7 +666,9 @@ class DocumentDbV1Beta1API(API):
         Usage:
         ::
 
-            result = api.update_instance(instance_id="example")
+            result = api.update_instance(
+                instance_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -708,14 +708,16 @@ class DocumentDbV1Beta1API(API):
         """
         Delete a Database Instance.
         Delete a given Database Instance, specified by the `region` and `instance_id` parameters. Deleting a Database Instance is permanent, and cannot be undone. Note that upon deletion all your data will be lost.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance to delete.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Instance <Instance>`
 
         Usage:
         ::
 
-            result = api.delete_instance(instance_id="example")
+            result = api.delete_instance(
+                instance_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -742,9 +744,9 @@ class DocumentDbV1Beta1API(API):
         """
         Clone a Database Instance.
         Clone a given Database Instance, specified by the `region` and `instance_id` parameters. The clone feature allows you to create a new Database Instance from an existing one. The clone includes all existing databases, users and permissions. You can create a clone on a Database Instance bigger than your current one.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance you want to clone.
         :param name: Name of the Database Instance clone.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param node_type: Node type of the clone.
         :return: :class:`Instance <Instance>`
 
@@ -788,14 +790,16 @@ class DocumentDbV1Beta1API(API):
         """
         Restart Database Instance.
         Restart a given Database Instance, specified by the `region` and `instance_id` parameters. The status of the Database Instance returned in the response.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance you want to restart.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Instance <Instance>`
 
         Usage:
         ::
 
-            result = api.restart_instance(instance_id="example")
+            result = api.restart_instance(
+                instance_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -806,6 +810,7 @@ class DocumentDbV1Beta1API(API):
         res = self._request(
             "POST",
             f"/document-db/v1beta1/regions/{param_region}/instances/{param_instance_id}/restart",
+            body={},
         )
 
         self._throw_on_error(res)
@@ -816,18 +821,20 @@ class DocumentDbV1Beta1API(API):
         *,
         instance_id: str,
         region: Optional[Region] = None,
-    ) -> Optional[ScwFile]:
+    ) -> ScwFile:
         """
         Get the TLS certificate of a Database Instance.
         Retrieve information about the TLS certificate of a given Database Instance. Details like name and content are returned in the response.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance.
-        :return: :class:`Optional[ScwFile] <Optional[ScwFile]>`
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`ScwFile <ScwFile>`
 
         Usage:
         ::
 
-            result = api.get_instance_certificate(instance_id="example")
+            result = api.get_instance_certificate(
+                instance_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -841,25 +848,26 @@ class DocumentDbV1Beta1API(API):
         )
 
         self._throw_on_error(res)
-        json = res.json()
-        return unmarshal_ScwFile(json) if json is not None else None
+        return unmarshal_ScwFile(res.json())
 
     def renew_instance_certificate(
         self,
         *,
         instance_id: str,
         region: Optional[Region] = None,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Renew the TLS certificate of a Database Instance.
         Renew a TLS for a Database Instance. Renewing a certificate means that you will not be able to connect to your Database Instance using the previous certificate. You will also need to download and update the new certificate for all database clients.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance you want logs of.
+        :param region: Region to target. If none is passed will use default region from the config.
 
         Usage:
         ::
 
-            result = api.renew_instance_certificate(instance_id="example")
+            result = api.renew_instance_certificate(
+                instance_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -870,10 +878,10 @@ class DocumentDbV1Beta1API(API):
         res = self._request(
             "POST",
             f"/document-db/v1beta1/regions/{param_region}/instances/{param_instance_id}/renew-certificate",
+            body={},
         )
 
         self._throw_on_error(res)
-        return None
 
     def get_instance_metrics(
         self,
@@ -887,8 +895,8 @@ class DocumentDbV1Beta1API(API):
         """
         Get Database Instance metrics.
         Retrieve the time series metrics of a given Database Instance. You can define the period from which to retrieve metrics by specifying the `start_date` and `end_date`.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param start_date: Start date to gather metrics from.
         :param end_date: End date to gather metrics from.
         :param metric_name: Name of the metric to gather.
@@ -897,7 +905,9 @@ class DocumentDbV1Beta1API(API):
         Usage:
         ::
 
-            result = api.get_instance_metrics(instance_id="example")
+            result = api.get_instance_metrics(
+                instance_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -929,8 +939,8 @@ class DocumentDbV1Beta1API(API):
         """
         Create a Read Replica.
         Create a new Read Replica of a Database Instance. You must specify the `region` and the `instance_id`. You can only create a maximum of 3 Read Replicas per Database Instance.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance you want to create a Read Replica from.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param endpoint_spec: Specification of the endpoint you want to create.
         :param same_zone: Defines whether or not to create the replica in the same Availability Zone as the main Database Instance nodes.
         :return: :class:`ReadReplica <ReadReplica>`
@@ -938,7 +948,9 @@ class DocumentDbV1Beta1API(API):
         Usage:
         ::
 
-            result = api.create_read_replica(instance_id="example")
+            result = api.create_read_replica(
+                instance_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -971,14 +983,16 @@ class DocumentDbV1Beta1API(API):
         """
         Get a Read Replica.
         Retrieve information about a Database Instance Read Replica. Full details about the Read Replica, like `endpoints`, `status`  and `region` are returned in the response.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param read_replica_id: UUID of the Read Replica.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`ReadReplica <ReadReplica>`
 
         Usage:
         ::
 
-            result = api.get_read_replica(read_replica_id="example")
+            result = api.get_read_replica(
+                read_replica_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -1002,16 +1016,18 @@ class DocumentDbV1Beta1API(API):
         options: Optional[WaitForOptions[ReadReplica, bool]] = None,
     ) -> ReadReplica:
         """
-        Waits for :class:`ReadReplica <ReadReplica>` to be in a final state.
-        :param region: Region to target. If none is passed will use default region from the config.
+        Get a Read Replica.
+        Retrieve information about a Database Instance Read Replica. Full details about the Read Replica, like `endpoints`, `status`  and `region` are returned in the response.
         :param read_replica_id: UUID of the Read Replica.
-        :param options: The options for the waiter
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`ReadReplica <ReadReplica>`
 
         Usage:
         ::
 
-            result = api.wait_for_read_replica(read_replica_id="example")
+            result = api.get_read_replica(
+                read_replica_id="example",
+            )
         """
 
         if not options:
@@ -1038,14 +1054,16 @@ class DocumentDbV1Beta1API(API):
         """
         Delete a Read Replica.
         Delete a Read Replica of a Database Instance. You must specify the `region` and `read_replica_id` parameters of the Read Replica you want to delete.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param read_replica_id: UUID of the Read Replica.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`ReadReplica <ReadReplica>`
 
         Usage:
         ::
 
-            result = api.delete_read_replica(read_replica_id="example")
+            result = api.delete_read_replica(
+                read_replica_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -1071,14 +1089,16 @@ class DocumentDbV1Beta1API(API):
         Resync a Read Replica.
         When you resync a Read Replica, first it is reset, then its data is resynchronized from the primary node. Your Read Replica remains unavailable during the resync process. The duration of this process is proportional to the size of your Database Instance.
         The configured endpoints do not change.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param read_replica_id: UUID of the Read Replica.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`ReadReplica <ReadReplica>`
 
         Usage:
         ::
 
-            result = api.reset_read_replica(read_replica_id="example")
+            result = api.reset_read_replica(
+                read_replica_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -1089,6 +1109,7 @@ class DocumentDbV1Beta1API(API):
         res = self._request(
             "POST",
             f"/document-db/v1beta1/regions/{param_region}/read-replicas/{param_read_replica_id}/reset",
+            body={},
         )
 
         self._throw_on_error(res)
@@ -1103,14 +1124,16 @@ class DocumentDbV1Beta1API(API):
         """
         Promote a Read Replica.
         Promote a Read Replica to Database Instance automatically.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param read_replica_id: UUID of the Read Replica.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Instance <Instance>`
 
         Usage:
         ::
 
-            result = api.promote_read_replica(read_replica_id="example")
+            result = api.promote_read_replica(
+                read_replica_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -1121,6 +1144,7 @@ class DocumentDbV1Beta1API(API):
         res = self._request(
             "POST",
             f"/document-db/v1beta1/regions/{param_region}/read-replicas/{param_read_replica_id}/promote",
+            body={},
         )
 
         self._throw_on_error(res)
@@ -1136,9 +1160,9 @@ class DocumentDbV1Beta1API(API):
         """
         Create an endpoint for a Read Replica.
         Create a new endpoint for a Read Replica. Read Replicas can have at most one direct access and one Private Network endpoint.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param read_replica_id: UUID of the Read Replica.
         :param endpoint_spec: Specification of the endpoint you want to create.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`ReadReplica <ReadReplica>`
 
         Usage:
@@ -1146,7 +1170,7 @@ class DocumentDbV1Beta1API(API):
 
             result = api.create_read_replica_endpoint(
                 read_replica_id="example",
-                endpoint_spec=[ReadReplicaEndpointSpec(...)],
+                endpoint_spec=[],
             )
         """
 
@@ -1175,14 +1199,14 @@ class DocumentDbV1Beta1API(API):
         self,
         *,
         instance_id: str,
-        order_by: ListInstanceLogsRequestOrderBy,
         region: Optional[Region] = None,
+        order_by: Optional[ListInstanceLogsRequestOrderBy] = None,
     ) -> ListInstanceLogsResponse:
         """
         List available logs of a Database Instance.
         List the available logs of a Database Instance. By default, the logs returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance you want logs of.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param order_by: Criteria to use when ordering Database Instance logs listing.
         :return: :class:`ListInstanceLogsResponse <ListInstanceLogsResponse>`
 
@@ -1191,7 +1215,6 @@ class DocumentDbV1Beta1API(API):
 
             result = api.list_instance_logs(
                 instance_id="example",
-                order_by=created_at_asc,
             )
         """
 
@@ -1220,14 +1243,16 @@ class DocumentDbV1Beta1API(API):
         """
         Get given logs of a Database Instance.
         Retrieve information about the logs of a Database Instance. Specify the `instance_log_id` and `region` in your request to get information such as `download_url`, `status`, `expires_at` and `created_at` about your logs in the response.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param instance_log_id: UUID of the instance_log you want.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`InstanceLog <InstanceLog>`
 
         Usage:
         ::
 
-            result = api.get_instance_log(instance_log_id="example")
+            result = api.get_instance_log(
+                instance_log_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -1251,16 +1276,18 @@ class DocumentDbV1Beta1API(API):
         options: Optional[WaitForOptions[InstanceLog, bool]] = None,
     ) -> InstanceLog:
         """
-        Waits for :class:`InstanceLog <InstanceLog>` to be in a final state.
-        :param region: Region to target. If none is passed will use default region from the config.
+        Get given logs of a Database Instance.
+        Retrieve information about the logs of a Database Instance. Specify the `instance_log_id` and `region` in your request to get information such as `download_url`, `status`, `expires_at` and `created_at` about your logs in the response.
         :param instance_log_id: UUID of the instance_log you want.
-        :param options: The options for the waiter
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`InstanceLog <InstanceLog>`
 
         Usage:
         ::
 
-            result = api.wait_for_instance_log(instance_log_id="example")
+            result = api.get_instance_log(
+                instance_log_id="example",
+            )
         """
 
         if not options:
@@ -1284,18 +1311,20 @@ class DocumentDbV1Beta1API(API):
         instance_id: str,
         region: Optional[Region] = None,
         log_name: Optional[str] = None,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Purge remote Database Instance logs.
         Purge a given remote log from a Database Instance. You can specify the `log_name` of the log you wish to clean from your Database Instance.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance you want logs of.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param log_name: Given log name to purge.
 
         Usage:
         ::
 
-            result = api.purge_instance_logs(instance_id="example")
+            result = api.purge_instance_logs(
+                instance_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -1317,7 +1346,6 @@ class DocumentDbV1Beta1API(API):
         )
 
         self._throw_on_error(res)
-        return None
 
     def list_instance_logs_details(
         self,
@@ -1328,14 +1356,16 @@ class DocumentDbV1Beta1API(API):
         """
         List remote Database Instance logs details.
         List remote log details. By default, the details returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance you want logs of.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`ListInstanceLogsDetailsResponse <ListInstanceLogsDetailsResponse>`
 
         Usage:
         ::
 
-            result = api.list_instance_logs_details(instance_id="example")
+            result = api.list_instance_logs_details(
+                instance_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -1361,9 +1391,9 @@ class DocumentDbV1Beta1API(API):
         """
         Add Database Instance advanced settings.
         Add an advanced setting to a Database Instance. You must set the `name` and the `value` of each setting.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance you want to add settings to.
         :param settings: Settings to add to the Database Instance.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`AddInstanceSettingsResponse <AddInstanceSettingsResponse>`
 
         Usage:
@@ -1371,7 +1401,7 @@ class DocumentDbV1Beta1API(API):
 
             result = api.add_instance_settings(
                 instance_id="example",
-                settings=[InstanceSetting(...)],
+                settings=[],
             )
         """
 
@@ -1406,9 +1436,9 @@ class DocumentDbV1Beta1API(API):
         """
         Delete Database Instance advanced settings.
         Delete an advanced setting in a Database Instance. You must specify the names of the settings you want to delete in the request.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance to delete settings from.
         :param setting_names: Settings names to delete.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`DeleteInstanceSettingsResponse <DeleteInstanceSettingsResponse>`
 
         Usage:
@@ -1416,7 +1446,7 @@ class DocumentDbV1Beta1API(API):
 
             result = api.delete_instance_settings(
                 instance_id="example",
-                setting_names=["example"],
+                setting_names=[],
             )
         """
 
@@ -1451,9 +1481,9 @@ class DocumentDbV1Beta1API(API):
         """
         Set Database Instance advanced settings.
         Update an advanced setting for a Database Instance. Settings added upon database engine initalization can only be defined once, and cannot, therefore, be updated.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance where the settings must be set.
         :param settings: Settings to define for the Database Instance.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`SetInstanceSettingsResponse <SetInstanceSettingsResponse>`
 
         Usage:
@@ -1461,7 +1491,7 @@ class DocumentDbV1Beta1API(API):
 
             result = api.set_instance_settings(
                 instance_id="example",
-                settings=[InstanceSetting(...)],
+                settings=[],
             )
         """
 
@@ -1497,8 +1527,8 @@ class DocumentDbV1Beta1API(API):
         """
         List ACL rules of a Database Instance.
         List the ACL rules for a given Database Instance. The response is an array of ACL objects, each one representing an ACL that denies, allows or redirects traffic based on certain conditions.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
         :return: :class:`ListInstanceACLRulesResponse <ListInstanceACLRulesResponse>`
@@ -1506,7 +1536,9 @@ class DocumentDbV1Beta1API(API):
         Usage:
         ::
 
-            result = api.list_instance_acl_rules(instance_id="example")
+            result = api.list_instance_acl_rules(
+                instance_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -1537,16 +1569,18 @@ class DocumentDbV1Beta1API(API):
         """
         List ACL rules of a Database Instance.
         List the ACL rules for a given Database Instance. The response is an array of ACL objects, each one representing an ACL that denies, allows or redirects traffic based on certain conditions.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param page:
         :param page_size:
-        :return: :class:`List[ListInstanceACLRulesResponse] <List[ListInstanceACLRulesResponse]>`
+        :return: :class:`List[ACLRule] <List[ACLRule]>`
 
         Usage:
         ::
 
-            result = api.list_instance_acl_rules_all(instance_id="example")
+            result = api.list_instance_acl_rules_all(
+                instance_id="example",
+            )
         """
 
         return fetch_all_pages(
@@ -1571,9 +1605,9 @@ class DocumentDbV1Beta1API(API):
         """
         Add an ACL rule to a Database Instance.
         Add an additional ACL rule to a Database Instance.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance you want to add ACL rules to.
         :param rules: ACL rules to add to the Database Instance.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`AddInstanceACLRulesResponse <AddInstanceACLRulesResponse>`
 
         Usage:
@@ -1581,7 +1615,7 @@ class DocumentDbV1Beta1API(API):
 
             result = api.add_instance_acl_rules(
                 instance_id="example",
-                rules=[ACLRuleRequest(...)],
+                rules=[],
             )
         """
 
@@ -1616,9 +1650,9 @@ class DocumentDbV1Beta1API(API):
         """
         Set ACL rules for a Database Instance.
         Replace all the ACL rules of a Database Instance.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance where the ACL rules must be set.
         :param rules: ACL rules to define for the Database Instance.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`SetInstanceACLRulesResponse <SetInstanceACLRulesResponse>`
 
         Usage:
@@ -1626,7 +1660,7 @@ class DocumentDbV1Beta1API(API):
 
             result = api.set_instance_acl_rules(
                 instance_id="example",
-                rules=[ACLRuleRequest(...)],
+                rules=[],
             )
         """
 
@@ -1661,9 +1695,9 @@ class DocumentDbV1Beta1API(API):
         """
         Delete ACL rules of a Database Instance.
         Delete one or more ACL rules of a Database Instance.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance you want to delete an ACL rule from.
         :param acl_rule_ips: IP addresses defined in the ACL rules of the Database Instance.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`DeleteInstanceACLRulesResponse <DeleteInstanceACLRulesResponse>`
 
         Usage:
@@ -1671,7 +1705,7 @@ class DocumentDbV1Beta1API(API):
 
             result = api.delete_instance_acl_rules(
                 instance_id="example",
-                acl_rule_ips=["example"],
+                acl_rule_ips=[],
             )
         """
 
@@ -1702,15 +1736,15 @@ class DocumentDbV1Beta1API(API):
         instance_id: str,
         region: Optional[Region] = None,
         name: Optional[str] = None,
-        order_by: ListUsersRequestOrderBy = ListUsersRequestOrderBy.NAME_ASC,
+        order_by: Optional[ListUsersRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> ListUsersResponse:
         """
         List users of a Database Instance.
         List all users of a given Database Instance. By default, the users returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the user.
         :param order_by: Criteria to use when requesting user listing.
         :param page:
@@ -1720,7 +1754,9 @@ class DocumentDbV1Beta1API(API):
         Usage:
         ::
 
-            result = api.list_users(instance_id="example")
+            result = api.list_users(
+                instance_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -1755,18 +1791,20 @@ class DocumentDbV1Beta1API(API):
         """
         List users of a Database Instance.
         List all users of a given Database Instance. By default, the users returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the user.
         :param order_by: Criteria to use when requesting user listing.
         :param page:
         :param page_size:
-        :return: :class:`List[ListUsersResponse] <List[ListUsersResponse]>`
+        :return: :class:`List[User] <List[User]>`
 
         Usage:
         ::
 
-            result = api.list_users_all(instance_id="example")
+            result = api.list_users_all(
+                instance_id="example",
+            )
         """
 
         return fetch_all_pages(
@@ -1795,11 +1833,11 @@ class DocumentDbV1Beta1API(API):
         """
         Create a user for a Database Instance.
         Create a new user for a Database Instance. You must define the `name`, `password` and `is_admin` parameters.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance in which you want to create a user.
         :param name: Name of the user you want to create.
         :param password: Password of the user you want to create.
         :param is_admin: Defines whether the user will have administrative privileges.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`User <User>`
 
         Usage:
@@ -1809,7 +1847,7 @@ class DocumentDbV1Beta1API(API):
                 instance_id="example",
                 name="example",
                 password="example",
-                is_admin=True,
+                is_admin=False,
             )
         """
 
@@ -1848,9 +1886,9 @@ class DocumentDbV1Beta1API(API):
         """
         Update a user on a Database Instance.
         Update the parameters of a user on a Database Instance. You can update the `password` and `is_admin` parameters, but you cannot change the name of the user.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance the user belongs to.
         :param name: Name of the database user.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param password: Password of the database user.
         :param is_admin: Defines whether or not this user got administrative privileges.
         :return: :class:`User <User>`
@@ -1894,13 +1932,13 @@ class DocumentDbV1Beta1API(API):
         instance_id: str,
         name: str,
         region: Optional[Region] = None,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Delete a user on a Database Instance.
         Delete a given user on a Database Instance. You must specify, in the endpoint,  the `region`, `instance_id` and `name` parameters of the user you want to delete.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance to delete the user from.
         :param name: Name of the user.
+        :param region: Region to target. If none is passed will use default region from the config.
 
         Usage:
         ::
@@ -1923,7 +1961,6 @@ class DocumentDbV1Beta1API(API):
         )
 
         self._throw_on_error(res)
-        return None
 
     def list_databases(
         self,
@@ -1933,15 +1970,15 @@ class DocumentDbV1Beta1API(API):
         name: Optional[str] = None,
         managed: Optional[bool] = None,
         owner: Optional[str] = None,
-        order_by: ListDatabasesRequestOrderBy = ListDatabasesRequestOrderBy.NAME_ASC,
+        order_by: Optional[ListDatabasesRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> ListDatabasesResponse:
         """
         List databases in a Database Instance.
         List all databases of a given Database Instance. By default, the databases returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `name`, `managed` and `owner`.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance to list the databases of.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the database.
         :param managed: Defines whether or not the database is managed.
         :param owner: User that owns this database.
@@ -1953,7 +1990,9 @@ class DocumentDbV1Beta1API(API):
         Usage:
         ::
 
-            result = api.list_databases(instance_id="example")
+            result = api.list_databases(
+                instance_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -1992,20 +2031,22 @@ class DocumentDbV1Beta1API(API):
         """
         List databases in a Database Instance.
         List all databases of a given Database Instance. By default, the databases returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `name`, `managed` and `owner`.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance to list the databases of.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the database.
         :param managed: Defines whether or not the database is managed.
         :param owner: User that owns this database.
         :param order_by: Criteria to use when ordering database listing.
         :param page:
         :param page_size:
-        :return: :class:`List[ListDatabasesResponse] <List[ListDatabasesResponse]>`
+        :return: :class:`List[Database] <List[Database]>`
 
         Usage:
         ::
 
-            result = api.list_databases_all(instance_id="example")
+            result = api.list_databases_all(
+                instance_id="example",
+            )
         """
 
         return fetch_all_pages(
@@ -2034,9 +2075,9 @@ class DocumentDbV1Beta1API(API):
         """
         Create a database in a Database Instance.
         Create a new database. You must define the `name` parameter in the request.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance where to create the database.
         :param name: Name of the database.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Database <Database>`
 
         Usage:
@@ -2075,13 +2116,13 @@ class DocumentDbV1Beta1API(API):
         instance_id: str,
         name: str,
         region: Optional[Region] = None,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Delete a database in a Database Instance.
         Delete a given database on a Database Instance. You must specify, in the endpoint, the `region`, `instance_id` and `name` parameters of the database you want to delete.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance where to delete the database.
         :param name: Name of the database to delete.
+        :param region: Region to target. If none is passed will use default region from the config.
 
         Usage:
         ::
@@ -2104,14 +2145,13 @@ class DocumentDbV1Beta1API(API):
         )
 
         self._throw_on_error(res)
-        return None
 
     def list_privileges(
         self,
         *,
         instance_id: str,
         region: Optional[Region] = None,
-        order_by: ListPrivilegesRequestOrderBy = ListPrivilegesRequestOrderBy.USER_NAME_ASC,
+        order_by: Optional[ListPrivilegesRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         database_name: Optional[str] = None,
@@ -2120,8 +2160,8 @@ class DocumentDbV1Beta1API(API):
         """
         List user privileges for a database.
         List privileges of a user on a database. By default, the details returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `database_name` and `user_name`.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param order_by: Criteria to use when ordering privileges listing.
         :param page:
         :param page_size:
@@ -2132,7 +2172,9 @@ class DocumentDbV1Beta1API(API):
         Usage:
         ::
 
-            result = api.list_privileges(instance_id="example")
+            result = api.list_privileges(
+                instance_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -2169,19 +2211,21 @@ class DocumentDbV1Beta1API(API):
         """
         List user privileges for a database.
         List privileges of a user on a database. By default, the details returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `database_name` and `user_name`.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param order_by: Criteria to use when ordering privileges listing.
         :param page:
         :param page_size:
         :param database_name: Name of the database.
         :param user_name: Name of the user.
-        :return: :class:`List[ListPrivilegesResponse] <List[ListPrivilegesResponse]>`
+        :return: :class:`List[Privilege] <List[Privilege]>`
 
         Usage:
         ::
 
-            result = api.list_privileges_all(instance_id="example")
+            result = api.list_privileges_all(
+                instance_id="example",
+            )
         """
 
         return fetch_all_pages(
@@ -2205,16 +2249,16 @@ class DocumentDbV1Beta1API(API):
         instance_id: str,
         database_name: str,
         user_name: str,
-        permission: Permission,
         region: Optional[Region] = None,
+        permission: Optional[Permission] = None,
     ) -> Privilege:
         """
         Set user privileges for a database.
         Set the privileges of a user on a database. You must define `database_name`, `user_name` and `permission` in the request body.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance.
         :param database_name: Name of the database.
         :param user_name: Name of the user.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param permission: Permission to set (Read, Read/Write, All, Custom).
         :return: :class:`Privilege <Privilege>`
 
@@ -2225,7 +2269,6 @@ class DocumentDbV1Beta1API(API):
                 instance_id="example",
                 database_name="example",
                 user_name="example",
-                permission=readonly,
             )
         """
 
@@ -2242,8 +2285,8 @@ class DocumentDbV1Beta1API(API):
                     instance_id=instance_id,
                     database_name=database_name,
                     user_name=user_name,
-                    permission=permission,
                     region=region,
+                    permission=permission,
                 ),
                 self.client,
             ),
@@ -2257,7 +2300,7 @@ class DocumentDbV1Beta1API(API):
         *,
         region: Optional[Region] = None,
         name: Optional[str] = None,
-        order_by: ListSnapshotsRequestOrderBy = ListSnapshotsRequestOrderBy.CREATED_AT_ASC,
+        order_by: Optional[ListSnapshotsRequestOrderBy] = None,
         instance_id: Optional[str] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -2328,7 +2371,7 @@ class DocumentDbV1Beta1API(API):
         :param project_id: Project ID the snapshots belongs to.
         :param page:
         :param page_size:
-        :return: :class:`List[ListSnapshotsResponse] <List[ListSnapshotsResponse]>`
+        :return: :class:`List[Snapshot] <List[Snapshot]>`
 
         Usage:
         ::
@@ -2361,14 +2404,16 @@ class DocumentDbV1Beta1API(API):
         """
         Get a Database Instance snapshot.
         Retrieve information about a given snapshot, specified by its `snapshot_id` and `region`. Full details about the snapshot, like size and expiration date, are returned in the response.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param snapshot_id: UUID of the snapshot.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Snapshot <Snapshot>`
 
         Usage:
         ::
 
-            result = api.get_snapshot(snapshot_id="example")
+            result = api.get_snapshot(
+                snapshot_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -2392,16 +2437,18 @@ class DocumentDbV1Beta1API(API):
         options: Optional[WaitForOptions[Snapshot, bool]] = None,
     ) -> Snapshot:
         """
-        Waits for :class:`Snapshot <Snapshot>` to be in a final state.
-        :param region: Region to target. If none is passed will use default region from the config.
+        Get a Database Instance snapshot.
+        Retrieve information about a given snapshot, specified by its `snapshot_id` and `region`. Full details about the snapshot, like size and expiration date, are returned in the response.
         :param snapshot_id: UUID of the snapshot.
-        :param options: The options for the waiter
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Snapshot <Snapshot>`
 
         Usage:
         ::
 
-            result = api.wait_for_snapshot(snapshot_id="example")
+            result = api.get_snapshot(
+                snapshot_id="example",
+            )
         """
 
         if not options:
@@ -2430,8 +2477,8 @@ class DocumentDbV1Beta1API(API):
         """
         Create a Database Instance snapshot.
         Create a new snapshot of a Database Instance. You must define the `name` parameter in the request.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the snapshot.
         :param expires_at: Expiration date (must follow the ISO 8601 format).
         :return: :class:`Snapshot <Snapshot>`
@@ -2439,7 +2486,9 @@ class DocumentDbV1Beta1API(API):
         Usage:
         ::
 
-            result = api.create_snapshot(instance_id="example")
+            result = api.create_snapshot(
+                instance_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -2475,8 +2524,8 @@ class DocumentDbV1Beta1API(API):
         """
         Update a Database Instance snapshot.
         Update the parameters of a snapshot of a Database Instance. You can update the `name` and `expires_at` parameters.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param snapshot_id: UUID of the snapshot to update.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the snapshot.
         :param expires_at: Expiration date (must follow the ISO 8601 format).
         :return: :class:`Snapshot <Snapshot>`
@@ -2484,7 +2533,9 @@ class DocumentDbV1Beta1API(API):
         Usage:
         ::
 
-            result = api.update_snapshot(snapshot_id="example")
+            result = api.update_snapshot(
+                snapshot_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -2518,14 +2569,16 @@ class DocumentDbV1Beta1API(API):
         """
         Delete a Database Instance snapshot.
         Delete a given snapshot of a Database Instance. You must specify, in the endpoint,  the `region` and `snapshot_id` parameters of the snapshot you want to delete.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param snapshot_id: UUID of the snapshot to delete.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Snapshot <Snapshot>`
 
         Usage:
         ::
 
-            result = api.delete_snapshot(snapshot_id="example")
+            result = api.delete_snapshot(
+                snapshot_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -2553,9 +2606,9 @@ class DocumentDbV1Beta1API(API):
         """
         Create a new Database Instance from a snapshot.
         Restore a snapshot. When you restore a snapshot, a new Instance is created and billed to your account. Note that is possible to select a larger node type for your new Database Instance. However, the Block volume size will be the same as the size of the restored snapshot. All Instance settings will be restored if you chose a node type with the same or more memory size than the initial Instance. Settings will be reset to the default if your node type has less memory.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param snapshot_id: Block snapshot of the Database Instance.
         :param instance_name: Name of the Database Instance created with the snapshot.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param is_ha_cluster: Defines whether or not High Availability is enabled on the new Database Instance.
         :param node_type: The node type used to restore the snapshot.
         :return: :class:`Instance <Instance>`
@@ -2602,15 +2655,17 @@ class DocumentDbV1Beta1API(API):
         """
         Create a new Database Instance endpoint.
         Create a new endpoint for a Database Instance. You can add `load_balancer` and `private_network` specifications to the body of the request.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: UUID of the Database Instance you to which you want to add an endpoint.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param endpoint_spec: Specification of the endpoint you want to create.
         :return: :class:`Endpoint <Endpoint>`
 
         Usage:
         ::
 
-            result = api.create_endpoint(instance_id="example")
+            result = api.create_endpoint(
+                instance_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -2639,18 +2694,19 @@ class DocumentDbV1Beta1API(API):
         *,
         endpoint_id: str,
         region: Optional[Region] = None,
-    ) -> Optional[None]:
+    ) -> None:
         """
         Delete a Database Instance endpoint.
         Delete the endpoint of a Database Instance. You must specify the `region` and `endpoint_id` parameters of the endpoint you want to delete. Note that might need to update any environment configurations that point to the deleted endpoint.
+        :param endpoint_id: This endpoint can also be used to delete a Read Replica endpoint.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param endpoint_id: UUID of the endpoint you want to delete.
-        This endpoint can also be used to delete a Read Replica endpoint.
 
         Usage:
         ::
 
-            result = api.delete_endpoint(endpoint_id="example")
+            result = api.delete_endpoint(
+                endpoint_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -2664,7 +2720,6 @@ class DocumentDbV1Beta1API(API):
         )
 
         self._throw_on_error(res)
-        return None
 
     def get_endpoint(
         self,
@@ -2675,14 +2730,16 @@ class DocumentDbV1Beta1API(API):
         """
         Get a Database Instance endpoint.
         Retrieve information about a Database Instance endpoint. Full details about the endpoint, like `ip`, `port`, `private_network` and `load_balancer` specifications are returned in the response.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param endpoint_id: UUID of the endpoint you want to get.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Endpoint <Endpoint>`
 
         Usage:
         ::
 
-            result = api.get_endpoint(endpoint_id="example")
+            result = api.get_endpoint(
+                endpoint_id="example",
+            )
         """
 
         param_region = validate_path_param(
@@ -2708,9 +2765,9 @@ class DocumentDbV1Beta1API(API):
         """
         Migrate Database Instance endpoint.
         Migrate an existing Database Instance endpoint to another Database Instance.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param endpoint_id: UUID of the endpoint you want to migrate.
         :param instance_id: UUID of the instance you want to attach the endpoint to.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Endpoint <Endpoint>`
 
         Usage:
@@ -2742,3 +2799,38 @@ class DocumentDbV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Endpoint(res.json())
+
+    def apply_instance_maintenance(
+        self,
+        *,
+        instance_id: str,
+        region: Optional[Region] = None,
+    ) -> Maintenance:
+        """
+        Apply an instance maintenance.
+        Apply a pending instance maintenance on your instance. This action can generate some service interruption.
+        :param instance_id: UUID of the Database Instance to which you want to apply maintenance.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Maintenance <Maintenance>`
+
+        Usage:
+        ::
+
+            result = api.apply_instance_maintenance(
+                instance_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_instance_id = validate_path_param("instance_id", instance_id)
+
+        res = self._request(
+            "POST",
+            f"/document-db/v1beta1/regions/{param_region}/instances/{param_instance_id}/apply-maintenance",
+            body={},
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Maintenance(res.json())

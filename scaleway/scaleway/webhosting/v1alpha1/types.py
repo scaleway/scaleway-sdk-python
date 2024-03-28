@@ -15,6 +15,10 @@ from scaleway_core.utils import (
     StrEnumMeta,
 )
 
+from ...std.types import (
+    LanguageCode as StdLanguageCode,
+)
+
 
 class DnsRecordStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
@@ -69,16 +73,6 @@ class HostingStatus(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class LanguageCode(str, Enum, metaclass=StrEnumMeta):
-    UNKNOWN_LANGUAGE_CODE = "unknown_language_code"
-    EN_US = "en_US"
-    FR_FR = "fr_FR"
-    DE_DE = "de_DE"
-
-    def __str__(self) -> str:
-        return str(self.value)
-
-
 class ListHostingsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
@@ -114,204 +108,6 @@ class OfferQuotaWarning(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
-class ControlPanel:
-    """
-    Control panel.
-    """
-
-    name: str
-    """
-    Control panel name.
-    """
-
-    available: bool
-    """
-    Define if the control panel type is available to order.
-    """
-
-    logo_url: str
-    """
-    URL of this control panel's logo.
-    """
-
-
-@dataclass
-class DnsRecord:
-    """
-    Dns record.
-    """
-
-    name: str
-    """
-    Record name.
-    """
-
-    type_: DnsRecordType
-    """
-    Record type.
-    """
-
-    ttl: int
-    """
-    Record time-to-live.
-    """
-
-    value: str
-    """
-    Record value.
-    """
-
-    priority: Optional[int]
-    """
-    Record priority level.
-    """
-
-    status: DnsRecordStatus
-    """
-    Record status.
-    """
-
-
-@dataclass
-class DnsRecords:
-    """
-    Dns records.
-    """
-
-    records: List[DnsRecord]
-    """
-    List of DNS records.
-    """
-
-    name_servers: List[Nameserver]
-    """
-    List of nameservers.
-    """
-
-    status: DnsRecordsStatus
-    """
-    Status of the records.
-    """
-
-
-@dataclass
-class Hosting:
-    """
-    Hosting.
-    """
-
-    id: str
-    """
-    ID of the Web Hosting plan.
-    """
-
-    organization_id: str
-    """
-    ID of the Scaleway Organization the Web Hosting plan belongs to.
-    """
-
-    project_id: str
-    """
-    ID of the Scaleway Project the Web Hosting plan belongs to.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Date on which the Web Hosting plan was last updated.
-    """
-
-    created_at: Optional[datetime]
-    """
-    Date on which the Web Hosting plan was created.
-    """
-
-    status: HostingStatus
-    """
-    Status of the Web Hosting plan.
-    """
-
-    platform_hostname: str
-    """
-    Hostname of the host platform.
-    """
-
-    platform_number: Optional[int]
-    """
-    Number of the host platform.
-    """
-
-    offer_id: str
-    """
-    ID of the active offer for the Web Hosting plan.
-    """
-
-    offer_name: str
-    """
-    Name of the active offer for the Web Hosting plan.
-    """
-
-    domain: str
-    """
-    Main domain associated with the Web Hosting plan.
-    """
-
-    tags: List[str]
-    """
-    List of tags associated with the Web Hosting plan.
-    """
-
-    options: List[HostingOption]
-    """
-    Array of any options activated for the Web Hosting plan.
-    """
-
-    dns_status: HostingDnsStatus
-    """
-    DNS status of the Web Hosting plan.
-    """
-
-    cpanel_urls: Optional[HostingCpanelUrls]
-    """
-    URL to connect to cPanel dashboard and to Webmail interface.
-    """
-
-    username: str
-    """
-    Main Web Hosting cPanel username.
-    """
-
-    offer_end_of_life: bool
-    """
-    Indicates if the hosting offer has reached its end of life.
-    """
-
-    control_panel_name: str
-    """
-    Name of the control panel.
-    """
-
-    platform_group: str
-    """
-    Group of the hosting's host server/platform.
-    """
-
-    ipv4: str
-    """
-    IPv4 address of the hosting's host server.
-    """
-
-    ipv6: str
-    """
-    IPv6 address of the hosting's host server.
-    """
-
-    region: Region
-    """
-    Region where the Web Hosting plan is hosted.
-    """
-
-
-@dataclass
 class HostingCpanelUrls:
     dashboard: str
 
@@ -320,10 +116,6 @@ class HostingCpanelUrls:
 
 @dataclass
 class HostingOption:
-    """
-    Hosting. option.
-    """
-
     id: str
     """
     Option ID.
@@ -336,126 +128,7 @@ class HostingOption:
 
 
 @dataclass
-class ListControlPanelsResponse:
-    """
-    List control panels response.
-    """
-
-    total_count: int
-    """
-    Number of control panels returned.
-    """
-
-    control_panels: List[ControlPanel]
-    """
-    List of control panels.
-    """
-
-
-@dataclass
-class ListHostingsResponse:
-    """
-    List hostings response.
-    """
-
-    total_count: int
-    """
-    Number of Web Hosting plans returned.
-    """
-
-    hostings: List[Hosting]
-    """
-    List of Web Hosting plans.
-    """
-
-
-@dataclass
-class ListOffersResponse:
-    """
-    List offers response.
-    """
-
-    offers: List[Offer]
-    """
-    List of offers.
-    """
-
-
-@dataclass
-class Nameserver:
-    """
-    Nameserver.
-    """
-
-    hostname: str
-    """
-    Hostname of the nameserver.
-    """
-
-    status: NameserverStatus
-    """
-    Status of the nameserver.
-    """
-
-    is_default: bool
-    """
-    Defines whether the nameserver is the default one.
-    """
-
-
-@dataclass
-class Offer:
-    """
-    Offer.
-    """
-
-    id: str
-    """
-    Offer ID.
-    """
-
-    billing_operation_path: str
-    """
-    Unique identifier used for billing.
-    """
-
-    product: Optional[OfferProduct]
-    """
-    Product constituting this offer.
-    """
-
-    price: Optional[Money]
-    """
-    Price of this offer.
-    """
-
-    available: bool
-    """
-    If a hosting_id was specified in the call, defines whether this offer is available for that Web Hosting plan to migrate (update) to.
-    """
-
-    quota_warnings: List[OfferQuotaWarning]
-    """
-    Quota warnings, if the offer is not available for the specified hosting_id.
-    """
-
-    end_of_life: bool
-    """
-    Indicates if the offer has reached its end of life.
-    """
-
-    control_panel_name: str
-    """
-    Name of the control panel.
-    """
-
-
-@dataclass
 class OfferProduct:
-    """
-    Offer. product.
-    """
-
     name: str
     """
     Product name.
@@ -508,15 +181,261 @@ class OfferProduct:
 
 
 @dataclass
-class CreateHostingRequest:
-    region: Optional[Region]
+class CreateHostingRequestDomainConfiguration:
+    update_nameservers: bool
+
+    update_web_record: bool
+
+    update_mail_record: bool
+
+    update_all_records: bool
+
+
+@dataclass
+class DnsRecord:
+    name: str
     """
-    Region to target. If none is passed will use default region from the config.
+    Record name.
+    """
+
+    type_: DnsRecordType
+    """
+    Record type.
+    """
+
+    ttl: int
+    """
+    Record time-to-live.
+    """
+
+    value: str
+    """
+    Record value.
+    """
+
+    status: DnsRecordStatus
+    """
+    Record status.
+    """
+
+    priority: Optional[int]
+    """
+    Record priority level.
+    """
+
+
+@dataclass
+class Nameserver:
+    hostname: str
+    """
+    Hostname of the nameserver.
+    """
+
+    status: NameserverStatus
+    """
+    Status of the nameserver.
+    """
+
+    is_default: bool
+    """
+    Defines whether the nameserver is the default one.
+    """
+
+
+@dataclass
+class ControlPanel:
+    name: str
+    """
+    Control panel name.
+    """
+
+    available: bool
+    """
+    Define if the control panel type is available to order.
+    """
+
+    logo_url: str
+    """
+    URL of this control panel's logo.
+    """
+
+
+@dataclass
+class Hosting:
+    id: str
+    """
+    ID of the Web Hosting plan.
+    """
+
+    organization_id: str
+    """
+    ID of the Scaleway Organization the Web Hosting plan belongs to.
+    """
+
+    project_id: str
+    """
+    ID of the Scaleway Project the Web Hosting plan belongs to.
+    """
+
+    status: HostingStatus
+    """
+    Status of the Web Hosting plan.
+    """
+
+    platform_hostname: str
+    """
+    Hostname of the host platform.
     """
 
     offer_id: str
     """
+    ID of the active offer for the Web Hosting plan.
+    """
+
+    offer_name: str
+    """
+    Name of the active offer for the Web Hosting plan.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Date on which the Web Hosting plan was last updated.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Date on which the Web Hosting plan was created.
+    """
+
+    platform_number: Optional[int]
+    """
+    Number of the host platform.
+    """
+
+    domain: str
+    """
+    Main domain associated with the Web Hosting plan.
+    """
+
+    tags: List[str]
+    """
+    List of tags associated with the Web Hosting plan.
+    """
+
+    options: List[HostingOption]
+    """
+    Array of any options activated for the Web Hosting plan.
+    """
+
+    dns_status: HostingDnsStatus
+    """
+    DNS status of the Web Hosting plan.
+    """
+
+    username: str
+    """
+    Main Web Hosting cPanel username.
+    """
+
+    offer_end_of_life: bool
+    """
+    Indicates if the hosting offer has reached its end of life.
+    """
+
+    control_panel_name: str
+    """
+    Name of the control panel.
+    """
+
+    platform_group: str
+    """
+    Group of the hosting's host server/platform.
+    """
+
+    ipv4: str
+    """
+    IPv4 address of the hosting's host server.
+    """
+
+    ipv6: str
+    """
+    IPv6 address of the hosting's host server.
+    """
+
+    protected: bool
+    """
+    Whether the hosting is protected or not.
+    """
+
+    region: Region
+    """
+    Region where the Web Hosting plan is hosted.
+    """
+
+    cpanel_urls: Optional[HostingCpanelUrls]
+    """
+    URL to connect to cPanel dashboard and to Webmail interface.
+    """
+
+
+@dataclass
+class Offer:
+    id: str
+    """
+    Offer ID.
+    """
+
+    billing_operation_path: str
+    """
+    Unique identifier used for billing.
+    """
+
+    available: bool
+    """
+    If a hosting_id was specified in the call, defines whether this offer is available for that Web Hosting plan to migrate (update) to.
+    """
+
+    quota_warnings: List[OfferQuotaWarning]
+    """
+    Quota warnings, if the offer is not available for the specified hosting_id.
+    """
+
+    end_of_life: bool
+    """
+    Indicates if the offer has reached its end of life.
+    """
+
+    control_panel_name: str
+    """
+    Name of the control panel.
+    """
+
+    product: Optional[OfferProduct]
+    """
+    Product constituting this offer.
+    """
+
+    price: Optional[Money]
+    """
+    Price of this offer.
+    """
+
+
+@dataclass
+class CreateHostingRequest:
+    offer_id: str
+    """
     ID of the selected offer for the Web Hosting plan.
+    """
+
+    domain: str
+    """
+    Domain name to link to the Web Hosting plan. You must already own this domain name, and have completed the DNS validation process beforehand.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
     """
 
     project_id: Optional[str]
@@ -534,19 +453,107 @@ class CreateHostingRequest:
     List of tags for the Web Hosting plan.
     """
 
-    domain: str
-    """
-    Domain name to link to the Web Hosting plan. You must already own this domain name, and have completed the DNS validation process beforehand.
-    """
-
     option_ids: Optional[List[str]]
     """
     IDs of any selected additional options for the Web Hosting plan.
     """
 
-    language: LanguageCode
+    language: Optional[StdLanguageCode]
     """
     Default language for the control panel interface.
+    """
+
+    domain_configuration: Optional[CreateHostingRequestDomainConfiguration]
+    """
+    Indicates whether to update hosting domain name servers and DNS records for domains managed by Scaleway Elements.
+    """
+
+
+@dataclass
+class DeleteHostingRequest:
+    hosting_id: str
+    """
+    Hosting ID.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class DnsRecords:
+    records: List[DnsRecord]
+    """
+    List of DNS records.
+    """
+
+    name_servers: List[Nameserver]
+    """
+    List of nameservers.
+    """
+
+    status: DnsRecordsStatus
+    """
+    Status of the records.
+    """
+
+
+@dataclass
+class GetDomainDnsRecordsRequest:
+    domain: str
+    """
+    Domain associated with the DNS records.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetHostingRequest:
+    hosting_id: str
+    """
+    Hosting ID.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class ListControlPanelsRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    page: Optional[int]
+    """
+    Page number to return, from the paginated results (must be a positive integer).
+    """
+
+    page_size: Optional[int]
+    """
+    Number of control panels to return (must be a positive integer lower or equal to 100).
+    """
+
+
+@dataclass
+class ListControlPanelsResponse:
+    total_count: int
+    """
+    Number of control panels returned.
+    """
+
+    control_panels: List[ControlPanel]
+    """
+    List of control panels.
     """
 
 
@@ -604,28 +611,82 @@ class ListHostingsRequest:
 
 
 @dataclass
-class GetHostingRequest:
+class ListHostingsResponse:
+    total_count: int
+    """
+    Number of Web Hosting plans returned.
+    """
+
+    hostings: List[Hosting]
+    """
+    List of Web Hosting plans.
+    """
+
+
+@dataclass
+class ListOffersRequest:
+    without_options: bool
+    """
+    Defines whether the response should consist of offers only, without options.
+    """
+
+    only_options: bool
+    """
+    Defines whether the response should consist of options only, without offers.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
+    order_by: Optional[ListOffersRequestOrderBy]
+    """
+    Sort order of offers in the response.
+    """
+
+    hosting_id: Optional[str]
+    """
+    ID of a Web Hosting plan, to check compatibility with returned offers (in case of wanting to update the plan).
+    """
+
+    control_panels: Optional[List[str]]
+    """
+    Name of the control panel to filter for.
+    """
+
+
+@dataclass
+class ListOffersResponse:
+    offers: List[Offer]
+    """
+    List of offers.
+    """
+
+
+@dataclass
+class RestoreHostingRequest:
     hosting_id: str
     """
     Hosting ID.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
     """
 
 
 @dataclass
 class UpdateHostingRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
     hosting_id: str
     """
     Hosting ID.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
     """
 
     email: Optional[str]
@@ -648,92 +709,7 @@ class UpdateHostingRequest:
     ID of the new offer for the Web Hosting plan.
     """
 
-
-@dataclass
-class DeleteHostingRequest:
-    region: Optional[Region]
+    protected: Optional[bool]
     """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    hosting_id: str
-    """
-    Hosting ID.
-    """
-
-
-@dataclass
-class RestoreHostingRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    hosting_id: str
-    """
-    Hosting ID.
-    """
-
-
-@dataclass
-class GetDomainDnsRecordsRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    domain: str
-    """
-    Domain associated with the DNS records.
-    """
-
-
-@dataclass
-class ListOffersRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    order_by: ListOffersRequestOrderBy
-    """
-    Sort order of offers in the response.
-    """
-
-    without_options: bool
-    """
-    Defines whether the response should consist of offers only, without options.
-    """
-
-    only_options: bool
-    """
-    Defines whether the response should consist of options only, without offers.
-    """
-
-    hosting_id: Optional[str]
-    """
-    ID of a Web Hosting plan, to check compatibility with returned offers (in case of wanting to update the plan).
-    """
-
-    control_panels: Optional[List[str]]
-    """
-    Name of the control panel to filter for.
-    """
-
-
-@dataclass
-class ListControlPanelsRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    page: Optional[int]
-    """
-    Page number to return, from the paginated results (must be a positive integer).
-    """
-
-    page_size: Optional[int]
-    """
-    Number of control panels to return (must be a positive integer lower or equal to 100).
+    Whether the hosting is protected or not.
     """

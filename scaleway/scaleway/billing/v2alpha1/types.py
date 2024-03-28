@@ -83,19 +83,59 @@ class ListInvoicesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
-class Discount:
+class DiscountCoupon:
+    description: Optional[str]
     """
-    Discount.
+    The description of the coupon.
     """
 
+
+@dataclass
+class DiscountFilter:
+    type_: DiscountFilterType
+    """
+    Type of the filter.
+    """
+
+    value: str
+    """
+    Value of filter, it can be a product/range/region/zone value.
+    """
+
+
+@dataclass
+class GetConsumptionResponseConsumption:
+    description: str
+    """
+    Description of the consumption.
+    """
+
+    project_id: str
+    """
+    Project ID of the consumption.
+    """
+
+    category: str
+    """
+    Category of the consumption.
+    """
+
+    operation_path: str
+    """
+    Unique identifier of the product.
+    """
+
+    value: Optional[Money]
+    """
+    Monetary value of the consumption.
+    """
+
+
+@dataclass
+class Discount:
     id: str
     """
     The ID of the discount.
-    """
-
-    creation_date: Optional[datetime]
-    """
-    The creation date of the discount.
     """
 
     organization_id: str
@@ -128,6 +168,16 @@ class Discount:
     The mode of the discount.
     """
 
+    filters: List[DiscountFilter]
+    """
+    List of products/ranges/regions/zones to limit the usability of discounts.
+    """
+
+    creation_date: Optional[datetime]
+    """
+    The creation date of the discount.
+    """
+
     start_date: Optional[datetime]
     """
     The start date of the discount.
@@ -143,99 +193,22 @@ class Discount:
     The description of the coupon.
     """
 
-    filters: List[DiscountFilter]
-    """
-    List of products/ranges/regions/zones to limit the usability of discounts.
-    """
-
-
-@dataclass
-class DiscountCoupon:
-    """
-    Discount. coupon.
-    """
-
-    description: Optional[str]
-    """
-    The description of the coupon.
-    """
-
-
-@dataclass
-class DiscountFilter:
-    """
-    Discount. filter.
-    """
-
-    type_: DiscountFilterType
-    """
-    Type of the filter.
-    """
-
-    value: str
-    """
-    Value of filter, it can be a product/range/region/zone value.
-    """
-
-
-@dataclass
-class GetConsumptionResponse:
-    """
-    Get consumption response.
-    """
-
-    consumptions: List[GetConsumptionResponseConsumption]
-    """
-    Detailed consumption list.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Last consumption update date.
-    """
-
-
-@dataclass
-class GetConsumptionResponseConsumption:
-    """
-    Get consumption response. consumption.
-    """
-
-    value: Optional[Money]
-    """
-    Monetary value of the consumption.
-    """
-
-    description: str
-    """
-    Description of the consumption.
-    """
-
-    project_id: str
-    """
-    Project ID of the consumption.
-    """
-
-    category: str
-    """
-    Category of the consumption.
-    """
-
-    operation_path: str
-    """
-    Unique identifier of the product.
-    """
-
 
 @dataclass
 class Invoice:
-    """
-    Invoice.
-    """
-
     id: str
     """
     Invoice ID.
+    """
+
+    invoice_type: InvoiceType
+    """
+    Type of invoice.
+    """
+
+    number: int
+    """
+    Invoice number.
     """
 
     start_date: Optional[datetime]
@@ -263,48 +236,17 @@ class Invoice:
     Total amount, taxed.
     """
 
-    invoice_type: InvoiceType
-    """
-    Type of invoice.
-    """
-
-    number: int
-    """
-    Invoice number.
-    """
-
 
 @dataclass
-class ListDiscountsResponse:
+class DownloadInvoiceRequest:
+    invoice_id: str
     """
-    List discounts response.
-    """
-
-    total_count: int
-    """
-    Total number of discounts.
+    Invoice ID.
     """
 
-    discounts: List[Discount]
+    file_type: Optional[DownloadInvoiceRequestFileType]
     """
-    Paginated returned discounts.
-    """
-
-
-@dataclass
-class ListInvoicesResponse:
-    """
-    List invoices response.
-    """
-
-    total_count: int
-    """
-    Total number of invoices.
-    """
-
-    invoices: List[Invoice]
-    """
-    Paginated returned invoices.
+    Wanted file type.
     """
 
 
@@ -313,6 +255,55 @@ class GetConsumptionRequest:
     organization_id: Optional[str]
     """
     Filter by organization ID.
+    """
+
+
+@dataclass
+class GetConsumptionResponse:
+    consumptions: List[GetConsumptionResponseConsumption]
+    """
+    Detailed consumption list.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Last consumption update date.
+    """
+
+
+@dataclass
+class ListDiscountsRequest:
+    order_by: Optional[ListDiscountsRequestOrderBy]
+    """
+    Order discounts in the response by their description.
+    """
+
+    page: Optional[int]
+    """
+    Positive integer to choose the page to return.
+    """
+
+    page_size: Optional[int]
+    """
+    Positive integer lower or equal to 100 to select the number of items to return.
+    """
+
+    organization_id: Optional[str]
+    """
+    ID of the organization.
+    """
+
+
+@dataclass
+class ListDiscountsResponse:
+    total_count: int
+    """
+    Total number of discounts.
+    """
+
+    discounts: List[Discount]
+    """
+    Paginated returned discounts.
     """
 
 
@@ -355,36 +346,13 @@ class ListInvoicesRequest:
 
 
 @dataclass
-class DownloadInvoiceRequest:
-    invoice_id: str
+class ListInvoicesResponse:
+    total_count: int
     """
-    Invoice ID.
-    """
-
-    file_type: DownloadInvoiceRequestFileType
-    """
-    Wanted file type.
+    Total number of invoices.
     """
 
-
-@dataclass
-class ListDiscountsRequest:
-    order_by: Optional[ListDiscountsRequestOrderBy]
+    invoices: List[Invoice]
     """
-    Order discounts in the response by their description.
-    """
-
-    page: Optional[int]
-    """
-    Positive integer to choose the page to return.
-    """
-
-    page_size: Optional[int]
-    """
-    Positive integer lower or equal to 100 to select the number of items to return.
-    """
-
-    organization_id: Optional[str]
-    """
-    ID of the organization.
+    Paginated returned invoices.
     """

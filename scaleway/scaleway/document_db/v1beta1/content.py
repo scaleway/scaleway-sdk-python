@@ -10,14 +10,12 @@ from .types import (
     SnapshotStatus,
 )
 
-
 INSTANCE_LOG_TRANSIENT_STATUSES: List[InstanceLogStatus] = [
     InstanceLogStatus.CREATING,
 ]
 """
 Lists transient statutes of the enum :class:`InstanceLogStatus <InstanceLogStatus>`.
 """
-
 INSTANCE_TRANSIENT_STATUSES: List[InstanceStatus] = [
     InstanceStatus.PROVISIONING,
     InstanceStatus.CONFIGURING,
@@ -31,14 +29,13 @@ INSTANCE_TRANSIENT_STATUSES: List[InstanceStatus] = [
 """
 Lists transient statutes of the enum :class:`InstanceStatus <InstanceStatus>`.
 """
-
 MAINTENANCE_TRANSIENT_STATUSES: List[MaintenanceStatus] = [
     MaintenanceStatus.PENDING,
+    MaintenanceStatus.ONGOING,
 ]
 """
 Lists transient statutes of the enum :class:`MaintenanceStatus <MaintenanceStatus>`.
 """
-
 READ_REPLICA_TRANSIENT_STATUSES: List[ReadReplicaStatus] = [
     ReadReplicaStatus.PROVISIONING,
     ReadReplicaStatus.INITIALIZING,
@@ -49,7 +46,6 @@ READ_REPLICA_TRANSIENT_STATUSES: List[ReadReplicaStatus] = [
 """
 Lists transient statutes of the enum :class:`ReadReplicaStatus <ReadReplicaStatus>`.
 """
-
 SNAPSHOT_TRANSIENT_STATUSES: List[SnapshotStatus] = [
     SnapshotStatus.CREATING,
     SnapshotStatus.RESTORING,
