@@ -46,18 +46,14 @@ class ListJobRunsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
-class CreateJobDefinitionRequestCronScheduleConfig:
+class CronSchedule:
     schedule: str
 
     timezone: str
 
 
 @dataclass
-class CronSchedule:
-    """
-    Cron schedule.
-    """
-
+class CreateJobDefinitionRequestCronScheduleConfig:
     schedule: str
 
     timezone: str
@@ -86,10 +82,6 @@ class JobDefinition:
     environment_variables: Dict[str, str]
 
     description: str
-
-    local_storage_capacity: int
-
-    cron_schedule: Optional[CronSchedule]
 
     local_storage_capacity: int
 
@@ -138,51 +130,12 @@ class JobRun:
 
     run_duration: Optional[str]
 
-    error_message: str
-
-    cpu_limit: int
-
-    memory_limit: int
-
-    command: str
-
-    environment_variables: Dict[str, str]
-
-    local_storage_capacity: int
-
-    region: Region
-
 
 @dataclass
 class UpdateJobDefinitionRequestCronScheduleConfig:
     schedule: Optional[str]
-
-    total_count: int
-
-
-@dataclass
-class ListJobRunsResponse:
-    job_runs: List[JobRun]
-
-    total_count: int
-
-
-@dataclass
-class StartJobDefinitionResponse:
-    job_runs: List[JobRun]
-
-
-@dataclass
-class UpdateJobDefinitionRequestCronScheduleConfig:
-    schedule: Optional[str]
-    """
-    One-of ('_schedule'): at most one of 'schedule' could be set.
-    """
 
     timezone: Optional[str]
-    """
-    One-of ('_timezone'): at most one of 'timezone' could be set.
-    """
 
 
 @dataclass
@@ -222,29 +175,9 @@ class CreateJobDefinitionRequest:
     Name of the job definition.
     """
 
-    cpu_limit: int
-    """
-    CPU limit of the job.
-    """
-
-    memory_limit: int
-    """
-    Memory limit of the job (in MiB).
-    """
-
     local_storage_capacity: Optional[int]
     """
     Local storage capacity of the job (in MiB).
-    """
-
-    image_uri: str
-    """
-    Image to use for the job.
-    """
-
-    command: str
-    """
-    Startup command.
     """
 
     project_id: Optional[str]
@@ -255,11 +188,6 @@ class CreateJobDefinitionRequest:
     environment_variables: Optional[Dict[str, str]]
     """
     Environment variables of the job.
-    """
-
-    description: str
-    """
-    Description of the job.
     """
 
     job_timeout: Optional[str]
@@ -290,6 +218,24 @@ class GetJobDefinitionRequest:
     UUID of the job definition to get.
     """
 
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetJobRunRequest:
+    job_run_id: str
+    """
+    UUID of the job run to get.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
 
 @dataclass
 class ListJobDefinitionsRequest:
@@ -311,128 +257,7 @@ class ListJobDefinitionsRequest:
 class ListJobDefinitionsResponse:
     job_definitions: List[JobDefinition]
 
-    job_definition_id: str
-    """
-    UUID of the job definition to update.
-    """
-
-    name: Optional[str]
-    """
-    Name of the job definition.
-    """
-
-    cpu_limit: Optional[int]
-    """
-    CPU limit of the job.
-    """
-
-    memory_limit: Optional[int]
-    """
-    Memory limit of the job (in MiB).
-    """
-
-    local_storage_capacity: Optional[int]
-    """
-    Local storage capacity of the job (in MiB).
-    """
-
-    image_uri: Optional[str]
-    """
-    Image to use for the job.
-    """
-
-    command: Optional[str]
-    """
-    Startup command.
-    """
-
-    environment_variables: Optional[Dict[str, str]]
-    """
-    Environment variables of the job.
-    """
-
-    description: Optional[str]
-    """
-    Description of the job.
-    """
-
-    job_timeout: Optional[str]
-    """
-    Timeout of the job in seconds.
-    """
-
-    cron_schedule: Optional[UpdateJobDefinitionRequestCronScheduleConfig]
-
-
-@dataclass
-class DeleteJobDefinitionRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    job_definition_id: str
-    """
-    UUID of the job definition to delete.
-    """
-
-
-@dataclass
-class StartJobDefinitionRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    job_definition_id: str
-    """
-    UUID of the job definition to start.
-    """
-
-    command: Optional[str]
-    """
-    Contextual startup command for this specific job run.
-    
-    One-of ('_command'): at most one of 'command' could be set.
-    """
-
-    environment_variables: Optional[Dict[str, str]]
-    """
-    Contextual environment variables for this specific job run.
-    """
-
-    replicas: Optional[int]
-    """
-    Number of jobs to run.
-    
-    One-of ('_replicas'): at most one of 'replicas' could be set.
-    """
-
-
-@dataclass
-class GetJobRunRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    job_run_id: str
-    """
-    UUID of the job run to get.
-    """
-
-
-@dataclass
-class StopJobRunRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    job_run_id: str
-    """
-    UUID of the job run to stop.
-    """
+    total_count: int
 
 
 @dataclass

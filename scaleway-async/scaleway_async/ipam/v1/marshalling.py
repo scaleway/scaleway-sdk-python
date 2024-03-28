@@ -15,9 +15,6 @@ from .types import (
     Source,
     IP,
     ListIPsResponse,
-    Resource,
-    Reverse,
-    Source,
     BookIPRequest,
     UpdateIPRequest,
 )
@@ -51,24 +48,7 @@ def unmarshal_Resource(data: Any) -> Resource:
 
 
 def unmarshal_Reverse(data: Any) -> Reverse:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'Reverse' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("address", None)
-    args["address"] = field
-
-    field = data.get("hostname", None)
-    args["hostname"] = field
-
-    return Reverse(**args)
-
-
-def unmarshal_Source(data: Any) -> Source:
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise TypeError(
             "Unmarshalling the type 'Reverse' failed as data isn't a dictionary."
         )
@@ -133,11 +113,6 @@ def unmarshal_IP(data: Any) -> IP:
     if field is not None:
         args["is_ipv6"] = field
 
-    field = data.get("reverses", None)
-    args["reverses"] = (
-        [unmarshal_Reverse(v) for v in field] if field is not None else None
-    )
-
     field = data.get("source", None)
     if field is not None:
         args["source"] = unmarshal_Source(field)
@@ -194,21 +169,6 @@ def unmarshal_ListIPsResponse(data: Any) -> ListIPsResponse:
     return ListIPsResponse(**args)
 
 
-def marshal_Reverse(
-    request: Reverse,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-
-    if request.address is not None:
-        output["address"] = request.address
-
-    if request.hostname is not None:
-        output["hostname"] = request.hostname
-
-    return output
-
-
 def marshal_Source(
     request: Source,
     defaults: ProfileDefaults,
@@ -217,21 +177,9 @@ def marshal_Source(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility(
-                    "zonal", request.zonal if request.zonal is not None else None
-                ),
-                OneOfPossibility(
-                    "private_network_id",
-                    (
-                        request.private_network_id
-                        if request.private_network_id is not None
-                        else None
-                    ),
-                ),
-                OneOfPossibility(
-                    "subnet_id",
-                    request.subnet_id if request.subnet_id is not None else None,
-                ),
+                OneOfPossibility("zonal", request.zonal),
+                OneOfPossibility("private_network_id", request.private_network_id),
+                OneOfPossibility("subnet_id", request.subnet_id),
             ]
         ),
     )
@@ -283,9 +231,6 @@ def marshal_UpdateIPRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
-
-    if request.reverses is not None:
-        output["reverses"] = [marshal_Reverse(v, defaults) for v in request.reverses]
 
     if request.tags is not None:
         output["tags"] = request.tags

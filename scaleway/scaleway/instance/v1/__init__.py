@@ -57,29 +57,6 @@ from .types import SnapshotBaseVolume
 from .types import ServerTypeCapabilities
 from .types import ServerTypeNetwork
 from .types import ServerTypeVolumeConstraintsByType
-from .types import SetPlacementGroupResponse
-from .types import SetPlacementGroupServersResponse
-from .types import SetSecurityGroupRulesRequestRule
-from .types import SetSecurityGroupRulesResponse
-from .types import Snapshot
-from .types import SnapshotBaseVolume
-from .types import Task
-from .types import UpdateImageResponse
-from .types import UpdateIpResponse
-from .types import UpdatePlacementGroupResponse
-from .types import UpdatePlacementGroupServersResponse
-from .types import UpdateSecurityGroupResponse
-from .types import UpdateSecurityGroupRuleResponse
-from .types import UpdateServerResponse
-from .types import UpdateSnapshotResponse
-from .types import UpdateVolumeResponse
-from .types import Volume
-from .types import VolumeImageUpdateTemplate
-from .types import VolumeServer
-from .types import VolumeServerTemplate
-from .types import VolumeSummary
-from .types import VolumeTemplate
-from .types import VolumeType
 from .types import VolumeTypeCapabilities
 from .types import VolumeTypeConstraints
 from .types import Server
@@ -279,29 +256,6 @@ __all__ = [
     "ServerTypeCapabilities",
     "ServerTypeNetwork",
     "ServerTypeVolumeConstraintsByType",
-    "SetPlacementGroupResponse",
-    "SetPlacementGroupServersResponse",
-    "SetSecurityGroupRulesRequestRule",
-    "SetSecurityGroupRulesResponse",
-    "Snapshot",
-    "SnapshotBaseVolume",
-    "Task",
-    "UpdateImageResponse",
-    "UpdateIpResponse",
-    "UpdatePlacementGroupResponse",
-    "UpdatePlacementGroupServersResponse",
-    "UpdateSecurityGroupResponse",
-    "UpdateSecurityGroupRuleResponse",
-    "UpdateServerResponse",
-    "UpdateSnapshotResponse",
-    "UpdateVolumeResponse",
-    "Volume",
-    "VolumeImageUpdateTemplate",
-    "VolumeServer",
-    "VolumeServerTemplate",
-    "VolumeSummary",
-    "VolumeTemplate",
-    "VolumeType",
     "VolumeTypeCapabilities",
     "VolumeTypeConstraints",
     "Server",

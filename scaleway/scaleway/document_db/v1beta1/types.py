@@ -233,16 +233,6 @@ class VolumeType(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class VolumeType(str, Enum, metaclass=StrEnumMeta):
-    LSSD = "lssd"
-    BSSD = "bssd"
-    SBS_5K = "sbs_5k"
-    SBS_15K = "sbs_15k"
-
-    def __str__(self) -> str:
-        return str(self.value)
-
-
 @dataclass
 class EndpointDirectAccessDetails:
     pass
@@ -930,60 +920,6 @@ class NodeType:
 
 
 @dataclass
-class NodeTypeVolumeConstraintSizes:
-    """
-    Node type. volume constraint sizes.
-    """
-
-    min_size: int
-    """
-    [deprecated] Mimimum size required for the Volume.
-    """
-
-    max_size: int
-    """
-    [deprecated] Maximum size required for the Volume.
-    """
-
-
-@dataclass
-class NodeTypeVolumeType:
-    """
-    Node type. volume type.
-    """
-
-    type_: VolumeType
-    """
-    Volume Type.
-    """
-
-    description: str
-    """
-    The description of the Volume.
-    """
-
-    min_size: int
-    """
-    Mimimum size required for the Volume.
-    """
-
-    max_size: int
-    """
-    Maximum size required for the Volume.
-    """
-
-    chunk_size: int
-    """
-    Minimum increment level for a Block Storage volume size.
-    """
-
-    class_: StorageClass
-    """
-    The storage class of the volume.
-    """
-
-
-@dataclass
 class Privilege:
     permission: Permission
     """
@@ -1061,58 +997,6 @@ class Snapshot:
     volume_type: Optional[SnapshotVolumeType]
     """
     Type of volume where data is stored (lssd, bssd or sbs).
-    """
-
-    node_type: str
-    """
-    Source node type.
-    """
-
-    volume_type: Optional[SnapshotVolumeType]
-    """
-    Type of volume where data is stored (lssd, bssd or sbs).
-    """
-
-    region: Region
-    """
-    Region of this snapshot.
-    """
-
-
-@dataclass
-class SnapshotVolumeType:
-    type_: VolumeType
-
-    class_: StorageClass
-
-
-@dataclass
-class UpgradableVersion:
-    id: str
-
-    name: str
-
-    version: str
-
-    minor_version: str
-
-
-@dataclass
-class UpgradeInstanceRequestMajorUpgradeWorkflow:
-    """
-    Upgrade instance request. major upgrade workflow.
-    """
-
-    upgradable_version_id: str
-    """
-    Update your database engine to a newer version.
-    This will create a new Database Instance with same specifications as the current one and perform a Database Engine upgrade.
-    """
-
-    with_endpoints: bool
-    """
-    Include endpoint during the migration.
-    At the end of the migration procedure this option let you migrate all your database endpoint to the upgraded instance.
     """
 
 
@@ -1716,8 +1600,6 @@ class InstanceMetrics:
     Time series of metrics of a Database Instance.
     """
 
-    class_: StorageClass
-
 
 @dataclass
 class ListDatabaseEnginesRequest:
@@ -1843,9 +1725,7 @@ class ListInstanceLogsDetailsRequest:
 
     region: Optional[Region]
     """
-    Node type of the Database Instance you want to upgrade to.
-    
-    One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
+    Region to target. If none is passed will use default region from the config.
     """
 
 
@@ -1853,9 +1733,7 @@ class ListInstanceLogsDetailsRequest:
 class ListInstanceLogsDetailsResponse:
     details: List[ListInstanceLogsDetailsResponseInstanceLogDetail]
     """
-    Defines whether or not High Availability should be enabled on the Database Instance.
-    
-    One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
+    Remote Database Instance logs details.
     """
 
 
@@ -1863,31 +1741,25 @@ class ListInstanceLogsDetailsResponse:
 class ListInstanceLogsRequest:
     instance_id: str
     """
-    Increase your Block volume size.
-    
-    One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
+    UUID of the Database Instance you want logs of.
     """
 
     region: Optional[Region]
     """
-    Change your Database Instance storage type.
-    
-    One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
+    Region to target. If none is passed will use default region from the config.
     """
 
     order_by: Optional[ListInstanceLogsRequestOrderBy]
     """
-    Update your database engine to a newer version.
-    This will create a new Database Instance with same specifications as the current one and perform a Database Engine upgrade.
-    
-    One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
+    Criteria to use when ordering Database Instance logs listing.
     """
 
-    major_upgrade_workflow: Optional[UpgradeInstanceRequestMajorUpgradeWorkflow]
+
+@dataclass
+class ListInstanceLogsResponse:
+    instance_logs: List[InstanceLog]
     """
-    Upgrade your database engine to a new major version including instance endpoints.
-    
-    One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
+    Available logs in a Database Instance.
     """
 
 

@@ -113,50 +113,30 @@ from .types import (
     SetSecurityGroupRulesResponse,
     Snapshot,
     SnapshotBaseVolume,
+    UpdateImageRequest,
     UpdateImageResponse,
+    UpdateIpRequest,
     UpdateIpResponse,
     UpdatePlacementGroupRequest,
     UpdatePlacementGroupResponse,
     UpdatePlacementGroupServersRequest,
     UpdatePlacementGroupServersResponse,
+    UpdatePrivateNICRequest,
+    UpdateSecurityGroupRequest,
     UpdateSecurityGroupResponse,
+    UpdateSecurityGroupRuleRequest,
     UpdateSecurityGroupRuleResponse,
+    UpdateServerRequest,
     UpdateServerResponse,
+    UpdateSnapshotRequest,
     UpdateSnapshotResponse,
+    UpdateVolumeRequest,
     UpdateVolumeResponse,
     Volume,
     VolumeImageUpdateTemplate,
     VolumeServerTemplate,
     VolumeSummary,
     VolumeTemplate,
-    ServerActionRequest,
-    AttachServerVolumeRequest,
-    DetachServerVolumeRequest,
-    CreateImageRequest,
-    UpdateImageRequest,
-    CreateSnapshotRequest,
-    UpdateSnapshotRequest,
-    ExportSnapshotRequest,
-    CreateVolumeRequest,
-    UpdateVolumeRequest,
-    CreateSecurityGroupRequest,
-    UpdateSecurityGroupRequest,
-    CreateSecurityGroupRuleRequest,
-    SetSecurityGroupRulesRequest,
-    UpdateSecurityGroupRuleRequest,
-    CreatePlacementGroupRequest,
-    SetPlacementGroupRequest,
-    UpdatePlacementGroupRequest,
-    SetPlacementGroupServersRequest,
-    UpdatePlacementGroupServersRequest,
-    CreateIpRequest,
-    UpdateIpRequest,
-    CreatePrivateNICRequest,
-    UpdatePrivateNICRequest,
-    PlanBlockMigrationRequest,
-    ApplyBlockMigrationRequest,
-)
-from .types_private import (
     _SetImageResponse,
     _SetSecurityGroupRequest,
     _SetSecurityGroupResponse,
@@ -168,39 +148,6 @@ from .types_private import (
     _SetSnapshotResponse,
 )
 from .marshalling import (
-    marshal_ApplyBlockMigrationRequest,
-    marshal_AttachServerVolumeRequest,
-    marshal_CreateImageRequest,
-    marshal_CreateIpRequest,
-    marshal_CreatePlacementGroupRequest,
-    marshal_CreatePrivateNICRequest,
-    marshal_CreateSecurityGroupRequest,
-    marshal_CreateSecurityGroupRuleRequest,
-    marshal_CreateSnapshotRequest,
-    marshal_CreateVolumeRequest,
-    marshal_DetachServerVolumeRequest,
-    marshal_ExportSnapshotRequest,
-    marshal_PlanBlockMigrationRequest,
-    marshal_ServerActionRequest,
-    marshal_SetPlacementGroupRequest,
-    marshal_SetPlacementGroupServersRequest,
-    marshal_SetSecurityGroupRulesRequest,
-    marshal_UpdateImageRequest,
-    marshal_UpdateIpRequest,
-    marshal_UpdatePlacementGroupRequest,
-    marshal_UpdatePlacementGroupServersRequest,
-    marshal_UpdatePrivateNICRequest,
-    marshal_UpdateSecurityGroupRequest,
-    marshal_UpdateSecurityGroupRuleRequest,
-    marshal_UpdateSnapshotRequest,
-    marshal_UpdateVolumeRequest,
-    marshal__CreateServerRequest,
-    marshal__SetImageRequest,
-    marshal__SetSecurityGroupRequest,
-    marshal__SetSecurityGroupRuleRequest,
-    marshal__SetServerRequest,
-    marshal__SetSnapshotRequest,
-    marshal__UpdateServerRequest,
     unmarshal_PrivateNIC,
     unmarshal_AttachServerVolumeResponse,
     unmarshal_CreateImageResponse,
@@ -467,11 +414,9 @@ class InstanceV1API(API):
                 "per_page": per_page or self.client.default_page_size,
                 "private_ip": private_ip,
                 "private_network": private_network,
-                "private_networks": (
-                    ",".join(private_networks)
-                    if private_networks and len(private_networks) > 0
-                    else None
-                ),
+                "private_networks": ",".join(private_networks)
+                if private_networks and len(private_networks) > 0
+                else None,
                 "private_nic_mac_address": private_nic_mac_address,
                 "project": project or self.client.default_project_id,
                 "servers": ",".join(servers) if servers and len(servers) > 0 else None,
@@ -786,7 +731,6 @@ class InstanceV1API(API):
                 hostname="example",
                 protected=False,
                 state_detail="example",
-                arch=unknown_arch,
             )
         """
 
@@ -1091,6 +1035,12 @@ class InstanceV1API(API):
         boot: Optional[bool] = None,
     ) -> AttachServerVolumeResponse:
         """
+        :param server_id:
+        :param volume_id:
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param volume_type:
+        :param boot:
+        :return: :class:`AttachServerVolumeResponse <AttachServerVolumeResponse>`
 
         Usage:
         ::
@@ -1130,6 +1080,10 @@ class InstanceV1API(API):
         zone: Optional[Zone] = None,
     ) -> DetachServerVolumeResponse:
         """
+        :param server_id:
+        :param volume_id:
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :return: :class:`DetachServerVolumeResponse <DetachServerVolumeResponse>`
 
         Usage:
         ::
@@ -1301,7 +1255,6 @@ class InstanceV1API(API):
         arch: Arch,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
-        arch: Arch = Arch.UNKNOWN_ARCH,
         default_bootscript: Optional[str] = None,
         extra_volumes: Optional[Dict[str, VolumeTemplate]] = None,
         organization: Optional[str] = None,
@@ -1405,7 +1358,6 @@ class InstanceV1API(API):
             result = await api._set_image(
                 id="example",
                 name="example",
-                arch=unknown_arch,
                 from_server="example",
                 public=False,
             )
@@ -1446,9 +1398,9 @@ class InstanceV1API(API):
         self,
         *,
         image_id: str,
-        arch: Arch,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
+        arch: Optional[Arch] = None,
         extra_volumes: Optional[Dict[str, VolumeImageUpdateTemplate]] = None,
         tags: Optional[List[str]] = None,
         public: Optional[bool] = None,
@@ -1456,8 +1408,8 @@ class InstanceV1API(API):
         """
         Update image.
         Update the properties of an image.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param image_id: UUID of the image.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: Name of the image.
         :param arch: Architecture of the image.
         :param extra_volumes: Additional snapshots of the image, with extra_volumeKey being the position of the snapshot in the image.
@@ -1470,7 +1422,6 @@ class InstanceV1API(API):
 
             result = await api.update_image(
                 image_id="example",
-                arch=unknown_arch,
             )
         """
 
@@ -1483,9 +1434,9 @@ class InstanceV1API(API):
             body=marshal_UpdateImageRequest(
                 UpdateImageRequest(
                     image_id=image_id,
-                    arch=arch,
                     zone=zone,
                     name=name,
+                    arch=arch,
                     extra_volumes=extra_volumes,
                     tags=tags,
                     public=public,
@@ -1739,8 +1690,6 @@ class InstanceV1API(API):
         """
         Set snapshot.
         Replace all the properties of a snapshot.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param snapshot_id:
         :param id:
         :param name:
         :param zone: Zone to target. If none is passed will use default zone from the config.
@@ -1807,8 +1756,8 @@ class InstanceV1API(API):
         """
         Update a snapshot.
         Update the properties of a snapshot.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param snapshot_id: UUID of the snapshot.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: Name of the snapshot.
         :param tags: Tags of the snapshot.
         :return: :class:`UpdateSnapshotResponse <UpdateSnapshotResponse>`
@@ -1816,7 +1765,9 @@ class InstanceV1API(API):
         Usage:
         ::
 
-            result = await api.update_snapshot(snapshot_id="example")
+            result = await api.update_snapshot(
+                snapshot_id="example",
+            )
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -2320,9 +2271,7 @@ class InstanceV1API(API):
 
             result = await api.create_security_group(
                 description="example",
-                stateful=True,
-                inbound_default_policy=unknown_policy,
-                outbound_default_policy=unknown_policy,
+                stateful=false,
             )
         """
 
@@ -2467,11 +2416,9 @@ class InstanceV1API(API):
                 id="example",
                 name="example",
                 description="example",
-                enable_default_security=True,
-                inbound_default_policy=unknown_policy,
-                outbound_default_policy=unknown_policy,
-                project_default=True,
-                stateful=True,
+                enable_default_security=False,
+                project_default=False,
+                stateful=False,
             )
         """
 
@@ -2511,22 +2458,22 @@ class InstanceV1API(API):
         self,
         *,
         security_group_id: str,
-        inbound_default_policy: SecurityGroupPolicy,
-        outbound_default_policy: SecurityGroupPolicy,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
         description: Optional[str] = None,
         enable_default_security: Optional[bool] = None,
+        inbound_default_policy: Optional[SecurityGroupPolicy] = None,
         tags: Optional[List[str]] = None,
         organization_default: Optional[bool] = None,
         project_default: Optional[bool] = None,
+        outbound_default_policy: Optional[SecurityGroupPolicy] = None,
         stateful: Optional[bool] = None,
     ) -> UpdateSecurityGroupResponse:
         """
         Update a security group.
         Update the properties of security group.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param security_group_id: UUID of the security group.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: Name of the security group.
         :param description: Description of the security group.
         :param enable_default_security: True to block SMTP on IPv4 and IPv6. This feature is read only, please open a support ticket if you need to make it configurable.
@@ -2543,8 +2490,6 @@ class InstanceV1API(API):
 
             result = await api.update_security_group(
                 security_group_id="example",
-                inbound_default_policy=unknown_policy,
-                outbound_default_policy=unknown_policy,
             )
         """
 
@@ -2559,15 +2504,15 @@ class InstanceV1API(API):
             body=marshal_UpdateSecurityGroupRequest(
                 UpdateSecurityGroupRequest(
                     security_group_id=security_group_id,
-                    inbound_default_policy=inbound_default_policy,
-                    outbound_default_policy=outbound_default_policy,
                     zone=zone,
                     name=name,
                     description=description,
                     enable_default_security=enable_default_security,
+                    inbound_default_policy=inbound_default_policy,
                     tags=tags,
                     organization_default=organization_default,
                     project_default=project_default,
+                    outbound_default_policy=outbound_default_policy,
                     stateful=stateful,
                 ),
                 self.client,
@@ -2694,9 +2639,6 @@ class InstanceV1API(API):
         position: int,
         editable: bool,
         zone: Optional[Zone] = None,
-        protocol: SecurityGroupRuleProtocol = SecurityGroupRuleProtocol.UNKNOWN_PROTOCOL,
-        direction: SecurityGroupRuleDirection = SecurityGroupRuleDirection.UNKNOWN_DIRECTION,
-        action: SecurityGroupRuleAction = SecurityGroupRuleAction.UNKNOWN_ACTION,
         dest_port_from: Optional[int] = None,
         dest_port_to: Optional[int] = None,
     ) -> CreateSecurityGroupRuleResponse:
@@ -2898,7 +2840,6 @@ class InstanceV1API(API):
         """
         Set security group rule.
         Replace all the properties of a rule from a specified security group.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param security_group_id:
         :param security_group_rule_id:
         :param id:
@@ -2920,9 +2861,6 @@ class InstanceV1API(API):
                 security_group_id="example",
                 security_group_rule_id="example",
                 id="example",
-                protocol=unknown_protocol,
-                direction=unknown_direction,
-                action=unknown_action,
                 ip_range="example",
                 position=1,
                 editable=False,
@@ -2967,10 +2905,10 @@ class InstanceV1API(API):
         *,
         security_group_id: str,
         security_group_rule_id: str,
-        protocol: SecurityGroupRuleProtocol,
-        direction: SecurityGroupRuleDirection,
-        action: SecurityGroupRuleAction,
         zone: Optional[Zone] = None,
+        protocol: Optional[SecurityGroupRuleProtocol] = None,
+        direction: Optional[SecurityGroupRuleDirection] = None,
+        action: Optional[SecurityGroupRuleAction] = None,
         ip_range: Optional[str] = None,
         dest_port_from: Optional[int] = None,
         dest_port_to: Optional[int] = None,
@@ -2979,9 +2917,9 @@ class InstanceV1API(API):
         """
         Update security group rule.
         Update the properties of a rule from a specified security group.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param security_group_id: UUID of the security group.
         :param security_group_rule_id: UUID of the rule.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
         :param protocol: Protocol family this rule applies to.
         :param direction: Direction the rule applies to.
         :param action: Action to apply when the rule matches a packet.
@@ -2997,9 +2935,6 @@ class InstanceV1API(API):
             result = await api.update_security_group_rule(
                 security_group_id="example",
                 security_group_rule_id="example",
-                protocol=unknown_protocol,
-                direction=unknown_direction,
-                action=unknown_action,
             )
         """
 
@@ -3018,10 +2953,10 @@ class InstanceV1API(API):
                 UpdateSecurityGroupRuleRequest(
                     security_group_id=security_group_id,
                     security_group_rule_id=security_group_rule_id,
+                    zone=zone,
                     protocol=protocol,
                     direction=direction,
                     action=action,
-                    zone=zone,
                     ip_range=ip_range,
                     dest_port_from=dest_port_from,
                     dest_port_to=dest_port_to,

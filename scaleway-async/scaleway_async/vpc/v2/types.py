@@ -173,16 +173,6 @@ class VPC:
     Date the VPC was last modified.
     """
 
-    private_network_count: int
-    """
-    Number of Private Networks within this VPC.
-    """
-
-    routing_enabled: bool
-    """
-    Defines whether the VPC routes traffic between its Private Networks.
-    """
-
 
 @dataclass
 class AddSubnetsRequest:
@@ -239,11 +229,6 @@ class CreatePrivateNetworkRequest:
     VPC in which to create the Private Network.
     """
 
-    routing_enabled: Optional[bool]
-    """
-    Defines whether to filter only for VPCs which route traffic between their Private Networks.
-    """
-
 
 @dataclass
 class CreateVPCRequest:
@@ -270,11 +255,6 @@ class CreateVPCRequest:
     tags: Optional[List[str]]
     """
     Tags for the VPC.
-    """
-
-    enable_routing: bool
-    """
-    Enable routing between Private Networks in the VPC.
     """
 
 

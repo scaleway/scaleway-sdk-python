@@ -5,7 +5,7 @@ from .types import DnsRecordType
 from .types import DnsRecordsStatus
 from .types import HostingDnsStatus
 from .types import HostingStatus
-from .types import LanguageCode
+from .content import HOSTING_TRANSIENT_STATUSES
 from .types import ListHostingsRequestOrderBy
 from .types import ListOffersRequestOrderBy
 from .types import NameserverStatus
@@ -40,7 +40,7 @@ __all__ = [
     "DnsRecordsStatus",
     "HostingDnsStatus",
     "HostingStatus",
-    "LanguageCode",
+    "HOSTING_TRANSIENT_STATUSES",
     "ListHostingsRequestOrderBy",
     "ListOffersRequestOrderBy",
     "NameserverStatus",

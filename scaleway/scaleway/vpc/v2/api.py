@@ -141,7 +141,7 @@ class VpcV2API(API):
         :param project_id: Project ID to filter for. Only VPCs belonging to this Project will be returned.
         :param is_default: Defines whether to filter only for VPCs which are the default one for their Project.
         :param routing_enabled: Defines whether to filter only for VPCs which route traffic between their Private Networks.
-        :return: :class:`List[ListVPCsResponse] <List[ListVPCsResponse]>`
+        :return: :class:`List[VPC] <List[VPC]>`
 
         Usage:
         ::
@@ -184,13 +184,14 @@ class VpcV2API(API):
         :param name: Name for the VPC.
         :param project_id: Scaleway Project in which to create the VPC.
         :param tags: Tags for the VPC.
-        :param enable_routing: Enable routing between Private Networks in the VPC.
         :return: :class:`VPC <VPC>`
 
         Usage:
         ::
 
-            result = api.create_vpc(enable_routing=True)
+            result = api.create_vpc(
+                enable_routing=False,
+            )
         """
 
         param_region = validate_path_param(

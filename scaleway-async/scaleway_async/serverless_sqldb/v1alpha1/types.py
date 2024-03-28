@@ -57,11 +57,65 @@ class ListDatabasesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
-class Database:
+class DatabaseBackup:
+    id: str
     """
-    Database.
+    UUID that uniquely identifies a Serverless SQL Database backup.
     """
 
+    status: DatabaseBackupStatus
+    """
+    Status of the Serverless SQL Database backup. One of `unknown_status` | `error` | `ready` | `locked`.
+    """
+
+    organization_id: str
+    """
+    The ID of your Scaleway organization.
+    """
+
+    project_id: str
+    """
+    UUID of the Scaleway project.
+    """
+
+    database_id: str
+    """
+    UUID of the source Serverless SQL Database the backup is created from.
+    """
+
+    region: Region
+    """
+    Region of the database backup.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Creation date.
+    """
+
+    expires_at: Optional[datetime]
+    """
+    Expiration date.
+    """
+
+    size: Optional[int]
+    """
+    Size of the database backup.
+    """
+
+    download_url: Optional[str]
+    """
+    Download URL of the exported database backup.
+    """
+
+    download_url_expires_at: Optional[datetime]
+    """
+    Expiration date of the download URL.
+    """
+
+
+@dataclass
+class Database:
     id: str
     """
     UUID that uniquely identifies your Serverless SQL DB Database.
@@ -97,11 +151,6 @@ class Database:
     Region of the database.
     """
 
-    created_at: Optional[datetime]
-    """
-    Creation date.
-    """
-
     cpu_min: int
     """
     The minimum number of CPU units for your Serverless SQL Database.
@@ -127,115 +176,14 @@ class Database:
     The major version of the underlying database engine.
     """
 
-
-@dataclass
-class DatabaseBackup:
-    """
-    Database backup.
-    """
-
-    id: str
-    """
-    UUID that uniquely identifies a Serverless SQL Database backup.
-    """
-
-    status: DatabaseBackupStatus
-    """
-    Status of the Serverless SQL Database backup. One of `unknown_status` | `error` | `ready` | `locked`.
-    """
-
-    organization_id: str
-    """
-    The ID of your Scaleway organization.
-    """
-
-    project_id: str
-    """
-    UUID of the Scaleway project.
-    """
-
-    database_id: str
-    """
-    UUID of the source Serverless SQL Database the backup is created from.
-    """
-
     created_at: Optional[datetime]
     """
     Creation date.
     """
 
-    expires_at: Optional[datetime]
-    """
-    Expiration date.
-    """
-
-    size: Optional[int]
-    """
-    Size of the database backup.
-    """
-
-    download_url: Optional[str]
-    """
-    Download URL of the exported database backup.
-    """
-
-    download_url_expires_at: Optional[datetime]
-    """
-    Expiration date of the download URL.
-    """
-
-    region: Region
-    """
-    Region of the database backup.
-    """
-
-
-@dataclass
-class ListDatabaseBackupsResponse:
-    """
-    List database backups response.
-    """
-
-    backups: List[DatabaseBackup]
-    """
-    List of the backups.
-    """
-
-    total_count: int
-    """
-    Length of the backups list.
-    """
-
-
-@dataclass
-class ListDatabasesResponse:
-    """
-    List databases response.
-    """
-
-    databases: List[Database]
-    """
-    List of the databases.
-    """
-
-    total_count: int
-    """
-    Total count of Serverless SQL Databases.
-    """
-
 
 @dataclass
 class CreateDatabaseRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    project_id: Optional[str]
-    """
-    The ID of your Scaleway project.
-    """
-
     name: str
     """
     The name of the Serverless SQL Database to be created.
@@ -251,6 +199,16 @@ class CreateDatabaseRequest:
     The maximum number of CPU units for your Serverless SQL Database.
     """
 
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    The ID of your Scaleway project.
+    """
+
     from_backup_id: Optional[str]
     """
     The ID of the backup to create the database from.
@@ -258,28 +216,105 @@ class CreateDatabaseRequest:
 
 
 @dataclass
-class GetDatabaseRequest:
+class DeleteDatabaseRequest:
+    database_id: str
+    """
+    UUID of the Serverless SQL Database.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
+
+@dataclass
+class ExportDatabaseBackupRequest:
+    backup_id: str
+    """
+    UUID of the Serverless SQL Database backup.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetDatabaseBackupRequest:
+    backup_id: str
+    """
+    UUID of the Serverless SQL Database backup.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetDatabaseRequest:
     database_id: str
     """
     UUID of the Serverless SQL DB database.
     """
 
-
-@dataclass
-class DeleteDatabaseRequest:
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
+
+@dataclass
+class ListDatabaseBackupsRequest:
     database_id: str
     """
-    UUID of the Serverless SQL Database.
+    Filter by the UUID of the Serverless SQL Database.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    organization_id: Optional[str]
+    """
+    Filter by the UUID of the Scaleway organization.
+    """
+
+    project_id: Optional[str]
+    """
+    Filter by the UUID of the Scaleway project.
+    """
+
+    page: Optional[int]
+    """
+    Page number.
+    """
+
+    page_size: Optional[int]
+    """
+    Page size.
+    """
+
+    order_by: Optional[ListDatabaseBackupsRequestOrderBy]
+    """
+    Sorting criteria. One of `created_at_asc`, `created_at_desc`.
+    """
+
+
+@dataclass
+class ListDatabaseBackupsResponse:
+    backups: List[DatabaseBackup]
+    """
+    List of the backups.
+    """
+
+    total_count: int
+    """
+    Length of the backups list.
     """
 
 
@@ -300,7 +335,7 @@ class ListDatabasesRequest:
     UUID of the Scaleway project.
     """
 
-    page: int
+    page: Optional[int]
     """
     Page number.
     """
@@ -322,35 +357,20 @@ class ListDatabasesRequest:
 
 
 @dataclass
-class UpdateDatabaseRequest:
-    region: Optional[Region]
+class ListDatabasesResponse:
+    databases: List[Database]
     """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    database_id: str
-    """
-    UUID of the Serverless SQL Database.
+    List of the databases.
     """
 
-    cpu_min: Optional[int]
+    total_count: int
     """
-    The minimum number of CPU units for your Serverless SQL Database.
-    """
-
-    cpu_max: Optional[int]
-    """
-    The maximum number of CPU units for your Serverless SQL Database.
+    Total count of Serverless SQL Databases.
     """
 
 
 @dataclass
 class RestoreDatabaseFromBackupRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
     database_id: str
     """
     UUID of the Serverless SQL Database.
@@ -361,66 +381,30 @@ class RestoreDatabaseFromBackupRequest:
     UUID of the Serverless SQL Database backup to restore.
     """
 
-
-@dataclass
-class GetDatabaseBackupRequest:
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    backup_id: str
-    """
-    UUID of the Serverless SQL Database backup.
-    """
-
 
 @dataclass
-class ListDatabaseBackupsRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    organization_id: Optional[str]
-    """
-    Filter by the UUID of the Scaleway organization.
-    """
-
-    project_id: Optional[str]
-    """
-    Filter by the UUID of the Scaleway project.
-    """
-
+class UpdateDatabaseRequest:
     database_id: str
     """
-    Filter by the UUID of the Serverless SQL Database.
+    UUID of the Serverless SQL Database.
     """
 
-    page: int
-    """
-    Page number.
-    """
-
-    page_size: Optional[int]
-    """
-    Page size.
-    """
-
-    order_by: Optional[ListDatabaseBackupsRequestOrderBy]
-    """
-    Sorting criteria. One of `created_at_asc`, `created_at_desc`.
-    """
-
-
-@dataclass
-class ExportDatabaseBackupRequest:
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    backup_id: str
+    cpu_min: Optional[int]
     """
-    UUID of the Serverless SQL Database backup.
+    The minimum number of CPU units for your Serverless SQL Database.
+    """
+
+    cpu_max: Optional[int]
+    """
+    The maximum number of CPU units for your Serverless SQL Database.
     """

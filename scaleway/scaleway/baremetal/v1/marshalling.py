@@ -1006,21 +1006,11 @@ def marshal_CreateServerRequest(
         resolve_one_of(
             [
                 OneOfPossibility(
-                    "project_id",
-                    (
-                        request.project_id or defaults.default_project_id
-                        if request.project_id is not None
-                        else None
-                    ),
-                    defaults.default_project_id,
+                    "project_id", request.project_id, defaults.default_project_id
                 ),
                 OneOfPossibility(
                     "organization_id",
-                    (
-                        request.organization_id or defaults.default_organization_id
-                        if request.organization_id is not None
-                        else None
-                    ),
+                    request.organization_id,
                     defaults.default_organization_id,
                 ),
             ]

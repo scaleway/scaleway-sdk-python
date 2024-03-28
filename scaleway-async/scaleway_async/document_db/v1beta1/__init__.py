@@ -22,6 +22,7 @@ from .types import Permission
 from .types import ReadReplicaStatus
 from .content import READ_REPLICA_TRANSIENT_STATUSES
 from .types import SnapshotStatus
+from .content import SNAPSHOT_TRANSIENT_STATUSES
 from .types import StorageClass
 from .types import VolumeType
 from .types import EndpointDirectAccessDetails
@@ -35,14 +36,13 @@ from .types import EndpointSpecLoadBalancer
 from .types import EndpointSpecPrivateNetwork
 from .types import ReadReplicaEndpointSpecDirectAccess
 from .types import ReadReplicaEndpointSpecPrivateNetwork
-from .types import ReadReplicaEndpointSpecPrivateNetworkIpamConfig
-from .types import SetInstanceACLRulesResponse
-from .types import SetInstanceSettingsResponse
-from .types import Snapshot
-from .types import SnapshotVolumeType
+from .types import EngineVersion
+from .types import BackupSchedule
+from .types import InstanceSetting
+from .types import LogsPolicy
+from .types import Maintenance
+from .types import ReadReplica
 from .types import UpgradableVersion
-from .types import UpgradeInstanceRequestMajorUpgradeWorkflow
-from .types import User
 from .types import Volume
 from .types import NodeTypeVolumeConstraintSizes
 from .types import NodeTypeVolumeType
@@ -153,6 +153,7 @@ __all__ = [
     "ReadReplicaStatus",
     "READ_REPLICA_TRANSIENT_STATUSES",
     "SnapshotStatus",
+    "SNAPSHOT_TRANSIENT_STATUSES",
     "StorageClass",
     "VolumeType",
     "EndpointDirectAccessDetails",
@@ -166,14 +167,13 @@ __all__ = [
     "EndpointSpecPrivateNetwork",
     "ReadReplicaEndpointSpecDirectAccess",
     "ReadReplicaEndpointSpecPrivateNetwork",
-    "ReadReplicaEndpointSpecPrivateNetworkIpamConfig",
-    "SetInstanceACLRulesResponse",
-    "SetInstanceSettingsResponse",
-    "Snapshot",
-    "SnapshotVolumeType",
+    "EngineVersion",
+    "BackupSchedule",
+    "InstanceSetting",
+    "LogsPolicy",
+    "Maintenance",
+    "ReadReplica",
     "UpgradableVersion",
-    "UpgradeInstanceRequestMajorUpgradeWorkflow",
-    "User",
     "Volume",
     "NodeTypeVolumeConstraintSizes",
     "NodeTypeVolumeType",

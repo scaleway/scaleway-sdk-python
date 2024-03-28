@@ -6,12 +6,6 @@ from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
 from .types import (
-    EphemeralPolicyAction,
-    Product,
-    SecretType,
-    AccessSecretVersionResponse,
-    EphemeralPolicy,
-    EphemeralProperties,
     Folder,
     EphemeralProperties,
     SecretVersion,
@@ -31,46 +25,6 @@ from .types import (
     UpdateSecretRequest,
     UpdateSecretVersionRequest,
 )
-
-
-def unmarshal_EphemeralPolicy(data: Any) -> EphemeralPolicy:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'EphemeralPolicy' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("action", None)
-    args["action"] = field
-
-    field = data.get("expires_once_accessed", None)
-    args["expires_once_accessed"] = field
-
-    field = data.get("time_to_live", None)
-    args["time_to_live"] = field
-
-    return EphemeralPolicy(**args)
-
-
-def unmarshal_EphemeralProperties(data: Any) -> EphemeralProperties:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'EphemeralProperties' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("action", None)
-    args["action"] = field
-
-    field = data.get("expires_at", None)
-    args["expires_at"] = parser.isoparse(field) if type(field) is str else field
-
-    field = data.get("expires_once_accessed", None)
-    args["expires_once_accessed"] = field
-
-    return EphemeralProperties(**args)
 
 
 def unmarshal_Folder(data: Any) -> Folder:
@@ -116,16 +70,13 @@ def unmarshal_EphemeralProperties(data: Any) -> EphemeralProperties:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
+    field = data.get("action", None)
+    if field is not None:
+        args["action"] = field
 
-    field = data.get("description", None)
-    args["description"] = field
-
-    field = data.get("ephemeral_policy", None)
-    args["ephemeral_policy"] = (
-        unmarshal_EphemeralPolicy(field) if field is not None else None
-    )
+    field = data.get("expires_at", None)
+    if field is not None:
+        args["expires_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     field = data.get("expires_once_accessed", None)
     if field is not None:
@@ -141,20 +92,6 @@ def unmarshal_SecretVersion(data: Any) -> SecretVersion:
         )
 
     args: Dict[str, Any] = {}
-
-    field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
-
-    field = data.get("description", None)
-    args["description"] = field
-
-    field = data.get("ephemeral_properties", None)
-    args["ephemeral_properties"] = (
-        unmarshal_EphemeralProperties(field) if field is not None else None
-    )
-
-    field = data.get("is_latest", None)
-    args["is_latest"] = field
 
     field = data.get("revision", None)
     if field is not None:
@@ -394,66 +331,6 @@ def unmarshal_ListTagsResponse(data: Any) -> ListTagsResponse:
     return ListTagsResponse(**args)
 
 
-def marshal_EphemeralPolicy(
-    request: EphemeralPolicy,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-
-    if request.action is not None:
-        output["action"] = EphemeralPolicyAction(request.action)
-
-    if request.expires_once_accessed is not None:
-        output["expires_once_accessed"] = request.expires_once_accessed
-
-    if request.time_to_live is not None:
-        output["time_to_live"] = request.time_to_live
-
-    return output
-
-
-def marshal_EphemeralProperties(
-    request: EphemeralProperties,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-
-    if request.action is not None:
-        output["action"] = EphemeralPolicyAction(request.action)
-
-    if request.expires_at is not None:
-        output["expires_at"] = request.expires_at.astimezone().isoformat()
-
-    if request.expires_once_accessed is not None:
-        output["expires_once_accessed"] = request.expires_once_accessed
-
-    return output
-
-
-def marshal_PasswordGenerationParams(
-    request: PasswordGenerationParams,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-
-    if request.additional_chars is not None:
-        output["additional_chars"] = request.additional_chars
-
-    if request.length is not None:
-        output["length"] = request.length
-
-    if request.no_digits is not None:
-        output["no_digits"] = request.no_digits
-
-    if request.no_lowercase_letters is not None:
-        output["no_lowercase_letters"] = request.no_lowercase_letters
-
-    if request.no_uppercase_letters is not None:
-        output["no_uppercase_letters"] = request.no_uppercase_letters
-
-    return output
-
-
 def marshal_AddSecretOwnerRequest(
     request: AddSecretOwnerRequest,
     defaults: ProfileDefaults,
@@ -510,17 +387,6 @@ def marshal_CreateSecretRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
-
-    if request.description is not None:
-        output["description"] = request.description
-
-    if request.ephemeral_policy is not None:
-        output["ephemeral_policy"] = marshal_EphemeralPolicy(
-            request.ephemeral_policy, defaults
-        )
-
-    if request.is_protected is not None:
-        output["is_protected"] = request.is_protected
 
     if request.name is not None:
         output["name"] = request.name
@@ -580,22 +446,6 @@ def marshal_CreateSecretVersionRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
-    output.update(
-        resolve_one_of(
-            [
-                OneOfPossibility(
-                    "password_generation",
-                    (
-                        marshal_PasswordGenerationParams(
-                            request.password_generation, defaults
-                        )
-                        if request.password_generation is not None
-                        else None
-                    ),
-                ),
-            ]
-        ),
-    )
 
     if request.data is not None:
         output["data"] = request.data
@@ -653,14 +503,6 @@ def marshal_UpdateSecretRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.description is not None:
-        output["description"] = request.description
-
-    if request.ephemeral_policy is not None:
-        output["ephemeral_policy"] = marshal_EphemeralPolicy(
-            request.ephemeral_policy, defaults
-        )
-
     if request.name is not None:
         output["name"] = request.name
 
@@ -709,8 +551,8 @@ def marshal_UpdateSecretVersionRequest(
         output["description"] = request.description
 
     if request.ephemeral_properties is not None:
-        output["ephemeral_properties"] = marshal_EphemeralProperties(
-            request.ephemeral_properties, defaults
+        output["ephemeral_properties"] = (
+            marshal_EphemeralProperties(request.ephemeral_properties, defaults),
         )
 
     return output

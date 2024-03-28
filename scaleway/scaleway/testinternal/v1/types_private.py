@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Optional
 
 from scaleway_core.bridge import (
     Region,
@@ -11,18 +10,8 @@ from scaleway_core.bridge import (
 
 
 @dataclass
-class _GetClusterKubeConfigRequest:
-    region: Optional[Region]
+class _GetRegionResponse:
+    region: Region
     """
     Region to target. If none is passed will use default region from the config.
-    """
-
-    cluster_id: str
-    """
-    Cluster ID for which to download the kubeconfig.
-    """
-
-    redacted: Optional[bool]
-    """
-    Hide the legacy token from the kubeconfig.
     """

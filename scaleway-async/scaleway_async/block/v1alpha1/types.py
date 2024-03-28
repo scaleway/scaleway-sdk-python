@@ -100,89 +100,6 @@ class VolumeStatus(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
-class CreateVolumeRequestFromEmpty:
-    """
-    Create volume request. from empty.
-    """
-
-    size: int
-    """
-    Volume size in bytes, with a granularity of 1 GB (10^9 bytes).
-    Must be compliant with the minimum (1 GB) and maximum (10 TB) allowed size.
-    """
-
-
-@dataclass
-class CreateVolumeRequestFromSnapshot:
-    """
-    Create volume request. from snapshot.
-    """
-
-    size: Optional[int]
-    """
-    Volume size in bytes, with a granularity of 1 GB (10^9 bytes).
-    Must be compliant with the minimum (1 GB) and maximum (10 TB) allowed size.
-    Size is optional and is used only if a resize of the volume is requested, otherwise original snapshot size will be used.
-    """
-
-    snapshot_id: str
-    """
-    Source snapshot from which volume will be created.
-    """
-
-
-@dataclass
-class ListSnapshotsResponse:
-    """
-    List snapshots response.
-    """
-
-    snapshots: List[Snapshot]
-    """
-    Paginated returned list of snapshots.
-    """
-
-    total_count: int
-    """
-    Total number of snpashots in the project.
-    """
-
-
-@dataclass
-class ListVolumeTypesResponse:
-    """
-    List volume types response.
-    """
-
-    volume_types: List[VolumeType]
-    """
-    Returns paginated list of volume-types.
-    """
-
-    total_count: int
-    """
-    Total number of volume-types currently available in stock.
-    """
-
-
-@dataclass
-class ListVolumesResponse:
-    """
-    List volumes response.
-    """
-
-    volumes: List[Volume]
-    """
-    Paginated returned list of volumes.
-    """
-
-    total_count: int
-    """
-    Total number of volumes in the project.
-    """
-
-
-@dataclass
 class Reference:
     id: str
     """
@@ -197,11 +114,6 @@ class Reference:
     product_resource_id: str
     """
     UUID of the product resource it refers to (according to the product_resource_type).
-    """
-
-    created_at: Optional[datetime]
-    """
-    Creation date of the reference.
     """
 
     type_: ReferenceType
@@ -325,31 +237,42 @@ class Snapshot:
     Storage class of the snapshot.
     """
 
+    parent_volume: Optional[SnapshotParentVolume]
+    """
+    If the parent volume was deleted, value is null.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Creation date of the snapshot.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Last modification date of the properties of a snapshot.
+    """
+
 
 @dataclass
-class SnapshotParentVolume:
-    """
-    Snapshot. parent volume.
-    """
-
-    id: str
-    """
-    Parent volume UUID (volume from which the snapshot originates).
-    """
-
-    name: str
-    """
-    Name of the parent volume.
-    """
-
+class VolumeType:
     type_: str
     """
-    Volume type of the parent volume.
+    Volume type.
     """
 
-    status: VolumeStatus
+    pricing: Optional[Money]
     """
-    Current status the parent volume.
+    Price of the volume billed in GB/hour.
+    """
+
+    snapshot_pricing: Optional[Money]
+    """
+    Price of the snapshot billed in GB/hour.
+    """
+
+    specs: Optional[VolumeSpecifications]
+    """
+    Volume specifications of the volume type.
     """
 
 
@@ -666,8 +589,13 @@ class ListVolumesRequest:
 
 
 @dataclass
-class DeleteSnapshotRequest:
-    zone: Optional[Zone]
+class ListVolumesResponse:
+    volumes: List[Volume]
+    """
+    Paginated returned list of volumes.
+    """
+
+    total_count: int
     """
     Total number of volumes in the project.
     """

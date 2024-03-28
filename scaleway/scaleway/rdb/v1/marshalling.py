@@ -59,18 +59,9 @@ from .types import (
     PrepareInstanceLogsResponse,
     SetInstanceACLRulesResponse,
     SetInstanceSettingsResponse,
-    Snapshot,
-    SnapshotVolumeType,
-    UpgradableVersion,
-    UpgradeInstanceRequestMajorUpgradeWorkflow,
-    User,
-    Volume,
-    CreateDatabaseBackupRequest,
-    UpdateDatabaseBackupRequest,
-    RestoreDatabaseBackupRequest,
-    UpgradeInstanceRequest,
-    CreateInstanceRequest,
-    UpdateInstanceRequest,
+    ACLRuleRequest,
+    AddInstanceACLRulesRequest,
+    AddInstanceSettingsRequest,
     CloneInstanceRequest,
     CreateDatabaseBackupRequest,
     CreateDatabaseRequest,
@@ -469,126 +460,6 @@ def unmarshal_LogsPolicy(data: Any) -> LogsPolicy:
     return LogsPolicy(**args)
 
 
-def unmarshal_Maintenance(data: Any) -> Maintenance:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'Maintenance' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("closed_at", None)
-    args["closed_at"] = parser.isoparse(field) if type(field) is str else field
-
-    field = data.get("reason", None)
-    args["reason"] = field
-
-    field = data.get("starts_at", None)
-    args["starts_at"] = parser.isoparse(field) if type(field) is str else field
-
-    field = data.get("status", None)
-    args["status"] = field
-
-    field = data.get("stops_at", None)
-    args["stops_at"] = parser.isoparse(field) if type(field) is str else field
-
-    return Maintenance(**args)
-
-
-def unmarshal_NodeTypeVolumeConstraintSizes(data: Any) -> NodeTypeVolumeConstraintSizes:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'NodeTypeVolumeConstraintSizes' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("max_size", None)
-    args["max_size"] = field
-
-    field = data.get("min_size", None)
-    args["min_size"] = field
-
-    return NodeTypeVolumeConstraintSizes(**args)
-
-
-def unmarshal_NodeTypeVolumeType(data: Any) -> NodeTypeVolumeType:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'NodeTypeVolumeType' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("chunk_size", None)
-    args["chunk_size"] = field
-
-    field = data.get("class", None)
-    args["class_"] = field
-
-    field = data.get("description", None)
-    args["description"] = field
-
-    field = data.get("max_size", None)
-    args["max_size"] = field
-
-    field = data.get("min_size", None)
-    args["min_size"] = field
-
-    field = data.get("type", None)
-    args["type_"] = field
-
-    return NodeTypeVolumeType(**args)
-
-
-def unmarshal_ReadReplica(data: Any) -> ReadReplica:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'ReadReplica' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("endpoints", None)
-    args["endpoints"] = (
-        [unmarshal_Endpoint(v) for v in field] if field is not None else None
-    )
-
-    field = data.get("id", None)
-    args["id"] = field
-
-    field = data.get("instance_id", None)
-    args["instance_id"] = field
-
-    field = data.get("region", None)
-    args["region"] = field
-
-    field = data.get("same_zone", None)
-    args["same_zone"] = field
-
-    field = data.get("status", None)
-    args["status"] = field
-
-    return ReadReplica(**args)
-
-
-def unmarshal_SnapshotVolumeType(data: Any) -> SnapshotVolumeType:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'SnapshotVolumeType' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("class", None)
-    args["class_"] = field
-
-    field = data.get("type", None)
-    args["type_"] = field
-
-    return SnapshotVolumeType(**args)
-
-
 def unmarshal_UpgradableVersion(data: Any) -> UpgradableVersion:
     if not isinstance(data, dict):
         raise TypeError(
@@ -849,11 +720,6 @@ def unmarshal_Snapshot(data: Any) -> Snapshot:
     field = data.get("volume_type", None)
     if field is not None:
         args["volume_type"] = unmarshal_SnapshotVolumeType(field)
-
-    field = data.get("volume_type", None)
-    args["volume_type"] = (
-        unmarshal_SnapshotVolumeType(field) if field is not None else None
-    )
 
     return Snapshot(**args)
 

@@ -11,9 +11,9 @@ from scaleway_core.bridge import (
 )
 from scaleway_core.utils import (
     OneOfPossibility,
-    fetch_all_pages_async,
     resolve_one_of,
     validate_path_param,
+    fetch_all_pages_async,
 )
 from .types import (
     DownloadInvoiceRequestFileType,
@@ -44,16 +44,13 @@ from .marshalling import (
 
 class BillingV2Beta1API(API):
     """
-    Billing API.
-
     This API allows you to query your consumption.
-    Billing API.
     """
 
     async def list_consumptions(
         self,
         *,
-        order_by: ListConsumptionsRequestOrderBy = ListConsumptionsRequestOrderBy.UPDATED_AT_DESC,
+        order_by: Optional[ListConsumptionsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         organization_id: Optional[str] = None,
@@ -68,11 +65,9 @@ class BillingV2Beta1API(API):
         :param page: Positive integer to choose the page to return.
         :param page_size: Positive integer lower or equal to 100 to select the number of items to return.
         :param organization_id: Filter by Organization ID.
-
-        One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
+        One-Of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
         :param project_id: Filter by Project ID.
-
-        One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
+        One-Of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
         :param category_name: Filter by name of a Category as they are shown in the invoice (Compute, Network, Observability).
         :param billing_period: Filter by the billing period in the YYYY-MM format. If it is empty the current billing period will be used as default.
         :return: :class:`ListConsumptionsResponse <ListConsumptionsResponse>`
@@ -85,7 +80,7 @@ class BillingV2Beta1API(API):
 
         res = self._request(
             "GET",
-            f"/billing/v2beta1/consumptions",
+            "/billing/v2beta1/consumptions",
             params={
                 "billing_period": billing_period,
                 "category_name": category_name,
@@ -94,14 +89,8 @@ class BillingV2Beta1API(API):
                 "page_size": page_size or self.client.default_page_size,
                 **resolve_one_of(
                     [
-                        OneOfPossibility(
-                            "project_id", project_id, self.client.default_project_id
-                        ),
-                        OneOfPossibility(
-                            "organization_id",
-                            organization_id,
-                            self.client.default_organization_id,
-                        ),
+                        OneOfPossibility("organization_id", organization_id),
+                        OneOfPossibility("project_id", project_id),
                     ]
                 ),
             },
@@ -128,14 +117,12 @@ class BillingV2Beta1API(API):
         :param page: Positive integer to choose the page to return.
         :param page_size: Positive integer lower or equal to 100 to select the number of items to return.
         :param organization_id: Filter by Organization ID.
-
-        One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
+        One-Of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
         :param project_id: Filter by Project ID.
-
-        One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
+        One-Of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
         :param category_name: Filter by name of a Category as they are shown in the invoice (Compute, Network, Observability).
         :param billing_period: Filter by the billing period in the YYYY-MM format. If it is empty the current billing period will be used as default.
-        :return: :class:`List[ListConsumptionsResponse] <List[ListConsumptionsResponse]>`
+        :return: :class:`List[ListConsumptionsResponseConsumption] <List[ListConsumptionsResponseConsumption]>`
 
         Usage:
         ::
@@ -151,17 +138,17 @@ class BillingV2Beta1API(API):
                 "order_by": order_by,
                 "page": page,
                 "page_size": page_size,
-                "organization_id": organization_id,
-                "project_id": project_id,
                 "category_name": category_name,
                 "billing_period": billing_period,
+                "organization_id": organization_id,
+                "project_id": project_id,
             },
         )
 
     async def list_taxes(
         self,
         *,
-        order_by: ListTaxesRequestOrderBy = ListTaxesRequestOrderBy.UPDATED_AT_DESC,
+        order_by: Optional[ListTaxesRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         organization_id: Optional[str] = None,
@@ -185,7 +172,7 @@ class BillingV2Beta1API(API):
 
         res = self._request(
             "GET",
-            f"/billing/v2beta1/taxes",
+            "/billing/v2beta1/taxes",
             params={
                 "billing_period": billing_period,
                 "order_by": order_by,
@@ -216,7 +203,7 @@ class BillingV2Beta1API(API):
         :param page_size: Positive integer lower or equal to 100 to select the number of items to return.
         :param organization_id: Filter by Organization ID.
         :param billing_period: Filter by the billing period in the YYYY-MM format. If it is empty the current billing period will be used as default.
-        :return: :class:`List[ListTaxesResponse] <List[ListTaxesResponse]>`
+        :return: :class:`List[ListTaxesResponseTax] <List[ListTaxesResponseTax]>`
 
         Usage:
         ::
@@ -243,10 +230,10 @@ class BillingV2Beta1API(API):
         organization_id: Optional[str] = None,
         billing_period_start_after: Optional[datetime] = None,
         billing_period_start_before: Optional[datetime] = None,
-        invoice_type: InvoiceType = InvoiceType.UNKNOWN_TYPE,
+        invoice_type: Optional[InvoiceType] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-        order_by: ListInvoicesRequestOrderBy = ListInvoicesRequestOrderBy.INVOICE_NUMBER_DESC,
+        order_by: Optional[ListInvoicesRequestOrderBy] = None,
     ) -> ListInvoicesResponse:
         """
         List invoices.
@@ -268,7 +255,7 @@ class BillingV2Beta1API(API):
 
         res = self._request(
             "GET",
-            f"/billing/v2beta1/invoices",
+            "/billing/v2beta1/invoices",
             params={
                 "billing_period_start_after": billing_period_start_after,
                 "billing_period_start_before": billing_period_start_before,
@@ -305,7 +292,7 @@ class BillingV2Beta1API(API):
         :param page: Page number.
         :param page_size: Positive integer lower or equal to 100 to select the number of items to return.
         :param order_by: How invoices are ordered in the response.
-        :return: :class:`List[ListInvoicesResponse] <List[ListInvoicesResponse]>`
+        :return: :class:`List[Invoice] <List[Invoice]>`
 
         Usage:
         ::
@@ -331,15 +318,15 @@ class BillingV2Beta1API(API):
     async def export_invoices(
         self,
         *,
-        invoice_type: InvoiceType,
-        order_by: ExportInvoicesRequestOrderBy,
-        file_type: ExportInvoicesRequestFileType,
         organization_id: Optional[str] = None,
         billing_period_start_after: Optional[datetime] = None,
         billing_period_start_before: Optional[datetime] = None,
+        invoice_type: Optional[InvoiceType] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
-    ) -> Optional[ScwFile]:
+        order_by: Optional[ExportInvoicesRequestOrderBy] = None,
+        file_type: Optional[ExportInvoicesRequestFileType] = None,
+    ) -> ScwFile:
         """
         Export invoices.
         Export invoices in a CSV file.
@@ -351,21 +338,17 @@ class BillingV2Beta1API(API):
         :param page_size: Positive integer lower or equal to 100 to select the number of items to return.
         :param order_by: How invoices are ordered in the response.
         :param file_type: File format for exporting the invoice list.
-        :return: :class:`Optional[ScwFile] <Optional[ScwFile]>`
+        :return: :class:`ScwFile <ScwFile>`
 
         Usage:
         ::
 
-            result = await api.export_invoices(
-                invoice_type=unknown_type,
-                order_by=invoice_number_desc,
-                file_type=csv,
-            )
+            result = await api.export_invoices()
         """
 
         res = self._request(
             "GET",
-            f"/billing/v2beta1/export-invoices",
+            "/billing/v2beta1/export-invoices",
             params={
                 "billing_period_start_after": billing_period_start_after,
                 "billing_period_start_before": billing_period_start_before,
@@ -380,8 +363,7 @@ class BillingV2Beta1API(API):
         )
 
         self._throw_on_error(res)
-        json = res.json()
-        return unmarshal_ScwFile(json) if json is not None else None
+        return unmarshal_ScwFile(res.json())
 
     async def get_invoice(
         self,
@@ -397,7 +379,9 @@ class BillingV2Beta1API(API):
         Usage:
         ::
 
-            result = await api.get_invoice(invoice_id="example")
+            result = await api.get_invoice(
+                invoice_id="example",
+            )
         """
 
         param_invoice_id = validate_path_param("invoice_id", invoice_id)
@@ -414,21 +398,20 @@ class BillingV2Beta1API(API):
         self,
         *,
         invoice_id: str,
-        file_type: DownloadInvoiceRequestFileType,
-    ) -> Optional[ScwFile]:
+        file_type: Optional[DownloadInvoiceRequestFileType] = None,
+    ) -> ScwFile:
         """
         Download an invoice.
         Download a specific invoice, specified by its ID.
         :param invoice_id: Invoice ID.
         :param file_type: File type. PDF by default.
-        :return: :class:`Optional[ScwFile] <Optional[ScwFile]>`
+        :return: :class:`ScwFile <ScwFile>`
 
         Usage:
         ::
 
             result = await api.download_invoice(
                 invoice_id="example",
-                file_type=pdf,
             )
         """
 
@@ -443,13 +426,12 @@ class BillingV2Beta1API(API):
         )
 
         self._throw_on_error(res)
-        json = res.json()
-        return unmarshal_ScwFile(json) if json is not None else None
+        return unmarshal_ScwFile(res.json())
 
     async def list_discounts(
         self,
         *,
-        order_by: ListDiscountsRequestOrderBy = ListDiscountsRequestOrderBy.CREATION_DATE_DESC,
+        order_by: Optional[ListDiscountsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         organization_id: Optional[str] = None,
@@ -471,7 +453,7 @@ class BillingV2Beta1API(API):
 
         res = self._request(
             "GET",
-            f"/billing/v2beta1/discounts",
+            "/billing/v2beta1/discounts",
             params={
                 "order_by": order_by,
                 "organization_id": organization_id
@@ -499,7 +481,7 @@ class BillingV2Beta1API(API):
         :param page: Positive integer to choose the page to return.
         :param page_size: Positive integer lower or equal to 100 to select the number of items to return.
         :param organization_id: ID of the organization.
-        :return: :class:`List[ListDiscountsResponse] <List[ListDiscountsResponse]>`
+        :return: :class:`List[Discount] <List[Discount]>`
 
         Usage:
         ::

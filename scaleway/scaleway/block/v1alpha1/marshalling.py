@@ -22,15 +22,10 @@ from .types import (
     VolumeType,
     ListVolumeTypesResponse,
     ListVolumesResponse,
-    Reference,
-    Snapshot,
-    SnapshotParentVolume,
-    Volume,
-    VolumeSpecifications,
-    VolumeType,
-    CreateVolumeRequest,
-    UpdateVolumeRequest,
     CreateSnapshotRequest,
+    CreateVolumeRequestFromEmpty,
+    CreateVolumeRequestFromSnapshot,
+    CreateVolumeRequest,
     UpdateSnapshotRequest,
     UpdateVolumeRequest,
 )
@@ -178,10 +173,10 @@ def unmarshal_VolumeSpecifications(data: Any) -> VolumeSpecifications:
     return VolumeSpecifications(**args)
 
 
-def unmarshal_Snapshot(data: Any) -> Snapshot:
-    if type(data) is not dict:
+def unmarshal_Volume(data: Any) -> Volume:
+    if not isinstance(data, dict):
         raise TypeError(
-            f"Unmarshalling the type 'Snapshot' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Volume' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -198,51 +193,9 @@ def unmarshal_Snapshot(data: Any) -> Snapshot:
     if field is not None:
         args["type_"] = field
 
-    field = data.get("references", None)
-    args["references"] = (
-        [unmarshal_Reference(v) for v in field] if field is not None else None
-    )
-
     field = data.get("size", None)
-    args["size"] = field
-
-    field = data.get("status", None)
-    args["status"] = field
-
-    field = data.get("tags", None)
-    args["tags"] = field
-
-    field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
-
-    field = data.get("zone", None)
-    args["zone"] = field
-
-    return Snapshot(**args)
-
-
-def unmarshal_Volume(data: Any) -> Volume:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'Volume' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
-
-    field = data.get("id", None)
-    args["id"] = field
-
-    field = data.get("last_detached_at", None)
-    args["last_detached_at"] = parser.isoparse(field) if type(field) is str else field
-
-    field = data.get("name", None)
-    args["name"] = field
-
-    field = data.get("parent_snapshot_id", None)
-    args["parent_snapshot_id"] = field
+    if field is not None:
+        args["size"] = field
 
     field = data.get("project_id", None)
     if field is not None:
@@ -300,9 +253,10 @@ def unmarshal_ListSnapshotsResponse(data: Any) -> ListSnapshotsResponse:
     args: Dict[str, Any] = {}
 
     field = data.get("snapshots", None)
-    args["snapshots"] = (
-        [unmarshal_Snapshot(v) for v in field] if field is not None else None
-    )
+    if field is not None:
+        args["snapshots"] = (
+            [unmarshal_Snapshot(v) for v in field] if field is not None else None
+        )
 
     field = data.get("total_count", None)
     if field is not None:
@@ -380,6 +334,27 @@ def unmarshal_ListVolumesResponse(data: Any) -> ListVolumesResponse:
     return ListVolumesResponse(**args)
 
 
+def marshal_CreateSnapshotRequest(
+    request: CreateSnapshotRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.volume_id is not None:
+        output["volume_id"] = request.volume_id
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    return output
+
+
 def marshal_CreateVolumeRequestFromEmpty(
     request: CreateVolumeRequestFromEmpty,
     defaults: ProfileDefaults,
@@ -415,26 +390,8 @@ def marshal_CreateVolumeRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility(
-                    "from_empty",
-                    (
-                        marshal_CreateVolumeRequestFromEmpty(
-                            request.from_empty, defaults
-                        )
-                        if request.from_empty is not None
-                        else None
-                    ),
-                ),
-                OneOfPossibility(
-                    "from_snapshot",
-                    (
-                        marshal_CreateVolumeRequestFromSnapshot(
-                            request.from_snapshot, defaults
-                        )
-                        if request.from_snapshot is not None
-                        else None
-                    ),
-                ),
+                OneOfPossibility("from_empty", request.from_empty),
+                OneOfPossibility("from_snapshot", request.from_snapshot),
             ]
         ),
     )

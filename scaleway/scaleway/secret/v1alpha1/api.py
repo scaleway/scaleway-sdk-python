@@ -18,6 +18,10 @@ from .types import (
     SecretType,
     SecretVersionStatus,
     AccessSecretVersionResponse,
+    AddSecretOwnerRequest,
+    CreateFolderRequest,
+    CreateSecretRequest,
+    CreateSecretVersionRequest,
     EphemeralPolicy,
     EphemeralProperties,
     Folder,
@@ -60,7 +64,6 @@ class SecretV1Alpha1API(API):
         self,
         *,
         name: str,
-        type_: SecretType,
         is_protected: bool,
         region: Optional[Region] = None,
         project_id: Optional[str] = None,
@@ -79,14 +82,9 @@ class SecretV1Alpha1API(API):
         :param project_id: ID of the Project containing the secret.
         :param tags: List of the secret's tags.
         :param description: Description of the secret.
-        :param type_: Type of the secret.
-        (Optional.) See `Secret.Type` enum for description of values. If not specified, the type is `Opaque`.
-        :param path: Path of the secret.
-        (Optional.) Location of the secret in the directory structure. If not specified, the path is `/`.
-        :param ephemeral_policy: Ephemeral policy of the secret.
-        (Optional.) Policy that defines whether/when a secret's versions expire. By default, the policy is applied to all the secret's versions.
-        :param is_protected: Returns `true` if secret protection is enabled on a given secret.
-        A protected secret cannot be deleted.
+        :param type_: (Optional.) See `Secret.Type` enum for description of values. If not specified, the type is `Opaque`.
+        :param path: (Optional.) Location of the secret in the directory structure. If not specified, the path is `/`.
+        :param ephemeral_policy: (Optional.) Policy that defines whether/when a secret's versions expire. By default, the policy is applied to all the secret's versions.
         :return: :class:`Secret <Secret>`
 
         Usage:
@@ -94,8 +92,7 @@ class SecretV1Alpha1API(API):
 
             result = api.create_secret(
                 name="example",
-                type_=unknown_secret_type,
-                is_protected=True,
+                is_protected=False,
             )
         """
 
@@ -109,7 +106,6 @@ class SecretV1Alpha1API(API):
             body=marshal_CreateSecretRequest(
                 CreateSecretRequest(
                     name=name,
-                    type_=type_,
                     is_protected=is_protected,
                     region=region,
                     project_id=project_id,
@@ -263,16 +259,13 @@ class SecretV1Alpha1API(API):
         """
         Update metadata of a secret.
         Edit a secret's metadata such as name, tag(s), description and ephemeral policy. The secret to update is specified by the `secret_id` and `region` parameters.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param secret_id: ID of the secret.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Secret's updated name (optional).
         :param tags: Secret's updated list of tags (optional).
         :param description: Description of the secret.
-        :param path: Path of the folder.
-        (Optional.) Location of the folder in the directory structure. If not specified, the path is `/`.
-        :param ephemeral_policy: Ephemeral policy of the secret.
-        (Optional.) Policy that defines whether/when a secret's versions expire.
+        :param path: (Optional.) Location of the folder in the directory structure. If not specified, the path is `/`.
+        :param ephemeral_policy: (Optional.) Policy that defines whether/when a secret's versions expire.
         :return: :class:`Secret <Secret>`
 
         Usage:
@@ -921,8 +914,7 @@ class SecretV1Alpha1API(API):
         - "latest_enabled" (the latest enabled revision).
         :param region: Region to target. If none is passed will use default region from the config.
         :param description: Description of the version.
-        :param ephemeral_properties: Ephemeral properties of the version.
-        (Optional.) Properties that defines the version's expiration date, whether it expires after being accessed once, and the action to perform (disable or delete) once the version expires.
+        :param ephemeral_properties: (Optional.) Properties that defines the version's expiration date, whether it expires after being accessed once, and the action to perform (disable or delete) once the version expires.
         :return: :class:`SecretVersion <SecretVersion>`
 
         Usage:

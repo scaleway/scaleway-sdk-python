@@ -130,78 +130,7 @@ class ListTaxesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
-class Discount:
-    """
-    Discount.
-    """
-
-    id: str
-    """
-    The ID of the discount.
-    """
-
-    creation_date: Optional[datetime]
-    """
-    The creation date of the discount.
-    """
-
-    organization_id: str
-    """
-    The organization ID of the discount.
-    """
-
-    description: str
-    """
-    The description of the discount.
-    """
-
-    value: float
-    """
-    The initial value of the discount.
-    """
-
-    value_used: float
-    """
-    The value indicating how much of the discount has been used.
-    """
-
-    value_remaining: float
-    """
-    The remaining value of the discount.
-    """
-
-    mode: DiscountDiscountMode
-    """
-    The mode of the discount.
-    """
-
-    start_date: Optional[datetime]
-    """
-    The start date of the discount.
-    """
-
-    stop_date: Optional[datetime]
-    """
-    The stop date of the discount.
-    """
-
-    coupon: Optional[DiscountCoupon]
-    """
-    The description of the coupon.
-    """
-
-    filters: List[DiscountFilter]
-    """
-    List of the discount scopes.
-    """
-
-
-@dataclass
 class DiscountCoupon:
-    """
-    Discount. coupon.
-    """
-
     description: Optional[str]
     """
     The description of the coupon.
@@ -210,10 +139,6 @@ class DiscountCoupon:
 
 @dataclass
 class DiscountFilter:
-    """
-    Discount. filter.
-    """
-
     type_: DiscountFilterType
     """
     Type of the filter (category name, product name, product range, resource name, region or zone).
@@ -226,126 +151,7 @@ class DiscountFilter:
 
 
 @dataclass
-class Invoice:
-    """
-    Invoice.
-    """
-
-    id: str
-    """
-    Invoice ID.
-    """
-
-    organization_id: str
-
-    organization_name: str
-
-    start_date: Optional[datetime]
-    """
-    Start date of the billing period.
-    """
-
-    stop_date: Optional[datetime]
-
-    billing_period: Optional[datetime]
-    """
-    The billing period of the invoice in the YYYY-MM format.
-    """
-
-    issued_date: Optional[datetime]
-    """
-    Date when the invoice was sent to the customer.
-    """
-
-    due_date: Optional[datetime]
-    """
-    Payment time limit, set according to the Organization's payment conditions.
-    """
-
-    total_untaxed: Optional[Money]
-    """
-    Total amount, untaxed.
-    """
-
-    total_taxed: Optional[Money]
-    """
-    Total amount, taxed.
-    """
-
-    total_tax: Optional[Money]
-    """
-    The total tax amount of the invoice.
-    """
-
-    total_discount: Optional[Money]
-    """
-    The total discount amount of the invoice.
-    """
-
-    total_undiscount: Optional[Money]
-    """
-    The total amount of the invoice before applying the discount.
-    """
-
-    type_: InvoiceType
-    """
-    Type of invoice, either periodic or purchase.
-    """
-
-    state: str
-    """
-    The state of the Invoice.
-    """
-
-    number: int
-    """
-    Invoice number.
-    """
-
-    seller_name: str
-    """
-    The name of the seller (Scaleway).
-    """
-
-
-@dataclass
-class ListConsumptionsResponse:
-    """
-    List consumptions response.
-    """
-
-    consumptions: List[ListConsumptionsResponseConsumption]
-    """
-    Detailed consumption list.
-    """
-
-    total_count: int
-    """
-    Total number of returned items.
-    """
-
-    total_discount_untaxed_value: float
-    """
-    Sum of all discounts, displayed only when no category or project ID filter is applied.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Last consumption update date.
-    """
-
-
-@dataclass
 class ListConsumptionsResponseConsumption:
-    """
-    List consumptions response. consumption.
-    """
-
-    value: Optional[Money]
-    """
-    Monetary value of the consumption.
-    """
-
     product_name: str
     """
     The product name. For example, "VPC Public Gateway S", "VPC Public Gateway M" for the VPC product.
@@ -381,69 +187,156 @@ class ListConsumptionsResponseConsumption:
     Consumed quantity.
     """
 
-
-@dataclass
-class ListDiscountsResponse:
+    value: Optional[Money]
     """
-    List discounts response.
-    """
-
-    total_count: int
-    """
-    Total number of discounts.
-    """
-
-    discounts: List[Discount]
-    """
-    Paginated returned discounts.
+    Monetary value of the consumption.
     """
 
 
 @dataclass
-class ListInvoicesResponse:
+class Discount:
+    id: str
     """
-    List invoices response.
-    """
-
-    total_count: int
-    """
-    Total number of invoices.
+    The ID of the discount.
     """
 
-    invoices: List[Invoice]
+    organization_id: str
     """
-    Paginated returned invoices.
+    The organization ID of the discount.
+    """
+
+    description: str
+    """
+    The description of the discount.
+    """
+
+    value: float
+    """
+    The initial value of the discount.
+    """
+
+    value_used: float
+    """
+    The value indicating how much of the discount has been used.
+    """
+
+    value_remaining: float
+    """
+    The remaining value of the discount.
+    """
+
+    mode: DiscountDiscountMode
+    """
+    The mode of the discount.
+    """
+
+    filters: List[DiscountFilter]
+    """
+    List of the discount scopes.
+    """
+
+    creation_date: Optional[datetime]
+    """
+    The creation date of the discount.
+    """
+
+    start_date: Optional[datetime]
+    """
+    The start date of the discount.
+    """
+
+    stop_date: Optional[datetime]
+    """
+    The stop date of the discount.
+    """
+
+    coupon: Optional[DiscountCoupon]
+    """
+    The description of the coupon.
     """
 
 
 @dataclass
-class ListTaxesResponse:
+class Invoice:
+    id: str
     """
-    List taxes response.
-    """
-
-    taxes: List[ListTaxesResponseTax]
-    """
-    Detailed consumption tax.
+    Invoice ID.
     """
 
-    total_count: int
+    organization_id: str
+
+    organization_name: str
+
+    start_date: Optional[datetime]
     """
-    Total number of returned items.
+    Start date of the billing period.
     """
 
-    updated_at: Optional[datetime]
+    stop_date: Optional[datetime]
+
+    billing_period: Optional[datetime]
     """
-    Last consumption update date.
+    The billing period of the invoice in the YYYY-MM format.
+    """
+
+    issued_date: Optional[datetime]
+    """
+    Date when the invoice was sent to the customer.
+    """
+
+    due_date: Optional[datetime]
+    """
+    Payment time limit, set according to the Organization's payment conditions.
+    """
+
+    type_: InvoiceType
+    """
+    Type of invoice, either periodic or purchase.
+    """
+
+    state: str
+    """
+    The state of the Invoice.
+    """
+
+    number: int
+    """
+    Invoice number.
+    """
+
+    seller_name: str
+    """
+    The name of the seller (Scaleway).
+    """
+
+    total_untaxed: Optional[Money]
+    """
+    Total amount, untaxed.
+    """
+
+    total_taxed: Optional[Money]
+    """
+    Total amount, taxed.
+    """
+
+    total_tax: Optional[Money]
+    """
+    The total tax amount of the invoice.
+    """
+
+    total_discount: Optional[Money]
+    """
+    The total discount amount of the invoice.
+    """
+
+    total_undiscount: Optional[Money]
+    """
+    The total amount of the invoice before applying the discount.
     """
 
 
 @dataclass
 class ListTaxesResponseTax:
-    """
-    List taxes response. tax.
-    """
-
     description: str
     """
     Description of the tax applied.
@@ -466,6 +359,70 @@ class ListTaxesResponseTax:
 
 
 @dataclass
+class DownloadInvoiceRequest:
+    invoice_id: str
+    """
+    Invoice ID.
+    """
+
+    file_type: Optional[DownloadInvoiceRequestFileType]
+    """
+    File type. PDF by default.
+    """
+
+
+@dataclass
+class ExportInvoicesRequest:
+    organization_id: Optional[str]
+    """
+    Organization ID. If specified, only invoices from this Organization will be returned.
+    """
+
+    billing_period_start_after: Optional[datetime]
+    """
+    Return only invoice with start date greater than billing_period_start.
+    """
+
+    billing_period_start_before: Optional[datetime]
+    """
+    Return only invoice with start date less than billing_period_start.
+    """
+
+    invoice_type: Optional[InvoiceType]
+    """
+    Invoice type. It can either be `periodic` or `purchase`.
+    """
+
+    page: Optional[int]
+    """
+    Page number.
+    """
+
+    page_size: Optional[int]
+    """
+    Positive integer lower or equal to 100 to select the number of items to return.
+    """
+
+    order_by: Optional[ExportInvoicesRequestOrderBy]
+    """
+    How invoices are ordered in the response.
+    """
+
+    file_type: Optional[ExportInvoicesRequestFileType]
+    """
+    File format for exporting the invoice list.
+    """
+
+
+@dataclass
+class GetInvoiceRequest:
+    invoice_id: str
+    """
+    Invoice ID.
+    """
+
+
+@dataclass
 class ListConsumptionsRequest:
     order_by: Optional[ListConsumptionsRequestOrderBy]
     """
@@ -482,20 +439,6 @@ class ListConsumptionsRequest:
     Positive integer lower or equal to 100 to select the number of items to return.
     """
 
-    organization_id: Optional[str]
-    """
-    Filter by Organization ID.
-    
-    One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
-    """
-
-    project_id: Optional[str]
-    """
-    Filter by Project ID.
-    
-    One-of ('project_identifier'): at most one of 'organization_id', 'project_id' could be set.
-    """
-
     category_name: Optional[str]
     """
     Filter by name of a Category as they are shown in the invoice (Compute, Network, Observability).
@@ -506,17 +449,44 @@ class ListConsumptionsRequest:
     Filter by the billing period in the YYYY-MM format. If it is empty the current billing period will be used as default.
     """
 
+    organization_id: Optional[str]
+
+    project_id: Optional[str]
+
 
 @dataclass
-class ListTaxesRequest:
-    order_by: Optional[ListTaxesRequestOrderBy]
+class ListConsumptionsResponse:
+    consumptions: List[ListConsumptionsResponseConsumption]
     """
-    Order consumed taxes list in the response by their update date.
+    Detailed consumption list.
+    """
+
+    total_count: int
+    """
+    Total number of returned items.
+    """
+
+    total_discount_untaxed_value: float
+    """
+    Sum of all discounts, displayed only when no category or project ID filter is applied.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Last consumption update date.
+    """
+
+
+@dataclass
+class ListDiscountsRequest:
+    order_by: Optional[ListDiscountsRequestOrderBy]
+    """
+    Order discounts in the response by their description.
     """
 
     page: Optional[int]
     """
-    Page number.
+    Positive integer to choose the page to return.
     """
 
     page_size: Optional[int]
@@ -526,12 +496,20 @@ class ListTaxesRequest:
 
     organization_id: Optional[str]
     """
-    Filter by Organization ID.
+    ID of the organization.
     """
 
-    billing_period: Optional[str]
+
+@dataclass
+class ListDiscountsResponse:
+    total_count: int
     """
-    Filter by the billing period in the YYYY-MM format. If it is empty the current billing period will be used as default.
+    Total number of discounts.
+    """
+
+    discounts: List[Discount]
+    """
+    Paginated returned discounts.
     """
 
 
@@ -574,25 +552,23 @@ class ListInvoicesRequest:
 
 
 @dataclass
-class ExportInvoicesRequest:
-    organization_id: Optional[str]
+class ListInvoicesResponse:
+    total_count: int
     """
-    Organization ID. If specified, only invoices from this Organization will be returned.
-    """
-
-    billing_period_start_after: Optional[datetime]
-    """
-    Return only invoice with start date greater than billing_period_start.
+    Total number of invoices.
     """
 
-    billing_period_start_before: Optional[datetime]
+    invoices: List[Invoice]
     """
-    Return only invoice with start date less than billing_period_start.
+    Paginated returned invoices.
     """
 
-    invoice_type: InvoiceType
+
+@dataclass
+class ListTaxesRequest:
+    order_by: Optional[ListTaxesRequestOrderBy]
     """
-    Invoice type. It can either be `periodic` or `purchase`.
+    Order consumed taxes list in the response by their update date.
     """
 
     page: Optional[int]
@@ -605,56 +581,30 @@ class ExportInvoicesRequest:
     Positive integer lower or equal to 100 to select the number of items to return.
     """
 
-    order_by: ExportInvoicesRequestOrderBy
-    """
-    How invoices are ordered in the response.
-    """
-
-    file_type: ExportInvoicesRequestFileType
-    """
-    File format for exporting the invoice list.
-    """
-
-
-@dataclass
-class GetInvoiceRequest:
-    invoice_id: str
-    """
-    Invoice ID.
-    """
-
-
-@dataclass
-class DownloadInvoiceRequest:
-    invoice_id: str
-    """
-    Invoice ID.
-    """
-
-    file_type: DownloadInvoiceRequestFileType
-    """
-    File type. PDF by default.
-    """
-
-
-@dataclass
-class ListDiscountsRequest:
-    order_by: Optional[ListDiscountsRequestOrderBy]
-    """
-    Order discounts in the response by their description.
-    """
-
-    page: Optional[int]
-    """
-    Positive integer to choose the page to return.
-    """
-
-    page_size: Optional[int]
-    """
-    Positive integer lower or equal to 100 to select the number of items to return.
-    """
-
     organization_id: Optional[str]
     """
-    ID of the organization.
+    Filter by Organization ID.
+    """
+
+    billing_period: Optional[str]
+    """
+    Filter by the billing period in the YYYY-MM format. If it is empty the current billing period will be used as default.
+    """
+
+
+@dataclass
+class ListTaxesResponse:
+    taxes: List[ListTaxesResponseTax]
+    """
+    Detailed consumption tax.
+    """
+
+    total_count: int
+    """
+    Total number of returned items.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Last consumption update date.
     """

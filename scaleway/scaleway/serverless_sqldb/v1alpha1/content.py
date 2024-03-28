@@ -6,7 +6,6 @@ from .types import (
     DatabaseStatus,
 )
 
-
 DATABASE_TRANSIENT_STATUSES: List[DatabaseStatus] = [
     DatabaseStatus.CREATING,
     DatabaseStatus.DELETING,

@@ -15,26 +15,26 @@ from scaleway_core.utils import (
 from .types import (
     ListJobDefinitionsRequestOrderBy,
     ListJobRunsRequestOrderBy,
+    CreateJobDefinitionRequest,
     CreateJobDefinitionRequestCronScheduleConfig,
     JobDefinition,
     JobRun,
     ListJobDefinitionsResponse,
     ListJobRunsResponse,
-    StartJobDefinitionResponse,
-    UpdateJobDefinitionRequestCronScheduleConfig,
-    CreateJobDefinitionRequest,
-    UpdateJobDefinitionRequest,
     StartJobDefinitionRequest,
+    StartJobDefinitionResponse,
+    UpdateJobDefinitionRequest,
+    UpdateJobDefinitionRequestCronScheduleConfig,
 )
 from .marshalling import (
-    marshal_CreateJobDefinitionRequest,
-    marshal_StartJobDefinitionRequest,
-    marshal_UpdateJobDefinitionRequest,
     unmarshal_JobDefinition,
     unmarshal_JobRun,
     unmarshal_ListJobDefinitionsResponse,
     unmarshal_ListJobRunsResponse,
     unmarshal_StartJobDefinitionResponse,
+    marshal_CreateJobDefinitionRequest,
+    marshal_StartJobDefinitionRequest,
+    marshal_UpdateJobDefinitionRequest,
 )
 
 
@@ -61,16 +61,16 @@ class JobsV1Alpha1API(API):
     ) -> JobDefinition:
         """
         Create a new job definition in a specified Project.
-        :param region: Region to target. If none is passed will use default region from the config.
-        :param name: Name of the job definition.
         :param cpu_limit: CPU limit of the job.
         :param memory_limit: Memory limit of the job (in MiB).
-        :param local_storage_capacity: Local storage capacity of the job (in MiB).
         :param image_uri: Image to use for the job.
         :param command: Startup command.
+        :param description: Description of the job.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param name: Name of the job definition.
+        :param local_storage_capacity: Local storage capacity of the job (in MiB).
         :param project_id: UUID of the Scaleway Project containing the job.
         :param environment_variables: Environment variables of the job.
-        :param description: Description of the job.
         :param job_timeout: Timeout of the job in seconds.
         :param cron_schedule:
         :return: :class:`JobDefinition <JobDefinition>`
@@ -124,8 +124,8 @@ class JobsV1Alpha1API(API):
     ) -> JobDefinition:
         """
         Get a job definition by its unique identifier.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param job_definition_id: UUID of the job definition to get.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`JobDefinition <JobDefinition>`
 
         Usage:
@@ -209,7 +209,7 @@ class JobsV1Alpha1API(API):
         :param page_size:
         :param order_by:
         :param project_id:
-        :return: :class:`List[ListJobDefinitionsResponse] <List[ListJobDefinitionsResponse]>`
+        :return: :class:`List[JobDefinition] <List[JobDefinition]>`
 
         Usage:
         ::
@@ -248,8 +248,8 @@ class JobsV1Alpha1API(API):
     ) -> JobDefinition:
         """
         Update an existing job definition associated with the specified unique identifier.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param job_definition_id: UUID of the job definition to update.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the job definition.
         :param cpu_limit: CPU limit of the job.
         :param memory_limit: Memory limit of the job (in MiB).
@@ -310,8 +310,8 @@ class JobsV1Alpha1API(API):
     ) -> None:
         """
         Delete an exsisting job definition by its unique identifier.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param job_definition_id: UUID of the job definition to delete.
+        :param region: Region to target. If none is passed will use default region from the config.
 
         Usage:
         ::
@@ -346,15 +346,11 @@ class JobsV1Alpha1API(API):
     ) -> StartJobDefinitionResponse:
         """
         Run an existing job definition by its unique identifier. This will create a new job run.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param job_definition_id: UUID of the job definition to start.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param command: Contextual startup command for this specific job run.
-
-        One-of ('_command'): at most one of 'command' could be set.
         :param environment_variables: Contextual environment variables for this specific job run.
         :param replicas: Number of jobs to run.
-
-        One-of ('_replicas'): at most one of 'replicas' could be set.
         :return: :class:`StartJobDefinitionResponse <StartJobDefinitionResponse>`
 
         Usage:
@@ -398,8 +394,8 @@ class JobsV1Alpha1API(API):
     ) -> JobRun:
         """
         Get a job run by its unique identifier.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param job_run_id: UUID of the job run to get.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`JobRun <JobRun>`
 
         Usage:
@@ -431,8 +427,8 @@ class JobsV1Alpha1API(API):
     ) -> JobRun:
         """
         Stop a job run by its unique identifier.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param job_run_id: UUID of the job run to stop.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`JobRun <JobRun>`
 
         Usage:
@@ -520,7 +516,7 @@ class JobsV1Alpha1API(API):
         :param order_by:
         :param job_definition_id:
         :param project_id:
-        :return: :class:`List[ListJobRunsResponse] <List[ListJobRunsResponse]>`
+        :return: :class:`List[JobRun] <List[JobRun]>`
 
         Usage:
         ::

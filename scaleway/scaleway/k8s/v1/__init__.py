@@ -29,16 +29,10 @@ from .types import CreateClusterRequestAutoscalerConfig
 from .types import CreateClusterRequestOpenIDConnectConfig
 from .types import CreateClusterRequestPoolConfig
 from .types import CreatePoolRequestUpgradePolicy
-from .types import ExternalNode
 from .types import ExternalNodeCoreV1Taint
-from .types import ListClusterAvailableTypesResponse
-from .types import ListClusterAvailableVersionsResponse
-from .types import ListClusterTypesResponse
-from .types import ListClustersResponse
-from .types import ListNodesResponse
-from .types import ListPoolsResponse
-from .types import ListVersionsResponse
-from .types import MaintenanceWindow
+from .types import ClusterType
+from .types import Version
+from .types import Cluster
 from .types import Node
 from .types import UpdateClusterRequestAutoUpgrade
 from .types import UpdateClusterRequestAutoscalerConfig
@@ -111,16 +105,10 @@ __all__ = [
     "CreateClusterRequestOpenIDConnectConfig",
     "CreateClusterRequestPoolConfig",
     "CreatePoolRequestUpgradePolicy",
-    "ExternalNode",
     "ExternalNodeCoreV1Taint",
-    "ListClusterAvailableTypesResponse",
-    "ListClusterAvailableVersionsResponse",
-    "ListClusterTypesResponse",
-    "ListClustersResponse",
-    "ListNodesResponse",
-    "ListPoolsResponse",
-    "ListVersionsResponse",
-    "MaintenanceWindow",
+    "ClusterType",
+    "Version",
+    "Cluster",
     "Node",
     "UpdateClusterRequestAutoUpgrade",
     "UpdateClusterRequestAutoscalerConfig",

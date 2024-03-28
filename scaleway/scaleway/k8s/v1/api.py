@@ -215,7 +215,7 @@ class K8SV1API(API):
         project_id: Optional[str] = None,
         name: Optional[str] = None,
         tags: Optional[List[str]] = None,
-        cni: CNI = CNI.UNKNOWN_CNI,
+        cni: CNI,
         pools: Optional[List[CreateClusterRequestPoolConfig]] = None,
         autoscaler_config: Optional[CreateClusterRequestAutoscalerConfig] = None,
         auto_upgrade: Optional[CreateClusterRequestAutoUpgrade] = None,
@@ -645,14 +645,15 @@ class K8SV1API(API):
         cluster_id: str,
         region: Optional[Region] = None,
         redacted: Optional[bool] = None,
-    ) -> Optional[ScwFile]:
+    ) -> ScwFile:
         """
         Download the kubeconfig for a Cluster.
         Download the Kubernetes cluster config file (also known as `kubeconfig`) for a specific cluster to use it with `kubectl`.
         Tip: add `?dl=1` at the end of the URL to directly retrieve the base64 decoded kubeconfig. If you choose not to, the kubeconfig will be base64 encoded.
         :param cluster_id: Cluster ID for which to download the kubeconfig.
+        :param region: Region to target. If none is passed will use default region from the config.
         :param redacted: Hide the legacy token from the kubeconfig.
-        :return: :class:`Optional[ScwFile] <Optional[ScwFile]>`
+        :return: :class:`ScwFile <ScwFile>`
 
         Usage:
         ::

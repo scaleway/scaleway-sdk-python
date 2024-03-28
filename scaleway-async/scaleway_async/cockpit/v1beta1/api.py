@@ -85,10 +85,7 @@ from .marshalling import (
 
 class CockpitV1Beta1API(API):
     """
-    Cockpit API.
-
     The Cockpit API allows you to activate your Cockpit to store metrics and logs. It also provides you with a dedicated Grafana for dashboarding to visualize your metrics and logs.
-    Cockpit API.
     """
 
     async def activate_cockpit(
@@ -255,7 +252,6 @@ class CockpitV1Beta1API(API):
     ) -> Datasource:
         """
         Create a data source for a given Project specified by the Project ID and the data source type.
-        :param project_id: ID of the Project the Cockpit belongs to.
         :param name: Data source name.
         :param is_default: Specifies that the returned output is the default data source per type.
         :param project_id: ID of the Project the Cockpit belongs to.
@@ -777,7 +773,6 @@ class CockpitV1Beta1API(API):
     ) -> GrafanaUser:
         """
         Create a Grafana user for your Cockpit's Grafana. Make sure you save the automatically-generated password and the Grafana user ID.
-        :param project_id: ID of the Project.
         :param login: Username of the Grafana user.
         :param project_id: ID of the Project.
         :param role: Role assigned to the Grafana user.
@@ -885,7 +880,6 @@ class CockpitV1Beta1API(API):
     ) -> None:
         """
         Delete a Grafana user from your Cockpit's Grafana, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user.
-        :param grafana_user_id: ID of the Grafana user.
         :param project_id: ID of the Project.
         :param grafana_user_id: ID of the Grafana user.
 
@@ -921,7 +915,6 @@ class CockpitV1Beta1API(API):
     ) -> GrafanaUser:
         """
         Reset the password of a Grafana user, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user.
-        :param grafana_user_id: ID of the Grafana user.
         :param project_id: ID of the Project.
         :param grafana_user_id: ID of the Grafana user.
         :return: :class:`GrafanaUser <GrafanaUser>`

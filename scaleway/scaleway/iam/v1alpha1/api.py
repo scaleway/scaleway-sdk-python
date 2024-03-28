@@ -59,16 +59,6 @@ from .types import (
     Rule,
     RuleSpecs,
     SSHKey,
-    SetRulesResponse,
-    User,
-    CreateSSHKeyRequest,
-    UpdateSSHKeyRequest,
-    UpdateUserRequest,
-    CreateUserRequest,
-    CreateApplicationRequest,
-    UpdateApplicationRequest,
-    CreateGroupRequest,
-    UpdateGroupRequest,
     SetGroupMembersRequest,
     SetRulesRequest,
     SetRulesResponse,
@@ -81,23 +71,7 @@ from .types import (
     User,
 )
 from .marshalling import (
-    marshal_AddGroupMemberRequest,
-    marshal_AddGroupMembersRequest,
-    marshal_CreateAPIKeyRequest,
-    marshal_CreateApplicationRequest,
-    marshal_CreateGroupRequest,
-    marshal_CreatePolicyRequest,
-    marshal_CreateSSHKeyRequest,
-    marshal_CreateUserRequest,
-    marshal_RemoveGroupMemberRequest,
-    marshal_SetGroupMembersRequest,
-    marshal_SetRulesRequest,
-    marshal_UpdateAPIKeyRequest,
-    marshal_UpdateApplicationRequest,
-    marshal_UpdateGroupRequest,
-    marshal_UpdatePolicyRequest,
-    marshal_UpdateSSHKeyRequest,
-    marshal_UpdateUserRequest,
+    unmarshal_JWT,
     unmarshal_APIKey,
     unmarshal_Application,
     unmarshal_Group,
@@ -508,7 +482,9 @@ class IamV1Alpha1API(API):
         Usage:
         ::
 
-            result = api.update_user(user_id="example")
+            result = api.update_user(
+                user_id="example",
+            )
         """
 
         param_user_id = validate_path_param("user_id", user_id)
@@ -1341,7 +1317,7 @@ class IamV1Alpha1API(API):
         :param policy_name: Name of the policy to fetch.
         :param tag: Filter by tags containing a given string.
         :param policy_ids: Filter by a list of IDs.
-        :return: :class:`List[ListPoliciesResponse] <List[ListPoliciesResponse]>`
+        :return: :class:`List[Policy] <List[Policy]>`
 
         Usage:
         ::
@@ -1770,7 +1746,7 @@ class IamV1Alpha1API(API):
         access_key: Optional[str] = None,
         description: Optional[str] = None,
         bearer_id: Optional[str] = None,
-        bearer_type: BearerType = BearerType.UNKNOWN_BEARER_TYPE,
+        bearer_type: Optional[BearerType] = None,
         access_keys: Optional[List[str]] = None,
     ) -> ListAPIKeysResponse:
         """
@@ -1862,7 +1838,7 @@ class IamV1Alpha1API(API):
         :param bearer_id: Filter by bearer ID.
         :param bearer_type: Filter by type of bearer.
         :param access_keys: Filter by a list of access keys.
-        :return: :class:`List[ListAPIKeysResponse] <List[ListAPIKeysResponse]>`
+        :return: :class:`List[APIKey] <List[APIKey]>`
 
         Usage:
         ::
@@ -1886,6 +1862,8 @@ class IamV1Alpha1API(API):
                 "bearer_id": bearer_id,
                 "bearer_type": bearer_type,
                 "access_keys": access_keys,
+                "application_id": application_id,
+                "user_id": user_id,
             },
         )
 

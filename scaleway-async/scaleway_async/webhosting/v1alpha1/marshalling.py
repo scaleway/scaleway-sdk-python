@@ -9,11 +9,7 @@ from scaleway_core.bridge import (
     unmarshal_Money,
 )
 from .types import (
-    LanguageCode,
-    ControlPanel,
-    DnsRecord,
-    DnsRecords,
-    Hosting,
+    OfferQuotaWarning,
     HostingCpanelUrls,
     HostingOption,
     Hosting,
@@ -464,15 +460,6 @@ def marshal_CreateHostingRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
-
-    if request.domain is not None:
-        output["domain"] = request.domain
-
-    if request.email is not None:
-        output["email"] = request.email
-
-    if request.language is not None:
-        output["language"] = LanguageCode(request.language)
 
     if request.offer_id is not None:
         output["offer_id"] = request.offer_id

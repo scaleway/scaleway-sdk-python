@@ -9,15 +9,9 @@ from .types import EmailRcptType
 from .types import EmailStatus
 from .content import EMAIL_TRANSIENT_STATUSES
 from .types import ListEmailsRequestOrderBy
-from .types import CreateEmailRequestAddress
-from .types import CreateEmailRequestAttachment
-from .types import CreateEmailRequestHeader
-from .types import CreateEmailResponse
-from .types import Domain
-from .types import DomainLastStatus
-from .types import DomainLastStatusDkimRecord
-from .types import DomainLastStatusDmarcRecord
-from .types import DomainLastStatusSpfRecord
+from .types import DomainRecordsDMARC
+from .types import EmailTry
+from .types import DomainRecords
 from .types import DomainReputation
 from .types import DomainStatistics
 from .types import CreateEmailRequestAddress
@@ -56,15 +50,9 @@ __all__ = [
     "EmailStatus",
     "EMAIL_TRANSIENT_STATUSES",
     "ListEmailsRequestOrderBy",
-    "CreateEmailRequestAddress",
-    "CreateEmailRequestAttachment",
-    "CreateEmailRequestHeader",
-    "CreateEmailResponse",
-    "Domain",
-    "DomainLastStatus",
-    "DomainLastStatusDkimRecord",
-    "DomainLastStatusDmarcRecord",
-    "DomainLastStatusSpfRecord",
+    "DomainRecordsDMARC",
+    "EmailTry",
+    "DomainRecords",
     "DomainReputation",
     "DomainStatistics",
     "CreateEmailRequestAddress",

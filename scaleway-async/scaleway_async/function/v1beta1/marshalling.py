@@ -48,95 +48,6 @@ from .types import (
 )
 
 
-def unmarshal_SecretHashedValue(data: Any) -> SecretHashedValue:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'SecretHashedValue' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("hashed_value", None)
-    args["hashed_value"] = field
-
-    field = data.get("key", None)
-    args["key"] = field
-
-    return SecretHashedValue(**args)
-
-
-def unmarshal_TriggerMnqNatsClientConfig(data: Any) -> TriggerMnqNatsClientConfig:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'TriggerMnqNatsClientConfig' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("mnq_credential_id", None)
-    args["mnq_credential_id"] = field
-
-    field = data.get("mnq_nats_account_id", None)
-    args["mnq_nats_account_id"] = field
-
-    field = data.get("mnq_project_id", None)
-    args["mnq_project_id"] = field
-
-    field = data.get("mnq_region", None)
-    args["mnq_region"] = field
-
-    field = data.get("subject", None)
-    args["subject"] = field
-
-    return TriggerMnqNatsClientConfig(**args)
-
-
-def unmarshal_TriggerMnqSqsClientConfig(data: Any) -> TriggerMnqSqsClientConfig:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'TriggerMnqSqsClientConfig' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("mnq_credential_id", None)
-    args["mnq_credential_id"] = field
-
-    field = data.get("mnq_project_id", None)
-    args["mnq_project_id"] = field
-
-    field = data.get("mnq_region", None)
-    args["mnq_region"] = field
-
-    field = data.get("queue", None)
-    args["queue"] = field
-
-    return TriggerMnqSqsClientConfig(**args)
-
-
-def unmarshal_TriggerSqsClientConfig(data: Any) -> TriggerSqsClientConfig:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'TriggerSqsClientConfig' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("access_key", None)
-    args["access_key"] = field
-
-    field = data.get("endpoint", None)
-    args["endpoint"] = field
-
-    field = data.get("queue_url", None)
-    args["queue_url"] = field
-
-    field = data.get("secret_key", None)
-    args["secret_key"] = field
-
-    return TriggerSqsClientConfig(**args)
-
-
 def unmarshal_Cron(data: Any) -> Cron:
     if not isinstance(data, dict):
         raise TypeError(
@@ -809,8 +720,11 @@ def marshal_CreateCronRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.mnq_nats_account_id is not None:
-        output["mnq_nats_account_id"] = request.mnq_nats_account_id
+    if request.function_id is not None:
+        output["function_id"] = request.function_id
+
+    if request.schedule is not None:
+        output["schedule"] = request.schedule
 
     if request.args is not None:
         output["args"] = request.args
@@ -827,35 +741,11 @@ def marshal_CreateDomainRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.mnq_project_id is not None:
-        output["mnq_project_id"] = request.mnq_project_id
+    if request.hostname is not None:
+        output["hostname"] = request.hostname
 
-    if request.mnq_region is not None:
-        output["mnq_region"] = request.mnq_region
-
-    if request.queue is not None:
-        output["queue"] = request.queue
-
-    return output
-
-
-def marshal_CreateTriggerRequestSqsClientConfig(
-    request: CreateTriggerRequestSqsClientConfig,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-
-    if request.access_key is not None:
-        output["access_key"] = request.access_key
-
-    if request.endpoint is not None:
-        output["endpoint"] = request.endpoint
-
-    if request.queue_url is not None:
-        output["queue_url"] = request.queue_url
-
-    if request.secret_key is not None:
-        output["secret_key"] = request.secret_key
+    if request.function_id is not None:
+        output["function_id"] = request.function_id
 
     return output
 
@@ -1168,289 +1058,6 @@ def marshal_UpdateTriggerRequestSqsClientConfig(
     return output
 
 
-def marshal_CreateCronRequest(
-    request: CreateCronRequest,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-
-    if request.args is not None:
-        output["args"] = request.args
-
-    if request.function_id is not None:
-        output["function_id"] = request.function_id
-
-    if request.name is not None:
-        output["name"] = request.name
-
-    if request.schedule is not None:
-        output["schedule"] = request.schedule
-
-    return output
-
-
-def marshal_CreateDomainRequest(
-    request: CreateDomainRequest,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-
-    if request.function_id is not None:
-        output["function_id"] = request.function_id
-
-    if request.hostname is not None:
-        output["hostname"] = request.hostname
-
-    return output
-
-
-def marshal_CreateFunctionRequest(
-    request: CreateFunctionRequest,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-
-    if request.description is not None:
-        output["description"] = request.description
-
-    if request.environment_variables is not None:
-        output["environment_variables"] = request.environment_variables
-
-    if request.handler is not None:
-        output["handler"] = request.handler
-
-    if request.http_option is not None:
-        output["http_option"] = FunctionHttpOption(request.http_option)
-
-    if request.max_scale is not None:
-        output["max_scale"] = request.max_scale
-
-    if request.memory_limit is not None:
-        output["memory_limit"] = request.memory_limit
-
-    if request.min_scale is not None:
-        output["min_scale"] = request.min_scale
-
-    if request.name is not None:
-        output["name"] = request.name
-
-    if request.namespace_id is not None:
-        output["namespace_id"] = request.namespace_id
-
-    if request.privacy is not None:
-        output["privacy"] = FunctionPrivacy(request.privacy)
-
-    if request.runtime is not None:
-        output["runtime"] = FunctionRuntime(request.runtime)
-
-    if request.secret_environment_variables is not None:
-        output["secret_environment_variables"] = [
-            marshal_Secret(v, defaults) for v in request.secret_environment_variables
-        ]
-
-    if request.timeout is not None:
-        output["timeout"] = request.timeout
-
-    return output
-
-
-def marshal_CreateNamespaceRequest(
-    request: CreateNamespaceRequest,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-
-    if request.description is not None:
-        output["description"] = request.description
-
-    if request.environment_variables is not None:
-        output["environment_variables"] = request.environment_variables
-
-    if request.name is not None:
-        output["name"] = request.name
-
-    if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
-
-    if request.secret_environment_variables is not None:
-        output["secret_environment_variables"] = [
-            marshal_Secret(v, defaults) for v in request.secret_environment_variables
-        ]
-
-    return output
-
-
-def marshal_CreateTokenRequest(
-    request: CreateTokenRequest,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-    output.update(
-        resolve_one_of(
-            [
-                OneOfPossibility(
-                    "function_id",
-                    request.function_id if request.function_id is not None else None,
-                ),
-                OneOfPossibility(
-                    "namespace_id",
-                    request.namespace_id if request.namespace_id is not None else None,
-                ),
-            ]
-        ),
-    )
-
-    if request.description is not None:
-        output["description"] = request.description
-
-    if request.expires_at is not None:
-        output["expires_at"] = request.expires_at.astimezone().isoformat()
-
-    return output
-
-
-def marshal_CreateTriggerRequest(
-    request: CreateTriggerRequest,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-    output.update(
-        resolve_one_of(
-            [
-                OneOfPossibility(
-                    "scw_sqs_config",
-                    (
-                        marshal_CreateTriggerRequestMnqSqsClientConfig(
-                            request.scw_sqs_config, defaults
-                        )
-                        if request.scw_sqs_config is not None
-                        else None
-                    ),
-                ),
-                OneOfPossibility(
-                    "scw_nats_config",
-                    (
-                        marshal_CreateTriggerRequestMnqNatsClientConfig(
-                            request.scw_nats_config, defaults
-                        )
-                        if request.scw_nats_config is not None
-                        else None
-                    ),
-                ),
-                OneOfPossibility(
-                    "sqs_config",
-                    (
-                        marshal_CreateTriggerRequestSqsClientConfig(
-                            request.sqs_config, defaults
-                        )
-                        if request.sqs_config is not None
-                        else None
-                    ),
-                ),
-            ]
-        ),
-    )
-
-    if request.description is not None:
-        output["description"] = request.description
-
-    if request.function_id is not None:
-        output["function_id"] = request.function_id
-
-    if request.name is not None:
-        output["name"] = request.name
-
-    return output
-
-
-def marshal_UpdateCronRequest(
-    request: UpdateCronRequest,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-
-    if request.args is not None:
-        output["args"] = request.args
-
-    if request.function_id is not None:
-        output["function_id"] = request.function_id
-
-    if request.name is not None:
-        output["name"] = request.name
-
-    if request.schedule is not None:
-        output["schedule"] = request.schedule
-
-    return output
-
-
-def marshal_UpdateFunctionRequest(
-    request: UpdateFunctionRequest,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-
-    if request.description is not None:
-        output["description"] = request.description
-
-    if request.environment_variables is not None:
-        output["environment_variables"] = request.environment_variables
-
-    if request.handler is not None:
-        output["handler"] = request.handler
-
-    if request.http_option is not None:
-        output["http_option"] = FunctionHttpOption(request.http_option)
-
-    if request.max_scale is not None:
-        output["max_scale"] = request.max_scale
-
-    if request.memory_limit is not None:
-        output["memory_limit"] = request.memory_limit
-
-    if request.min_scale is not None:
-        output["min_scale"] = request.min_scale
-
-    if request.privacy is not None:
-        output["privacy"] = FunctionPrivacy(request.privacy)
-
-    if request.redeploy is not None:
-        output["redeploy"] = request.redeploy
-
-    if request.runtime is not None:
-        output["runtime"] = FunctionRuntime(request.runtime)
-
-    if request.secret_environment_variables is not None:
-        output["secret_environment_variables"] = [
-            marshal_Secret(v, defaults) for v in request.secret_environment_variables
-        ]
-
-    if request.timeout is not None:
-        output["timeout"] = request.timeout
-
-    return output
-
-
-def marshal_UpdateNamespaceRequest(
-    request: UpdateNamespaceRequest,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-
-    if request.description is not None:
-        output["description"] = request.description
-
-    if request.environment_variables is not None:
-        output["environment_variables"] = request.environment_variables
-
-    if request.secret_environment_variables is not None:
-        output["secret_environment_variables"] = [
-            marshal_Secret(v, defaults) for v in request.secret_environment_variables
-        ]
-
-    return output
-
-
 def marshal_UpdateTriggerRequest(
     request: UpdateTriggerRequest,
     defaults: ProfileDefaults,
@@ -1459,16 +1066,7 @@ def marshal_UpdateTriggerRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility(
-                    "sqs_config",
-                    (
-                        marshal_UpdateTriggerRequestSqsClientConfig(
-                            request.sqs_config, defaults
-                        )
-                        if request.sqs_config is not None
-                        else None
-                    ),
-                ),
+                OneOfPossibility("sqs_config", request.sqs_config),
             ]
         ),
     )

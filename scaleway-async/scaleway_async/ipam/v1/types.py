@@ -151,107 +151,9 @@ class IP:
     Resource which the IP is attached to.
     """
 
-    tags: List[str]
-    """
-    Tags for the IP.
-    """
-
-    reverses: List[Reverse]
-    """
-    Array of reverses associated with the IP.
-    """
-
-    region: Region
-    """
-    Region of the IP.
-    """
-
-    zone: Zone
+    zone: Optional[Zone]
     """
     Zone of the IP, if zonal.
-    """
-
-
-@dataclass
-class ListIPsResponse:
-    total_count: int
-
-    ips: List[IP]
-
-
-@dataclass
-class Resource:
-    """
-    Resource.
-    """
-
-    type_: ResourceType
-    """
-    Type of resource the IP is attached to.
-    """
-
-    id: str
-    """
-    ID of the resource the IP is attached to.
-    """
-
-    mac_address: Optional[str]
-    """
-    MAC of the resource the IP is attached to.
-    """
-
-    name: Optional[str]
-    """
-    Name of the resource the IP is attached to.
-    When the IP is in a Private Network, then a DNS record is available to resolve the resource name to this IP.
-    """
-
-
-@dataclass
-class Reverse:
-    """
-    Reverse.
-    """
-
-    hostname: str
-    """
-    Reverse domain name.
-    """
-
-    address: Optional[str]
-    """
-    IP corresponding to the hostname.
-    """
-
-
-@dataclass
-class Source:
-    """
-    Source.
-    """
-
-    zonal: Optional[str]
-    """
-    Zone the IP lives in if the IP is a public zoned IP.
-    This source is global.
-    
-    One-of ('source'): at most one of 'zonal', 'private_network_id', 'subnet_id' could be set.
-    """
-
-    private_network_id: Optional[str]
-    """
-    Private Network the IP lives in if the IP is a private IP.
-    This source is specific.
-    
-    One-of ('source'): at most one of 'zonal', 'private_network_id', 'subnet_id' could be set.
-    """
-
-    subnet_id: Optional[str]
-    """
-    Private Network subnet the IP lives in if the IP is a private IP in a Private Network.
-    This source is specific.
-    
-    One-of ('source'): at most one of 'zonal', 'private_network_id', 'subnet_id' could be set.
     """
 
 
@@ -298,21 +200,6 @@ class GetIPRequest:
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
-    """
-
-    ip_id: str
-    """
-    IP ID.
-    """
-
-    tags: Optional[List[str]]
-    """
-    Tags for the IP.
-    """
-
-    reverses: Optional[List[Reverse]]
-    """
-    Array of reverse domain names associated with an IP in the subnet of the current IP.
     """
 
 

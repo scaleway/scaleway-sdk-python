@@ -11,8 +11,6 @@ from scaleway_core.utils import (
 )
 from .types import (
     CNI,
-    MaintenanceWindowDayOfTheWeek,
-    PoolVolumeType,
     Runtime,
     PoolUpgradePolicy,
     Pool,
@@ -25,7 +23,7 @@ from .types import (
     Node,
     ExternalNodeCoreV1Taint,
     ExternalNode,
-    ExternalNodeCoreV1Taint,
+    ClusterType,
     ListClusterAvailableTypesResponse,
     ListClusterAvailableVersionsResponse,
     ListClusterTypesResponse,
@@ -81,46 +79,13 @@ def unmarshal_Pool(data: Any) -> Pool:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("admission_plugins", None)
-    args["admission_plugins"] = field
-
-    field = data.get("apiserver_cert_sans", None)
-    args["apiserver_cert_sans"] = field
-
-    field = data.get("auto_upgrade", None)
-    args["auto_upgrade"] = (
-        unmarshal_ClusterAutoUpgrade(field) if field is not None else None
-    )
-
-    field = data.get("autoscaler_config", None)
-    args["autoscaler_config"] = (
-        unmarshal_ClusterAutoscalerConfig(field) if field is not None else None
-    )
-
-    field = data.get("cluster_url", None)
-    args["cluster_url"] = field
-
-    field = data.get("cni", None)
-    args["cni"] = field
-
-    field = data.get("commitment_ends_at", None)
-    args["commitment_ends_at"] = parser.isoparse(field) if type(field) is str else field
-
-    field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
-
-    field = data.get("description", None)
-    args["description"] = field
-
-    field = data.get("dns_wildcard", None)
-    args["dns_wildcard"] = field
-
-    field = data.get("feature_gates", None)
-    args["feature_gates"] = field
-
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+
+    field = data.get("cluster_id", None)
+    if field is not None:
+        args["cluster_id"] = field
 
     field = data.get("name", None)
     if field is not None:
@@ -131,156 +96,8 @@ def unmarshal_Pool(data: Any) -> Pool:
         args["status"] = field
 
     field = data.get("version", None)
-    args["version"] = field
-
-    return Cluster(**args)
-
-
-def unmarshal_ClusterType(data: Any) -> ClusterType:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'ClusterType' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("audit_logs_supported", None)
-    args["audit_logs_supported"] = field
-
-    field = data.get("availability", None)
-    args["availability"] = field
-
-    field = data.get("commitment_delay", None)
-    args["commitment_delay"] = field
-
-    field = data.get("dedicated", None)
-    args["dedicated"] = field
-
-    field = data.get("max_nodes", None)
-    args["max_nodes"] = field
-
-    field = data.get("memory", None)
-    args["memory"] = field
-
-    field = data.get("name", None)
-    args["name"] = field
-
-    field = data.get("resiliency", None)
-    args["resiliency"] = field
-
-    field = data.get("sla", None)
-    args["sla"] = field
-
-    return ClusterType(**args)
-
-
-def unmarshal_ExternalNodeCoreV1Taint(data: Any) -> ExternalNodeCoreV1Taint:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'ExternalNodeCoreV1Taint' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("effect", None)
-    args["effect"] = field
-
-    field = data.get("key", None)
-    args["key"] = field
-
-    field = data.get("value", None)
-    args["value"] = field
-
-    return ExternalNodeCoreV1Taint(**args)
-
-
-def unmarshal_Node(data: Any) -> Node:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'Node' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("cluster_id", None)
-    args["cluster_id"] = field
-
-    field = data.get("conditions", None)
-    args["conditions"] = field
-
-    field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
-
-    field = data.get("error_message", None)
-    args["error_message"] = field
-
-    field = data.get("id", None)
-    args["id"] = field
-
-    field = data.get("name", None)
-    args["name"] = field
-
-    field = data.get("pool_id", None)
-    args["pool_id"] = field
-
-    field = data.get("provider_id", None)
-    args["provider_id"] = field
-
-    field = data.get("public_ip_v4", None)
-    args["public_ip_v4"] = field
-
-    field = data.get("public_ip_v6", None)
-    args["public_ip_v6"] = field
-
-    field = data.get("region", None)
-    args["region"] = field
-
-    field = data.get("status", None)
-    args["status"] = field
-
-    field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
-
-    return Node(**args)
-
-
-def unmarshal_Pool(data: Any) -> Pool:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'Pool' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("autohealing", None)
-    args["autohealing"] = field
-
-    field = data.get("autoscaling", None)
-    args["autoscaling"] = field
-
-    field = data.get("cluster_id", None)
-    args["cluster_id"] = field
-
-    field = data.get("container_runtime", None)
-    args["container_runtime"] = field
-
-    field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
-
-    field = data.get("id", None)
-    args["id"] = field
-
-    field = data.get("kubelet_args", None)
-    args["kubelet_args"] = field
-
-    field = data.get("max_size", None)
-    args["max_size"] = field
-
-    field = data.get("min_size", None)
-    args["min_size"] = field
-
-    field = data.get("name", None)
-    args["name"] = field
+    if field is not None:
+        args["version"] = field
 
     field = data.get("node_type", None)
     if field is not None:
@@ -365,20 +182,9 @@ def unmarshal_Version(data: Any) -> Version:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("available_admission_plugins", None)
-    args["available_admission_plugins"] = field
-
-    field = data.get("available_cnis", None)
-    args["available_cnis"] = field
-
-    field = data.get("available_container_runtimes", None)
-    args["available_container_runtimes"] = field
-
-    field = data.get("available_feature_gates", None)
-    args["available_feature_gates"] = field
-
-    field = data.get("available_kubelet_args", None)
-    args["available_kubelet_args"] = field
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
 
     field = data.get("label", None)
     if field is not None:
@@ -755,16 +561,6 @@ def unmarshal_ExternalNode(data: Any) -> ExternalNode:
     field = data.get("cluster_url", None)
     if field is not None:
         args["cluster_url"] = field
-
-    field = data.get("node_labels", None)
-    args["node_labels"] = field
-
-    field = data.get("node_taints", None)
-    args["node_taints"] = (
-        [unmarshal_ExternalNodeCoreV1Taint(v) for v in field]
-        if field is not None
-        else None
-    )
 
     field = data.get("pool_version", None)
     if field is not None:
@@ -1212,8 +1008,8 @@ def marshal_CreateClusterRequest(
     if request.description is not None:
         output["description"] = request.description
 
-    if request.feature_gates is not None:
-        output["feature_gates"] = request.feature_gates
+    if request.version is not None:
+        output["version"] = request.version
 
     if request.name is not None:
         output["name"] = request.name
@@ -1466,11 +1262,26 @@ def marshal_UpdateClusterRequest(
     if request.description is not None:
         output["description"] = request.description
 
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    if request.autoscaler_config is not None:
+        output["autoscaler_config"] = (
+            marshal_UpdateClusterRequestAutoscalerConfig(
+                request.autoscaler_config, defaults
+            ),
+        )
+
+    if request.auto_upgrade is not None:
+        output["auto_upgrade"] = (
+            marshal_UpdateClusterRequestAutoUpgrade(request.auto_upgrade, defaults),
+        )
+
     if request.feature_gates is not None:
         output["feature_gates"] = request.feature_gates
 
-    if request.name is not None:
-        output["name"] = request.name
+    if request.admission_plugins is not None:
+        output["admission_plugins"] = request.admission_plugins
 
     if request.open_id_connect_config is not None:
         output["open_id_connect_config"] = (

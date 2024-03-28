@@ -643,8 +643,6 @@ class Contact:
 
     extension_nl: Optional[ContactExtensionNL]
 
-    status: ContactStatus
-
 
 @dataclass
 class ContactRolesRoles:
@@ -909,10 +907,6 @@ class SSLCertificate:
 
 @dataclass
 class Task:
-    """
-    Task.
-    """
-
     id: str
     """
     The unique identifier of the task.
@@ -928,11 +922,6 @@ class Task:
     The organization ID associated to the task.
     """
 
-    domain: Optional[str]
-    """
-    The domain name associated to the task.
-    """
-
     type_: TaskType
     """
     The type of the task.
@@ -941,6 +930,11 @@ class Task:
     status: TaskStatus
     """
     The status of the task.
+    """
+
+    domain: Optional[str]
+    """
+    The domain name associated to the task.
     """
 
     started_at: Optional[datetime]
@@ -956,11 +950,6 @@ class Task:
     message: Optional[str]
     """
     Error message associated to the task.
-    """
-
-    contact_identifier: Optional[str]
-    """
-    Human-friendly contact identifier used when the task concerns a contact.
     """
 
     contact_identifier: Optional[str]

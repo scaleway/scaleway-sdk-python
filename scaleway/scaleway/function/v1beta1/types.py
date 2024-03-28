@@ -294,10 +294,6 @@ class Secret:
 
 @dataclass
 class CreateTriggerRequestMnqNatsClientConfig:
-    """
-    Create trigger request. mnq nats client config.
-    """
-
     subject: str
     """
     Name of the NATS subject the trigger should listen to.
@@ -315,7 +311,6 @@ class CreateTriggerRequestMnqNatsClientConfig:
 
     mnq_region: str
     """
-    Region in which the Messaging and Queuing project is activated.
     Currently, only the `fr-par` and `nl-ams` regions are available.
     """
 
@@ -334,7 +329,6 @@ class CreateTriggerRequestMnqSqsClientConfig:
 
     mnq_region: str
     """
-    Region in which the Messaging and Queuing project is activated.
     Currently, only the `fr-par` and `nl-ams` regions are available.
     """
 
@@ -688,83 +682,6 @@ class Trigger:
     scw_nats_config: Optional[TriggerMnqNatsClientConfig]
 
     sqs_config: Optional[TriggerSqsClientConfig]
-    """
-    Configuration for an AWS SQS queue.
-    
-    One-of ('config'): at most one of 'scw_sqs_config', 'scw_nats_config', 'sqs_config' could be set.
-    """
-
-
-@dataclass
-class TriggerMnqNatsClientConfig:
-    """
-    Trigger. mnq nats client config.
-    """
-
-    subject: str
-    """
-    Name of the NATS subject the trigger listens to.
-    """
-
-    mnq_nats_account_id: str
-    """
-    ID of the Messaging and Queuing NATS account.
-    """
-
-    mnq_project_id: str
-    """
-    ID of the Messaging and Queuing project.
-    """
-
-    mnq_region: str
-    """
-    Region in which the Messaging and Queuing project is activated.
-    Currently, only the `fr-par` and `nl-ams` regions are available.
-    """
-
-    mnq_credential_id: Optional[str]
-    """
-    ID of the Messaging and Queuing credentials used to subscribe to the NATS subject.
-    """
-
-
-@dataclass
-class TriggerMnqSqsClientConfig:
-    """
-    Trigger. mnq sqs client config.
-    """
-
-    queue: str
-    """
-    Name of the SQS queue the trigger listens to.
-    """
-
-    mnq_project_id: str
-    """
-    ID of the Messaging and Queuing project.
-    """
-
-    mnq_region: str
-    """
-    Region in which the Messaging and Queuing project is activated.
-    Currently, only the `fr-par` and `nl-ams` regions are available.
-    """
-
-    mnq_credential_id: Optional[str]
-    """
-    ID of the Messaging and Queuing credentials used to read from the SQS queue.
-    """
-
-
-@dataclass
-class TriggerSqsClientConfig:
-    endpoint: str
-
-    queue_url: str
-
-    access_key: str
-
-    secret_key: str
 
 
 @dataclass

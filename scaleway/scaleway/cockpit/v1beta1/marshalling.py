@@ -571,14 +571,7 @@ def marshal_ContactPoint(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility(
-                    "email",
-                    (
-                        marshal_ContactPointEmail(request.email, defaults)
-                        if request.email is not None
-                        else None
-                    ),
-                ),
+                OneOfPossibility("email", request.email),
             ]
         ),
     )

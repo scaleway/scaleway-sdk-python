@@ -34,16 +34,6 @@ from .types import (
     ListSSHKeysResponse,
     ListUsersResponse,
     SetRulesResponse,
-    User,
-    CreateSSHKeyRequest,
-    UpdateSSHKeyRequest,
-    UpdateUserRequest,
-    CreateUserRequest,
-    CreateApplicationRequest,
-    UpdateApplicationRequest,
-    CreateGroupRequest,
-    UpdateGroupRequest,
-    SetGroupMembersRequest,
     AddGroupMemberRequest,
     AddGroupMembersRequest,
     CreateAPIKeyRequest,
@@ -1198,18 +1188,6 @@ def marshal_UpdateSSHKeyRequest(
 
     if request.disabled is not None:
         output["disabled"] = request.disabled
-
-    return output
-
-
-def marshal_UpdateUserRequest(
-    request: UpdateUserRequest,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-
-    if request.tags is not None:
-        output["tags"] = request.tags
 
     return output
 

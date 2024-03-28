@@ -7,18 +7,36 @@ from .types import Product
 from .types import SecretStatus
 from .types import SecretType
 from .types import SecretVersionStatus
-from .types import AccessSecretVersionResponse
-from .types import BrowseSecretsResponse
-from .types import BrowseSecretsResponseItem
+from .types import EphemeralPolicy
 from .types import BrowseSecretsResponseItemFolderDetails
 from .types import BrowseSecretsResponseItemSecretDetails
-from .types import EphemeralPolicy
 from .types import EphemeralProperties
-from .types import ListSecretVersionsResponse
-from .types import ListSecretsResponse
-from .types import ListTagsResponse
-from .types import Secret
+from .types import BrowseSecretsResponseItem
 from .types import SecretVersion
+from .types import Secret
+from .types import AccessSecretVersionRequest
+from .types import AccessSecretVersionResponse
+from .types import AddSecretOwnerRequest
+from .types import BrowseSecretsRequest
+from .types import BrowseSecretsResponse
+from .types import CreateSecretRequest
+from .types import CreateSecretVersionRequest
+from .types import DeleteSecretRequest
+from .types import DeleteSecretVersionRequest
+from .types import DisableSecretVersionRequest
+from .types import EnableSecretVersionRequest
+from .types import GetSecretRequest
+from .types import GetSecretVersionRequest
+from .types import ListSecretVersionsRequest
+from .types import ListSecretVersionsResponse
+from .types import ListSecretsRequest
+from .types import ListSecretsResponse
+from .types import ListTagsRequest
+from .types import ListTagsResponse
+from .types import ProtectSecretRequest
+from .types import UnprotectSecretRequest
+from .types import UpdateSecretRequest
+from .types import UpdateSecretVersionRequest
 from .api import SecretV1Beta1API
 
 __all__ = [
@@ -29,17 +47,35 @@ __all__ = [
     "SecretStatus",
     "SecretType",
     "SecretVersionStatus",
-    "AccessSecretVersionResponse",
-    "BrowseSecretsResponse",
-    "BrowseSecretsResponseItem",
+    "EphemeralPolicy",
     "BrowseSecretsResponseItemFolderDetails",
     "BrowseSecretsResponseItemSecretDetails",
-    "EphemeralPolicy",
     "EphemeralProperties",
-    "ListSecretVersionsResponse",
-    "ListSecretsResponse",
-    "ListTagsResponse",
-    "Secret",
+    "BrowseSecretsResponseItem",
     "SecretVersion",
+    "Secret",
+    "AccessSecretVersionRequest",
+    "AccessSecretVersionResponse",
+    "AddSecretOwnerRequest",
+    "BrowseSecretsRequest",
+    "BrowseSecretsResponse",
+    "CreateSecretRequest",
+    "CreateSecretVersionRequest",
+    "DeleteSecretRequest",
+    "DeleteSecretVersionRequest",
+    "DisableSecretVersionRequest",
+    "EnableSecretVersionRequest",
+    "GetSecretRequest",
+    "GetSecretVersionRequest",
+    "ListSecretVersionsRequest",
+    "ListSecretVersionsResponse",
+    "ListSecretsRequest",
+    "ListSecretsResponse",
+    "ListTagsRequest",
+    "ListTagsResponse",
+    "ProtectSecretRequest",
+    "UnprotectSecretRequest",
+    "UpdateSecretRequest",
+    "UpdateSecretVersionRequest",
     "SecretV1Beta1API",
 ]

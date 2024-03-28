@@ -15,7 +15,6 @@ from scaleway_core.utils import (
 )
 from .types import (
     HostingStatus,
-    LanguageCode,
     ListHostingsRequestOrderBy,
     ListOffersRequestOrderBy,
     ControlPanel,
@@ -55,7 +54,6 @@ class WebhostingV1Alpha1API(API):
         *,
         offer_id: str,
         domain: str,
-        language: LanguageCode,
         region: Optional[Region] = None,
         project_id: Optional[str] = None,
         email: Optional[str] = None,
@@ -75,6 +73,7 @@ class WebhostingV1Alpha1API(API):
         :param tags: List of tags for the Web Hosting plan.
         :param option_ids: IDs of any selected additional options for the Web Hosting plan.
         :param language: Default language for the control panel interface.
+        :param domain_configuration: Indicates whether to update hosting domain name servers and DNS records for domains managed by Scaleway Elements.
         :return: :class:`Hosting <Hosting>`
 
         Usage:
@@ -83,7 +82,6 @@ class WebhostingV1Alpha1API(API):
             result = api.create_hosting(
                 offer_id="example",
                 domain="example",
-                language=unknown_language_code,
             )
         """
 
@@ -98,7 +96,6 @@ class WebhostingV1Alpha1API(API):
                 CreateHostingRequest(
                     offer_id=offer_id,
                     domain=domain,
-                    language=language,
                     region=region,
                     project_id=project_id,
                     email=email,

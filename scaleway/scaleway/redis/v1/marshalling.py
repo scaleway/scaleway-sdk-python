@@ -647,26 +647,8 @@ def marshal_EndpointSpec(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility(
-                    "private_network",
-                    (
-                        marshal_EndpointSpecPrivateNetworkSpec(
-                            request.private_network, defaults
-                        )
-                        if request.private_network is not None
-                        else None
-                    ),
-                ),
-                OneOfPossibility(
-                    "public_network",
-                    (
-                        marshal_EndpointSpecPublicNetworkSpec(
-                            request.public_network, defaults
-                        )
-                        if request.public_network is not None
-                        else None
-                    ),
-                ),
+                OneOfPossibility("private_network", request.private_network),
+                OneOfPossibility("public_network", request.public_network),
             ]
         ),
     )
@@ -828,26 +810,8 @@ def marshal_UpdateEndpointRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility(
-                    "private_network",
-                    (
-                        marshal_EndpointSpecPrivateNetworkSpec(
-                            request.private_network, defaults
-                        )
-                        if request.private_network is not None
-                        else None
-                    ),
-                ),
-                OneOfPossibility(
-                    "public_network",
-                    (
-                        marshal_EndpointSpecPublicNetworkSpec(
-                            request.public_network, defaults
-                        )
-                        if request.public_network is not None
-                        else None
-                    ),
-                ),
+                OneOfPossibility("private_network", request.private_network),
+                OneOfPossibility("public_network", request.public_network),
             ]
         ),
     )

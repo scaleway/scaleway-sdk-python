@@ -73,16 +73,6 @@ class HostingStatus(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class LanguageCode(str, Enum, metaclass=StrEnumMeta):
-    UNKNOWN_LANGUAGE_CODE = "unknown_language_code"
-    EN_US = "en_US"
-    FR_FR = "fr_FR"
-    DE_DE = "de_DE"
-
-    def __str__(self) -> str:
-        return str(self.value)
-
-
 class ListHostingsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
@@ -468,9 +458,102 @@ class CreateHostingRequest:
     IDs of any selected additional options for the Web Hosting plan.
     """
 
-    language: LanguageCode
+    language: Optional[StdLanguageCode]
     """
     Default language for the control panel interface.
+    """
+
+    domain_configuration: Optional[CreateHostingRequestDomainConfiguration]
+    """
+    Indicates whether to update hosting domain name servers and DNS records for domains managed by Scaleway Elements.
+    """
+
+
+@dataclass
+class DeleteHostingRequest:
+    hosting_id: str
+    """
+    Hosting ID.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class DnsRecords:
+    records: List[DnsRecord]
+    """
+    List of DNS records.
+    """
+
+    name_servers: List[Nameserver]
+    """
+    List of nameservers.
+    """
+
+    status: DnsRecordsStatus
+    """
+    Status of the records.
+    """
+
+
+@dataclass
+class GetDomainDnsRecordsRequest:
+    domain: str
+    """
+    Domain associated with the DNS records.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetHostingRequest:
+    hosting_id: str
+    """
+    Hosting ID.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class ListControlPanelsRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    page: Optional[int]
+    """
+    Page number to return, from the paginated results (must be a positive integer).
+    """
+
+    page_size: Optional[int]
+    """
+    Number of control panels to return (must be a positive integer lower or equal to 100).
+    """
+
+
+@dataclass
+class ListControlPanelsResponse:
+    total_count: int
+    """
+    Number of control panels returned.
+    """
+
+    control_panels: List[ControlPanel]
+    """
+    List of control panels.
     """
 
 

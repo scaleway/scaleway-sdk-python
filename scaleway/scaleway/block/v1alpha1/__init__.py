@@ -16,9 +16,6 @@ from .types import VolumeSpecifications
 from .types import CreateVolumeRequestFromEmpty
 from .types import CreateVolumeRequestFromSnapshot
 from .types import Snapshot
-from .types import SnapshotParentVolume
-from .types import Volume
-from .types import VolumeSpecifications
 from .types import VolumeType
 from .types import Volume
 from .types import CreateSnapshotRequest
@@ -54,9 +51,6 @@ __all__ = [
     "CreateVolumeRequestFromEmpty",
     "CreateVolumeRequestFromSnapshot",
     "Snapshot",
-    "SnapshotParentVolume",
-    "Volume",
-    "VolumeSpecifications",
     "VolumeType",
     "Volume",
     "CreateSnapshotRequest",

@@ -6,15 +6,11 @@ from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
 from .types import (
-    CreateEmailRequestAddress,
-    CreateEmailRequestAttachment,
-    CreateEmailRequestHeader,
-    CreateEmailResponse,
-    Domain,
-    DomainLastStatus,
-    DomainLastStatusDkimRecord,
-    DomainLastStatusDmarcRecord,
-    DomainLastStatusSpfRecord,
+    EmailFlag,
+    EmailTry,
+    Email,
+    DomainRecordsDMARC,
+    DomainRecords,
     DomainReputation,
     DomainStatistics,
     Domain,
@@ -307,124 +303,6 @@ def unmarshal_Domain(data: Any) -> Domain:
     return Domain(**args)
 
 
-def unmarshal_DomainLastStatusDkimRecord(data: Any) -> DomainLastStatusDkimRecord:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'DomainLastStatusDkimRecord' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("error", None)
-    args["error"] = field
-
-    field = data.get("last_valid_at", None)
-    args["last_valid_at"] = parser.isoparse(field) if type(field) is str else field
-
-    field = data.get("status", None)
-    args["status"] = field
-
-    return DomainLastStatusDkimRecord(**args)
-
-
-def unmarshal_DomainLastStatusDmarcRecord(data: Any) -> DomainLastStatusDmarcRecord:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'DomainLastStatusDmarcRecord' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("error", None)
-    args["error"] = field
-
-    field = data.get("last_valid_at", None)
-    args["last_valid_at"] = parser.isoparse(field) if type(field) is str else field
-
-    field = data.get("status", None)
-    args["status"] = field
-
-    return DomainLastStatusDmarcRecord(**args)
-
-
-def unmarshal_DomainLastStatusSpfRecord(data: Any) -> DomainLastStatusSpfRecord:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'DomainLastStatusSpfRecord' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("error", None)
-    args["error"] = field
-
-    field = data.get("last_valid_at", None)
-    args["last_valid_at"] = parser.isoparse(field) if type(field) is str else field
-
-    field = data.get("status", None)
-    args["status"] = field
-
-    return DomainLastStatusSpfRecord(**args)
-
-
-def unmarshal_Email(data: Any) -> Email:
-    if type(data) is not dict:
-        raise TypeError(
-            f"Unmarshalling the type 'Email' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("created_at", None)
-    args["created_at"] = parser.isoparse(field) if type(field) is str else field
-
-    field = data.get("flags", None)
-    args["flags"] = field
-
-    field = data.get("id", None)
-    args["id"] = field
-
-    field = data.get("last_tries", None)
-    args["last_tries"] = (
-        [unmarshal_EmailTry(v) for v in field] if field is not None else None
-    )
-
-    field = data.get("mail_from", None)
-    args["mail_from"] = field
-
-    field = data.get("mail_rcpt", None)
-    args["mail_rcpt"] = field
-
-    field = data.get("message_id", None)
-    args["message_id"] = field
-
-    field = data.get("project_id", None)
-    args["project_id"] = field
-
-    field = data.get("rcpt_to", None)
-    args["rcpt_to"] = field
-
-    field = data.get("rcpt_type", None)
-    args["rcpt_type"] = field
-
-    field = data.get("status", None)
-    args["status"] = field
-
-    field = data.get("status_details", None)
-    args["status_details"] = field
-
-    field = data.get("subject", None)
-    args["subject"] = field
-
-    field = data.get("try_count", None)
-    args["try_count"] = field
-
-    field = data.get("updated_at", None)
-    args["updated_at"] = parser.isoparse(field) if type(field) is str else field
-
-    return Email(**args)
-
-
 def unmarshal_CreateEmailResponse(data: Any) -> CreateEmailResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -524,11 +402,6 @@ def unmarshal_DomainLastStatus(data: Any) -> DomainLastStatus:
         )
 
     args: Dict[str, Any] = {}
-
-    field = data.get("dmarc_record", None)
-    args["dmarc_record"] = (
-        unmarshal_DomainLastStatusDmarcRecord(field) if field is not None else None
-    )
 
     field = data.get("domain_id", None)
     if field is not None:
@@ -696,60 +569,11 @@ def marshal_CreateEmailRequestHeader(
     return output
 
 
-def marshal_CreateDomainRequest(
-    request: CreateDomainRequest,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-
-    if request.key is not None:
-        output["key"] = request.key
-
-    if request.value is not None:
-        output["value"] = request.value
-
-    return output
-
-
 def marshal_CreateEmailRequest(
     request: CreateEmailRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
-
-    if request.additional_headers is not None:
-        output["additional_headers"] = [
-            marshal_CreateEmailRequestHeader(v, defaults)
-            for v in request.additional_headers
-        ]
-
-    if request.attachments is not None:
-        output["attachments"] = [
-            marshal_CreateEmailRequestAttachment(v, defaults)
-            for v in request.attachments
-        ]
-
-    if request.bcc is not None:
-        output["bcc"] = [
-            marshal_CreateEmailRequestAddress(v, defaults) for v in request.bcc
-        ]
-
-    if request.cc is not None:
-        output["cc"] = [
-            marshal_CreateEmailRequestAddress(v, defaults) for v in request.cc
-        ]
-
-    if request.from_ is not None:
-        output["from"] = marshal_CreateEmailRequestAddress(request.from_, defaults)
-
-    if request.html is not None:
-        output["html"] = request.html
-
-    if request.project_id is not None:
-        output["project_id"] = request.project_id or defaults.default_project_id
-
-    if request.send_before is not None:
-        output["send_before"] = request.send_before.astimezone().isoformat()
 
     if request.subject is not None:
         output["subject"] = request.subject

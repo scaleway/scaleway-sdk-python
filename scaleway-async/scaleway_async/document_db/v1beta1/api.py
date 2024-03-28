@@ -71,22 +71,6 @@ from .types import (
     PurgeInstanceLogsRequest,
     ReadReplica,
     ReadReplicaEndpointSpec,
-    SetInstanceACLRulesResponse,
-    SetInstanceSettingsResponse,
-    Snapshot,
-    UpgradeInstanceRequestMajorUpgradeWorkflow,
-    User,
-    UpgradeInstanceRequest,
-    CreateInstanceRequest,
-    UpdateInstanceRequest,
-    CloneInstanceRequest,
-    CreateReadReplicaRequest,
-    CreateReadReplicaEndpointRequest,
-    PurgeInstanceLogsRequest,
-    AddInstanceSettingsRequest,
-    DeleteInstanceSettingsRequest,
-    SetInstanceSettingsRequest,
-    AddInstanceACLRulesRequest,
     SetInstanceACLRulesRequest,
     SetInstanceACLRulesResponse,
     SetInstanceSettingsRequest,
@@ -341,24 +325,17 @@ class DocumentDbV1Beta1API(API):
         :param instance_id: UUID of the Database Instance you want to upgrade.
         :param region: Region to target. If none is passed will use default region from the config.
         :param node_type: Node type of the Database Instance you want to upgrade to.
-
-        One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
+        One-Of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
         :param enable_ha: Defines whether or not High Availability should be enabled on the Database Instance.
-
-        One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
+        One-Of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
         :param volume_size: Increase your Block volume size.
-
-        One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
+        One-Of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
         :param volume_type: Change your Database Instance storage type.
-
-        One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
-        :param upgradable_version_id: Update your database engine to a newer version.
-        This will create a new Database Instance with same specifications as the current one and perform a Database Engine upgrade.
-
-        One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
+        One-Of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
+        :param upgradable_version_id: This will create a new Database Instance with same specifications as the current one and perform a Database Engine upgrade.
+        One-Of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
         :param major_upgrade_workflow: Upgrade your database engine to a new major version including instance endpoints.
-
-        One-of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
+        One-Of ('upgrade_target'): at most one of 'node_type', 'enable_ha', 'volume_size', 'volume_type', 'upgradable_version_id', 'major_upgrade_workflow' could be set.
         :return: :class:`Instance <Instance>`
 
         Usage:

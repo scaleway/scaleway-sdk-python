@@ -39,11 +39,12 @@ from .types import EndpointSpecLoadBalancer
 from .types import EndpointSpecPrivateNetwork
 from .types import ReadReplicaEndpointSpecDirectAccess
 from .types import ReadReplicaEndpointSpecPrivateNetwork
-from .types import ReadReplicaEndpointSpecPrivateNetworkIpamConfig
-from .types import SetInstanceACLRulesResponse
-from .types import SetInstanceSettingsResponse
-from .types import Snapshot
-from .types import SnapshotVolumeType
+from .types import EngineVersion
+from .types import BackupSchedule
+from .types import InstanceSetting
+from .types import LogsPolicy
+from .types import Maintenance
+from .types import ReadReplica
 from .types import UpgradableVersion
 from .types import Volume
 from .types import NodeTypeVolumeConstraintSizes
@@ -183,11 +184,12 @@ __all__ = [
     "EndpointSpecPrivateNetwork",
     "ReadReplicaEndpointSpecDirectAccess",
     "ReadReplicaEndpointSpecPrivateNetwork",
-    "ReadReplicaEndpointSpecPrivateNetworkIpamConfig",
-    "SetInstanceACLRulesResponse",
-    "SetInstanceSettingsResponse",
-    "Snapshot",
-    "SnapshotVolumeType",
+    "EngineVersion",
+    "BackupSchedule",
+    "InstanceSetting",
+    "LogsPolicy",
+    "Maintenance",
+    "ReadReplica",
     "UpgradableVersion",
     "Volume",
     "NodeTypeVolumeConstraintSizes",
