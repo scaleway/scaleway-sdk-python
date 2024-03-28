@@ -22,15 +22,15 @@ install-only-root:
 format:
 	for lib in $(LIBRARIES); do \
 		cd ${WORKDIR}/$$lib && \
-		poetry run black --version && \
-		poetry run black ./; \
+		poetry run ruff --version && \
+		poetry run ruff format ./; \
 	done
 
 format-check:
 	for lib in $(LIBRARIES); do \
 		cd ${WORKDIR}/$$lib && \
-		poetry run black --version && \
-		poetry run black --check ./; \
+		poetry run ruff --version && \
+		poetry run ruff format --check ./; \
 	done
 
 typing:
