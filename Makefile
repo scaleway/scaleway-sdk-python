@@ -23,14 +23,14 @@ format:
 	for lib in $(LIBRARIES); do \
 		cd ${WORKDIR}/$$lib && \
 		poetry run ruff --version && \
-		poetry run ruff format ./; \
+		poetry run ruff format; \
 	done
 
 format-check:
 	for lib in $(LIBRARIES); do \
 		cd ${WORKDIR}/$$lib && \
 		poetry run ruff --version && \
-		poetry run ruff format --check ./; \
+		poetry run ruff format --check; \
 	done
 
 typing:
