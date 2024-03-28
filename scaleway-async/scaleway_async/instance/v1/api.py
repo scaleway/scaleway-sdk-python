@@ -13,6 +13,17 @@ from scaleway_core.utils import (
     validate_path_param,
     fetch_all_pages_async,
 )
+from .types_private import (
+    _SetImageResponse,
+    _SetSecurityGroupRequest,
+    _SetSecurityGroupResponse,
+    _SetSecurityGroupRuleRequest,
+    _SetSecurityGroupRuleResponse,
+    _SetServerRequest,
+    _SetServerResponse,
+    _SetSnapshotRequest,
+    _SetSnapshotResponse,
+)
 from .types import (
     Arch,
     AttachServerVolumeRequestVolumeType,
@@ -137,15 +148,6 @@ from .types import (
     VolumeServerTemplate,
     VolumeSummary,
     VolumeTemplate,
-    _SetImageResponse,
-    _SetSecurityGroupRequest,
-    _SetSecurityGroupResponse,
-    _SetSecurityGroupRuleRequest,
-    _SetSecurityGroupRuleResponse,
-    _SetServerRequest,
-    _SetServerResponse,
-    _SetSnapshotRequest,
-    _SetSnapshotResponse,
 )
 from .marshalling import (
     unmarshal_PrivateNIC,

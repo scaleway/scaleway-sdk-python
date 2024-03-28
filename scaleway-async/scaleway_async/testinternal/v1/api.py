@@ -22,6 +22,9 @@ from scaleway_core.utils import (
     fetch_all_pages_async,
     wait_for_resource_async,
 )
+from .types_private import (
+    _GetRegionResponse,
+)
 from .types import (
     ListCharactersRequestOrderBy,
     MapEnum,
@@ -80,7 +83,6 @@ from .types import (
     RegionalApiPostEchoRequest,
     Transient,
     ZoneApiPostEchoRequest,
-    _GetRegionResponse,
 )
 from .content import (
     TRANSIENT_TRANSIENT_STATUSES,
