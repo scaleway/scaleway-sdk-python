@@ -30,7 +30,6 @@ scaleway-core = "*"
 scaleway-core = { path = "../scaleway-core", develop = true }
 ruff = "^0.0.286"
 mypy = "^1.5.1"
-black = "^23.7.0"
 
 [build-system]
 requires = ["poetry-core"]
