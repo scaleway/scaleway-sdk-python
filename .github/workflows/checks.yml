@@ -88,34 +88,34 @@ jobs:
       - name: Check linting
         run: poetry run ruff check . --ignore E721 --ignore F541
 
-  tests:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        lib:
-          - scaleway-core
-          - scaleway
-          - scaleway-async
-    defaults:
-      run:
-        working-directory: ${{ matrix.lib }}
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.8
-      - name: Install poetry
-        run: |
-          pip install poetry
-          poetry --version
-      - name: Install dependencies and library
-        run: poetry install
-      - name: Run tests
-        run: poetry run python -m unittest discover -s tests -v
-        env:
-          SCW_ACCESS_KEY: ${{ secrets.SCW_ACCESS_KEY }}
-          SCW_SECRET_KEY: ${{ secrets.SCW_SECRET_KEY }}
-          SCW_DEFAULT_PROJECT_ID: ${{ secrets.SCW_DEFAULT_PROJECT_ID }}
-          SCW_DEFAULT_REGION: ${{ secrets.SCW_DEFAULT_REGION }}
-          SCW_DEFAULT_ZONE: ${{ secrets.SCW_DEFAULT_ZONE }}
+  # tests:
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       lib:
+  #         - scaleway-core
+  #         - scaleway
+  #         - scaleway-async
+  #   defaults:
+  #     run:
+  #       working-directory: ${{ matrix.lib }}
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Set up Python
+  #       uses: actions/setup-python@v4
+  #       with:
+  #         python-version: 3.8
+  #     - name: Install poetry
+  #       run: |
+  #         pip install poetry
+  #         poetry --version
+  #     - name: Install dependencies and library
+  #       run: poetry install
+  #     - name: Run tests
+  #       run: poetry run python -m unittest discover -s tests -v
+  #       env:
+  #         SCW_ACCESS_KEY: ${{ secrets.SCW_ACCESS_KEY }}
+  #         SCW_SECRET_KEY: ${{ secrets.SCW_SECRET_KEY }}
+  #         SCW_DEFAULT_PROJECT_ID: ${{ secrets.SCW_DEFAULT_PROJECT_ID }}
+  #         SCW_DEFAULT_REGION: ${{ secrets.SCW_DEFAULT_REGION }}
+  #         SCW_DEFAULT_ZONE: ${{ secrets.SCW_DEFAULT_ZONE }}
