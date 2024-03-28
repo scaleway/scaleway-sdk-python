@@ -15,6 +15,9 @@ from scaleway_core.utils import (
     OneOfPossibility,
     resolve_one_of,
 )
+from .types_private import (
+    _GetRegionResponse,
+)
 from .types import (
     MapEnum,
     PostAllTypesMessageNestedEnum,
@@ -47,7 +50,6 @@ from .types import (
     PostScalarTypesMessage,
     PostTagsMessage,
     Transient,
-    _GetRegionResponse,
     PatchEnumRequest,
     PostAllMapTypesRequest,
     PostAllOptionalRequest,

@@ -9,6 +9,17 @@ from scaleway_core.utils import (
     OneOfPossibility,
     resolve_one_of,
 )
+from .types_private import (
+    _SetImageResponse,
+    _SetSecurityGroupResponse,
+    _SetSecurityGroupRuleResponse,
+    _SetServerResponse,
+    _SetSnapshotResponse,
+    _SetSecurityGroupRequest,
+    _SetSecurityGroupRuleRequest,
+    _SetServerRequest,
+    _SetSnapshotRequest,
+)
 from .types import (
     BootType,
     ServerAction,
@@ -97,11 +108,6 @@ from .types import (
     UpdateServerResponse,
     UpdateSnapshotResponse,
     UpdateVolumeResponse,
-    _SetImageResponse,
-    _SetSecurityGroupResponse,
-    _SetSecurityGroupRuleResponse,
-    _SetServerResponse,
-    _SetSnapshotResponse,
     ApplyBlockMigrationRequest,
     AttachServerVolumeRequest,
     VolumeTemplate,
@@ -137,10 +143,6 @@ from .types import (
     UpdateServerRequest,
     UpdateSnapshotRequest,
     UpdateVolumeRequest,
-    _SetSecurityGroupRequest,
-    _SetSecurityGroupRuleRequest,
-    _SetServerRequest,
-    _SetSnapshotRequest,
 )
 
 
