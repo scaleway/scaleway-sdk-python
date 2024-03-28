@@ -43,6 +43,7 @@ class CNI(str, Enum, metaclass=StrEnumMeta):
     WEAVE = "weave"
     FLANNEL = "flannel"
     KILO = "kilo"
+    NONE = "none"
 
     def __str__(self) -> str:
         return str(self.value)
