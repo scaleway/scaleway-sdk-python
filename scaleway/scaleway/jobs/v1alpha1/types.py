@@ -111,15 +111,6 @@ class JobRun:
 
     command: str
 
-    environment_variables: Dict[str, str]
-
-    local_storage_capacity: int
-
-    region: Region
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
     created_at: Optional[datetime]
 
     updated_at: Optional[datetime]
@@ -129,6 +120,17 @@ class JobRun:
     exit_code: Optional[int]
 
     run_duration: Optional[str]
+
+    environment_variables: Dict[str, str]
+
+    local_storage_capacity: int
+
+    region: Region
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    started_at: Optional[datetime]
 
 
 @dataclass

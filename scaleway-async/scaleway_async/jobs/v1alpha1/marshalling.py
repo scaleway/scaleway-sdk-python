@@ -146,18 +146,6 @@ def unmarshal_JobRun(data: Any) -> JobRun:
     if field is not None:
         args["command"] = field
 
-    field = data.get("environment_variables", None)
-    if field is not None:
-        args["environment_variables"] = field
-
-    field = data.get("local_storage_capacity", None)
-    if field is not None:
-        args["local_storage_capacity"] = field
-
-    field = data.get("region", None)
-    if field is not None:
-        args["region"] = field
-
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -179,6 +167,22 @@ def unmarshal_JobRun(data: Any) -> JobRun:
     field = data.get("run_duration", None)
     if field is not None:
         args["run_duration"] = field
+
+    field = data.get("environment_variables", None)
+    if field is not None:
+        args["environment_variables"] = field
+
+    field = data.get("local_storage_capacity", None)
+    if field is not None:
+        args["local_storage_capacity"] = field
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+
+    field = data.get("started_at", None)
+    if field is not None:
+        args["started_at"] = parser.isoparse(field) if isinstance(field, str) else field
 
     return JobRun(**args)
 
