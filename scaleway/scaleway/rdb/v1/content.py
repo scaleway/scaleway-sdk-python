@@ -40,7 +40,6 @@ INSTANCE_TRANSIENT_STATUSES: List[InstanceStatus] = [
 Lists transient statutes of the enum :class:`InstanceStatus <InstanceStatus>`.
 """
 MAINTENANCE_TRANSIENT_STATUSES: List[MaintenanceStatus] = [
-    MaintenanceStatus.PENDING,
     MaintenanceStatus.ONGOING,
 ]
 """
