@@ -1,0 +1,21 @@
+version: 2
+updates:
+  - package-ecosystem: pip
+    directory: /scaleway
+    schedule:
+      interval: monthly
+
+  - package-ecosystem: pip
+    directory: /scaleway-async
+    schedule:
+      interval: monthly
+
+  - package-ecosystem: pip
+    directory: /scaleway-core
+    schedule:
+      interval: monthly
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
