@@ -1436,6 +1436,11 @@ class ListQuotaRequest:
     Filter by Organization ID.
     """
 
+    quotum_names: Optional[List[str]]
+    """
+    List of quotum names to filter from.
+    """
+
 
 @dataclass
 class ListQuotaResponse:
