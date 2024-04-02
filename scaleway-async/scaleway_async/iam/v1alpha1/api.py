@@ -2018,6 +2018,7 @@ class IamV1Alpha1API(API):
         page_size: Optional[int] = None,
         page: Optional[int] = None,
         organization_id: Optional[str] = None,
+        quotum_names: Optional[List[str]] = None,
     ) -> ListQuotaResponse:
         """
         List all quotas in the Organization.
@@ -2026,6 +2027,7 @@ class IamV1Alpha1API(API):
         :param page_size: Number of results per page. Value must be between 1 and 100.
         :param page: Page number. Value must be greater than 1.
         :param organization_id: Filter by Organization ID.
+        :param quotum_names: List of quotum names to filter from.
         :return: :class:`ListQuotaResponse <ListQuotaResponse>`
 
         Usage:
@@ -2043,6 +2045,7 @@ class IamV1Alpha1API(API):
                 or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
+                "quotum_names": quotum_names,
             },
         )
 
@@ -2056,6 +2059,7 @@ class IamV1Alpha1API(API):
         page_size: Optional[int] = None,
         page: Optional[int] = None,
         organization_id: Optional[str] = None,
+        quotum_names: Optional[List[str]] = None,
     ) -> List[Quotum]:
         """
         List all quotas in the Organization.
@@ -2064,6 +2068,7 @@ class IamV1Alpha1API(API):
         :param page_size: Number of results per page. Value must be between 1 and 100.
         :param page: Page number. Value must be greater than 1.
         :param organization_id: Filter by Organization ID.
+        :param quotum_names: List of quotum names to filter from.
         :return: :class:`List[Quotum] <List[Quotum]>`
 
         Usage:
@@ -2081,6 +2086,7 @@ class IamV1Alpha1API(API):
                 "page_size": page_size,
                 "page": page,
                 "organization_id": organization_id,
+                "quotum_names": quotum_names,
             },
         )
 
