@@ -75,7 +75,7 @@ class SecretV1Beta1API(API):
         :param project_id: ID of the Project containing the secret.
         :param tags: List of the secret's tags.
         :param description: Description of the secret.
-        :param type_: (Optional.) See `Secret.Type` enum for description of values. If not specified, the type is `Opaque`.
+        :param type_: (Optional.) See the `Secret.Type` enum for a description of values. If not specified, the type is `Opaque`.
         :param path: (Optional.) Location of the secret in the directory structure. If not specified, the path is `/`.
         :param ephemeral_policy: (Optional.) Policy that defines whether/when a secret's versions expire. By default, the policy is applied to all the secret's versions.
         :return: :class:`Secret <Secret>`
