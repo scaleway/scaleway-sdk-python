@@ -256,7 +256,7 @@ class Secret:
 
     type_: SecretType
     """
-    See `Secret.Type` enum for description of values.
+    See the `Secret.Type` enum for a description of values.
     """
 
     path: str
@@ -316,6 +316,11 @@ class AccessSecretVersionResponse:
     data: str
     """
     The base64-encoded secret payload of the version.
+    """
+
+    type_: SecretType
+    """
+    See the `Secret.Type` enum for a description of values.
     """
 
     data_crc32: Optional[int]
@@ -423,7 +428,7 @@ class CreateSecretRequest:
 
     type_: Optional[SecretType]
     """
-    (Optional.) See `Secret.Type` enum for description of values. If not specified, the type is `Opaque`.
+    (Optional.) See the `Secret.Type` enum for a description of values. If not specified, the type is `Opaque`.
     """
 
     path: Optional[str]

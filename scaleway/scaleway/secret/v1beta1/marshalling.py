@@ -206,6 +206,10 @@ def unmarshal_AccessSecretVersionResponse(data: Any) -> AccessSecretVersionRespo
     if field is not None:
         args["data"] = field
 
+    field = data.get("type_", None)
+    if field is not None:
+        args["type_"] = field
+
     field = data.get("data_crc32", None)
     if field is not None:
         args["data_crc32"] = field
