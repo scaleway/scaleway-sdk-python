@@ -64,7 +64,7 @@ class JobsV1Alpha1API(API):
         :param cpu_limit: CPU limit of the job.
         :param memory_limit: Memory limit of the job (in MiB).
         :param image_uri: Image to use for the job.
-        :param command: Startup command.
+        :param command: Startup command. If empty or not defined, the image's default command is used.
         :param description: Description of the job.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the job definition.
