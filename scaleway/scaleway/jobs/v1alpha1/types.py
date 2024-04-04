@@ -48,8 +48,14 @@ class ListJobRunsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 @dataclass
 class CronSchedule:
     schedule: str
+    """
+    UNIX cron schedule to run job (e.g., '* * * * *').
+    """
 
     timezone: str
+    """
+    Timezone for the cron schedule, in tz database format (e.g., 'Europe/Paris').
+    """
 
 
 @dataclass
@@ -159,7 +165,7 @@ class CreateJobDefinitionRequest:
 
     command: str
     """
-    Startup command.
+    Startup command. If empty or not defined, the image's default command is used.
     """
 
     description: str
