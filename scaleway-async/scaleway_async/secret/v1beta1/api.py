@@ -68,7 +68,7 @@ class SecretV1Beta1API(API):
     ) -> Secret:
         """
         Create a secret.
-        You must specify the `region` to create a secret.
+        Create a secret in a given region specified by the `region` parameter.
         :param name: Name of the secret.
         :param protected: A protected secret cannot be deleted.
         :param region: Region to target. If none is passed will use default region from the config.
