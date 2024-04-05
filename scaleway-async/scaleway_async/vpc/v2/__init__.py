@@ -14,6 +14,7 @@ from .types import DeleteSubnetsRequest
 from .types import DeleteSubnetsResponse
 from .types import DeleteVPCRequest
 from .types import EnableDHCPRequest
+from .types import EnableRoutingRequest
 from .types import GetPrivateNetworkRequest
 from .types import GetVPCRequest
 from .types import ListPrivateNetworksRequest
@@ -42,6 +43,7 @@ __all__ = [
     "DeleteSubnetsResponse",
     "DeleteVPCRequest",
     "EnableDHCPRequest",
+    "EnableRoutingRequest",
     "GetPrivateNetworkRequest",
     "GetVPCRequest",
     "ListPrivateNetworksRequest",
