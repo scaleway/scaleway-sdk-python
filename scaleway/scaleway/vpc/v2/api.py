@@ -697,6 +697,41 @@ class VpcV2API(API):
         self._throw_on_error(res)
         return unmarshal_PrivateNetwork(res.json())
 
+    def enable_routing(
+        self,
+        *,
+        vpc_id: str,
+        region: Optional[Region] = None,
+    ) -> VPC:
+        """
+        Enable routing on a VPC.
+        Enable routing on an existing VPC. Note that you will not be able to deactivate it afterwards.
+        :param vpc_id:
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`VPC <VPC>`
+
+        Usage:
+        ::
+
+            result = api.enable_routing(
+                vpc_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_vpc_id = validate_path_param("vpc_id", vpc_id)
+
+        res = self._request(
+            "POST",
+            f"/vpc/v2/regions/{param_region}/vpcs/{param_vpc_id}/enable-routing",
+            body={},
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_VPC(res.json())
+
     def set_subnets(
         self,
         *,

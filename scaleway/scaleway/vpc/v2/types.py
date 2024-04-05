@@ -321,6 +321,16 @@ class EnableDHCPRequest:
 
 
 @dataclass
+class EnableRoutingRequest:
+    vpc_id: str
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
 class GetPrivateNetworkRequest:
     private_network_id: str
     """
