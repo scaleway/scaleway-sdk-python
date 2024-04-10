@@ -726,6 +726,60 @@ class ProtectSecretRequest:
 
 
 @dataclass
+class SecretTypeBasicCredentials:
+    username: str
+    """
+    The username or identifier associated with the credentials.
+    """
+
+    password: str
+    """
+    The password associated with the credentials.
+    """
+
+
+@dataclass
+class SecretTypeDatabaseCredentials:
+    engine: str
+    """
+    Supported database engines are: 'postgres', 'mysql', 'other'.
+    """
+
+    username: str
+    """
+    The username used to authenticate to the database server.
+    """
+
+    password: str
+    """
+    The password used to authenticate to the database server.
+    """
+
+    host: str
+    """
+    The hostname or resolvable DNS name of the database server.
+    """
+
+    dbname: str
+    """
+    The name of the database to connect to.
+    """
+
+    port: str
+    """
+    The port must be an integer ranging from 0 to 65535.
+    """
+
+
+@dataclass
+class SecretTypeSSHKey:
+    ssh_private_key: str
+    """
+    The private SSH key.
+    """
+
+
+@dataclass
 class UnprotectSecretRequest:
     secret_id: str
     """
