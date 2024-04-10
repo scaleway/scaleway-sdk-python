@@ -102,6 +102,14 @@ def unmarshal_Hosting(data: Any) -> Hosting:
     if field is not None:
         args["offer_name"] = field
 
+    field = data.get("domain", None)
+    if field is not None:
+        args["domain"] = field
+
+    field = data.get("tags", None)
+    if field is not None:
+        args["tags"] = field
+
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -113,14 +121,6 @@ def unmarshal_Hosting(data: Any) -> Hosting:
     field = data.get("platform_number", None)
     if field is not None:
         args["platform_number"] = field
-
-    field = data.get("domain", None)
-    if field is not None:
-        args["domain"] = field
-
-    field = data.get("tags", None)
-    if field is not None:
-        args["tags"] = field
 
     field = data.get("options", None)
     if field is not None:
@@ -159,6 +159,10 @@ def unmarshal_Hosting(data: Any) -> Hosting:
     field = data.get("protected", None)
     if field is not None:
         args["protected"] = field
+
+    field = data.get("one_time_password", None)
+    if field is not None:
+        args["one_time_password"] = field
 
     field = data.get("region", None)
     if field is not None:
