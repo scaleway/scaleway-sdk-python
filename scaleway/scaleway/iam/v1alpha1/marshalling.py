@@ -378,6 +378,18 @@ def unmarshal_Quotum(data: Any) -> Quotum:
     if field is not None:
         args["name"] = field
 
+    field = data.get("pretty_name", None)
+    if field is not None:
+        args["pretty_name"] = field
+
+    field = data.get("unit", None)
+    if field is not None:
+        args["unit"] = field
+
+    field = data.get("description", None)
+    if field is not None:
+        args["description"] = field
+
     field = data.get("limit", None)
     if field is not None:
         args["limit"] = field
