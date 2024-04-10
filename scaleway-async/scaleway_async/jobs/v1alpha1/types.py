@@ -260,6 +260,8 @@ class ListJobDefinitionsRequest:
 
     project_id: Optional[str]
 
+    organization_id: Optional[str]
+
 
 @dataclass
 class ListJobDefinitionsResponse:
@@ -284,6 +286,8 @@ class ListJobRunsRequest:
     job_definition_id: Optional[str]
 
     project_id: Optional[str]
+
+    organization_id: Optional[str]
 
 
 @dataclass
