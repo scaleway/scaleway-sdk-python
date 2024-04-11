@@ -533,6 +533,21 @@ class Quotum:
     Name of the quota.
     """
 
+    pretty_name: str
+    """
+    A human-readable name for the quota.
+    """
+
+    unit: str
+    """
+    The unit in which the quota is expressed.
+    """
+
+    description: str
+    """
+    Details about the quota.
+    """
+
     limit: Optional[int]
 
     unlimited: Optional[bool]
