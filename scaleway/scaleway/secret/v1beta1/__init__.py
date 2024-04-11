@@ -14,6 +14,7 @@ from .types import EphemeralProperties
 from .types import BrowseSecretsResponseItem
 from .types import SecretVersion
 from .types import Secret
+from .types import AccessSecretVersionByPathRequest
 from .types import AccessSecretVersionRequest
 from .types import AccessSecretVersionResponse
 from .types import AddSecretOwnerRequest
@@ -34,6 +35,9 @@ from .types import ListSecretsResponse
 from .types import ListTagsRequest
 from .types import ListTagsResponse
 from .types import ProtectSecretRequest
+from .types import SecretTypeBasicCredentials
+from .types import SecretTypeDatabaseCredentials
+from .types import SecretTypeSSHKey
 from .types import UnprotectSecretRequest
 from .types import UpdateSecretRequest
 from .types import UpdateSecretVersionRequest
@@ -54,6 +58,7 @@ __all__ = [
     "BrowseSecretsResponseItem",
     "SecretVersion",
     "Secret",
+    "AccessSecretVersionByPathRequest",
     "AccessSecretVersionRequest",
     "AccessSecretVersionResponse",
     "AddSecretOwnerRequest",
@@ -74,6 +79,9 @@ __all__ = [
     "ListTagsRequest",
     "ListTagsResponse",
     "ProtectSecretRequest",
+    "SecretTypeBasicCredentials",
+    "SecretTypeDatabaseCredentials",
+    "SecretTypeSSHKey",
     "UnprotectSecretRequest",
     "UpdateSecretRequest",
     "UpdateSecretVersionRequest",

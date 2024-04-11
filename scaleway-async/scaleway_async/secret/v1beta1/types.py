@@ -281,6 +281,37 @@ class Secret:
 
 
 @dataclass
+class AccessSecretVersionByPathRequest:
+    secret_path: str
+    """
+    Secret's path.
+    """
+
+    secret_name: str
+    """
+    Secret's name.
+    """
+
+    revision: str
+    """
+    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
+- an integer (the revision number)
+- "latest" (the latest revision)
+- "latest_enabled" (the latest enabled revision).
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    ID of the Project to target.
+    """
+
+
+@dataclass
 class AccessSecretVersionRequest:
     secret_id: str
     """
@@ -722,6 +753,60 @@ class ProtectSecretRequest:
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class SecretTypeBasicCredentials:
+    username: str
+    """
+    The username or identifier associated with the credentials.
+    """
+
+    password: str
+    """
+    The password associated with the credentials.
+    """
+
+
+@dataclass
+class SecretTypeDatabaseCredentials:
+    engine: str
+    """
+    Supported database engines are: 'postgres', 'mysql', 'other'.
+    """
+
+    username: str
+    """
+    The username used to authenticate to the database server.
+    """
+
+    password: str
+    """
+    The password used to authenticate to the database server.
+    """
+
+    host: str
+    """
+    The hostname or resolvable DNS name of the database server.
+    """
+
+    dbname: str
+    """
+    The name of the database to connect to.
+    """
+
+    port: str
+    """
+    The port must be an integer ranging from 0 to 65535.
+    """
+
+
+@dataclass
+class SecretTypeSSHKey:
+    ssh_private_key: str
+    """
+    The private SSH key.
     """
 
 

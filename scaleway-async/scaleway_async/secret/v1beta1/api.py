@@ -832,6 +832,56 @@ class SecretV1Beta1API(API):
         self._throw_on_error(res)
         return unmarshal_AccessSecretVersionResponse(res.json())
 
+    async def access_secret_version_by_path(
+        self,
+        *,
+        secret_path: str,
+        secret_name: str,
+        revision: str,
+        region: Optional[Region] = None,
+        project_id: Optional[str] = None,
+    ) -> AccessSecretVersionResponse:
+        """
+        Access a secret's version using the secret's name and path.
+        Access sensitive data in a secret's version specified by the `region`, `secret_name`, `secret_path` and `revision` parameters.
+        :param secret_path: Secret's path.
+        :param secret_name: Secret's name.
+        :param revision: The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
+        - an integer (the revision number)
+        - "latest" (the latest revision)
+        - "latest_enabled" (the latest enabled revision).
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: ID of the Project to target.
+        :return: :class:`AccessSecretVersionResponse <AccessSecretVersionResponse>`
+
+        Usage:
+        ::
+
+            result = await api.access_secret_version_by_path(
+                secret_path="example",
+                secret_name="example",
+                revision="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_revision = validate_path_param("revision", revision)
+
+        res = self._request(
+            "GET",
+            f"/secret-manager/v1beta1/regions/{param_region}/secrets-by-path/versions/{param_revision}/access",
+            params={
+                "project_id": project_id or self.client.default_project_id,
+                "secret_name": secret_name,
+                "secret_path": secret_path,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_AccessSecretVersionResponse(res.json())
+
     async def enable_secret_version(
         self,
         *,
