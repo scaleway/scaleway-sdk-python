@@ -34,6 +34,9 @@ from .types import ListSecretsResponse
 from .types import ListTagsRequest
 from .types import ListTagsResponse
 from .types import ProtectSecretRequest
+from .types import SecretTypeBasicCredentials
+from .types import SecretTypeDatabaseCredentials
+from .types import SecretTypeSSHKey
 from .types import UnprotectSecretRequest
 from .types import UpdateSecretRequest
 from .types import UpdateSecretVersionRequest
@@ -74,6 +77,9 @@ __all__ = [
     "ListTagsRequest",
     "ListTagsResponse",
     "ProtectSecretRequest",
+    "SecretTypeBasicCredentials",
+    "SecretTypeDatabaseCredentials",
+    "SecretTypeSSHKey",
     "UnprotectSecretRequest",
     "UpdateSecretRequest",
     "UpdateSecretVersionRequest",
