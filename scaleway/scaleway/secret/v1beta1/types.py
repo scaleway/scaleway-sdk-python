@@ -281,6 +281,37 @@ class Secret:
 
 
 @dataclass
+class AccessSecretVersionByPathRequest:
+    secret_path: str
+    """
+    Secret's path.
+    """
+
+    secret_name: str
+    """
+    Secret's name.
+    """
+
+    revision: str
+    """
+    The first version of the secret is numbered 1, and all subsequent revisions augment by 1. Value can be either:
+- an integer (the revision number)
+- "latest" (the latest revision)
+- "latest_enabled" (the latest enabled revision).
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    ID of the Project to target.
+    """
+
+
+@dataclass
 class AccessSecretVersionRequest:
     secret_id: str
     """

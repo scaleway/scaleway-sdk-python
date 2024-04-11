@@ -14,6 +14,7 @@ from .types import EphemeralProperties
 from .types import BrowseSecretsResponseItem
 from .types import SecretVersion
 from .types import Secret
+from .types import AccessSecretVersionByPathRequest
 from .types import AccessSecretVersionRequest
 from .types import AccessSecretVersionResponse
 from .types import AddSecretOwnerRequest
@@ -57,6 +58,7 @@ __all__ = [
     "BrowseSecretsResponseItem",
     "SecretVersion",
     "Secret",
+    "AccessSecretVersionByPathRequest",
     "AccessSecretVersionRequest",
     "AccessSecretVersionResponse",
     "AddSecretOwnerRequest",
