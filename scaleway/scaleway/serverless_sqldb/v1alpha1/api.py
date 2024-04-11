@@ -435,7 +435,7 @@ class ServerlessSqldbV1Alpha1API(API):
     ) -> ListDatabaseBackupsResponse:
         """
         List your Serverless SQL Database backups.
-        List all Serverless SQL Database backups for a given Scaleway Project or Database. By default, the backups returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
+        List all Serverless SQL Database backups for a given Scaleway Project or Database. By default, the backups returned in the list are ordered by creation date in descending order, though this can be modified via the order_by field.
         :param database_id: Filter by the UUID of the Serverless SQL Database.
         :param region: Region to target. If none is passed will use default region from the config.
         :param organization_id: Filter by the UUID of the Scaleway organization.
@@ -487,7 +487,7 @@ class ServerlessSqldbV1Alpha1API(API):
     ) -> List[DatabaseBackup]:
         """
         List your Serverless SQL Database backups.
-        List all Serverless SQL Database backups for a given Scaleway Project or Database. By default, the backups returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
+        List all Serverless SQL Database backups for a given Scaleway Project or Database. By default, the backups returned in the list are ordered by creation date in descending order, though this can be modified via the order_by field.
         :param database_id: Filter by the UUID of the Serverless SQL Database.
         :param region: Region to target. If none is passed will use default region from the config.
         :param organization_id: Filter by the UUID of the Scaleway organization.
