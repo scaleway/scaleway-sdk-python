@@ -297,6 +297,16 @@ class Hosting:
     Name of the active offer for the Web Hosting plan.
     """
 
+    domain: str
+    """
+    Main domain associated with the Web Hosting plan.
+    """
+
+    tags: List[str]
+    """
+    List of tags associated with the Web Hosting plan.
+    """
+
     updated_at: Optional[datetime]
     """
     Date on which the Web Hosting plan was last updated.
@@ -310,16 +320,6 @@ class Hosting:
     platform_number: Optional[int]
     """
     Number of the host platform.
-    """
-
-    domain: str
-    """
-    Main domain associated with the Web Hosting plan.
-    """
-
-    tags: List[str]
-    """
-    List of tags associated with the Web Hosting plan.
     """
 
     options: List[HostingOption]
@@ -365,6 +365,11 @@ class Hosting:
     protected: bool
     """
     Whether the hosting is protected or not.
+    """
+
+    one_time_password: str
+    """
+    One-time-password used for the first login or reset password, empty after first use.
     """
 
     region: Region
