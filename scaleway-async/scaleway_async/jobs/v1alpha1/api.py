@@ -159,6 +159,7 @@ class JobsV1Alpha1API(API):
         page_size: Optional[int] = None,
         order_by: Optional[ListJobDefinitionsRequestOrderBy] = None,
         project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
     ) -> ListJobDefinitionsResponse:
         """
         List all your job definitions with filters.
@@ -167,6 +168,7 @@ class JobsV1Alpha1API(API):
         :param page_size:
         :param order_by:
         :param project_id:
+        :param organization_id:
         :return: :class:`ListJobDefinitionsResponse <ListJobDefinitionsResponse>`
 
         Usage:
@@ -184,6 +186,8 @@ class JobsV1Alpha1API(API):
             f"/serverless-jobs/v1alpha1/regions/{param_region}/job-definitions",
             params={
                 "order_by": order_by,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -201,6 +205,7 @@ class JobsV1Alpha1API(API):
         page_size: Optional[int] = None,
         order_by: Optional[ListJobDefinitionsRequestOrderBy] = None,
         project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
     ) -> List[JobDefinition]:
         """
         List all your job definitions with filters.
@@ -209,6 +214,7 @@ class JobsV1Alpha1API(API):
         :param page_size:
         :param order_by:
         :param project_id:
+        :param organization_id:
         :return: :class:`List[JobDefinition] <List[JobDefinition]>`
 
         Usage:
@@ -227,6 +233,7 @@ class JobsV1Alpha1API(API):
                 "page_size": page_size,
                 "order_by": order_by,
                 "project_id": project_id,
+                "organization_id": organization_id,
             },
         )
 
@@ -462,6 +469,7 @@ class JobsV1Alpha1API(API):
         order_by: Optional[ListJobRunsRequestOrderBy] = None,
         job_definition_id: Optional[str] = None,
         project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
     ) -> ListJobRunsResponse:
         """
         List all job runs with filters.
@@ -471,6 +479,7 @@ class JobsV1Alpha1API(API):
         :param order_by:
         :param job_definition_id:
         :param project_id:
+        :param organization_id:
         :return: :class:`ListJobRunsResponse <ListJobRunsResponse>`
 
         Usage:
@@ -489,6 +498,8 @@ class JobsV1Alpha1API(API):
             params={
                 "job_definition_id": job_definition_id,
                 "order_by": order_by,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
@@ -507,6 +518,7 @@ class JobsV1Alpha1API(API):
         order_by: Optional[ListJobRunsRequestOrderBy] = None,
         job_definition_id: Optional[str] = None,
         project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
     ) -> List[JobRun]:
         """
         List all job runs with filters.
@@ -516,6 +528,7 @@ class JobsV1Alpha1API(API):
         :param order_by:
         :param job_definition_id:
         :param project_id:
+        :param organization_id:
         :return: :class:`List[JobRun] <List[JobRun]>`
 
         Usage:
@@ -535,5 +548,6 @@ class JobsV1Alpha1API(API):
                 "order_by": order_by,
                 "job_definition_id": job_definition_id,
                 "project_id": project_id,
+                "organization_id": organization_id,
             },
         )
