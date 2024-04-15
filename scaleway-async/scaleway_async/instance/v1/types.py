@@ -842,11 +842,6 @@ class Server:
     True to configure the instance so it uses the new routed IP mode.
     """
 
-    enable_ipv6: bool
-    """
-    True if IPv6 is enabled.
-    """
-
     hostname: str
     """
     Instance host name.
@@ -857,6 +852,11 @@ class Server:
     Defines whether the Instance protection option is activated.
     """
 
+    enable_ipv6: Optional[bool]
+    """
+    True if IPv6 is enabled (deprecated and always `False` when `routed_ip_enabled` is `True`).
+    """
+
     image: Optional[Image]
     """
     Information about the Instance image.
@@ -864,12 +864,12 @@ class Server:
 
     private_ip: Optional[str]
     """
-    Private IP address of the Instance.
+    Private IP address of the Instance (deprecated and always `null` when `routed_ip_enabled` is `True`).
     """
 
     public_ip: Optional[ServerIp]
     """
-    Information about the public IP.
+    Information about the public IP (deprecated in favor of `public_ips`).
     """
 
     public_ips: List[ServerIp]
@@ -909,7 +909,7 @@ class Server:
 
     ipv6: Optional[ServerIpv6]
     """
-    Instance IPv6 address.
+    Instance IPv6 address (deprecated when `routed_ip_enabled` is `True`).
     """
 
     bootscript: Optional[Bootscript]
@@ -1783,11 +1783,6 @@ class CreateSecurityGroupRuleResponse:
 
 @dataclass
 class CreateServerRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
     commercial_type: str
     """
     Define the Instance commercial type (i.e. GP1-S).
@@ -1796,6 +1791,11 @@ class CreateServerRequest:
     image: str
     """
     Instance image ID or label.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
     """
 
     name: Optional[str]
@@ -1813,14 +1813,14 @@ class CreateServerRequest:
     If true, configure the Instance so it uses the new routed IP mode.
     """
 
-    enable_ipv6: bool
-    """
-    True if IPv6 is enabled on the server.
-    """
-
     volumes: Optional[Dict[str, VolumeServerTemplate]]
     """
     Volumes attached to the server.
+    """
+
+    enable_ipv6: Optional[bool]
+    """
+    True if IPv6 is enabled on the server (deprecated and always `False` when `routed_ip_enabled` is `True`).
     """
 
     public_ip: Optional[str]
@@ -2772,6 +2772,11 @@ class ListServersRequest:
     without_ip: Optional[bool]
     """
     List Instances that are not attached to a public IP.
+    """
+
+    with_ip: Optional[str]
+    """
+    List Instances by IP (both private_ip and public_ip are supported).
     """
 
     commercial_type: Optional[str]

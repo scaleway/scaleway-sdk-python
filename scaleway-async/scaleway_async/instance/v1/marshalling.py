@@ -741,10 +741,6 @@ def unmarshal_Server(data: Any) -> Server:
     if field is not None:
         args["routed_ip_enabled"] = field
 
-    field = data.get("enable_ipv6", None)
-    if field is not None:
-        args["enable_ipv6"] = field
-
     field = data.get("hostname", None)
     if field is not None:
         args["hostname"] = field
@@ -752,6 +748,10 @@ def unmarshal_Server(data: Any) -> Server:
     field = data.get("protected", None)
     if field is not None:
         args["protected"] = field
+
+    field = data.get("enable_ipv6", None)
+    if field is not None:
+        args["enable_ipv6"] = field
 
     field = data.get("image", None)
     if field is not None:
@@ -2877,14 +2877,14 @@ def marshal_CreateServerRequest(
     if request.routed_ip_enabled is not None:
         output["routed_ip_enabled"] = request.routed_ip_enabled
 
-    if request.enable_ipv6 is not None:
-        output["enable_ipv6"] = request.enable_ipv6
-
     if request.volumes is not None:
         output["volumes"] = {
             key: marshal_VolumeServerTemplate(value, defaults)
             for key, value in request.volumes.items()
         }
+
+    if request.enable_ipv6 is not None:
+        output["enable_ipv6"] = request.enable_ipv6
 
     if request.public_ip is not None:
         output["public_ip"] = request.public_ip
@@ -3972,9 +3972,6 @@ def marshal__SetServerRequest(
     if request.dynamic_ip_required is not None:
         output["dynamic_ip_required"] = request.dynamic_ip_required
 
-    if request.enable_ipv6 is not None:
-        output["enable_ipv6"] = request.enable_ipv6
-
     if request.hostname is not None:
         output["hostname"] = request.hostname
 
@@ -3997,6 +3994,9 @@ def marshal__SetServerRequest(
 
     if request.routed_ip_enabled is not None:
         output["routed_ip_enabled"] = request.routed_ip_enabled
+
+    if request.enable_ipv6 is not None:
+        output["enable_ipv6"] = request.enable_ipv6
 
     if request.image is not None:
         output["image"] = (marshal_Image(request.image, defaults),)
