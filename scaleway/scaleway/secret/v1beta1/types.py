@@ -379,6 +379,19 @@ class AddSecretOwnerRequest:
 
 
 @dataclass
+class BasicCredentials:
+    username: str
+    """
+    The username or identifier associated with the credentials.
+    """
+
+    password: str
+    """
+    The password associated with the credentials.
+    """
+
+
+@dataclass
 class BrowseSecretsRequest:
     prefix: str
     """
@@ -503,6 +516,39 @@ class CreateSecretVersionRequest:
     data_crc32: Optional[int]
     """
     If specified, Secret Manager will verify the integrity of the data received against the given CRC32 checksum. An error is returned if the CRC32 does not match. If, however, the CRC32 matches, it will be stored and returned along with the SecretVersion on future access requests.
+    """
+
+
+@dataclass
+class DatabaseCredentials:
+    engine: str
+    """
+    Supported database engines are: 'postgres', 'mysql', 'other'.
+    """
+
+    username: str
+    """
+    The username used to authenticate to the database server.
+    """
+
+    password: str
+    """
+    The password used to authenticate to the database server.
+    """
+
+    host: str
+    """
+    The hostname or resolvable DNS name of the database server.
+    """
+
+    dbname: str
+    """
+    The name of the database to connect to.
+    """
+
+    port: str
+    """
+    The port must be an integer ranging from 0 to 65535.
     """
 
 
@@ -757,53 +803,7 @@ class ProtectSecretRequest:
 
 
 @dataclass
-class SecretTypeBasicCredentials:
-    username: str
-    """
-    The username or identifier associated with the credentials.
-    """
-
-    password: str
-    """
-    The password associated with the credentials.
-    """
-
-
-@dataclass
-class SecretTypeDatabaseCredentials:
-    engine: str
-    """
-    Supported database engines are: 'postgres', 'mysql', 'other'.
-    """
-
-    username: str
-    """
-    The username used to authenticate to the database server.
-    """
-
-    password: str
-    """
-    The password used to authenticate to the database server.
-    """
-
-    host: str
-    """
-    The hostname or resolvable DNS name of the database server.
-    """
-
-    dbname: str
-    """
-    The name of the database to connect to.
-    """
-
-    port: str
-    """
-    The port must be an integer ranging from 0 to 65535.
-    """
-
-
-@dataclass
-class SecretTypeSSHKey:
+class SSHKey:
     ssh_private_key: str
     """
     The private SSH key.
