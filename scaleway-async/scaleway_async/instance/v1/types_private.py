@@ -164,10 +164,6 @@ class _SetServerRequest:
     """
     True if a dynamic IPv4 is required.
     """
-    enable_ipv6: bool
-    """
-    True if IPv6 is enabled.
-    """
     hostname: str
     """
     Instance host name.
@@ -196,6 +192,10 @@ class _SetServerRequest:
     """
     True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False).
     """
+    enable_ipv6: Optional[bool]
+    """
+    True if IPv6 is enabled (deprecated and always `False` when `routed_ip_enabled` is `True`).
+    """
     image: Optional[Image]
     """
     Provide information on the Instance image.
@@ -206,11 +206,11 @@ class _SetServerRequest:
     """
     private_ip: Optional[str]
     """
-    Instance private IP address.
+    Instance private IP address (deprecated and always `null` when `routed_ip_enabled` is `True`).
     """
     public_ip: Optional[ServerIp]
     """
-    Information about the public IP.
+    Information about the public IP (deprecated in favor of `public_ips`).
     """
     public_ips: Optional[List[ServerIp]]
     """
@@ -234,7 +234,7 @@ class _SetServerRequest:
     """
     ipv6: Optional[ServerIpv6]
     """
-    Instance IPv6 address.
+    Instance IPv6 address (deprecated when `routed_ip_enabled` is `True`).
     """
     bootscript: Optional[Bootscript]
     """

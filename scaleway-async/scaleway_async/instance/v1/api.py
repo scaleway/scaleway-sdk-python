@@ -366,6 +366,7 @@ class InstanceV1API(API):
         name: Optional[str] = None,
         private_ip: Optional[str] = None,
         without_ip: Optional[bool] = None,
+        with_ip: Optional[str] = None,
         commercial_type: Optional[str] = None,
         state: Optional[ServerState] = None,
         tags: Optional[List[str]] = None,
@@ -386,6 +387,7 @@ class InstanceV1API(API):
         :param name: Filter Instances by name (eg. "server1" will return "server100" and "server1" but not "foo").
         :param private_ip: List Instances by private_ip.
         :param without_ip: List Instances that are not attached to a public IP.
+        :param with_ip: List Instances by IP (both private_ip and public_ip are supported).
         :param commercial_type: List Instances of this commercial type.
         :param state: List Instances in this state.
         :param tags: List Instances with these exact tags (to filter with several tags, use commas to separate them).
@@ -424,6 +426,7 @@ class InstanceV1API(API):
                 "servers": ",".join(servers) if servers and len(servers) > 0 else None,
                 "state": state,
                 "tags": ",".join(tags) if tags and len(tags) > 0 else None,
+                "with_ip": with_ip,
                 "without_ip": without_ip,
             },
         )
@@ -442,6 +445,7 @@ class InstanceV1API(API):
         name: Optional[str] = None,
         private_ip: Optional[str] = None,
         without_ip: Optional[bool] = None,
+        with_ip: Optional[str] = None,
         commercial_type: Optional[str] = None,
         state: Optional[ServerState] = None,
         tags: Optional[List[str]] = None,
@@ -462,6 +466,7 @@ class InstanceV1API(API):
         :param name: Filter Instances by name (eg. "server1" will return "server100" and "server1" but not "foo").
         :param private_ip: List Instances by private_ip.
         :param without_ip: List Instances that are not attached to a public IP.
+        :param with_ip: List Instances by IP (both private_ip and public_ip are supported).
         :param commercial_type: List Instances of this commercial type.
         :param state: List Instances in this state.
         :param tags: List Instances with these exact tags (to filter with several tags, use commas to separate them).
@@ -491,6 +496,7 @@ class InstanceV1API(API):
                 "name": name,
                 "private_ip": private_ip,
                 "without_ip": without_ip,
+                "with_ip": with_ip,
                 "commercial_type": commercial_type,
                 "state": state,
                 "tags": tags,
@@ -507,12 +513,12 @@ class InstanceV1API(API):
         *,
         commercial_type: str,
         image: str,
-        enable_ipv6: bool,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
         dynamic_ip_required: Optional[bool] = None,
         routed_ip_enabled: Optional[bool] = None,
         volumes: Optional[Dict[str, VolumeServerTemplate]] = None,
+        enable_ipv6: Optional[bool] = None,
         public_ip: Optional[str] = None,
         public_ips: Optional[List[str]] = None,
         boot_type: Optional[BootType] = None,
@@ -529,12 +535,12 @@ class InstanceV1API(API):
         Get more information in the [Technical Information](#technical-information) section of the introduction.
         :param commercial_type: Define the Instance commercial type (i.e. GP1-S).
         :param image: Instance image ID or label.
-        :param enable_ipv6: True if IPv6 is enabled on the server.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: Instance name.
         :param dynamic_ip_required: Define if a dynamic IPv4 is required for the Instance.
         :param routed_ip_enabled: If true, configure the Instance so it uses the new routed IP mode.
         :param volumes: Volumes attached to the server.
+        :param enable_ipv6: True if IPv6 is enabled on the server (deprecated and always `False` when `routed_ip_enabled` is `True`).
         :param public_ip: ID of the reserved IP to attach to the Instance.
         :param public_ips: A list of reserved IP IDs to attach to the Instance.
         :param boot_type: Boot type to use.
@@ -554,7 +560,6 @@ class InstanceV1API(API):
             result = await api._create_server(
                 commercial_type="example",
                 image="example",
-                enable_ipv6=False,
             )
         """
 
@@ -565,14 +570,14 @@ class InstanceV1API(API):
             f"/instance/v1/zones/{param_zone}/servers",
             body=marshal_CreateServerRequest(
                 CreateServerRequest(
-                    zone=zone,
                     commercial_type=commercial_type,
                     image=image,
+                    zone=zone,
                     name=name or random_name(prefix="srv"),
                     dynamic_ip_required=dynamic_ip_required,
                     routed_ip_enabled=routed_ip_enabled,
-                    enable_ipv6=enable_ipv6,
                     volumes=volumes,
+                    enable_ipv6=enable_ipv6,
                     public_ip=public_ip,
                     public_ips=public_ips,
                     boot_type=boot_type,
@@ -660,7 +665,6 @@ class InstanceV1API(API):
         name: str,
         commercial_type: str,
         dynamic_ip_required: bool,
-        enable_ipv6: bool,
         hostname: str,
         organization: Optional[str] = None,
         project: Optional[str] = None,
@@ -668,6 +672,7 @@ class InstanceV1API(API):
         tags: Optional[List[str]] = None,
         creation_date: Optional[datetime] = None,
         routed_ip_enabled: Optional[bool] = None,
+        enable_ipv6: Optional[bool] = None,
         image: Optional[Image] = None,
         protected: bool,
         private_ip: Optional[str] = None,
@@ -693,7 +698,6 @@ class InstanceV1API(API):
         :param name: Instance name.
         :param commercial_type: Instance commercial type (eg. GP1-M).
         :param dynamic_ip_required: True if a dynamic IPv4 is required.
-        :param enable_ipv6: True if IPv6 is enabled.
         :param hostname: Instance host name.
         :param organization: Instance Organization ID.
         :param project: Instance Project ID.
@@ -701,16 +705,17 @@ class InstanceV1API(API):
         :param tags: Tags associated with the Instance.
         :param creation_date: Instance creation date.
         :param routed_ip_enabled: True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False).
+        :param enable_ipv6: True if IPv6 is enabled (deprecated and always `False` when `routed_ip_enabled` is `True`).
         :param image: Provide information on the Instance image.
         :param protected: Instance protection option is activated.
-        :param private_ip: Instance private IP address.
-        :param public_ip: Information about the public IP.
+        :param private_ip: Instance private IP address (deprecated and always `null` when `routed_ip_enabled` is `True`).
+        :param public_ip: Information about the public IP (deprecated in favor of `public_ips`).
         :param public_ips: Information about all the public IPs attached to the server.
         :param modification_date: Instance modification date.
         :param state_detail: Instance state_detail.
         :param state: Instance state.
         :param location: Instance location.
-        :param ipv6: Instance IPv6 address.
+        :param ipv6: Instance IPv6 address (deprecated when `routed_ip_enabled` is `True`).
         :param bootscript: Instance bootscript.
         :param boot_type: Instance boot type.
         :param volumes: Instance volumes.
@@ -729,7 +734,6 @@ class InstanceV1API(API):
                 name="example",
                 commercial_type="example",
                 dynamic_ip_required=False,
-                enable_ipv6=False,
                 hostname="example",
                 protected=False,
                 state_detail="example",
@@ -749,7 +753,6 @@ class InstanceV1API(API):
                     name=name,
                     commercial_type=commercial_type,
                     dynamic_ip_required=dynamic_ip_required,
-                    enable_ipv6=enable_ipv6,
                     hostname=hostname,
                     organization=organization,
                     project=project,
@@ -757,6 +760,7 @@ class InstanceV1API(API):
                     tags=tags,
                     creation_date=creation_date,
                     routed_ip_enabled=routed_ip_enabled,
+                    enable_ipv6=enable_ipv6,
                     image=image,
                     protected=protected,
                     private_ip=private_ip,
