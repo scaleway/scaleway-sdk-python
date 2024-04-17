@@ -140,6 +140,10 @@ def unmarshal_EndpointPrivateNetworkDetails(data: Any) -> EndpointPrivateNetwork
     if field is not None:
         args["zone"] = field
 
+    field = data.get("provisioning_mode", None)
+    if field is not None:
+        args["provisioning_mode"] = field
+
     return EndpointPrivateNetworkDetails(**args)
 
 
