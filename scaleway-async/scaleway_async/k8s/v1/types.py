@@ -857,6 +857,11 @@ class Cluster:
     Date on which it will be possible to switch to a smaller offer.
     """
 
+    routed_ip_enabled: Optional[bool]
+    """
+    Defines whether routed IPs are enabled for nodes of this cluster.
+    """
+
 
 @dataclass
 class Node:

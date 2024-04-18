@@ -453,6 +453,10 @@ def unmarshal_Cluster(data: Any) -> Cluster:
             parser.isoparse(field) if isinstance(field, str) else field
         )
 
+    field = data.get("routed_ip_enabled", None)
+    if field is not None:
+        args["routed_ip_enabled"] = field
+
     return Cluster(**args)
 
 
