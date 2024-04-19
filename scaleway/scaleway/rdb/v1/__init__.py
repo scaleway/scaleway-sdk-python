@@ -5,6 +5,7 @@ from .types import ACLRuleDirection
 from .types import ACLRuleProtocol
 from .types import DatabaseBackupStatus
 from .content import DATABASE_BACKUP_TRANSIENT_STATUSES
+from .types import EndpointPrivateNetworkDetailsProvisioningMode
 from .types import EngineSettingPropertyType
 from .types import InstanceLogStatus
 from .content import INSTANCE_LOG_TRANSIENT_STATUSES
@@ -150,6 +151,7 @@ __all__ = [
     "ACLRuleProtocol",
     "DatabaseBackupStatus",
     "DATABASE_BACKUP_TRANSIENT_STATUSES",
+    "EndpointPrivateNetworkDetailsProvisioningMode",
     "EngineSettingPropertyType",
     "InstanceLogStatus",
     "INSTANCE_LOG_TRANSIENT_STATUSES",
