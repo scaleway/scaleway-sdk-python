@@ -48,6 +48,8 @@ def unmarshal_GetConsumptionResponseConsumption(
     field = data.get("value", None)
     if field is not None:
         args["value"] = unmarshal_Money(field)
+    else:
+        args["value"] = None
 
     return GetConsumptionResponseConsumption(**args)
 
@@ -71,6 +73,8 @@ def unmarshal_GetConsumptionResponse(data: Any) -> GetConsumptionResponse:
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     return GetConsumptionResponse(**args)
 
@@ -86,6 +90,8 @@ def unmarshal_DiscountCoupon(data: Any) -> DiscountCoupon:
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     return DiscountCoupon(**args)
 
@@ -98,7 +104,7 @@ def unmarshal_DiscountFilter(data: Any) -> DiscountFilter:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -156,18 +162,26 @@ def unmarshal_Discount(data: Any) -> Discount:
         args["creation_date"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["creation_date"] = None
 
     field = data.get("start_date", None)
     if field is not None:
         args["start_date"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["start_date"] = None
 
     field = data.get("stop_date", None)
     if field is not None:
         args["stop_date"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["stop_date"] = None
 
     field = data.get("coupon", None)
     if field is not None:
         args["coupon"] = unmarshal_DiscountCoupon(field)
+    else:
+        args["coupon"] = None
 
     return Discount(**args)
 
@@ -216,24 +230,34 @@ def unmarshal_Invoice(data: Any) -> Invoice:
     field = data.get("start_date", None)
     if field is not None:
         args["start_date"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["start_date"] = None
 
     field = data.get("issued_date", None)
     if field is not None:
         args["issued_date"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["issued_date"] = None
 
     field = data.get("due_date", None)
     if field is not None:
         args["due_date"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["due_date"] = None
 
     field = data.get("total_untaxed", None)
     if field is not None:
         args["total_untaxed"] = unmarshal_Money(field)
+    else:
+        args["total_untaxed"] = None
 
     field = data.get("total_taxed", None)
     if field is not None:
         args["total_taxed"] = unmarshal_Money(field)
+    else:
+        args["total_taxed"] = None
 
     return Invoice(**args)
 

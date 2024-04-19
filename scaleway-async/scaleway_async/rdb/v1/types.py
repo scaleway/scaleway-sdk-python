@@ -56,6 +56,14 @@ class DatabaseBackupStatus(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class EndpointPrivateNetworkDetailsProvisioningMode(str, Enum, metaclass=StrEnumMeta):
+    STATIC = "static"
+    IPAM = "ipam"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class EngineSettingPropertyType(str, Enum, metaclass=StrEnumMeta):
     BOOLEAN = "boolean"
     INT = "int"
@@ -284,6 +292,11 @@ class EndpointPrivateNetworkDetails:
     zone: Zone
     """
     Private network zone.
+    """
+
+    provisioning_mode: EndpointPrivateNetworkDetailsProvisioningMode
+    """
+    How endpoint ips are provisioned.
     """
 
 

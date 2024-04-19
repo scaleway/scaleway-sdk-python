@@ -83,10 +83,14 @@ def unmarshal_DHCP(data: Any) -> DHCP:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("pool_high", None)
     if field is not None:
@@ -123,14 +127,20 @@ def unmarshal_DHCP(data: Any) -> DHCP:
     field = data.get("valid_lifetime", None)
     if field is not None:
         args["valid_lifetime"] = field
+    else:
+        args["valid_lifetime"] = None
 
     field = data.get("renew_timer", None)
     if field is not None:
         args["renew_timer"] = field
+    else:
+        args["renew_timer"] = None
 
     field = data.get("rebind_timer", None)
     if field is not None:
         args["rebind_timer"] = field
+    else:
+        args["rebind_timer"] = None
 
     return DHCP(**args)
 
@@ -177,14 +187,20 @@ def unmarshal_GatewayNetwork(data: Any) -> GatewayNetwork:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("mac_address", None)
     if field is not None:
         args["mac_address"] = field
+    else:
+        args["mac_address"] = None
 
     field = data.get("enable_masquerade", None)
     if field is not None:
@@ -205,14 +221,20 @@ def unmarshal_GatewayNetwork(data: Any) -> GatewayNetwork:
     field = data.get("dhcp", None)
     if field is not None:
         args["dhcp"] = unmarshal_DHCP(field)
+    else:
+        args["dhcp"] = None
 
     field = data.get("address", None)
     if field is not None:
         args["address"] = field
+    else:
+        args["address"] = None
 
     field = data.get("ipam_config", None)
     if field is not None:
         args["ipam_config"] = unmarshal_IpamConfig(field)
+    else:
+        args["ipam_config"] = None
 
     return GatewayNetwork(**args)
 
@@ -252,18 +274,26 @@ def unmarshal_IP(data: Any) -> IP:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("reverse", None)
     if field is not None:
         args["reverse"] = field
+    else:
+        args["reverse"] = None
 
     field = data.get("gateway_id", None)
     if field is not None:
         args["gateway_id"] = field
+    else:
+        args["gateway_id"] = None
 
     return IP(**args)
 
@@ -296,7 +326,7 @@ def unmarshal_DHCPEntry(data: Any) -> DHCPEntry:
     if field is not None:
         args["hostname"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -307,10 +337,14 @@ def unmarshal_DHCPEntry(data: Any) -> DHCPEntry:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     return DHCPEntry(**args)
 
@@ -361,14 +395,20 @@ def unmarshal_Gateway(data: Any) -> Gateway:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = unmarshal_GatewayType(field)
+    else:
+        args["type_"] = None
 
     field = data.get("status", None)
     if field is not None:
@@ -399,14 +439,20 @@ def unmarshal_Gateway(data: Any) -> Gateway:
     field = data.get("ip", None)
     if field is not None:
         args["ip"] = unmarshal_IP(field)
+    else:
+        args["ip"] = None
 
     field = data.get("version", None)
     if field is not None:
         args["version"] = field
+    else:
+        args["version"] = None
 
     field = data.get("can_upgrade_to", None)
     if field is not None:
         args["can_upgrade_to"] = field
+    else:
+        args["can_upgrade_to"] = None
 
     field = data.get("bastion_port", None)
     if field is not None:
@@ -470,10 +516,14 @@ def unmarshal_PATRule(data: Any) -> PATRule:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     return PATRule(**args)
 

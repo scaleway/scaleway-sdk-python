@@ -64,10 +64,14 @@ def unmarshal_NatsAccount(data: Any) -> NatsAccount:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     return NatsAccount(**args)
 
@@ -118,14 +122,20 @@ def unmarshal_NatsCredentials(data: Any) -> NatsCredentials:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("credentials", None)
     if field is not None:
         args["credentials"] = unmarshal_File(field)
+    else:
+        args["credentials"] = None
 
     return NatsCredentials(**args)
 
@@ -141,14 +151,20 @@ def unmarshal_SnsPermissions(data: Any) -> SnsPermissions:
     field = data.get("can_publish", None)
     if field is not None:
         args["can_publish"] = field
+    else:
+        args["can_publish"] = None
 
     field = data.get("can_receive", None)
     if field is not None:
         args["can_receive"] = field
+    else:
+        args["can_receive"] = None
 
     field = data.get("can_manage", None)
     if field is not None:
         args["can_manage"] = field
+    else:
+        args["can_manage"] = None
 
     return SnsPermissions(**args)
 
@@ -192,14 +208,20 @@ def unmarshal_SnsCredentials(data: Any) -> SnsCredentials:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("permissions", None)
     if field is not None:
         args["permissions"] = unmarshal_SnsPermissions(field)
+    else:
+        args["permissions"] = None
 
     return SnsCredentials(**args)
 
@@ -215,14 +237,20 @@ def unmarshal_SqsPermissions(data: Any) -> SqsPermissions:
     field = data.get("can_publish", None)
     if field is not None:
         args["can_publish"] = field
+    else:
+        args["can_publish"] = None
 
     field = data.get("can_receive", None)
     if field is not None:
         args["can_receive"] = field
+    else:
+        args["can_receive"] = None
 
     field = data.get("can_manage", None)
     if field is not None:
         args["can_manage"] = field
+    else:
+        args["can_manage"] = None
 
     return SqsPermissions(**args)
 
@@ -266,14 +294,20 @@ def unmarshal_SqsCredentials(data: Any) -> SqsCredentials:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("permissions", None)
     if field is not None:
         args["permissions"] = unmarshal_SqsPermissions(field)
+    else:
+        args["permissions"] = None
 
     return SqsCredentials(**args)
 
@@ -389,10 +423,14 @@ def unmarshal_SnsInfo(data: Any) -> SnsInfo:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     return SnsInfo(**args)
 
@@ -424,10 +462,14 @@ def unmarshal_SqsInfo(data: Any) -> SqsInfo:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     return SqsInfo(**args)
 

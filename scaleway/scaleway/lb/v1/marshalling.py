@@ -140,10 +140,14 @@ def unmarshal_Ip(data: Any) -> Ip:
     field = data.get("lb_id", None)
     if field is not None:
         args["lb_id"] = field
+    else:
+        args["lb_id"] = None
 
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     return Ip(**args)
 
@@ -197,10 +201,14 @@ def unmarshal_Subscriber(data: Any) -> Subscriber:
     field = data.get("email_config", None)
     if field is not None:
         args["email_config"] = unmarshal_SubscriberEmailConfig(field)
+    else:
+        args["email_config"] = None
 
     field = data.get("webhook_config", None)
     if field is not None:
         args["webhook_config"] = unmarshal_SubscriberWebhookConfig(field)
+    else:
+        args["webhook_config"] = None
 
     return Subscriber(**args)
 
@@ -228,6 +236,8 @@ def unmarshal_HealthCheckHttpConfig(data: Any) -> HealthCheckHttpConfig:
     field = data.get("code", None)
     if field is not None:
         args["code"] = field
+    else:
+        args["code"] = None
 
     return HealthCheckHttpConfig(**args)
 
@@ -259,6 +269,8 @@ def unmarshal_HealthCheckHttpsConfig(data: Any) -> HealthCheckHttpsConfig:
     field = data.get("code", None)
     if field is not None:
         args["code"] = field
+    else:
+        args["code"] = None
 
     return HealthCheckHttpsConfig(**args)
 
@@ -345,18 +357,26 @@ def unmarshal_HealthCheck(data: Any) -> HealthCheck:
     field = data.get("check_delay", None)
     if field is not None:
         args["check_delay"] = field
+    else:
+        args["check_delay"] = None
 
     field = data.get("check_timeout", None)
     if field is not None:
         args["check_timeout"] = field
+    else:
+        args["check_timeout"] = None
 
     field = data.get("tcp_config", None)
     if field is not None:
         args["tcp_config"] = unmarshal_HealthCheckTcpConfig(field)
+    else:
+        args["tcp_config"] = None
 
     field = data.get("mysql_config", None)
     if field is not None:
         args["mysql_config"] = unmarshal_HealthCheckMysqlConfig(field)
+    else:
+        args["mysql_config"] = None
 
     field = data.get("check_send_proxy", None)
     if field is not None:
@@ -365,26 +385,38 @@ def unmarshal_HealthCheck(data: Any) -> HealthCheck:
     field = data.get("pgsql_config", None)
     if field is not None:
         args["pgsql_config"] = unmarshal_HealthCheckPgsqlConfig(field)
+    else:
+        args["pgsql_config"] = None
 
     field = data.get("ldap_config", None)
     if field is not None:
         args["ldap_config"] = unmarshal_HealthCheckLdapConfig(field)
+    else:
+        args["ldap_config"] = None
 
     field = data.get("redis_config", None)
     if field is not None:
         args["redis_config"] = unmarshal_HealthCheckRedisConfig(field)
+    else:
+        args["redis_config"] = None
 
     field = data.get("http_config", None)
     if field is not None:
         args["http_config"] = unmarshal_HealthCheckHttpConfig(field)
+    else:
+        args["http_config"] = None
 
     field = data.get("https_config", None)
     if field is not None:
         args["https_config"] = unmarshal_HealthCheckHttpsConfig(field)
+    else:
+        args["https_config"] = None
 
     field = data.get("transient_check_delay", None)
     if field is not None:
         args["transient_check_delay"] = field
+    else:
+        args["transient_check_delay"] = None
 
     return HealthCheck(**args)
 
@@ -416,14 +448,20 @@ def unmarshal_Instance(data: Any) -> Instance:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     return Instance(**args)
 
@@ -482,7 +520,7 @@ def unmarshal_Lb(data: Any) -> Lb:
     if field is not None:
         args["backend_count"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -505,18 +543,26 @@ def unmarshal_Lb(data: Any) -> Lb:
     field = data.get("subscriber", None)
     if field is not None:
         args["subscriber"] = unmarshal_Subscriber(field)
+    else:
+        args["subscriber"] = None
 
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     return Lb(**args)
 
@@ -572,62 +618,92 @@ def unmarshal_Backend(data: Any) -> Backend:
     field = data.get("health_check", None)
     if field is not None:
         args["health_check"] = unmarshal_HealthCheck(field)
+    else:
+        args["health_check"] = None
 
     field = data.get("lb", None)
     if field is not None:
         args["lb"] = unmarshal_Lb(field)
+    else:
+        args["lb"] = None
 
     field = data.get("send_proxy_v2", None)
     if field is not None:
         args["send_proxy_v2"] = field
+    else:
+        args["send_proxy_v2"] = None
 
     field = data.get("timeout_server", None)
     if field is not None:
         args["timeout_server"] = field
+    else:
+        args["timeout_server"] = None
 
     field = data.get("timeout_connect", None)
     if field is not None:
         args["timeout_connect"] = field
+    else:
+        args["timeout_connect"] = None
 
     field = data.get("timeout_tunnel", None)
     if field is not None:
         args["timeout_tunnel"] = field
+    else:
+        args["timeout_tunnel"] = None
 
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("failover_host", None)
     if field is not None:
         args["failover_host"] = field
+    else:
+        args["failover_host"] = None
 
     field = data.get("ssl_bridging", None)
     if field is not None:
         args["ssl_bridging"] = field
+    else:
+        args["ssl_bridging"] = None
 
     field = data.get("ignore_ssl_server_verify", None)
     if field is not None:
         args["ignore_ssl_server_verify"] = field
+    else:
+        args["ignore_ssl_server_verify"] = None
 
     field = data.get("redispatch_attempt_count", None)
     if field is not None:
         args["redispatch_attempt_count"] = field
+    else:
+        args["redispatch_attempt_count"] = None
 
     field = data.get("max_retries", None)
     if field is not None:
         args["max_retries"] = field
+    else:
+        args["max_retries"] = None
 
     field = data.get("max_connections", None)
     if field is not None:
         args["max_connections"] = field
+    else:
+        args["max_connections"] = None
 
     field = data.get("timeout_queue", None)
     if field is not None:
         args["timeout_queue"] = field
+    else:
+        args["timeout_queue"] = None
 
     return Backend(**args)
 
@@ -640,7 +716,7 @@ def unmarshal_Certificate(data: Any) -> Certificate:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -669,16 +745,22 @@ def unmarshal_Certificate(data: Any) -> Certificate:
         args["not_valid_before"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["not_valid_before"] = None
 
     field = data.get("not_valid_after", None)
     if field is not None:
         args["not_valid_after"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["not_valid_after"] = None
 
     field = data.get("lb", None)
     if field is not None:
         args["lb"] = unmarshal_Lb(field)
+    else:
+        args["lb"] = None
 
     field = data.get("name", None)
     if field is not None:
@@ -687,14 +769,20 @@ def unmarshal_Certificate(data: Any) -> Certificate:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("status_details", None)
     if field is not None:
         args["status_details"] = field
+    else:
+        args["status_details"] = None
 
     return Certificate(**args)
 
@@ -730,26 +818,38 @@ def unmarshal_Frontend(data: Any) -> Frontend:
     field = data.get("backend", None)
     if field is not None:
         args["backend"] = unmarshal_Backend(field)
+    else:
+        args["backend"] = None
 
     field = data.get("lb", None)
     if field is not None:
         args["lb"] = unmarshal_Lb(field)
+    else:
+        args["lb"] = None
 
     field = data.get("timeout_client", None)
     if field is not None:
         args["timeout_client"] = field
+    else:
+        args["timeout_client"] = None
 
     field = data.get("certificate", None)
     if field is not None:
         args["certificate"] = unmarshal_Certificate(field)
+    else:
+        args["certificate"] = None
 
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     return Frontend(**args)
 
@@ -762,7 +862,7 @@ def unmarshal_AclActionRedirect(data: Any) -> AclActionRedirect:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -773,6 +873,8 @@ def unmarshal_AclActionRedirect(data: Any) -> AclActionRedirect:
     field = data.get("code", None)
     if field is not None:
         args["code"] = field
+    else:
+        args["code"] = None
 
     return AclActionRedirect(**args)
 
@@ -785,13 +887,15 @@ def unmarshal_AclAction(data: Any) -> AclAction:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
     field = data.get("redirect", None)
     if field is not None:
         args["redirect"] = unmarshal_AclActionRedirect(field)
+    else:
+        args["redirect"] = None
 
     return AclAction(**args)
 
@@ -823,6 +927,8 @@ def unmarshal_AclMatch(data: Any) -> AclMatch:
     field = data.get("http_filter_option", None)
     if field is not None:
         args["http_filter_option"] = field
+    else:
+        args["http_filter_option"] = None
 
     return AclMatch(**args)
 
@@ -854,22 +960,32 @@ def unmarshal_Acl(data: Any) -> Acl:
     field = data.get("match", None)
     if field is not None:
         args["match"] = unmarshal_AclMatch(field)
+    else:
+        args["match"] = None
 
     field = data.get("action", None)
     if field is not None:
         args["action"] = unmarshal_AclAction(field)
+    else:
+        args["action"] = None
 
     field = data.get("frontend", None)
     if field is not None:
         args["frontend"] = unmarshal_Frontend(field)
+    else:
+        args["frontend"] = None
 
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     return Acl(**args)
 
@@ -885,6 +1001,8 @@ def unmarshal_PrivateNetworkDHCPConfig(data: Any) -> PrivateNetworkDHCPConfig:
     field = data.get("ip_id", None)
     if field is not None:
         args["ip_id"] = field
+    else:
+        args["ip_id"] = None
 
     return PrivateNetworkDHCPConfig(**args)
 
@@ -911,6 +1029,8 @@ def unmarshal_PrivateNetworkStaticConfig(data: Any) -> PrivateNetworkStaticConfi
     field = data.get("ip_address", None)
     if field is not None:
         args["ip_address"] = field
+    else:
+        args["ip_address"] = None
 
     return PrivateNetworkStaticConfig(**args)
 
@@ -938,26 +1058,38 @@ def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
     field = data.get("lb", None)
     if field is not None:
         args["lb"] = unmarshal_Lb(field)
+    else:
+        args["lb"] = None
 
     field = data.get("static_config", None)
     if field is not None:
         args["static_config"] = unmarshal_PrivateNetworkStaticConfig(field)
+    else:
+        args["static_config"] = None
 
     field = data.get("dhcp_config", None)
     if field is not None:
         args["dhcp_config"] = unmarshal_PrivateNetworkDHCPConfig(field)
+    else:
+        args["dhcp_config"] = None
 
     field = data.get("ipam_config", None)
     if field is not None:
         args["ipam_config"] = unmarshal_PrivateNetworkIpamConfig(field)
+    else:
+        args["ipam_config"] = None
 
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     return PrivateNetwork(**args)
 
@@ -973,10 +1105,14 @@ def unmarshal_RouteMatch(data: Any) -> RouteMatch:
     field = data.get("sni", None)
     if field is not None:
         args["sni"] = field
+    else:
+        args["sni"] = None
 
     field = data.get("host_header", None)
     if field is not None:
         args["host_header"] = field
+    else:
+        args["host_header"] = None
 
     return RouteMatch(**args)
 
@@ -1004,14 +1140,20 @@ def unmarshal_Route(data: Any) -> Route:
     field = data.get("match", None)
     if field is not None:
         args["match"] = unmarshal_RouteMatch(field)
+    else:
+        args["match"] = None
 
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     return Route(**args)
 
@@ -1049,6 +1191,8 @@ def unmarshal_BackendServerStats(data: Any) -> BackendServerStats:
         args["server_state_changed_at"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["server_state_changed_at"] = None
 
     return BackendServerStats(**args)
 
@@ -1244,6 +1388,8 @@ def unmarshal_LbType(data: Any) -> LbType:
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+    else:
+        args["region"] = None
 
     return LbType(**args)
 

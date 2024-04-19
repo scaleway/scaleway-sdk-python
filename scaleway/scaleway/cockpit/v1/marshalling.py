@@ -74,6 +74,8 @@ def unmarshal_ContactPoint(data: Any) -> ContactPoint:
     field = data.get("email", None)
     if field is not None:
         args["email"] = unmarshal_ContactPointEmail(field)
+    else:
+        args["email"] = None
 
     return ContactPoint(**args)
 
@@ -102,7 +104,7 @@ def unmarshal_DataSource(data: Any) -> DataSource:
     if field is not None:
         args["url"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -121,10 +123,14 @@ def unmarshal_DataSource(data: Any) -> DataSource:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     return DataSource(**args)
 
@@ -183,6 +189,8 @@ def unmarshal_GrafanaUser(data: Any) -> GrafanaUser:
     field = data.get("password", None)
     if field is not None:
         args["password"] = field
+    else:
+        args["password"] = None
 
     return GrafanaUser(**args)
 
@@ -218,14 +226,20 @@ def unmarshal_Plan(data: Any) -> Plan:
     field = data.get("retention_metrics_interval", None)
     if field is not None:
         args["retention_metrics_interval"] = field
+    else:
+        args["retention_metrics_interval"] = None
 
     field = data.get("retention_logs_interval", None)
     if field is not None:
         args["retention_logs_interval"] = field
+    else:
+        args["retention_logs_interval"] = None
 
     field = data.get("retention_traces_interval", None)
     if field is not None:
         args["retention_traces_interval"] = field
+    else:
+        args["retention_traces_interval"] = None
 
     return Plan(**args)
 
@@ -261,14 +275,20 @@ def unmarshal_Token(data: Any) -> Token:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("secret_key", None)
     if field is not None:
         args["secret_key"] = field
+    else:
+        args["secret_key"] = None
 
     return Token(**args)
 
@@ -296,6 +316,8 @@ def unmarshal_AlertManager(data: Any) -> AlertManager:
     field = data.get("alert_manager_url", None)
     if field is not None:
         args["alert_manager_url"] = field
+    else:
+        args["alert_manager_url"] = None
 
     return AlertManager(**args)
 
@@ -488,10 +510,14 @@ def unmarshal_Usage(data: Any) -> Usage:
     field = data.get("data_source_id", None)
     if field is not None:
         args["data_source_id"] = field
+    else:
+        args["data_source_id"] = None
 
     field = data.get("interval", None)
     if field is not None:
         args["interval"] = field
+    else:
+        args["interval"] = None
 
     return Usage(**args)
 
@@ -507,22 +533,32 @@ def unmarshal_UsageOverview(data: Any) -> UsageOverview:
     field = data.get("scaleway_metrics_usage", None)
     if field is not None:
         args["scaleway_metrics_usage"] = unmarshal_Usage(field)
+    else:
+        args["scaleway_metrics_usage"] = None
 
     field = data.get("scaleway_logs_usage", None)
     if field is not None:
         args["scaleway_logs_usage"] = unmarshal_Usage(field)
+    else:
+        args["scaleway_logs_usage"] = None
 
     field = data.get("external_metrics_usage", None)
     if field is not None:
         args["external_metrics_usage"] = unmarshal_Usage(field)
+    else:
+        args["external_metrics_usage"] = None
 
     field = data.get("external_logs_usage", None)
     if field is not None:
         args["external_logs_usage"] = unmarshal_Usage(field)
+    else:
+        args["external_logs_usage"] = None
 
     field = data.get("external_traces_usage", None)
     if field is not None:
         args["external_traces_usage"] = unmarshal_Usage(field)
+    else:
+        args["external_traces_usage"] = None
 
     return UsageOverview(**args)
 

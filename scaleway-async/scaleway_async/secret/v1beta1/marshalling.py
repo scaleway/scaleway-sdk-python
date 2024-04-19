@@ -41,10 +41,14 @@ def unmarshal_EphemeralProperties(data: Any) -> EphemeralProperties:
     field = data.get("expires_at", None)
     if field is not None:
         args["expires_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["expires_at"] = None
 
     field = data.get("expires_once_accessed", None)
     if field is not None:
         args["expires_once_accessed"] = field
+    else:
+        args["expires_once_accessed"] = None
 
     return EphemeralProperties(**args)
 
@@ -76,18 +80,26 @@ def unmarshal_SecretVersion(data: Any) -> SecretVersion:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("ephemeral_properties", None)
     if field is not None:
         args["ephemeral_properties"] = unmarshal_EphemeralProperties(field)
+    else:
+        args["ephemeral_properties"] = None
 
     return SecretVersion(**args)
 
@@ -107,10 +119,14 @@ def unmarshal_EphemeralPolicy(data: Any) -> EphemeralPolicy:
     field = data.get("time_to_live", None)
     if field is not None:
         args["time_to_live"] = field
+    else:
+        args["time_to_live"] = None
 
     field = data.get("expires_once_accessed", None)
     if field is not None:
         args["expires_once_accessed"] = field
+    else:
+        args["expires_once_accessed"] = None
 
     return EphemeralPolicy(**args)
 
@@ -142,10 +158,14 @@ def unmarshal_Secret(data: Any) -> Secret:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("tags", None)
     if field is not None:
@@ -163,7 +183,7 @@ def unmarshal_Secret(data: Any) -> Secret:
     if field is not None:
         args["protected"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -178,10 +198,14 @@ def unmarshal_Secret(data: Any) -> Secret:
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("ephemeral_policy", None)
     if field is not None:
         args["ephemeral_policy"] = unmarshal_EphemeralPolicy(field)
+    else:
+        args["ephemeral_policy"] = None
 
     return Secret(**args)
 
@@ -206,13 +230,15 @@ def unmarshal_AccessSecretVersionResponse(data: Any) -> AccessSecretVersionRespo
     if field is not None:
         args["data"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
     field = data.get("data_crc32", None)
     if field is not None:
         args["data_crc32"] = field
+    else:
+        args["data_crc32"] = None
 
     return AccessSecretVersionResponse(**args)
 
@@ -259,6 +285,8 @@ def unmarshal_BrowseSecretsResponseItemSecretDetails(
     field = data.get("ephemeral_policy", None)
     if field is not None:
         args["ephemeral_policy"] = unmarshal_EphemeralPolicy(field)
+    else:
+        args["ephemeral_policy"] = None
 
     return BrowseSecretsResponseItemSecretDetails(**args)
 
@@ -278,18 +306,26 @@ def unmarshal_BrowseSecretsResponseItem(data: Any) -> BrowseSecretsResponseItem:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("secret", None)
     if field is not None:
         args["secret"] = unmarshal_BrowseSecretsResponseItemSecretDetails(field)
+    else:
+        args["secret"] = None
 
     field = data.get("folder", None)
     if field is not None:
         args["folder"] = unmarshal_BrowseSecretsResponseItemFolderDetails(field)
+    else:
+        args["folder"] = None
 
     return BrowseSecretsResponseItem(**args)
 

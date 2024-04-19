@@ -51,24 +51,34 @@ def unmarshal_DatabaseBackup(data: Any) -> DatabaseBackup:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("expires_at", None)
     if field is not None:
         args["expires_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["expires_at"] = None
 
     field = data.get("size", None)
     if field is not None:
         args["size"] = field
+    else:
+        args["size"] = None
 
     field = data.get("download_url", None)
     if field is not None:
         args["download_url"] = field
+    else:
+        args["download_url"] = None
 
     field = data.get("download_url_expires_at", None)
     if field is not None:
         args["download_url_expires_at"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["download_url_expires_at"] = None
 
     return DatabaseBackup(**args)
 
@@ -132,6 +142,8 @@ def unmarshal_Database(data: Any) -> Database:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     return Database(**args)
 

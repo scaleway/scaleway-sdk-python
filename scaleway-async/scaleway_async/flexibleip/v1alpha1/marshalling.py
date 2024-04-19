@@ -52,10 +52,14 @@ def unmarshal_MACAddress(data: Any) -> MACAddress:
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     return MACAddress(**args)
 
@@ -99,6 +103,8 @@ def unmarshal_FlexibleIP(data: Any) -> FlexibleIP:
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("reverse", None)
     if field is not None:
@@ -111,14 +117,20 @@ def unmarshal_FlexibleIP(data: Any) -> FlexibleIP:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("mac_address", None)
     if field is not None:
         args["mac_address"] = unmarshal_MACAddress(field)
+    else:
+        args["mac_address"] = None
 
     field = data.get("server_id", None)
     if field is not None:
         args["server_id"] = field
+    else:
+        args["server_id"] = None
 
     return FlexibleIP(**args)
 

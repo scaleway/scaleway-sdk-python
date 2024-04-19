@@ -82,7 +82,7 @@ def unmarshal_ServerTypeDisk(data: Any) -> ServerTypeDisk:
     if field is not None:
         args["capacity"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -101,7 +101,7 @@ def unmarshal_ServerTypeMemory(data: Any) -> ServerTypeMemory:
     if field is not None:
         args["capacity"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -127,18 +127,26 @@ def unmarshal_ServerType(data: Any) -> ServerType:
     field = data.get("cpu", None)
     if field is not None:
         args["cpu"] = unmarshal_ServerTypeCPU(field)
+    else:
+        args["cpu"] = None
 
     field = data.get("disk", None)
     if field is not None:
         args["disk"] = unmarshal_ServerTypeDisk(field)
+    else:
+        args["disk"] = None
 
     field = data.get("memory", None)
     if field is not None:
         args["memory"] = unmarshal_ServerTypeMemory(field)
+    else:
+        args["memory"] = None
 
     field = data.get("minimum_lease_duration", None)
     if field is not None:
         args["minimum_lease_duration"] = field
+    else:
+        args["minimum_lease_duration"] = None
 
     return ServerType(**args)
 
@@ -155,7 +163,7 @@ def unmarshal_Server(data: Any) -> Server:
     if field is not None:
         args["id"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -190,16 +198,22 @@ def unmarshal_Server(data: Any) -> Server:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("deletable_at", None)
     if field is not None:
         args["deletable_at"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["deletable_at"] = None
 
     return Server(**args)
 

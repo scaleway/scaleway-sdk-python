@@ -44,28 +44,38 @@ def unmarshal_Invoice(data: Any) -> Invoice:
     field = data.get("start_date", None)
     if field is not None:
         args["start_date"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["start_date"] = None
 
     field = data.get("stop_date", None)
     if field is not None:
         args["stop_date"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["stop_date"] = None
 
     field = data.get("billing_period", None)
     if field is not None:
         args["billing_period"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["billing_period"] = None
 
     field = data.get("issued_date", None)
     if field is not None:
         args["issued_date"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["issued_date"] = None
 
     field = data.get("due_date", None)
     if field is not None:
         args["due_date"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["due_date"] = None
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -84,22 +94,32 @@ def unmarshal_Invoice(data: Any) -> Invoice:
     field = data.get("total_untaxed", None)
     if field is not None:
         args["total_untaxed"] = unmarshal_Money(field)
+    else:
+        args["total_untaxed"] = None
 
     field = data.get("total_taxed", None)
     if field is not None:
         args["total_taxed"] = unmarshal_Money(field)
+    else:
+        args["total_taxed"] = None
 
     field = data.get("total_tax", None)
     if field is not None:
         args["total_tax"] = unmarshal_Money(field)
+    else:
+        args["total_tax"] = None
 
     field = data.get("total_discount", None)
     if field is not None:
         args["total_discount"] = unmarshal_Money(field)
+    else:
+        args["total_discount"] = None
 
     field = data.get("total_undiscount", None)
     if field is not None:
         args["total_undiscount"] = unmarshal_Money(field)
+    else:
+        args["total_undiscount"] = None
 
     return Invoice(**args)
 
@@ -145,6 +165,8 @@ def unmarshal_ListConsumptionsResponseConsumption(
     field = data.get("value", None)
     if field is not None:
         args["value"] = unmarshal_Money(field)
+    else:
+        args["value"] = None
 
     return ListConsumptionsResponseConsumption(**args)
 
@@ -176,6 +198,8 @@ def unmarshal_ListConsumptionsResponse(data: Any) -> ListConsumptionsResponse:
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     return ListConsumptionsResponse(**args)
 
@@ -191,6 +215,8 @@ def unmarshal_DiscountCoupon(data: Any) -> DiscountCoupon:
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     return DiscountCoupon(**args)
 
@@ -203,7 +229,7 @@ def unmarshal_DiscountFilter(data: Any) -> DiscountFilter:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -261,18 +287,26 @@ def unmarshal_Discount(data: Any) -> Discount:
         args["creation_date"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["creation_date"] = None
 
     field = data.get("start_date", None)
     if field is not None:
         args["start_date"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["start_date"] = None
 
     field = data.get("stop_date", None)
     if field is not None:
         args["stop_date"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["stop_date"] = None
 
     field = data.get("coupon", None)
     if field is not None:
         args["coupon"] = unmarshal_DiscountCoupon(field)
+    else:
+        args["coupon"] = None
 
     return Discount(**args)
 
@@ -338,10 +372,14 @@ def unmarshal_ListTaxesResponseTax(data: Any) -> ListTaxesResponseTax:
     field = data.get("rate", None)
     if field is not None:
         args["rate"] = field
+    else:
+        args["rate"] = None
 
     field = data.get("total_tax_value", None)
     if field is not None:
         args["total_tax_value"] = field
+    else:
+        args["total_tax_value"] = None
 
     return ListTaxesResponseTax(**args)
 
@@ -369,5 +407,7 @@ def unmarshal_ListTaxesResponse(data: Any) -> ListTaxesResponse:
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     return ListTaxesResponse(**args)

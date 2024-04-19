@@ -64,10 +64,14 @@ def unmarshal_ACLRule(data: Any) -> ACLRule:
     field = data.get("ip_cidr", None)
     if field is not None:
         args["ip_cidr"] = field
+    else:
+        args["ip_cidr"] = None
 
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     return ACLRule(**args)
 
@@ -133,10 +137,14 @@ def unmarshal_Endpoint(data: Any) -> Endpoint:
     field = data.get("private_network", None)
     if field is not None:
         args["private_network"] = unmarshal_PrivateNetwork(field)
+    else:
+        args["private_network"] = None
 
     field = data.get("public_network", None)
     if field is not None:
         args["public_network"] = unmarshal_PublicNetwork(field)
+    else:
+        args["public_network"] = None
 
     return Endpoint(**args)
 
@@ -215,10 +223,14 @@ def unmarshal_Cluster(data: Any) -> Cluster:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("acl_rules", None)
     if field is not None:
@@ -333,7 +345,7 @@ def unmarshal_AvailableClusterSetting(data: Any) -> AvailableClusterSetting:
     if field is not None:
         args["name"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -348,18 +360,26 @@ def unmarshal_AvailableClusterSetting(data: Any) -> AvailableClusterSetting:
     field = data.get("default_value", None)
     if field is not None:
         args["default_value"] = field
+    else:
+        args["default_value"] = None
 
     field = data.get("max_value", None)
     if field is not None:
         args["max_value"] = field
+    else:
+        args["max_value"] = None
 
     field = data.get("min_value", None)
     if field is not None:
         args["min_value"] = field
+    else:
+        args["min_value"] = None
 
     field = data.get("regex", None)
     if field is not None:
         args["regex"] = field
+    else:
+        args["regex"] = None
 
     return AvailableClusterSetting(**args)
 
@@ -397,6 +417,8 @@ def unmarshal_ClusterVersion(data: Any) -> ClusterVersion:
         args["end_of_life_at"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["end_of_life_at"] = None
 
     return ClusterVersion(**args)
 

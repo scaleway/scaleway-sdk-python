@@ -74,16 +74,22 @@ def unmarshal_Image(data: Any) -> Image:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("valid_until", None)
     if field is not None:
         args["valid_until"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["valid_until"] = None
 
     return Image(**args)
 
@@ -116,7 +122,7 @@ def unmarshal_LocalImage(data: Any) -> LocalImage:
     if field is not None:
         args["label"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -142,16 +148,22 @@ def unmarshal_Version(data: Any) -> Version:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("published_at", None)
     if field is not None:
         args["published_at"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["published_at"] = None
 
     return Version(**args)
 
