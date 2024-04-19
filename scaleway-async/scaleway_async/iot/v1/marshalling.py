@@ -75,6 +75,8 @@ def unmarshal_DeviceMessageFiltersRule(data: Any) -> DeviceMessageFiltersRule:
     field = data.get("topics", None)
     if field is not None:
         args["topics"] = field
+    else:
+        args["topics"] = None
 
     return DeviceMessageFiltersRule(**args)
 
@@ -90,10 +92,14 @@ def unmarshal_DeviceMessageFilters(data: Any) -> DeviceMessageFilters:
     field = data.get("publish", None)
     if field is not None:
         args["publish"] = unmarshal_DeviceMessageFiltersRule(field)
+    else:
+        args["publish"] = None
 
     field = data.get("subscribe", None)
     if field is not None:
         args["subscribe"] = unmarshal_DeviceMessageFiltersRule(field)
+    else:
+        args["subscribe"] = None
 
     return DeviceMessageFilters(**args)
 
@@ -131,6 +137,8 @@ def unmarshal_Device(data: Any) -> Device:
         args["last_activity_at"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["last_activity_at"] = None
 
     field = data.get("is_connected", None)
     if field is not None:
@@ -151,14 +159,20 @@ def unmarshal_Device(data: Any) -> Device:
     field = data.get("message_filters", None)
     if field is not None:
         args["message_filters"] = unmarshal_DeviceMessageFilters(field)
+    else:
+        args["message_filters"] = None
 
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     return Device(**args)
 
@@ -179,7 +193,7 @@ def unmarshal_Network(data: Any) -> Network:
     if field is not None:
         args["name"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -198,6 +212,8 @@ def unmarshal_Network(data: Any) -> Network:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     return Network(**args)
 
@@ -288,14 +304,20 @@ def unmarshal_Hub(data: Any) -> Hub:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("twins_graphite_config", None)
     if field is not None:
         args["twins_graphite_config"] = unmarshal_HubTwinsGraphiteConfig(field)
+    else:
+        args["twins_graphite_config"] = None
 
     return Hub(**args)
 
@@ -330,10 +352,14 @@ def unmarshal_CreateDeviceResponse(data: Any) -> CreateDeviceResponse:
     field = data.get("device", None)
     if field is not None:
         args["device"] = unmarshal_Device(field)
+    else:
+        args["device"] = None
 
     field = data.get("certificate", None)
     if field is not None:
         args["certificate"] = unmarshal_Certificate(field)
+    else:
+        args["certificate"] = None
 
     return CreateDeviceResponse(**args)
 
@@ -353,6 +379,8 @@ def unmarshal_CreateNetworkResponse(data: Any) -> CreateNetworkResponse:
     field = data.get("network", None)
     if field is not None:
         args["network"] = unmarshal_Network(field)
+    else:
+        args["network"] = None
 
     return CreateNetworkResponse(**args)
 
@@ -372,6 +400,8 @@ def unmarshal_GetDeviceCertificateResponse(data: Any) -> GetDeviceCertificateRes
     field = data.get("device", None)
     if field is not None:
         args["device"] = unmarshal_Device(field)
+    else:
+        args["device"] = None
 
     return GetDeviceCertificateResponse(**args)
 
@@ -510,17 +540,21 @@ def unmarshal_RouteSummary(data: Any) -> RouteSummary:
     if field is not None:
         args["topic"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     return RouteSummary(**args)
 
@@ -595,10 +629,14 @@ def unmarshal_RenewDeviceCertificateResponse(
     field = data.get("device", None)
     if field is not None:
         args["device"] = unmarshal_Device(field)
+    else:
+        args["device"] = None
 
     field = data.get("certificate", None)
     if field is not None:
         args["certificate"] = unmarshal_Certificate(field)
+    else:
+        args["certificate"] = None
 
     return RenewDeviceCertificateResponse(**args)
 
@@ -716,29 +754,39 @@ def unmarshal_Route(data: Any) -> Route:
     if field is not None:
         args["topic"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("s3_config", None)
     if field is not None:
         args["s3_config"] = unmarshal_RouteS3Config(field)
+    else:
+        args["s3_config"] = None
 
     field = data.get("db_config", None)
     if field is not None:
         args["db_config"] = unmarshal_RouteDatabaseConfig(field)
+    else:
+        args["db_config"] = None
 
     field = data.get("rest_config", None)
     if field is not None:
         args["rest_config"] = unmarshal_RouteRestConfig(field)
+    else:
+        args["rest_config"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     return Route(**args)
 
@@ -758,6 +806,8 @@ def unmarshal_SetDeviceCertificateResponse(data: Any) -> SetDeviceCertificateRes
     field = data.get("device", None)
     if field is not None:
         args["device"] = unmarshal_Device(field)
+    else:
+        args["device"] = None
 
     return SetDeviceCertificateResponse(**args)
 
@@ -785,6 +835,8 @@ def unmarshal_TwinDocument(data: Any) -> TwinDocument:
     field = data.get("data", None)
     if field is not None:
         args["data"] = field
+    else:
+        args["data"] = None
 
     return TwinDocument(**args)
 

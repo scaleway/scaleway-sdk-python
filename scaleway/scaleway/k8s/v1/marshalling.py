@@ -114,10 +114,14 @@ def unmarshal_Pool(data: Any) -> Pool:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("min_size", None)
     if field is not None:
@@ -162,14 +166,20 @@ def unmarshal_Pool(data: Any) -> Pool:
     field = data.get("placement_group_id", None)
     if field is not None:
         args["placement_group_id"] = field
+    else:
+        args["placement_group_id"] = None
 
     field = data.get("upgrade_policy", None)
     if field is not None:
         args["upgrade_policy"] = unmarshal_PoolUpgradePolicy(field)
+    else:
+        args["upgrade_policy"] = None
 
     field = data.get("root_volume_size", None)
     if field is not None:
         args["root_volume_size"] = field
+    else:
+        args["root_volume_size"] = None
 
     return Pool(**args)
 
@@ -253,6 +263,8 @@ def unmarshal_ClusterAutoUpgrade(data: Any) -> ClusterAutoUpgrade:
     field = data.get("maintenance_window", None)
     if field is not None:
         args["maintenance_window"] = unmarshal_MaintenanceWindow(field)
+    else:
+        args["maintenance_window"] = None
 
     return ClusterAutoUpgrade(**args)
 
@@ -359,7 +371,7 @@ def unmarshal_Cluster(data: Any) -> Cluster:
     if field is not None:
         args["id"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -426,32 +438,52 @@ def unmarshal_Cluster(data: Any) -> Cluster:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("autoscaler_config", None)
     if field is not None:
         args["autoscaler_config"] = unmarshal_ClusterAutoscalerConfig(field)
+    else:
+        args["autoscaler_config"] = None
 
     field = data.get("auto_upgrade", None)
     if field is not None:
         args["auto_upgrade"] = unmarshal_ClusterAutoUpgrade(field)
+    else:
+        args["auto_upgrade"] = None
 
     field = data.get("open_id_connect_config", None)
     if field is not None:
         args["open_id_connect_config"] = unmarshal_ClusterOpenIDConnectConfig(field)
+    else:
+        args["open_id_connect_config"] = None
 
     field = data.get("private_network_id", None)
     if field is not None:
         args["private_network_id"] = field
+    else:
+        args["private_network_id"] = None
 
     field = data.get("commitment_ends_at", None)
     if field is not None:
         args["commitment_ends_at"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["commitment_ends_at"] = None
+
+    field = data.get("routed_ip_enabled", None)
+    if field is not None:
+        args["routed_ip_enabled"] = field
+    else:
+        args["routed_ip_enabled"] = None
 
     field = data.get("routed_ip_enabled", None)
     if field is not None:
@@ -495,14 +527,20 @@ def unmarshal_Node(data: Any) -> Node:
     field = data.get("public_ip_v4", None)
     if field is not None:
         args["public_ip_v4"] = field
+    else:
+        args["public_ip_v4"] = None
 
     field = data.get("public_ip_v6", None)
     if field is not None:
         args["public_ip_v6"] = field
+    else:
+        args["public_ip_v6"] = None
 
     field = data.get("conditions", None)
     if field is not None:
         args["conditions"] = field
+    else:
+        args["conditions"] = None
 
     field = data.get("status", None)
     if field is not None:
@@ -511,14 +549,20 @@ def unmarshal_Node(data: Any) -> Node:
     field = data.get("error_message", None)
     if field is not None:
         args["error_message"] = field
+    else:
+        args["error_message"] = None
 
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     return Node(**args)
 
@@ -656,6 +700,8 @@ def unmarshal_ClusterType(data: Any) -> ClusterType:
     field = data.get("commitment_delay", None)
     if field is not None:
         args["commitment_delay"] = field
+    else:
+        args["commitment_delay"] = None
 
     return ClusterType(**args)
 

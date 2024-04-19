@@ -73,6 +73,8 @@ def unmarshal_ContactPoint(data: Any) -> ContactPoint:
     field = data.get("email", None)
     if field is not None:
         args["email"] = unmarshal_ContactPointEmail(field)
+    else:
+        args["email"] = None
 
     return ContactPoint(**args)
 
@@ -101,7 +103,7 @@ def unmarshal_Datasource(data: Any) -> Datasource:
     if field is not None:
         args["url"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -166,6 +168,8 @@ def unmarshal_GrafanaUser(data: Any) -> GrafanaUser:
     field = data.get("password", None)
     if field is not None:
         args["password"] = field
+    else:
+        args["password"] = None
 
     return GrafanaUser(**args)
 
@@ -240,18 +244,26 @@ def unmarshal_Token(data: Any) -> Token:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("scopes", None)
     if field is not None:
         args["scopes"] = unmarshal_TokenScopes(field)
+    else:
+        args["scopes"] = None
 
     field = data.get("secret_key", None)
     if field is not None:
         args["secret_key"] = field
+    else:
+        args["secret_key"] = None
 
     return Token(**args)
 
@@ -322,14 +334,20 @@ def unmarshal_Plan(data: Any) -> Plan:
     field = data.get("retention_metrics_interval", None)
     if field is not None:
         args["retention_metrics_interval"] = field
+    else:
+        args["retention_metrics_interval"] = None
 
     field = data.get("retention_logs_interval", None)
     if field is not None:
         args["retention_logs_interval"] = field
+    else:
+        args["retention_logs_interval"] = None
 
     field = data.get("retention_traces_interval", None)
     if field is not None:
         args["retention_traces_interval"] = field
+    else:
+        args["retention_traces_interval"] = None
 
     return Plan(**args)
 
@@ -357,18 +375,26 @@ def unmarshal_Cockpit(data: Any) -> Cockpit:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("endpoints", None)
     if field is not None:
         args["endpoints"] = unmarshal_CockpitEndpoints(field)
+    else:
+        args["endpoints"] = None
 
     field = data.get("plan", None)
     if field is not None:
         args["plan"] = unmarshal_Plan(field)
+    else:
+        args["plan"] = None
 
     return Cockpit(**args)
 

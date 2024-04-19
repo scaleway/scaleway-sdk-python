@@ -294,18 +294,24 @@ def unmarshal_Volume(data: Any) -> Volume:
     field = data.get("export_uri", None)
     if field is not None:
         args["export_uri"] = field
+    else:
+        args["export_uri"] = None
 
     field = data.get("creation_date", None)
     if field is not None:
         args["creation_date"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["creation_date"] = None
 
     field = data.get("modification_date", None)
     if field is not None:
         args["modification_date"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["modification_date"] = None
 
     field = data.get("tags", None)
     if field is not None:
@@ -322,6 +328,8 @@ def unmarshal_Volume(data: Any) -> Volume:
     field = data.get("server", None)
     if field is not None:
         args["server"] = unmarshal_ServerSummary(field)
+    else:
+        args["server"] = None
 
     return Volume(**args)
 
@@ -394,16 +402,22 @@ def unmarshal_Image(data: Any) -> Image:
         args["creation_date"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["creation_date"] = None
 
     field = data.get("modification_date", None)
     if field is not None:
         args["modification_date"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["modification_date"] = None
 
     field = data.get("default_bootscript", None)
     if field is not None:
         args["default_bootscript"] = unmarshal_Bootscript(field)
+    else:
+        args["default_bootscript"] = None
 
     field = data.get("public", None)
     if field is not None:
@@ -428,6 +442,8 @@ def unmarshal_Image(data: Any) -> Image:
     field = data.get("root_volume", None)
     if field is not None:
         args["root_volume"] = unmarshal_VolumeSummary(field)
+    else:
+        args["root_volume"] = None
 
     return Image(**args)
 
@@ -618,6 +634,8 @@ def unmarshal_ServerMaintenance(data: Any) -> ServerMaintenance:
     field = data.get("start_date", None)
     if field is not None:
         args["start_date"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["start_date"] = None
 
     return ServerMaintenance(**args)
 
@@ -653,6 +671,8 @@ def unmarshal_VolumeServer(data: Any) -> VolumeServer:
     field = data.get("server", None)
     if field is not None:
         args["server"] = unmarshal_ServerSummary(field)
+    else:
+        args["server"] = None
 
     field = data.get("volume_type", None)
     if field is not None:
@@ -679,12 +699,16 @@ def unmarshal_VolumeServer(data: Any) -> VolumeServer:
         args["creation_date"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["creation_date"] = None
 
     field = data.get("modification_date", None)
     if field is not None:
         args["modification_date"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["modification_date"] = None
 
     return VolumeServer(**args)
 
@@ -732,6 +756,8 @@ def unmarshal_Server(data: Any) -> Server:
         args["creation_date"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["creation_date"] = None
 
     field = data.get("dynamic_ip_required", None)
     if field is not None:
@@ -752,18 +778,26 @@ def unmarshal_Server(data: Any) -> Server:
     field = data.get("enable_ipv6", None)
     if field is not None:
         args["enable_ipv6"] = field
+    else:
+        args["enable_ipv6"] = None
 
     field = data.get("image", None)
     if field is not None:
         args["image"] = unmarshal_Image(field)
+    else:
+        args["image"] = None
 
     field = data.get("private_ip", None)
     if field is not None:
         args["private_ip"] = field
+    else:
+        args["private_ip"] = None
 
     field = data.get("public_ip", None)
     if field is not None:
         args["public_ip"] = unmarshal_ServerIp(field)
+    else:
+        args["public_ip"] = None
 
     field = data.get("public_ips", None)
     if field is not None:
@@ -796,22 +830,32 @@ def unmarshal_Server(data: Any) -> Server:
         args["modification_date"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["modification_date"] = None
 
     field = data.get("location", None)
     if field is not None:
         args["location"] = unmarshal_ServerLocation(field)
+    else:
+        args["location"] = None
 
     field = data.get("ipv6", None)
     if field is not None:
         args["ipv6"] = unmarshal_ServerIpv6(field)
+    else:
+        args["ipv6"] = None
 
     field = data.get("bootscript", None)
     if field is not None:
         args["bootscript"] = unmarshal_Bootscript(field)
+    else:
+        args["bootscript"] = None
 
     field = data.get("security_group", None)
     if field is not None:
         args["security_group"] = unmarshal_SecurityGroupSummary(field)
+    else:
+        args["security_group"] = None
 
     field = data.get("maintenances", None)
     if field is not None:
@@ -842,6 +886,8 @@ def unmarshal_Server(data: Any) -> Server:
     field = data.get("placement_group", None)
     if field is not None:
         args["placement_group"] = unmarshal_PlacementGroup(field)
+    else:
+        args["placement_group"] = None
 
     return Server(**args)
 
@@ -857,6 +903,8 @@ def unmarshal_AttachServerVolumeResponse(data: Any) -> AttachServerVolumeRespons
     field = data.get("server", None)
     if field is not None:
         args["server"] = unmarshal_Server(field)
+    else:
+        args["server"] = None
 
     return AttachServerVolumeResponse(**args)
 
@@ -872,6 +920,8 @@ def unmarshal_CreateImageResponse(data: Any) -> CreateImageResponse:
     field = data.get("image", None)
     if field is not None:
         args["image"] = unmarshal_Image(field)
+    else:
+        args["image"] = None
 
     return CreateImageResponse(**args)
 
@@ -904,7 +954,7 @@ def unmarshal_Ip(data: Any) -> Ip:
     if field is not None:
         args["project"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -927,10 +977,14 @@ def unmarshal_Ip(data: Any) -> Ip:
     field = data.get("reverse", None)
     if field is not None:
         args["reverse"] = field
+    else:
+        args["reverse"] = None
 
     field = data.get("server", None)
     if field is not None:
         args["server"] = unmarshal_ServerSummary(field)
+    else:
+        args["server"] = None
 
     return Ip(**args)
 
@@ -946,6 +1000,8 @@ def unmarshal_CreateIpResponse(data: Any) -> CreateIpResponse:
     field = data.get("ip", None)
     if field is not None:
         args["ip"] = unmarshal_Ip(field)
+    else:
+        args["ip"] = None
 
     return CreateIpResponse(**args)
 
@@ -961,6 +1017,8 @@ def unmarshal_CreatePlacementGroupResponse(data: Any) -> CreatePlacementGroupRes
     field = data.get("placement_group", None)
     if field is not None:
         args["placement_group"] = unmarshal_PlacementGroup(field)
+    else:
+        args["placement_group"] = None
 
     return CreatePlacementGroupResponse(**args)
 
@@ -976,6 +1034,8 @@ def unmarshal_CreatePrivateNICResponse(data: Any) -> CreatePrivateNICResponse:
     field = data.get("private_nic", None)
     if field is not None:
         args["private_nic"] = unmarshal_PrivateNIC(field)
+    else:
+        args["private_nic"] = None
 
     return CreatePrivateNICResponse(**args)
 
@@ -1049,18 +1109,24 @@ def unmarshal_SecurityGroup(data: Any) -> SecurityGroup:
     field = data.get("organization_default", None)
     if field is not None:
         args["organization_default"] = field
+    else:
+        args["organization_default"] = None
 
     field = data.get("creation_date", None)
     if field is not None:
         args["creation_date"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["creation_date"] = None
 
     field = data.get("modification_date", None)
     if field is not None:
         args["modification_date"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["modification_date"] = None
 
     return SecurityGroup(**args)
 
@@ -1076,6 +1142,8 @@ def unmarshal_CreateSecurityGroupResponse(data: Any) -> CreateSecurityGroupRespo
     field = data.get("security_group", None)
     if field is not None:
         args["security_group"] = unmarshal_SecurityGroup(field)
+    else:
+        args["security_group"] = None
 
     return CreateSecurityGroupResponse(**args)
 
@@ -1123,10 +1191,14 @@ def unmarshal_SecurityGroupRule(data: Any) -> SecurityGroupRule:
     field = data.get("dest_port_from", None)
     if field is not None:
         args["dest_port_from"] = field
+    else:
+        args["dest_port_from"] = None
 
     field = data.get("dest_port_to", None)
     if field is not None:
         args["dest_port_to"] = field
+    else:
+        args["dest_port_to"] = None
 
     return SecurityGroupRule(**args)
 
@@ -1144,6 +1216,8 @@ def unmarshal_CreateSecurityGroupRuleResponse(
     field = data.get("rule", None)
     if field is not None:
         args["rule"] = unmarshal_SecurityGroupRule(field)
+    else:
+        args["rule"] = None
 
     return CreateSecurityGroupRuleResponse(**args)
 
@@ -1159,6 +1233,8 @@ def unmarshal_CreateServerResponse(data: Any) -> CreateServerResponse:
     field = data.get("server", None)
     if field is not None:
         args["server"] = unmarshal_Server(field)
+    else:
+        args["server"] = None
 
     return CreateServerResponse(**args)
 
@@ -1229,22 +1305,30 @@ def unmarshal_Snapshot(data: Any) -> Snapshot:
     field = data.get("base_volume", None)
     if field is not None:
         args["base_volume"] = unmarshal_SnapshotBaseVolume(field)
+    else:
+        args["base_volume"] = None
 
     field = data.get("creation_date", None)
     if field is not None:
         args["creation_date"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["creation_date"] = None
 
     field = data.get("modification_date", None)
     if field is not None:
         args["modification_date"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["modification_date"] = None
 
     field = data.get("error_reason", None)
     if field is not None:
         args["error_reason"] = field
+    else:
+        args["error_reason"] = None
 
     return Snapshot(**args)
 
@@ -1288,12 +1372,16 @@ def unmarshal_Task(data: Any) -> Task:
     field = data.get("started_at", None)
     if field is not None:
         args["started_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["started_at"] = None
 
     field = data.get("terminated_at", None)
     if field is not None:
         args["terminated_at"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["terminated_at"] = None
 
     return Task(**args)
 
@@ -1309,10 +1397,14 @@ def unmarshal_CreateSnapshotResponse(data: Any) -> CreateSnapshotResponse:
     field = data.get("snapshot", None)
     if field is not None:
         args["snapshot"] = unmarshal_Snapshot(field)
+    else:
+        args["snapshot"] = None
 
     field = data.get("task", None)
     if field is not None:
         args["task"] = unmarshal_Task(field)
+    else:
+        args["task"] = None
 
     return CreateSnapshotResponse(**args)
 
@@ -1328,6 +1420,8 @@ def unmarshal_CreateVolumeResponse(data: Any) -> CreateVolumeResponse:
     field = data.get("volume", None)
     if field is not None:
         args["volume"] = unmarshal_Volume(field)
+    else:
+        args["volume"] = None
 
     return CreateVolumeResponse(**args)
 
@@ -1343,6 +1437,8 @@ def unmarshal_DetachServerVolumeResponse(data: Any) -> DetachServerVolumeRespons
     field = data.get("server", None)
     if field is not None:
         args["server"] = unmarshal_Server(field)
+    else:
+        args["server"] = None
 
     return DetachServerVolumeResponse(**args)
 
@@ -1358,6 +1454,8 @@ def unmarshal_ExportSnapshotResponse(data: Any) -> ExportSnapshotResponse:
     field = data.get("task", None)
     if field is not None:
         args["task"] = unmarshal_Task(field)
+    else:
+        args["task"] = None
 
     return ExportSnapshotResponse(**args)
 
@@ -1373,6 +1471,8 @@ def unmarshal_GetBootscriptResponse(data: Any) -> GetBootscriptResponse:
     field = data.get("bootscript", None)
     if field is not None:
         args["bootscript"] = unmarshal_Bootscript(field)
+    else:
+        args["bootscript"] = None
 
     return GetBootscriptResponse(**args)
 
@@ -1459,6 +1559,8 @@ def unmarshal_GetDashboardResponse(data: Any) -> GetDashboardResponse:
     field = data.get("dashboard", None)
     if field is not None:
         args["dashboard"] = unmarshal_Dashboard(field)
+    else:
+        args["dashboard"] = None
 
     return GetDashboardResponse(**args)
 
@@ -1474,6 +1576,8 @@ def unmarshal_GetImageResponse(data: Any) -> GetImageResponse:
     field = data.get("image", None)
     if field is not None:
         args["image"] = unmarshal_Image(field)
+    else:
+        args["image"] = None
 
     return GetImageResponse(**args)
 
@@ -1489,6 +1593,8 @@ def unmarshal_GetIpResponse(data: Any) -> GetIpResponse:
     field = data.get("ip", None)
     if field is not None:
         args["ip"] = unmarshal_Ip(field)
+    else:
+        args["ip"] = None
 
     return GetIpResponse(**args)
 
@@ -1504,6 +1610,8 @@ def unmarshal_GetPlacementGroupResponse(data: Any) -> GetPlacementGroupResponse:
     field = data.get("placement_group", None)
     if field is not None:
         args["placement_group"] = unmarshal_PlacementGroup(field)
+    else:
+        args["placement_group"] = None
 
     return GetPlacementGroupResponse(**args)
 
@@ -1563,6 +1671,8 @@ def unmarshal_GetPrivateNICResponse(data: Any) -> GetPrivateNICResponse:
     field = data.get("private_nic", None)
     if field is not None:
         args["private_nic"] = unmarshal_PrivateNIC(field)
+    else:
+        args["private_nic"] = None
 
     return GetPrivateNICResponse(**args)
 
@@ -1578,6 +1688,8 @@ def unmarshal_GetSecurityGroupResponse(data: Any) -> GetSecurityGroupResponse:
     field = data.get("security_group", None)
     if field is not None:
         args["security_group"] = unmarshal_SecurityGroup(field)
+    else:
+        args["security_group"] = None
 
     return GetSecurityGroupResponse(**args)
 
@@ -1593,6 +1705,8 @@ def unmarshal_GetSecurityGroupRuleResponse(data: Any) -> GetSecurityGroupRuleRes
     field = data.get("rule", None)
     if field is not None:
         args["rule"] = unmarshal_SecurityGroupRule(field)
+    else:
+        args["rule"] = None
 
     return GetSecurityGroupRuleResponse(**args)
 
@@ -1608,6 +1722,8 @@ def unmarshal_GetServerResponse(data: Any) -> GetServerResponse:
     field = data.get("server", None)
     if field is not None:
         args["server"] = unmarshal_Server(field)
+    else:
+        args["server"] = None
 
     return GetServerResponse(**args)
 
@@ -1668,6 +1784,8 @@ def unmarshal_GetSnapshotResponse(data: Any) -> GetSnapshotResponse:
     field = data.get("snapshot", None)
     if field is not None:
         args["snapshot"] = unmarshal_Snapshot(field)
+    else:
+        args["snapshot"] = None
 
     return GetSnapshotResponse(**args)
 
@@ -1683,6 +1801,8 @@ def unmarshal_GetVolumeResponse(data: Any) -> GetVolumeResponse:
     field = data.get("volume", None)
     if field is not None:
         args["volume"] = unmarshal_Volume(field)
+    else:
+        args["volume"] = None
 
     return GetVolumeResponse(**args)
 
@@ -1900,10 +2020,14 @@ def unmarshal_ServerTypeNetworkInterface(data: Any) -> ServerTypeNetworkInterfac
     field = data.get("internal_bandwidth", None)
     if field is not None:
         args["internal_bandwidth"] = field
+    else:
+        args["internal_bandwidth"] = None
 
     field = data.get("internet_bandwidth", None)
     if field is not None:
         args["internet_bandwidth"] = field
+    else:
+        args["internet_bandwidth"] = None
 
     return ServerTypeNetworkInterface(**args)
 
@@ -1944,6 +2068,8 @@ def unmarshal_ServerTypeCapabilities(data: Any) -> ServerTypeCapabilities:
     field = data.get("block_storage", None)
     if field is not None:
         args["block_storage"] = field
+    else:
+        args["block_storage"] = None
 
     return ServerTypeCapabilities(**args)
 
@@ -1971,10 +2097,14 @@ def unmarshal_ServerTypeNetwork(data: Any) -> ServerTypeNetwork:
     field = data.get("sum_internal_bandwidth", None)
     if field is not None:
         args["sum_internal_bandwidth"] = field
+    else:
+        args["sum_internal_bandwidth"] = None
 
     field = data.get("sum_internet_bandwidth", None)
     if field is not None:
         args["sum_internet_bandwidth"] = field
+    else:
+        args["sum_internet_bandwidth"] = None
 
     return ServerTypeNetwork(**args)
 
@@ -1992,6 +2122,8 @@ def unmarshal_ServerTypeVolumeConstraintsByType(
     field = data.get("l_ssd", None)
     if field is not None:
         args["l_ssd"] = unmarshal_ServerTypeVolumeConstraintSizes(field)
+    else:
+        args["l_ssd"] = None
 
     return ServerTypeVolumeConstraintsByType(**args)
 
@@ -2007,6 +2139,8 @@ def unmarshal_ServerType(data: Any) -> ServerType:
     field = data.get("monthly_price", None)
     if field is not None:
         args["monthly_price"] = field
+    else:
+        args["monthly_price"] = None
 
     field = data.get("hourly_price", None)
     if field is not None:
@@ -2037,26 +2171,38 @@ def unmarshal_ServerType(data: Any) -> ServerType:
         args["per_volume_constraint"] = unmarshal_ServerTypeVolumeConstraintsByType(
             field
         )
+    else:
+        args["per_volume_constraint"] = None
 
     field = data.get("volumes_constraint", None)
     if field is not None:
         args["volumes_constraint"] = unmarshal_ServerTypeVolumeConstraintSizes(field)
+    else:
+        args["volumes_constraint"] = None
 
     field = data.get("gpu", None)
     if field is not None:
         args["gpu"] = field
+    else:
+        args["gpu"] = None
 
     field = data.get("network", None)
     if field is not None:
         args["network"] = unmarshal_ServerTypeNetwork(field)
+    else:
+        args["network"] = None
 
     field = data.get("capabilities", None)
     if field is not None:
         args["capabilities"] = unmarshal_ServerTypeCapabilities(field)
+    else:
+        args["capabilities"] = None
 
     field = data.get("scratch_storage_max_size", None)
     if field is not None:
         args["scratch_storage_max_size"] = field
+    else:
+        args["scratch_storage_max_size"] = None
 
     return ServerType(**args)
 
@@ -2175,10 +2321,14 @@ def unmarshal_VolumeType(data: Any) -> VolumeType:
     field = data.get("capabilities", None)
     if field is not None:
         args["capabilities"] = unmarshal_VolumeTypeCapabilities(field)
+    else:
+        args["capabilities"] = None
 
     field = data.get("constraints", None)
     if field is not None:
         args["constraints"] = unmarshal_VolumeTypeConstraints(field)
+    else:
+        args["constraints"] = None
 
     return VolumeType(**args)
 
@@ -2227,6 +2377,8 @@ def unmarshal_MigrationPlan(data: Any) -> MigrationPlan:
     field = data.get("volume", None)
     if field is not None:
         args["volume"] = unmarshal_Volume(field)
+    else:
+        args["volume"] = None
 
     return MigrationPlan(**args)
 
@@ -2242,6 +2394,8 @@ def unmarshal_ServerActionResponse(data: Any) -> ServerActionResponse:
     field = data.get("task", None)
     if field is not None:
         args["task"] = unmarshal_Task(field)
+    else:
+        args["task"] = None
 
     return ServerActionResponse(**args)
 
@@ -2257,6 +2411,8 @@ def unmarshal_SetPlacementGroupResponse(data: Any) -> SetPlacementGroupResponse:
     field = data.get("placement_group", None)
     if field is not None:
         args["placement_group"] = unmarshal_PlacementGroup(field)
+    else:
+        args["placement_group"] = None
 
     return SetPlacementGroupResponse(**args)
 
@@ -2312,6 +2468,8 @@ def unmarshal_UpdateImageResponse(data: Any) -> UpdateImageResponse:
     field = data.get("image", None)
     if field is not None:
         args["image"] = unmarshal_Image(field)
+    else:
+        args["image"] = None
 
     return UpdateImageResponse(**args)
 
@@ -2327,6 +2485,8 @@ def unmarshal_UpdateIpResponse(data: Any) -> UpdateIpResponse:
     field = data.get("ip", None)
     if field is not None:
         args["ip"] = unmarshal_Ip(field)
+    else:
+        args["ip"] = None
 
     return UpdateIpResponse(**args)
 
@@ -2342,6 +2502,8 @@ def unmarshal_UpdatePlacementGroupResponse(data: Any) -> UpdatePlacementGroupRes
     field = data.get("placement_group", None)
     if field is not None:
         args["placement_group"] = unmarshal_PlacementGroup(field)
+    else:
+        args["placement_group"] = None
 
     return UpdatePlacementGroupResponse(**args)
 
@@ -2378,6 +2540,8 @@ def unmarshal_UpdateSecurityGroupResponse(data: Any) -> UpdateSecurityGroupRespo
     field = data.get("security_group", None)
     if field is not None:
         args["security_group"] = unmarshal_SecurityGroup(field)
+    else:
+        args["security_group"] = None
 
     return UpdateSecurityGroupResponse(**args)
 
@@ -2395,6 +2559,8 @@ def unmarshal_UpdateSecurityGroupRuleResponse(
     field = data.get("rule", None)
     if field is not None:
         args["rule"] = unmarshal_SecurityGroupRule(field)
+    else:
+        args["rule"] = None
 
     return UpdateSecurityGroupRuleResponse(**args)
 
@@ -2410,6 +2576,8 @@ def unmarshal_UpdateServerResponse(data: Any) -> UpdateServerResponse:
     field = data.get("server", None)
     if field is not None:
         args["server"] = unmarshal_Server(field)
+    else:
+        args["server"] = None
 
     return UpdateServerResponse(**args)
 
@@ -2425,6 +2593,8 @@ def unmarshal_UpdateSnapshotResponse(data: Any) -> UpdateSnapshotResponse:
     field = data.get("snapshot", None)
     if field is not None:
         args["snapshot"] = unmarshal_Snapshot(field)
+    else:
+        args["snapshot"] = None
 
     return UpdateSnapshotResponse(**args)
 
@@ -2440,6 +2610,8 @@ def unmarshal_UpdateVolumeResponse(data: Any) -> UpdateVolumeResponse:
     field = data.get("volume", None)
     if field is not None:
         args["volume"] = unmarshal_Volume(field)
+    else:
+        args["volume"] = None
 
     return UpdateVolumeResponse(**args)
 
@@ -2455,6 +2627,8 @@ def unmarshal__SetImageResponse(data: Any) -> _SetImageResponse:
     field = data.get("image", None)
     if field is not None:
         args["image"] = unmarshal_Image(field)
+    else:
+        args["image"] = None
 
     return _SetImageResponse(**args)
 
@@ -2470,6 +2644,8 @@ def unmarshal__SetSecurityGroupResponse(data: Any) -> _SetSecurityGroupResponse:
     field = data.get("security_group", None)
     if field is not None:
         args["security_group"] = unmarshal_SecurityGroup(field)
+    else:
+        args["security_group"] = None
 
     return _SetSecurityGroupResponse(**args)
 
@@ -2485,6 +2661,8 @@ def unmarshal__SetSecurityGroupRuleResponse(data: Any) -> _SetSecurityGroupRuleR
     field = data.get("rule", None)
     if field is not None:
         args["rule"] = unmarshal_SecurityGroupRule(field)
+    else:
+        args["rule"] = None
 
     return _SetSecurityGroupRuleResponse(**args)
 
@@ -2500,6 +2678,8 @@ def unmarshal__SetServerResponse(data: Any) -> _SetServerResponse:
     field = data.get("server", None)
     if field is not None:
         args["server"] = unmarshal_Server(field)
+    else:
+        args["server"] = None
 
     return _SetServerResponse(**args)
 
@@ -2515,6 +2695,8 @@ def unmarshal__SetSnapshotResponse(data: Any) -> _SetSnapshotResponse:
     field = data.get("snapshot", None)
     if field is not None:
         args["snapshot"] = unmarshal_Snapshot(field)
+    else:
+        args["snapshot"] = None
 
     return _SetSnapshotResponse(**args)
 

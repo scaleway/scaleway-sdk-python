@@ -113,14 +113,20 @@ def unmarshal_Hosting(data: Any) -> Hosting:
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("platform_number", None)
     if field is not None:
         args["platform_number"] = field
+    else:
+        args["platform_number"] = None
 
     field = data.get("options", None)
     if field is not None:
@@ -171,6 +177,8 @@ def unmarshal_Hosting(data: Any) -> Hosting:
     field = data.get("cpanel_urls", None)
     if field is not None:
         args["cpanel_urls"] = unmarshal_HostingCpanelUrls(field)
+    else:
+        args["cpanel_urls"] = None
 
     return Hosting(**args)
 
@@ -187,7 +195,7 @@ def unmarshal_DnsRecord(data: Any) -> DnsRecord:
     if field is not None:
         args["name"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -206,6 +214,8 @@ def unmarshal_DnsRecord(data: Any) -> DnsRecord:
     field = data.get("priority", None)
     if field is not None:
         args["priority"] = field
+    else:
+        args["priority"] = None
 
     return DnsRecord(**args)
 
@@ -413,10 +423,14 @@ def unmarshal_Offer(data: Any) -> Offer:
     field = data.get("product", None)
     if field is not None:
         args["product"] = unmarshal_OfferProduct(field)
+    else:
+        args["product"] = None
 
     field = data.get("price", None)
     if field is not None:
         args["price"] = unmarshal_Money(field)
+    else:
+        args["price"] = None
 
     return Offer(**args)
 

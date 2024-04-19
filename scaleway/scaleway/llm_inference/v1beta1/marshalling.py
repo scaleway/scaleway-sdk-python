@@ -87,10 +87,14 @@ def unmarshal_Endpoint(data: Any) -> Endpoint:
     field = data.get("public_access", None)
     if field is not None:
         args["public_access"] = unmarshal_EndpointPublicAccessDetails(field)
+    else:
+        args["public_access"] = None
 
     field = data.get("private_network", None)
     if field is not None:
         args["private_network"] = unmarshal_EndpointPrivateNetworkDetails(field)
+    else:
+        args["private_network"] = None
 
     return Endpoint(**args)
 
@@ -156,14 +160,20 @@ def unmarshal_Deployment(data: Any) -> Deployment:
     field = data.get("error_message", None)
     if field is not None:
         args["error_message"] = field
+    else:
+        args["error_message"] = None
 
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     return Deployment(**args)
 
@@ -187,10 +197,14 @@ def unmarshal_ModelS3Model(data: Any) -> ModelS3Model:
     field = data.get("node_type", None)
     if field is not None:
         args["node_type"] = field
+    else:
+        args["node_type"] = None
 
     field = data.get("triton_server_version", None)
     if field is not None:
         args["triton_server_version"] = field
+    else:
+        args["triton_server_version"] = None
 
     return ModelS3Model(**args)
 
@@ -250,14 +264,20 @@ def unmarshal_Model(data: Any) -> Model:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("s3_model", None)
     if field is not None:
         args["s3_model"] = unmarshal_ModelS3Model(field)
+    else:
+        args["s3_model"] = None
 
     return Model(**args)
 
@@ -433,10 +453,14 @@ def unmarshal_NodeType(data: Any) -> NodeType:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     return NodeType(**args)
 

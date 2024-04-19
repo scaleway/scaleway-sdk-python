@@ -78,10 +78,14 @@ def unmarshal_JobDefinition(data: Any) -> JobDefinition:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("environment_variables", None)
     if field is not None:
@@ -102,10 +106,14 @@ def unmarshal_JobDefinition(data: Any) -> JobDefinition:
     field = data.get("job_timeout", None)
     if field is not None:
         args["job_timeout"] = field
+    else:
+        args["job_timeout"] = None
 
     field = data.get("cron_schedule", None)
     if field is not None:
         args["cron_schedule"] = unmarshal_CronSchedule(field)
+    else:
+        args["cron_schedule"] = None
 
     return JobDefinition(**args)
 
@@ -149,24 +157,34 @@ def unmarshal_JobRun(data: Any) -> JobRun:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("terminated_at", None)
     if field is not None:
         args["terminated_at"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["terminated_at"] = None
 
     field = data.get("exit_code", None)
     if field is not None:
         args["exit_code"] = field
+    else:
+        args["exit_code"] = None
 
     field = data.get("run_duration", None)
     if field is not None:
         args["run_duration"] = field
+    else:
+        args["run_duration"] = None
 
     field = data.get("environment_variables", None)
     if field is not None:
@@ -183,6 +201,8 @@ def unmarshal_JobRun(data: Any) -> JobRun:
     field = data.get("started_at", None)
     if field is not None:
         args["started_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["started_at"] = None
 
     return JobRun(**args)
 

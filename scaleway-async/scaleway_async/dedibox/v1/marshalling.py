@@ -222,7 +222,7 @@ def unmarshal_Disk(data: Any) -> Disk:
     if field is not None:
         args["capacity"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -241,7 +241,7 @@ def unmarshal_Memory(data: Any) -> Memory:
     if field is not None:
         args["capacity"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -306,7 +306,7 @@ def unmarshal_OfferAntiDosInfo(data: Any) -> OfferAntiDosInfo:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -354,6 +354,8 @@ def unmarshal_OfferFailoverBlockInfo(data: Any) -> OfferFailoverBlockInfo:
     field = data.get("onetime_fees", None)
     if field is not None:
         args["onetime_fees"] = unmarshal_Offer(field)
+    else:
+        args["onetime_fees"] = None
 
     return OfferFailoverBlockInfo(**args)
 
@@ -369,6 +371,8 @@ def unmarshal_OfferFailoverIpInfo(data: Any) -> OfferFailoverIpInfo:
     field = data.get("onetime_fees", None)
     if field is not None:
         args["onetime_fees"] = unmarshal_Offer(field)
+    else:
+        args["onetime_fees"] = None
 
     return OfferFailoverIpInfo(**args)
 
@@ -497,10 +501,14 @@ def unmarshal_OfferServerInfo(data: Any) -> OfferServerInfo:
     field = data.get("rpn_version", None)
     if field is not None:
         args["rpn_version"] = field
+    else:
+        args["rpn_version"] = None
 
     field = data.get("onetime_fees", None)
     if field is not None:
         args["onetime_fees"] = unmarshal_Offer(field)
+    else:
+        args["onetime_fees"] = None
 
     return OfferServerInfo(**args)
 
@@ -608,54 +616,80 @@ def unmarshal_Offer(data: Any) -> Offer:
     field = data.get("pricing", None)
     if field is not None:
         args["pricing"] = unmarshal_Money(field)
+    else:
+        args["pricing"] = None
 
     field = data.get("server_info", None)
     if field is not None:
         args["server_info"] = unmarshal_OfferServerInfo(field)
+    else:
+        args["server_info"] = None
 
     field = data.get("service_level_info", None)
     if field is not None:
         args["service_level_info"] = unmarshal_OfferServiceLevelInfo(field)
+    else:
+        args["service_level_info"] = None
 
     field = data.get("rpn_info", None)
     if field is not None:
         args["rpn_info"] = unmarshal_OfferRPNInfo(field)
+    else:
+        args["rpn_info"] = None
 
     field = data.get("san_info", None)
     if field is not None:
         args["san_info"] = unmarshal_OfferSANInfo(field)
+    else:
+        args["san_info"] = None
 
     field = data.get("antidos_info", None)
     if field is not None:
         args["antidos_info"] = unmarshal_OfferAntiDosInfo(field)
+    else:
+        args["antidos_info"] = None
 
     field = data.get("backup_info", None)
     if field is not None:
         args["backup_info"] = unmarshal_OfferBackupInfo(field)
+    else:
+        args["backup_info"] = None
 
     field = data.get("usb_storage_info", None)
     if field is not None:
         args["usb_storage_info"] = unmarshal_OfferStorageInfo(field)
+    else:
+        args["usb_storage_info"] = None
 
     field = data.get("storage_info", None)
     if field is not None:
         args["storage_info"] = unmarshal_OfferStorageInfo(field)
+    else:
+        args["storage_info"] = None
 
     field = data.get("license_info", None)
     if field is not None:
         args["license_info"] = unmarshal_OfferLicenseInfo(field)
+    else:
+        args["license_info"] = None
 
     field = data.get("failover_ip_info", None)
     if field is not None:
         args["failover_ip_info"] = unmarshal_OfferFailoverIpInfo(field)
+    else:
+        args["failover_ip_info"] = None
 
     field = data.get("failover_block_info", None)
     if field is not None:
         args["failover_block_info"] = unmarshal_OfferFailoverBlockInfo(field)
+    else:
+        args["failover_block_info"] = None
 
     field = data.get("bandwidth_info", None)
     if field is not None:
         args["bandwidth_info"] = unmarshal_OfferBandwidthInfo(field)
+    else:
+        args["bandwidth_info"] = None
 
     return Offer(**args)
 
@@ -676,7 +710,7 @@ def unmarshal_OS(data: Any) -> OS:
     if field is not None:
         args["name"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -739,24 +773,34 @@ def unmarshal_OS(data: Any) -> OS:
     field = data.get("max_partitions", None)
     if field is not None:
         args["max_partitions"] = field
+    else:
+        args["max_partitions"] = None
 
     field = data.get("panel_password_regex", None)
     if field is not None:
         args["panel_password_regex"] = field
+    else:
+        args["panel_password_regex"] = None
 
     field = data.get("requires_valid_hostname", None)
     if field is not None:
         args["requires_valid_hostname"] = field
+    else:
+        args["requires_valid_hostname"] = None
 
     field = data.get("hostname_regex", None)
     if field is not None:
         args["hostname_regex"] = field
+    else:
+        args["hostname_regex"] = None
 
     field = data.get("released_at", None)
     if field is not None:
         args["released_at"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["released_at"] = None
 
     return OS(**args)
 
@@ -800,6 +844,8 @@ def unmarshal_RpnSan(data: Any) -> RpnSan:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("offer_name", None)
     if field is not None:
@@ -828,22 +874,30 @@ def unmarshal_RpnSan(data: Any) -> RpnSan:
     field = data.get("offer", None)
     if field is not None:
         args["offer"] = unmarshal_Offer(field)
+    else:
+        args["offer"] = None
 
     field = data.get("delivered_at", None)
     if field is not None:
         args["delivered_at"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["delivered_at"] = None
 
     field = data.get("terminated_at", None)
     if field is not None:
         args["terminated_at"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["terminated_at"] = None
 
     field = data.get("expires_at", None)
     if field is not None:
         args["expires_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["expires_at"] = None
 
     return RpnSan(**args)
 
@@ -864,7 +918,7 @@ def unmarshal_RpnGroup(data: Any) -> RpnGroup:
     if field is not None:
         args["name"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -891,6 +945,8 @@ def unmarshal_RpnGroup(data: Any) -> RpnGroup:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     return RpnGroup(**args)
 
@@ -915,7 +971,7 @@ def unmarshal_NetworkInterface(data: Any) -> NetworkInterface:
     if field is not None:
         args["mac"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -966,18 +1022,26 @@ def unmarshal_ServerOption(data: Any) -> ServerOption:
     field = data.get("offer", None)
     if field is not None:
         args["offer"] = unmarshal_Offer(field)
+    else:
+        args["offer"] = None
 
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("expired_at", None)
     if field is not None:
         args["expired_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["expired_at"] = None
 
     return ServerOption(**args)
 
@@ -1030,6 +1094,8 @@ def unmarshal_Server(data: Any) -> Server:
         args["rebooted_at"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["rebooted_at"] = None
 
     field = data.get("status", None)
     if field is not None:
@@ -1084,34 +1150,50 @@ def unmarshal_Server(data: Any) -> Server:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("expired_at", None)
     if field is not None:
         args["expired_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["expired_at"] = None
 
     field = data.get("offer", None)
     if field is not None:
         args["offer"] = unmarshal_Offer(field)
+    else:
+        args["offer"] = None
 
     field = data.get("location", None)
     if field is not None:
         args["location"] = unmarshal_ServerLocation(field)
+    else:
+        args["location"] = None
 
     field = data.get("os", None)
     if field is not None:
         args["os"] = unmarshal_OS(field)
+    else:
+        args["os"] = None
 
     field = data.get("level", None)
     if field is not None:
         args["level"] = unmarshal_ServiceLevel(field)
+    else:
+        args["level"] = None
 
     field = data.get("rescue_os", None)
     if field is not None:
         args["rescue_os"] = unmarshal_OS(field)
+    else:
+        args["rescue_os"] = None
 
     return Server(**args)
 
@@ -1163,7 +1245,7 @@ def unmarshal_RpnV2Group(data: Any) -> RpnV2Group:
     if field is not None:
         args["project_id"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -1186,10 +1268,14 @@ def unmarshal_RpnV2Group(data: Any) -> RpnV2Group:
     field = data.get("subnet", None)
     if field is not None:
         args["subnet"] = unmarshal_RpnV2GroupSubnet(field)
+    else:
+        args["subnet"] = None
 
     field = data.get("rpnv1_group", None)
     if field is not None:
         args["rpnv1_group"] = unmarshal_RpnGroup(field)
+    else:
+        args["rpnv1_group"] = None
 
     return RpnV2Group(**args)
 
@@ -1210,37 +1296,49 @@ def unmarshal_Service(data: Any) -> Service:
     if field is not None:
         args["provisioning_status"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
     field = data.get("resource_id", None)
     if field is not None:
         args["resource_id"] = field
+    else:
+        args["resource_id"] = None
 
     field = data.get("offer", None)
     if field is not None:
         args["offer"] = unmarshal_Offer(field)
+    else:
+        args["offer"] = None
 
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("delivered_at", None)
     if field is not None:
         args["delivered_at"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["delivered_at"] = None
 
     field = data.get("terminated_at", None)
     if field is not None:
         args["terminated_at"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["terminated_at"] = None
 
     field = data.get("expires_at", None)
     if field is not None:
         args["expires_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["expires_at"] = None
 
     return Service(**args)
 
@@ -1324,25 +1422,33 @@ def unmarshal_FailoverIP(data: Any) -> FailoverIP:
     if field is not None:
         args["status"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
     field = data.get("mac", None)
     if field is not None:
         args["mac"] = field
+    else:
+        args["mac"] = None
 
     field = data.get("server_id", None)
     if field is not None:
         args["server_id"] = field
+    else:
+        args["server_id"] = None
 
     field = data.get("block", None)
     if field is not None:
         args["block"] = unmarshal_FailoverBlock(field)
+    else:
+        args["block"] = None
 
     field = data.get("server_zone", None)
     if field is not None:
         args["server_zone"] = field
+    else:
+        args["server_zone"] = None
 
     return FailoverIP(**args)
 
@@ -1374,6 +1480,8 @@ def unmarshal_BMCAccess(data: Any) -> BMCAccess:
     field = data.get("expires_at", None)
     if field is not None:
         args["expires_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["expires_at"] = None
 
     return BMCAccess(**args)
 
@@ -1468,6 +1576,8 @@ def unmarshal_CanOrderResponse(data: Any) -> CanOrderResponse:
     field = data.get("message", None)
     if field is not None:
         args["message"] = field
+    else:
+        args["message"] = None
 
     return CanOrderResponse(**args)
 
@@ -1579,6 +1689,8 @@ def unmarshal_GetRpnStatusResponse(data: Any) -> GetRpnStatusResponse:
     field = data.get("operations_left", None)
     if field is not None:
         args["operations_left"] = field
+    else:
+        args["operations_left"] = None
 
     return GetRpnStatusResponse(**args)
 
@@ -1655,18 +1767,26 @@ def unmarshal_Invoice(data: Any) -> Invoice:
     field = data.get("total_with_taxes", None)
     if field is not None:
         args["total_with_taxes"] = unmarshal_Money(field)
+    else:
+        args["total_with_taxes"] = None
 
     field = data.get("total_without_taxes", None)
     if field is not None:
         args["total_without_taxes"] = unmarshal_Money(field)
+    else:
+        args["total_without_taxes"] = None
 
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("paid_at", None)
     if field is not None:
         args["paid_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["paid_at"] = None
 
     return Invoice(**args)
 
@@ -1765,18 +1885,26 @@ def unmarshal_InvoiceSummary(data: Any) -> InvoiceSummary:
     field = data.get("total_with_taxes", None)
     if field is not None:
         args["total_with_taxes"] = unmarshal_Money(field)
+    else:
+        args["total_with_taxes"] = None
 
     field = data.get("total_without_taxes", None)
     if field is not None:
         args["total_without_taxes"] = unmarshal_Money(field)
+    else:
+        args["total_without_taxes"] = None
 
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("paid_at", None)
     if field is not None:
         args["paid_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["paid_at"] = None
 
     return InvoiceSummary(**args)
 
@@ -1852,21 +1980,27 @@ def unmarshal_RpnSanIp(data: Any) -> RpnSanIp:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
     field = data.get("server", None)
     if field is not None:
         args["server"] = unmarshal_RpnSanIpServer(field)
+    else:
+        args["server"] = None
 
     field = data.get("rpnv2_group", None)
     if field is not None:
         args["rpnv2_group"] = unmarshal_RpnSanIpRpnV2Group(field)
+    else:
+        args["rpnv2_group"] = None
 
     field = data.get("ip", None)
     if field is not None:
         args["ip"] = unmarshal_IP(field)
+    else:
+        args["ip"] = None
 
     return RpnSanIp(**args)
 
@@ -1955,20 +2089,28 @@ def unmarshal_RefundSummary(data: Any) -> RefundSummary:
     field = data.get("total_with_taxes", None)
     if field is not None:
         args["total_with_taxes"] = unmarshal_Money(field)
+    else:
+        args["total_with_taxes"] = None
 
     field = data.get("total_without_taxes", None)
     if field is not None:
         args["total_without_taxes"] = unmarshal_Money(field)
+    else:
+        args["total_without_taxes"] = None
 
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("refunded_at", None)
     if field is not None:
         args["refunded_at"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["refunded_at"] = None
 
     return RefundSummary(**args)
 
@@ -2106,14 +2248,20 @@ def unmarshal_RpnGroupMember(data: Any) -> RpnGroupMember:
     field = data.get("san_server", None)
     if field is not None:
         args["san_server"] = unmarshal_RpnSanServer(field)
+    else:
+        args["san_server"] = None
 
     field = data.get("server", None)
     if field is not None:
         args["server"] = unmarshal_Server(field)
+    else:
+        args["server"] = None
 
     field = data.get("speed", None)
     if field is not None:
         args["speed"] = field
+    else:
+        args["speed"] = None
 
     return RpnGroupMember(**args)
 
@@ -2220,6 +2368,8 @@ def unmarshal_RpnSanSummary(data: Any) -> RpnSanSummary:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("offer_name", None)
     if field is not None:
@@ -2246,16 +2396,22 @@ def unmarshal_RpnSanSummary(data: Any) -> RpnSanSummary:
         args["delivered_at"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["delivered_at"] = None
 
     field = data.get("terminated_at", None)
     if field is not None:
         args["terminated_at"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["terminated_at"] = None
 
     field = data.get("expires_at", None)
     if field is not None:
         args["expires_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["expires_at"] = None
 
     return RpnSanSummary(**args)
 
@@ -2328,10 +2484,14 @@ def unmarshal_RpnServerCapability(data: Any) -> RpnServerCapability:
     field = data.get("ip_address", None)
     if field is not None:
         args["ip_address"] = field
+    else:
+        args["ip_address"] = None
 
     field = data.get("rpn_version", None)
     if field is not None:
         args["rpn_version"] = field
+    else:
+        args["rpn_version"] = None
 
     return RpnServerCapability(**args)
 
@@ -2407,14 +2567,20 @@ def unmarshal_RpnV2Member(data: Any) -> RpnV2Member:
     field = data.get("server", None)
     if field is not None:
         args["server"] = unmarshal_Server(field)
+    else:
+        args["server"] = None
 
     field = data.get("rpnv1_group", None)
     if field is not None:
         args["rpnv1_group"] = unmarshal_RpnGroup(field)
+    else:
+        args["rpnv1_group"] = None
 
     field = data.get("speed", None)
     if field is not None:
         args["speed"] = field
+    else:
+        args["speed"] = None
 
     return RpnV2Member(**args)
 
@@ -2442,20 +2608,28 @@ def unmarshal_Log(data: Any) -> Log:
     field = data.get("group", None)
     if field is not None:
         args["group"] = unmarshal_RpnV2Group(field)
+    else:
+        args["group"] = None
 
     field = data.get("member", None)
     if field is not None:
         args["member"] = unmarshal_RpnV2Member(field)
+    else:
+        args["member"] = None
 
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("finished_at", None)
     if field is not None:
         args["finished_at"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["finished_at"] = None
 
     return Log(**args)
 
@@ -2537,7 +2711,7 @@ def unmarshal_ServerDisk(data: Any) -> ServerDisk:
     if field is not None:
         args["connector"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -2592,6 +2766,8 @@ def unmarshal_ServerEvent(data: Any) -> ServerEvent:
     field = data.get("date", None)
     if field is not None:
         args["date"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["date"] = None
 
     return ServerEvent(**args)
 
@@ -2648,14 +2824,20 @@ def unmarshal_ServerSummary(data: Any) -> ServerSummary:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("expired_at", None)
     if field is not None:
         args["expired_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["expired_at"] = None
 
     field = data.get("offer_id", None)
     if field is not None:
@@ -2692,14 +2874,20 @@ def unmarshal_ServerSummary(data: Any) -> ServerSummary:
     field = data.get("os_id", None)
     if field is not None:
         args["os_id"] = field
+    else:
+        args["os_id"] = None
 
     field = data.get("level", None)
     if field is not None:
         args["level"] = unmarshal_ServiceLevel(field)
+    else:
+        args["level"] = None
 
     field = data.get("rpn_version", None)
     if field is not None:
         args["rpn_version"] = field
+    else:
+        args["rpn_version"] = None
 
     return ServerSummary(**args)
 
@@ -2834,20 +3022,28 @@ def unmarshal_Refund(data: Any) -> Refund:
     field = data.get("total_with_taxes", None)
     if field is not None:
         args["total_with_taxes"] = unmarshal_Money(field)
+    else:
+        args["total_with_taxes"] = None
 
     field = data.get("total_without_taxes", None)
     if field is not None:
         args["total_without_taxes"] = unmarshal_Money(field)
+    else:
+        args["total_without_taxes"] = None
 
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("refunded_at", None)
     if field is not None:
         args["refunded_at"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["refunded_at"] = None
 
     return Refund(**args)
 
@@ -2887,7 +3083,7 @@ def unmarshal_Partition(data: Any) -> Partition:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -2910,6 +3106,8 @@ def unmarshal_Partition(data: Any) -> Partition:
     field = data.get("mount_point", None)
     if field is not None:
         args["mount_point"] = field
+    else:
+        args["mount_point"] = None
 
     return Partition(**args)
 
@@ -2964,10 +3162,14 @@ def unmarshal_ServerInstall(data: Any) -> ServerInstall:
     field = data.get("user_login", None)
     if field is not None:
         args["user_login"] = field
+    else:
+        args["user_login"] = None
 
     field = data.get("panel_url", None)
     if field is not None:
         args["panel_url"] = field
+    else:
+        args["panel_url"] = None
 
     return ServerInstall(**args)
 

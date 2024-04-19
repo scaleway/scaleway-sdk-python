@@ -137,6 +137,8 @@ def unmarshal_ContactExtensionFRAssociationInfo(
         args["publication_jo"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["publication_jo"] = None
 
     return ContactExtensionFRAssociationInfo(**args)
 
@@ -241,24 +243,34 @@ def unmarshal_ContactExtensionFR(data: Any) -> ContactExtensionFR:
     field = data.get("individual_info", None)
     if field is not None:
         args["individual_info"] = unmarshal_ContactExtensionFRIndividualInfo(field)
+    else:
+        args["individual_info"] = None
 
     field = data.get("duns_info", None)
     if field is not None:
         args["duns_info"] = unmarshal_ContactExtensionFRDunsInfo(field)
+    else:
+        args["duns_info"] = None
 
     field = data.get("association_info", None)
     if field is not None:
         args["association_info"] = unmarshal_ContactExtensionFRAssociationInfo(field)
+    else:
+        args["association_info"] = None
 
     field = data.get("trademark_info", None)
     if field is not None:
         args["trademark_info"] = unmarshal_ContactExtensionFRTrademarkInfo(field)
+    else:
+        args["trademark_info"] = None
 
     field = data.get("code_auth_afnic_info", None)
     if field is not None:
         args["code_auth_afnic_info"] = unmarshal_ContactExtensionFRCodeAuthAfnicInfo(
             field
         )
+    else:
+        args["code_auth_afnic_info"] = None
 
     return ContactExtensionFR(**args)
 
@@ -390,14 +402,20 @@ def unmarshal_Contact(data: Any) -> Contact:
         args["questions"] = (
             [unmarshal_ContactQuestion(v) for v in field] if field is not None else None
         )
+    else:
+        args["questions"] = None
 
     field = data.get("extension_fr", None)
     if field is not None:
         args["extension_fr"] = unmarshal_ContactExtensionFR(field)
+    else:
+        args["extension_fr"] = None
 
     field = data.get("extension_eu", None)
     if field is not None:
         args["extension_eu"] = unmarshal_ContactExtensionEU(field)
+    else:
+        args["extension_eu"] = None
 
     field = data.get("email_status", None)
     if field is not None:
@@ -414,6 +432,8 @@ def unmarshal_Contact(data: Any) -> Contact:
     field = data.get("extension_nl", None)
     if field is not None:
         args["extension_nl"] = unmarshal_ContactExtensionNL(field)
+    else:
+        args["extension_nl"] = None
 
     return Contact(**args)
 
@@ -463,10 +483,14 @@ def unmarshal_DNSZone(data: Any) -> DNSZone:
     field = data.get("message", None)
     if field is not None:
         args["message"] = field
+    else:
+        args["message"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     return DNSZone(**args)
 
@@ -529,10 +553,14 @@ def unmarshal_SSLCertificate(data: Any) -> SSLCertificate:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("expired_at", None)
     if field is not None:
         args["expired_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["expired_at"] = None
 
     return SSLCertificate(**args)
 
@@ -554,6 +582,8 @@ def unmarshal_CheckContactsCompatibilityResponseContactCheckResult(
     field = data.get("error_message", None)
     if field is not None:
         args["error_message"] = field
+    else:
+        args["error_message"] = None
 
     return CheckContactsCompatibilityResponseContactCheckResult(**args)
 
@@ -577,18 +607,24 @@ def unmarshal_CheckContactsCompatibilityResponse(
         args["owner_check_result"] = (
             unmarshal_CheckContactsCompatibilityResponseContactCheckResult(field)
         )
+    else:
+        args["owner_check_result"] = None
 
     field = data.get("administrative_check_result", None)
     if field is not None:
         args["administrative_check_result"] = (
             unmarshal_CheckContactsCompatibilityResponseContactCheckResult(field)
         )
+    else:
+        args["administrative_check_result"] = None
 
     field = data.get("technical_check_result", None)
     if field is not None:
         args["technical_check_result"] = (
             unmarshal_CheckContactsCompatibilityResponseContactCheckResult(field)
         )
+    else:
+        args["technical_check_result"] = None
 
     return CheckContactsCompatibilityResponse(**args)
 
@@ -660,7 +696,7 @@ def unmarshal_DSRecordDigest(data: Any) -> DSRecordDigest:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -671,6 +707,8 @@ def unmarshal_DSRecordDigest(data: Any) -> DSRecordDigest:
     field = data.get("public_key", None)
     if field is not None:
         args["public_key"] = unmarshal_DSRecordPublicKey(field)
+    else:
+        args["public_key"] = None
 
     return DSRecordDigest(**args)
 
@@ -694,10 +732,14 @@ def unmarshal_DSRecord(data: Any) -> DSRecord:
     field = data.get("digest", None)
     if field is not None:
         args["digest"] = unmarshal_DSRecordDigest(field)
+    else:
+        args["digest"] = None
 
     field = data.get("public_key", None)
     if field is not None:
         args["public_key"] = unmarshal_DSRecordPublicKey(field)
+    else:
+        args["public_key"] = None
 
     return DSRecord(**args)
 
@@ -721,6 +763,8 @@ def unmarshal_TldOffer(data: Any) -> TldOffer:
     field = data.get("price", None)
     if field is not None:
         args["price"] = unmarshal_Money(field)
+    else:
+        args["price"] = None
 
     return TldOffer(**args)
 
@@ -870,14 +914,20 @@ def unmarshal_Domain(data: Any) -> Domain:
     field = data.get("dnssec", None)
     if field is not None:
         args["dnssec"] = unmarshal_DomainDNSSEC(field)
+    else:
+        args["dnssec"] = None
 
     field = data.get("expired_at", None)
     if field is not None:
         args["expired_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["expired_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("status", None)
     if field is not None:
@@ -902,30 +952,42 @@ def unmarshal_Domain(data: Any) -> Domain:
     field = data.get("owner_contact", None)
     if field is not None:
         args["owner_contact"] = unmarshal_Contact(field)
+    else:
+        args["owner_contact"] = None
 
     field = data.get("technical_contact", None)
     if field is not None:
         args["technical_contact"] = unmarshal_Contact(field)
+    else:
+        args["technical_contact"] = None
 
     field = data.get("administrative_contact", None)
     if field is not None:
         args["administrative_contact"] = unmarshal_Contact(field)
+    else:
+        args["administrative_contact"] = None
 
     field = data.get("external_domain_registration_status", None)
     if field is not None:
         args["external_domain_registration_status"] = (
             unmarshal_DomainRegistrationStatusExternalDomain(field)
         )
+    else:
+        args["external_domain_registration_status"] = None
 
     field = data.get("transfer_registration_status", None)
     if field is not None:
         args["transfer_registration_status"] = (
             unmarshal_DomainRegistrationStatusTransfer(field)
         )
+    else:
+        args["transfer_registration_status"] = None
 
     field = data.get("tld", None)
     if field is not None:
         args["tld"] = unmarshal_Tld(field)
+    else:
+        args["tld"] = None
 
     return Domain(**args)
 
@@ -1062,10 +1124,14 @@ def unmarshal_RecordHTTPServiceConfig(data: Any) -> RecordHTTPServiceConfig:
     field = data.get("must_contain", None)
     if field is not None:
         args["must_contain"] = field
+    else:
+        args["must_contain"] = None
 
     field = data.get("user_agent", None)
     if field is not None:
         args["user_agent"] = field
+    else:
+        args["user_agent"] = None
 
     return RecordHTTPServiceConfig(**args)
 
@@ -1132,7 +1198,7 @@ def unmarshal_Record(data: Any) -> Record:
     if field is not None:
         args["ttl"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -1143,22 +1209,32 @@ def unmarshal_Record(data: Any) -> Record:
     field = data.get("comment", None)
     if field is not None:
         args["comment"] = field
+    else:
+        args["comment"] = None
 
     field = data.get("geo_ip_config", None)
     if field is not None:
         args["geo_ip_config"] = unmarshal_RecordGeoIPConfig(field)
+    else:
+        args["geo_ip_config"] = None
 
     field = data.get("http_service_config", None)
     if field is not None:
         args["http_service_config"] = unmarshal_RecordHTTPServiceConfig(field)
+    else:
+        args["http_service_config"] = None
 
     field = data.get("weighted_config", None)
     if field is not None:
         args["weighted_config"] = unmarshal_RecordWeightedConfig(field)
+    else:
+        args["weighted_config"] = None
 
     field = data.get("view_config", None)
     if field is not None:
         args["view_config"] = unmarshal_RecordViewConfig(field)
+    else:
+        args["view_config"] = None
 
     return Record(**args)
 
@@ -1175,17 +1251,21 @@ def unmarshal_RecordIdentifier(data: Any) -> RecordIdentifier:
     if field is not None:
         args["name"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
     field = data.get("data", None)
     if field is not None:
         args["data"] = field
+    else:
+        args["data"] = None
 
     field = data.get("ttl", None)
     if field is not None:
         args["ttl"] = field
+    else:
+        args["ttl"] = None
 
     return RecordIdentifier(**args)
 
@@ -1229,10 +1309,14 @@ def unmarshal_RecordChangeDelete(data: Any) -> RecordChangeDelete:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("id_fields", None)
     if field is not None:
         args["id_fields"] = unmarshal_RecordIdentifier(field)
+    else:
+        args["id_fields"] = None
 
     return RecordChangeDelete(**args)
 
@@ -1254,10 +1338,14 @@ def unmarshal_RecordChangeSet(data: Any) -> RecordChangeSet:
     field = data.get("id", None)
     if field is not None:
         args["id"] = field
+    else:
+        args["id"] = None
 
     field = data.get("id_fields", None)
     if field is not None:
         args["id_fields"] = unmarshal_RecordIdentifier(field)
+    else:
+        args["id_fields"] = None
 
     return RecordChangeSet(**args)
 
@@ -1273,18 +1361,26 @@ def unmarshal_RecordChange(data: Any) -> RecordChange:
     field = data.get("add", None)
     if field is not None:
         args["add"] = unmarshal_RecordChangeAdd(field)
+    else:
+        args["add"] = None
 
-    field = data.get("set_", None)
+    field = data.get("set", None)
     if field is not None:
         args["set_"] = unmarshal_RecordChangeSet(field)
+    else:
+        args["set_"] = None
 
     field = data.get("delete", None)
     if field is not None:
         args["delete"] = unmarshal_RecordChangeDelete(field)
+    else:
+        args["delete"] = None
 
     field = data.get("clear", None)
     if field is not None:
         args["clear"] = unmarshal_RecordChangeClear(field)
+    else:
+        args["clear"] = None
 
     return RecordChange(**args)
 
@@ -1397,6 +1493,8 @@ def unmarshal_ContactRoles(data: Any) -> ContactRoles:
     field = data.get("contact", None)
     if field is not None:
         args["contact"] = unmarshal_Contact(field)
+    else:
+        args["contact"] = None
 
     return ContactRoles(**args)
 
@@ -1519,6 +1617,8 @@ def unmarshal_DNSZoneVersion(data: Any) -> DNSZoneVersion:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     return DNSZoneVersion(**args)
 
@@ -1625,10 +1725,14 @@ def unmarshal_DomainSummary(data: Any) -> DomainSummary:
     field = data.get("expired_at", None)
     if field is not None:
         args["expired_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["expired_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("status", None)
     if field is not None:
@@ -1647,16 +1751,22 @@ def unmarshal_DomainSummary(data: Any) -> DomainSummary:
         args["external_domain_registration_status"] = (
             unmarshal_DomainRegistrationStatusExternalDomain(field)
         )
+    else:
+        args["external_domain_registration_status"] = None
 
     field = data.get("transfer_registration_status", None)
     if field is not None:
         args["transfer_registration_status"] = (
             unmarshal_DomainRegistrationStatusTransfer(field)
         )
+    else:
+        args["transfer_registration_status"] = None
 
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     return DomainSummary(**args)
 
@@ -1709,32 +1819,44 @@ def unmarshal_RenewableDomain(data: Any) -> RenewableDomain:
     field = data.get("renewable_duration_in_years", None)
     if field is not None:
         args["renewable_duration_in_years"] = field
+    else:
+        args["renewable_duration_in_years"] = None
 
     field = data.get("expired_at", None)
     if field is not None:
         args["expired_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["expired_at"] = None
 
     field = data.get("limit_renew_at", None)
     if field is not None:
         args["limit_renew_at"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["limit_renew_at"] = None
 
     field = data.get("limit_redemption_at", None)
     if field is not None:
         args["limit_redemption_at"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["limit_redemption_at"] = None
 
     field = data.get("estimated_delete_at", None)
     if field is not None:
         args["estimated_delete_at"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["estimated_delete_at"] = None
 
     field = data.get("tld", None)
     if field is not None:
         args["tld"] = unmarshal_Tld(field)
+    else:
+        args["tld"] = None
 
     return RenewableDomain(**args)
 
@@ -1801,7 +1923,7 @@ def unmarshal_Task(data: Any) -> Task:
     if field is not None:
         args["organization_id"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -1812,22 +1934,32 @@ def unmarshal_Task(data: Any) -> Task:
     field = data.get("domain", None)
     if field is not None:
         args["domain"] = field
+    else:
+        args["domain"] = None
 
     field = data.get("started_at", None)
     if field is not None:
         args["started_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["started_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("message", None)
     if field is not None:
         args["message"] = field
+    else:
+        args["message"] = None
 
     field = data.get("contact_identifier", None)
     if field is not None:
         args["contact_identifier"] = field
+    else:
+        args["contact_identifier"] = None
 
     return Task(**args)
 
@@ -1899,6 +2031,8 @@ def unmarshal_OrderResponse(data: Any) -> OrderResponse:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     return OrderResponse(**args)
 
@@ -1949,6 +2083,8 @@ def unmarshal_RegisterExternalDomainResponse(
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     return RegisterExternalDomainResponse(**args)
 
@@ -1983,6 +2119,8 @@ def unmarshal_AvailableDomain(data: Any) -> AvailableDomain:
     field = data.get("tld", None)
     if field is not None:
         args["tld"] = unmarshal_Tld(field)
+    else:
+        args["tld"] = None
 
     return AvailableDomain(**args)
 

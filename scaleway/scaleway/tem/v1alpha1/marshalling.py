@@ -53,6 +53,8 @@ def unmarshal_EmailTry(data: Any) -> EmailTry:
     field = data.get("tried_at", None)
     if field is not None:
         args["tried_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["tried_at"] = None
 
     return EmailTry(**args)
 
@@ -88,6 +90,8 @@ def unmarshal_Email(data: Any) -> Email:
     field = data.get("rcpt_to", None)
     if field is not None:
         args["rcpt_to"] = field
+    else:
+        args["rcpt_to"] = None
 
     field = data.get("rcpt_type", None)
     if field is not None:
@@ -118,14 +122,20 @@ def unmarshal_Email(data: Any) -> Email:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("status_details", None)
     if field is not None:
         args["status_details"] = field
+    else:
+        args["status_details"] = None
 
     return Email(**args)
 
@@ -160,6 +170,8 @@ def unmarshal_DomainRecords(data: Any) -> DomainRecords:
     field = data.get("dmarc", None)
     if field is not None:
         args["dmarc"] = unmarshal_DomainRecordsDMARC(field)
+    else:
+        args["dmarc"] = None
 
     return DomainRecords(**args)
 
@@ -183,16 +195,22 @@ def unmarshal_DomainReputation(data: Any) -> DomainReputation:
     field = data.get("scored_at", None)
     if field is not None:
         args["scored_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["scored_at"] = None
 
     field = data.get("previous_score", None)
     if field is not None:
         args["previous_score"] = field
+    else:
+        args["previous_score"] = None
 
     field = data.get("previous_scored_at", None)
     if field is not None:
         args["previous_scored_at"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["previous_scored_at"] = None
 
     return DomainReputation(**args)
 
@@ -259,18 +277,24 @@ def unmarshal_Domain(data: Any) -> Domain:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("next_check_at", None)
     if field is not None:
         args["next_check_at"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["next_check_at"] = None
 
     field = data.get("last_valid_at", None)
     if field is not None:
         args["last_valid_at"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["last_valid_at"] = None
 
     field = data.get("dkim_config", None)
     if field is not None:
@@ -283,22 +307,32 @@ def unmarshal_Domain(data: Any) -> Domain:
     field = data.get("revoked_at", None)
     if field is not None:
         args["revoked_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["revoked_at"] = None
 
     field = data.get("last_error", None)
     if field is not None:
         args["last_error"] = field
+    else:
+        args["last_error"] = None
 
     field = data.get("statistics", None)
     if field is not None:
         args["statistics"] = unmarshal_DomainStatistics(field)
+    else:
+        args["statistics"] = None
 
     field = data.get("reputation", None)
     if field is not None:
         args["reputation"] = unmarshal_DomainReputation(field)
+    else:
+        args["reputation"] = None
 
     field = data.get("records", None)
     if field is not None:
         args["records"] = unmarshal_DomainRecords(field)
+    else:
+        args["records"] = None
 
     return Domain(**args)
 
@@ -337,10 +371,14 @@ def unmarshal_DomainLastStatusDkimRecord(data: Any) -> DomainLastStatusDkimRecor
         args["last_valid_at"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["last_valid_at"] = None
 
     field = data.get("error", None)
     if field is not None:
         args["error"] = field
+    else:
+        args["error"] = None
 
     return DomainLastStatusDkimRecord(**args)
 
@@ -362,10 +400,14 @@ def unmarshal_DomainLastStatusDmarcRecord(data: Any) -> DomainLastStatusDmarcRec
         args["last_valid_at"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["last_valid_at"] = None
 
     field = data.get("error", None)
     if field is not None:
         args["error"] = field
+    else:
+        args["error"] = None
 
     return DomainLastStatusDmarcRecord(**args)
 
@@ -387,10 +429,14 @@ def unmarshal_DomainLastStatusSpfRecord(data: Any) -> DomainLastStatusSpfRecord:
         args["last_valid_at"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["last_valid_at"] = None
 
     field = data.get("error", None)
     if field is not None:
         args["error"] = field
+    else:
+        args["error"] = None
 
     return DomainLastStatusSpfRecord(**args)
 
@@ -414,14 +460,20 @@ def unmarshal_DomainLastStatus(data: Any) -> DomainLastStatus:
     field = data.get("spf_record", None)
     if field is not None:
         args["spf_record"] = unmarshal_DomainLastStatusSpfRecord(field)
+    else:
+        args["spf_record"] = None
 
     field = data.get("dkim_record", None)
     if field is not None:
         args["dkim_record"] = unmarshal_DomainLastStatusDkimRecord(field)
+    else:
+        args["dkim_record"] = None
 
     field = data.get("dmarc_record", None)
     if field is not None:
         args["dmarc_record"] = unmarshal_DomainLastStatusDmarcRecord(field)
+    else:
+        args["dmarc_record"] = None
 
     return DomainLastStatus(**args)
 

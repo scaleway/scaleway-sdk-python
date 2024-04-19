@@ -166,26 +166,38 @@ def unmarshal_Endpoint(data: Any) -> Endpoint:
     field = data.get("ip", None)
     if field is not None:
         args["ip"] = field
+    else:
+        args["ip"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     field = data.get("private_network", None)
     if field is not None:
         args["private_network"] = unmarshal_EndpointPrivateNetworkDetails(field)
+    else:
+        args["private_network"] = None
 
     field = data.get("load_balancer", None)
     if field is not None:
         args["load_balancer"] = unmarshal_EndpointLoadBalancerDetails(field)
+    else:
+        args["load_balancer"] = None
 
     field = data.get("direct_access", None)
     if field is not None:
         args["direct_access"] = unmarshal_EndpointDirectAccessDetails(field)
+    else:
+        args["direct_access"] = None
 
     field = data.get("hostname", None)
     if field is not None:
         args["hostname"] = field
+    else:
+        args["hostname"] = None
 
     return Endpoint(**args)
 
@@ -209,18 +221,26 @@ def unmarshal_Maintenance(data: Any) -> Maintenance:
     field = data.get("starts_at", None)
     if field is not None:
         args["starts_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["starts_at"] = None
 
     field = data.get("stops_at", None)
     if field is not None:
         args["stops_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["stops_at"] = None
 
     field = data.get("closed_at", None)
     if field is not None:
         args["closed_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["closed_at"] = None
 
     field = data.get("forced_at", None)
     if field is not None:
         args["forced_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["forced_at"] = None
 
     return Maintenance(**args)
 
@@ -293,18 +313,26 @@ def unmarshal_DatabaseBackup(data: Any) -> DatabaseBackup:
     field = data.get("size", None)
     if field is not None:
         args["size"] = field
+    else:
+        args["size"] = None
 
     field = data.get("expires_at", None)
     if field is not None:
         args["expires_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["expires_at"] = None
 
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("instance_name", None)
     if field is not None:
@@ -321,12 +349,16 @@ def unmarshal_DatabaseBackup(data: Any) -> DatabaseBackup:
     field = data.get("download_url", None)
     if field is not None:
         args["download_url"] = field
+    else:
+        args["download_url"] = None
 
     field = data.get("download_url_expires_at", None)
     if field is not None:
         args["download_url_expires_at"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["download_url_expires_at"] = None
 
     return DatabaseBackup(**args)
 
@@ -385,14 +417,20 @@ def unmarshal_InstanceLog(data: Any) -> InstanceLog:
     field = data.get("download_url", None)
     if field is not None:
         args["download_url"] = field
+    else:
+        args["download_url"] = None
 
     field = data.get("expires_at", None)
     if field is not None:
         args["expires_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["expires_at"] = None
 
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     return InstanceLog(**args)
 
@@ -422,6 +460,8 @@ def unmarshal_BackupSchedule(data: Any) -> BackupSchedule:
         args["next_run_at"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["next_run_at"] = None
 
     return BackupSchedule(**args)
 
@@ -456,10 +496,14 @@ def unmarshal_LogsPolicy(data: Any) -> LogsPolicy:
     field = data.get("max_age_retention", None)
     if field is not None:
         args["max_age_retention"] = field
+    else:
+        args["max_age_retention"] = None
 
     field = data.get("total_disk_retention", None)
     if field is not None:
         args["total_disk_retention"] = field
+    else:
+        args["total_disk_retention"] = None
 
     return LogsPolicy(**args)
 
@@ -499,7 +543,7 @@ def unmarshal_Volume(data: Any) -> Volume:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -507,7 +551,7 @@ def unmarshal_Volume(data: Any) -> Volume:
     if field is not None:
         args["size"] = field
 
-    field = data.get("class_", None)
+    field = data.get("class", None)
     if field is not None:
         args["class_"] = field
 
@@ -541,10 +585,14 @@ def unmarshal_Instance(data: Any) -> Instance:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("volume", None)
     if field is not None:
         args["volume"] = unmarshal_Volume(field)
+    else:
+        args["volume"] = None
 
     field = data.get("project_id", None)
     if field is not None:
@@ -583,10 +631,14 @@ def unmarshal_Instance(data: Any) -> Instance:
     field = data.get("endpoint", None)
     if field is not None:
         args["endpoint"] = unmarshal_Endpoint(field)
+    else:
+        args["endpoint"] = None
 
     field = data.get("backup_schedule", None)
     if field is not None:
         args["backup_schedule"] = unmarshal_BackupSchedule(field)
+    else:
+        args["backup_schedule"] = None
 
     field = data.get("read_replicas", None)
     if field is not None:
@@ -623,6 +675,8 @@ def unmarshal_Instance(data: Any) -> Instance:
     field = data.get("logs_policy", None)
     if field is not None:
         args["logs_policy"] = unmarshal_LogsPolicy(field)
+    else:
+        args["logs_policy"] = None
 
     return Instance(**args)
 
@@ -658,11 +712,11 @@ def unmarshal_SnapshotVolumeType(data: Any) -> SnapshotVolumeType:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
-    field = data.get("class_", None)
+    field = data.get("class", None)
     if field is not None:
         args["class_"] = field
 
@@ -708,22 +762,32 @@ def unmarshal_Snapshot(data: Any) -> Snapshot:
     field = data.get("size", None)
     if field is not None:
         args["size"] = field
+    else:
+        args["size"] = None
 
     field = data.get("expires_at", None)
     if field is not None:
         args["expires_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["expires_at"] = None
 
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("volume_type", None)
     if field is not None:
         args["volume_type"] = unmarshal_SnapshotVolumeType(field)
+    else:
+        args["volume_type"] = None
 
     return Snapshot(**args)
 
@@ -778,6 +842,8 @@ def unmarshal_ACLRule(data: Any) -> ACLRule:
     field = data.get("port", None)
     if field is not None:
         args["port"] = field
+    else:
+        args["port"] = None
 
     return ACLRule(**args)
 
@@ -923,26 +989,38 @@ def unmarshal_EngineSetting(data: Any) -> EngineSetting:
     field = data.get("unit", None)
     if field is not None:
         args["unit"] = field
+    else:
+        args["unit"] = None
 
     field = data.get("string_constraint", None)
     if field is not None:
         args["string_constraint"] = field
+    else:
+        args["string_constraint"] = None
 
     field = data.get("int_min", None)
     if field is not None:
         args["int_min"] = field
+    else:
+        args["int_min"] = None
 
     field = data.get("int_max", None)
     if field is not None:
         args["int_max"] = field
+    else:
+        args["int_max"] = None
 
     field = data.get("float_min", None)
     if field is not None:
         args["float_min"] = field
+    else:
+        args["float_min"] = None
 
     field = data.get("float_max", None)
     if field is not None:
         args["float_max"] = field
+    else:
+        args["float_max"] = None
 
     return EngineSetting(**args)
 
@@ -988,6 +1066,8 @@ def unmarshal_EngineVersion(data: Any) -> EngineVersion:
         args["end_of_life"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["end_of_life"] = None
 
     return EngineVersion(**args)
 
@@ -1194,7 +1274,7 @@ def unmarshal_NodeTypeVolumeType(data: Any) -> NodeTypeVolumeType:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -1214,7 +1294,7 @@ def unmarshal_NodeTypeVolumeType(data: Any) -> NodeTypeVolumeType:
     if field is not None:
         args["chunk_size"] = field
 
-    field = data.get("class_", None)
+    field = data.get("class", None)
     if field is not None:
         args["class_"] = field
 
@@ -1260,10 +1340,14 @@ def unmarshal_NodeType(data: Any) -> NodeType:
     field = data.get("volume_constraint", None)
     if field is not None:
         args["volume_constraint"] = unmarshal_NodeTypeVolumeConstraintSizes(field)
+    else:
+        args["volume_constraint"] = None
 
     field = data.get("is_bssd_compatible", None)
     if field is not None:
         args["is_bssd_compatible"] = field
+    else:
+        args["is_bssd_compatible"] = None
 
     field = data.get("available_volume_types", None)
     if field is not None:

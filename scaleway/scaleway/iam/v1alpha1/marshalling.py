@@ -87,14 +87,20 @@ def unmarshal_JWT(data: Any) -> JWT:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("expires_at", None)
     if field is not None:
         args["expires_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["expires_at"] = None
 
     return JWT(**args)
 
@@ -130,26 +136,38 @@ def unmarshal_APIKey(data: Any) -> APIKey:
     field = data.get("secret_key", None)
     if field is not None:
         args["secret_key"] = field
+    else:
+        args["secret_key"] = None
 
     field = data.get("application_id", None)
     if field is not None:
         args["application_id"] = field
+    else:
+        args["application_id"] = None
 
     field = data.get("user_id", None)
     if field is not None:
         args["user_id"] = field
+    else:
+        args["user_id"] = None
 
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("expires_at", None)
     if field is not None:
         args["expires_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["expires_at"] = None
 
     return APIKey(**args)
 
@@ -193,10 +211,14 @@ def unmarshal_Application(data: Any) -> Application:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     return Application(**args)
 
@@ -240,10 +262,14 @@ def unmarshal_Group(data: Any) -> Group:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     return Group(**args)
 
@@ -291,6 +317,8 @@ def unmarshal_Log(data: Any) -> Log:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     return Log(**args)
 
@@ -322,10 +350,14 @@ def unmarshal_Policy(data: Any) -> Policy:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("editable", None)
     if field is not None:
@@ -350,18 +382,26 @@ def unmarshal_Policy(data: Any) -> Policy:
     field = data.get("user_id", None)
     if field is not None:
         args["user_id"] = field
+    else:
+        args["user_id"] = None
 
     field = data.get("group_id", None)
     if field is not None:
         args["group_id"] = field
+    else:
+        args["group_id"] = None
 
     field = data.get("application_id", None)
     if field is not None:
         args["application_id"] = field
+    else:
+        args["application_id"] = None
 
     field = data.get("no_principal", None)
     if field is not None:
         args["no_principal"] = field
+    else:
+        args["no_principal"] = None
 
     return Policy(**args)
 
@@ -393,10 +433,14 @@ def unmarshal_Quotum(data: Any) -> Quotum:
     field = data.get("limit", None)
     if field is not None:
         args["limit"] = field
+    else:
+        args["limit"] = None
 
     field = data.get("unlimited", None)
     if field is not None:
         args["unlimited"] = field
+    else:
+        args["unlimited"] = None
 
     return Quotum(**args)
 
@@ -440,10 +484,14 @@ def unmarshal_SSHKey(data: Any) -> SSHKey:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     return SSHKey(**args)
 
@@ -472,7 +520,7 @@ def unmarshal_User(data: Any) -> User:
     if field is not None:
         args["deletable"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -483,6 +531,8 @@ def unmarshal_User(data: Any) -> User:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("mfa", None)
     if field is not None:
@@ -499,16 +549,22 @@ def unmarshal_User(data: Any) -> User:
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("last_login_at", None)
     if field is not None:
         args["last_login_at"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["last_login_at"] = None
 
     field = data.get("two_factor_enabled", None)
     if field is not None:
         args["two_factor_enabled"] = field
+    else:
+        args["two_factor_enabled"] = None
 
     return User(**args)
 
@@ -532,6 +588,8 @@ def unmarshal_EncodedJWT(data: Any) -> EncodedJWT:
     field = data.get("jwt", None)
     if field is not None:
         args["jwt"] = unmarshal_JWT(field)
+    else:
+        args["jwt"] = None
 
     return EncodedJWT(**args)
 
@@ -664,6 +722,8 @@ def unmarshal_PermissionSet(data: Any) -> PermissionSet:
     field = data.get("categories", None)
     if field is not None:
         args["categories"] = field
+    else:
+        args["categories"] = None
 
     return PermissionSet(**args)
 
@@ -750,18 +810,26 @@ def unmarshal_Rule(data: Any) -> Rule:
     field = data.get("permission_set_names", None)
     if field is not None:
         args["permission_set_names"] = field
+    else:
+        args["permission_set_names"] = None
 
     field = data.get("project_ids", None)
     if field is not None:
         args["project_ids"] = field
+    else:
+        args["project_ids"] = None
 
     field = data.get("organization_id", None)
     if field is not None:
         args["organization_id"] = field
+    else:
+        args["organization_id"] = None
 
     field = data.get("account_root_user_id", None)
     if field is not None:
         args["account_root_user_id"] = field
+    else:
+        args["account_root_user_id"] = None
 
     return Rule(**args)
 

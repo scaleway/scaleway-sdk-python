@@ -122,14 +122,20 @@ def unmarshal_Container(data: Any) -> Container:
     field = data.get("timeout", None)
     if field is not None:
         args["timeout"] = field
+    else:
+        args["timeout"] = None
 
     field = data.get("error_message", None)
     if field is not None:
         args["error_message"] = field
+    else:
+        args["error_message"] = None
 
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("domain_name", None)
     if field is not None:
@@ -193,6 +199,8 @@ def unmarshal_Cron(data: Any) -> Cron:
     field = data.get("args", None)
     if field is not None:
         args["args"] = field
+    else:
+        args["args"] = None
 
     return Cron(**args)
 
@@ -228,6 +236,8 @@ def unmarshal_Domain(data: Any) -> Domain:
     field = data.get("error_message", None)
     if field is not None:
         args["error_message"] = field
+    else:
+        args["error_message"] = None
 
     return Domain(**args)
 
@@ -287,10 +297,14 @@ def unmarshal_Namespace(data: Any) -> Namespace:
     field = data.get("error_message", None)
     if field is not None:
         args["error_message"] = field
+    else:
+        args["error_message"] = None
 
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     return Namespace(**args)
 
@@ -318,22 +332,32 @@ def unmarshal_Token(data: Any) -> Token:
     field = data.get("container_id", None)
     if field is not None:
         args["container_id"] = field
+    else:
+        args["container_id"] = None
 
     field = data.get("namespace_id", None)
     if field is not None:
         args["namespace_id"] = field
+    else:
+        args["namespace_id"] = None
 
     field = data.get("public_key", None)
     if field is not None:
         args["public_key"] = field
+    else:
+        args["public_key"] = None
 
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+    else:
+        args["description"] = None
 
     field = data.get("expires_at", None)
     if field is not None:
         args["expires_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["expires_at"] = None
 
     return Token(**args)
 
@@ -365,6 +389,8 @@ def unmarshal_TriggerMnqNatsClientConfig(data: Any) -> TriggerMnqNatsClientConfi
     field = data.get("mnq_credential_id", None)
     if field is not None:
         args["mnq_credential_id"] = field
+    else:
+        args["mnq_credential_id"] = None
 
     return TriggerMnqNatsClientConfig(**args)
 
@@ -392,6 +418,8 @@ def unmarshal_TriggerMnqSqsClientConfig(data: Any) -> TriggerMnqSqsClientConfig:
     field = data.get("mnq_credential_id", None)
     if field is not None:
         args["mnq_credential_id"] = field
+    else:
+        args["mnq_credential_id"] = None
 
     return TriggerMnqSqsClientConfig(**args)
 
@@ -458,18 +486,26 @@ def unmarshal_Trigger(data: Any) -> Trigger:
     field = data.get("error_message", None)
     if field is not None:
         args["error_message"] = field
+    else:
+        args["error_message"] = None
 
     field = data.get("scw_sqs_config", None)
     if field is not None:
         args["scw_sqs_config"] = unmarshal_TriggerMnqSqsClientConfig(field)
+    else:
+        args["scw_sqs_config"] = None
 
     field = data.get("scw_nats_config", None)
     if field is not None:
         args["scw_nats_config"] = unmarshal_TriggerMnqNatsClientConfig(field)
+    else:
+        args["scw_nats_config"] = None
 
     field = data.get("sqs_config", None)
     if field is not None:
         args["sqs_config"] = unmarshal_TriggerSqsClientConfig(field)
+    else:
+        args["sqs_config"] = None
 
     return Trigger(**args)
 
