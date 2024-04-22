@@ -1491,7 +1491,7 @@ class SecurityGroupTemplate:
 class ApplyBlockMigrationRequest:
     validation_key: str
     """
-    A value to be retrieved from a call to PlanBlockMigration, to confirm that the volume and/or snapshots specified in said plan should be migrated.
+    A value to be retrieved from a call to the "Plan a migration" endpoint, to confirm that the volume and/or snapshots specified in said plan should be migrated.
     """
 
     zone: Optional[Zone]
@@ -3004,7 +3004,7 @@ class MigrationPlan:
 
     validation_key: str
     """
-    A value to be passed to ApplyBlockMigrationRequest, to confirm that the execution of the plan is being requested.
+    A value to be passed to the call to the "Apply a migration plan" endpoint, to confirm that the execution of the plan is being requested.
     """
 
     volume: Optional[Volume]
