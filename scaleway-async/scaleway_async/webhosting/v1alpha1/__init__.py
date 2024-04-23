@@ -20,6 +20,7 @@ from .types import ControlPanel
 from .types import Hosting
 from .types import Offer
 from .types import CreateHostingRequest
+from .types import CreateSessionRequest
 from .types import DeleteHostingRequest
 from .types import DnsRecords
 from .types import GetDomainDnsRecordsRequest
@@ -31,6 +32,7 @@ from .types import ListHostingsResponse
 from .types import ListOffersRequest
 from .types import ListOffersResponse
 from .types import RestoreHostingRequest
+from .types import Session
 from .types import UpdateHostingRequest
 from .api import WebhostingV1Alpha1API
 
@@ -55,6 +57,7 @@ __all__ = [
     "Hosting",
     "Offer",
     "CreateHostingRequest",
+    "CreateSessionRequest",
     "DeleteHostingRequest",
     "DnsRecords",
     "GetDomainDnsRecordsRequest",
@@ -66,6 +69,7 @@ __all__ = [
     "ListOffersRequest",
     "ListOffersResponse",
     "RestoreHostingRequest",
+    "Session",
     "UpdateHostingRequest",
     "WebhostingV1Alpha1API",
 ]

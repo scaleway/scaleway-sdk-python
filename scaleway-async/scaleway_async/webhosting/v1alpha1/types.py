@@ -475,6 +475,19 @@ class CreateHostingRequest:
 
 
 @dataclass
+class CreateSessionRequest:
+    hosting_id: str
+    """
+    Hosting ID.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
 class DeleteHostingRequest:
     hosting_id: str
     """
@@ -679,6 +692,14 @@ class RestoreHostingRequest:
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class Session:
+    url: str
+    """
+    Logged user's session URL.
     """
 
 
