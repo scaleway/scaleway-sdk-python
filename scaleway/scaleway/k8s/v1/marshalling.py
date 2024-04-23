@@ -485,10 +485,6 @@ def unmarshal_Cluster(data: Any) -> Cluster:
     else:
         args["routed_ip_enabled"] = None
 
-    field = data.get("routed_ip_enabled", None)
-    if field is not None:
-        args["routed_ip_enabled"] = field
-
     return Cluster(**args)
 
 
