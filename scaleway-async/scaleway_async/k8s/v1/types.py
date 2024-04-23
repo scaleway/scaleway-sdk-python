@@ -1648,6 +1648,16 @@ class ListVersionsResponse:
 
 
 @dataclass
+class MigrateClusterToRoutedIPsRequest:
+    cluster_id: str
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
 class MigrateToPrivateNetworkClusterRequest:
     cluster_id: str
     """
