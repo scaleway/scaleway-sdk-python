@@ -4094,7 +4094,7 @@ class InstanceV1API(API):
     ) -> MigrationPlan:
         """
         Get a volume or snapshot's migration plan.
-        Given a volume or snapshot, returns the migration plan for a call to the RPC ApplyBlockMigration. This plan will include zero or one volume, and zero or more snapshots, which will need to be migrated together. This RPC does not perform the actual migration itself, ApplyBlockMigration must be used. The validation_key value returned by this call must be provided to the ApplyBlockMigration call to confirm that all resources listed in the plan should be migrated.
+        Given a volume or snapshot, returns the migration plan for a call to the "Apply a migration plan" endpoint. This plan will include zero or one volume, and zero or more snapshots, which will need to be migrated together. This endpoint does not perform the actual migration itself, the "Apply a migration plan" endpoint must be used. The validation_key value returned by this endpoint must be provided to the call to the "Apply a migration plan" endpoint to confirm that all resources listed in the plan should be migrated.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param volume_id: The volume for which the migration plan will be generated.
         One-Of ('resource'): at most one of 'volume_id', 'snapshot_id' could be set.
@@ -4136,12 +4136,12 @@ class InstanceV1API(API):
     ) -> None:
         """
         Migrate a volume and/or snapshots to SBS (Scaleway Block Storage).
-        To be used, this RPC must be preceded by a call to PlanBlockMigration. To migrate all resources mentioned in the MigrationPlan, the validation_key returned in the MigrationPlan must be provided.
-        :param validation_key: A value to be retrieved from a call to PlanBlockMigration, to confirm that the volume and/or snapshots specified in said plan should be migrated.
+        To be used, the call to this endpoint must be preceded by a call to the "Plan a migration" endpoint. To migrate all resources mentioned in the migration plan, the validation_key returned in the plan must be provided.
+        :param validation_key: A value to be retrieved from a call to the "Plan a migration" endpoint, to confirm that the volume and/or snapshots specified in said plan should be migrated.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param volume_id: The volume to migrate, along with potentially other resources, according to the migration plan generated with a call to PlanBlockMigration.
+        :param volume_id: The volume to migrate, along with potentially other resources, according to the migration plan generated with a call to the "Plan a migration" endpoint.
         One-Of ('resource'): at most one of 'volume_id', 'snapshot_id' could be set.
-        :param snapshot_id: The snapshot to migrate, along with potentially other resources, according to the migration plan generated with a call to PlanBlockMigration.
+        :param snapshot_id: The snapshot to migrate, along with potentially other resources, according to the migration plan generated with a call to the "Plan a migration" endpoint.
         One-Of ('resource'): at most one of 'volume_id', 'snapshot_id' could be set.
 
         Usage:
