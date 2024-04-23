@@ -25,6 +25,7 @@ from .types import (
     ListControlPanelsResponse,
     ListHostingsResponse,
     ListOffersResponse,
+    Session,
     UpdateHostingRequest,
 )
 from .content import (
@@ -36,6 +37,7 @@ from .marshalling import (
     unmarshal_ListControlPanelsResponse,
     unmarshal_ListHostingsResponse,
     unmarshal_ListOffersResponse,
+    unmarshal_Session,
     marshal_CreateHostingRequest,
     marshal_UpdateHostingRequest,
 )
@@ -570,3 +572,37 @@ class WebhostingV1Alpha1API(API):
                 "page_size": page_size,
             },
         )
+
+    def create_session(
+        self,
+        *,
+        hosting_id: str,
+        region: Optional[Region] = None,
+    ) -> Session:
+        """
+        Create a user session.
+        :param hosting_id: Hosting ID.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Session <Session>`
+
+        Usage:
+        ::
+
+            result = api.create_session(
+                hosting_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_hosting_id = validate_path_param("hosting_id", hosting_id)
+
+        res = self._request(
+            "POST",
+            f"/webhosting/v1alpha1/regions/{param_region}/hostings/{param_hosting_id}/sessions",
+            body={},
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Session(res.json())

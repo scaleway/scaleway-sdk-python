@@ -22,6 +22,7 @@ from .types import (
     OfferProduct,
     Offer,
     ListOffersResponse,
+    Session,
     CreateHostingRequestDomainConfiguration,
     CreateHostingRequest,
     UpdateHostingRequest,
@@ -450,6 +451,21 @@ def unmarshal_ListOffersResponse(data: Any) -> ListOffersResponse:
         )
 
     return ListOffersResponse(**args)
+
+
+def unmarshal_Session(data: Any) -> Session:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Session' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("url", None)
+    if field is not None:
+        args["url"] = field
+
+    return Session(**args)
 
 
 def marshal_CreateHostingRequestDomainConfiguration(
