@@ -683,6 +683,27 @@ class ListOffersResponse:
 
 
 @dataclass
+class ResetHostingPasswordRequest:
+    hosting_id: str
+    """
+    UUID of the hosting.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class ResetHostingPasswordResponse:
+    password: str
+    """
+    New password.
+    """
+
+
+@dataclass
 class RestoreHostingRequest:
     hosting_id: str
     """

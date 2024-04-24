@@ -22,6 +22,7 @@ from .types import (
     OfferProduct,
     Offer,
     ListOffersResponse,
+    ResetHostingPasswordResponse,
     Session,
     CreateHostingRequestDomainConfiguration,
     CreateHostingRequest,
@@ -451,6 +452,21 @@ def unmarshal_ListOffersResponse(data: Any) -> ListOffersResponse:
         )
 
     return ListOffersResponse(**args)
+
+
+def unmarshal_ResetHostingPasswordResponse(data: Any) -> ResetHostingPasswordResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ResetHostingPasswordResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("password", None)
+    if field is not None:
+        args["password"] = field
+
+    return ResetHostingPasswordResponse(**args)
 
 
 def unmarshal_Session(data: Any) -> Session:
