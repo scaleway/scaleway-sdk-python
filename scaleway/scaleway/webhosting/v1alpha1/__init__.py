@@ -31,6 +31,8 @@ from .types import ListHostingsRequest
 from .types import ListHostingsResponse
 from .types import ListOffersRequest
 from .types import ListOffersResponse
+from .types import ResetHostingPasswordRequest
+from .types import ResetHostingPasswordResponse
 from .types import RestoreHostingRequest
 from .types import Session
 from .types import UpdateHostingRequest
@@ -68,6 +70,8 @@ __all__ = [
     "ListHostingsResponse",
     "ListOffersRequest",
     "ListOffersResponse",
+    "ResetHostingPasswordRequest",
+    "ResetHostingPasswordResponse",
     "RestoreHostingRequest",
     "Session",
     "UpdateHostingRequest",

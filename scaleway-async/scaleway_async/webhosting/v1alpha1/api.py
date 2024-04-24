@@ -25,6 +25,7 @@ from .types import (
     ListControlPanelsResponse,
     ListHostingsResponse,
     ListOffersResponse,
+    ResetHostingPasswordResponse,
     Session,
     UpdateHostingRequest,
 )
@@ -37,6 +38,7 @@ from .marshalling import (
     unmarshal_ListControlPanelsResponse,
     unmarshal_ListHostingsResponse,
     unmarshal_ListOffersResponse,
+    unmarshal_ResetHostingPasswordResponse,
     unmarshal_Session,
     marshal_CreateHostingRequest,
     marshal_UpdateHostingRequest,
@@ -512,8 +514,7 @@ class WebhostingV1Alpha1API(API):
         page_size: Optional[int] = None,
     ) -> ListControlPanelsResponse:
         """
-        List all control panels type.
-        List the control panels type: cpanel or plesk.
+        "List the control panels type: cpanel or plesk.".
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number to return, from the paginated results (must be a positive integer).
         :param page_size: Number of control panels to return (must be a positive integer lower or equal to 100).
@@ -549,8 +550,7 @@ class WebhostingV1Alpha1API(API):
         page_size: Optional[int] = None,
     ) -> List[ControlPanel]:
         """
-        List all control panels type.
-        List the control panels type: cpanel or plesk.
+        "List the control panels type: cpanel or plesk.".
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number to return, from the paginated results (must be a positive integer).
         :param page_size: Number of control panels to return (must be a positive integer lower or equal to 100).
@@ -606,3 +606,36 @@ class WebhostingV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Session(res.json())
+
+    async def reset_hosting_password(
+        self,
+        *,
+        hosting_id: str,
+        region: Optional[Region] = None,
+    ) -> ResetHostingPasswordResponse:
+        """
+        :param hosting_id: UUID of the hosting.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`ResetHostingPasswordResponse <ResetHostingPasswordResponse>`
+
+        Usage:
+        ::
+
+            result = await api.reset_hosting_password(
+                hosting_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_hosting_id = validate_path_param("hosting_id", hosting_id)
+
+        res = self._request(
+            "POST",
+            f"/webhosting/v1alpha1/regions/{param_region}/hostings/{param_hosting_id}/reset-password",
+            body={},
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ResetHostingPasswordResponse(res.json())
