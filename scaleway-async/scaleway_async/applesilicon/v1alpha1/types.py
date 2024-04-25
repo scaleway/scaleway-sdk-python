@@ -50,27 +50,6 @@ class ServerTypeStock(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
-class ServerTypeCPU:
-    name: str
-
-    core_count: int
-
-
-@dataclass
-class ServerTypeDisk:
-    capacity: int
-
-    type_: str
-
-
-@dataclass
-class ServerTypeMemory:
-    capacity: int
-
-    type_: str
-
-
-@dataclass
 class OS:
     id: str
     """
@@ -92,10 +71,51 @@ class OS:
     URL of the image.
     """
 
+    family: str
+    """
+    The OS family to which this OS belongs, eg. 13 or 14.
+    """
+
+    is_beta: bool
+    """
+    Describes if the OS is in beta.
+    """
+
+    version: str
+    """
+    The OS version number, eg. Sonoma has version number 14.3.
+    """
+
+    xcode_version: str
+    """
+    The current xcode version for this OS.
+    """
+
     compatible_server_types: List[str]
     """
     List of compatible server types.
     """
+
+
+@dataclass
+class ServerTypeCPU:
+    name: str
+
+    core_count: int
+
+
+@dataclass
+class ServerTypeDisk:
+    capacity: int
+
+    type_: str
+
+
+@dataclass
+class ServerTypeMemory:
+    capacity: int
+
+    type_: str
 
 
 @dataclass
@@ -128,6 +148,11 @@ class ServerType:
     minimum_lease_duration: Optional[str]
     """
     Minimum duration of the lease in seconds (example. 3.4s).
+    """
+
+    default_os: Optional[OS]
+    """
+    The default OS for this server type.
     """
 
 
@@ -178,6 +203,11 @@ class Server:
     Zone of the server.
     """
 
+    os: Optional[OS]
+    """
+    Initially installed OS, this does not necessarily reflect the current OS version.
+    """
+
     created_at: Optional[datetime]
     """
     Date on which the server was created.
@@ -214,6 +244,11 @@ class CreateServerRequest:
     project_id: Optional[str]
     """
     Create a server in the given project ID.
+    """
+
+    os_id: Optional[str]
+    """
+    Create a server & install the given os_id, when no os_id provided the default OS for this server type is chosen. Requesting a non-default OS will induce an extended delivery time.
     """
 
 
@@ -395,6 +430,11 @@ class ReinstallServerRequest:
     zone: Optional[Zone]
     """
     Zone to target. If none is passed will use default zone from the config.
+    """
+
+    os_id: Optional[str]
+    """
+    Reinstall the server with the target OS, when no os_id provided the default OS for the server type is used.
     """
 
 
