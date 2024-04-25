@@ -16,6 +16,7 @@ from .types import (
     ListServerTypesResponse,
     ListServersResponse,
     CreateServerRequest,
+    ReinstallServerRequest,
     UpdateServerRequest,
 )
 
@@ -43,6 +44,22 @@ def unmarshal_OS(data: Any) -> OS:
     field = data.get("image_url", None)
     if field is not None:
         args["image_url"] = field
+
+    field = data.get("family", None)
+    if field is not None:
+        args["family"] = field
+
+    field = data.get("is_beta", None)
+    if field is not None:
+        args["is_beta"] = field
+
+    field = data.get("version", None)
+    if field is not None:
+        args["version"] = field
+
+    field = data.get("xcode_version", None)
+    if field is not None:
+        args["xcode_version"] = field
 
     field = data.get("compatible_server_types", None)
     if field is not None:
@@ -148,6 +165,12 @@ def unmarshal_ServerType(data: Any) -> ServerType:
     else:
         args["minimum_lease_duration"] = None
 
+    field = data.get("default_os", None)
+    if field is not None:
+        args["default_os"] = unmarshal_OS(field)
+    else:
+        args["default_os"] = None
+
     return ServerType(**args)
 
 
@@ -194,6 +217,12 @@ def unmarshal_Server(data: Any) -> Server:
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
+
+    field = data.get("os", None)
+    if field is not None:
+        args["os"] = unmarshal_OS(field)
+    else:
+        args["os"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -289,6 +318,21 @@ def marshal_CreateServerRequest(
 
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id
+
+    if request.os_id is not None:
+        output["os_id"] = request.os_id
+
+    return output
+
+
+def marshal_ReinstallServerRequest(
+    request: ReinstallServerRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.os_id is not None:
+        output["os_id"] = request.os_id
 
     return output
 
