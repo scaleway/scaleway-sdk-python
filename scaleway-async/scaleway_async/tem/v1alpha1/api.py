@@ -557,11 +557,11 @@ class TemV1Alpha1API(API):
         Retrieve domains in a specific Project or in a specific Organization using the `region` parameter.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Requested page number. Value must be greater or equal to 1.
-        :param page_size: Page size.
-        :param project_id:
-        :param status:
-        :param organization_id:
-        :param name:
+        :param page_size: Requested page size. Value must be between 1 and 1000.
+        :param project_id: (Optional) ID of the Project in which to list the domains.
+        :param status: (Optional) List domains under specific statuses.
+        :param organization_id: (Optional) ID of the Organization in which to list the domains.
+        :param name: (Optional) Names of the domains to list.
         :return: :class:`ListDomainsResponse <ListDomainsResponse>`
 
         Usage:
@@ -607,11 +607,11 @@ class TemV1Alpha1API(API):
         Retrieve domains in a specific Project or in a specific Organization using the `region` parameter.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Requested page number. Value must be greater or equal to 1.
-        :param page_size: Page size.
-        :param project_id:
-        :param status:
-        :param organization_id:
-        :param name:
+        :param page_size: Requested page size. Value must be between 1 and 1000.
+        :param project_id: (Optional) ID of the Project in which to list the domains.
+        :param status: (Optional) List domains under specific statuses.
+        :param organization_id: (Optional) ID of the Organization in which to list the domains.
+        :param name: (Optional) Names of the domains to list.
         :return: :class:`List[Domain] <List[Domain]>`
 
         Usage:

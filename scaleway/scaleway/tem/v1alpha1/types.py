@@ -679,16 +679,28 @@ class ListDomainsRequest:
 
     page_size: Optional[int]
     """
-    Page size.
+    Requested page size. Value must be between 1 and 1000.
     """
 
     project_id: Optional[str]
+    """
+    (Optional) ID of the Project in which to list the domains.
+    """
 
     status: Optional[List[DomainStatus]]
+    """
+    (Optional) List domains under specific statuses.
+    """
 
     organization_id: Optional[str]
+    """
+    (Optional) ID of the Organization in which to list the domains.
+    """
 
     name: Optional[str]
+    """
+    (Optional) Names of the domains to list.
+    """
 
 
 @dataclass
