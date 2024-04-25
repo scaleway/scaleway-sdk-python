@@ -123,7 +123,7 @@ class Reference:
 
     status: ReferenceStatus
     """
-    Status of reference (attaching, attached, detaching).
+    Status of the reference. Statuses include `attaching`, `attached`, and `detaching`.
     """
 
     created_at: Optional[datetime]
