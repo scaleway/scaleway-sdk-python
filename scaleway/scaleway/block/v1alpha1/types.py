@@ -459,6 +459,44 @@ class GetVolumeRequest:
 
 
 @dataclass
+class ImportSnapshotFromS3Request:
+    bucket: str
+    """
+    Scaleway Object Storage bucket where the object is stored.
+    """
+
+    key: str
+    """
+    The object key inside the given bucket.
+    """
+
+    name: str
+    """
+    Name of the snapshot.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    UUID of the Project to which the volume and the snapshot belong.
+    """
+
+    tags: Optional[List[str]]
+    """
+    List of tags assigned to the snapshot.
+    """
+
+    size: Optional[int]
+    """
+    Size of the snapshot.
+    """
+
+
+@dataclass
 class ListSnapshotsRequest:
     zone: Optional[Zone]
     """

@@ -20,6 +20,7 @@ from .types import (
     CreateVolumeRequest,
     CreateVolumeRequestFromEmpty,
     CreateVolumeRequestFromSnapshot,
+    ImportSnapshotFromS3Request,
     ListSnapshotsResponse,
     ListVolumeTypesResponse,
     ListVolumesResponse,
@@ -41,6 +42,7 @@ from .marshalling import (
     unmarshal_ListVolumesResponse,
     marshal_CreateSnapshotRequest,
     marshal_CreateVolumeRequest,
+    marshal_ImportSnapshotFromS3Request,
     marshal_UpdateSnapshotRequest,
     marshal_UpdateVolumeRequest,
 )
@@ -633,6 +635,62 @@ class BlockV1Alpha1API(API):
                     zone=zone,
                     project_id=project_id,
                     tags=tags,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Snapshot(res.json())
+
+    def import_snapshot_from_s3(
+        self,
+        *,
+        bucket: str,
+        key: str,
+        name: str,
+        zone: Optional[Zone] = None,
+        project_id: Optional[str] = None,
+        tags: Optional[List[str]] = None,
+        size: Optional[int] = None,
+    ) -> Snapshot:
+        """
+        Import a snapshot from a Scaleway Object Storage bucket.
+        The bucket must contain a QCOW2 image.
+        The bucket can be imported into any Availability Zone as long as it is in the same region as the bucket.
+        :param bucket: Scaleway Object Storage bucket where the object is stored.
+        :param key: The object key inside the given bucket.
+        :param name: Name of the snapshot.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param project_id: UUID of the Project to which the volume and the snapshot belong.
+        :param tags: List of tags assigned to the snapshot.
+        :param size: Size of the snapshot.
+        :return: :class:`Snapshot <Snapshot>`
+
+        Usage:
+        ::
+
+            result = api.import_snapshot_from_s3(
+                bucket="example",
+                key="example",
+                name="example",
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+
+        res = self._request(
+            "POST",
+            f"/block/v1alpha1/zones/{param_zone}/snapshots/import-from-s3",
+            body=marshal_ImportSnapshotFromS3Request(
+                ImportSnapshotFromS3Request(
+                    bucket=bucket,
+                    key=key,
+                    name=name,
+                    zone=zone,
+                    project_id=project_id,
+                    tags=tags,
+                    size=size,
                 ),
                 self.client,
             ),
