@@ -440,6 +440,11 @@ class Ip:
     Reverse DNS (domain name) of the IP address.
     """
 
+    tags: List[str]
+    """
+    IP tags.
+    """
+
     zone: Zone
     """
     The zone the IP address is in.
@@ -1484,6 +1489,11 @@ class CreateIpRequest:
     Reverse DNS (domain name) for the IP address.
     """
 
+    tags: Optional[List[str]]
+    """
+    List of tags for the IP.
+    """
+
     project_id: Optional[str]
 
     organization_id: Optional[str]
@@ -2102,6 +2112,11 @@ class ListIPsRequest:
     ip_type: Optional[ListIpsRequestIpType]
     """
     IP type to filter for.
+    """
+
+    tags: Optional[List[str]]
+    """
+    Tag to filter for, only IPs with one or more matching tags will be returned.
     """
 
 
@@ -2740,6 +2755,11 @@ class UpdateIpRequest:
     ID of the server on which to attach the flexible IP.
     """
 
+    tags: Optional[List[str]]
+    """
+    List of tags for the IP.
+    """
+
 
 @dataclass
 class UpdateLbRequest:
@@ -3106,6 +3126,11 @@ class ZonedApiCreateIpRequest:
     reverse: Optional[str]
     """
     Reverse DNS (domain name) for the IP address.
+    """
+
+    tags: Optional[List[str]]
+    """
+    List of tags for the IP.
     """
 
     project_id: Optional[str]
@@ -3653,6 +3678,11 @@ class ZonedApiListIPsRequest:
     ip_type: Optional[ListIpsRequestIpType]
     """
     IP type to filter for.
+    """
+
+    tags: Optional[List[str]]
+    """
+    Tag to filter for, only IPs with one or more matching tags will be returned.
     """
 
 
@@ -4216,6 +4246,11 @@ class ZonedApiUpdateIpRequest:
     lb_id: Optional[str]
     """
     ID of the server on which to attach the flexible IP.
+    """
+
+    tags: Optional[List[str]]
+    """
+    List of tags for the IP.
     """
 
 
