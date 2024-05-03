@@ -133,6 +133,10 @@ def unmarshal_Ip(data: Any) -> Ip:
     if field is not None:
         args["reverse"] = field
 
+    field = data.get("tags", None)
+    if field is not None:
+        args["tags"] = field
+
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
@@ -1950,6 +1954,9 @@ def marshal_CreateIpRequest(
     if request.reverse is not None:
         output["reverse"] = request.reverse
 
+    if request.tags is not None:
+        output["tags"] = request.tags
+
     return output
 
 
@@ -2328,6 +2335,9 @@ def marshal_UpdateIpRequest(
     if request.lb_id is not None:
         output["lb_id"] = request.lb_id
 
+    if request.tags is not None:
+        output["tags"] = request.tags
+
     return output
 
 
@@ -2588,6 +2598,9 @@ def marshal_ZonedApiCreateIpRequest(
 
     if request.reverse is not None:
         output["reverse"] = request.reverse
+
+    if request.tags is not None:
+        output["tags"] = request.tags
 
     return output
 
@@ -2961,6 +2974,9 @@ def marshal_ZonedApiUpdateIpRequest(
 
     if request.lb_id is not None:
         output["lb_id"] = request.lb_id
+
+    if request.tags is not None:
+        output["tags"] = request.tags
 
     return output
 

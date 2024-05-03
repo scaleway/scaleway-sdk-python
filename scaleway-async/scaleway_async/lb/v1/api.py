@@ -585,6 +585,7 @@ class LbV1ZonedAPI(API):
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         ip_type: Optional[ListIpsRequestIpType] = None,
+        tags: Optional[List[str]] = None,
     ) -> ListIpsResponse:
         """
         List IP addresses.
@@ -596,6 +597,7 @@ class LbV1ZonedAPI(API):
         :param organization_id: Organization ID to filter for, only Load Balancer IP addresses from this Organization will be returned.
         :param project_id: Project ID to filter for, only Load Balancer IP addresses from this Project will be returned.
         :param ip_type: IP type to filter for.
+        :param tags: Tag to filter for, only IPs with one or more matching tags will be returned.
         :return: :class:`ListIpsResponse <ListIpsResponse>`
 
         Usage:
@@ -617,6 +619,7 @@ class LbV1ZonedAPI(API):
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
+                "tags": tags,
             },
         )
 
@@ -633,6 +636,7 @@ class LbV1ZonedAPI(API):
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         ip_type: Optional[ListIpsRequestIpType] = None,
+        tags: Optional[List[str]] = None,
     ) -> List[Ip]:
         """
         List IP addresses.
@@ -644,6 +648,7 @@ class LbV1ZonedAPI(API):
         :param organization_id: Organization ID to filter for, only Load Balancer IP addresses from this Organization will be returned.
         :param project_id: Project ID to filter for, only Load Balancer IP addresses from this Project will be returned.
         :param ip_type: IP type to filter for.
+        :param tags: Tag to filter for, only IPs with one or more matching tags will be returned.
         :return: :class:`List[Ip] <List[Ip]>`
 
         Usage:
@@ -664,6 +669,7 @@ class LbV1ZonedAPI(API):
                 "organization_id": organization_id,
                 "project_id": project_id,
                 "ip_type": ip_type,
+                "tags": tags,
             },
         )
 
@@ -675,6 +681,7 @@ class LbV1ZonedAPI(API):
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         reverse: Optional[str] = None,
+        tags: Optional[List[str]] = None,
     ) -> Ip:
         """
         Create an IP address.
@@ -686,6 +693,7 @@ class LbV1ZonedAPI(API):
         :param project_id: Project ID of the Project where the IP address should be created.
         One-Of ('project_identifier'): at most one of 'project_id', 'organization_id' could be set.
         :param reverse: Reverse DNS (domain name) for the IP address.
+        :param tags: List of tags for the IP.
         :return: :class:`Ip <Ip>`
 
         Usage:
@@ -706,6 +714,7 @@ class LbV1ZonedAPI(API):
                     is_ipv6=is_ipv6,
                     zone=zone,
                     reverse=reverse,
+                    tags=tags,
                     project_id=project_id,
                     organization_id=organization_id,
                 ),
@@ -785,6 +794,7 @@ class LbV1ZonedAPI(API):
         zone: Optional[Zone] = None,
         reverse: Optional[str] = None,
         lb_id: Optional[str] = None,
+        tags: Optional[List[str]] = None,
     ) -> Ip:
         """
         Update an IP address.
@@ -793,6 +803,7 @@ class LbV1ZonedAPI(API):
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param reverse: Reverse DNS (domain name) for the IP address.
         :param lb_id: ID of the server on which to attach the flexible IP.
+        :param tags: List of tags for the IP.
         :return: :class:`Ip <Ip>`
 
         Usage:
@@ -815,6 +826,7 @@ class LbV1ZonedAPI(API):
                     zone=zone,
                     reverse=reverse,
                     lb_id=lb_id,
+                    tags=tags,
                 ),
                 self.client,
             ),
@@ -3592,6 +3604,7 @@ class LbV1API(API):
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         ip_type: Optional[ListIpsRequestIpType] = None,
+        tags: Optional[List[str]] = None,
     ) -> ListIpsResponse:
         """
         List IPs.
@@ -3602,6 +3615,7 @@ class LbV1API(API):
         :param organization_id: Organization ID to filter for, only Load Balancer IP addresses from this Organization will be returned.
         :param project_id: Project ID to filter for, only Load Balancer IP addresses from this Project will be returned.
         :param ip_type: IP type to filter for.
+        :param tags: Tag to filter for, only IPs with one or more matching tags will be returned.
         :return: :class:`ListIpsResponse <ListIpsResponse>`
 
         Usage:
@@ -3625,6 +3639,7 @@ class LbV1API(API):
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
+                "tags": tags,
             },
         )
 
@@ -3641,6 +3656,7 @@ class LbV1API(API):
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         ip_type: Optional[ListIpsRequestIpType] = None,
+        tags: Optional[List[str]] = None,
     ) -> List[Ip]:
         """
         List IPs.
@@ -3651,6 +3667,7 @@ class LbV1API(API):
         :param organization_id: Organization ID to filter for, only Load Balancer IP addresses from this Organization will be returned.
         :param project_id: Project ID to filter for, only Load Balancer IP addresses from this Project will be returned.
         :param ip_type: IP type to filter for.
+        :param tags: Tag to filter for, only IPs with one or more matching tags will be returned.
         :return: :class:`List[Ip] <List[Ip]>`
 
         Usage:
@@ -3671,6 +3688,7 @@ class LbV1API(API):
                 "organization_id": organization_id,
                 "project_id": project_id,
                 "ip_type": ip_type,
+                "tags": tags,
             },
         )
 
@@ -3682,6 +3700,7 @@ class LbV1API(API):
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         reverse: Optional[str] = None,
+        tags: Optional[List[str]] = None,
     ) -> Ip:
         """
         Create an IP.
@@ -3692,6 +3711,7 @@ class LbV1API(API):
         :param project_id: Project ID of the Project where the IP address should be created.
         One-Of ('project_identifier'): at most one of 'project_id', 'organization_id' could be set.
         :param reverse: Reverse DNS (domain name) for the IP address.
+        :param tags: List of tags for the IP.
         :return: :class:`Ip <Ip>`
 
         Usage:
@@ -3714,6 +3734,7 @@ class LbV1API(API):
                     is_ipv6=is_ipv6,
                     region=region,
                     reverse=reverse,
+                    tags=tags,
                     project_id=project_id,
                     organization_id=organization_id,
                 ),
@@ -3795,6 +3816,7 @@ class LbV1API(API):
         region: Optional[Region] = None,
         reverse: Optional[str] = None,
         lb_id: Optional[str] = None,
+        tags: Optional[List[str]] = None,
     ) -> Ip:
         """
         Update an IP.
@@ -3802,6 +3824,7 @@ class LbV1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param reverse: Reverse DNS (domain name) for the IP address.
         :param lb_id: ID of the server on which to attach the flexible IP.
+        :param tags: List of tags for the IP.
         :return: :class:`Ip <Ip>`
 
         Usage:
@@ -3826,6 +3849,7 @@ class LbV1API(API):
                     region=region,
                     reverse=reverse,
                     lb_id=lb_id,
+                    tags=tags,
                 ),
                 self.client,
             ),
