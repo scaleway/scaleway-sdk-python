@@ -28,7 +28,7 @@ def unmarshal_Resource(data: Any) -> Resource:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -39,10 +39,14 @@ def unmarshal_Resource(data: Any) -> Resource:
     field = data.get("mac_address", None)
     if field is not None:
         args["mac_address"] = field
+    else:
+        args["mac_address"] = None
 
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+    else:
+        args["name"] = None
 
     return Resource(**args)
 
@@ -62,6 +66,8 @@ def unmarshal_Reverse(data: Any) -> Reverse:
     field = data.get("address", None)
     if field is not None:
         args["address"] = field
+    else:
+        args["address"] = None
 
     return Reverse(**args)
 
@@ -77,14 +83,20 @@ def unmarshal_Source(data: Any) -> Source:
     field = data.get("zonal", None)
     if field is not None:
         args["zonal"] = field
+    else:
+        args["zonal"] = None
 
     field = data.get("private_network_id", None)
     if field is not None:
         args["private_network_id"] = field
+    else:
+        args["private_network_id"] = None
 
     field = data.get("subnet_id", None)
     if field is not None:
         args["subnet_id"] = field
+    else:
+        args["subnet_id"] = None
 
     return Source(**args)
 
@@ -134,18 +146,26 @@ def unmarshal_IP(data: Any) -> IP:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("resource", None)
     if field is not None:
         args["resource"] = unmarshal_Resource(field)
+    else:
+        args["resource"] = None
 
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
+    else:
+        args["zone"] = None
 
     return IP(**args)
 

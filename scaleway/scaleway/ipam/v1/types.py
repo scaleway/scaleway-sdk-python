@@ -181,7 +181,7 @@ class BookIPRequest:
 
     address: Optional[str]
     """
-    Note that only the Private Network source allows you to pick a specific IP. If the requested IP is already booked, then the call will fail.
+    The requested address should not include the subnet mask (/suffix). Note that only the Private Network source allows you to pick a specific IP. If the requested IP is already booked, then the call will fail.
     """
 
     tags: Optional[List[str]]
