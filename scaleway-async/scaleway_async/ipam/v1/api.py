@@ -53,7 +53,7 @@ class IpamV1API(API):
         :param is_ipv6: Request an IPv6 instead of an IPv4.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: When creating an IP in a Private Network, the Project must match the Private Network's Project.
-        :param address: Note that only the Private Network source allows you to pick a specific IP. If the requested IP is already booked, then the call will fail.
+        :param address: The requested address should not include the subnet mask (/suffix). Note that only the Private Network source allows you to pick a specific IP. If the requested IP is already booked, then the call will fail.
         :param tags: Tags for the IP.
         :return: :class:`IP <IP>`
 
