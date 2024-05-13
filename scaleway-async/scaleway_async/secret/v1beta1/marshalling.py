@@ -476,8 +476,8 @@ def marshal_CreateSecretRequest(
         output["path"] = request.path
 
     if request.ephemeral_policy is not None:
-        output["ephemeral_policy"] = (
-            marshal_EphemeralPolicy(request.ephemeral_policy, defaults),
+        output["ephemeral_policy"] = marshal_EphemeralPolicy(
+            request.ephemeral_policy, defaults
         )
 
     return output
@@ -523,8 +523,8 @@ def marshal_UpdateSecretRequest(
         output["path"] = request.path
 
     if request.ephemeral_policy is not None:
-        output["ephemeral_policy"] = (
-            marshal_EphemeralPolicy(request.ephemeral_policy, defaults),
+        output["ephemeral_policy"] = marshal_EphemeralPolicy(
+            request.ephemeral_policy, defaults
         )
 
     return output
@@ -558,8 +558,8 @@ def marshal_UpdateSecretVersionRequest(
         output["description"] = request.description
 
     if request.ephemeral_properties is not None:
-        output["ephemeral_properties"] = (
-            marshal_EphemeralProperties(request.ephemeral_properties, defaults),
+        output["ephemeral_properties"] = marshal_EphemeralProperties(
+            request.ephemeral_properties, defaults
         )
 
     return output

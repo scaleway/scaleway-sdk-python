@@ -615,9 +615,7 @@ def marshal_CreateContactPointRequest(
         output["project_id"] = request.project_id or defaults.default_project_id
 
     if request.contact_point is not None:
-        output["contact_point"] = (
-            marshal_ContactPoint(request.contact_point, defaults),
-        )
+        output["contact_point"] = marshal_ContactPoint(request.contact_point, defaults)
 
     return output
 
@@ -710,7 +708,7 @@ def marshal_CreateTokenRequest(
         output["name"] = request.name
 
     if request.scopes is not None:
-        output["scopes"] = (marshal_TokenScopes(request.scopes, defaults),)
+        output["scopes"] = marshal_TokenScopes(request.scopes, defaults)
 
     return output
 
@@ -737,9 +735,7 @@ def marshal_DeleteContactPointRequest(
         output["project_id"] = request.project_id or defaults.default_project_id
 
     if request.contact_point is not None:
-        output["contact_point"] = (
-            marshal_ContactPoint(request.contact_point, defaults),
-        )
+        output["contact_point"] = marshal_ContactPoint(request.contact_point, defaults)
 
     return output
 

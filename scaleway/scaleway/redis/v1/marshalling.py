@@ -643,10 +643,8 @@ def marshal_EndpointSpecPrivateNetworkSpec(
         output["service_ips"] = request.service_ips
 
     if request.ipam_config is not None:
-        output["ipam_config"] = (
-            marshal_EndpointSpecPrivateNetworkSpecIpamConfig(
-                request.ipam_config, defaults
-            ),
+        output["ipam_config"] = marshal_EndpointSpecPrivateNetworkSpecIpamConfig(
+            request.ipam_config, defaults
         )
 
     return output
