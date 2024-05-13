@@ -1524,9 +1524,7 @@ def marshal_CreateEndpointRequest(
     output: Dict[str, Any] = {}
 
     if request.endpoint_spec is not None:
-        output["endpoint_spec"] = (
-            marshal_EndpointSpec(request.endpoint_spec, defaults),
-        )
+        output["endpoint_spec"] = marshal_EndpointSpec(request.endpoint_spec, defaults)
 
     return output
 
@@ -1870,7 +1868,7 @@ def marshal_UpdateInstanceRequest(
         output["tags"] = request.tags
 
     if request.logs_policy is not None:
-        output["logs_policy"] = (marshal_LogsPolicy(request.logs_policy, defaults),)
+        output["logs_policy"] = marshal_LogsPolicy(request.logs_policy, defaults)
 
     if request.backup_same_region is not None:
         output["backup_same_region"] = request.backup_same_region

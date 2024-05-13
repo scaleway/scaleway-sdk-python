@@ -536,7 +536,7 @@ def marshal_CreateHostingRequest(
         output["domain_configuration"] = (
             marshal_CreateHostingRequestDomainConfiguration(
                 request.domain_configuration, defaults
-            ),
+            )
         )
 
     return output

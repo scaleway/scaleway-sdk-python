@@ -1590,7 +1590,7 @@ def marshal_AclAction(
         output["type"] = str(request.type_)
 
     if request.redirect is not None:
-        output["redirect"] = (marshal_AclActionRedirect(request.redirect, defaults),)
+        output["redirect"] = marshal_AclActionRedirect(request.redirect, defaults)
 
     return output
 
@@ -1626,7 +1626,7 @@ def marshal_CreateAclRequest(
     output: Dict[str, Any] = {}
 
     if request.action is not None:
-        output["action"] = (marshal_AclAction(request.action, defaults),)
+        output["action"] = marshal_AclAction(request.action, defaults)
 
     if request.index is not None:
         output["index"] = request.index
@@ -1638,7 +1638,7 @@ def marshal_CreateAclRequest(
         output["name"] = request.name
 
     if request.match is not None:
-        output["match"] = (marshal_AclMatch(request.match, defaults),)
+        output["match"] = marshal_AclMatch(request.match, defaults)
 
     return output
 
@@ -1801,7 +1801,7 @@ def marshal_CreateBackendRequest(
         output["sticky_sessions_cookie_name"] = request.sticky_sessions_cookie_name
 
     if request.health_check is not None:
-        output["health_check"] = (marshal_HealthCheck(request.health_check, defaults),)
+        output["health_check"] = marshal_HealthCheck(request.health_check, defaults)
 
     if request.server_ip is not None:
         output["server_ip"] = request.server_ip
@@ -2040,7 +2040,7 @@ def marshal_CreateRouteRequest(
         output["backend_id"] = request.backend_id
 
     if request.match is not None:
-        output["match"] = (marshal_RouteMatch(request.match, defaults),)
+        output["match"] = marshal_RouteMatch(request.match, defaults)
 
     return output
 
@@ -2161,13 +2161,13 @@ def marshal_UpdateAclRequest(
         output["name"] = request.name
 
     if request.action is not None:
-        output["action"] = (marshal_AclAction(request.action, defaults),)
+        output["action"] = marshal_AclAction(request.action, defaults)
 
     if request.index is not None:
         output["index"] = request.index
 
     if request.match is not None:
-        output["match"] = (marshal_AclMatch(request.match, defaults),)
+        output["match"] = marshal_AclMatch(request.match, defaults)
 
     if request.description is not None:
         output["description"] = request.description
@@ -2372,7 +2372,7 @@ def marshal_UpdateRouteRequest(
         output["backend_id"] = request.backend_id
 
     if request.match is not None:
-        output["match"] = (marshal_RouteMatch(request.match, defaults),)
+        output["match"] = marshal_RouteMatch(request.match, defaults)
 
     return output
 
@@ -2434,7 +2434,7 @@ def marshal_ZonedApiCreateAclRequest(
     output: Dict[str, Any] = {}
 
     if request.action is not None:
-        output["action"] = (marshal_AclAction(request.action, defaults),)
+        output["action"] = marshal_AclAction(request.action, defaults)
 
     if request.index is not None:
         output["index"] = request.index
@@ -2446,7 +2446,7 @@ def marshal_ZonedApiCreateAclRequest(
         output["name"] = request.name
 
     if request.match is not None:
-        output["match"] = (marshal_AclMatch(request.match, defaults),)
+        output["match"] = marshal_AclMatch(request.match, defaults)
 
     return output
 
@@ -2473,7 +2473,7 @@ def marshal_ZonedApiCreateBackendRequest(
         output["sticky_sessions_cookie_name"] = request.sticky_sessions_cookie_name
 
     if request.health_check is not None:
-        output["health_check"] = (marshal_HealthCheck(request.health_check, defaults),)
+        output["health_check"] = marshal_HealthCheck(request.health_check, defaults)
 
     if request.server_ip is not None:
         output["server_ip"] = request.server_ip
@@ -2668,7 +2668,7 @@ def marshal_ZonedApiCreateRouteRequest(
         output["backend_id"] = request.backend_id
 
     if request.match is not None:
-        output["match"] = (marshal_RouteMatch(request.match, defaults),)
+        output["match"] = marshal_RouteMatch(request.match, defaults)
 
     return output
 
@@ -2741,7 +2741,7 @@ def marshal_AclSpec(
         output["name"] = request.name
 
     if request.action is not None:
-        output["action"] = (marshal_AclAction(request.action, defaults),)
+        output["action"] = marshal_AclAction(request.action, defaults)
 
     if request.index is not None:
         output["index"] = request.index
@@ -2750,7 +2750,7 @@ def marshal_AclSpec(
         output["description"] = request.description
 
     if request.match is not None:
-        output["match"] = (marshal_AclMatch(request.match, defaults),)
+        output["match"] = marshal_AclMatch(request.match, defaults)
 
     return output
 
@@ -2801,13 +2801,13 @@ def marshal_ZonedApiUpdateAclRequest(
         output["name"] = request.name
 
     if request.action is not None:
-        output["action"] = (marshal_AclAction(request.action, defaults),)
+        output["action"] = marshal_AclAction(request.action, defaults)
 
     if request.index is not None:
         output["index"] = request.index
 
     if request.match is not None:
-        output["match"] = (marshal_AclMatch(request.match, defaults),)
+        output["match"] = marshal_AclMatch(request.match, defaults)
 
     if request.description is not None:
         output["description"] = request.description
@@ -3012,7 +3012,7 @@ def marshal_ZonedApiUpdateRouteRequest(
         output["backend_id"] = request.backend_id
 
     if request.match is not None:
-        output["match"] = (marshal_RouteMatch(request.match, defaults),)
+        output["match"] = marshal_RouteMatch(request.match, defaults)
 
     return output
 

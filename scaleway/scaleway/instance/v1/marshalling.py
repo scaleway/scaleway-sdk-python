@@ -3360,7 +3360,7 @@ def marshal_Volume(
         output["zone"] = request.zone or defaults.default_zone
 
     if request.server is not None:
-        output["server"] = (marshal_ServerSummary(request.server, defaults),)
+        output["server"] = marshal_ServerSummary(request.server, defaults)
 
     return output
 
@@ -3411,8 +3411,8 @@ def marshal_SetImageRequest(
         output["public"] = request.public
 
     if request.default_bootscript is not None:
-        output["default_bootscript"] = (
-            marshal_Bootscript(request.default_bootscript, defaults),
+        output["default_bootscript"] = marshal_Bootscript(
+            request.default_bootscript, defaults
         )
 
     if request.extra_volumes is not None:
@@ -3427,7 +3427,7 @@ def marshal_SetImageRequest(
         )
 
     if request.root_volume is not None:
-        output["root_volume"] = (marshal_VolumeSummary(request.root_volume, defaults),)
+        output["root_volume"] = marshal_VolumeSummary(request.root_volume, defaults)
 
     if request.state is not None:
         output["state"] = str(request.state)
@@ -3762,8 +3762,8 @@ def marshal_UpdateServerRequest(
         output["protected"] = request.protected
 
     if request.security_group is not None:
-        output["security_group"] = (
-            marshal_SecurityGroupTemplate(request.security_group, defaults),
+        output["security_group"] = marshal_SecurityGroupTemplate(
+            request.security_group, defaults
         )
 
     if request.placement_group is not None:
@@ -3938,8 +3938,8 @@ def marshal_Image(
         output["modification_date"] = request.modification_date
 
     if request.default_bootscript is not None:
-        output["default_bootscript"] = (
-            marshal_Bootscript(request.default_bootscript, defaults),
+        output["default_bootscript"] = marshal_Bootscript(
+            request.default_bootscript, defaults
         )
 
     if request.public is not None:
@@ -3958,7 +3958,7 @@ def marshal_Image(
         output["zone"] = request.zone or defaults.default_zone
 
     if request.root_volume is not None:
-        output["root_volume"] = (marshal_VolumeSummary(request.root_volume, defaults),)
+        output["root_volume"] = marshal_VolumeSummary(request.root_volume, defaults)
 
     return output
 
@@ -4181,7 +4181,7 @@ def marshal__SetServerRequest(
         output["enable_ipv6"] = request.enable_ipv6
 
     if request.image is not None:
-        output["image"] = (marshal_Image(request.image, defaults),)
+        output["image"] = marshal_Image(request.image, defaults)
 
     if request.protected is not None:
         output["protected"] = request.protected
@@ -4190,7 +4190,7 @@ def marshal__SetServerRequest(
         output["private_ip"] = request.private_ip
 
     if request.public_ip is not None:
-        output["public_ip"] = (marshal_ServerIp(request.public_ip, defaults),)
+        output["public_ip"] = marshal_ServerIp(request.public_ip, defaults)
 
     if request.public_ips is not None:
         output["public_ips"] = [
@@ -4207,13 +4207,13 @@ def marshal__SetServerRequest(
         output["state"] = str(request.state)
 
     if request.location is not None:
-        output["location"] = (marshal_ServerLocation(request.location, defaults),)
+        output["location"] = marshal_ServerLocation(request.location, defaults)
 
     if request.ipv6 is not None:
-        output["ipv6"] = (marshal_ServerIpv6(request.ipv6, defaults),)
+        output["ipv6"] = marshal_ServerIpv6(request.ipv6, defaults)
 
     if request.bootscript is not None:
-        output["bootscript"] = (marshal_Bootscript(request.bootscript, defaults),)
+        output["bootscript"] = marshal_Bootscript(request.bootscript, defaults)
 
     if request.boot_type is not None:
         output["boot_type"] = str(request.boot_type)
@@ -4225,8 +4225,8 @@ def marshal__SetServerRequest(
         }
 
     if request.security_group is not None:
-        output["security_group"] = (
-            marshal_SecurityGroupSummary(request.security_group, defaults),
+        output["security_group"] = marshal_SecurityGroupSummary(
+            request.security_group, defaults
         )
 
     if request.maintenances is not None:
@@ -4238,8 +4238,8 @@ def marshal__SetServerRequest(
         output["arch"] = str(request.arch)
 
     if request.placement_group is not None:
-        output["placement_group"] = (
-            marshal_PlacementGroup(request.placement_group, defaults),
+        output["placement_group"] = marshal_PlacementGroup(
+            request.placement_group, defaults
         )
 
     if request.private_nics is not None:
@@ -4292,8 +4292,8 @@ def marshal__SetSnapshotRequest(
         output["state"] = str(request.state)
 
     if request.base_volume is not None:
-        output["base_volume"] = (
-            marshal_SnapshotBaseVolume(request.base_volume, defaults),
+        output["base_volume"] = marshal_SnapshotBaseVolume(
+            request.base_volume, defaults
         )
 
     if request.creation_date is not None:

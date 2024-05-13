@@ -320,10 +320,8 @@ def marshal_CreateJobDefinitionRequest(
         output["job_timeout"] = request.job_timeout
 
     if request.cron_schedule is not None:
-        output["cron_schedule"] = (
-            marshal_CreateJobDefinitionRequestCronScheduleConfig(
-                request.cron_schedule, defaults
-            ),
+        output["cron_schedule"] = marshal_CreateJobDefinitionRequestCronScheduleConfig(
+            request.cron_schedule, defaults
         )
 
     return output
@@ -396,10 +394,8 @@ def marshal_UpdateJobDefinitionRequest(
         output["job_timeout"] = request.job_timeout
 
     if request.cron_schedule is not None:
-        output["cron_schedule"] = (
-            marshal_UpdateJobDefinitionRequestCronScheduleConfig(
-                request.cron_schedule, defaults
-            ),
+        output["cron_schedule"] = marshal_UpdateJobDefinitionRequestCronScheduleConfig(
+            request.cron_schedule, defaults
         )
 
     return output

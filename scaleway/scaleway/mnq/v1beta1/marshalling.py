@@ -559,7 +559,7 @@ def marshal_SnsApiCreateSnsCredentialsRequest(
         output["name"] = request.name
 
     if request.permissions is not None:
-        output["permissions"] = (marshal_SnsPermissions(request.permissions, defaults),)
+        output["permissions"] = marshal_SnsPermissions(request.permissions, defaults)
 
     return output
 
@@ -586,7 +586,7 @@ def marshal_SnsApiUpdateSnsCredentialsRequest(
         output["name"] = request.name
 
     if request.permissions is not None:
-        output["permissions"] = (marshal_SnsPermissions(request.permissions, defaults),)
+        output["permissions"] = marshal_SnsPermissions(request.permissions, defaults)
 
     return output
 
@@ -634,7 +634,7 @@ def marshal_SqsApiCreateSqsCredentialsRequest(
         output["name"] = request.name
 
     if request.permissions is not None:
-        output["permissions"] = (marshal_SqsPermissions(request.permissions, defaults),)
+        output["permissions"] = marshal_SqsPermissions(request.permissions, defaults)
 
     return output
 
@@ -661,6 +661,6 @@ def marshal_SqsApiUpdateSqsCredentialsRequest(
         output["name"] = request.name
 
     if request.permissions is not None:
-        output["permissions"] = (marshal_SqsPermissions(request.permissions, defaults),)
+        output["permissions"] = marshal_SqsPermissions(request.permissions, defaults)
 
     return output

@@ -621,7 +621,7 @@ def marshal_CreateEndpointRequest(
         output["deployment_id"] = request.deployment_id
 
     if request.endpoint is not None:
-        output["endpoint"] = (marshal_EndpointSpec(request.endpoint, defaults),)
+        output["endpoint"] = marshal_EndpointSpec(request.endpoint, defaults)
 
     return output
 
