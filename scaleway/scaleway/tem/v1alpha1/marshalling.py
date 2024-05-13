@@ -637,7 +637,7 @@ def marshal_CreateEmailRequest(
         output["html"] = request.html
 
     if request.from_ is not None:
-        output["from"] = (marshal_CreateEmailRequestAddress(request.from_, defaults),)
+        output["from"] = marshal_CreateEmailRequestAddress(request.from_, defaults)
 
     if request.to is not None:
         output["to"] = [

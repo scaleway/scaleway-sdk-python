@@ -885,8 +885,8 @@ def marshal_CreateClusterRequestAutoUpgrade(
         output["enable"] = request.enable
 
     if request.maintenance_window is not None:
-        output["maintenance_window"] = (
-            marshal_MaintenanceWindow(request.maintenance_window, defaults),
+        output["maintenance_window"] = marshal_MaintenanceWindow(
+            request.maintenance_window, defaults
         )
 
     return output
@@ -1016,10 +1016,8 @@ def marshal_CreateClusterRequestPoolConfig(
         output["public_ip_disabled"] = request.public_ip_disabled
 
     if request.upgrade_policy is not None:
-        output["upgrade_policy"] = (
-            marshal_CreateClusterRequestPoolConfigUpgradePolicy(
-                request.upgrade_policy, defaults
-            ),
+        output["upgrade_policy"] = marshal_CreateClusterRequestPoolConfigUpgradePolicy(
+            request.upgrade_policy, defaults
         )
 
     if request.root_volume_size is not None:
@@ -1073,15 +1071,13 @@ def marshal_CreateClusterRequest(
         ]
 
     if request.autoscaler_config is not None:
-        output["autoscaler_config"] = (
-            marshal_CreateClusterRequestAutoscalerConfig(
-                request.autoscaler_config, defaults
-            ),
+        output["autoscaler_config"] = marshal_CreateClusterRequestAutoscalerConfig(
+            request.autoscaler_config, defaults
         )
 
     if request.auto_upgrade is not None:
-        output["auto_upgrade"] = (
-            marshal_CreateClusterRequestAutoUpgrade(request.auto_upgrade, defaults),
+        output["auto_upgrade"] = marshal_CreateClusterRequestAutoUpgrade(
+            request.auto_upgrade, defaults
         )
 
     if request.feature_gates is not None:
@@ -1094,7 +1090,7 @@ def marshal_CreateClusterRequest(
         output["open_id_connect_config"] = (
             marshal_CreateClusterRequestOpenIDConnectConfig(
                 request.open_id_connect_config, defaults
-            ),
+            )
         )
 
     if request.apiserver_cert_sans is not None:
@@ -1166,8 +1162,8 @@ def marshal_CreatePoolRequest(
         }
 
     if request.upgrade_policy is not None:
-        output["upgrade_policy"] = (
-            marshal_CreatePoolRequestUpgradePolicy(request.upgrade_policy, defaults),
+        output["upgrade_policy"] = marshal_CreatePoolRequestUpgradePolicy(
+            request.upgrade_policy, defaults
         )
 
     if request.zone is not None:
@@ -1216,8 +1212,8 @@ def marshal_UpdateClusterRequestAutoUpgrade(
         output["enable"] = request.enable
 
     if request.maintenance_window is not None:
-        output["maintenance_window"] = (
-            marshal_MaintenanceWindow(request.maintenance_window, defaults),
+        output["maintenance_window"] = marshal_MaintenanceWindow(
+            request.maintenance_window, defaults
         )
 
     return output
@@ -1312,15 +1308,13 @@ def marshal_UpdateClusterRequest(
         output["tags"] = request.tags
 
     if request.autoscaler_config is not None:
-        output["autoscaler_config"] = (
-            marshal_UpdateClusterRequestAutoscalerConfig(
-                request.autoscaler_config, defaults
-            ),
+        output["autoscaler_config"] = marshal_UpdateClusterRequestAutoscalerConfig(
+            request.autoscaler_config, defaults
         )
 
     if request.auto_upgrade is not None:
-        output["auto_upgrade"] = (
-            marshal_UpdateClusterRequestAutoUpgrade(request.auto_upgrade, defaults),
+        output["auto_upgrade"] = marshal_UpdateClusterRequestAutoUpgrade(
+            request.auto_upgrade, defaults
         )
 
     if request.feature_gates is not None:
@@ -1333,7 +1327,7 @@ def marshal_UpdateClusterRequest(
         output["open_id_connect_config"] = (
             marshal_UpdateClusterRequestOpenIDConnectConfig(
                 request.open_id_connect_config, defaults
-            ),
+            )
         )
 
     if request.apiserver_cert_sans is not None:
@@ -1385,8 +1379,8 @@ def marshal_UpdatePoolRequest(
         output["kubelet_args"] = request.kubelet_args
 
     if request.upgrade_policy is not None:
-        output["upgrade_policy"] = (
-            marshal_UpdatePoolRequestUpgradePolicy(request.upgrade_policy, defaults),
+        output["upgrade_policy"] = marshal_UpdatePoolRequestUpgradePolicy(
+            request.upgrade_policy, defaults
         )
 
     return output

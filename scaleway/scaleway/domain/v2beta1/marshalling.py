@@ -2287,8 +2287,8 @@ def marshal_ImportRawDNSZoneRequestAXFRSource(
         output["name_server"] = request.name_server
 
     if request.tsig_key is not None:
-        output["tsig_key"] = (
-            marshal_ImportRawDNSZoneRequestTsigKey(request.tsig_key, defaults),
+        output["tsig_key"] = marshal_ImportRawDNSZoneRequestTsigKey(
+            request.tsig_key, defaults
         )
 
     return output
@@ -2546,21 +2546,21 @@ def marshal_NewContact(
         ]
 
     if request.extension_fr is not None:
-        output["extension_fr"] = (
-            marshal_ContactExtensionFR(request.extension_fr, defaults),
+        output["extension_fr"] = marshal_ContactExtensionFR(
+            request.extension_fr, defaults
         )
 
     if request.extension_eu is not None:
-        output["extension_eu"] = (
-            marshal_ContactExtensionEU(request.extension_eu, defaults),
+        output["extension_eu"] = marshal_ContactExtensionEU(
+            request.extension_eu, defaults
         )
 
     if request.state is not None:
         output["state"] = request.state
 
     if request.extension_nl is not None:
-        output["extension_nl"] = (
-            marshal_ContactExtensionNL(request.extension_nl, defaults),
+        output["extension_nl"] = marshal_ContactExtensionNL(
+            request.extension_nl, defaults
         )
 
     return output
@@ -2695,9 +2695,7 @@ def marshal_DSRecordDigest(
         output["digest"] = request.digest
 
     if request.public_key is not None:
-        output["public_key"] = (
-            marshal_DSRecordPublicKey(request.public_key, defaults),
-        )
+        output["public_key"] = marshal_DSRecordPublicKey(request.public_key, defaults)
 
     return output
 
@@ -2732,7 +2730,7 @@ def marshal_RegistrarApiEnableDomainDNSSECRequest(
     output: Dict[str, Any] = {}
 
     if request.ds_record is not None:
-        output["ds_record"] = (marshal_DSRecord(request.ds_record, defaults),)
+        output["ds_record"] = marshal_DSRecord(request.ds_record, defaults)
 
     return output
 
@@ -2918,13 +2916,13 @@ def marshal_RegistrarApiUpdateContactRequest(
         ]
 
     if request.extension_fr is not None:
-        output["extension_fr"] = (
-            marshal_ContactExtensionFR(request.extension_fr, defaults),
+        output["extension_fr"] = marshal_ContactExtensionFR(
+            request.extension_fr, defaults
         )
 
     if request.extension_eu is not None:
-        output["extension_eu"] = (
-            marshal_ContactExtensionEU(request.extension_eu, defaults),
+        output["extension_eu"] = marshal_ContactExtensionEU(
+            request.extension_eu, defaults
         )
 
     if request.whois_opt_in is not None:
@@ -2934,8 +2932,8 @@ def marshal_RegistrarApiUpdateContactRequest(
         output["state"] = request.state
 
     if request.extension_nl is not None:
-        output["extension_nl"] = (
-            marshal_ContactExtensionNL(request.extension_nl, defaults),
+        output["extension_nl"] = marshal_ContactExtensionNL(
+            request.extension_nl, defaults
         )
 
     return output

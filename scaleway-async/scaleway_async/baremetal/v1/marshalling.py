@@ -1076,8 +1076,8 @@ def marshal_CreateServerRequest(
         output["tags"] = request.tags
 
     if request.install is not None:
-        output["install"] = (
-            marshal_CreateServerRequestInstall(request.install, defaults),
+        output["install"] = marshal_CreateServerRequestInstall(
+            request.install, defaults
         )
 
     if request.option_ids is not None:

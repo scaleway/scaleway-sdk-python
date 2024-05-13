@@ -863,13 +863,11 @@ def marshal_DeviceMessageFilters(
     output: Dict[str, Any] = {}
 
     if request.publish is not None:
-        output["publish"] = (
-            marshal_DeviceMessageFiltersRule(request.publish, defaults),
-        )
+        output["publish"] = marshal_DeviceMessageFiltersRule(request.publish, defaults)
 
     if request.subscribe is not None:
-        output["subscribe"] = (
-            marshal_DeviceMessageFiltersRule(request.subscribe, defaults),
+        output["subscribe"] = marshal_DeviceMessageFiltersRule(
+            request.subscribe, defaults
         )
 
     return output
@@ -894,8 +892,8 @@ def marshal_CreateDeviceRequest(
         output["name"] = request.name
 
     if request.message_filters is not None:
-        output["message_filters"] = (
-            marshal_DeviceMessageFilters(request.message_filters, defaults),
+        output["message_filters"] = marshal_DeviceMessageFilters(
+            request.message_filters, defaults
         )
 
     if request.description is not None:
@@ -1139,8 +1137,8 @@ def marshal_UpdateDeviceRequest(
         output["allow_multiple_connections"] = request.allow_multiple_connections
 
     if request.message_filters is not None:
-        output["message_filters"] = (
-            marshal_DeviceMessageFilters(request.message_filters, defaults),
+        output["message_filters"] = marshal_DeviceMessageFilters(
+            request.message_filters, defaults
         )
 
     if request.hub_id is not None:
