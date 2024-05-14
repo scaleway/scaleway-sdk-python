@@ -214,7 +214,7 @@ def marshal_BookIPRequest(
     output: Dict[str, Any] = {}
 
     if request.source is not None:
-        output["source"] = (marshal_Source(request.source, defaults),)
+        output["source"] = marshal_Source(request.source, defaults)
 
     if request.is_ipv6 is not None:
         output["is_ipv6"] = request.is_ipv6

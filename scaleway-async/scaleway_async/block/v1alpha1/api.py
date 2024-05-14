@@ -50,7 +50,7 @@ from .marshalling import (
 
 class BlockV1Alpha1API(API):
     """
-    This API allows you to use and manage your Block Storage volumes.
+    This API allows you to manage your Block Storage volumes.
     """
 
     async def list_volume_types(

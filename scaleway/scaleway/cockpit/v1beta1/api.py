@@ -85,7 +85,7 @@ from .marshalling import (
 
 class CockpitV1Beta1API(API):
     """
-    The Cockpit API allows you to activate your Cockpit to store metrics and logs. It also provides you with a dedicated Grafana for dashboarding to visualize your metrics and logs.
+    This API allows you to manage your Scaleway Cockpit, for storing and visualizing metrics and logs.
     """
 
     def activate_cockpit(

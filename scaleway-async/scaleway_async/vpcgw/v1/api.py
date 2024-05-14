@@ -98,7 +98,7 @@ from .marshalling import (
 
 class VpcgwV1API(API):
     """
-    Public Gateways API.
+    This API allows you to manage your Public Gateways.
     """
 
     async def list_gateways(

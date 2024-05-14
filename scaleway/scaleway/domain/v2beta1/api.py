@@ -170,7 +170,7 @@ from ...std.types import (
 
 class DomainV2Beta1API(API):
     """
-    Manage your domains, DNS zones and records with the Domains and DNS API.
+    This API allows you to manage your domains, DNS zones and records.
     """
 
     def list_dns_zones(

@@ -26,7 +26,7 @@ from .marshalling import (
 
 class AccountV2API(API):
     """
-    This API allows you to manage projects.
+    This API allows you to manage your Scaleway Projects.
     """
 
     def create_project(

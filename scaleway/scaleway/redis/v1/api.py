@@ -79,7 +79,9 @@ from .marshalling import (
 
 
 class RedisV1API(API):
-    """ """
+    """
+    This API allows you to manage your Managed Databases for Redis™.
+    """
 
     def create_cluster(
         self,

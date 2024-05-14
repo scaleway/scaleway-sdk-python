@@ -40,7 +40,7 @@ from .marshalling import (
 
 class JobsV1Alpha1API(API):
     """
-    Serverless Jobs API.
+    This API allows you to manage your Serverless Jobs.
     """
 
     def create_job_definition(

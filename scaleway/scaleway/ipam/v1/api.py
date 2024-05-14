@@ -33,7 +33,7 @@ from .marshalling import (
 
 class IpamV1API(API):
     """
-    This API allows you to manage IP addresses with Scaleway's IP Address Management tool.
+    This API allows you to manage your Scaleway IP addresses with our IP Address Management tool.
     """
 
     def book_ip(

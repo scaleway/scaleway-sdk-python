@@ -89,7 +89,7 @@ from .marshalling import (
 
 class K8SV1API(API):
     """
-    Kubernetes API.
+    This API allows you to manage Kubernetes Kapsule and Kosmos clusters.
     """
 
     def list_clusters(

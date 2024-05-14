@@ -143,7 +143,9 @@ from .marshalling import (
 
 
 class DocumentDbV1Beta1API(API):
-    """ """
+    """
+    This API allows you to manage your Document Databases.
+    """
 
     async def list_database_engines(
         self,

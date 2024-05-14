@@ -40,7 +40,9 @@ from .marshalling import (
 
 
 class MarketplaceV2API(API):
-    """ """
+    """
+    This API allows you to find available images for use when launching a Scaleway Instance.
+    """
 
     async def list_images(
         self,

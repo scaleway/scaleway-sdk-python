@@ -40,7 +40,7 @@ from .marshalling import (
 
 class ServerlessSqldbV1Alpha1API(API):
     """
-    This API allows you to manage your Serverless SQL DB databases.
+    This API allows you to manage your Serverless SQL Databases.
     """
 
     async def create_database(

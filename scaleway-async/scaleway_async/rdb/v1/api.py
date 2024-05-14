@@ -159,7 +159,9 @@ from .marshalling import (
 
 
 class RdbV1API(API):
-    """ """
+    """
+    This API allows you to manage your Managed Databases for PostgreSQL and MySQL.
+    """
 
     async def list_database_engines(
         self,
