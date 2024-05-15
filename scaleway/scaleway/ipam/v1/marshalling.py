@@ -16,6 +16,7 @@ from .types import (
     IP,
     ListIPsResponse,
     BookIPRequest,
+    ReleaseIPSetRequest,
     UpdateIPRequest,
 )
 
@@ -227,6 +228,18 @@ def marshal_BookIPRequest(
 
     if request.tags is not None:
         output["tags"] = request.tags
+
+    return output
+
+
+def marshal_ReleaseIPSetRequest(
+    request: ReleaseIPSetRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.ip_ids is not None:
+        output["ip_ids"] = request.ip_ids
 
     return output
 

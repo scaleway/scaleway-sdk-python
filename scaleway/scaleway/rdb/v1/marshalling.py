@@ -23,6 +23,7 @@ from .types import (
     Database,
     InstanceLog,
     BackupSchedule,
+    EncryptionAtRest,
     InstanceSetting,
     LogsPolicy,
     UpgradableVersion,
@@ -466,6 +467,21 @@ def unmarshal_BackupSchedule(data: Any) -> BackupSchedule:
     return BackupSchedule(**args)
 
 
+def unmarshal_EncryptionAtRest(data: Any) -> EncryptionAtRest:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'EncryptionAtRest' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("enabled", None)
+    if field is not None:
+        args["enabled"] = field
+
+    return EncryptionAtRest(**args)
+
+
 def unmarshal_InstanceSetting(data: Any) -> InstanceSetting:
     if not isinstance(data, dict):
         raise TypeError(
@@ -677,6 +693,12 @@ def unmarshal_Instance(data: Any) -> Instance:
         args["logs_policy"] = unmarshal_LogsPolicy(field)
     else:
         args["logs_policy"] = None
+
+    field = data.get("encryption", None)
+    if field is not None:
+        args["encryption"] = unmarshal_EncryptionAtRest(field)
+    else:
+        args["encryption"] = None
 
     return Instance(**args)
 
@@ -1702,6 +1724,18 @@ def marshal_CreateInstanceFromSnapshotRequest(
     return output
 
 
+def marshal_EncryptionAtRest(
+    request: EncryptionAtRest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.enabled is not None:
+        output["enabled"] = request.enabled
+
+    return output
+
+
 def marshal_CreateInstanceRequest(
     request: CreateInstanceRequest,
     defaults: ProfileDefaults,
@@ -1764,6 +1798,9 @@ def marshal_CreateInstanceRequest(
         output["init_endpoints"] = [
             marshal_EndpointSpec(item, defaults) for item in request.init_endpoints
         ]
+
+    if request.encryption is not None:
+        output["encryption"] = marshal_EncryptionAtRest(request.encryption, defaults)
 
     return output
 

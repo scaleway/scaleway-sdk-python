@@ -19,6 +19,7 @@ from .types import (
     BookIPRequest,
     IP,
     ListIPsResponse,
+    ReleaseIPSetRequest,
     Reverse,
     Source,
     UpdateIPRequest,
@@ -27,6 +28,7 @@ from .marshalling import (
     unmarshal_IP,
     unmarshal_ListIPsResponse,
     marshal_BookIPRequest,
+    marshal_ReleaseIPSetRequest,
     marshal_UpdateIPRequest,
 )
 
@@ -122,6 +124,40 @@ class IpamV1API(API):
 
         self._throw_on_error(res)
 
+    async def release_ip_set(
+        self,
+        *,
+        region: Optional[Region] = None,
+        ip_ids: Optional[List[str]] = None,
+    ) -> None:
+        """
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param ip_ids:
+
+        Usage:
+        ::
+
+            result = await api.release_ip_set()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "POST",
+            f"/ipam/v1/regions/{param_region}/ip-sets/release",
+            body=marshal_ReleaseIPSetRequest(
+                ReleaseIPSetRequest(
+                    region=region,
+                    ip_ids=ip_ids,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+
     async def get_ip(
         self,
         *,
@@ -213,6 +249,8 @@ class IpamV1API(API):
         project_id: Optional[str] = None,
         zonal: Optional[str] = None,
         private_network_id: Optional[str] = None,
+        subnet_id: Optional[str] = None,
+        vpc_id: Optional[str] = None,
         attached: Optional[bool] = None,
         resource_id: Optional[str] = None,
         resource_type: Optional[ResourceType] = None,
@@ -231,9 +269,12 @@ class IpamV1API(API):
         :param page_size: Maximum number of IPs to return per page.
         :param project_id: Project ID to filter for. Only IPs belonging to this Project will be returned.
         :param zonal: Zone to filter for. Only IPs that are zonal, and in this zone, will be returned.
-        One-Of ('source'): at most one of 'zonal', 'private_network_id' could be set.
+        One-Of ('source'): at most one of 'zonal', 'private_network_id', 'subnet_id' could be set.
         :param private_network_id: Only IPs that are private, and in this Private Network, will be returned.
-        One-Of ('source'): at most one of 'zonal', 'private_network_id' could be set.
+        One-Of ('source'): at most one of 'zonal', 'private_network_id', 'subnet_id' could be set.
+        :param subnet_id: Only IPs inside this exact subnet will be returned.
+        One-Of ('source'): at most one of 'zonal', 'private_network_id', 'subnet_id' could be set.
+        :param vpc_id: Only IPs owned by resources in this VPC will be returned.
         :param attached: Defines whether to filter only for IPs which are attached to a resource.
         :param resource_id: Resource ID to filter for. Only IPs attached to this resource will be returned.
         :param resource_type: Resource type to filter for. Only IPs attached to this type of resource will be returned.
@@ -271,9 +312,11 @@ class IpamV1API(API):
                 "resource_name": resource_name,
                 "resource_type": resource_type,
                 "tags": tags,
+                "vpc_id": vpc_id,
                 **resolve_one_of(
                     [
                         OneOfPossibility("private_network_id", private_network_id),
+                        OneOfPossibility("subnet_id", subnet_id),
                         OneOfPossibility("zonal", zonal),
                     ]
                 ),
@@ -293,6 +336,8 @@ class IpamV1API(API):
         project_id: Optional[str] = None,
         zonal: Optional[str] = None,
         private_network_id: Optional[str] = None,
+        subnet_id: Optional[str] = None,
+        vpc_id: Optional[str] = None,
         attached: Optional[bool] = None,
         resource_id: Optional[str] = None,
         resource_type: Optional[ResourceType] = None,
@@ -311,9 +356,12 @@ class IpamV1API(API):
         :param page_size: Maximum number of IPs to return per page.
         :param project_id: Project ID to filter for. Only IPs belonging to this Project will be returned.
         :param zonal: Zone to filter for. Only IPs that are zonal, and in this zone, will be returned.
-        One-Of ('source'): at most one of 'zonal', 'private_network_id' could be set.
+        One-Of ('source'): at most one of 'zonal', 'private_network_id', 'subnet_id' could be set.
         :param private_network_id: Only IPs that are private, and in this Private Network, will be returned.
-        One-Of ('source'): at most one of 'zonal', 'private_network_id' could be set.
+        One-Of ('source'): at most one of 'zonal', 'private_network_id', 'subnet_id' could be set.
+        :param subnet_id: Only IPs inside this exact subnet will be returned.
+        One-Of ('source'): at most one of 'zonal', 'private_network_id', 'subnet_id' could be set.
+        :param vpc_id: Only IPs owned by resources in this VPC will be returned.
         :param attached: Defines whether to filter only for IPs which are attached to a resource.
         :param resource_id: Resource ID to filter for. Only IPs attached to this resource will be returned.
         :param resource_type: Resource type to filter for. Only IPs attached to this type of resource will be returned.
@@ -340,6 +388,7 @@ class IpamV1API(API):
                 "page": page,
                 "page_size": page_size,
                 "project_id": project_id,
+                "vpc_id": vpc_id,
                 "attached": attached,
                 "resource_id": resource_id,
                 "resource_type": resource_type,
@@ -350,5 +399,6 @@ class IpamV1API(API):
                 "resource_name": resource_name,
                 "zonal": zonal,
                 "private_network_id": private_network_id,
+                "subnet_id": subnet_id,
             },
         )

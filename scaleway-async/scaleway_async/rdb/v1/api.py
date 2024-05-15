@@ -50,6 +50,7 @@ from .types import (
     DeleteInstanceACLRulesResponse,
     DeleteInstanceSettingsRequest,
     DeleteInstanceSettingsResponse,
+    EncryptionAtRest,
     Endpoint,
     EndpointSpec,
     Instance,
@@ -981,6 +982,7 @@ class RdbV1API(API):
         init_settings: Optional[List[InstanceSetting]] = None,
         volume_type: Optional[VolumeType] = None,
         init_endpoints: Optional[List[EndpointSpec]] = None,
+        encryption: Optional[EncryptionAtRest] = None,
     ) -> Instance:
         """
         Create a Database Instance.
@@ -1003,6 +1005,7 @@ class RdbV1API(API):
         :param init_settings: List of engine settings to be set upon Database Instance initialization.
         :param volume_type: Type of volume where data is stored (lssd, bssd, ...).
         :param init_endpoints: One or multiple EndpointSpec used to expose your Database Instance. A load_balancer public endpoint is systematically created.
+        :param encryption: Encryption at rest settings for your Database Instance.
         :return: :class:`Instance <Instance>`
 
         Usage:
@@ -1043,6 +1046,7 @@ class RdbV1API(API):
                     init_settings=init_settings,
                     volume_type=volume_type,
                     init_endpoints=init_endpoints,
+                    encryption=encryption,
                     project_id=project_id,
                     organization_id=organization_id,
                 ),
