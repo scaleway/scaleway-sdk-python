@@ -29,7 +29,7 @@ from .marshalling import (
 
 class VpcV1API(API):
     """
-    VPC API.
+    This API allows you to manage your Virtual Private Clouds (VPCs) and Private Networks.
     """
 
     async def list_private_networks(

@@ -64,7 +64,9 @@ from .marshalling import (
 
 
 class LlmInferenceV1Beta1API(API):
-    """ """
+    """
+    This API allows you to manage your LLM Inference services.
+    """
 
     async def list_deployments(
         self,

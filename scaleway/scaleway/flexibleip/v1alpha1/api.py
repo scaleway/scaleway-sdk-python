@@ -49,7 +49,7 @@ from .marshalling import (
 
 class FlexibleipV1Alpha1API(API):
     """
-    Elastic Metal - Flexible IP API.
+    This API allows you to manage your Elastic Metal servers' flexible public IP addresses.
     """
 
     def create_flexible_ip(

@@ -50,7 +50,7 @@ from ...std.types import (
 
 class WebhostingV1Alpha1API(API):
     """
-    Web Hosting API.
+    This API allows you to manage your Web Hosting services.
     """
 
     async def create_hosting(

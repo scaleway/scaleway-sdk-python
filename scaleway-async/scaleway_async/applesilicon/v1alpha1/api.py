@@ -43,7 +43,9 @@ from .marshalling import (
 
 
 class ApplesiliconV1Alpha1API(API):
-    """ """
+    """
+    This API allows you to manage your Apple silicon machines.
+    """
 
     async def list_server_types(
         self,

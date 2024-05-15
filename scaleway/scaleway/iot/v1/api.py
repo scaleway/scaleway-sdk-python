@@ -100,7 +100,7 @@ from .marshalling import (
 
 class IotV1API(API):
     """
-    This API allows you to manage IoT hubs and devices.
+    This API allows you to manage your IoT hubs and devices.
     """
 
     def list_hubs(

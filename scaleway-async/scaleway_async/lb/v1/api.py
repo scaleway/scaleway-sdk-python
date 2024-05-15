@@ -3217,7 +3217,7 @@ class LbV1ZonedAPI(API):
 
 class LbV1API(API):
     """
-    This API allows you to manage your load balancer service.
+    This API allows you to manage your Load Balancers.
     """
 
     async def list_lbs(
