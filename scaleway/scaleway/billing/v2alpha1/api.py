@@ -33,7 +33,7 @@ from .marshalling import (
 
 class BillingV2Alpha1API(API):
     """
-    This API allows you to query your consumption.
+    This API allows you to manage and query your Scaleway billing and consumption.
     """
 
     def get_consumption(

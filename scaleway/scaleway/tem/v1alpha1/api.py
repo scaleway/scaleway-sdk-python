@@ -50,7 +50,9 @@ from .marshalling import (
 
 
 class TemV1Alpha1API(API):
-    """ """
+    """
+    This API allows you to manage your Transactional Email services.
+    """
 
     def create_email(
         self,

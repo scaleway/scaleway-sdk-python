@@ -116,7 +116,7 @@ from .marshalling import (
 
 class IamV1Alpha1API(API):
     """
-    IAM API.
+    This API allows you to manage Identity and Access Management (IAM) across your Scaleway Organizations, Projects and resources.
     """
 
     def list_ssh_keys(

@@ -96,7 +96,9 @@ from .marshalling import (
 
 
 class FunctionV1Beta1API(API):
-    """ """
+    """
+    This API allows you to manage your Serverless Functions.
+    """
 
     def list_namespaces(
         self,

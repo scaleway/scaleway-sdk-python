@@ -49,7 +49,7 @@ from .marshalling import (
 
 class RegistryV1API(API):
     """
-    Container Registry API.
+    This API allows you to manage your Container Registry resources.
     """
 
     async def list_namespaces(

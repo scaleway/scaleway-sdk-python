@@ -91,7 +91,7 @@ from .marshalling import (
 
 class ContainerV1Beta1API(API):
     """
-    Serverless Containers API.
+    This API allows you to manage your Serverless Containers.
     """
 
     def list_namespaces(

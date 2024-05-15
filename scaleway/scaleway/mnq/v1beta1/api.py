@@ -68,7 +68,7 @@ from .marshalling import (
 
 class MnqV1Beta1NatsAPI(API):
     """
-    This API allows you to manage Scaleway Messaging and Queueing NATS accounts.
+    This API allows you to manage Scaleway Messaging and Queuing NATS accounts.
     """
 
     def create_nats_account(
@@ -500,7 +500,7 @@ class MnqV1Beta1NatsAPI(API):
 
 class MnqV1Beta1SnsAPI(API):
     """
-    This API allows you to manage Scaleway Messaging and Queueing SNS brokers.
+    This API allows you to manage your Scaleway Messaging and Queuing SNS brokers.
     """
 
     def activate_sns(
@@ -860,7 +860,7 @@ class MnqV1Beta1SnsAPI(API):
 
 class MnqV1Beta1SqsAPI(API):
     """
-    This API allows you to manage Scaleway Messaging and Queueing SQS brokers.
+    This API allows you to manage your Scaleway Messaging and Queuing SQS brokers.
     """
 
     def activate_sqs(

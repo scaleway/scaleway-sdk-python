@@ -89,7 +89,7 @@ from .marshalling import (
 
 class BaremetalV1API(API):
     """
-    This API allows to manage your Elastic Metal server.
+    This API allows you to manage your Elastic Metal servers.
     """
 
     def list_servers(

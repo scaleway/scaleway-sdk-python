@@ -247,7 +247,7 @@ from .marshalling import (
 
 class InstanceV1API(API):
     """
-    Instance API.
+    This API allows you to manage your Instances.
     """
 
     async def get_server_types_availability(
