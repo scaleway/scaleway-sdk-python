@@ -65,7 +65,7 @@ from .marshalling import (
 
 class LlmInferenceV1Beta1API(API):
     """
-    This API allows you to manage your LLM Inference services.
+    This API allows you to manage your Inference services.
     """
 
     def list_deployments(
@@ -484,7 +484,7 @@ class LlmInferenceV1Beta1API(API):
         Update an existing Endpoint.
         :param endpoint_id: ID of the endpoint to update.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param disable_auth: By default, LLM deployments are protected by IAM authentication.
+        :param disable_auth: By default, deployments are protected by IAM authentication.
         When setting this field to true, the authentication will be disabled.
         :return: :class:`Endpoint <Endpoint>`
 
@@ -760,7 +760,7 @@ class LlmInferenceV1Beta1API(API):
     ) -> ListModelsResponse:
         """
         List models.
-        List all available LLM models.
+        List all available models.
         :param region: Region to target. If none is passed will use default region from the config.
         :param order_by: Order in which to return results.
         :param page: Page number to return.
@@ -809,7 +809,7 @@ class LlmInferenceV1Beta1API(API):
     ) -> List[Model]:
         """
         List models.
-        List all available LLM models.
+        List all available models.
         :param region: Region to target. If none is passed will use default region from the config.
         :param order_by: Order in which to return results.
         :param page: Page number to return.
