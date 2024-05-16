@@ -372,6 +372,10 @@ def unmarshal_Offer(data: Any) -> Offer:
     if field is not None:
         args["bandwidth"] = field
 
+    field = data.get("max_bandwidth", None)
+    if field is not None:
+        args["max_bandwidth"] = field
+
     field = data.get("commercial_range", None)
     if field is not None:
         args["commercial_range"] = field
