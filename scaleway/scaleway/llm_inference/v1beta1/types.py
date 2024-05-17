@@ -154,7 +154,7 @@ class ACLRule:
 class EndpointSpec:
     disable_auth: bool
     """
-    By default, LLM deployments are protected by IAM authentication.
+    By default, deployments are protected by IAM authentication.
 When setting this field to true, the authentication will be disabled.
     """
 
@@ -817,6 +817,6 @@ class UpdateEndpointRequest:
 
     disable_auth: Optional[bool]
     """
-    By default, LLM deployments are protected by IAM authentication.
+    By default, deployments are protected by IAM authentication.
 When setting this field to true, the authentication will be disabled.
     """
