@@ -537,6 +537,11 @@ class Offer:
     Public bandwidth available (in bits/s) with the offer.
     """
 
+    max_bandwidth: int
+    """
+    Maximum public bandwidth available (in bits/s) depending on available options.
+    """
+
     commercial_range: str
     """
     Commercial range of the offer.
