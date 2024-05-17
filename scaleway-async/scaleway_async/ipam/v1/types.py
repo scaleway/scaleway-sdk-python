@@ -230,6 +230,11 @@ class ListIPsRequest:
     Project ID to filter for. Only IPs belonging to this Project will be returned.
     """
 
+    vpc_id: Optional[str]
+    """
+    Only IPs owned by resources in this VPC will be returned.
+    """
+
     attached: Optional[bool]
     """
     Defines whether to filter only for IPs which are attached to a resource.
@@ -273,6 +278,8 @@ class ListIPsRequest:
     zonal: Optional[str]
 
     private_network_id: Optional[str]
+
+    subnet_id: Optional[str]
 
 
 @dataclass
