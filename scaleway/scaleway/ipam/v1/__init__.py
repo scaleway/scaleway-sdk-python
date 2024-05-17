@@ -11,6 +11,7 @@ from .types import GetIPRequest
 from .types import ListIPsRequest
 from .types import ListIPsResponse
 from .types import ReleaseIPRequest
+from .types import ReleaseIPSetRequest
 from .types import UpdateIPRequest
 from .api import IpamV1API
 
@@ -26,6 +27,7 @@ __all__ = [
     "ListIPsRequest",
     "ListIPsResponse",
     "ReleaseIPRequest",
+    "ReleaseIPSetRequest",
     "UpdateIPRequest",
     "IpamV1API",
 ]

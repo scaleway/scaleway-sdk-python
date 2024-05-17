@@ -19,6 +19,7 @@ from .types import (
     BookIPRequest,
     IP,
     ListIPsResponse,
+    ReleaseIPSetRequest,
     Reverse,
     Source,
     UpdateIPRequest,
@@ -27,6 +28,7 @@ from .marshalling import (
     unmarshal_IP,
     unmarshal_ListIPsResponse,
     marshal_BookIPRequest,
+    marshal_ReleaseIPSetRequest,
     marshal_UpdateIPRequest,
 )
 
@@ -118,6 +120,40 @@ class IpamV1API(API):
             "DELETE",
             f"/ipam/v1/regions/{param_region}/ips/{param_ip_id}",
             body={},
+        )
+
+        self._throw_on_error(res)
+
+    def release_ip_set(
+        self,
+        *,
+        region: Optional[Region] = None,
+        ip_ids: Optional[List[str]] = None,
+    ) -> None:
+        """
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param ip_ids:
+
+        Usage:
+        ::
+
+            result = api.release_ip_set()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "POST",
+            f"/ipam/v1/regions/{param_region}/ip-sets/release",
+            body=marshal_ReleaseIPSetRequest(
+                ReleaseIPSetRequest(
+                    region=region,
+                    ip_ids=ip_ids,
+                ),
+                self.client,
+            ),
         )
 
         self._throw_on_error(res)

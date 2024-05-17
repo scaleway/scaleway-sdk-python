@@ -492,6 +492,11 @@ class BackupSchedule:
 
 
 @dataclass
+class EncryptionAtRest:
+    enabled: bool
+
+
+@dataclass
 class InstanceSetting:
     name: str
 
@@ -962,6 +967,11 @@ class Instance:
     Logs policy of the Database Instance.
     """
 
+    encryption: Optional[EncryptionAtRest]
+    """
+    Encryption at rest settings for your Database Instance.
+    """
+
 
 @dataclass
 class NodeType:
@@ -1393,6 +1403,11 @@ class CreateInstanceRequest:
     init_endpoints: Optional[List[EndpointSpec]]
     """
     One or multiple EndpointSpec used to expose your Database Instance. A load_balancer public endpoint is systematically created.
+    """
+
+    encryption: Optional[EncryptionAtRest]
+    """
+    Encryption at rest settings for your Database Instance.
     """
 
     project_id: Optional[str]

@@ -42,6 +42,7 @@ from .types import ReadReplicaEndpointSpecDirectAccess
 from .types import ReadReplicaEndpointSpecPrivateNetwork
 from .types import EngineVersion
 from .types import BackupSchedule
+from .types import EncryptionAtRest
 from .types import InstanceSetting
 from .types import LogsPolicy
 from .types import Maintenance
@@ -188,6 +189,7 @@ __all__ = [
     "ReadReplicaEndpointSpecPrivateNetwork",
     "EngineVersion",
     "BackupSchedule",
+    "EncryptionAtRest",
     "InstanceSetting",
     "LogsPolicy",
     "Maintenance",

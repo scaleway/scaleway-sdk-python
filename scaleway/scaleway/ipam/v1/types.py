@@ -303,6 +303,16 @@ class ReleaseIPRequest:
 
 
 @dataclass
+class ReleaseIPSetRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    ip_ids: Optional[List[str]]
+
+
+@dataclass
 class UpdateIPRequest:
     ip_id: str
     """
