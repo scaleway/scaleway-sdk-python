@@ -58,6 +58,7 @@ from .types import (
     GetBootscriptResponse,
     Dashboard,
     GetDashboardResponse,
+    GetEncryptedRdpPasswordResponse,
     GetImageResponse,
     GetIpResponse,
     GetPlacementGroupResponse,
@@ -1563,6 +1564,37 @@ def unmarshal_GetDashboardResponse(data: Any) -> GetDashboardResponse:
         args["dashboard"] = None
 
     return GetDashboardResponse(**args)
+
+
+def unmarshal_GetEncryptedRdpPasswordResponse(
+    data: Any,
+) -> GetEncryptedRdpPasswordResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'GetEncryptedRdpPasswordResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("value", None)
+    if field is not None:
+        args["value"] = field
+    else:
+        args["value"] = None
+
+    field = data.get("admin_password_encryption_ssh_key_description", None)
+    if field is not None:
+        args["admin_password_encryption_ssh_key_description"] = field
+    else:
+        args["admin_password_encryption_ssh_key_description"] = None
+
+    field = data.get("admin_password_encryption_ssh_key_id", None)
+    if field is not None:
+        args["admin_password_encryption_ssh_key_id"] = field
+    else:
+        args["admin_password_encryption_ssh_key_id"] = None
+
+    return GetEncryptedRdpPasswordResponse(**args)
 
 
 def unmarshal_GetImageResponse(data: Any) -> GetImageResponse:
@@ -3088,6 +3120,11 @@ def marshal_CreateServerRequest(
 
     if request.placement_group is not None:
         output["placement_group"] = request.placement_group
+
+    if request.admin_password_encryption_ssh_key_id is not None:
+        output["admin_password_encryption_ssh_key_id"] = (
+            request.admin_password_encryption_ssh_key_id
+        )
 
     return output
 

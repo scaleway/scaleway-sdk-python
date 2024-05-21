@@ -1858,6 +1858,11 @@ class CreateServerRequest:
     Placement group ID if Instance must be part of a placement group.
     """
 
+    admin_password_encryption_ssh_key_id: Optional[str]
+    """
+    UUID of the SSH RSA key that will be used to encrypt the initial admin password for OS requiring it. Mandatory for Windows OS.
+    """
+
     project: Optional[str]
 
     organization: Optional[str]
@@ -1957,6 +1962,19 @@ class CreateVolumeRequest:
 @dataclass
 class CreateVolumeResponse:
     volume: Optional[Volume]
+
+
+@dataclass
+class DeleteEncryptedRdpPasswordRequest:
+    server_id: str
+    """
+    UUID of the Instance.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
 
 
 @dataclass
@@ -2170,6 +2188,37 @@ class GetDashboardRequest:
 @dataclass
 class GetDashboardResponse:
     dashboard: Optional[Dashboard]
+
+
+@dataclass
+class GetEncryptedRdpPasswordRequest:
+    server_id: str
+    """
+    UUID of the Instance.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class GetEncryptedRdpPasswordResponse:
+    value: Optional[str]
+    """
+    The encrypted RDP password.
+    """
+
+    admin_password_encryption_ssh_key_description: Optional[str]
+    """
+    The description of the SSH key used for ciphering.
+    """
+
+    admin_password_encryption_ssh_key_id: Optional[str]
+    """
+    The UUID of the SSH key used for ciphering.
+    """
 
 
 @dataclass
