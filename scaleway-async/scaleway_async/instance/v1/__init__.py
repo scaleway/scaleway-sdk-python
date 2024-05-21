@@ -97,6 +97,7 @@ from .types import CreateSnapshotRequest
 from .types import CreateSnapshotResponse
 from .types import CreateVolumeRequest
 from .types import CreateVolumeResponse
+from .types import DeleteEncryptedRdpPasswordRequest
 from .types import DeleteImageRequest
 from .types import DeleteIpRequest
 from .types import DeletePlacementGroupRequest
@@ -115,6 +116,8 @@ from .types import GetBootscriptRequest
 from .types import GetBootscriptResponse
 from .types import GetDashboardRequest
 from .types import GetDashboardResponse
+from .types import GetEncryptedRdpPasswordRequest
+from .types import GetEncryptedRdpPasswordResponse
 from .types import GetImageRequest
 from .types import GetImageResponse
 from .types import GetIpRequest
@@ -296,6 +299,7 @@ __all__ = [
     "CreateSnapshotResponse",
     "CreateVolumeRequest",
     "CreateVolumeResponse",
+    "DeleteEncryptedRdpPasswordRequest",
     "DeleteImageRequest",
     "DeleteIpRequest",
     "DeletePlacementGroupRequest",
@@ -314,6 +318,8 @@ __all__ = [
     "GetBootscriptResponse",
     "GetDashboardRequest",
     "GetDashboardResponse",
+    "GetEncryptedRdpPasswordRequest",
+    "GetEncryptedRdpPasswordResponse",
     "GetImageRequest",
     "GetImageResponse",
     "GetIpRequest",

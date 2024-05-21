@@ -70,6 +70,7 @@ from .types import (
     ExportSnapshotResponse,
     GetBootscriptResponse,
     GetDashboardResponse,
+    GetEncryptedRdpPasswordResponse,
     GetImageResponse,
     GetIpResponse,
     GetPlacementGroupResponse,
@@ -165,6 +166,7 @@ from .marshalling import (
     unmarshal_ExportSnapshotResponse,
     unmarshal_GetBootscriptResponse,
     unmarshal_GetDashboardResponse,
+    unmarshal_GetEncryptedRdpPasswordResponse,
     unmarshal_GetImageResponse,
     unmarshal_GetIpResponse,
     unmarshal_GetPlacementGroupResponse,
@@ -528,6 +530,7 @@ class InstanceV1API(API):
         tags: Optional[List[str]] = None,
         security_group: Optional[str] = None,
         placement_group: Optional[str] = None,
+        admin_password_encryption_ssh_key_id: Optional[str] = None,
     ) -> CreateServerResponse:
         """
         Create an Instance.
@@ -552,6 +555,7 @@ class InstanceV1API(API):
         :param tags: Instance tags.
         :param security_group: Security group ID.
         :param placement_group: Placement group ID if Instance must be part of a placement group.
+        :param admin_password_encryption_ssh_key_id: UUID of the SSH RSA key that will be used to encrypt the initial admin password for OS requiring it. Mandatory for Windows OS.
         :return: :class:`CreateServerResponse <CreateServerResponse>`
 
         Usage:
@@ -585,6 +589,7 @@ class InstanceV1API(API):
                     tags=tags,
                     security_group=security_group,
                     placement_group=placement_group,
+                    admin_password_encryption_ssh_key_id=admin_password_encryption_ssh_key_id,
                     project=project,
                     organization=organization,
                 ),
@@ -4166,6 +4171,68 @@ class InstanceV1API(API):
                 ),
                 self.client,
             ),
+        )
+
+        self._throw_on_error(res)
+
+    def get_encrypted_rdp_password(
+        self,
+        *,
+        server_id: str,
+        zone: Optional[Zone] = None,
+    ) -> GetEncryptedRdpPasswordResponse:
+        """
+        Get the encrypted RDP password.
+        Get the initial administrator password for Windows RDP. This password is encrypted using the SSH RSA key specified at the time of Instance creation.
+        :param server_id: UUID of the Instance.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :return: :class:`GetEncryptedRdpPasswordResponse <GetEncryptedRdpPasswordResponse>`
+
+        Usage:
+        ::
+
+            result = api.get_encrypted_rdp_password(
+                server_id="example",
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_server_id = validate_path_param("server_id", server_id)
+
+        res = self._request(
+            "GET",
+            f"/instance/v1/zones/{param_zone}/servers/{param_server_id}/encrypted_rdp_password",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_GetEncryptedRdpPasswordResponse(res.json())
+
+    def delete_encrypted_rdp_password(
+        self,
+        *,
+        server_id: str,
+        zone: Optional[Zone] = None,
+    ) -> None:
+        """
+        Delete the encrypted RDP password.
+        Delete the initial administrator password for Windows RDP.
+        :param server_id: UUID of the Instance.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+
+        Usage:
+        ::
+
+            result = api.delete_encrypted_rdp_password(
+                server_id="example",
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_server_id = validate_path_param("server_id", server_id)
+
+        res = self._request(
+            "DELETE",
+            f"/instance/v1/zones/{param_zone}/servers/{param_server_id}/encrypted_rdp_password",
         )
 
         self._throw_on_error(res)
