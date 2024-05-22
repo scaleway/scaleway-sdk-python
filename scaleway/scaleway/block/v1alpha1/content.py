@@ -28,6 +28,7 @@ VOLUME_TRANSIENT_STATUSES: List[VolumeStatus] = [
     VolumeStatus.DELETING,
     VolumeStatus.RESIZING,
     VolumeStatus.SNAPSHOTTING,
+    VolumeStatus.UPDATING,
 ]
 """
 Lists transient statutes of the enum :class:`VolumeStatus <VolumeStatus>`.

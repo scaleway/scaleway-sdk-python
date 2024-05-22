@@ -94,6 +94,7 @@ class VolumeStatus(str, Enum, metaclass=StrEnumMeta):
     ERROR = "error"
     SNAPSHOTTING = "snapshotting"
     LOCKED = "locked"
+    UPDATING = "updating"
 
     def __str__(self) -> str:
         return str(self.value)
