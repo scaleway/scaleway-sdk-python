@@ -14,6 +14,7 @@ from scaleway_core.utils import (
 )
 from .types import (
     ListPrivateNetworksRequestOrderBy,
+    ListSubnetsRequestOrderBy,
     ListVPCsRequestOrderBy,
     AddSubnetsRequest,
     AddSubnetsResponse,
@@ -22,11 +23,13 @@ from .types import (
     DeleteSubnetsRequest,
     DeleteSubnetsResponse,
     ListPrivateNetworksResponse,
+    ListSubnetsResponse,
     ListVPCsResponse,
     MigrateZonalPrivateNetworksRequest,
     PrivateNetwork,
     SetSubnetsRequest,
     SetSubnetsResponse,
+    Subnet,
     UpdatePrivateNetworkRequest,
     UpdateVPCRequest,
     VPC,
@@ -37,6 +40,7 @@ from .marshalling import (
     unmarshal_AddSubnetsResponse,
     unmarshal_DeleteSubnetsResponse,
     unmarshal_ListPrivateNetworksResponse,
+    unmarshal_ListSubnetsResponse,
     unmarshal_ListVPCsResponse,
     unmarshal_SetSubnetsResponse,
     marshal_AddSubnetsRequest,
@@ -731,6 +735,102 @@ class VpcV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_VPC(res.json())
+
+    async def list_subnets(
+        self,
+        *,
+        region: Optional[Region] = None,
+        order_by: Optional[ListSubnetsRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        organization_id: Optional[str] = None,
+        project_id: Optional[str] = None,
+        subnet_ids: Optional[List[str]] = None,
+        vpc_id: Optional[str] = None,
+    ) -> ListSubnetsResponse:
+        """
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param order_by:
+        :param page:
+        :param page_size:
+        :param organization_id:
+        :param project_id:
+        :param subnet_ids:
+        :param vpc_id:
+        :return: :class:`ListSubnetsResponse <ListSubnetsResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_subnets()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/vpc/v2/regions/{param_region}/subnets",
+            params={
+                "order_by": order_by,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+                "project_id": project_id or self.client.default_project_id,
+                "subnet_ids": subnet_ids,
+                "vpc_id": vpc_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListSubnetsResponse(res.json())
+
+    async def list_subnets_all(
+        self,
+        *,
+        region: Optional[Region] = None,
+        order_by: Optional[ListSubnetsRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        organization_id: Optional[str] = None,
+        project_id: Optional[str] = None,
+        subnet_ids: Optional[List[str]] = None,
+        vpc_id: Optional[str] = None,
+    ) -> List[Subnet]:
+        """
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param order_by:
+        :param page:
+        :param page_size:
+        :param organization_id:
+        :param project_id:
+        :param subnet_ids:
+        :param vpc_id:
+        :return: :class:`List[Subnet] <List[Subnet]>`
+
+        Usage:
+        ::
+
+            result = await api.list_subnets_all()
+        """
+
+        return await fetch_all_pages_async(
+            type=ListSubnetsResponse,
+            key="subnets",
+            fetcher=self.list_subnets,
+            args={
+                "region": region,
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size,
+                "organization_id": organization_id,
+                "project_id": project_id,
+                "subnet_ids": subnet_ids,
+                "vpc_id": vpc_id,
+            },
+        )
 
     async def set_subnets(
         self,

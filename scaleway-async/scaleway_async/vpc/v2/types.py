@@ -25,6 +25,14 @@ class ListPrivateNetworksRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ListSubnetsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListVPCsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
@@ -417,6 +425,35 @@ class ListPrivateNetworksRequest:
 @dataclass
 class ListPrivateNetworksResponse:
     private_networks: List[PrivateNetwork]
+
+    total_count: int
+
+
+@dataclass
+class ListSubnetsRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    order_by: Optional[ListSubnetsRequestOrderBy]
+
+    page: Optional[int]
+
+    page_size: Optional[int]
+
+    organization_id: Optional[str]
+
+    project_id: Optional[str]
+
+    subnet_ids: Optional[List[str]]
+
+    vpc_id: Optional[str]
+
+
+@dataclass
+class ListSubnetsResponse:
+    subnets: List[Subnet]
 
     total_count: int
 

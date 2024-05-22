@@ -16,6 +16,7 @@ from .types import (
     AddSubnetsResponse,
     DeleteSubnetsResponse,
     ListPrivateNetworksResponse,
+    ListSubnetsResponse,
     ListVPCsResponse,
     SetSubnetsResponse,
     AddSubnetsRequest,
@@ -229,6 +230,27 @@ def unmarshal_ListPrivateNetworksResponse(data: Any) -> ListPrivateNetworksRespo
         args["total_count"] = field
 
     return ListPrivateNetworksResponse(**args)
+
+
+def unmarshal_ListSubnetsResponse(data: Any) -> ListSubnetsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListSubnetsResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("subnets", None)
+    if field is not None:
+        args["subnets"] = (
+            [unmarshal_Subnet(v) for v in field] if field is not None else None
+        )
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+
+    return ListSubnetsResponse(**args)
 
 
 def unmarshal_ListVPCsResponse(data: Any) -> ListVPCsResponse:
