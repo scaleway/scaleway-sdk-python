@@ -103,6 +103,8 @@ class ServerTypeCPU:
 
     core_count: int
 
+    frequency: int
+
 
 @dataclass
 class ServerTypeDisk:
@@ -112,10 +114,20 @@ class ServerTypeDisk:
 
 
 @dataclass
+class ServerTypeGPU:
+    count: int
+
+
+@dataclass
 class ServerTypeMemory:
     capacity: int
 
     type_: str
+
+
+@dataclass
+class ServerTypeNetwork:
+    public_bandwidth_bps: int
 
 
 @dataclass
@@ -148,6 +160,16 @@ class ServerType:
     minimum_lease_duration: Optional[str]
     """
     Minimum duration of the lease in seconds (example. 3.4s).
+    """
+
+    gpu: Optional[ServerTypeGPU]
+    """
+    GPU description.
+    """
+
+    network: Optional[ServerTypeNetwork]
+    """
+    Network description.
     """
 
     default_os: Optional[OS]

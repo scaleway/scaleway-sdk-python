@@ -9,7 +9,9 @@ from .types import (
     OS,
     ServerTypeCPU,
     ServerTypeDisk,
+    ServerTypeGPU,
     ServerTypeMemory,
+    ServerTypeNetwork,
     ServerType,
     Server,
     ListOSResponse,
@@ -84,6 +86,10 @@ def unmarshal_ServerTypeCPU(data: Any) -> ServerTypeCPU:
     if field is not None:
         args["core_count"] = field
 
+    field = data.get("frequency", None)
+    if field is not None:
+        args["frequency"] = field
+
     return ServerTypeCPU(**args)
 
 
@@ -106,6 +112,21 @@ def unmarshal_ServerTypeDisk(data: Any) -> ServerTypeDisk:
     return ServerTypeDisk(**args)
 
 
+def unmarshal_ServerTypeGPU(data: Any) -> ServerTypeGPU:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ServerTypeGPU' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("count", None)
+    if field is not None:
+        args["count"] = field
+
+    return ServerTypeGPU(**args)
+
+
 def unmarshal_ServerTypeMemory(data: Any) -> ServerTypeMemory:
     if not isinstance(data, dict):
         raise TypeError(
@@ -123,6 +144,21 @@ def unmarshal_ServerTypeMemory(data: Any) -> ServerTypeMemory:
         args["type_"] = field
 
     return ServerTypeMemory(**args)
+
+
+def unmarshal_ServerTypeNetwork(data: Any) -> ServerTypeNetwork:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ServerTypeNetwork' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("public_bandwidth_bps", None)
+    if field is not None:
+        args["public_bandwidth_bps"] = field
+
+    return ServerTypeNetwork(**args)
 
 
 def unmarshal_ServerType(data: Any) -> ServerType:
@@ -164,6 +200,18 @@ def unmarshal_ServerType(data: Any) -> ServerType:
         args["minimum_lease_duration"] = field
     else:
         args["minimum_lease_duration"] = None
+
+    field = data.get("gpu", None)
+    if field is not None:
+        args["gpu"] = unmarshal_ServerTypeGPU(field)
+    else:
+        args["gpu"] = None
+
+    field = data.get("network", None)
+    if field is not None:
+        args["network"] = unmarshal_ServerTypeNetwork(field)
+    else:
+        args["network"] = None
 
     field = data.get("default_os", None)
     if field is not None:
