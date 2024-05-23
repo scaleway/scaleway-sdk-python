@@ -7,7 +7,9 @@ from .types import ServerTypeStock
 from .types import OS
 from .types import ServerTypeCPU
 from .types import ServerTypeDisk
+from .types import ServerTypeGPU
 from .types import ServerTypeMemory
+from .types import ServerTypeNetwork
 from .types import ServerType
 from .types import Server
 from .types import CreateServerRequest
@@ -34,7 +36,9 @@ __all__ = [
     "OS",
     "ServerTypeCPU",
     "ServerTypeDisk",
+    "ServerTypeGPU",
     "ServerTypeMemory",
+    "ServerTypeNetwork",
     "ServerType",
     "Server",
     "CreateServerRequest",
