@@ -749,14 +749,16 @@ class VpcV2API(API):
         vpc_id: Optional[str] = None,
     ) -> ListSubnetsResponse:
         """
+        List subnets.
+        List any Private Network's subnets. See ListPrivateNetworks to list a specific Private Network's subnets.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param order_by:
-        :param page:
-        :param page_size:
-        :param organization_id:
-        :param project_id:
-        :param subnet_ids:
-        :param vpc_id:
+        :param order_by: Sort order of the returned subnets.
+        :param page: Page number to return, from the paginated results.
+        :param page_size: Maximum number of Private Networks to return per page.
+        :param organization_id: Organization ID to filter for. Only subnets belonging to this Organization will be returned.
+        :param project_id: Project ID to filter for. Only subnets belonging to this Project will be returned.
+        :param subnet_ids: Subnet IDs to filter for. Only subnets matching the specified IDs will be returned.
+        :param vpc_id: VPC ID to filter for. Only subnets belonging to this VPC will be returned.
         :return: :class:`ListSubnetsResponse <ListSubnetsResponse>`
 
         Usage:
@@ -800,14 +802,16 @@ class VpcV2API(API):
         vpc_id: Optional[str] = None,
     ) -> List[Subnet]:
         """
+        List subnets.
+        List any Private Network's subnets. See ListPrivateNetworks to list a specific Private Network's subnets.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param order_by:
-        :param page:
-        :param page_size:
-        :param organization_id:
-        :param project_id:
-        :param subnet_ids:
-        :param vpc_id:
+        :param order_by: Sort order of the returned subnets.
+        :param page: Page number to return, from the paginated results.
+        :param page_size: Maximum number of Private Networks to return per page.
+        :param organization_id: Organization ID to filter for. Only subnets belonging to this Organization will be returned.
+        :param project_id: Project ID to filter for. Only subnets belonging to this Project will be returned.
+        :param subnet_ids: Subnet IDs to filter for. Only subnets matching the specified IDs will be returned.
+        :param vpc_id: VPC ID to filter for. Only subnets belonging to this VPC will be returned.
         :return: :class:`List[Subnet] <List[Subnet]>`
 
         Usage:
@@ -840,7 +844,7 @@ class VpcV2API(API):
         subnets: Optional[List[str]] = None,
     ) -> SetSubnetsResponse:
         """
-        Set the subnets of a Private Network.
+        Set a Private Network's subnets.
         Set subnets for an existing Private Network. Note that the method is PUT and not PATCH. Any existing subnets will be removed in favor of the new specified set of subnets.
         :param private_network_id: Private Network ID.
         :param region: Region to target. If none is passed will use default region from the config.
