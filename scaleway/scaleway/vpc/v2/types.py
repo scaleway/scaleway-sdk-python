@@ -452,18 +452,39 @@ class ListSubnetsRequest:
     """
 
     order_by: Optional[ListSubnetsRequestOrderBy]
+    """
+    Sort order of the returned subnets.
+    """
 
     page: Optional[int]
+    """
+    Page number to return, from the paginated results.
+    """
 
     page_size: Optional[int]
+    """
+    Maximum number of Private Networks to return per page.
+    """
 
     organization_id: Optional[str]
+    """
+    Organization ID to filter for. Only subnets belonging to this Organization will be returned.
+    """
 
     project_id: Optional[str]
+    """
+    Project ID to filter for. Only subnets belonging to this Project will be returned.
+    """
 
     subnet_ids: Optional[List[str]]
+    """
+    Subnet IDs to filter for. Only subnets matching the specified IDs will be returned.
+    """
 
     vpc_id: Optional[str]
+    """
+    VPC ID to filter for. Only subnets belonging to this VPC will be returned.
+    """
 
 
 @dataclass
