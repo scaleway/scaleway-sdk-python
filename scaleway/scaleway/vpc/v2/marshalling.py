@@ -46,6 +46,18 @@ def unmarshal_Subnet(data: Any) -> Subnet:
     if field is not None:
         args["subnet"] = field
 
+    field = data.get("project_id", None)
+    if field is not None:
+        args["project_id"] = field
+
+    field = data.get("private_network_id", None)
+    if field is not None:
+        args["private_network_id"] = field
+
+    field = data.get("vpc_id", None)
+    if field is not None:
+        args["vpc_id"] = field
+
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
