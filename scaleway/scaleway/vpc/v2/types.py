@@ -55,6 +55,21 @@ class Subnet:
     Subnet CIDR.
     """
 
+    project_id: str
+    """
+    Scaleway Project the subnet belongs to.
+    """
+
+    private_network_id: str
+    """
+    Private Network the subnet belongs to.
+    """
+
+    vpc_id: str
+    """
+    VPC the subnet belongs to.
+    """
+
     created_at: Optional[datetime]
     """
     Subnet creation date.
