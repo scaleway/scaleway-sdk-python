@@ -1149,6 +1149,11 @@ class ListOffersRequest:
     Subscription period type to filter offers by.
     """
 
+    name: Optional[str]
+    """
+    Offer name to filter offers by.
+    """
+
 
 @dataclass
 class ListOffersResponse:
