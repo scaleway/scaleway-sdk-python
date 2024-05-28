@@ -39,7 +39,6 @@ from .types import (
     CreateClusterRequest,
     CreatePoolRequestUpgradePolicy,
     CreatePoolRequest,
-    MigrateToPrivateNetworkClusterRequest,
     SetClusterTypeRequest,
     UpdateClusterRequestAutoUpgrade,
     UpdateClusterRequestAutoscalerConfig,
@@ -1174,18 +1173,6 @@ def marshal_CreatePoolRequest(
 
     if request.root_volume_size is not None:
         output["root_volume_size"] = request.root_volume_size
-
-    return output
-
-
-def marshal_MigrateToPrivateNetworkClusterRequest(
-    request: MigrateToPrivateNetworkClusterRequest,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-
-    if request.private_network_id is not None:
-        output["private_network_id"] = request.private_network_id
 
     return output
 
