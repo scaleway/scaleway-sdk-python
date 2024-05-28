@@ -1658,24 +1658,6 @@ class MigrateClusterToRoutedIPsRequest:
 
 
 @dataclass
-class MigrateToPrivateNetworkClusterRequest:
-    cluster_id: str
-    """
-    ID of the cluster to migrate.
-    """
-
-    private_network_id: str
-    """
-    ID of the Private Network to link to the cluster.
-    """
-
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-
-@dataclass
 class RebootNodeRequest:
     node_id: str
     """
