@@ -70,7 +70,6 @@ from .types import (
     ExportSnapshotResponse,
     GetBootscriptResponse,
     GetDashboardResponse,
-    GetEncryptedRdpPasswordResponse,
     GetImageResponse,
     GetIpResponse,
     GetPlacementGroupResponse,
@@ -166,7 +165,6 @@ from .marshalling import (
     unmarshal_ExportSnapshotResponse,
     unmarshal_GetBootscriptResponse,
     unmarshal_GetDashboardResponse,
-    unmarshal_GetEncryptedRdpPasswordResponse,
     unmarshal_GetImageResponse,
     unmarshal_GetIpResponse,
     unmarshal_GetPlacementGroupResponse,
@@ -555,7 +553,7 @@ class InstanceV1API(API):
         :param tags: Instance tags.
         :param security_group: Security group ID.
         :param placement_group: Placement group ID if Instance must be part of a placement group.
-        :param admin_password_encryption_ssh_key_id: UUID of the SSH RSA key that will be used to encrypt the initial admin password for OS requiring it. Mandatory for Windows OS.
+        :param admin_password_encryption_ssh_key_id: The public_key value of this key is used to encrypt the admin password.
         :return: :class:`CreateServerResponse <CreateServerResponse>`
 
         Usage:
@@ -669,9 +667,11 @@ class InstanceV1API(API):
         id: str,
         name: str,
         commercial_type: str,
+        organization: Optional[str] = None,
         dynamic_ip_required: bool,
         hostname: str,
-        organization: Optional[str] = None,
+        protected: bool,
+        state_detail: str,
         project: Optional[str] = None,
         allowed_actions: Optional[List[ServerAction]] = None,
         tags: Optional[List[str]] = None,
@@ -679,12 +679,10 @@ class InstanceV1API(API):
         routed_ip_enabled: Optional[bool] = None,
         enable_ipv6: Optional[bool] = None,
         image: Optional[Image] = None,
-        protected: bool,
         private_ip: Optional[str] = None,
         public_ip: Optional[ServerIp] = None,
         public_ips: Optional[List[ServerIp]] = None,
         modification_date: Optional[datetime] = None,
-        state_detail: str,
         state: Optional[ServerState] = None,
         location: Optional[ServerLocation] = None,
         ipv6: Optional[ServerIpv6] = None,
@@ -696,15 +694,18 @@ class InstanceV1API(API):
         arch: Optional[Arch] = None,
         placement_group: Optional[PlacementGroup] = None,
         private_nics: Optional[List[PrivateNIC]] = None,
+        admin_password_encryption_ssh_key_id: Optional[str] = None,
     ) -> _SetServerResponse:
         """
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param id: Instance unique ID.
         :param name: Instance name.
         :param commercial_type: Instance commercial type (eg. GP1-M).
+        :param organization: Instance Organization ID.
         :param dynamic_ip_required: True if a dynamic IPv4 is required.
         :param hostname: Instance host name.
-        :param organization: Instance Organization ID.
+        :param protected: Instance protection option is activated.
+        :param state_detail: Instance state_detail.
         :param project: Instance Project ID.
         :param allowed_actions: Provide a list of allowed actions on the server.
         :param tags: Tags associated with the Instance.
@@ -712,12 +713,10 @@ class InstanceV1API(API):
         :param routed_ip_enabled: True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False).
         :param enable_ipv6: True if IPv6 is enabled (deprecated and always `False` when `routed_ip_enabled` is `True`).
         :param image: Provide information on the Instance image.
-        :param protected: Instance protection option is activated.
         :param private_ip: Instance private IP address (deprecated and always `null` when `routed_ip_enabled` is `True`).
         :param public_ip: Information about the public IP (deprecated in favor of `public_ips`).
         :param public_ips: Information about all the public IPs attached to the server.
         :param modification_date: Instance modification date.
-        :param state_detail: Instance state_detail.
         :param state: Instance state.
         :param location: Instance location.
         :param ipv6: Instance IPv6 address (deprecated when `routed_ip_enabled` is `True`).
@@ -729,6 +728,7 @@ class InstanceV1API(API):
         :param arch: Instance architecture (refers to the CPU architecture used for the Instance, e.g. x86_64, arm64).
         :param placement_group: Instance placement group.
         :param private_nics: Instance private NICs.
+        :param admin_password_encryption_ssh_key_id: The public_key value of this key is used to encrypt the admin password. When set to an empty string, reset this value and admin_password_encrypted_value to an empty string so a new password may be generated.
         :return: :class:`_SetServerResponse <_SetServerResponse>`
 
         Usage:
@@ -757,9 +757,11 @@ class InstanceV1API(API):
                     id=id,
                     name=name,
                     commercial_type=commercial_type,
+                    organization=organization,
                     dynamic_ip_required=dynamic_ip_required,
                     hostname=hostname,
-                    organization=organization,
+                    protected=protected,
+                    state_detail=state_detail,
                     project=project,
                     allowed_actions=allowed_actions,
                     tags=tags,
@@ -767,12 +769,10 @@ class InstanceV1API(API):
                     routed_ip_enabled=routed_ip_enabled,
                     enable_ipv6=enable_ipv6,
                     image=image,
-                    protected=protected,
                     private_ip=private_ip,
                     public_ip=public_ip,
                     public_ips=public_ips,
                     modification_date=modification_date,
-                    state_detail=state_detail,
                     state=state,
                     location=location,
                     ipv6=ipv6,
@@ -784,6 +784,7 @@ class InstanceV1API(API):
                     arch=arch,
                     placement_group=placement_group,
                     private_nics=private_nics,
+                    admin_password_encryption_ssh_key_id=admin_password_encryption_ssh_key_id,
                 ),
                 self.client,
             ),
@@ -811,6 +812,7 @@ class InstanceV1API(API):
         placement_group: Optional[str] = None,
         private_nics: Optional[List[str]] = None,
         commercial_type: Optional[str] = None,
+        admin_password_encryption_ssh_key_id: Optional[str] = None,
     ) -> UpdateServerResponse:
         """
         Update an Instance.
@@ -834,6 +836,7 @@ class InstanceV1API(API):
         - Cannot be changed if the Instance is not in `stopped` state.
         - Cannot be changed if the Instance is in a placement group.
         - Local storage requirements of the target commercial_types must be fulfilled (i.e. if an Instance has 80GB of local storage, it can be changed into a GP1-XS, which has a maximum of 150GB, but it cannot be changed into a DEV1-S, which has only 20GB).
+        :param admin_password_encryption_ssh_key_id: The public_key value of this key is used to encrypt the admin password. When set to an empty string, reset this value and admin_password_encrypted_value to an empty string so a new password may be generated.
         :return: :class:`UpdateServerResponse <UpdateServerResponse>`
 
         Usage:
@@ -868,6 +871,7 @@ class InstanceV1API(API):
                     placement_group=placement_group,
                     private_nics=private_nics,
                     commercial_type=commercial_type,
+                    admin_password_encryption_ssh_key_id=admin_password_encryption_ssh_key_id,
                 ),
                 self.client,
             ),
@@ -4171,68 +4175,6 @@ class InstanceV1API(API):
                 ),
                 self.client,
             ),
-        )
-
-        self._throw_on_error(res)
-
-    async def get_encrypted_rdp_password(
-        self,
-        *,
-        server_id: str,
-        zone: Optional[Zone] = None,
-    ) -> GetEncryptedRdpPasswordResponse:
-        """
-        Get the encrypted RDP password.
-        Get the initial administrator password for Windows RDP. This password is encrypted using the SSH RSA key specified at the time of Instance creation.
-        :param server_id: UUID of the Instance.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
-        :return: :class:`GetEncryptedRdpPasswordResponse <GetEncryptedRdpPasswordResponse>`
-
-        Usage:
-        ::
-
-            result = await api.get_encrypted_rdp_password(
-                server_id="example",
-            )
-        """
-
-        param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        param_server_id = validate_path_param("server_id", server_id)
-
-        res = self._request(
-            "GET",
-            f"/instance/v1/zones/{param_zone}/servers/{param_server_id}/encrypted_rdp_password",
-        )
-
-        self._throw_on_error(res)
-        return unmarshal_GetEncryptedRdpPasswordResponse(res.json())
-
-    async def delete_encrypted_rdp_password(
-        self,
-        *,
-        server_id: str,
-        zone: Optional[Zone] = None,
-    ) -> None:
-        """
-        Delete the encrypted RDP password.
-        Delete the initial administrator password for Windows RDP.
-        :param server_id: UUID of the Instance.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
-
-        Usage:
-        ::
-
-            result = await api.delete_encrypted_rdp_password(
-                server_id="example",
-            )
-        """
-
-        param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        param_server_id = validate_path_param("server_id", server_id)
-
-        res = self._request(
-            "DELETE",
-            f"/instance/v1/zones/{param_zone}/servers/{param_server_id}/encrypted_rdp_password",
         )
 
         self._throw_on_error(res)

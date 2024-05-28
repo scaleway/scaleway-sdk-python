@@ -160,6 +160,10 @@ class _SetServerRequest:
     """
     Instance commercial type (eg. GP1-M).
     """
+    organization: Optional[str]
+    """
+    Instance Organization ID.
+    """
     dynamic_ip_required: bool
     """
     True if a dynamic IPv4 is required.
@@ -168,9 +172,13 @@ class _SetServerRequest:
     """
     Instance host name.
     """
-    organization: Optional[str]
+    protected: bool
     """
-    Instance Organization ID.
+    Instance protection option is activated.
+    """
+    state_detail: str
+    """
+    Instance state_detail.
     """
     project: Optional[str]
     """
@@ -200,10 +208,6 @@ class _SetServerRequest:
     """
     Provide information on the Instance image.
     """
-    protected: bool
-    """
-    Instance protection option is activated.
-    """
     private_ip: Optional[str]
     """
     Instance private IP address (deprecated and always `null` when `routed_ip_enabled` is `True`).
@@ -219,10 +223,6 @@ class _SetServerRequest:
     modification_date: Optional[datetime]
     """
     Instance modification date.
-    """
-    state_detail: str
-    """
-    Instance state_detail.
     """
     state: Optional[ServerState]
     """
@@ -267,6 +267,10 @@ class _SetServerRequest:
     private_nics: Optional[List[PrivateNIC]]
     """
     Instance private NICs.
+    """
+    admin_password_encryption_ssh_key_id: Optional[str]
+    """
+    The public_key value of this key is used to encrypt the admin password. When set to an empty string, reset this value and admin_password_encrypted_value to an empty string so a new password may be generated.
     """
 
 

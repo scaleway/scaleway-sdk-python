@@ -58,7 +58,6 @@ from .types import (
     GetBootscriptResponse,
     Dashboard,
     GetDashboardResponse,
-    GetEncryptedRdpPasswordResponse,
     GetImageResponse,
     GetIpResponse,
     GetPlacementGroupResponse,
@@ -852,12 +851,6 @@ def unmarshal_Server(data: Any) -> Server:
     else:
         args["bootscript"] = None
 
-    field = data.get("security_group", None)
-    if field is not None:
-        args["security_group"] = unmarshal_SecurityGroupSummary(field)
-    else:
-        args["security_group"] = None
-
     field = data.get("maintenances", None)
     if field is not None:
         args["maintenances"] = (
@@ -884,11 +877,29 @@ def unmarshal_Server(data: Any) -> Server:
     if field is not None:
         args["zone"] = field
 
+    field = data.get("security_group", None)
+    if field is not None:
+        args["security_group"] = unmarshal_SecurityGroupSummary(field)
+    else:
+        args["security_group"] = None
+
     field = data.get("placement_group", None)
     if field is not None:
         args["placement_group"] = unmarshal_PlacementGroup(field)
     else:
         args["placement_group"] = None
+
+    field = data.get("admin_password_encryption_ssh_key_id", None)
+    if field is not None:
+        args["admin_password_encryption_ssh_key_id"] = field
+    else:
+        args["admin_password_encryption_ssh_key_id"] = None
+
+    field = data.get("admin_password_encrypted_value", None)
+    if field is not None:
+        args["admin_password_encrypted_value"] = field
+    else:
+        args["admin_password_encrypted_value"] = None
 
     return Server(**args)
 
@@ -1564,37 +1575,6 @@ def unmarshal_GetDashboardResponse(data: Any) -> GetDashboardResponse:
         args["dashboard"] = None
 
     return GetDashboardResponse(**args)
-
-
-def unmarshal_GetEncryptedRdpPasswordResponse(
-    data: Any,
-) -> GetEncryptedRdpPasswordResponse:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'GetEncryptedRdpPasswordResponse' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("value", None)
-    if field is not None:
-        args["value"] = field
-    else:
-        args["value"] = None
-
-    field = data.get("admin_password_encryption_ssh_key_description", None)
-    if field is not None:
-        args["admin_password_encryption_ssh_key_description"] = field
-    else:
-        args["admin_password_encryption_ssh_key_description"] = None
-
-    field = data.get("admin_password_encryption_ssh_key_id", None)
-    if field is not None:
-        args["admin_password_encryption_ssh_key_id"] = field
-    else:
-        args["admin_password_encryption_ssh_key_id"] = None
-
-    return GetEncryptedRdpPasswordResponse(**args)
 
 
 def unmarshal_GetImageResponse(data: Any) -> GetImageResponse:
@@ -3812,6 +3792,11 @@ def marshal_UpdateServerRequest(
     if request.commercial_type is not None:
         output["commercial_type"] = request.commercial_type
 
+    if request.admin_password_encryption_ssh_key_id is not None:
+        output["admin_password_encryption_ssh_key_id"] = (
+            request.admin_password_encryption_ssh_key_id
+        )
+
     return output
 
 
@@ -4188,16 +4173,22 @@ def marshal__SetServerRequest(
     if request.commercial_type is not None:
         output["commercial_type"] = request.commercial_type
 
+    if request.organization is not None:
+        output["organization"] = (
+            request.organization or defaults.default_organization_id
+        )
+
     if request.dynamic_ip_required is not None:
         output["dynamic_ip_required"] = request.dynamic_ip_required
 
     if request.hostname is not None:
         output["hostname"] = request.hostname
 
-    if request.organization is not None:
-        output["organization"] = (
-            request.organization or defaults.default_organization_id
-        )
+    if request.protected is not None:
+        output["protected"] = request.protected
+
+    if request.state_detail is not None:
+        output["state_detail"] = request.state_detail
 
     if request.project is not None:
         output["project"] = request.project or defaults.default_project_id
@@ -4220,9 +4211,6 @@ def marshal__SetServerRequest(
     if request.image is not None:
         output["image"] = marshal_Image(request.image, defaults)
 
-    if request.protected is not None:
-        output["protected"] = request.protected
-
     if request.private_ip is not None:
         output["private_ip"] = request.private_ip
 
@@ -4236,9 +4224,6 @@ def marshal__SetServerRequest(
 
     if request.modification_date is not None:
         output["modification_date"] = request.modification_date
-
-    if request.state_detail is not None:
-        output["state_detail"] = request.state_detail
 
     if request.state is not None:
         output["state"] = str(request.state)
@@ -4283,6 +4268,11 @@ def marshal__SetServerRequest(
         output["private_nics"] = [
             marshal_PrivateNIC(item, defaults) for item in request.private_nics
         ]
+
+    if request.admin_password_encryption_ssh_key_id is not None:
+        output["admin_password_encryption_ssh_key_id"] = (
+            request.admin_password_encryption_ssh_key_id
+        )
 
     return output
 
