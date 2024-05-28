@@ -169,7 +169,7 @@ class SecretVersion:
 
     status: SecretVersionStatus
     """
-    * `unknown`: the version is in an invalid state.
+    * `unknown_status`: the version is in an invalid state.
 * `enabled`: the version is accessible.
 * `disabled`: the version is not accessible but can be enabled.
 * `deleted`: the version is permanently deleted. It is not possible to recover it.
