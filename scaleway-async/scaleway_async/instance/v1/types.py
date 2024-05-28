@@ -917,11 +917,6 @@ class Server:
     Instance bootscript.
     """
 
-    security_group: Optional[SecurityGroupSummary]
-    """
-    Instance security group.
-    """
-
     maintenances: List[ServerMaintenance]
     """
     Instance planned maintenance.
@@ -947,9 +942,24 @@ class Server:
     Zone in which the Instance is located.
     """
 
+    security_group: Optional[SecurityGroupSummary]
+    """
+    Instance security group.
+    """
+
     placement_group: Optional[PlacementGroup]
     """
     Instance placement group.
+    """
+
+    admin_password_encryption_ssh_key_id: Optional[str]
+    """
+    The public_key value of this key is used to encrypt the admin password. When set to an empty string, reset this value and admin_password_encrypted_value to an empty string so a new password may be generated.
+    """
+
+    admin_password_encrypted_value: Optional[str]
+    """
+    This value is reset when admin_password_encryption_ssh_key_id is set to an empty string.
     """
 
 
@@ -1860,7 +1870,7 @@ class CreateServerRequest:
 
     admin_password_encryption_ssh_key_id: Optional[str]
     """
-    UUID of the SSH RSA key that will be used to encrypt the initial admin password for OS requiring it. Mandatory for Windows OS.
+    The public_key value of this key is used to encrypt the admin password.
     """
 
     project: Optional[str]
@@ -1962,19 +1972,6 @@ class CreateVolumeRequest:
 @dataclass
 class CreateVolumeResponse:
     volume: Optional[Volume]
-
-
-@dataclass
-class DeleteEncryptedRdpPasswordRequest:
-    server_id: str
-    """
-    UUID of the Instance.
-    """
-
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
 
 
 @dataclass
@@ -2188,37 +2185,6 @@ class GetDashboardRequest:
 @dataclass
 class GetDashboardResponse:
     dashboard: Optional[Dashboard]
-
-
-@dataclass
-class GetEncryptedRdpPasswordRequest:
-    server_id: str
-    """
-    UUID of the Instance.
-    """
-
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-
-@dataclass
-class GetEncryptedRdpPasswordResponse:
-    value: Optional[str]
-    """
-    The encrypted RDP password.
-    """
-
-    admin_password_encryption_ssh_key_description: Optional[str]
-    """
-    The description of the SSH key used for ciphering.
-    """
-
-    admin_password_encryption_ssh_key_id: Optional[str]
-    """
-    The UUID of the SSH key used for ciphering.
-    """
 
 
 @dataclass
@@ -3569,6 +3535,11 @@ class UpdateServerRequest:
 - Cannot be changed if the Instance is not in `stopped` state.
 - Cannot be changed if the Instance is in a placement group.
 - Local storage requirements of the target commercial_types must be fulfilled (i.e. if an Instance has 80GB of local storage, it can be changed into a GP1-XS, which has a maximum of 150GB, but it cannot be changed into a DEV1-S, which has only 20GB).
+    """
+
+    admin_password_encryption_ssh_key_id: Optional[str]
+    """
+    The public_key value of this key is used to encrypt the admin password. When set to an empty string, reset this value and admin_password_encrypted_value to an empty string so a new password may be generated.
     """
 
 
