@@ -954,6 +954,7 @@ class BaremetalV1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         subscription_period: Optional[OfferSubscriptionPeriod] = None,
+        name: Optional[str] = None,
     ) -> ListOffersResponse:
         """
         List offers.
@@ -962,6 +963,7 @@ class BaremetalV1API(API):
         :param page: Page number.
         :param page_size: Number of offers per page.
         :param subscription_period: Subscription period type to filter offers by.
+        :param name: Offer name to filter offers by.
         :return: :class:`ListOffersResponse <ListOffersResponse>`
 
         Usage:
@@ -976,6 +978,7 @@ class BaremetalV1API(API):
             "GET",
             f"/baremetal/v1/zones/{param_zone}/offers",
             params={
+                "name": name,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "subscription_period": subscription_period,
@@ -992,6 +995,7 @@ class BaremetalV1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         subscription_period: Optional[OfferSubscriptionPeriod] = None,
+        name: Optional[str] = None,
     ) -> List[Offer]:
         """
         List offers.
@@ -1000,6 +1004,7 @@ class BaremetalV1API(API):
         :param page: Page number.
         :param page_size: Number of offers per page.
         :param subscription_period: Subscription period type to filter offers by.
+        :param name: Offer name to filter offers by.
         :return: :class:`List[Offer] <List[Offer]>`
 
         Usage:
@@ -1017,6 +1022,7 @@ class BaremetalV1API(API):
                 "page": page,
                 "page_size": page_size,
                 "subscription_period": subscription_period,
+                "name": name,
             },
         )
 
