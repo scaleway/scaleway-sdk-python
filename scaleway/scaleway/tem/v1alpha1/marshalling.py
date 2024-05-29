@@ -7,6 +7,7 @@ from dateutil import parser
 from scaleway_core.profile import ProfileDefaults
 from .types import (
     EmailFlag,
+    WebhookEventType,
     EmailTry,
     Email,
     DomainRecordsDMARC,
@@ -14,6 +15,7 @@ from .types import (
     DomainReputation,
     DomainStatistics,
     Domain,
+    Webhook,
     CreateEmailResponse,
     DomainLastStatusDkimRecord,
     DomainLastStatusDmarcRecord,
@@ -21,12 +23,16 @@ from .types import (
     DomainLastStatus,
     ListDomainsResponse,
     ListEmailsResponse,
+    WebhookEvent,
+    ListWebhookEventsResponse,
+    ListWebhooksResponse,
     Statistics,
     CreateDomainRequest,
     CreateEmailRequestAddress,
     CreateEmailRequestAttachment,
     CreateEmailRequestHeader,
     CreateEmailRequest,
+    UpdateWebhookRequest,
 )
 
 
@@ -337,6 +343,59 @@ def unmarshal_Domain(data: Any) -> Domain:
     return Domain(**args)
 
 
+def unmarshal_Webhook(data: Any) -> Webhook:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Webhook' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+
+    field = data.get("domain_id", None)
+    if field is not None:
+        args["domain_id"] = field
+
+    field = data.get("organization_id", None)
+    if field is not None:
+        args["organization_id"] = field
+
+    field = data.get("project_id", None)
+    if field is not None:
+        args["project_id"] = field
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+
+    field = data.get("event_types", None)
+    if field is not None:
+        args["event_types"] = (
+            [WebhookEventType(v) for v in field] if field is not None else None
+        )
+
+    field = data.get("sns_arn", None)
+    if field is not None:
+        args["sns_arn"] = field
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
+    return Webhook(**args)
+
+
 def unmarshal_CreateEmailResponse(data: Any) -> CreateEmailResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -520,6 +579,105 @@ def unmarshal_ListEmailsResponse(data: Any) -> ListEmailsResponse:
     return ListEmailsResponse(**args)
 
 
+def unmarshal_WebhookEvent(data: Any) -> WebhookEvent:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'WebhookEvent' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+
+    field = data.get("webhook_id", None)
+    if field is not None:
+        args["webhook_id"] = field
+
+    field = data.get("organization_id", None)
+    if field is not None:
+        args["organization_id"] = field
+
+    field = data.get("project_id", None)
+    if field is not None:
+        args["project_id"] = field
+
+    field = data.get("type", None)
+    if field is not None:
+        args["type_"] = field
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+
+    field = data.get("data", None)
+    if field is not None:
+        args["data"] = field
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
+    field = data.get("email_id", None)
+    if field is not None:
+        args["email_id"] = field
+    else:
+        args["email_id"] = None
+
+    return WebhookEvent(**args)
+
+
+def unmarshal_ListWebhookEventsResponse(data: Any) -> ListWebhookEventsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListWebhookEventsResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+
+    field = data.get("webhook_events", None)
+    if field is not None:
+        args["webhook_events"] = (
+            [unmarshal_WebhookEvent(v) for v in field] if field is not None else None
+        )
+
+    return ListWebhookEventsResponse(**args)
+
+
+def unmarshal_ListWebhooksResponse(data: Any) -> ListWebhooksResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListWebhooksResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+
+    field = data.get("webhooks", None)
+    if field is not None:
+        args["webhooks"] = (
+            [unmarshal_Webhook(v) for v in field] if field is not None else None
+        )
+
+    return ListWebhooksResponse(**args)
+
+
 def unmarshal_Statistics(data: Any) -> Statistics:
     if not isinstance(data, dict):
         raise TypeError(
@@ -671,5 +829,23 @@ def marshal_CreateEmailRequest(
             marshal_CreateEmailRequestHeader(item, defaults)
             for item in request.additional_headers
         ]
+
+    return output
+
+
+def marshal_UpdateWebhookRequest(
+    request: UpdateWebhookRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.event_types is not None:
+        output["event_types"] = [str(item) for item in request.event_types]
+
+    if request.sns_arn is not None:
+        output["sns_arn"] = request.sns_arn
 
     return output

@@ -103,6 +103,46 @@ class ListEmailsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ListWebhookEventsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_DESC = "created_at_desc"
+    CREATED_AT_ASC = "created_at_asc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ListWebhooksRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_DESC = "created_at_desc"
+    CREATED_AT_ASC = "created_at_asc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class WebhookEventStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATUS = "unknown_status"
+    WAITING = "waiting"
+    SENDING = "sending"
+    SENT = "sent"
+    ERROR = "error"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class WebhookEventType(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_TYPE = "unknown_type"
+    EMAIL_QUEUED = "email_queued"
+    EMAIL_DROPPED = "email_dropped"
+    EMAIL_DEFERRED = "email_deferred"
+    EMAIL_DELIVERED = "email_delivered"
+    EMAIL_SPAM = "email_spam"
+    EMAIL_MAILBOX_NOT_FOUND = "email_mailbox_not_found"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 @dataclass
 class DomainRecordsDMARC:
     name: str
@@ -446,6 +486,107 @@ class Domain:
 
 
 @dataclass
+class WebhookEvent:
+    id: str
+    """
+    ID of the Webhook Event.
+    """
+
+    webhook_id: str
+    """
+    ID of the Webhook that triggers the Event.
+    """
+
+    organization_id: str
+    """
+    ID of the Webhook Event Organization.
+    """
+
+    project_id: str
+    """
+    ID of the Webhook Event Project.
+    """
+
+    type_: WebhookEventType
+    """
+    Type of the Webhook Event.
+    """
+
+    status: WebhookEventStatus
+    """
+    Status of the Webhook Event.
+    """
+
+    data: str
+    """
+    Data sent to the Webhook destination.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Date and time of the Webhook Event creation.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Date and time of last Webhook Event updates.
+    """
+
+    email_id: Optional[str]
+    """
+    Optional Email ID if the event is triggered by an Email resource.
+    """
+
+
+@dataclass
+class Webhook:
+    id: str
+    """
+    ID of the Webhook.
+    """
+
+    domain_id: str
+    """
+    ID of the Domain to watch for triggering events.
+    """
+
+    organization_id: str
+    """
+    ID of the Webhook Organization.
+    """
+
+    project_id: str
+    """
+    ID of the Webhook Project.
+    """
+
+    name: str
+    """
+    Name of the Webhook.
+    """
+
+    event_types: List[WebhookEventType]
+    """
+    List of event types that will trigger a Webhook Event.
+    """
+
+    sns_arn: str
+    """
+    Scaleway SNS ARN topic to push the events to.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Date and time of the Webhook creation.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Date and time of last Webhook updates.
+    """
+
+
+@dataclass
 class CancelEmailRequest:
     email_id: str
     """
@@ -562,6 +703,19 @@ class CreateEmailResponse:
     emails: List[Email]
     """
     Single page of emails matching the requested criteria.
+    """
+
+
+@dataclass
+class DeleteWebhookRequest:
+    webhook_id: str
+    """
+    ID of the Webhook to delete.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
     """
 
 
@@ -711,6 +865,9 @@ class ListDomainsResponse:
     """
 
     domains: List[Domain]
+    """
+    Single page of domains matching the requested criteria.
+    """
 
 
 @dataclass
@@ -804,6 +961,93 @@ class ListEmailsResponse:
 
 
 @dataclass
+class ListWebhookEventsRequest:
+    webhook_id: str
+    """
+    ID of the Webhook linked to the events.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    order_by: Optional[ListWebhookEventsRequestOrderBy]
+    """
+    (Optional) List Webhook events corresponding to specific criteria.
+    """
+
+    page: Optional[int]
+    """
+    Requested page number. Value must be greater or equal to 1.
+    """
+
+    page_size: Optional[int]
+    """
+    Requested page size. Value must be between 1 and 100.
+    """
+
+
+@dataclass
+class ListWebhookEventsResponse:
+    total_count: int
+    """
+    Number of Webhook events matching the requested criteria.
+    """
+
+    webhook_events: List[WebhookEvent]
+    """
+    Single page of Webhook events matching the requested criteria.
+    """
+
+
+@dataclass
+class ListWebhooksRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    order_by: Optional[ListWebhooksRequestOrderBy]
+    """
+    (Optional) List Webhooks corresponding to specific criteria.
+    """
+
+    page: Optional[int]
+    """
+    (Optional) Requested page number. Value must be greater or equal to 1.
+    """
+
+    page_size: Optional[int]
+    """
+    (Optional) Requested page size. Value must be between 1 and 100.
+    """
+
+    project_id: Optional[str]
+    """
+    (Optional) ID of the Project for which to list the Webhooks.
+    """
+
+    organization_id: Optional[str]
+    """
+    (Optional) ID of the Organization for which to list the Webhooks.
+    """
+
+
+@dataclass
+class ListWebhooksResponse:
+    total_count: int
+    """
+    Number of Webhooks matching the requested criteria.
+    """
+
+    webhooks: List[Webhook]
+    """
+    Single page of Webhooks matching the requested criteria.
+    """
+
+
+@dataclass
 class RevokeDomainRequest:
     domain_id: str
     """
@@ -846,4 +1090,32 @@ class Statistics:
     canceled_count: int
     """
     Number of emails in the final `canceled` state. This means emails that have been canceled upon request.
+    """
+
+
+@dataclass
+class UpdateWebhookRequest:
+    webhook_id: str
+    """
+    ID of the Webhook to update.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    name: Optional[str]
+    """
+    Name of the Webhook to update.
+    """
+
+    event_types: Optional[List[WebhookEventType]]
+    """
+    List of event types to update.
+    """
+
+    sns_arn: Optional[str]
+    """
+    Scaleway SNS ARN topic to update.
     """
