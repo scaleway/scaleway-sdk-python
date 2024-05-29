@@ -19,6 +19,9 @@ from .types import (
     EmailFlag,
     EmailStatus,
     ListEmailsRequestOrderBy,
+    ListWebhookEventsRequestOrderBy,
+    ListWebhooksRequestOrderBy,
+    WebhookEventType,
     CreateDomainRequest,
     CreateEmailRequest,
     CreateEmailRequestAddress,
@@ -30,7 +33,12 @@ from .types import (
     Email,
     ListDomainsResponse,
     ListEmailsResponse,
+    ListWebhookEventsResponse,
+    ListWebhooksResponse,
     Statistics,
+    UpdateWebhookRequest,
+    Webhook,
+    WebhookEvent,
 )
 from .content import (
     DOMAIN_TRANSIENT_STATUSES,
@@ -39,13 +47,17 @@ from .content import (
 from .marshalling import (
     unmarshal_Email,
     unmarshal_Domain,
+    unmarshal_Webhook,
     unmarshal_CreateEmailResponse,
     unmarshal_DomainLastStatus,
     unmarshal_ListDomainsResponse,
     unmarshal_ListEmailsResponse,
+    unmarshal_ListWebhookEventsResponse,
+    unmarshal_ListWebhooksResponse,
     unmarshal_Statistics,
     marshal_CreateDomainRequest,
     marshal_CreateEmailRequest,
+    marshal_UpdateWebhookRequest,
 )
 
 
@@ -740,3 +752,246 @@ class TemV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_DomainLastStatus(res.json())
+
+    def list_webhooks(
+        self,
+        *,
+        region: Optional[Region] = None,
+        order_by: Optional[ListWebhooksRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
+    ) -> ListWebhooksResponse:
+        """
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param order_by: (Optional) List Webhooks corresponding to specific criteria.
+        :param page: (Optional) Requested page number. Value must be greater or equal to 1.
+        :param page_size: (Optional) Requested page size. Value must be between 1 and 100.
+        :param project_id: (Optional) ID of the Project for which to list the Webhooks.
+        :param organization_id: (Optional) ID of the Organization for which to list the Webhooks.
+        :return: :class:`ListWebhooksResponse <ListWebhooksResponse>`
+
+        Usage:
+        ::
+
+            result = api.list_webhooks()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/transactional-email/v1alpha1/regions/{param_region}/webhooks",
+            params={
+                "order_by": order_by,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+                "project_id": project_id or self.client.default_project_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListWebhooksResponse(res.json())
+
+    def list_webhooks_all(
+        self,
+        *,
+        region: Optional[Region] = None,
+        order_by: Optional[ListWebhooksRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
+    ) -> List[Webhook]:
+        """
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param order_by: (Optional) List Webhooks corresponding to specific criteria.
+        :param page: (Optional) Requested page number. Value must be greater or equal to 1.
+        :param page_size: (Optional) Requested page size. Value must be between 1 and 100.
+        :param project_id: (Optional) ID of the Project for which to list the Webhooks.
+        :param organization_id: (Optional) ID of the Organization for which to list the Webhooks.
+        :return: :class:`List[Webhook] <List[Webhook]>`
+
+        Usage:
+        ::
+
+            result = api.list_webhooks_all()
+        """
+
+        return fetch_all_pages(
+            type=ListWebhooksResponse,
+            key="webhooks",
+            fetcher=self.list_webhooks,
+            args={
+                "region": region,
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size,
+                "project_id": project_id,
+                "organization_id": organization_id,
+            },
+        )
+
+    def update_webhook(
+        self,
+        *,
+        webhook_id: str,
+        region: Optional[Region] = None,
+        name: Optional[str] = None,
+        event_types: Optional[List[WebhookEventType]] = None,
+        sns_arn: Optional[str] = None,
+    ) -> Webhook:
+        """
+        :param webhook_id: ID of the Webhook to update.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param name: Name of the Webhook to update.
+        :param event_types: List of event types to update.
+        :param sns_arn: Scaleway SNS ARN topic to update.
+        :return: :class:`Webhook <Webhook>`
+
+        Usage:
+        ::
+
+            result = api.update_webhook(
+                webhook_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_webhook_id = validate_path_param("webhook_id", webhook_id)
+
+        res = self._request(
+            "PATCH",
+            f"/transactional-email/v1alpha1/regions/{param_region}/webhooks/{param_webhook_id}",
+            body=marshal_UpdateWebhookRequest(
+                UpdateWebhookRequest(
+                    webhook_id=webhook_id,
+                    region=region,
+                    name=name,
+                    event_types=event_types,
+                    sns_arn=sns_arn,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Webhook(res.json())
+
+    def delete_webhook(
+        self,
+        *,
+        webhook_id: str,
+        region: Optional[Region] = None,
+    ) -> None:
+        """
+        :param webhook_id: ID of the Webhook to delete.
+        :param region: Region to target. If none is passed will use default region from the config.
+
+        Usage:
+        ::
+
+            result = api.delete_webhook(
+                webhook_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_webhook_id = validate_path_param("webhook_id", webhook_id)
+
+        res = self._request(
+            "DELETE",
+            f"/transactional-email/v1alpha1/regions/{param_region}/webhooks/{param_webhook_id}",
+        )
+
+        self._throw_on_error(res)
+
+    def list_webhook_events(
+        self,
+        *,
+        webhook_id: str,
+        region: Optional[Region] = None,
+        order_by: Optional[ListWebhookEventsRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ListWebhookEventsResponse:
+        """
+        :param webhook_id: ID of the Webhook linked to the events.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param order_by: (Optional) List Webhook events corresponding to specific criteria.
+        :param page: Requested page number. Value must be greater or equal to 1.
+        :param page_size: Requested page size. Value must be between 1 and 100.
+        :return: :class:`ListWebhookEventsResponse <ListWebhookEventsResponse>`
+
+        Usage:
+        ::
+
+            result = api.list_webhook_events(
+                webhook_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_webhook_id = validate_path_param("webhook_id", webhook_id)
+
+        res = self._request(
+            "GET",
+            f"/transactional-email/v1alpha1/regions/{param_region}/webhooks/{param_webhook_id}/events",
+            params={
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListWebhookEventsResponse(res.json())
+
+    def list_webhook_events_all(
+        self,
+        *,
+        webhook_id: str,
+        region: Optional[Region] = None,
+        order_by: Optional[ListWebhookEventsRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[WebhookEvent]:
+        """
+        :param webhook_id: ID of the Webhook linked to the events.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param order_by: (Optional) List Webhook events corresponding to specific criteria.
+        :param page: Requested page number. Value must be greater or equal to 1.
+        :param page_size: Requested page size. Value must be between 1 and 100.
+        :return: :class:`List[WebhookEvent] <List[WebhookEvent]>`
+
+        Usage:
+        ::
+
+            result = api.list_webhook_events_all(
+                webhook_id="example",
+            )
+        """
+
+        return fetch_all_pages(
+            type=ListWebhookEventsResponse,
+            key="webhook_events",
+            fetcher=self.list_webhook_events,
+            args={
+                "webhook_id": webhook_id,
+                "region": region,
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size,
+            },
+        )
