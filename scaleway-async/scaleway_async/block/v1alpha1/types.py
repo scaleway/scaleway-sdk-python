@@ -68,6 +68,7 @@ class SnapshotStatus(str, Enum, metaclass=StrEnumMeta):
     DELETED = "deleted"
     IN_USE = "in_use"
     LOCKED = "locked"
+    EXPORTING = "exporting"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -434,6 +435,29 @@ class DeleteVolumeRequest:
 
 
 @dataclass
+class ExportSnapshotToObjectStorageRequest:
+    snapshot_id: str
+    """
+    UUID of the snapshot.
+    """
+
+    bucket: str
+    """
+    Scaleway Object Storage bucket where the object is stored.
+    """
+
+    key: str
+    """
+    The object key inside the given bucket.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
 class GetSnapshotRequest:
     snapshot_id: str
     """
@@ -456,6 +480,44 @@ class GetVolumeRequest:
     zone: Optional[Zone]
     """
     Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class ImportSnapshotFromObjectStorageRequest:
+    bucket: str
+    """
+    Scaleway Object Storage bucket where the object is stored.
+    """
+
+    key: str
+    """
+    The object key inside the given bucket.
+    """
+
+    name: str
+    """
+    Name of the snapshot.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    UUID of the Project to which the volume and the snapshot belong.
+    """
+
+    tags: Optional[List[str]]
+    """
+    List of tags assigned to the snapshot.
+    """
+
+    size: Optional[int]
+    """
+    Size of the snapshot.
     """
 
 

@@ -22,8 +22,10 @@ from .types import CreateSnapshotRequest
 from .types import CreateVolumeRequest
 from .types import DeleteSnapshotRequest
 from .types import DeleteVolumeRequest
+from .types import ExportSnapshotToObjectStorageRequest
 from .types import GetSnapshotRequest
 from .types import GetVolumeRequest
+from .types import ImportSnapshotFromObjectStorageRequest
 from .types import ImportSnapshotFromS3Request
 from .types import ListSnapshotsRequest
 from .types import ListSnapshotsResponse
@@ -58,8 +60,10 @@ __all__ = [
     "CreateVolumeRequest",
     "DeleteSnapshotRequest",
     "DeleteVolumeRequest",
+    "ExportSnapshotToObjectStorageRequest",
     "GetSnapshotRequest",
     "GetVolumeRequest",
+    "ImportSnapshotFromObjectStorageRequest",
     "ImportSnapshotFromS3Request",
     "ListSnapshotsRequest",
     "ListSnapshotsResponse",
