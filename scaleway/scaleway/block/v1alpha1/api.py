@@ -20,6 +20,8 @@ from .types import (
     CreateVolumeRequest,
     CreateVolumeRequestFromEmpty,
     CreateVolumeRequestFromSnapshot,
+    ExportSnapshotToObjectStorageRequest,
+    ImportSnapshotFromObjectStorageRequest,
     ImportSnapshotFromS3Request,
     ListSnapshotsResponse,
     ListVolumeTypesResponse,
@@ -42,6 +44,8 @@ from .marshalling import (
     unmarshal_ListVolumesResponse,
     marshal_CreateSnapshotRequest,
     marshal_CreateVolumeRequest,
+    marshal_ExportSnapshotToObjectStorageRequest,
+    marshal_ImportSnapshotFromObjectStorageRequest,
     marshal_ImportSnapshotFromS3Request,
     marshal_UpdateSnapshotRequest,
     marshal_UpdateVolumeRequest,
@@ -666,6 +670,7 @@ class BlockV1Alpha1API(API):
         :param tags: List of tags assigned to the snapshot.
         :param size: Size of the snapshot.
         :return: :class:`Snapshot <Snapshot>`
+        :deprecated
 
         Usage:
         ::
@@ -691,6 +696,110 @@ class BlockV1Alpha1API(API):
                     project_id=project_id,
                     tags=tags,
                     size=size,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Snapshot(res.json())
+
+    def import_snapshot_from_object_storage(
+        self,
+        *,
+        bucket: str,
+        key: str,
+        name: str,
+        zone: Optional[Zone] = None,
+        project_id: Optional[str] = None,
+        tags: Optional[List[str]] = None,
+        size: Optional[int] = None,
+    ) -> Snapshot:
+        """
+        Import a snapshot from a Scaleway Object Storage bucket.
+        The bucket must contain a QCOW2 image.
+        The bucket can be imported into any Availability Zone as long as it is in the same region as the bucket.
+        :param bucket: Scaleway Object Storage bucket where the object is stored.
+        :param key: The object key inside the given bucket.
+        :param name: Name of the snapshot.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param project_id: UUID of the Project to which the volume and the snapshot belong.
+        :param tags: List of tags assigned to the snapshot.
+        :param size: Size of the snapshot.
+        :return: :class:`Snapshot <Snapshot>`
+
+        Usage:
+        ::
+
+            result = api.import_snapshot_from_object_storage(
+                bucket="example",
+                key="example",
+                name="example",
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+
+        res = self._request(
+            "POST",
+            f"/block/v1alpha1/zones/{param_zone}/snapshots/import-from-object-storage",
+            body=marshal_ImportSnapshotFromObjectStorageRequest(
+                ImportSnapshotFromObjectStorageRequest(
+                    bucket=bucket,
+                    key=key,
+                    name=name,
+                    zone=zone,
+                    project_id=project_id,
+                    tags=tags,
+                    size=size,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Snapshot(res.json())
+
+    def export_snapshot_to_object_storage(
+        self,
+        *,
+        snapshot_id: str,
+        bucket: str,
+        key: str,
+        zone: Optional[Zone] = None,
+    ) -> Snapshot:
+        """
+        Export a snapshot to a Scaleway Object Storage bucket.
+        The snapshot is exported in QCOW2 format.
+        The snapshot must not be in transient state.
+        :param snapshot_id: UUID of the snapshot.
+        :param bucket: Scaleway Object Storage bucket where the object is stored.
+        :param key: The object key inside the given bucket.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :return: :class:`Snapshot <Snapshot>`
+
+        Usage:
+        ::
+
+            result = api.export_snapshot_to_object_storage(
+                snapshot_id="example",
+                bucket="example",
+                key="example",
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_snapshot_id = validate_path_param("snapshot_id", snapshot_id)
+
+        res = self._request(
+            "POST",
+            f"/block/v1alpha1/zones/{param_zone}/snapshots/{param_snapshot_id}/export-to-object-storage",
+            body=marshal_ExportSnapshotToObjectStorageRequest(
+                ExportSnapshotToObjectStorageRequest(
+                    snapshot_id=snapshot_id,
+                    bucket=bucket,
+                    key=key,
+                    zone=zone,
                 ),
                 self.client,
             ),

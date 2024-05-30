@@ -19,6 +19,7 @@ Lists transient statutes of the enum :class:`ReferenceStatus <ReferenceStatus>`.
 SNAPSHOT_TRANSIENT_STATUSES: List[SnapshotStatus] = [
     SnapshotStatus.CREATING,
     SnapshotStatus.DELETING,
+    SnapshotStatus.EXPORTING,
 ]
 """
 Lists transient statutes of the enum :class:`SnapshotStatus <SnapshotStatus>`.
