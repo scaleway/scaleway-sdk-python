@@ -2915,6 +2915,9 @@ def marshal_CreatePrivateNICRequest(
     if request.ip_ids is not None:
         output["ip_ids"] = request.ip_ids
 
+    if request.ipam_ip_ids is not None:
+        output["ipam_ip_ids"] = request.ipam_ip_ids
+
     return output
 
 
