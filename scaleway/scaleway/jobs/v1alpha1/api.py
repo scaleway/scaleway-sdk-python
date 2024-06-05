@@ -21,6 +21,7 @@ from .types import (
     JobRun,
     ListJobDefinitionsResponse,
     ListJobRunsResponse,
+    ListJobsResourcesResponse,
     StartJobDefinitionRequest,
     StartJobDefinitionResponse,
     UpdateJobDefinitionRequest,
@@ -31,6 +32,7 @@ from .marshalling import (
     unmarshal_JobRun,
     unmarshal_ListJobDefinitionsResponse,
     unmarshal_ListJobRunsResponse,
+    unmarshal_ListJobsResourcesResponse,
     unmarshal_StartJobDefinitionResponse,
     marshal_CreateJobDefinitionRequest,
     marshal_StartJobDefinitionRequest,
@@ -551,3 +553,31 @@ class JobsV1Alpha1API(API):
                 "organization_id": organization_id,
             },
         )
+
+    def list_jobs_resources(
+        self,
+        *,
+        region: Optional[Region] = None,
+    ) -> ListJobsResourcesResponse:
+        """
+        List jobs resources for the console.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`ListJobsResourcesResponse <ListJobsResourcesResponse>`
+
+        Usage:
+        ::
+
+            result = api.list_jobs_resources()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/serverless-jobs/v1alpha1/regions/{param_region}/jobs-resources",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListJobsResourcesResponse(res.json())

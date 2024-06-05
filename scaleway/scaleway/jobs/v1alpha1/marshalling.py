@@ -11,6 +11,8 @@ from .types import (
     JobRun,
     ListJobDefinitionsResponse,
     ListJobRunsResponse,
+    Resource,
+    ListJobsResourcesResponse,
     StartJobDefinitionResponse,
     CreateJobDefinitionRequestCronScheduleConfig,
     CreateJobDefinitionRequest,
@@ -247,6 +249,42 @@ def unmarshal_ListJobRunsResponse(data: Any) -> ListJobRunsResponse:
         args["total_count"] = field
 
     return ListJobRunsResponse(**args)
+
+
+def unmarshal_Resource(data: Any) -> Resource:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Resource' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("cpu_limit", None)
+    if field is not None:
+        args["cpu_limit"] = field
+
+    field = data.get("memory_limit", None)
+    if field is not None:
+        args["memory_limit"] = field
+
+    return Resource(**args)
+
+
+def unmarshal_ListJobsResourcesResponse(data: Any) -> ListJobsResourcesResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListJobsResourcesResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("resources", None)
+    if field is not None:
+        args["resources"] = (
+            [unmarshal_Resource(v) for v in field] if field is not None else None
+        )
+
+    return ListJobsResourcesResponse(**args)
 
 
 def unmarshal_StartJobDefinitionResponse(data: Any) -> StartJobDefinitionResponse:
