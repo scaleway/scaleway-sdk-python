@@ -220,6 +220,11 @@ class Deployment:
     The inference model used for the deployment.
     """
 
+    model_id: str
+    """
+    ID of the model used for the deployment.
+    """
+
     region: Region
     """
     Region of the deployment.
