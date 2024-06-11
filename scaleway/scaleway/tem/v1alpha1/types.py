@@ -1033,6 +1033,11 @@ class ListWebhooksRequest:
     (Optional) ID of the Organization for which to list the Webhooks.
     """
 
+    domain_id: Optional[str]
+    """
+    (Optional) ID of the Domain for which to list the Webhooks.
+    """
+
 
 @dataclass
 class ListWebhooksResponse:
