@@ -153,6 +153,10 @@ def unmarshal_Deployment(data: Any) -> Deployment:
     if field is not None:
         args["model_name"] = field
 
+    field = data.get("model_id", None)
+    if field is not None:
+        args["model_id"] = field
+
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
