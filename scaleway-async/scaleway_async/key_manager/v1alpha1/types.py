@@ -359,7 +359,7 @@ Set it to `true` if you do not wish the plaintext to be returned in the response
 
     algorithm: Optional[DataKeyAlgorithmSymmetricEncryption]
     """
-    Symmetric encryption algorithm of the data encryption key.
+    Encryption algorithm of the data encryption key.
     """
 
 
