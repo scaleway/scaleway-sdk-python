@@ -140,6 +140,13 @@ class JobRun:
 
 
 @dataclass
+class Resource:
+    cpu_limit: int
+
+    memory_limit: int
+
+
+@dataclass
 class UpdateJobDefinitionRequestCronScheduleConfig:
     schedule: Optional[str]
 
@@ -295,6 +302,19 @@ class ListJobRunsResponse:
     job_runs: List[JobRun]
 
     total_count: int
+
+
+@dataclass
+class ListJobsResourcesRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class ListJobsResourcesResponse:
+    resources: List[Resource]
 
 
 @dataclass
