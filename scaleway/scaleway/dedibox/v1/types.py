@@ -712,7 +712,7 @@ class OfferStorageInfo:
 
 @dataclass
 class IP:
-    ip_id: str
+    ip_id: int
     """
     ID of the IP.
     """
