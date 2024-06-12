@@ -762,6 +762,7 @@ class TemV1Alpha1API(API):
         page_size: Optional[int] = None,
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
+        domain_id: Optional[str] = None,
     ) -> ListWebhooksResponse:
         """
         :param region: Region to target. If none is passed will use default region from the config.
@@ -770,6 +771,7 @@ class TemV1Alpha1API(API):
         :param page_size: (Optional) Requested page size. Value must be between 1 and 100.
         :param project_id: (Optional) ID of the Project for which to list the Webhooks.
         :param organization_id: (Optional) ID of the Organization for which to list the Webhooks.
+        :param domain_id: (Optional) ID of the Domain for which to list the Webhooks.
         :return: :class:`ListWebhooksResponse <ListWebhooksResponse>`
 
         Usage:
@@ -786,6 +788,7 @@ class TemV1Alpha1API(API):
             "GET",
             f"/transactional-email/v1alpha1/regions/{param_region}/webhooks",
             params={
+                "domain_id": domain_id,
                 "order_by": order_by,
                 "organization_id": organization_id
                 or self.client.default_organization_id,
@@ -807,6 +810,7 @@ class TemV1Alpha1API(API):
         page_size: Optional[int] = None,
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
+        domain_id: Optional[str] = None,
     ) -> List[Webhook]:
         """
         :param region: Region to target. If none is passed will use default region from the config.
@@ -815,6 +819,7 @@ class TemV1Alpha1API(API):
         :param page_size: (Optional) Requested page size. Value must be between 1 and 100.
         :param project_id: (Optional) ID of the Project for which to list the Webhooks.
         :param organization_id: (Optional) ID of the Organization for which to list the Webhooks.
+        :param domain_id: (Optional) ID of the Domain for which to list the Webhooks.
         :return: :class:`List[Webhook] <List[Webhook]>`
 
         Usage:
@@ -834,6 +839,7 @@ class TemV1Alpha1API(API):
                 "page_size": page_size,
                 "project_id": project_id,
                 "organization_id": organization_id,
+                "domain_id": domain_id,
             },
         )
 
