@@ -8,6 +8,7 @@ from .types import CronSchedule
 from .types import CreateJobDefinitionRequestCronScheduleConfig
 from .types import JobDefinition
 from .types import JobRun
+from .types import Resource
 from .types import UpdateJobDefinitionRequestCronScheduleConfig
 from .types import CreateJobDefinitionRequest
 from .types import DeleteJobDefinitionRequest
@@ -17,6 +18,8 @@ from .types import ListJobDefinitionsRequest
 from .types import ListJobDefinitionsResponse
 from .types import ListJobRunsRequest
 from .types import ListJobRunsResponse
+from .types import ListJobsResourcesRequest
+from .types import ListJobsResourcesResponse
 from .types import StartJobDefinitionRequest
 from .types import StartJobDefinitionResponse
 from .types import StopJobRunRequest
@@ -32,6 +35,7 @@ __all__ = [
     "CreateJobDefinitionRequestCronScheduleConfig",
     "JobDefinition",
     "JobRun",
+    "Resource",
     "UpdateJobDefinitionRequestCronScheduleConfig",
     "CreateJobDefinitionRequest",
     "DeleteJobDefinitionRequest",
@@ -41,6 +45,8 @@ __all__ = [
     "ListJobDefinitionsResponse",
     "ListJobRunsRequest",
     "ListJobRunsResponse",
+    "ListJobsResourcesRequest",
+    "ListJobsResourcesResponse",
     "StartJobDefinitionRequest",
     "StartJobDefinitionResponse",
     "StopJobRunRequest",

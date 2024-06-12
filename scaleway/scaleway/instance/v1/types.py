@@ -1683,6 +1683,11 @@ class CreatePrivateNICRequest:
     Ip_ids defined from IPAM.
     """
 
+    ipam_ip_ids: Optional[List[str]]
+    """
+    UUID of IPAM ips, to be attached to the instance in the requested private network.
+    """
+
 
 @dataclass
 class CreatePrivateNICResponse:
