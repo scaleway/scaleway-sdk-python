@@ -84,6 +84,11 @@ class FunctionRuntime(str, Enum, metaclass=StrEnumMeta):
     GO120 = "go120"
     NODE20 = "node20"
     GO121 = "go121"
+    NODE22 = "node22"
+    PYTHON312 = "python312"
+    PHP83 = "php83"
+    GO122 = "go122"
+    RUST178 = "rust178"
 
     def __str__(self) -> str:
         return str(self.value)
