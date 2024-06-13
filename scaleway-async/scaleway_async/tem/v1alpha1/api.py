@@ -21,6 +21,7 @@ from .types import (
     ListEmailsRequestOrderBy,
     ListWebhookEventsRequestOrderBy,
     ListWebhooksRequestOrderBy,
+    WebhookEventStatus,
     WebhookEventType,
     CreateDomainRequest,
     CreateEmailRequest,
@@ -929,6 +930,12 @@ class TemV1Alpha1API(API):
         order_by: Optional[ListWebhookEventsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
+        email_id: Optional[str] = None,
+        event_types: Optional[List[WebhookEventType]] = None,
+        statuses: Optional[List[WebhookEventStatus]] = None,
+        project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
+        domain_id: Optional[str] = None,
     ) -> ListWebhookEventsResponse:
         """
         :param webhook_id: ID of the Webhook linked to the events.
@@ -936,6 +943,12 @@ class TemV1Alpha1API(API):
         :param order_by: (Optional) List Webhook events corresponding to specific criteria.
         :param page: Requested page number. Value must be greater or equal to 1.
         :param page_size: Requested page size. Value must be between 1 and 100.
+        :param email_id: ID of the email linked to the events.
+        :param event_types: List of event types linked to the events.
+        :param statuses: List of event statuses.
+        :param project_id: ID of the webhook Project.
+        :param organization_id: ID of the webhook Organization.
+        :param domain_id: ID of the domain to watch for triggering events.
         :return: :class:`ListWebhookEventsResponse <ListWebhookEventsResponse>`
 
         Usage:
@@ -955,9 +968,16 @@ class TemV1Alpha1API(API):
             "GET",
             f"/transactional-email/v1alpha1/regions/{param_region}/webhooks/{param_webhook_id}/events",
             params={
+                "domain_id": domain_id,
+                "email_id": email_id,
+                "event_types": event_types,
                 "order_by": order_by,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
+                "project_id": project_id or self.client.default_project_id,
+                "statuses": statuses,
             },
         )
 
@@ -972,6 +992,12 @@ class TemV1Alpha1API(API):
         order_by: Optional[ListWebhookEventsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
+        email_id: Optional[str] = None,
+        event_types: Optional[List[WebhookEventType]] = None,
+        statuses: Optional[List[WebhookEventStatus]] = None,
+        project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
+        domain_id: Optional[str] = None,
     ) -> List[WebhookEvent]:
         """
         :param webhook_id: ID of the Webhook linked to the events.
@@ -979,6 +1005,12 @@ class TemV1Alpha1API(API):
         :param order_by: (Optional) List Webhook events corresponding to specific criteria.
         :param page: Requested page number. Value must be greater or equal to 1.
         :param page_size: Requested page size. Value must be between 1 and 100.
+        :param email_id: ID of the email linked to the events.
+        :param event_types: List of event types linked to the events.
+        :param statuses: List of event statuses.
+        :param project_id: ID of the webhook Project.
+        :param organization_id: ID of the webhook Organization.
+        :param domain_id: ID of the domain to watch for triggering events.
         :return: :class:`List[WebhookEvent] <List[WebhookEvent]>`
 
         Usage:
@@ -999,5 +1031,11 @@ class TemV1Alpha1API(API):
                 "order_by": order_by,
                 "page": page,
                 "page_size": page_size,
+                "email_id": email_id,
+                "event_types": event_types,
+                "statuses": statuses,
+                "project_id": project_id,
+                "organization_id": organization_id,
+                "domain_id": domain_id,
             },
         )

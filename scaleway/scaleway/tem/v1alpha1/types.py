@@ -507,6 +507,11 @@ class WebhookEvent:
     ID of the Webhook Event Project.
     """
 
+    domain_id: str
+    """
+    ID of the webhook event domain.
+    """
+
     type_: WebhookEventType
     """
     Type of the Webhook Event.
@@ -985,6 +990,36 @@ class ListWebhookEventsRequest:
     page_size: Optional[int]
     """
     Requested page size. Value must be between 1 and 100.
+    """
+
+    email_id: Optional[str]
+    """
+    ID of the email linked to the events.
+    """
+
+    event_types: Optional[List[WebhookEventType]]
+    """
+    List of event types linked to the events.
+    """
+
+    statuses: Optional[List[WebhookEventStatus]]
+    """
+    List of event statuses.
+    """
+
+    project_id: Optional[str]
+    """
+    ID of the webhook Project.
+    """
+
+    organization_id: Optional[str]
+    """
+    ID of the webhook Organization.
+    """
+
+    domain_id: Optional[str]
+    """
+    ID of the domain to watch for triggering events.
     """
 
 
