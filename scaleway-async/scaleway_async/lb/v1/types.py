@@ -1528,7 +1528,7 @@ class CreateLbRequest:
 
     assign_flexible_ip: Optional[bool]
     """
-    Defines whether to automatically assign a flexible public IP to lb. Default value is `false` (do not assign).
+    Defines whether to automatically assign a flexible public IP to the Load Balancer. Default value is `true` (assign).
     """
 
     assign_flexible_ipv6: Optional[bool]
@@ -3167,7 +3167,7 @@ class ZonedApiCreateLbRequest:
 
     assign_flexible_ip: Optional[bool]
     """
-    Defines whether to automatically assign a flexible public IP to lb. Default value is `false` (do not assign).
+    Defines whether to automatically assign a flexible public IP to the Load Balancer. Default value is `true` (assign).
     """
 
     assign_flexible_ipv6: Optional[bool]
