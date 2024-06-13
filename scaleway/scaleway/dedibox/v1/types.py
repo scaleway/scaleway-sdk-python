@@ -1878,7 +1878,7 @@ class ServerEvent:
 
     description: str
     """
-    Descriptiion of the event.
+    Description of the event.
     """
 
     date: Optional[datetime]
