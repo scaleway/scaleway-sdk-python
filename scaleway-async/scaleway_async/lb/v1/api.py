@@ -331,7 +331,7 @@ class LbV1ZonedAPI(API):
         One-Of ('project_identifier'): at most one of 'project_id', 'organization_id' could be set.
         :param name: Name for the Load Balancer.
         :param ip_id: ID of an existing flexible IP address to attach to the Load Balancer.
-        :param assign_flexible_ip: Defines whether to automatically assign a flexible public IP to lb. Default value is `false` (do not assign).
+        :param assign_flexible_ip: Defines whether to automatically assign a flexible public IP to the Load Balancer. Default value is `true` (assign).
         :param assign_flexible_ipv6: Defines whether to automatically assign a flexible public IPv6 to the Load Balancer. Default value is `false` (do not assign).
         :param ip_ids: List of IP IDs to attach to the Load Balancer.
         :param tags: List of tags for the Load Balancer.
@@ -3345,7 +3345,7 @@ class LbV1API(API):
         One-Of ('project_identifier'): at most one of 'project_id', 'organization_id' could be set.
         :param name: Name for the Load Balancer.
         :param ip_id: ID of an existing flexible IP address to attach to the Load Balancer.
-        :param assign_flexible_ip: Defines whether to automatically assign a flexible public IP to lb. Default value is `false` (do not assign).
+        :param assign_flexible_ip: Defines whether to automatically assign a flexible public IP to the Load Balancer. Default value is `true` (assign).
         :param assign_flexible_ipv6: Defines whether to automatically assign a flexible public IPv6 to the Load Balancer. Default value is `false` (do not assign).
         :param ip_ids: List of IP IDs to attach to the Load Balancer.
         :param tags: List of tags for the Load Balancer.
