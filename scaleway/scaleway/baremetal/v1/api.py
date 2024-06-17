@@ -1398,7 +1398,7 @@ class BaremetalV1API(API):
 
 class BaremetalV1PrivateNetworkAPI(API):
     """
-    Elastic Metal Private Network API.
+    Elastic Metal - Private Network API.
     """
 
     def add_server_private_network(
