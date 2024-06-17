@@ -603,6 +603,10 @@ def unmarshal_WebhookEvent(data: Any) -> WebhookEvent:
     if field is not None:
         args["project_id"] = field
 
+    field = data.get("domain_id", None)
+    if field is not None:
+        args["domain_id"] = field
+
     field = data.get("type", None)
     if field is not None:
         args["type_"] = field
