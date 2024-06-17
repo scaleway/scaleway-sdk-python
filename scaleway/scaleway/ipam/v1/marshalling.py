@@ -126,10 +126,6 @@ def unmarshal_IP(data: Any) -> IP:
     if field is not None:
         args["is_ipv6"] = field
 
-    field = data.get("source", None)
-    if field is not None:
-        args["source"] = unmarshal_Source(field)
-
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
@@ -155,6 +151,12 @@ def unmarshal_IP(data: Any) -> IP:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["updated_at"] = None
+
+    field = data.get("source", None)
+    if field is not None:
+        args["source"] = unmarshal_Source(field)
+    else:
+        args["source"] = None
 
     field = data.get("resource", None)
     if field is not None:

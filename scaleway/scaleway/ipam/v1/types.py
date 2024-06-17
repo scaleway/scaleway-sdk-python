@@ -116,11 +116,6 @@ class IP:
     Defines whether the IP is an IPv6 (false = IPv4).
     """
 
-    source: Source
-    """
-    Source pool where the IP was booked in.
-    """
-
     tags: List[str]
     """
     Tags for the IP.
@@ -144,6 +139,11 @@ class IP:
     updated_at: Optional[datetime]
     """
     Date the IP was last modified.
+    """
+
+    source: Optional[Source]
+    """
+    Source pool where the IP was booked in.
     """
 
     resource: Optional[Resource]
