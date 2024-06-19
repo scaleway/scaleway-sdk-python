@@ -63,6 +63,18 @@ class ListGrafanaUsersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ListManagedAlertsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+    NAME_ASC = "name_asc"
+    NAME_DESC = "name_desc"
+    TYPE_ASC = "type_asc"
+    TYPE_DESC = "type_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListPlansRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     NAME_ASC = "name_asc"
     NAME_DESC = "name_desc"
@@ -249,6 +261,19 @@ class GrafanaUser:
     """
     Grafana user's password.
     """
+
+
+@dataclass
+class Alert:
+    product_family: str
+
+    product: str
+
+    name: str
+
+    rule: str
+
+    description: str
 
 
 @dataclass
@@ -709,6 +734,23 @@ class ListGrafanaUsersResponse:
 
 
 @dataclass
+class ListManagedAlertsResponse:
+    """
+    Response returned when listing data sources.
+    """
+
+    total_count: int
+    """
+    Total count of data sources matching the request.
+    """
+
+    alerts: List[Alert]
+    """
+    Alerts matching the request within the pagination.
+    """
+
+
+@dataclass
 class ListPlansResponse:
     """
     Output returned when listing pricing plans.
@@ -1065,6 +1107,38 @@ class RegionalApiListDataSourcesRequest:
     types: Optional[List[DataSourceType]]
     """
     Types to filter for, only data sources with matching types will be returned.
+    """
+
+
+@dataclass
+class RegionalApiListManagedAlertsRequest:
+    """
+    Enable the sending of managed alerts.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    page: Optional[int]
+    """
+    Page number to return, from the paginated results.
+    """
+
+    page_size: Optional[int]
+    """
+    Number of data sources to return per page.
+    """
+
+    order_by: Optional[ListManagedAlertsRequestOrderBy]
+    """
+    Sort order for data sources in the response.
+    """
+
+    project_id: Optional[str]
+    """
+    Project ID to filter for, only data sources from this Project will be returned.
     """
 
 
