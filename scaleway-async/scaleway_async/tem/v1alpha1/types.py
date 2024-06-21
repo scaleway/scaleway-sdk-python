@@ -642,6 +642,11 @@ class CreateDomainRequest:
 
 @dataclass
 class CreateEmailRequest:
+    from_: CreateEmailRequestAddress
+    """
+    Sender information. Must be from a checked domain declared in the Project.
+    """
+
     subject: str
     """
     Subject of the email.
@@ -660,11 +665,6 @@ class CreateEmailRequest:
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
-    """
-
-    from_: Optional[CreateEmailRequestAddress]
-    """
-    Sender information. Must be from a checked domain declared in the Project.
     """
 
     to: Optional[List[CreateEmailRequestAddress]]
