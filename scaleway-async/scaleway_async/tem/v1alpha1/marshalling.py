@@ -789,6 +789,9 @@ def marshal_CreateEmailRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
+    if request.from_ is not None:
+        output["from"] = marshal_CreateEmailRequestAddress(request.from_, defaults)
+
     if request.subject is not None:
         output["subject"] = request.subject
 
@@ -797,9 +800,6 @@ def marshal_CreateEmailRequest(
 
     if request.html is not None:
         output["html"] = request.html
-
-    if request.from_ is not None:
-        output["from"] = marshal_CreateEmailRequestAddress(request.from_, defaults)
 
     if request.to is not None:
         output["to"] = [

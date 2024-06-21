@@ -70,11 +70,11 @@ class TemV1Alpha1API(API):
     def create_email(
         self,
         *,
+        from_: CreateEmailRequestAddress,
         subject: str,
         text: str,
         html: str,
         region: Optional[Region] = None,
-        from_: Optional[CreateEmailRequestAddress] = None,
         to: Optional[List[CreateEmailRequestAddress]] = None,
         cc: Optional[List[CreateEmailRequestAddress]] = None,
         bcc: Optional[List[CreateEmailRequestAddress]] = None,
@@ -86,11 +86,11 @@ class TemV1Alpha1API(API):
         """
         Send an email.
         You must specify the `region`, the sender and the recipient's information and the `project_id` to send an email from a checked domain. The subject of the email must contain at least 6 characters.
+        :param from_: Sender information. Must be from a checked domain declared in the Project.
         :param subject: Subject of the email.
         :param text: Text content.
         :param html: HTML content.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param from_: Sender information. Must be from a checked domain declared in the Project.
         :param to: An array of the primary recipient's information.
         :param cc: An array of the carbon copy recipient's information.
         :param bcc: An array of the blind carbon copy recipient's information.
@@ -104,6 +104,7 @@ class TemV1Alpha1API(API):
         ::
 
             result = api.create_email(
+                from=CreateEmailRequestAddress(),
                 subject="example",
                 text="example",
                 html="example",
@@ -119,11 +120,11 @@ class TemV1Alpha1API(API):
             f"/transactional-email/v1alpha1/regions/{param_region}/emails",
             body=marshal_CreateEmailRequest(
                 CreateEmailRequest(
+                    from_=from_,
                     subject=subject,
                     text=text,
                     html=html,
                     region=region,
-                    from_=from_,
                     to=to,
                     cc=cc,
                     bcc=bcc,
