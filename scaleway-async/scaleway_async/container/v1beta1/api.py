@@ -21,6 +21,7 @@ from .types import (
     ContainerHttpOption,
     ContainerPrivacy,
     ContainerProtocol,
+    ContainerSandbox,
     ListContainersRequestOrderBy,
     ListCronsRequestOrderBy,
     ListDomainsRequestOrderBy,
@@ -592,6 +593,7 @@ class ContainerV1Beta1API(API):
         port: Optional[int] = None,
         secret_environment_variables: Optional[List[Secret]] = None,
         http_option: Optional[ContainerHttpOption] = None,
+        sandbox: Optional[ContainerSandbox] = None,
     ) -> Container:
         """
         Create a new container.
@@ -615,6 +617,7 @@ class ContainerV1Beta1API(API):
         :param http_option: Possible values:
          - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
          - enabled: Serve both HTTP and HTTPS traffic.
+        :param sandbox: Execution environment of the container.
         :return: :class:`Container <Container>`
 
         Usage:
@@ -652,6 +655,7 @@ class ContainerV1Beta1API(API):
                     port=port,
                     secret_environment_variables=secret_environment_variables,
                     http_option=http_option,
+                    sandbox=sandbox,
                 ),
                 self.client,
             ),
@@ -680,6 +684,7 @@ class ContainerV1Beta1API(API):
         port: Optional[int] = None,
         secret_environment_variables: Optional[List[Secret]] = None,
         http_option: Optional[ContainerHttpOption] = None,
+        sandbox: Optional[ContainerSandbox] = None,
     ) -> Container:
         """
         Update an existing container.
@@ -703,6 +708,7 @@ class ContainerV1Beta1API(API):
         :param http_option: Possible values:
          - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
          - enabled: Serve both HTTP and HTTPS traffic.
+        :param sandbox: Execution environment of the container.
         :return: :class:`Container <Container>`
 
         Usage:
@@ -740,6 +746,7 @@ class ContainerV1Beta1API(API):
                     port=port,
                     secret_environment_variables=secret_environment_variables,
                     http_option=http_option,
+                    sandbox=sandbox,
                 ),
                 self.client,
             ),
