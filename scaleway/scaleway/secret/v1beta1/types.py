@@ -663,6 +663,36 @@ class GetSecretVersionRequest:
 
 
 @dataclass
+class ListSecretTypesRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    ID of the Project to target.
+    """
+
+    page: Optional[int]
+
+    page_size: Optional[int]
+
+
+@dataclass
+class ListSecretTypesResponse:
+    types: List[SecretType]
+    """
+    List of secret types.
+    """
+
+    total_count: int
+    """
+    Count of all secret types matching the requested criteria.
+    """
+
+
+@dataclass
 class ListSecretVersionsRequest:
     secret_id: str
     """
