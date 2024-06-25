@@ -3,6 +3,7 @@
 from .types import ContainerHttpOption
 from .types import ContainerPrivacy
 from .types import ContainerProtocol
+from .types import ContainerSandbox
 from .types import ContainerStatus
 from .content import CONTAINER_TRANSIENT_STATUSES
 from .types import CronStatus
@@ -79,6 +80,7 @@ __all__ = [
     "ContainerHttpOption",
     "ContainerPrivacy",
     "ContainerProtocol",
+    "ContainerSandbox",
     "ContainerStatus",
     "CONTAINER_TRANSIENT_STATUSES",
     "CronStatus",

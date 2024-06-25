@@ -248,9 +248,9 @@ def unmarshal_Bootscript(data: Any) -> Bootscript:
     if field is not None:
         args["title"] = field
 
-    field = data.get("arch", None)
+    field = data.get("architecture", None)
     if field is not None:
-        args["arch"] = field
+        args["architecture"] = field
 
     field = data.get("zone", None)
     if field is not None:
@@ -3326,8 +3326,8 @@ def marshal_Bootscript(
     if request.title is not None:
         output["title"] = request.title
 
-    if request.arch is not None:
-        output["arch"] = str(request.arch)
+    if request.architecture is not None:
+        output["architecture"] = str(request.architecture)
 
     if request.zone is not None:
         output["zone"] = request.zone or defaults.default_zone

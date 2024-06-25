@@ -30,6 +30,8 @@ from .types import DisableSecretVersionRequest
 from .types import EnableSecretVersionRequest
 from .types import GetSecretRequest
 from .types import GetSecretVersionRequest
+from .types import ListSecretTypesRequest
+from .types import ListSecretTypesResponse
 from .types import ListSecretVersionsRequest
 from .types import ListSecretVersionsResponse
 from .types import ListSecretsRequest
@@ -74,6 +76,8 @@ __all__ = [
     "EnableSecretVersionRequest",
     "GetSecretRequest",
     "GetSecretVersionRequest",
+    "ListSecretTypesRequest",
+    "ListSecretTypesResponse",
     "ListSecretVersionsRequest",
     "ListSecretVersionsResponse",
     "ListSecretsRequest",

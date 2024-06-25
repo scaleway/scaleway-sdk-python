@@ -42,6 +42,15 @@ class ContainerProtocol(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ContainerSandbox(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_SANDBOX = "unknown_sandbox"
+    V1 = "v1"
+    V2 = "v2"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ContainerStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     READY = "ready"
@@ -414,6 +423,11 @@ class Container:
  - enabled: Serve both HTTP and HTTPS traffic.
     """
 
+    sandbox: ContainerSandbox
+    """
+    Execution environment of the container.
+    """
+
     region: Region
     """
     Region in which the container will be deployed.
@@ -724,6 +738,11 @@ class CreateContainerRequest:
     Possible values:
  - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
  - enabled: Serve both HTTP and HTTPS traffic.
+    """
+
+    sandbox: Optional[ContainerSandbox]
+    """
+    Execution environment of the container.
     """
 
 
@@ -1389,6 +1408,11 @@ class UpdateContainerRequest:
     Possible values:
  - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
  - enabled: Serve both HTTP and HTTPS traffic.
+    """
+
+    sandbox: Optional[ContainerSandbox]
+    """
+    Execution environment of the container.
     """
 
 

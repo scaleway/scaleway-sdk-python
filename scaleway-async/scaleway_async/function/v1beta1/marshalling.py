@@ -221,6 +221,10 @@ def unmarshal_Function(data: Any) -> Function:
     if field is not None:
         args["runtime_message"] = field
 
+    field = data.get("sandbox", None)
+    if field is not None:
+        args["sandbox"] = field
+
     field = data.get("timeout", None)
     if field is not None:
         args["timeout"] = field
@@ -851,6 +855,9 @@ def marshal_CreateFunctionRequest(
     if request.http_option is not None:
         output["http_option"] = str(request.http_option)
 
+    if request.sandbox is not None:
+        output["sandbox"] = str(request.sandbox)
+
     return output
 
 
@@ -1056,6 +1063,9 @@ def marshal_UpdateFunctionRequest(
 
     if request.http_option is not None:
         output["http_option"] = str(request.http_option)
+
+    if request.sandbox is not None:
+        output["sandbox"] = str(request.sandbox)
 
     return output
 
