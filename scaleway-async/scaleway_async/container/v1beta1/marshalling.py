@@ -161,6 +161,10 @@ def unmarshal_Container(data: Any) -> Container:
     if field is not None:
         args["http_option"] = field
 
+    field = data.get("sandbox", None)
+    if field is not None:
+        args["sandbox"] = field
+
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
@@ -708,6 +712,9 @@ def marshal_CreateContainerRequest(
     if request.http_option is not None:
         output["http_option"] = str(request.http_option)
 
+    if request.sandbox is not None:
+        output["sandbox"] = str(request.sandbox)
+
     return output
 
 
@@ -937,6 +944,9 @@ def marshal_UpdateContainerRequest(
 
     if request.http_option is not None:
         output["http_option"] = str(request.http_option)
+
+    if request.sandbox is not None:
+        output["sandbox"] = str(request.sandbox)
 
     return output
 
