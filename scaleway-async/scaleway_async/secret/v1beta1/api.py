@@ -24,6 +24,7 @@ from .types import (
     CreateSecretVersionRequest,
     EphemeralPolicy,
     EphemeralProperties,
+    ListSecretTypesResponse,
     ListSecretVersionsResponse,
     ListSecretsResponse,
     ListTagsResponse,
@@ -37,6 +38,7 @@ from .marshalling import (
     unmarshal_Secret,
     unmarshal_AccessSecretVersionResponse,
     unmarshal_BrowseSecretsResponse,
+    unmarshal_ListSecretTypesResponse,
     unmarshal_ListSecretVersionsResponse,
     unmarshal_ListSecretsResponse,
     unmarshal_ListTagsResponse,
@@ -1033,6 +1035,81 @@ class SecretV1Beta1API(API):
             type=ListTagsResponse,
             key="tags",
             fetcher=self.list_tags,
+            args={
+                "region": region,
+                "project_id": project_id,
+                "page": page,
+                "page_size": page_size,
+            },
+        )
+
+    async def list_secret_types(
+        self,
+        *,
+        region: Optional[Region] = None,
+        project_id: Optional[str] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ListSecretTypesResponse:
+        """
+        List secret types.
+        List all secret types created within a given Project.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: ID of the Project to target.
+        :param page:
+        :param page_size:
+        :return: :class:`ListSecretTypesResponse <ListSecretTypesResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_secret_types()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/secret-manager/v1beta1/regions/{param_region}/secret-types",
+            params={
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+                "project_id": project_id or self.client.default_project_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListSecretTypesResponse(res.json())
+
+    async def list_secret_types_all(
+        self,
+        *,
+        region: Optional[Region] = None,
+        project_id: Optional[str] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[SecretType]:
+        """
+        List secret types.
+        List all secret types created within a given Project.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: ID of the Project to target.
+        :param page:
+        :param page_size:
+        :return: :class:`List[SecretType] <List[SecretType]>`
+
+        Usage:
+        ::
+
+            result = await api.list_secret_types_all()
+        """
+
+        return await fetch_all_pages_async(
+            type=ListSecretTypesResponse,
+            key="types",
+            fetcher=self.list_secret_types,
             args={
                 "region": region,
                 "project_id": project_id,

@@ -6,6 +6,7 @@ from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
 from .types import (
+    SecretType,
     EphemeralProperties,
     SecretVersion,
     EphemeralPolicy,
@@ -15,6 +16,7 @@ from .types import (
     BrowseSecretsResponseItemSecretDetails,
     BrowseSecretsResponseItem,
     BrowseSecretsResponse,
+    ListSecretTypesResponse,
     ListSecretVersionsResponse,
     ListSecretsResponse,
     ListTagsResponse,
@@ -355,6 +357,25 @@ def unmarshal_BrowseSecretsResponse(data: Any) -> BrowseSecretsResponse:
         args["total_count"] = field
 
     return BrowseSecretsResponse(**args)
+
+
+def unmarshal_ListSecretTypesResponse(data: Any) -> ListSecretTypesResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListSecretTypesResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("types", None)
+    if field is not None:
+        args["types"] = [SecretType(v) for v in field] if field is not None else None
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+
+    return ListSecretTypesResponse(**args)
 
 
 def unmarshal_ListSecretVersionsResponse(data: Any) -> ListSecretVersionsResponse:
