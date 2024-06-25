@@ -28,6 +28,8 @@ class ListImagesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 
 
 class ListLocalImagesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    TYPE_ASC = "type_asc"
+    TYPE_DESC = "type_desc"
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
 
