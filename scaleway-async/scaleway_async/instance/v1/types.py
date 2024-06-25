@@ -358,7 +358,7 @@ class Bootscript:
     Bootscript title.
     """
 
-    arch: Arch
+    architecture: Arch
     """
     Bootscript architecture.
     """
