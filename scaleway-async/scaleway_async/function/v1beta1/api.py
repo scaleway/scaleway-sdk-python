@@ -21,6 +21,7 @@ from .types import (
     FunctionHttpOption,
     FunctionPrivacy,
     FunctionRuntime,
+    FunctionSandbox,
     ListCronsRequestOrderBy,
     ListDomainsRequestOrderBy,
     ListFunctionsRequestOrderBy,
@@ -593,6 +594,7 @@ class FunctionV1Beta1API(API):
         description: Optional[str] = None,
         secret_environment_variables: Optional[List[Secret]] = None,
         http_option: Optional[FunctionHttpOption] = None,
+        sandbox: Optional[FunctionSandbox] = None,
     ) -> Function:
         """
         Create a new function.
@@ -613,6 +615,7 @@ class FunctionV1Beta1API(API):
         :param http_option: Possible values:
          - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
          - enabled: Serve both HTTP and HTTPS traffic.
+        :param sandbox: Execution environment of the function.
         :return: :class:`Function <Function>`
 
         Usage:
@@ -646,6 +649,7 @@ class FunctionV1Beta1API(API):
                     description=description,
                     secret_environment_variables=secret_environment_variables,
                     http_option=http_option,
+                    sandbox=sandbox,
                 ),
                 self.client,
             ),
@@ -671,6 +675,7 @@ class FunctionV1Beta1API(API):
         description: Optional[str] = None,
         secret_environment_variables: Optional[List[Secret]] = None,
         http_option: Optional[FunctionHttpOption] = None,
+        sandbox: Optional[FunctionSandbox] = None,
     ) -> Function:
         """
         Update an existing function.
@@ -691,6 +696,7 @@ class FunctionV1Beta1API(API):
         :param http_option: Possible values:
          - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
          - enabled: Serve both HTTP and HTTPS traffic.
+        :param sandbox: Execution environment of the function.
         :return: :class:`Function <Function>`
 
         Usage:
@@ -725,6 +731,7 @@ class FunctionV1Beta1API(API):
                     description=description,
                     secret_environment_variables=secret_environment_variables,
                     http_option=http_option,
+                    sandbox=sandbox,
                 ),
                 self.client,
             ),

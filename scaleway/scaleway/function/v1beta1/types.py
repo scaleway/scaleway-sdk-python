@@ -94,6 +94,15 @@ class FunctionRuntime(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class FunctionSandbox(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_SANDBOX = "unknown_sandbox"
+    V1 = "v1"
+    V2 = "v2"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class FunctionStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN = "unknown"
     READY = "ready"
@@ -524,6 +533,11 @@ class Function:
 
     runtime_message: str
 
+    sandbox: FunctionSandbox
+    """
+    Execution environment of the function.
+    """
+
     timeout: Optional[str]
     """
     Request processing time limit for the function.
@@ -811,6 +825,11 @@ class CreateFunctionRequest:
     Possible values:
  - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
  - enabled: Serve both HTTP and HTTPS traffic.
+    """
+
+    sandbox: Optional[FunctionSandbox]
+    """
+    Execution environment of the function.
     """
 
 
@@ -1510,6 +1529,11 @@ class UpdateFunctionRequest:
     Possible values:
  - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
  - enabled: Serve both HTTP and HTTPS traffic.
+    """
+
+    sandbox: Optional[FunctionSandbox]
+    """
+    Execution environment of the function.
     """
 
 

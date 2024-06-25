@@ -7,6 +7,7 @@ from .content import DOMAIN_TRANSIENT_STATUSES
 from .types import FunctionHttpOption
 from .types import FunctionPrivacy
 from .types import FunctionRuntime
+from .types import FunctionSandbox
 from .types import FunctionStatus
 from .content import FUNCTION_TRANSIENT_STATUSES
 from .types import ListCronsRequestOrderBy
@@ -91,6 +92,7 @@ __all__ = [
     "FunctionHttpOption",
     "FunctionPrivacy",
     "FunctionRuntime",
+    "FunctionSandbox",
     "FunctionStatus",
     "FUNCTION_TRANSIENT_STATUSES",
     "ListCronsRequestOrderBy",
