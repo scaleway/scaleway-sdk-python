@@ -2357,7 +2357,7 @@ def marshal_ContactExtensionFRAssociationInfo(
         output["publication_jo_page"] = request.publication_jo_page
 
     if request.publication_jo is not None:
-        output["publication_jo"] = request.publication_jo
+        output["publication_jo"] = request.publication_jo.isoformat()
 
     return output
 

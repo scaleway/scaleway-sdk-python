@@ -540,7 +540,7 @@ def marshal_EphemeralProperties(
         output["action"] = str(request.action)
 
     if request.expires_at is not None:
-        output["expires_at"] = request.expires_at
+        output["expires_at"] = request.expires_at.isoformat()
 
     if request.expires_once_accessed is not None:
         output["expires_once_accessed"] = request.expires_once_accessed

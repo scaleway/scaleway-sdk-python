@@ -1714,7 +1714,7 @@ def marshal_CreateSnapshotRequest(
         output["name"] = request.name
 
     if request.expires_at is not None:
-        output["expires_at"] = request.expires_at
+        output["expires_at"] = request.expires_at.isoformat()
 
     return output
 
@@ -1889,7 +1889,7 @@ def marshal_UpdateSnapshotRequest(
         output["name"] = request.name
 
     if request.expires_at is not None:
-        output["expires_at"] = request.expires_at
+        output["expires_at"] = request.expires_at.isoformat()
 
     return output
 
