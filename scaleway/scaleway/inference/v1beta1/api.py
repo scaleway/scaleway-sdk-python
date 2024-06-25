@@ -105,7 +105,7 @@ class InferenceV1Beta1API(API):
 
         res = self._request(
             "GET",
-            f"/llm-inference/v1beta1/regions/{param_region}/deployments",
+            f"/inference/v1beta1/regions/{param_region}/deployments",
             params={
                 "name": name,
                 "order_by": order_by,
@@ -196,7 +196,7 @@ class InferenceV1Beta1API(API):
 
         res = self._request(
             "GET",
-            f"/llm-inference/v1beta1/regions/{param_region}/deployments/{param_deployment_id}",
+            f"/inference/v1beta1/regions/{param_region}/deployments/{param_deployment_id}",
         )
 
         self._throw_on_error(res)
@@ -285,14 +285,14 @@ class InferenceV1Beta1API(API):
 
         res = self._request(
             "POST",
-            f"/llm-inference/v1beta1/regions/{param_region}/deployments",
+            f"/inference/v1beta1/regions/{param_region}/deployments",
             body=marshal_CreateDeploymentRequest(
                 CreateDeploymentRequest(
                     model_name=model_name,
                     node_type=node_type,
                     endpoints=endpoints,
                     region=region,
-                    name=name or random_name(prefix="llm"),
+                    name=name or random_name(prefix="inference"),
                     project_id=project_id,
                     accept_eula=accept_eula,
                     tags=tags,
@@ -342,7 +342,7 @@ class InferenceV1Beta1API(API):
 
         res = self._request(
             "PATCH",
-            f"/llm-inference/v1beta1/regions/{param_region}/deployments/{param_deployment_id}",
+            f"/inference/v1beta1/regions/{param_region}/deployments/{param_deployment_id}",
             body=marshal_UpdateDeploymentRequest(
                 UpdateDeploymentRequest(
                     deployment_id=deployment_id,
@@ -387,7 +387,7 @@ class InferenceV1Beta1API(API):
 
         res = self._request(
             "DELETE",
-            f"/llm-inference/v1beta1/regions/{param_region}/deployments/{param_deployment_id}",
+            f"/inference/v1beta1/regions/{param_region}/deployments/{param_deployment_id}",
         )
 
         self._throw_on_error(res)
@@ -422,7 +422,7 @@ class InferenceV1Beta1API(API):
 
         res = self._request(
             "GET",
-            f"/llm-inference/v1beta1/regions/{param_region}/deployments/{param_deployment_id}/certificate",
+            f"/inference/v1beta1/regions/{param_region}/deployments/{param_deployment_id}/certificate",
         )
 
         self._throw_on_error(res)
@@ -458,7 +458,7 @@ class InferenceV1Beta1API(API):
 
         res = self._request(
             "POST",
-            f"/llm-inference/v1beta1/regions/{param_region}/endpoints",
+            f"/inference/v1beta1/regions/{param_region}/endpoints",
             body=marshal_CreateEndpointRequest(
                 CreateEndpointRequest(
                     deployment_id=deployment_id,
@@ -503,7 +503,7 @@ class InferenceV1Beta1API(API):
 
         res = self._request(
             "PATCH",
-            f"/llm-inference/v1beta1/regions/{param_region}/endpoints/{param_endpoint_id}",
+            f"/inference/v1beta1/regions/{param_region}/endpoints/{param_endpoint_id}",
             body=marshal_UpdateEndpointRequest(
                 UpdateEndpointRequest(
                     endpoint_id=endpoint_id,
@@ -544,7 +544,7 @@ class InferenceV1Beta1API(API):
 
         res = self._request(
             "DELETE",
-            f"/llm-inference/v1beta1/regions/{param_region}/endpoints/{param_endpoint_id}",
+            f"/inference/v1beta1/regions/{param_region}/endpoints/{param_endpoint_id}",
         )
 
         self._throw_on_error(res)
@@ -581,7 +581,7 @@ class InferenceV1Beta1API(API):
 
         res = self._request(
             "GET",
-            f"/llm-inference/v1beta1/regions/{param_region}/deployments/{param_deployment_id}/acls",
+            f"/inference/v1beta1/regions/{param_region}/deployments/{param_deployment_id}/acls",
             params={
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
@@ -658,7 +658,7 @@ class InferenceV1Beta1API(API):
 
         res = self._request(
             "POST",
-            f"/llm-inference/v1beta1/regions/{param_region}/deployments/{param_deployment_id}/acls",
+            f"/inference/v1beta1/regions/{param_region}/deployments/{param_deployment_id}/acls",
             body=marshal_AddDeploymentACLRulesRequest(
                 AddDeploymentACLRulesRequest(
                     deployment_id=deployment_id,
@@ -702,7 +702,7 @@ class InferenceV1Beta1API(API):
 
         res = self._request(
             "PUT",
-            f"/llm-inference/v1beta1/regions/{param_region}/deployments/{param_deployment_id}/acls",
+            f"/inference/v1beta1/regions/{param_region}/deployments/{param_deployment_id}/acls",
             body=marshal_SetDeploymentACLRulesRequest(
                 SetDeploymentACLRulesRequest(
                     deployment_id=deployment_id,
@@ -742,7 +742,7 @@ class InferenceV1Beta1API(API):
 
         res = self._request(
             "DELETE",
-            f"/llm-inference/v1beta1/regions/{param_region}/acls/{param_acl_id}",
+            f"/inference/v1beta1/regions/{param_region}/acls/{param_acl_id}",
         )
 
         self._throw_on_error(res)
@@ -782,7 +782,7 @@ class InferenceV1Beta1API(API):
 
         res = self._request(
             "GET",
-            f"/llm-inference/v1beta1/regions/{param_region}/models",
+            f"/inference/v1beta1/regions/{param_region}/models",
             params={
                 "name": name,
                 "order_by": order_by,
@@ -868,7 +868,7 @@ class InferenceV1Beta1API(API):
 
         res = self._request(
             "GET",
-            f"/llm-inference/v1beta1/regions/{param_region}/models/{param_model_id}",
+            f"/inference/v1beta1/regions/{param_region}/models/{param_model_id}",
         )
 
         self._throw_on_error(res)
@@ -900,7 +900,7 @@ class InferenceV1Beta1API(API):
 
         res = self._request(
             "GET",
-            f"/llm-inference/v1beta1/regions/{param_region}/models/{param_model_id}/eula",
+            f"/inference/v1beta1/regions/{param_region}/models/{param_model_id}/eula",
         )
 
         self._throw_on_error(res)
@@ -937,7 +937,7 @@ class InferenceV1Beta1API(API):
 
         res = self._request(
             "GET",
-            f"/llm-inference/v1beta1/regions/{param_region}/node-types",
+            f"/inference/v1beta1/regions/{param_region}/node-types",
             params={
                 "include_disabled_types": include_disabled_types,
                 "page": page,
