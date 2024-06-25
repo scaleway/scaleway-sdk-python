@@ -258,7 +258,7 @@ def marshal_KeyRotationPolicy(
         output["rotation_period"] = request.rotation_period
 
     if request.next_rotation_at is not None:
-        output["next_rotation_at"] = request.next_rotation_at
+        output["next_rotation_at"] = request.next_rotation_at.isoformat()
 
     return output
 

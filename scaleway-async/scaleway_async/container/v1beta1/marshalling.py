@@ -792,7 +792,7 @@ def marshal_CreateTokenRequest(
         output["description"] = request.description
 
     if request.expires_at is not None:
-        output["expires_at"] = request.expires_at
+        output["expires_at"] = request.expires_at.isoformat()
 
     return output
 

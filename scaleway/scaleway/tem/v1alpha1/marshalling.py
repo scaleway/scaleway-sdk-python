@@ -826,7 +826,7 @@ def marshal_CreateEmailRequest(
         ]
 
     if request.send_before is not None:
-        output["send_before"] = request.send_before
+        output["send_before"] = request.send_before.isoformat()
 
     if request.additional_headers is not None:
         output["additional_headers"] = [
