@@ -3365,10 +3365,10 @@ def marshal_Volume(
         output["export_uri"] = request.export_uri
 
     if request.creation_date is not None:
-        output["creation_date"] = request.creation_date
+        output["creation_date"] = request.creation_date.isoformat()
 
     if request.modification_date is not None:
-        output["modification_date"] = request.modification_date
+        output["modification_date"] = request.modification_date.isoformat()
 
     if request.tags is not None:
         output["tags"] = request.tags
@@ -3419,10 +3419,10 @@ def marshal_SetImageRequest(
         output["arch"] = str(request.arch)
 
     if request.creation_date is not None:
-        output["creation_date"] = request.creation_date
+        output["creation_date"] = request.creation_date.isoformat()
 
     if request.modification_date is not None:
-        output["modification_date"] = request.modification_date
+        output["modification_date"] = request.modification_date.isoformat()
 
     if request.from_server is not None:
         output["from_server"] = request.from_server
@@ -3855,10 +3855,10 @@ def marshal__SetSecurityGroupRequest(
         output["tags"] = request.tags
 
     if request.creation_date is not None:
-        output["creation_date"] = request.creation_date
+        output["creation_date"] = request.creation_date.isoformat()
 
     if request.modification_date is not None:
-        output["modification_date"] = request.modification_date
+        output["modification_date"] = request.modification_date.isoformat()
 
     if request.project_default is not None:
         output["project_default"] = request.project_default
@@ -3957,10 +3957,10 @@ def marshal_Image(
         )
 
     if request.creation_date is not None:
-        output["creation_date"] = request.creation_date
+        output["creation_date"] = request.creation_date.isoformat()
 
     if request.modification_date is not None:
-        output["modification_date"] = request.modification_date
+        output["modification_date"] = request.modification_date.isoformat()
 
     if request.default_bootscript is not None:
         output["default_bootscript"] = marshal_Bootscript(
@@ -4159,7 +4159,7 @@ def marshal_ServerMaintenance(
         output["reason"] = request.reason
 
     if request.start_date is not None:
-        output["start_date"] = request.start_date
+        output["start_date"] = request.start_date.isoformat()
 
     return output
 
@@ -4203,7 +4203,7 @@ def marshal__SetServerRequest(
         output["tags"] = request.tags
 
     if request.creation_date is not None:
-        output["creation_date"] = request.creation_date
+        output["creation_date"] = request.creation_date.isoformat()
 
     if request.routed_ip_enabled is not None:
         output["routed_ip_enabled"] = request.routed_ip_enabled
@@ -4226,7 +4226,7 @@ def marshal__SetServerRequest(
         ]
 
     if request.modification_date is not None:
-        output["modification_date"] = request.modification_date
+        output["modification_date"] = request.modification_date.isoformat()
 
     if request.state is not None:
         output["state"] = str(request.state)
@@ -4327,10 +4327,10 @@ def marshal__SetSnapshotRequest(
         )
 
     if request.creation_date is not None:
-        output["creation_date"] = request.creation_date
+        output["creation_date"] = request.creation_date.isoformat()
 
     if request.modification_date is not None:
-        output["modification_date"] = request.modification_date
+        output["modification_date"] = request.modification_date.isoformat()
 
     if request.project is not None:
         output["project"] = request.project or defaults.default_project_id

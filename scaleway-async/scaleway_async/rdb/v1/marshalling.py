@@ -1622,7 +1622,7 @@ def marshal_CreateDatabaseBackupRequest(
         output["name"] = request.name
 
     if request.expires_at is not None:
-        output["expires_at"] = request.expires_at
+        output["expires_at"] = request.expires_at.isoformat()
 
     return output
 
@@ -1906,7 +1906,7 @@ def marshal_CreateSnapshotRequest(
         output["name"] = request.name
 
     if request.expires_at is not None:
-        output["expires_at"] = request.expires_at
+        output["expires_at"] = request.expires_at.isoformat()
 
     return output
 
@@ -1972,10 +1972,10 @@ def marshal_PrepareInstanceLogsRequest(
     output: Dict[str, Any] = {}
 
     if request.start_date is not None:
-        output["start_date"] = request.start_date
+        output["start_date"] = request.start_date.isoformat()
 
     if request.end_date is not None:
-        output["end_date"] = request.end_date
+        output["end_date"] = request.end_date.isoformat()
 
     return output
 
@@ -2063,7 +2063,7 @@ def marshal_UpdateDatabaseBackupRequest(
         output["name"] = request.name
 
     if request.expires_at is not None:
-        output["expires_at"] = request.expires_at
+        output["expires_at"] = request.expires_at.isoformat()
 
     return output
 
@@ -2126,7 +2126,7 @@ def marshal_UpdateSnapshotRequest(
         output["name"] = request.name
 
     if request.expires_at is not None:
-        output["expires_at"] = request.expires_at
+        output["expires_at"] = request.expires_at.isoformat()
 
     return output
 
