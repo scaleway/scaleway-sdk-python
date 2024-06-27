@@ -26,8 +26,11 @@
 /scaleway/scaleway/dedibox/ @Laure-di
 /scaleway-async/scaleway_async/dedibox/ @Laure-di
 
-/scaleway/scaleway/domain/ @yfodil
-/scaleway-async/scaleway_async/domain/ @yfodil
+/scaleway/scaleway/domain/ @jremy42
+/scaleway-async/scaleway_async/domain/ @jremy42
+
+/scaleway/scaleway/edge_services/ @yfodil
+/scaleway-async/scaleway_async/edge_services/ @yfodil
 
 /scaleway/scaleway/flexibleip/ @yfodil
 /scaleway-async/scaleway_async/flexibleip/ @yfodil
