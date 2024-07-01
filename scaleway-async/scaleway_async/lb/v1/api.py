@@ -3128,6 +3128,7 @@ class LbV1ZonedAPI(API):
         static_config: Optional[PrivateNetworkStaticConfig] = None,
         dhcp_config: Optional[PrivateNetworkDHCPConfig] = None,
         ipam_config: Optional[PrivateNetworkIpamConfig] = None,
+        ipam_ids: Optional[List[str]] = None,
     ) -> PrivateNetwork:
         """
         Attach a Load Balancer to a Private Network.
@@ -3141,6 +3142,7 @@ class LbV1ZonedAPI(API):
         One-Of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
         :param ipam_config: For internal use only.
         One-Of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
+        :param ipam_ids: IPAM ID of a pre-reserved IP address to assign to the Load Balancer on this Private Network. In the future, it will be possible to specify multiple IPs in this field (IPv4 and IPv6), for now only one ID of an IPv4 address is expected. When null, a new private IP address is created for the Load Balancer on this Private Network.
         :return: :class:`PrivateNetwork <PrivateNetwork>`
 
         Usage:
@@ -3166,6 +3168,7 @@ class LbV1ZonedAPI(API):
                     lb_id=lb_id,
                     private_network_id=private_network_id,
                     zone=zone,
+                    ipam_ids=ipam_ids,
                     static_config=static_config,
                     dhcp_config=dhcp_config,
                     ipam_config=ipam_config,
@@ -6140,6 +6143,7 @@ class LbV1API(API):
         static_config: Optional[PrivateNetworkStaticConfig] = None,
         dhcp_config: Optional[PrivateNetworkDHCPConfig] = None,
         ipam_config: Optional[PrivateNetworkIpamConfig] = None,
+        ipam_ids: Optional[List[str]] = None,
     ) -> PrivateNetwork:
         """
         Add load balancer on instance private network.
@@ -6152,6 +6156,7 @@ class LbV1API(API):
         One-Of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
         :param ipam_config: For internal use only.
         One-Of ('config'): at most one of 'static_config', 'dhcp_config', 'ipam_config' could be set.
+        :param ipam_ids: IPAM ID of a pre-reserved IP address to assign to the Load Balancer on this Private Network. In the future, it will be possible to specify multiple IPs in this field (IPv4 and IPv6), for now only one ID of an IPv4 address is expected. When null, a new private IP address is created for the Load Balancer on this Private Network.
         :return: :class:`PrivateNetwork <PrivateNetwork>`
 
         Usage:
@@ -6179,6 +6184,7 @@ class LbV1API(API):
                     lb_id=lb_id,
                     private_network_id=private_network_id,
                     region=region,
+                    ipam_ids=ipam_ids,
                     static_config=static_config,
                     dhcp_config=dhcp_config,
                     ipam_config=ipam_config,

@@ -1559,6 +1559,9 @@ def marshal_AttachPrivateNetworkRequest(
         ),
     )
 
+    if request.ipam_ids is not None:
+        output["ipam_ids"] = request.ipam_ids
+
     return output
 
 
@@ -2423,6 +2426,9 @@ def marshal_ZonedApiAttachPrivateNetworkRequest(
             ]
         ),
     )
+
+    if request.ipam_ids is not None:
+        output["ipam_ids"] = request.ipam_ids
 
     return output
 
