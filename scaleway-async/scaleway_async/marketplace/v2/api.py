@@ -269,29 +269,29 @@ class MarketplaceV2API(API):
     async def list_local_images(
         self,
         *,
-        image_id: Optional[str] = None,
-        version_id: Optional[str] = None,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
         order_by: Optional[ListLocalImagesRequestOrderBy] = None,
-        image_label: Optional[str] = None,
         zone: Optional[Zone] = None,
+        image_id: Optional[str] = None,
+        version_id: Optional[str] = None,
+        image_label: Optional[str] = None,
         type_: Optional[LocalImageType] = None,
     ) -> ListLocalImagesResponse:
         """
         List local images from a specific image or version.
         List information about local images in a specific Availability Zone, specified by its `image_id` (UUID format), `version_id` (UUID format) or `image_label`. Only one of these three parameters may be set.
-        :param image_id:
+        :param page_size: A positive integer lower or equal to 100 to select the number of items to display.
+        :param page: A positive integer to choose the page to display.
+        :param order_by: Ordering to use.
+        :param zone: Filter local images available on this Availability Zone.
+        :param image_id: Filter by image id.
         One-Of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
-        :param version_id:
+        :param version_id: Filter by version id.
         One-Of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
-        :param page_size:
-        :param page:
-        :param order_by:
-        :param image_label:
+        :param image_label: Filter by image label.
         One-Of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param type_:
+        :param type_: Filter by type.
         :return: :class:`ListLocalImagesResponse <ListLocalImagesResponse>`
 
         Usage:
@@ -325,29 +325,29 @@ class MarketplaceV2API(API):
     async def list_local_images_all(
         self,
         *,
-        image_id: Optional[str] = None,
-        version_id: Optional[str] = None,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
         order_by: Optional[ListLocalImagesRequestOrderBy] = None,
-        image_label: Optional[str] = None,
         zone: Optional[Zone] = None,
+        image_id: Optional[str] = None,
+        version_id: Optional[str] = None,
+        image_label: Optional[str] = None,
         type_: Optional[LocalImageType] = None,
     ) -> List[LocalImage]:
         """
         List local images from a specific image or version.
         List information about local images in a specific Availability Zone, specified by its `image_id` (UUID format), `version_id` (UUID format) or `image_label`. Only one of these three parameters may be set.
-        :param image_id:
+        :param page_size: A positive integer lower or equal to 100 to select the number of items to display.
+        :param page: A positive integer to choose the page to display.
+        :param order_by: Ordering to use.
+        :param zone: Filter local images available on this Availability Zone.
+        :param image_id: Filter by image id.
         One-Of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
-        :param version_id:
+        :param version_id: Filter by version id.
         One-Of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
-        :param page_size:
-        :param page:
-        :param order_by:
-        :param image_label:
+        :param image_label: Filter by image label.
         One-Of ('scope'): at most one of 'image_id', 'version_id', 'image_label' could be set.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param type_:
+        :param type_: Filter by type.
         :return: :class:`List[LocalImage] <List[LocalImage]>`
 
         Usage:

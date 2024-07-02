@@ -28,6 +28,8 @@ class ListImagesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 
 
 class ListLocalImagesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    TYPE_ASC = "type_asc"
+    TYPE_DESC = "type_desc"
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
 
@@ -250,17 +252,29 @@ class ListImagesResponse:
 @dataclass
 class ListLocalImagesRequest:
     page_size: Optional[int]
+    """
+    A positive integer lower or equal to 100 to select the number of items to display.
+    """
 
     page: Optional[int]
+    """
+    A positive integer to choose the page to display.
+    """
 
     order_by: Optional[ListLocalImagesRequestOrderBy]
+    """
+    Ordering to use.
+    """
 
     zone: Optional[Zone]
     """
-    Zone to target. If none is passed will use default zone from the config.
+    Filter local images available on this Availability Zone.
     """
 
     type_: Optional[LocalImageType]
+    """
+    Filter by type.
+    """
 
     image_id: Optional[str]
 
