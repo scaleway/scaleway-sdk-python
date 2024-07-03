@@ -1,0 +1,96 @@
+# These owners will be the default owners for everything in
+# the repo. Unless a later match takes precedence,
+* @remyleone
+
+/scaleway/scaleway/account/ @tbellavia
+/scaleway-async/scaleway_async/account/ @tbellavia
+
+/scaleway/scaleway/applesilicon/ @Laure-di
+/scaleway-async/scaleway_async/applesilicon/ @Laure-di
+
+/scaleway/scaleway/baremetal/ @Laure-di
+/scaleway-async/scaleway_async/baremetal/ @Laure-di
+
+/scaleway/scaleway/billing/ @tbellavia
+/scaleway-async/scaleway_async/billing/ @tbellavia
+
+/scaleway/scaleway/block/ @Codelax
+/scaleway-async/scaleway_async/block/ @Codelax
+
+/scaleway/scaleway/cockpit/ @jremy42
+/scaleway-async/scaleway_async/cockpit/ @jremy42
+
+/scaleway/scaleway/container/ @Codelax
+/scaleway-async/scaleway_async/container/ @Codelax
+
+/scaleway/scaleway/dedibox/ @Laure-di
+/scaleway-async/scaleway_async/dedibox/ @Laure-di
+
+/scaleway/scaleway/domain/ @jremy42
+/scaleway-async/scaleway_async/domain/ @jremy42
+
+/scaleway/scaleway/edge_services/ @yfodil
+/scaleway-async/scaleway_async/edge_services/ @yfodil
+
+/scaleway/scaleway/flexibleip/ @yfodil
+/scaleway-async/scaleway_async/flexibleip/ @yfodil
+
+/scaleway/scaleway/function/ @Codelax
+/scaleway-async/scaleway_async/function/ @Codelax
+
+/scaleway/scaleway/iam/ @tbellavia
+/scaleway-async/scaleway_async/iam/ @tbellavia
+
+/scaleway/scaleway/instance/ @Codelax
+/scaleway-async/scaleway_async/instance/ @Codelax
+
+/scaleway/scaleway/iot/ @jremy42
+/scaleway-async/scaleway_async/iot/ @jremy42
+
+/scaleway/scaleway/ipam/ @yfodil
+/scaleway-async/scaleway_async/ipam/ @yfodil
+
+/scaleway/scaleway/jobs/ @Codelax
+/scaleway-async/scaleway_async/jobs/ @Codelax
+
+/scaleway/scaleway/k8s/ @Codelax
+/scaleway-async/scaleway_async/k8s/ @Codelax
+
+/scaleway/scaleway/key_manager/ @tbellavia
+/scaleway-async/scaleway_async/key_manager/ @tbellavia
+
+/scaleway/scaleway/lb/ @yfodil
+/scaleway-async/scaleway_async/lb/ @yfodil
+
+/scaleway/scaleway/marketplace/ @Codelax
+/scaleway-async/scaleway_async/marketplace/ @Codelax
+
+/scaleway/scaleway/mnq/ @jremy42
+/scaleway-async/scaleway_async/mnq/ @jremy42
+
+/scaleway/scaleway/rdb/ @jremy42
+/scaleway-async/scaleway_async/rdb/ @jremy42
+
+/scaleway/scaleway/redis/ @jremy42
+/scaleway-async/scaleway_async/redis/ @jremy42
+
+/scaleway/scaleway/registry/ @Codelax
+/scaleway-async/scaleway_async/registry/ @Codelax
+
+/scaleway/scaleway/secret/ @tbellavia
+/scaleway-async/scaleway_async/secret/ @tbellavia
+
+/scaleway/scaleway/serverless_sqldb/ @jremy42
+/scaleway-async/scaleway_async/serverless_sqldb/ @jremy42
+
+/scaleway/scaleway/tem/ @jremy42
+/scaleway-async/scaleway_async/tem/ @jremy42
+
+/scaleway/scaleway/vpc/ @yfodil
+/scaleway-async/scaleway_async/vpc/ @yfodil
+
+/scaleway/scaleway/vpcgw/ @yfodil
+/scaleway-async/scaleway_async/vpcgw/ @yfodil
+
+/scaleway/scaleway/webhosting/ @jremy42
+/scaleway-async/scaleway_async/webhosting/ @jremy42
