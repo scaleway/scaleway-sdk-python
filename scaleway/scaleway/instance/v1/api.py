@@ -835,6 +835,7 @@ class InstanceV1API(API):
         :param commercial_type: Warning: This field has some restrictions:
         - Cannot be changed if the Instance is not in `stopped` state.
         - Cannot be changed if the Instance is in a placement group.
+        - Cannot be changed from/to a Windows offer to/from a Linux offer.
         - Local storage requirements of the target commercial_types must be fulfilled (i.e. if an Instance has 80GB of local storage, it can be changed into a GP1-XS, which has a maximum of 150GB, but it cannot be changed into a DEV1-S, which has only 20GB).
         :param admin_password_encryption_ssh_key_id: The public_key value of this key is used to encrypt the admin password. When set to an empty string, reset this value and admin_password_encrypted_value to an empty string so a new password may be generated.
         :return: :class:`UpdateServerResponse <UpdateServerResponse>`
