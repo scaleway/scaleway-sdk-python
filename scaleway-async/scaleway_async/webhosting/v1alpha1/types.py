@@ -259,6 +259,11 @@ class ControlPanel:
     URL of this control panel's logo.
     """
 
+    available_languages: List[StdLanguageCode]
+    """
+    List of available languages for the control panel.
+    """
+
 
 @dataclass
 class Hosting:
