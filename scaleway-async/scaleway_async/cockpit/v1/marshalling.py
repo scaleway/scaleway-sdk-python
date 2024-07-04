@@ -43,6 +43,7 @@ from .types import (
     RegionalApiEnableAlertManagerRequest,
     RegionalApiEnableManagedAlertsRequest,
     RegionalApiTriggerTestAlertRequest,
+    RegionalApiUpdateDataSourceRequest,
 )
 
 
@@ -816,5 +817,17 @@ def marshal_RegionalApiTriggerTestAlertRequest(
 
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id
+
+    return output
+
+
+def marshal_RegionalApiUpdateDataSourceRequest(
+    request: RegionalApiUpdateDataSourceRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
 
     return output

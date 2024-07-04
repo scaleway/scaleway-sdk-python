@@ -1197,6 +1197,28 @@ class RegionalApiTriggerTestAlertRequest:
 
 
 @dataclass
+class RegionalApiUpdateDataSourceRequest:
+    """
+    Update a data source name.
+    """
+
+    data_source_id: str
+    """
+    ID of the data source to update.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    name: Optional[str]
+    """
+    Updated name of the data source.
+    """
+
+
+@dataclass
 class UsageOverview:
     scaleway_metrics_usage: Optional[Usage]
 
