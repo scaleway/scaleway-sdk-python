@@ -28,6 +28,9 @@ from .types import (
     CreateHostingRequest,
     UpdateHostingRequest,
 )
+from ...std.types import (
+    LanguageCode as StdLanguageCode,
+)
 
 
 def unmarshal_HostingCpanelUrls(data: Any) -> HostingCpanelUrls:
@@ -291,6 +294,12 @@ def unmarshal_ControlPanel(data: Any) -> ControlPanel:
     field = data.get("logo_url", None)
     if field is not None:
         args["logo_url"] = field
+
+    field = data.get("available_languages", None)
+    if field is not None:
+        args["available_languages"] = (
+            [StdLanguageCode(v) for v in field] if field is not None else None
+        )
 
     return ControlPanel(**args)
 
