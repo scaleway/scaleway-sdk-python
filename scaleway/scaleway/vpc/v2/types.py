@@ -140,6 +140,59 @@ class PrivateNetwork:
 
 
 @dataclass
+class Route:
+    id: str
+    """
+    Route ID.
+    """
+
+    description: str
+    """
+    Route description.
+    """
+
+    tags: List[str]
+    """
+    Tags of the Route.
+    """
+
+    vpc_id: str
+    """
+    VPC the Route belongs to.
+    """
+
+    destination: str
+    """
+    Destination of the Route.
+    """
+
+    region: Region
+    """
+    Region of the Route.
+    """
+
+    nexthop_resource_id: Optional[str]
+    """
+    ID of the nexthop resource.
+    """
+
+    nexthop_private_network_id: Optional[str]
+    """
+    ID of the nexthop private network.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Date the Route was created.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Date the Route was last modified.
+    """
+
+
+@dataclass
 class VPC:
     id: str
     """
@@ -254,6 +307,44 @@ class CreatePrivateNetworkRequest:
 
 
 @dataclass
+class CreateRouteRequest:
+    description: str
+    """
+    Route description.
+    """
+
+    vpc_id: str
+    """
+    VPC the Route belongs to.
+    """
+
+    destination: str
+    """
+    Destination of the Route.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    tags: Optional[List[str]]
+    """
+    Tags of the Route.
+    """
+
+    nexthop_resource_id: Optional[str]
+    """
+    ID of the nexthop resource.
+    """
+
+    nexthop_private_network_id: Optional[str]
+    """
+    ID of the nexthop private network.
+    """
+
+
+@dataclass
 class CreateVPCRequest:
     enable_routing: bool
     """
@@ -286,6 +377,19 @@ class DeletePrivateNetworkRequest:
     private_network_id: str
     """
     Private Network ID.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class DeleteRouteRequest:
+    route_id: str
+    """
+    Route ID.
     """
 
     region: Optional[Region]
@@ -358,6 +462,19 @@ class GetPrivateNetworkRequest:
     private_network_id: str
     """
     Private Network ID.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetRouteRequest:
+    route_id: str
+    """
+    Route ID.
     """
 
     region: Optional[Region]
@@ -614,6 +731,44 @@ class UpdatePrivateNetworkRequest:
     tags: Optional[List[str]]
     """
     Tags for the Private Network.
+    """
+
+
+@dataclass
+class UpdateRouteRequest:
+    route_id: str
+    """
+    Route ID.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    description: Optional[str]
+    """
+    Route description.
+    """
+
+    tags: Optional[List[str]]
+    """
+    Tags of the Route.
+    """
+
+    destination: Optional[str]
+    """
+    Destination of the Route.
+    """
+
+    nexthop_resource_id: Optional[str]
+    """
+    ID of the nexthop resource.
+    """
+
+    nexthop_private_network_id: Optional[str]
+    """
+    ID of the nexthop private network.
     """
 
 
