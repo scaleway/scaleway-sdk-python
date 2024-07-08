@@ -19,6 +19,7 @@ from .types import (
     AddSubnetsRequest,
     AddSubnetsResponse,
     CreatePrivateNetworkRequest,
+    CreateRouteRequest,
     CreateVPCRequest,
     DeleteSubnetsRequest,
     DeleteSubnetsResponse,
@@ -27,15 +28,18 @@ from .types import (
     ListVPCsResponse,
     MigrateZonalPrivateNetworksRequest,
     PrivateNetwork,
+    Route,
     SetSubnetsRequest,
     SetSubnetsResponse,
     Subnet,
     UpdatePrivateNetworkRequest,
+    UpdateRouteRequest,
     UpdateVPCRequest,
     VPC,
 )
 from .marshalling import (
     unmarshal_PrivateNetwork,
+    unmarshal_Route,
     unmarshal_VPC,
     unmarshal_AddSubnetsResponse,
     unmarshal_DeleteSubnetsResponse,
@@ -45,11 +49,13 @@ from .marshalling import (
     unmarshal_SetSubnetsResponse,
     marshal_AddSubnetsRequest,
     marshal_CreatePrivateNetworkRequest,
+    marshal_CreateRouteRequest,
     marshal_CreateVPCRequest,
     marshal_DeleteSubnetsRequest,
     marshal_MigrateZonalPrivateNetworksRequest,
     marshal_SetSubnetsRequest,
     marshal_UpdatePrivateNetworkRequest,
+    marshal_UpdateRouteRequest,
     marshal_UpdateVPCRequest,
 )
 
@@ -973,3 +979,182 @@ class VpcV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_DeleteSubnetsResponse(res.json())
+
+    async def create_route(
+        self,
+        *,
+        description: str,
+        vpc_id: str,
+        destination: str,
+        region: Optional[Region] = None,
+        tags: Optional[List[str]] = None,
+        nexthop_resource_id: Optional[str] = None,
+        nexthop_private_network_id: Optional[str] = None,
+    ) -> Route:
+        """
+        Create a Route.
+        Create a new custom Route.
+        :param description: Route description.
+        :param vpc_id: VPC the Route belongs to.
+        :param destination: Destination of the Route.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param tags: Tags of the Route.
+        :param nexthop_resource_id: ID of the nexthop resource.
+        :param nexthop_private_network_id: ID of the nexthop private network.
+        :return: :class:`Route <Route>`
+
+        Usage:
+        ::
+
+            result = await api.create_route(
+                description="example",
+                vpc_id="example",
+                destination="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "POST",
+            f"/vpc/v2/regions/{param_region}/routes",
+            body=marshal_CreateRouteRequest(
+                CreateRouteRequest(
+                    description=description,
+                    vpc_id=vpc_id,
+                    destination=destination,
+                    region=region,
+                    tags=tags,
+                    nexthop_resource_id=nexthop_resource_id,
+                    nexthop_private_network_id=nexthop_private_network_id,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Route(res.json())
+
+    async def get_route(
+        self,
+        *,
+        route_id: str,
+        region: Optional[Region] = None,
+    ) -> Route:
+        """
+        Get a Route.
+        Retrieve details of an existing Route, specified by its Route ID.
+        :param route_id: Route ID.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Route <Route>`
+
+        Usage:
+        ::
+
+            result = await api.get_route(
+                route_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_route_id = validate_path_param("route_id", route_id)
+
+        res = self._request(
+            "GET",
+            f"/vpc/v2/regions/{param_region}/routes/{param_route_id}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Route(res.json())
+
+    async def update_route(
+        self,
+        *,
+        route_id: str,
+        region: Optional[Region] = None,
+        description: Optional[str] = None,
+        tags: Optional[List[str]] = None,
+        destination: Optional[str] = None,
+        nexthop_resource_id: Optional[str] = None,
+        nexthop_private_network_id: Optional[str] = None,
+    ) -> Route:
+        """
+        Update Route.
+        Update parameters of the specified Route.
+        :param route_id: Route ID.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param description: Route description.
+        :param tags: Tags of the Route.
+        :param destination: Destination of the Route.
+        :param nexthop_resource_id: ID of the nexthop resource.
+        :param nexthop_private_network_id: ID of the nexthop private network.
+        :return: :class:`Route <Route>`
+
+        Usage:
+        ::
+
+            result = await api.update_route(
+                route_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_route_id = validate_path_param("route_id", route_id)
+
+        res = self._request(
+            "PATCH",
+            f"/vpc/v2/regions/{param_region}/routes/{param_route_id}",
+            body=marshal_UpdateRouteRequest(
+                UpdateRouteRequest(
+                    route_id=route_id,
+                    region=region,
+                    description=description,
+                    tags=tags,
+                    destination=destination,
+                    nexthop_resource_id=nexthop_resource_id,
+                    nexthop_private_network_id=nexthop_private_network_id,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Route(res.json())
+
+    async def delete_route(
+        self,
+        *,
+        route_id: str,
+        region: Optional[Region] = None,
+    ) -> None:
+        """
+        Delete a Route.
+        Delete a Route specified by its Route ID.
+        :param route_id: Route ID.
+        :param region: Region to target. If none is passed will use default region from the config.
+
+        Usage:
+        ::
+
+            result = await api.delete_route(
+                route_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_route_id = validate_path_param("route_id", route_id)
+
+        res = self._request(
+            "DELETE",
+            f"/vpc/v2/regions/{param_region}/routes/{param_route_id}",
+        )
+
+        self._throw_on_error(res)

@@ -12,6 +12,7 @@ from scaleway_core.utils import (
 from .types import (
     Subnet,
     PrivateNetwork,
+    Route,
     VPC,
     AddSubnetsResponse,
     DeleteSubnetsResponse,
@@ -21,11 +22,13 @@ from .types import (
     SetSubnetsResponse,
     AddSubnetsRequest,
     CreatePrivateNetworkRequest,
+    CreateRouteRequest,
     CreateVPCRequest,
     DeleteSubnetsRequest,
     MigrateZonalPrivateNetworksRequest,
     SetSubnetsRequest,
     UpdatePrivateNetworkRequest,
+    UpdateRouteRequest,
     UpdateVPCRequest,
 )
 
@@ -132,6 +135,65 @@ def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
         args["updated_at"] = None
 
     return PrivateNetwork(**args)
+
+
+def unmarshal_Route(data: Any) -> Route:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Route' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+
+    field = data.get("description", None)
+    if field is not None:
+        args["description"] = field
+
+    field = data.get("tags", None)
+    if field is not None:
+        args["tags"] = field
+
+    field = data.get("vpc_id", None)
+    if field is not None:
+        args["vpc_id"] = field
+
+    field = data.get("destination", None)
+    if field is not None:
+        args["destination"] = field
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+
+    field = data.get("nexthop_resource_id", None)
+    if field is not None:
+        args["nexthop_resource_id"] = field
+    else:
+        args["nexthop_resource_id"] = None
+
+    field = data.get("nexthop_private_network_id", None)
+    if field is not None:
+        args["nexthop_private_network_id"] = field
+    else:
+        args["nexthop_private_network_id"] = None
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
+    return Route(**args)
 
 
 def unmarshal_VPC(data: Any) -> VPC:
@@ -335,6 +397,33 @@ def marshal_CreatePrivateNetworkRequest(
     return output
 
 
+def marshal_CreateRouteRequest(
+    request: CreateRouteRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.vpc_id is not None:
+        output["vpc_id"] = request.vpc_id
+
+    if request.destination is not None:
+        output["destination"] = request.destination
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    if request.nexthop_resource_id is not None:
+        output["nexthop_resource_id"] = request.nexthop_resource_id
+
+    if request.nexthop_private_network_id is not None:
+        output["nexthop_private_network_id"] = request.nexthop_private_network_id
+
+    return output
+
+
 def marshal_CreateVPCRequest(
     request: CreateVPCRequest,
     defaults: ProfileDefaults,
@@ -417,6 +506,30 @@ def marshal_UpdatePrivateNetworkRequest(
 
     if request.tags is not None:
         output["tags"] = request.tags
+
+    return output
+
+
+def marshal_UpdateRouteRequest(
+    request: UpdateRouteRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    if request.tags is not None:
+        output["tags"] = request.tags
+
+    if request.destination is not None:
+        output["destination"] = request.destination
+
+    if request.nexthop_resource_id is not None:
+        output["nexthop_resource_id"] = request.nexthop_resource_id
+
+    if request.nexthop_private_network_id is not None:
+        output["nexthop_private_network_id"] = request.nexthop_private_network_id
 
     return output
 
