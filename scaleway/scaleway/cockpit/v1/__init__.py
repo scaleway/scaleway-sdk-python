@@ -59,6 +59,7 @@ from .types import RegionalApiListDataSourcesRequest
 from .types import RegionalApiListManagedAlertsRequest
 from .types import RegionalApiListTokensRequest
 from .types import RegionalApiTriggerTestAlertRequest
+from .types import RegionalApiUpdateDataSourceRequest
 from .types import UsageOverview
 from .api import CockpitV1GlobalAPI
 from .api import CockpitV1RegionalAPI
@@ -123,6 +124,7 @@ __all__ = [
     "RegionalApiListManagedAlertsRequest",
     "RegionalApiListTokensRequest",
     "RegionalApiTriggerTestAlertRequest",
+    "RegionalApiUpdateDataSourceRequest",
     "UsageOverview",
     "CockpitV1GlobalAPI",
     "CockpitV1RegionalAPI",

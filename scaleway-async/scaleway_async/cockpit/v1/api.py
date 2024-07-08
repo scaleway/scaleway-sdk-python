@@ -51,6 +51,7 @@ from .types import (
     RegionalApiEnableAlertManagerRequest,
     RegionalApiEnableManagedAlertsRequest,
     RegionalApiTriggerTestAlertRequest,
+    RegionalApiUpdateDataSourceRequest,
     Token,
     UsageOverview,
 )
@@ -84,6 +85,7 @@ from .marshalling import (
     marshal_RegionalApiEnableAlertManagerRequest,
     marshal_RegionalApiEnableManagedAlertsRequest,
     marshal_RegionalApiTriggerTestAlertRequest,
+    marshal_RegionalApiUpdateDataSourceRequest,
 )
 
 
@@ -783,6 +785,50 @@ class CockpitV1RegionalAPI(API):
                 "types": types,
             },
         )
+
+    async def update_data_source(
+        self,
+        *,
+        data_source_id: str,
+        region: Optional[Region] = None,
+        name: Optional[str] = None,
+    ) -> DataSource:
+        """
+        Update a data source.
+        Update a given data source name, specified by the data source ID.
+        :param data_source_id: ID of the data source to update.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param name: Updated name of the data source.
+        :return: :class:`DataSource <DataSource>`
+
+        Usage:
+        ::
+
+            result = await api.update_data_source(
+                data_source_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_data_source_id = validate_path_param("data_source_id", data_source_id)
+
+        res = self._request(
+            "PATCH",
+            f"/cockpit/v1/regions/{param_region}/data-sources/{param_data_source_id}",
+            body=marshal_RegionalApiUpdateDataSourceRequest(
+                RegionalApiUpdateDataSourceRequest(
+                    data_source_id=data_source_id,
+                    region=region,
+                    name=name,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_DataSource(res.json())
 
     async def get_usage_overview(
         self,
