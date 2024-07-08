@@ -39,6 +39,7 @@ class ListDeploymentsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 
 
 class ListModelsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    DISPLAY_RANK_ASC = "display_rank_asc"
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
     NAME_ASC = "name_asc"
