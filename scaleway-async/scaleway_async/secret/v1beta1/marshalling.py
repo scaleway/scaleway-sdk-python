@@ -284,6 +284,10 @@ def unmarshal_BrowseSecretsResponseItemSecretDetails(
     if field is not None:
         args["protected"] = field
 
+    field = data.get("type", None)
+    if field is not None:
+        args["type_"] = field
+
     field = data.get("ephemeral_policy", None)
     if field is not None:
         args["ephemeral_policy"] = unmarshal_EphemeralPolicy(field)
