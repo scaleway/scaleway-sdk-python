@@ -121,6 +121,8 @@ class BrowseSecretsResponseItemSecretDetails:
 
     protected: bool
 
+    type_: SecretType
+
     ephemeral_policy: Optional[EphemeralPolicy]
 
 
