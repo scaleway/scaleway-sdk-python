@@ -275,6 +275,11 @@ class ListIPsRequest:
     Attached resource name to filter for, only IPs attached to a resource with this string within their name will be returned.
     """
 
+    resource_types: Optional[List[ResourceType]]
+    """
+    Resource types to filter for. Only IPs attached to these types of resources will be returned.
+    """
+
     zonal: Optional[str]
 
     private_network_id: Optional[str]
