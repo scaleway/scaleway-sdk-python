@@ -259,6 +259,7 @@ class IpamV1API(API):
         organization_id: Optional[str] = None,
         is_ipv6: Optional[bool] = None,
         resource_name: Optional[str] = None,
+        resource_types: Optional[List[ResourceType]] = None,
     ) -> ListIPsResponse:
         """
         List existing IPs.
@@ -283,6 +284,7 @@ class IpamV1API(API):
         :param organization_id: Organization ID to filter for. Only IPs belonging to this Organization will be returned.
         :param is_ipv6: Defines whether to filter only for IPv4s or IPv6s.
         :param resource_name: Attached resource name to filter for, only IPs attached to a resource with this string within their name will be returned.
+        :param resource_types: Resource types to filter for. Only IPs attached to these types of resources will be returned.
         :return: :class:`ListIPsResponse <ListIPsResponse>`
 
         Usage:
@@ -311,6 +313,7 @@ class IpamV1API(API):
                 "resource_id": resource_id,
                 "resource_name": resource_name,
                 "resource_type": resource_type,
+                "resource_types": resource_types,
                 "tags": tags,
                 "vpc_id": vpc_id,
                 **resolve_one_of(
@@ -346,6 +349,7 @@ class IpamV1API(API):
         organization_id: Optional[str] = None,
         is_ipv6: Optional[bool] = None,
         resource_name: Optional[str] = None,
+        resource_types: Optional[List[ResourceType]] = None,
     ) -> List[IP]:
         """
         List existing IPs.
@@ -370,6 +374,7 @@ class IpamV1API(API):
         :param organization_id: Organization ID to filter for. Only IPs belonging to this Organization will be returned.
         :param is_ipv6: Defines whether to filter only for IPv4s or IPv6s.
         :param resource_name: Attached resource name to filter for, only IPs attached to a resource with this string within their name will be returned.
+        :param resource_types: Resource types to filter for. Only IPs attached to these types of resources will be returned.
         :return: :class:`List[IP] <List[IP]>`
 
         Usage:
@@ -397,6 +402,7 @@ class IpamV1API(API):
                 "organization_id": organization_id,
                 "is_ipv6": is_ipv6,
                 "resource_name": resource_name,
+                "resource_types": resource_types,
                 "zonal": zonal,
                 "private_network_id": private_network_id,
                 "subnet_id": subnet_id,
