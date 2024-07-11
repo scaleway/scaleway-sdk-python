@@ -118,7 +118,6 @@ class API:
         body: Optional[Body] = None,
     ) -> requests.Response:
         additional_headers: Dict[str, str] = {}
-
         method = method.upper()
         if method == "POST" or method == "PUT" or method == "PATCH":
             additional_headers["Content-Type"] = "application/json; charset=utf-8"
@@ -146,7 +145,6 @@ class API:
             **additional_headers,
             **headers,
         }
-
         url = f"{self.client.api_url}{path}"
 
         logger = APILogger(self._log, self.client._increment_request_count())
@@ -167,6 +165,12 @@ class API:
             data=raw_body,
             verify=not self.client.api_allow_insecure,
         )
+
+        if response.headers.get("x-total-count"):
+            b = response.json()
+            b["total_count"] = response.headers.get("x-total-count")
+            b = json.dumps(b)
+            response._content = bytes(b, "utf-8")
 
         logger.log_response(
             response=response,
