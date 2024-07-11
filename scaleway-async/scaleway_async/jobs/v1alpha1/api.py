@@ -74,7 +74,7 @@ class JobsV1Alpha1API(API):
         :param project_id: UUID of the Scaleway Project containing the job.
         :param environment_variables: Environment variables of the job.
         :param job_timeout: Timeout of the job in seconds.
-        :param cron_schedule:
+        :param cron_schedule: Configure a cron for the job.
         :return: :class:`JobDefinition <JobDefinition>`
 
         Usage:
@@ -101,11 +101,11 @@ class JobsV1Alpha1API(API):
                     cpu_limit=cpu_limit,
                     memory_limit=memory_limit,
                     image_uri=image_uri,
-                    command=command,
-                    description=description,
                     region=region,
                     name=name or random_name(prefix="job"),
                     local_storage_capacity=local_storage_capacity,
+                    command=command,
+                    description=description,
                     project_id=project_id,
                     environment_variables=environment_variables,
                     job_timeout=job_timeout,

@@ -367,6 +367,7 @@ class SecretV1Beta1API(API):
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         tags: Optional[List[str]] = None,
+        type_: Optional[SecretType] = None,
     ) -> BrowseSecretsResponse:
         """
         Browse secrets.
@@ -378,6 +379,7 @@ class SecretV1Beta1API(API):
         :param page:
         :param page_size:
         :param tags: Filter secrets by tags.
+        :param type_: Filter by secret type (optional).
         :return: :class:`BrowseSecretsResponse <BrowseSecretsResponse>`
 
         Usage:
@@ -402,6 +404,7 @@ class SecretV1Beta1API(API):
                 "prefix": prefix,
                 "project_id": project_id or self.client.default_project_id,
                 "tags": tags,
+                "type": type_,
             },
         )
 
