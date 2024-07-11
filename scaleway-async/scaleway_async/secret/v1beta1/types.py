@@ -421,6 +421,11 @@ class BrowseSecretsRequest:
     Filter secrets by tags.
     """
 
+    type_: Optional[SecretType]
+    """
+    Filter by secret type (optional).
+    """
+
 
 @dataclass
 class BrowseSecretsResponse:
