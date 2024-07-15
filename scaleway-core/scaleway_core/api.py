@@ -140,11 +140,12 @@ class API:
 
         headers = {
             "accept": "application/json",
-            "x-auth-token": self.client.secret_key or "",
             "user-agent": self.client.user_agent,
             **additional_headers,
             **headers,
         }
+        if self.client.secret_key is not None:
+            headers["x-auth-token"] = self.client.secret_key
         url = f"{self.client.api_url}{path}"
 
         logger = APILogger(self._log, self.client._increment_request_count())
