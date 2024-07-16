@@ -2484,7 +2484,7 @@ class DomainV2Beta1RegistrarAPI(API):
     ) -> Domain:
         """
         Update domain DNSSEC.
-        If your domain has the default Scaleway NS and uses another registrar, you have to update the DS record manually.
+        If your domain uses another registrar and has the default Scaleway NS, you have to **update the DS record at your registrar**.
         :param domain:
         :param ds_record:
         :return: :class:`Domain <Domain>`
