@@ -17,6 +17,7 @@ from .types import (
     HostingStatus,
     ListHostingsRequestOrderBy,
     ListOffersRequestOrderBy,
+    CheckUserOwnsDomainResponse,
     ControlPanel,
     CreateHostingRequest,
     CreateHostingRequestDomainConfiguration,
@@ -34,6 +35,7 @@ from .content import (
 )
 from .marshalling import (
     unmarshal_Hosting,
+    unmarshal_CheckUserOwnsDomainResponse,
     unmarshal_DnsRecords,
     unmarshal_ListControlPanelsResponse,
     unmarshal_ListHostingsResponse,
@@ -456,6 +458,44 @@ class WebhostingV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_DnsRecords(res.json())
+
+    async def check_user_owns_domain(
+        self,
+        *,
+        domain: str,
+        region: Optional[Region] = None,
+        project_id: Optional[str] = None,
+    ) -> CheckUserOwnsDomainResponse:
+        """
+        "Check whether you own this domain or not.".
+        :param domain: Domain for which ownership is to be verified.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: ID of the project currently in use.
+        :return: :class:`CheckUserOwnsDomainResponse <CheckUserOwnsDomainResponse>`
+
+        Usage:
+        ::
+
+            result = await api.check_user_owns_domain(
+                domain="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_domain = validate_path_param("domain", domain)
+
+        res = self._request(
+            "POST",
+            f"/webhosting/v1/regions/{param_region}/domains/{param_domain}/check-ownership",
+            params={
+                "project_id": project_id or self.client.default_project_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_CheckUserOwnsDomainResponse(res.json())
 
     async def list_offers(
         self,
