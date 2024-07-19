@@ -19,6 +19,8 @@ from .types import Nameserver
 from .types import ControlPanel
 from .types import Hosting
 from .types import Offer
+from .types import CheckUserOwnsDomainRequest
+from .types import CheckUserOwnsDomainResponse
 from .types import CreateHostingRequest
 from .types import CreateSessionRequest
 from .types import DeleteHostingRequest
@@ -58,6 +60,8 @@ __all__ = [
     "ControlPanel",
     "Hosting",
     "Offer",
+    "CheckUserOwnsDomainRequest",
+    "CheckUserOwnsDomainResponse",
     "CreateHostingRequest",
     "CreateSessionRequest",
     "DeleteHostingRequest",

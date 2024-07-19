@@ -13,6 +13,7 @@ from .types import (
     HostingCpanelUrls,
     HostingOption,
     Hosting,
+    CheckUserOwnsDomainResponse,
     DnsRecord,
     Nameserver,
     DnsRecords,
@@ -186,6 +187,21 @@ def unmarshal_Hosting(data: Any) -> Hosting:
         args["cpanel_urls"] = None
 
     return Hosting(**args)
+
+
+def unmarshal_CheckUserOwnsDomainResponse(data: Any) -> CheckUserOwnsDomainResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'CheckUserOwnsDomainResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("owns_domain", None)
+    if field is not None:
+        args["owns_domain"] = field
+
+    return CheckUserOwnsDomainResponse(**args)
 
 
 def unmarshal_DnsRecord(data: Any) -> DnsRecord:
