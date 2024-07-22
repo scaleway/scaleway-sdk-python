@@ -25,6 +25,7 @@ from .types import (
     ListOffersResponse,
     ResetHostingPasswordResponse,
     Session,
+    CheckUserOwnsDomainRequest,
     CreateHostingRequestDomainConfiguration,
     CreateHostingRequest,
     UpdateHostingRequest,
@@ -507,6 +508,18 @@ def unmarshal_Session(data: Any) -> Session:
         args["url"] = field
 
     return Session(**args)
+
+
+def marshal_CheckUserOwnsDomainRequest(
+    request: CheckUserOwnsDomainRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    return output
 
 
 def marshal_CreateHostingRequestDomainConfiguration(

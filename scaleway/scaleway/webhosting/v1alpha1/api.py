@@ -17,6 +17,7 @@ from .types import (
     HostingStatus,
     ListHostingsRequestOrderBy,
     ListOffersRequestOrderBy,
+    CheckUserOwnsDomainRequest,
     CheckUserOwnsDomainResponse,
     ControlPanel,
     CreateHostingRequest,
@@ -42,6 +43,7 @@ from .marshalling import (
     unmarshal_ListOffersResponse,
     unmarshal_ResetHostingPasswordResponse,
     unmarshal_Session,
+    marshal_CheckUserOwnsDomainRequest,
     marshal_CreateHostingRequest,
     marshal_UpdateHostingRequest,
 )
@@ -489,9 +491,15 @@ class WebhostingV1Alpha1API(API):
         res = self._request(
             "POST",
             f"/webhosting/v1/regions/{param_region}/domains/{param_domain}/check-ownership",
-            params={
-                "project_id": project_id or self.client.default_project_id,
-            },
+            body=marshal_CheckUserOwnsDomainRequest(
+                CheckUserOwnsDomainRequest(
+                    domain=domain,
+                    region=region,
+                    project_id=project_id,
+                ),
+                self.client,
+            ),
+
         )
 
         self._throw_on_error(res)
