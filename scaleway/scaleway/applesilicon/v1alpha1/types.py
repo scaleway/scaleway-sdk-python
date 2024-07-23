@@ -212,7 +212,17 @@ class Server:
 
     vnc_url: str
     """
-    URL of the VNC.
+    Vnc:// URL to access Apple Remote Desktop.
+    """
+
+    ssh_username: str
+    """
+    SSH Username for remote shell.
+    """
+
+    sudo_password: str
+    """
+    Admin password required to execute commands.
     """
 
     status: ServerStatus
