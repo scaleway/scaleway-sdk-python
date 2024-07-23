@@ -300,6 +300,8 @@ class RecordType(str, Enum, metaclass=StrEnumMeta):
     DS = "ds"
     NAPTR = "naptr"
     DNAME = "dname"
+    SVCB = "svcb"
+    HTTPS = "https"
 
     def __str__(self) -> str:
         return str(self.value)
