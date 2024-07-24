@@ -121,10 +121,9 @@ class ListWebhooksRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 
 class WebhookEventStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
-    WAITING = "waiting"
     SENDING = "sending"
     SENT = "sent"
-    ERROR = "error"
+    FAILED = "failed"
 
     def __str__(self) -> str:
         return str(self.value)

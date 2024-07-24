@@ -102,6 +102,7 @@ class EdgeServicesV1Alpha1API(API):
         name: Optional[str] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
+        has_backend_stage_lb: Optional[bool] = None,
     ) -> ListPipelinesResponse:
         """
         List pipelines.
@@ -112,6 +113,7 @@ class EdgeServicesV1Alpha1API(API):
         :param name: Pipeline name to filter for, only pipelines with this string within their name will be returned.
         :param organization_id: Organization ID to filter for, only pipelines from this Organization will be returned.
         :param project_id: Project ID to filter for, only pipelines from this Project will be returned.
+        :param has_backend_stage_lb: Filter on backend stage, only pipelines with a Load Balancer origin will be returned.
         :return: :class:`ListPipelinesResponse <ListPipelinesResponse>`
 
         Usage:
@@ -124,6 +126,7 @@ class EdgeServicesV1Alpha1API(API):
             "GET",
             "/edge-services/v1alpha1/pipelines",
             params={
+                "has_backend_stage_lb": has_backend_stage_lb,
                 "name": name,
                 "order_by": order_by,
                 "organization_id": organization_id
@@ -146,6 +149,7 @@ class EdgeServicesV1Alpha1API(API):
         name: Optional[str] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
+        has_backend_stage_lb: Optional[bool] = None,
     ) -> List[Pipeline]:
         """
         List pipelines.
@@ -156,6 +160,7 @@ class EdgeServicesV1Alpha1API(API):
         :param name: Pipeline name to filter for, only pipelines with this string within their name will be returned.
         :param organization_id: Organization ID to filter for, only pipelines from this Organization will be returned.
         :param project_id: Project ID to filter for, only pipelines from this Project will be returned.
+        :param has_backend_stage_lb: Filter on backend stage, only pipelines with a Load Balancer origin will be returned.
         :return: :class:`List[Pipeline] <List[Pipeline]>`
 
         Usage:
@@ -175,6 +180,7 @@ class EdgeServicesV1Alpha1API(API):
                 "name": name,
                 "organization_id": organization_id,
                 "project_id": project_id,
+                "has_backend_stage_lb": has_backend_stage_lb,
             },
         )
 
@@ -1057,6 +1063,7 @@ class EdgeServicesV1Alpha1API(API):
         project_id: Optional[str] = None,
         bucket_name: Optional[str] = None,
         bucket_region: Optional[str] = None,
+        lb_id: Optional[str] = None,
     ) -> ListBackendStagesResponse:
         """
         List backend stages.
@@ -1068,6 +1075,7 @@ class EdgeServicesV1Alpha1API(API):
         :param project_id: Project ID to filter for, only backend stages from this Project will be returned.
         :param bucket_name: Bucket name to filter for, only backend stages from this Bucket will be returned.
         :param bucket_region: Bucket region to filter for, only backend stages with buckets in this region will be returned.
+        :param lb_id: Load Balancer ID to filter for, only backend stages with this Load Balancer will be returned.
         :return: :class:`ListBackendStagesResponse <ListBackendStagesResponse>`
 
         Usage:
@@ -1082,6 +1090,7 @@ class EdgeServicesV1Alpha1API(API):
             params={
                 "bucket_name": bucket_name,
                 "bucket_region": bucket_region,
+                "lb_id": lb_id,
                 "order_by": order_by,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
@@ -1103,6 +1112,7 @@ class EdgeServicesV1Alpha1API(API):
         project_id: Optional[str] = None,
         bucket_name: Optional[str] = None,
         bucket_region: Optional[str] = None,
+        lb_id: Optional[str] = None,
     ) -> List[BackendStage]:
         """
         List backend stages.
@@ -1114,6 +1124,7 @@ class EdgeServicesV1Alpha1API(API):
         :param project_id: Project ID to filter for, only backend stages from this Project will be returned.
         :param bucket_name: Bucket name to filter for, only backend stages from this Bucket will be returned.
         :param bucket_region: Bucket region to filter for, only backend stages with buckets in this region will be returned.
+        :param lb_id: Load Balancer ID to filter for, only backend stages with this Load Balancer will be returned.
         :return: :class:`List[BackendStage] <List[BackendStage]>`
 
         Usage:
@@ -1134,6 +1145,7 @@ class EdgeServicesV1Alpha1API(API):
                 "project_id": project_id,
                 "bucket_name": bucket_name,
                 "bucket_region": bucket_region,
+                "lb_id": lb_id,
             },
         )
 

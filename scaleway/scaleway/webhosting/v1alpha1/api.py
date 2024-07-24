@@ -17,6 +17,8 @@ from .types import (
     HostingStatus,
     ListHostingsRequestOrderBy,
     ListOffersRequestOrderBy,
+    CheckUserOwnsDomainRequest,
+    CheckUserOwnsDomainResponse,
     ControlPanel,
     CreateHostingRequest,
     CreateHostingRequestDomainConfiguration,
@@ -34,12 +36,14 @@ from .content import (
 )
 from .marshalling import (
     unmarshal_Hosting,
+    unmarshal_CheckUserOwnsDomainResponse,
     unmarshal_DnsRecords,
     unmarshal_ListControlPanelsResponse,
     unmarshal_ListHostingsResponse,
     unmarshal_ListOffersResponse,
     unmarshal_ResetHostingPasswordResponse,
     unmarshal_Session,
+    marshal_CheckUserOwnsDomainRequest,
     marshal_CreateHostingRequest,
     marshal_UpdateHostingRequest,
 )
@@ -456,6 +460,50 @@ class WebhostingV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_DnsRecords(res.json())
+
+    def check_user_owns_domain(
+        self,
+        *,
+        domain: str,
+        region: Optional[Region] = None,
+        project_id: Optional[str] = None,
+    ) -> CheckUserOwnsDomainResponse:
+        """
+        "Check whether you own this domain or not.".
+        :param domain: Domain for which ownership is to be verified.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: ID of the project currently in use.
+        :return: :class:`CheckUserOwnsDomainResponse <CheckUserOwnsDomainResponse>`
+
+        Usage:
+        ::
+
+            result = api.check_user_owns_domain(
+                domain="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_domain = validate_path_param("domain", domain)
+
+        res = self._request(
+            "POST",
+            f"/webhosting/v1/regions/{param_region}/domains/{param_domain}/check-ownership",
+            body=marshal_CheckUserOwnsDomainRequest(
+                CheckUserOwnsDomainRequest(
+                    domain=domain,
+                    region=region,
+                    project_id=project_id,
+                ),
+                self.client,
+            ),
+
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_CheckUserOwnsDomainResponse(res.json())
 
     def list_offers(
         self,

@@ -432,6 +432,32 @@ class Offer:
 
 
 @dataclass
+class CheckUserOwnsDomainRequest:
+    domain: str
+    """
+    Domain for which ownership is to be verified.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    ID of the project currently in use.
+    """
+
+
+@dataclass
+class CheckUserOwnsDomainResponse:
+    owns_domain: bool
+    """
+    Indicates whether the specified project owns the domain.
+    """
+
+
+@dataclass
 class CreateHostingRequest:
     offer_id: str
     """

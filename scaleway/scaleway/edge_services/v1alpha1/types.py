@@ -766,6 +766,11 @@ class ListBackendStagesRequest:
     Bucket region to filter for, only backend stages with buckets in this region will be returned.
     """
 
+    lb_id: Optional[str]
+    """
+    Load Balancer ID to filter for, only backend stages with this Load Balancer will be returned.
+    """
+
 
 @dataclass
 class ListBackendStagesResponse:
@@ -897,6 +902,11 @@ class ListPipelinesRequest:
     project_id: Optional[str]
     """
     Project ID to filter for, only pipelines from this Project will be returned.
+    """
+
+    has_backend_stage_lb: Optional[bool]
+    """
+    Filter on backend stage, only pipelines with a Load Balancer origin will be returned.
     """
 
 

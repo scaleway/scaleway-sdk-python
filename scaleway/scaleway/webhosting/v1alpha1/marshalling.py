@@ -13,6 +13,7 @@ from .types import (
     HostingCpanelUrls,
     HostingOption,
     Hosting,
+    CheckUserOwnsDomainResponse,
     DnsRecord,
     Nameserver,
     DnsRecords,
@@ -24,6 +25,7 @@ from .types import (
     ListOffersResponse,
     ResetHostingPasswordResponse,
     Session,
+    CheckUserOwnsDomainRequest,
     CreateHostingRequestDomainConfiguration,
     CreateHostingRequest,
     UpdateHostingRequest,
@@ -186,6 +188,21 @@ def unmarshal_Hosting(data: Any) -> Hosting:
         args["cpanel_urls"] = None
 
     return Hosting(**args)
+
+
+def unmarshal_CheckUserOwnsDomainResponse(data: Any) -> CheckUserOwnsDomainResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'CheckUserOwnsDomainResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("owns_domain", None)
+    if field is not None:
+        args["owns_domain"] = field
+
+    return CheckUserOwnsDomainResponse(**args)
 
 
 def unmarshal_DnsRecord(data: Any) -> DnsRecord:
@@ -491,6 +508,18 @@ def unmarshal_Session(data: Any) -> Session:
         args["url"] = field
 
     return Session(**args)
+
+
+def marshal_CheckUserOwnsDomainRequest(
+    request: CheckUserOwnsDomainRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    return output
 
 
 def marshal_CreateHostingRequestDomainConfiguration(
