@@ -33,12 +33,14 @@ from .types import CheckDomainRequest
 from .types import CreateDomainRequest
 from .types import CreateEmailRequest
 from .types import CreateEmailResponse
+from .types import CreateWebhookRequest
 from .types import DeleteWebhookRequest
 from .types import DomainLastStatus
 from .types import GetDomainLastStatusRequest
 from .types import GetDomainRequest
 from .types import GetEmailRequest
 from .types import GetStatisticsRequest
+from .types import GetWebhookRequest
 from .types import ListDomainsRequest
 from .types import ListDomainsResponse
 from .types import ListEmailsRequest
@@ -86,12 +88,14 @@ __all__ = [
     "CreateDomainRequest",
     "CreateEmailRequest",
     "CreateEmailResponse",
+    "CreateWebhookRequest",
     "DeleteWebhookRequest",
     "DomainLastStatus",
     "GetDomainLastStatusRequest",
     "GetDomainRequest",
     "GetEmailRequest",
     "GetStatisticsRequest",
+    "GetWebhookRequest",
     "ListDomainsRequest",
     "ListDomainsResponse",
     "ListEmailsRequest",
