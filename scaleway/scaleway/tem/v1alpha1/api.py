@@ -823,6 +823,8 @@ class TemV1Alpha1API(API):
         domain_id: Optional[str] = None,
     ) -> ListWebhooksResponse:
         """
+        List Webhooks.
+        Retrieve Webhooks in a specific Project or in a specific Organization using the `region` parameter.
         :param region: Region to target. If none is passed will use default region from the config.
         :param order_by: (Optional) List Webhooks corresponding to specific criteria.
         :param page: (Optional) Requested page number. Value must be greater or equal to 1.
@@ -871,6 +873,8 @@ class TemV1Alpha1API(API):
         domain_id: Optional[str] = None,
     ) -> List[Webhook]:
         """
+        List Webhooks.
+        Retrieve Webhooks in a specific Project or in a specific Organization using the `region` parameter.
         :param region: Region to target. If none is passed will use default region from the config.
         :param order_by: (Optional) List Webhooks corresponding to specific criteria.
         :param page: (Optional) Requested page number. Value must be greater or equal to 1.
@@ -909,6 +913,7 @@ class TemV1Alpha1API(API):
     ) -> Webhook:
         """
         Get information about a Webhook.
+        Retrieve information about a specific Webhook using the `webhook_id` and `region` parameters.
         :param webhook_id: ID of the Webhook to check.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Webhook <Webhook>`
@@ -944,6 +949,8 @@ class TemV1Alpha1API(API):
         sns_arn: Optional[str] = None,
     ) -> Webhook:
         """
+        Update a Webhook.
+        Update a Webhook events type, SNS ARN or name.
         :param webhook_id: ID of the Webhook to update.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the Webhook to update.
@@ -989,6 +996,8 @@ class TemV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> None:
         """
+        Delete a Webhook.
+        You must specify the Webhook you want to delete by the `region` and `webhook_id`. Deleting a Webhook is permanent and cannot be undone.
         :param webhook_id: ID of the Webhook to delete.
         :param region: Region to target. If none is passed will use default region from the config.
 
@@ -1028,6 +1037,8 @@ class TemV1Alpha1API(API):
         domain_id: Optional[str] = None,
     ) -> ListWebhookEventsResponse:
         """
+        List Webhook triggered events.
+        Retrieve the list of Webhook events triggered from a specific Webhook or for a specific Project or Organization. You must specify the `region`.
         :param webhook_id: ID of the Webhook linked to the events.
         :param region: Region to target. If none is passed will use default region from the config.
         :param order_by: (Optional) List Webhook events corresponding to specific criteria.
@@ -1090,6 +1101,8 @@ class TemV1Alpha1API(API):
         domain_id: Optional[str] = None,
     ) -> List[WebhookEvent]:
         """
+        List Webhook triggered events.
+        Retrieve the list of Webhook events triggered from a specific Webhook or for a specific Project or Organization. You must specify the `region`.
         :param webhook_id: ID of the Webhook linked to the events.
         :param region: Region to target. If none is passed will use default region from the config.
         :param order_by: (Optional) List Webhook events corresponding to specific criteria.
