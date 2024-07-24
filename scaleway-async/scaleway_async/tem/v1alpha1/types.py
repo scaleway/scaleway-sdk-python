@@ -711,6 +711,39 @@ class CreateEmailResponse:
 
 
 @dataclass
+class CreateWebhookRequest:
+    domain_id: str
+    """
+    ID of the Domain to watch for triggering events.
+    """
+
+    name: str
+    """
+    Name of the Webhook.
+    """
+
+    sns_arn: str
+    """
+    Scaleway SNS ARN topic to push the events to.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    ID of the project to which the Webhook belongs.
+    """
+
+    event_types: Optional[List[WebhookEventType]]
+    """
+    List of event types that will trigger an event.
+    """
+
+
+@dataclass
 class DeleteWebhookRequest:
     webhook_id: str
     """
@@ -820,6 +853,19 @@ class GetStatisticsRequest:
     mail_from: Optional[str]
     """
     (Optional) Number of emails sent with this sender's email address.
+    """
+
+
+@dataclass
+class GetWebhookRequest:
+    webhook_id: str
+    """
+    ID of the Webhook to check.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
     """
 
 

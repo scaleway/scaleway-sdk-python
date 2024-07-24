@@ -32,6 +32,7 @@ from .types import (
     CreateEmailRequestAttachment,
     CreateEmailRequestHeader,
     CreateEmailRequest,
+    CreateWebhookRequest,
     UpdateWebhookRequest,
 )
 
@@ -833,6 +834,30 @@ def marshal_CreateEmailRequest(
             marshal_CreateEmailRequestHeader(item, defaults)
             for item in request.additional_headers
         ]
+
+    return output
+
+
+def marshal_CreateWebhookRequest(
+    request: CreateWebhookRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.domain_id is not None:
+        output["domain_id"] = request.domain_id
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.sns_arn is not None:
+        output["sns_arn"] = request.sns_arn
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    if request.event_types is not None:
+        output["event_types"] = [str(item) for item in request.event_types]
 
     return output
 
