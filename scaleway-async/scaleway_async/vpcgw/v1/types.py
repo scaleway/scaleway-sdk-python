@@ -1746,3 +1746,8 @@ class UpgradeGatewayRequest:
     """
     Zone to target. If none is passed will use default zone from the config.
     """
+
+    type_: Optional[str]
+    """
+    Gateway type (commercial offer).
+    """
