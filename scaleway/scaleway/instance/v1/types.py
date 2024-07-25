@@ -695,11 +695,11 @@ class VolumeServer:
 
     name: str
 
-    export_uri: str
-
     organization: str
 
     size: int
+
+    export_uri: Optional[str]
 
     server: Optional[ServerSummary]
 

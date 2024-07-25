@@ -656,10 +656,6 @@ def unmarshal_VolumeServer(data: Any) -> VolumeServer:
     if field is not None:
         args["name"] = field
 
-    field = data.get("export_uri", None)
-    if field is not None:
-        args["export_uri"] = field
-
     field = data.get("organization", None)
     if field is not None:
         args["organization"] = field
@@ -667,6 +663,12 @@ def unmarshal_VolumeServer(data: Any) -> VolumeServer:
     field = data.get("size", None)
     if field is not None:
         args["size"] = field
+
+    field = data.get("export_uri", None)
+    if field is not None:
+        args["export_uri"] = field
+    else:
+        args["export_uri"] = None
 
     field = data.get("server", None)
     if field is not None:
