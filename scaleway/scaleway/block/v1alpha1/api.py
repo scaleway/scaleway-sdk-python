@@ -659,7 +659,8 @@ class BlockV1Alpha1API(API):
         size: Optional[int] = None,
     ) -> Snapshot:
         """
-        Import a snapshot from a Scaleway Object Storage bucket.
+        (Deprecated in favor of `ImportSnapshotFromObjectStorage`).
+        Import a snapshot from a Scaleway Object Storage bucket
         The bucket must contain a QCOW2 image.
         The bucket can be imported into any Availability Zone as long as it is in the same region as the bucket.
         :param bucket: Scaleway Object Storage bucket where the object is stored.
