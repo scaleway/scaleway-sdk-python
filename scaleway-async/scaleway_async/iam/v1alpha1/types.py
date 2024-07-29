@@ -183,6 +183,11 @@ class UserType(str, Enum, metaclass=StrEnumMeta):
 
 @dataclass
 class RuleSpecs:
+    condition: str
+    """
+    Condition expression to evaluate.
+    """
+
     permission_set_names: Optional[List[str]]
     """
     Names of permission sets bound to the rule.
@@ -563,6 +568,11 @@ class Rule:
     permission_sets_scope_type: PermissionSetScopeType
     """
     Permission_set_names have the same scope_type.
+    """
+
+    condition: str
+    """
+    Condition expression to evaluate.
     """
 
     permission_set_names: Optional[List[str]]
