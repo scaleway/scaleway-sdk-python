@@ -515,7 +515,7 @@ class KeyManagerV1Alpha1API(API):
         :param without_plaintext: Default value is `false`, meaning that the plaintext is returned.
         Set it to `true` if you do not wish the plaintext to be returned in the response object.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param algorithm: Encryption algorithm of the data encryption key.
+        :param algorithm: See the `DataKey.Algorithm.SymmetricEncryption` enum for a description of values.
         :return: :class:`DataKey <DataKey>`
 
         Usage:

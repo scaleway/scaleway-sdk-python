@@ -90,10 +90,7 @@ class Key:
 
     state: KeyState
     """
-    Current state of the key. Values include:
-* `unknown_state`: key is in an unknown state.
-* `enabled`: key can be used for cryptographic operations.
-* `disabled`: key cannot be used for cryptographic operations.
+    See the `Key.State` enum for a description of values.
     """
 
     rotation_count: int
@@ -359,7 +356,7 @@ Set it to `true` if you do not wish the plaintext to be returned in the response
 
     algorithm: Optional[DataKeyAlgorithmSymmetricEncryption]
     """
-    Encryption algorithm of the data encryption key.
+    See the `DataKey.Algorithm.SymmetricEncryption` enum for a description of values.
     """
 
 
