@@ -807,6 +807,10 @@ def unmarshal_Rule(data: Any) -> Rule:
     if field is not None:
         args["permission_sets_scope_type"] = field
 
+    field = data.get("condition", None)
+    if field is not None:
+        args["condition"] = field
+
     field = data.get("permission_set_names", None)
     if field is not None:
         args["permission_set_names"] = field
@@ -1050,6 +1054,9 @@ def marshal_RuleSpecs(
             ]
         ),
     )
+
+    if request.condition is not None:
+        output["condition"] = request.condition
 
     if request.permission_set_names is not None:
         output["permission_set_names"] = request.permission_set_names
