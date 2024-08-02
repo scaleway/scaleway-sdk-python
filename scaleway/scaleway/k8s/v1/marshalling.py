@@ -429,14 +429,6 @@ def unmarshal_Cluster(data: Any) -> Cluster:
     if field is not None:
         args["feature_gates"] = field
 
-    field = data.get("admission_plugins", None)
-    if field is not None:
-        args["admission_plugins"] = field
-
-    field = data.get("apiserver_cert_sans", None)
-    if field is not None:
-        args["apiserver_cert_sans"] = field
-
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -460,6 +452,14 @@ def unmarshal_Cluster(data: Any) -> Cluster:
         args["auto_upgrade"] = unmarshal_ClusterAutoUpgrade(field)
     else:
         args["auto_upgrade"] = None
+
+    field = data.get("admission_plugins", None)
+    if field is not None:
+        args["admission_plugins"] = field
+
+    field = data.get("apiserver_cert_sans", None)
+    if field is not None:
+        args["apiserver_cert_sans"] = field
 
     field = data.get("open_id_connect_config", None)
     if field is not None:
@@ -486,6 +486,12 @@ def unmarshal_Cluster(data: Any) -> Cluster:
         args["routed_ip_enabled"] = field
     else:
         args["routed_ip_enabled"] = None
+
+    field = data.get("sbs_csi_enabled", None)
+    if field is not None:
+        args["sbs_csi_enabled"] = field
+    else:
+        args["sbs_csi_enabled"] = None
 
     return Cluster(**args)
 
@@ -713,6 +719,10 @@ def unmarshal_ClusterType(data: Any) -> ClusterType:
     field = data.get("audit_logs_supported", None)
     if field is not None:
         args["audit_logs_supported"] = field
+
+    field = data.get("max_etcd_size", None)
+    if field is not None:
+        args["max_etcd_size"] = field
 
     field = data.get("commitment_delay", None)
     if field is not None:
