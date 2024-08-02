@@ -594,6 +594,7 @@ class ContainerV1Beta1API(API):
         secret_environment_variables: Optional[List[Secret]] = None,
         http_option: Optional[ContainerHttpOption] = None,
         sandbox: Optional[ContainerSandbox] = None,
+        local_storage_limit: Optional[int] = None,
     ) -> Container:
         """
         Create a new container.
@@ -618,6 +619,7 @@ class ContainerV1Beta1API(API):
          - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
          - enabled: Serve both HTTP and HTTPS traffic.
         :param sandbox: Execution environment of the container.
+        :param local_storage_limit: Local storage limit of the container (in MB).
         :return: :class:`Container <Container>`
 
         Usage:
@@ -656,6 +658,7 @@ class ContainerV1Beta1API(API):
                     secret_environment_variables=secret_environment_variables,
                     http_option=http_option,
                     sandbox=sandbox,
+                    local_storage_limit=local_storage_limit,
                 ),
                 self.client,
             ),
@@ -685,6 +688,7 @@ class ContainerV1Beta1API(API):
         secret_environment_variables: Optional[List[Secret]] = None,
         http_option: Optional[ContainerHttpOption] = None,
         sandbox: Optional[ContainerSandbox] = None,
+        local_storage_limit: Optional[int] = None,
     ) -> Container:
         """
         Update an existing container.
@@ -709,6 +713,7 @@ class ContainerV1Beta1API(API):
          - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
          - enabled: Serve both HTTP and HTTPS traffic.
         :param sandbox: Execution environment of the container.
+        :param local_storage_limit: Local storage limit of the container (in MB).
         :return: :class:`Container <Container>`
 
         Usage:
@@ -747,6 +752,7 @@ class ContainerV1Beta1API(API):
                     secret_environment_variables=secret_environment_variables,
                     http_option=http_option,
                     sandbox=sandbox,
+                    local_storage_limit=local_storage_limit,
                 ),
                 self.client,
             ),

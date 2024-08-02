@@ -932,6 +932,15 @@ class Node:
 
 
 @dataclass
+class NodeMetadataCoreV1Taint:
+    key: str
+
+    value: str
+
+    effect: str
+
+
+@dataclass
 class UpdateClusterRequestAutoUpgrade:
     enable: Optional[bool]
     """
@@ -1040,6 +1049,19 @@ class UpdatePoolRequestUpgradePolicy:
     max_unavailable: Optional[int]
 
     max_surge: Optional[int]
+
+
+@dataclass
+class AuthExternalNodeRequest:
+    pool_id: str
+    """
+    Pool the node will be attached to.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
 
 
 @dataclass
@@ -1311,6 +1333,13 @@ class ExternalNode:
 
 
 @dataclass
+class ExternalNodeAuth:
+    node_token: str
+
+    api_url: str
+
+
+@dataclass
 class GetClusterKubeConfigRequest:
     cluster_id: str
     """
@@ -1335,6 +1364,14 @@ class GetClusterRequest:
     ID of the requested cluster.
     """
 
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetNodeMetadataRequest:
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
@@ -1655,6 +1692,37 @@ class MigrateClusterToRoutedIPsRequest:
     """
     Region to target. If none is passed will use default region from the config.
     """
+
+
+@dataclass
+class NodeMetadata:
+    id: str
+
+    name: str
+
+    cluster_url: str
+
+    cluster_ca: str
+
+    credential_provider_config: str
+
+    pool_version: str
+
+    kubelet_config: str
+
+    node_labels: Dict[str, str]
+
+    node_taints: List[NodeMetadataCoreV1Taint]
+
+    private_network_mode: str
+
+    kapsule_iface_mac: str
+
+    full_isolation: bool
+
+    has_gpu: bool
+
+    external_ip: str
 
 
 @dataclass
