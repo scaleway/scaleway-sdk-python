@@ -19,14 +19,19 @@ from .types import (
     ListOffersRequestOrderBy,
     CheckUserOwnsDomainRequest,
     CheckUserOwnsDomainResponse,
+    ClassicMailApiCreateMailboxRequest,
+    ClassicMailApiUpdateMailboxRequest,
     ControlPanel,
     CreateHostingRequest,
     CreateHostingRequestDomainConfiguration,
     DnsRecords,
+    EmailAddress,
     Hosting,
     ListControlPanelsResponse,
     ListHostingsResponse,
+    ListMailboxesResponse,
     ListOffersResponse,
+    Mailbox,
     ResetHostingPasswordResponse,
     Session,
     UpdateHostingRequest,
@@ -36,14 +41,18 @@ from .content import (
 )
 from .marshalling import (
     unmarshal_Hosting,
+    unmarshal_Mailbox,
     unmarshal_CheckUserOwnsDomainResponse,
     unmarshal_DnsRecords,
     unmarshal_ListControlPanelsResponse,
     unmarshal_ListHostingsResponse,
+    unmarshal_ListMailboxesResponse,
     unmarshal_ListOffersResponse,
     unmarshal_ResetHostingPasswordResponse,
     unmarshal_Session,
     marshal_CheckUserOwnsDomainRequest,
+    marshal_ClassicMailApiCreateMailboxRequest,
+    marshal_ClassicMailApiUpdateMailboxRequest,
     marshal_CreateHostingRequest,
     marshal_UpdateHostingRequest,
 )
@@ -686,3 +695,260 @@ class WebhostingV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ResetHostingPasswordResponse(res.json())
+
+
+class WebhostingV1Alpha1ClassicMailAPI(API):
+    """
+    This API allows you to manage your mailboxes for your Web Hosting services.
+    """
+
+    async def create_mailbox(
+        self,
+        *,
+        online_id: int,
+        password: str,
+        region: Optional[Region] = None,
+        email: Optional[EmailAddress] = None,
+    ) -> Mailbox:
+        """
+        Create a new mailbox within your hosting plan.
+        :param online_id: The Online hosting ID.
+        :param password: Password for the new mailbox.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param email: The email address of the mailbox.
+        :return: :class:`Mailbox <Mailbox>`
+
+        Usage:
+        ::
+
+            result = await api.create_mailbox(
+                online_id=1,
+                password="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_online_id = validate_path_param("online_id", online_id)
+
+        res = self._request(
+            "POST",
+            f"/webhosting/v1alpha1/regions/{param_region}/classic-hostings/{param_online_id}/mailboxes",
+            body=marshal_ClassicMailApiCreateMailboxRequest(
+                ClassicMailApiCreateMailboxRequest(
+                    online_id=online_id,
+                    password=password,
+                    region=region,
+                    email=email,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Mailbox(res.json())
+
+    async def get_mailbox(
+        self,
+        *,
+        online_id: int,
+        mailbox_id: int,
+        region: Optional[Region] = None,
+    ) -> Mailbox:
+        """
+        Get a mailbox by id within your hosting plan.
+        :param online_id: The Online hosting ID.
+        :param mailbox_id: The ID of the mailbox to get.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Mailbox <Mailbox>`
+
+        Usage:
+        ::
+
+            result = await api.get_mailbox(
+                online_id=1,
+                mailbox_id=1,
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_online_id = validate_path_param("online_id", online_id)
+        param_mailbox_id = validate_path_param("mailbox_id", mailbox_id)
+
+        res = self._request(
+            "GET",
+            f"/webhosting/v1alpha1/regions/{param_region}/classic-hostings/{param_online_id}/mailboxes/{param_mailbox_id}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Mailbox(res.json())
+
+    async def list_mailboxes(
+        self,
+        *,
+        online_id: int,
+        region: Optional[Region] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        domain: Optional[str] = None,
+    ) -> ListMailboxesResponse:
+        """
+        List all mailboxes within your hosting plan.
+        :param online_id: The Online hosting ID.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page: Page number (must be a positive integer).
+        :param page_size: Number of mailboxes to return (must be a positive integer lower or equal to 100).
+        :param domain: Domain to filter the mailboxes.
+        :return: :class:`ListMailboxesResponse <ListMailboxesResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_mailboxes(
+                online_id=1,
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_online_id = validate_path_param("online_id", online_id)
+
+        res = self._request(
+            "GET",
+            f"/webhosting/v1alpha1/regions/{param_region}/classic-hostings/{param_online_id}/mailboxes",
+            params={
+                "domain": domain,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListMailboxesResponse(res.json())
+
+    async def list_mailboxes_all(
+        self,
+        *,
+        online_id: int,
+        region: Optional[Region] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        domain: Optional[str] = None,
+    ) -> List[Mailbox]:
+        """
+        List all mailboxes within your hosting plan.
+        :param online_id: The Online hosting ID.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page: Page number (must be a positive integer).
+        :param page_size: Number of mailboxes to return (must be a positive integer lower or equal to 100).
+        :param domain: Domain to filter the mailboxes.
+        :return: :class:`List[Mailbox] <List[Mailbox]>`
+
+        Usage:
+        ::
+
+            result = await api.list_mailboxes_all(
+                online_id=1,
+            )
+        """
+
+        return await fetch_all_pages_async(
+            type=ListMailboxesResponse,
+            key="mailboxes",
+            fetcher=self.list_mailboxes,
+            args={
+                "online_id": online_id,
+                "region": region,
+                "page": page,
+                "page_size": page_size,
+                "domain": domain,
+            },
+        )
+
+    async def delete_mailbox(
+        self,
+        *,
+        online_id: int,
+        mailbox_id: int,
+        region: Optional[Region] = None,
+    ) -> Mailbox:
+        """
+        :param online_id: The Online hosting ID.
+        :param mailbox_id: The ID of the mailbox to delete.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Mailbox <Mailbox>`
+
+        Usage:
+        ::
+
+            result = await api.delete_mailbox(
+                online_id=1,
+                mailbox_id=1,
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_online_id = validate_path_param("online_id", online_id)
+        param_mailbox_id = validate_path_param("mailbox_id", mailbox_id)
+
+        res = self._request(
+            "DELETE",
+            f"/webhosting/v1alpha1/regions/{param_region}/classic-hostings/{param_online_id}/mailboxes/{param_mailbox_id}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Mailbox(res.json())
+
+    async def update_mailbox(
+        self,
+        *,
+        online_id: int,
+        mailbox_id: int,
+        region: Optional[Region] = None,
+        password: Optional[str] = None,
+    ) -> Mailbox:
+        """
+        Update the mailbox within your hosting plan.
+        :param online_id: The Online hosting ID.
+        :param mailbox_id: The ID of the mailbox to update.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param password: New password for the mailbox.
+        :return: :class:`Mailbox <Mailbox>`
+
+        Usage:
+        ::
+
+            result = await api.update_mailbox(
+                online_id=1,
+                mailbox_id=1,
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_online_id = validate_path_param("online_id", online_id)
+        param_mailbox_id = validate_path_param("mailbox_id", mailbox_id)
+
+        res = self._request(
+            "PATCH",
+            f"/webhosting/v1alpha1/regions/{param_region}/classic-hostings/{param_online_id}/mailboxes/{param_mailbox_id}",
+            body=marshal_ClassicMailApiUpdateMailboxRequest(
+                ClassicMailApiUpdateMailboxRequest(
+                    online_id=online_id,
+                    mailbox_id=mailbox_id,
+                    region=region,
+                    password=password,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Mailbox(res.json())

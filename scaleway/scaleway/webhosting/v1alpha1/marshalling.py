@@ -13,6 +13,8 @@ from .types import (
     HostingCpanelUrls,
     HostingOption,
     Hosting,
+    EmailAddress,
+    Mailbox,
     CheckUserOwnsDomainResponse,
     DnsRecord,
     Nameserver,
@@ -20,12 +22,15 @@ from .types import (
     ControlPanel,
     ListControlPanelsResponse,
     ListHostingsResponse,
+    ListMailboxesResponse,
     OfferProduct,
     Offer,
     ListOffersResponse,
     ResetHostingPasswordResponse,
     Session,
     CheckUserOwnsDomainRequest,
+    ClassicMailApiCreateMailboxRequest,
+    ClassicMailApiUpdateMailboxRequest,
     CreateHostingRequestDomainConfiguration,
     CreateHostingRequest,
     UpdateHostingRequest,
@@ -188,6 +193,46 @@ def unmarshal_Hosting(data: Any) -> Hosting:
         args["cpanel_urls"] = None
 
     return Hosting(**args)
+
+
+def unmarshal_EmailAddress(data: Any) -> EmailAddress:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'EmailAddress' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("domain", None)
+    if field is not None:
+        args["domain"] = field
+
+    field = data.get("login", None)
+    if field is not None:
+        args["login"] = field
+
+    return EmailAddress(**args)
+
+
+def unmarshal_Mailbox(data: Any) -> Mailbox:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Mailbox' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("mailbox_id", None)
+    if field is not None:
+        args["mailbox_id"] = field
+
+    field = data.get("email", None)
+    if field is not None:
+        args["email"] = unmarshal_EmailAddress(field)
+    else:
+        args["email"] = None
+
+    return Mailbox(**args)
 
 
 def unmarshal_CheckUserOwnsDomainResponse(data: Any) -> CheckUserOwnsDomainResponse:
@@ -363,6 +408,27 @@ def unmarshal_ListHostingsResponse(data: Any) -> ListHostingsResponse:
     return ListHostingsResponse(**args)
 
 
+def unmarshal_ListMailboxesResponse(data: Any) -> ListMailboxesResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListMailboxesResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+
+    field = data.get("mailboxes", None)
+    if field is not None:
+        args["mailboxes"] = (
+            [unmarshal_Mailbox(v) for v in field] if field is not None else None
+        )
+
+    return ListMailboxesResponse(**args)
+
+
 def unmarshal_OfferProduct(data: Any) -> OfferProduct:
     if not isinstance(data, dict):
         raise TypeError(
@@ -518,6 +584,48 @@ def marshal_CheckUserOwnsDomainRequest(
 
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id
+
+    return output
+
+
+def marshal_EmailAddress(
+    request: EmailAddress,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.domain is not None:
+        output["domain"] = request.domain
+
+    if request.login is not None:
+        output["login"] = request.login
+
+    return output
+
+
+def marshal_ClassicMailApiCreateMailboxRequest(
+    request: ClassicMailApiCreateMailboxRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.password is not None:
+        output["password"] = request.password
+
+    if request.email is not None:
+        output["email"] = marshal_EmailAddress(request.email, defaults)
+
+    return output
+
+
+def marshal_ClassicMailApiUpdateMailboxRequest(
+    request: ClassicMailApiUpdateMailboxRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.password is not None:
+        output["password"] = request.password
 
     return output
 
