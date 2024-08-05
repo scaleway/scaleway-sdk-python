@@ -37,6 +37,7 @@ from .types import (
     CreatePoolRequest,
     CreatePoolRequestUpgradePolicy,
     ExternalNode,
+    ExternalNodeAuth,
     ListClusterAvailableTypesResponse,
     ListClusterAvailableVersionsResponse,
     ListClusterTypesResponse,
@@ -45,6 +46,7 @@ from .types import (
     ListPoolsResponse,
     ListVersionsResponse,
     Node,
+    NodeMetadata,
     Pool,
     SetClusterTypeRequest,
     UpdateClusterRequest,
@@ -68,6 +70,7 @@ from .marshalling import (
     unmarshal_Cluster,
     unmarshal_Node,
     unmarshal_ExternalNode,
+    unmarshal_ExternalNodeAuth,
     unmarshal_ListClusterAvailableTypesResponse,
     unmarshal_ListClusterAvailableVersionsResponse,
     unmarshal_ListClusterTypesResponse,
@@ -75,6 +78,7 @@ from .marshalling import (
     unmarshal_ListNodesResponse,
     unmarshal_ListPoolsResponse,
     unmarshal_ListVersionsResponse,
+    unmarshal_NodeMetadata,
     marshal_CreateClusterRequest,
     marshal_CreatePoolRequest,
     marshal_SetClusterTypeRequest,
@@ -1150,6 +1154,70 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Pool(res.json())
+
+    def get_node_metadata(
+        self,
+        *,
+        region: Optional[Region] = None,
+    ) -> NodeMetadata:
+        """
+        Fetch node metadata.
+        Rerieve metadata to instantiate a Kapsule/Kosmos node. This method is not intended to be called by end users but rather programmatically by the node-installer.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`NodeMetadata <NodeMetadata>`
+
+        Usage:
+        ::
+
+            result = api.get_node_metadata()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/k8s/v1/regions/{param_region}/nodes/metadata",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_NodeMetadata(res.json())
+
+    def auth_external_node(
+        self,
+        *,
+        pool_id: str,
+        region: Optional[Region] = None,
+    ) -> ExternalNodeAuth:
+        """
+        Authenticate Kosmos external node.
+        Creates a newer Kosmos node and returns its token. This method is not intended to be called by end users but rather programmatically by the node-installer.
+        :param pool_id: Pool the node will be attached to.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`ExternalNodeAuth <ExternalNodeAuth>`
+
+        Usage:
+        ::
+
+            result = api.auth_external_node(
+                pool_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_pool_id = validate_path_param("pool_id", pool_id)
+
+        res = self._request(
+            "POST",
+            f"/k8s/v1/regions/{param_region}/pools/{param_pool_id}/external-nodes/auth",
+            body={},
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ExternalNodeAuth(res.json())
 
     def create_external_node(
         self,
