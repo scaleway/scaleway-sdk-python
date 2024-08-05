@@ -230,6 +230,11 @@ class Server:
     Current status of the server.
     """
 
+    deletion_scheduled: bool
+    """
+    Set to true to mark the server for automatic deletion depending on `deletable_at` date. Set to false to cancel an existing deletion schedule. Leave unset otherwise.
+    """
+
     zone: Zone
     """
     Zone of the server.
@@ -252,7 +257,7 @@ class Server:
 
     deletable_at: Optional[datetime]
     """
-    Date on which the server was last deleted.
+    Date from which the server can be deleted.
     """
 
 
@@ -485,4 +490,9 @@ class UpdateServerRequest:
     name: Optional[str]
     """
     Updated name for your server.
+    """
+
+    schedule_deletion: Optional[bool]
+    """
+    Specify whether the server should be flagged for automatic deletion.
     """

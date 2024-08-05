@@ -270,6 +270,10 @@ def unmarshal_Server(data: Any) -> Server:
     if field is not None:
         args["status"] = field
 
+    field = data.get("deletion_scheduled", None)
+    if field is not None:
+        args["deletion_scheduled"] = field
+
     field = data.get("zone", None)
     if field is not None:
         args["zone"] = field
@@ -401,5 +405,8 @@ def marshal_UpdateServerRequest(
 
     if request.name is not None:
         output["name"] = request.name
+
+    if request.schedule_deletion is not None:
+        output["schedule_deletion"] = request.schedule_deletion
 
     return output
