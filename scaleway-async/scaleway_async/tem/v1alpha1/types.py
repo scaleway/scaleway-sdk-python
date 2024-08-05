@@ -433,6 +433,11 @@ class Domain:
     Snippet of the SPF record to register in the DNS zone.
     """
 
+    dkim_config: str
+    """
+    DKIM public key to record in the DNS zone.
+    """
+
     created_at: Optional[datetime]
     """
     Date and time of domain creation.
@@ -448,9 +453,9 @@ class Domain:
     Date and time the domain was last valid.
     """
 
-    dkim_config: str
+    autoconfig: bool
     """
-    DKIM public key to record in the DNS zone.
+    Status of auto-configuration for the domain's DNS zone.
     """
 
     region: Region
@@ -626,6 +631,11 @@ class CreateDomainRequest:
     accept_tos: bool
     """
     Accept Scaleway's Terms of Service.
+    """
+
+    autoconfig: bool
+    """
+    Activate auto-configuration of the domain's DNS zone.
     """
 
     region: Optional[Region]

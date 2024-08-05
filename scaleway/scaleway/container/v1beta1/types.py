@@ -428,6 +428,11 @@ class Container:
     Execution environment of the container.
     """
 
+    local_storage_limit: int
+    """
+    Local storage limit of the container (in MB).
+    """
+
     region: Region
     """
     Region in which the container will be deployed.
@@ -743,6 +748,11 @@ class CreateContainerRequest:
     sandbox: Optional[ContainerSandbox]
     """
     Execution environment of the container.
+    """
+
+    local_storage_limit: Optional[int]
+    """
+    Local storage limit of the container (in MB).
     """
 
 
@@ -1413,6 +1423,11 @@ class UpdateContainerRequest:
     sandbox: Optional[ContainerSandbox]
     """
     Execution environment of the container.
+    """
+
+    local_storage_limit: Optional[int]
+    """
+    Local storage limit of the container (in MB).
     """
 
 

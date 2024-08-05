@@ -281,6 +281,10 @@ def unmarshal_Domain(data: Any) -> Domain:
     if field is not None:
         args["spf_config"] = field
 
+    field = data.get("dkim_config", None)
+    if field is not None:
+        args["dkim_config"] = field
+
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -303,9 +307,9 @@ def unmarshal_Domain(data: Any) -> Domain:
     else:
         args["last_valid_at"] = None
 
-    field = data.get("dkim_config", None)
+    field = data.get("autoconfig", None)
     if field is not None:
-        args["dkim_config"] = field
+        args["autoconfig"] = field
 
     field = data.get("region", None)
     if field is not None:
@@ -729,6 +733,9 @@ def marshal_CreateDomainRequest(
 
     if request.accept_tos is not None:
         output["accept_tos"] = request.accept_tos
+
+    if request.autoconfig is not None:
+        output["autoconfig"] = request.autoconfig
 
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id
