@@ -34,10 +34,12 @@ from .types import ClusterType
 from .types import Version
 from .types import Cluster
 from .types import Node
+from .types import NodeMetadataCoreV1Taint
 from .types import UpdateClusterRequestAutoUpgrade
 from .types import UpdateClusterRequestAutoscalerConfig
 from .types import UpdateClusterRequestOpenIDConnectConfig
 from .types import UpdatePoolRequestUpgradePolicy
+from .types import AuthExternalNodeRequest
 from .types import CreateClusterRequest
 from .types import CreateExternalNodeRequest
 from .types import CreatePoolRequest
@@ -45,8 +47,10 @@ from .types import DeleteClusterRequest
 from .types import DeleteNodeRequest
 from .types import DeletePoolRequest
 from .types import ExternalNode
+from .types import ExternalNodeAuth
 from .types import GetClusterKubeConfigRequest
 from .types import GetClusterRequest
+from .types import GetNodeMetadataRequest
 from .types import GetNodeRequest
 from .types import GetPoolRequest
 from .types import GetVersionRequest
@@ -65,6 +69,7 @@ from .types import ListPoolsResponse
 from .types import ListVersionsRequest
 from .types import ListVersionsResponse
 from .types import MigrateClusterToRoutedIPsRequest
+from .types import NodeMetadata
 from .types import RebootNodeRequest
 from .types import ReplaceNodeRequest
 from .types import ResetClusterAdminTokenRequest
@@ -110,10 +115,12 @@ __all__ = [
     "Version",
     "Cluster",
     "Node",
+    "NodeMetadataCoreV1Taint",
     "UpdateClusterRequestAutoUpgrade",
     "UpdateClusterRequestAutoscalerConfig",
     "UpdateClusterRequestOpenIDConnectConfig",
     "UpdatePoolRequestUpgradePolicy",
+    "AuthExternalNodeRequest",
     "CreateClusterRequest",
     "CreateExternalNodeRequest",
     "CreatePoolRequest",
@@ -121,8 +128,10 @@ __all__ = [
     "DeleteNodeRequest",
     "DeletePoolRequest",
     "ExternalNode",
+    "ExternalNodeAuth",
     "GetClusterKubeConfigRequest",
     "GetClusterRequest",
+    "GetNodeMetadataRequest",
     "GetNodeRequest",
     "GetPoolRequest",
     "GetVersionRequest",
@@ -141,6 +150,7 @@ __all__ = [
     "ListVersionsRequest",
     "ListVersionsResponse",
     "MigrateClusterToRoutedIPsRequest",
+    "NodeMetadata",
     "RebootNodeRequest",
     "ReplaceNodeRequest",
     "ResetClusterAdminTokenRequest",

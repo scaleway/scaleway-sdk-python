@@ -28,7 +28,7 @@ scaleway-core = "*"
 
 [tool.poetry.group.dev.dependencies]
 scaleway-core = { path = "../scaleway-core", develop = true }
-ruff = ">=0.5.0,<0.5.1"
+ruff = ">=0.5.0,<0.5.6"
 mypy = "^1.5.1"
 
 [build-system]
