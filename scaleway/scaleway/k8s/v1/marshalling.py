@@ -714,6 +714,10 @@ def unmarshal_ClusterType(data: Any) -> ClusterType:
     if field is not None:
         args["audit_logs_supported"] = field
 
+    field = data.get("max_etcd_size", None)
+    if field is not None:
+        args["max_etcd_size"] = field
+
     field = data.get("commitment_delay", None)
     if field is not None:
         args["commitment_delay"] = field

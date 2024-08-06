@@ -686,6 +686,11 @@ class ClusterType:
     True if the offer allows activation of the audit log functionality. Please note that audit logs are sent to Cockpit.
     """
 
+    max_etcd_size: int
+    """
+    Maximum amount of data that can be stored in etcd for the offer.
+    """
+
     commitment_delay: Optional[str]
     """
     Time period during which you can no longer switch to a lower offer.
