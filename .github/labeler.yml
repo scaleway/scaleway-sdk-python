@@ -1,0 +1,186 @@
+account:
+  - changed-files:
+      - any-glob-to-any-file:
+          - scaleway/scaleway/account/**
+          - scaleway-async/scaleway_async/account/**
+
+
+apple-silicon:
+  - changed-files:
+      - any-glob-to-any-file:
+          - scaleway/scaleway/applesilicon/**
+          - scaleway-async/scaleway_async/applesilicon/**
+
+baremetal:
+  - changed-files:
+      - any-glob-to-any-file:
+          - scaleway/scaleway/baremetal/**
+          - scaleway-async/scaleway_async/baremetal/**
+
+billing:
+  - changed-files:
+      - any-glob-to-any-file:
+          - scaleway/scaleway/billing/**
+          - scaleway-async/scaleway_async/billing/**
+
+cockpit:
+  - changed-files:
+      - any-glob-to-any-files:
+          - scaleway/scaleway/cockpit/**
+          - scaleway-async/scaleway_async/cockpit/**
+
+container:
+  - changed-files:
+      - any-glob-to-any-file:
+          - scaleway/scaleway/container/**
+          - scaleway-async/scaleway_async/container/**
+
+dedibox:
+  - changed-files:
+      - any-glob-to-any-file:
+          - scaleway/scaleway/dedibox/**
+          - scaleway-async/scaleway_async/dedibox/**
+
+domain:
+  - changed-files:
+      - any-glob-to-any-file:
+          - scaleway/scaleway/domain/**
+          - scaleway-async/scaleway_async/domain/**
+
+edge_services:
+  - changed-files:
+      - any-glob-to-any-file:
+          - scaleway/scaleway/edge_services/**
+          - scaleway-async/scaleway_async/edge_services/**
+
+flexible-ip:
+  - changed-files:
+      - any-glob-to-any-file:
+          - scaleway/scaleway/flexibleip/**
+          - scaleway-async/scaleway_async/flexibleip/**
+
+function:
+  - changed-files:
+      - any-glob-to-any-file:
+          - scaleway/scaleway/function/**
+          - scaleway-async/scaleway_async/function/**
+
+iam:
+  - changed-files:
+      - any-glob-to-any-file:
+          - scaleway/scaleway/iam/**
+          - scaleway-async/scaleway_async/iam/**
+
+instance:
+  - changed-files:
+      - any-glob-to-any-file:
+          - scaleway/scaleway/instance/**
+          - scaleway-async/scaleway_async/instance/**
+
+iot:
+  - changed-files:
+      - any-glob-to-any-file:
+          - scaleway/scaleway/iot/**
+          - scaleway-async/scaleway_async/iot/**
+
+ipam:
+  - changed-files:
+      - any-glob-to-any-file:
+          - scaleway/scaleway/ipam/**
+          - scaleway-async/scaleway_async/ipam/**
+
+jobs:
+  - changed-files:
+      - any-glob-to-any-files:
+        - scaleway/scaleway/jobs/**
+        - scaleway-async/scaleway_async/jobs/**
+
+k8s:
+  - changed-files:
+      - any-glob-to-any-file:
+          - scaleway/scaleway/k8s/**
+          - scaleway-async/scaleway_async/k8s/**
+
+key_manager:
+  - changed-files:
+      - any-glob-to-any-file:
+         - scaleway/scaleway/key_manager/**
+         - scaleway-async/scaleway_async/key_manager/**
+
+load-balancer:
+  - changed-files:
+      - any-glob-to-any-file:
+          - scaleway/scaleway/lb/**
+          - scaleway-async/scaleway_async/lb/**
+
+marketplace:
+  - changed-files:
+      - any-glob-to-any-files:
+          - scaleway/scaleway/marketplace/**
+          - scaleway-async/scaleway_async/marketplace/**
+
+mnq:
+  - changed-files:
+      - any-glob-to-any-file:
+          - scaleway/scaleway/mnq/**
+          - scaleway-async/scaleway_async/mnq/**
+
+rdb:
+  - changed-files:
+      - any-glob-to-any-file:
+          - scaleway/scaleway/rdb/**
+          - scaleway-async/scaleway_async/rdb/**
+
+redis:
+  - changed-files:
+      - any-glob-to-any-file:
+          - scaleway/scaleway/redis/**
+          - scaleway-async/scaleway_async/redis/**
+
+registry:
+  - changed-files:
+      - any-glob-to-any-file:
+          - scaleway/scaleway/registry/**
+          - scaleway-async/scaleway_async/registry/**
+
+sbs:
+  - changed-files:
+      - any-glob-to-any-file:
+          - scaleway/scaleway/block/**
+          - scaleway-async/scaleway_async/block/**
+
+sdb:
+  - changed-files:
+      - any-glob-to-any-file:
+          - scaleway/scaleway/serverless_sqldb/**
+          - scaleway-async/scaleway_async/serverless_sqldb/**
+
+secret:
+  - changed-files:
+      - any-glob-to-any-file:
+          - scaleway/scaleway/secret/**
+          - scaleway-async/scaleway_async/secret/**
+
+tem:
+  - changed-files:
+      - any-glob-to-any-file:
+          - scaleway/scaleway/tem/**
+          - scaleway-async/scaleway_async/tem/**
+
+vpc:
+  - changed-files:
+      - any-glob-to-any-file:
+          - scaleway/scaleway/vpc/**
+          - scaleway-async/scaleway_async/vpc/**
+
+vpcgw:
+  - changed-files:
+      - any-glob-to-any-file:
+          - scaleway/scaleway/vpcgw/**
+          - scaleway-async/scaleway_async/vpcgw/**
+
+webhosting:
+  - changed-files:
+      - any-glob-to-any-file:
+          - scaleway/scaleway/webhosting/**
+          - scaleway-async/scaleway_async/webhosting/**
