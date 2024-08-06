@@ -165,6 +165,10 @@ def unmarshal_Container(data: Any) -> Container:
     if field is not None:
         args["sandbox"] = field
 
+    field = data.get("local_storage_limit", None)
+    if field is not None:
+        args["local_storage_limit"] = field
+
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
@@ -715,6 +719,9 @@ def marshal_CreateContainerRequest(
     if request.sandbox is not None:
         output["sandbox"] = str(request.sandbox)
 
+    if request.local_storage_limit is not None:
+        output["local_storage_limit"] = request.local_storage_limit
+
     return output
 
 
@@ -947,6 +954,9 @@ def marshal_UpdateContainerRequest(
 
     if request.sandbox is not None:
         output["sandbox"] = str(request.sandbox)
+
+    if request.local_storage_limit is not None:
+        output["local_storage_limit"] = request.local_storage_limit
 
     return output
 

@@ -446,6 +446,7 @@ class TemV1Alpha1API(API):
         *,
         domain_name: str,
         accept_tos: bool,
+        autoconfig: bool,
         region: Optional[Region] = None,
         project_id: Optional[str] = None,
     ) -> Domain:
@@ -454,6 +455,7 @@ class TemV1Alpha1API(API):
         You must specify the `region`, `project_id` and `domain_name` to register a domain in a specific Project.
         :param domain_name: Fully qualified domain dame.
         :param accept_tos: Accept Scaleway's Terms of Service.
+        :param autoconfig: Activate auto-configuration of the domain's DNS zone.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the project to which the domain belongs.
         :return: :class:`Domain <Domain>`
@@ -464,6 +466,7 @@ class TemV1Alpha1API(API):
             result = api.create_domain(
                 domain_name="example",
                 accept_tos=False,
+                autoconfig=False,
             )
         """
 
@@ -478,6 +481,7 @@ class TemV1Alpha1API(API):
                 CreateDomainRequest(
                     domain_name=domain_name,
                     accept_tos=accept_tos,
+                    autoconfig=autoconfig,
                     region=region,
                     project_id=project_id,
                 ),
