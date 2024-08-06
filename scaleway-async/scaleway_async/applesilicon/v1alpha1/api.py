@@ -425,6 +425,7 @@ class ApplesiliconV1Alpha1API(API):
         server_id: str,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
+        schedule_deletion: Optional[bool] = None,
     ) -> Server:
         """
         Update a server.
@@ -432,6 +433,7 @@ class ApplesiliconV1Alpha1API(API):
         :param server_id: UUID of the server you want to update.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: Updated name for your server.
+        :param schedule_deletion: Specify whether the server should be flagged for automatic deletion.
         :return: :class:`Server <Server>`
 
         Usage:
@@ -453,6 +455,7 @@ class ApplesiliconV1Alpha1API(API):
                     server_id=server_id,
                     zone=zone,
                     name=name,
+                    schedule_deletion=schedule_deletion,
                 ),
                 self.client,
             ),

@@ -23,6 +23,7 @@ from .types import (
     Node,
     ExternalNodeCoreV1Taint,
     ExternalNode,
+    ExternalNodeAuth,
     ClusterType,
     ListClusterAvailableTypesResponse,
     ListClusterAvailableVersionsResponse,
@@ -31,6 +32,8 @@ from .types import (
     ListNodesResponse,
     ListPoolsResponse,
     ListVersionsResponse,
+    NodeMetadataCoreV1Taint,
+    NodeMetadata,
     CreateClusterRequestPoolConfigUpgradePolicy,
     CreateClusterRequestAutoUpgrade,
     CreateClusterRequestAutoscalerConfig,
@@ -426,14 +429,6 @@ def unmarshal_Cluster(data: Any) -> Cluster:
     if field is not None:
         args["feature_gates"] = field
 
-    field = data.get("admission_plugins", None)
-    if field is not None:
-        args["admission_plugins"] = field
-
-    field = data.get("apiserver_cert_sans", None)
-    if field is not None:
-        args["apiserver_cert_sans"] = field
-
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -457,6 +452,14 @@ def unmarshal_Cluster(data: Any) -> Cluster:
         args["auto_upgrade"] = unmarshal_ClusterAutoUpgrade(field)
     else:
         args["auto_upgrade"] = None
+
+    field = data.get("admission_plugins", None)
+    if field is not None:
+        args["admission_plugins"] = field
+
+    field = data.get("apiserver_cert_sans", None)
+    if field is not None:
+        args["apiserver_cert_sans"] = field
 
     field = data.get("open_id_connect_config", None)
     if field is not None:
@@ -483,6 +486,12 @@ def unmarshal_Cluster(data: Any) -> Cluster:
         args["routed_ip_enabled"] = field
     else:
         args["routed_ip_enabled"] = None
+
+    field = data.get("sbs_csi_enabled", None)
+    if field is not None:
+        args["sbs_csi_enabled"] = field
+    else:
+        args["sbs_csi_enabled"] = None
 
     return Cluster(**args)
 
@@ -652,6 +661,25 @@ def unmarshal_ExternalNode(data: Any) -> ExternalNode:
     return ExternalNode(**args)
 
 
+def unmarshal_ExternalNodeAuth(data: Any) -> ExternalNodeAuth:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ExternalNodeAuth' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("node_token", None)
+    if field is not None:
+        args["node_token"] = field
+
+    field = data.get("api_url", None)
+    if field is not None:
+        args["api_url"] = field
+
+    return ExternalNodeAuth(**args)
+
+
 def unmarshal_ClusterType(data: Any) -> ClusterType:
     if not isinstance(data, dict):
         raise TypeError(
@@ -691,6 +719,10 @@ def unmarshal_ClusterType(data: Any) -> ClusterType:
     field = data.get("audit_logs_supported", None)
     if field is not None:
         args["audit_logs_supported"] = field
+
+    field = data.get("max_etcd_size", None)
+    if field is not None:
+        args["max_etcd_size"] = field
 
     field = data.get("commitment_delay", None)
     if field is not None:
@@ -842,6 +874,100 @@ def unmarshal_ListVersionsResponse(data: Any) -> ListVersionsResponse:
         )
 
     return ListVersionsResponse(**args)
+
+
+def unmarshal_NodeMetadataCoreV1Taint(data: Any) -> NodeMetadataCoreV1Taint:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'NodeMetadataCoreV1Taint' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("key", None)
+    if field is not None:
+        args["key"] = field
+
+    field = data.get("value", None)
+    if field is not None:
+        args["value"] = field
+
+    field = data.get("effect", None)
+    if field is not None:
+        args["effect"] = field
+
+    return NodeMetadataCoreV1Taint(**args)
+
+
+def unmarshal_NodeMetadata(data: Any) -> NodeMetadata:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'NodeMetadata' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+
+    field = data.get("cluster_url", None)
+    if field is not None:
+        args["cluster_url"] = field
+
+    field = data.get("cluster_ca", None)
+    if field is not None:
+        args["cluster_ca"] = field
+
+    field = data.get("credential_provider_config", None)
+    if field is not None:
+        args["credential_provider_config"] = field
+
+    field = data.get("pool_version", None)
+    if field is not None:
+        args["pool_version"] = field
+
+    field = data.get("kubelet_config", None)
+    if field is not None:
+        args["kubelet_config"] = field
+
+    field = data.get("node_labels", None)
+    if field is not None:
+        args["node_labels"] = field
+
+    field = data.get("node_taints", None)
+    if field is not None:
+        args["node_taints"] = (
+            [unmarshal_NodeMetadataCoreV1Taint(v) for v in field]
+            if field is not None
+            else None
+        )
+
+    field = data.get("private_network_mode", None)
+    if field is not None:
+        args["private_network_mode"] = field
+
+    field = data.get("kapsule_iface_mac", None)
+    if field is not None:
+        args["kapsule_iface_mac"] = field
+
+    field = data.get("full_isolation", None)
+    if field is not None:
+        args["full_isolation"] = field
+
+    field = data.get("has_gpu", None)
+    if field is not None:
+        args["has_gpu"] = field
+
+    field = data.get("external_ip", None)
+    if field is not None:
+        args["external_ip"] = field
+
+    return NodeMetadata(**args)
 
 
 def marshal_MaintenanceWindow(

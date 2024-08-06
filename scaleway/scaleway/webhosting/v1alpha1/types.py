@@ -128,6 +128,19 @@ class HostingOption:
 
 
 @dataclass
+class EmailAddress:
+    domain: str
+    """
+    Domain part of the mailbox address.
+    """
+
+    login: str
+    """
+    Username part address of the mailbox address.
+    """
+
+
+@dataclass
 class OfferProduct:
     name: str
     """
@@ -389,6 +402,19 @@ class Hosting:
 
 
 @dataclass
+class Mailbox:
+    mailbox_id: int
+    """
+    The ID of the mailbox.
+    """
+
+    email: Optional[EmailAddress]
+    """
+    The email address of the mailbox.
+    """
+
+
+@dataclass
 class Offer:
     id: str
     """
@@ -454,6 +480,116 @@ class CheckUserOwnsDomainResponse:
     owns_domain: bool
     """
     Indicates whether the specified project owns the domain.
+    """
+
+
+@dataclass
+class ClassicMailApiCreateMailboxRequest:
+    online_id: int
+    """
+    The Online hosting ID.
+    """
+
+    password: str
+    """
+    Password for the new mailbox.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    email: Optional[EmailAddress]
+    """
+    The email address of the mailbox.
+    """
+
+
+@dataclass
+class ClassicMailApiDeleteMailboxRequest:
+    online_id: int
+    """
+    The Online hosting ID.
+    """
+
+    mailbox_id: int
+    """
+    The ID of the mailbox to delete.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class ClassicMailApiGetMailboxRequest:
+    online_id: int
+    """
+    The Online hosting ID.
+    """
+
+    mailbox_id: int
+    """
+    The ID of the mailbox to get.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class ClassicMailApiListMailboxesRequest:
+    online_id: int
+    """
+    The Online hosting ID.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    page: Optional[int]
+    """
+    Page number (must be a positive integer).
+    """
+
+    page_size: Optional[int]
+    """
+    Number of mailboxes to return (must be a positive integer lower or equal to 100).
+    """
+
+    domain: Optional[str]
+    """
+    Domain to filter the mailboxes.
+    """
+
+
+@dataclass
+class ClassicMailApiUpdateMailboxRequest:
+    online_id: int
+    """
+    The Online hosting ID.
+    """
+
+    mailbox_id: int
+    """
+    The ID of the mailbox to update.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    password: Optional[str]
+    """
+    New password for the mailbox.
     """
 
 
@@ -669,6 +805,19 @@ class ListHostingsResponse:
     hostings: List[Hosting]
     """
     List of Web Hosting plans.
+    """
+
+
+@dataclass
+class ListMailboxesResponse:
+    total_count: int
+    """
+    Total number of mailboxes.
+    """
+
+    mailboxes: List[Mailbox]
+    """
+    List of mailboxes.
     """
 
 

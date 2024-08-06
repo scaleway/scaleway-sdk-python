@@ -29,6 +29,7 @@ from .types import (
     CreateEmailRequestAttachment,
     CreateEmailRequestHeader,
     CreateEmailResponse,
+    CreateWebhookRequest,
     Domain,
     DomainLastStatus,
     Email,
@@ -58,6 +59,7 @@ from .marshalling import (
     unmarshal_Statistics,
     marshal_CreateDomainRequest,
     marshal_CreateEmailRequest,
+    marshal_CreateWebhookRequest,
     marshal_UpdateWebhookRequest,
 )
 
@@ -444,6 +446,7 @@ class TemV1Alpha1API(API):
         *,
         domain_name: str,
         accept_tos: bool,
+        autoconfig: bool,
         region: Optional[Region] = None,
         project_id: Optional[str] = None,
     ) -> Domain:
@@ -452,6 +455,7 @@ class TemV1Alpha1API(API):
         You must specify the `region`, `project_id` and `domain_name` to register a domain in a specific Project.
         :param domain_name: Fully qualified domain dame.
         :param accept_tos: Accept Scaleway's Terms of Service.
+        :param autoconfig: Activate auto-configuration of the domain's DNS zone.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the project to which the domain belongs.
         :return: :class:`Domain <Domain>`
@@ -462,6 +466,7 @@ class TemV1Alpha1API(API):
             result = api.create_domain(
                 domain_name="example",
                 accept_tos=False,
+                autoconfig=False,
             )
         """
 
@@ -476,6 +481,7 @@ class TemV1Alpha1API(API):
                 CreateDomainRequest(
                     domain_name=domain_name,
                     accept_tos=accept_tos,
+                    autoconfig=autoconfig,
                     region=region,
                     project_id=project_id,
                 ),
@@ -755,6 +761,60 @@ class TemV1Alpha1API(API):
         self._throw_on_error(res)
         return unmarshal_DomainLastStatus(res.json())
 
+    def create_webhook(
+        self,
+        *,
+        domain_id: str,
+        name: str,
+        sns_arn: str,
+        region: Optional[Region] = None,
+        project_id: Optional[str] = None,
+        event_types: Optional[List[WebhookEventType]] = None,
+    ) -> Webhook:
+        """
+        Create a Webhook.
+        Create a new Webhook triggered by a list of event types and pushed to a Scaleway SNS ARN.
+        :param domain_id: ID of the Domain to watch for triggering events.
+        :param name: Name of the Webhook.
+        :param sns_arn: Scaleway SNS ARN topic to push the events to.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: ID of the project to which the Webhook belongs.
+        :param event_types: List of event types that will trigger an event.
+        :return: :class:`Webhook <Webhook>`
+
+        Usage:
+        ::
+
+            result = api.create_webhook(
+                domain_id="example",
+                name="example",
+                sns_arn="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "POST",
+            f"/transactional-email/v1alpha1/regions/{param_region}/webhooks",
+            body=marshal_CreateWebhookRequest(
+                CreateWebhookRequest(
+                    domain_id=domain_id,
+                    name=name,
+                    sns_arn=sns_arn,
+                    region=region,
+                    project_id=project_id,
+                    event_types=event_types,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Webhook(res.json())
+
     def list_webhooks(
         self,
         *,
@@ -767,6 +827,8 @@ class TemV1Alpha1API(API):
         domain_id: Optional[str] = None,
     ) -> ListWebhooksResponse:
         """
+        List Webhooks.
+        Retrieve Webhooks in a specific Project or in a specific Organization using the `region` parameter.
         :param region: Region to target. If none is passed will use default region from the config.
         :param order_by: (Optional) List Webhooks corresponding to specific criteria.
         :param page: (Optional) Requested page number. Value must be greater or equal to 1.
@@ -815,6 +877,8 @@ class TemV1Alpha1API(API):
         domain_id: Optional[str] = None,
     ) -> List[Webhook]:
         """
+        List Webhooks.
+        Retrieve Webhooks in a specific Project or in a specific Organization using the `region` parameter.
         :param region: Region to target. If none is passed will use default region from the config.
         :param order_by: (Optional) List Webhooks corresponding to specific criteria.
         :param page: (Optional) Requested page number. Value must be greater or equal to 1.
@@ -845,6 +909,40 @@ class TemV1Alpha1API(API):
             },
         )
 
+    def get_webhook(
+        self,
+        *,
+        webhook_id: str,
+        region: Optional[Region] = None,
+    ) -> Webhook:
+        """
+        Get information about a Webhook.
+        Retrieve information about a specific Webhook using the `webhook_id` and `region` parameters.
+        :param webhook_id: ID of the Webhook to check.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Webhook <Webhook>`
+
+        Usage:
+        ::
+
+            result = api.get_webhook(
+                webhook_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_webhook_id = validate_path_param("webhook_id", webhook_id)
+
+        res = self._request(
+            "GET",
+            f"/transactional-email/v1alpha1/regions/{param_region}/webhooks/{param_webhook_id}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Webhook(res.json())
+
     def update_webhook(
         self,
         *,
@@ -855,6 +953,8 @@ class TemV1Alpha1API(API):
         sns_arn: Optional[str] = None,
     ) -> Webhook:
         """
+        Update a Webhook.
+        Update a Webhook events type, SNS ARN or name.
         :param webhook_id: ID of the Webhook to update.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the Webhook to update.
@@ -900,6 +1000,8 @@ class TemV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> None:
         """
+        Delete a Webhook.
+        You must specify the Webhook you want to delete by the `region` and `webhook_id`. Deleting a Webhook is permanent and cannot be undone.
         :param webhook_id: ID of the Webhook to delete.
         :param region: Region to target. If none is passed will use default region from the config.
 
@@ -939,6 +1041,8 @@ class TemV1Alpha1API(API):
         domain_id: Optional[str] = None,
     ) -> ListWebhookEventsResponse:
         """
+        List Webhook triggered events.
+        Retrieve the list of Webhook events triggered from a specific Webhook or for a specific Project or Organization. You must specify the `region`.
         :param webhook_id: ID of the Webhook linked to the events.
         :param region: Region to target. If none is passed will use default region from the config.
         :param order_by: (Optional) List Webhook events corresponding to specific criteria.
@@ -1001,6 +1105,8 @@ class TemV1Alpha1API(API):
         domain_id: Optional[str] = None,
     ) -> List[WebhookEvent]:
         """
+        List Webhook triggered events.
+        Retrieve the list of Webhook events triggered from a specific Webhook or for a specific Project or Organization. You must specify the `region`.
         :param webhook_id: ID of the Webhook linked to the events.
         :param region: Region to target. If none is passed will use default region from the config.
         :param order_by: (Optional) List Webhook events corresponding to specific criteria.

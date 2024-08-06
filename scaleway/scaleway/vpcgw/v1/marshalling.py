@@ -45,6 +45,7 @@ from .types import (
     UpdateGatewayRequest,
     UpdateIPRequest,
     UpdatePATRuleRequest,
+    UpgradeGatewayRequest,
 )
 
 
@@ -1125,5 +1126,17 @@ def marshal_UpdatePATRuleRequest(
 
     if request.protocol is not None:
         output["protocol"] = str(request.protocol)
+
+    return output
+
+
+def marshal_UpgradeGatewayRequest(
+    request: UpgradeGatewayRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.type_ is not None:
+        output["type"] = request.type_
 
     return output

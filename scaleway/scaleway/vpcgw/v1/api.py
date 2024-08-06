@@ -58,6 +58,7 @@ from .types import (
     UpdateGatewayRequest,
     UpdateIPRequest,
     UpdatePATRuleRequest,
+    UpgradeGatewayRequest,
 )
 from .content import (
     GATEWAY_NETWORK_TRANSIENT_STATUSES,
@@ -93,6 +94,7 @@ from .marshalling import (
     marshal_UpdateGatewayRequest,
     marshal_UpdateIPRequest,
     marshal_UpdatePATRuleRequest,
+    marshal_UpgradeGatewayRequest,
 )
 
 
@@ -448,12 +450,14 @@ class VpcgwV1API(API):
         *,
         gateway_id: str,
         zone: Optional[Zone] = None,
+        type_: Optional[str] = None,
     ) -> Gateway:
         """
-        Upgrade a Public Gateway to the latest version.
-        Upgrade a given Public Gateway to the newest software version. This applies the latest bugfixes and features to your Public Gateway, but its service will be interrupted during the update.
+        Upgrade a Public Gateway to the latest version and/or to a different commercial offer type.
+        Upgrade a given Public Gateway to the newest software version or to a different commercial offer type. This applies the latest bugfixes and features to your Public Gateway. Note that gateway service will be interrupted during the update.
         :param gateway_id: ID of the gateway to upgrade.
         :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param type_: Gateway type (commercial offer).
         :return: :class:`Gateway <Gateway>`
 
         Usage:
@@ -470,7 +474,14 @@ class VpcgwV1API(API):
         res = self._request(
             "POST",
             f"/vpc-gw/v1/zones/{param_zone}/gateways/{param_gateway_id}/upgrade",
-            body={},
+            body=marshal_UpgradeGatewayRequest(
+                UpgradeGatewayRequest(
+                    gateway_id=gateway_id,
+                    zone=zone,
+                    type_=type_,
+                ),
+                self.client,
+            ),
         )
 
         self._throw_on_error(res)

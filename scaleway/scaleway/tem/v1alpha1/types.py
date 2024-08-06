@@ -433,6 +433,11 @@ class Domain:
     Snippet of the SPF record to register in the DNS zone.
     """
 
+    dkim_config: str
+    """
+    DKIM public key to record in the DNS zone.
+    """
+
     created_at: Optional[datetime]
     """
     Date and time of domain creation.
@@ -448,9 +453,9 @@ class Domain:
     Date and time the domain was last valid.
     """
 
-    dkim_config: str
+    autoconfig: bool
     """
-    DKIM public key to record in the DNS zone.
+    Status of auto-configuration for the domain's DNS zone.
     """
 
     region: Region
@@ -628,6 +633,11 @@ class CreateDomainRequest:
     Accept Scaleway's Terms of Service.
     """
 
+    autoconfig: bool
+    """
+    Activate auto-configuration of the domain's DNS zone.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
@@ -707,6 +717,39 @@ class CreateEmailResponse:
     emails: List[Email]
     """
     Single page of emails matching the requested criteria.
+    """
+
+
+@dataclass
+class CreateWebhookRequest:
+    domain_id: str
+    """
+    ID of the Domain to watch for triggering events.
+    """
+
+    name: str
+    """
+    Name of the Webhook.
+    """
+
+    sns_arn: str
+    """
+    Scaleway SNS ARN topic to push the events to.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    ID of the project to which the Webhook belongs.
+    """
+
+    event_types: Optional[List[WebhookEventType]]
+    """
+    List of event types that will trigger an event.
     """
 
 
@@ -820,6 +863,19 @@ class GetStatisticsRequest:
     mail_from: Optional[str]
     """
     (Optional) Number of emails sent with this sender's email address.
+    """
+
+
+@dataclass
+class GetWebhookRequest:
+    webhook_id: str
+    """
+    ID of the Webhook to check.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
     """
 
 

@@ -686,6 +686,11 @@ class ClusterType:
     True if the offer allows activation of the audit log functionality. Please note that audit logs are sent to Cockpit.
     """
 
+    max_etcd_size: int
+    """
+    Maximum amount of data that can be stored in etcd for the offer.
+    """
+
     commitment_delay: Optional[str]
     """
     Time period during which you can no longer switch to a lower offer.
@@ -812,16 +817,6 @@ class Cluster:
     List of enabled feature gates.
     """
 
-    admission_plugins: List[str]
-    """
-    List of enabled admission plugins.
-    """
-
-    apiserver_cert_sans: List[str]
-    """
-    Additional Subject Alternative Names for the Kubernetes API server certificate.
-    """
-
     created_at: Optional[datetime]
     """
     Date on which the cluster was created.
@@ -842,6 +837,16 @@ class Cluster:
     Auto upgrade configuration of the cluster.
     """
 
+    admission_plugins: List[str]
+    """
+    List of enabled admission plugins.
+    """
+
+    apiserver_cert_sans: List[str]
+    """
+    Additional Subject Alternative Names for the Kubernetes API server certificate.
+    """
+
     open_id_connect_config: Optional[ClusterOpenIDConnectConfig]
     """
     This configuration enables to update the OpenID Connect configuration of the Kubernetes API server.
@@ -860,6 +865,11 @@ class Cluster:
     routed_ip_enabled: Optional[bool]
     """
     Defines whether routed IPs are enabled for nodes of this cluster.
+    """
+
+    sbs_csi_enabled: Optional[bool]
+    """
+    Defines whether the SBS-enabled CSI starting from v0.3 is installed on the cluster.
     """
 
 
@@ -929,6 +939,15 @@ class Node:
     """
     Date on which the node was last updated.
     """
+
+
+@dataclass
+class NodeMetadataCoreV1Taint:
+    key: str
+
+    value: str
+
+    effect: str
 
 
 @dataclass
@@ -1040,6 +1059,19 @@ class UpdatePoolRequestUpgradePolicy:
     max_unavailable: Optional[int]
 
     max_surge: Optional[int]
+
+
+@dataclass
+class AuthExternalNodeRequest:
+    pool_id: str
+    """
+    Pool the node will be attached to.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
 
 
 @dataclass
@@ -1311,6 +1343,13 @@ class ExternalNode:
 
 
 @dataclass
+class ExternalNodeAuth:
+    node_token: str
+
+    api_url: str
+
+
+@dataclass
 class GetClusterKubeConfigRequest:
     cluster_id: str
     """
@@ -1335,6 +1374,14 @@ class GetClusterRequest:
     ID of the requested cluster.
     """
 
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetNodeMetadataRequest:
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
@@ -1655,6 +1702,37 @@ class MigrateClusterToRoutedIPsRequest:
     """
     Region to target. If none is passed will use default region from the config.
     """
+
+
+@dataclass
+class NodeMetadata:
+    id: str
+
+    name: str
+
+    cluster_url: str
+
+    cluster_ca: str
+
+    credential_provider_config: str
+
+    pool_version: str
+
+    kubelet_config: str
+
+    node_labels: Dict[str, str]
+
+    node_taints: List[NodeMetadataCoreV1Taint]
+
+    private_network_mode: str
+
+    kapsule_iface_mac: str
+
+    full_isolation: bool
+
+    has_gpu: bool
+
+    external_ip: str
 
 
 @dataclass
