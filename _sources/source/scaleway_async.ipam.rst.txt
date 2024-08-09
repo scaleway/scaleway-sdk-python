@@ -1,0 +1,18 @@
+scaleway\_async.ipam package
+============================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway_async.ipam.v1
+
+Module contents
+---------------
+
+.. automodule:: scaleway_async.ipam
+   :members:
+   :undoc-members:
+   :show-inheritance:
