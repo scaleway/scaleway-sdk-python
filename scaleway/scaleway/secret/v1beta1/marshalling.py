@@ -6,6 +6,7 @@ from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
 from .types import (
+    Product,
     SecretType,
     EphemeralProperties,
     SecretVersion,
@@ -157,18 +158,6 @@ def unmarshal_Secret(data: Any) -> Secret:
     if field is not None:
         args["status"] = field
 
-    field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
-
-    field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
-
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
@@ -193,9 +182,25 @@ def unmarshal_Secret(data: Any) -> Secret:
     if field is not None:
         args["path"] = field
 
+    field = data.get("used_by", None)
+    if field is not None:
+        args["used_by"] = [Product(v) for v in field] if field is not None else None
+
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("description", None)
     if field is not None:

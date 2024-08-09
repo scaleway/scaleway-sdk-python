@@ -226,16 +226,6 @@ class Secret:
 * `locked`: no action can be performed on the secret. This status can only be applied and removed by Scaleway.
     """
 
-    created_at: Optional[datetime]
-    """
-    Date and time of the secret's creation.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Last update of the secret.
-    """
-
     tags: List[str]
     """
     List of the secret's tags.
@@ -266,9 +256,24 @@ class Secret:
     Location of the secret in the directory structure.
     """
 
+    used_by: List[Product]
+    """
+    List of Scaleway resources that can access and manage the secret.
+    """
+
     region: Region
     """
     Region of the secret.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Date and time of the secret's creation.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Last update of the secret.
     """
 
     description: Optional[str]
