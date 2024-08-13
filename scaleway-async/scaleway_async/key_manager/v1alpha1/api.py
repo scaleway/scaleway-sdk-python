@@ -13,6 +13,7 @@ from scaleway_core.utils import (
 )
 from .types import (
     DataKeyAlgorithmSymmetricEncryption,
+    KeyOrigin,
     ListKeysRequestOrderBy,
     CreateKeyRequest,
     DataKey,
@@ -21,6 +22,7 @@ from .types import (
     EncryptRequest,
     EncryptResponse,
     GenerateDataKeyRequest,
+    ImportKeyMaterialRequest,
     Key,
     KeyRotationPolicy,
     KeyUsage,
@@ -37,6 +39,7 @@ from .marshalling import (
     marshal_DecryptRequest,
     marshal_EncryptRequest,
     marshal_GenerateDataKeyRequest,
+    marshal_ImportKeyMaterialRequest,
     marshal_UpdateKeyRequest,
 )
 
@@ -57,6 +60,7 @@ class KeyManagerV1Alpha1API(API):
         description: Optional[str] = None,
         tags: Optional[List[str]] = None,
         rotation_policy: Optional[KeyRotationPolicy] = None,
+        origin: Optional[KeyOrigin] = None,
     ) -> Key:
         """
         Create a key.
@@ -69,6 +73,7 @@ class KeyManagerV1Alpha1API(API):
         :param description: (Optional) Description of the key.
         :param tags: (Optional) List of the key's tags.
         :param rotation_policy: If not specified, no rotation policy will be applied to the key.
+        :param origin: Refer to the `Key.Origin` enum for a description of values.
         :return: :class:`Key <Key>`
 
         Usage:
@@ -96,6 +101,7 @@ class KeyManagerV1Alpha1API(API):
                     description=description,
                     tags=tags,
                     rotation_policy=rotation_policy,
+                    origin=origin,
                 ),
                 self.client,
             ),
@@ -644,3 +650,84 @@ class KeyManagerV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_DecryptResponse(res.json())
+
+    async def import_key_material(
+        self,
+        *,
+        key_id: str,
+        key_material: str,
+        region: Optional[Region] = None,
+        salt: Optional[str] = None,
+    ) -> Key:
+        """
+        Import key material.
+        Import key material to use to derive a new cryptographic key. The key's origin must be `external`.
+        :param key_id: The key's origin must be 'external'.
+        :param key_material: The key material The key material is a random sequence of bytes used to derive a cryptographic key.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param salt: A salt can be used to improve the quality of randomness when the key material is generated from a low entropy source.
+        :return: :class:`Key <Key>`
+
+        Usage:
+        ::
+
+            result = await api.import_key_material(
+                key_id="example",
+                key_material="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_key_id = validate_path_param("key_id", key_id)
+
+        res = self._request(
+            "POST",
+            f"/key-manager/v1alpha1/regions/{param_region}/keys/{param_key_id}/import-key-material",
+            body=marshal_ImportKeyMaterialRequest(
+                ImportKeyMaterialRequest(
+                    key_id=key_id,
+                    key_material=key_material,
+                    region=region,
+                    salt=salt,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Key(res.json())
+
+    async def delete_key_material(
+        self,
+        *,
+        key_id: str,
+        region: Optional[Region] = None,
+    ) -> None:
+        """
+        Delete key material.
+        Delete previously imported key material. This renders the associated cryptographic key unusable for any operation. The key's origin must be `external`.
+        :param key_id: ID of the key of which to delete the key material.
+        :param region: Region to target. If none is passed will use default region from the config.
+
+        Usage:
+        ::
+
+            result = await api.delete_key_material(
+                key_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_key_id = validate_path_param("key_id", key_id)
+
+        res = self._request(
+            "POST",
+            f"/key-manager/v1alpha1/regions/{param_region}/keys/{param_key_id}/delete-key-material",
+            body={},
+        )
+
+        self._throw_on_error(res)

@@ -31,6 +31,15 @@ class KeyAlgorithmSymmetricEncryption(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class KeyOrigin(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_ORIGIN = "unknown_origin"
+    SCALEWAY_KMS = "scaleway_kms"
+    EXTERNAL = "external"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class KeyState(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATE = "unknown_state"
     ENABLED = "enabled"
@@ -98,6 +107,21 @@ class Key:
     The rotation count tracks the amount of times that the key was rotated.
     """
 
+    usage: Optional[KeyUsage]
+    """
+    Keys with a usage set to `symmetric_encryption` are used to encrypt and decrypt data. The only key algorithm currently supported by Key Manager is AES-256-GCM.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Key creation date.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Key last modification date.
+    """
+
     protected: bool
     """
     Returns `true` if key protection is applied to the key.
@@ -113,24 +137,14 @@ class Key:
     List of the key's tags.
     """
 
+    origin: KeyOrigin
+    """
+    Refer to the `Key.Origin` enum for a description of values.
+    """
+
     region: Region
     """
     Region of the key.
-    """
-
-    usage: Optional[KeyUsage]
-    """
-    Keys with a usage set to `symmetric_encryption` are used to encrypt and decrypt data. The only key algorithm currently supported by Key Manager is AES-256-GCM.
-    """
-
-    created_at: Optional[datetime]
-    """
-    Key creation date.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Key last modification date.
     """
 
     description: Optional[str]
@@ -189,6 +203,11 @@ class CreateKeyRequest:
     rotation_policy: Optional[KeyRotationPolicy]
     """
     If not specified, no rotation policy will be applied to the key.
+    """
+
+    origin: Optional[KeyOrigin]
+    """
+    Refer to the `Key.Origin` enum for a description of values.
     """
 
 
@@ -258,6 +277,19 @@ class DecryptResponse:
     ciphertext: Optional[str]
     """
     If the data was already encrypted with the latest key rotation, no output will be returned in the response object.
+    """
+
+
+@dataclass
+class DeleteKeyMaterialRequest:
+    key_id: str
+    """
+    ID of the key of which to delete the key material.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
     """
 
 
@@ -370,6 +402,29 @@ class GetKeyRequest:
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class ImportKeyMaterialRequest:
+    key_id: str
+    """
+    The key's origin must be 'external'.
+    """
+
+    key_material: str
+    """
+    The key material The key material is a random sequence of bytes used to derive a cryptographic key.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    salt: Optional[str]
+    """
+    A salt can be used to improve the quality of randomness when the key material is generated from a low entropy source.
     """
 
 

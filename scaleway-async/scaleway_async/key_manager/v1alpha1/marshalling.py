@@ -21,6 +21,7 @@ from .types import (
     DecryptRequest,
     EncryptRequest,
     GenerateDataKeyRequest,
+    ImportKeyMaterialRequest,
     UpdateKeyRequest,
 )
 
@@ -95,22 +96,6 @@ def unmarshal_Key(data: Any) -> Key:
     if field is not None:
         args["rotation_count"] = field
 
-    field = data.get("protected", None)
-    if field is not None:
-        args["protected"] = field
-
-    field = data.get("locked", None)
-    if field is not None:
-        args["locked"] = field
-
-    field = data.get("tags", None)
-    if field is not None:
-        args["tags"] = field
-
-    field = data.get("region", None)
-    if field is not None:
-        args["region"] = field
-
     field = data.get("usage", None)
     if field is not None:
         args["usage"] = unmarshal_KeyUsage(field)
@@ -128,6 +113,26 @@ def unmarshal_Key(data: Any) -> Key:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["updated_at"] = None
+
+    field = data.get("protected", None)
+    if field is not None:
+        args["protected"] = field
+
+    field = data.get("locked", None)
+    if field is not None:
+        args["locked"] = field
+
+    field = data.get("tags", None)
+    if field is not None:
+        args["tags"] = field
+
+    field = data.get("origin", None)
+    if field is not None:
+        args["origin"] = field
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
 
     field = data.get("description", None)
     if field is not None:
@@ -308,6 +313,9 @@ def marshal_CreateKeyRequest(
             request.rotation_policy, defaults
         )
 
+    if request.origin is not None:
+        output["origin"] = str(request.origin)
+
     return output
 
 
@@ -352,6 +360,21 @@ def marshal_GenerateDataKeyRequest(
 
     if request.algorithm is not None:
         output["algorithm"] = str(request.algorithm)
+
+    return output
+
+
+def marshal_ImportKeyMaterialRequest(
+    request: ImportKeyMaterialRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.key_material is not None:
+        output["key_material"] = request.key_material
+
+    if request.salt is not None:
+        output["salt"] = request.salt
 
     return output
 
