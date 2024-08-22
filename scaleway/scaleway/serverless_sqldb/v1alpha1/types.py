@@ -100,7 +100,12 @@ class DatabaseBackup:
 
     size: Optional[int]
     """
-    Size of the database backup.
+    Size (in bytes) of the database backup file.
+    """
+
+    db_size: Optional[int]
+    """
+    Size (in bytes) of the database when backup has been done.
     """
 
     download_url: Optional[str]

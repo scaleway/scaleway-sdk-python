@@ -66,6 +66,12 @@ def unmarshal_DatabaseBackup(data: Any) -> DatabaseBackup:
     else:
         args["size"] = None
 
+    field = data.get("db_size", None)
+    if field is not None:
+        args["db_size"] = field
+    else:
+        args["db_size"] = None
+
     field = data.get("download_url", None)
     if field is not None:
         args["download_url"] = field
