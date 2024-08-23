@@ -25,7 +25,7 @@ billing:
 
 cockpit:
   - changed-files:
-      - any-glob-to-any-files:
+      - any-glob-to-any-file:
           - scaleway/scaleway/cockpit/**
           - scaleway-async/scaleway_async/cockpit/**
 
@@ -91,7 +91,7 @@ ipam:
 
 jobs:
   - changed-files:
-      - any-glob-to-any-files:
+      - any-glob-to-any-file:
         - scaleway/scaleway/jobs/**
         - scaleway-async/scaleway_async/jobs/**
 
@@ -115,7 +115,7 @@ load-balancer:
 
 marketplace:
   - changed-files:
-      - any-glob-to-any-files:
+      - any-glob-to-any-file:
           - scaleway/scaleway/marketplace/**
           - scaleway-async/scaleway_async/marketplace/**
 
