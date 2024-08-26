@@ -33,6 +33,7 @@ from .types import (
     CreateEmailRequestHeader,
     CreateEmailRequest,
     CreateWebhookRequest,
+    UpdateDomainRequest,
     UpdateWebhookRequest,
 )
 
@@ -865,6 +866,18 @@ def marshal_CreateWebhookRequest(
 
     if request.event_types is not None:
         output["event_types"] = [str(item) for item in request.event_types]
+
+    return output
+
+
+def marshal_UpdateDomainRequest(
+    request: UpdateDomainRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.autoconfig is not None:
+        output["autoconfig"] = request.autoconfig
 
     return output
 
