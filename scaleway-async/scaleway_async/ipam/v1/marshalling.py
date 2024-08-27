@@ -15,7 +15,10 @@ from .types import (
     Source,
     IP,
     ListIPsResponse,
+    CustomResource,
+    AttachIPRequest,
     BookIPRequest,
+    MoveIPRequest,
     ReleaseIPSetRequest,
     UpdateIPRequest,
 )
@@ -192,6 +195,33 @@ def unmarshal_ListIPsResponse(data: Any) -> ListIPsResponse:
     return ListIPsResponse(**args)
 
 
+def marshal_CustomResource(
+    request: CustomResource,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.mac_address is not None:
+        output["mac_address"] = request.mac_address
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    return output
+
+
+def marshal_AttachIPRequest(
+    request: AttachIPRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.resource is not None:
+        output["resource"] = marshal_CustomResource(request.resource, defaults)
+
+    return output
+
+
 def marshal_Source(
     request: Source,
     defaults: ProfileDefaults,
@@ -230,6 +260,21 @@ def marshal_BookIPRequest(
 
     if request.tags is not None:
         output["tags"] = request.tags
+
+    if request.resource is not None:
+        output["resource"] = marshal_CustomResource(request.resource, defaults)
+
+    return output
+
+
+def marshal_MoveIPRequest(
+    request: MoveIPRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.resource is not None:
+        output["resource"] = marshal_CustomResource(request.resource, defaults)
 
     return output
 

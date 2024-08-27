@@ -30,6 +30,7 @@ class ListIPsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 
 class ResourceType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_TYPE = "unknown_type"
+    CUSTOM = "custom"
     INSTANCE_SERVER = "instance_server"
     INSTANCE_IP = "instance_ip"
     INSTANCE_PRIVATE_NIC = "instance_private_nic"
@@ -92,6 +93,19 @@ class Source:
     private_network_id: Optional[str]
 
     subnet_id: Optional[str]
+
+
+@dataclass
+class CustomResource:
+    mac_address: str
+    """
+    MAC address of the custom resource.
+    """
+
+    name: Optional[str]
+    """
+    When the resource is in a Private Network, a DNS record is available to resolve the resource name.
+    """
 
 
 @dataclass
@@ -158,6 +172,24 @@ class IP:
 
 
 @dataclass
+class AttachIPRequest:
+    ip_id: str
+    """
+    IP ID.
+    """
+
+    resource: CustomResource
+    """
+    Custom resource to be attached to the IP.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
 class BookIPRequest:
     source: Source
     """
@@ -187,6 +219,24 @@ class BookIPRequest:
     tags: Optional[List[str]]
     """
     Tags for the IP.
+    """
+
+    resource: Optional[CustomResource]
+    """
+    Custom resource to attach to the IP being booked. An example of a custom resource is a virtual machine hosted on an Elastic Metal server, or an additional user network interface on an Instance. Do not use this for attaching IP addresses to standard Scaleway resources, as it will fail - instead, see the relevant product API for an equivalent method.
+    """
+
+
+@dataclass
+class DetachIPRequest:
+    ip_id: str
+    """
+    IP ID.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
     """
 
 
@@ -292,6 +342,24 @@ class ListIPsResponse:
     total_count: int
 
     ips: List[IP]
+
+
+@dataclass
+class MoveIPRequest:
+    ip_id: str
+    """
+    IP ID.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    resource: Optional[CustomResource]
+    """
+    Custom resource to be attached to the IP.
+    """
 
 
 @dataclass
