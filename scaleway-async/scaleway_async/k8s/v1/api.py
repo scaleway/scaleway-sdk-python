@@ -723,7 +723,7 @@ class K8SV1API(API):
         """
         Migrate a cluster to Routed IPs.
         Migrate the nodes of an existing cluster to Routed IPs and enable Routed IPs for all future nodes.
-        :param cluster_id:
+        :param cluster_id: Cluster ID for which the routed ip will be enabled for the nodes.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Cluster <Cluster>`
 
