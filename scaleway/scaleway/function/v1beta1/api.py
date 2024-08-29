@@ -1435,53 +1435,6 @@ class FunctionV1Beta1API(API):
         self._throw_on_error(res)
         return unmarshal_Domain(res.json())
 
-    def issue_jwt(
-        self,
-        *,
-        region: Optional[Region] = None,
-        function_id: Optional[str] = None,
-        namespace_id: Optional[str] = None,
-        expires_at: Optional[datetime] = None,
-    ) -> Token:
-        """
-        Create a JWT token.
-        Deprecated in favor of CreateToken.
-        :param region: Region to target. If none is passed will use default region from the config.
-        :param function_id:
-        One-Of ('scope'): at most one of 'function_id', 'namespace_id' could be set.
-        :param namespace_id:
-        One-Of ('scope'): at most one of 'function_id', 'namespace_id' could be set.
-        :param expires_at:
-        :return: :class:`Token <Token>`
-        :deprecated
-
-        Usage:
-        ::
-
-            result = api.issue_jwt()
-        """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
-        res = self._request(
-            "GET",
-            f"/functions/v1beta1/regions/{param_region}/issue-jwt",
-            params={
-                "expires_at": expires_at,
-                **resolve_one_of(
-                    [
-                        OneOfPossibility("function_id", function_id),
-                        OneOfPossibility("namespace_id", namespace_id),
-                    ]
-                ),
-            },
-        )
-
-        self._throw_on_error(res)
-        return unmarshal_Token(res.json())
-
     def create_token(
         self,
         *,

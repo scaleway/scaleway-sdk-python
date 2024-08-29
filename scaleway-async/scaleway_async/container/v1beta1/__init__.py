@@ -57,7 +57,6 @@ from .types import GetDomainRequest
 from .types import GetNamespaceRequest
 from .types import GetTokenRequest
 from .types import GetTriggerRequest
-from .types import IssueJWTRequest
 from .types import ListContainersRequest
 from .types import ListContainersResponse
 from .types import ListCronsRequest
@@ -134,7 +133,6 @@ __all__ = [
     "GetNamespaceRequest",
     "GetTokenRequest",
     "GetTriggerRequest",
-    "IssueJWTRequest",
     "ListContainersRequest",
     "ListContainersResponse",
     "ListCronsRequest",
