@@ -765,10 +765,6 @@ def unmarshal_Server(data: Any) -> Server:
     if field is not None:
         args["dynamic_ip_required"] = field
 
-    field = data.get("routed_ip_enabled", None)
-    if field is not None:
-        args["routed_ip_enabled"] = field
-
     field = data.get("hostname", None)
     if field is not None:
         args["hostname"] = field
@@ -776,6 +772,12 @@ def unmarshal_Server(data: Any) -> Server:
     field = data.get("protected", None)
     if field is not None:
         args["protected"] = field
+
+    field = data.get("routed_ip_enabled", None)
+    if field is not None:
+        args["routed_ip_enabled"] = field
+    else:
+        args["routed_ip_enabled"] = None
 
     field = data.get("enable_ipv6", None)
     if field is not None:

@@ -837,11 +837,6 @@ class Server:
     True if a dynamic IPv4 is required.
     """
 
-    routed_ip_enabled: bool
-    """
-    True to configure the instance so it uses the new routed IP mode.
-    """
-
     hostname: str
     """
     Instance host name.
@@ -850,6 +845,11 @@ class Server:
     protected: bool
     """
     Defines whether the Instance protection option is activated.
+    """
+
+    routed_ip_enabled: Optional[bool]
+    """
+    True to configure the instance so it uses the routed IP mode. Use of `routed_ip_enabled` as `False` is deprecated.
     """
 
     enable_ipv6: Optional[bool]
@@ -1606,7 +1606,7 @@ class CreateIpRequest:
 
     type_: Optional[IpType]
     """
-    IP type to reserve (either 'nat', 'routed_ipv4' or 'routed_ipv6').
+    IP type to reserve (either 'routed_ipv4' or 'routed_ipv6', use of 'nat' is deprecated).
     """
 
     project: Optional[str]
@@ -2524,7 +2524,7 @@ class ListIpsRequest:
 
     type_: Optional[str]
     """
-    Filter on the IP Mobility IP type (whose value should be either 'nat', 'routed_ipv4' or 'routed_ipv6').
+    Filter on the IP Mobility IP type (whose value should be either 'routed_ipv4', 'routed_ipv6' or 'nat').
     """
 
 
