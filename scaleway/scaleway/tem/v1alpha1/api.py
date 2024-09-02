@@ -38,6 +38,7 @@ from .types import (
     ListWebhookEventsResponse,
     ListWebhooksResponse,
     Statistics,
+    UpdateDomainRequest,
     UpdateWebhookRequest,
     Webhook,
     WebhookEvent,
@@ -60,6 +61,7 @@ from .marshalling import (
     marshal_CreateDomainRequest,
     marshal_CreateEmailRequest,
     marshal_CreateWebhookRequest,
+    marshal_UpdateDomainRequest,
     marshal_UpdateWebhookRequest,
 )
 
@@ -760,6 +762,50 @@ class TemV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_DomainLastStatus(res.json())
+
+    def update_domain(
+        self,
+        *,
+        domain_id: str,
+        region: Optional[Region] = None,
+        autoconfig: Optional[bool] = None,
+    ) -> Domain:
+        """
+        Update a domain.
+        Update a domain auto-configuration.
+        :param domain_id: ID of the domain to update.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param autoconfig: (Optional) If set to true, activate auto-configuration of the domain's DNS zone.
+        :return: :class:`Domain <Domain>`
+
+        Usage:
+        ::
+
+            result = api.update_domain(
+                domain_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_domain_id = validate_path_param("domain_id", domain_id)
+
+        res = self._request(
+            "PATCH",
+            f"/transactional-email/v1alpha1/regions/{param_region}/domains/{param_domain_id}",
+            body=marshal_UpdateDomainRequest(
+                UpdateDomainRequest(
+                    domain_id=domain_id,
+                    region=region,
+                    autoconfig=autoconfig,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Domain(res.json())
 
     def create_webhook(
         self,

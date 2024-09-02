@@ -51,6 +51,7 @@ from .types import ListWebhooksRequest
 from .types import ListWebhooksResponse
 from .types import RevokeDomainRequest
 from .types import Statistics
+from .types import UpdateDomainRequest
 from .types import UpdateWebhookRequest
 from .api import TemV1Alpha1API
 
@@ -106,6 +107,7 @@ __all__ = [
     "ListWebhooksResponse",
     "RevokeDomainRequest",
     "Statistics",
+    "UpdateDomainRequest",
     "UpdateWebhookRequest",
     "TemV1Alpha1API",
 ]

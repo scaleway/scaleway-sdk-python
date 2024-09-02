@@ -1189,6 +1189,24 @@ class Statistics:
 
 
 @dataclass
+class UpdateDomainRequest:
+    domain_id: str
+    """
+    ID of the domain to update.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    autoconfig: Optional[bool]
+    """
+    (Optional) If set to true, activate auto-configuration of the domain's DNS zone.
+    """
+
+
+@dataclass
 class UpdateWebhookRequest:
     webhook_id: str
     """
