@@ -450,6 +450,9 @@ class EnableDHCPRequest:
 @dataclass
 class EnableRoutingRequest:
     vpc_id: str
+    """
+    VPC ID.
+    """
 
     region: Optional[Region]
     """

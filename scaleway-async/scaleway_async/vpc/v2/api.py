@@ -716,7 +716,7 @@ class VpcV2API(API):
         """
         Enable routing on a VPC.
         Enable routing on an existing VPC. Note that you will not be able to deactivate it afterwards.
-        :param vpc_id:
+        :param vpc_id: VPC ID.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`VPC <VPC>`
 
