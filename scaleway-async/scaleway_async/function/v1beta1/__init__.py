@@ -62,7 +62,6 @@ from .types import GetFunctionUploadURLRequest
 from .types import GetNamespaceRequest
 from .types import GetTokenRequest
 from .types import GetTriggerRequest
-from .types import IssueJWTRequest
 from .types import ListCronsRequest
 from .types import ListCronsResponse
 from .types import ListDomainsRequest
@@ -147,7 +146,6 @@ __all__ = [
     "GetNamespaceRequest",
     "GetTokenRequest",
     "GetTriggerRequest",
-    "IssueJWTRequest",
     "ListCronsRequest",
     "ListCronsResponse",
     "ListDomainsRequest",

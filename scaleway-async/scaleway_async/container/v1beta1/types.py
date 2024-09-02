@@ -1056,20 +1056,6 @@ class GetTriggerRequest:
 
 
 @dataclass
-class IssueJWTRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    expires_at: Optional[datetime]
-
-    container_id: Optional[str]
-
-    namespace_id: Optional[str]
-
-
-@dataclass
 class ListContainersRequest:
     namespace_id: str
     """
