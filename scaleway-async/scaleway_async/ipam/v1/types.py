@@ -223,7 +223,7 @@ class BookIPRequest:
 
     resource: Optional[CustomResource]
     """
-    Custom resource to attach to the IP being booked. An example of a custom resource is a virtual machine hosted on an Elastic Metal server, or an additional user network interface on an Instance. Do not use this for attaching IP addresses to standard Scaleway resources, as it will fail - instead, see the relevant product API for an equivalent method.
+    Custom resource to attach to the IP being booked. An example of a custom resource is a virtual machine hosted on an Elastic Metal server. Do not use this for attaching IP addresses to standard Scaleway resources, as it will fail - instead, see the relevant product API for an equivalent method.
     """
 
 
@@ -232,6 +232,11 @@ class DetachIPRequest:
     ip_id: str
     """
     IP ID.
+    """
+
+    resource: CustomResource
+    """
+    Custom resource currently attached to the IP.
     """
 
     region: Optional[Region]
@@ -351,12 +356,17 @@ class MoveIPRequest:
     IP ID.
     """
 
+    from_resource: CustomResource
+    """
+    Custom resource currently attached to the IP.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
-    resource: Optional[CustomResource]
+    to_resource: Optional[CustomResource]
     """
     Custom resource to be attached to the IP.
     """
