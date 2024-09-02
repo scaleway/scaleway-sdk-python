@@ -3453,7 +3453,7 @@ class InstanceV1API(API):
         :param name: Filter on the IP address (Works as a LIKE operation on the IP address).
         :param per_page: A positive integer lower or equal to 100 to select the number of items to return.
         :param page: A positive integer to choose the page to return.
-        :param type_: Filter on the IP Mobility IP type (whose value should be either 'nat', 'routed_ipv4' or 'routed_ipv6').
+        :param type_: Filter on the IP Mobility IP type (whose value should be either 'routed_ipv4', 'routed_ipv6' or 'nat').
         :return: :class:`ListIpsResponse <ListIpsResponse>`
 
         Usage:
@@ -3503,7 +3503,7 @@ class InstanceV1API(API):
         :param name: Filter on the IP address (Works as a LIKE operation on the IP address).
         :param per_page: A positive integer lower or equal to 100 to select the number of items to return.
         :param page: A positive integer to choose the page to return.
-        :param type_: Filter on the IP Mobility IP type (whose value should be either 'nat', 'routed_ipv4' or 'routed_ipv6').
+        :param type_: Filter on the IP Mobility IP type (whose value should be either 'routed_ipv4', 'routed_ipv6' or 'nat').
         :return: :class:`List[Ip] <List[Ip]>`
 
         Usage:
@@ -3548,7 +3548,7 @@ class InstanceV1API(API):
         One-Of ('project_identifier'): at most one of 'project', 'organization' could be set.
         :param tags: Tags of the IP.
         :param server: UUID of the Instance you want to attach the IP to.
-        :param type_: IP type to reserve (either 'nat', 'routed_ipv4' or 'routed_ipv6').
+        :param type_: IP type to reserve (either 'routed_ipv4' or 'routed_ipv6', use of 'nat' is deprecated).
         :return: :class:`CreateIpResponse <CreateIpResponse>`
 
         Usage:
