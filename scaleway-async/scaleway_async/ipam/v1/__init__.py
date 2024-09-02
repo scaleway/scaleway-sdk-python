@@ -5,11 +5,15 @@ from .types import ResourceType
 from .types import Resource
 from .types import Reverse
 from .types import Source
+from .types import CustomResource
 from .types import IP
+from .types import AttachIPRequest
 from .types import BookIPRequest
+from .types import DetachIPRequest
 from .types import GetIPRequest
 from .types import ListIPsRequest
 from .types import ListIPsResponse
+from .types import MoveIPRequest
 from .types import ReleaseIPRequest
 from .types import ReleaseIPSetRequest
 from .types import UpdateIPRequest
@@ -21,11 +25,15 @@ __all__ = [
     "Resource",
     "Reverse",
     "Source",
+    "CustomResource",
     "IP",
+    "AttachIPRequest",
     "BookIPRequest",
+    "DetachIPRequest",
     "GetIPRequest",
     "ListIPsRequest",
     "ListIPsResponse",
+    "MoveIPRequest",
     "ReleaseIPRequest",
     "ReleaseIPSetRequest",
     "UpdateIPRequest",

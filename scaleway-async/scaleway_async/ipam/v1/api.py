@@ -16,9 +16,12 @@ from scaleway_core.utils import (
 from .types import (
     ListIPsRequestOrderBy,
     ResourceType,
+    AttachIPRequest,
     BookIPRequest,
+    CustomResource,
     IP,
     ListIPsResponse,
+    MoveIPRequest,
     ReleaseIPSetRequest,
     Reverse,
     Source,
@@ -27,7 +30,9 @@ from .types import (
 from .marshalling import (
     unmarshal_IP,
     unmarshal_ListIPsResponse,
+    marshal_AttachIPRequest,
     marshal_BookIPRequest,
+    marshal_MoveIPRequest,
     marshal_ReleaseIPSetRequest,
     marshal_UpdateIPRequest,
 )
@@ -47,6 +52,7 @@ class IpamV1API(API):
         project_id: Optional[str] = None,
         address: Optional[str] = None,
         tags: Optional[List[str]] = None,
+        resource: Optional[CustomResource] = None,
     ) -> IP:
         """
         Book a new IP.
@@ -57,6 +63,7 @@ class IpamV1API(API):
         :param project_id: When creating an IP in a Private Network, the Project must match the Private Network's Project.
         :param address: The requested address should not include the subnet mask (/suffix). Note that only the Private Network source allows you to pick a specific IP. If the requested IP is already booked, then the call will fail.
         :param tags: Tags for the IP.
+        :param resource: Custom resource to attach to the IP being booked. An example of a custom resource is a virtual machine hosted on an Elastic Metal server, or an additional user network interface on an Instance. Do not use this for attaching IP addresses to standard Scaleway resources, as it will fail - instead, see the relevant product API for an equivalent method.
         :return: :class:`IP <IP>`
 
         Usage:
@@ -83,6 +90,7 @@ class IpamV1API(API):
                     project_id=project_id,
                     address=address,
                     tags=tags,
+                    resource=resource,
                 ),
                 self.client,
             ),
@@ -408,3 +416,127 @@ class IpamV1API(API):
                 "subnet_id": subnet_id,
             },
         )
+
+    async def attach_ip(
+        self,
+        *,
+        ip_id: str,
+        resource: CustomResource,
+        region: Optional[Region] = None,
+    ) -> IP:
+        """
+        Attach existing IP to custom resource.
+        Attach an existing IP from a Private Network subnet to a custom, named resource via its MAC address. An example of a custom resource is a virtual machine hosted on an Elastic Metal server, or an additional user network interface on an Instance. Do not use this method for attaching IP addresses to standard Scaleway resources as it will fail - see the relevant product API for an equivalent method.
+        :param ip_id: IP ID.
+        :param resource: Custom resource to be attached to the IP.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`IP <IP>`
+
+        Usage:
+        ::
+
+            result = await api.attach_ip(
+                ip_id="example",
+                resource=CustomResource(),
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_ip_id = validate_path_param("ip_id", ip_id)
+
+        res = self._request(
+            "POST",
+            f"/ipam/v1/regions/{param_region}/ips/{param_ip_id}/attach",
+            body=marshal_AttachIPRequest(
+                AttachIPRequest(
+                    ip_id=ip_id,
+                    resource=resource,
+                    region=region,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_IP(res.json())
+
+    async def detach_ip(
+        self,
+        *,
+        ip_id: str,
+        region: Optional[Region] = None,
+    ) -> IP:
+        """
+        Detach existing IP from a custom resource.
+        Detach a private IP from a custom resource. An example of a custom resource is a virtual machine hosted on an Elastic Metal server. Do not use this method for attaching IP addresses to standard Scaleway resources (e.g. Instances, Load Balancers) as it will fail - see the relevant product API for an equivalent method.
+        :param ip_id: IP ID.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`IP <IP>`
+
+        Usage:
+        ::
+
+            result = await api.detach_ip(
+                ip_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_ip_id = validate_path_param("ip_id", ip_id)
+
+        res = self._request(
+            "POST",
+            f"/ipam/v1/regions/{param_region}/ips/{param_ip_id}/detach",
+            body={},
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_IP(res.json())
+
+    async def move_ip(
+        self,
+        *,
+        ip_id: str,
+        region: Optional[Region] = None,
+        resource: Optional[CustomResource] = None,
+    ) -> IP:
+        """
+        Move existing IP to a custom resource.
+        Move an existing private IP from one custom resource (e.g. a virtual machine hosted on an Elastic Metal server) to another custom resource. This will detach it from the first resource, and attach it to the second. Do not use this method for moving IP addresses between standard Scaleway resources (e.g. Instances, Load Balancers) as it will fail - see the relevant product API for an equivalent method.
+        :param ip_id: IP ID.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param resource: Custom resource to be attached to the IP.
+        :return: :class:`IP <IP>`
+
+        Usage:
+        ::
+
+            result = await api.move_ip(
+                ip_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_ip_id = validate_path_param("ip_id", ip_id)
+
+        res = self._request(
+            "POST",
+            f"/ipam/v1/regions/{param_region}/ips/{param_ip_id}/move",
+            body=marshal_MoveIPRequest(
+                MoveIPRequest(
+                    ip_id=ip_id,
+                    region=region,
+                    resource=resource,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_IP(res.json())
