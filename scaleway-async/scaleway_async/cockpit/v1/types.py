@@ -29,6 +29,7 @@ class DataSourceType(str, Enum, metaclass=StrEnumMeta):
     METRICS = "metrics"
     LOGS = "logs"
     TRACES = "traces"
+    ALERTS = "alerts"
 
     def __str__(self) -> str:
         return str(self.value)
