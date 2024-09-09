@@ -17,6 +17,7 @@ from .types import PermissionSetScopeType
 from .types import UserStatus
 from .types import UserType
 from .types import RuleSpecs
+from .types import CreateUserRequestMember
 from .types import JWT
 from .types import APIKey
 from .types import Application
@@ -107,6 +108,7 @@ __all__ = [
     "UserStatus",
     "UserType",
     "RuleSpecs",
+    "CreateUserRequestMember",
     "JWT",
     "APIKey",
     "Application",

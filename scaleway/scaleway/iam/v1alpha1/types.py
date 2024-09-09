@@ -176,6 +176,7 @@ class UserType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_TYPE = "unknown_type"
     GUEST = "guest"
     OWNER = "owner"
+    MEMBER = "member"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -196,6 +197,29 @@ class RuleSpecs:
     project_ids: Optional[List[str]]
 
     organization_id: Optional[str]
+
+
+@dataclass
+class CreateUserRequestMember:
+    email: str
+    """
+    Email of the user to create.
+    """
+
+    send_password_email: bool
+    """
+    Whether or not to send an email containing the member's password.
+    """
+
+    username: str
+    """
+    The member's username.
+    """
+
+    password: str
+    """
+    The member's password.
+    """
 
 
 @dataclass
@@ -647,9 +671,24 @@ class User:
     Email of user.
     """
 
+    username: str
+    """
+    User identifier unique to the Organization.
+    """
+
     organization_id: str
     """
     ID of the Organization.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Date user was created.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Date of last user update.
     """
 
     deletable: bool
@@ -667,11 +706,6 @@ class User:
     Status of user invitation.
     """
 
-    created_at: Optional[datetime]
-    """
-    Date user was created.
-    """
-
     mfa: bool
     """
     Defines whether MFA is enabled.
@@ -685,11 +719,6 @@ class User:
     tags: List[str]
     """
     Tags associated with the user.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Date of last user update.
     """
 
     last_login_at: Optional[datetime]
@@ -875,11 +904,6 @@ class CreateSSHKeyRequest:
 
 @dataclass
 class CreateUserRequest:
-    email: str
-    """
-    Email of the user.
-    """
-
     organization_id: Optional[str]
     """
     ID of the Organization.
@@ -889,6 +913,10 @@ class CreateUserRequest:
     """
     Tags associated with the user.
     """
+
+    email: Optional[str]
+
+    member: Optional[CreateUserRequestMember]
 
 
 @dataclass
