@@ -43,6 +43,7 @@ from .types import (
     RuleSpecs,
     CreatePolicyRequest,
     CreateSSHKeyRequest,
+    CreateUserRequestMember,
     CreateUserRequest,
     RemoveGroupMemberRequest,
     SetGroupMembersRequest,
@@ -512,9 +513,25 @@ def unmarshal_User(data: Any) -> User:
     if field is not None:
         args["email"] = field
 
+    field = data.get("username", None)
+    if field is not None:
+        args["username"] = field
+
     field = data.get("organization_id", None)
     if field is not None:
         args["organization_id"] = field
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("deletable", None)
     if field is not None:
@@ -528,12 +545,6 @@ def unmarshal_User(data: Any) -> User:
     if field is not None:
         args["status"] = field
 
-    field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
-
     field = data.get("mfa", None)
     if field is not None:
         args["mfa"] = field
@@ -545,12 +556,6 @@ def unmarshal_User(data: Any) -> User:
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
-
-    field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
 
     field = data.get("last_login_at", None)
     if field is not None:
@@ -1118,14 +1123,40 @@ def marshal_CreateSSHKeyRequest(
     return output
 
 
-def marshal_CreateUserRequest(
-    request: CreateUserRequest,
+def marshal_CreateUserRequestMember(
+    request: CreateUserRequestMember,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
     if request.email is not None:
         output["email"] = request.email
+
+    if request.send_password_email is not None:
+        output["send_password_email"] = request.send_password_email
+
+    if request.username is not None:
+        output["username"] = request.username
+
+    if request.password is not None:
+        output["password"] = request.password
+
+    return output
+
+
+def marshal_CreateUserRequest(
+    request: CreateUserRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
+            [
+                OneOfPossibility("email", request.email),
+                OneOfPossibility("member", request.member),
+            ]
+        ),
+    )
 
     if request.organization_id is not None:
         output["organization_id"] = (

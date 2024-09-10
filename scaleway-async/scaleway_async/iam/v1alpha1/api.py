@@ -37,6 +37,7 @@ from .types import (
     CreatePolicyRequest,
     CreateSSHKeyRequest,
     CreateUserRequest,
+    CreateUserRequestMember,
     EncodedJWT,
     Group,
     JWT,
@@ -534,24 +535,26 @@ class IamV1Alpha1API(API):
     async def create_user(
         self,
         *,
-        email: str,
         organization_id: Optional[str] = None,
+        email: Optional[str] = None,
         tags: Optional[List[str]] = None,
+        member: Optional[CreateUserRequestMember] = None,
     ) -> User:
         """
         Create a new user.
         Create a new user. You must define the `organization_id` and the `email` in your request.
-        :param email: Email of the user.
         :param organization_id: ID of the Organization.
+        :param email: Email of the user.
+        One-Of ('type'): at most one of 'email', 'member' could be set.
         :param tags: Tags associated with the user.
+        :param member: A new IAM Member to create.
+        One-Of ('type'): at most one of 'email', 'member' could be set.
         :return: :class:`User <User>`
 
         Usage:
         ::
 
-            result = await api.create_user(
-                email="example",
-            )
+            result = await api.create_user()
         """
 
         res = self._request(
@@ -559,9 +562,10 @@ class IamV1Alpha1API(API):
             "/iam/v1alpha1/users",
             body=marshal_CreateUserRequest(
                 CreateUserRequest(
-                    email=email,
                     organization_id=organization_id,
                     tags=tags,
+                    email=email,
+                    member=member,
                 ),
                 self.client,
             ),
