@@ -18,6 +18,7 @@ from .types import (
     CustomResource,
     AttachIPRequest,
     BookIPRequest,
+    DetachIPRequest,
     MoveIPRequest,
     ReleaseIPSetRequest,
     UpdateIPRequest,
@@ -267,14 +268,31 @@ def marshal_BookIPRequest(
     return output
 
 
-def marshal_MoveIPRequest(
-    request: MoveIPRequest,
+def marshal_DetachIPRequest(
+    request: DetachIPRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
     if request.resource is not None:
         output["resource"] = marshal_CustomResource(request.resource, defaults)
+
+    return output
+
+
+def marshal_MoveIPRequest(
+    request: MoveIPRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.from_resource is not None:
+        output["from_resource"] = marshal_CustomResource(
+            request.from_resource, defaults
+        )
+
+    if request.to_resource is not None:
+        output["to_resource"] = marshal_CustomResource(request.to_resource, defaults)
 
     return output
 
