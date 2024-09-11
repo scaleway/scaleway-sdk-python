@@ -9,6 +9,7 @@ from .types import (
 
 DOMAIN_TRANSIENT_STATUSES: List[DomainStatus] = [
     DomainStatus.PENDING,
+    DomainStatus.AUTOCONFIGURING,
 ]
 """
 Lists transient statutes of the enum :class:`DomainStatus <DomainStatus>`.
