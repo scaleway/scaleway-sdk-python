@@ -18,6 +18,11 @@ from .content import SERVER_PRIVATE_NETWORK_TRANSIENT_STATUSES
 from .types import ServerStatus
 from .content import SERVER_TRANSIENT_STATUSES
 from .types import SettingType
+from .types import CertificationOption
+from .types import LicenseOption
+from .types import PrivateNetworkOption
+from .types import PublicBandwidthOption
+from .types import RemoteAccessOption
 from .types import OSOSField
 from .types import CPU
 from .types import Disk
@@ -98,6 +103,11 @@ __all__ = [
     "ServerStatus",
     "SERVER_TRANSIENT_STATUSES",
     "SettingType",
+    "CertificationOption",
+    "LicenseOption",
+    "PrivateNetworkOption",
+    "PublicBandwidthOption",
+    "RemoteAccessOption",
     "OSOSField",
     "CPU",
     "Disk",

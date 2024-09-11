@@ -166,6 +166,31 @@ class SettingType(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
+class CertificationOption:
+    pass
+
+
+@dataclass
+class LicenseOption:
+    os_id: str
+
+
+@dataclass
+class PrivateNetworkOption:
+    pass
+
+
+@dataclass
+class PublicBandwidthOption:
+    bandwidth_in_bps: int
+
+
+@dataclass
+class RemoteAccessOption:
+    pass
+
+
+@dataclass
 class OSOSField:
     editable: bool
 
@@ -273,8 +298,18 @@ If false the option is available for the offer but not included by default.
 
     os_id: Optional[str]
     """
-    ID of the OS linked to the option.
+    Deprecated, use LicenseOptionVars.os_id instead.
     """
+
+    license: Optional[LicenseOption]
+
+    public_bandwidth: Optional[PublicBandwidthOption]
+
+    private_network: Optional[PrivateNetworkOption]
+
+    remote_access: Optional[RemoteAccessOption]
+
+    certification: Optional[CertificationOption]
 
 
 @dataclass
@@ -400,6 +435,16 @@ class ServerOption:
     Auto expiration date for compatible options.
     """
 
+    license: Optional[LicenseOption]
+
+    public_bandwidth: Optional[PublicBandwidthOption]
+
+    private_network: Optional[PrivateNetworkOption]
+
+    remote_access: Optional[RemoteAccessOption]
+
+    certification: Optional[CertificationOption]
+
 
 @dataclass
 class ServerRescueServer:
@@ -474,21 +519,6 @@ class OS:
     URL of this OS's logo.
     """
 
-    enabled: bool
-    """
-    Defines if the operating system is enabled or not.
-    """
-
-    license_required: bool
-    """
-    License required (check server options for pricing details).
-    """
-
-    allowed: bool
-    """
-    Defines if a specific Organization is allowed to install this OS type.
-    """
-
     ssh: Optional[OSOSField]
     """
     Object defining the SSH requirements to install the OS.
@@ -512,6 +542,26 @@ class OS:
     service_password: Optional[OSOSField]
     """
     Object defining the password requirements to install the service.
+    """
+
+    enabled: bool
+    """
+    Defines if the operating system is enabled or not.
+    """
+
+    license_required: bool
+    """
+    License required (check server options for pricing details).
+    """
+
+    allowed: bool
+    """
+    Defines if a specific Organization is allowed to install this OS type.
+    """
+
+    custom_partitioning_supported: bool
+    """
+    Defines if custom partitioning is supported by this OS.
     """
 
 
@@ -649,6 +699,16 @@ class Option:
     """
     Defines whether the option is manageable (could be added or removed).
     """
+
+    license: Optional[LicenseOption]
+
+    public_bandwidth: Optional[PublicBandwidthOption]
+
+    private_network: Optional[PrivateNetworkOption]
+
+    remote_access: Optional[RemoteAccessOption]
+
+    certification: Optional[CertificationOption]
 
 
 @dataclass
