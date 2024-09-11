@@ -141,18 +141,6 @@ def unmarshal_OS(data: Any) -> OS:
     if field is not None:
         args["logo_url"] = field
 
-    field = data.get("enabled", None)
-    if field is not None:
-        args["enabled"] = field
-
-    field = data.get("license_required", None)
-    if field is not None:
-        args["license_required"] = field
-
-    field = data.get("allowed", None)
-    if field is not None:
-        args["allowed"] = field
-
     field = data.get("ssh", None)
     if field is not None:
         args["ssh"] = unmarshal_OSOSField(field)
@@ -182,6 +170,22 @@ def unmarshal_OS(data: Any) -> OS:
         args["service_password"] = unmarshal_OSOSField(field)
     else:
         args["service_password"] = None
+
+    field = data.get("enabled", None)
+    if field is not None:
+        args["enabled"] = field
+
+    field = data.get("license_required", None)
+    if field is not None:
+        args["license_required"] = field
+
+    field = data.get("allowed", None)
+    if field is not None:
+        args["allowed"] = field
+
+    field = data.get("custom_partitioning_supported", None)
+    if field is not None:
+        args["custom_partitioning_supported"] = field
 
     return OS(**args)
 

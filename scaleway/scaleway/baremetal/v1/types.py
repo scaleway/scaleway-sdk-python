@@ -474,21 +474,6 @@ class OS:
     URL of this OS's logo.
     """
 
-    enabled: bool
-    """
-    Defines if the operating system is enabled or not.
-    """
-
-    license_required: bool
-    """
-    License required (check server options for pricing details).
-    """
-
-    allowed: bool
-    """
-    Defines if a specific Organization is allowed to install this OS type.
-    """
-
     ssh: Optional[OSOSField]
     """
     Object defining the SSH requirements to install the OS.
@@ -512,6 +497,26 @@ class OS:
     service_password: Optional[OSOSField]
     """
     Object defining the password requirements to install the service.
+    """
+
+    enabled: bool
+    """
+    Defines if the operating system is enabled or not.
+    """
+
+    license_required: bool
+    """
+    License required (check server options for pricing details).
+    """
+
+    allowed: bool
+    """
+    Defines if a specific Organization is allowed to install this OS type.
+    """
+
+    custom_partitioning_supported: bool
+    """
+    Defines if custom partitioning is supported by this OS.
     """
 
 
