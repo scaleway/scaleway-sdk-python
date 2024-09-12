@@ -165,6 +165,10 @@ def unmarshal_Route(data: Any) -> Route:
     if field is not None:
         args["destination"] = field
 
+    field = data.get("is_read_only", None)
+    if field is not None:
+        args["is_read_only"] = field
+
     field = data.get("region", None)
     if field is not None:
         args["region"] = field

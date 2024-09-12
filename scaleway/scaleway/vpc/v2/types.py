@@ -166,6 +166,11 @@ class Route:
     Destination of the Route.
     """
 
+    is_read_only: bool
+    """
+    Defines whether the route can be modified or deleted by the user.
+    """
+
     region: Region
     """
     Region of the Route.
