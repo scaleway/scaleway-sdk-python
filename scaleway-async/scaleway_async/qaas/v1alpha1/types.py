@@ -7,6 +7,9 @@ from datetime import datetime
 from enum import Enum
 from typing import List, Optional
 
+from scaleway_core.bridge import (
+    Money,
+)
 from scaleway_core.utils import (
     StrEnumMeta,
 )
@@ -76,6 +79,8 @@ class ListPlatformsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     TYPE_DESC = "type_desc"
     TECHNOLOGY_ASC = "technology_asc"
     TECHNOLOGY_DESC = "technology_desc"
+    BACKEND_NAME_ASC = "backend_name_asc"
+    BACKEND_NAME_DESC = "backend_name_desc"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -120,6 +125,16 @@ class ListSessionsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     STATUS_DESC = "status_desc"
     CREATED_AT_DESC = "created_at_desc"
     CREATED_AT_ASC = "created_at_asc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class PlatformAvailability(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_AVAILABILITY = "unknown_availability"
+    AVAILABLE = "available"
+    SHORTAGE = "shortage"
+    SCARCE = "scarce"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -188,6 +203,39 @@ class SessionStatus(str, Enum, metaclass=StrEnumMeta):
 
     def __str__(self) -> str:
         return str(self.value)
+
+
+@dataclass
+class PlatformHardware:
+    name: str
+    """
+    Product name of the hardware.
+    """
+
+    vcpus: int
+    """
+    Number of vCPUs available.
+    """
+
+    gpus: int
+    """
+    Number of GPUs available (0 if no GPU).
+    """
+
+    gpus_network: str
+    """
+    Network topology of GPUs (PCIe, NVLink...).
+    """
+
+    ram: int
+    """
+    Amount of RAM available in byte.
+    """
+
+    vram: int
+    """
+    Amount of VRAM available in byte (0 if no GPU).
+    """
 
 
 @dataclass
@@ -328,6 +376,11 @@ class Platform:
     Provider name of the platform.
     """
 
+    backend_name: str
+    """
+    Name of the running backend over the platform (ascella, qsim, aer...).
+    """
+
     type_: PlatformType
     """
     Type of the platform.
@@ -340,12 +393,27 @@ class Platform:
 
     max_qubit_count: int
     """
-    Maximum number of qubits supported by the platform.
+    Estimated maximum number of qubits supported by the platform.
+    """
+
+    availability: PlatformAvailability
+    """
+    Availability of the platform.
     """
 
     metadata: str
     """
     Metadata provided by the platform.
+    """
+
+    price_per_hour: Optional[Money]
+    """
+    Price to be payed per hour (excluding free tiers).
+    """
+
+    hardware: Optional[PlatformHardware]
+    """
+    Specifications of the underlying hardware.
     """
 
 
@@ -530,6 +598,11 @@ class Session:
     origin_id: Optional[str]
     """
     Unique ID of the session's origin resource (if exists).
+    """
+
+    progress_message: Optional[str]
+    """
+    Any progress of the session.
     """
 
 
@@ -842,6 +915,11 @@ class ListPlatformsRequest:
     provider_name: Optional[str]
     """
     List platforms with this provider name.
+    """
+
+    backend_name: Optional[str]
+    """
+    List platforms with this backend name.
     """
 
     name: Optional[str]

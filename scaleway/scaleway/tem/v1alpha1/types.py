@@ -44,6 +44,7 @@ class DomainStatus(str, Enum, metaclass=StrEnumMeta):
     LOCKED = "locked"
     REVOKED = "revoked"
     PENDING = "pending"
+    AUTOCONFIGURING = "autoconfiguring"
 
     def __str__(self) -> str:
         return str(self.value)
