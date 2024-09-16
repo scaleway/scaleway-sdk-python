@@ -2220,6 +2220,12 @@ def unmarshal_ServerType(data: Any) -> ServerType:
     else:
         args["scratch_storage_max_size"] = None
 
+    field = data.get("block_bandwidth", None)
+    if field is not None:
+        args["block_bandwidth"] = field
+    else:
+        args["block_bandwidth"] = None
+
     return ServerType(**args)
 
 
