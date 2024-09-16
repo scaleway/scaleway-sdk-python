@@ -721,6 +721,11 @@ class User:
     Tags associated with the user.
     """
 
+    locked: bool
+    """
+    Defines whether the user is locked.
+    """
+
     last_login_at: Optional[datetime]
     """
     Date of the last login.
