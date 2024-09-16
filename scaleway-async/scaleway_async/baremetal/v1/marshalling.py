@@ -17,6 +17,11 @@ from .types import (
     IP,
     OSOSField,
     OS,
+    CertificationOption,
+    LicenseOption,
+    PrivateNetworkOption,
+    PublicBandwidthOption,
+    RemoteAccessOption,
     CPU,
     Disk,
     Memory,
@@ -190,6 +195,69 @@ def unmarshal_OS(data: Any) -> OS:
     return OS(**args)
 
 
+def unmarshal_CertificationOption(data: Any) -> CertificationOption:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'CertificationOption' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    return CertificationOption(**args)
+
+
+def unmarshal_LicenseOption(data: Any) -> LicenseOption:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'LicenseOption' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("os_id", None)
+    if field is not None:
+        args["os_id"] = field
+
+    return LicenseOption(**args)
+
+
+def unmarshal_PrivateNetworkOption(data: Any) -> PrivateNetworkOption:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PrivateNetworkOption' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    return PrivateNetworkOption(**args)
+
+
+def unmarshal_PublicBandwidthOption(data: Any) -> PublicBandwidthOption:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicBandwidthOption' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("bandwidth_in_bps", None)
+    if field is not None:
+        args["bandwidth_in_bps"] = field
+
+    return PublicBandwidthOption(**args)
+
+
+def unmarshal_RemoteAccessOption(data: Any) -> RemoteAccessOption:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'RemoteAccessOption' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    return RemoteAccessOption(**args)
+
+
 def unmarshal_CPU(data: Any) -> CPU:
     if not isinstance(data, dict):
         raise TypeError(
@@ -306,6 +374,36 @@ def unmarshal_OfferOptionOffer(data: Any) -> OfferOptionOffer:
         args["os_id"] = field
     else:
         args["os_id"] = None
+
+    field = data.get("license", None)
+    if field is not None:
+        args["license"] = unmarshal_LicenseOption(field)
+    else:
+        args["license"] = None
+
+    field = data.get("public_bandwidth", None)
+    if field is not None:
+        args["public_bandwidth"] = unmarshal_PublicBandwidthOption(field)
+    else:
+        args["public_bandwidth"] = None
+
+    field = data.get("private_network", None)
+    if field is not None:
+        args["private_network"] = unmarshal_PrivateNetworkOption(field)
+    else:
+        args["private_network"] = None
+
+    field = data.get("remote_access", None)
+    if field is not None:
+        args["remote_access"] = unmarshal_RemoteAccessOption(field)
+    else:
+        args["remote_access"] = None
+
+    field = data.get("certification", None)
+    if field is not None:
+        args["certification"] = unmarshal_CertificationOption(field)
+    else:
+        args["certification"] = None
 
     return OfferOptionOffer(**args)
 
@@ -495,6 +593,36 @@ def unmarshal_Option(data: Any) -> Option:
     if field is not None:
         args["manageable"] = field
 
+    field = data.get("license", None)
+    if field is not None:
+        args["license"] = unmarshal_LicenseOption(field)
+    else:
+        args["license"] = None
+
+    field = data.get("public_bandwidth", None)
+    if field is not None:
+        args["public_bandwidth"] = unmarshal_PublicBandwidthOption(field)
+    else:
+        args["public_bandwidth"] = None
+
+    field = data.get("private_network", None)
+    if field is not None:
+        args["private_network"] = unmarshal_PrivateNetworkOption(field)
+    else:
+        args["private_network"] = None
+
+    field = data.get("remote_access", None)
+    if field is not None:
+        args["remote_access"] = unmarshal_RemoteAccessOption(field)
+    else:
+        args["remote_access"] = None
+
+    field = data.get("certification", None)
+    if field is not None:
+        args["certification"] = unmarshal_CertificationOption(field)
+    else:
+        args["certification"] = None
+
     return Option(**args)
 
 
@@ -615,6 +743,36 @@ def unmarshal_ServerOption(data: Any) -> ServerOption:
         args["expires_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["expires_at"] = None
+
+    field = data.get("license", None)
+    if field is not None:
+        args["license"] = unmarshal_LicenseOption(field)
+    else:
+        args["license"] = None
+
+    field = data.get("public_bandwidth", None)
+    if field is not None:
+        args["public_bandwidth"] = unmarshal_PublicBandwidthOption(field)
+    else:
+        args["public_bandwidth"] = None
+
+    field = data.get("private_network", None)
+    if field is not None:
+        args["private_network"] = unmarshal_PrivateNetworkOption(field)
+    else:
+        args["private_network"] = None
+
+    field = data.get("remote_access", None)
+    if field is not None:
+        args["remote_access"] = unmarshal_RemoteAccessOption(field)
+    else:
+        args["remote_access"] = None
+
+    field = data.get("certification", None)
+    if field is not None:
+        args["certification"] = unmarshal_CertificationOption(field)
+    else:
+        args["certification"] = None
 
     return ServerOption(**args)
 
