@@ -521,6 +521,7 @@ class QaasV1Alpha1API(API):
         self,
         *,
         provider_name: Optional[str] = None,
+        backend_name: Optional[str] = None,
         name: Optional[str] = None,
         platform_type: Optional[PlatformType] = None,
         platform_technology: Optional[PlatformTechnology] = None,
@@ -532,6 +533,7 @@ class QaasV1Alpha1API(API):
         List all available platforms.
         Retrieve information about all platforms.
         :param provider_name: List platforms with this provider name.
+        :param backend_name: List platforms with this backend name.
         :param name: List platforms with this name.
         :param platform_type: List platforms with this type.
         :param platform_technology: List platforms with this technology.
@@ -550,6 +552,7 @@ class QaasV1Alpha1API(API):
             "GET",
             "/qaas/v1alpha1/platforms",
             params={
+                "backend_name": backend_name,
                 "name": name,
                 "order_by": order_by,
                 "page": page,
@@ -567,6 +570,7 @@ class QaasV1Alpha1API(API):
         self,
         *,
         provider_name: Optional[str] = None,
+        backend_name: Optional[str] = None,
         name: Optional[str] = None,
         platform_type: Optional[PlatformType] = None,
         platform_technology: Optional[PlatformTechnology] = None,
@@ -578,6 +582,7 @@ class QaasV1Alpha1API(API):
         List all available platforms.
         Retrieve information about all platforms.
         :param provider_name: List platforms with this provider name.
+        :param backend_name: List platforms with this backend name.
         :param name: List platforms with this name.
         :param platform_type: List platforms with this type.
         :param platform_technology: List platforms with this technology.
@@ -598,6 +603,7 @@ class QaasV1Alpha1API(API):
             fetcher=self.list_platforms,
             args={
                 "provider_name": provider_name,
+                "backend_name": backend_name,
                 "name": name,
                 "platform_type": platform_type,
                 "platform_technology": platform_technology,
