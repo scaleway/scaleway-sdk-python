@@ -11,6 +11,7 @@ from .types import ListProcessResultsRequestOrderBy
 from .types import ListProcessesRequestOrderBy
 from .types import ListSessionACLsRequestOrderBy
 from .types import ListSessionsRequestOrderBy
+from .types import PlatformAvailability
 from .types import PlatformTechnology
 from .types import PlatformType
 from .types import ProcessStatus
@@ -19,6 +20,7 @@ from .types import SessionAccess
 from .types import SessionOriginType
 from .types import SessionStatus
 from .content import SESSION_TRANSIENT_STATUSES
+from .types import PlatformHardware
 from .types import JobCircuit
 from .types import Application
 from .types import JobResult
@@ -75,6 +77,7 @@ __all__ = [
     "ListProcessesRequestOrderBy",
     "ListSessionACLsRequestOrderBy",
     "ListSessionsRequestOrderBy",
+    "PlatformAvailability",
     "PlatformTechnology",
     "PlatformType",
     "ProcessStatus",
@@ -83,6 +86,7 @@ __all__ = [
     "SessionOriginType",
     "SessionStatus",
     "SESSION_TRANSIENT_STATUSES",
+    "PlatformHardware",
     "JobCircuit",
     "Application",
     "JobResult",

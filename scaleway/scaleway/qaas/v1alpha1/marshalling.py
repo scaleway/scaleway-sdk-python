@@ -5,6 +5,9 @@ from typing import Any, Dict
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
+from scaleway_core.bridge import (
+    unmarshal_Money,
+)
 from scaleway_core.utils import (
     OneOfPossibility,
     resolve_one_of,
@@ -14,6 +17,7 @@ from .types import (
     JobCircuit,
     Application,
     Job,
+    PlatformHardware,
     Platform,
     Process,
     Session,
@@ -47,10 +51,14 @@ def unmarshal_JobCircuit(data: Any) -> JobCircuit:
     field = data.get("perceval_circuit", None)
     if field is not None:
         args["perceval_circuit"] = field
+    else:
+        args["perceval_circuit"] = None
 
     field = data.get("qiskit_circuit", None)
     if field is not None:
         args["qiskit_circuit"] = field
+    else:
+        args["qiskit_circuit"] = None
 
     return JobCircuit(**args)
 
@@ -71,7 +79,7 @@ def unmarshal_Application(data: Any) -> Application:
     if field is not None:
         args["name"] = field
 
-    field = data.get("type_", None)
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -113,32 +121,81 @@ def unmarshal_Job(data: Any) -> Job:
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = None
 
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("started_at", None)
     if field is not None:
         args["started_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["started_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("progress_message", None)
     if field is not None:
         args["progress_message"] = field
+    else:
+        args["progress_message"] = None
 
     field = data.get("job_duration", None)
     if field is not None:
         args["job_duration"] = field
+    else:
+        args["job_duration"] = None
 
     field = data.get("result_distribution", None)
     if field is not None:
         args["result_distribution"] = field
+    else:
+        args["result_distribution"] = None
 
     return Job(**args)
+
+
+def unmarshal_PlatformHardware(data: Any) -> PlatformHardware:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PlatformHardware' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+
+    field = data.get("vcpus", None)
+    if field is not None:
+        args["vcpus"] = field
+
+    field = data.get("gpus", None)
+    if field is not None:
+        args["gpus"] = field
+
+    field = data.get("gpus_network", None)
+    if field is not None:
+        args["gpus_network"] = field
+
+    field = data.get("ram", None)
+    if field is not None:
+        args["ram"] = field
+
+    field = data.get("vram", None)
+    if field is not None:
+        args["vram"] = field
+
+    return PlatformHardware(**args)
 
 
 def unmarshal_Platform(data: Any) -> Platform:
@@ -165,7 +222,11 @@ def unmarshal_Platform(data: Any) -> Platform:
     if field is not None:
         args["provider_name"] = field
 
-    field = data.get("type_", None)
+    field = data.get("backend_name", None)
+    if field is not None:
+        args["backend_name"] = field
+
+    field = data.get("type", None)
     if field is not None:
         args["type_"] = field
 
@@ -177,9 +238,25 @@ def unmarshal_Platform(data: Any) -> Platform:
     if field is not None:
         args["max_qubit_count"] = field
 
+    field = data.get("availability", None)
+    if field is not None:
+        args["availability"] = field
+
     field = data.get("metadata", None)
     if field is not None:
         args["metadata"] = field
+
+    field = data.get("price_per_hour", None)
+    if field is not None:
+        args["price_per_hour"] = unmarshal_Money(field)
+    else:
+        args["price_per_hour"] = None
+
+    field = data.get("hardware", None)
+    if field is not None:
+        args["hardware"] = unmarshal_PlatformHardware(field)
+    else:
+        args["hardware"] = None
 
     return Platform(**args)
 
@@ -207,6 +284,8 @@ def unmarshal_Process(data: Any) -> Process:
     field = data.get("application_id", None)
     if field is not None:
         args["application_id"] = field
+    else:
+        args["application_id"] = None
 
     field = data.get("status", None)
     if field is not None:
@@ -223,36 +302,52 @@ def unmarshal_Process(data: Any) -> Process:
     field = data.get("platform_id", None)
     if field is not None:
         args["platform_id"] = field
+    else:
+        args["platform_id"] = None
 
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("started_at", None)
     if field is not None:
         args["started_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["started_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("finished_at", None)
     if field is not None:
         args["finished_at"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["finished_at"] = None
 
     field = data.get("progress", None)
     if field is not None:
         args["progress"] = field
+    else:
+        args["progress"] = None
 
     field = data.get("progress_message", None)
     if field is not None:
         args["progress_message"] = field
+    else:
+        args["progress_message"] = None
 
     field = data.get("input", None)
     if field is not None:
         args["input"] = field
+    else:
+        args["input"] = None
 
     return Process(**args)
 
@@ -284,6 +379,8 @@ def unmarshal_Session(data: Any) -> Session:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     field = data.get("finished_job_count", None)
     if field is not None:
@@ -308,32 +405,52 @@ def unmarshal_Session(data: Any) -> Session:
     field = data.get("started_at", None)
     if field is not None:
         args["started_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["started_at"] = None
 
     field = data.get("updated_at", None)
     if field is not None:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("terminated_at", None)
     if field is not None:
         args["terminated_at"] = (
             parser.isoparse(field) if isinstance(field, str) else field
         )
+    else:
+        args["terminated_at"] = None
 
     field = data.get("max_idle_duration", None)
     if field is not None:
         args["max_idle_duration"] = field
+    else:
+        args["max_idle_duration"] = None
 
     field = data.get("max_duration", None)
     if field is not None:
         args["max_duration"] = field
+    else:
+        args["max_duration"] = None
 
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+    else:
+        args["tags"] = None
 
     field = data.get("origin_id", None)
     if field is not None:
         args["origin_id"] = field
+    else:
+        args["origin_id"] = None
+
+    field = data.get("progress_message", None)
+    if field is not None:
+        args["progress_message"] = field
+    else:
+        args["progress_message"] = None
 
     return Session(**args)
 
@@ -374,14 +491,20 @@ def unmarshal_JobResult(data: Any) -> JobResult:
     field = data.get("result", None)
     if field is not None:
         args["result"] = field
+    else:
+        args["result"] = None
 
     field = data.get("url", None)
     if field is not None:
         args["url"] = field
+    else:
+        args["url"] = None
 
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     return JobResult(**args)
 
@@ -466,6 +589,8 @@ def unmarshal_ProcessResult(data: Any) -> ProcessResult:
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
 
     return ProcessResult(**args)
 
@@ -582,7 +707,7 @@ def marshal_CreateJobRequest(
         output["session_id"] = request.session_id
 
     if request.circuit is not None:
-        output["circuit"] = (marshal_JobCircuit(request.circuit, defaults),)
+        output["circuit"] = marshal_JobCircuit(request.circuit, defaults)
 
     if request.tags is not None:
         output["tags"] = request.tags
