@@ -334,17 +334,17 @@ def marshal_CreateJobDefinitionRequest(
     if request.image_uri is not None:
         output["image_uri"] = request.image_uri
 
-    if request.name is not None:
-        output["name"] = request.name
-
-    if request.local_storage_capacity is not None:
-        output["local_storage_capacity"] = request.local_storage_capacity
-
     if request.command is not None:
         output["command"] = request.command
 
     if request.description is not None:
         output["description"] = request.description
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.local_storage_capacity is not None:
+        output["local_storage_capacity"] = request.local_storage_capacity
 
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id

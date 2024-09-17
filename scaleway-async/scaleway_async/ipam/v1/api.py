@@ -57,15 +57,15 @@ class IpamV1API(API):
         resource: Optional[CustomResource] = None,
     ) -> IP:
         """
-        Book a new IP.
-        Book a new IP from the specified source. Currently IPs can only be booked from a Private Network.
-        :param source: Source in which to book the IP. Not all sources are available for booking.
+        Reserve a new IP.
+        Reserve a new IP from the specified source. Currently IPs can only be reserved from a Private Network.
+        :param source: Source in which to reserve the IP. Not all sources are available for reservation.
         :param is_ipv6: Request an IPv6 instead of an IPv4.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: When creating an IP in a Private Network, the Project must match the Private Network's Project.
-        :param address: The requested address should not include the subnet mask (/suffix). Note that only the Private Network source allows you to pick a specific IP. If the requested IP is already booked, then the call will fail.
+        :param address: The requested address should not include the subnet mask (/suffix). Note that only the Private Network source allows you to pick a specific IP. If the requested IP is already reserved, then the call will fail.
         :param tags: Tags for the IP.
-        :param resource: Custom resource to attach to the IP being booked. An example of a custom resource is a virtual machine hosted on an Elastic Metal server. Do not use this for attaching IP addresses to standard Scaleway resources, as it will fail - instead, see the relevant product API for an equivalent method.
+        :param resource: Custom resource to attach to the IP being reserved. An example of a custom resource is a virtual machine hosted on an Elastic Metal server. Do not use this for attaching IP addresses to standard Scaleway resources, as it will fail - instead, see the relevant product API for an equivalent method.
         :return: :class:`IP <IP>`
 
         Usage:
@@ -427,8 +427,8 @@ class IpamV1API(API):
         region: Optional[Region] = None,
     ) -> IP:
         """
-        Attach existing IP to custom resource.
-        Attach an existing IP from a Private Network subnet to a custom, named resource via its MAC address. An example of a custom resource is a virtual machine hosted on an Elastic Metal server. Do not use this method for attaching IP addresses to standard Scaleway resources as it will fail - see the relevant product API for an equivalent method.
+        Attach IP to custom resource.
+        Attach an existing reserved IP from a Private Network subnet to a custom, named resource via its MAC address. An example of a custom resource is a virtual machine hosted on an Elastic Metal server. Do not use this method for attaching IP addresses to standard Scaleway resources as it will fail - see the relevant product API for an equivalent method.
         :param ip_id: IP ID.
         :param resource: Custom resource to be attached to the IP.
         :param region: Region to target. If none is passed will use default region from the config.
@@ -472,8 +472,8 @@ class IpamV1API(API):
         region: Optional[Region] = None,
     ) -> IP:
         """
-        Detach existing IP from a custom resource.
-        Detach a private IP from a custom resource. An example of a custom resource is a virtual machine hosted on an Elastic Metal server. Do not use this method for attaching IP addresses to standard Scaleway resources (e.g. Instances, Load Balancers) as it will fail - see the relevant product API for an equivalent method.
+        Detach IP from a custom resource.
+        Detach a private IP from a custom resource. An example of a custom resource is a virtual machine hosted on an Elastic Metal server. Do not use this method for detaching IP addresses from standard Scaleway resources (e.g. Instances, Load Balancers) as it will fail - see the relevant product API for an equivalent method.
         :param ip_id: IP ID.
         :param resource: Custom resource currently attached to the IP.
         :param region: Region to target. If none is passed will use default region from the config.
@@ -518,8 +518,8 @@ class IpamV1API(API):
         to_resource: Optional[CustomResource] = None,
     ) -> IP:
         """
-        Move existing IP to a custom resource.
-        Move an existing private IP from one custom resource (e.g. a virtual machine hosted on an Elastic Metal server) to another custom resource. This will detach it from the first resource, and attach it to the second. Do not use this method for moving IP addresses between standard Scaleway resources (e.g. Instances, Load Balancers) as it will fail - see the relevant product API for an equivalent method.
+        Move IP to a custom resource.
+        Move an existing reserved private IP from one custom resource (e.g. a virtual machine hosted on an Elastic Metal server) to another custom resource. This will detach it from the first resource, and attach it to the second. Do not use this method for moving IP addresses between standard Scaleway resources (e.g. Instances, Load Balancers) as it will fail - see the relevant product API for an equivalent method.
         :param ip_id: IP ID.
         :param from_resource: Custom resource currently attached to the IP.
         :param region: Region to target. If none is passed will use default region from the config.

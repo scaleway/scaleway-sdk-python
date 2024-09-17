@@ -170,6 +170,16 @@ class CreateJobDefinitionRequest:
     Image to use for the job.
     """
 
+    command: str
+    """
+    Startup command. If empty or not defined, the image's default command is used.
+    """
+
+    description: str
+    """
+    Description of the job.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
@@ -183,16 +193,6 @@ class CreateJobDefinitionRequest:
     local_storage_capacity: Optional[int]
     """
     Local storage capacity of the job (in MiB).
-    """
-
-    command: str
-    """
-    Startup command. If empty or not defined, the image's default command is used.
-    """
-
-    description: str
-    """
-    Description of the job.
     """
 
     project_id: Optional[str]

@@ -1410,6 +1410,11 @@ class ServerType:
     Maximum available scratch storage.
     """
 
+    block_bandwidth: Optional[int]
+    """
+    The maximum bandwidth allocated to block storage access (in bytes per second).
+    """
+
 
 @dataclass
 class VolumeType:

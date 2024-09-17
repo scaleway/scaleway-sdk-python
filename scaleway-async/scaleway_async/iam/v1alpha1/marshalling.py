@@ -557,6 +557,10 @@ def unmarshal_User(data: Any) -> User:
     if field is not None:
         args["tags"] = field
 
+    field = data.get("locked", None)
+    if field is not None:
+        args["locked"] = field
+
     field = data.get("last_login_at", None)
     if field is not None:
         args["last_login_at"] = (

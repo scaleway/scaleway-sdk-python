@@ -147,7 +147,7 @@ class IP:
 
     created_at: Optional[datetime]
     """
-    Date the IP was booked.
+    Date the IP was reserved.
     """
 
     updated_at: Optional[datetime]
@@ -157,7 +157,7 @@ class IP:
 
     source: Optional[Source]
     """
-    Source pool where the IP was booked in.
+    Source pool where the IP was reserved in.
     """
 
     resource: Optional[Resource]
@@ -193,7 +193,7 @@ class AttachIPRequest:
 class BookIPRequest:
     source: Source
     """
-    Source in which to book the IP. Not all sources are available for booking.
+    Source in which to reserve the IP. Not all sources are available for reservation.
     """
 
     is_ipv6: bool
@@ -213,7 +213,7 @@ class BookIPRequest:
 
     address: Optional[str]
     """
-    The requested address should not include the subnet mask (/suffix). Note that only the Private Network source allows you to pick a specific IP. If the requested IP is already booked, then the call will fail.
+    The requested address should not include the subnet mask (/suffix). Note that only the Private Network source allows you to pick a specific IP. If the requested IP is already reserved, then the call will fail.
     """
 
     tags: Optional[List[str]]
@@ -223,7 +223,7 @@ class BookIPRequest:
 
     resource: Optional[CustomResource]
     """
-    Custom resource to attach to the IP being booked. An example of a custom resource is a virtual machine hosted on an Elastic Metal server. Do not use this for attaching IP addresses to standard Scaleway resources, as it will fail - instead, see the relevant product API for an equivalent method.
+    Custom resource to attach to the IP being reserved. An example of a custom resource is a virtual machine hosted on an Elastic Metal server. Do not use this for attaching IP addresses to standard Scaleway resources, as it will fail - instead, see the relevant product API for an equivalent method.
     """
 
 
