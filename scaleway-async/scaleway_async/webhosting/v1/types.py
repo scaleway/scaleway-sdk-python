@@ -918,6 +918,11 @@ class HostingApiCreateHostingRequest:
     Indicates whether to update hosting domain name servers and DNS records for domains managed by Scaleway Elements.
     """
 
+    skip_welcome_email: Optional[bool]
+    """
+    Indicates whether to skip a welcome email to the contact email containing hosting info.
+    """
+
 
 @dataclass
 class HostingApiCreateSessionRequest:

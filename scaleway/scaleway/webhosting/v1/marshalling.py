@@ -822,6 +822,9 @@ def marshal_HostingApiCreateHostingRequest(
             )
         )
 
+    if request.skip_welcome_email is not None:
+        output["skip_welcome_email"] = request.skip_welcome_email
+
     return output
 
 
