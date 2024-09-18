@@ -26,6 +26,8 @@ from .types import (
     WebhookEvent,
     ListWebhookEventsResponse,
     ListWebhooksResponse,
+    ProjectSettingsPeriodicReport,
+    ProjectSettings,
     Statistics,
     CreateDomainRequest,
     CreateEmailRequestAddress,
@@ -34,6 +36,8 @@ from .types import (
     CreateEmailRequest,
     CreateWebhookRequest,
     UpdateDomainRequest,
+    UpdateProjectSettingsRequestUpdatePeriodicReport,
+    UpdateProjectSettingsRequest,
     UpdateWebhookRequest,
 )
 
@@ -688,6 +692,50 @@ def unmarshal_ListWebhooksResponse(data: Any) -> ListWebhooksResponse:
     return ListWebhooksResponse(**args)
 
 
+def unmarshal_ProjectSettingsPeriodicReport(data: Any) -> ProjectSettingsPeriodicReport:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ProjectSettingsPeriodicReport' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("enabled", None)
+    if field is not None:
+        args["enabled"] = field
+
+    field = data.get("frequency", None)
+    if field is not None:
+        args["frequency"] = field
+
+    field = data.get("sending_hour", None)
+    if field is not None:
+        args["sending_hour"] = field
+
+    field = data.get("sending_day", None)
+    if field is not None:
+        args["sending_day"] = field
+
+    return ProjectSettingsPeriodicReport(**args)
+
+
+def unmarshal_ProjectSettings(data: Any) -> ProjectSettings:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ProjectSettings' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("periodic_report", None)
+    if field is not None:
+        args["periodic_report"] = unmarshal_ProjectSettingsPeriodicReport(field)
+    else:
+        args["periodic_report"] = None
+
+    return ProjectSettings(**args)
+
+
 def unmarshal_Statistics(data: Any) -> Statistics:
     if not isinstance(data, dict):
         raise TypeError(
@@ -878,6 +926,43 @@ def marshal_UpdateDomainRequest(
 
     if request.autoconfig is not None:
         output["autoconfig"] = request.autoconfig
+
+    return output
+
+
+def marshal_UpdateProjectSettingsRequestUpdatePeriodicReport(
+    request: UpdateProjectSettingsRequestUpdatePeriodicReport,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.enabled is not None:
+        output["enabled"] = request.enabled
+
+    if request.frequency is not None:
+        output["frequency"] = str(request.frequency)
+
+    if request.sending_hour is not None:
+        output["sending_hour"] = request.sending_hour
+
+    if request.sending_day is not None:
+        output["sending_day"] = request.sending_day
+
+    return output
+
+
+def marshal_UpdateProjectSettingsRequest(
+    request: UpdateProjectSettingsRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.periodic_report is not None:
+        output["periodic_report"] = (
+            marshal_UpdateProjectSettingsRequestUpdatePeriodicReport(
+                request.periodic_report, defaults
+            )
+        )
 
     return output
 

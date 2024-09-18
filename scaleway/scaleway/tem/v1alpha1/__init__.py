@@ -11,6 +11,7 @@ from .content import EMAIL_TRANSIENT_STATUSES
 from .types import ListEmailsRequestOrderBy
 from .types import ListWebhookEventsRequestOrderBy
 from .types import ListWebhooksRequestOrderBy
+from .types import ProjectSettingsPeriodicReportFrequency
 from .types import WebhookEventStatus
 from .types import WebhookEventType
 from .types import DomainRecordsDMARC
@@ -28,6 +29,8 @@ from .types import DomainLastStatusSpfRecord
 from .types import Domain
 from .types import WebhookEvent
 from .types import Webhook
+from .types import ProjectSettingsPeriodicReport
+from .types import UpdateProjectSettingsRequestUpdatePeriodicReport
 from .types import CancelEmailRequest
 from .types import CheckDomainRequest
 from .types import CreateDomainRequest
@@ -39,6 +42,7 @@ from .types import DomainLastStatus
 from .types import GetDomainLastStatusRequest
 from .types import GetDomainRequest
 from .types import GetEmailRequest
+from .types import GetProjectSettingsRequest
 from .types import GetStatisticsRequest
 from .types import GetWebhookRequest
 from .types import ListDomainsRequest
@@ -49,9 +53,11 @@ from .types import ListWebhookEventsRequest
 from .types import ListWebhookEventsResponse
 from .types import ListWebhooksRequest
 from .types import ListWebhooksResponse
+from .types import ProjectSettings
 from .types import RevokeDomainRequest
 from .types import Statistics
 from .types import UpdateDomainRequest
+from .types import UpdateProjectSettingsRequest
 from .types import UpdateWebhookRequest
 from .api import TemV1Alpha1API
 
@@ -67,6 +73,7 @@ __all__ = [
     "ListEmailsRequestOrderBy",
     "ListWebhookEventsRequestOrderBy",
     "ListWebhooksRequestOrderBy",
+    "ProjectSettingsPeriodicReportFrequency",
     "WebhookEventStatus",
     "WebhookEventType",
     "DomainRecordsDMARC",
@@ -84,6 +91,8 @@ __all__ = [
     "Domain",
     "WebhookEvent",
     "Webhook",
+    "ProjectSettingsPeriodicReport",
+    "UpdateProjectSettingsRequestUpdatePeriodicReport",
     "CancelEmailRequest",
     "CheckDomainRequest",
     "CreateDomainRequest",
@@ -95,6 +104,7 @@ __all__ = [
     "GetDomainLastStatusRequest",
     "GetDomainRequest",
     "GetEmailRequest",
+    "GetProjectSettingsRequest",
     "GetStatisticsRequest",
     "GetWebhookRequest",
     "ListDomainsRequest",
@@ -105,9 +115,11 @@ __all__ = [
     "ListWebhookEventsResponse",
     "ListWebhooksRequest",
     "ListWebhooksResponse",
+    "ProjectSettings",
     "RevokeDomainRequest",
     "Statistics",
     "UpdateDomainRequest",
+    "UpdateProjectSettingsRequest",
     "UpdateWebhookRequest",
     "TemV1Alpha1API",
 ]
