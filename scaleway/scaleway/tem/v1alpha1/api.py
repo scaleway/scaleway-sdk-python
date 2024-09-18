@@ -37,8 +37,11 @@ from .types import (
     ListEmailsResponse,
     ListWebhookEventsResponse,
     ListWebhooksResponse,
+    ProjectSettings,
     Statistics,
     UpdateDomainRequest,
+    UpdateProjectSettingsRequest,
+    UpdateProjectSettingsRequestUpdatePeriodicReport,
     UpdateWebhookRequest,
     Webhook,
     WebhookEvent,
@@ -57,11 +60,13 @@ from .marshalling import (
     unmarshal_ListEmailsResponse,
     unmarshal_ListWebhookEventsResponse,
     unmarshal_ListWebhooksResponse,
+    unmarshal_ProjectSettings,
     unmarshal_Statistics,
     marshal_CreateDomainRequest,
     marshal_CreateEmailRequest,
     marshal_CreateWebhookRequest,
     marshal_UpdateDomainRequest,
+    marshal_UpdateProjectSettingsRequest,
     marshal_UpdateWebhookRequest,
 )
 
@@ -1192,3 +1197,83 @@ class TemV1Alpha1API(API):
                 "domain_id": domain_id,
             },
         )
+
+    def get_project_settings(
+        self,
+        *,
+        region: Optional[Region] = None,
+        project_id: Optional[str] = None,
+    ) -> ProjectSettings:
+        """
+        List project settings.
+        Retrieve the project settings including periodic reports.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: ID of the project.
+        :return: :class:`ProjectSettings <ProjectSettings>`
+
+        Usage:
+        ::
+
+            result = api.get_project_settings()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_project_id = validate_path_param(
+            "project_id", project_id or self.client.default_project_id
+        )
+
+        res = self._request(
+            "GET",
+            f"/transactional-email/v1alpha1/regions/{param_region}/project/{param_project_id}/settings",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ProjectSettings(res.json())
+
+    def update_project_settings(
+        self,
+        *,
+        region: Optional[Region] = None,
+        project_id: Optional[str] = None,
+        periodic_report: Optional[
+            UpdateProjectSettingsRequestUpdatePeriodicReport
+        ] = None,
+    ) -> ProjectSettings:
+        """
+        Update project settings.
+        Update the project settings including periodic reports.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: ID of the project.
+        :param periodic_report: Periodic report update details - all fields are optional.
+        :return: :class:`ProjectSettings <ProjectSettings>`
+
+        Usage:
+        ::
+
+            result = api.update_project_settings()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_project_id = validate_path_param(
+            "project_id", project_id or self.client.default_project_id
+        )
+
+        res = self._request(
+            "PATCH",
+            f"/transactional-email/v1alpha1/regions/{param_region}/project/{param_project_id}/settings",
+            body=marshal_UpdateProjectSettingsRequest(
+                UpdateProjectSettingsRequest(
+                    region=region,
+                    project_id=project_id,
+                    periodic_report=periodic_report,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ProjectSettings(res.json())

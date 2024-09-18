@@ -120,6 +120,16 @@ class ListWebhooksRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ProjectSettingsPeriodicReportFrequency(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_FREQUENCY = "unknown_frequency"
+    MONTHLY = "monthly"
+    WEEKLY = "weekly"
+    DAILY = "daily"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class WebhookEventStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
     SENDING = "sending"
@@ -597,6 +607,52 @@ class Webhook:
 
 
 @dataclass
+class ProjectSettingsPeriodicReport:
+    enabled: bool
+    """
+    Enable or disable periodic report notifications.
+    """
+
+    frequency: ProjectSettingsPeriodicReportFrequency
+    """
+    At which frequency you receive periodic report notifications.
+    """
+
+    sending_hour: int
+    """
+    At which hour you receive periodic report notifications.
+    """
+
+    sending_day: int
+    """
+    On which day you receive periodic report notifications (1-7 weekly, 1-28 monthly).
+    """
+
+
+@dataclass
+class UpdateProjectSettingsRequestUpdatePeriodicReport:
+    enabled: Optional[bool]
+    """
+    (Optional) Enable or disable periodic report notifications.
+    """
+
+    frequency: Optional[ProjectSettingsPeriodicReportFrequency]
+    """
+    (Optional) At which frequency you receive periodic report notifications.
+    """
+
+    sending_hour: Optional[int]
+    """
+    (Optional) At which hour you receive periodic report notifications.
+    """
+
+    sending_day: Optional[int]
+    """
+    (Optional) On which day you receive periodic report notifications (1-7 weekly, 1-28 monthly).
+    """
+
+
+@dataclass
 class CancelEmailRequest:
     email_id: str
     """
@@ -831,6 +887,19 @@ class GetEmailRequest:
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetProjectSettingsRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    ID of the project.
     """
 
 
@@ -1144,6 +1213,14 @@ class ListWebhooksResponse:
 
 
 @dataclass
+class ProjectSettings:
+    periodic_report: Optional[ProjectSettingsPeriodicReport]
+    """
+    Information about your periodic report.
+    """
+
+
+@dataclass
 class RevokeDomainRequest:
     domain_id: str
     """
@@ -1204,6 +1281,24 @@ class UpdateDomainRequest:
     autoconfig: Optional[bool]
     """
     (Optional) If set to true, activate auto-configuration of the domain's DNS zone.
+    """
+
+
+@dataclass
+class UpdateProjectSettingsRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    ID of the project.
+    """
+
+    periodic_report: Optional[UpdateProjectSettingsRequestUpdatePeriodicReport]
+    """
+    Periodic report update details - all fields are optional.
     """
 
 
