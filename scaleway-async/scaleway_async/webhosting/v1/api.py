@@ -833,6 +833,7 @@ class WebhostingV1HostingAPI(API):
         offer_options: Optional[List[OfferOptionRequest]] = None,
         language: Optional[StdLanguageCode] = None,
         domain_configuration: Optional[CreateHostingRequestDomainConfiguration] = None,
+        skip_welcome_email: Optional[bool] = None,
     ) -> Hosting:
         """
         Order a Web Hosting plan.
@@ -846,6 +847,7 @@ class WebhostingV1HostingAPI(API):
         :param offer_options: List of the Web Hosting plan options IDs with their quantities.
         :param language: Default language for the control panel interface.
         :param domain_configuration: Indicates whether to update hosting domain name servers and DNS records for domains managed by Scaleway Elements.
+        :param skip_welcome_email: Indicates whether to skip a welcome email to the contact email containing hosting info.
         :return: :class:`Hosting <Hosting>`
 
         Usage:
@@ -876,6 +878,7 @@ class WebhostingV1HostingAPI(API):
                     offer_options=offer_options,
                     language=language,
                     domain_configuration=domain_configuration,
+                    skip_welcome_email=skip_welcome_email,
                 ),
                 self.client,
             ),
