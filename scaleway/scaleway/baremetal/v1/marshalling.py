@@ -14,6 +14,16 @@ from scaleway_core.utils import (
     resolve_one_of,
 )
 from .types import (
+    SchemaLogicalVolume,
+    SchemaPartition,
+    SchemaVolumeGroup,
+    SchemaPool,
+    SchemaDisk,
+    SchemaFilesystem,
+    SchemaLVM,
+    SchemaRAID,
+    SchemaZFS,
+    Schema,
     IP,
     OSOSField,
     OS,
@@ -59,7 +69,266 @@ from .types import (
     UpdateIPRequest,
     UpdateServerRequest,
     UpdateSettingRequest,
+    ValidatePartitioningSchemaRequest,
 )
+
+
+def unmarshal_SchemaLogicalVolume(data: Any) -> SchemaLogicalVolume:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'SchemaLogicalVolume' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+
+    field = data.get("type", None)
+    if field is not None:
+        args["type_"] = field
+
+    field = data.get("size", None)
+    if field is not None:
+        args["size"] = field
+
+    field = data.get("striped_number", None)
+    if field is not None:
+        args["striped_number"] = field
+
+    field = data.get("mirror_number", None)
+    if field is not None:
+        args["mirror_number"] = field
+
+    return SchemaLogicalVolume(**args)
+
+
+def unmarshal_SchemaPartition(data: Any) -> SchemaPartition:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'SchemaPartition' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("label", None)
+    if field is not None:
+        args["label"] = field
+
+    field = data.get("number", None)
+    if field is not None:
+        args["number"] = field
+
+    field = data.get("size", None)
+    if field is not None:
+        args["size"] = field
+
+    return SchemaPartition(**args)
+
+
+def unmarshal_SchemaVolumeGroup(data: Any) -> SchemaVolumeGroup:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'SchemaVolumeGroup' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("volume_group_name", None)
+    if field is not None:
+        args["volume_group_name"] = field
+
+    field = data.get("physical_volumes", None)
+    if field is not None:
+        args["physical_volumes"] = field
+
+    field = data.get("logical_volumes", None)
+    if field is not None:
+        args["logical_volumes"] = (
+            [unmarshal_SchemaLogicalVolume(v) for v in field]
+            if field is not None
+            else None
+        )
+
+    return SchemaVolumeGroup(**args)
+
+
+def unmarshal_SchemaPool(data: Any) -> SchemaPool:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'SchemaPool' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+
+    field = data.get("type", None)
+    if field is not None:
+        args["type_"] = field
+
+    field = data.get("devices", None)
+    if field is not None:
+        args["devices"] = field
+
+    field = data.get("options", None)
+    if field is not None:
+        args["options"] = field
+
+    field = data.get("filesystem_options", None)
+    if field is not None:
+        args["filesystem_options"] = field
+
+    return SchemaPool(**args)
+
+
+def unmarshal_SchemaDisk(data: Any) -> SchemaDisk:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'SchemaDisk' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("device", None)
+    if field is not None:
+        args["device"] = field
+
+    field = data.get("partitions", None)
+    if field is not None:
+        args["partitions"] = (
+            [unmarshal_SchemaPartition(v) for v in field] if field is not None else None
+        )
+
+    return SchemaDisk(**args)
+
+
+def unmarshal_SchemaFilesystem(data: Any) -> SchemaFilesystem:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'SchemaFilesystem' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("device", None)
+    if field is not None:
+        args["device"] = field
+
+    field = data.get("format", None)
+    if field is not None:
+        args["format"] = field
+
+    field = data.get("mountpoint", None)
+    if field is not None:
+        args["mountpoint"] = field
+
+    return SchemaFilesystem(**args)
+
+
+def unmarshal_SchemaLVM(data: Any) -> SchemaLVM:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'SchemaLVM' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("volume_groups", None)
+    if field is not None:
+        args["volume_groups"] = (
+            [unmarshal_SchemaVolumeGroup(v) for v in field]
+            if field is not None
+            else None
+        )
+
+    return SchemaLVM(**args)
+
+
+def unmarshal_SchemaRAID(data: Any) -> SchemaRAID:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'SchemaRAID' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+
+    field = data.get("level", None)
+    if field is not None:
+        args["level"] = field
+
+    field = data.get("devices", None)
+    if field is not None:
+        args["devices"] = field
+
+    return SchemaRAID(**args)
+
+
+def unmarshal_SchemaZFS(data: Any) -> SchemaZFS:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'SchemaZFS' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("pools", None)
+    if field is not None:
+        args["pools"] = (
+            [unmarshal_SchemaPool(v) for v in field] if field is not None else None
+        )
+
+    return SchemaZFS(**args)
+
+
+def unmarshal_Schema(data: Any) -> Schema:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Schema' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("disks", None)
+    if field is not None:
+        args["disks"] = (
+            [unmarshal_SchemaDisk(v) for v in field] if field is not None else None
+        )
+
+    field = data.get("raids", None)
+    if field is not None:
+        args["raids"] = (
+            [unmarshal_SchemaRAID(v) for v in field] if field is not None else None
+        )
+
+    field = data.get("filesystems", None)
+    if field is not None:
+        args["filesystems"] = (
+            [unmarshal_SchemaFilesystem(v) for v in field]
+            if field is not None
+            else None
+        )
+
+    field = data.get("lvm", None)
+    if field is not None:
+        args["lvm"] = unmarshal_SchemaLVM(field)
+    else:
+        args["lvm"] = None
+
+    field = data.get("zfs", None)
+    if field is not None:
+        args["zfs"] = unmarshal_SchemaZFS(field)
+    else:
+        args["zfs"] = None
+
+    return Schema(**args)
 
 
 def unmarshal_IP(data: Any) -> IP:
@@ -1380,5 +1649,217 @@ def marshal_UpdateSettingRequest(
 
     if request.enabled is not None:
         output["enabled"] = request.enabled
+
+    return output
+
+
+def marshal_SchemaLogicalVolume(
+    request: SchemaLogicalVolume,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.type_ is not None:
+        output["type"] = str(request.type_)
+
+    if request.size is not None:
+        output["size"] = request.size
+
+    if request.striped_number is not None:
+        output["striped_number"] = request.striped_number
+
+    if request.mirror_number is not None:
+        output["mirror_number"] = request.mirror_number
+
+    return output
+
+
+def marshal_SchemaPartition(
+    request: SchemaPartition,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.label is not None:
+        output["label"] = str(request.label)
+
+    if request.number is not None:
+        output["number"] = request.number
+
+    if request.size is not None:
+        output["size"] = request.size
+
+    return output
+
+
+def marshal_SchemaVolumeGroup(
+    request: SchemaVolumeGroup,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.volume_group_name is not None:
+        output["volume_group_name"] = request.volume_group_name
+
+    if request.physical_volumes is not None:
+        output["physical_volumes"] = request.physical_volumes
+
+    if request.logical_volumes is not None:
+        output["logical_volumes"] = [
+            marshal_SchemaLogicalVolume(item, defaults)
+            for item in request.logical_volumes
+        ]
+
+    return output
+
+
+def marshal_SchemaPool(
+    request: SchemaPool,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.type_ is not None:
+        output["type"] = str(request.type_)
+
+    if request.devices is not None:
+        output["devices"] = request.devices
+
+    if request.options is not None:
+        output["options"] = request.options
+
+    if request.filesystem_options is not None:
+        output["filesystem_options"] = request.filesystem_options
+
+    return output
+
+
+def marshal_SchemaDisk(
+    request: SchemaDisk,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.device is not None:
+        output["device"] = request.device
+
+    if request.partitions is not None:
+        output["partitions"] = [
+            marshal_SchemaPartition(item, defaults) for item in request.partitions
+        ]
+
+    return output
+
+
+def marshal_SchemaFilesystem(
+    request: SchemaFilesystem,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.device is not None:
+        output["device"] = request.device
+
+    if request.format is not None:
+        output["format"] = str(request.format)
+
+    if request.mountpoint is not None:
+        output["mountpoint"] = request.mountpoint
+
+    return output
+
+
+def marshal_SchemaLVM(
+    request: SchemaLVM,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.volume_groups is not None:
+        output["volume_groups"] = [
+            marshal_SchemaVolumeGroup(item, defaults) for item in request.volume_groups
+        ]
+
+    return output
+
+
+def marshal_SchemaRAID(
+    request: SchemaRAID,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.level is not None:
+        output["level"] = str(request.level)
+
+    if request.devices is not None:
+        output["devices"] = request.devices
+
+    return output
+
+
+def marshal_SchemaZFS(
+    request: SchemaZFS,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.pools is not None:
+        output["pools"] = [marshal_SchemaPool(item, defaults) for item in request.pools]
+
+    return output
+
+
+def marshal_Schema(
+    request: Schema,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.disks is not None:
+        output["disks"] = [marshal_SchemaDisk(item, defaults) for item in request.disks]
+
+    if request.raids is not None:
+        output["raids"] = [marshal_SchemaRAID(item, defaults) for item in request.raids]
+
+    if request.filesystems is not None:
+        output["filesystems"] = [
+            marshal_SchemaFilesystem(item, defaults) for item in request.filesystems
+        ]
+
+    if request.lvm is not None:
+        output["lvm"] = marshal_SchemaLVM(request.lvm, defaults)
+
+    if request.zfs is not None:
+        output["zfs"] = marshal_SchemaZFS(request.zfs, defaults)
+
+    return output
+
+
+def marshal_ValidatePartitioningSchemaRequest(
+    request: ValidatePartitioningSchemaRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.offer_id is not None:
+        output["offer_id"] = request.offer_id
+
+    if request.os_id is not None:
+        output["os_id"] = request.os_id
+
+    if request.partitioning_schema is not None:
+        output["partitioning_schema"] = marshal_Schema(
+            request.partitioning_schema, defaults
+        )
 
     return output

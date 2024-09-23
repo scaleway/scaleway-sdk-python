@@ -41,6 +41,7 @@ from .types import (
     PrivateNetworkApiAddServerPrivateNetworkRequest,
     PrivateNetworkApiSetServerPrivateNetworksRequest,
     RebootServerRequest,
+    Schema,
     Server,
     ServerEvent,
     ServerPrivateNetwork,
@@ -51,11 +52,13 @@ from .types import (
     UpdateIPRequest,
     UpdateServerRequest,
     UpdateSettingRequest,
+    ValidatePartitioningSchemaRequest,
 )
 from .content import (
     SERVER_TRANSIENT_STATUSES,
 )
 from .marshalling import (
+    unmarshal_Schema,
     unmarshal_IP,
     unmarshal_OS,
     unmarshal_Offer,
@@ -84,6 +87,7 @@ from .marshalling import (
     marshal_UpdateIPRequest,
     marshal_UpdateServerRequest,
     marshal_UpdateSettingRequest,
+    marshal_ValidatePartitioningSchemaRequest,
 )
 
 
@@ -708,6 +712,87 @@ class BaremetalV1API(API):
                 "order_by": order_by,
             },
         )
+
+    def get_default_partitioning_schema(
+        self,
+        *,
+        offer_id: str,
+        os_id: str,
+        zone: Optional[Zone] = None,
+    ) -> Schema:
+        """
+        Get default partitioning schema.
+        Get the default partitioning schema for the given offer ID and OS ID.
+        :param offer_id: ID of the offer.
+        :param os_id: ID of the OS.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :return: :class:`Schema <Schema>`
+
+        Usage:
+        ::
+
+            result = api.get_default_partitioning_schema(
+                offer_id="example",
+                os_id="example",
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+
+        res = self._request(
+            "GET",
+            f"/baremetal/v1/zones/{param_zone}/partitioning-schemas/default",
+            params={
+                "offer_id": offer_id,
+                "os_id": os_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Schema(res.json())
+
+    def validate_partitioning_schema(
+        self,
+        *,
+        offer_id: str,
+        os_id: str,
+        zone: Optional[Zone] = None,
+        partitioning_schema: Optional[Schema] = None,
+    ) -> None:
+        """
+        Validate client partitioning schema.
+        Validate the incoming partitioning schema from a user before installing the server. Return default ErrorCode if invalid.
+        :param offer_id: Offer ID of the server.
+        :param os_id: OS ID.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param partitioning_schema: Partitioning schema.
+
+        Usage:
+        ::
+
+            result = api.validate_partitioning_schema(
+                offer_id="example",
+                os_id="example",
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+
+        res = self._request(
+            "POST",
+            f"/baremetal/v1/zones/{param_zone}/partitioning-schemas/validate",
+            body=marshal_ValidatePartitioningSchemaRequest(
+                ValidatePartitioningSchemaRequest(
+                    offer_id=offer_id,
+                    os_id=os_id,
+                    zone=zone,
+                    partitioning_schema=partitioning_schema,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
 
     def start_bmc_access(
         self,
