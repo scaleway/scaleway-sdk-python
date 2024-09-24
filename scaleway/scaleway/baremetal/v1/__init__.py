@@ -8,6 +8,11 @@ from .types import ListServersRequestOrderBy
 from .types import ListSettingsRequestOrderBy
 from .types import OfferStock
 from .types import OfferSubscriptionPeriod
+from .types import SchemaFilesystemFormat
+from .types import SchemaLogicalVolumeType
+from .types import SchemaPartitionLabel
+from .types import SchemaPoolType
+from .types import SchemaRAIDLevel
 from .types import ServerBootType
 from .types import ServerInstallStatus
 from .content import SERVER_INSTALL_TRANSIENT_STATUSES
@@ -18,11 +23,21 @@ from .content import SERVER_PRIVATE_NETWORK_TRANSIENT_STATUSES
 from .types import ServerStatus
 from .content import SERVER_TRANSIENT_STATUSES
 from .types import SettingType
+from .types import SchemaLogicalVolume
+from .types import SchemaPartition
+from .types import SchemaVolumeGroup
+from .types import SchemaPool
+from .types import SchemaDisk
+from .types import SchemaFilesystem
+from .types import SchemaLVM
+from .types import SchemaRAID
+from .types import SchemaZFS
 from .types import CertificationOption
 from .types import LicenseOption
 from .types import PrivateNetworkOption
 from .types import PublicBandwidthOption
 from .types import RemoteAccessOption
+from .types import Schema
 from .types import OSOSField
 from .types import CPU
 from .types import Disk
@@ -48,6 +63,7 @@ from .types import CreateServerRequest
 from .types import DeleteOptionServerRequest
 from .types import DeleteServerRequest
 from .types import GetBMCAccessRequest
+from .types import GetDefaultPartitioningSchemaRequest
 from .types import GetOSRequest
 from .types import GetOfferRequest
 from .types import GetOptionRequest
@@ -81,6 +97,7 @@ from .types import StopServerRequest
 from .types import UpdateIPRequest
 from .types import UpdateServerRequest
 from .types import UpdateSettingRequest
+from .types import ValidatePartitioningSchemaRequest
 from .api import BaremetalV1API
 from .api import BaremetalV1PrivateNetworkAPI
 
@@ -93,6 +110,11 @@ __all__ = [
     "ListSettingsRequestOrderBy",
     "OfferStock",
     "OfferSubscriptionPeriod",
+    "SchemaFilesystemFormat",
+    "SchemaLogicalVolumeType",
+    "SchemaPartitionLabel",
+    "SchemaPoolType",
+    "SchemaRAIDLevel",
     "ServerBootType",
     "ServerInstallStatus",
     "SERVER_INSTALL_TRANSIENT_STATUSES",
@@ -103,11 +125,21 @@ __all__ = [
     "ServerStatus",
     "SERVER_TRANSIENT_STATUSES",
     "SettingType",
+    "SchemaLogicalVolume",
+    "SchemaPartition",
+    "SchemaVolumeGroup",
+    "SchemaPool",
+    "SchemaDisk",
+    "SchemaFilesystem",
+    "SchemaLVM",
+    "SchemaRAID",
+    "SchemaZFS",
     "CertificationOption",
     "LicenseOption",
     "PrivateNetworkOption",
     "PublicBandwidthOption",
     "RemoteAccessOption",
+    "Schema",
     "OSOSField",
     "CPU",
     "Disk",
@@ -133,6 +165,7 @@ __all__ = [
     "DeleteOptionServerRequest",
     "DeleteServerRequest",
     "GetBMCAccessRequest",
+    "GetDefaultPartitioningSchemaRequest",
     "GetOSRequest",
     "GetOfferRequest",
     "GetOptionRequest",
@@ -166,6 +199,7 @@ __all__ = [
     "UpdateIPRequest",
     "UpdateServerRequest",
     "UpdateSettingRequest",
+    "ValidatePartitioningSchemaRequest",
     "BaremetalV1API",
     "BaremetalV1PrivateNetworkAPI",
 ]

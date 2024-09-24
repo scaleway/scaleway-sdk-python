@@ -87,6 +87,71 @@ class OfferSubscriptionPeriod(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class SchemaFilesystemFormat(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_FORMAT = "unknown_format"
+    FAT32 = "fat32"
+    EXT4 = "ext4"
+    SWAP = "swap"
+    ZFS = "zfs"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class SchemaLogicalVolumeType(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_RAID_TYPE = "unknown_raid_type"
+    STRIPED = "striped"
+    MIRROR = "mirror"
+    RAID0 = "raid0"
+    RAID1 = "raid1"
+    RAID5 = "raid5"
+    RAID6 = "raid6"
+    RAID10 = "raid10"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class SchemaPartitionLabel(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_PARTITION_LABEL = "unknown_partition_label"
+    UEFI = "uefi"
+    LEGACY = "legacy"
+    ROOT = "root"
+    BOOT = "boot"
+    SWAP = "swap"
+    DATA = "data"
+    HOME = "home"
+    RAID = "raid"
+    LVM = "lvm"
+    ZFS = "zfs"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class SchemaPoolType(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_TYPE = "unknown_type"
+    NO_RAID = "no_raid"
+    MIRROR = "mirror"
+    RAIDZ1 = "raidz1"
+    RAIDZ2 = "raidz2"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class SchemaRAIDLevel(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_RAID_LEVEL = "unknown_raid_level"
+    RAID_LEVEL_0 = "raid_level_0"
+    RAID_LEVEL_1 = "raid_level_1"
+    RAID_LEVEL_5 = "raid_level_5"
+    RAID_LEVEL_6 = "raid_level_6"
+    RAID_LEVEL_10 = "raid_level_10"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ServerBootType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_BOOT_TYPE = "unknown_boot_type"
     NORMAL = "normal"
@@ -166,6 +231,85 @@ class SettingType(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
+class SchemaLogicalVolume:
+    name: str
+
+    type_: SchemaLogicalVolumeType
+
+    size: int
+
+    striped_number: int
+
+    mirror_number: int
+
+
+@dataclass
+class SchemaPartition:
+    label: SchemaPartitionLabel
+
+    number: int
+
+    size: int
+
+
+@dataclass
+class SchemaVolumeGroup:
+    volume_group_name: str
+
+    physical_volumes: List[str]
+
+    logical_volumes: List[SchemaLogicalVolume]
+
+
+@dataclass
+class SchemaPool:
+    name: str
+
+    type_: SchemaPoolType
+
+    devices: List[str]
+
+    options: List[str]
+
+    filesystem_options: List[str]
+
+
+@dataclass
+class SchemaDisk:
+    device: str
+
+    partitions: List[SchemaPartition]
+
+
+@dataclass
+class SchemaFilesystem:
+    device: str
+
+    format: SchemaFilesystemFormat
+
+    mountpoint: str
+
+
+@dataclass
+class SchemaLVM:
+    volume_groups: List[SchemaVolumeGroup]
+
+
+@dataclass
+class SchemaRAID:
+    name: str
+
+    level: SchemaRAIDLevel
+
+    devices: List[str]
+
+
+@dataclass
+class SchemaZFS:
+    pools: List[SchemaPool]
+
+
+@dataclass
 class CertificationOption:
     pass
 
@@ -188,6 +332,19 @@ class PublicBandwidthOption:
 @dataclass
 class RemoteAccessOption:
     pass
+
+
+@dataclass
+class Schema:
+    disks: List[SchemaDisk]
+
+    raids: List[SchemaRAID]
+
+    filesystems: List[SchemaFilesystem]
+
+    lvm: Optional[SchemaLVM]
+
+    zfs: Optional[SchemaZFS]
 
 
 @dataclass
@@ -1031,6 +1188,24 @@ class GetBMCAccessRequest:
 
 
 @dataclass
+class GetDefaultPartitioningSchemaRequest:
+    offer_id: str
+    """
+    ID of the offer.
+    """
+
+    os_id: str
+    """
+    ID of the OS.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
 class GetOSRequest:
     os_id: str
     """
@@ -1672,4 +1847,27 @@ class UpdateSettingRequest:
     enabled: Optional[bool]
     """
     Defines whether the setting is enabled.
+    """
+
+
+@dataclass
+class ValidatePartitioningSchemaRequest:
+    offer_id: str
+    """
+    Offer ID of the server.
+    """
+
+    os_id: str
+    """
+    OS ID.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    partitioning_schema: Optional[Schema]
+    """
+    Partitioning schema.
     """
