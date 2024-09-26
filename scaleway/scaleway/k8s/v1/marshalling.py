@@ -493,6 +493,12 @@ def unmarshal_Cluster(data: Any) -> Cluster:
     else:
         args["sbs_csi_enabled"] = None
 
+    field = data.get("full_vpc_integraton_enabled", None)
+    if field is not None:
+        args["full_vpc_integraton_enabled"] = field
+    else:
+        args["full_vpc_integraton_enabled"] = None
+
     return Cluster(**args)
 
 
