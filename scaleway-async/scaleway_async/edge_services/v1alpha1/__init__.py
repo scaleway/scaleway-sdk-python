@@ -14,6 +14,7 @@ from .types import PipelineErrorStage
 from .types import PipelineErrorType
 from .types import PipelineStatus
 from .content import PIPELINE_TRANSIENT_STATUSES
+from .types import PlanName
 from .types import PurgeRequestStatus
 from .content import PURGE_REQUEST_TRANSIENT_STATUSES
 from .types import ScalewayLb
@@ -26,6 +27,7 @@ from .types import BackendStage
 from .types import CacheStage
 from .types import DNSStage
 from .types import Pipeline
+from .types import PlanDetails
 from .types import PurgeRequest
 from .types import TLSStage
 from .types import TLSSecretsConfig
@@ -43,11 +45,13 @@ from .types import CreatePurgeRequestRequest
 from .types import CreateTLSStageRequest
 from .types import DeleteBackendStageRequest
 from .types import DeleteCacheStageRequest
+from .types import DeleteCurrentPlanRequest
 from .types import DeleteDNSStageRequest
 from .types import DeletePipelineRequest
 from .types import DeleteTLSStageRequest
 from .types import GetBackendStageRequest
 from .types import GetCacheStageRequest
+from .types import GetCurrentPlanRequest
 from .types import GetDNSStageRequest
 from .types import GetPipelineRequest
 from .types import GetPurgeRequestRequest
@@ -60,10 +64,13 @@ from .types import ListDNSStagesRequest
 from .types import ListDNSStagesResponse
 from .types import ListPipelinesRequest
 from .types import ListPipelinesResponse
+from .types import ListPlansResponse
 from .types import ListPurgeRequestsRequest
 from .types import ListPurgeRequestsResponse
 from .types import ListTLSStagesRequest
 from .types import ListTLSStagesResponse
+from .types import Plan
+from .types import SelectPlanRequest
 from .types import UpdateBackendStageRequest
 from .types import UpdateCacheStageRequest
 from .types import UpdateDNSStageRequest
@@ -86,6 +93,7 @@ __all__ = [
     "PipelineErrorType",
     "PipelineStatus",
     "PIPELINE_TRANSIENT_STATUSES",
+    "PlanName",
     "PurgeRequestStatus",
     "PURGE_REQUEST_TRANSIENT_STATUSES",
     "ScalewayLb",
@@ -98,6 +106,7 @@ __all__ = [
     "CacheStage",
     "DNSStage",
     "Pipeline",
+    "PlanDetails",
     "PurgeRequest",
     "TLSStage",
     "TLSSecretsConfig",
@@ -115,11 +124,13 @@ __all__ = [
     "CreateTLSStageRequest",
     "DeleteBackendStageRequest",
     "DeleteCacheStageRequest",
+    "DeleteCurrentPlanRequest",
     "DeleteDNSStageRequest",
     "DeletePipelineRequest",
     "DeleteTLSStageRequest",
     "GetBackendStageRequest",
     "GetCacheStageRequest",
+    "GetCurrentPlanRequest",
     "GetDNSStageRequest",
     "GetPipelineRequest",
     "GetPurgeRequestRequest",
@@ -132,10 +143,13 @@ __all__ = [
     "ListDNSStagesResponse",
     "ListPipelinesRequest",
     "ListPipelinesResponse",
+    "ListPlansResponse",
     "ListPurgeRequestsRequest",
     "ListPurgeRequestsResponse",
     "ListTLSStagesRequest",
     "ListTLSStagesResponse",
+    "Plan",
+    "SelectPlanRequest",
     "UpdateBackendStageRequest",
     "UpdateCacheStageRequest",
     "UpdateDNSStageRequest",

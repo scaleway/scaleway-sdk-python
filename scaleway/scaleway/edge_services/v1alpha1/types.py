@@ -159,6 +159,16 @@ class PipelineStatus(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class PlanName(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_NAME = "unknown_name"
+    STARTER = "starter"
+    PROFESSIONAL = "professional"
+    ADVANCED = "advanced"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class PurgeRequestStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
     DONE = "done"
@@ -413,6 +423,15 @@ class Pipeline:
 
 
 @dataclass
+class PlanDetails:
+    plan_name: PlanName
+
+    package_gb: int
+
+    pipeline_limit: int
+
+
+@dataclass
 class PurgeRequest:
     id: str
     """
@@ -658,6 +677,11 @@ class DeleteCacheStageRequest:
 
 
 @dataclass
+class DeleteCurrentPlanRequest:
+    project_id: Optional[str]
+
+
+@dataclass
 class DeleteDNSStageRequest:
     dns_stage_id: str
     """
@@ -695,6 +719,11 @@ class GetCacheStageRequest:
     """
     ID of the requested cache stage.
     """
+
+
+@dataclass
+class GetCurrentPlanRequest:
+    project_id: Optional[str]
 
 
 @dataclass
@@ -924,6 +953,13 @@ class ListPipelinesResponse:
 
 
 @dataclass
+class ListPlansResponse:
+    total_count: int
+
+    plans: List[PlanDetails]
+
+
+@dataclass
 class ListPurgeRequestsRequest:
     order_by: Optional[ListPurgeRequestsRequestOrderBy]
     """
@@ -1018,6 +1054,18 @@ class ListTLSStagesResponse:
     """
     Count of all TLS stages matching the requested criteria.
     """
+
+
+@dataclass
+class Plan:
+    plan_name: PlanName
+
+
+@dataclass
+class SelectPlanRequest:
+    project_id: Optional[str]
+
+    plan_name: Optional[PlanName]
 
 
 @dataclass
