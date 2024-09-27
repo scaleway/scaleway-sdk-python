@@ -112,6 +112,10 @@ def unmarshal_DiscountFilter(data: Any) -> DiscountFilter:
     if field is not None:
         args["value"] = field
 
+    field = data.get("exclude", None)
+    if field is not None:
+        args["exclude"] = field
+
     return DiscountFilter(**args)
 
 
