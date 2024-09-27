@@ -102,6 +102,11 @@ class DiscountFilter:
     Value of filter, it can be a product/range/region/zone value.
     """
 
+    exclude: bool
+    """
+    Boolean to describe if filter is an excluding filter.
+    """
+
 
 @dataclass
 class GetConsumptionResponseConsumption:
