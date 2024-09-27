@@ -149,6 +149,11 @@ class DiscountFilter:
     Value of filter.
     """
 
+    exclude: bool
+    """
+    Boolean to describe if filter is an excluding filter.
+    """
+
 
 @dataclass
 class ListConsumptionsResponseConsumption:
