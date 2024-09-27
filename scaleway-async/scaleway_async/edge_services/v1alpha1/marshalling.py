@@ -18,9 +18,9 @@ from .types import (
     DNSStage,
     PipelineError,
     Pipeline,
-    PurgeRequest,
     TLSSecret,
     TLSStage,
+    PurgeRequest,
     CheckDomainResponse,
     CheckLbOriginResponse,
     CheckPEMChainResponse,
@@ -28,8 +28,11 @@ from .types import (
     ListCacheStagesResponse,
     ListDNSStagesResponse,
     ListPipelinesResponse,
+    PlanDetails,
+    ListPlansResponse,
     ListPurgeRequestsResponse,
     ListTLSStagesResponse,
+    Plan,
     CheckDomainRequest,
     CheckLbOriginRequest,
     CheckPEMChainRequestSecretChain,
@@ -40,6 +43,7 @@ from .types import (
     CreatePipelineRequest,
     CreatePurgeRequestRequest,
     CreateTLSStageRequest,
+    SelectPlanRequest,
     UpdateBackendStageRequest,
     UpdateCacheStageRequest,
     UpdateDNSStageRequest,
@@ -377,53 +381,6 @@ def unmarshal_Pipeline(data: Any) -> Pipeline:
     return Pipeline(**args)
 
 
-def unmarshal_PurgeRequest(data: Any) -> PurgeRequest:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'PurgeRequest' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("id", None)
-    if field is not None:
-        args["id"] = field
-
-    field = data.get("pipeline_id", None)
-    if field is not None:
-        args["pipeline_id"] = field
-
-    field = data.get("status", None)
-    if field is not None:
-        args["status"] = field
-
-    field = data.get("assets", None)
-    if field is not None:
-        args["assets"] = field
-    else:
-        args["assets"] = None
-
-    field = data.get("all", None)
-    if field is not None:
-        args["all"] = field
-    else:
-        args["all"] = None
-
-    field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
-
-    field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
-
-    return PurgeRequest(**args)
-
-
 def unmarshal_TLSSecret(data: Any) -> TLSSecret:
     if not isinstance(data, dict):
         raise TypeError(
@@ -508,6 +465,53 @@ def unmarshal_TLSStage(data: Any) -> TLSStage:
         args["backend_stage_id"] = None
 
     return TLSStage(**args)
+
+
+def unmarshal_PurgeRequest(data: Any) -> PurgeRequest:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PurgeRequest' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+
+    field = data.get("pipeline_id", None)
+    if field is not None:
+        args["pipeline_id"] = field
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+
+    field = data.get("assets", None)
+    if field is not None:
+        args["assets"] = field
+    else:
+        args["assets"] = None
+
+    field = data.get("all", None)
+    if field is not None:
+        args["all"] = field
+    else:
+        args["all"] = None
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
+    return PurgeRequest(**args)
 
 
 def unmarshal_CheckDomainResponse(data: Any) -> CheckDomainResponse:
@@ -643,6 +647,50 @@ def unmarshal_ListPipelinesResponse(data: Any) -> ListPipelinesResponse:
     return ListPipelinesResponse(**args)
 
 
+def unmarshal_PlanDetails(data: Any) -> PlanDetails:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PlanDetails' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("plan_name", None)
+    if field is not None:
+        args["plan_name"] = field
+
+    field = data.get("package_gb", None)
+    if field is not None:
+        args["package_gb"] = field
+
+    field = data.get("pipeline_limit", None)
+    if field is not None:
+        args["pipeline_limit"] = field
+
+    return PlanDetails(**args)
+
+
+def unmarshal_ListPlansResponse(data: Any) -> ListPlansResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListPlansResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+
+    field = data.get("plans", None)
+    if field is not None:
+        args["plans"] = (
+            [unmarshal_PlanDetails(v) for v in field] if field is not None else None
+        )
+
+    return ListPlansResponse(**args)
+
+
 def unmarshal_ListPurgeRequestsResponse(data: Any) -> ListPurgeRequestsResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -683,6 +731,21 @@ def unmarshal_ListTLSStagesResponse(data: Any) -> ListTLSStagesResponse:
         args["total_count"] = field
 
     return ListTLSStagesResponse(**args)
+
+
+def unmarshal_Plan(data: Any) -> Plan:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Plan' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("plan_name", None)
+    if field is not None:
+        args["plan_name"] = field
+
+    return Plan(**args)
 
 
 def marshal_CheckDomainRequest(
@@ -957,6 +1020,21 @@ def marshal_CreateTLSStageRequest(
 
     if request.managed_certificate is not None:
         output["managed_certificate"] = request.managed_certificate
+
+    return output
+
+
+def marshal_SelectPlanRequest(
+    request: SelectPlanRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    if request.plan_name is not None:
+        output["plan_name"] = str(request.plan_name)
 
     return output
 
