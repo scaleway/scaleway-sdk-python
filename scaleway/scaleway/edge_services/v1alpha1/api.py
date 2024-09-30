@@ -17,6 +17,7 @@ from .types import (
     ListPipelinesRequestOrderBy,
     ListPurgeRequestsRequestOrderBy,
     ListTLSStagesRequestOrderBy,
+    PlanName,
     BackendStage,
     CacheStage,
     CheckDomainRequest,
@@ -37,13 +38,16 @@ from .types import (
     ListCacheStagesResponse,
     ListDNSStagesResponse,
     ListPipelinesResponse,
+    ListPlansResponse,
     ListPurgeRequestsResponse,
     ListTLSStagesResponse,
     Pipeline,
+    Plan,
     PurgeRequest,
     ScalewayLb,
     ScalewayLbBackendConfig,
     ScalewayS3BackendConfig,
+    SelectPlanRequest,
     TLSSecret,
     TLSSecretsConfig,
     TLSStage,
@@ -62,8 +66,8 @@ from .marshalling import (
     unmarshal_CacheStage,
     unmarshal_DNSStage,
     unmarshal_Pipeline,
-    unmarshal_PurgeRequest,
     unmarshal_TLSStage,
+    unmarshal_PurgeRequest,
     unmarshal_CheckDomainResponse,
     unmarshal_CheckLbOriginResponse,
     unmarshal_CheckPEMChainResponse,
@@ -71,8 +75,10 @@ from .marshalling import (
     unmarshal_ListCacheStagesResponse,
     unmarshal_ListDNSStagesResponse,
     unmarshal_ListPipelinesResponse,
+    unmarshal_ListPlansResponse,
     unmarshal_ListPurgeRequestsResponse,
     unmarshal_ListTLSStagesResponse,
+    unmarshal_Plan,
     marshal_CheckDomainRequest,
     marshal_CheckLbOriginRequest,
     marshal_CheckPEMChainRequest,
@@ -82,6 +88,7 @@ from .marshalling import (
     marshal_CreatePipelineRequest,
     marshal_CreatePurgeRequestRequest,
     marshal_CreateTLSStageRequest,
+    marshal_SelectPlanRequest,
     marshal_UpdateBackendStageRequest,
     marshal_UpdateCacheStageRequest,
     marshal_UpdateDNSStageRequest,
@@ -1594,3 +1601,106 @@ class EdgeServicesV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_CheckLbOriginResponse(res.json())
+
+    def list_plans(
+        self,
+    ) -> ListPlansResponse:
+        """
+
+        :return: :class:`ListPlansResponse <ListPlansResponse>`
+
+        Usage:
+        ::
+
+            result = api.list_plans()
+        """
+
+        res = self._request(
+            "GET",
+            "/edge-services/v1alpha1/plans",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListPlansResponse(res.json())
+
+    def select_plan(
+        self,
+        *,
+        project_id: Optional[str] = None,
+        plan_name: Optional[PlanName] = None,
+    ) -> Plan:
+        """
+        :param project_id:
+        :param plan_name:
+        :return: :class:`Plan <Plan>`
+
+        Usage:
+        ::
+
+            result = api.select_plan()
+        """
+
+        res = self._request(
+            "PATCH",
+            "/edge-services/v1alpha1/current-plan",
+            body=marshal_SelectPlanRequest(
+                SelectPlanRequest(
+                    project_id=project_id,
+                    plan_name=plan_name,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Plan(res.json())
+
+    def get_current_plan(
+        self,
+        *,
+        project_id: Optional[str] = None,
+    ) -> Plan:
+        """
+        :param project_id:
+        :return: :class:`Plan <Plan>`
+
+        Usage:
+        ::
+
+            result = api.get_current_plan()
+        """
+
+        res = self._request(
+            "GET",
+            "/edge-services/v1alpha1/current-plan",
+            params={
+                "project_id": project_id or self.client.default_project_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Plan(res.json())
+
+    def delete_current_plan(
+        self,
+        *,
+        project_id: Optional[str] = None,
+    ) -> None:
+        """
+        :param project_id:
+
+        Usage:
+        ::
+
+            result = api.delete_current_plan()
+        """
+
+        res = self._request(
+            "DELETE",
+            "/edge-services/v1alpha1/current-plan",
+            params={
+                "project_id": project_id or self.client.default_project_id,
+            },
+        )
+
+        self._throw_on_error(res)
