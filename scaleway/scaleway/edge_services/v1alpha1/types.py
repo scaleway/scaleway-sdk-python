@@ -260,13 +260,6 @@ class TLSSecret:
 
 
 @dataclass
-class CheckPEMChainRequestSecretChain:
-    secret_id: str
-
-    secret_region: str
-
-
-@dataclass
 class BackendStage:
     id: str
     """
@@ -423,47 +416,6 @@ class Pipeline:
 
 
 @dataclass
-class PlanDetails:
-    plan_name: PlanName
-
-    package_gb: int
-
-    pipeline_limit: int
-
-
-@dataclass
-class PurgeRequest:
-    id: str
-    """
-    ID of the purge request.
-    """
-
-    pipeline_id: str
-    """
-    Pipeline ID the purge request belongs to.
-    """
-
-    status: PurgeRequestStatus
-    """
-    Status of the purge request.
-    """
-
-    created_at: Optional[datetime]
-    """
-    Date the purge request was created.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Date the purge request was last updated.
-    """
-
-    assets: Optional[List[str]]
-
-    all: Optional[bool]
-
-
-@dataclass
 class TLSStage:
     id: str
     """
@@ -508,6 +460,54 @@ class TLSStage:
     cache_stage_id: Optional[str]
 
     backend_stage_id: Optional[str]
+
+
+@dataclass
+class CheckPEMChainRequestSecretChain:
+    secret_id: str
+
+    secret_region: str
+
+
+@dataclass
+class PlanDetails:
+    plan_name: PlanName
+
+    package_gb: int
+
+    pipeline_limit: int
+
+
+@dataclass
+class PurgeRequest:
+    id: str
+    """
+    ID of the purge request.
+    """
+
+    pipeline_id: str
+    """
+    Pipeline ID the purge request belongs to.
+    """
+
+    status: PurgeRequestStatus
+    """
+    Status of the purge request.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Date the purge request was created.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Date the purge request was last updated.
+    """
+
+    assets: Optional[List[str]]
+
+    all: Optional[bool]
 
 
 @dataclass

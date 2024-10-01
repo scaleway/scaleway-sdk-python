@@ -18,9 +18,9 @@ from .types import (
     DNSStage,
     PipelineError,
     Pipeline,
-    PurgeRequest,
     TLSSecret,
     TLSStage,
+    PurgeRequest,
     CheckDomainResponse,
     CheckLbOriginResponse,
     CheckPEMChainResponse,
@@ -381,53 +381,6 @@ def unmarshal_Pipeline(data: Any) -> Pipeline:
     return Pipeline(**args)
 
 
-def unmarshal_PurgeRequest(data: Any) -> PurgeRequest:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'PurgeRequest' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("id", None)
-    if field is not None:
-        args["id"] = field
-
-    field = data.get("pipeline_id", None)
-    if field is not None:
-        args["pipeline_id"] = field
-
-    field = data.get("status", None)
-    if field is not None:
-        args["status"] = field
-
-    field = data.get("assets", None)
-    if field is not None:
-        args["assets"] = field
-    else:
-        args["assets"] = None
-
-    field = data.get("all", None)
-    if field is not None:
-        args["all"] = field
-    else:
-        args["all"] = None
-
-    field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
-
-    field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
-
-    return PurgeRequest(**args)
-
-
 def unmarshal_TLSSecret(data: Any) -> TLSSecret:
     if not isinstance(data, dict):
         raise TypeError(
@@ -512,6 +465,53 @@ def unmarshal_TLSStage(data: Any) -> TLSStage:
         args["backend_stage_id"] = None
 
     return TLSStage(**args)
+
+
+def unmarshal_PurgeRequest(data: Any) -> PurgeRequest:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PurgeRequest' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+
+    field = data.get("pipeline_id", None)
+    if field is not None:
+        args["pipeline_id"] = field
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+
+    field = data.get("assets", None)
+    if field is not None:
+        args["assets"] = field
+    else:
+        args["assets"] = None
+
+    field = data.get("all", None)
+    if field is not None:
+        args["all"] = field
+    else:
+        args["all"] = None
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
+    return PurgeRequest(**args)
 
 
 def unmarshal_CheckDomainResponse(data: Any) -> CheckDomainResponse:

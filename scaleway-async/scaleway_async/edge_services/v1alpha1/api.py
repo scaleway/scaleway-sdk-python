@@ -66,8 +66,8 @@ from .marshalling import (
     unmarshal_CacheStage,
     unmarshal_DNSStage,
     unmarshal_Pipeline,
-    unmarshal_PurgeRequest,
     unmarshal_TLSStage,
+    unmarshal_PurgeRequest,
     unmarshal_CheckDomainResponse,
     unmarshal_CheckLbOriginResponse,
     unmarshal_CheckPEMChainResponse,
@@ -1674,12 +1674,13 @@ class EdgeServicesV1Alpha1API(API):
             result = await api.get_current_plan()
         """
 
+        param_project_id = validate_path_param(
+            "project_id", project_id or self.client.default_project_id
+        )
+
         res = self._request(
             "GET",
-            "/edge-services/v1alpha1/current-plan",
-            params={
-                "project_id": project_id or self.client.default_project_id,
-            },
+            f"/edge-services/v1alpha1/current-plan/{param_project_id}",
         )
 
         self._throw_on_error(res)
@@ -1699,12 +1700,13 @@ class EdgeServicesV1Alpha1API(API):
             result = await api.delete_current_plan()
         """
 
+        param_project_id = validate_path_param(
+            "project_id", project_id or self.client.default_project_id
+        )
+
         res = self._request(
             "DELETE",
-            "/edge-services/v1alpha1/current-plan",
-            params={
-                "project_id": project_id or self.client.default_project_id,
-            },
+            f"/edge-services/v1alpha1/current-plan/{param_project_id}",
         )
 
         self._throw_on_error(res)

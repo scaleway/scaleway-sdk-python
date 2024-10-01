@@ -22,14 +22,14 @@ from .types import ScalewayLbBackendConfig
 from .types import ScalewayS3BackendConfig
 from .types import PipelineError
 from .types import TLSSecret
-from .types import CheckPEMChainRequestSecretChain
 from .types import BackendStage
 from .types import CacheStage
 from .types import DNSStage
 from .types import Pipeline
+from .types import TLSStage
+from .types import CheckPEMChainRequestSecretChain
 from .types import PlanDetails
 from .types import PurgeRequest
-from .types import TLSStage
 from .types import TLSSecretsConfig
 from .types import CheckDomainRequest
 from .types import CheckDomainResponse
@@ -101,14 +101,14 @@ __all__ = [
     "ScalewayS3BackendConfig",
     "PipelineError",
     "TLSSecret",
-    "CheckPEMChainRequestSecretChain",
     "BackendStage",
     "CacheStage",
     "DNSStage",
     "Pipeline",
+    "TLSStage",
+    "CheckPEMChainRequestSecretChain",
     "PlanDetails",
     "PurgeRequest",
-    "TLSStage",
     "TLSSecretsConfig",
     "CheckDomainRequest",
     "CheckDomainResponse",
