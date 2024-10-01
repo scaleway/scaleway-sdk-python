@@ -98,20 +98,6 @@ class SchemaFilesystemFormat(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
-class SchemaLogicalVolumeType(str, Enum, metaclass=StrEnumMeta):
-    UNKNOWN_RAID_TYPE = "unknown_raid_type"
-    STRIPED = "striped"
-    MIRROR = "mirror"
-    RAID0 = "raid0"
-    RAID1 = "raid1"
-    RAID5 = "raid5"
-    RAID6 = "raid6"
-    RAID10 = "raid10"
-
-    def __str__(self) -> str:
-        return str(self.value)
-
-
 class SchemaPartitionLabel(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_PARTITION_LABEL = "unknown_partition_label"
     UEFI = "uefi"
@@ -122,7 +108,6 @@ class SchemaPartitionLabel(str, Enum, metaclass=StrEnumMeta):
     DATA = "data"
     HOME = "home"
     RAID = "raid"
-    LVM = "lvm"
     ZFS = "zfs"
 
     def __str__(self) -> str:
@@ -231,34 +216,12 @@ class SettingType(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
-class SchemaLogicalVolume:
-    name: str
-
-    type_: SchemaLogicalVolumeType
-
-    size: int
-
-    striped_number: int
-
-    mirror_number: int
-
-
-@dataclass
 class SchemaPartition:
     label: SchemaPartitionLabel
 
     number: int
 
     size: int
-
-
-@dataclass
-class SchemaVolumeGroup:
-    volume_group_name: str
-
-    physical_volumes: List[str]
-
-    logical_volumes: List[SchemaLogicalVolume]
 
 
 @dataclass
@@ -288,11 +251,6 @@ class SchemaFilesystem:
     format: SchemaFilesystemFormat
 
     mountpoint: str
-
-
-@dataclass
-class SchemaLVM:
-    volume_groups: List[SchemaVolumeGroup]
 
 
 @dataclass
@@ -341,8 +299,6 @@ class Schema:
     raids: List[SchemaRAID]
 
     filesystems: List[SchemaFilesystem]
-
-    lvm: Optional[SchemaLVM]
 
     zfs: Optional[SchemaZFS]
 
