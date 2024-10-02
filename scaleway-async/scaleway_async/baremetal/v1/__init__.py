@@ -9,7 +9,6 @@ from .types import ListSettingsRequestOrderBy
 from .types import OfferStock
 from .types import OfferSubscriptionPeriod
 from .types import SchemaFilesystemFormat
-from .types import SchemaLogicalVolumeType
 from .types import SchemaPartitionLabel
 from .types import SchemaPoolType
 from .types import SchemaRAIDLevel
@@ -23,13 +22,10 @@ from .content import SERVER_PRIVATE_NETWORK_TRANSIENT_STATUSES
 from .types import ServerStatus
 from .content import SERVER_TRANSIENT_STATUSES
 from .types import SettingType
-from .types import SchemaLogicalVolume
 from .types import SchemaPartition
-from .types import SchemaVolumeGroup
 from .types import SchemaPool
 from .types import SchemaDisk
 from .types import SchemaFilesystem
-from .types import SchemaLVM
 from .types import SchemaRAID
 from .types import SchemaZFS
 from .types import CertificationOption
@@ -111,7 +107,6 @@ __all__ = [
     "OfferStock",
     "OfferSubscriptionPeriod",
     "SchemaFilesystemFormat",
-    "SchemaLogicalVolumeType",
     "SchemaPartitionLabel",
     "SchemaPoolType",
     "SchemaRAIDLevel",
@@ -125,13 +120,10 @@ __all__ = [
     "ServerStatus",
     "SERVER_TRANSIENT_STATUSES",
     "SettingType",
-    "SchemaLogicalVolume",
     "SchemaPartition",
-    "SchemaVolumeGroup",
     "SchemaPool",
     "SchemaDisk",
     "SchemaFilesystem",
-    "SchemaLVM",
     "SchemaRAID",
     "SchemaZFS",
     "CertificationOption",
