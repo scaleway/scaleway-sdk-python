@@ -22,6 +22,9 @@ from .timeseries import marshal_TimeSeries
 from .timeseries import unmarshal_TimeSeriesPoint
 from .timeseries import marshal_TimeSeriesPoint
 
+from .decimal import unmarshal_Decimal
+from .decimal import marshal_Decimal
+
 __all__ = [
     "Money",
     "unmarshal_Money",
@@ -42,4 +45,6 @@ __all__ = [
     "marshal_TimeSeries",
     "unmarshal_TimeSeriesPoint",
     "marshal_TimeSeriesPoint",
+    "unmarshal_Decimal",
+    "marshal_Decimal"
 ]
