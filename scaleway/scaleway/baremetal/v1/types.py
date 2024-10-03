@@ -93,6 +93,7 @@ class SchemaFilesystemFormat(str, Enum, metaclass=StrEnumMeta):
     EXT4 = "ext4"
     SWAP = "swap"
     ZFS = "zfs"
+    XFS = "xfs"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -520,6 +521,11 @@ class ServerInstall:
     Address of the installed service.
     """
 
+    partitioning_schema: Optional[Schema]
+    """
+    Partitioning schema.
+    """
+
 
 @dataclass
 class ServerOption:
@@ -607,6 +613,11 @@ class CreateServerRequestInstall:
     service_password: Optional[str]
     """
     Password used for the service to install.
+    """
+
+    partitioning_schema: Optional[Schema]
+    """
+    Partitioning schema.
     """
 
 
@@ -1279,6 +1290,11 @@ class InstallServerRequest:
     service_password: Optional[str]
     """
     Password used for the service to install.
+    """
+
+    partitioning_schema: Optional[Schema]
+    """
+    Partitioning schema.
     """
 
 
