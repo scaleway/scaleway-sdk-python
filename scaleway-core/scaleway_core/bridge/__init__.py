@@ -46,5 +46,5 @@ __all__ = [
     "unmarshal_TimeSeriesPoint",
     "marshal_TimeSeriesPoint",
     "unmarshal_Decimal",
-    "marshal_Decimal"
+    "marshal_Decimal",
 ]

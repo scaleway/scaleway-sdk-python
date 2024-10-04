@@ -1,6 +1,7 @@
 from decimal import Decimal
 from typing import Any, Dict
 
+
 def unmarshal_Decimal(data: Any) -> Decimal:
     """
     Unmarshal an instance of Decimal from the given data.
@@ -14,7 +15,6 @@ def unmarshal_Decimal(data: Any) -> Decimal:
         raise TypeError(
             "Unmarshalling the type 'Decimal' failed as data does not contain a 'value' key."
         )
-
 
     return Decimal(data["value"])
 
