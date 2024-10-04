@@ -17,6 +17,7 @@ from .types import (
     Domain,
     Webhook,
     CreateEmailResponse,
+    DomainLastStatusAutoconfigState,
     DomainLastStatusDkimRecord,
     DomainLastStatusDmarcRecord,
     DomainLastStatusSpfRecord,
@@ -423,6 +424,33 @@ def unmarshal_CreateEmailResponse(data: Any) -> CreateEmailResponse:
     return CreateEmailResponse(**args)
 
 
+def unmarshal_DomainLastStatusAutoconfigState(
+    data: Any,
+) -> DomainLastStatusAutoconfigState:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'DomainLastStatusAutoconfigState' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("enabled", None)
+    if field is not None:
+        args["enabled"] = field
+
+    field = data.get("autoconfigurable", None)
+    if field is not None:
+        args["autoconfigurable"] = field
+
+    field = data.get("reason", None)
+    if field is not None:
+        args["reason"] = field
+    else:
+        args["reason"] = None
+
+    return DomainLastStatusAutoconfigState(**args)
+
+
 def unmarshal_DomainLastStatusDkimRecord(data: Any) -> DomainLastStatusDkimRecord:
     if not isinstance(data, dict):
         raise TypeError(
@@ -543,6 +571,12 @@ def unmarshal_DomainLastStatus(data: Any) -> DomainLastStatus:
         args["dmarc_record"] = unmarshal_DomainLastStatusDmarcRecord(field)
     else:
         args["dmarc_record"] = None
+
+    field = data.get("autoconfig_state", None)
+    if field is not None:
+        args["autoconfig_state"] = unmarshal_DomainLastStatusAutoconfigState(field)
+    else:
+        args["autoconfig_state"] = None
 
     return DomainLastStatus(**args)
 
