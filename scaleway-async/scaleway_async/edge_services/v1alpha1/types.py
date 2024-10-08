@@ -8,6 +8,7 @@ from enum import Enum
 from typing import List, Optional
 
 from scaleway_core.bridge import (
+    Money,
     Region,
     Zone,
 )
@@ -472,10 +473,19 @@ class CheckPEMChainRequestSecretChain:
 @dataclass
 class PlanDetails:
     plan_name: PlanName
+    """
+    Subscription plan name.
+    """
 
     package_gb: int
+    """
+    Amount of egress data from cache included in subscription plan.
+    """
 
     pipeline_limit: int
+    """
+    Number of pipeline included in subscription plan.
+    """
 
 
 @dataclass
@@ -710,6 +720,54 @@ class GetBackendStageRequest:
     backend_stage_id: str
     """
     ID of the requested backend stage.
+    """
+
+
+@dataclass
+class GetBillingRequest:
+    project_id: Optional[str]
+
+
+@dataclass
+class GetBillingResponse:
+    pipeline_number: int
+    """
+    Total number of pipeline currently configured.
+    """
+
+    current_plan_cache_usage: int
+    """
+    Total amount of data egressed from cache in current subscription plan.
+    """
+
+    extra_cache_usage: int
+    """
+    Total amount of data egressed from cache not included in the plans.
+    """
+
+    current_plan: Optional[PlanDetails]
+    """
+    Information on the current edge-service subscription plan.
+    """
+
+    plan_cost: Optional[Money]
+    """
+    Price of the current subscription plan.
+    """
+
+    extra_pipelines_cost: Optional[Money]
+    """
+    Cost to date of the pipelines not included in the plans.
+    """
+
+    extra_cache_cost: Optional[Money]
+    """
+    Cost to date of the data egressed from cache not included in the plans.
+    """
+
+    total_cost: Optional[Money]
+    """
+    Total cost to date of edge-service product for the month including current plan, previous plans, extra pipelines and extra egress cache data.
     """
 
 
