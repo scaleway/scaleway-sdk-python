@@ -287,6 +287,11 @@ class APIKey:
     Defines whether or not the API key is editable.
     """
 
+    managed: bool
+    """
+    Defines whether or not the API key is managed.
+    """
+
     creation_ip: str
     """
     IP address of the device that created the API key.
@@ -342,6 +347,16 @@ class Application:
     editable: bool
     """
     Defines whether or not the application is editable.
+    """
+
+    deletable: bool
+    """
+    Defines whether or not the application is deletable.
+    """
+
+    managed: bool
+    """
+    Defines whether or not the application is managed.
     """
 
     nb_api_keys: int
@@ -400,6 +415,21 @@ class Group:
     tags: List[str]
     """
     Tags associated to the group.
+    """
+
+    editable: bool
+    """
+    Defines whether or not the group is editable.
+    """
+
+    deletable: bool
+    """
+    Defines whether or not the group is deletable.
+    """
+
+    managed: bool
+    """
+    Defines whether or not the group is managed.
     """
 
     created_at: Optional[datetime]
@@ -511,9 +541,29 @@ class Policy:
     Organization ID of the policy.
     """
 
+    created_at: Optional[datetime]
+    """
+    Date and time of policy creation.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Date and time of last policy update.
+    """
+
     editable: bool
     """
     Defines whether or not a policy is editable.
+    """
+
+    deletable: bool
+    """
+    Defines whether or not a policy is deletable.
+    """
+
+    managed: bool
+    """
+    Defines whether or not a policy is managed.
     """
 
     nb_rules: int
@@ -534,16 +584,6 @@ class Policy:
     tags: List[str]
     """
     Tags associated with the policy.
-    """
-
-    created_at: Optional[datetime]
-    """
-    Date and time of policy creation.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Date and time of last policy update.
     """
 
     user_id: Optional[str]
