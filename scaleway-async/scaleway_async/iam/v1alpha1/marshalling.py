@@ -130,6 +130,10 @@ def unmarshal_APIKey(data: Any) -> APIKey:
     if field is not None:
         args["editable"] = field
 
+    field = data.get("managed", None)
+    if field is not None:
+        args["managed"] = field
+
     field = data.get("creation_ip", None)
     if field is not None:
         args["creation_ip"] = field
@@ -201,6 +205,14 @@ def unmarshal_Application(data: Any) -> Application:
     if field is not None:
         args["editable"] = field
 
+    field = data.get("deletable", None)
+    if field is not None:
+        args["deletable"] = field
+
+    field = data.get("managed", None)
+    if field is not None:
+        args["managed"] = field
+
     field = data.get("nb_api_keys", None)
     if field is not None:
         args["nb_api_keys"] = field
@@ -259,6 +271,18 @@ def unmarshal_Group(data: Any) -> Group:
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+
+    field = data.get("editable", None)
+    if field is not None:
+        args["editable"] = field
+
+    field = data.get("deletable", None)
+    if field is not None:
+        args["deletable"] = field
+
+    field = data.get("managed", None)
+    if field is not None:
+        args["managed"] = field
 
     field = data.get("created_at", None)
     if field is not None:
@@ -348,21 +372,17 @@ def unmarshal_Policy(data: Any) -> Policy:
     if field is not None:
         args["organization_id"] = field
 
-    field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
-
-    field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
-
     field = data.get("editable", None)
     if field is not None:
         args["editable"] = field
+
+    field = data.get("deletable", None)
+    if field is not None:
+        args["deletable"] = field
+
+    field = data.get("managed", None)
+    if field is not None:
+        args["managed"] = field
 
     field = data.get("nb_rules", None)
     if field is not None:
@@ -375,6 +395,18 @@ def unmarshal_Policy(data: Any) -> Policy:
     field = data.get("nb_permission_sets", None)
     if field is not None:
         args["nb_permission_sets"] = field
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
 
     field = data.get("tags", None)
     if field is not None:
