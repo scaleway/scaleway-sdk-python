@@ -521,6 +521,11 @@ class ServerInstall:
     Address of the installed service.
     """
 
+    partitioning_schema: Optional[Schema]
+    """
+    Partitioning schema.
+    """
+
 
 @dataclass
 class ServerOption:
@@ -608,6 +613,11 @@ class CreateServerRequestInstall:
     service_password: Optional[str]
     """
     Password used for the service to install.
+    """
+
+    partitioning_schema: Optional[Schema]
+    """
+    Partitioning schema.
     """
 
 
@@ -1280,6 +1290,11 @@ class InstallServerRequest:
     service_password: Optional[str]
     """
     Password used for the service to install.
+    """
+
+    partitioning_schema: Optional[Schema]
+    """
+    Partitioning schema.
     """
 
 
