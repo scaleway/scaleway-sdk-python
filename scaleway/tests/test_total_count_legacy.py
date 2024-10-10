@@ -11,6 +11,7 @@ logger.addHandler(stream_handler)
 
 
 class TestTotalCountLegacy(unittest.TestCase):
+
     def setUp(self) -> None:
         self.client = Client()
         self.instance_api = InstanceV1API(self.client, bypass_validation=True)
@@ -18,3 +19,5 @@ class TestTotalCountLegacy(unittest.TestCase):
     def test_list_servers_type(self):
         list_server_type = self.instance_api.list_servers_types(zone="fr-par-1")
         self.assertIsNotNone(list_server_type.total_count)
+
+

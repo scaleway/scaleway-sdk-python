@@ -1,5 +1,5 @@
 """Scaleway SDK for Python - Core"""
 
-import importlib.metadata
+import pkg_resources
 
-__version__: str = importlib.metadata.version(__name__)
+__version__: str = pkg_resources.get_distribution(__name__).version

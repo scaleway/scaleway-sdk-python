@@ -362,7 +362,6 @@ class MemoryType(str, Enum, metaclass=StrEnumMeta):
     DDR2 = "ddr2"
     DDR3 = "ddr3"
     DDR4 = "ddr4"
-    DDR5 = "ddr5"
 
     def __str__(self) -> str:
         return str(self.value)

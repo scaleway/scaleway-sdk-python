@@ -398,7 +398,6 @@ class BaremetalV1API(API):
         password: Optional[str] = None,
         service_user: Optional[str] = None,
         service_password: Optional[str] = None,
-        partitioning_schema: Optional[Schema] = None,
     ) -> Server:
         """
         Install an Elastic Metal server.
@@ -412,7 +411,6 @@ class BaremetalV1API(API):
         :param password: Password used for the installation.
         :param service_user: User used for the service to install.
         :param service_password: Password used for the service to install.
-        :param partitioning_schema: Partitioning schema.
         :return: :class:`Server <Server>`
 
         Usage:
@@ -443,7 +441,6 @@ class BaremetalV1API(API):
                     password=password,
                     service_user=service_user,
                     service_password=service_password,
-                    partitioning_schema=partitioning_schema,
                 ),
                 self.client,
             ),

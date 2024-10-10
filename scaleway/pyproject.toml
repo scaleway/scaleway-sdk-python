@@ -35,5 +35,5 @@ mypy = "^1.5.1"
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
-[tool.ruff.lint]
+[tool.ruff]
 ignore = ["E501"]
