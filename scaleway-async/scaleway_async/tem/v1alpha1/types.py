@@ -15,6 +15,15 @@ from scaleway_core.utils import (
 )
 
 
+class DomainLastStatusAutoconfigStateReason(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_REASON = "unknown_reason"
+    PERMISSION_DENIED = "permission_denied"
+    DOMAIN_NOT_FOUND = "domain_not_found"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class DomainLastStatusRecordStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_RECORD_STATUS = "unknown_record_status"
     VALID = "valid"
@@ -359,6 +368,24 @@ class Email:
 
 
 @dataclass
+class DomainLastStatusAutoconfigState:
+    enabled: bool
+    """
+    Enable or disable the auto-configuration of domain DNS records.
+    """
+
+    autoconfigurable: bool
+    """
+    Whether the domain can be auto-configured or not.
+    """
+
+    reason: Optional[DomainLastStatusAutoconfigStateReason]
+    """
+    The reason that the domain cannot be auto-configurable.
+    """
+
+
+@dataclass
 class DomainLastStatusDkimRecord:
     status: DomainLastStatusRecordStatus
     """
@@ -638,12 +665,12 @@ class UpdateProjectSettingsRequestUpdatePeriodicReport:
 
     frequency: Optional[ProjectSettingsPeriodicReportFrequency]
     """
-    (Optional) At which frequency you receive periodic report notifications.
+    (Optional) Frequency at which you receive periodic report notifications.
     """
 
     sending_hour: Optional[int]
     """
-    (Optional) At which hour you receive periodic report notifications.
+    (Optional) Hour at which you receive periodic report notifications.
     """
 
     sending_day: Optional[int]
@@ -848,6 +875,11 @@ class DomainLastStatus:
     dmarc_record: Optional[DomainLastStatusDmarcRecord]
     """
     The DMARC record verification data.
+    """
+
+    autoconfig_state: Optional[DomainLastStatusAutoconfigState]
+    """
+    The verification state of domain auto-configuration.
     """
 
 
