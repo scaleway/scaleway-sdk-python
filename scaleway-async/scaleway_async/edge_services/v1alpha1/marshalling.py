@@ -5,6 +5,9 @@ from typing import Any, Dict
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
+from scaleway_core.bridge import (
+    unmarshal_Money,
+)
 from scaleway_core.utils import (
     OneOfPossibility,
     resolve_one_of,
@@ -24,11 +27,12 @@ from .types import (
     CheckDomainResponse,
     CheckLbOriginResponse,
     CheckPEMChainResponse,
+    PlanDetails,
+    GetBillingResponse,
     ListBackendStagesResponse,
     ListCacheStagesResponse,
     ListDNSStagesResponse,
     ListPipelinesResponse,
-    PlanDetails,
     ListPlansResponse,
     ListPurgeRequestsResponse,
     ListTLSStagesResponse,
@@ -563,6 +567,82 @@ def unmarshal_CheckPEMChainResponse(data: Any) -> CheckPEMChainResponse:
     return CheckPEMChainResponse(**args)
 
 
+def unmarshal_PlanDetails(data: Any) -> PlanDetails:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PlanDetails' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("plan_name", None)
+    if field is not None:
+        args["plan_name"] = field
+
+    field = data.get("package_gb", None)
+    if field is not None:
+        args["package_gb"] = field
+
+    field = data.get("pipeline_limit", None)
+    if field is not None:
+        args["pipeline_limit"] = field
+
+    return PlanDetails(**args)
+
+
+def unmarshal_GetBillingResponse(data: Any) -> GetBillingResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'GetBillingResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("pipeline_number", None)
+    if field is not None:
+        args["pipeline_number"] = field
+
+    field = data.get("current_plan_cache_usage", None)
+    if field is not None:
+        args["current_plan_cache_usage"] = field
+
+    field = data.get("extra_cache_usage", None)
+    if field is not None:
+        args["extra_cache_usage"] = field
+
+    field = data.get("current_plan", None)
+    if field is not None:
+        args["current_plan"] = unmarshal_PlanDetails(field)
+    else:
+        args["current_plan"] = None
+
+    field = data.get("plan_cost", None)
+    if field is not None:
+        args["plan_cost"] = unmarshal_Money(field)
+    else:
+        args["plan_cost"] = None
+
+    field = data.get("extra_pipelines_cost", None)
+    if field is not None:
+        args["extra_pipelines_cost"] = unmarshal_Money(field)
+    else:
+        args["extra_pipelines_cost"] = None
+
+    field = data.get("extra_cache_cost", None)
+    if field is not None:
+        args["extra_cache_cost"] = unmarshal_Money(field)
+    else:
+        args["extra_cache_cost"] = None
+
+    field = data.get("total_cost", None)
+    if field is not None:
+        args["total_cost"] = unmarshal_Money(field)
+    else:
+        args["total_cost"] = None
+
+    return GetBillingResponse(**args)
+
+
 def unmarshal_ListBackendStagesResponse(data: Any) -> ListBackendStagesResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -645,29 +725,6 @@ def unmarshal_ListPipelinesResponse(data: Any) -> ListPipelinesResponse:
         args["total_count"] = field
 
     return ListPipelinesResponse(**args)
-
-
-def unmarshal_PlanDetails(data: Any) -> PlanDetails:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'PlanDetails' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("plan_name", None)
-    if field is not None:
-        args["plan_name"] = field
-
-    field = data.get("package_gb", None)
-    if field is not None:
-        args["package_gb"] = field
-
-    field = data.get("pipeline_limit", None)
-    if field is not None:
-        args["pipeline_limit"] = field
-
-    return PlanDetails(**args)
 
 
 def unmarshal_ListPlansResponse(data: Any) -> ListPlansResponse:
