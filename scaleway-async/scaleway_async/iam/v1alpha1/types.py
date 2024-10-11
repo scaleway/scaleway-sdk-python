@@ -287,6 +287,11 @@ class APIKey:
     Defines whether or not the API key is editable.
     """
 
+    deletable: bool
+    """
+    Defines whether or not the API key is deletable.
+    """
+
     managed: bool
     """
     Defines whether or not the API key is managed.
