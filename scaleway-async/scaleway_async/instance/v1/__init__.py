@@ -111,8 +111,6 @@ from .types import DetachServerVolumeRequest
 from .types import DetachServerVolumeResponse
 from .types import ExportSnapshotRequest
 from .types import ExportSnapshotResponse
-from .types import GetBootscriptRequest
-from .types import GetBootscriptResponse
 from .types import GetDashboardRequest
 from .types import GetDashboardResponse
 from .types import GetImageRequest
@@ -137,8 +135,6 @@ from .types import GetSnapshotRequest
 from .types import GetSnapshotResponse
 from .types import GetVolumeRequest
 from .types import GetVolumeResponse
-from .types import ListBootscriptsRequest
-from .types import ListBootscriptsResponse
 from .types import ListDefaultSecurityGroupRulesRequest
 from .types import ListImagesRequest
 from .types import ListImagesResponse
@@ -310,8 +306,6 @@ __all__ = [
     "DetachServerVolumeResponse",
     "ExportSnapshotRequest",
     "ExportSnapshotResponse",
-    "GetBootscriptRequest",
-    "GetBootscriptResponse",
     "GetDashboardRequest",
     "GetDashboardResponse",
     "GetImageRequest",
@@ -336,8 +330,6 @@ __all__ = [
     "GetSnapshotResponse",
     "GetVolumeRequest",
     "GetVolumeResponse",
-    "ListBootscriptsRequest",
-    "ListBootscriptsResponse",
     "ListDefaultSecurityGroupRulesRequest",
     "ListImagesRequest",
     "ListImagesResponse",

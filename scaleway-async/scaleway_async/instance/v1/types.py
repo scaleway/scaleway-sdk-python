@@ -308,64 +308,31 @@ class ServerSummary:
 
 @dataclass
 class Bootscript:
+    architecture: Arch
+
     bootcmdargs: str
-    """
-    Bootscript arguments.
-    """
 
     default: bool
-    """
-    Display if the bootscript is the default bootscript (if no other boot option is configured).
-    """
 
     dtb: str
-    """
-    Provide information regarding a Device Tree Binary (DTB) for use with C1 servers.
-    """
 
     id: str
-    """
-    Bootscript ID.
-    """
 
     initrd: str
-    """
-    Initrd (initial ramdisk) configuration.
-    """
 
     kernel: str
-    """
-    Instance kernel version.
-    """
 
     organization: str
-    """
-    Bootscript Organization ID.
-    """
-
-    project: str
-    """
-    Bootscript Project ID.
-    """
 
     public: bool
-    """
-    Provide information if the bootscript is public.
-    """
 
     title: str
-    """
-    Bootscript title.
-    """
 
-    architecture: Arch
-    """
-    Bootscript architecture.
-    """
+    project: str
 
     zone: Zone
     """
-    Zone in which the bootscript is located.
+    Zone to target. If none is passed will use default zone from the config.
     """
 
 
@@ -910,11 +877,6 @@ class Server:
     ipv6: Optional[ServerIpv6]
     """
     Instance IPv6 address (deprecated when `routed_ip_enabled` is `True`).
-    """
-
-    bootscript: Optional[Bootscript]
-    """
-    Instance bootscript.
     """
 
     maintenances: List[ServerMaintenance]
@@ -1562,11 +1524,6 @@ class CreateImageRequest:
     Name of the image.
     """
 
-    default_bootscript: Optional[str]
-    """
-    Default bootscript of the image.
-    """
-
     extra_volumes: Optional[Dict[str, VolumeTemplate]]
     """
     Additional volumes of the image.
@@ -1856,11 +1813,6 @@ class CreateServerRequest:
     boot_type: Optional[BootType]
     """
     Boot type to use.
-    """
-
-    bootscript: Optional[str]
-    """
-    Bootscript ID to use when `boot_type` is set to `bootscript`.
     """
 
     tags: Optional[List[str]]
@@ -2166,21 +2118,6 @@ class ExportSnapshotResponse:
 
 
 @dataclass
-class GetBootscriptRequest:
-    bootscript_id: str
-
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-
-@dataclass
-class GetBootscriptResponse:
-    bootscript: Optional[Bootscript]
-
-
-@dataclass
 class GetDashboardRequest:
     zone: Optional[Zone]
     """
@@ -2410,39 +2347,6 @@ class GetVolumeRequest:
 @dataclass
 class GetVolumeResponse:
     volume: Optional[Volume]
-
-
-@dataclass
-class ListBootscriptsRequest:
-    zone: Optional[Zone]
-    """
-    Zone to target. If none is passed will use default zone from the config.
-    """
-
-    arch: Optional[str]
-
-    title: Optional[str]
-
-    default: Optional[bool]
-
-    public: Optional[bool]
-
-    per_page: Optional[int]
-
-    page: Optional[int]
-
-
-@dataclass
-class ListBootscriptsResponse:
-    total_count: int
-    """
-    Total number of bootscripts.
-    """
-
-    bootscripts: List[Bootscript]
-    """
-    List of bootscripts.
-    """
 
 
 @dataclass
@@ -3508,8 +3412,6 @@ class UpdateServerRequest:
     """
 
     volumes: Optional[Dict[str, VolumeServerTemplate]]
-
-    bootscript: Optional[str]
 
     dynamic_ip_required: Optional[bool]
 

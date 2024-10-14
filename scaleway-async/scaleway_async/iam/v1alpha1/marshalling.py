@@ -126,18 +126,6 @@ def unmarshal_APIKey(data: Any) -> APIKey:
     if field is not None:
         args["default_project_id"] = field
 
-    field = data.get("editable", None)
-    if field is not None:
-        args["editable"] = field
-
-    field = data.get("managed", None)
-    if field is not None:
-        args["managed"] = field
-
-    field = data.get("creation_ip", None)
-    if field is not None:
-        args["creation_ip"] = field
-
     field = data.get("secret_key", None)
     if field is not None:
         args["secret_key"] = field
@@ -149,6 +137,22 @@ def unmarshal_APIKey(data: Any) -> APIKey:
         args["application_id"] = field
     else:
         args["application_id"] = None
+
+    field = data.get("editable", None)
+    if field is not None:
+        args["editable"] = field
+
+    field = data.get("deletable", None)
+    if field is not None:
+        args["deletable"] = field
+
+    field = data.get("managed", None)
+    if field is not None:
+        args["managed"] = field
+
+    field = data.get("creation_ip", None)
+    if field is not None:
+        args["creation_ip"] = field
 
     field = data.get("user_id", None)
     if field is not None:
