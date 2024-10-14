@@ -34,6 +34,7 @@ from .types import (
     CreatePurgeRequestRequest,
     CreateTLSStageRequest,
     DNSStage,
+    GetBillingResponse,
     ListBackendStagesResponse,
     ListCacheStagesResponse,
     ListDNSStagesResponse,
@@ -71,6 +72,7 @@ from .marshalling import (
     unmarshal_CheckDomainResponse,
     unmarshal_CheckLbOriginResponse,
     unmarshal_CheckPEMChainResponse,
+    unmarshal_GetBillingResponse,
     unmarshal_ListBackendStagesResponse,
     unmarshal_ListCacheStagesResponse,
     unmarshal_ListDNSStagesResponse,
@@ -1706,3 +1708,31 @@ class EdgeServicesV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
+
+    def get_billing(
+        self,
+        *,
+        project_id: Optional[str] = None,
+    ) -> GetBillingResponse:
+        """
+        Gives information on current edge-services subscription plan and used resources with associated price.
+        :param project_id:
+        :return: :class:`GetBillingResponse <GetBillingResponse>`
+
+        Usage:
+        ::
+
+            result = api.get_billing()
+        """
+
+        param_project_id = validate_path_param(
+            "project_id", project_id or self.client.default_project_id
+        )
+
+        res = self._request(
+            "GET",
+            f"/edge-services/v1alpha1/billing/{param_project_id}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_GetBillingResponse(res.json())
