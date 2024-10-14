@@ -22,7 +22,6 @@ from .types import (
     SnapshotState,
     VolumeVolumeType,
     ServerSummary,
-    Bootscript,
     Volume,
     Image,
     PlacementGroup,
@@ -235,10 +234,6 @@ class _SetServerRequest:
     ipv6: Optional[ServerIpv6]
     """
     Instance IPv6 address (deprecated when `routed_ip_enabled` is `True`).
-    """
-    bootscript: Optional[Bootscript]
-    """
-    Instance bootscript.
     """
     boot_type: Optional[BootType]
     """

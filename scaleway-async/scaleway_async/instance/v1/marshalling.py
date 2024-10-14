@@ -55,7 +55,6 @@ from .types import (
     CreateVolumeResponse,
     DetachServerVolumeResponse,
     ExportSnapshotResponse,
-    GetBootscriptResponse,
     Dashboard,
     GetDashboardResponse,
     GetImageResponse,
@@ -71,7 +70,6 @@ from .types import (
     GetServerTypesAvailabilityResponse,
     GetSnapshotResponse,
     GetVolumeResponse,
-    ListBootscriptsResponse,
     ListImagesResponse,
     ListIpsResponse,
     ListPlacementGroupsResponse,
@@ -208,6 +206,10 @@ def unmarshal_Bootscript(data: Any) -> Bootscript:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("architecture", None)
+    if field is not None:
+        args["architecture"] = field
+
     field = data.get("bootcmdargs", None)
     if field is not None:
         args["bootcmdargs"] = field
@@ -236,10 +238,6 @@ def unmarshal_Bootscript(data: Any) -> Bootscript:
     if field is not None:
         args["organization"] = field
 
-    field = data.get("project", None)
-    if field is not None:
-        args["project"] = field
-
     field = data.get("public", None)
     if field is not None:
         args["public"] = field
@@ -248,9 +246,9 @@ def unmarshal_Bootscript(data: Any) -> Bootscript:
     if field is not None:
         args["title"] = field
 
-    field = data.get("architecture", None)
+    field = data.get("project", None)
     if field is not None:
-        args["architecture"] = field
+        args["project"] = field
 
     field = data.get("zone", None)
     if field is not None:
@@ -829,6 +827,22 @@ def unmarshal_Server(data: Any) -> Server:
             else None
         )
 
+    field = data.get("maintenances", None)
+    if field is not None:
+        args["maintenances"] = (
+            [unmarshal_ServerMaintenance(v) for v in field]
+            if field is not None
+            else None
+        )
+
+    field = data.get("state_detail", None)
+    if field is not None:
+        args["state_detail"] = field
+
+    field = data.get("arch", None)
+    if field is not None:
+        args["arch"] = field
+
     field = data.get("modification_date", None)
     if field is not None:
         args["modification_date"] = (
@@ -849,38 +863,6 @@ def unmarshal_Server(data: Any) -> Server:
     else:
         args["ipv6"] = None
 
-    field = data.get("bootscript", None)
-    if field is not None:
-        args["bootscript"] = unmarshal_Bootscript(field)
-    else:
-        args["bootscript"] = None
-
-    field = data.get("maintenances", None)
-    if field is not None:
-        args["maintenances"] = (
-            [unmarshal_ServerMaintenance(v) for v in field]
-            if field is not None
-            else None
-        )
-
-    field = data.get("state_detail", None)
-    if field is not None:
-        args["state_detail"] = field
-
-    field = data.get("arch", None)
-    if field is not None:
-        args["arch"] = field
-
-    field = data.get("private_nics", None)
-    if field is not None:
-        args["private_nics"] = (
-            [unmarshal_PrivateNIC(v) for v in field] if field is not None else None
-        )
-
-    field = data.get("zone", None)
-    if field is not None:
-        args["zone"] = field
-
     field = data.get("security_group", None)
     if field is not None:
         args["security_group"] = unmarshal_SecurityGroupSummary(field)
@@ -892,6 +874,16 @@ def unmarshal_Server(data: Any) -> Server:
         args["placement_group"] = unmarshal_PlacementGroup(field)
     else:
         args["placement_group"] = None
+
+    field = data.get("private_nics", None)
+    if field is not None:
+        args["private_nics"] = (
+            [unmarshal_PrivateNIC(v) for v in field] if field is not None else None
+        )
+
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
 
     field = data.get("admin_password_encryption_ssh_key_id", None)
     if field is not None:
@@ -1476,23 +1468,6 @@ def unmarshal_ExportSnapshotResponse(data: Any) -> ExportSnapshotResponse:
     return ExportSnapshotResponse(**args)
 
 
-def unmarshal_GetBootscriptResponse(data: Any) -> GetBootscriptResponse:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'GetBootscriptResponse' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("bootscript", None)
-    if field is not None:
-        args["bootscript"] = unmarshal_Bootscript(field)
-    else:
-        args["bootscript"] = None
-
-    return GetBootscriptResponse(**args)
-
-
 def unmarshal_Dashboard(data: Any) -> Dashboard:
     if not isinstance(data, dict):
         raise TypeError(
@@ -1821,27 +1796,6 @@ def unmarshal_GetVolumeResponse(data: Any) -> GetVolumeResponse:
         args["volume"] = None
 
     return GetVolumeResponse(**args)
-
-
-def unmarshal_ListBootscriptsResponse(data: Any) -> ListBootscriptsResponse:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'ListBootscriptsResponse' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("total_count", None)
-    if field is not None:
-        args["total_count"] = field
-
-    field = data.get("bootscripts", None)
-    if field is not None:
-        args["bootscripts"] = (
-            [unmarshal_Bootscript(v) for v in field] if field is not None else None
-        )
-
-    return ListBootscriptsResponse(**args)
 
 
 def unmarshal_ListImagesResponse(data: Any) -> ListImagesResponse:
@@ -2825,9 +2779,6 @@ def marshal_CreateImageRequest(
     if request.name is not None:
         output["name"] = request.name
 
-    if request.default_bootscript is not None:
-        output["default_bootscript"] = request.default_bootscript
-
     if request.extra_volumes is not None:
         output["extra_volumes"] = {
             key: marshal_VolumeTemplate(value, defaults)
@@ -3102,9 +3053,6 @@ def marshal_CreateServerRequest(
     if request.boot_type is not None:
         output["boot_type"] = str(request.boot_type)
 
-    if request.bootscript is not None:
-        output["bootscript"] = request.bootscript
-
     if request.tags is not None:
         output["tags"] = request.tags
 
@@ -3304,6 +3252,9 @@ def marshal_Bootscript(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
+    if request.architecture is not None:
+        output["architecture"] = str(request.architecture)
+
     if request.bootcmdargs is not None:
         output["bootcmdargs"] = request.bootcmdargs
 
@@ -3327,17 +3278,14 @@ def marshal_Bootscript(
             request.organization or defaults.default_organization_id
         )
 
-    if request.project is not None:
-        output["project"] = request.project or defaults.default_project_id
-
     if request.public is not None:
         output["public"] = request.public
 
     if request.title is not None:
         output["title"] = request.title
 
-    if request.architecture is not None:
-        output["architecture"] = str(request.architecture)
+    if request.project is not None:
+        output["project"] = request.project or defaults.default_project_id
 
     if request.zone is not None:
         output["zone"] = request.zone or defaults.default_zone
@@ -3772,9 +3720,6 @@ def marshal_UpdateServerRequest(
             key: marshal_VolumeServerTemplate(value, defaults)
             for key, value in request.volumes.items()
         }
-
-    if request.bootscript is not None:
-        output["bootscript"] = request.bootscript
 
     if request.dynamic_ip_required is not None:
         output["dynamic_ip_required"] = request.dynamic_ip_required
@@ -4246,9 +4191,6 @@ def marshal__SetServerRequest(
 
     if request.ipv6 is not None:
         output["ipv6"] = marshal_ServerIpv6(request.ipv6, defaults)
-
-    if request.bootscript is not None:
-        output["bootscript"] = marshal_Bootscript(request.bootscript, defaults)
 
     if request.boot_type is not None:
         output["boot_type"] = str(request.boot_type)

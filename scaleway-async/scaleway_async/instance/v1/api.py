@@ -68,7 +68,6 @@ from .types import (
     DetachServerVolumeResponse,
     ExportSnapshotRequest,
     ExportSnapshotResponse,
-    GetBootscriptResponse,
     GetDashboardResponse,
     GetImageResponse,
     GetIpResponse,
@@ -83,7 +82,6 @@ from .types import (
     GetVolumeResponse,
     Image,
     Ip,
-    ListBootscriptsResponse,
     ListImagesResponse,
     ListIpsResponse,
     ListPlacementGroupsResponse,
@@ -163,7 +161,6 @@ from .marshalling import (
     unmarshal_CreateVolumeResponse,
     unmarshal_DetachServerVolumeResponse,
     unmarshal_ExportSnapshotResponse,
-    unmarshal_GetBootscriptResponse,
     unmarshal_GetDashboardResponse,
     unmarshal_GetImageResponse,
     unmarshal_GetIpResponse,
@@ -176,7 +173,6 @@ from .marshalling import (
     unmarshal_GetServerTypesAvailabilityResponse,
     unmarshal_GetSnapshotResponse,
     unmarshal_GetVolumeResponse,
-    unmarshal_ListBootscriptsResponse,
     unmarshal_ListImagesResponse,
     unmarshal_ListIpsResponse,
     unmarshal_ListPlacementGroupsResponse,
@@ -522,7 +518,6 @@ class InstanceV1API(API):
         public_ip: Optional[str] = None,
         public_ips: Optional[List[str]] = None,
         boot_type: Optional[BootType] = None,
-        bootscript: Optional[str] = None,
         organization: Optional[str] = None,
         project: Optional[str] = None,
         tags: Optional[List[str]] = None,
@@ -545,7 +540,6 @@ class InstanceV1API(API):
         :param public_ip: ID of the reserved IP to attach to the Instance.
         :param public_ips: A list of reserved IP IDs to attach to the Instance.
         :param boot_type: Boot type to use.
-        :param bootscript: Bootscript ID to use when `boot_type` is set to `bootscript`.
         :param organization: Instance Organization ID.
         One-Of ('project_identifier'): at most one of 'project', 'organization' could be set.
         :param project: Instance Project ID.
@@ -583,7 +577,6 @@ class InstanceV1API(API):
                     public_ip=public_ip,
                     public_ips=public_ips,
                     boot_type=boot_type,
-                    bootscript=bootscript,
                     tags=tags,
                     security_group=security_group,
                     placement_group=placement_group,
@@ -667,11 +660,9 @@ class InstanceV1API(API):
         id: str,
         name: str,
         commercial_type: str,
-        organization: Optional[str] = None,
         dynamic_ip_required: bool,
         hostname: str,
-        protected: bool,
-        state_detail: str,
+        organization: Optional[str] = None,
         project: Optional[str] = None,
         allowed_actions: Optional[List[ServerAction]] = None,
         tags: Optional[List[str]] = None,
@@ -679,6 +670,7 @@ class InstanceV1API(API):
         routed_ip_enabled: Optional[bool] = None,
         enable_ipv6: Optional[bool] = None,
         image: Optional[Image] = None,
+        protected: bool,
         private_ip: Optional[str] = None,
         public_ip: Optional[ServerIp] = None,
         public_ips: Optional[List[ServerIp]] = None,
@@ -686,8 +678,8 @@ class InstanceV1API(API):
         state: Optional[ServerState] = None,
         location: Optional[ServerLocation] = None,
         ipv6: Optional[ServerIpv6] = None,
-        bootscript: Optional[Bootscript] = None,
         boot_type: Optional[BootType] = None,
+        state_detail: str,
         volumes: Optional[Dict[str, Volume]] = None,
         security_group: Optional[SecurityGroupSummary] = None,
         maintenances: Optional[List[ServerMaintenance]] = None,
@@ -701,11 +693,9 @@ class InstanceV1API(API):
         :param id: Instance unique ID.
         :param name: Instance name.
         :param commercial_type: Instance commercial type (eg. GP1-M).
-        :param organization: Instance Organization ID.
         :param dynamic_ip_required: True if a dynamic IPv4 is required.
         :param hostname: Instance host name.
-        :param protected: Instance protection option is activated.
-        :param state_detail: Instance state_detail.
+        :param organization: Instance Organization ID.
         :param project: Instance Project ID.
         :param allowed_actions: Provide a list of allowed actions on the server.
         :param tags: Tags associated with the Instance.
@@ -713,6 +703,7 @@ class InstanceV1API(API):
         :param routed_ip_enabled: True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False).
         :param enable_ipv6: True if IPv6 is enabled (deprecated and always `False` when `routed_ip_enabled` is `True`).
         :param image: Provide information on the Instance image.
+        :param protected: Instance protection option is activated.
         :param private_ip: Instance private IP address (deprecated and always `null` when `routed_ip_enabled` is `True`).
         :param public_ip: Information about the public IP (deprecated in favor of `public_ips`).
         :param public_ips: Information about all the public IPs attached to the server.
@@ -720,8 +711,8 @@ class InstanceV1API(API):
         :param state: Instance state.
         :param location: Instance location.
         :param ipv6: Instance IPv6 address (deprecated when `routed_ip_enabled` is `True`).
-        :param bootscript: Instance bootscript.
         :param boot_type: Instance boot type.
+        :param state_detail: Instance state_detail.
         :param volumes: Instance volumes.
         :param security_group: Instance security group.
         :param maintenances: Instance planned maintenances.
@@ -776,7 +767,6 @@ class InstanceV1API(API):
                     state=state,
                     location=location,
                     ipv6=ipv6,
-                    bootscript=bootscript,
                     boot_type=boot_type,
                     volumes=volumes,
                     security_group=security_group,
@@ -802,7 +792,6 @@ class InstanceV1API(API):
         boot_type: Optional[BootType] = None,
         tags: Optional[List[str]] = None,
         volumes: Optional[Dict[str, VolumeServerTemplate]] = None,
-        bootscript: Optional[str] = None,
         dynamic_ip_required: Optional[bool] = None,
         routed_ip_enabled: Optional[bool] = None,
         public_ips: Optional[List[str]] = None,
@@ -823,7 +812,6 @@ class InstanceV1API(API):
         :param boot_type:
         :param tags: Tags of the Instance.
         :param volumes:
-        :param bootscript:
         :param dynamic_ip_required:
         :param routed_ip_enabled: True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False).
         :param public_ips: A list of reserved IP IDs to attach to the Instance.
@@ -862,7 +850,6 @@ class InstanceV1API(API):
                     boot_type=boot_type,
                     tags=tags,
                     volumes=volumes,
-                    bootscript=bootscript,
                     dynamic_ip_required=dynamic_ip_required,
                     routed_ip_enabled=routed_ip_enabled,
                     public_ips=public_ips,
@@ -1270,7 +1257,6 @@ class InstanceV1API(API):
         arch: Arch,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
-        default_bootscript: Optional[str] = None,
         extra_volumes: Optional[Dict[str, VolumeTemplate]] = None,
         organization: Optional[str] = None,
         project: Optional[str] = None,
@@ -1284,7 +1270,6 @@ class InstanceV1API(API):
         :param arch: Architecture of the image.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: Name of the image.
-        :param default_bootscript: Default bootscript of the image.
         :param extra_volumes: Additional volumes of the image.
         :param organization: Organization ID of the image.
         One-Of ('project_identifier'): at most one of 'project', 'organization' could be set.
@@ -1314,7 +1299,6 @@ class InstanceV1API(API):
                     arch=arch,
                     zone=zone,
                     name=name or random_name(prefix="img"),
-                    default_bootscript=default_bootscript,
                     extra_volumes=extra_volumes,
                     tags=tags,
                     public=public,
@@ -3939,130 +3923,6 @@ class InstanceV1API(API):
         )
 
         self._throw_on_error(res)
-
-    async def list_bootscripts(
-        self,
-        *,
-        zone: Optional[Zone] = None,
-        arch: Optional[str] = None,
-        title: Optional[str] = None,
-        default: Optional[bool] = None,
-        public: Optional[bool] = None,
-        per_page: Optional[int] = None,
-        page: Optional[int] = None,
-    ) -> ListBootscriptsResponse:
-        """
-        List bootscripts.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param arch:
-        :param title:
-        :param default:
-        :param public:
-        :param per_page:
-        :param page:
-        :return: :class:`ListBootscriptsResponse <ListBootscriptsResponse>`
-        :deprecated
-
-        Usage:
-        ::
-
-            result = await api.list_bootscripts()
-        """
-
-        param_zone = validate_path_param("zone", zone or self.client.default_zone)
-
-        res = self._request(
-            "GET",
-            f"/instance/v1/zones/{param_zone}/bootscripts",
-            params={
-                "arch": arch,
-                "default": default,
-                "page": page,
-                "per_page": per_page or self.client.default_page_size,
-                "public": public,
-                "title": title,
-            },
-        )
-
-        self._throw_on_error(res)
-        return unmarshal_ListBootscriptsResponse(res.json())
-
-    async def list_bootscripts_all(
-        self,
-        *,
-        zone: Optional[Zone] = None,
-        arch: Optional[str] = None,
-        title: Optional[str] = None,
-        default: Optional[bool] = None,
-        public: Optional[bool] = None,
-        per_page: Optional[int] = None,
-        page: Optional[int] = None,
-    ) -> List[Bootscript]:
-        """
-        List bootscripts.
-        :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param arch:
-        :param title:
-        :param default:
-        :param public:
-        :param per_page:
-        :param page:
-        :return: :class:`List[Bootscript] <List[Bootscript]>`
-        :deprecated
-
-        Usage:
-        ::
-
-            result = await api.list_bootscripts_all()
-        """
-
-        return await fetch_all_pages_async(
-            type=ListBootscriptsResponse,
-            key="bootscripts",
-            fetcher=self.list_bootscripts,
-            args={
-                "zone": zone,
-                "arch": arch,
-                "title": title,
-                "default": default,
-                "public": public,
-                "per_page": per_page,
-                "page": page,
-            },
-        )
-
-    async def get_bootscript(
-        self,
-        *,
-        bootscript_id: str,
-        zone: Optional[Zone] = None,
-    ) -> GetBootscriptResponse:
-        """
-        Get bootscripts.
-        Get details of a bootscript with the specified ID.
-        :param bootscript_id:
-        :param zone: Zone to target. If none is passed will use default zone from the config.
-        :return: :class:`GetBootscriptResponse <GetBootscriptResponse>`
-        :deprecated
-
-        Usage:
-        ::
-
-            result = await api.get_bootscript(
-                bootscript_id="example",
-            )
-        """
-
-        param_zone = validate_path_param("zone", zone or self.client.default_zone)
-        param_bootscript_id = validate_path_param("bootscript_id", bootscript_id)
-
-        res = self._request(
-            "GET",
-            f"/instance/v1/zones/{param_zone}/bootscripts/{param_bootscript_id}",
-        )
-
-        self._throw_on_error(res)
-        return unmarshal_GetBootscriptResponse(res.json())
 
     async def get_dashboard(
         self,
