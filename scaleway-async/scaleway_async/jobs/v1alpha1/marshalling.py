@@ -5,10 +5,19 @@ from typing import Any, Dict
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
+from scaleway_core.utils import (
+    OneOfPossibility,
+    resolve_one_of,
+)
 from .types import (
+    SecretEnvVar,
+    SecretFile,
+    Secret,
     CronSchedule,
     JobDefinition,
     JobRun,
+    CreateJobDefinitionSecretsResponse,
+    ListJobDefinitionSecretsResponse,
     ListJobDefinitionsResponse,
     ListJobRunsResponse,
     Resource,
@@ -16,10 +25,78 @@ from .types import (
     StartJobDefinitionResponse,
     CreateJobDefinitionRequestCronScheduleConfig,
     CreateJobDefinitionRequest,
+    CreateJobDefinitionSecretsRequestSecretConfig,
+    CreateJobDefinitionSecretsRequest,
     StartJobDefinitionRequest,
     UpdateJobDefinitionRequestCronScheduleConfig,
     UpdateJobDefinitionRequest,
+    UpdateJobDefinitionSecretRequest,
 )
+
+
+def unmarshal_SecretEnvVar(data: Any) -> SecretEnvVar:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'SecretEnvVar' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+
+    return SecretEnvVar(**args)
+
+
+def unmarshal_SecretFile(data: Any) -> SecretFile:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'SecretFile' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("path", None)
+    if field is not None:
+        args["path"] = field
+
+    return SecretFile(**args)
+
+
+def unmarshal_Secret(data: Any) -> Secret:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Secret' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("secret_id", None)
+    if field is not None:
+        args["secret_id"] = field
+
+    field = data.get("secret_manager_id", None)
+    if field is not None:
+        args["secret_manager_id"] = field
+
+    field = data.get("secret_manager_version", None)
+    if field is not None:
+        args["secret_manager_version"] = field
+
+    field = data.get("file", None)
+    if field is not None:
+        args["file"] = unmarshal_SecretFile(field)
+    else:
+        args["file"] = None
+
+    field = data.get("env_var", None)
+    if field is not None:
+        args["env_var"] = unmarshal_SecretEnvVar(field)
+    else:
+        args["env_var"] = None
+
+    return Secret(**args)
 
 
 def unmarshal_CronSchedule(data: Any) -> CronSchedule:
@@ -209,6 +286,48 @@ def unmarshal_JobRun(data: Any) -> JobRun:
     return JobRun(**args)
 
 
+def unmarshal_CreateJobDefinitionSecretsResponse(
+    data: Any,
+) -> CreateJobDefinitionSecretsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'CreateJobDefinitionSecretsResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("secrets", None)
+    if field is not None:
+        args["secrets"] = (
+            [unmarshal_Secret(v) for v in field] if field is not None else None
+        )
+
+    return CreateJobDefinitionSecretsResponse(**args)
+
+
+def unmarshal_ListJobDefinitionSecretsResponse(
+    data: Any,
+) -> ListJobDefinitionSecretsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListJobDefinitionSecretsResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("secrets", None)
+    if field is not None:
+        args["secrets"] = (
+            [unmarshal_Secret(v) for v in field] if field is not None else None
+        )
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+
+    return ListJobDefinitionSecretsResponse(**args)
+
+
 def unmarshal_ListJobDefinitionsResponse(data: Any) -> ListJobDefinitionsResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -365,6 +484,44 @@ def marshal_CreateJobDefinitionRequest(
     return output
 
 
+def marshal_CreateJobDefinitionSecretsRequestSecretConfig(
+    request: CreateJobDefinitionSecretsRequestSecretConfig,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
+            [
+                OneOfPossibility("path", request.path),
+                OneOfPossibility("env_var_name", request.env_var_name),
+            ]
+        ),
+    )
+
+    if request.secret_manager_id is not None:
+        output["secret_manager_id"] = request.secret_manager_id
+
+    if request.secret_manager_version is not None:
+        output["secret_manager_version"] = request.secret_manager_version
+
+    return output
+
+
+def marshal_CreateJobDefinitionSecretsRequest(
+    request: CreateJobDefinitionSecretsRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.secrets is not None:
+        output["secrets"] = [
+            marshal_CreateJobDefinitionSecretsRequestSecretConfig(item, defaults)
+            for item in request.secrets
+        ]
+
+    return output
+
+
 def marshal_StartJobDefinitionRequest(
     request: StartJobDefinitionRequest,
     defaults: ProfileDefaults,
@@ -435,5 +592,25 @@ def marshal_UpdateJobDefinitionRequest(
         output["cron_schedule"] = marshal_UpdateJobDefinitionRequestCronScheduleConfig(
             request.cron_schedule, defaults
         )
+
+    return output
+
+
+def marshal_UpdateJobDefinitionSecretRequest(
+    request: UpdateJobDefinitionSecretRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
+            [
+                OneOfPossibility("path", request.path),
+                OneOfPossibility("env_var_name", request.env_var_name),
+            ]
+        ),
+    )
+
+    if request.secret_manager_version is not None:
+        output["secret_manager_version"] = request.secret_manager_version
 
     return output

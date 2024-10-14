@@ -17,26 +17,37 @@ from .types import (
     ListJobRunsRequestOrderBy,
     CreateJobDefinitionRequest,
     CreateJobDefinitionRequestCronScheduleConfig,
+    CreateJobDefinitionSecretsRequest,
+    CreateJobDefinitionSecretsRequestSecretConfig,
+    CreateJobDefinitionSecretsResponse,
     JobDefinition,
     JobRun,
+    ListJobDefinitionSecretsResponse,
     ListJobDefinitionsResponse,
     ListJobRunsResponse,
     ListJobsResourcesResponse,
+    Secret,
     StartJobDefinitionRequest,
     StartJobDefinitionResponse,
     UpdateJobDefinitionRequest,
     UpdateJobDefinitionRequestCronScheduleConfig,
+    UpdateJobDefinitionSecretRequest,
 )
 from .marshalling import (
+    unmarshal_Secret,
     unmarshal_JobDefinition,
     unmarshal_JobRun,
+    unmarshal_CreateJobDefinitionSecretsResponse,
+    unmarshal_ListJobDefinitionSecretsResponse,
     unmarshal_ListJobDefinitionsResponse,
     unmarshal_ListJobRunsResponse,
     unmarshal_ListJobsResourcesResponse,
     unmarshal_StartJobDefinitionResponse,
     marshal_CreateJobDefinitionRequest,
+    marshal_CreateJobDefinitionSecretsRequest,
     marshal_StartJobDefinitionRequest,
     marshal_UpdateJobDefinitionRequest,
+    marshal_UpdateJobDefinitionSecretRequest,
 )
 
 
@@ -394,6 +405,216 @@ class JobsV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_StartJobDefinitionResponse(res.json())
+
+    def create_job_definition_secrets(
+        self,
+        *,
+        job_definition_id: str,
+        secrets: List[CreateJobDefinitionSecretsRequestSecretConfig],
+        region: Optional[Region] = None,
+    ) -> CreateJobDefinitionSecretsResponse:
+        """
+        :param job_definition_id: UUID of the job definition to get.
+        :param secrets: Secrets to inject into the job.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`CreateJobDefinitionSecretsResponse <CreateJobDefinitionSecretsResponse>`
+
+        Usage:
+        ::
+
+            result = api.create_job_definition_secrets(
+                job_definition_id="example",
+                secrets=[],
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_job_definition_id = validate_path_param(
+            "job_definition_id", job_definition_id
+        )
+
+        res = self._request(
+            "POST",
+            f"/serverless-jobs/v1alpha1/regions/{param_region}/job-definitions/{param_job_definition_id}/secrets",
+            body=marshal_CreateJobDefinitionSecretsRequest(
+                CreateJobDefinitionSecretsRequest(
+                    job_definition_id=job_definition_id,
+                    secrets=secrets,
+                    region=region,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_CreateJobDefinitionSecretsResponse(res.json())
+
+    def get_job_definition_secret(
+        self,
+        *,
+        job_definition_id: str,
+        secret_id: str,
+        region: Optional[Region] = None,
+    ) -> Secret:
+        """
+        :param job_definition_id:
+        :param secret_id:
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Secret <Secret>`
+
+        Usage:
+        ::
+
+            result = api.get_job_definition_secret(
+                job_definition_id="example",
+                secret_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_job_definition_id = validate_path_param(
+            "job_definition_id", job_definition_id
+        )
+        param_secret_id = validate_path_param("secret_id", secret_id)
+
+        res = self._request(
+            "GET",
+            f"/serverless-jobs/v1alpha1/regions/{param_region}/job-definitions/{param_job_definition_id}/secrets/{param_secret_id}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Secret(res.json())
+
+    def list_job_definition_secrets(
+        self,
+        *,
+        job_definition_id: str,
+        region: Optional[Region] = None,
+    ) -> ListJobDefinitionSecretsResponse:
+        """
+        :param job_definition_id:
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`ListJobDefinitionSecretsResponse <ListJobDefinitionSecretsResponse>`
+
+        Usage:
+        ::
+
+            result = api.list_job_definition_secrets(
+                job_definition_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_job_definition_id = validate_path_param(
+            "job_definition_id", job_definition_id
+        )
+
+        res = self._request(
+            "GET",
+            f"/serverless-jobs/v1alpha1/regions/{param_region}/job-definitions/{param_job_definition_id}/secrets",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListJobDefinitionSecretsResponse(res.json())
+
+    def update_job_definition_secret(
+        self,
+        *,
+        job_definition_id: str,
+        secret_id: str,
+        region: Optional[Region] = None,
+        secret_manager_version: Optional[str] = None,
+        path: Optional[str] = None,
+        env_var_name: Optional[str] = None,
+    ) -> Secret:
+        """
+        :param job_definition_id:
+        :param secret_id:
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param secret_manager_version:
+        :param path:
+        One-Of ('secret_config'): at most one of 'path', 'env_var_name' could be set.
+        :param env_var_name:
+        One-Of ('secret_config'): at most one of 'path', 'env_var_name' could be set.
+        :return: :class:`Secret <Secret>`
+
+        Usage:
+        ::
+
+            result = api.update_job_definition_secret(
+                job_definition_id="example",
+                secret_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_job_definition_id = validate_path_param(
+            "job_definition_id", job_definition_id
+        )
+        param_secret_id = validate_path_param("secret_id", secret_id)
+
+        res = self._request(
+            "PATCH",
+            f"/serverless-jobs/v1alpha1/regions/{param_region}/job-definitions/{param_job_definition_id}/secrets/{param_secret_id}",
+            body=marshal_UpdateJobDefinitionSecretRequest(
+                UpdateJobDefinitionSecretRequest(
+                    job_definition_id=job_definition_id,
+                    secret_id=secret_id,
+                    region=region,
+                    secret_manager_version=secret_manager_version,
+                    path=path,
+                    env_var_name=env_var_name,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Secret(res.json())
+
+    def delete_job_definition_secret(
+        self,
+        *,
+        job_definition_id: str,
+        secret_id: str,
+        region: Optional[Region] = None,
+    ) -> None:
+        """
+        :param job_definition_id:
+        :param secret_id:
+        :param region: Region to target. If none is passed will use default region from the config.
+
+        Usage:
+        ::
+
+            result = api.delete_job_definition_secret(
+                job_definition_id="example",
+                secret_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_job_definition_id = validate_path_param(
+            "job_definition_id", job_definition_id
+        )
+        param_secret_id = validate_path_param("secret_id", secret_id)
+
+        res = self._request(
+            "DELETE",
+            f"/serverless-jobs/v1alpha1/regions/{param_region}/job-definitions/{param_job_definition_id}/secrets/{param_secret_id}",
+        )
+
+        self._throw_on_error(res)
 
     def get_job_run(
         self,

@@ -50,6 +50,8 @@ from .types import DeleteDNSStageRequest
 from .types import DeletePipelineRequest
 from .types import DeleteTLSStageRequest
 from .types import GetBackendStageRequest
+from .types import GetBillingRequest
+from .types import GetBillingResponse
 from .types import GetCacheStageRequest
 from .types import GetCurrentPlanRequest
 from .types import GetDNSStageRequest
@@ -129,6 +131,8 @@ __all__ = [
     "DeletePipelineRequest",
     "DeleteTLSStageRequest",
     "GetBackendStageRequest",
+    "GetBillingRequest",
+    "GetBillingResponse",
     "GetCacheStageRequest",
     "GetCurrentPlanRequest",
     "GetDNSStageRequest",
