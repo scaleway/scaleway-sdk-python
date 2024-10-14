@@ -46,6 +46,16 @@ class ListJobRunsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
+class SecretEnvVar:
+    name: str
+
+
+@dataclass
+class SecretFile:
+    path: str
+
+
+@dataclass
 class CronSchedule:
     schedule: str
     """
@@ -63,6 +73,30 @@ class CreateJobDefinitionRequestCronScheduleConfig:
     schedule: str
 
     timezone: str
+
+
+@dataclass
+class CreateJobDefinitionSecretsRequestSecretConfig:
+    secret_manager_id: str
+
+    secret_manager_version: str
+
+    path: Optional[str]
+
+    env_var_name: Optional[str]
+
+
+@dataclass
+class Secret:
+    secret_id: str
+
+    secret_manager_id: str
+
+    secret_manager_version: str
+
+    file: Optional[SecretFile]
+
+    env_var: Optional[SecretEnvVar]
 
 
 @dataclass
@@ -217,11 +251,46 @@ class CreateJobDefinitionRequest:
 
 
 @dataclass
+class CreateJobDefinitionSecretsRequest:
+    job_definition_id: str
+    """
+    UUID of the job definition to get.
+    """
+
+    secrets: List[CreateJobDefinitionSecretsRequestSecretConfig]
+    """
+    Secrets to inject into the job.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class CreateJobDefinitionSecretsResponse:
+    secrets: List[Secret]
+
+
+@dataclass
 class DeleteJobDefinitionRequest:
     job_definition_id: str
     """
     UUID of the job definition to delete.
     """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class DeleteJobDefinitionSecretRequest:
+    job_definition_id: str
+
+    secret_id: str
 
     region: Optional[Region]
     """
@@ -243,6 +312,18 @@ class GetJobDefinitionRequest:
 
 
 @dataclass
+class GetJobDefinitionSecretRequest:
+    job_definition_id: str
+
+    secret_id: str
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
 class GetJobRunRequest:
     job_run_id: str
     """
@@ -253,6 +334,23 @@ class GetJobRunRequest:
     """
     Region to target. If none is passed will use default region from the config.
     """
+
+
+@dataclass
+class ListJobDefinitionSecretsRequest:
+    job_definition_id: str
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class ListJobDefinitionSecretsResponse:
+    secrets: List[Secret]
+
+    total_count: int
 
 
 @dataclass
@@ -424,3 +522,21 @@ class UpdateJobDefinitionRequest:
     """
 
     cron_schedule: Optional[UpdateJobDefinitionRequestCronScheduleConfig]
+
+
+@dataclass
+class UpdateJobDefinitionSecretRequest:
+    job_definition_id: str
+
+    secret_id: str
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    secret_manager_version: Optional[str]
+
+    path: Optional[str]
+
+    env_var_name: Optional[str]
