@@ -1696,6 +1696,7 @@ def marshal_UpdateSettingRequest(
 
     return output
 
+
 def marshal_ValidatePartitioningSchemaRequest(
     request: ValidatePartitioningSchemaRequest,
     defaults: ProfileDefaults,
