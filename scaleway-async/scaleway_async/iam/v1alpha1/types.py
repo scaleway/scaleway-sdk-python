@@ -183,46 +183,6 @@ class UserType(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
-class RuleSpecs:
-    condition: str
-    """
-    Condition expression to evaluate.
-    """
-
-    permission_set_names: Optional[List[str]]
-    """
-    Names of permission sets bound to the rule.
-    """
-
-    project_ids: Optional[List[str]]
-
-    organization_id: Optional[str]
-
-
-@dataclass
-class CreateUserRequestMember:
-    email: str
-    """
-    Email of the user to create.
-    """
-
-    send_password_email: bool
-    """
-    Whether or not to send an email containing the member's password.
-    """
-
-    username: str
-    """
-    The member's username.
-    """
-
-    password: str
-    """
-    The member's password.
-    """
-
-
-@dataclass
 class JWT:
     jti: str
     """
@@ -262,6 +222,46 @@ class JWT:
     expires_at: Optional[datetime]
     """
     Expiration date of the JWT.
+    """
+
+
+@dataclass
+class RuleSpecs:
+    condition: str
+    """
+    Condition expression to evaluate.
+    """
+
+    permission_set_names: Optional[List[str]]
+    """
+    Names of permission sets bound to the rule.
+    """
+
+    project_ids: Optional[List[str]]
+
+    organization_id: Optional[str]
+
+
+@dataclass
+class CreateUserRequestMember:
+    email: str
+    """
+    Email of the user to create.
+    """
+
+    send_password_email: bool
+    """
+    Whether or not to send an email containing the member's password.
+    """
+
+    username: str
+    """
+    The member's username.
+    """
+
+    password: str
+    """
+    The member's password.
     """
 
 
