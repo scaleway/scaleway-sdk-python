@@ -278,6 +278,10 @@ def unmarshal_Server(data: Any) -> Server:
     if field is not None:
         args["zone"] = field
 
+    field = data.get("delivered", None)
+    if field is not None:
+        args["delivered"] = field
+
     field = data.get("os", None)
     if field is not None:
         args["os"] = unmarshal_OS(field)
