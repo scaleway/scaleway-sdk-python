@@ -1719,7 +1719,7 @@ class EdgeServicesV1Alpha1API(API):
         project_id: Optional[str] = None,
     ) -> GetBillingResponse:
         """
-        Gives information on current edge-services subscription plan and used resources with associated price.
+        Gives information on the currently selected Edge Services subscription plan, resource usage and associated billing information for this calendar month (including whether consumption falls within or exceeds the currently selected subscription plan.).
         :param project_id:
         :return: :class:`GetBillingResponse <GetBillingResponse>`
 
