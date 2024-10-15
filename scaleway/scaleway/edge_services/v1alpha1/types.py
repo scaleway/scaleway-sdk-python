@@ -71,6 +71,16 @@ class ListPipelinesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ListPipelinesWithStagesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+    NAME_ASC = "name_asc"
+    NAME_DESC = "name_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListPurgeRequestsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
@@ -484,8 +494,21 @@ class PlanDetails:
 
     pipeline_limit: int
     """
-    Number of pipeline included in subscription plan.
+    Number of pipelines included in subscription plan.
     """
+
+
+@dataclass
+class PipelineStages:
+    dns_stages: List[DNSStage]
+
+    tls_stages: List[TLSStage]
+
+    cache_stages: List[CacheStage]
+
+    backend_stages: List[BackendStage]
+
+    pipeline: Optional[Pipeline]
 
 
 @dataclass
@@ -732,22 +755,22 @@ class GetBillingRequest:
 class GetBillingResponse:
     pipeline_number: int
     """
-    Total number of pipeline currently configured.
+    Total number of pipelines currently configured.
     """
 
     current_plan_cache_usage: int
     """
-    Total amount of data egressed from cache in current subscription plan.
+    Total amount of data egressed from the cache (this month), included in the active subscription plan.
     """
 
     extra_cache_usage: int
     """
-    Total amount of data egressed from cache not included in the plans.
+    Total amount of data egressed from cache (this month), not included in the active subscription plan.
     """
 
     current_plan: Optional[PlanDetails]
     """
-    Information on the current edge-service subscription plan.
+    Information on the currently-selected, active Edge Services subscription plan.
     """
 
     plan_cost: Optional[Money]
@@ -757,17 +780,17 @@ class GetBillingResponse:
 
     extra_pipelines_cost: Optional[Money]
     """
-    Cost to date of the pipelines not included in the plans.
+    Cost to date (this month) of pipelines not included in the subscription plan.
     """
 
     extra_cache_cost: Optional[Money]
     """
-    Cost to date of the data egressed from cache not included in the plans.
+    Cost to date (this month) of the data egressed from the cache that is not included in the active subscription plan.
     """
 
     total_cost: Optional[Money]
     """
-    Total cost to date of edge-service product for the month including current plan, previous plans, extra pipelines and extra egress cache data.
+    Total cost to date (this month) of all Edge Services resources including active subscription plan, previously active plans, extra pipelines and extra egress cache data.
     """
 
 
@@ -1008,6 +1031,28 @@ class ListPipelinesResponse:
     """
     Count of all pipelines matching the requested criteria.
     """
+
+
+@dataclass
+class ListPipelinesWithStagesRequest:
+    order_by: Optional[ListPipelinesWithStagesRequestOrderBy]
+
+    page: Optional[int]
+
+    page_size: Optional[int]
+
+    name: Optional[str]
+
+    organization_id: Optional[str]
+
+    project_id: Optional[str]
+
+
+@dataclass
+class ListPipelinesWithStagesResponse:
+    pipelines: List[PipelineStages]
+
+    total_count: int
 
 
 @dataclass

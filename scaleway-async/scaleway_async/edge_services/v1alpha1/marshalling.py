@@ -23,6 +23,7 @@ from .types import (
     Pipeline,
     TLSSecret,
     TLSStage,
+    PipelineStages,
     PurgeRequest,
     CheckDomainResponse,
     CheckLbOriginResponse,
@@ -33,6 +34,7 @@ from .types import (
     ListCacheStagesResponse,
     ListDNSStagesResponse,
     ListPipelinesResponse,
+    ListPipelinesWithStagesResponse,
     ListPlansResponse,
     ListPurgeRequestsResponse,
     ListTLSStagesResponse,
@@ -471,6 +473,47 @@ def unmarshal_TLSStage(data: Any) -> TLSStage:
     return TLSStage(**args)
 
 
+def unmarshal_PipelineStages(data: Any) -> PipelineStages:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PipelineStages' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("dns_stages", None)
+    if field is not None:
+        args["dns_stages"] = (
+            [unmarshal_DNSStage(v) for v in field] if field is not None else None
+        )
+
+    field = data.get("tls_stages", None)
+    if field is not None:
+        args["tls_stages"] = (
+            [unmarshal_TLSStage(v) for v in field] if field is not None else None
+        )
+
+    field = data.get("cache_stages", None)
+    if field is not None:
+        args["cache_stages"] = (
+            [unmarshal_CacheStage(v) for v in field] if field is not None else None
+        )
+
+    field = data.get("backend_stages", None)
+    if field is not None:
+        args["backend_stages"] = (
+            [unmarshal_BackendStage(v) for v in field] if field is not None else None
+        )
+
+    field = data.get("pipeline", None)
+    if field is not None:
+        args["pipeline"] = unmarshal_Pipeline(field)
+    else:
+        args["pipeline"] = None
+
+    return PipelineStages(**args)
+
+
 def unmarshal_PurgeRequest(data: Any) -> PurgeRequest:
     if not isinstance(data, dict):
         raise TypeError(
@@ -725,6 +768,29 @@ def unmarshal_ListPipelinesResponse(data: Any) -> ListPipelinesResponse:
         args["total_count"] = field
 
     return ListPipelinesResponse(**args)
+
+
+def unmarshal_ListPipelinesWithStagesResponse(
+    data: Any,
+) -> ListPipelinesWithStagesResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListPipelinesWithStagesResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("pipelines", None)
+    if field is not None:
+        args["pipelines"] = (
+            [unmarshal_PipelineStages(v) for v in field] if field is not None else None
+        )
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+
+    return ListPipelinesWithStagesResponse(**args)
 
 
 def unmarshal_ListPlansResponse(data: Any) -> ListPlansResponse:
