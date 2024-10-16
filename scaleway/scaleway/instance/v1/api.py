@@ -508,11 +508,11 @@ class InstanceV1API(API):
         self,
         *,
         commercial_type: str,
-        image: str,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
         dynamic_ip_required: Optional[bool] = None,
         routed_ip_enabled: Optional[bool] = None,
+        image: Optional[str] = None,
         volumes: Optional[Dict[str, VolumeServerTemplate]] = None,
         enable_ipv6: Optional[bool] = None,
         public_ip: Optional[str] = None,
@@ -530,11 +530,11 @@ class InstanceV1API(API):
         Create a new Instance of the specified commercial type in the specified zone. Pay attention to the volumes parameter, which takes an object which can be used in different ways to achieve different behaviors.
         Get more information in the [Technical Information](#technical-information) section of the introduction.
         :param commercial_type: Define the Instance commercial type (i.e. GP1-S).
-        :param image: Instance image ID or label.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: Instance name.
         :param dynamic_ip_required: Define if a dynamic IPv4 is required for the Instance.
         :param routed_ip_enabled: If true, configure the Instance so it uses the new routed IP mode.
+        :param image: Instance image ID or label.
         :param volumes: Volumes attached to the server.
         :param enable_ipv6: True if IPv6 is enabled on the server (deprecated and always `False` when `routed_ip_enabled` is `True`).
         :param public_ip: ID of the reserved IP to attach to the Instance.
@@ -555,7 +555,6 @@ class InstanceV1API(API):
 
             result = api._create_server(
                 commercial_type="example",
-                image="example",
             )
         """
 
@@ -567,11 +566,11 @@ class InstanceV1API(API):
             body=marshal_CreateServerRequest(
                 CreateServerRequest(
                     commercial_type=commercial_type,
-                    image=image,
                     zone=zone,
                     name=name or random_name(prefix="srv"),
                     dynamic_ip_required=dynamic_ip_required,
                     routed_ip_enabled=routed_ip_enabled,
+                    image=image,
                     volumes=volumes,
                     enable_ipv6=enable_ipv6,
                     public_ip=public_ip,
