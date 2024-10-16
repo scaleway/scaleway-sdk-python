@@ -1,0 +1,18 @@
+scaleway\_async.edge\_services package
+======================================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway_async.edge_services.v1alpha1
+
+Module contents
+---------------
+
+.. automodule:: scaleway_async.edge_services
+   :members:
+   :undoc-members:
+   :show-inheritance:
