@@ -15,6 +15,7 @@ from .types import (
     ListCacheStagesRequestOrderBy,
     ListDNSStagesRequestOrderBy,
     ListPipelinesRequestOrderBy,
+    ListPipelinesWithStagesRequestOrderBy,
     ListPurgeRequestsRequestOrderBy,
     ListTLSStagesRequestOrderBy,
     PlanName,
@@ -39,10 +40,12 @@ from .types import (
     ListCacheStagesResponse,
     ListDNSStagesResponse,
     ListPipelinesResponse,
+    ListPipelinesWithStagesResponse,
     ListPlansResponse,
     ListPurgeRequestsResponse,
     ListTLSStagesResponse,
     Pipeline,
+    PipelineStages,
     Plan,
     PurgeRequest,
     ScalewayLb,
@@ -77,6 +80,7 @@ from .marshalling import (
     unmarshal_ListCacheStagesResponse,
     unmarshal_ListDNSStagesResponse,
     unmarshal_ListPipelinesResponse,
+    unmarshal_ListPipelinesWithStagesResponse,
     unmarshal_ListPlansResponse,
     unmarshal_ListPurgeRequestsResponse,
     unmarshal_ListTLSStagesResponse,
@@ -299,6 +303,87 @@ class EdgeServicesV1Alpha1API(API):
             options=options,
             args={
                 "pipeline_id": pipeline_id,
+            },
+        )
+
+    async def list_pipelines_with_stages(
+        self,
+        *,
+        order_by: Optional[ListPipelinesWithStagesRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        name: Optional[str] = None,
+        organization_id: Optional[str] = None,
+        project_id: Optional[str] = None,
+    ) -> ListPipelinesWithStagesResponse:
+        """
+        :param order_by:
+        :param page:
+        :param page_size:
+        :param name:
+        :param organization_id:
+        :param project_id:
+        :return: :class:`ListPipelinesWithStagesResponse <ListPipelinesWithStagesResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_pipelines_with_stages()
+        """
+
+        res = self._request(
+            "GET",
+            "/edge-services/v1alpha1/pipelines-stages",
+            params={
+                "name": name,
+                "order_by": order_by,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+                "project_id": project_id or self.client.default_project_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListPipelinesWithStagesResponse(res.json())
+
+    async def list_pipelines_with_stages_all(
+        self,
+        *,
+        order_by: Optional[ListPipelinesWithStagesRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        name: Optional[str] = None,
+        organization_id: Optional[str] = None,
+        project_id: Optional[str] = None,
+    ) -> List[PipelineStages]:
+        """
+        :param order_by:
+        :param page:
+        :param page_size:
+        :param name:
+        :param organization_id:
+        :param project_id:
+        :return: :class:`List[PipelineStages] <List[PipelineStages]>`
+
+        Usage:
+        ::
+
+            result = await api.list_pipelines_with_stages_all()
+        """
+
+        return await fetch_all_pages_async(
+            type=ListPipelinesWithStagesResponse,
+            key="pipelines",
+            fetcher=self.list_pipelines_with_stages,
+            args={
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size,
+                "name": name,
+                "organization_id": organization_id,
+                "project_id": project_id,
             },
         )
 

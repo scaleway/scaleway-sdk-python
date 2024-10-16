@@ -6,6 +6,7 @@ from .types import ListBackendStagesRequestOrderBy
 from .types import ListCacheStagesRequestOrderBy
 from .types import ListDNSStagesRequestOrderBy
 from .types import ListPipelinesRequestOrderBy
+from .types import ListPipelinesWithStagesRequestOrderBy
 from .types import ListPurgeRequestsRequestOrderBy
 from .types import ListTLSStagesRequestOrderBy
 from .types import PipelineErrorCode
@@ -29,6 +30,7 @@ from .types import Pipeline
 from .types import TLSStage
 from .types import CheckPEMChainRequestSecretChain
 from .types import PlanDetails
+from .types import PipelineStages
 from .types import PurgeRequest
 from .types import TLSSecretsConfig
 from .types import CheckDomainRequest
@@ -66,6 +68,8 @@ from .types import ListDNSStagesRequest
 from .types import ListDNSStagesResponse
 from .types import ListPipelinesRequest
 from .types import ListPipelinesResponse
+from .types import ListPipelinesWithStagesRequest
+from .types import ListPipelinesWithStagesResponse
 from .types import ListPlansResponse
 from .types import ListPurgeRequestsRequest
 from .types import ListPurgeRequestsResponse
@@ -87,6 +91,7 @@ __all__ = [
     "ListCacheStagesRequestOrderBy",
     "ListDNSStagesRequestOrderBy",
     "ListPipelinesRequestOrderBy",
+    "ListPipelinesWithStagesRequestOrderBy",
     "ListPurgeRequestsRequestOrderBy",
     "ListTLSStagesRequestOrderBy",
     "PipelineErrorCode",
@@ -110,6 +115,7 @@ __all__ = [
     "TLSStage",
     "CheckPEMChainRequestSecretChain",
     "PlanDetails",
+    "PipelineStages",
     "PurgeRequest",
     "TLSSecretsConfig",
     "CheckDomainRequest",
@@ -147,6 +153,8 @@ __all__ = [
     "ListDNSStagesResponse",
     "ListPipelinesRequest",
     "ListPipelinesResponse",
+    "ListPipelinesWithStagesRequest",
+    "ListPipelinesWithStagesResponse",
     "ListPlansResponse",
     "ListPurgeRequestsRequest",
     "ListPurgeRequestsResponse",

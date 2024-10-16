@@ -71,6 +71,16 @@ class ListPipelinesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ListPipelinesWithStagesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+    NAME_ASC = "name_asc"
+    NAME_DESC = "name_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListPurgeRequestsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
@@ -486,6 +496,19 @@ class PlanDetails:
     """
     Number of pipelines included in subscription plan.
     """
+
+
+@dataclass
+class PipelineStages:
+    dns_stages: List[DNSStage]
+
+    tls_stages: List[TLSStage]
+
+    cache_stages: List[CacheStage]
+
+    backend_stages: List[BackendStage]
+
+    pipeline: Optional[Pipeline]
 
 
 @dataclass
@@ -1008,6 +1031,28 @@ class ListPipelinesResponse:
     """
     Count of all pipelines matching the requested criteria.
     """
+
+
+@dataclass
+class ListPipelinesWithStagesRequest:
+    order_by: Optional[ListPipelinesWithStagesRequestOrderBy]
+
+    page: Optional[int]
+
+    page_size: Optional[int]
+
+    name: Optional[str]
+
+    organization_id: Optional[str]
+
+    project_id: Optional[str]
+
+
+@dataclass
+class ListPipelinesWithStagesResponse:
+    pipelines: List[PipelineStages]
+
+    total_count: int
 
 
 @dataclass
