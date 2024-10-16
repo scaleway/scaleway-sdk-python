@@ -3023,9 +3023,6 @@ def marshal_CreateServerRequest(
     if request.commercial_type is not None:
         output["commercial_type"] = request.commercial_type
 
-    if request.image is not None:
-        output["image"] = request.image
-
     if request.name is not None:
         output["name"] = request.name
 
@@ -3034,6 +3031,9 @@ def marshal_CreateServerRequest(
 
     if request.routed_ip_enabled is not None:
         output["routed_ip_enabled"] = request.routed_ip_enabled
+
+    if request.image is not None:
+        output["image"] = request.image
 
     if request.volumes is not None:
         output["volumes"] = {
@@ -3227,6 +3227,9 @@ def marshal_ServerActionRequest(
             key: marshal_ServerActionRequestVolumeBackupTemplate(value, defaults)
             for key, value in request.volumes.items()
         }
+
+    if request.disable_ipv6 is not None:
+        output["disable_ipv6"] = request.disable_ipv6
 
     return output
 
