@@ -894,6 +894,12 @@ def unmarshal_ServerInstall(data: Any) -> ServerInstall:
     if field is not None:
         args["service_url"] = field
 
+    field = data.get("partitioning_schema", None)
+    if field is not None:
+        args["partitioning_schema"] = unmarshal_Schema(field)
+    else:
+        args["partitioning_schema"] = None
+
     return ServerInstall(**args)
 
 
@@ -1469,6 +1475,29 @@ def marshal_SchemaZFS(
     return output
 
 
+def marshal_Schema(
+    request: Schema,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.disks is not None:
+        output["disks"] = [marshal_SchemaDisk(item, defaults) for item in request.disks]
+
+    if request.raids is not None:
+        output["raids"] = [marshal_SchemaRAID(item, defaults) for item in request.raids]
+
+    if request.filesystems is not None:
+        output["filesystems"] = [
+            marshal_SchemaFilesystem(item, defaults) for item in request.filesystems
+        ]
+
+    if request.zfs is not None:
+        output["zfs"] = marshal_SchemaZFS(request.zfs, defaults)
+
+    return output
+
+
 def marshal_CreateServerRequestInstall(
     request: CreateServerRequestInstall,
     defaults: ProfileDefaults,
@@ -1495,6 +1524,11 @@ def marshal_CreateServerRequestInstall(
 
     if request.service_password is not None:
         output["service_password"] = request.service_password
+
+    if request.partitioning_schema is not None:
+        output["partitioning_schema"] = marshal_Schema(
+            request.partitioning_schema, defaults
+        )
 
     return output
 
@@ -1568,6 +1602,11 @@ def marshal_InstallServerRequest(
 
     if request.service_password is not None:
         output["service_password"] = request.service_password
+
+    if request.partitioning_schema is not None:
+        output["partitioning_schema"] = marshal_Schema(
+            request.partitioning_schema, defaults
+        )
 
     return output
 
@@ -1685,5 +1724,10 @@ def marshal_ValidatePartitioningSchemaRequest(
 
     if request.os_id is not None:
         output["os_id"] = request.os_id
+
+    if request.partitioning_schema is not None:
+        output["partitioning_schema"] = marshal_Schema(
+            request.partitioning_schema, defaults
+        )
 
     return output
