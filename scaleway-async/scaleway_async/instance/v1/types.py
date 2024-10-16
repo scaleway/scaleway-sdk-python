@@ -1765,11 +1765,6 @@ class CreateServerRequest:
     Define the Instance commercial type (i.e. GP1-S).
     """
 
-    image: str
-    """
-    Instance image ID or label.
-    """
-
     zone: Optional[Zone]
     """
     Zone to target. If none is passed will use default zone from the config.
@@ -1788,6 +1783,11 @@ class CreateServerRequest:
     routed_ip_enabled: Optional[bool]
     """
     If true, configure the Instance so it uses the new routed IP mode.
+    """
+
+    image: Optional[str]
+    """
+    Instance image ID or label.
     """
 
     volumes: Optional[Dict[str, VolumeServerTemplate]]
@@ -2981,6 +2981,12 @@ This field should only be specified when performing a backup action.
     """
     For each volume UUID, the snapshot parameters of the volume.
 This field should only be specified when performing a backup action.
+    """
+
+    disable_ipv6: Optional[bool]
+    """
+    Disable IPv6 on the Instance while performing migration to routed IPs.
+This field should only be specified when performing a enable_routed_ip action.
     """
 
 
