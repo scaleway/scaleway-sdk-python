@@ -1765,11 +1765,6 @@ class CreateServerRequest:
     Define the Instance commercial type (i.e. GP1-S).
     """
 
-    image: str
-    """
-    Instance image ID or label.
-    """
-
     zone: Optional[Zone]
     """
     Zone to target. If none is passed will use default zone from the config.
@@ -1788,6 +1783,11 @@ class CreateServerRequest:
     routed_ip_enabled: Optional[bool]
     """
     If true, configure the Instance so it uses the new routed IP mode.
+    """
+
+    image: Optional[str]
+    """
+    Instance image ID or label.
     """
 
     volumes: Optional[Dict[str, VolumeServerTemplate]]
