@@ -894,6 +894,12 @@ def unmarshal_ServerInstall(data: Any) -> ServerInstall:
     if field is not None:
         args["service_url"] = field
 
+    field = data.get("partitioning_schema", None)
+    if field is not None:
+        args["partitioning_schema"] = unmarshal_Schema(field)
+    else:
+        args["partitioning_schema"] = None
+
     return ServerInstall(**args)
 
 
@@ -1519,6 +1525,11 @@ def marshal_CreateServerRequestInstall(
     if request.service_password is not None:
         output["service_password"] = request.service_password
 
+    if request.partitioning_schema is not None:
+        output["partitioning_schema"] = marshal_Schema(
+            request.partitioning_schema, defaults
+        )
+
     return output
 
 
@@ -1591,6 +1602,11 @@ def marshal_InstallServerRequest(
 
     if request.service_password is not None:
         output["service_password"] = request.service_password
+
+    if request.partitioning_schema is not None:
+        output["partitioning_schema"] = marshal_Schema(
+            request.partitioning_schema, defaults
+        )
 
     return output
 
