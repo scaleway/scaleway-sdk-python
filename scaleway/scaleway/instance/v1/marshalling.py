@@ -3228,6 +3228,9 @@ def marshal_ServerActionRequest(
             for key, value in request.volumes.items()
         }
 
+    if request.disable_ipv6 is not None:
+        output["disable_ipv6"] = request.disable_ipv6
+
     return output
 
 

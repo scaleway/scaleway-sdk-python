@@ -907,6 +907,7 @@ class InstanceV1API(API):
         action: Optional[ServerAction] = None,
         name: Optional[str] = None,
         volumes: Optional[Dict[str, ServerActionRequestVolumeBackupTemplate]] = None,
+        disable_ipv6: Optional[bool] = None,
     ) -> ServerActionResponse:
         """
         Perform action.
@@ -929,6 +930,8 @@ class InstanceV1API(API):
         This field should only be specified when performing a backup action.
         :param volumes: For each volume UUID, the snapshot parameters of the volume.
         This field should only be specified when performing a backup action.
+        :param disable_ipv6: Disable IPv6 on the Instance while performing migration to routed IPs.
+        This field should only be specified when performing a enable_routed_ip action.
         :return: :class:`ServerActionResponse <ServerActionResponse>`
 
         Usage:
@@ -952,6 +955,7 @@ class InstanceV1API(API):
                     action=action,
                     name=name,
                     volumes=volumes,
+                    disable_ipv6=disable_ipv6,
                 ),
                 self.client,
             ),

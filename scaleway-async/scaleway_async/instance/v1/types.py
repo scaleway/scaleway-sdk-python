@@ -2983,6 +2983,12 @@ This field should only be specified when performing a backup action.
 This field should only be specified when performing a backup action.
     """
 
+    disable_ipv6: Optional[bool]
+    """
+    Disable IPv6 on the Instance while performing migration to routed IPs.
+This field should only be specified when performing a enable_routed_ip action.
+    """
+
 
 @dataclass
 class ServerActionResponse:
