@@ -43,6 +43,7 @@ from .types import (
 )
 from .content import (
     INSTANCE_TRANSIENT_STATUSES,
+    SNAPSHOT_TRANSIENT_STATUSES,
 )
 from .marshalling import (
     unmarshal_Instance,
@@ -666,6 +667,79 @@ class MongodbV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Snapshot(res.json())
+
+    async def get_snapshot(
+        self,
+        *,
+        snapshot_id: str,
+        region: Optional[Region] = None,
+    ) -> Snapshot:
+        """
+        Get a Database Instance snapshot.
+        Retrieve information about a given snapshot of a Database Instance. You must specify, in the endpoint, the `snapshot_id` parameter of the snapshot you want to retrieve.
+        :param snapshot_id: UUID of the snapshot.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Snapshot <Snapshot>`
+
+        Usage:
+        ::
+
+            result = await api.get_snapshot(
+                snapshot_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_snapshot_id = validate_path_param("snapshot_id", snapshot_id)
+
+        res = self._request(
+            "GET",
+            f"/mongodb/v1alpha1/regions/{param_region}/snapshots/{param_snapshot_id}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Snapshot(res.json())
+
+    async def wait_for_snapshot(
+        self,
+        *,
+        snapshot_id: str,
+        region: Optional[Region] = None,
+        options: Optional[
+            WaitForOptions[Snapshot, Union[bool, Awaitable[bool]]]
+        ] = None,
+    ) -> Snapshot:
+        """
+        Get a Database Instance snapshot.
+        Retrieve information about a given snapshot of a Database Instance. You must specify, in the endpoint, the `snapshot_id` parameter of the snapshot you want to retrieve.
+        :param snapshot_id: UUID of the snapshot.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Snapshot <Snapshot>`
+
+        Usage:
+        ::
+
+            result = await api.get_snapshot(
+                snapshot_id="example",
+            )
+        """
+
+        if not options:
+            options = WaitForOptions()
+
+        if not options.stop:
+            options.stop = lambda res: res.status not in SNAPSHOT_TRANSIENT_STATUSES
+
+        return await wait_for_resource_async(
+            fetcher=self.get_snapshot,
+            options=options,
+            args={
+                "snapshot_id": snapshot_id,
+                "region": region,
+            },
+        )
 
     async def update_snapshot(
         self,
