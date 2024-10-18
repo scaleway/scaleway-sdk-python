@@ -412,6 +412,10 @@ def unmarshal_PrivateNetworkOption(data: Any) -> PrivateNetworkOption:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("bandwidth_in_bps", None)
+    if field is not None:
+        args["bandwidth_in_bps"] = field
+
     return PrivateNetworkOption(**args)
 
 

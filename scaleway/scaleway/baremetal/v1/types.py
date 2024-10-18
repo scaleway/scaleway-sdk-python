@@ -280,7 +280,7 @@ class LicenseOption:
 
 @dataclass
 class PrivateNetworkOption:
-    pass
+    bandwidth_in_bps: int
 
 
 @dataclass
