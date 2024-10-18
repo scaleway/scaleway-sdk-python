@@ -102,6 +102,7 @@ class OfferQuotaWarning(str, Enum, metaclass=StrEnumMeta):
     EMAIL_COUNT_EXCEEDED = "email_count_exceeded"
     DATABASE_COUNT_EXCEEDED = "database_count_exceeded"
     DISK_USAGE_EXCEEDED = "disk_usage_exceeded"
+    ADDON_DOMAIN_COUNT_EXCEEDED = "addon_domain_count_exceeded"
 
     def __str__(self) -> str:
         return str(self.value)
