@@ -34,6 +34,7 @@ from .types import DeleteInstanceRequest
 from .types import DeleteSnapshotRequest
 from .types import GetInstanceCertificateRequest
 from .types import GetInstanceRequest
+from .types import GetSnapshotRequest
 from .types import ListInstancesRequest
 from .types import ListInstancesResponse
 from .types import ListNodeTypesRequest
@@ -86,6 +87,7 @@ __all__ = [
     "DeleteSnapshotRequest",
     "GetInstanceCertificateRequest",
     "GetInstanceRequest",
+    "GetSnapshotRequest",
     "ListInstancesRequest",
     "ListInstancesResponse",
     "ListNodeTypesRequest",

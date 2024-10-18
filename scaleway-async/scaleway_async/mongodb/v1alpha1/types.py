@@ -645,6 +645,19 @@ class GetInstanceRequest:
 
 
 @dataclass
+class GetSnapshotRequest:
+    snapshot_id: str
+    """
+    UUID of the snapshot.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
 class ListInstancesRequest:
     region: Optional[Region]
     """
