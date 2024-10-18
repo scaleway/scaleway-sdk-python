@@ -1,0 +1,37 @@
+scaleway\_async.cockpit.v1 package
+==================================
+
+Submodules
+----------
+
+scaleway\_async.cockpit.v1.api module
+-------------------------------------
+
+.. automodule:: scaleway_async.cockpit.v1.api
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway\_async.cockpit.v1.marshalling module
+---------------------------------------------
+
+.. automodule:: scaleway_async.cockpit.v1.marshalling
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway\_async.cockpit.v1.types module
+---------------------------------------
+
+.. automodule:: scaleway_async.cockpit.v1.types
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: scaleway_async.cockpit.v1
+   :members:
+   :undoc-members:
+   :show-inheritance:

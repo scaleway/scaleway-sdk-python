@@ -1,0 +1,18 @@
+scaleway.instance package
+=========================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway.instance.v1
+
+Module contents
+---------------
+
+.. automodule:: scaleway.instance
+   :members:
+   :undoc-members:
+   :show-inheritance:
