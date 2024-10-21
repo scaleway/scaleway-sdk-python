@@ -513,11 +513,6 @@ class RestoreSnapshotRequestVolumeDetails:
 
 @dataclass
 class CreateInstanceRequest:
-    name: str
-    """
-    Name of the Database Instance.
-    """
-
     version: str
     """
     Version of the MongoDB™ engine.
@@ -551,6 +546,11 @@ class CreateInstanceRequest:
     project_id: Optional[str]
     """
     The Project ID on which the Database Instance will be created.
+    """
+
+    name: Optional[str]
+    """
+    Name of the Database Instance.
     """
 
     tags: Optional[List[str]]

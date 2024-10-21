@@ -12,6 +12,7 @@ from scaleway_core.bridge import (
 )
 from scaleway_core.utils import (
     WaitForOptions,
+    random_name,
     validate_path_param,
     fetch_all_pages_async,
     wait_for_resource_async,
@@ -391,7 +392,6 @@ class MongodbV1Alpha1API(API):
     async def create_instance(
         self,
         *,
-        name: str,
         version: str,
         node_number: int,
         node_type: str,
@@ -399,6 +399,7 @@ class MongodbV1Alpha1API(API):
         password: str,
         region: Optional[Region] = None,
         project_id: Optional[str] = None,
+        name: Optional[str] = None,
         tags: Optional[List[str]] = None,
         volume: Optional[CreateInstanceRequestVolumeDetails] = None,
         endpoints: Optional[List[EndpointSpec]] = None,
@@ -406,7 +407,6 @@ class MongodbV1Alpha1API(API):
         """
         Create a MongoDB™ Database Instance.
         Create a new MongoDB™ Database Instance.
-        :param name: Name of the Database Instance.
         :param version: Version of the MongoDB™ engine.
         :param node_number: Number of node to use for the Database Instance.
         :param node_type: Type of node to use for the Database Instance.
@@ -414,6 +414,7 @@ class MongodbV1Alpha1API(API):
         :param password: Password of the initial user.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: The Project ID on which the Database Instance will be created.
+        :param name: Name of the Database Instance.
         :param tags: Tags to apply to the Database Instance.
         :param volume: Instance volume information.
         :param endpoints: One or multiple EndpointSpec used to expose your Database Instance.
@@ -423,7 +424,6 @@ class MongodbV1Alpha1API(API):
         ::
 
             result = await api.create_instance(
-                name="example",
                 version="example",
                 node_number=1,
                 node_type="example",
@@ -441,7 +441,6 @@ class MongodbV1Alpha1API(API):
             f"/mongodb/v1alpha1/regions/{param_region}/instances",
             body=marshal_CreateInstanceRequest(
                 CreateInstanceRequest(
-                    name=name,
                     version=version,
                     node_number=node_number,
                     node_type=node_type,
@@ -449,6 +448,7 @@ class MongodbV1Alpha1API(API):
                     password=password,
                     region=region,
                     project_id=project_id,
+                    name=name or random_name(prefix="mgdb"),
                     tags=tags,
                     volume=volume,
                     endpoints=endpoints,
