@@ -656,9 +656,6 @@ def marshal_CreateInstanceRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
-    if request.name is not None:
-        output["name"] = request.name
-
     if request.version is not None:
         output["version"] = request.version
 
@@ -676,6 +673,9 @@ def marshal_CreateInstanceRequest(
 
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id
+
+    if request.name is not None:
+        output["name"] = request.name
 
     if request.tags is not None:
         output["tags"] = request.tags
