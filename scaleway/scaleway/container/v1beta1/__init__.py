@@ -23,6 +23,7 @@ from .content import TOKEN_TRANSIENT_STATUSES
 from .types import TriggerInputType
 from .types import TriggerStatus
 from .content import TRIGGER_TRANSIENT_STATUSES
+from .types import ContainerScalingOption
 from .types import SecretHashedValue
 from .types import TriggerMnqNatsClientConfig
 from .types import TriggerMnqSqsClientConfig
@@ -99,6 +100,7 @@ __all__ = [
     "TriggerInputType",
     "TriggerStatus",
     "TRIGGER_TRANSIENT_STATUSES",
+    "ContainerScalingOption",
     "SecretHashedValue",
     "TriggerMnqNatsClientConfig",
     "TriggerMnqSqsClientConfig",

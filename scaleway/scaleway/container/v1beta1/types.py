@@ -192,6 +192,11 @@ class TriggerStatus(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
+class ContainerScalingOption:
+    concurrent_requests_threshold: Optional[int]
+
+
+@dataclass
 class SecretHashedValue:
     key: str
 
@@ -381,21 +386,6 @@ class Container:
     Number of maximum concurrent executions of the container.
     """
 
-    timeout: Optional[str]
-    """
-    Processing time limit for the container.
-    """
-
-    error_message: Optional[str]
-    """
-    Last error message of the container.
-    """
-
-    description: Optional[str]
-    """
-    Description of the container.
-    """
-
     domain_name: str
     """
     Domain name attributed to the contaioner.
@@ -409,6 +399,21 @@ class Container:
     port: int
     """
     Port the container listens on.
+    """
+
+    timeout: Optional[str]
+    """
+    Processing time limit for the container.
+    """
+
+    error_message: Optional[str]
+    """
+    Last error message of the container.
+    """
+
+    description: Optional[str]
+    """
+    Description of the container.
     """
 
     secret_environment_variables: List[SecretHashedValue]
@@ -436,6 +441,12 @@ class Container:
     region: Region
     """
     Region in which the container will be deployed.
+    """
+
+    scaling_option: Optional[ContainerScalingOption]
+    """
+    Possible values:
+- concurrent_requests_threshold: Scale depending on the number of concurrent requests being processed per container instance.
     """
 
 
@@ -753,6 +764,12 @@ class CreateContainerRequest:
     local_storage_limit: Optional[int]
     """
     Local storage limit of the container (in MB).
+    """
+
+    scaling_option: Optional[ContainerScalingOption]
+    """
+    Possible values:
+- concurrent_requests_threshold: Scale depending on the number of concurrent requests being processed per container instance.
     """
 
 
@@ -1414,6 +1431,12 @@ class UpdateContainerRequest:
     local_storage_limit: Optional[int]
     """
     Local storage limit of the container (in MB).
+    """
+
+    scaling_option: Optional[ContainerScalingOption]
+    """
+    Possible values:
+- concurrent_requests_threshold: Scale depending on the number of concurrent requests being processed per container instance.
     """
 
 

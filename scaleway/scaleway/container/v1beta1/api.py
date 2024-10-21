@@ -29,6 +29,7 @@ from .types import (
     ListTokensRequestOrderBy,
     ListTriggersRequestOrderBy,
     Container,
+    ContainerScalingOption,
     CreateContainerRequest,
     CreateCronRequest,
     CreateDomainRequest,
@@ -591,6 +592,7 @@ class ContainerV1Beta1API(API):
         http_option: Optional[ContainerHttpOption] = None,
         sandbox: Optional[ContainerSandbox] = None,
         local_storage_limit: Optional[int] = None,
+        scaling_option: Optional[ContainerScalingOption] = None,
     ) -> Container:
         """
         Create a new container.
@@ -616,6 +618,8 @@ class ContainerV1Beta1API(API):
          - enabled: Serve both HTTP and HTTPS traffic.
         :param sandbox: Execution environment of the container.
         :param local_storage_limit: Local storage limit of the container (in MB).
+        :param scaling_option: Possible values:
+        - concurrent_requests_threshold: Scale depending on the number of concurrent requests being processed per container instance.
         :return: :class:`Container <Container>`
 
         Usage:
@@ -655,6 +659,7 @@ class ContainerV1Beta1API(API):
                     http_option=http_option,
                     sandbox=sandbox,
                     local_storage_limit=local_storage_limit,
+                    scaling_option=scaling_option,
                 ),
                 self.client,
             ),
@@ -685,6 +690,7 @@ class ContainerV1Beta1API(API):
         http_option: Optional[ContainerHttpOption] = None,
         sandbox: Optional[ContainerSandbox] = None,
         local_storage_limit: Optional[int] = None,
+        scaling_option: Optional[ContainerScalingOption] = None,
     ) -> Container:
         """
         Update an existing container.
@@ -710,6 +716,8 @@ class ContainerV1Beta1API(API):
          - enabled: Serve both HTTP and HTTPS traffic.
         :param sandbox: Execution environment of the container.
         :param local_storage_limit: Local storage limit of the container (in MB).
+        :param scaling_option: Possible values:
+        - concurrent_requests_threshold: Scale depending on the number of concurrent requests being processed per container instance.
         :return: :class:`Container <Container>`
 
         Usage:
@@ -749,6 +757,7 @@ class ContainerV1Beta1API(API):
                     http_option=http_option,
                     sandbox=sandbox,
                     local_storage_limit=local_storage_limit,
+                    scaling_option=scaling_option,
                 ),
                 self.client,
             ),
