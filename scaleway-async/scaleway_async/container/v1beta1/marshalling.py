@@ -10,6 +10,7 @@ from scaleway_core.utils import (
     resolve_one_of,
 )
 from .types import (
+    ContainerScalingOption,
     SecretHashedValue,
     Container,
     Cron,
@@ -42,6 +43,23 @@ from .types import (
     UpdateTriggerRequestSqsClientConfig,
     UpdateTriggerRequest,
 )
+
+
+def unmarshal_ContainerScalingOption(data: Any) -> ContainerScalingOption:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ContainerScalingOption' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("concurrent_requests_threshold", None)
+    if field is not None:
+        args["concurrent_requests_threshold"] = field
+    else:
+        args["concurrent_requests_threshold"] = None
+
+    return ContainerScalingOption(**args)
 
 
 def unmarshal_SecretHashedValue(data: Any) -> SecretHashedValue:
@@ -119,6 +137,18 @@ def unmarshal_Container(data: Any) -> Container:
     if field is not None:
         args["max_concurrency"] = field
 
+    field = data.get("domain_name", None)
+    if field is not None:
+        args["domain_name"] = field
+
+    field = data.get("protocol", None)
+    if field is not None:
+        args["protocol"] = field
+
+    field = data.get("port", None)
+    if field is not None:
+        args["port"] = field
+
     field = data.get("timeout", None)
     if field is not None:
         args["timeout"] = field
@@ -136,18 +166,6 @@ def unmarshal_Container(data: Any) -> Container:
         args["description"] = field
     else:
         args["description"] = None
-
-    field = data.get("domain_name", None)
-    if field is not None:
-        args["domain_name"] = field
-
-    field = data.get("protocol", None)
-    if field is not None:
-        args["protocol"] = field
-
-    field = data.get("port", None)
-    if field is not None:
-        args["port"] = field
 
     field = data.get("secret_environment_variables", None)
     if field is not None:
@@ -172,6 +190,12 @@ def unmarshal_Container(data: Any) -> Container:
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+
+    field = data.get("scaling_option", None)
+    if field is not None:
+        args["scaling_option"] = unmarshal_ContainerScalingOption(field)
+    else:
+        args["scaling_option"] = None
 
     return Container(**args)
 
@@ -644,6 +668,25 @@ def unmarshal_ListTriggersResponse(data: Any) -> ListTriggersResponse:
     return ListTriggersResponse(**args)
 
 
+def marshal_ContainerScalingOption(
+    request: ContainerScalingOption,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
+            [
+                OneOfPossibility(
+                    "concurrent_requests_threshold",
+                    request.concurrent_requests_threshold,
+                ),
+            ]
+        ),
+    )
+
+    return output
+
+
 def marshal_Secret(
     request: Secret,
     defaults: ProfileDefaults,
@@ -721,6 +764,11 @@ def marshal_CreateContainerRequest(
 
     if request.local_storage_limit is not None:
         output["local_storage_limit"] = request.local_storage_limit
+
+    if request.scaling_option is not None:
+        output["scaling_option"] = marshal_ContainerScalingOption(
+            request.scaling_option, defaults
+        )
 
     return output
 
@@ -957,6 +1005,11 @@ def marshal_UpdateContainerRequest(
 
     if request.local_storage_limit is not None:
         output["local_storage_limit"] = request.local_storage_limit
+
+    if request.scaling_option is not None:
+        output["scaling_option"] = marshal_ContainerScalingOption(
+            request.scaling_option, defaults
+        )
 
     return output
 
