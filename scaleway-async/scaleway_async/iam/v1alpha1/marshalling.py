@@ -53,6 +53,7 @@ from .types import (
     UpdateGroupRequest,
     UpdatePolicyRequest,
     UpdateSSHKeyRequest,
+    UpdateUserPasswordRequest,
     UpdateUserRequest,
 )
 
@@ -1346,6 +1347,21 @@ def marshal_UpdateSSHKeyRequest(
 
     if request.disabled is not None:
         output["disabled"] = request.disabled
+
+    return output
+
+
+def marshal_UpdateUserPasswordRequest(
+    request: UpdateUserPasswordRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.password is not None:
+        output["password"] = request.password
+
+    if request.send_email is not None:
+        output["send_email"] = request.send_email
 
     return output
 

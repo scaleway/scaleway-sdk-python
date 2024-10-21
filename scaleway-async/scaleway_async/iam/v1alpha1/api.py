@@ -68,6 +68,7 @@ from .types import (
     UpdateGroupRequest,
     UpdatePolicyRequest,
     UpdateSSHKeyRequest,
+    UpdateUserPasswordRequest,
     UpdateUserRequest,
     User,
 )
@@ -111,6 +112,7 @@ from .marshalling import (
     marshal_UpdateGroupRequest,
     marshal_UpdatePolicyRequest,
     marshal_UpdateSSHKeyRequest,
+    marshal_UpdateUserPasswordRequest,
     marshal_UpdateUserRequest,
 )
 
@@ -566,6 +568,47 @@ class IamV1Alpha1API(API):
                     tags=tags,
                     email=email,
                     member=member,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_User(res.json())
+
+    async def update_user_password(
+        self,
+        *,
+        user_id: str,
+        password: str,
+        send_email: bool,
+    ) -> User:
+        """
+        :param user_id:
+        :param password:
+        :param send_email:
+        :return: :class:`User <User>`
+
+        Usage:
+        ::
+
+            result = await api.update_user_password(
+                user_id="example",
+                password="example",
+                send_email=False,
+            )
+        """
+
+        param_user_id = validate_path_param("user_id", user_id)
+
+        res = self._request(
+            "POST",
+            f"/iam/v1alpha1/users/{param_user_id}/update-password",
+            body=marshal_UpdateUserPasswordRequest(
+                UpdateUserPasswordRequest(
+                    user_id=user_id,
+                    password=password,
+                    send_email=send_email,
                 ),
                 self.client,
             ),
