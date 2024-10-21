@@ -1844,6 +1844,15 @@ class UpdateSSHKeyRequest:
 
 
 @dataclass
+class UpdateUserPasswordRequest:
+    user_id: str
+
+    password: str
+
+    send_email: bool
+
+
+@dataclass
 class UpdateUserRequest:
     user_id: str
     """

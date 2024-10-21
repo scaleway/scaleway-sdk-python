@@ -87,6 +87,7 @@ from .types import UpdateApplicationRequest
 from .types import UpdateGroupRequest
 from .types import UpdatePolicyRequest
 from .types import UpdateSSHKeyRequest
+from .types import UpdateUserPasswordRequest
 from .types import UpdateUserRequest
 from .api import IamV1Alpha1API
 
@@ -178,6 +179,7 @@ __all__ = [
     "UpdateGroupRequest",
     "UpdatePolicyRequest",
     "UpdateSSHKeyRequest",
+    "UpdateUserPasswordRequest",
     "UpdateUserRequest",
     "IamV1Alpha1API",
 ]
