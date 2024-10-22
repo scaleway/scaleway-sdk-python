@@ -1700,19 +1700,6 @@ class ListVersionsResponse:
 
 
 @dataclass
-class MigrateClusterToRoutedIPsRequest:
-    cluster_id: str
-    """
-    Cluster ID for which the routed ip will be enabled for the nodes.
-    """
-
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-
-@dataclass
 class MigrateClusterToSBSCSIRequest:
     cluster_id: str
     """
