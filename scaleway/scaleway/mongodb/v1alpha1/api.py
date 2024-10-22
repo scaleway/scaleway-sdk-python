@@ -746,6 +746,8 @@ class MongodbV1Alpha1API(API):
         expires_at: Optional[datetime] = None,
     ) -> Snapshot:
         """
+        Update a Database Instance snapshot.
+        Update the parameters of a snapshot of a Database Instance. You can update the `name` and `expires_at` parameters.
         :param snapshot_id: UUID of the Snapshot.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the snapshot.
