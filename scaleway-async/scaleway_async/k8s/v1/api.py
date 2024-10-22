@@ -714,41 +714,6 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
 
-    async def migrate_cluster_to_routed_i_ps(
-        self,
-        *,
-        cluster_id: str,
-        region: Optional[Region] = None,
-    ) -> Cluster:
-        """
-        Migrate a cluster to Routed IPs.
-        Migrate the nodes of an existing cluster to Routed IPs and enable Routed IPs for all future nodes.
-        :param cluster_id: Cluster ID for which the routed ip will be enabled for the nodes.
-        :param region: Region to target. If none is passed will use default region from the config.
-        :return: :class:`Cluster <Cluster>`
-
-        Usage:
-        ::
-
-            result = await api.migrate_cluster_to_routed_i_ps(
-                cluster_id="example",
-            )
-        """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-        param_cluster_id = validate_path_param("cluster_id", cluster_id)
-
-        res = self._request(
-            "POST",
-            f"/k8s/v1/regions/{param_region}/clusters/{param_cluster_id}/migrate-to-routed-ips",
-            body={},
-        )
-
-        self._throw_on_error(res)
-        return unmarshal_Cluster(res.json())
-
     async def migrate_cluster_to_sbscsi(
         self,
         *,
