@@ -37,6 +37,7 @@ from .types import Schema
 from .types import OSOSField
 from .types import CPU
 from .types import Disk
+from .types import GPU
 from .types import Memory
 from .types import OfferOptionOffer
 from .types import PersistentMemory
@@ -135,6 +136,7 @@ __all__ = [
     "OSOSField",
     "CPU",
     "Disk",
+    "GPU",
     "Memory",
     "OfferOptionOffer",
     "PersistentMemory",

@@ -355,6 +355,19 @@ class Disk:
 
 
 @dataclass
+class GPU:
+    name: str
+    """
+    Name of the GPU.
+    """
+
+    vram: int
+    """
+    Capacity of the vram in bytes.
+    """
+
+
+@dataclass
 class Memory:
     capacity: int
     """
@@ -731,16 +744,6 @@ class Offer:
     Defines whether the offer is currently available.
     """
 
-    price_per_hour: Optional[Money]
-    """
-    Price of the offer for the next 60 minutes (a server order at 11h32 will be payed until 12h32).
-    """
-
-    price_per_month: Optional[Money]
-    """
-    Monthly price of the offer, if subscribing on a monthly basis.
-    """
-
     cpus: List[CPU]
     """
     CPU specifications of the offer.
@@ -749,6 +752,16 @@ class Offer:
     memories: List[Memory]
     """
     Memory specifications of the offer.
+    """
+
+    price_per_hour: Optional[Money]
+    """
+    Price of the offer for the next 60 minutes (a server order at 11h32 will be payed until 12h32).
+    """
+
+    price_per_month: Optional[Money]
+    """
+    Monthly price of the offer, if subscribing on a monthly basis.
     """
 
     quota_name: str
@@ -799,6 +812,11 @@ class Offer:
     tags: List[str]
     """
     Array of tags attached to the offer.
+    """
+
+    gpus: List[GPU]
+    """
+    GPU specifications of the offer.
     """
 
     fee: Optional[Money]
