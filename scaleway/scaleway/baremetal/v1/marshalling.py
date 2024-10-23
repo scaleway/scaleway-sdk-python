@@ -31,6 +31,7 @@ from .types import (
     RemoteAccessOption,
     CPU,
     Disk,
+    GPU,
     Memory,
     OfferOptionOffer,
     PersistentMemory,
@@ -495,6 +496,25 @@ def unmarshal_Disk(data: Any) -> Disk:
     return Disk(**args)
 
 
+def unmarshal_GPU(data: Any) -> GPU:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'GPU' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+
+    field = data.get("vram", None)
+    if field is not None:
+        args["vram"] = field
+
+    return GPU(**args)
+
+
 def unmarshal_Memory(data: Any) -> Memory:
     if not isinstance(data, dict):
         raise TypeError(
@@ -679,6 +699,16 @@ def unmarshal_Offer(data: Any) -> Offer:
     if field is not None:
         args["enable"] = field
 
+    field = data.get("cpus", None)
+    if field is not None:
+        args["cpus"] = [unmarshal_CPU(v) for v in field] if field is not None else None
+
+    field = data.get("memories", None)
+    if field is not None:
+        args["memories"] = (
+            [unmarshal_Memory(v) for v in field] if field is not None else None
+        )
+
     field = data.get("price_per_hour", None)
     if field is not None:
         args["price_per_hour"] = unmarshal_Money(field)
@@ -690,16 +720,6 @@ def unmarshal_Offer(data: Any) -> Offer:
         args["price_per_month"] = unmarshal_Money(field)
     else:
         args["price_per_month"] = None
-
-    field = data.get("cpus", None)
-    if field is not None:
-        args["cpus"] = [unmarshal_CPU(v) for v in field] if field is not None else None
-
-    field = data.get("memories", None)
-    if field is not None:
-        args["memories"] = (
-            [unmarshal_Memory(v) for v in field] if field is not None else None
-        )
 
     field = data.get("quota_name", None)
     if field is not None:
@@ -750,6 +770,10 @@ def unmarshal_Offer(data: Any) -> Offer:
     field = data.get("tags", None)
     if field is not None:
         args["tags"] = field
+
+    field = data.get("gpus", None)
+    if field is not None:
+        args["gpus"] = [unmarshal_GPU(v) for v in field] if field is not None else None
 
     field = data.get("fee", None)
     if field is not None:
