@@ -17,6 +17,7 @@ from .types import (
     JobDefinition,
     JobRun,
     CreateJobDefinitionSecretsResponse,
+    JobsLimits,
     ListJobDefinitionSecretsResponse,
     ListJobDefinitionsResponse,
     ListJobRunsResponse,
@@ -303,6 +304,21 @@ def unmarshal_CreateJobDefinitionSecretsResponse(
         )
 
     return CreateJobDefinitionSecretsResponse(**args)
+
+
+def unmarshal_JobsLimits(data: Any) -> JobsLimits:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'JobsLimits' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("secrets_per_job_definition", None)
+    if field is not None:
+        args["secrets_per_job_definition"] = field
+
+    return JobsLimits(**args)
 
 
 def unmarshal_ListJobDefinitionSecretsResponse(
