@@ -337,6 +337,19 @@ class GetJobRunRequest:
 
 
 @dataclass
+class GetJobsLimitsRequest:
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class JobsLimits:
+    secrets_per_job_definition: int
+
+
+@dataclass
 class ListJobDefinitionSecretsRequest:
     job_definition_id: str
 

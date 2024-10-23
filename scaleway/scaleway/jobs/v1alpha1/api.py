@@ -22,6 +22,7 @@ from .types import (
     CreateJobDefinitionSecretsResponse,
     JobDefinition,
     JobRun,
+    JobsLimits,
     ListJobDefinitionSecretsResponse,
     ListJobDefinitionsResponse,
     ListJobRunsResponse,
@@ -38,6 +39,7 @@ from .marshalling import (
     unmarshal_JobDefinition,
     unmarshal_JobRun,
     unmarshal_CreateJobDefinitionSecretsResponse,
+    unmarshal_JobsLimits,
     unmarshal_ListJobDefinitionSecretsResponse,
     unmarshal_ListJobDefinitionsResponse,
     unmarshal_ListJobRunsResponse,
@@ -802,3 +804,31 @@ class JobsV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListJobsResourcesResponse(res.json())
+
+    def get_jobs_limits(
+        self,
+        *,
+        region: Optional[Region] = None,
+    ) -> JobsLimits:
+        """
+        Get jobs limits for the console.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`JobsLimits <JobsLimits>`
+
+        Usage:
+        ::
+
+            result = api.get_jobs_limits()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/serverless-jobs/v1alpha1/regions/{param_region}/jobs-limits",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_JobsLimits(res.json())

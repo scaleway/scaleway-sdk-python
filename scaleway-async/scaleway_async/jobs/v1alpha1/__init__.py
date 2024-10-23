@@ -22,6 +22,8 @@ from .types import DeleteJobDefinitionSecretRequest
 from .types import GetJobDefinitionRequest
 from .types import GetJobDefinitionSecretRequest
 from .types import GetJobRunRequest
+from .types import GetJobsLimitsRequest
+from .types import JobsLimits
 from .types import ListJobDefinitionSecretsRequest
 from .types import ListJobDefinitionSecretsResponse
 from .types import ListJobDefinitionsRequest
@@ -60,6 +62,8 @@ __all__ = [
     "GetJobDefinitionRequest",
     "GetJobDefinitionSecretRequest",
     "GetJobRunRequest",
+    "GetJobsLimitsRequest",
+    "JobsLimits",
     "ListJobDefinitionSecretsRequest",
     "ListJobDefinitionSecretsResponse",
     "ListJobDefinitionsRequest",
