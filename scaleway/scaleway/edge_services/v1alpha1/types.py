@@ -413,6 +413,11 @@ class Pipeline:
     Project ID of the pipeline.
     """
 
+    organization_id: str
+    """
+    Organization ID of the pipeline.
+    """
+
     created_at: Optional[datetime]
     """
     Date the pipeline was created.
