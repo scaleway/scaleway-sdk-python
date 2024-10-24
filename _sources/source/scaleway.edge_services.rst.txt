@@ -1,0 +1,18 @@
+scaleway.edge\_services package
+===============================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway.edge_services.v1alpha1
+
+Module contents
+---------------
+
+.. automodule:: scaleway.edge_services
+   :members:
+   :undoc-members:
+   :show-inheritance:
