@@ -366,6 +366,10 @@ def unmarshal_Pipeline(data: Any) -> Pipeline:
     if field is not None:
         args["project_id"] = field
 
+    field = data.get("organization_id", None)
+    if field is not None:
+        args["organization_id"] = field
+
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
