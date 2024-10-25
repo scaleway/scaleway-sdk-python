@@ -67,7 +67,7 @@ from .marshalling import (
 
 class MongodbV1Alpha1API(API):
     """
-    This API allows you to manage your Managed Databases for MongoDB.
+    This API allows you to manage your Managed Databases for MongoDB®.
     """
 
     def list_node_types(
@@ -152,7 +152,7 @@ class MongodbV1Alpha1API(API):
         page_size: Optional[int] = None,
     ) -> ListVersionsResponse:
         """
-        List available MongoDB™ versions.
+        List available MongoDB® versions.
         :param region: Region to target. If none is passed will use default region from the config.
         :param version:
         :param page:
@@ -191,7 +191,7 @@ class MongodbV1Alpha1API(API):
         page_size: Optional[int] = None,
     ) -> List[Version]:
         """
-        List available MongoDB™ versions.
+        List available MongoDB® versions.
         :param region: Region to target. If none is passed will use default region from the config.
         :param version:
         :param page:
@@ -229,14 +229,14 @@ class MongodbV1Alpha1API(API):
         page_size: Optional[int] = None,
     ) -> ListInstancesResponse:
         """
-        List MongoDB™ Database Instances.
-        List all MongoDB™ Database Instances in the specified region, for a given Scaleway Project. By default, the MongoDB™ Database Instances returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `tags` and `name`. For the `name` parameter, the value you include will be checked against the whole name string to see if it includes the string you put in the parameter.
+        List MongoDB® Database Instances.
+        List all MongoDB® Database Instances in the specified region. By default, the MongoDB® Database Instances returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `tags` and `name`. For the `name` parameter, the value you include will be checked against the whole name string to see if it includes the string you put in the parameter.
         :param region: Region to target. If none is passed will use default region from the config.
         :param tags: List Database Instances that have a given tag.
         :param name: Lists Database Instances that match a name pattern.
         :param order_by: Criteria to use when ordering Database Instance listings.
-        :param organization_id: Organization ID the Database Instance belongs to.
-        :param project_id: Project ID to list the Database Instance of.
+        :param organization_id: Organization ID of the Database Instance.
+        :param project_id: Project ID.
         :param page:
         :param page_size:
         :return: :class:`ListInstancesResponse <ListInstancesResponse>`
@@ -282,14 +282,14 @@ class MongodbV1Alpha1API(API):
         page_size: Optional[int] = None,
     ) -> List[Instance]:
         """
-        List MongoDB™ Database Instances.
-        List all MongoDB™ Database Instances in the specified region, for a given Scaleway Project. By default, the MongoDB™ Database Instances returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `tags` and `name`. For the `name` parameter, the value you include will be checked against the whole name string to see if it includes the string you put in the parameter.
+        List MongoDB® Database Instances.
+        List all MongoDB® Database Instances in the specified region. By default, the MongoDB® Database Instances returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field. You can define additional parameters for your query, such as `tags` and `name`. For the `name` parameter, the value you include will be checked against the whole name string to see if it includes the string you put in the parameter.
         :param region: Region to target. If none is passed will use default region from the config.
         :param tags: List Database Instances that have a given tag.
         :param name: Lists Database Instances that match a name pattern.
         :param order_by: Criteria to use when ordering Database Instance listings.
-        :param organization_id: Organization ID the Database Instance belongs to.
-        :param project_id: Project ID to list the Database Instance of.
+        :param organization_id: Organization ID of the Database Instance.
+        :param project_id: Project ID.
         :param page:
         :param page_size:
         :return: :class:`List[Instance] <List[Instance]>`
@@ -323,8 +323,8 @@ class MongodbV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> Instance:
         """
-        Get a MongoDB™ Database Instance.
-        Retrieve information about a given MongoDB™ Database Instance, specified by the `region` and `instance_id` parameters. Its full details, including name, status, IP address and port, are returned in the response object.
+        Get a MongoDB® Database Instance.
+        Retrieve information about a given MongoDB® Database Instance, specified by the `region` and `instance_id` parameters. Its full details, including name, status, IP address and port, are returned in the response object.
         :param instance_id: UUID of the Database Instance.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Instance <Instance>`
@@ -358,8 +358,8 @@ class MongodbV1Alpha1API(API):
         options: Optional[WaitForOptions[Instance, bool]] = None,
     ) -> Instance:
         """
-        Get a MongoDB™ Database Instance.
-        Retrieve information about a given MongoDB™ Database Instance, specified by the `region` and `instance_id` parameters. Its full details, including name, status, IP address and port, are returned in the response object.
+        Get a MongoDB® Database Instance.
+        Retrieve information about a given MongoDB® Database Instance, specified by the `region` and `instance_id` parameters. Its full details, including name, status, IP address and port, are returned in the response object.
         :param instance_id: UUID of the Database Instance.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Instance <Instance>`
@@ -403,9 +403,9 @@ class MongodbV1Alpha1API(API):
         endpoints: Optional[List[EndpointSpec]] = None,
     ) -> Instance:
         """
-        Create a MongoDB™ Database Instance.
-        Create a new MongoDB™ Database Instance.
-        :param version: Version of the MongoDB™ engine.
+        Create a MongoDB® Database Instance.
+        Create a new MongoDB® Database Instance.
+        :param version: Version of the MongoDB® engine.
         :param node_number: Number of node to use for the Database Instance.
         :param node_type: Type of node to use for the Database Instance.
         :param user_name: Username created when the Database Instance is created.
@@ -467,8 +467,8 @@ class MongodbV1Alpha1API(API):
         tags: Optional[List[str]] = None,
     ) -> Instance:
         """
-        Update a MongoDB™ Database Instance.
-        Update the parameters of a MongoDB™ Database Instance.
+        Update a MongoDB® Database Instance.
+        Update the parameters of a MongoDB® Database Instance.
         :param instance_id: UUID of the Database Instance to update.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the Database Instance.
@@ -512,8 +512,8 @@ class MongodbV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> Instance:
         """
-        Delete a MongoDB™ Database Instance.
-        Delete a given MongoDB™ Database Instance, specified by the `region` and `instance_id` parameters. Deleting a MongoDB™ Database Instance is permanent, and cannot be undone. Note that upon deletion all your data will be lost.
+        Delete a MongoDB® Database Instance.
+        Delete a given MongoDB® Database Instance, specified by the `region` and `instance_id` parameters. Deleting a MongoDB® Database Instance is permanent, and cannot be undone. Note that upon deletion all your data will be lost.
         :param instance_id: UUID of the Database Instance to delete.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Instance <Instance>`
@@ -551,7 +551,7 @@ class MongodbV1Alpha1API(API):
         Upgrade your current Database Instance specifications like volume size.
         :param instance_id: UUID of the Database Instance you want to upgrade.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param volume_size: Increase your block storage volume size.
+        :param volume_size: Increase your Block Storage volume size.
         One-Of ('upgrade_target'): at most one of 'volume_size' could be set.
         :return: :class:`Instance <Instance>`
 
@@ -858,7 +858,7 @@ class MongodbV1Alpha1API(API):
         List snapshots. You can include the `instance_id` or `project_id` in your query to get the list of snapshots for specific Database Instances and/or Projects. By default, the details returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: Instance ID the snapshots belongs to.
-        :param name: Lists Database snapshots that match a name pattern.
+        :param name: Lists database snapshots that match a name pattern.
         :param order_by: Criteria to use when ordering snapshot listings.
         :param organization_id: Organization ID the snapshots belongs to.
         :param project_id: Project ID to list the snapshots of.
@@ -911,7 +911,7 @@ class MongodbV1Alpha1API(API):
         List snapshots. You can include the `instance_id` or `project_id` in your query to get the list of snapshots for specific Database Instances and/or Projects. By default, the details returned in the list are ordered by creation date in ascending order, though this can be modified via the `order_by` field.
         :param region: Region to target. If none is passed will use default region from the config.
         :param instance_id: Instance ID the snapshots belongs to.
-        :param name: Lists Database snapshots that match a name pattern.
+        :param name: Lists database snapshots that match a name pattern.
         :param order_by: Criteria to use when ordering snapshot listings.
         :param organization_id: Organization ID the snapshots belongs to.
         :param project_id: Project ID to list the snapshots of.
@@ -949,7 +949,7 @@ class MongodbV1Alpha1API(API):
     ) -> Snapshot:
         """
         Delete a Database Instance snapshot.
-        Delete a given snapshot of a Database Instance. You must specify, in the endpoint,  the `snapshot_id` parameter of the snapshot you want to delete.
+        Delete a given snapshot of a Database Instance. You must specify, in the endpoint, the `snapshot_id` parameter of the snapshot you want to delete.
         :param snapshot_id: UUID of the snapshot.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Snapshot <Snapshot>`

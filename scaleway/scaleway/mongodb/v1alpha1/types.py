@@ -112,7 +112,7 @@ class EndpointPrivateNetworkDetails:
 
     private_network_id: str
     """
-    UUID of the private network.
+    UUID of the Private Network.
     """
 
 
@@ -125,7 +125,7 @@ class EndpointPublicDetails:
 class EndpointSpecPrivateNetworkDetails:
     private_network_id: str
     """
-    UUID of the private network.
+    UUID of the Private Network.
     """
 
 
@@ -196,17 +196,17 @@ class NodeTypeVolumeType:
 
     description: str
     """
-    The description of the Volume.
+    The description of the volume.
     """
 
     min_size: int
     """
-    Mimimum size required for the Volume.
+    Mimimum size required for the volume.
     """
 
     max_size: int
     """
-    Maximum size required for the Volume.
+    Maximum size required for the volume.
     """
 
     chunk_size: int
@@ -322,7 +322,7 @@ class Instance:
 
     version: str
     """
-    MongoDB™ engine version of the Database Instance.
+    MongoDB® engine version of the Database Instance.
     """
 
     tags: List[str]
@@ -370,12 +370,12 @@ class Instance:
 class NodeType:
     name: str
     """
-    Node Type name identifier.
+    Node type name identifier.
     """
 
     stock_status: NodeTypeStock
     """
-    Current stock status for the Node Type.
+    Current stock status for the node type.
     """
 
     description: str
@@ -395,22 +395,22 @@ class NodeType:
 
     available_volume_types: List[NodeTypeVolumeType]
     """
-    Available storage options for the Node Type.
+    Available storage options for the node type.
     """
 
     disabled: bool
     """
-    The Node Type is currently disabled.
+    The node type is currently disabled.
     """
 
     beta: bool
     """
-    The Node Type is currently in beta.
+    The node type is currently in beta.
     """
 
     instance_range: str
     """
-    Instance range associated with the NodeType offer.
+    Instance range associated with the node type offer.
     """
 
 
@@ -453,7 +453,7 @@ class Snapshot:
 
     region: Region
     """
-    Region of this snapshot.
+    Region of the snapshot.
     """
 
     expires_at: Optional[datetime]
@@ -473,7 +473,7 @@ class Snapshot:
 
     volume_type: Optional[SnapshotVolumeType]
     """
-    Type of volume where data is stored sbs_5k or sbs_15k.
+    Type of volume where data is stored - sbs_5k or sbs_15k.
     """
 
 
@@ -489,7 +489,7 @@ class User:
 class Version:
     version: str
     """
-    MongoDB™ engine version.
+    MongoDB® engine version.
     """
 
     available_settings: List[Setting]
@@ -515,7 +515,7 @@ class RestoreSnapshotRequestVolumeDetails:
 class CreateInstanceRequest:
     version: str
     """
-    Version of the MongoDB™ engine.
+    Version of the MongoDB® engine.
     """
 
     node_number: int
@@ -681,12 +681,12 @@ class ListInstancesRequest:
 
     organization_id: Optional[str]
     """
-    Organization ID the Database Instance belongs to.
+    Organization ID of the Database Instance.
     """
 
     project_id: Optional[str]
     """
-    Project ID to list the Database Instance of.
+    Project ID.
     """
 
     page: Optional[int]
@@ -703,7 +703,7 @@ class ListInstancesResponse:
 
     total_count: int
     """
-    Total count of Database Instances available in a Organization or Project.
+    Total count of Database Instances available in an Organization or Project.
     """
 
 
@@ -751,7 +751,7 @@ class ListSnapshotsRequest:
 
     name: Optional[str]
     """
-    Lists Database snapshots that match a name pattern.
+    Lists database snapshots that match a name pattern.
     """
 
     order_by: Optional[ListSnapshotsRequestOrderBy]
@@ -778,12 +778,12 @@ class ListSnapshotsRequest:
 class ListSnapshotsResponse:
     snapshots: List[Snapshot]
     """
-    List of all Database Snapshots available in an Organization or Project.
+    List of all database snapshots available in an Organization or Project.
     """
 
     total_count: int
     """
-    Total count of Database Snapshots available in a Organization or Project.
+    Total count of database snapshots available in a Organization or Project.
     """
 
 
@@ -845,12 +845,12 @@ class ListVersionsRequest:
 class ListVersionsResponse:
     versions: List[Version]
     """
-    Available MongoDB™ engine version.
+    Available MongoDB® engine version.
     """
 
     total_count: int
     """
-    Total count of MongoDB™ engine version available.
+    Total count of MongoDB® engine version available.
     """
 
 
