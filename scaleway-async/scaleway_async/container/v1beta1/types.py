@@ -449,6 +449,21 @@ class Container:
 - concurrent_requests_threshold: Scale depending on the number of concurrent requests being processed per container instance.
     """
 
+    created_at: Optional[datetime]
+    """
+    Creation date of the container.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Last update date of the container.
+    """
+
+    ready_at: Optional[datetime]
+    """
+    Last date when the container was successfully deployed and set to ready.
+    """
+
 
 @dataclass
 class Cron:
