@@ -277,6 +277,7 @@ class FunctionV1Beta1API(API):
         project_id: Optional[str] = None,
         description: Optional[str] = None,
         secret_environment_variables: Optional[List[Secret]] = None,
+        tags: Optional[List[str]] = None,
     ) -> Namespace:
         """
         Create a new namespace.
@@ -287,6 +288,7 @@ class FunctionV1Beta1API(API):
         :param project_id: UUID of the project in which the namespace will be created.
         :param description: Description of the namespace.
         :param secret_environment_variables: Secret environment variables of the namespace.
+        :param tags: [ALPHA] Tags of the Serverless Function Namespace.
         :return: :class:`Namespace <Namespace>`
 
         Usage:
@@ -310,6 +312,7 @@ class FunctionV1Beta1API(API):
                     project_id=project_id,
                     description=description,
                     secret_environment_variables=secret_environment_variables,
+                    tags=tags,
                 ),
                 self.client,
             ),
@@ -326,6 +329,7 @@ class FunctionV1Beta1API(API):
         environment_variables: Optional[Dict[str, str]] = None,
         description: Optional[str] = None,
         secret_environment_variables: Optional[List[Secret]] = None,
+        tags: Optional[List[str]] = None,
     ) -> Namespace:
         """
         Update an existing namespace.
@@ -335,6 +339,7 @@ class FunctionV1Beta1API(API):
         :param environment_variables: Environment variables of the namespace.
         :param description: Description of the namespace.
         :param secret_environment_variables: Secret environment variables of the namespace.
+        :param tags: [ALPHA] Tags of the Serverless Function Namespace.
         :return: :class:`Namespace <Namespace>`
 
         Usage:
@@ -360,6 +365,7 @@ class FunctionV1Beta1API(API):
                     environment_variables=environment_variables,
                     description=description,
                     secret_environment_variables=secret_environment_variables,
+                    tags=tags,
                 ),
                 self.client,
             ),

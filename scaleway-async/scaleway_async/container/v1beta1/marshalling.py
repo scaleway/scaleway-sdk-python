@@ -344,6 +344,10 @@ def unmarshal_Namespace(data: Any) -> Namespace:
     if field is not None:
         args["region"] = field
 
+    field = data.get("tags", None)
+    if field is not None:
+        args["tags"] = field
+
     field = data.get("error_message", None)
     if field is not None:
         args["error_message"] = field
@@ -851,6 +855,9 @@ def marshal_CreateNamespaceRequest(
             for item in request.secret_environment_variables
         ]
 
+    if request.tags is not None:
+        output["tags"] = request.tags
+
     return output
 
 
@@ -1070,6 +1077,9 @@ def marshal_UpdateNamespaceRequest(
             marshal_Secret(item, defaults)
             for item in request.secret_environment_variables
         ]
+
+    if request.tags is not None:
+        output["tags"] = request.tags
 
     return output
 

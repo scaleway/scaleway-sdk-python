@@ -611,6 +611,11 @@ class Namespace:
     Region in which the namespace is located.
     """
 
+    tags: List[str]
+    """
+    [ALPHA] List of tags applied to the Serverless Function Namespace.
+    """
+
     error_message: Optional[str]
     """
     Error message if the namespace is in "error" state.
@@ -860,6 +865,11 @@ class CreateNamespaceRequest:
     secret_environment_variables: Optional[List[Secret]]
     """
     Secret environment variables of the namespace.
+    """
+
+    tags: Optional[List[str]]
+    """
+    [ALPHA] Tags of the Serverless Function Namespace.
     """
 
 
@@ -1548,6 +1558,11 @@ class UpdateNamespaceRequest:
     secret_environment_variables: Optional[List[Secret]]
     """
     Secret environment variables of the namespace.
+    """
+
+    tags: Optional[List[str]]
+    """
+    [ALPHA] Tags of the Serverless Function Namespace.
     """
 
 

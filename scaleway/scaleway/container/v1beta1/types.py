@@ -583,6 +583,11 @@ class Namespace:
     Region in which the namespace will be created.
     """
 
+    tags: List[str]
+    """
+    [ALPHA] List of tags applied to the Serverless Container Namespace.
+    """
+
     error_message: Optional[str]
     """
     Last error message of the namesace.
@@ -864,6 +869,11 @@ class CreateNamespaceRequest:
     secret_environment_variables: Optional[List[Secret]]
     """
     Secret environment variables of the namespace to create.
+    """
+
+    tags: Optional[List[str]]
+    """
+    [ALPHA] Tags of the Serverless Container Namespace.
     """
 
 
@@ -1513,6 +1523,11 @@ class UpdateNamespaceRequest:
     secret_environment_variables: Optional[List[Secret]]
     """
     Secret environment variables of the namespace to update.
+    """
+
+    tags: Optional[List[str]]
+    """
+    [ALPHA] Tags of the Serverless Container Namespace.
     """
 
 

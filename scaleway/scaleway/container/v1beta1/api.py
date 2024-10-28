@@ -270,6 +270,7 @@ class ContainerV1Beta1API(API):
         project_id: Optional[str] = None,
         description: Optional[str] = None,
         secret_environment_variables: Optional[List[Secret]] = None,
+        tags: Optional[List[str]] = None,
     ) -> Namespace:
         """
         Create a new namespace.
@@ -280,6 +281,7 @@ class ContainerV1Beta1API(API):
         :param project_id: UUID of the Project in which the namespace will be created.
         :param description: Description of the namespace to create.
         :param secret_environment_variables: Secret environment variables of the namespace to create.
+        :param tags: [ALPHA] Tags of the Serverless Container Namespace.
         :return: :class:`Namespace <Namespace>`
 
         Usage:
@@ -303,6 +305,7 @@ class ContainerV1Beta1API(API):
                     project_id=project_id,
                     description=description,
                     secret_environment_variables=secret_environment_variables,
+                    tags=tags,
                 ),
                 self.client,
             ),
@@ -319,6 +322,7 @@ class ContainerV1Beta1API(API):
         environment_variables: Optional[Dict[str, str]] = None,
         description: Optional[str] = None,
         secret_environment_variables: Optional[List[Secret]] = None,
+        tags: Optional[List[str]] = None,
     ) -> Namespace:
         """
         Update an existing namespace.
@@ -328,6 +332,7 @@ class ContainerV1Beta1API(API):
         :param environment_variables: Environment variables of the namespace to update.
         :param description: Description of the namespace to update.
         :param secret_environment_variables: Secret environment variables of the namespace to update.
+        :param tags: [ALPHA] Tags of the Serverless Container Namespace.
         :return: :class:`Namespace <Namespace>`
 
         Usage:
@@ -353,6 +358,7 @@ class ContainerV1Beta1API(API):
                     environment_variables=environment_variables,
                     description=description,
                     secret_environment_variables=secret_environment_variables,
+                    tags=tags,
                 ),
                 self.client,
             ),
