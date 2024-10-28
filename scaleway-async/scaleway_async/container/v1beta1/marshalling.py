@@ -197,6 +197,24 @@ def unmarshal_Container(data: Any) -> Container:
     else:
         args["scaling_option"] = None
 
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
+    field = data.get("ready_at", None)
+    if field is not None:
+        args["ready_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["ready_at"] = None
+
     return Container(**args)
 
 
