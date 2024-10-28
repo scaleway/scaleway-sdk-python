@@ -2179,6 +2179,7 @@ def marshal_UpgradeInstanceRequest(
                 OneOfPossibility(
                     "major_upgrade_workflow", request.major_upgrade_workflow
                 ),
+                OneOfPossibility("enable_encryption", request.enable_encryption),
             ]
         ),
     )

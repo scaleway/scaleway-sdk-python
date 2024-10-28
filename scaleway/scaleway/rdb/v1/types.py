@@ -2599,3 +2599,5 @@ class UpgradeInstanceRequest:
     upgradable_version_id: Optional[str]
 
     major_upgrade_workflow: Optional[UpgradeInstanceRequestMajorUpgradeWorkflow]
+
+    enable_encryption: Optional[bool]
