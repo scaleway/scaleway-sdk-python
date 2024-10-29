@@ -34,6 +34,7 @@ from .types import (
     EndpointSpec,
     CreateInstanceRequest,
     CreateSnapshotRequest,
+    CreateUserRequest,
     RestoreSnapshotRequestVolumeDetails,
     RestoreSnapshotRequest,
     UpdateInstanceRequest,
@@ -704,6 +705,18 @@ def marshal_CreateSnapshotRequest(
 
     if request.expires_at is not None:
         output["expires_at"] = request.expires_at.isoformat()
+
+    return output
+
+
+def marshal_CreateUserRequest(
+    request: CreateUserRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.password is not None:
+        output["password"] = request.password
 
     return output
 

@@ -24,6 +24,7 @@ from .types import (
     CreateInstanceRequest,
     CreateInstanceRequestVolumeDetails,
     CreateSnapshotRequest,
+    CreateUserRequest,
     EndpointSpec,
     Instance,
     ListInstancesResponse,
@@ -57,6 +58,7 @@ from .marshalling import (
     unmarshal_ListVersionsResponse,
     marshal_CreateInstanceRequest,
     marshal_CreateSnapshotRequest,
+    marshal_CreateUserRequest,
     marshal_RestoreSnapshotRequest,
     marshal_UpdateInstanceRequest,
     marshal_UpdateSnapshotRequest,
@@ -1065,6 +1067,55 @@ class MongodbV1Alpha1API(API):
                 "page_size": page_size,
             },
         )
+
+    def create_user(
+        self,
+        *,
+        instance_id: str,
+        name: str,
+        region: Optional[Region] = None,
+        password: Optional[str] = None,
+    ) -> User:
+        """
+        Create an user on a Database Instance.
+        Create an user on a Database Instance. You must define the `name`, `password` of the user and `instance_id` parameters in the request.
+        :param instance_id: UUID of the Database Instance the user belongs to.
+        :param name: Name of the database user.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param password: Password of the database user.
+        :return: :class:`User <User>`
+
+        Usage:
+        ::
+
+            result = api.create_user(
+                instance_id="example",
+                name="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_instance_id = validate_path_param("instance_id", instance_id)
+        param_name = validate_path_param("name", name)
+
+        res = self._request(
+            "POST",
+            f"/mongodb/v1alpha1/regions/{param_region}/instances/{param_instance_id}/users/{param_name}",
+            body=marshal_CreateUserRequest(
+                CreateUserRequest(
+                    instance_id=instance_id,
+                    name=name,
+                    region=region,
+                    password=password,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_User(res.json())
 
     def update_user(
         self,

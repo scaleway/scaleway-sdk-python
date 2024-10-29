@@ -593,6 +593,29 @@ class CreateSnapshotRequest:
 
 
 @dataclass
+class CreateUserRequest:
+    instance_id: str
+    """
+    UUID of the Database Instance the user belongs to.
+    """
+
+    name: str
+    """
+    Name of the database user.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    password: Optional[str]
+    """
+    Password of the database user.
+    """
+
+
+@dataclass
 class DeleteInstanceRequest:
     instance_id: str
     """
