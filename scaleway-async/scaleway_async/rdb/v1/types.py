@@ -841,7 +841,7 @@ class InstanceLog:
 
     download_url: Optional[str]
     """
-    Presigned S3 URL to download your log file.
+    Presigned Object Storage URL to download your log file.
     """
 
     expires_at: Optional[datetime]
