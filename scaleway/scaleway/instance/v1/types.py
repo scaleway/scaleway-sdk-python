@@ -2093,12 +2093,12 @@ class DetachServerVolumeResponse:
 class ExportSnapshotRequest:
     bucket: str
     """
-    S3 bucket name.
+    Object Storage bucket name.
     """
 
     key: str
     """
-    S3 object key.
+    Object key.
     """
 
     snapshot_id: str

@@ -544,12 +544,12 @@ class RouteRestConfig:
 class RouteS3Config:
     bucket_region: str
     """
-    Region of the S3 route's destination bucket (e.g., 'fr-par').
+    Region of the Amazon S3 route's destination bucket (e.g., 'fr-par').
     """
 
     bucket_name: str
     """
-    Destination bucket name of the S3 route.
+    Destination bucket name of the Amazon S3 route.
     """
 
     object_prefix: str
@@ -559,7 +559,7 @@ class RouteS3Config:
 
     strategy: RouteS3ConfigS3Strategy
     """
-    How the S3 route's objects will be created: one per topic or one per message.
+    How the Amazon S3 route's objects will be created: one per topic or one per message.
     """
 
 

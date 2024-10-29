@@ -281,7 +281,7 @@ class Model:
 
     has_eula: bool
     """
-    Defines whether the model has an end user licence agreement.
+    Defines whether the model has an end user license agreement.
     """
 
     region: Region
@@ -521,7 +521,7 @@ class DeleteEndpointRequest:
 class Eula:
     content: str
     """
-    Content of the end user licence agreement.
+    Content of the end user license agreement.
     """
 
 
