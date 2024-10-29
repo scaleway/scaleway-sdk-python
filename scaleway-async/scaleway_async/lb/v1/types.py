@@ -744,7 +744,7 @@ class Backend:
 
     failover_host: Optional[str]
     """
-    Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
+    Scaleway Object Storage bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
     """
 
     ssl_bridging: Optional[bool]
@@ -1373,7 +1373,7 @@ class CreateBackendRequest:
 
     failover_host: Optional[str]
     """
-    Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
+    Scaleway Object Storage bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
     """
 
     ssl_bridging: Optional[bool]
@@ -2581,7 +2581,7 @@ class UpdateBackendRequest:
 
     failover_host: Optional[str]
     """
-    Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
+    Scaleway Object Storage bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
     """
 
     ssl_bridging: Optional[bool]
@@ -3017,7 +3017,7 @@ class ZonedApiCreateBackendRequest:
 
     failover_host: Optional[str]
     """
-    Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
+    Scaleway Object Storage bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
     """
 
     ssl_bridging: Optional[bool]
@@ -4079,7 +4079,7 @@ class ZonedApiUpdateBackendRequest:
 
     failover_host: Optional[str]
     """
-    Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
+    Scaleway Object Storage bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
     """
 
     ssl_bridging: Optional[bool]

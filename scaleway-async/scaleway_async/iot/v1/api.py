@@ -1222,15 +1222,15 @@ class IotV1API(API):
           <b>You need to manage the database by yourself</b>.
         - REST Route.
           Create a route that will call a REST API on received subscribed MQTT messages.
-        - S3 Routes.
-          Create a route that will put subscribed MQTT messages into an S3 bucket.
+        - Amazon S3 Routes.
+          Create a route that will put subscribed MQTT messages into an Object Storage bucket.
           You need to create the bucket yourself and grant write access.
           Granting can be done with s3cmd (`s3cmd setacl s3://<my-bucket> --acl-grant=write:555c69c3-87d0-4bf8-80f1-99a2f757d031:555c69c3-87d0-4bf8-80f1-99a2f757d031`).
         :param hub_id: Hub ID of the route.
         :param topic: Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Route name.
-        :param s3_config: If creating S3 Route, S3-specific configuration fields.
+        :param s3_config: If creating Amazon S3 Routes, Amazon S3-specific configuration fields.
         One-Of ('config'): at most one of 's3_config', 'db_config', 'rest_config' could be set.
         :param db_config: If creating Database Route, DB-specific configuration fields.
         One-Of ('config'): at most one of 's3_config', 'db_config', 'rest_config' could be set.
@@ -1289,7 +1289,7 @@ class IotV1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Route name.
         :param topic: Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters.
-        :param s3_config: When updating S3 Route, S3-specific configuration fields.
+        :param s3_config: When updating Amazon S3 Route, Amazon S3-specific configuration fields.
         One-Of ('config'): at most one of 's3_config', 'db_config', 'rest_config' could be set.
         :param db_config: When updating Database Route, DB-specific configuration fields.
         One-Of ('config'): at most one of 's3_config', 'db_config', 'rest_config' could be set.
