@@ -1832,9 +1832,9 @@ class InstanceV1API(API):
     ) -> ExportSnapshotResponse:
         """
         Export a snapshot.
-        Export a snapshot to a specified S3 bucket in the same region.
-        :param bucket: S3 bucket name.
-        :param key: S3 object key.
+        Export a snapshot to a specified Object Storage bucket in the same region.
+        :param bucket: Object Storage bucket name.
+        :param key: Object key.
         :param snapshot_id: Snapshot ID.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`ExportSnapshotResponse <ExportSnapshotResponse>`

@@ -970,7 +970,7 @@ class LbV1ZonedAPI(API):
         :param timeout_tunnel: Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout).
         :param on_marked_down_action: Action to take when a backend server is marked as down.
         :param proxy_protocol: Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software.
-        :param failover_host: Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
+        :param failover_host: Scaleway Object Storage bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
         :param ssl_bridging: Defines whether to enable SSL bridging between the Load Balancer and backend servers.
         :param ignore_ssl_server_verify: Defines whether the server certificate verification should be ignored.
         :param redispatch_attempt_count: Whether to use another backend server on each attempt.
@@ -1107,7 +1107,7 @@ class LbV1ZonedAPI(API):
         :param timeout_tunnel: Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout).
         :param on_marked_down_action: Action to take when a backend server is marked as down.
         :param proxy_protocol: Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software.
-        :param failover_host: Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
+        :param failover_host: Scaleway Object Storage bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
         :param ssl_bridging: Defines whether to enable SSL bridging between the Load Balancer and backend servers.
         :param ignore_ssl_server_verify: Defines whether the server certificate verification should be ignored.
         :param redispatch_attempt_count: Whether to use another backend server on each attempt.
@@ -3995,7 +3995,7 @@ class LbV1API(API):
         :param timeout_tunnel: Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout).
         :param on_marked_down_action: Action to take when a backend server is marked as down.
         :param proxy_protocol: Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software.
-        :param failover_host: Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
+        :param failover_host: Scaleway Object Storage bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
         :param ssl_bridging: Defines whether to enable SSL bridging between the Load Balancer and backend servers.
         :param ignore_ssl_server_verify: Defines whether the server certificate verification should be ignored.
         :param redispatch_attempt_count: Whether to use another backend server on each attempt.
@@ -4134,7 +4134,7 @@ class LbV1API(API):
         :param timeout_tunnel: Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout).
         :param on_marked_down_action: Action to take when a backend server is marked as down.
         :param proxy_protocol: Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software.
-        :param failover_host: Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
+        :param failover_host: Scaleway Object Storage bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud.
         :param ssl_bridging: Defines whether to enable SSL bridging between the Load Balancer and backend servers.
         :param ignore_ssl_server_verify: Defines whether the server certificate verification should be ignored.
         :param redispatch_attempt_count: Whether to use another backend server on each attempt.
