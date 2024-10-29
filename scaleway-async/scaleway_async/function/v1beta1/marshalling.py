@@ -209,22 +209,6 @@ def unmarshal_Function(data: Any) -> Function:
             else None
         )
 
-    field = data.get("region", None)
-    if field is not None:
-        args["region"] = field
-
-    field = data.get("http_option", None)
-    if field is not None:
-        args["http_option"] = field
-
-    field = data.get("runtime_message", None)
-    if field is not None:
-        args["runtime_message"] = field
-
-    field = data.get("sandbox", None)
-    if field is not None:
-        args["sandbox"] = field
-
     field = data.get("timeout", None)
     if field is not None:
         args["timeout"] = field
@@ -248,6 +232,40 @@ def unmarshal_Function(data: Any) -> Function:
         args["description"] = field
     else:
         args["description"] = None
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+
+    field = data.get("http_option", None)
+    if field is not None:
+        args["http_option"] = field
+
+    field = data.get("runtime_message", None)
+    if field is not None:
+        args["runtime_message"] = field
+
+    field = data.get("sandbox", None)
+    if field is not None:
+        args["sandbox"] = field
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
+    field = data.get("ready_at", None)
+    if field is not None:
+        args["ready_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["ready_at"] = None
 
     return Function(**args)
 
