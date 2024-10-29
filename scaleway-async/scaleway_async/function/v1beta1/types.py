@@ -519,6 +519,26 @@ class Function:
     Secret environment variables of the function.
     """
 
+    timeout: Optional[str]
+    """
+    Request processing time limit for the function.
+    """
+
+    error_message: Optional[str]
+    """
+    Error message if the function is in "error" state.
+    """
+
+    build_message: Optional[str]
+    """
+    Description of the current build step.
+    """
+
+    description: Optional[str]
+    """
+    Description of the function.
+    """
+
     region: Region
     """
     Region in which the function is deployed.
@@ -538,24 +558,19 @@ class Function:
     Execution environment of the function.
     """
 
-    timeout: Optional[str]
+    created_at: Optional[datetime]
     """
-    Request processing time limit for the function.
-    """
-
-    error_message: Optional[str]
-    """
-    Error message if the function is in "error" state.
+    Creation date of the function.
     """
 
-    build_message: Optional[str]
+    updated_at: Optional[datetime]
     """
-    Description of the current build step.
+    Last update date of the function.
     """
 
-    description: Optional[str]
+    ready_at: Optional[datetime]
     """
-    Description of the function.
+    Last date when the function was successfully deployed and set to ready.
     """
 
 
