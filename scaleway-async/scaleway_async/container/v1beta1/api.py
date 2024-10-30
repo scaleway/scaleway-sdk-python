@@ -630,6 +630,7 @@ class ContainerV1Beta1API(API):
         :param local_storage_limit: Local storage limit of the container (in MB).
         :param scaling_option: Possible values:
         - concurrent_requests_threshold: Scale depending on the number of concurrent requests being processed per container instance.
+        - cpu_usage_threshold: Scale depending on the CPU usage of a container instance.
         :return: :class:`Container <Container>`
 
         Usage:
@@ -728,6 +729,7 @@ class ContainerV1Beta1API(API):
         :param local_storage_limit: Local storage limit of the container (in MB).
         :param scaling_option: Possible values:
         - concurrent_requests_threshold: Scale depending on the number of concurrent requests being processed per container instance.
+        - cpu_usage_threshold: Scale depending on the CPU usage of a container instance.
         :return: :class:`Container <Container>`
 
         Usage:
