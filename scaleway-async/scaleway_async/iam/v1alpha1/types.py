@@ -1692,6 +1692,11 @@ class ListUsersResponse:
 
 
 @dataclass
+class LockUserRequest:
+    user_id: str
+
+
+@dataclass
 class RemoveGroupMemberRequest:
     group_id: str
     """
@@ -1731,6 +1736,11 @@ class SetRulesResponse:
     """
     Rules of the policy.
     """
+
+
+@dataclass
+class UnlockUserRequest:
+    user_id: str
 
 
 @dataclass
@@ -1846,10 +1856,19 @@ class UpdateSSHKeyRequest:
 @dataclass
 class UpdateUserPasswordRequest:
     user_id: str
+    """
+    ID of the user to update.
+    """
 
     password: str
+    """
+    The new password.
+    """
 
     send_email: bool
+    """
+    Whether or not to send an email alerting the user their password has changed.
+    """
 
 
 @dataclass
