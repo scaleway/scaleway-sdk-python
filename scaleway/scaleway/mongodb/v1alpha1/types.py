@@ -604,14 +604,14 @@ class CreateUserRequest:
     Name of the database user.
     """
 
+    password: str
+    """
+    Password of the database user.
+    """
+
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
-    """
-
-    password: Optional[str]
-    """
-    Password of the database user.
     """
 
 
