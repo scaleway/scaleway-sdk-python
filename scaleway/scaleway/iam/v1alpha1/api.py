@@ -584,9 +584,10 @@ class IamV1Alpha1API(API):
         send_email: bool,
     ) -> User:
         """
-        :param user_id:
-        :param password:
-        :param send_email:
+        Update an user's password.
+        :param user_id: ID of the user to update.
+        :param password: The new password.
+        :param send_email: Whether or not to send an email alerting the user their password has changed.
         :return: :class:`User <User>`
 
         Usage:
@@ -612,6 +613,65 @@ class IamV1Alpha1API(API):
                 ),
                 self.client,
             ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_User(res.json())
+
+    def lock_user(
+        self,
+        *,
+        user_id: str,
+    ) -> User:
+        """
+        Lock a user.
+        Lock a user. Note that a locked user cannot log in or use API keys until the locked status is removed.
+        :param user_id:
+        :return: :class:`User <User>`
+
+        Usage:
+        ::
+
+            result = api.lock_user(
+                user_id="example",
+            )
+        """
+
+        param_user_id = validate_path_param("user_id", user_id)
+
+        res = self._request(
+            "POST",
+            f"/iam/v1alpha1/users/{param_user_id}/lock",
+            body={},
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_User(res.json())
+
+    def unlock_user(
+        self,
+        *,
+        user_id: str,
+    ) -> User:
+        """
+        Unlock a user.
+        :param user_id:
+        :return: :class:`User <User>`
+
+        Usage:
+        ::
+
+            result = api.unlock_user(
+                user_id="example",
+            )
+        """
+
+        param_user_id = validate_path_param("user_id", user_id)
+
+        res = self._request(
+            "POST",
+            f"/iam/v1alpha1/users/{param_user_id}/unlock",
+            body={},
         )
 
         self._throw_on_error(res)

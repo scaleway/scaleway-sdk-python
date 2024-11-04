@@ -23,6 +23,9 @@ from .content import TOKEN_TRANSIENT_STATUSES
 from .types import TriggerInputType
 from .types import TriggerStatus
 from .content import TRIGGER_TRANSIENT_STATUSES
+from .types import ContainerHealthCheckSpecHTTPProbe
+from .types import ContainerHealthCheckSpecTCPProbe
+from .types import ContainerHealthCheckSpec
 from .types import ContainerScalingOption
 from .types import SecretHashedValue
 from .types import TriggerMnqNatsClientConfig
@@ -100,6 +103,9 @@ __all__ = [
     "TriggerInputType",
     "TriggerStatus",
     "TRIGGER_TRANSIENT_STATUSES",
+    "ContainerHealthCheckSpecHTTPProbe",
+    "ContainerHealthCheckSpecTCPProbe",
+    "ContainerHealthCheckSpec",
     "ContainerScalingOption",
     "SecretHashedValue",
     "TriggerMnqNatsClientConfig",

@@ -27,6 +27,10 @@ from .types import (
     PoolStatus,
     PoolVolumeType,
     Runtime,
+    ACLRule,
+    ACLRuleRequest,
+    AddClusterACLRulesRequest,
+    AddClusterACLRulesResponse,
     Cluster,
     ClusterType,
     CreateClusterRequest,
@@ -38,6 +42,7 @@ from .types import (
     CreatePoolRequestUpgradePolicy,
     ExternalNode,
     ExternalNodeAuth,
+    ListClusterACLRulesResponse,
     ListClusterAvailableTypesResponse,
     ListClusterAvailableVersionsResponse,
     ListClusterTypesResponse,
@@ -48,6 +53,8 @@ from .types import (
     Node,
     NodeMetadata,
     Pool,
+    SetClusterACLRulesRequest,
+    SetClusterACLRulesResponse,
     SetClusterTypeRequest,
     UpdateClusterRequest,
     UpdateClusterRequestAutoUpgrade,
@@ -69,8 +76,10 @@ from .marshalling import (
     unmarshal_Version,
     unmarshal_Cluster,
     unmarshal_Node,
+    unmarshal_AddClusterACLRulesResponse,
     unmarshal_ExternalNode,
     unmarshal_ExternalNodeAuth,
+    unmarshal_ListClusterACLRulesResponse,
     unmarshal_ListClusterAvailableTypesResponse,
     unmarshal_ListClusterAvailableVersionsResponse,
     unmarshal_ListClusterTypesResponse,
@@ -79,8 +88,11 @@ from .marshalling import (
     unmarshal_ListPoolsResponse,
     unmarshal_ListVersionsResponse,
     unmarshal_NodeMetadata,
+    unmarshal_SetClusterACLRulesResponse,
+    marshal_AddClusterACLRulesRequest,
     marshal_CreateClusterRequest,
     marshal_CreatePoolRequest,
+    marshal_SetClusterACLRulesRequest,
     marshal_SetClusterTypeRequest,
     marshal_UpdateClusterRequest,
     marshal_UpdatePoolRequest,
@@ -748,6 +760,204 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Cluster(res.json())
+
+    async def list_cluster_acl_rules(
+        self,
+        *,
+        cluster_id: str,
+        region: Optional[Region] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ListClusterACLRulesResponse:
+        """
+        List ACLs.
+        List ACLs for a specific cluster.
+        :param cluster_id: ID of the cluster whose ACLs will be listed.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page: Page number for the returned ACLs.
+        :param page_size: Maximum number of ACLs per page.
+        :return: :class:`ListClusterACLRulesResponse <ListClusterACLRulesResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_cluster_acl_rules(
+                cluster_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_cluster_id = validate_path_param("cluster_id", cluster_id)
+
+        res = self._request(
+            "GET",
+            f"/k8s/v1/regions/{param_region}/clusters/{param_cluster_id}/acls",
+            params={
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListClusterACLRulesResponse(res.json())
+
+    async def list_cluster_acl_rules_all(
+        self,
+        *,
+        cluster_id: str,
+        region: Optional[Region] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> List[ACLRule]:
+        """
+        List ACLs.
+        List ACLs for a specific cluster.
+        :param cluster_id: ID of the cluster whose ACLs will be listed.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page: Page number for the returned ACLs.
+        :param page_size: Maximum number of ACLs per page.
+        :return: :class:`List[ACLRule] <List[ACLRule]>`
+
+        Usage:
+        ::
+
+            result = await api.list_cluster_acl_rules_all(
+                cluster_id="example",
+            )
+        """
+
+        return await fetch_all_pages_async(
+            type=ListClusterACLRulesResponse,
+            key="rules",
+            fetcher=self.list_cluster_acl_rules,
+            args={
+                "cluster_id": cluster_id,
+                "region": region,
+                "page": page,
+                "page_size": page_size,
+            },
+        )
+
+    async def add_cluster_acl_rules(
+        self,
+        *,
+        cluster_id: str,
+        region: Optional[Region] = None,
+        acls: Optional[List[ACLRuleRequest]] = None,
+    ) -> AddClusterACLRulesResponse:
+        """
+        Add new ACLs.
+        Add new ACL rules for a specific cluster.
+        :param cluster_id: ID of the cluster whose ACLs will be added.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param acls: ACLs to add.
+        :return: :class:`AddClusterACLRulesResponse <AddClusterACLRulesResponse>`
+
+        Usage:
+        ::
+
+            result = await api.add_cluster_acl_rules(
+                cluster_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_cluster_id = validate_path_param("cluster_id", cluster_id)
+
+        res = self._request(
+            "POST",
+            f"/k8s/v1/regions/{param_region}/clusters/{param_cluster_id}/acls",
+            body=marshal_AddClusterACLRulesRequest(
+                AddClusterACLRulesRequest(
+                    cluster_id=cluster_id,
+                    region=region,
+                    acls=acls,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_AddClusterACLRulesResponse(res.json())
+
+    async def set_cluster_acl_rules(
+        self,
+        *,
+        cluster_id: str,
+        region: Optional[Region] = None,
+        acls: Optional[List[ACLRuleRequest]] = None,
+    ) -> SetClusterACLRulesResponse:
+        """
+        Set new ACLs.
+        Set new ACL rules for a specific cluster.
+        :param cluster_id: ID of the cluster whose ACLs will be set.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param acls: ACLs to set.
+        :return: :class:`SetClusterACLRulesResponse <SetClusterACLRulesResponse>`
+
+        Usage:
+        ::
+
+            result = await api.set_cluster_acl_rules(
+                cluster_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_cluster_id = validate_path_param("cluster_id", cluster_id)
+
+        res = self._request(
+            "PUT",
+            f"/k8s/v1/regions/{param_region}/clusters/{param_cluster_id}/acls",
+            body=marshal_SetClusterACLRulesRequest(
+                SetClusterACLRulesRequest(
+                    cluster_id=cluster_id,
+                    region=region,
+                    acls=acls,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_SetClusterACLRulesResponse(res.json())
+
+    async def delete_acl_rule(
+        self,
+        *,
+        acl_id: str,
+        region: Optional[Region] = None,
+    ) -> None:
+        """
+        Delete an existing ACL.
+        :param acl_id: ID of the ACL rule to delete.
+        :param region: Region to target. If none is passed will use default region from the config.
+
+        Usage:
+        ::
+
+            result = await api.delete_acl_rule(
+                acl_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_acl_id = validate_path_param("acl_id", acl_id)
+
+        res = self._request(
+            "DELETE",
+            f"/k8s/v1/regions/{param_region}/acls/{param_acl_id}",
+        )
+
+        self._throw_on_error(res)
 
     async def list_pools(
         self,

@@ -1103,11 +1103,10 @@ class MongodbV1Alpha1API(API):
             "region", region or self.client.default_region
         )
         param_instance_id = validate_path_param("instance_id", instance_id)
-        param_name = validate_path_param("name", name)
 
         res = self._request(
             "POST",
-            f"/mongodb/v1alpha1/regions/{param_region}/instances/{param_instance_id}/users/{param_name}",
+            f"/mongodb/v1alpha1/regions/{param_region}/instances/{param_instance_id}/users",
             body=marshal_CreateUserRequest(
                 CreateUserRequest(
                     instance_id=instance_id,

@@ -24,6 +24,8 @@ from .types import ClusterAutoUpgrade
 from .types import ClusterAutoscalerConfig
 from .types import ClusterOpenIDConnectConfig
 from .types import Pool
+from .types import ACLRuleRequest
+from .types import ACLRule
 from .types import CreateClusterRequestAutoUpgrade
 from .types import CreateClusterRequestAutoscalerConfig
 from .types import CreateClusterRequestOpenIDConnectConfig
@@ -39,10 +41,13 @@ from .types import UpdateClusterRequestAutoUpgrade
 from .types import UpdateClusterRequestAutoscalerConfig
 from .types import UpdateClusterRequestOpenIDConnectConfig
 from .types import UpdatePoolRequestUpgradePolicy
+from .types import AddClusterACLRulesRequest
+from .types import AddClusterACLRulesResponse
 from .types import AuthExternalNodeRequest
 from .types import CreateClusterRequest
 from .types import CreateExternalNodeRequest
 from .types import CreatePoolRequest
+from .types import DeleteACLRuleRequest
 from .types import DeleteClusterRequest
 from .types import DeleteNodeRequest
 from .types import DeletePoolRequest
@@ -54,6 +59,8 @@ from .types import GetNodeMetadataRequest
 from .types import GetNodeRequest
 from .types import GetPoolRequest
 from .types import GetVersionRequest
+from .types import ListClusterACLRulesRequest
+from .types import ListClusterACLRulesResponse
 from .types import ListClusterAvailableTypesRequest
 from .types import ListClusterAvailableTypesResponse
 from .types import ListClusterAvailableVersionsRequest
@@ -73,6 +80,8 @@ from .types import NodeMetadata
 from .types import RebootNodeRequest
 from .types import ReplaceNodeRequest
 from .types import ResetClusterAdminTokenRequest
+from .types import SetClusterACLRulesRequest
+from .types import SetClusterACLRulesResponse
 from .types import SetClusterTypeRequest
 from .types import UpdateClusterRequest
 from .types import UpdatePoolRequest
@@ -105,6 +114,8 @@ __all__ = [
     "ClusterAutoscalerConfig",
     "ClusterOpenIDConnectConfig",
     "Pool",
+    "ACLRuleRequest",
+    "ACLRule",
     "CreateClusterRequestAutoUpgrade",
     "CreateClusterRequestAutoscalerConfig",
     "CreateClusterRequestOpenIDConnectConfig",
@@ -120,10 +131,13 @@ __all__ = [
     "UpdateClusterRequestAutoscalerConfig",
     "UpdateClusterRequestOpenIDConnectConfig",
     "UpdatePoolRequestUpgradePolicy",
+    "AddClusterACLRulesRequest",
+    "AddClusterACLRulesResponse",
     "AuthExternalNodeRequest",
     "CreateClusterRequest",
     "CreateExternalNodeRequest",
     "CreatePoolRequest",
+    "DeleteACLRuleRequest",
     "DeleteClusterRequest",
     "DeleteNodeRequest",
     "DeletePoolRequest",
@@ -135,6 +149,8 @@ __all__ = [
     "GetNodeRequest",
     "GetPoolRequest",
     "GetVersionRequest",
+    "ListClusterACLRulesRequest",
+    "ListClusterACLRulesResponse",
     "ListClusterAvailableTypesRequest",
     "ListClusterAvailableTypesResponse",
     "ListClusterAvailableVersionsRequest",
@@ -154,6 +170,8 @@ __all__ = [
     "RebootNodeRequest",
     "ReplaceNodeRequest",
     "ResetClusterAdminTokenRequest",
+    "SetClusterACLRulesRequest",
+    "SetClusterACLRulesResponse",
     "SetClusterTypeRequest",
     "UpdateClusterRequest",
     "UpdatePoolRequest",

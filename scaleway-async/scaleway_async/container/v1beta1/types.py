@@ -192,8 +192,41 @@ class TriggerStatus(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
+class ContainerHealthCheckSpecHTTPProbe:
+    path: str
+    """
+    Path to use for the HTTP health check.
+    """
+
+
+@dataclass
+class ContainerHealthCheckSpecTCPProbe:
+    pass
+
+
+@dataclass
+class ContainerHealthCheckSpec:
+    failure_threshold: int
+    """
+    During a deployment, if a newly created container fails to pass the health check, the deployment is aborted. 
+As a result, lowering this value can help to reduce the time it takes to detect a failed deployment.
+    """
+
+    interval: Optional[str]
+    """
+    Period between health checks.
+    """
+
+    http: Optional[ContainerHealthCheckSpecHTTPProbe]
+
+    tcp: Optional[ContainerHealthCheckSpecTCPProbe]
+
+
+@dataclass
 class ContainerScalingOption:
     concurrent_requests_threshold: Optional[int]
+
+    cpu_usage_threshold: Optional[int]
 
 
 @dataclass
@@ -381,6 +414,21 @@ class Container:
     Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag").
     """
 
+    timeout: Optional[str]
+    """
+    Processing time limit for the container.
+    """
+
+    error_message: Optional[str]
+    """
+    Last error message of the container.
+    """
+
+    description: Optional[str]
+    """
+    Description of the container.
+    """
+
     max_concurrency: int
     """
     Number of maximum concurrent executions of the container.
@@ -399,21 +447,6 @@ class Container:
     port: int
     """
     Port the container listens on.
-    """
-
-    timeout: Optional[str]
-    """
-    Processing time limit for the container.
-    """
-
-    error_message: Optional[str]
-    """
-    Last error message of the container.
-    """
-
-    description: Optional[str]
-    """
-    Description of the container.
     """
 
     secret_environment_variables: List[SecretHashedValue]
@@ -447,6 +480,13 @@ class Container:
     """
     Possible values:
 - concurrent_requests_threshold: Scale depending on the number of concurrent requests being processed per container instance.
+- cpu_usage_threshold: Scale depending on the CPU usage of a container instance.
+
+    """
+
+    health_check: Optional[ContainerHealthCheckSpec]
+    """
+    Health check configuration of the container.
     """
 
     created_at: Optional[datetime]
@@ -790,6 +830,12 @@ class CreateContainerRequest:
     """
     Possible values:
 - concurrent_requests_threshold: Scale depending on the number of concurrent requests being processed per container instance.
+- cpu_usage_threshold: Scale depending on the CPU usage of a container instance.
+    """
+
+    health_check: Optional[ContainerHealthCheckSpec]
+    """
+    Health check configuration of the container.
     """
 
 
@@ -1462,6 +1508,12 @@ class UpdateContainerRequest:
     """
     Possible values:
 - concurrent_requests_threshold: Scale depending on the number of concurrent requests being processed per container instance.
+- cpu_usage_threshold: Scale depending on the CPU usage of a container instance.
+    """
+
+    health_check: Optional[ContainerHealthCheckSpec]
+    """
+    Health check configuration of the container.
     """
 
 
