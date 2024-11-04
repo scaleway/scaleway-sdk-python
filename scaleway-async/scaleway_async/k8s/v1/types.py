@@ -442,6 +442,35 @@ class Pool:
 
 
 @dataclass
+class ACLRuleRequest:
+    description: str
+    """
+    Description of the ACL.
+    """
+
+    ip: Optional[str]
+
+    scaleway_ranges: Optional[bool]
+
+
+@dataclass
+class ACLRule:
+    id: str
+    """
+    ID of the ACL rule.
+    """
+
+    description: str
+    """
+    Description of the ACL.
+    """
+
+    ip: Optional[str]
+
+    scaleway_ranges: Optional[bool]
+
+
+@dataclass
 class CreateClusterRequestAutoUpgrade:
     enable: bool
     """
@@ -1067,6 +1096,32 @@ class UpdatePoolRequestUpgradePolicy:
 
 
 @dataclass
+class AddClusterACLRulesRequest:
+    cluster_id: str
+    """
+    ID of the cluster whose ACLs will be added.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    acls: Optional[List[ACLRuleRequest]]
+    """
+    ACLs to add.
+    """
+
+
+@dataclass
+class AddClusterACLRulesResponse:
+    rules: List[ACLRule]
+    """
+    ACLs that were added.
+    """
+
+
+@dataclass
 class AuthExternalNodeRequest:
     pool_id: str
     """
@@ -1265,6 +1320,19 @@ class CreatePoolRequest:
 
 
 @dataclass
+class DeleteACLRuleRequest:
+    acl_id: str
+    """
+    ID of the ACL rule to delete.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
 class DeleteClusterRequest:
     cluster_id: str
     """
@@ -1429,6 +1497,42 @@ class GetVersionRequest:
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class ListClusterACLRulesRequest:
+    cluster_id: str
+    """
+    ID of the cluster whose ACLs will be listed.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    page: Optional[int]
+    """
+    Page number for the returned ACLs.
+    """
+
+    page_size: Optional[int]
+    """
+    Maximum number of ACLs per page.
+    """
+
+
+@dataclass
+class ListClusterACLRulesResponse:
+    total_count: int
+    """
+    Total number of ACLs that exist for the cluster.
+    """
+
+    rules: List[ACLRule]
+    """
+    Paginated returned ACLs.
     """
 
 
@@ -1779,6 +1883,32 @@ class ResetClusterAdminTokenRequest:
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class SetClusterACLRulesRequest:
+    cluster_id: str
+    """
+    ID of the cluster whose ACLs will be set.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    acls: Optional[List[ACLRuleRequest]]
+    """
+    ACLs to set.
+    """
+
+
+@dataclass
+class SetClusterACLRulesResponse:
+    rules: List[ACLRule]
+    """
+    ACLs that were set.
     """
 
 
