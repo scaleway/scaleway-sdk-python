@@ -19,6 +19,8 @@ from .types import (
     Plan,
     Token,
     AlertManager,
+    GetConfigResponseRetention,
+    GetConfigResponse,
     Grafana,
     ListContactPointsResponse,
     ListDataSourcesResponse,
@@ -118,6 +120,10 @@ def unmarshal_DataSource(data: Any) -> DataSource:
     field = data.get("synchronized_with_grafana", None)
     if field is not None:
         args["synchronized_with_grafana"] = field
+
+    field = data.get("retention_days", None)
+    if field is not None:
+        args["retention_days"] = field
 
     field = data.get("region", None)
     if field is not None:
@@ -323,6 +329,58 @@ def unmarshal_AlertManager(data: Any) -> AlertManager:
         args["alert_manager_url"] = None
 
     return AlertManager(**args)
+
+
+def unmarshal_GetConfigResponseRetention(data: Any) -> GetConfigResponseRetention:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'GetConfigResponseRetention' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("min_days", None)
+    if field is not None:
+        args["min_days"] = field
+
+    field = data.get("max_days", None)
+    if field is not None:
+        args["max_days"] = field
+
+    field = data.get("default_days", None)
+    if field is not None:
+        args["default_days"] = field
+
+    return GetConfigResponseRetention(**args)
+
+
+def unmarshal_GetConfigResponse(data: Any) -> GetConfigResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'GetConfigResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("metrics_retention", None)
+    if field is not None:
+        args["metrics_retention"] = unmarshal_GetConfigResponseRetention(field)
+    else:
+        args["metrics_retention"] = None
+
+    field = data.get("logs_retention", None)
+    if field is not None:
+        args["logs_retention"] = unmarshal_GetConfigResponseRetention(field)
+    else:
+        args["logs_retention"] = None
+
+    field = data.get("traces_retention", None)
+    if field is not None:
+        args["traces_retention"] = unmarshal_GetConfigResponseRetention(field)
+    else:
+        args["traces_retention"] = None
+
+    return GetConfigResponse(**args)
 
 
 def unmarshal_Grafana(data: Any) -> Grafana:
@@ -721,6 +779,9 @@ def marshal_RegionalApiCreateDataSourceRequest(
     if request.type_ is not None:
         output["type"] = str(request.type_)
 
+    if request.retention_days is not None:
+        output["retention_days"] = request.retention_days
+
     return output
 
 
@@ -829,5 +890,8 @@ def marshal_RegionalApiUpdateDataSourceRequest(
 
     if request.name is not None:
         output["name"] = request.name
+
+    if request.retention_days is not None:
+        output["retention_days"] = request.retention_days
 
     return output

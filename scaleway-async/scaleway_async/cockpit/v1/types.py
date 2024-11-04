@@ -29,7 +29,6 @@ class DataSourceType(str, Enum, metaclass=StrEnumMeta):
     METRICS = "metrics"
     LOGS = "logs"
     TRACES = "traces"
-    ALERTS = "alerts"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -135,6 +134,15 @@ class ContactPointEmail:
 
 
 @dataclass
+class GetConfigResponseRetention:
+    min_days: int
+
+    max_days: int
+
+    default_days: int
+
+
+@dataclass
 class ContactPoint:
     """
     Contact point.
@@ -187,6 +195,11 @@ class DataSource:
     synchronized_with_grafana: bool
     """
     Indicates whether the data source is synchronized with Grafana.
+    """
+
+    retention_days: int
+    """
+    BETA - Duration for which the data will be retained in the data source.
     """
 
     region: Region
@@ -442,6 +455,28 @@ class AlertManager:
     alert_manager_url: Optional[str]
     """
     Alert manager URL.
+    """
+
+
+@dataclass
+class GetConfigResponse:
+    """
+    Cockpit configuration.
+    """
+
+    metrics_retention: Optional[GetConfigResponseRetention]
+    """
+    Metrics retention configuration.
+    """
+
+    logs_retention: Optional[GetConfigResponseRetention]
+    """
+    Logs retention configuration.
+    """
+
+    traces_retention: Optional[GetConfigResponseRetention]
+    """
+    Traces retention configuration.
     """
 
 
@@ -830,6 +865,11 @@ class RegionalApiCreateDataSourceRequest:
     Data source type.
     """
 
+    retention_days: Optional[int]
+    """
+    Default values are 30 days for metrics, 7 days for logs and traces.
+    """
+
 
 @dataclass
 class RegionalApiCreateTokenRequest:
@@ -993,6 +1033,18 @@ class RegionalApiGetAlertManagerRequest:
     project_id: Optional[str]
     """
     Project ID of the requested Alert manager.
+    """
+
+
+@dataclass
+class RegionalApiGetConfigRequest:
+    """
+    Get Cockpit configuration.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
     """
 
 
@@ -1216,6 +1268,11 @@ class RegionalApiUpdateDataSourceRequest:
     name: Optional[str]
     """
     Updated name of the data source.
+    """
+
+    retention_days: Optional[int]
+    """
+    BETA - Duration for which the data will be retained in the data source.
     """
 
 
