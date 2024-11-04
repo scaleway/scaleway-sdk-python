@@ -481,6 +481,7 @@ class Container:
     Possible values:
 - concurrent_requests_threshold: Scale depending on the number of concurrent requests being processed per container instance.
 - cpu_usage_threshold: Scale depending on the CPU usage of a container instance.
+
     """
 
     health_check: Optional[ContainerHealthCheckSpec]
