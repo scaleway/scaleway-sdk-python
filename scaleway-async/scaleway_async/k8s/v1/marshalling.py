@@ -21,9 +21,12 @@ from .types import (
     ClusterOpenIDConnectConfig,
     Cluster,
     Node,
+    ACLRule,
+    AddClusterACLRulesResponse,
     ExternalNodeCoreV1Taint,
     ExternalNode,
     ExternalNodeAuth,
+    ListClusterACLRulesResponse,
     ClusterType,
     ListClusterAvailableTypesResponse,
     ListClusterAvailableVersionsResponse,
@@ -34,6 +37,9 @@ from .types import (
     ListVersionsResponse,
     NodeMetadataCoreV1Taint,
     NodeMetadata,
+    SetClusterACLRulesResponse,
+    ACLRuleRequest,
+    AddClusterACLRulesRequest,
     CreateClusterRequestPoolConfigUpgradePolicy,
     CreateClusterRequestAutoUpgrade,
     CreateClusterRequestAutoscalerConfig,
@@ -42,6 +48,7 @@ from .types import (
     CreateClusterRequest,
     CreatePoolRequestUpgradePolicy,
     CreatePoolRequest,
+    SetClusterACLRulesRequest,
     SetClusterTypeRequest,
     UpdateClusterRequestAutoUpgrade,
     UpdateClusterRequestAutoscalerConfig,
@@ -577,6 +584,54 @@ def unmarshal_Node(data: Any) -> Node:
     return Node(**args)
 
 
+def unmarshal_ACLRule(data: Any) -> ACLRule:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ACLRule' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+
+    field = data.get("description", None)
+    if field is not None:
+        args["description"] = field
+
+    field = data.get("ip", None)
+    if field is not None:
+        args["ip"] = field
+    else:
+        args["ip"] = None
+
+    field = data.get("scaleway_ranges", None)
+    if field is not None:
+        args["scaleway_ranges"] = field
+    else:
+        args["scaleway_ranges"] = None
+
+    return ACLRule(**args)
+
+
+def unmarshal_AddClusterACLRulesResponse(data: Any) -> AddClusterACLRulesResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'AddClusterACLRulesResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("rules", None)
+    if field is not None:
+        args["rules"] = (
+            [unmarshal_ACLRule(v) for v in field] if field is not None else None
+        )
+
+    return AddClusterACLRulesResponse(**args)
+
+
 def unmarshal_ExternalNodeCoreV1Taint(data: Any) -> ExternalNodeCoreV1Taint:
     if not isinstance(data, dict):
         raise TypeError(
@@ -684,6 +739,27 @@ def unmarshal_ExternalNodeAuth(data: Any) -> ExternalNodeAuth:
         args["api_url"] = field
 
     return ExternalNodeAuth(**args)
+
+
+def unmarshal_ListClusterACLRulesResponse(data: Any) -> ListClusterACLRulesResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListClusterACLRulesResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+
+    field = data.get("rules", None)
+    if field is not None:
+        args["rules"] = (
+            [unmarshal_ACLRule(v) for v in field] if field is not None else None
+        )
+
+    return ListClusterACLRulesResponse(**args)
 
 
 def unmarshal_ClusterType(data: Any) -> ClusterType:
@@ -974,6 +1050,57 @@ def unmarshal_NodeMetadata(data: Any) -> NodeMetadata:
         args["external_ip"] = field
 
     return NodeMetadata(**args)
+
+
+def unmarshal_SetClusterACLRulesResponse(data: Any) -> SetClusterACLRulesResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'SetClusterACLRulesResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("rules", None)
+    if field is not None:
+        args["rules"] = (
+            [unmarshal_ACLRule(v) for v in field] if field is not None else None
+        )
+
+    return SetClusterACLRulesResponse(**args)
+
+
+def marshal_ACLRuleRequest(
+    request: ACLRuleRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
+            [
+                OneOfPossibility("ip", request.ip),
+                OneOfPossibility("scaleway_ranges", request.scaleway_ranges),
+            ]
+        ),
+    )
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    return output
+
+
+def marshal_AddClusterACLRulesRequest(
+    request: AddClusterACLRulesRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.acls is not None:
+        output["acls"] = [
+            marshal_ACLRuleRequest(item, defaults) for item in request.acls
+        ]
+
+    return output
 
 
 def marshal_MaintenanceWindow(
@@ -1305,6 +1432,20 @@ def marshal_CreatePoolRequest(
 
     if request.root_volume_size is not None:
         output["root_volume_size"] = request.root_volume_size
+
+    return output
+
+
+def marshal_SetClusterACLRulesRequest(
+    request: SetClusterACLRulesRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.acls is not None:
+        output["acls"] = [
+            marshal_ACLRuleRequest(item, defaults) for item in request.acls
+        ]
 
     return output
 

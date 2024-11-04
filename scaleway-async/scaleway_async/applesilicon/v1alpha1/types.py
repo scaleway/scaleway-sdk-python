@@ -225,6 +225,11 @@ class Server:
     Admin password required to execute commands.
     """
 
+    vnc_port: int
+    """
+    VNC port to use for remote desktop connection.
+    """
+
     status: ServerStatus
     """
     Current status of the server.

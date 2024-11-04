@@ -266,6 +266,10 @@ def unmarshal_Server(data: Any) -> Server:
     if field is not None:
         args["sudo_password"] = field
 
+    field = data.get("vnc_port", None)
+    if field is not None:
+        args["vnc_port"] = field
+
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
