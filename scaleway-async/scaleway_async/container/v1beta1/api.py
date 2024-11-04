@@ -29,6 +29,7 @@ from .types import (
     ListTokensRequestOrderBy,
     ListTriggersRequestOrderBy,
     Container,
+    ContainerHealthCheckSpec,
     ContainerScalingOption,
     CreateContainerRequest,
     CreateCronRequest,
@@ -603,6 +604,7 @@ class ContainerV1Beta1API(API):
         sandbox: Optional[ContainerSandbox] = None,
         local_storage_limit: Optional[int] = None,
         scaling_option: Optional[ContainerScalingOption] = None,
+        health_check: Optional[ContainerHealthCheckSpec] = None,
     ) -> Container:
         """
         Create a new container.
@@ -631,6 +633,7 @@ class ContainerV1Beta1API(API):
         :param scaling_option: Possible values:
         - concurrent_requests_threshold: Scale depending on the number of concurrent requests being processed per container instance.
         - cpu_usage_threshold: Scale depending on the CPU usage of a container instance.
+        :param health_check: Health check configuration of the container.
         :return: :class:`Container <Container>`
 
         Usage:
@@ -671,6 +674,7 @@ class ContainerV1Beta1API(API):
                     sandbox=sandbox,
                     local_storage_limit=local_storage_limit,
                     scaling_option=scaling_option,
+                    health_check=health_check,
                 ),
                 self.client,
             ),
@@ -702,6 +706,7 @@ class ContainerV1Beta1API(API):
         sandbox: Optional[ContainerSandbox] = None,
         local_storage_limit: Optional[int] = None,
         scaling_option: Optional[ContainerScalingOption] = None,
+        health_check: Optional[ContainerHealthCheckSpec] = None,
     ) -> Container:
         """
         Update an existing container.
@@ -730,6 +735,7 @@ class ContainerV1Beta1API(API):
         :param scaling_option: Possible values:
         - concurrent_requests_threshold: Scale depending on the number of concurrent requests being processed per container instance.
         - cpu_usage_threshold: Scale depending on the CPU usage of a container instance.
+        :param health_check: Health check configuration of the container.
         :return: :class:`Container <Container>`
 
         Usage:
@@ -770,6 +776,7 @@ class ContainerV1Beta1API(API):
                     sandbox=sandbox,
                     local_storage_limit=local_storage_limit,
                     scaling_option=scaling_option,
+                    health_check=health_check,
                 ),
                 self.client,
             ),
