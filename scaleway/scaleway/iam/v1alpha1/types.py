@@ -1692,6 +1692,11 @@ class ListUsersResponse:
 
 
 @dataclass
+class LockUserRequest:
+    user_id: str
+
+
+@dataclass
 class RemoveGroupMemberRequest:
     group_id: str
     """
@@ -1731,6 +1736,11 @@ class SetRulesResponse:
     """
     Rules of the policy.
     """
+
+
+@dataclass
+class UnlockUserRequest:
+    user_id: str
 
 
 @dataclass

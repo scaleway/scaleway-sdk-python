@@ -715,6 +715,9 @@ def marshal_CreateUserRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
+    if request.name is not None:
+        output["name"] = request.name
+
     if request.password is not None:
         output["password"] = request.password
 
