@@ -1077,16 +1077,16 @@ class MongodbV1Alpha1API(API):
         *,
         instance_id: str,
         name: str,
+        password: str,
         region: Optional[Region] = None,
-        password: Optional[str] = None,
     ) -> User:
         """
         Create an user on a Database Instance.
         Create an user on a Database Instance. You must define the `name`, `password` of the user and `instance_id` parameters in the request.
         :param instance_id: UUID of the Database Instance the user belongs to.
         :param name: Name of the database user.
-        :param region: Region to target. If none is passed will use default region from the config.
         :param password: Password of the database user.
+        :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`User <User>`
 
         Usage:
@@ -1095,6 +1095,7 @@ class MongodbV1Alpha1API(API):
             result = await api.create_user(
                 instance_id="example",
                 name="example",
+                password="example",
             )
         """
 
@@ -1111,8 +1112,8 @@ class MongodbV1Alpha1API(API):
                 CreateUserRequest(
                     instance_id=instance_id,
                     name=name,
-                    region=region,
                     password=password,
+                    region=region,
                 ),
                 self.client,
             ),

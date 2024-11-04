@@ -59,6 +59,12 @@ def unmarshal_ContainerScalingOption(data: Any) -> ContainerScalingOption:
     else:
         args["concurrent_requests_threshold"] = None
 
+    field = data.get("cpu_usage_threshold", None)
+    if field is not None:
+        args["cpu_usage_threshold"] = field
+    else:
+        args["cpu_usage_threshold"] = None
+
     return ContainerScalingOption(**args)
 
 
@@ -702,6 +708,7 @@ def marshal_ContainerScalingOption(
                     "concurrent_requests_threshold",
                     request.concurrent_requests_threshold,
                 ),
+                OneOfPossibility("cpu_usage_threshold", request.cpu_usage_threshold),
             ]
         ),
     )
