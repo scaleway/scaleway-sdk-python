@@ -78,10 +78,12 @@ from .types import ListSSHKeysRequest
 from .types import ListSSHKeysResponse
 from .types import ListUsersRequest
 from .types import ListUsersResponse
+from .types import LockUserRequest
 from .types import RemoveGroupMemberRequest
 from .types import SetGroupMembersRequest
 from .types import SetRulesRequest
 from .types import SetRulesResponse
+from .types import UnlockUserRequest
 from .types import UpdateAPIKeyRequest
 from .types import UpdateApplicationRequest
 from .types import UpdateGroupRequest
@@ -170,10 +172,12 @@ __all__ = [
     "ListSSHKeysResponse",
     "ListUsersRequest",
     "ListUsersResponse",
+    "LockUserRequest",
     "RemoveGroupMemberRequest",
     "SetGroupMembersRequest",
     "SetRulesRequest",
     "SetRulesResponse",
+    "UnlockUserRequest",
     "UpdateAPIKeyRequest",
     "UpdateApplicationRequest",
     "UpdateGroupRequest",

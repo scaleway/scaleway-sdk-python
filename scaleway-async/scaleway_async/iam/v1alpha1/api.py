@@ -617,6 +617,65 @@ class IamV1Alpha1API(API):
         self._throw_on_error(res)
         return unmarshal_User(res.json())
 
+    async def lock_user(
+        self,
+        *,
+        user_id: str,
+    ) -> User:
+        """
+        Lock a user.
+        Lock a user. Note that a locked user cannot log in or use API keys until the locked status is removed.
+        :param user_id:
+        :return: :class:`User <User>`
+
+        Usage:
+        ::
+
+            result = await api.lock_user(
+                user_id="example",
+            )
+        """
+
+        param_user_id = validate_path_param("user_id", user_id)
+
+        res = self._request(
+            "POST",
+            f"/iam/v1alpha1/users/{param_user_id}/lock",
+            body={},
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_User(res.json())
+
+    async def unlock_user(
+        self,
+        *,
+        user_id: str,
+    ) -> User:
+        """
+        Unlock a user.
+        :param user_id:
+        :return: :class:`User <User>`
+
+        Usage:
+        ::
+
+            result = await api.unlock_user(
+                user_id="example",
+            )
+        """
+
+        param_user_id = validate_path_param("user_id", user_id)
+
+        res = self._request(
+            "POST",
+            f"/iam/v1alpha1/users/{param_user_id}/unlock",
+            body={},
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_User(res.json())
+
     async def list_applications(
         self,
         *,
