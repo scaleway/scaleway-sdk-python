@@ -584,9 +584,10 @@ class IamV1Alpha1API(API):
         send_email: bool,
     ) -> User:
         """
-        :param user_id:
-        :param password:
-        :param send_email:
+        Update an user's password.
+        :param user_id: ID of the user to update.
+        :param password: The new password.
+        :param send_email: Whether or not to send an email alerting the user their password has changed.
         :return: :class:`User <User>`
 
         Usage:
