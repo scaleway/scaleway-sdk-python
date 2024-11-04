@@ -10,6 +10,9 @@ from scaleway_core.utils import (
     resolve_one_of,
 )
 from .types import (
+    ContainerHealthCheckSpecHTTPProbe,
+    ContainerHealthCheckSpecTCPProbe,
+    ContainerHealthCheckSpec,
     ContainerScalingOption,
     SecretHashedValue,
     Container,
@@ -43,6 +46,69 @@ from .types import (
     UpdateTriggerRequestSqsClientConfig,
     UpdateTriggerRequest,
 )
+
+
+def unmarshal_ContainerHealthCheckSpecHTTPProbe(
+    data: Any,
+) -> ContainerHealthCheckSpecHTTPProbe:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ContainerHealthCheckSpecHTTPProbe' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("path", None)
+    if field is not None:
+        args["path"] = field
+
+    return ContainerHealthCheckSpecHTTPProbe(**args)
+
+
+def unmarshal_ContainerHealthCheckSpecTCPProbe(
+    data: Any,
+) -> ContainerHealthCheckSpecTCPProbe:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ContainerHealthCheckSpecTCPProbe' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    return ContainerHealthCheckSpecTCPProbe(**args)
+
+
+def unmarshal_ContainerHealthCheckSpec(data: Any) -> ContainerHealthCheckSpec:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ContainerHealthCheckSpec' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("failure_threshold", None)
+    if field is not None:
+        args["failure_threshold"] = field
+
+    field = data.get("http", None)
+    if field is not None:
+        args["http"] = unmarshal_ContainerHealthCheckSpecHTTPProbe(field)
+    else:
+        args["http"] = None
+
+    field = data.get("tcp", None)
+    if field is not None:
+        args["tcp"] = unmarshal_ContainerHealthCheckSpecTCPProbe(field)
+    else:
+        args["tcp"] = None
+
+    field = data.get("interval", None)
+    if field is not None:
+        args["interval"] = field
+    else:
+        args["interval"] = None
+
+    return ContainerHealthCheckSpec(**args)
 
 
 def unmarshal_ContainerScalingOption(data: Any) -> ContainerScalingOption:
@@ -139,22 +205,6 @@ def unmarshal_Container(data: Any) -> Container:
     if field is not None:
         args["registry_image"] = field
 
-    field = data.get("max_concurrency", None)
-    if field is not None:
-        args["max_concurrency"] = field
-
-    field = data.get("domain_name", None)
-    if field is not None:
-        args["domain_name"] = field
-
-    field = data.get("protocol", None)
-    if field is not None:
-        args["protocol"] = field
-
-    field = data.get("port", None)
-    if field is not None:
-        args["port"] = field
-
     field = data.get("timeout", None)
     if field is not None:
         args["timeout"] = field
@@ -172,6 +222,22 @@ def unmarshal_Container(data: Any) -> Container:
         args["description"] = field
     else:
         args["description"] = None
+
+    field = data.get("max_concurrency", None)
+    if field is not None:
+        args["max_concurrency"] = field
+
+    field = data.get("domain_name", None)
+    if field is not None:
+        args["domain_name"] = field
+
+    field = data.get("protocol", None)
+    if field is not None:
+        args["protocol"] = field
+
+    field = data.get("port", None)
+    if field is not None:
+        args["port"] = field
 
     field = data.get("secret_environment_variables", None)
     if field is not None:
@@ -202,6 +268,12 @@ def unmarshal_Container(data: Any) -> Container:
         args["scaling_option"] = unmarshal_ContainerScalingOption(field)
     else:
         args["scaling_option"] = None
+
+    field = data.get("health_check", None)
+    if field is not None:
+        args["health_check"] = unmarshal_ContainerHealthCheckSpec(field)
+    else:
+        args["health_check"] = None
 
     field = data.get("created_at", None)
     if field is not None:
@@ -696,6 +768,50 @@ def unmarshal_ListTriggersResponse(data: Any) -> ListTriggersResponse:
     return ListTriggersResponse(**args)
 
 
+def marshal_ContainerHealthCheckSpecHTTPProbe(
+    request: ContainerHealthCheckSpecHTTPProbe,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.path is not None:
+        output["path"] = request.path
+
+    return output
+
+
+def marshal_ContainerHealthCheckSpecTCPProbe(
+    request: ContainerHealthCheckSpecTCPProbe,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    return output
+
+
+def marshal_ContainerHealthCheckSpec(
+    request: ContainerHealthCheckSpec,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
+            [
+                OneOfPossibility("http", request.http),
+                OneOfPossibility("tcp", request.tcp),
+            ]
+        ),
+    )
+
+    if request.failure_threshold is not None:
+        output["failure_threshold"] = request.failure_threshold
+
+    if request.interval is not None:
+        output["interval"] = request.interval
+
+    return output
+
+
 def marshal_ContainerScalingOption(
     request: ContainerScalingOption,
     defaults: ProfileDefaults,
@@ -797,6 +913,11 @@ def marshal_CreateContainerRequest(
     if request.scaling_option is not None:
         output["scaling_option"] = marshal_ContainerScalingOption(
             request.scaling_option, defaults
+        )
+
+    if request.health_check is not None:
+        output["health_check"] = marshal_ContainerHealthCheckSpec(
+            request.health_check, defaults
         )
 
     return output
@@ -1041,6 +1162,11 @@ def marshal_UpdateContainerRequest(
     if request.scaling_option is not None:
         output["scaling_option"] = marshal_ContainerScalingOption(
             request.scaling_option, defaults
+        )
+
+    if request.health_check is not None:
+        output["health_check"] = marshal_ContainerHealthCheckSpec(
+            request.health_check, defaults
         )
 
     return output
