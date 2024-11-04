@@ -27,6 +27,7 @@ from .types import (
     ContactPoint,
     ContactPointEmail,
     DataSource,
+    GetConfigResponse,
     GlobalApiCreateGrafanaUserRequest,
     GlobalApiResetGrafanaUserPasswordRequest,
     GlobalApiSelectPlanRequest,
@@ -63,6 +64,7 @@ from .marshalling import (
     unmarshal_Plan,
     unmarshal_Token,
     unmarshal_AlertManager,
+    unmarshal_GetConfigResponse,
     unmarshal_Grafana,
     unmarshal_ListContactPointsResponse,
     unmarshal_ListDataSourcesResponse,
@@ -451,10 +453,12 @@ class CockpitV1GlobalAPI(API):
         """
         List plan types.
         Retrieve a list of available pricing plan types.
+        Deprecated, retention is now managed at the data source level.
         :param page: Page number.
         :param page_size: Page size.
         :param order_by:
         :return: :class:`ListPlansResponse <ListPlansResponse>`
+        :deprecated
 
         Usage:
         ::
@@ -485,10 +489,12 @@ class CockpitV1GlobalAPI(API):
         """
         List plan types.
         Retrieve a list of available pricing plan types.
+        Deprecated, retention is now managed at the data source level.
         :param page: Page number.
         :param page_size: Page size.
         :param order_by:
         :return: :class:`List[Plan] <List[Plan]>`
+        :deprecated
 
         Usage:
         ::
@@ -516,9 +522,11 @@ class CockpitV1GlobalAPI(API):
         """
         Apply a pricing plan.
         Apply a pricing plan on a given Project. You must specify the ID of the pricing plan type. Note that you will be billed for the plan you apply.
+        Deprecated, retention is now managed at the data source level.
         :param project_id: ID of the Project.
         :param plan_name: Name of the pricing plan.
         :return: :class:`Plan <Plan>`
+        :deprecated
 
         Usage:
         ::
@@ -549,8 +557,10 @@ class CockpitV1GlobalAPI(API):
         """
         Get current plan.
         Retrieve a pricing plan for the given Project, specified by the ID of the Project.
+        Deprecated, retention is now managed at the data source level.
         :param project_id: ID of the Project.
         :return: :class:`Plan <Plan>`
+        :deprecated
 
         Usage:
         ::
@@ -575,6 +585,34 @@ class CockpitV1RegionalAPI(API):
     The Cockpit Regional API allows you to create data sources and tokens to store and query data types such as metrics, logs, and traces. You can also push your data into Cockpit, and send alerts to your contact points when your resources may require your attention, using the regional Alert manager.
     """
 
+    def get_config(
+        self,
+        *,
+        region: Optional[Region] = None,
+    ) -> GetConfigResponse:
+        """
+        Get the Cockpit configuration.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`GetConfigResponse <GetConfigResponse>`
+
+        Usage:
+        ::
+
+            result = api.get_config()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/cockpit/v1/regions/{param_region}/config",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_GetConfigResponse(res.json())
+
     def create_data_source(
         self,
         *,
@@ -582,6 +620,7 @@ class CockpitV1RegionalAPI(API):
         region: Optional[Region] = None,
         project_id: Optional[str] = None,
         type_: Optional[DataSourceType] = None,
+        retention_days: Optional[int] = None,
     ) -> DataSource:
         """
         Create a data source.
@@ -594,6 +633,7 @@ class CockpitV1RegionalAPI(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the Project the data source belongs to.
         :param type_: Data source type.
+        :param retention_days: Default values are 30 days for metrics, 7 days for logs and traces.
         :return: :class:`DataSource <DataSource>`
 
         Usage:
@@ -617,6 +657,7 @@ class CockpitV1RegionalAPI(API):
                     region=region,
                     project_id=project_id,
                     type_=type_,
+                    retention_days=retention_days,
                 ),
                 self.client,
             ),
@@ -792,6 +833,7 @@ class CockpitV1RegionalAPI(API):
         data_source_id: str,
         region: Optional[Region] = None,
         name: Optional[str] = None,
+        retention_days: Optional[int] = None,
     ) -> DataSource:
         """
         Update a data source.
@@ -799,6 +841,7 @@ class CockpitV1RegionalAPI(API):
         :param data_source_id: ID of the data source to update.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Updated name of the data source.
+        :param retention_days: BETA - Duration for which the data will be retained in the data source.
         :return: :class:`DataSource <DataSource>`
 
         Usage:
@@ -822,6 +865,7 @@ class CockpitV1RegionalAPI(API):
                     data_source_id=data_source_id,
                     region=region,
                     name=name,
+                    retention_days=retention_days,
                 ),
                 self.client,
             ),
