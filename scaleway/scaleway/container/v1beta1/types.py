@@ -195,6 +195,8 @@ class TriggerStatus(str, Enum, metaclass=StrEnumMeta):
 class ContainerScalingOption:
     concurrent_requests_threshold: Optional[int]
 
+    cpu_usage_threshold: Optional[int]
+
 
 @dataclass
 class SecretHashedValue:
@@ -447,6 +449,7 @@ class Container:
     """
     Possible values:
 - concurrent_requests_threshold: Scale depending on the number of concurrent requests being processed per container instance.
+- cpu_usage_threshold: Scale depending on the CPU usage of a container instance.
     """
 
     created_at: Optional[datetime]
@@ -790,6 +793,7 @@ class CreateContainerRequest:
     """
     Possible values:
 - concurrent_requests_threshold: Scale depending on the number of concurrent requests being processed per container instance.
+- cpu_usage_threshold: Scale depending on the CPU usage of a container instance.
     """
 
 
@@ -1462,6 +1466,7 @@ class UpdateContainerRequest:
     """
     Possible values:
 - concurrent_requests_threshold: Scale depending on the number of concurrent requests being processed per container instance.
+- cpu_usage_threshold: Scale depending on the CPU usage of a container instance.
     """
 
 
