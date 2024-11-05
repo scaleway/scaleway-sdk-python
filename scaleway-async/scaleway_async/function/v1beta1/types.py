@@ -641,6 +641,16 @@ class Namespace:
     Description of the namespace.
     """
 
+    created_at: Optional[datetime]
+    """
+    Creation date of the namespace.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Last update date of the namespace.
+    """
+
 
 @dataclass
 class Token:
