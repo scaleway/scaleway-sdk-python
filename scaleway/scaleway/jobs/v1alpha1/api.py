@@ -416,8 +416,9 @@ class JobsV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> CreateJobDefinitionSecretsResponse:
         """
-        :param job_definition_id: UUID of the job definition to get.
-        :param secrets: Secrets to inject into the job.
+        Create a secret reference within a job definition.
+        :param job_definition_id: UUID of the job definition.
+        :param secrets: List of secrets to inject into the job.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`CreateJobDefinitionSecretsResponse <CreateJobDefinitionSecretsResponse>`
 
@@ -461,8 +462,9 @@ class JobsV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> Secret:
         """
-        :param job_definition_id:
-        :param secret_id:
+        Get a secret references within a job definition.
+        :param job_definition_id: UUID of the job definition.
+        :param secret_id: UUID of the secret reference within the job.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Secret <Secret>`
 
@@ -498,7 +500,8 @@ class JobsV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> ListJobDefinitionSecretsResponse:
         """
-        :param job_definition_id:
+        List secrets references within a job definition.
+        :param job_definition_id: UUID of the job definition.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`ListJobDefinitionSecretsResponse <ListJobDefinitionSecretsResponse>`
 
@@ -536,13 +539,14 @@ class JobsV1Alpha1API(API):
         env_var_name: Optional[str] = None,
     ) -> Secret:
         """
-        :param job_definition_id:
-        :param secret_id:
+        Update a secret reference within a job definition.
+        :param job_definition_id: UUID of the job definition.
+        :param secret_id: UUID of the secret reference within the job.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param secret_manager_version:
-        :param path:
+        :param secret_manager_version: Version of the secret in Secret Manager.
+        :param path: Path of the secret to mount inside the job (either `path` or `env_var_name` must be set).
         One-Of ('secret_config'): at most one of 'path', 'env_var_name' could be set.
-        :param env_var_name:
+        :param env_var_name: Environment variable name used to expose the secret inside the job (either `path` or `env_var_name` must be set).
         One-Of ('secret_config'): at most one of 'path', 'env_var_name' could be set.
         :return: :class:`Secret <Secret>`
 
@@ -590,8 +594,9 @@ class JobsV1Alpha1API(API):
         region: Optional[Region] = None,
     ) -> None:
         """
-        :param job_definition_id:
-        :param secret_id:
+        Delete a secret reference within a job definition.
+        :param job_definition_id: UUID of the job definition.
+        :param secret_id: UUID of the secret reference within the job.
         :param region: Region to target. If none is passed will use default region from the config.
 
         Usage:
