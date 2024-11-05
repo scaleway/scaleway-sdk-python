@@ -228,6 +228,8 @@ class ContainerScalingOption:
 
     cpu_usage_threshold: Optional[int]
 
+    memory_usage_threshold: Optional[int]
+
 
 @dataclass
 class SecretHashedValue:
@@ -481,7 +483,7 @@ class Container:
     Possible values:
 - concurrent_requests_threshold: Scale depending on the number of concurrent requests being processed per container instance.
 - cpu_usage_threshold: Scale depending on the CPU usage of a container instance.
-
+- memory_usage_threshold: Scale depending on the memory usage of a container instance.
     """
 
     health_check: Optional[ContainerHealthCheckSpec]
@@ -831,6 +833,7 @@ class CreateContainerRequest:
     Possible values:
 - concurrent_requests_threshold: Scale depending on the number of concurrent requests being processed per container instance.
 - cpu_usage_threshold: Scale depending on the CPU usage of a container instance.
+- memory_usage_threshold: Scale depending on the memory usage of a container instance.
     """
 
     health_check: Optional[ContainerHealthCheckSpec]
@@ -1509,6 +1512,7 @@ class UpdateContainerRequest:
     Possible values:
 - concurrent_requests_threshold: Scale depending on the number of concurrent requests being processed per container instance.
 - cpu_usage_threshold: Scale depending on the CPU usage of a container instance.
+- memory_usage_threshold: Scale depending on the memory usage of a container instance.
     """
 
     health_check: Optional[ContainerHealthCheckSpec]
