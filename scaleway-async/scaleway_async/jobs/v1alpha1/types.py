@@ -89,10 +89,19 @@ class CreateJobDefinitionSecretsRequestSecretConfig:
 @dataclass
 class Secret:
     secret_id: str
+    """
+    UUID of the secret reference within the job.
+    """
 
     secret_manager_id: str
+    """
+    UUID of the secret in Secret Manager.
+    """
 
     secret_manager_version: str
+    """
+    Version of the secret in Secret Manager.
+    """
 
     file: Optional[SecretFile]
 
@@ -254,12 +263,12 @@ class CreateJobDefinitionRequest:
 class CreateJobDefinitionSecretsRequest:
     job_definition_id: str
     """
-    UUID of the job definition to get.
+    UUID of the job definition.
     """
 
     secrets: List[CreateJobDefinitionSecretsRequestSecretConfig]
     """
-    Secrets to inject into the job.
+    List of secrets to inject into the job.
     """
 
     region: Optional[Region]
@@ -271,6 +280,9 @@ class CreateJobDefinitionSecretsRequest:
 @dataclass
 class CreateJobDefinitionSecretsResponse:
     secrets: List[Secret]
+    """
+    List of secrets created.
+    """
 
 
 @dataclass
@@ -289,8 +301,14 @@ class DeleteJobDefinitionRequest:
 @dataclass
 class DeleteJobDefinitionSecretRequest:
     job_definition_id: str
+    """
+    UUID of the job definition.
+    """
 
     secret_id: str
+    """
+    UUID of the secret reference within the job.
+    """
 
     region: Optional[Region]
     """
@@ -314,8 +332,14 @@ class GetJobDefinitionRequest:
 @dataclass
 class GetJobDefinitionSecretRequest:
     job_definition_id: str
+    """
+    UUID of the job definition.
+    """
 
     secret_id: str
+    """
+    UUID of the secret reference within the job.
+    """
 
     region: Optional[Region]
     """
@@ -352,6 +376,9 @@ class JobsLimits:
 @dataclass
 class ListJobDefinitionSecretsRequest:
     job_definition_id: str
+    """
+    UUID of the job definition.
+    """
 
     region: Optional[Region]
     """
@@ -362,8 +389,14 @@ class ListJobDefinitionSecretsRequest:
 @dataclass
 class ListJobDefinitionSecretsResponse:
     secrets: List[Secret]
+    """
+    List of secret references within a job definition.
+    """
 
     total_count: int
+    """
+    Total count of secret references within a job definition.
+    """
 
 
 @dataclass
@@ -540,8 +573,14 @@ class UpdateJobDefinitionRequest:
 @dataclass
 class UpdateJobDefinitionSecretRequest:
     job_definition_id: str
+    """
+    UUID of the job definition.
+    """
 
     secret_id: str
+    """
+    UUID of the secret reference within the job.
+    """
 
     region: Optional[Region]
     """
@@ -549,6 +588,9 @@ class UpdateJobDefinitionSecretRequest:
     """
 
     secret_manager_version: Optional[str]
+    """
+    Version of the secret in Secret Manager.
+    """
 
     path: Optional[str]
 
