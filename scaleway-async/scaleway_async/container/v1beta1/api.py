@@ -633,6 +633,7 @@ class ContainerV1Beta1API(API):
         :param scaling_option: Possible values:
         - concurrent_requests_threshold: Scale depending on the number of concurrent requests being processed per container instance.
         - cpu_usage_threshold: Scale depending on the CPU usage of a container instance.
+        - memory_usage_threshold: Scale depending on the memory usage of a container instance.
         :param health_check: Health check configuration of the container.
         :return: :class:`Container <Container>`
 
@@ -735,8 +736,8 @@ class ContainerV1Beta1API(API):
         :param scaling_option: Possible values:
         - concurrent_requests_threshold: Scale depending on the number of concurrent requests being processed per container instance.
         - cpu_usage_threshold: Scale depending on the CPU usage of a container instance.
+        - memory_usage_threshold: Scale depending on the memory usage of a container instance.
         :param health_check: Health check configuration of the container.
-
         :return: :class:`Container <Container>`
 
         Usage:
