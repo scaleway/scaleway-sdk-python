@@ -765,12 +765,12 @@ class GetBillingResponse:
 
     current_plan_cache_usage: int
     """
-    Total amount of data egressed from the cache (this month), included in the active subscription plan.
+    Total amount of data egressed from the cache in gigabytes from the beginning of the month, included in the active subscription plan.
     """
 
     extra_cache_usage: int
     """
-    Total amount of data egressed from cache (this month), not included in the active subscription plan.
+    Total amount of extra data egressed from cache in gigabytes from the beginning of the month, not included in the active subscription plan.
     """
 
     current_plan: Optional[PlanDetails]
