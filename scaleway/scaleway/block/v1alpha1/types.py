@@ -688,6 +688,11 @@ class ListVolumesRequest:
     Filter by a product resource ID linked to this volume (such as an Instance ID).
     """
 
+    tags: Optional[List[str]]
+    """
+    Filter by tags. Only volumes with one or more matching tags will be returned.
+    """
+
 
 @dataclass
 class ListVolumesResponse:

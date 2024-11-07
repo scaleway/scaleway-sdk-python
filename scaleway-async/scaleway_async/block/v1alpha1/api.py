@@ -135,6 +135,7 @@ class BlockV1Alpha1API(API):
         page_size: Optional[int] = None,
         name: Optional[str] = None,
         product_resource_id: Optional[str] = None,
+        tags: Optional[List[str]] = None,
     ) -> ListVolumesResponse:
         """
         List volumes.
@@ -147,6 +148,7 @@ class BlockV1Alpha1API(API):
         :param page_size: Page size, defines how many entries are returned in one page, must be lower or equal to 100.
         :param name: Filter the return volumes by their names.
         :param product_resource_id: Filter by a product resource ID linked to this volume (such as an Instance ID).
+        :param tags: Filter by tags. Only volumes with one or more matching tags will be returned.
         :return: :class:`ListVolumesResponse <ListVolumesResponse>`
 
         Usage:
@@ -169,6 +171,7 @@ class BlockV1Alpha1API(API):
                 "page_size": page_size or self.client.default_page_size,
                 "product_resource_id": product_resource_id,
                 "project_id": project_id or self.client.default_project_id,
+                "tags": tags,
             },
         )
 
@@ -186,6 +189,7 @@ class BlockV1Alpha1API(API):
         page_size: Optional[int] = None,
         name: Optional[str] = None,
         product_resource_id: Optional[str] = None,
+        tags: Optional[List[str]] = None,
     ) -> List[Volume]:
         """
         List volumes.
@@ -198,6 +202,7 @@ class BlockV1Alpha1API(API):
         :param page_size: Page size, defines how many entries are returned in one page, must be lower or equal to 100.
         :param name: Filter the return volumes by their names.
         :param product_resource_id: Filter by a product resource ID linked to this volume (such as an Instance ID).
+        :param tags: Filter by tags. Only volumes with one or more matching tags will be returned.
         :return: :class:`List[Volume] <List[Volume]>`
 
         Usage:
@@ -219,6 +224,7 @@ class BlockV1Alpha1API(API):
                 "page_size": page_size,
                 "name": name,
                 "product_resource_id": product_resource_id,
+                "tags": tags,
             },
         )
 
