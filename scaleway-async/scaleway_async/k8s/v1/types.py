@@ -171,6 +171,8 @@ class PoolVolumeType(str, Enum, metaclass=StrEnumMeta):
     DEFAULT_VOLUME_TYPE = "default_volume_type"
     L_SSD = "l_ssd"
     B_SSD = "b_ssd"
+    SBS_5K = "sbs_5k"
+    SBS_15K = "sbs_15k"
 
     def __str__(self) -> str:
         return str(self.value)
