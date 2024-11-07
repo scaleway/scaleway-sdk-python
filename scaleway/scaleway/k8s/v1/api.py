@@ -1388,7 +1388,7 @@ class K8SV1API(API):
 
         res = self._request(
             "GET",
-            f"/k8s/v1/regions/{param_region}/nodes/metadata",
+            f"/k8s/v1/regions/{param_region}/node-metadata",
         )
 
         self._throw_on_error(res)
