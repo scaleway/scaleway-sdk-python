@@ -16,6 +16,7 @@ from scaleway_core.utils import (
 )
 from .types import (
     ListServersRequestOrderBy,
+    ConnectivityDiagnostic,
     CreateServerRequest,
     ListOSResponse,
     ListServerTypesResponse,
@@ -24,6 +25,8 @@ from .types import (
     ReinstallServerRequest,
     Server,
     ServerType,
+    StartConnectivityDiagnosticRequest,
+    StartConnectivityDiagnosticResponse,
     UpdateServerRequest,
 )
 from .content import (
@@ -33,11 +36,14 @@ from .marshalling import (
     unmarshal_OS,
     unmarshal_ServerType,
     unmarshal_Server,
+    unmarshal_ConnectivityDiagnostic,
     unmarshal_ListOSResponse,
     unmarshal_ListServerTypesResponse,
     unmarshal_ListServersResponse,
+    unmarshal_StartConnectivityDiagnosticResponse,
     marshal_CreateServerRequest,
     marshal_ReinstallServerRequest,
+    marshal_StartConnectivityDiagnosticRequest,
     marshal_UpdateServerRequest,
 )
 
@@ -568,3 +574,69 @@ class ApplesiliconV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Server(res.json())
+
+    async def start_connectivity_diagnostic(
+        self,
+        *,
+        server_id: str,
+        zone: Optional[Zone] = None,
+    ) -> StartConnectivityDiagnosticResponse:
+        """
+        :param server_id:
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :return: :class:`StartConnectivityDiagnosticResponse <StartConnectivityDiagnosticResponse>`
+
+        Usage:
+        ::
+
+            result = await api.start_connectivity_diagnostic(
+                server_id="example",
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+
+        res = self._request(
+            "POST",
+            f"/apple-silicon/v1alpha1/zones/{param_zone}/connectivity-diagnostics",
+            body=marshal_StartConnectivityDiagnosticRequest(
+                StartConnectivityDiagnosticRequest(
+                    server_id=server_id,
+                    zone=zone,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_StartConnectivityDiagnosticResponse(res.json())
+
+    async def get_connectivity_diagnostic(
+        self,
+        *,
+        diagnostic_id: str,
+        zone: Optional[Zone] = None,
+    ) -> ConnectivityDiagnostic:
+        """
+        :param diagnostic_id:
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :return: :class:`ConnectivityDiagnostic <ConnectivityDiagnostic>`
+
+        Usage:
+        ::
+
+            result = await api.get_connectivity_diagnostic(
+                diagnostic_id="example",
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_diagnostic_id = validate_path_param("diagnostic_id", diagnostic_id)
+
+        res = self._request(
+            "GET",
+            f"/apple-silicon/v1alpha1/zones/{param_zone}/connectivity-diagnostics/{param_diagnostic_id}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ConnectivityDiagnostic(res.json())
