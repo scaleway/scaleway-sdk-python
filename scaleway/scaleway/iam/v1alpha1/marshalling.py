@@ -1176,6 +1176,9 @@ def marshal_CreateUserRequestMember(
     if request.send_password_email is not None:
         output["send_password_email"] = request.send_password_email
 
+    if request.send_welcome_email is not None:
+        output["send_welcome_email"] = request.send_welcome_email
+
     if request.username is not None:
         output["username"] = request.username
 
