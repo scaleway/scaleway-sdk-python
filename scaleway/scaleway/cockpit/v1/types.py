@@ -464,19 +464,29 @@ class GetConfigResponse:
     Cockpit configuration.
     """
 
-    metrics_retention: Optional[GetConfigResponseRetention]
+    custom_metrics_retention: Optional[GetConfigResponseRetention]
     """
-    Metrics retention configuration.
-    """
-
-    logs_retention: Optional[GetConfigResponseRetention]
-    """
-    Logs retention configuration.
+    Custom metrics retention configuration.
     """
 
-    traces_retention: Optional[GetConfigResponseRetention]
+    custom_logs_retention: Optional[GetConfigResponseRetention]
     """
-    Traces retention configuration.
+    Custom logs retention configuration.
+    """
+
+    custom_traces_retention: Optional[GetConfigResponseRetention]
+    """
+    Custom traces retention configuration.
+    """
+
+    product_metrics_retention: Optional[GetConfigResponseRetention]
+    """
+    Scaleway metrics retention configuration.
+    """
+
+    product_logs_retention: Optional[GetConfigResponseRetention]
+    """
+    Scaleway logs retention configuration.
     """
 
 
