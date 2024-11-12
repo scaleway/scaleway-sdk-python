@@ -6,6 +6,7 @@ from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
 from .types import (
+    ConnectivityDiagnosticActionType,
     OS,
     ServerTypeCPU,
     ServerTypeDisk,
@@ -14,11 +15,15 @@ from .types import (
     ServerTypeNetwork,
     ServerType,
     Server,
+    ConnectivityDiagnosticServerHealth,
+    ConnectivityDiagnostic,
     ListOSResponse,
     ListServerTypesResponse,
     ListServersResponse,
+    StartConnectivityDiagnosticResponse,
     CreateServerRequest,
     ReinstallServerRequest,
+    StartConnectivityDiagnosticRequest,
     UpdateServerRequest,
 )
 
@@ -315,6 +320,88 @@ def unmarshal_Server(data: Any) -> Server:
     return Server(**args)
 
 
+def unmarshal_ConnectivityDiagnosticServerHealth(
+    data: Any,
+) -> ConnectivityDiagnosticServerHealth:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ConnectivityDiagnosticServerHealth' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("is_server_alive", None)
+    if field is not None:
+        args["is_server_alive"] = field
+
+    field = data.get("is_agent_alive", None)
+    if field is not None:
+        args["is_agent_alive"] = field
+
+    field = data.get("is_mdm_alive", None)
+    if field is not None:
+        args["is_mdm_alive"] = field
+
+    field = data.get("is_ssh_port_up", None)
+    if field is not None:
+        args["is_ssh_port_up"] = field
+
+    field = data.get("is_vnc_port_up", None)
+    if field is not None:
+        args["is_vnc_port_up"] = field
+
+    field = data.get("last_checkin_date", None)
+    if field is not None:
+        args["last_checkin_date"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
+    else:
+        args["last_checkin_date"] = None
+
+    return ConnectivityDiagnosticServerHealth(**args)
+
+
+def unmarshal_ConnectivityDiagnostic(data: Any) -> ConnectivityDiagnostic:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ConnectivityDiagnostic' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+
+    field = data.get("is_healthy", None)
+    if field is not None:
+        args["is_healthy"] = field
+
+    field = data.get("supported_actions", None)
+    if field is not None:
+        args["supported_actions"] = (
+            [ConnectivityDiagnosticActionType(v) for v in field]
+            if field is not None
+            else None
+        )
+
+    field = data.get("error_message", None)
+    if field is not None:
+        args["error_message"] = field
+
+    field = data.get("health_details", None)
+    if field is not None:
+        args["health_details"] = unmarshal_ConnectivityDiagnosticServerHealth(field)
+    else:
+        args["health_details"] = None
+
+    return ConnectivityDiagnostic(**args)
+
+
 def unmarshal_ListOSResponse(data: Any) -> ListOSResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -372,6 +459,23 @@ def unmarshal_ListServersResponse(data: Any) -> ListServersResponse:
     return ListServersResponse(**args)
 
 
+def unmarshal_StartConnectivityDiagnosticResponse(
+    data: Any,
+) -> StartConnectivityDiagnosticResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'StartConnectivityDiagnosticResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("diagnostic_id", None)
+    if field is not None:
+        args["diagnostic_id"] = field
+
+    return StartConnectivityDiagnosticResponse(**args)
+
+
 def marshal_CreateServerRequest(
     request: CreateServerRequest,
     defaults: ProfileDefaults,
@@ -401,6 +505,18 @@ def marshal_ReinstallServerRequest(
 
     if request.os_id is not None:
         output["os_id"] = request.os_id
+
+    return output
+
+
+def marshal_StartConnectivityDiagnosticRequest(
+    request: StartConnectivityDiagnosticRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.server_id is not None:
+        output["server_id"] = request.server_id
 
     return output
 

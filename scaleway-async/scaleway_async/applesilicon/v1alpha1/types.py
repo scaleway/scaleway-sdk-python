@@ -15,6 +15,24 @@ from scaleway_core.utils import (
 )
 
 
+class ConnectivityDiagnosticActionType(str, Enum, metaclass=StrEnumMeta):
+    REBOOT_SERVER = "reboot_server"
+    REINSTALL_SERVER = "reinstall_server"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ConnectivityDiagnosticDiagnosticStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATUS = "unknown_status"
+    PROCESSING = "processing"
+    ERROR = "error"
+    COMPLETED = "completed"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListServersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
@@ -128,6 +146,21 @@ class ServerTypeMemory:
 @dataclass
 class ServerTypeNetwork:
     public_bandwidth_bps: int
+
+
+@dataclass
+class ConnectivityDiagnosticServerHealth:
+    is_server_alive: bool
+
+    is_agent_alive: bool
+
+    is_mdm_alive: bool
+
+    is_ssh_port_up: bool
+
+    is_vnc_port_up: bool
+
+    last_checkin_date: Optional[datetime]
 
 
 @dataclass
@@ -272,6 +305,21 @@ class Server:
 
 
 @dataclass
+class ConnectivityDiagnostic:
+    id: str
+
+    status: ConnectivityDiagnosticDiagnosticStatus
+
+    is_healthy: bool
+
+    supported_actions: List[ConnectivityDiagnosticActionType]
+
+    error_message: str
+
+    health_details: Optional[ConnectivityDiagnosticServerHealth]
+
+
+@dataclass
 class CreateServerRequest:
     type_: str
     """
@@ -305,6 +353,16 @@ class DeleteServerRequest:
     """
     UUID of the server you want to delete.
     """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class GetConnectivityDiagnosticRequest:
+    diagnostic_id: str
 
     zone: Optional[Zone]
     """
@@ -483,6 +541,21 @@ class ReinstallServerRequest:
     """
     Reinstall the server with the target OS, when no os_id provided the default OS for the server type is used.
     """
+
+
+@dataclass
+class StartConnectivityDiagnosticRequest:
+    server_id: str
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class StartConnectivityDiagnosticResponse:
+    diagnostic_id: str
 
 
 @dataclass
