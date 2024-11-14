@@ -254,6 +254,11 @@ class CreateUserRequestMember:
     Whether or not to send an email containing the member's password.
     """
 
+    send_welcome_email: bool
+    """
+    Whether or not to send a welcome email that includes onboarding information.
+    """
+
     username: str
     """
     The member's username.
