@@ -362,23 +362,35 @@ def unmarshal_GetConfigResponse(data: Any) -> GetConfigResponse:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("metrics_retention", None)
+    field = data.get("custom_metrics_retention", None)
     if field is not None:
-        args["metrics_retention"] = unmarshal_GetConfigResponseRetention(field)
+        args["custom_metrics_retention"] = unmarshal_GetConfigResponseRetention(field)
     else:
-        args["metrics_retention"] = None
+        args["custom_metrics_retention"] = None
 
-    field = data.get("logs_retention", None)
+    field = data.get("custom_logs_retention", None)
     if field is not None:
-        args["logs_retention"] = unmarshal_GetConfigResponseRetention(field)
+        args["custom_logs_retention"] = unmarshal_GetConfigResponseRetention(field)
     else:
-        args["logs_retention"] = None
+        args["custom_logs_retention"] = None
 
-    field = data.get("traces_retention", None)
+    field = data.get("custom_traces_retention", None)
     if field is not None:
-        args["traces_retention"] = unmarshal_GetConfigResponseRetention(field)
+        args["custom_traces_retention"] = unmarshal_GetConfigResponseRetention(field)
     else:
-        args["traces_retention"] = None
+        args["custom_traces_retention"] = None
+
+    field = data.get("product_metrics_retention", None)
+    if field is not None:
+        args["product_metrics_retention"] = unmarshal_GetConfigResponseRetention(field)
+    else:
+        args["product_metrics_retention"] = None
+
+    field = data.get("product_logs_retention", None)
+    if field is not None:
+        args["product_logs_retention"] = unmarshal_GetConfigResponseRetention(field)
+    else:
+        args["product_logs_retention"] = None
 
     return GetConfigResponse(**args)
 
