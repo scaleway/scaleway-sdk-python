@@ -1169,3 +1169,35 @@ class MongodbV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_User(res.json())
+
+    async def delete_endpoint(
+        self,
+        *,
+        endpoint_id: str,
+        region: Optional[Region] = None,
+    ) -> None:
+        """
+        Delete a Database Instance endpoint.
+        Delete the endpoint of a Database Instance. You must specify the `endpoint_id` parameter of the endpoint you want to delete. Note that you might need to update any environment configurations that point to the deleted endpoint.
+        :param endpoint_id: UUID of the Endpoint to delete.
+        :param region: Region to target. If none is passed will use default region from the config.
+
+        Usage:
+        ::
+
+            result = await api.delete_endpoint(
+                endpoint_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_endpoint_id = validate_path_param("endpoint_id", endpoint_id)
+
+        res = self._request(
+            "DELETE",
+            f"/mongodb/v1alpha1/regions/{param_region}/endpoints/{param_endpoint_id}",
+        )
+
+        self._throw_on_error(res)

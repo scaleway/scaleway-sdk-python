@@ -616,6 +616,19 @@ class CreateUserRequest:
 
 
 @dataclass
+class DeleteEndpointRequest:
+    endpoint_id: str
+    """
+    UUID of the Endpoint to delete.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
 class DeleteInstanceRequest:
     instance_id: str
     """
