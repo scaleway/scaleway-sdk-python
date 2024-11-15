@@ -53,6 +53,7 @@ from .types import (
     Offer,
     OfferOptionRequest,
     ResetHostingPasswordResponse,
+    ResourceSummary,
     Session,
     Website,
 )
@@ -74,6 +75,7 @@ from .marshalling import (
     unmarshal_ListOffersResponse,
     unmarshal_ListWebsitesResponse,
     unmarshal_ResetHostingPasswordResponse,
+    unmarshal_ResourceSummary,
     unmarshal_Session,
     marshal_DatabaseApiAssignDatabaseUserRequest,
     marshal_DatabaseApiChangeDatabaseUserPasswordRequest,
@@ -1227,6 +1229,39 @@ class WebhostingV1HostingAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_ResetHostingPasswordResponse(res.json())
+
+    def get_resource_summary(
+        self,
+        *,
+        hosting_id: str,
+        region: Optional[Region] = None,
+    ) -> ResourceSummary:
+        """
+        Get the total counts of websites, databases, email accounts, and FTP accounts of a Web Hosting plan.
+        :param hosting_id: Hosting ID.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`ResourceSummary <ResourceSummary>`
+
+        Usage:
+        ::
+
+            result = api.get_resource_summary(
+                hosting_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_hosting_id = validate_path_param("hosting_id", hosting_id)
+
+        res = self._request(
+            "GET",
+            f"/webhosting/v1/regions/{param_region}/hostings/{param_hosting_id}/resource-summary",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ResourceSummary(res.json())
 
 
 class WebhostingV1FtpAccountAPI(API):
