@@ -1516,17 +1516,9 @@ def unmarshal_Dashboard(data: Any) -> Dashboard:
     if field is not None:
         args["volumes_l_ssd_count"] = field
 
-    field = data.get("volumes_b_ssd_count", None)
-    if field is not None:
-        args["volumes_b_ssd_count"] = field
-
     field = data.get("volumes_l_ssd_total_size", None)
     if field is not None:
         args["volumes_l_ssd_total_size"] = field
-
-    field = data.get("volumes_b_ssd_total_size", None)
-    if field is not None:
-        args["volumes_b_ssd_total_size"] = field
 
     field = data.get("private_nics_count", None)
     if field is not None:
@@ -1535,6 +1527,18 @@ def unmarshal_Dashboard(data: Any) -> Dashboard:
     field = data.get("placement_groups_count", None)
     if field is not None:
         args["placement_groups_count"] = field
+
+    field = data.get("volumes_b_ssd_count", None)
+    if field is not None:
+        args["volumes_b_ssd_count"] = field
+    else:
+        args["volumes_b_ssd_count"] = None
+
+    field = data.get("volumes_b_ssd_total_size", None)
+    if field is not None:
+        args["volumes_b_ssd_total_size"] = field
+    else:
+        args["volumes_b_ssd_total_size"] = None
 
     return Dashboard(**args)
 
