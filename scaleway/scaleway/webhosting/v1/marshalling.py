@@ -30,6 +30,7 @@ from .types import (
     Website,
     ListWebsitesResponse,
     ResetHostingPasswordResponse,
+    ResourceSummary,
     Session,
     DatabaseApiAssignDatabaseUserRequest,
     DatabaseApiChangeDatabaseUserPasswordRequest,
@@ -640,6 +641,33 @@ def unmarshal_ResetHostingPasswordResponse(data: Any) -> ResetHostingPasswordRes
         args["one_time_password"] = field
 
     return ResetHostingPasswordResponse(**args)
+
+
+def unmarshal_ResourceSummary(data: Any) -> ResourceSummary:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ResourceSummary' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("databases_count", None)
+    if field is not None:
+        args["databases_count"] = field
+
+    field = data.get("mail_accounts_count", None)
+    if field is not None:
+        args["mail_accounts_count"] = field
+
+    field = data.get("ftp_accounts_count", None)
+    if field is not None:
+        args["ftp_accounts_count"] = field
+
+    field = data.get("websites_count", None)
+    if field is not None:
+        args["websites_count"] = field
+
+    return ResourceSummary(**args)
 
 
 def unmarshal_Session(data: Any) -> Session:

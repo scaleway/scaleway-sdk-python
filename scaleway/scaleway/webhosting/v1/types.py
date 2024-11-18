@@ -964,6 +964,19 @@ class HostingApiGetHostingRequest:
 
 
 @dataclass
+class HostingApiGetResourceSummaryRequest:
+    hosting_id: str
+    """
+    Hosting ID.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
 class HostingApiListHostingsRequest:
     region: Optional[Region]
     """
@@ -1321,6 +1334,29 @@ class ResetHostingPasswordResponse:
     one_time_password: str
     """
     New temporary password.
+    """
+
+
+@dataclass
+class ResourceSummary:
+    databases_count: int
+    """
+    Total number of active databases in the Web Hosting plan.
+    """
+
+    mail_accounts_count: int
+    """
+    Total number of active email accounts in the Web Hosting plan.
+    """
+
+    ftp_accounts_count: int
+    """
+    Total number of active FTP accounts in the Web Hosting plan.
+    """
+
+    websites_count: int
+    """
+    Total number of active domains in the the Web Hosting plan.
     """
 
 

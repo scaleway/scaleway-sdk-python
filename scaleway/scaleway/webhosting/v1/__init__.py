@@ -48,6 +48,7 @@ from .types import HostingApiCreateHostingRequest
 from .types import HostingApiCreateSessionRequest
 from .types import HostingApiDeleteHostingRequest
 from .types import HostingApiGetHostingRequest
+from .types import HostingApiGetResourceSummaryRequest
 from .types import HostingApiListHostingsRequest
 from .types import HostingApiResetHostingPasswordRequest
 from .types import HostingApiUpdateHostingRequest
@@ -65,6 +66,7 @@ from .types import MailAccountApiListMailAccountsRequest
 from .types import MailAccountApiRemoveMailAccountRequest
 from .types import OfferApiListOffersRequest
 from .types import ResetHostingPasswordResponse
+from .types import ResourceSummary
 from .types import Session
 from .types import WebsiteApiListWebsitesRequest
 from .api import WebhostingV1ControlPanelAPI
@@ -124,6 +126,7 @@ __all__ = [
     "HostingApiCreateSessionRequest",
     "HostingApiDeleteHostingRequest",
     "HostingApiGetHostingRequest",
+    "HostingApiGetResourceSummaryRequest",
     "HostingApiListHostingsRequest",
     "HostingApiResetHostingPasswordRequest",
     "HostingApiUpdateHostingRequest",
@@ -141,6 +144,7 @@ __all__ = [
     "MailAccountApiRemoveMailAccountRequest",
     "OfferApiListOffersRequest",
     "ResetHostingPasswordResponse",
+    "ResourceSummary",
     "Session",
     "WebsiteApiListWebsitesRequest",
     "WebhostingV1ControlPanelAPI",
