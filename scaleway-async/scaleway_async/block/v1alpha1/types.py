@@ -358,14 +358,14 @@ class CreateSnapshotRequest:
     UUID of the volume to snapshot.
     """
 
-    name: str
-    """
-    Name of the snapshot.
-    """
-
     zone: Optional[Zone]
     """
     Zone to target. If none is passed will use default zone from the config.
+    """
+
+    name: Optional[str]
+    """
+    Name of the snapshot.
     """
 
     project_id: Optional[str]
@@ -381,14 +381,14 @@ class CreateSnapshotRequest:
 
 @dataclass
 class CreateVolumeRequest:
-    name: str
-    """
-    Name of the volume.
-    """
-
     zone: Optional[Zone]
     """
     Zone to target. If none is passed will use default zone from the config.
+    """
+
+    name: Optional[str]
+    """
+    Name of the volume.
     """
 
     project_id: Optional[str]

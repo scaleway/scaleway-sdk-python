@@ -9,6 +9,7 @@ from scaleway_core.bridge import (
 )
 from scaleway_core.utils import (
     WaitForOptions,
+    random_name,
     validate_path_param,
     fetch_all_pages_async,
     wait_for_resource_async,
@@ -231,8 +232,8 @@ class BlockV1Alpha1API(API):
     async def create_volume(
         self,
         *,
-        name: str,
         zone: Optional[Zone] = None,
+        name: Optional[str] = None,
         perf_iops: Optional[int] = None,
         project_id: Optional[str] = None,
         from_empty: Optional[CreateVolumeRequestFromEmpty] = None,
@@ -243,8 +244,8 @@ class BlockV1Alpha1API(API):
         Create a volume.
         To create a new volume from scratch, you must specify `from_empty` and the `size`.
         To create a volume from an existing snapshot, specify `from_snapshot` and the `snapshot_id` in the request payload instead, size is optional and can be specified if you need to extend the original size. The volume will take on the same volume class and underlying IOPS limitations as the original snapshot.
-        :param name: Name of the volume.
         :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param name: Name of the volume.
         :param perf_iops: The maximum IO/s expected, according to the different options available in stock (`5000 | 15000`).
         One-Of ('requirements'): at most one of 'perf_iops' could be set.
         :param project_id: UUID of the project the volume belongs to.
@@ -258,9 +259,7 @@ class BlockV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.create_volume(
-                name="example",
-            )
+            result = await api.create_volume()
         """
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
@@ -270,8 +269,8 @@ class BlockV1Alpha1API(API):
             f"/block/v1alpha1/zones/{param_zone}/volumes",
             body=marshal_CreateVolumeRequest(
                 CreateVolumeRequest(
-                    name=name,
                     zone=zone,
+                    name=name or random_name(prefix="vol"),
                     project_id=project_id,
                     tags=tags,
                     from_empty=from_empty,
@@ -610,8 +609,8 @@ class BlockV1Alpha1API(API):
         self,
         *,
         volume_id: str,
-        name: str,
         zone: Optional[Zone] = None,
+        name: Optional[str] = None,
         project_id: Optional[str] = None,
         tags: Optional[List[str]] = None,
     ) -> Snapshot:
@@ -620,8 +619,8 @@ class BlockV1Alpha1API(API):
         To create a snapshot, the volume must be in the `in_use` or the `available` status.
         If your volume is in a transient state, you need to wait until the end of the current operation.
         :param volume_id: UUID of the volume to snapshot.
-        :param name: Name of the snapshot.
         :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param name: Name of the snapshot.
         :param project_id: UUID of the project to which the volume and the snapshot belong.
         :param tags: List of tags assigned to the snapshot.
         :return: :class:`Snapshot <Snapshot>`
@@ -631,7 +630,6 @@ class BlockV1Alpha1API(API):
 
             result = await api.create_snapshot(
                 volume_id="example",
-                name="example",
             )
         """
 
@@ -643,8 +641,8 @@ class BlockV1Alpha1API(API):
             body=marshal_CreateSnapshotRequest(
                 CreateSnapshotRequest(
                     volume_id=volume_id,
-                    name=name,
                     zone=zone,
+                    name=name or random_name(prefix="snp"),
                     project_id=project_id,
                     tags=tags,
                 ),
