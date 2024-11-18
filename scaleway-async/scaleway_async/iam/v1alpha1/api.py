@@ -474,12 +474,14 @@ class IamV1Alpha1API(API):
         *,
         user_id: str,
         tags: Optional[List[str]] = None,
+        email: Optional[str] = None,
     ) -> User:
         """
         Update a user.
         Update the parameters of a user, including `tags`.
         :param user_id: ID of the user to update.
         :param tags: New tags for the user (maximum of 10 tags).
+        :param email: New email for the user (only available on Members).
         :return: :class:`User <User>`
 
         Usage:
@@ -499,6 +501,7 @@ class IamV1Alpha1API(API):
                 UpdateUserRequest(
                     user_id=user_id,
                     tags=tags,
+                    email=email,
                 ),
                 self.client,
             ),

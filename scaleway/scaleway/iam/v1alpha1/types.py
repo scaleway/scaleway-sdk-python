@@ -1887,3 +1887,8 @@ class UpdateUserRequest:
     """
     New tags for the user (maximum of 10 tags).
     """
+
+    email: Optional[str]
+    """
+    New email for the user (only available on Members).
+    """
