@@ -279,6 +279,13 @@ class Setting:
 
 
 @dataclass
+class EndpointSpec:
+    public: Optional[EndpointSpecPublicDetails]
+
+    private_network: Optional[EndpointSpecPrivateNetworkDetails]
+
+
+@dataclass
 class CreateInstanceRequestVolumeDetails:
     volume_size: int
     """
@@ -289,13 +296,6 @@ class CreateInstanceRequestVolumeDetails:
     """
     Type of volume where data is stored.
     """
-
-
-@dataclass
-class EndpointSpec:
-    public: Optional[EndpointSpecPublicDetails]
-
-    private_network: Optional[EndpointSpecPrivateNetworkDetails]
 
 
 @dataclass
@@ -508,6 +508,24 @@ class RestoreSnapshotRequestVolumeDetails:
     volume_type: VolumeType
     """
     Type of volume where data is stored.
+    """
+
+
+@dataclass
+class CreateEndpointRequest:
+    instance_id: str
+    """
+    UUID of the Database Instance.
+    """
+
+    endpoint: EndpointSpec
+    """
+    EndpointSpec used to expose your Database Instance.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
     """
 
 
