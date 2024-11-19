@@ -30,8 +30,9 @@ from .types import (
     ListVersionsResponse,
     EndpointSpecPrivateNetworkDetails,
     EndpointSpecPublicDetails,
-    CreateInstanceRequestVolumeDetails,
     EndpointSpec,
+    CreateEndpointRequest,
+    CreateInstanceRequestVolumeDetails,
     CreateInstanceRequest,
     CreateSnapshotRequest,
     CreateUserRequest,
@@ -619,21 +620,6 @@ def marshal_EndpointSpecPublicDetails(
     return output
 
 
-def marshal_CreateInstanceRequestVolumeDetails(
-    request: CreateInstanceRequestVolumeDetails,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-
-    if request.volume_size is not None:
-        output["volume_size"] = request.volume_size
-
-    if request.volume_type is not None:
-        output["volume_type"] = str(request.volume_type)
-
-    return output
-
-
 def marshal_EndpointSpec(
     request: EndpointSpec,
     defaults: ProfileDefaults,
@@ -647,6 +633,36 @@ def marshal_EndpointSpec(
             ]
         ),
     )
+
+    return output
+
+
+def marshal_CreateEndpointRequest(
+    request: CreateEndpointRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.instance_id is not None:
+        output["instance_id"] = request.instance_id
+
+    if request.endpoint is not None:
+        output["endpoint"] = marshal_EndpointSpec(request.endpoint, defaults)
+
+    return output
+
+
+def marshal_CreateInstanceRequestVolumeDetails(
+    request: CreateInstanceRequestVolumeDetails,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.volume_size is not None:
+        output["volume_size"] = request.volume_size
+
+    if request.volume_type is not None:
+        output["volume_type"] = str(request.volume_type)
 
     return output
 
