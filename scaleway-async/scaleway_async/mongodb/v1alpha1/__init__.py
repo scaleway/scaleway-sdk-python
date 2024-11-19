@@ -20,14 +20,15 @@ from .types import Volume
 from .types import NodeTypeVolumeType
 from .types import SnapshotVolumeType
 from .types import Setting
-from .types import CreateInstanceRequestVolumeDetails
 from .types import EndpointSpec
+from .types import CreateInstanceRequestVolumeDetails
 from .types import Instance
 from .types import NodeType
 from .types import Snapshot
 from .types import User
 from .types import Version
 from .types import RestoreSnapshotRequestVolumeDetails
+from .types import CreateEndpointRequest
 from .types import CreateInstanceRequest
 from .types import CreateSnapshotRequest
 from .types import CreateUserRequest
@@ -75,14 +76,15 @@ __all__ = [
     "NodeTypeVolumeType",
     "SnapshotVolumeType",
     "Setting",
-    "CreateInstanceRequestVolumeDetails",
     "EndpointSpec",
+    "CreateInstanceRequestVolumeDetails",
     "Instance",
     "NodeType",
     "Snapshot",
     "User",
     "Version",
     "RestoreSnapshotRequestVolumeDetails",
+    "CreateEndpointRequest",
     "CreateInstanceRequest",
     "CreateSnapshotRequest",
     "CreateUserRequest",

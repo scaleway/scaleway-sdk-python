@@ -21,10 +21,12 @@ from .types import (
     ListInstancesRequestOrderBy,
     ListSnapshotsRequestOrderBy,
     ListUsersRequestOrderBy,
+    CreateEndpointRequest,
     CreateInstanceRequest,
     CreateInstanceRequestVolumeDetails,
     CreateSnapshotRequest,
     CreateUserRequest,
+    Endpoint,
     EndpointSpec,
     Instance,
     ListInstancesResponse,
@@ -48,6 +50,7 @@ from .content import (
     SNAPSHOT_TRANSIENT_STATUSES,
 )
 from .marshalling import (
+    unmarshal_Endpoint,
     unmarshal_Instance,
     unmarshal_Snapshot,
     unmarshal_User,
@@ -56,6 +59,7 @@ from .marshalling import (
     unmarshal_ListSnapshotsResponse,
     unmarshal_ListUsersResponse,
     unmarshal_ListVersionsResponse,
+    marshal_CreateEndpointRequest,
     marshal_CreateInstanceRequest,
     marshal_CreateSnapshotRequest,
     marshal_CreateUserRequest,
@@ -1197,3 +1201,47 @@ class MongodbV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
+
+    def create_endpoint(
+        self,
+        *,
+        instance_id: str,
+        endpoint: EndpointSpec,
+        region: Optional[Region] = None,
+    ) -> Endpoint:
+        """
+        Create a new Instance endpoint.
+        Create a new endpoint for a MongoDB® Database Instance. You can add `public_network` or `private_network` specifications to the body of the request.
+        :param instance_id: UUID of the Database Instance.
+        :param endpoint: EndpointSpec used to expose your Database Instance.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Endpoint <Endpoint>`
+
+        Usage:
+        ::
+
+            result = api.create_endpoint(
+                instance_id="example",
+                endpoint=EndpointSpec(),
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "POST",
+            f"/mongodb/v1alpha1/regions/{param_region}/endpoints",
+            body=marshal_CreateEndpointRequest(
+                CreateEndpointRequest(
+                    instance_id=instance_id,
+                    endpoint=endpoint,
+                    region=region,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Endpoint(res.json())
