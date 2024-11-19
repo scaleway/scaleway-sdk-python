@@ -52,6 +52,7 @@ class ServerStatus(str, Enum, metaclass=StrEnumMeta):
     LOCKED = "locked"
     UNLOCKING = "unlocking"
     REINSTALLING = "reinstalling"
+    BUSY = "busy"
 
     def __str__(self) -> str:
         return str(self.value)

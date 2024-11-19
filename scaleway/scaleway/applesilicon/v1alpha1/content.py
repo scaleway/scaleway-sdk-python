@@ -13,6 +13,7 @@ SERVER_TRANSIENT_STATUSES: List[ServerStatus] = [
     ServerStatus.LOCKING,
     ServerStatus.UNLOCKING,
     ServerStatus.REINSTALLING,
+    ServerStatus.BUSY,
 ]
 """
 Lists transient statutes of the enum :class:`ServerStatus <ServerStatus>`.
