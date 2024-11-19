@@ -1378,4 +1378,7 @@ def marshal_UpdateUserRequest(
     if request.tags is not None:
         output["tags"] = request.tags
 
+    if request.email is not None:
+        output["email"] = request.email
+
     return output
