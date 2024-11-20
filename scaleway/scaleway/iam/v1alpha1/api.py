@@ -43,6 +43,7 @@ from .types import (
     JWT,
     ListAPIKeysResponse,
     ListApplicationsResponse,
+    ListGracePeriodsResponse,
     ListGroupsResponse,
     ListJWTsResponse,
     ListLogsResponse,
@@ -85,6 +86,7 @@ from .marshalling import (
     unmarshal_EncodedJWT,
     unmarshal_ListAPIKeysResponse,
     unmarshal_ListApplicationsResponse,
+    unmarshal_ListGracePeriodsResponse,
     unmarshal_ListGroupsResponse,
     unmarshal_ListJWTsResponse,
     unmarshal_ListLogsResponse,
@@ -629,7 +631,7 @@ class IamV1Alpha1API(API):
         """
         Lock a user.
         Lock a user. Note that a locked user cannot log in or use API keys until the locked status is removed.
-        :param user_id:
+        :param user_id: ID of the user to lock.
         :return: :class:`User <User>`
 
         Usage:
@@ -658,7 +660,7 @@ class IamV1Alpha1API(API):
     ) -> User:
         """
         Unlock a user.
-        :param user_id:
+        :param user_id: ID of the user to unlock.
         :return: :class:`User <User>`
 
         Usage:
@@ -679,6 +681,34 @@ class IamV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_User(res.json())
+
+    def list_grace_periods(
+        self,
+        *,
+        user_id: Optional[str] = None,
+    ) -> ListGracePeriodsResponse:
+        """
+        List grace periods of a user.
+        List the grace periods of a user.
+        :param user_id: ID of the user to list grace periods for.
+        :return: :class:`ListGracePeriodsResponse <ListGracePeriodsResponse>`
+
+        Usage:
+        ::
+
+            result = api.list_grace_periods()
+        """
+
+        res = self._request(
+            "GET",
+            "/iam/v1alpha1/grace-periods",
+            params={
+                "user_id": user_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListGracePeriodsResponse(res.json())
 
     def list_applications(
         self,

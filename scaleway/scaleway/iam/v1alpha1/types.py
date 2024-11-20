@@ -21,6 +21,15 @@ class BearerType(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class GracePeriodType(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_GRACE_PERIOD_TYPE = "unknown_grace_period_type"
+    UPDATE_PASSWORD = "update_password"
+    SET_MFA = "set_mfa"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListAPIKeysRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
@@ -387,6 +396,24 @@ class Application:
     updated_at: Optional[datetime]
     """
     Date and time of last application update.
+    """
+
+
+@dataclass
+class GracePeriod:
+    type_: GracePeriodType
+    """
+    Type of grace period.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Date and time the grace period was created.
+    """
+
+    expires_at: Optional[datetime]
+    """
+    Date and time the grace period expires.
     """
 
 
@@ -1254,6 +1281,22 @@ class ListApplicationsResponse:
 
 
 @dataclass
+class ListGracePeriodsRequest:
+    user_id: Optional[str]
+    """
+    ID of the user to list grace periods for.
+    """
+
+
+@dataclass
+class ListGracePeriodsResponse:
+    grace_periods: List[GracePeriod]
+    """
+    List of grace periods.
+    """
+
+
+@dataclass
 class ListGroupsRequest:
     order_by: Optional[ListGroupsRequestOrderBy]
     """
@@ -1699,6 +1742,9 @@ class ListUsersResponse:
 @dataclass
 class LockUserRequest:
     user_id: str
+    """
+    ID of the user to lock.
+    """
 
 
 @dataclass
@@ -1746,6 +1792,9 @@ class SetRulesResponse:
 @dataclass
 class UnlockUserRequest:
     user_id: str
+    """
+    ID of the user to unlock.
+    """
 
 
 @dataclass
