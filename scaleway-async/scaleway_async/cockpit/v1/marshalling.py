@@ -5,6 +5,9 @@ from typing import Any, Dict
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
+from scaleway_core.bridge import (
+    unmarshal_TimeSeries,
+)
 from scaleway_core.utils import (
     OneOfPossibility,
     resolve_one_of,
@@ -19,6 +22,7 @@ from .types import (
     Plan,
     Token,
     AlertManager,
+    CockpitMetrics,
     GetConfigResponseRetention,
     GetConfigResponse,
     Grafana,
@@ -329,6 +333,23 @@ def unmarshal_AlertManager(data: Any) -> AlertManager:
         args["alert_manager_url"] = None
 
     return AlertManager(**args)
+
+
+def unmarshal_CockpitMetrics(data: Any) -> CockpitMetrics:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'CockpitMetrics' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("timeseries", None)
+    if field is not None:
+        args["timeseries"] = (
+            [unmarshal_TimeSeries(v) for v in field] if field is not None else None
+        )
+
+    return CockpitMetrics(**args)
 
 
 def unmarshal_GetConfigResponseRetention(data: Any) -> GetConfigResponseRetention:

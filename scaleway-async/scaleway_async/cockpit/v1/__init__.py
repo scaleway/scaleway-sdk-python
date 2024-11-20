@@ -22,6 +22,7 @@ from .types import Plan
 from .types import Token
 from .types import Usage
 from .types import AlertManager
+from .types import CockpitMetrics
 from .types import GetConfigResponse
 from .types import GlobalApiCreateGrafanaUserRequest
 from .types import GlobalApiDeleteGrafanaUserRequest
@@ -53,6 +54,7 @@ from .types import RegionalApiDisableManagedAlertsRequest
 from .types import RegionalApiEnableAlertManagerRequest
 from .types import RegionalApiEnableManagedAlertsRequest
 from .types import RegionalApiGetAlertManagerRequest
+from .types import RegionalApiGetCockpitMetricsRequest
 from .types import RegionalApiGetConfigRequest
 from .types import RegionalApiGetDataSourceRequest
 from .types import RegionalApiGetTokenRequest
@@ -90,6 +92,7 @@ __all__ = [
     "Token",
     "Usage",
     "AlertManager",
+    "CockpitMetrics",
     "GetConfigResponse",
     "GlobalApiCreateGrafanaUserRequest",
     "GlobalApiDeleteGrafanaUserRequest",
@@ -121,6 +124,7 @@ __all__ = [
     "RegionalApiEnableAlertManagerRequest",
     "RegionalApiEnableManagedAlertsRequest",
     "RegionalApiGetAlertManagerRequest",
+    "RegionalApiGetCockpitMetricsRequest",
     "RegionalApiGetConfigRequest",
     "RegionalApiGetDataSourceRequest",
     "RegionalApiGetTokenRequest",
