@@ -22,6 +22,8 @@ from .types import (
     EncodedJWT,
     ListAPIKeysResponse,
     ListApplicationsResponse,
+    GracePeriod,
+    ListGracePeriodsResponse,
     ListGroupsResponse,
     ListJWTsResponse,
     ListLogsResponse,
@@ -680,6 +682,50 @@ def unmarshal_ListApplicationsResponse(data: Any) -> ListApplicationsResponse:
         args["total_count"] = field
 
     return ListApplicationsResponse(**args)
+
+
+def unmarshal_GracePeriod(data: Any) -> GracePeriod:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'GracePeriod' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("type", None)
+    if field is not None:
+        args["type_"] = field
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("expires_at", None)
+    if field is not None:
+        args["expires_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["expires_at"] = None
+
+    return GracePeriod(**args)
+
+
+def unmarshal_ListGracePeriodsResponse(data: Any) -> ListGracePeriodsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListGracePeriodsResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("grace_periods", None)
+    if field is not None:
+        args["grace_periods"] = (
+            [unmarshal_GracePeriod(v) for v in field] if field is not None else None
+        )
+
+    return ListGracePeriodsResponse(**args)
 
 
 def unmarshal_ListGroupsResponse(data: Any) -> ListGroupsResponse:
