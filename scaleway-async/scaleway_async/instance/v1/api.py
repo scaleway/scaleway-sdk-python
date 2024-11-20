@@ -921,8 +921,12 @@ class InstanceV1API(API):
         * `terminate`: Delete the Instance along with its attached volumes, except for SBS volumes.
         * `enable_routed_ip`: Migrate the Instance to the new network stack.
 
-        Keep in mind that `terminate` an Instance will result in the deletion of `l_ssd`, `b_ssd` and `scratch` volumes types, `sbs_volume` volumes type will only be detached.
+        The `terminate` action will result in the deletion of `l_ssd`, `b_ssd` and `scratch` volumes types, `sbs_volume` volumes type will only be detached.
         If you want to preserve your volumes, you should detach them before the Instance deletion or `terminate` action.
+
+        The `backup` action can be done with:
+        * No `volumes` key in the body: an image is created with snapshots of all the server volumes, except for the `scratch` volumes types.
+        * `volumes` key in the body with a dictionary as value, in this dictionary volumes UUID as keys and empty dictionaries as values : an image is created with the snapshots of the volumes in `volumes` key. `scratch` volumes types can't be shapshotted.
         :param server_id: UUID of the Instance.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param action: Action to perform on the Instance.
@@ -3969,7 +3973,11 @@ class InstanceV1API(API):
     ) -> MigrationPlan:
         """
         Get a volume or snapshot's migration plan.
-        Given a volume or snapshot, returns the migration plan for a call to the "Apply a migration plan" endpoint. This plan will include zero or one volume, and zero or more snapshots, which will need to be migrated together. This endpoint does not perform the actual migration itself, the "Apply a migration plan" endpoint must be used. The validation_key value returned by this endpoint must be provided to the call to the "Apply a migration plan" endpoint to confirm that all resources listed in the plan should be migrated.
+        Given a volume or snapshot, returns the migration plan but does not perform the actual migration. To perform the migration, you have to call the [Migrate a volume and/or snapshots to SBS](#path-volumes-migrate-a-volume-andor-snapshots-to-sbs-scaleway-block-storage) endpoint afterward.
+        The endpoint returns the resources that should be migrated together:
+        - the volume and any snapshots created from the volume, if the call was made to plan a volume migration.
+        - the base volume of the snapshot (if the volume is not deleted) and its related snapshots, if the call was made to plan a snapshot migration.
+        The endpoint also returns the validation_key, which must be provided to the [Migrate a volume and/or snapshots to SBS](#path-volumes-migrate-a-volume-andor-snapshots-to-sbs-scaleway-block-storage) endpoint to confirm that all resources listed in the plan should be migrated.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param volume_id: The volume for which the migration plan will be generated.
         One-Of ('resource'): at most one of 'volume_id', 'snapshot_id' could be set.
@@ -4011,12 +4019,12 @@ class InstanceV1API(API):
     ) -> None:
         """
         Migrate a volume and/or snapshots to SBS (Scaleway Block Storage).
-        To be used, the call to this endpoint must be preceded by a call to the "Plan a migration" endpoint. To migrate all resources mentioned in the migration plan, the validation_key returned in the plan must be provided.
-        :param validation_key: A value to be retrieved from a call to the "Plan a migration" endpoint, to confirm that the volume and/or snapshots specified in said plan should be migrated.
+        To be used, the call to this endpoint must be preceded by a call to the [Get a volume or snapshot's migration plan](#path-volumes-get-a-volume-or-snapshots-migration-plan) endpoint. To migrate all resources mentioned in the migration plan, the validation_key returned in the plan must be provided.
+        :param validation_key: A value to be retrieved from a call to the [Get a volume or snapshot's migration plan](#path-volumes-get-a-volume-or-snapshots-migration-plan) endpoint, to confirm that the volume and/or snapshots specified in said plan should be migrated.
         :param zone: Zone to target. If none is passed will use default zone from the config.
-        :param volume_id: The volume to migrate, along with potentially other resources, according to the migration plan generated with a call to the "Plan a migration" endpoint.
+        :param volume_id: The volume to migrate, along with potentially other resources, according to the migration plan generated with a call to the [Get a volume or snapshot's migration plan](#path-volumes-get-a-volume-or-snapshots-migration-plan) endpoint.
         One-Of ('resource'): at most one of 'volume_id', 'snapshot_id' could be set.
-        :param snapshot_id: The snapshot to migrate, along with potentially other resources, according to the migration plan generated with a call to the "Plan a migration" endpoint.
+        :param snapshot_id: The snapshot to migrate, along with potentially other resources, according to the migration plan generated with a call to the [Get a volume or snapshot's migration plan](#path-volumes-get-a-volume-or-snapshots-migration-plan) endpoint.
         One-Of ('resource'): at most one of 'volume_id', 'snapshot_id' could be set.
 
         Usage:
