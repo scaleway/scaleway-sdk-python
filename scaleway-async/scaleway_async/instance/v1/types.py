@@ -1468,7 +1468,7 @@ class SecurityGroupTemplate:
 class ApplyBlockMigrationRequest:
     validation_key: str
     """
-    A value to be retrieved from a call to the "Plan a migration" endpoint, to confirm that the volume and/or snapshots specified in said plan should be migrated.
+    A value to be retrieved from a call to the [Get a volume or snapshot's migration plan](#path-volumes-get-a-volume-or-snapshots-migration-plan) endpoint, to confirm that the volume and/or snapshots specified in said plan should be migrated.
     """
 
     zone: Optional[Zone]
@@ -2933,7 +2933,7 @@ class MigrationPlan:
 
     validation_key: str
     """
-    A value to be passed to the call to the "Apply a migration plan" endpoint, to confirm that the execution of the plan is being requested.
+    A value to be passed to the call to the [Migrate a volume and/or snapshots to SBS](#path-volumes-migrate-a-volume-andor-snapshots-to-sbs-scaleway-block-storage) endpoint, to confirm that the execution of the plan is being requested.
     """
 
     volume: Optional[Volume]
