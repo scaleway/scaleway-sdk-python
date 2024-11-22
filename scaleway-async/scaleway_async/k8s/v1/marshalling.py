@@ -1049,6 +1049,10 @@ def unmarshal_NodeMetadata(data: Any) -> NodeMetadata:
     if field is not None:
         args["external_ip"] = field
 
+    field = data.get("repo_uri", None)
+    if field is not None:
+        args["repo_uri"] = field
+
     return NodeMetadata(**args)
 
 

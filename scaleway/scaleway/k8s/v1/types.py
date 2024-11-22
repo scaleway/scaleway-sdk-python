@@ -1848,6 +1848,8 @@ class NodeMetadata:
 
     external_ip: str
 
+    repo_uri: str
+
 
 @dataclass
 class RebootNodeRequest:
