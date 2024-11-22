@@ -9,7 +9,6 @@ from typing import List, Optional
 
 from scaleway_core.bridge import (
     Region,
-    TimeSeries,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -19,6 +18,7 @@ from scaleway_core.utils import (
 class DataSourceOrigin(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_ORIGIN = "unknown_origin"
     SCALEWAY = "scaleway"
+    EXTERNAL = "external"
     CUSTOM = "custom"
 
     def __str__(self) -> str:
@@ -457,11 +457,6 @@ class AlertManager:
     """
     Alert manager URL.
     """
-
-
-@dataclass
-class CockpitMetrics:
-    timeseries: List[TimeSeries]
 
 
 @dataclass
@@ -1050,17 +1045,6 @@ class RegionalApiGetAlertManagerRequest:
     """
     Project ID of the requested Alert manager.
     """
-
-
-@dataclass
-class RegionalApiGetCockpitMetricsRequest:
-    query: str
-
-    project_id: Optional[str]
-
-    start_date: Optional[datetime]
-
-    end_date: Optional[datetime]
 
 
 @dataclass

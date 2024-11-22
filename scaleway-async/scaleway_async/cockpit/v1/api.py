@@ -1,7 +1,6 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from datetime import datetime
 from typing import List, Optional
 
 from scaleway_core.api import API
@@ -25,7 +24,6 @@ from .types import (
     TokenScope,
     Alert,
     AlertManager,
-    CockpitMetrics,
     ContactPoint,
     ContactPointEmail,
     DataSource,
@@ -66,7 +64,6 @@ from .marshalling import (
     unmarshal_Plan,
     unmarshal_Token,
     unmarshal_AlertManager,
-    unmarshal_CockpitMetrics,
     unmarshal_GetConfigResponse,
     unmarshal_Grafana,
     unmarshal_ListContactPointsResponse,
@@ -1578,40 +1575,3 @@ class CockpitV1RegionalAPI(API):
         )
 
         self._throw_on_error(res)
-
-    async def get_cockpit_metrics(
-        self,
-        *,
-        query: str,
-        project_id: Optional[str] = None,
-        start_date: Optional[datetime] = None,
-        end_date: Optional[datetime] = None,
-    ) -> CockpitMetrics:
-        """
-        :param query:
-        :param project_id:
-        :param start_date:
-        :param end_date:
-        :return: :class:`CockpitMetrics <CockpitMetrics>`
-
-        Usage:
-        ::
-
-            result = await api.get_cockpit_metrics(
-                query="example",
-            )
-        """
-
-        res = self._request(
-            "GET",
-            "/cockpit/v1beta1/cockpit/metrics",
-            params={
-                "end_date": end_date,
-                "project_id": project_id or self.client.default_project_id,
-                "query": query,
-                "start_date": start_date,
-            },
-        )
-
-        self._throw_on_error(res)
-        return unmarshal_CockpitMetrics(res.json())
