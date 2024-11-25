@@ -993,7 +993,7 @@ class RdbV1API(API):
         Create a new Database Instance. You must set the `engine`, `user_name`, `password` and `node_type` parameters. Optionally, you can specify the volume type and size.
         :param engine: Database engine of the Database Instance (PostgreSQL, MySQL, ...).
         :param user_name: Username created when the Database Instance is created.
-        :param password: Password of the user.
+        :param password: Password of the user. Password must be between 8 and 128 characters, contain at least one digit, one uppercase, one lowercase and one special character.
         :param node_type: Type of node to use for the Database Instance.
         :param region: Region to target. If none is passed will use default region from the config.
         :param organization_id: Please use project_id instead.
@@ -2313,7 +2313,7 @@ class RdbV1API(API):
         Create a new user for a Database Instance. You must define the `name`, `password` and `is_admin` parameters.
         :param instance_id: UUID of the Database Instance in which you want to create a user.
         :param name: Name of the user you want to create.
-        :param password: Password of the user you want to create.
+        :param password: Password of the user you want to create. Password must be between 8 and 128 characters, contain at least one digit, one uppercase, one lowercase and one special character.
         :param is_admin: Defines whether the user will have administrative privileges.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`User <User>`
@@ -2367,7 +2367,7 @@ class RdbV1API(API):
         :param instance_id: UUID of the Database Instance the user belongs to.
         :param name: Name of the database user.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param password: Password of the database user.
+        :param password: Password of the database user. Password must be between 8 and 128 characters, contain at least one digit, one uppercase, one lowercase and one special character.
         :param is_admin: Defines whether or not this user got administrative privileges.
         :return: :class:`User <User>`
 
