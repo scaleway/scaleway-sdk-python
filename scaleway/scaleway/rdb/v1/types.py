@@ -1347,7 +1347,7 @@ class CreateInstanceRequest:
 
     password: str
     """
-    Password of the user.
+    Password of the user. Password must be between 8 and 128 characters, contain at least one digit, one uppercase, one lowercase and one special character.
     """
 
     node_type: str
@@ -1493,7 +1493,7 @@ class CreateUserRequest:
 
     password: str
     """
-    Password of the user you want to create.
+    Password of the user you want to create. Password must be between 8 and 128 characters, contain at least one digit, one uppercase, one lowercase and one special character.
     """
 
     is_admin: bool
@@ -2567,7 +2567,7 @@ class UpdateUserRequest:
 
     password: Optional[str]
     """
-    Password of the database user.
+    Password of the database user. Password must be between 8 and 128 characters, contain at least one digit, one uppercase, one lowercase and one special character.
     """
 
     is_admin: Optional[bool]
