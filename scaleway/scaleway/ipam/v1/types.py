@@ -46,6 +46,8 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     BAREMETAL_PRIVATE_NIC = "baremetal_private_nic"
     LLM_DEPLOYMENT = "llm_deployment"
     MGDB_INSTANCE = "mgdb_instance"
+    APPLE_SILICON_SERVER = "apple_silicon_server"
+    APPLE_SILICON_PRIVATE_NIC = "apple_silicon_private_nic"
 
     def __str__(self) -> str:
         return str(self.value)
