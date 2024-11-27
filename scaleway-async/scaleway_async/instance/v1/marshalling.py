@@ -653,14 +653,8 @@ def unmarshal_VolumeServer(data: Any) -> VolumeServer:
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
-
-    field = data.get("organization", None)
-    if field is not None:
-        args["organization"] = field
-
-    field = data.get("size", None)
-    if field is not None:
-        args["size"] = field
+    else:
+        args["name"] = None
 
     field = data.get("export_uri", None)
     if field is not None:
@@ -668,23 +662,27 @@ def unmarshal_VolumeServer(data: Any) -> VolumeServer:
     else:
         args["export_uri"] = None
 
+    field = data.get("organization", None)
+    if field is not None:
+        args["organization"] = field
+    else:
+        args["organization"] = None
+
     field = data.get("server", None)
     if field is not None:
         args["server"] = unmarshal_ServerSummary(field)
     else:
         args["server"] = None
 
+    field = data.get("size", None)
+    if field is not None:
+        args["size"] = field
+    else:
+        args["size"] = None
+
     field = data.get("volume_type", None)
     if field is not None:
         args["volume_type"] = field
-
-    field = data.get("state", None)
-    if field is not None:
-        args["state"] = field
-
-    field = data.get("project", None)
-    if field is not None:
-        args["project"] = field
 
     field = data.get("boot", None)
     if field is not None:
@@ -709,6 +707,18 @@ def unmarshal_VolumeServer(data: Any) -> VolumeServer:
         )
     else:
         args["modification_date"] = None
+
+    field = data.get("state", None)
+    if field is not None:
+        args["state"] = field
+    else:
+        args["state"] = None
+
+    field = data.get("project", None)
+    if field is not None:
+        args["project"] = field
+    else:
+        args["project"] = None
 
     return VolumeServer(**args)
 

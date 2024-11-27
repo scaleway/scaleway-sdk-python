@@ -660,21 +660,17 @@ class ServerMaintenance:
 class VolumeServer:
     id: str
 
-    name: str
-
-    organization: str
-
-    size: int
+    name: Optional[str]
 
     export_uri: Optional[str]
 
+    organization: Optional[str]
+
     server: Optional[ServerSummary]
 
+    size: Optional[int]
+
     volume_type: VolumeServerVolumeType
-
-    state: VolumeServerState
-
-    project: str
 
     boot: bool
 
@@ -686,6 +682,10 @@ class VolumeServer:
     creation_date: Optional[datetime]
 
     modification_date: Optional[datetime]
+
+    state: Optional[VolumeServerState]
+
+    project: Optional[str]
 
 
 @dataclass
