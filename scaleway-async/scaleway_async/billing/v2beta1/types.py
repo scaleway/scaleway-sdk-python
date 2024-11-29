@@ -94,6 +94,10 @@ class ListConsumptionsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 class ListDiscountsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATION_DATE_DESC = "creation_date_desc"
     CREATION_DATE_ASC = "creation_date_asc"
+    START_DATE_DESC = "start_date_desc"
+    START_DATE_ASC = "start_date_asc"
+    STOP_DATE_DESC = "stop_date_desc"
+    STOP_DATE_ASC = "stop_date_asc"
 
     def __str__(self) -> str:
         return str(self.value)
