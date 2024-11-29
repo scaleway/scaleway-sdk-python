@@ -5,6 +5,7 @@ from typing import Any, Dict
 from dateutil import parser
 
 from .types import (
+    KubernetesACLInfo,
     KubernetesClusterInfo,
     KubernetesNodeInfo,
     KubernetesPoolInfo,
@@ -17,6 +18,17 @@ from .types import (
     Product,
     ListProductsResponse,
 )
+
+
+def unmarshal_KubernetesACLInfo(data: Any) -> KubernetesACLInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'KubernetesACLInfo' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    return KubernetesACLInfo(**args)
 
 
 def unmarshal_KubernetesClusterInfo(data: Any) -> KubernetesClusterInfo:
@@ -186,6 +198,12 @@ def unmarshal_Resource(data: Any) -> Resource:
         args["kube_node_info"] = unmarshal_KubernetesNodeInfo(field)
     else:
         args["kube_node_info"] = None
+
+    field = data.get("kube_acl_info", None)
+    if field is not None:
+        args["kube_acl_info"] = unmarshal_KubernetesACLInfo(field)
+    else:
+        args["kube_acl_info"] = None
 
     return Resource(**args)
 
