@@ -30,9 +30,15 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     KUBE_CLUSTER = "kube_cluster"
     KUBE_POOL = "kube_pool"
     KUBE_NODE = "kube_node"
+    KUBE_ACL = "kube_acl"
 
     def __str__(self) -> str:
         return str(self.value)
+
+
+@dataclass
+class KubernetesACLInfo:
+    pass
 
 
 @dataclass
@@ -92,6 +98,8 @@ class Resource:
     kube_pool_info: Optional[KubernetesPoolInfo]
 
     kube_node_info: Optional[KubernetesNodeInfo]
+
+    kube_acl_info: Optional[KubernetesACLInfo]
 
 
 @dataclass
