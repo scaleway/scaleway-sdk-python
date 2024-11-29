@@ -108,6 +108,7 @@ from .types import (
     UpdateVolumeResponse,
     ApplyBlockMigrationRequest,
     AttachServerVolumeRequest,
+    CheckBlockMigrationOrganizationQuotasRequest,
     VolumeTemplate,
     CreateImageRequest,
     CreateIpRequest,
@@ -2725,6 +2726,20 @@ def marshal_AttachServerVolumeRequest(
 
     if request.boot is not None:
         output["boot"] = request.boot
+
+    return output
+
+
+def marshal_CheckBlockMigrationOrganizationQuotasRequest(
+    request: CheckBlockMigrationOrganizationQuotasRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.organization is not None:
+        output["organization"] = (
+            request.organization or defaults.default_organization_id
+        )
 
     return output
 

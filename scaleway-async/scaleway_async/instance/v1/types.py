@@ -1503,6 +1503,16 @@ class AttachServerVolumeResponse:
 
 
 @dataclass
+class CheckBlockMigrationOrganizationQuotasRequest:
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    organization: Optional[str]
+
+
+@dataclass
 class CreateImageRequest:
     root_volume: str
     """

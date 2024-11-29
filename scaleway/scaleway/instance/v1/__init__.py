@@ -79,6 +79,7 @@ from .types import SecurityGroupTemplate
 from .types import ApplyBlockMigrationRequest
 from .types import AttachServerVolumeRequest
 from .types import AttachServerVolumeResponse
+from .types import CheckBlockMigrationOrganizationQuotasRequest
 from .types import CreateImageRequest
 from .types import CreateImageResponse
 from .types import CreateIpRequest
@@ -274,6 +275,7 @@ __all__ = [
     "ApplyBlockMigrationRequest",
     "AttachServerVolumeRequest",
     "AttachServerVolumeResponse",
+    "CheckBlockMigrationOrganizationQuotasRequest",
     "CreateImageRequest",
     "CreateImageResponse",
     "CreateIpRequest",

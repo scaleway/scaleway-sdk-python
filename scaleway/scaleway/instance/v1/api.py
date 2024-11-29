@@ -46,6 +46,7 @@ from .types import (
     AttachServerVolumeRequest,
     AttachServerVolumeResponse,
     Bootscript,
+    CheckBlockMigrationOrganizationQuotasRequest,
     CreateImageRequest,
     CreateImageResponse,
     CreateIpRequest,
@@ -207,6 +208,7 @@ from .marshalling import (
     unmarshal__SetSnapshotResponse,
     marshal_ApplyBlockMigrationRequest,
     marshal_AttachServerVolumeRequest,
+    marshal_CheckBlockMigrationOrganizationQuotasRequest,
     marshal_CreateImageRequest,
     marshal_CreateIpRequest,
     marshal_CreatePlacementGroupRequest,
@@ -4046,6 +4048,38 @@ class InstanceV1API(API):
                     zone=zone,
                     volume_id=volume_id,
                     snapshot_id=snapshot_id,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+
+    def check_block_migration_organization_quotas(
+        self,
+        *,
+        zone: Optional[Zone] = None,
+        organization: Optional[str] = None,
+    ) -> None:
+        """
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param organization:
+
+        Usage:
+        ::
+
+            result = api.check_block_migration_organization_quotas()
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+
+        res = self._request(
+            "POST",
+            f"/instance/v1/zones/{param_zone}/block-migration/check-organization-quotas",
+            body=marshal_CheckBlockMigrationOrganizationQuotasRequest(
+                CheckBlockMigrationOrganizationQuotasRequest(
+                    zone=zone,
+                    organization=organization,
                 ),
                 self.client,
             ),
