@@ -780,7 +780,7 @@ class GetBillingResponse:
 
     plan_cost: Optional[Money]
     """
-    Price of the current subscription plan.
+    Cost to date (this month) for Edge Service subscription plans. This comprises the pro-rata cost of the current subscription plan, and any previous subscription plans that were active earlier in the month.
     """
 
     extra_pipelines_cost: Optional[Money]
