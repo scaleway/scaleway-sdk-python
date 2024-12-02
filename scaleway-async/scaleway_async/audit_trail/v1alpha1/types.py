@@ -105,41 +105,92 @@ class Resource:
 @dataclass
 class Event:
     id: str
+    """
+    ID of the event.
+    """
 
     locality: str
+    """
+    Locality of the resource attached to the event.
+    """
 
     organization_id: str
+    """
+    Organization ID containing the event.
+    """
 
     source_ip: str
+    """
+    IP address at the origin of the event.
+    """
 
     product_name: str
+    """
+    Product name of the resource attached to the event.
+    """
 
     recorded_at: Optional[datetime]
+    """
+    Timestamp of the event.
+    """
 
     principal: Optional[EventPrincipal]
+    """
+    User or IAM application at the origin of the event.
+    """
 
     project_id: Optional[str]
+    """
+    (Optional) Project of the resource attached to the event.
+    """
 
     user_agent: Optional[str]
+    """
+    User Agent at the origin of the event.
+    """
 
     service_name: str
+    """
+    API name called to trigger the event.
+    """
 
     method_name: str
+    """
+    API method called to trigger the event.
+    """
 
     request_id: str
+    """
+    Unique identifier of the request at the origin of the event.
+    """
 
     status_code: int
+    """
+    HTTP status code resulting of the API call.
+    """
 
     resource: Optional[Resource]
+    """
+    Resource attached to the event.
+    """
 
     request_body: Optional[Dict[str, Any]]
+    """
+    Request at the origin of the event.
+    """
 
 
 @dataclass
 class Product:
     title: str
+    """
+    Product title.
+    """
 
     name: str
+    """
+    Product name.
+    """
 
 
 @dataclass
@@ -220,5 +271,11 @@ class ListProductsRequest:
 @dataclass
 class ListProductsResponse:
     products: List[Product]
+    """
+    List of all products integrated with Audit Trail.
+    """
 
     total_count: int
+    """
+    Number of integrated products.
+    """
