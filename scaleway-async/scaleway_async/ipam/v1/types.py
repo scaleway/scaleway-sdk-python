@@ -303,6 +303,11 @@ class ListIPsRequest:
     Resource ID to filter for. Only IPs attached to this resource will be returned.
     """
 
+    resource_ids: Optional[List[str]]
+    """
+    Resource IDs to filter for. Only IPs attached to at least one of these resources will be returned.
+    """
+
     resource_type: Optional[ResourceType]
     """
     Resource type to filter for. Only IPs attached to this type of resource will be returned.

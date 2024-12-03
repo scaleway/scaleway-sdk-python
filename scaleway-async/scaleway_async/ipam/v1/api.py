@@ -263,6 +263,7 @@ class IpamV1API(API):
         vpc_id: Optional[str] = None,
         attached: Optional[bool] = None,
         resource_id: Optional[str] = None,
+        resource_ids: Optional[List[str]] = None,
         resource_type: Optional[ResourceType] = None,
         mac_address: Optional[str] = None,
         tags: Optional[List[str]] = None,
@@ -288,6 +289,7 @@ class IpamV1API(API):
         :param vpc_id: Only IPs owned by resources in this VPC will be returned.
         :param attached: Defines whether to filter only for IPs which are attached to a resource.
         :param resource_id: Resource ID to filter for. Only IPs attached to this resource will be returned.
+        :param resource_ids: Resource IDs to filter for. Only IPs attached to at least one of these resources will be returned.
         :param resource_type: Resource type to filter for. Only IPs attached to this type of resource will be returned.
         :param mac_address: MAC address to filter for. Only IPs attached to a resource with this MAC address will be returned.
         :param tags: Tags to filter for, only IPs with one or more matching tags will be returned.
@@ -321,6 +323,7 @@ class IpamV1API(API):
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
                 "resource_id": resource_id,
+                "resource_ids": resource_ids,
                 "resource_name": resource_name,
                 "resource_type": resource_type,
                 "resource_types": resource_types,
@@ -353,6 +356,7 @@ class IpamV1API(API):
         vpc_id: Optional[str] = None,
         attached: Optional[bool] = None,
         resource_id: Optional[str] = None,
+        resource_ids: Optional[List[str]] = None,
         resource_type: Optional[ResourceType] = None,
         mac_address: Optional[str] = None,
         tags: Optional[List[str]] = None,
@@ -378,6 +382,7 @@ class IpamV1API(API):
         :param vpc_id: Only IPs owned by resources in this VPC will be returned.
         :param attached: Defines whether to filter only for IPs which are attached to a resource.
         :param resource_id: Resource ID to filter for. Only IPs attached to this resource will be returned.
+        :param resource_ids: Resource IDs to filter for. Only IPs attached to at least one of these resources will be returned.
         :param resource_type: Resource type to filter for. Only IPs attached to this type of resource will be returned.
         :param mac_address: MAC address to filter for. Only IPs attached to a resource with this MAC address will be returned.
         :param tags: Tags to filter for, only IPs with one or more matching tags will be returned.
@@ -406,6 +411,7 @@ class IpamV1API(API):
                 "vpc_id": vpc_id,
                 "attached": attached,
                 "resource_id": resource_id,
+                "resource_ids": resource_ids,
                 "resource_type": resource_type,
                 "mac_address": mac_address,
                 "tags": tags,
