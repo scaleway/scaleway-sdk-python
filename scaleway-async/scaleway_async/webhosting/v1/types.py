@@ -315,6 +315,11 @@ class HostingSummary:
     Region where the Web Hosting plan is hosted.
     """
 
+    created_at: Optional[datetime]
+    """
+    Date on which the Web Hosting plan was created.
+    """
+
     updated_at: Optional[datetime]
     """
     Date on which the Web Hosting plan was last updated.
