@@ -487,6 +487,11 @@ class NatsApiListNatsCredentialsRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
+    project_id: Optional[str]
+    """
+    Include only NATS accounts in this Project.
+    """
+
     nats_account_id: Optional[str]
     """
     Include only credentials for this NATS account.
