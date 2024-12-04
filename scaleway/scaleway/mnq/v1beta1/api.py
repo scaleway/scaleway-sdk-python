@@ -420,6 +420,7 @@ class MnqV1Beta1NatsAPI(API):
         self,
         *,
         region: Optional[Region] = None,
+        project_id: Optional[str] = None,
         nats_account_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -429,6 +430,7 @@ class MnqV1Beta1NatsAPI(API):
         List NATS credentials.
         List existing credentials in the specified NATS account. The response contains only the metadata for the credentials, not the credentials themselves, which are only returned after a **Create Credentials** call.
         :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: Include only NATS accounts in this Project.
         :param nats_account_id: Include only credentials for this NATS account.
         :param page: Page number to return.
         :param page_size: Maximum number of credentials to return per page.
@@ -453,6 +455,7 @@ class MnqV1Beta1NatsAPI(API):
                 "order_by": order_by,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
+                "project_id": project_id or self.client.default_project_id,
             },
         )
 
@@ -463,6 +466,7 @@ class MnqV1Beta1NatsAPI(API):
         self,
         *,
         region: Optional[Region] = None,
+        project_id: Optional[str] = None,
         nats_account_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -472,6 +476,7 @@ class MnqV1Beta1NatsAPI(API):
         List NATS credentials.
         List existing credentials in the specified NATS account. The response contains only the metadata for the credentials, not the credentials themselves, which are only returned after a **Create Credentials** call.
         :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: Include only NATS accounts in this Project.
         :param nats_account_id: Include only credentials for this NATS account.
         :param page: Page number to return.
         :param page_size: Maximum number of credentials to return per page.
@@ -490,6 +495,7 @@ class MnqV1Beta1NatsAPI(API):
             fetcher=self.list_nats_credentials,
             args={
                 "region": region,
+                "project_id": project_id,
                 "nats_account_id": nats_account_id,
                 "page": page,
                 "page_size": page_size,
