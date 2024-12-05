@@ -68,7 +68,7 @@ from .marshalling import (
 
 class MnqV1Beta1NatsAPI(API):
     """
-    This API allows you to manage Scaleway Messaging and Queuing NATS accounts.
+    This API allows you to manage Scaleway NATS accounts.
     """
 
     async def create_nats_account(
@@ -506,7 +506,7 @@ class MnqV1Beta1NatsAPI(API):
 
 class MnqV1Beta1SnsAPI(API):
     """
-    This API allows you to manage your Scaleway Messaging and Queuing SNS brokers.
+    This API allows you to manage your Scaleway Topics and Events.
     """
 
     async def activate_sns(
@@ -516,10 +516,10 @@ class MnqV1Beta1SnsAPI(API):
         project_id: Optional[str] = None,
     ) -> SnsInfo:
         """
-        Activate SNS.
-        Activate SNS for the specified Project ID. SNS must be activated before any usage. Activating SNS does not trigger any billing, and you can deactivate at any time.
+        Activate Topics and Events.
+        Activate Topics and Events for the specified Project ID. Topics and Events must be activated before any usage. Activating Topics and Events does not trigger any billing, and you can deactivate at any time.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param project_id: Project on which to activate the SNS service.
+        :param project_id: Project on which to activate the Topics and Events service.
         :return: :class:`SnsInfo <SnsInfo>`
 
         Usage:
@@ -554,10 +554,10 @@ class MnqV1Beta1SnsAPI(API):
         project_id: Optional[str] = None,
     ) -> SnsInfo:
         """
-        Get SNS info.
-        Retrieve the SNS information of the specified Project ID. Informations include the activation status and the SNS API endpoint URL.
+        Get Topics and Events info.
+        Retrieve the Topics and Events information of the specified Project ID. Informations include the activation status and the Topics and Events API endpoint URL.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param project_id: Project to retrieve SNS info from.
+        :param project_id: Project to retrieve Topics and Events info from.
         :return: :class:`SnsInfo <SnsInfo>`
 
         Usage:
@@ -588,10 +588,10 @@ class MnqV1Beta1SnsAPI(API):
         project_id: Optional[str] = None,
     ) -> SnsInfo:
         """
-        Deactivate SNS.
-        Deactivate SNS for the specified Project ID.You must delete all topics and credentials before this call or you need to set the force_delete parameter.
+        Deactivate Topics and Events.
+        Deactivate Topics and Events for the specified Project ID. You must delete all topics and credentials before this call or you need to set the force_delete parameter.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param project_id: Project on which to deactivate the SNS service.
+        :param project_id: Project on which to deactivate the Topics and Events service.
         :return: :class:`SnsInfo <SnsInfo>`
 
         Usage:
@@ -628,10 +628,10 @@ class MnqV1Beta1SnsAPI(API):
         permissions: Optional[SnsPermissions] = None,
     ) -> SnsCredentials:
         """
-        Create SNS credentials.
-        Create a set of credentials for SNS, specified by a Project ID. Credentials give the bearer access to topics, and the level of permissions can be defined granularly.
+        Create Topics and Events credentials.
+        Create a set of credentials for Topics and Events, specified by a Project ID. Credentials give the bearer access to topics, and the level of permissions can be defined granularly.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param project_id: Project containing the SNS credentials.
+        :param project_id: Project containing the Topics and Events credentials.
         :param name: Name of the credentials.
         :param permissions: Permissions associated with these credentials.
         :return: :class:`SnsCredentials <SnsCredentials>`
@@ -670,8 +670,8 @@ class MnqV1Beta1SnsAPI(API):
         region: Optional[Region] = None,
     ) -> None:
         """
-        Delete SNS credentials.
-        Delete a set of SNS credentials, specified by their credentials ID. Deleting credentials is irreversible and cannot be undone. The credentials can then no longer be used to access SNS.
+        Delete Topics and Events credentials.
+        Delete a set of Topics and Events credentials, specified by their credentials ID. Deleting credentials is irreversible and cannot be undone. The credentials can then no longer be used to access Topics and Events.
         :param sns_credentials_id: ID of the credentials to delete.
         :param region: Region to target. If none is passed will use default region from the config.
 
@@ -706,9 +706,9 @@ class MnqV1Beta1SnsAPI(API):
         permissions: Optional[SnsPermissions] = None,
     ) -> SnsCredentials:
         """
-        Update SNS credentials.
-        Update a set of SNS credentials. You can update the credentials' name, or their permissions.
-        :param sns_credentials_id: ID of the SNS credentials to update.
+        Update Topics and Events credentials.
+        Update a set of Topics and Events credentials. You can update the credentials' name, or their permissions.
+        :param sns_credentials_id: ID of the Topics and Events credentials to update.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the credentials.
         :param permissions: Permissions associated with these credentials.
@@ -753,9 +753,9 @@ class MnqV1Beta1SnsAPI(API):
         region: Optional[Region] = None,
     ) -> SnsCredentials:
         """
-        Get SNS credentials.
+        Get Topics and Events credentials.
         Retrieve an existing set of credentials, identified by the `credentials_id`. The credentials themselves, as well as their metadata (name, project ID etc), are returned in the response.
-        :param sns_credentials_id: ID of the SNS credentials to get.
+        :param sns_credentials_id: ID of the Topics and Events credentials to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`SnsCredentials <SnsCredentials>`
 
@@ -792,10 +792,10 @@ class MnqV1Beta1SnsAPI(API):
         order_by: Optional[ListSnsCredentialsRequestOrderBy] = None,
     ) -> ListSnsCredentialsResponse:
         """
-        List SNS credentials.
-        List existing SNS credentials in the specified region. The response contains only the metadata for the credentials, not the credentials themselves.
+        List Topics and Events credentials.
+        List existing Topics and Events credentials in the specified region. The response contains only the metadata for the credentials, not the credentials themselves.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param project_id: Include only SNS credentials in this Project.
+        :param project_id: Include only Topics and Events credentials in this Project.
         :param page: Page number to return.
         :param page_size: Maximum number of credentials to return per page.
         :param order_by: Order in which to return results.
@@ -835,10 +835,10 @@ class MnqV1Beta1SnsAPI(API):
         order_by: Optional[ListSnsCredentialsRequestOrderBy] = None,
     ) -> List[SnsCredentials]:
         """
-        List SNS credentials.
-        List existing SNS credentials in the specified region. The response contains only the metadata for the credentials, not the credentials themselves.
+        List Topics and Events credentials.
+        List existing Topics and Events credentials in the specified region. The response contains only the metadata for the credentials, not the credentials themselves.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param project_id: Include only SNS credentials in this Project.
+        :param project_id: Include only Topics and Events credentials in this Project.
         :param page: Page number to return.
         :param page_size: Maximum number of credentials to return per page.
         :param order_by: Order in which to return results.
@@ -866,7 +866,7 @@ class MnqV1Beta1SnsAPI(API):
 
 class MnqV1Beta1SqsAPI(API):
     """
-    This API allows you to manage your Scaleway Messaging and Queuing SQS brokers.
+    This API allows you to manage your Scaleway Queues.
     """
 
     async def activate_sqs(
@@ -876,10 +876,10 @@ class MnqV1Beta1SqsAPI(API):
         project_id: Optional[str] = None,
     ) -> SqsInfo:
         """
-        Activate SQS.
-        Activate SQS for the specified Project ID. SQS must be activated before any usage such as creating credentials and queues. Activating SQS does not trigger any billing, and you can deactivate at any time.
+        Activate Queues.
+        Activate Queues for the specified Project ID. Queues must be activated before any usage such as creating credentials and queues. Activating Queues does not trigger any billing, and you can deactivate at any time.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param project_id: Project on which to activate the SQS service.
+        :param project_id: Project on which to activate the Queues service.
         :return: :class:`SqsInfo <SqsInfo>`
 
         Usage:
@@ -914,10 +914,10 @@ class MnqV1Beta1SqsAPI(API):
         project_id: Optional[str] = None,
     ) -> SqsInfo:
         """
-        Get SQS info.
-        Retrieve the SQS information of the specified Project ID. Informations include the activation status and the SQS API endpoint URL.
+        Get Queues info.
+        Retrieve the Queues information of the specified Project ID. Informations include the activation status and the Queues API endpoint URL.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param project_id: Project to retrieve SQS info from.
+        :param project_id: Project to retrieve Queues info from.
         :return: :class:`SqsInfo <SqsInfo>`
 
         Usage:
@@ -948,10 +948,10 @@ class MnqV1Beta1SqsAPI(API):
         project_id: Optional[str] = None,
     ) -> SqsInfo:
         """
-        Deactivate SQS.
-        Deactivate SQS for the specified Project ID. You must delete all queues and credentials before this call or you need to set the force_delete parameter.
+        Deactivate Queues.
+        Deactivate Queues for the specified Project ID. You must delete all queues and credentials before this call or you need to set the force_delete parameter.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param project_id: Project on which to deactivate the SQS service.
+        :param project_id: Project on which to deactivate the Queues service.
         :return: :class:`SqsInfo <SqsInfo>`
 
         Usage:
@@ -988,10 +988,10 @@ class MnqV1Beta1SqsAPI(API):
         permissions: Optional[SqsPermissions] = None,
     ) -> SqsCredentials:
         """
-        Create SQS credentials.
-        Create a set of credentials for SQS, specified by a Project ID. Credentials give the bearer access to queues, and the level of permissions can be defined granularly.
+        Create Queues credentials.
+        Create a set of credentials for Queues, specified by a Project ID. Credentials give the bearer access to queues, and the level of permissions can be defined granularly.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param project_id: Project containing the SQS credentials.
+        :param project_id: Project containing the Queues credentials.
         :param name: Name of the credentials.
         :param permissions: Permissions associated with these credentials.
         :return: :class:`SqsCredentials <SqsCredentials>`
@@ -1030,8 +1030,8 @@ class MnqV1Beta1SqsAPI(API):
         region: Optional[Region] = None,
     ) -> None:
         """
-        Delete SQS credentials.
-        Delete a set of SQS credentials, specified by their credentials ID. Deleting credentials is irreversible and cannot be undone. The credentials can then no longer be used to access SQS.
+        Delete Queues credentials.
+        Delete a set of Queues credentials, specified by their credentials ID. Deleting credentials is irreversible and cannot be undone. The credentials can then no longer be used to access Queues.
         :param sqs_credentials_id: ID of the credentials to delete.
         :param region: Region to target. If none is passed will use default region from the config.
 
@@ -1066,9 +1066,9 @@ class MnqV1Beta1SqsAPI(API):
         permissions: Optional[SqsPermissions] = None,
     ) -> SqsCredentials:
         """
-        Update SQS credentials.
-        Update a set of SQS credentials. You can update the credentials' name, or their permissions.
-        :param sqs_credentials_id: ID of the SQS credentials to update.
+        Update Queues credentials.
+        Update a set of Queues credentials. You can update the credentials' name, or their permissions.
+        :param sqs_credentials_id: ID of the Queues credentials to update.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the credentials.
         :param permissions: Permissions associated with these credentials.
@@ -1113,9 +1113,9 @@ class MnqV1Beta1SqsAPI(API):
         region: Optional[Region] = None,
     ) -> SqsCredentials:
         """
-        Get SQS credentials.
+        Get Queues credentials.
         Retrieve an existing set of credentials, identified by the `credentials_id`. The credentials themselves, as well as their metadata (name, project ID etc), are returned in the response.
-        :param sqs_credentials_id: ID of the SQS credentials to get.
+        :param sqs_credentials_id: ID of the Queues credentials to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`SqsCredentials <SqsCredentials>`
 
@@ -1152,10 +1152,10 @@ class MnqV1Beta1SqsAPI(API):
         order_by: Optional[ListSqsCredentialsRequestOrderBy] = None,
     ) -> ListSqsCredentialsResponse:
         """
-        List SQS credentials.
-        List existing SQS credentials in the specified region. The response contains only the metadata for the credentials, not the credentials themselves.
+        List Queues credentials.
+        List existing Queues credentials in the specified region. The response contains only the metadata for the credentials, not the credentials themselves.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param project_id: Include only SQS credentials in this Project.
+        :param project_id: Include only Queues credentials in this Project.
         :param page: Page number to return.
         :param page_size: Maximum number of credentials to return per page.
         :param order_by: Order in which to return results.
@@ -1195,10 +1195,10 @@ class MnqV1Beta1SqsAPI(API):
         order_by: Optional[ListSqsCredentialsRequestOrderBy] = None,
     ) -> List[SqsCredentials]:
         """
-        List SQS credentials.
-        List existing SQS credentials in the specified region. The response contains only the metadata for the credentials, not the credentials themselves.
+        List Queues credentials.
+        List existing Queues credentials in the specified region. The response contains only the metadata for the credentials, not the credentials themselves.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param project_id: Include only SQS credentials in this Project.
+        :param project_id: Include only Queues credentials in this Project.
         :param page: Page number to return.
         :param page_size: Maximum number of credentials to return per page.
         :param order_by: Order in which to return results.
