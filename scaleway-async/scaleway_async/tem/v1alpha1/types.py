@@ -157,6 +157,8 @@ class WebhookEventType(str, Enum, metaclass=StrEnumMeta):
     EMAIL_DELIVERED = "email_delivered"
     EMAIL_SPAM = "email_spam"
     EMAIL_MAILBOX_NOT_FOUND = "email_mailbox_not_found"
+    EMAIL_BLOCKLISTED = "email_blocklisted"
+    BLOCKLIST_CREATED = "blocklist_created"
 
     def __str__(self) -> str:
         return str(self.value)
