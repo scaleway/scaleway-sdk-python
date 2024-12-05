@@ -1,0 +1,18 @@
+scaleway\_async.k8s package
+===========================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway_async.k8s.v1
+
+Module contents
+---------------
+
+.. automodule:: scaleway_async.k8s
+   :members:
+   :undoc-members:
+   :show-inheritance:

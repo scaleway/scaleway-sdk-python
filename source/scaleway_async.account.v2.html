@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scaleway_async.account.v2 package &mdash; Scaleway Python SDK  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scaleway Python SDK
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">scaleway_async.account.v2 package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-scaleway_async.account.v2.api">scaleway_async.account.v2.api module</a><ul>
+<li><a class="reference internal" href="#scaleway_async.account.v2.api.AccountV2API"><code class="docutils literal notranslate"><span class="pre">AccountV2API</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway_async.account.v2.api.AccountV2API.create_project"><code class="docutils literal notranslate"><span class="pre">AccountV2API.create_project()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.api.AccountV2API.delete_project"><code class="docutils literal notranslate"><span class="pre">AccountV2API.delete_project()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.api.AccountV2API.get_project"><code class="docutils literal notranslate"><span class="pre">AccountV2API.get_project()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.api.AccountV2API.list_projects"><code class="docutils literal notranslate"><span class="pre">AccountV2API.list_projects()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.api.AccountV2API.list_projects_all"><code class="docutils literal notranslate"><span class="pre">AccountV2API.list_projects_all()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.api.AccountV2API.update_project"><code class="docutils literal notranslate"><span class="pre">AccountV2API.update_project()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-scaleway_async.account.v2.marshalling">scaleway_async.account.v2.marshalling module</a><ul>
+<li><a class="reference internal" href="#scaleway_async.account.v2.marshalling.marshal_CreateProjectRequest"><code class="docutils literal notranslate"><span class="pre">marshal_CreateProjectRequest()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.marshalling.marshal_UpdateProjectRequest"><code class="docutils literal notranslate"><span class="pre">marshal_UpdateProjectRequest()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.marshalling.unmarshal_ListProjectsResponse"><code class="docutils literal notranslate"><span class="pre">unmarshal_ListProjectsResponse()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.marshalling.unmarshal_Project"><code class="docutils literal notranslate"><span class="pre">unmarshal_Project()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-scaleway_async.account.v2.types">scaleway_async.account.v2.types module</a><ul>
+<li><a class="reference internal" href="#scaleway_async.account.v2.types.CreateProjectRequest"><code class="docutils literal notranslate"><span class="pre">CreateProjectRequest</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway_async.account.v2.types.CreateProjectRequest.description"><code class="docutils literal notranslate"><span class="pre">CreateProjectRequest.description</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.types.CreateProjectRequest.name"><code class="docutils literal notranslate"><span class="pre">CreateProjectRequest.name</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.types.CreateProjectRequest.organization_id"><code class="docutils literal notranslate"><span class="pre">CreateProjectRequest.organization_id</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.types.DeleteProjectRequest"><code class="docutils literal notranslate"><span class="pre">DeleteProjectRequest</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway_async.account.v2.types.DeleteProjectRequest.project_id"><code class="docutils literal notranslate"><span class="pre">DeleteProjectRequest.project_id</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.types.GetProjectRequest"><code class="docutils literal notranslate"><span class="pre">GetProjectRequest</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway_async.account.v2.types.GetProjectRequest.project_id"><code class="docutils literal notranslate"><span class="pre">GetProjectRequest.project_id</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.types.ListProjectsRequest"><code class="docutils literal notranslate"><span class="pre">ListProjectsRequest</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway_async.account.v2.types.ListProjectsRequest.name"><code class="docutils literal notranslate"><span class="pre">ListProjectsRequest.name</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.types.ListProjectsRequest.order_by"><code class="docutils literal notranslate"><span class="pre">ListProjectsRequest.order_by</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.types.ListProjectsRequest.organization_id"><code class="docutils literal notranslate"><span class="pre">ListProjectsRequest.organization_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.types.ListProjectsRequest.page"><code class="docutils literal notranslate"><span class="pre">ListProjectsRequest.page</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.types.ListProjectsRequest.page_size"><code class="docutils literal notranslate"><span class="pre">ListProjectsRequest.page_size</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.types.ListProjectsRequest.project_ids"><code class="docutils literal notranslate"><span class="pre">ListProjectsRequest.project_ids</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.types.ListProjectsRequestOrderBy"><code class="docutils literal notranslate"><span class="pre">ListProjectsRequestOrderBy</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway_async.account.v2.types.ListProjectsRequestOrderBy.CREATED_AT_ASC"><code class="docutils literal notranslate"><span class="pre">ListProjectsRequestOrderBy.CREATED_AT_ASC</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.types.ListProjectsRequestOrderBy.CREATED_AT_DESC"><code class="docutils literal notranslate"><span class="pre">ListProjectsRequestOrderBy.CREATED_AT_DESC</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.types.ListProjectsRequestOrderBy.NAME_ASC"><code class="docutils literal notranslate"><span class="pre">ListProjectsRequestOrderBy.NAME_ASC</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.types.ListProjectsRequestOrderBy.NAME_DESC"><code class="docutils literal notranslate"><span class="pre">ListProjectsRequestOrderBy.NAME_DESC</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.types.ListProjectsResponse"><code class="docutils literal notranslate"><span class="pre">ListProjectsResponse</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway_async.account.v2.types.ListProjectsResponse.projects"><code class="docutils literal notranslate"><span class="pre">ListProjectsResponse.projects</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.types.ListProjectsResponse.total_count"><code class="docutils literal notranslate"><span class="pre">ListProjectsResponse.total_count</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.types.Project"><code class="docutils literal notranslate"><span class="pre">Project</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway_async.account.v2.types.Project.created_at"><code class="docutils literal notranslate"><span class="pre">Project.created_at</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.types.Project.description"><code class="docutils literal notranslate"><span class="pre">Project.description</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.types.Project.id"><code class="docutils literal notranslate"><span class="pre">Project.id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.types.Project.name"><code class="docutils literal notranslate"><span class="pre">Project.name</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.types.Project.organization_id"><code class="docutils literal notranslate"><span class="pre">Project.organization_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.types.Project.updated_at"><code class="docutils literal notranslate"><span class="pre">Project.updated_at</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.types.UpdateProjectRequest"><code class="docutils literal notranslate"><span class="pre">UpdateProjectRequest</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway_async.account.v2.types.UpdateProjectRequest.description"><code class="docutils literal notranslate"><span class="pre">UpdateProjectRequest.description</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.types.UpdateProjectRequest.name"><code class="docutils literal notranslate"><span class="pre">UpdateProjectRequest.name</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.types.UpdateProjectRequest.project_id"><code class="docutils literal notranslate"><span class="pre">UpdateProjectRequest.project_id</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-scaleway_async.account.v2">Module contents</a><ul>
+<li><a class="reference internal" href="#scaleway_async.account.v2.AccountV2API"><code class="docutils literal notranslate"><span class="pre">AccountV2API</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway_async.account.v2.AccountV2API.create_project"><code class="docutils literal notranslate"><span class="pre">AccountV2API.create_project()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.AccountV2API.delete_project"><code class="docutils literal notranslate"><span class="pre">AccountV2API.delete_project()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.AccountV2API.get_project"><code class="docutils literal notranslate"><span class="pre">AccountV2API.get_project()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.AccountV2API.list_projects"><code class="docutils literal notranslate"><span class="pre">AccountV2API.list_projects()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.AccountV2API.list_projects_all"><code class="docutils literal notranslate"><span class="pre">AccountV2API.list_projects_all()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.AccountV2API.update_project"><code class="docutils literal notranslate"><span class="pre">AccountV2API.update_project()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.CreateProjectRequest"><code class="docutils literal notranslate"><span class="pre">CreateProjectRequest</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway_async.account.v2.CreateProjectRequest.description"><code class="docutils literal notranslate"><span class="pre">CreateProjectRequest.description</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.CreateProjectRequest.name"><code class="docutils literal notranslate"><span class="pre">CreateProjectRequest.name</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.CreateProjectRequest.organization_id"><code class="docutils literal notranslate"><span class="pre">CreateProjectRequest.organization_id</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.DeleteProjectRequest"><code class="docutils literal notranslate"><span class="pre">DeleteProjectRequest</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway_async.account.v2.DeleteProjectRequest.project_id"><code class="docutils literal notranslate"><span class="pre">DeleteProjectRequest.project_id</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.GetProjectRequest"><code class="docutils literal notranslate"><span class="pre">GetProjectRequest</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway_async.account.v2.GetProjectRequest.project_id"><code class="docutils literal notranslate"><span class="pre">GetProjectRequest.project_id</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.ListProjectsRequest"><code class="docutils literal notranslate"><span class="pre">ListProjectsRequest</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway_async.account.v2.ListProjectsRequest.name"><code class="docutils literal notranslate"><span class="pre">ListProjectsRequest.name</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.ListProjectsRequest.order_by"><code class="docutils literal notranslate"><span class="pre">ListProjectsRequest.order_by</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.ListProjectsRequest.organization_id"><code class="docutils literal notranslate"><span class="pre">ListProjectsRequest.organization_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.ListProjectsRequest.page"><code class="docutils literal notranslate"><span class="pre">ListProjectsRequest.page</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.ListProjectsRequest.page_size"><code class="docutils literal notranslate"><span class="pre">ListProjectsRequest.page_size</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.ListProjectsRequest.project_ids"><code class="docutils literal notranslate"><span class="pre">ListProjectsRequest.project_ids</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.ListProjectsRequestOrderBy"><code class="docutils literal notranslate"><span class="pre">ListProjectsRequestOrderBy</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway_async.account.v2.ListProjectsRequestOrderBy.CREATED_AT_ASC"><code class="docutils literal notranslate"><span class="pre">ListProjectsRequestOrderBy.CREATED_AT_ASC</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.ListProjectsRequestOrderBy.CREATED_AT_DESC"><code class="docutils literal notranslate"><span class="pre">ListProjectsRequestOrderBy.CREATED_AT_DESC</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.ListProjectsRequestOrderBy.NAME_ASC"><code class="docutils literal notranslate"><span class="pre">ListProjectsRequestOrderBy.NAME_ASC</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.ListProjectsRequestOrderBy.NAME_DESC"><code class="docutils literal notranslate"><span class="pre">ListProjectsRequestOrderBy.NAME_DESC</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.ListProjectsResponse"><code class="docutils literal notranslate"><span class="pre">ListProjectsResponse</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway_async.account.v2.ListProjectsResponse.projects"><code class="docutils literal notranslate"><span class="pre">ListProjectsResponse.projects</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.ListProjectsResponse.total_count"><code class="docutils literal notranslate"><span class="pre">ListProjectsResponse.total_count</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.Project"><code class="docutils literal notranslate"><span class="pre">Project</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway_async.account.v2.Project.created_at"><code class="docutils literal notranslate"><span class="pre">Project.created_at</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.Project.description"><code class="docutils literal notranslate"><span class="pre">Project.description</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.Project.id"><code class="docutils literal notranslate"><span class="pre">Project.id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.Project.name"><code class="docutils literal notranslate"><span class="pre">Project.name</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.Project.organization_id"><code class="docutils literal notranslate"><span class="pre">Project.organization_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.Project.updated_at"><code class="docutils literal notranslate"><span class="pre">Project.updated_at</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.UpdateProjectRequest"><code class="docutils literal notranslate"><span class="pre">UpdateProjectRequest</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway_async.account.v2.UpdateProjectRequest.description"><code class="docutils literal notranslate"><span class="pre">UpdateProjectRequest.description</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.UpdateProjectRequest.name"><code class="docutils literal notranslate"><span class="pre">UpdateProjectRequest.name</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_async.account.v2.UpdateProjectRequest.project_id"><code class="docutils literal notranslate"><span class="pre">UpdateProjectRequest.project_id</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scaleway Python SDK</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">scaleway_async.account.v2 package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/source/scaleway_async.account.v2.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="scaleway-async-account-v2-package">
+<h1>scaleway_async.account.v2 package<a class="headerlink" href="#scaleway-async-account-v2-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-scaleway_async.account.v2.api">
+<span id="scaleway-async-account-v2-api-module"></span><h2>scaleway_async.account.v2.api module<a class="headerlink" href="#module-scaleway_async.account.v2.api" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.api.AccountV2API">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_async.account.v2.api.</span></span><span class="sig-name descname"><span class="pre">AccountV2API</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scaleway_core.html#scaleway_core.client.Client" title="scaleway_core.client.Client"><span class="pre">Client</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bypass_validation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_async.account.v2.api.AccountV2API" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scaleway_core.html#scaleway_core.api.API" title="scaleway_core.api.API"><code class="xref py py-class docutils literal notranslate"><span class="pre">API</span></code></a></p>
+<p>This API allows you to manage your Scaleway Projects.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.api.AccountV2API.create_project">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_project</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">organization_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway_async.account.v2.types.Project" title="scaleway_async.account.v2.types.Project"><span class="pre">Project</span></a></span></span><a class="headerlink" href="#scaleway_async.account.v2.api.AccountV2API.create_project" title="Permalink to this definition"></a></dt>
+<dd><p>Create a new Project for an Organization.
+Deprecated in favor of Account API v3.
+Generate a new Project for an Organization, specifying its configuration including name and description.
+:param name: Name of the Project.
+:param organization_id: Organization ID of the Project.
+:param description: Description of the Project.
+:return: <code class="xref py py-class docutils literal notranslate"><span class="pre">Project</span></code>
+:deprecated</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">api</span><span class="o">.</span><span class="n">create_project</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.api.AccountV2API.delete_project">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">delete_project</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#scaleway_async.account.v2.api.AccountV2API.delete_project" title="Permalink to this definition"></a></dt>
+<dd><p>Delete an existing Project.
+Deprecated in favor of Account API v3.
+Delete an existing Project, specified by its Project ID. The Project needs to be empty (meaning there are no resources left in it) to be deleted effectively. Note that deleting a Project is permanent, and cannot be undone.
+:param project_id: Project ID of the Project.
+:deprecated</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">api</span><span class="o">.</span><span class="n">delete_project</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.api.AccountV2API.get_project">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_project</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway_async.account.v2.types.Project" title="scaleway_async.account.v2.types.Project"><span class="pre">Project</span></a></span></span><a class="headerlink" href="#scaleway_async.account.v2.api.AccountV2API.get_project" title="Permalink to this definition"></a></dt>
+<dd><p>Get an existing Project.
+Deprecated in favor of Account API v3.
+Retrieve information about an existing Project, specified by its Project ID. Its full details, including ID, name and description, are returned in the response object.
+:param project_id: Project ID of the Project.
+:return: <code class="xref py py-class docutils literal notranslate"><span class="pre">Project</span></code>
+:deprecated</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">api</span><span class="o">.</span><span class="n">get_project</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.api.AccountV2API.list_projects">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">list_projects</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">organization_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway_async.account.v2.types.ListProjectsRequestOrderBy" title="scaleway_async.account.v2.types.ListProjectsRequestOrderBy"><span class="pre">ListProjectsRequestOrderBy</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway_async.account.v2.types.ListProjectsResponse" title="scaleway_async.account.v2.types.ListProjectsResponse"><span class="pre">ListProjectsResponse</span></a></span></span><a class="headerlink" href="#scaleway_async.account.v2.api.AccountV2API.list_projects" title="Permalink to this definition"></a></dt>
+<dd><p>List all Projects of an Organization.
+Deprecated in favor of Account API v3.
+List all Projects of an Organization. The response will include the total number of Projects as well as their associated Organizations, names and IDs. Other information include the creation and update date of the Project.
+:param organization_id: Organization ID of the Project.
+:param name: Name of the Project.
+:param page: Page number for the returned Projects.
+:param page_size: Maximum number of Project per page.
+:param order_by: Sort order of the returned Projects.
+:param project_ids: Project IDs to filter for. The results will be limited to any Projects with an ID in this array.
+:return: <code class="xref py py-class docutils literal notranslate"><span class="pre">ListProjectsResponse</span></code>
+:deprecated</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">api</span><span class="o">.</span><span class="n">list_projects</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.api.AccountV2API.list_projects_all">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">list_projects_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">organization_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway_async.account.v2.types.ListProjectsRequestOrderBy" title="scaleway_async.account.v2.types.ListProjectsRequestOrderBy"><span class="pre">ListProjectsRequestOrderBy</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway_async.account.v2.types.Project" title="scaleway_async.account.v2.types.Project"><span class="pre">Project</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scaleway_async.account.v2.api.AccountV2API.list_projects_all" title="Permalink to this definition"></a></dt>
+<dd><p>List all Projects of an Organization.
+Deprecated in favor of Account API v3.
+List all Projects of an Organization. The response will include the total number of Projects as well as their associated Organizations, names and IDs. Other information include the creation and update date of the Project.
+:param organization_id: Organization ID of the Project.
+:param name: Name of the Project.
+:param page: Page number for the returned Projects.
+:param page_size: Maximum number of Project per page.
+:param order_by: Sort order of the returned Projects.
+:param project_ids: Project IDs to filter for. The results will be limited to any Projects with an ID in this array.
+:return: <code class="xref py py-class docutils literal notranslate"><span class="pre">List[Project]</span></code>
+:deprecated</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">api</span><span class="o">.</span><span class="n">list_projects_all</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.api.AccountV2API.update_project">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update_project</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway_async.account.v2.types.Project" title="scaleway_async.account.v2.types.Project"><span class="pre">Project</span></a></span></span><a class="headerlink" href="#scaleway_async.account.v2.api.AccountV2API.update_project" title="Permalink to this definition"></a></dt>
+<dd><p>Update Project.
+Deprecated in favor of Account API v3.
+Update the parameters of an existing Project, specified by its Project ID. These parameters include the name and description.
+:param project_id: Project ID of the Project.
+:param name: Name of the Project.
+:param description: Description of the Project.
+:return: <code class="xref py py-class docutils literal notranslate"><span class="pre">Project</span></code>
+:deprecated</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">api</span><span class="o">.</span><span class="n">update_project</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-scaleway_async.account.v2.marshalling">
+<span id="scaleway-async-account-v2-marshalling-module"></span><h2>scaleway_async.account.v2.marshalling module<a class="headerlink" href="#module-scaleway_async.account.v2.marshalling" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.marshalling.marshal_CreateProjectRequest">
+<span class="sig-prename descclassname"><span class="pre">scaleway_async.account.v2.marshalling.</span></span><span class="sig-name descname"><span class="pre">marshal_CreateProjectRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scaleway_async.account.v2.types.CreateProjectRequest" title="scaleway_async.account.v2.types.CreateProjectRequest"><span class="pre">CreateProjectRequest</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">defaults</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.profile.ProfileDefaults" title="scaleway_core.profile.profile.ProfileDefaults"><span class="pre">ProfileDefaults</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scaleway_async.account.v2.marshalling.marshal_CreateProjectRequest" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.marshalling.marshal_UpdateProjectRequest">
+<span class="sig-prename descclassname"><span class="pre">scaleway_async.account.v2.marshalling.</span></span><span class="sig-name descname"><span class="pre">marshal_UpdateProjectRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scaleway_async.account.v2.types.UpdateProjectRequest" title="scaleway_async.account.v2.types.UpdateProjectRequest"><span class="pre">UpdateProjectRequest</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">defaults</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.profile.ProfileDefaults" title="scaleway_core.profile.profile.ProfileDefaults"><span class="pre">ProfileDefaults</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scaleway_async.account.v2.marshalling.marshal_UpdateProjectRequest" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.marshalling.unmarshal_ListProjectsResponse">
+<span class="sig-prename descclassname"><span class="pre">scaleway_async.account.v2.marshalling.</span></span><span class="sig-name descname"><span class="pre">unmarshal_ListProjectsResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway_async.account.v2.types.ListProjectsResponse" title="scaleway_async.account.v2.types.ListProjectsResponse"><span class="pre">ListProjectsResponse</span></a></span></span><a class="headerlink" href="#scaleway_async.account.v2.marshalling.unmarshal_ListProjectsResponse" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.marshalling.unmarshal_Project">
+<span class="sig-prename descclassname"><span class="pre">scaleway_async.account.v2.marshalling.</span></span><span class="sig-name descname"><span class="pre">unmarshal_Project</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway_async.account.v2.types.Project" title="scaleway_async.account.v2.types.Project"><span class="pre">Project</span></a></span></span><a class="headerlink" href="#scaleway_async.account.v2.marshalling.unmarshal_Project" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-scaleway_async.account.v2.types">
+<span id="scaleway-async-account-v2-types-module"></span><h2>scaleway_async.account.v2.types module<a class="headerlink" href="#module-scaleway_async.account.v2.types" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.types.CreateProjectRequest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_async.account.v2.types.</span></span><span class="sig-name descname"><span class="pre">CreateProjectRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">organization_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_async.account.v2.types.CreateProjectRequest" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.types.CreateProjectRequest.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_async.account.v2.types.CreateProjectRequest.description" title="Permalink to this definition"></a></dt>
+<dd><p>Description of the Project.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.types.CreateProjectRequest.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_async.account.v2.types.CreateProjectRequest.name" title="Permalink to this definition"></a></dt>
+<dd><p>Name of the Project.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.types.CreateProjectRequest.organization_id">
+<span class="sig-name descname"><span class="pre">organization_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_async.account.v2.types.CreateProjectRequest.organization_id" title="Permalink to this definition"></a></dt>
+<dd><p>Organization ID of the Project.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.types.DeleteProjectRequest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_async.account.v2.types.</span></span><span class="sig-name descname"><span class="pre">DeleteProjectRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_async.account.v2.types.DeleteProjectRequest" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.types.DeleteProjectRequest.project_id">
+<span class="sig-name descname"><span class="pre">project_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_async.account.v2.types.DeleteProjectRequest.project_id" title="Permalink to this definition"></a></dt>
+<dd><p>Project ID of the Project.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.types.GetProjectRequest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_async.account.v2.types.</span></span><span class="sig-name descname"><span class="pre">GetProjectRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_async.account.v2.types.GetProjectRequest" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.types.GetProjectRequest.project_id">
+<span class="sig-name descname"><span class="pre">project_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_async.account.v2.types.GetProjectRequest.project_id" title="Permalink to this definition"></a></dt>
+<dd><p>Project ID of the Project.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.types.ListProjectsRequest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_async.account.v2.types.</span></span><span class="sig-name descname"><span class="pre">ListProjectsRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">organization_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[int]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[int]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[ListProjectsRequestOrderBy]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[List[str]]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_async.account.v2.types.ListProjectsRequest" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.types.ListProjectsRequest.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_async.account.v2.types.ListProjectsRequest.name" title="Permalink to this definition"></a></dt>
+<dd><p>Name of the Project.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.types.ListProjectsRequest.order_by">
+<span class="sig-name descname"><span class="pre">order_by</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway_async.account.v2.types.ListProjectsRequestOrderBy" title="scaleway_async.account.v2.types.ListProjectsRequestOrderBy"><span class="pre">ListProjectsRequestOrderBy</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_async.account.v2.types.ListProjectsRequest.order_by" title="Permalink to this definition"></a></dt>
+<dd><p>Sort order of the returned Projects.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.types.ListProjectsRequest.organization_id">
+<span class="sig-name descname"><span class="pre">organization_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_async.account.v2.types.ListProjectsRequest.organization_id" title="Permalink to this definition"></a></dt>
+<dd><p>Organization ID of the Project.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.types.ListProjectsRequest.page">
+<span class="sig-name descname"><span class="pre">page</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_async.account.v2.types.ListProjectsRequest.page" title="Permalink to this definition"></a></dt>
+<dd><p>Page number for the returned Projects.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.types.ListProjectsRequest.page_size">
+<span class="sig-name descname"><span class="pre">page_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_async.account.v2.types.ListProjectsRequest.page_size" title="Permalink to this definition"></a></dt>
+<dd><p>Maximum number of Project per page.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.types.ListProjectsRequest.project_ids">
+<span class="sig-name descname"><span class="pre">project_ids</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_async.account.v2.types.ListProjectsRequest.project_ids" title="Permalink to this definition"></a></dt>
+<dd><p>Project IDs to filter for. The results will be limited to any Projects with an ID in this array.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.types.ListProjectsRequestOrderBy">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_async.account.v2.types.</span></span><span class="sig-name descname"><span class="pre">ListProjectsRequestOrderBy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_async.account.v2.types.ListProjectsRequestOrderBy" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.types.ListProjectsRequestOrderBy.CREATED_AT_ASC">
+<span class="sig-name descname"><span class="pre">CREATED_AT_ASC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'created_at_asc'</span></em><a class="headerlink" href="#scaleway_async.account.v2.types.ListProjectsRequestOrderBy.CREATED_AT_ASC" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.types.ListProjectsRequestOrderBy.CREATED_AT_DESC">
+<span class="sig-name descname"><span class="pre">CREATED_AT_DESC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'created_at_desc'</span></em><a class="headerlink" href="#scaleway_async.account.v2.types.ListProjectsRequestOrderBy.CREATED_AT_DESC" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.types.ListProjectsRequestOrderBy.NAME_ASC">
+<span class="sig-name descname"><span class="pre">NAME_ASC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'name_asc'</span></em><a class="headerlink" href="#scaleway_async.account.v2.types.ListProjectsRequestOrderBy.NAME_ASC" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.types.ListProjectsRequestOrderBy.NAME_DESC">
+<span class="sig-name descname"><span class="pre">NAME_DESC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'name_desc'</span></em><a class="headerlink" href="#scaleway_async.account.v2.types.ListProjectsRequestOrderBy.NAME_DESC" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.types.ListProjectsResponse">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_async.account.v2.types.</span></span><span class="sig-name descname"><span class="pre">ListProjectsResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">total_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'int'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projects</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'List[Project]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_async.account.v2.types.ListProjectsResponse" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.types.ListProjectsResponse.projects">
+<span class="sig-name descname"><span class="pre">projects</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway_async.account.v2.types.Project" title="scaleway_async.account.v2.types.Project"><span class="pre">Project</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_async.account.v2.types.ListProjectsResponse.projects" title="Permalink to this definition"></a></dt>
+<dd><p>Paginated returned Projects.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.types.ListProjectsResponse.total_count">
+<span class="sig-name descname"><span class="pre">total_count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#scaleway_async.account.v2.types.ListProjectsResponse.total_count" title="Permalink to this definition"></a></dt>
+<dd><p>Total number of Projects.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.types.Project">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_async.account.v2.types.</span></span><span class="sig-name descname"><span class="pre">Project</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">organization_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">created_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[datetime]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">updated_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[datetime]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_async.account.v2.types.Project" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.types.Project.created_at">
+<span class="sig-name descname"><span class="pre">created_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_async.account.v2.types.Project.created_at" title="Permalink to this definition"></a></dt>
+<dd><p>Creation date of the Project.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.types.Project.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway_async.account.v2.types.Project.description" title="Permalink to this definition"></a></dt>
+<dd><p>Description of the Project.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.types.Project.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway_async.account.v2.types.Project.id" title="Permalink to this definition"></a></dt>
+<dd><p>ID of the Project.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.types.Project.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway_async.account.v2.types.Project.name" title="Permalink to this definition"></a></dt>
+<dd><p>Name of the Project.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.types.Project.organization_id">
+<span class="sig-name descname"><span class="pre">organization_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway_async.account.v2.types.Project.organization_id" title="Permalink to this definition"></a></dt>
+<dd><p>Organization ID of the Project.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.types.Project.updated_at">
+<span class="sig-name descname"><span class="pre">updated_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_async.account.v2.types.Project.updated_at" title="Permalink to this definition"></a></dt>
+<dd><p>Update date of the Project.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.types.UpdateProjectRequest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_async.account.v2.types.</span></span><span class="sig-name descname"><span class="pre">UpdateProjectRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_async.account.v2.types.UpdateProjectRequest" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.types.UpdateProjectRequest.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_async.account.v2.types.UpdateProjectRequest.description" title="Permalink to this definition"></a></dt>
+<dd><p>Description of the Project.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.types.UpdateProjectRequest.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_async.account.v2.types.UpdateProjectRequest.name" title="Permalink to this definition"></a></dt>
+<dd><p>Name of the Project.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.types.UpdateProjectRequest.project_id">
+<span class="sig-name descname"><span class="pre">project_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_async.account.v2.types.UpdateProjectRequest.project_id" title="Permalink to this definition"></a></dt>
+<dd><p>Project ID of the Project.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-scaleway_async.account.v2">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-scaleway_async.account.v2" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.AccountV2API">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_async.account.v2.</span></span><span class="sig-name descname"><span class="pre">AccountV2API</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scaleway_core.html#scaleway_core.client.Client" title="scaleway_core.client.Client"><span class="pre">Client</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bypass_validation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_async.account.v2.AccountV2API" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scaleway_core.html#scaleway_core.api.API" title="scaleway_core.api.API"><code class="xref py py-class docutils literal notranslate"><span class="pre">API</span></code></a></p>
+<p>This API allows you to manage your Scaleway Projects.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.AccountV2API.create_project">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_project</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">organization_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway_async.account.v2.types.Project" title="scaleway_async.account.v2.types.Project"><span class="pre">Project</span></a></span></span><a class="headerlink" href="#scaleway_async.account.v2.AccountV2API.create_project" title="Permalink to this definition"></a></dt>
+<dd><p>Create a new Project for an Organization.
+Deprecated in favor of Account API v3.
+Generate a new Project for an Organization, specifying its configuration including name and description.
+:param name: Name of the Project.
+:param organization_id: Organization ID of the Project.
+:param description: Description of the Project.
+:return: <a class="reference internal" href="#scaleway_async.account.v2.Project" title="scaleway_async.account.v2.Project"><code class="xref py py-class docutils literal notranslate"><span class="pre">Project</span></code></a>
+:deprecated</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">api</span><span class="o">.</span><span class="n">create_project</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.AccountV2API.delete_project">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">delete_project</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#scaleway_async.account.v2.AccountV2API.delete_project" title="Permalink to this definition"></a></dt>
+<dd><p>Delete an existing Project.
+Deprecated in favor of Account API v3.
+Delete an existing Project, specified by its Project ID. The Project needs to be empty (meaning there are no resources left in it) to be deleted effectively. Note that deleting a Project is permanent, and cannot be undone.
+:param project_id: Project ID of the Project.
+:deprecated</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">api</span><span class="o">.</span><span class="n">delete_project</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.AccountV2API.get_project">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_project</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway_async.account.v2.types.Project" title="scaleway_async.account.v2.types.Project"><span class="pre">Project</span></a></span></span><a class="headerlink" href="#scaleway_async.account.v2.AccountV2API.get_project" title="Permalink to this definition"></a></dt>
+<dd><p>Get an existing Project.
+Deprecated in favor of Account API v3.
+Retrieve information about an existing Project, specified by its Project ID. Its full details, including ID, name and description, are returned in the response object.
+:param project_id: Project ID of the Project.
+:return: <a class="reference internal" href="#scaleway_async.account.v2.Project" title="scaleway_async.account.v2.Project"><code class="xref py py-class docutils literal notranslate"><span class="pre">Project</span></code></a>
+:deprecated</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">api</span><span class="o">.</span><span class="n">get_project</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.AccountV2API.list_projects">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">list_projects</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">organization_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway_async.account.v2.types.ListProjectsRequestOrderBy" title="scaleway_async.account.v2.types.ListProjectsRequestOrderBy"><span class="pre">ListProjectsRequestOrderBy</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway_async.account.v2.types.ListProjectsResponse" title="scaleway_async.account.v2.types.ListProjectsResponse"><span class="pre">ListProjectsResponse</span></a></span></span><a class="headerlink" href="#scaleway_async.account.v2.AccountV2API.list_projects" title="Permalink to this definition"></a></dt>
+<dd><p>List all Projects of an Organization.
+Deprecated in favor of Account API v3.
+List all Projects of an Organization. The response will include the total number of Projects as well as their associated Organizations, names and IDs. Other information include the creation and update date of the Project.
+:param organization_id: Organization ID of the Project.
+:param name: Name of the Project.
+:param page: Page number for the returned Projects.
+:param page_size: Maximum number of Project per page.
+:param order_by: Sort order of the returned Projects.
+:param project_ids: Project IDs to filter for. The results will be limited to any Projects with an ID in this array.
+:return: <a class="reference internal" href="#scaleway_async.account.v2.ListProjectsResponse" title="scaleway_async.account.v2.ListProjectsResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">ListProjectsResponse</span></code></a>
+:deprecated</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">api</span><span class="o">.</span><span class="n">list_projects</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.AccountV2API.list_projects_all">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">list_projects_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">organization_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway_async.account.v2.types.ListProjectsRequestOrderBy" title="scaleway_async.account.v2.types.ListProjectsRequestOrderBy"><span class="pre">ListProjectsRequestOrderBy</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway_async.account.v2.types.Project" title="scaleway_async.account.v2.types.Project"><span class="pre">Project</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scaleway_async.account.v2.AccountV2API.list_projects_all" title="Permalink to this definition"></a></dt>
+<dd><p>List all Projects of an Organization.
+Deprecated in favor of Account API v3.
+List all Projects of an Organization. The response will include the total number of Projects as well as their associated Organizations, names and IDs. Other information include the creation and update date of the Project.
+:param organization_id: Organization ID of the Project.
+:param name: Name of the Project.
+:param page: Page number for the returned Projects.
+:param page_size: Maximum number of Project per page.
+:param order_by: Sort order of the returned Projects.
+:param project_ids: Project IDs to filter for. The results will be limited to any Projects with an ID in this array.
+:return: <code class="xref py py-class docutils literal notranslate"><span class="pre">List[Project]</span></code>
+:deprecated</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">api</span><span class="o">.</span><span class="n">list_projects_all</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.AccountV2API.update_project">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update_project</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway_async.account.v2.types.Project" title="scaleway_async.account.v2.types.Project"><span class="pre">Project</span></a></span></span><a class="headerlink" href="#scaleway_async.account.v2.AccountV2API.update_project" title="Permalink to this definition"></a></dt>
+<dd><p>Update Project.
+Deprecated in favor of Account API v3.
+Update the parameters of an existing Project, specified by its Project ID. These parameters include the name and description.
+:param project_id: Project ID of the Project.
+:param name: Name of the Project.
+:param description: Description of the Project.
+:return: <a class="reference internal" href="#scaleway_async.account.v2.Project" title="scaleway_async.account.v2.Project"><code class="xref py py-class docutils literal notranslate"><span class="pre">Project</span></code></a>
+:deprecated</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">api</span><span class="o">.</span><span class="n">update_project</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.CreateProjectRequest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_async.account.v2.</span></span><span class="sig-name descname"><span class="pre">CreateProjectRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">organization_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_async.account.v2.CreateProjectRequest" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.CreateProjectRequest.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_async.account.v2.CreateProjectRequest.description" title="Permalink to this definition"></a></dt>
+<dd><p>Description of the Project.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.CreateProjectRequest.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_async.account.v2.CreateProjectRequest.name" title="Permalink to this definition"></a></dt>
+<dd><p>Name of the Project.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.CreateProjectRequest.organization_id">
+<span class="sig-name descname"><span class="pre">organization_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_async.account.v2.CreateProjectRequest.organization_id" title="Permalink to this definition"></a></dt>
+<dd><p>Organization ID of the Project.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.DeleteProjectRequest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_async.account.v2.</span></span><span class="sig-name descname"><span class="pre">DeleteProjectRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_async.account.v2.DeleteProjectRequest" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.DeleteProjectRequest.project_id">
+<span class="sig-name descname"><span class="pre">project_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_async.account.v2.DeleteProjectRequest.project_id" title="Permalink to this definition"></a></dt>
+<dd><p>Project ID of the Project.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.GetProjectRequest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_async.account.v2.</span></span><span class="sig-name descname"><span class="pre">GetProjectRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_async.account.v2.GetProjectRequest" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.GetProjectRequest.project_id">
+<span class="sig-name descname"><span class="pre">project_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_async.account.v2.GetProjectRequest.project_id" title="Permalink to this definition"></a></dt>
+<dd><p>Project ID of the Project.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.ListProjectsRequest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_async.account.v2.</span></span><span class="sig-name descname"><span class="pre">ListProjectsRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">organization_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[int]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[int]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[ListProjectsRequestOrderBy]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[List[str]]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_async.account.v2.ListProjectsRequest" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.ListProjectsRequest.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_async.account.v2.ListProjectsRequest.name" title="Permalink to this definition"></a></dt>
+<dd><p>Name of the Project.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.ListProjectsRequest.order_by">
+<span class="sig-name descname"><span class="pre">order_by</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway_async.account.v2.types.ListProjectsRequestOrderBy" title="scaleway_async.account.v2.types.ListProjectsRequestOrderBy"><span class="pre">ListProjectsRequestOrderBy</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_async.account.v2.ListProjectsRequest.order_by" title="Permalink to this definition"></a></dt>
+<dd><p>Sort order of the returned Projects.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.ListProjectsRequest.organization_id">
+<span class="sig-name descname"><span class="pre">organization_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_async.account.v2.ListProjectsRequest.organization_id" title="Permalink to this definition"></a></dt>
+<dd><p>Organization ID of the Project.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.ListProjectsRequest.page">
+<span class="sig-name descname"><span class="pre">page</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_async.account.v2.ListProjectsRequest.page" title="Permalink to this definition"></a></dt>
+<dd><p>Page number for the returned Projects.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.ListProjectsRequest.page_size">
+<span class="sig-name descname"><span class="pre">page_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_async.account.v2.ListProjectsRequest.page_size" title="Permalink to this definition"></a></dt>
+<dd><p>Maximum number of Project per page.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.ListProjectsRequest.project_ids">
+<span class="sig-name descname"><span class="pre">project_ids</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_async.account.v2.ListProjectsRequest.project_ids" title="Permalink to this definition"></a></dt>
+<dd><p>Project IDs to filter for. The results will be limited to any Projects with an ID in this array.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.ListProjectsRequestOrderBy">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_async.account.v2.</span></span><span class="sig-name descname"><span class="pre">ListProjectsRequestOrderBy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_async.account.v2.ListProjectsRequestOrderBy" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.ListProjectsRequestOrderBy.CREATED_AT_ASC">
+<span class="sig-name descname"><span class="pre">CREATED_AT_ASC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'created_at_asc'</span></em><a class="headerlink" href="#scaleway_async.account.v2.ListProjectsRequestOrderBy.CREATED_AT_ASC" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.ListProjectsRequestOrderBy.CREATED_AT_DESC">
+<span class="sig-name descname"><span class="pre">CREATED_AT_DESC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'created_at_desc'</span></em><a class="headerlink" href="#scaleway_async.account.v2.ListProjectsRequestOrderBy.CREATED_AT_DESC" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.ListProjectsRequestOrderBy.NAME_ASC">
+<span class="sig-name descname"><span class="pre">NAME_ASC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'name_asc'</span></em><a class="headerlink" href="#scaleway_async.account.v2.ListProjectsRequestOrderBy.NAME_ASC" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.ListProjectsRequestOrderBy.NAME_DESC">
+<span class="sig-name descname"><span class="pre">NAME_DESC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'name_desc'</span></em><a class="headerlink" href="#scaleway_async.account.v2.ListProjectsRequestOrderBy.NAME_DESC" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.ListProjectsResponse">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_async.account.v2.</span></span><span class="sig-name descname"><span class="pre">ListProjectsResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">total_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'int'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projects</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'List[Project]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_async.account.v2.ListProjectsResponse" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.ListProjectsResponse.projects">
+<span class="sig-name descname"><span class="pre">projects</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway_async.account.v2.types.Project" title="scaleway_async.account.v2.types.Project"><span class="pre">Project</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_async.account.v2.ListProjectsResponse.projects" title="Permalink to this definition"></a></dt>
+<dd><p>Paginated returned Projects.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.ListProjectsResponse.total_count">
+<span class="sig-name descname"><span class="pre">total_count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#scaleway_async.account.v2.ListProjectsResponse.total_count" title="Permalink to this definition"></a></dt>
+<dd><p>Total number of Projects.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.Project">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_async.account.v2.</span></span><span class="sig-name descname"><span class="pre">Project</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">organization_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">created_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[datetime]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">updated_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[datetime]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_async.account.v2.Project" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.Project.created_at">
+<span class="sig-name descname"><span class="pre">created_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_async.account.v2.Project.created_at" title="Permalink to this definition"></a></dt>
+<dd><p>Creation date of the Project.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.Project.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway_async.account.v2.Project.description" title="Permalink to this definition"></a></dt>
+<dd><p>Description of the Project.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.Project.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway_async.account.v2.Project.id" title="Permalink to this definition"></a></dt>
+<dd><p>ID of the Project.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.Project.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway_async.account.v2.Project.name" title="Permalink to this definition"></a></dt>
+<dd><p>Name of the Project.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.Project.organization_id">
+<span class="sig-name descname"><span class="pre">organization_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway_async.account.v2.Project.organization_id" title="Permalink to this definition"></a></dt>
+<dd><p>Organization ID of the Project.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.Project.updated_at">
+<span class="sig-name descname"><span class="pre">updated_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_async.account.v2.Project.updated_at" title="Permalink to this definition"></a></dt>
+<dd><p>Update date of the Project.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.UpdateProjectRequest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_async.account.v2.</span></span><span class="sig-name descname"><span class="pre">UpdateProjectRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_async.account.v2.UpdateProjectRequest" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.UpdateProjectRequest.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_async.account.v2.UpdateProjectRequest.description" title="Permalink to this definition"></a></dt>
+<dd><p>Description of the Project.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.UpdateProjectRequest.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_async.account.v2.UpdateProjectRequest.name" title="Permalink to this definition"></a></dt>
+<dd><p>Name of the Project.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_async.account.v2.UpdateProjectRequest.project_id">
+<span class="sig-name descname"><span class="pre">project_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_async.account.v2.UpdateProjectRequest.project_id" title="Permalink to this definition"></a></dt>
+<dd><p>Project ID of the Project.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Scaleway.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
