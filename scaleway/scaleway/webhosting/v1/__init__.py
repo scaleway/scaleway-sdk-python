@@ -1,6 +1,8 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
-from .types import HostingDnsStatus
+from .types import DnsRecordStatus
+from .types import DnsRecordType
+from .types import DnsRecordsStatus
 from .types import HostingStatus
 from .content import HOSTING_TRANSIENT_STATUSES
 from .types import HostingSummaryStatus
@@ -12,21 +14,28 @@ from .types import ListHostingsRequestOrderBy
 from .types import ListMailAccountsRequestOrderBy
 from .types import ListOffersRequestOrderBy
 from .types import ListWebsitesRequestOrderBy
+from .types import NameserverStatus
 from .types import OfferOptionName
 from .types import OfferOptionWarning
+from .types import PlatformPlatformGroup
+from .types import PlatformControlPanelUrls
 from .types import OfferOption
+from .types import PlatformControlPanel
 from .types import CreateHostingRequestDomainConfiguration
 from .types import OfferOptionRequest
-from .types import HostingCpanelUrls
-from .types import HostingOption
+from .types import DnsRecord
+from .types import Nameserver
+from .types import HostingUser
+from .types import Offer
+from .types import Platform
 from .types import ControlPanel
 from .types import DatabaseUser
 from .types import Database
 from .types import FtpAccount
 from .types import HostingSummary
 from .types import MailAccount
-from .types import Offer
 from .types import Website
+from .types import CheckUserOwnsDomainResponse
 from .types import ControlPanelApiListControlPanelsRequest
 from .types import DatabaseApiAssignDatabaseUserRequest
 from .types import DatabaseApiChangeDatabaseUserPasswordRequest
@@ -39,6 +48,9 @@ from .types import DatabaseApiGetDatabaseUserRequest
 from .types import DatabaseApiListDatabaseUsersRequest
 from .types import DatabaseApiListDatabasesRequest
 from .types import DatabaseApiUnassignDatabaseUserRequest
+from .types import DnsApiCheckUserOwnsDomainRequest
+from .types import DnsApiGetDomainDnsRecordsRequest
+from .types import DnsRecords
 from .types import FtpAccountApiChangeFtpAccountPasswordRequest
 from .types import FtpAccountApiCreateFtpAccountRequest
 from .types import FtpAccountApiListFtpAccountsRequest
@@ -71,6 +83,7 @@ from .types import Session
 from .types import WebsiteApiListWebsitesRequest
 from .api import WebhostingV1ControlPanelAPI
 from .api import WebhostingV1DatabaseAPI
+from .api import WebhostingV1DnsAPI
 from .api import WebhostingV1OfferAPI
 from .api import WebhostingV1HostingAPI
 from .api import WebhostingV1FtpAccountAPI
@@ -78,7 +91,9 @@ from .api import WebhostingV1MailAccountAPI
 from .api import WebhostingV1WebsiteAPI
 
 __all__ = [
-    "HostingDnsStatus",
+    "DnsRecordStatus",
+    "DnsRecordType",
+    "DnsRecordsStatus",
     "HostingStatus",
     "HOSTING_TRANSIENT_STATUSES",
     "HostingSummaryStatus",
@@ -90,21 +105,28 @@ __all__ = [
     "ListMailAccountsRequestOrderBy",
     "ListOffersRequestOrderBy",
     "ListWebsitesRequestOrderBy",
+    "NameserverStatus",
     "OfferOptionName",
     "OfferOptionWarning",
+    "PlatformPlatformGroup",
+    "PlatformControlPanelUrls",
     "OfferOption",
+    "PlatformControlPanel",
     "CreateHostingRequestDomainConfiguration",
     "OfferOptionRequest",
-    "HostingCpanelUrls",
-    "HostingOption",
+    "DnsRecord",
+    "Nameserver",
+    "HostingUser",
+    "Offer",
+    "Platform",
     "ControlPanel",
     "DatabaseUser",
     "Database",
     "FtpAccount",
     "HostingSummary",
     "MailAccount",
-    "Offer",
     "Website",
+    "CheckUserOwnsDomainResponse",
     "ControlPanelApiListControlPanelsRequest",
     "DatabaseApiAssignDatabaseUserRequest",
     "DatabaseApiChangeDatabaseUserPasswordRequest",
@@ -117,6 +139,9 @@ __all__ = [
     "DatabaseApiListDatabaseUsersRequest",
     "DatabaseApiListDatabasesRequest",
     "DatabaseApiUnassignDatabaseUserRequest",
+    "DnsApiCheckUserOwnsDomainRequest",
+    "DnsApiGetDomainDnsRecordsRequest",
+    "DnsRecords",
     "FtpAccountApiChangeFtpAccountPasswordRequest",
     "FtpAccountApiCreateFtpAccountRequest",
     "FtpAccountApiListFtpAccountsRequest",
@@ -149,6 +174,7 @@ __all__ = [
     "WebsiteApiListWebsitesRequest",
     "WebhostingV1ControlPanelAPI",
     "WebhostingV1DatabaseAPI",
+    "WebhostingV1DnsAPI",
     "WebhostingV1OfferAPI",
     "WebhostingV1HostingAPI",
     "WebhostingV1FtpAccountAPI",
