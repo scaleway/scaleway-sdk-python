@@ -22,6 +22,7 @@ from .types import (
     ListMailAccountsRequestOrderBy,
     ListOffersRequestOrderBy,
     ListWebsitesRequestOrderBy,
+    CheckUserOwnsDomainResponse,
     ControlPanel,
     CreateHostingRequestDomainConfiguration,
     Database,
@@ -31,6 +32,8 @@ from .types import (
     DatabaseApiCreateDatabaseUserRequest,
     DatabaseApiUnassignDatabaseUserRequest,
     DatabaseUser,
+    DnsApiCheckUserOwnsDomainRequest,
+    DnsRecords,
     FtpAccount,
     FtpAccountApiChangeFtpAccountPasswordRequest,
     FtpAccountApiCreateFtpAccountRequest,
@@ -65,6 +68,8 @@ from .marshalling import (
     unmarshal_Database,
     unmarshal_FtpAccount,
     unmarshal_MailAccount,
+    unmarshal_CheckUserOwnsDomainResponse,
+    unmarshal_DnsRecords,
     unmarshal_Hosting,
     unmarshal_ListControlPanelsResponse,
     unmarshal_ListDatabaseUsersResponse,
@@ -82,6 +87,7 @@ from .marshalling import (
     marshal_DatabaseApiCreateDatabaseRequest,
     marshal_DatabaseApiCreateDatabaseUserRequest,
     marshal_DatabaseApiUnassignDatabaseUserRequest,
+    marshal_DnsApiCheckUserOwnsDomainRequest,
     marshal_FtpAccountApiChangeFtpAccountPasswordRequest,
     marshal_FtpAccountApiCreateFtpAccountRequest,
     marshal_HostingApiCreateHostingRequest,
@@ -725,6 +731,89 @@ class WebhostingV1DatabaseAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_DatabaseUser(res.json())
+
+
+class WebhostingV1DnsAPI(API):
+    """
+    This API allows you to manage your Web Hosting services.
+    """
+
+    def get_domain_dns_records(
+        self,
+        *,
+        domain: str,
+        region: Optional[Region] = None,
+    ) -> DnsRecords:
+        """
+        Get DNS records.
+        Get the set of DNS records of a specified domain associated with a Web Hosting plan's domain.
+        :param domain: Domain associated with the DNS records.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`DnsRecords <DnsRecords>`
+
+        Usage:
+        ::
+
+            result = api.get_domain_dns_records(
+                domain="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_domain = validate_path_param("domain", domain)
+
+        res = self._request(
+            "GET",
+            f"/webhosting/v1/regions/{param_region}/domains/{param_domain}/dns-records",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_DnsRecords(res.json())
+
+    def check_user_owns_domain(
+        self,
+        *,
+        domain: str,
+        region: Optional[Region] = None,
+        project_id: Optional[str] = None,
+    ) -> CheckUserOwnsDomainResponse:
+        """
+        "Check whether you own this domain or not.".
+        :param domain: Domain for which ownership is to be verified.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: ID of the project currently in use.
+        :return: :class:`CheckUserOwnsDomainResponse <CheckUserOwnsDomainResponse>`
+
+        Usage:
+        ::
+
+            result = api.check_user_owns_domain(
+                domain="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_domain = validate_path_param("domain", domain)
+
+        res = self._request(
+            "POST",
+            f"/webhosting/v1/regions/{param_region}/domains/{param_domain}/check-ownership",
+            body=marshal_DnsApiCheckUserOwnsDomainRequest(
+                DnsApiCheckUserOwnsDomainRequest(
+                    domain=domain,
+                    region=region,
+                    project_id=project_id,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_CheckUserOwnsDomainResponse(res.json())
 
 
 class WebhostingV1OfferAPI(API):

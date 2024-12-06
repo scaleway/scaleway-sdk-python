@@ -20,8 +20,30 @@ from ...std.types import (
 )
 
 
-class HostingDnsStatus(str, Enum, metaclass=StrEnumMeta):
-    UNKNOWN_DNS_STATUS = "unknown_dns_status"
+class DnsRecordStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATUS = "unknown_status"
+    VALID = "valid"
+    INVALID = "invalid"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class DnsRecordType(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_TYPE = "unknown_type"
+    A = "a"
+    CNAME = "cname"
+    MX = "mx"
+    TXT = "txt"
+    NS = "ns"
+    AAAA = "aaaa"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class DnsRecordsStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATUS = "unknown_status"
     VALID = "valid"
     INVALID = "invalid"
 
@@ -112,6 +134,15 @@ class ListWebsitesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class NameserverStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATUS = "unknown_status"
+    VALID = "valid"
+    INVALID = "invalid"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class OfferOptionName(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_NAME = "unknown_name"
     DOMAIN_COUNT = "domain_count"
@@ -132,6 +163,28 @@ class OfferOptionWarning(str, Enum, metaclass=StrEnumMeta):
 
     def __str__(self) -> str:
         return str(self.value)
+
+
+class PlatformPlatformGroup(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_GROUP = "unknown_group"
+    DEFAULT = "default"
+    PREMIUM = "premium"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+@dataclass
+class PlatformControlPanelUrls:
+    dashboard: str
+    """
+    URL to connect to the hosting control panel dashboard.
+    """
+
+    webmail: str
+    """
+    URL to connect to the hosting Webmail interface.
+    """
 
 
 @dataclass
@@ -171,6 +224,24 @@ class OfferOption:
     Defines a warning if the maximum value for the option has been reached.
     """
 
+    price: Optional[Money]
+    """
+    Price of the option for 1 value.
+    """
+
+
+@dataclass
+class PlatformControlPanel:
+    name: str
+    """
+    Name of the control panel.
+    """
+
+    urls: Optional[PlatformControlPanelUrls]
+    """
+    URL to connect to cPanel dashboard and to Webmail interface.
+    """
+
 
 @dataclass
 class CreateHostingRequestDomainConfiguration:
@@ -197,27 +268,142 @@ class OfferOptionRequest:
 
 
 @dataclass
-class HostingCpanelUrls:
-    dashboard: str
+class DnsRecord:
+    name: str
+    """
+    Record name.
+    """
 
-    webmail: str
+    type_: DnsRecordType
+    """
+    Record type.
+    """
+
+    ttl: int
+    """
+    Record time-to-live.
+    """
+
+    value: str
+    """
+    Record value.
+    """
+
+    status: DnsRecordStatus
+    """
+    Record status.
+    """
+
+    priority: Optional[int]
+    """
+    Record priority level.
+    """
 
 
 @dataclass
-class HostingOption:
+class Nameserver:
+    hostname: str
+    """
+    Hostname of the nameserver.
+    """
+
+    status: NameserverStatus
+    """
+    Status of the nameserver.
+    """
+
+    is_default: bool
+    """
+    Defines whether the nameserver is the default one.
+    """
+
+
+@dataclass
+class HostingUser:
+    username: str
+    """
+    Main Web Hosting cPanel username.
+    """
+
+    contact_email: str
+    """
+    Contact email used for the hosting.
+    """
+
+    one_time_password: Optional[str]
+    """
+    One-time-password used for the first login or reset password, empty after first use.
+    """
+
+
+@dataclass
+class Offer:
     id: str
     """
-    Option ID.
+    Offer ID.
     """
 
-    name: OfferOptionName
+    billing_operation_path: str
     """
-    Option name.
+    Unique identifier used for billing.
     """
 
-    quantity: int
+    options: List[OfferOption]
     """
-    Option quantity.
+    Options available for the offer.
+    """
+
+    available: bool
+    """
+    If a hosting_id was specified in the call, defines whether the offer is available for a specified hosting plan to migrate (update) to.
+    """
+
+    control_panel_name: str
+    """
+    Name of the control panel.
+    """
+
+    end_of_life: bool
+    """
+    Indicates if the offer has reached its end of life.
+    """
+
+    price: Optional[Money]
+    """
+    Price of the offer.
+    """
+
+
+@dataclass
+class Platform:
+    hostname: str
+    """
+    Hostname of the host platform.
+    """
+
+    number: int
+    """
+    Number of the host platform.
+    """
+
+    group_name: PlatformPlatformGroup
+    """
+    Group name of the hosting's host platform.
+    """
+
+    ipv4: str
+    """
+    IPv4 address of the hosting's host platform.
+    """
+
+    ipv6: str
+    """
+    IPv6 address of the hosting's host platform.
+    """
+
+    control_panel: Optional[PlatformControlPanel]
+    """
+    Details of the platform control panel.
     """
 
 
@@ -340,44 +526,6 @@ class MailAccount:
 
 
 @dataclass
-class Offer:
-    id: str
-    """
-    Offer ID.
-    """
-
-    billing_operation_path: str
-    """
-    Unique identifier used for billing.
-    """
-
-    options: List[OfferOption]
-    """
-    Options available for the offer.
-    """
-
-    available: bool
-    """
-    If a hosting_id was specified in the call, defines whether the offer is available for a specified hosting plan to migrate (update) to.
-    """
-
-    control_panel_name: str
-    """
-    Name of the control panel.
-    """
-
-    end_of_life: bool
-    """
-    Indicates if the offer has reached its end of life.
-    """
-
-    price: Optional[Money]
-    """
-    Price of the offer.
-    """
-
-
-@dataclass
 class Website:
     domain: str
     """
@@ -392,6 +540,14 @@ class Website:
     ssl_status: bool
     """
     The SSL status of the website.
+    """
+
+
+@dataclass
+class CheckUserOwnsDomainResponse:
+    owns_domain: bool
+    """
+    Indicates whether the specified project owns the domain.
     """
 
 
@@ -652,6 +808,55 @@ class DatabaseApiUnassignDatabaseUserRequest:
 
 
 @dataclass
+class DnsApiCheckUserOwnsDomainRequest:
+    domain: str
+    """
+    Domain for which ownership is to be verified.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    ID of the project currently in use.
+    """
+
+
+@dataclass
+class DnsApiGetDomainDnsRecordsRequest:
+    domain: str
+    """
+    Domain associated with the DNS records.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class DnsRecords:
+    records: List[DnsRecord]
+    """
+    List of DNS records.
+    """
+
+    name_servers: List[Nameserver]
+    """
+    List of nameservers.
+    """
+
+    status: DnsRecordsStatus
+    """
+    Status of the records.
+    """
+
+
+@dataclass
 class FtpAccountApiChangeFtpAccountPasswordRequest:
     hosting_id: str
     """
@@ -770,26 +975,6 @@ class Hosting:
     Status of the Web Hosting plan.
     """
 
-    platform_hostname: str
-    """
-    Hostname of the host platform.
-    """
-
-    platform_number: int
-    """
-    Number of the host platform.
-    """
-
-    offer_id: str
-    """
-    ID of the active offer for the Web Hosting plan.
-    """
-
-    offer_name: str
-    """
-    Name of the active offer for the Web Hosting plan.
-    """
-
     domain: str
     """
     Main domain associated with the Web Hosting plan.
@@ -800,9 +985,9 @@ class Hosting:
     List of tags associated with the Web Hosting plan.
     """
 
-    options: List[HostingOption]
+    dns_status: DnsRecordsStatus
     """
-    List of the Web Hosting plan options.
+    DNS status of the Web Hosting plan.
     """
 
     updated_at: Optional[datetime]
@@ -810,44 +995,9 @@ class Hosting:
     Date on which the Web Hosting plan was last updated.
     """
 
-    created_at: Optional[datetime]
-    """
-    Date on which the Web Hosting plan was created.
-    """
-
-    dns_status: HostingDnsStatus
-    """
-    DNS status of the Web Hosting plan.
-    """
-
-    username: str
-    """
-    Main Web Hosting cPanel username.
-    """
-
-    offer_end_of_life: bool
-    """
-    Indicates if the hosting offer has reached its end of life.
-    """
-
-    control_panel_name: str
-    """
-    Name of the control panel.
-    """
-
-    platform_group: str
-    """
-    Group of the hosting's host server/platform.
-    """
-
     ipv4: str
     """
-    IPv4 address of the hosting's host server.
-    """
-
-    ipv6: str
-    """
-    IPv6 address of the hosting's host server.
+    Current IPv4 address of the hosting.
     """
 
     protected: bool
@@ -855,24 +1005,29 @@ class Hosting:
     Whether the hosting is protected or not.
     """
 
-    one_time_password: str
-    """
-    One-time-password used for the first login or reset password, empty after first use.
-    """
-
-    contact_email: str
-    """
-    Contact email used for the hosting.
-    """
-
     region: Region
     """
     Region where the Web Hosting plan is hosted.
     """
 
-    cpanel_urls: Optional[HostingCpanelUrls]
+    created_at: Optional[datetime]
     """
-    URL to connect to cPanel dashboard and to Webmail interface.
+    Date on which the Web Hosting plan was created.
+    """
+
+    offer: Optional[Offer]
+    """
+    Details of the Web Hosting plan offer and options.
+    """
+
+    platform: Optional[Platform]
+    """
+    Details of the hosting platform.
+    """
+
+    user: Optional[HostingUser]
+    """
+    Details of the hosting user.
     """
 
 
