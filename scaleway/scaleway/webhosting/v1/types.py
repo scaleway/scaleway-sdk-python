@@ -20,8 +20,8 @@ from ...std.types import (
 )
 
 
-class HostingDnsStatus(str, Enum, metaclass=StrEnumMeta):
-    UNKNOWN_DNS_STATUS = "unknown_dns_status"
+class DnsRecordsStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATUS = "unknown_status"
     VALID = "valid"
     INVALID = "invalid"
 
@@ -134,6 +134,28 @@ class OfferOptionWarning(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class PlatformPlatformGroup(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_GROUP = "unknown_group"
+    DEFAULT = "default"
+    PREMIUM = "premium"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+@dataclass
+class PlatformControlPanelUrls:
+    dashboard: str
+    """
+    URL to connect to the hosting control panel dashboard.
+    """
+
+    webmail: str
+    """
+    URL to connect to the hosting Webmail interface.
+    """
+
+
 @dataclass
 class OfferOption:
     id: str
@@ -173,6 +195,19 @@ class OfferOption:
 
 
 @dataclass
+class PlatformControlPanel:
+    name: str
+    """
+    Name of the control panel.
+    """
+
+    urls: Optional[PlatformControlPanelUrls]
+    """
+    URL to connect to cPanel dashboard and to Webmail interface.
+    """
+
+
+@dataclass
 class CreateHostingRequestDomainConfiguration:
     update_nameservers: bool
 
@@ -197,27 +232,91 @@ class OfferOptionRequest:
 
 
 @dataclass
-class HostingCpanelUrls:
-    dashboard: str
+class HostingUser:
+    username: str
+    """
+    Main Web Hosting cPanel username.
+    """
 
-    webmail: str
+    contact_email: str
+    """
+    Contact email used for the hosting.
+    """
+
+    one_time_password: Optional[str]
+    """
+    One-time-password used for the first login or reset password, empty after first use.
+    """
 
 
 @dataclass
-class HostingOption:
+class Offer:
     id: str
     """
-    Option ID.
+    Offer ID.
     """
 
-    name: OfferOptionName
+    billing_operation_path: str
     """
-    Option name.
+    Unique identifier used for billing.
     """
 
-    quantity: int
+    options: List[OfferOption]
     """
-    Option quantity.
+    Options available for the offer.
+    """
+
+    available: bool
+    """
+    If a hosting_id was specified in the call, defines whether the offer is available for a specified hosting plan to migrate (update) to.
+    """
+
+    control_panel_name: str
+    """
+    Name of the control panel.
+    """
+
+    end_of_life: bool
+    """
+    Indicates if the offer has reached its end of life.
+    """
+
+    price: Optional[Money]
+    """
+    Price of the offer.
+    """
+
+
+@dataclass
+class Platform:
+    hostname: str
+    """
+    Hostname of the host platform.
+    """
+
+    number: int
+    """
+    Number of the host platform.
+    """
+
+    group_name: PlatformPlatformGroup
+    """
+    Group name of the hosting's host platform.
+    """
+
+    ipv4: str
+    """
+    IPv4 address of the hosting's host platform.
+    """
+
+    ipv6: str
+    """
+    IPv6 address of the hosting's host platform.
+    """
+
+    control_panel: Optional[PlatformControlPanel]
+    """
+    Details of the platform control panel.
     """
 
 
@@ -336,44 +435,6 @@ class MailAccount:
     username: str
     """
     Username part address of the mail account address.
-    """
-
-
-@dataclass
-class Offer:
-    id: str
-    """
-    Offer ID.
-    """
-
-    billing_operation_path: str
-    """
-    Unique identifier used for billing.
-    """
-
-    options: List[OfferOption]
-    """
-    Options available for the offer.
-    """
-
-    available: bool
-    """
-    If a hosting_id was specified in the call, defines whether the offer is available for a specified hosting plan to migrate (update) to.
-    """
-
-    control_panel_name: str
-    """
-    Name of the control panel.
-    """
-
-    end_of_life: bool
-    """
-    Indicates if the offer has reached its end of life.
-    """
-
-    price: Optional[Money]
-    """
-    Price of the offer.
     """
 
 
@@ -770,26 +831,6 @@ class Hosting:
     Status of the Web Hosting plan.
     """
 
-    platform_hostname: str
-    """
-    Hostname of the host platform.
-    """
-
-    platform_number: int
-    """
-    Number of the host platform.
-    """
-
-    offer_id: str
-    """
-    ID of the active offer for the Web Hosting plan.
-    """
-
-    offer_name: str
-    """
-    Name of the active offer for the Web Hosting plan.
-    """
-
     domain: str
     """
     Main domain associated with the Web Hosting plan.
@@ -800,9 +841,9 @@ class Hosting:
     List of tags associated with the Web Hosting plan.
     """
 
-    options: List[HostingOption]
+    dns_status: DnsRecordsStatus
     """
-    List of the Web Hosting plan options.
+    DNS status of the Web Hosting plan.
     """
 
     updated_at: Optional[datetime]
@@ -810,44 +851,9 @@ class Hosting:
     Date on which the Web Hosting plan was last updated.
     """
 
-    created_at: Optional[datetime]
-    """
-    Date on which the Web Hosting plan was created.
-    """
-
-    dns_status: HostingDnsStatus
-    """
-    DNS status of the Web Hosting plan.
-    """
-
-    username: str
-    """
-    Main Web Hosting cPanel username.
-    """
-
-    offer_end_of_life: bool
-    """
-    Indicates if the hosting offer has reached its end of life.
-    """
-
-    control_panel_name: str
-    """
-    Name of the control panel.
-    """
-
-    platform_group: str
-    """
-    Group of the hosting's host server/platform.
-    """
-
     ipv4: str
     """
-    IPv4 address of the hosting's host server.
-    """
-
-    ipv6: str
-    """
-    IPv6 address of the hosting's host server.
+    Current IPv4 address of the hosting.
     """
 
     protected: bool
@@ -855,24 +861,29 @@ class Hosting:
     Whether the hosting is protected or not.
     """
 
-    one_time_password: str
-    """
-    One-time-password used for the first login or reset password, empty after first use.
-    """
-
-    contact_email: str
-    """
-    Contact email used for the hosting.
-    """
-
     region: Region
     """
     Region where the Web Hosting plan is hosted.
     """
 
-    cpanel_urls: Optional[HostingCpanelUrls]
+    created_at: Optional[datetime]
     """
-    URL to connect to cPanel dashboard and to Webmail interface.
+    Date on which the Web Hosting plan was created.
+    """
+
+    offer: Optional[Offer]
+    """
+    Details of the Web Hosting plan offer and options.
+    """
+
+    platform: Optional[Platform]
+    """
+    Details of the hosting platform.
+    """
+
+    user: Optional[HostingUser]
+    """
+    Details of the hosting user.
     """
 
 
