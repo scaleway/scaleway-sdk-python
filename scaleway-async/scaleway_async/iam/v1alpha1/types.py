@@ -1939,5 +1939,5 @@ class UpdateUserRequest:
 
     email: Optional[str]
     """
-    New email for the user (only available on Members).
+    IAM member email.
     """

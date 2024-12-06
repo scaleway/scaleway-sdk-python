@@ -483,7 +483,7 @@ class IamV1Alpha1API(API):
         Update the parameters of a user, including `tags`.
         :param user_id: ID of the user to update.
         :param tags: New tags for the user (maximum of 10 tags).
-        :param email: New email for the user (only available on Members).
+        :param email: IAM member email.
         :return: :class:`User <User>`
 
         Usage:
@@ -554,7 +554,7 @@ class IamV1Alpha1API(API):
         :param email: Email of the user.
         One-Of ('type'): at most one of 'email', 'member' could be set.
         :param tags: Tags associated with the user.
-        :param member: A new IAM Member to create.
+        :param member: Details of IAM member. Private Beta feature.
         One-Of ('type'): at most one of 'email', 'member' could be set.
         :return: :class:`User <User>`
 
@@ -589,7 +589,7 @@ class IamV1Alpha1API(API):
         send_email: bool,
     ) -> User:
         """
-        Update an user's password.
+        Update an user's password. Private Beta feature.
         :param user_id: ID of the user to update.
         :param password: The new password.
         :param send_email: Whether or not to send an email alerting the user their password has changed.
@@ -629,8 +629,8 @@ class IamV1Alpha1API(API):
         user_id: str,
     ) -> User:
         """
-        Lock a user.
-        Lock a user. Note that a locked user cannot log in or use API keys until the locked status is removed.
+        Lock a member.
+        Lock a member. A locked member cannot log in or use API keys until the locked status is removed. Private Beta feature.
         :param user_id: ID of the user to lock.
         :return: :class:`User <User>`
 
@@ -659,7 +659,8 @@ class IamV1Alpha1API(API):
         user_id: str,
     ) -> User:
         """
-        Unlock a user.
+        Unlock a member.
+        Unlock a member. Private Beta feature.
         :param user_id: ID of the user to unlock.
         :return: :class:`User <User>`
 
@@ -688,8 +689,8 @@ class IamV1Alpha1API(API):
         user_id: Optional[str] = None,
     ) -> ListGracePeriodsResponse:
         """
-        List grace periods of a user.
-        List the grace periods of a user.
+        List grace periods of a member.
+        List the grace periods of a member. Private Beta feature.
         :param user_id: ID of the user to list grace periods for.
         :return: :class:`ListGracePeriodsResponse <ListGracePeriodsResponse>`
 
@@ -2018,7 +2019,7 @@ class IamV1Alpha1API(API):
     ) -> APIKey:
         """
         Create an API key.
-        Create an API key. You must specify the `application_id` or the `user_id` and the description. You can also specify the `default_project_id` which is the Project ID of your preferred Project, to use with Object Storage. The `access_key` and `secret_key` values are returned in the response. Note that he secret key is only showed once. Make sure that you copy and store both keys somewhere safe.
+        Create an API key. You must specify the `application_id` or the `user_id` and the description. You can also specify the `default_project_id`, which is the Project ID of your preferred Project, to use with Object Storage. The `access_key` and `secret_key` values are returned in the response. Note that the secret key is only shown once. Make sure that you copy and store both keys somewhere safe.
         :param description: Description of the API key (max length is 200 characters).
         :param application_id: ID of the application.
         One-Of ('bearer'): at most one of 'application_id', 'user_id' could be set.
