@@ -1,0 +1,21 @@
+scaleway\_core.validations package
+==================================
+
+Submodules
+----------
+
+scaleway\_core.validations.string\_validation module
+----------------------------------------------------
+
+.. automodule:: scaleway_core.validations.string_validation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: scaleway_core.validations
+   :members:
+   :undoc-members:
+   :show-inheritance:
