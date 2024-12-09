@@ -13,6 +13,10 @@ from .types import (
     Database,
     FtpAccount,
     MailAccount,
+    CheckUserOwnsDomainResponse,
+    DnsRecord,
+    Nameserver,
+    DnsRecords,
     PlatformControlPanelUrls,
     OfferOption,
     PlatformControlPanel,
@@ -39,6 +43,7 @@ from .types import (
     DatabaseApiCreateDatabaseRequest,
     DatabaseApiCreateDatabaseUserRequest,
     DatabaseApiUnassignDatabaseUserRequest,
+    DnsApiCheckUserOwnsDomainRequest,
     FtpAccountApiChangeFtpAccountPasswordRequest,
     FtpAccountApiCreateFtpAccountRequest,
     CreateHostingRequestDomainConfiguration,
@@ -130,6 +135,108 @@ def unmarshal_MailAccount(data: Any) -> MailAccount:
     return MailAccount(**args)
 
 
+def unmarshal_CheckUserOwnsDomainResponse(data: Any) -> CheckUserOwnsDomainResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'CheckUserOwnsDomainResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("owns_domain", None)
+    if field is not None:
+        args["owns_domain"] = field
+
+    return CheckUserOwnsDomainResponse(**args)
+
+
+def unmarshal_DnsRecord(data: Any) -> DnsRecord:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'DnsRecord' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+
+    field = data.get("type", None)
+    if field is not None:
+        args["type_"] = field
+
+    field = data.get("ttl", None)
+    if field is not None:
+        args["ttl"] = field
+
+    field = data.get("value", None)
+    if field is not None:
+        args["value"] = field
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+
+    field = data.get("priority", None)
+    if field is not None:
+        args["priority"] = field
+    else:
+        args["priority"] = None
+
+    return DnsRecord(**args)
+
+
+def unmarshal_Nameserver(data: Any) -> Nameserver:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Nameserver' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("hostname", None)
+    if field is not None:
+        args["hostname"] = field
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+
+    field = data.get("is_default", None)
+    if field is not None:
+        args["is_default"] = field
+
+    return Nameserver(**args)
+
+
+def unmarshal_DnsRecords(data: Any) -> DnsRecords:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'DnsRecords' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("records", None)
+    if field is not None:
+        args["records"] = (
+            [unmarshal_DnsRecord(v) for v in field] if field is not None else None
+        )
+
+    field = data.get("name_servers", None)
+    if field is not None:
+        args["name_servers"] = (
+            [unmarshal_Nameserver(v) for v in field] if field is not None else None
+        )
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+
+    return DnsRecords(**args)
+
+
 def unmarshal_PlatformControlPanelUrls(data: Any) -> PlatformControlPanelUrls:
     if not isinstance(data, dict):
         raise TypeError(
@@ -184,6 +291,12 @@ def unmarshal_OfferOption(data: Any) -> OfferOption:
     field = data.get("quota_warning", None)
     if field is not None:
         args["quota_warning"] = field
+
+    field = data.get("price", None)
+    if field is not None:
+        args["price"] = unmarshal_Money(field)
+    else:
+        args["price"] = None
 
     return OfferOption(**args)
 
@@ -774,6 +887,18 @@ def marshal_DatabaseApiUnassignDatabaseUserRequest(
 
     if request.username is not None:
         output["username"] = request.username
+
+    return output
+
+
+def marshal_DnsApiCheckUserOwnsDomainRequest(
+    request: DnsApiCheckUserOwnsDomainRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
 
     return output
 
