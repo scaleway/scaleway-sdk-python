@@ -98,7 +98,7 @@ class File:
 class SnsPermissions:
     can_publish: Optional[bool]
     """
-    Defines whether the credentials bearer can publish messages to the service (publish to SNS topics).
+    Defines whether the credentials bearer can publish messages to the service (publish to Topics and Events topics).
     """
 
     can_receive: Optional[bool]
@@ -108,7 +108,7 @@ class SnsPermissions:
 
     can_manage: Optional[bool]
     """
-    Defines whether the credentials bearer can manage the associated SNS topics or subscriptions.
+    Defines whether the credentials bearer can manage the associated Topics and Events topics or subscriptions.
     """
 
 
@@ -116,17 +116,17 @@ class SnsPermissions:
 class SqsPermissions:
     can_publish: Optional[bool]
     """
-    Defines whether the credentials bearer can publish messages to the service (send messages to SQS queues).
+    Defines whether the credentials bearer can publish messages to the service (send messages to Queues queues).
     """
 
     can_receive: Optional[bool]
     """
-    Defines whether the credentials bearer can receive messages from SQS queues.
+    Defines whether the credentials bearer can receive messages from Queues queues.
     """
 
     can_manage: Optional[bool]
     """
-    Defines whether the credentials bearer can manage the associated SQS queues.
+    Defines whether the credentials bearer can manage the associated Queues queues.
     """
 
 
@@ -235,7 +235,7 @@ class SnsCredentials:
 
     secret_key: str
     """
-    Secret key ID (Only returned by **Create SNS Credentials** call).
+    Secret key ID (Only returned by **Create Topics and Events Credentials** call).
     """
 
     secret_checksum: str
@@ -288,7 +288,7 @@ class SqsCredentials:
 
     secret_key: str
     """
-    Secret key ID (Only returned by **Create SQS Credentials** call).
+    Secret key ID (Only returned by **Create Queues Credentials** call).
     """
 
     secret_checksum: str
@@ -347,7 +347,7 @@ class ListSnsCredentialsResponse:
 
     sns_credentials: List[SnsCredentials]
     """
-    SNS credentials on this page.
+    Topics and Events credentials on this page.
     """
 
 
@@ -360,7 +360,7 @@ class ListSqsCredentialsResponse:
 
     sqs_credentials: List[SqsCredentials]
     """
-    SQS credentials on this page.
+    Queues credentials on this page.
     """
 
 
@@ -540,7 +540,7 @@ class SnsApiActivateSnsRequest:
 
     project_id: Optional[str]
     """
-    Project on which to activate the SNS service.
+    Project on which to activate the Topics and Events service.
     """
 
 
@@ -553,7 +553,7 @@ class SnsApiCreateSnsCredentialsRequest:
 
     project_id: Optional[str]
     """
-    Project containing the SNS credentials.
+    Project containing the Topics and Events credentials.
     """
 
     name: Optional[str]
@@ -576,7 +576,7 @@ class SnsApiDeactivateSnsRequest:
 
     project_id: Optional[str]
     """
-    Project on which to deactivate the SNS service.
+    Project on which to deactivate the Topics and Events service.
     """
 
 
@@ -597,7 +597,7 @@ class SnsApiDeleteSnsCredentialsRequest:
 class SnsApiGetSnsCredentialsRequest:
     sns_credentials_id: str
     """
-    ID of the SNS credentials to get.
+    ID of the Topics and Events credentials to get.
     """
 
     region: Optional[Region]
@@ -615,7 +615,7 @@ class SnsApiGetSnsInfoRequest:
 
     project_id: Optional[str]
     """
-    Project to retrieve SNS info from.
+    Project to retrieve Topics and Events info from.
     """
 
 
@@ -628,7 +628,7 @@ class SnsApiListSnsCredentialsRequest:
 
     project_id: Optional[str]
     """
-    Include only SNS credentials in this Project.
+    Include only Topics and Events credentials in this Project.
     """
 
     page: Optional[int]
@@ -651,7 +651,7 @@ class SnsApiListSnsCredentialsRequest:
 class SnsApiUpdateSnsCredentialsRequest:
     sns_credentials_id: str
     """
-    ID of the SNS credentials to update.
+    ID of the Topics and Events credentials to update.
     """
 
     region: Optional[Region]
@@ -684,22 +684,22 @@ class SnsInfo:
 
     status: SnsInfoStatus
     """
-    SNS activation status.
+    Topics and Events activation status.
     """
 
     sns_endpoint_url: str
     """
-    Endpoint of the SNS service for this region and project.
+    Endpoint of the Topics and Events service for this region and project.
     """
 
     created_at: Optional[datetime]
     """
-    SNS creation date.
+    Topics and Events creation date.
     """
 
     updated_at: Optional[datetime]
     """
-    SNS last modification date.
+    Topics and Events last modification date.
     """
 
 
@@ -712,7 +712,7 @@ class SqsApiActivateSqsRequest:
 
     project_id: Optional[str]
     """
-    Project on which to activate the SQS service.
+    Project on which to activate the Queues service.
     """
 
 
@@ -725,7 +725,7 @@ class SqsApiCreateSqsCredentialsRequest:
 
     project_id: Optional[str]
     """
-    Project containing the SQS credentials.
+    Project containing the Queues credentials.
     """
 
     name: Optional[str]
@@ -748,7 +748,7 @@ class SqsApiDeactivateSqsRequest:
 
     project_id: Optional[str]
     """
-    Project on which to deactivate the SQS service.
+    Project on which to deactivate the Queues service.
     """
 
 
@@ -769,7 +769,7 @@ class SqsApiDeleteSqsCredentialsRequest:
 class SqsApiGetSqsCredentialsRequest:
     sqs_credentials_id: str
     """
-    ID of the SQS credentials to get.
+    ID of the Queues credentials to get.
     """
 
     region: Optional[Region]
@@ -787,7 +787,7 @@ class SqsApiGetSqsInfoRequest:
 
     project_id: Optional[str]
     """
-    Project to retrieve SQS info from.
+    Project to retrieve Queues info from.
     """
 
 
@@ -800,7 +800,7 @@ class SqsApiListSqsCredentialsRequest:
 
     project_id: Optional[str]
     """
-    Include only SQS credentials in this Project.
+    Include only Queues credentials in this Project.
     """
 
     page: Optional[int]
@@ -823,7 +823,7 @@ class SqsApiListSqsCredentialsRequest:
 class SqsApiUpdateSqsCredentialsRequest:
     sqs_credentials_id: str
     """
-    ID of the SQS credentials to update.
+    ID of the Queues credentials to update.
     """
 
     region: Optional[Region]
@@ -856,20 +856,20 @@ class SqsInfo:
 
     status: SqsInfoStatus
     """
-    SQS activation status.
+    Queues activation status.
     """
 
     sqs_endpoint_url: str
     """
-    Endpoint of the SQS service for this region and project.
+    Endpoint of the Queues service for this region and project.
     """
 
     created_at: Optional[datetime]
     """
-    SQS creation date.
+    Queues creation date.
     """
 
     updated_at: Optional[datetime]
     """
-    SQS last modification date.
+    Queues last modification date.
     """
