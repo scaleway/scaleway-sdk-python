@@ -1,6 +1,6 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
-from .types import HostingDnsStatus
+from .types import DnsRecordsStatus
 from .types import HostingStatus
 from .content import HOSTING_TRANSIENT_STATUSES
 from .types import HostingSummaryStatus
@@ -14,18 +14,21 @@ from .types import ListOffersRequestOrderBy
 from .types import ListWebsitesRequestOrderBy
 from .types import OfferOptionName
 from .types import OfferOptionWarning
+from .types import PlatformPlatformGroup
+from .types import PlatformControlPanelUrls
 from .types import OfferOption
+from .types import PlatformControlPanel
 from .types import CreateHostingRequestDomainConfiguration
 from .types import OfferOptionRequest
-from .types import HostingCpanelUrls
-from .types import HostingOption
+from .types import HostingUser
+from .types import Offer
+from .types import Platform
 from .types import ControlPanel
 from .types import DatabaseUser
 from .types import Database
 from .types import FtpAccount
 from .types import HostingSummary
 from .types import MailAccount
-from .types import Offer
 from .types import Website
 from .types import ControlPanelApiListControlPanelsRequest
 from .types import DatabaseApiAssignDatabaseUserRequest
@@ -78,7 +81,7 @@ from .api import WebhostingV1MailAccountAPI
 from .api import WebhostingV1WebsiteAPI
 
 __all__ = [
-    "HostingDnsStatus",
+    "DnsRecordsStatus",
     "HostingStatus",
     "HOSTING_TRANSIENT_STATUSES",
     "HostingSummaryStatus",
@@ -92,18 +95,21 @@ __all__ = [
     "ListWebsitesRequestOrderBy",
     "OfferOptionName",
     "OfferOptionWarning",
+    "PlatformPlatformGroup",
+    "PlatformControlPanelUrls",
     "OfferOption",
+    "PlatformControlPanel",
     "CreateHostingRequestDomainConfiguration",
     "OfferOptionRequest",
-    "HostingCpanelUrls",
-    "HostingOption",
+    "HostingUser",
+    "Offer",
+    "Platform",
     "ControlPanel",
     "DatabaseUser",
     "Database",
     "FtpAccount",
     "HostingSummary",
     "MailAccount",
-    "Offer",
     "Website",
     "ControlPanelApiListControlPanelsRequest",
     "DatabaseApiAssignDatabaseUserRequest",
