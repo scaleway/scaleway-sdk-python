@@ -35,6 +35,7 @@ from .types import (
     ListRulesResponse,
     ListSSHKeysResponse,
     ListUsersResponse,
+    OrganizationSecuritySettings,
     SetRulesResponse,
     AddGroupMemberRequest,
     AddGroupMembersRequest,
@@ -53,6 +54,7 @@ from .types import (
     UpdateAPIKeyRequest,
     UpdateApplicationRequest,
     UpdateGroupRequest,
+    UpdateOrganizationSecuritySettingsRequest,
     UpdatePolicyRequest,
     UpdateSSHKeyRequest,
     UpdateUserPasswordRequest,
@@ -993,6 +995,31 @@ def unmarshal_ListUsersResponse(data: Any) -> ListUsersResponse:
     return ListUsersResponse(**args)
 
 
+def unmarshal_OrganizationSecuritySettings(data: Any) -> OrganizationSecuritySettings:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'OrganizationSecuritySettings' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("enforce_password_renewal", None)
+    if field is not None:
+        args["enforce_password_renewal"] = field
+
+    field = data.get("login_attempts_before_locked", None)
+    if field is not None:
+        args["login_attempts_before_locked"] = field
+
+    field = data.get("grace_period_duration", None)
+    if field is not None:
+        args["grace_period_duration"] = field
+    else:
+        args["grace_period_duration"] = None
+
+    return OrganizationSecuritySettings(**args)
+
+
 def unmarshal_SetRulesResponse(data: Any) -> SetRulesResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -1353,6 +1380,24 @@ def marshal_UpdateGroupRequest(
 
     if request.tags is not None:
         output["tags"] = request.tags
+
+    return output
+
+
+def marshal_UpdateOrganizationSecuritySettingsRequest(
+    request: UpdateOrganizationSecuritySettingsRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.enforce_password_renewal is not None:
+        output["enforce_password_renewal"] = request.enforce_password_renewal
+
+    if request.grace_period_duration is not None:
+        output["grace_period_duration"] = request.grace_period_duration
+
+    if request.login_attempts_before_locked is not None:
+        output["login_attempts_before_locked"] = request.login_attempts_before_locked
 
     return output
 
