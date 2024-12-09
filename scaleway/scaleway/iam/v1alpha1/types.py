@@ -135,6 +135,8 @@ class ListUsersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     EMAIL_DESC = "email_desc"
     LAST_LOGIN_ASC = "last_login_asc"
     LAST_LOGIN_DESC = "last_login_desc"
+    USERNAME_ASC = "username_asc"
+    USERNAME_DESC = "username_desc"
 
     def __str__(self) -> str:
         return str(self.value)
