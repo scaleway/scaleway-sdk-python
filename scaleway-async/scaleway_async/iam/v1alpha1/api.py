@@ -54,6 +54,7 @@ from .types import (
     ListSSHKeysResponse,
     ListUsersResponse,
     Log,
+    OrganizationSecuritySettings,
     PermissionSet,
     Policy,
     Quotum,
@@ -67,6 +68,7 @@ from .types import (
     UpdateAPIKeyRequest,
     UpdateApplicationRequest,
     UpdateGroupRequest,
+    UpdateOrganizationSecuritySettingsRequest,
     UpdatePolicyRequest,
     UpdateSSHKeyRequest,
     UpdateUserPasswordRequest,
@@ -96,6 +98,7 @@ from .marshalling import (
     unmarshal_ListRulesResponse,
     unmarshal_ListSSHKeysResponse,
     unmarshal_ListUsersResponse,
+    unmarshal_OrganizationSecuritySettings,
     unmarshal_SetRulesResponse,
     marshal_AddGroupMemberRequest,
     marshal_AddGroupMembersRequest,
@@ -112,6 +115,7 @@ from .marshalling import (
     marshal_UpdateAPIKeyRequest,
     marshal_UpdateApplicationRequest,
     marshal_UpdateGroupRequest,
+    marshal_UpdateOrganizationSecuritySettingsRequest,
     marshal_UpdatePolicyRequest,
     marshal_UpdateSSHKeyRequest,
     marshal_UpdateUserPasswordRequest,
@@ -2563,3 +2567,75 @@ class IamV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Log(res.json())
+
+    async def get_organization_security_settings(
+        self,
+        *,
+        organization_id: Optional[str] = None,
+    ) -> OrganizationSecuritySettings:
+        """
+        Get security settings of an Organization.
+        Retrieve information about the security settings of an Organization, specified by the `organization_id` parameter.
+        :param organization_id: ID of the Organization.
+        :return: :class:`OrganizationSecuritySettings <OrganizationSecuritySettings>`
+
+        Usage:
+        ::
+
+            result = await api.get_organization_security_settings()
+        """
+
+        param_organization_id = validate_path_param(
+            "organization_id", organization_id or self.client.default_organization_id
+        )
+
+        res = self._request(
+            "GET",
+            f"/iam/v1alpha1/organizations/{param_organization_id}/security-settings",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_OrganizationSecuritySettings(res.json())
+
+    async def update_organization_security_settings(
+        self,
+        *,
+        organization_id: Optional[str] = None,
+        enforce_password_renewal: Optional[bool] = None,
+        grace_period_duration: Optional[str] = None,
+        login_attempts_before_locked: Optional[int] = None,
+    ) -> OrganizationSecuritySettings:
+        """
+        Update the security settings of an Organization.
+        :param organization_id: ID of the Organization.
+        :param enforce_password_renewal: Defines whether password renewal is enforced during first login.
+        :param grace_period_duration: Duration of the grace period to renew password or enable MFA.
+        :param login_attempts_before_locked: Number of login attempts before the account is locked.
+        :return: :class:`OrganizationSecuritySettings <OrganizationSecuritySettings>`
+
+        Usage:
+        ::
+
+            result = await api.update_organization_security_settings()
+        """
+
+        param_organization_id = validate_path_param(
+            "organization_id", organization_id or self.client.default_organization_id
+        )
+
+        res = self._request(
+            "PATCH",
+            f"/iam/v1alpha1/organizations/{param_organization_id}/security-settings",
+            body=marshal_UpdateOrganizationSecuritySettingsRequest(
+                UpdateOrganizationSecuritySettingsRequest(
+                    organization_id=organization_id,
+                    enforce_password_renewal=enforce_password_renewal,
+                    grace_period_duration=grace_period_duration,
+                    login_attempts_before_locked=login_attempts_before_locked,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_OrganizationSecuritySettings(res.json())

@@ -1113,6 +1113,14 @@ class GetLogRequest:
 
 
 @dataclass
+class GetOrganizationSecuritySettingsRequest:
+    organization_id: Optional[str]
+    """
+    ID of the Organization.
+    """
+
+
+@dataclass
 class GetPolicyRequest:
     policy_id: str
     """
@@ -1748,6 +1756,24 @@ class LockUserRequest:
 
 
 @dataclass
+class OrganizationSecuritySettings:
+    enforce_password_renewal: bool
+    """
+    Defines whether password renewal is enforced during first login.
+    """
+
+    login_attempts_before_locked: int
+    """
+    Number of login attempts before the account is locked.
+    """
+
+    grace_period_duration: Optional[str]
+    """
+    Duration of the grace period to renew password or enable MFA.
+    """
+
+
+@dataclass
 class RemoveGroupMemberRequest:
     group_id: str
     """
@@ -1858,6 +1884,29 @@ class UpdateGroupRequest:
     tags: Optional[List[str]]
     """
     New tags for the group (maximum of 10 tags).
+    """
+
+
+@dataclass
+class UpdateOrganizationSecuritySettingsRequest:
+    organization_id: Optional[str]
+    """
+    ID of the Organization.
+    """
+
+    enforce_password_renewal: Optional[bool]
+    """
+    Defines whether password renewal is enforced during first login.
+    """
+
+    grace_period_duration: Optional[str]
+    """
+    Duration of the grace period to renew password or enable MFA.
+    """
+
+    login_attempts_before_locked: Optional[int]
+    """
+    Number of login attempts before the account is locked.
     """
 
 
