@@ -903,9 +903,9 @@ class Cluster:
     Defines whether the SBS-enabled CSI starting from v0.3 is installed on the cluster.
     """
 
-    full_vpc_integraton_enabled: Optional[bool]
+    acl_available: Optional[bool]
     """
-    Defines whether VPC is fully integrated on the cluster.
+    Defines whether ACL is available on the cluster.
     """
 
 
