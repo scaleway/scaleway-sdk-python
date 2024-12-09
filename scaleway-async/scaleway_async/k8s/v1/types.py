@@ -893,19 +893,14 @@ class Cluster:
     Date on which it will be possible to switch to a smaller offer.
     """
 
-    routed_ip_enabled: Optional[bool]
-    """
-    Defines whether routed IPs are enabled for nodes of this cluster.
-    """
-
     sbs_csi_enabled: Optional[bool]
     """
     Defines whether the SBS-enabled CSI starting from v0.3 is installed on the cluster.
     """
 
-    full_vpc_integraton_enabled: Optional[bool]
+    acl_available: Optional[bool]
     """
-    Defines whether VPC is fully integrated on the cluster.
+    Defines whether ACL is available on the cluster.
     """
 
 
