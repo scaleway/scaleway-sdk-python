@@ -20,6 +20,28 @@ from ...std.types import (
 )
 
 
+class DnsRecordStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATUS = "unknown_status"
+    VALID = "valid"
+    INVALID = "invalid"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class DnsRecordType(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_TYPE = "unknown_type"
+    A = "a"
+    CNAME = "cname"
+    MX = "mx"
+    TXT = "txt"
+    NS = "ns"
+    AAAA = "aaaa"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class DnsRecordsStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
     VALID = "valid"
@@ -112,6 +134,15 @@ class ListWebsitesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class NameserverStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATUS = "unknown_status"
+    VALID = "valid"
+    INVALID = "invalid"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class OfferOptionName(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_NAME = "unknown_name"
     DOMAIN_COUNT = "domain_count"
@@ -193,6 +224,11 @@ class OfferOption:
     Defines a warning if the maximum value for the option has been reached.
     """
 
+    price: Optional[Money]
+    """
+    Price of the option for 1 value.
+    """
+
 
 @dataclass
 class PlatformControlPanel:
@@ -228,6 +264,57 @@ class OfferOptionRequest:
     quantity: int
     """
     The option requested quantity to set for the Web Hosting plan.
+    """
+
+
+@dataclass
+class DnsRecord:
+    name: str
+    """
+    Record name.
+    """
+
+    type_: DnsRecordType
+    """
+    Record type.
+    """
+
+    ttl: int
+    """
+    Record time-to-live.
+    """
+
+    value: str
+    """
+    Record value.
+    """
+
+    status: DnsRecordStatus
+    """
+    Record status.
+    """
+
+    priority: Optional[int]
+    """
+    Record priority level.
+    """
+
+
+@dataclass
+class Nameserver:
+    hostname: str
+    """
+    Hostname of the nameserver.
+    """
+
+    status: NameserverStatus
+    """
+    Status of the nameserver.
+    """
+
+    is_default: bool
+    """
+    Defines whether the nameserver is the default one.
     """
 
 
@@ -453,6 +540,14 @@ class Website:
     ssl_status: bool
     """
     The SSL status of the website.
+    """
+
+
+@dataclass
+class CheckUserOwnsDomainResponse:
+    owns_domain: bool
+    """
+    Indicates whether the specified project owns the domain.
     """
 
 
@@ -709,6 +804,55 @@ class DatabaseApiUnassignDatabaseUserRequest:
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class DnsApiCheckUserOwnsDomainRequest:
+    domain: str
+    """
+    Domain for which ownership is to be verified.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    ID of the project currently in use.
+    """
+
+
+@dataclass
+class DnsApiGetDomainDnsRecordsRequest:
+    domain: str
+    """
+    Domain associated with the DNS records.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class DnsRecords:
+    records: List[DnsRecord]
+    """
+    List of DNS records.
+    """
+
+    name_servers: List[Nameserver]
+    """
+    List of nameservers.
+    """
+
+    status: DnsRecordsStatus
+    """
+    Status of the records.
     """
 
 
