@@ -262,15 +262,16 @@ class IpamV1API(API):
         subnet_id: Optional[str] = None,
         vpc_id: Optional[str] = None,
         attached: Optional[bool] = None,
+        resource_name: Optional[str] = None,
         resource_id: Optional[str] = None,
         resource_ids: Optional[List[str]] = None,
         resource_type: Optional[ResourceType] = None,
+        resource_types: Optional[List[ResourceType]] = None,
         mac_address: Optional[str] = None,
         tags: Optional[List[str]] = None,
         organization_id: Optional[str] = None,
         is_ipv6: Optional[bool] = None,
-        resource_name: Optional[str] = None,
-        resource_types: Optional[List[ResourceType]] = None,
+        ip_ids: Optional[List[str]] = None,
     ) -> ListIPsResponse:
         """
         List existing IPs.
@@ -288,15 +289,16 @@ class IpamV1API(API):
         One-Of ('source'): at most one of 'zonal', 'private_network_id', 'subnet_id' could be set.
         :param vpc_id: Only IPs owned by resources in this VPC will be returned.
         :param attached: Defines whether to filter only for IPs which are attached to a resource.
+        :param resource_name: Attached resource name to filter for, only IPs attached to a resource with this string within their name will be returned.
         :param resource_id: Resource ID to filter for. Only IPs attached to this resource will be returned.
         :param resource_ids: Resource IDs to filter for. Only IPs attached to at least one of these resources will be returned.
         :param resource_type: Resource type to filter for. Only IPs attached to this type of resource will be returned.
+        :param resource_types: Resource types to filter for. Only IPs attached to these types of resources will be returned.
         :param mac_address: MAC address to filter for. Only IPs attached to a resource with this MAC address will be returned.
         :param tags: Tags to filter for, only IPs with one or more matching tags will be returned.
         :param organization_id: Organization ID to filter for. Only IPs belonging to this Organization will be returned.
         :param is_ipv6: Defines whether to filter only for IPv4s or IPv6s.
-        :param resource_name: Attached resource name to filter for, only IPs attached to a resource with this string within their name will be returned.
-        :param resource_types: Resource types to filter for. Only IPs attached to these types of resources will be returned.
+        :param ip_ids: IP IDs to filter for. Only IPs with these UUIDs will be returned.
         :return: :class:`ListIPsResponse <ListIPsResponse>`
 
         Usage:
@@ -314,6 +316,7 @@ class IpamV1API(API):
             f"/ipam/v1/regions/{param_region}/ips",
             params={
                 "attached": attached,
+                "ip_ids": ip_ids,
                 "is_ipv6": is_ipv6,
                 "mac_address": mac_address,
                 "order_by": order_by,
@@ -355,15 +358,16 @@ class IpamV1API(API):
         subnet_id: Optional[str] = None,
         vpc_id: Optional[str] = None,
         attached: Optional[bool] = None,
+        resource_name: Optional[str] = None,
         resource_id: Optional[str] = None,
         resource_ids: Optional[List[str]] = None,
         resource_type: Optional[ResourceType] = None,
+        resource_types: Optional[List[ResourceType]] = None,
         mac_address: Optional[str] = None,
         tags: Optional[List[str]] = None,
         organization_id: Optional[str] = None,
         is_ipv6: Optional[bool] = None,
-        resource_name: Optional[str] = None,
-        resource_types: Optional[List[ResourceType]] = None,
+        ip_ids: Optional[List[str]] = None,
     ) -> List[IP]:
         """
         List existing IPs.
@@ -381,15 +385,16 @@ class IpamV1API(API):
         One-Of ('source'): at most one of 'zonal', 'private_network_id', 'subnet_id' could be set.
         :param vpc_id: Only IPs owned by resources in this VPC will be returned.
         :param attached: Defines whether to filter only for IPs which are attached to a resource.
+        :param resource_name: Attached resource name to filter for, only IPs attached to a resource with this string within their name will be returned.
         :param resource_id: Resource ID to filter for. Only IPs attached to this resource will be returned.
         :param resource_ids: Resource IDs to filter for. Only IPs attached to at least one of these resources will be returned.
         :param resource_type: Resource type to filter for. Only IPs attached to this type of resource will be returned.
+        :param resource_types: Resource types to filter for. Only IPs attached to these types of resources will be returned.
         :param mac_address: MAC address to filter for. Only IPs attached to a resource with this MAC address will be returned.
         :param tags: Tags to filter for, only IPs with one or more matching tags will be returned.
         :param organization_id: Organization ID to filter for. Only IPs belonging to this Organization will be returned.
         :param is_ipv6: Defines whether to filter only for IPv4s or IPv6s.
-        :param resource_name: Attached resource name to filter for, only IPs attached to a resource with this string within their name will be returned.
-        :param resource_types: Resource types to filter for. Only IPs attached to these types of resources will be returned.
+        :param ip_ids: IP IDs to filter for. Only IPs with these UUIDs will be returned.
         :return: :class:`List[IP] <List[IP]>`
 
         Usage:
@@ -410,15 +415,16 @@ class IpamV1API(API):
                 "project_id": project_id,
                 "vpc_id": vpc_id,
                 "attached": attached,
+                "resource_name": resource_name,
                 "resource_id": resource_id,
                 "resource_ids": resource_ids,
                 "resource_type": resource_type,
+                "resource_types": resource_types,
                 "mac_address": mac_address,
                 "tags": tags,
                 "organization_id": organization_id,
                 "is_ipv6": is_ipv6,
-                "resource_name": resource_name,
-                "resource_types": resource_types,
+                "ip_ids": ip_ids,
                 "zonal": zonal,
                 "private_network_id": private_network_id,
                 "subnet_id": subnet_id,

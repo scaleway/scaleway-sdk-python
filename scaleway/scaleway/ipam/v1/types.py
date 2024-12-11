@@ -298,6 +298,11 @@ class ListIPsRequest:
     Defines whether to filter only for IPs which are attached to a resource.
     """
 
+    resource_name: Optional[str]
+    """
+    Attached resource name to filter for, only IPs attached to a resource with this string within their name will be returned.
+    """
+
     resource_id: Optional[str]
     """
     Resource ID to filter for. Only IPs attached to this resource will be returned.
@@ -311,6 +316,11 @@ class ListIPsRequest:
     resource_type: Optional[ResourceType]
     """
     Resource type to filter for. Only IPs attached to this type of resource will be returned.
+    """
+
+    resource_types: Optional[List[ResourceType]]
+    """
+    Resource types to filter for. Only IPs attached to these types of resources will be returned.
     """
 
     mac_address: Optional[str]
@@ -333,14 +343,9 @@ class ListIPsRequest:
     Defines whether to filter only for IPv4s or IPv6s.
     """
 
-    resource_name: Optional[str]
+    ip_ids: Optional[List[str]]
     """
-    Attached resource name to filter for, only IPs attached to a resource with this string within their name will be returned.
-    """
-
-    resource_types: Optional[List[ResourceType]]
-    """
-    Resource types to filter for. Only IPs attached to these types of resources will be returned.
+    IP IDs to filter for. Only IPs with these UUIDs will be returned.
     """
 
     zonal: Optional[str]
