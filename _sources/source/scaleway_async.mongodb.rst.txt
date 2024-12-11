@@ -1,0 +1,18 @@
+scaleway\_async.mongodb package
+===============================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway_async.mongodb.v1alpha1
+
+Module contents
+---------------
+
+.. automodule:: scaleway_async.mongodb
+   :members:
+   :undoc-members:
+   :show-inheritance:

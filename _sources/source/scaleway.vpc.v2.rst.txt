@@ -1,0 +1,37 @@
+scaleway.vpc.v2 package
+=======================
+
+Submodules
+----------
+
+scaleway.vpc.v2.api module
+--------------------------
+
+.. automodule:: scaleway.vpc.v2.api
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway.vpc.v2.marshalling module
+----------------------------------
+
+.. automodule:: scaleway.vpc.v2.marshalling
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway.vpc.v2.types module
+----------------------------
+
+.. automodule:: scaleway.vpc.v2.types
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: scaleway.vpc.v2
+   :members:
+   :undoc-members:
+   :show-inheritance:
