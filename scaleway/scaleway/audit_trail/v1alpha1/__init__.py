@@ -10,6 +10,7 @@ from .types import SecretManagerSecretInfo
 from .types import SecretManagerSecretVersionInfo
 from .types import EventPrincipal
 from .types import Resource
+from .types import ProductService
 from .types import Event
 from .types import Product
 from .types import ListEventsRequest
@@ -29,6 +30,7 @@ __all__ = [
     "SecretManagerSecretVersionInfo",
     "EventPrincipal",
     "Resource",
+    "ProductService",
     "Event",
     "Product",
     "ListEventsRequest",

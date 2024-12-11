@@ -15,6 +15,7 @@ from .types import (
     Resource,
     Event,
     ListEventsResponse,
+    ProductService,
     Product,
     ListProductsResponse,
 )
@@ -316,6 +317,25 @@ def unmarshal_ListEventsResponse(data: Any) -> ListEventsResponse:
     return ListEventsResponse(**args)
 
 
+def unmarshal_ProductService(data: Any) -> ProductService:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ProductService' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+
+    field = data.get("methods", None)
+    if field is not None:
+        args["methods"] = field
+
+    return ProductService(**args)
+
+
 def unmarshal_Product(data: Any) -> Product:
     if not isinstance(data, dict):
         raise TypeError(
@@ -331,6 +351,12 @@ def unmarshal_Product(data: Any) -> Product:
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+
+    field = data.get("services", None)
+    if field is not None:
+        args["services"] = (
+            [unmarshal_ProductService(v) for v in field] if field is not None else None
+        )
 
     return Product(**args)
 
