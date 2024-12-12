@@ -1992,3 +1992,10 @@ class UpdateUserRequest:
     """
     IAM member email.
     """
+
+
+@dataclass
+class UpdateUserUsernameRequest:
+    user_id: str
+
+    username: str

@@ -59,6 +59,7 @@ from .types import (
     UpdateSSHKeyRequest,
     UpdateUserPasswordRequest,
     UpdateUserRequest,
+    UpdateUserUsernameRequest,
 )
 
 
@@ -1471,5 +1472,17 @@ def marshal_UpdateUserRequest(
 
     if request.email is not None:
         output["email"] = request.email
+
+    return output
+
+
+def marshal_UpdateUserUsernameRequest(
+    request: UpdateUserUsernameRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.username is not None:
+        output["username"] = request.username
 
     return output
