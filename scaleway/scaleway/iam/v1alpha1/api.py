@@ -73,6 +73,7 @@ from .types import (
     UpdateSSHKeyRequest,
     UpdateUserPasswordRequest,
     UpdateUserRequest,
+    UpdateUserUsernameRequest,
     User,
 )
 from .marshalling import (
@@ -120,6 +121,7 @@ from .marshalling import (
     marshal_UpdateSSHKeyRequest,
     marshal_UpdateUserPasswordRequest,
     marshal_UpdateUserRequest,
+    marshal_UpdateUserUsernameRequest,
 )
 
 
@@ -577,6 +579,43 @@ class IamV1Alpha1API(API):
                     tags=tags,
                     email=email,
                     member=member,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_User(res.json())
+
+    def update_user_username(
+        self,
+        *,
+        user_id: str,
+        username: str,
+    ) -> User:
+        """
+        :param user_id:
+        :param username:
+        :return: :class:`User <User>`
+
+        Usage:
+        ::
+
+            result = api.update_user_username(
+                user_id="example",
+                username="example",
+            )
+        """
+
+        param_user_id = validate_path_param("user_id", user_id)
+
+        res = self._request(
+            "POST",
+            f"/iam/v1alpha1/users/{param_user_id}/update-username",
+            body=marshal_UpdateUserUsernameRequest(
+                UpdateUserUsernameRequest(
+                    user_id=user_id,
+                    username=username,
                 ),
                 self.client,
             ),

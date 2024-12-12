@@ -98,6 +98,7 @@ from .types import UpdatePolicyRequest
 from .types import UpdateSSHKeyRequest
 from .types import UpdateUserPasswordRequest
 from .types import UpdateUserRequest
+from .types import UpdateUserUsernameRequest
 from .api import IamV1Alpha1API
 
 __all__ = [
@@ -199,5 +200,6 @@ __all__ = [
     "UpdateSSHKeyRequest",
     "UpdateUserPasswordRequest",
     "UpdateUserRequest",
+    "UpdateUserUsernameRequest",
     "IamV1Alpha1API",
 ]
