@@ -103,6 +103,13 @@ class Resource:
 
 
 @dataclass
+class ProductService:
+    name: str
+
+    methods: List[str]
+
+
+@dataclass
 class Event:
     id: str
     """
@@ -190,6 +197,11 @@ class Product:
     name: str
     """
     Product name.
+    """
+
+    services: List[ProductService]
+    """
+    Specifies the API versions of the products integrated with Audit Trail. Each version defines the methods logged by Audit Trail.
     """
 
 
