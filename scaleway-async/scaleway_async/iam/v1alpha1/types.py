@@ -1997,5 +1997,11 @@ class UpdateUserRequest:
 @dataclass
 class UpdateUserUsernameRequest:
     user_id: str
+    """
+    ID of the user to update.
+    """
 
     username: str
+    """
+    The new username.
+    """
