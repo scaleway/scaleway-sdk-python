@@ -8,6 +8,10 @@ from scaleway_core.profile import ProfileDefaults
 from scaleway_core.bridge import (
     unmarshal_Money,
 )
+from scaleway_core.utils import (
+    OneOfPossibility,
+    resolve_one_of,
+)
 from .types import (
     DatabaseUser,
     Database,
@@ -40,6 +44,7 @@ from .types import (
     Session,
     DatabaseApiAssignDatabaseUserRequest,
     DatabaseApiChangeDatabaseUserPasswordRequest,
+    CreateDatabaseRequestUser,
     DatabaseApiCreateDatabaseRequest,
     DatabaseApiCreateDatabaseUserRequest,
     DatabaseApiUnassignDatabaseUserRequest,
@@ -852,11 +857,34 @@ def marshal_DatabaseApiChangeDatabaseUserPasswordRequest(
     return output
 
 
+def marshal_CreateDatabaseRequestUser(
+    request: CreateDatabaseRequestUser,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.username is not None:
+        output["username"] = request.username
+
+    if request.password is not None:
+        output["password"] = request.password
+
+    return output
+
+
 def marshal_DatabaseApiCreateDatabaseRequest(
     request: DatabaseApiCreateDatabaseRequest,
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
+            [
+                OneOfPossibility("new_user", request.new_user),
+                OneOfPossibility("existing_username", request.existing_username),
+            ]
+        ),
+    )
 
     if request.database_name is not None:
         output["database_name"] = request.database_name
