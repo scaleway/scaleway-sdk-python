@@ -650,6 +650,14 @@ def unmarshal_HostingSummary(data: Any) -> HostingSummary:
     if field is not None:
         args["protected"] = field
 
+    field = data.get("dns_status", None)
+    if field is not None:
+        args["dns_status"] = field
+
+    field = data.get("offer_name", None)
+    if field is not None:
+        args["offer_name"] = field
+
     field = data.get("region", None)
     if field is not None:
         args["region"] = field

@@ -503,6 +503,16 @@ class HostingSummary:
     Whether the hosting is protected or not.
     """
 
+    dns_status: DnsRecordsStatus
+    """
+    DNS status of the Web Hosting plan.
+    """
+
+    offer_name: str
+    """
+    Name of the active offer for the Web Hosting plan.
+    """
+
     region: Region
     """
     Region where the Web Hosting plan is hosted.
