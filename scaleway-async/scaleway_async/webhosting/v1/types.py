@@ -244,6 +244,13 @@ class PlatformControlPanel:
 
 
 @dataclass
+class CreateDatabaseRequestUser:
+    username: str
+
+    password: str
+
+
+@dataclass
 class CreateHostingRequestDomainConfiguration:
     update_nameservers: bool
 
@@ -496,6 +503,16 @@ class HostingSummary:
     Whether the hosting is protected or not.
     """
 
+    dns_status: DnsRecordsStatus
+    """
+    DNS status of the Web Hosting plan.
+    """
+
+    offer_name: str
+    """
+    Name of the active offer for the Web Hosting plan.
+    """
+
     region: Region
     """
     Region where the Web Hosting plan is hosted.
@@ -631,6 +648,10 @@ class DatabaseApiCreateDatabaseRequest:
     """
     Region to target. If none is passed will use default region from the config.
     """
+
+    new_user: Optional[CreateDatabaseRequestUser]
+
+    existing_username: Optional[str]
 
 
 @dataclass

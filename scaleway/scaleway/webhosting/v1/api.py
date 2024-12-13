@@ -24,6 +24,7 @@ from .types import (
     ListWebsitesRequestOrderBy,
     CheckUserOwnsDomainResponse,
     ControlPanel,
+    CreateDatabaseRequestUser,
     CreateHostingRequestDomainConfiguration,
     Database,
     DatabaseApiAssignDatabaseUserRequest,
@@ -185,12 +186,18 @@ class WebhostingV1DatabaseAPI(API):
         hosting_id: str,
         database_name: str,
         region: Optional[Region] = None,
+        new_user: Optional[CreateDatabaseRequestUser] = None,
+        existing_username: Optional[str] = None,
     ) -> Database:
         """
         "Create a new database within your hosting plan".
         :param hosting_id: UUID of the hosting plan where the database will be created.
         :param database_name: Name of the database to be created.
         :param region: Region to target. If none is passed will use default region from the config.
+        :param new_user: (Optional) Username and password to create a user and link to the database.
+        One-Of ('user'): at most one of 'new_user', 'existing_username' could be set.
+        :param existing_username: (Optional) Username to link an existing user to the database.
+        One-Of ('user'): at most one of 'new_user', 'existing_username' could be set.
         :return: :class:`Database <Database>`
 
         Usage:
@@ -215,6 +222,8 @@ class WebhostingV1DatabaseAPI(API):
                     hosting_id=hosting_id,
                     database_name=database_name,
                     region=region,
+                    new_user=new_user,
+                    existing_username=existing_username,
                 ),
                 self.client,
             ),
