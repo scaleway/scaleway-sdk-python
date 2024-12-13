@@ -594,8 +594,9 @@ class IamV1Alpha1API(API):
         username: str,
     ) -> User:
         """
-        :param user_id:
-        :param username:
+        Update an user's username. Private Beta feature.
+        :param user_id: ID of the user to update.
+        :param username: The new username.
         :return: :class:`User <User>`
 
         Usage:
