@@ -244,6 +244,13 @@ class PlatformControlPanel:
 
 
 @dataclass
+class CreateDatabaseRequestUser:
+    username: str
+
+    password: str
+
+
+@dataclass
 class CreateHostingRequestDomainConfiguration:
     update_nameservers: bool
 
@@ -631,6 +638,10 @@ class DatabaseApiCreateDatabaseRequest:
     """
     Region to target. If none is passed will use default region from the config.
     """
+
+    new_user: Optional[CreateDatabaseRequestUser]
+
+    existing_username: Optional[str]
 
 
 @dataclass
