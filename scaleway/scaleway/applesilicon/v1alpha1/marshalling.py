@@ -291,6 +291,10 @@ def unmarshal_Server(data: Any) -> Server:
     if field is not None:
         args["delivered"] = field
 
+    field = data.get("vpc_status", None)
+    if field is not None:
+        args["vpc_status"] = field
+
     field = data.get("os", None)
     if field is not None:
         args["os"] = unmarshal_OS(field)
@@ -485,6 +489,9 @@ def marshal_CreateServerRequest(
     if request.type_ is not None:
         output["type"] = request.type_
 
+    if request.enable_vpc is not None:
+        output["enable_vpc"] = request.enable_vpc
+
     if request.name is not None:
         output["name"] = request.name
 
@@ -532,5 +539,8 @@ def marshal_UpdateServerRequest(
 
     if request.schedule_deletion is not None:
         output["schedule_deletion"] = request.schedule_deletion
+
+    if request.enable_vpc is not None:
+        output["enable_vpc"] = request.enable_vpc
 
     return output

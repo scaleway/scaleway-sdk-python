@@ -41,6 +41,16 @@ class ListServersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ServerPrivateNetworkStatus(str, Enum, metaclass=StrEnumMeta):
+    VPC_UNKNOWN_STATUS = "vpc_unknown_status"
+    VPC_ENABLED = "vpc_enabled"
+    VPC_UPDATING = "vpc_updating"
+    VPC_DISABLED = "vpc_disabled"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ServerStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
     STARTING = "starting"
@@ -284,6 +294,11 @@ class Server:
     Set to true once the server has completed its provisioning steps and is ready to use. Some OS configurations might require a reinstallation of the server before delivery depending on the available stock. A reinstallation after the initial delivery will not change this flag and can be tracked using the server status.
     """
 
+    vpc_status: ServerPrivateNetworkStatus
+    """
+    Activation status of optional Private Network feature support for this server.
+    """
+
     os: Optional[OS]
     """
     Initially installed OS, this does not necessarily reflect the current OS version.
@@ -325,6 +340,11 @@ class CreateServerRequest:
     type_: str
     """
     Create a server of the given type.
+    """
+
+    enable_vpc: bool
+    """
+    Activate the Private Network feature for this server. This feature is configured through the Apple Silicon - Private Networks API.
     """
 
     zone: Optional[Zone]
@@ -579,4 +599,9 @@ class UpdateServerRequest:
     schedule_deletion: Optional[bool]
     """
     Specify whether the server should be flagged for automatic deletion.
+    """
+
+    enable_vpc: Optional[bool]
+    """
+    Activate or deactivate Private Network support for this server.
     """
