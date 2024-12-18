@@ -1357,7 +1357,7 @@ class LbV1ZonedAPI(API):
         :param check_send_proxy: Defines whether proxy protocol should be activated for the health check.
         :param tcp_config: Object to configure a basic TCP health check.
         One-Of ('config'): at most one of 'tcp_config', 'mysql_config', 'pgsql_config', 'ldap_config', 'redis_config', 'http_config', 'https_config' could be set.
-        :param mysql_config: Object to configure a MySQL health check. The check requires MySQL >=3.22, for older versions, use a TCP health check.
+        :param mysql_config: Object to configure a MySQL health check. The check requires MySQL >=3.22 or <9.0. For older or newer versions, use a TCP health check.
         One-Of ('config'): at most one of 'tcp_config', 'mysql_config', 'pgsql_config', 'ldap_config', 'redis_config', 'http_config', 'https_config' could be set.
         :param pgsql_config: Object to configure a PostgreSQL health check.
         One-Of ('config'): at most one of 'tcp_config', 'mysql_config', 'pgsql_config', 'ldap_config', 'redis_config', 'http_config', 'https_config' could be set.
@@ -4387,7 +4387,7 @@ class LbV1API(API):
         :param check_send_proxy: Defines whether proxy protocol should be activated for the health check.
         :param tcp_config: Object to configure a basic TCP health check.
         One-Of ('config'): at most one of 'tcp_config', 'mysql_config', 'pgsql_config', 'ldap_config', 'redis_config', 'http_config', 'https_config' could be set.
-        :param mysql_config: Object to configure a MySQL health check. The check requires MySQL >=3.22, for older versions, use a TCP health check.
+        :param mysql_config: Object to configure a MySQL health check. The check requires MySQL >=3.22 or <9.0. For older or newer versions, use a TCP health check.
         One-Of ('config'): at most one of 'tcp_config', 'mysql_config', 'pgsql_config', 'ldap_config', 'redis_config', 'http_config', 'https_config' could be set.
         :param pgsql_config: Object to configure a PostgreSQL health check.
         One-Of ('config'): at most one of 'tcp_config', 'mysql_config', 'pgsql_config', 'ldap_config', 'redis_config', 'http_config', 'https_config' could be set.
