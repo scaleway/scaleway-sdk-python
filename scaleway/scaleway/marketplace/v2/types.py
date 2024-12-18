@@ -93,6 +93,7 @@ class Image:
     label: str
     """
     Typically an identifier for a distribution (ex. "ubuntu_focal").
+This label can be used in the image field of the server creation request.
     """
 
     created_at: Optional[datetime]
@@ -135,7 +136,7 @@ class LocalImage:
 
     label: str
     """
-    Image label this image belongs to.
+    This label can be used in the image field of the server creation request.
     """
 
     type_: LocalImageType
