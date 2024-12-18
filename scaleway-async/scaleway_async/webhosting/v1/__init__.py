@@ -24,6 +24,7 @@ from .types import PlatformControlPanel
 from .types import CreateDatabaseRequestUser
 from .types import CreateHostingRequestDomainConfiguration
 from .types import OfferOptionRequest
+from .types import SyncDomainDnsRecordsRequestRecord
 from .types import DnsRecord
 from .types import Nameserver
 from .types import HostingUser
@@ -51,6 +52,7 @@ from .types import DatabaseApiListDatabasesRequest
 from .types import DatabaseApiUnassignDatabaseUserRequest
 from .types import DnsApiCheckUserOwnsDomainRequest
 from .types import DnsApiGetDomainDnsRecordsRequest
+from .types import DnsApiSyncDomainDnsRecordsRequest
 from .types import DnsRecords
 from .types import FtpAccountApiChangeFtpAccountPasswordRequest
 from .types import FtpAccountApiCreateFtpAccountRequest
@@ -116,6 +118,7 @@ __all__ = [
     "CreateDatabaseRequestUser",
     "CreateHostingRequestDomainConfiguration",
     "OfferOptionRequest",
+    "SyncDomainDnsRecordsRequestRecord",
     "DnsRecord",
     "Nameserver",
     "HostingUser",
@@ -143,6 +146,7 @@ __all__ = [
     "DatabaseApiUnassignDatabaseUserRequest",
     "DnsApiCheckUserOwnsDomainRequest",
     "DnsApiGetDomainDnsRecordsRequest",
+    "DnsApiSyncDomainDnsRecordsRequest",
     "DnsRecords",
     "FtpAccountApiChangeFtpAccountPasswordRequest",
     "FtpAccountApiCreateFtpAccountRequest",

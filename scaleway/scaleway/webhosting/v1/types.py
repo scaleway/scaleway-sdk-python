@@ -275,6 +275,13 @@ class OfferOptionRequest:
 
 
 @dataclass
+class SyncDomainDnsRecordsRequestRecord:
+    name: str
+
+    type_: DnsRecordType
+
+
+@dataclass
 class DnsRecord:
     name: str
     """
@@ -856,6 +863,39 @@ class DnsApiGetDomainDnsRecordsRequest:
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class DnsApiSyncDomainDnsRecordsRequest:
+    domain: str
+    """
+    Domain for which the DNS records will be synchronized.
+    """
+
+    update_web_records: bool
+    """
+    Whether or not to synchronize the web records.
+    """
+
+    update_mail_records: bool
+    """
+    Whether or not to synchronize the mail records.
+    """
+
+    update_all_records: bool
+    """
+    Whether or not to synchronize all types of records. This one has priority.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    custom_records: Optional[List[SyncDomainDnsRecordsRequestRecord]]
+    """
+    Custom records to synchronize.
     """
 
 
