@@ -724,13 +724,13 @@ def unmarshal_ExternalNodeAuth(data: Any) -> ExternalNodeAuth:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("node_token", None)
+    field = data.get("node_secret_key", None)
     if field is not None:
-        args["node_token"] = field
+        args["node_secret_key"] = field
 
-    field = data.get("api_url", None)
+    field = data.get("metadata_url", None)
     if field is not None:
-        args["api_url"] = field
+        args["metadata_url"] = field
 
     return ExternalNodeAuth(**args)
 
@@ -1022,18 +1022,6 @@ def unmarshal_NodeMetadata(data: Any) -> NodeMetadata:
             if field is not None
             else None
         )
-
-    field = data.get("private_network_mode", None)
-    if field is not None:
-        args["private_network_mode"] = field
-
-    field = data.get("kapsule_iface_mac", None)
-    if field is not None:
-        args["kapsule_iface_mac"] = field
-
-    field = data.get("full_isolation", None)
-    if field is not None:
-        args["full_isolation"] = field
 
     field = data.get("has_gpu", None)
     if field is not None:
