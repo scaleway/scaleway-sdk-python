@@ -1414,9 +1414,9 @@ class ExternalNode:
 
 @dataclass
 class ExternalNodeAuth:
-    node_token: str
+    node_secret_key: str
 
-    api_url: str
+    metadata_url: str
 
 
 @dataclass
@@ -1832,12 +1832,6 @@ class NodeMetadata:
     node_labels: Dict[str, str]
 
     node_taints: List[NodeMetadataCoreV1Taint]
-
-    private_network_mode: str
-
-    kapsule_iface_mac: str
-
-    full_isolation: bool
 
     has_gpu: bool
 
