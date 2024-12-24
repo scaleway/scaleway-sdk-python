@@ -195,6 +195,10 @@ def unmarshal_Pop(data: Any) -> Pop:
     if field is not None:
         args["logo_url"] = field
 
+    field = data.get("available_link_bandwidths_mbps", None)
+    if field is not None:
+        args["available_link_bandwidths_mbps"] = field
+
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
