@@ -1833,12 +1833,6 @@ class NodeMetadata:
 
     node_taints: List[NodeMetadataCoreV1Taint]
 
-    private_network_mode: str
-
-    kapsule_iface_mac: str
-
-    full_isolation: bool
-
     has_gpu: bool
 
     external_ip: str

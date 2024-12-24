@@ -1023,18 +1023,6 @@ def unmarshal_NodeMetadata(data: Any) -> NodeMetadata:
             else None
         )
 
-    field = data.get("private_network_mode", None)
-    if field is not None:
-        args["private_network_mode"] = field
-
-    field = data.get("kapsule_iface_mac", None)
-    if field is not None:
-        args["kapsule_iface_mac"] = field
-
-    field = data.get("full_isolation", None)
-    if field is not None:
-        args["full_isolation"] = field
-
     field = data.get("has_gpu", None)
     if field is not None:
         args["has_gpu"] = field
