@@ -192,6 +192,11 @@ class SecretVersion:
     Last update of the version.
     """
 
+    deleted_at: Optional[datetime]
+    """
+    Date and time of the version's deletion.
+    """
+
     description: Optional[str]
     """
     Description of the version.

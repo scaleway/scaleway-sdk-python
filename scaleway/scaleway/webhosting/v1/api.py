@@ -34,6 +34,7 @@ from .types import (
     DatabaseApiUnassignDatabaseUserRequest,
     DatabaseUser,
     DnsApiCheckUserOwnsDomainRequest,
+    DnsApiSyncDomainDnsRecordsRequest,
     DnsRecords,
     FtpAccount,
     FtpAccountApiChangeFtpAccountPasswordRequest,
@@ -59,6 +60,7 @@ from .types import (
     ResetHostingPasswordResponse,
     ResourceSummary,
     Session,
+    SyncDomainDnsRecordsRequestRecord,
     Website,
 )
 from .content import (
@@ -89,6 +91,7 @@ from .marshalling import (
     marshal_DatabaseApiCreateDatabaseUserRequest,
     marshal_DatabaseApiUnassignDatabaseUserRequest,
     marshal_DnsApiCheckUserOwnsDomainRequest,
+    marshal_DnsApiSyncDomainDnsRecordsRequest,
     marshal_FtpAccountApiChangeFtpAccountPasswordRequest,
     marshal_FtpAccountApiCreateFtpAccountRequest,
     marshal_HostingApiCreateHostingRequest,
@@ -823,6 +826,61 @@ class WebhostingV1DnsAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_CheckUserOwnsDomainResponse(res.json())
+
+    def sync_domain_dns_records(
+        self,
+        *,
+        domain: str,
+        update_web_records: bool,
+        update_mail_records: bool,
+        update_all_records: bool,
+        region: Optional[Region] = None,
+        custom_records: Optional[List[SyncDomainDnsRecordsRequestRecord]] = None,
+    ) -> DnsRecords:
+        """
+        "Synchronize your DNS records on the Elements Console and on cPanel.".
+        :param domain: Domain for which the DNS records will be synchronized.
+        :param update_web_records: Whether or not to synchronize the web records.
+        :param update_mail_records: Whether or not to synchronize the mail records.
+        :param update_all_records: Whether or not to synchronize all types of records. This one has priority.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param custom_records: Custom records to synchronize.
+        :return: :class:`DnsRecords <DnsRecords>`
+
+        Usage:
+        ::
+
+            result = api.sync_domain_dns_records(
+                domain="example",
+                update_web_records=False,
+                update_mail_records=False,
+                update_all_records=False,
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_domain = validate_path_param("domain", domain)
+
+        res = self._request(
+            "POST",
+            f"/webhosting/v1/regions/{param_region}/domains/{param_domain}/sync-domain-dns-records",
+            body=marshal_DnsApiSyncDomainDnsRecordsRequest(
+                DnsApiSyncDomainDnsRecordsRequest(
+                    domain=domain,
+                    update_web_records=update_web_records,
+                    update_mail_records=update_mail_records,
+                    update_all_records=update_all_records,
+                    region=region,
+                    custom_records=custom_records,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_DnsRecords(res.json())
 
 
 class WebhostingV1OfferAPI(API):
