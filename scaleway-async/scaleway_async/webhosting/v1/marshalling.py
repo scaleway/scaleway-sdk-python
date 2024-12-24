@@ -366,6 +366,10 @@ def unmarshal_Offer(data: Any) -> Offer:
     if field is not None:
         args["id"] = field
 
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+
     field = data.get("billing_operation_path", None)
     if field is not None:
         args["billing_operation_path"] = field
@@ -387,6 +391,10 @@ def unmarshal_Offer(data: Any) -> Offer:
     field = data.get("end_of_life", None)
     if field is not None:
         args["end_of_life"] = field
+
+    field = data.get("quota_warning", None)
+    if field is not None:
+        args["quota_warning"] = field
 
     field = data.get("price", None)
     if field is not None:

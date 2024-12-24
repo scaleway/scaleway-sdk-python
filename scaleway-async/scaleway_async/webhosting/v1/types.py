@@ -152,6 +152,8 @@ class OfferOptionName(str, Enum, metaclass=StrEnumMeta):
     RAM_GB = "ram_gb"
     BACKUP = "backup"
     DEDICATED_IP = "dedicated_ip"
+    EMAIL_STORAGE_GB = "email_storage_gb"
+    DATABASE_COUNT = "database_count"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -160,6 +162,7 @@ class OfferOptionName(str, Enum, metaclass=StrEnumMeta):
 class OfferOptionWarning(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_WARNING = "unknown_warning"
     QUOTA_EXCEEDED_WARNING = "quota_exceeded_warning"
+    USAGE_LOW_WARNING = "usage_low_warning"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -357,6 +360,11 @@ class Offer:
     Offer ID.
     """
 
+    name: str
+    """
+    Offer name.
+    """
+
     billing_operation_path: str
     """
     Unique identifier used for billing.
@@ -380,6 +388,11 @@ class Offer:
     end_of_life: bool
     """
     Indicates if the offer has reached its end of life.
+    """
+
+    quota_warning: OfferOptionWarning
+    """
+    Defines a warning if the maximum value for an option in the offer is exceeded.
     """
 
     price: Optional[Money]
