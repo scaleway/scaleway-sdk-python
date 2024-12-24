@@ -1,0 +1,45 @@
+scaleway.test.v1 package
+========================
+
+Submodules
+----------
+
+scaleway.test.v1.api module
+---------------------------
+
+.. automodule:: scaleway.test.v1.api
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway.test.v1.content module
+-------------------------------
+
+.. automodule:: scaleway.test.v1.content
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway.test.v1.marshalling module
+-----------------------------------
+
+.. automodule:: scaleway.test.v1.marshalling
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway.test.v1.types module
+-----------------------------
+
+.. automodule:: scaleway.test.v1.types
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: scaleway.test.v1
+   :members:
+   :undoc-members:
+   :show-inheritance:

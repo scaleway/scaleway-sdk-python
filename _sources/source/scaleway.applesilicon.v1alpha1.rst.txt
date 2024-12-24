@@ -1,0 +1,45 @@
+scaleway.applesilicon.v1alpha1 package
+======================================
+
+Submodules
+----------
+
+scaleway.applesilicon.v1alpha1.api module
+-----------------------------------------
+
+.. automodule:: scaleway.applesilicon.v1alpha1.api
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway.applesilicon.v1alpha1.content module
+---------------------------------------------
+
+.. automodule:: scaleway.applesilicon.v1alpha1.content
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway.applesilicon.v1alpha1.marshalling module
+-------------------------------------------------
+
+.. automodule:: scaleway.applesilicon.v1alpha1.marshalling
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway.applesilicon.v1alpha1.types module
+-------------------------------------------
+
+.. automodule:: scaleway.applesilicon.v1alpha1.types
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: scaleway.applesilicon.v1alpha1
+   :members:
+   :undoc-members:
+   :show-inheritance:
