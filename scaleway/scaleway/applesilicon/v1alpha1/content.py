@@ -3,9 +3,16 @@
 from typing import List
 
 from .types import (
+    ServerPrivateNetworkStatus,
     ServerStatus,
 )
 
+SERVER_PRIVATE_NETWORK_TRANSIENT_STATUSES: List[ServerPrivateNetworkStatus] = [
+    ServerPrivateNetworkStatus.VPC_UPDATING,
+]
+"""
+Lists transient statutes of the enum :class:`ServerPrivateNetworkStatus <ServerPrivateNetworkStatus>`.
+"""
 SERVER_TRANSIENT_STATUSES: List[ServerStatus] = [
     ServerStatus.STARTING,
     ServerStatus.REBOOTING,

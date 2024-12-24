@@ -3,6 +3,8 @@
 from .types import ConnectivityDiagnosticActionType
 from .types import ConnectivityDiagnosticDiagnosticStatus
 from .types import ListServersRequestOrderBy
+from .types import ServerPrivateNetworkStatus
+from .content import SERVER_PRIVATE_NETWORK_TRANSIENT_STATUSES
 from .types import ServerStatus
 from .content import SERVER_TRANSIENT_STATUSES
 from .types import ServerTypeStock
@@ -39,6 +41,8 @@ __all__ = [
     "ConnectivityDiagnosticActionType",
     "ConnectivityDiagnosticDiagnosticStatus",
     "ListServersRequestOrderBy",
+    "ServerPrivateNetworkStatus",
+    "SERVER_PRIVATE_NETWORK_TRANSIENT_STATUSES",
     "ServerStatus",
     "SERVER_TRANSIENT_STATUSES",
     "ServerTypeStock",
