@@ -92,6 +92,12 @@ def unmarshal_SecretVersion(data: Any) -> SecretVersion:
     else:
         args["updated_at"] = None
 
+    field = data.get("deleted_at", None)
+    if field is not None:
+        args["deleted_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["deleted_at"] = None
+
     field = data.get("description", None)
     if field is not None:
         args["description"] = field

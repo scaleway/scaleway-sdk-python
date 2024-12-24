@@ -116,6 +116,7 @@ class ApplesiliconV1Alpha1API(API):
         self,
         *,
         type_: str,
+        enable_vpc: bool,
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -125,6 +126,7 @@ class ApplesiliconV1Alpha1API(API):
         Create a server.
         Create a new server in the targeted zone, specifying its configuration including name and type.
         :param type_: Create a server of the given type.
+        :param enable_vpc: Activate the Private Network feature for this server. This feature is configured through the Apple Silicon - Private Networks API.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: Create a server with this given name.
         :param project_id: Create a server in the given project ID.
@@ -136,6 +138,7 @@ class ApplesiliconV1Alpha1API(API):
 
             result = await api.create_server(
                 type="example",
+                enable_vpc=False,
             )
         """
 
@@ -147,6 +150,7 @@ class ApplesiliconV1Alpha1API(API):
             body=marshal_CreateServerRequest(
                 CreateServerRequest(
                     type_=type_,
+                    enable_vpc=enable_vpc,
                     zone=zone,
                     name=name or random_name(prefix="as"),
                     project_id=project_id,
@@ -432,6 +436,7 @@ class ApplesiliconV1Alpha1API(API):
         zone: Optional[Zone] = None,
         name: Optional[str] = None,
         schedule_deletion: Optional[bool] = None,
+        enable_vpc: Optional[bool] = None,
     ) -> Server:
         """
         Update a server.
@@ -440,6 +445,7 @@ class ApplesiliconV1Alpha1API(API):
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: Updated name for your server.
         :param schedule_deletion: Specify whether the server should be flagged for automatic deletion.
+        :param enable_vpc: Activate or deactivate Private Network support for this server.
         :return: :class:`Server <Server>`
 
         Usage:
@@ -462,6 +468,7 @@ class ApplesiliconV1Alpha1API(API):
                     zone=zone,
                     name=name,
                     schedule_deletion=schedule_deletion,
+                    enable_vpc=enable_vpc,
                 ),
                 self.client,
             ),
