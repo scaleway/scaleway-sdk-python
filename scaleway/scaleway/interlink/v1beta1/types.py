@@ -244,6 +244,11 @@ class Pop:
     Image URL of the PoP's logo.
     """
 
+    available_link_bandwidths_mbps: List[int]
+    """
+    Available bandwidth in Mbits/s for future hosted_links from available ports in this PoP.
+    """
+
     region: Region
     """
     Region of the PoP.
