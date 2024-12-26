@@ -1414,9 +1414,9 @@ class ExternalNode:
 
 @dataclass
 class ExternalNodeAuth:
-    node_token: str
+    node_secret_key: str
 
-    api_url: str
+    metadata_url: str
 
 
 @dataclass
