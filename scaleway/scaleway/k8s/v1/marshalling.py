@@ -724,13 +724,13 @@ def unmarshal_ExternalNodeAuth(data: Any) -> ExternalNodeAuth:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("node_token", None)
+    field = data.get("node_secret_key", None)
     if field is not None:
-        args["node_token"] = field
+        args["node_secret_key"] = field
 
-    field = data.get("api_url", None)
+    field = data.get("metadata_url", None)
     if field is not None:
-        args["api_url"] = field
+        args["metadata_url"] = field
 
     return ExternalNodeAuth(**args)
 
