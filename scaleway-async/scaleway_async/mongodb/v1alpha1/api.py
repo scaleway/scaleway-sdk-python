@@ -1174,6 +1174,43 @@ class MongodbV1Alpha1API(API):
         self._throw_on_error(res)
         return unmarshal_User(res.json())
 
+    async def delete_user(
+        self,
+        *,
+        instance_id: str,
+        name: str,
+        region: Optional[Region] = None,
+    ) -> None:
+        """
+        Delete a user on a Database Instance.
+        Delete an existing user on a Database Instance.
+        :param instance_id: UUID of the Database Instance the user belongs to.
+        :param name: Name of the database user.
+        :param region: Region to target. If none is passed will use default region from the config.
+
+        Usage:
+        ::
+
+            result = await api.delete_user(
+                instance_id="example",
+                name="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_instance_id = validate_path_param("instance_id", instance_id)
+        param_name = validate_path_param("name", name)
+
+        res = self._request(
+            "DELETE",
+            f"/mongodb/v1alpha1/regions/{param_region}/instances/{param_instance_id}/users/{param_name}",
+            body={},
+        )
+
+        self._throw_on_error(res)
+
     async def delete_endpoint(
         self,
         *,
