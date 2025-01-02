@@ -35,6 +35,7 @@ from .types import CreateUserRequest
 from .types import DeleteEndpointRequest
 from .types import DeleteInstanceRequest
 from .types import DeleteSnapshotRequest
+from .types import DeleteUserRequest
 from .types import GetInstanceCertificateRequest
 from .types import GetInstanceRequest
 from .types import GetSnapshotRequest
@@ -91,6 +92,7 @@ __all__ = [
     "DeleteEndpointRequest",
     "DeleteInstanceRequest",
     "DeleteSnapshotRequest",
+    "DeleteUserRequest",
     "GetInstanceCertificateRequest",
     "GetInstanceRequest",
     "GetSnapshotRequest",
