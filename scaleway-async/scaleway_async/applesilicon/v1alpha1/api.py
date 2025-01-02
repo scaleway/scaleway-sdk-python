@@ -1,7 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import Awaitable, List, Optional, Union
+from typing import Awaitable, Dict, List, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
@@ -15,33 +15,45 @@ from scaleway_core.utils import (
     wait_for_resource_async,
 )
 from .types import (
+    ListServerPrivateNetworksRequestOrderBy,
     ListServersRequestOrderBy,
     ConnectivityDiagnostic,
     CreateServerRequest,
     ListOSResponse,
+    ListServerPrivateNetworksResponse,
     ListServerTypesResponse,
     ListServersResponse,
     OS,
+    PrivateNetworkApiAddServerPrivateNetworkRequest,
+    PrivateNetworkApiSetServerPrivateNetworksRequest,
     ReinstallServerRequest,
     Server,
+    ServerPrivateNetwork,
     ServerType,
+    SetServerPrivateNetworksResponse,
     StartConnectivityDiagnosticRequest,
     StartConnectivityDiagnosticResponse,
     UpdateServerRequest,
 )
 from .content import (
+    SERVER_PRIVATE_NETWORK_SERVER_TRANSIENT_STATUSES,
     SERVER_TRANSIENT_STATUSES,
 )
 from .marshalling import (
     unmarshal_OS,
+    unmarshal_ServerPrivateNetwork,
     unmarshal_ServerType,
     unmarshal_Server,
     unmarshal_ConnectivityDiagnostic,
     unmarshal_ListOSResponse,
+    unmarshal_ListServerPrivateNetworksResponse,
     unmarshal_ListServerTypesResponse,
     unmarshal_ListServersResponse,
+    unmarshal_SetServerPrivateNetworksResponse,
     unmarshal_StartConnectivityDiagnosticResponse,
     marshal_CreateServerRequest,
+    marshal_PrivateNetworkApiAddServerPrivateNetworkRequest,
+    marshal_PrivateNetworkApiSetServerPrivateNetworksRequest,
     marshal_ReinstallServerRequest,
     marshal_StartConnectivityDiagnosticRequest,
     marshal_UpdateServerRequest,
@@ -647,3 +659,317 @@ class ApplesiliconV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ConnectivityDiagnostic(res.json())
+
+
+class ApplesiliconV1Alpha1PrivateNetworkAPI(API):
+    """
+    Apple silicon - Private Networks API.
+    """
+
+    async def get_server_private_network(
+        self,
+        *,
+        server_id: str,
+        private_network_id: str,
+        zone: Optional[Zone] = None,
+    ) -> ServerPrivateNetwork:
+        """
+        :param server_id:
+        :param private_network_id:
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :return: :class:`ServerPrivateNetwork <ServerPrivateNetwork>`
+
+        Usage:
+        ::
+
+            result = await api.get_server_private_network(
+                server_id="example",
+                private_network_id="example",
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_server_id = validate_path_param("server_id", server_id)
+        param_private_network_id = validate_path_param(
+            "private_network_id", private_network_id
+        )
+
+        res = self._request(
+            "GET",
+            f"/apple-silicon/v1alpha1/zones/{param_zone}/servers/{param_server_id}/private-networks/{param_private_network_id}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ServerPrivateNetwork(res.json())
+
+    async def wait_for_server_private_network(
+        self,
+        *,
+        server_id: str,
+        private_network_id: str,
+        zone: Optional[Zone] = None,
+        options: Optional[
+            WaitForOptions[ServerPrivateNetwork, Union[bool, Awaitable[bool]]]
+        ] = None,
+    ) -> ServerPrivateNetwork:
+        """
+        :param server_id:
+        :param private_network_id:
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :return: :class:`ServerPrivateNetwork <ServerPrivateNetwork>`
+
+        Usage:
+        ::
+
+            result = await api.get_server_private_network(
+                server_id="example",
+                private_network_id="example",
+            )
+        """
+
+        if not options:
+            options = WaitForOptions()
+
+        if not options.stop:
+            options.stop = (
+                lambda res: res.status
+                not in SERVER_PRIVATE_NETWORK_SERVER_TRANSIENT_STATUSES
+            )
+
+        return await wait_for_resource_async(
+            fetcher=self.get_server_private_network,
+            options=options,
+            args={
+                "server_id": server_id,
+                "private_network_id": private_network_id,
+                "zone": zone,
+            },
+        )
+
+    async def add_server_private_network(
+        self,
+        *,
+        server_id: str,
+        private_network_id: str,
+        zone: Optional[Zone] = None,
+        ipam_ip_ids: Optional[List[str]] = None,
+    ) -> ServerPrivateNetwork:
+        """
+        Add a server to a Private Network.
+        Add an Apple silicon server to a Private Network.
+        :param server_id: ID of the server.
+        :param private_network_id: ID of the Private Network.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param ipam_ip_ids: IPAM IDs of IPs to attach to the server.
+        :return: :class:`ServerPrivateNetwork <ServerPrivateNetwork>`
+
+        Usage:
+        ::
+
+            result = await api.add_server_private_network(
+                server_id="example",
+                private_network_id="example",
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_server_id = validate_path_param("server_id", server_id)
+
+        res = self._request(
+            "POST",
+            f"/apple-silicon/v1alpha1/zones/{param_zone}/servers/{param_server_id}/private-networks",
+            body=marshal_PrivateNetworkApiAddServerPrivateNetworkRequest(
+                PrivateNetworkApiAddServerPrivateNetworkRequest(
+                    server_id=server_id,
+                    private_network_id=private_network_id,
+                    zone=zone,
+                    ipam_ip_ids=ipam_ip_ids,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ServerPrivateNetwork(res.json())
+
+    async def set_server_private_networks(
+        self,
+        *,
+        server_id: str,
+        per_private_network_ipam_ip_ids: Dict[str, List[str]],
+        zone: Optional[Zone] = None,
+    ) -> SetServerPrivateNetworksResponse:
+        """
+        Set multiple Private Networks on a server.
+        Configure multiple Private Networks on an Apple silicon server.
+        :param server_id: ID of the server.
+        :param per_private_network_ipam_ip_ids: Object where the keys are the IDs of Private Networks and the values are arrays of IPAM IDs representing the IPs to assign to this Apple silicon server on the Private Network. If the array supplied for a Private Network is empty, the next available IP from the Private Network's CIDR block will automatically be used for attachment.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :return: :class:`SetServerPrivateNetworksResponse <SetServerPrivateNetworksResponse>`
+
+        Usage:
+        ::
+
+            result = await api.set_server_private_networks(
+                server_id="example",
+                per_private_network_ipam_ip_ids={},
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_server_id = validate_path_param("server_id", server_id)
+
+        res = self._request(
+            "PUT",
+            f"/apple-silicon/v1alpha1/zones/{param_zone}/servers/{param_server_id}/private-networks",
+            body=marshal_PrivateNetworkApiSetServerPrivateNetworksRequest(
+                PrivateNetworkApiSetServerPrivateNetworksRequest(
+                    server_id=server_id,
+                    per_private_network_ipam_ip_ids=per_private_network_ipam_ip_ids,
+                    zone=zone,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_SetServerPrivateNetworksResponse(res.json())
+
+    async def list_server_private_networks(
+        self,
+        *,
+        zone: Optional[Zone] = None,
+        order_by: Optional[ListServerPrivateNetworksRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        server_id: Optional[str] = None,
+        private_network_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
+        project_id: Optional[str] = None,
+        ipam_ip_ids: Optional[List[str]] = None,
+    ) -> ListServerPrivateNetworksResponse:
+        """
+        List the Private Networks of a server.
+        List the Private Networks of an Apple silicon server.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param order_by: Sort order for the returned Private Networks.
+        :param page: Page number for the returned Private Networks.
+        :param page_size: Maximum number of Private Networks per page.
+        :param server_id: Filter Private Networks by server ID.
+        :param private_network_id: Filter Private Networks by Private Network ID.
+        :param organization_id: Filter Private Networks by Organization ID.
+        :param project_id: Filter Private Networks by Project ID.
+        :param ipam_ip_ids: Filter Private Networks by IPAM IP IDs.
+        :return: :class:`ListServerPrivateNetworksResponse <ListServerPrivateNetworksResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_server_private_networks()
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+
+        res = self._request(
+            "GET",
+            f"/apple-silicon/v1alpha1/zones/{param_zone}/server-private-networks",
+            params={
+                "ipam_ip_ids": ipam_ip_ids,
+                "order_by": order_by,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+                "private_network_id": private_network_id,
+                "project_id": project_id or self.client.default_project_id,
+                "server_id": server_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListServerPrivateNetworksResponse(res.json())
+
+    async def list_server_private_networks_all(
+        self,
+        *,
+        zone: Optional[Zone] = None,
+        order_by: Optional[ListServerPrivateNetworksRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        server_id: Optional[str] = None,
+        private_network_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
+        project_id: Optional[str] = None,
+        ipam_ip_ids: Optional[List[str]] = None,
+    ) -> List[ServerPrivateNetwork]:
+        """
+        List the Private Networks of a server.
+        List the Private Networks of an Apple silicon server.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param order_by: Sort order for the returned Private Networks.
+        :param page: Page number for the returned Private Networks.
+        :param page_size: Maximum number of Private Networks per page.
+        :param server_id: Filter Private Networks by server ID.
+        :param private_network_id: Filter Private Networks by Private Network ID.
+        :param organization_id: Filter Private Networks by Organization ID.
+        :param project_id: Filter Private Networks by Project ID.
+        :param ipam_ip_ids: Filter Private Networks by IPAM IP IDs.
+        :return: :class:`List[ServerPrivateNetwork] <List[ServerPrivateNetwork]>`
+
+        Usage:
+        ::
+
+            result = await api.list_server_private_networks_all()
+        """
+
+        return await fetch_all_pages_async(
+            type=ListServerPrivateNetworksResponse,
+            key="server_private_networks",
+            fetcher=self.list_server_private_networks,
+            args={
+                "zone": zone,
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size,
+                "server_id": server_id,
+                "private_network_id": private_network_id,
+                "organization_id": organization_id,
+                "project_id": project_id,
+                "ipam_ip_ids": ipam_ip_ids,
+            },
+        )
+
+    async def delete_server_private_network(
+        self,
+        *,
+        server_id: str,
+        private_network_id: str,
+        zone: Optional[Zone] = None,
+    ) -> None:
+        """
+        Delete a Private Network.
+        :param server_id: ID of the server.
+        :param private_network_id: ID of the Private Network.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+
+        Usage:
+        ::
+
+            result = await api.delete_server_private_network(
+                server_id="example",
+                private_network_id="example",
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_server_id = validate_path_param("server_id", server_id)
+        param_private_network_id = validate_path_param(
+            "private_network_id", private_network_id
+        )
+
+        res = self._request(
+            "DELETE",
+            f"/apple-silicon/v1alpha1/zones/{param_zone}/servers/{param_server_id}/private-networks/{param_private_network_id}",
+        )
+
+        self._throw_on_error(res)
