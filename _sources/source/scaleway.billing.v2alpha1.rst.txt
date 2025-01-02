@@ -1,0 +1,37 @@
+scaleway.billing.v2alpha1 package
+=================================
+
+Submodules
+----------
+
+scaleway.billing.v2alpha1.api module
+------------------------------------
+
+.. automodule:: scaleway.billing.v2alpha1.api
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway.billing.v2alpha1.marshalling module
+--------------------------------------------
+
+.. automodule:: scaleway.billing.v2alpha1.marshalling
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway.billing.v2alpha1.types module
+--------------------------------------
+
+.. automodule:: scaleway.billing.v2alpha1.types
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: scaleway.billing.v2alpha1
+   :members:
+   :undoc-members:
+   :show-inheritance:
