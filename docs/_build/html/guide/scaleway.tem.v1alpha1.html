@@ -1,0 +1,653 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" />
+
+    <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+        <title>&lt;no title&gt; - Scaleway SDK Python 2.7.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">Scaleway SDK Python 2.7.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  
+  <span class="sidebar-brand-text">Scaleway SDK Python 2.7.0 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Scaleway SDK Python Documentations</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../autoapi/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../autoapi/scaleway/index.html">scaleway</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of scaleway</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/account/index.html">scaleway.account</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of scaleway.account</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/account/v2/index.html">scaleway.account.v2</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of scaleway.account.v2</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/account/v2/api/index.html">scaleway.account.v2.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/account/v2/types/index.html">scaleway.account.v2.types</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/account/v3/index.html">scaleway.account.v3</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of scaleway.account.v3</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/account/v3/api/index.html">scaleway.account.v3.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/account/v3/types/index.html">scaleway.account.v3.types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/applesilicon/index.html">scaleway.applesilicon</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of scaleway.applesilicon</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/applesilicon/v1alpha1/index.html">scaleway.applesilicon.v1alpha1</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of scaleway.applesilicon.v1alpha1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/applesilicon/v1alpha1/api/index.html">scaleway.applesilicon.v1alpha1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/applesilicon/v1alpha1/content/index.html">scaleway.applesilicon.v1alpha1.content</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/applesilicon/v1alpha1/types/index.html">scaleway.applesilicon.v1alpha1.types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/audit_trail/index.html">scaleway.audit_trail</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle navigation of scaleway.audit_trail</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/audit_trail/v1alpha1/index.html">scaleway.audit_trail.v1alpha1</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle navigation of scaleway.audit_trail.v1alpha1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/audit_trail/v1alpha1/api/index.html">scaleway.audit_trail.v1alpha1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/audit_trail/v1alpha1/types/index.html">scaleway.audit_trail.v1alpha1.types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/baremetal/index.html">scaleway.baremetal</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle navigation of scaleway.baremetal</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/baremetal/v1/index.html">scaleway.baremetal.v1</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><div class="visually-hidden">Toggle navigation of scaleway.baremetal.v1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/baremetal/v1/api/index.html">scaleway.baremetal.v1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/baremetal/v1/content/index.html">scaleway.baremetal.v1.content</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/baremetal/v1/types/index.html">scaleway.baremetal.v1.types</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/baremetal/v3/index.html">scaleway.baremetal.v3</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><div class="visually-hidden">Toggle navigation of scaleway.baremetal.v3</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/baremetal/v3/api/index.html">scaleway.baremetal.v3.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/baremetal/v3/content/index.html">scaleway.baremetal.v3.content</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/baremetal/v3/types/index.html">scaleway.baremetal.v3.types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/billing/index.html">scaleway.billing</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" role="switch" type="checkbox"/><label for="toctree-checkbox-13"><div class="visually-hidden">Toggle navigation of scaleway.billing</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/billing/v2alpha1/index.html">scaleway.billing.v2alpha1</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" role="switch" type="checkbox"/><label for="toctree-checkbox-14"><div class="visually-hidden">Toggle navigation of scaleway.billing.v2alpha1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/billing/v2alpha1/api/index.html">scaleway.billing.v2alpha1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/billing/v2alpha1/types/index.html">scaleway.billing.v2alpha1.types</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/billing/v2beta1/index.html">scaleway.billing.v2beta1</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" role="switch" type="checkbox"/><label for="toctree-checkbox-15"><div class="visually-hidden">Toggle navigation of scaleway.billing.v2beta1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/billing/v2beta1/api/index.html">scaleway.billing.v2beta1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/billing/v2beta1/types/index.html">scaleway.billing.v2beta1.types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/block/index.html">scaleway.block</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" role="switch" type="checkbox"/><label for="toctree-checkbox-16"><div class="visually-hidden">Toggle navigation of scaleway.block</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/block/v1alpha1/index.html">scaleway.block.v1alpha1</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><div class="visually-hidden">Toggle navigation of scaleway.block.v1alpha1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/block/v1alpha1/api/index.html">scaleway.block.v1alpha1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/block/v1alpha1/content/index.html">scaleway.block.v1alpha1.content</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/block/v1alpha1/types/index.html">scaleway.block.v1alpha1.types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/cockpit/index.html">scaleway.cockpit</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><div class="visually-hidden">Toggle navigation of scaleway.cockpit</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/cockpit/v1/index.html">scaleway.cockpit.v1</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle navigation of scaleway.cockpit.v1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/cockpit/v1/api/index.html">scaleway.cockpit.v1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/cockpit/v1/types/index.html">scaleway.cockpit.v1.types</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/cockpit/v1beta1/index.html">scaleway.cockpit.v1beta1</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" role="switch" type="checkbox"/><label for="toctree-checkbox-20"><div class="visually-hidden">Toggle navigation of scaleway.cockpit.v1beta1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/cockpit/v1beta1/api/index.html">scaleway.cockpit.v1beta1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/cockpit/v1beta1/content/index.html">scaleway.cockpit.v1beta1.content</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/cockpit/v1beta1/types/index.html">scaleway.cockpit.v1beta1.types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/container/index.html">scaleway.container</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" role="switch" type="checkbox"/><label for="toctree-checkbox-21"><div class="visually-hidden">Toggle navigation of scaleway.container</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/container/v1beta1/index.html">scaleway.container.v1beta1</a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" role="switch" type="checkbox"/><label for="toctree-checkbox-22"><div class="visually-hidden">Toggle navigation of scaleway.container.v1beta1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/container/v1beta1/api/index.html">scaleway.container.v1beta1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/container/v1beta1/content/index.html">scaleway.container.v1beta1.content</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/container/v1beta1/types/index.html">scaleway.container.v1beta1.types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/dedibox/index.html">scaleway.dedibox</a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" role="switch" type="checkbox"/><label for="toctree-checkbox-23"><div class="visually-hidden">Toggle navigation of scaleway.dedibox</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/dedibox/v1/index.html">scaleway.dedibox.v1</a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" role="switch" type="checkbox"/><label for="toctree-checkbox-24"><div class="visually-hidden">Toggle navigation of scaleway.dedibox.v1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/dedibox/v1/api/index.html">scaleway.dedibox.v1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/dedibox/v1/content/index.html">scaleway.dedibox.v1.content</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/dedibox/v1/types/index.html">scaleway.dedibox.v1.types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/document_db/index.html">scaleway.document_db</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" role="switch" type="checkbox"/><label for="toctree-checkbox-25"><div class="visually-hidden">Toggle navigation of scaleway.document_db</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/document_db/v1beta1/index.html">scaleway.document_db.v1beta1</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" role="switch" type="checkbox"/><label for="toctree-checkbox-26"><div class="visually-hidden">Toggle navigation of scaleway.document_db.v1beta1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/document_db/v1beta1/api/index.html">scaleway.document_db.v1beta1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/document_db/v1beta1/content/index.html">scaleway.document_db.v1beta1.content</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/document_db/v1beta1/types/index.html">scaleway.document_db.v1beta1.types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/domain/index.html">scaleway.domain</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle navigation of scaleway.domain</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/domain/v2beta1/index.html">scaleway.domain.v2beta1</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle navigation of scaleway.domain.v2beta1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/domain/v2beta1/api/index.html">scaleway.domain.v2beta1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/domain/v2beta1/content/index.html">scaleway.domain.v2beta1.content</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/domain/v2beta1/types/index.html">scaleway.domain.v2beta1.types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/edge_services/index.html">scaleway.edge_services</a><input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" role="switch" type="checkbox"/><label for="toctree-checkbox-29"><div class="visually-hidden">Toggle navigation of scaleway.edge_services</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/edge_services/v1alpha1/index.html">scaleway.edge_services.v1alpha1</a><input class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" role="switch" type="checkbox"/><label for="toctree-checkbox-30"><div class="visually-hidden">Toggle navigation of scaleway.edge_services.v1alpha1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/edge_services/v1alpha1/api/index.html">scaleway.edge_services.v1alpha1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/edge_services/v1alpha1/content/index.html">scaleway.edge_services.v1alpha1.content</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/edge_services/v1alpha1/types/index.html">scaleway.edge_services.v1alpha1.types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/flexibleip/index.html">scaleway.flexibleip</a><input class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" role="switch" type="checkbox"/><label for="toctree-checkbox-31"><div class="visually-hidden">Toggle navigation of scaleway.flexibleip</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/flexibleip/v1alpha1/index.html">scaleway.flexibleip.v1alpha1</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle navigation of scaleway.flexibleip.v1alpha1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/flexibleip/v1alpha1/api/index.html">scaleway.flexibleip.v1alpha1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/flexibleip/v1alpha1/content/index.html">scaleway.flexibleip.v1alpha1.content</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/flexibleip/v1alpha1/types/index.html">scaleway.flexibleip.v1alpha1.types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/function/index.html">scaleway.function</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" role="switch" type="checkbox"/><label for="toctree-checkbox-33"><div class="visually-hidden">Toggle navigation of scaleway.function</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/function/v1beta1/index.html">scaleway.function.v1beta1</a><input class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" role="switch" type="checkbox"/><label for="toctree-checkbox-34"><div class="visually-hidden">Toggle navigation of scaleway.function.v1beta1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/function/v1beta1/api/index.html">scaleway.function.v1beta1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/function/v1beta1/content/index.html">scaleway.function.v1beta1.content</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/function/v1beta1/types/index.html">scaleway.function.v1beta1.types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/iam/index.html">scaleway.iam</a><input class="toctree-checkbox" id="toctree-checkbox-35" name="toctree-checkbox-35" role="switch" type="checkbox"/><label for="toctree-checkbox-35"><div class="visually-hidden">Toggle navigation of scaleway.iam</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/iam/v1alpha1/index.html">scaleway.iam.v1alpha1</a><input class="toctree-checkbox" id="toctree-checkbox-36" name="toctree-checkbox-36" role="switch" type="checkbox"/><label for="toctree-checkbox-36"><div class="visually-hidden">Toggle navigation of scaleway.iam.v1alpha1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/iam/v1alpha1/api/index.html">scaleway.iam.v1alpha1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/iam/v1alpha1/types/index.html">scaleway.iam.v1alpha1.types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/inference/index.html">scaleway.inference</a><input class="toctree-checkbox" id="toctree-checkbox-37" name="toctree-checkbox-37" role="switch" type="checkbox"/><label for="toctree-checkbox-37"><div class="visually-hidden">Toggle navigation of scaleway.inference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/inference/v1beta1/index.html">scaleway.inference.v1beta1</a><input class="toctree-checkbox" id="toctree-checkbox-38" name="toctree-checkbox-38" role="switch" type="checkbox"/><label for="toctree-checkbox-38"><div class="visually-hidden">Toggle navigation of scaleway.inference.v1beta1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/inference/v1beta1/api/index.html">scaleway.inference.v1beta1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/inference/v1beta1/content/index.html">scaleway.inference.v1beta1.content</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/inference/v1beta1/types/index.html">scaleway.inference.v1beta1.types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/instance/index.html">scaleway.instance</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" role="switch" type="checkbox"/><label for="toctree-checkbox-39"><div class="visually-hidden">Toggle navigation of scaleway.instance</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/instance/v1/index.html">scaleway.instance.v1</a><input class="toctree-checkbox" id="toctree-checkbox-40" name="toctree-checkbox-40" role="switch" type="checkbox"/><label for="toctree-checkbox-40"><div class="visually-hidden">Toggle navigation of scaleway.instance.v1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/instance/v1/api/index.html">scaleway.instance.v1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/instance/v1/content/index.html">scaleway.instance.v1.content</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/instance/v1/types/index.html">scaleway.instance.v1.types</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/instance/v1/types_private/index.html">scaleway.instance.v1.types_private</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/iot/index.html">scaleway.iot</a><input class="toctree-checkbox" id="toctree-checkbox-41" name="toctree-checkbox-41" role="switch" type="checkbox"/><label for="toctree-checkbox-41"><div class="visually-hidden">Toggle navigation of scaleway.iot</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/iot/v1/index.html">scaleway.iot.v1</a><input class="toctree-checkbox" id="toctree-checkbox-42" name="toctree-checkbox-42" role="switch" type="checkbox"/><label for="toctree-checkbox-42"><div class="visually-hidden">Toggle navigation of scaleway.iot.v1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/iot/v1/api/index.html">scaleway.iot.v1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/iot/v1/content/index.html">scaleway.iot.v1.content</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/iot/v1/types/index.html">scaleway.iot.v1.types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/ipam/index.html">scaleway.ipam</a><input class="toctree-checkbox" id="toctree-checkbox-43" name="toctree-checkbox-43" role="switch" type="checkbox"/><label for="toctree-checkbox-43"><div class="visually-hidden">Toggle navigation of scaleway.ipam</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/ipam/v1/index.html">scaleway.ipam.v1</a><input class="toctree-checkbox" id="toctree-checkbox-44" name="toctree-checkbox-44" role="switch" type="checkbox"/><label for="toctree-checkbox-44"><div class="visually-hidden">Toggle navigation of scaleway.ipam.v1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/ipam/v1/api/index.html">scaleway.ipam.v1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/ipam/v1/types/index.html">scaleway.ipam.v1.types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/ipfs/index.html">scaleway.ipfs</a><input class="toctree-checkbox" id="toctree-checkbox-45" name="toctree-checkbox-45" role="switch" type="checkbox"/><label for="toctree-checkbox-45"><div class="visually-hidden">Toggle navigation of scaleway.ipfs</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/ipfs/v1alpha1/index.html">scaleway.ipfs.v1alpha1</a><input class="toctree-checkbox" id="toctree-checkbox-46" name="toctree-checkbox-46" role="switch" type="checkbox"/><label for="toctree-checkbox-46"><div class="visually-hidden">Toggle navigation of scaleway.ipfs.v1alpha1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/ipfs/v1alpha1/api/index.html">scaleway.ipfs.v1alpha1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/ipfs/v1alpha1/content/index.html">scaleway.ipfs.v1alpha1.content</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/ipfs/v1alpha1/types/index.html">scaleway.ipfs.v1alpha1.types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/jobs/index.html">scaleway.jobs</a><input class="toctree-checkbox" id="toctree-checkbox-47" name="toctree-checkbox-47" role="switch" type="checkbox"/><label for="toctree-checkbox-47"><div class="visually-hidden">Toggle navigation of scaleway.jobs</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/jobs/v1alpha1/index.html">scaleway.jobs.v1alpha1</a><input class="toctree-checkbox" id="toctree-checkbox-48" name="toctree-checkbox-48" role="switch" type="checkbox"/><label for="toctree-checkbox-48"><div class="visually-hidden">Toggle navigation of scaleway.jobs.v1alpha1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/jobs/v1alpha1/api/index.html">scaleway.jobs.v1alpha1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/jobs/v1alpha1/content/index.html">scaleway.jobs.v1alpha1.content</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/jobs/v1alpha1/types/index.html">scaleway.jobs.v1alpha1.types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/k8s/index.html">scaleway.k8s</a><input class="toctree-checkbox" id="toctree-checkbox-49" name="toctree-checkbox-49" role="switch" type="checkbox"/><label for="toctree-checkbox-49"><div class="visually-hidden">Toggle navigation of scaleway.k8s</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/k8s/v1/index.html">scaleway.k8s.v1</a><input class="toctree-checkbox" id="toctree-checkbox-50" name="toctree-checkbox-50" role="switch" type="checkbox"/><label for="toctree-checkbox-50"><div class="visually-hidden">Toggle navigation of scaleway.k8s.v1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/k8s/v1/api/index.html">scaleway.k8s.v1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/k8s/v1/content/index.html">scaleway.k8s.v1.content</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/k8s/v1/types/index.html">scaleway.k8s.v1.types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/key_manager/index.html">scaleway.key_manager</a><input class="toctree-checkbox" id="toctree-checkbox-51" name="toctree-checkbox-51" role="switch" type="checkbox"/><label for="toctree-checkbox-51"><div class="visually-hidden">Toggle navigation of scaleway.key_manager</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/key_manager/v1alpha1/index.html">scaleway.key_manager.v1alpha1</a><input class="toctree-checkbox" id="toctree-checkbox-52" name="toctree-checkbox-52" role="switch" type="checkbox"/><label for="toctree-checkbox-52"><div class="visually-hidden">Toggle navigation of scaleway.key_manager.v1alpha1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/key_manager/v1alpha1/api/index.html">scaleway.key_manager.v1alpha1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/key_manager/v1alpha1/types/index.html">scaleway.key_manager.v1alpha1.types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/lb/index.html">scaleway.lb</a><input class="toctree-checkbox" id="toctree-checkbox-53" name="toctree-checkbox-53" role="switch" type="checkbox"/><label for="toctree-checkbox-53"><div class="visually-hidden">Toggle navigation of scaleway.lb</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/lb/v1/index.html">scaleway.lb.v1</a><input class="toctree-checkbox" id="toctree-checkbox-54" name="toctree-checkbox-54" role="switch" type="checkbox"/><label for="toctree-checkbox-54"><div class="visually-hidden">Toggle navigation of scaleway.lb.v1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/lb/v1/api/index.html">scaleway.lb.v1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/lb/v1/content/index.html">scaleway.lb.v1.content</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/lb/v1/types/index.html">scaleway.lb.v1.types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/marketplace/index.html">scaleway.marketplace</a><input class="toctree-checkbox" id="toctree-checkbox-55" name="toctree-checkbox-55" role="switch" type="checkbox"/><label for="toctree-checkbox-55"><div class="visually-hidden">Toggle navigation of scaleway.marketplace</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/marketplace/v2/index.html">scaleway.marketplace.v2</a><input class="toctree-checkbox" id="toctree-checkbox-56" name="toctree-checkbox-56" role="switch" type="checkbox"/><label for="toctree-checkbox-56"><div class="visually-hidden">Toggle navigation of scaleway.marketplace.v2</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/marketplace/v2/api/index.html">scaleway.marketplace.v2.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/marketplace/v2/types/index.html">scaleway.marketplace.v2.types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/mnq/index.html">scaleway.mnq</a><input class="toctree-checkbox" id="toctree-checkbox-57" name="toctree-checkbox-57" role="switch" type="checkbox"/><label for="toctree-checkbox-57"><div class="visually-hidden">Toggle navigation of scaleway.mnq</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/mnq/v1beta1/index.html">scaleway.mnq.v1beta1</a><input class="toctree-checkbox" id="toctree-checkbox-58" name="toctree-checkbox-58" role="switch" type="checkbox"/><label for="toctree-checkbox-58"><div class="visually-hidden">Toggle navigation of scaleway.mnq.v1beta1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/mnq/v1beta1/api/index.html">scaleway.mnq.v1beta1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/mnq/v1beta1/types/index.html">scaleway.mnq.v1beta1.types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/mongodb/index.html">scaleway.mongodb</a><input class="toctree-checkbox" id="toctree-checkbox-59" name="toctree-checkbox-59" role="switch" type="checkbox"/><label for="toctree-checkbox-59"><div class="visually-hidden">Toggle navigation of scaleway.mongodb</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/mongodb/v1alpha1/index.html">scaleway.mongodb.v1alpha1</a><input class="toctree-checkbox" id="toctree-checkbox-60" name="toctree-checkbox-60" role="switch" type="checkbox"/><label for="toctree-checkbox-60"><div class="visually-hidden">Toggle navigation of scaleway.mongodb.v1alpha1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/mongodb/v1alpha1/api/index.html">scaleway.mongodb.v1alpha1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/mongodb/v1alpha1/content/index.html">scaleway.mongodb.v1alpha1.content</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/mongodb/v1alpha1/types/index.html">scaleway.mongodb.v1alpha1.types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/qaas/index.html">scaleway.qaas</a><input class="toctree-checkbox" id="toctree-checkbox-61" name="toctree-checkbox-61" role="switch" type="checkbox"/><label for="toctree-checkbox-61"><div class="visually-hidden">Toggle navigation of scaleway.qaas</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/qaas/v1alpha1/index.html">scaleway.qaas.v1alpha1</a><input class="toctree-checkbox" id="toctree-checkbox-62" name="toctree-checkbox-62" role="switch" type="checkbox"/><label for="toctree-checkbox-62"><div class="visually-hidden">Toggle navigation of scaleway.qaas.v1alpha1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/qaas/v1alpha1/api/index.html">scaleway.qaas.v1alpha1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/qaas/v1alpha1/content/index.html">scaleway.qaas.v1alpha1.content</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/qaas/v1alpha1/types/index.html">scaleway.qaas.v1alpha1.types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/rdb/index.html">scaleway.rdb</a><input class="toctree-checkbox" id="toctree-checkbox-63" name="toctree-checkbox-63" role="switch" type="checkbox"/><label for="toctree-checkbox-63"><div class="visually-hidden">Toggle navigation of scaleway.rdb</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/rdb/v1/index.html">scaleway.rdb.v1</a><input class="toctree-checkbox" id="toctree-checkbox-64" name="toctree-checkbox-64" role="switch" type="checkbox"/><label for="toctree-checkbox-64"><div class="visually-hidden">Toggle navigation of scaleway.rdb.v1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/rdb/v1/api/index.html">scaleway.rdb.v1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/rdb/v1/content/index.html">scaleway.rdb.v1.content</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/rdb/v1/types/index.html">scaleway.rdb.v1.types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/redis/index.html">scaleway.redis</a><input class="toctree-checkbox" id="toctree-checkbox-65" name="toctree-checkbox-65" role="switch" type="checkbox"/><label for="toctree-checkbox-65"><div class="visually-hidden">Toggle navigation of scaleway.redis</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/redis/v1/index.html">scaleway.redis.v1</a><input class="toctree-checkbox" id="toctree-checkbox-66" name="toctree-checkbox-66" role="switch" type="checkbox"/><label for="toctree-checkbox-66"><div class="visually-hidden">Toggle navigation of scaleway.redis.v1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/redis/v1/api/index.html">scaleway.redis.v1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/redis/v1/content/index.html">scaleway.redis.v1.content</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/redis/v1/types/index.html">scaleway.redis.v1.types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/registry/index.html">scaleway.registry</a><input class="toctree-checkbox" id="toctree-checkbox-67" name="toctree-checkbox-67" role="switch" type="checkbox"/><label for="toctree-checkbox-67"><div class="visually-hidden">Toggle navigation of scaleway.registry</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/registry/v1/index.html">scaleway.registry.v1</a><input class="toctree-checkbox" id="toctree-checkbox-68" name="toctree-checkbox-68" role="switch" type="checkbox"/><label for="toctree-checkbox-68"><div class="visually-hidden">Toggle navigation of scaleway.registry.v1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/registry/v1/api/index.html">scaleway.registry.v1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/registry/v1/content/index.html">scaleway.registry.v1.content</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/registry/v1/types/index.html">scaleway.registry.v1.types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/secret/index.html">scaleway.secret</a><input class="toctree-checkbox" id="toctree-checkbox-69" name="toctree-checkbox-69" role="switch" type="checkbox"/><label for="toctree-checkbox-69"><div class="visually-hidden">Toggle navigation of scaleway.secret</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/secret/v1alpha1/index.html">scaleway.secret.v1alpha1</a><input class="toctree-checkbox" id="toctree-checkbox-70" name="toctree-checkbox-70" role="switch" type="checkbox"/><label for="toctree-checkbox-70"><div class="visually-hidden">Toggle navigation of scaleway.secret.v1alpha1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/secret/v1alpha1/api/index.html">scaleway.secret.v1alpha1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/secret/v1alpha1/types/index.html">scaleway.secret.v1alpha1.types</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/secret/v1beta1/index.html">scaleway.secret.v1beta1</a><input class="toctree-checkbox" id="toctree-checkbox-71" name="toctree-checkbox-71" role="switch" type="checkbox"/><label for="toctree-checkbox-71"><div class="visually-hidden">Toggle navigation of scaleway.secret.v1beta1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/secret/v1beta1/api/index.html">scaleway.secret.v1beta1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/secret/v1beta1/types/index.html">scaleway.secret.v1beta1.types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/serverless_sqldb/index.html">scaleway.serverless_sqldb</a><input class="toctree-checkbox" id="toctree-checkbox-72" name="toctree-checkbox-72" role="switch" type="checkbox"/><label for="toctree-checkbox-72"><div class="visually-hidden">Toggle navigation of scaleway.serverless_sqldb</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/serverless_sqldb/v1alpha1/index.html">scaleway.serverless_sqldb.v1alpha1</a><input class="toctree-checkbox" id="toctree-checkbox-73" name="toctree-checkbox-73" role="switch" type="checkbox"/><label for="toctree-checkbox-73"><div class="visually-hidden">Toggle navigation of scaleway.serverless_sqldb.v1alpha1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/serverless_sqldb/v1alpha1/api/index.html">scaleway.serverless_sqldb.v1alpha1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/serverless_sqldb/v1alpha1/content/index.html">scaleway.serverless_sqldb.v1alpha1.content</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/serverless_sqldb/v1alpha1/types/index.html">scaleway.serverless_sqldb.v1alpha1.types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/std/index.html">scaleway.std</a><input class="toctree-checkbox" id="toctree-checkbox-74" name="toctree-checkbox-74" role="switch" type="checkbox"/><label for="toctree-checkbox-74"><div class="visually-hidden">Toggle navigation of scaleway.std</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/scaleway/std/api/index.html">scaleway.std.api</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../autoapi/scaleway/std/types/index.html">scaleway.std.types</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/tem/index.html">scaleway.tem</a><input class="toctree-checkbox" id="toctree-checkbox-75" name="toctree-checkbox-75" role="switch" type="checkbox"/><label for="toctree-checkbox-75"><div class="visually-hidden">Toggle navigation of scaleway.tem</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/tem/v1alpha1/index.html">scaleway.tem.v1alpha1</a><input class="toctree-checkbox" id="toctree-checkbox-76" name="toctree-checkbox-76" role="switch" type="checkbox"/><label for="toctree-checkbox-76"><div class="visually-hidden">Toggle navigation of scaleway.tem.v1alpha1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/tem/v1alpha1/api/index.html">scaleway.tem.v1alpha1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/tem/v1alpha1/content/index.html">scaleway.tem.v1alpha1.content</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/tem/v1alpha1/types/index.html">scaleway.tem.v1alpha1.types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/vpc/index.html">scaleway.vpc</a><input class="toctree-checkbox" id="toctree-checkbox-77" name="toctree-checkbox-77" role="switch" type="checkbox"/><label for="toctree-checkbox-77"><div class="visually-hidden">Toggle navigation of scaleway.vpc</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/vpc/v1/index.html">scaleway.vpc.v1</a><input class="toctree-checkbox" id="toctree-checkbox-78" name="toctree-checkbox-78" role="switch" type="checkbox"/><label for="toctree-checkbox-78"><div class="visually-hidden">Toggle navigation of scaleway.vpc.v1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/vpc/v1/api/index.html">scaleway.vpc.v1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/vpc/v1/types/index.html">scaleway.vpc.v1.types</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/vpc/v2/index.html">scaleway.vpc.v2</a><input class="toctree-checkbox" id="toctree-checkbox-79" name="toctree-checkbox-79" role="switch" type="checkbox"/><label for="toctree-checkbox-79"><div class="visually-hidden">Toggle navigation of scaleway.vpc.v2</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/vpc/v2/api/index.html">scaleway.vpc.v2.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/vpc/v2/types/index.html">scaleway.vpc.v2.types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/vpcgw/index.html">scaleway.vpcgw</a><input class="toctree-checkbox" id="toctree-checkbox-80" name="toctree-checkbox-80" role="switch" type="checkbox"/><label for="toctree-checkbox-80"><div class="visually-hidden">Toggle navigation of scaleway.vpcgw</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/vpcgw/v1/index.html">scaleway.vpcgw.v1</a><input class="toctree-checkbox" id="toctree-checkbox-81" name="toctree-checkbox-81" role="switch" type="checkbox"/><label for="toctree-checkbox-81"><div class="visually-hidden">Toggle navigation of scaleway.vpcgw.v1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/vpcgw/v1/api/index.html">scaleway.vpcgw.v1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/vpcgw/v1/content/index.html">scaleway.vpcgw.v1.content</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/vpcgw/v1/types/index.html">scaleway.vpcgw.v1.types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../autoapi/scaleway/webhosting/index.html">scaleway.webhosting</a><input class="toctree-checkbox" id="toctree-checkbox-82" name="toctree-checkbox-82" role="switch" type="checkbox"/><label for="toctree-checkbox-82"><div class="visually-hidden">Toggle navigation of scaleway.webhosting</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/webhosting/v1/index.html">scaleway.webhosting.v1</a><input class="toctree-checkbox" id="toctree-checkbox-83" name="toctree-checkbox-83" role="switch" type="checkbox"/><label for="toctree-checkbox-83"><div class="visually-hidden">Toggle navigation of scaleway.webhosting.v1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/webhosting/v1/api/index.html">scaleway.webhosting.v1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/webhosting/v1/content/index.html">scaleway.webhosting.v1.content</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/webhosting/v1/types/index.html">scaleway.webhosting.v1.types</a></li>
+</ul>
+</li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="../autoapi/scaleway/webhosting/v1alpha1/index.html">scaleway.webhosting.v1alpha1</a><input class="toctree-checkbox" id="toctree-checkbox-84" name="toctree-checkbox-84" role="switch" type="checkbox"/><label for="toctree-checkbox-84"><div class="visually-hidden">Toggle navigation of scaleway.webhosting.v1alpha1</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/webhosting/v1alpha1/api/index.html">scaleway.webhosting.v1alpha1.api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/webhosting/v1alpha1/content/index.html">scaleway.webhosting.v1alpha1.content</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../autoapi/scaleway/webhosting/v1alpha1/types/index.html">scaleway.webhosting.v1alpha1.types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../_sources/guide/scaleway.tem.v1alpha1.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, Scaleway
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=dfec817d"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
+    </body>
+</html>
