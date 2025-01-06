@@ -4,7 +4,6 @@ version = "2.7.0"
 description = ""
 authors = ["Scaleway <opensource@scaleway.com>"]
 license = "BSD"
-readme = "README.md"
 
 [tool.poetry.dependencies]
 python = ">=3.10"
