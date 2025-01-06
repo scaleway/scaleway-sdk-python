@@ -152,6 +152,8 @@ class OfferOptionName(str, Enum, metaclass=StrEnumMeta):
     RAM_GB = "ram_gb"
     BACKUP = "backup"
     DEDICATED_IP = "dedicated_ip"
+    EMAIL_STORAGE_GB = "email_storage_gb"
+    DATABASE_COUNT = "database_count"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -160,6 +162,7 @@ class OfferOptionName(str, Enum, metaclass=StrEnumMeta):
 class OfferOptionWarning(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_WARNING = "unknown_warning"
     QUOTA_EXCEEDED_WARNING = "quota_exceeded_warning"
+    USAGE_LOW_WARNING = "usage_low_warning"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -275,6 +278,13 @@ class OfferOptionRequest:
 
 
 @dataclass
+class SyncDomainDnsRecordsRequestRecord:
+    name: str
+
+    type_: DnsRecordType
+
+
+@dataclass
 class DnsRecord:
     name: str
     """
@@ -350,6 +360,11 @@ class Offer:
     Offer ID.
     """
 
+    name: str
+    """
+    Offer name.
+    """
+
     billing_operation_path: str
     """
     Unique identifier used for billing.
@@ -373,6 +388,11 @@ class Offer:
     end_of_life: bool
     """
     Indicates if the offer has reached its end of life.
+    """
+
+    quota_warning: OfferOptionWarning
+    """
+    Defines a warning if the maximum value for an option in the offer is exceeded.
     """
 
     price: Optional[Money]
@@ -856,6 +876,39 @@ class DnsApiGetDomainDnsRecordsRequest:
     region: Optional[Region]
     """
     Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class DnsApiSyncDomainDnsRecordsRequest:
+    domain: str
+    """
+    Domain for which the DNS records will be synchronized.
+    """
+
+    update_web_records: bool
+    """
+    Whether or not to synchronize the web records.
+    """
+
+    update_mail_records: bool
+    """
+    Whether or not to synchronize the mail records.
+    """
+
+    update_all_records: bool
+    """
+    Whether or not to synchronize all types of records. This one has priority.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    custom_records: Optional[List[SyncDomainDnsRecordsRequestRecord]]
+    """
+    Custom records to synchronize.
     """
 
 

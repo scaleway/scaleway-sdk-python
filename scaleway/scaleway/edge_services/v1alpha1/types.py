@@ -765,12 +765,12 @@ class GetBillingResponse:
 
     current_plan_cache_usage: int
     """
-    Total amount of data egressed from the cache in gigabytes from the beginning of the month, included in the active subscription plan.
+    Total amount of data egressed from the cache in gigabytes from the beginning of the month, for the active subscription plan.
     """
 
     extra_cache_usage: int
     """
-    Total amount of extra data egressed from cache in gigabytes from the beginning of the month, not included in the active subscription plan.
+    Total amount of extra data egressed from cache in gigabytes from the beginning of the month, not included in the subscription plans.
     """
 
     current_plan: Optional[PlanDetails]
@@ -785,12 +785,12 @@ class GetBillingResponse:
 
     extra_pipelines_cost: Optional[Money]
     """
-    Cost to date (this month) of pipelines not included in the subscription plan.
+    Cost to date (this month) of pipelines not included in the subscription plans.
     """
 
     extra_cache_cost: Optional[Money]
     """
-    Cost to date (this month) of the data egressed from the cache that is not included in the active subscription plan.
+    Cost to date (this month) of the data egressed from the cache that is not included in the subscription plans.
     """
 
     total_cost: Optional[Money]

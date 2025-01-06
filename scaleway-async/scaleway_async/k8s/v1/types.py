@@ -100,6 +100,14 @@ class ListClustersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 class ListNodesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
+    UPDATED_AT_ASC = "updated_at_asc"
+    UPDATED_AT_DESC = "updated_at_desc"
+    NAME_ASC = "name_asc"
+    NAME_DESC = "name_desc"
+    STATUS_ASC = "status_asc"
+    STATUS_DESC = "status_desc"
+    VERSION_ASC = "version_asc"
+    VERSION_DESC = "version_desc"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -243,7 +251,7 @@ class ClusterAutoscalerConfig:
 
     scale_down_delay_after_add: str
     """
-    How long after scale up that scale down evaluation resumes.
+    How long after scale up the scale down evaluation resumes.
     """
 
     estimator: AutoscalerEstimator
@@ -389,7 +397,7 @@ class Pool:
 
     container_runtime: Runtime
     """
-    Customization of the container runtime is available for each pool. Note that `docker` has been deprecated since version 1.20 and will be removed by version 1.24.
+    Customization of the container runtime is available for each pool.
     """
 
     autohealing: bool
@@ -399,7 +407,7 @@ class Pool:
 
     tags: List[str]
     """
-    Tags associated with the pool.
+    Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/containers/kubernetes/api-cli/managing-tags).
     """
 
     kubelet_args: Dict[str, str]
@@ -414,7 +422,10 @@ class Pool:
 
     root_volume_type: PoolVolumeType
     """
-    Defines the system volume disk type. Two different types of volume (`volume_type`) are provided: `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. `b_ssd` is a remote block storage which means your system is stored on a centralized and resilient cluster.
+    * `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. This type is not available for all node types
+* `sbs-5k` is a remote block storage which means your system is stored on a centralized and resilient cluster with 5k IOPS limits
+* `sbs-15k` is a faster remote block storage which means your system is stored on a centralized and resilient cluster with 15k IOPS limits
+* `b_ssd` is the legacy remote block storage which means your system is stored on a centralized and resilient cluster. Consider using `sbs-5k` or `sbs-15k` instead.
     """
 
     public_ip_disabled: bool
@@ -429,7 +440,7 @@ class Pool:
 
     placement_group_id: Optional[str]
     """
-    Placement group ID in which all the nodes of the pool will be created.
+    Placement group ID in which all the nodes of the pool will be created, placement groups are limited to 20 instances.
     """
 
     upgrade_policy: Optional[PoolUpgradePolicy]
@@ -504,7 +515,7 @@ class CreateClusterRequestAutoscalerConfig:
 
     scale_down_delay_after_add: Optional[str]
     """
-    How long after scale up that scale down evaluation resumes.
+    How long after scale up the scale down evaluation resumes.
     """
 
     ignore_daemonsets_utilization: Optional[bool]
@@ -600,12 +611,12 @@ class CreateClusterRequestPoolConfig:
 
     container_runtime: Runtime
     """
-    Customization of the container runtime is available for each pool. Note that `docker` has been deprecated since version 1.20 and will be removed by version 1.24.
+    Customization of the container runtime is available for each pool.
     """
 
     placement_group_id: Optional[str]
     """
-    Placement group ID in which all the nodes of the pool will be created.
+    Placement group ID in which all the nodes of the pool will be created, placement groups are limited to 20 instances.
     """
 
     min_size: Optional[int]
@@ -625,7 +636,7 @@ class CreateClusterRequestPoolConfig:
 
     tags: List[str]
     """
-    Tags associated with the pool.
+    Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/containers/kubernetes/api-cli/managing-tags).
     """
 
     kubelet_args: Dict[str, str]
@@ -640,7 +651,10 @@ class CreateClusterRequestPoolConfig:
 
     root_volume_type: PoolVolumeType
     """
-    Defines the system volume disk type. Two different types of volume (`volume_type`) are provided: `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. `b_ssd` is a remote block storage which means your system is stored on a centralized and resilient cluster.
+    * `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. This type is not available for all node types
+* `sbs-5k` is a remote block storage which means your system is stored on a centralized and resilient cluster with 5k IOPS limits
+* `sbs-15k` is a faster remote block storage which means your system is stored on a centralized and resilient cluster with 15k IOPS limits
+* `b_ssd` is the legacy remote block storage which means your system is stored on a centralized and resilient cluster. Consider using `sbs-5k` or `sbs-15k` instead.
     """
 
     public_ip_disabled: bool
@@ -865,7 +879,7 @@ class Cluster:
 
     auto_upgrade: Optional[ClusterAutoUpgrade]
     """
-    Auto upgrade configuration of the cluster.
+    Auto upgrade Kubernetes version of the cluster.
     """
 
     admission_plugins: List[str]
@@ -1013,7 +1027,7 @@ class UpdateClusterRequestAutoscalerConfig:
 
     scale_down_delay_after_add: Optional[str]
     """
-    How long after scale up that scale down evaluation resumes.
+    How long after scale up the scale down evaluation resumes.
     """
 
     ignore_daemonsets_utilization: Optional[bool]
@@ -1135,7 +1149,7 @@ class AuthExternalNodeRequest:
 class CreateClusterRequest:
     type_: str
     """
-    Type of the cluster (possible values are kapsule, multicloud, kapsule-dedicated-8, kapsule-dedicated-16).
+    Type of the cluster. See [list available cluster types](#list-available-cluster-types-for-a-cluster) for a list of valid types.
     """
 
     description: str
@@ -1257,7 +1271,7 @@ class CreatePoolRequest:
 
     placement_group_id: Optional[str]
     """
-    Placement group ID in which all the nodes of the pool will be created.
+    Placement group ID in which all the nodes of the pool will be created, placement groups are limited to 20 instances.
     """
 
     min_size: Optional[int]
@@ -1282,12 +1296,12 @@ class CreatePoolRequest:
 
     container_runtime: Optional[Runtime]
     """
-    Customization of the container runtime is available for each pool. Note that `docker` has been deprecated since version 1.20 and will be removed by version 1.24.
+    Customization of the container runtime is available for each pool.
     """
 
     tags: Optional[List[str]]
     """
-    Tags associated with the pool.
+    Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/containers/kubernetes/api-cli/managing-tags).
     """
 
     kubelet_args: Optional[Dict[str, str]]
@@ -1307,7 +1321,10 @@ class CreatePoolRequest:
 
     root_volume_type: Optional[PoolVolumeType]
     """
-    Defines the system volume disk type. Two different types of volume (`volume_type`) are provided: `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. `b_ssd` is a remote block storage which means your system is stored on a centralized and resilient cluster.
+    * `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. This type is not available for all node types
+* `sbs-5k` is a remote block storage which means your system is stored on a centralized and resilient cluster with 5k IOPS limits
+* `sbs-15k` is a faster remote block storage which means your system is stored on a centralized and resilient cluster with 15k IOPS limits
+* `b_ssd` is the legacy remote block storage which means your system is stored on a centralized and resilient cluster. Consider using `sbs-5k` or `sbs-15k` instead.
     """
 
     root_volume_size: Optional[int]
@@ -1414,9 +1431,9 @@ class ExternalNode:
 
 @dataclass
 class ExternalNodeAuth:
-    node_token: str
+    node_secret_key: str
 
-    api_url: str
+    metadata_url: str
 
 
 @dataclass
@@ -1833,12 +1850,6 @@ class NodeMetadata:
 
     node_taints: List[NodeMetadataCoreV1Taint]
 
-    private_network_mode: str
-
-    kapsule_iface_mac: str
-
-    full_isolation: bool
-
     has_gpu: bool
 
     external_ip: str
@@ -1963,7 +1974,7 @@ class UpdateClusterRequest:
 
     auto_upgrade: Optional[UpdateClusterRequestAutoUpgrade]
     """
-    New auto upgrade configuration for the cluster. Note that all fields need to be set.
+    New auto upgrade configuration for the cluster. Note that all fields needs to be set.
     """
 
     feature_gates: Optional[List[str]]

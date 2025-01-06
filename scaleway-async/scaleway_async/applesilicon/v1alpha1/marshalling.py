@@ -8,6 +8,7 @@ from scaleway_core.profile import ProfileDefaults
 from .types import (
     ConnectivityDiagnosticActionType,
     OS,
+    ServerPrivateNetwork,
     ServerTypeCPU,
     ServerTypeDisk,
     ServerTypeGPU,
@@ -18,10 +19,14 @@ from .types import (
     ConnectivityDiagnosticServerHealth,
     ConnectivityDiagnostic,
     ListOSResponse,
+    ListServerPrivateNetworksResponse,
     ListServerTypesResponse,
     ListServersResponse,
+    SetServerPrivateNetworksResponse,
     StartConnectivityDiagnosticResponse,
     CreateServerRequest,
+    PrivateNetworkApiAddServerPrivateNetworkRequest,
+    PrivateNetworkApiSetServerPrivateNetworksRequest,
     ReinstallServerRequest,
     StartConnectivityDiagnosticRequest,
     UpdateServerRequest,
@@ -73,6 +78,59 @@ def unmarshal_OS(data: Any) -> OS:
         args["compatible_server_types"] = field
 
     return OS(**args)
+
+
+def unmarshal_ServerPrivateNetwork(data: Any) -> ServerPrivateNetwork:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ServerPrivateNetwork' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+
+    field = data.get("project_id", None)
+    if field is not None:
+        args["project_id"] = field
+
+    field = data.get("server_id", None)
+    if field is not None:
+        args["server_id"] = field
+
+    field = data.get("private_network_id", None)
+    if field is not None:
+        args["private_network_id"] = field
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+
+    field = data.get("ipam_ip_ids", None)
+    if field is not None:
+        args["ipam_ip_ids"] = field
+
+    field = data.get("vlan", None)
+    if field is not None:
+        args["vlan"] = field
+    else:
+        args["vlan"] = None
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
+    return ServerPrivateNetwork(**args)
 
 
 def unmarshal_ServerTypeCPU(data: Any) -> ServerTypeCPU:
@@ -291,6 +349,10 @@ def unmarshal_Server(data: Any) -> Server:
     if field is not None:
         args["delivered"] = field
 
+    field = data.get("vpc_status", None)
+    if field is not None:
+        args["vpc_status"] = field
+
     field = data.get("os", None)
     if field is not None:
         args["os"] = unmarshal_OS(field)
@@ -421,6 +483,31 @@ def unmarshal_ListOSResponse(data: Any) -> ListOSResponse:
     return ListOSResponse(**args)
 
 
+def unmarshal_ListServerPrivateNetworksResponse(
+    data: Any,
+) -> ListServerPrivateNetworksResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListServerPrivateNetworksResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("server_private_networks", None)
+    if field is not None:
+        args["server_private_networks"] = (
+            [unmarshal_ServerPrivateNetwork(v) for v in field]
+            if field is not None
+            else None
+        )
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+
+    return ListServerPrivateNetworksResponse(**args)
+
+
 def unmarshal_ListServerTypesResponse(data: Any) -> ListServerTypesResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -459,6 +546,27 @@ def unmarshal_ListServersResponse(data: Any) -> ListServersResponse:
     return ListServersResponse(**args)
 
 
+def unmarshal_SetServerPrivateNetworksResponse(
+    data: Any,
+) -> SetServerPrivateNetworksResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'SetServerPrivateNetworksResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("server_private_networks", None)
+    if field is not None:
+        args["server_private_networks"] = (
+            [unmarshal_ServerPrivateNetwork(v) for v in field]
+            if field is not None
+            else None
+        )
+
+    return SetServerPrivateNetworksResponse(**args)
+
+
 def unmarshal_StartConnectivityDiagnosticResponse(
     data: Any,
 ) -> StartConnectivityDiagnosticResponse:
@@ -485,6 +593,9 @@ def marshal_CreateServerRequest(
     if request.type_ is not None:
         output["type"] = request.type_
 
+    if request.enable_vpc is not None:
+        output["enable_vpc"] = request.enable_vpc
+
     if request.name is not None:
         output["name"] = request.name
 
@@ -493,6 +604,35 @@ def marshal_CreateServerRequest(
 
     if request.os_id is not None:
         output["os_id"] = request.os_id
+
+    return output
+
+
+def marshal_PrivateNetworkApiAddServerPrivateNetworkRequest(
+    request: PrivateNetworkApiAddServerPrivateNetworkRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.private_network_id is not None:
+        output["private_network_id"] = request.private_network_id
+
+    if request.ipam_ip_ids is not None:
+        output["ipam_ip_ids"] = request.ipam_ip_ids
+
+    return output
+
+
+def marshal_PrivateNetworkApiSetServerPrivateNetworksRequest(
+    request: PrivateNetworkApiSetServerPrivateNetworksRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.per_private_network_ipam_ip_ids is not None:
+        output["per_private_network_ipam_ip_ids"] = {
+            key: value for key, value in request.per_private_network_ipam_ip_ids.items()
+        }
 
     return output
 
@@ -532,5 +672,8 @@ def marshal_UpdateServerRequest(
 
     if request.schedule_deletion is not None:
         output["schedule_deletion"] = request.schedule_deletion
+
+    if request.enable_vpc is not None:
+        output["enable_vpc"] = request.enable_vpc
 
     return output

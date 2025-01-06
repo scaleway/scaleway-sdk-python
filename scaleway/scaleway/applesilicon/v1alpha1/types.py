@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Dict, List, Optional
 
 from scaleway_core.bridge import (
     Zone,
@@ -33,9 +33,41 @@ class ConnectivityDiagnosticDiagnosticStatus(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ListServerPrivateNetworksRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+    UPDATED_AT_ASC = "updated_at_asc"
+    UPDATED_AT_DESC = "updated_at_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListServersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ServerPrivateNetworkServerStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATUS = "unknown_status"
+    ATTACHING = "attaching"
+    ATTACHED = "attached"
+    ERROR = "error"
+    DETACHING = "detaching"
+    LOCKED = "locked"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ServerPrivateNetworkStatus(str, Enum, metaclass=StrEnumMeta):
+    VPC_UNKNOWN_STATUS = "vpc_unknown_status"
+    VPC_ENABLED = "vpc_enabled"
+    VPC_UPDATING = "vpc_updating"
+    VPC_DISABLED = "vpc_disabled"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -165,6 +197,54 @@ class ConnectivityDiagnosticServerHealth:
 
 
 @dataclass
+class ServerPrivateNetwork:
+    id: str
+    """
+    ID of the Server-to-Private Network mapping.
+    """
+
+    project_id: str
+    """
+    Private Network Project ID.
+    """
+
+    server_id: str
+    """
+    Apple silicon server ID.
+    """
+
+    private_network_id: str
+    """
+    Private Network ID.
+    """
+
+    status: ServerPrivateNetworkServerStatus
+    """
+    Configuration status of the Private Network.
+    """
+
+    ipam_ip_ids: List[str]
+    """
+    IPAM IP IDs of the server, if it has any.
+    """
+
+    vlan: Optional[int]
+    """
+    ID of the VLAN associated with the Private Network.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Private Network creation date.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Date the Private Network was last modified.
+    """
+
+
+@dataclass
 class ServerType:
     name: str
     """
@@ -284,6 +364,11 @@ class Server:
     Set to true once the server has completed its provisioning steps and is ready to use. Some OS configurations might require a reinstallation of the server before delivery depending on the available stock. A reinstallation after the initial delivery will not change this flag and can be tracked using the server status.
     """
 
+    vpc_status: ServerPrivateNetworkStatus
+    """
+    Activation status of optional Private Network feature support for this server.
+    """
+
     os: Optional[OS]
     """
     Initially installed OS, this does not necessarily reflect the current OS version.
@@ -325,6 +410,11 @@ class CreateServerRequest:
     type_: str
     """
     Create a server of the given type.
+    """
+
+    enable_vpc: bool
+    """
+    Activate the Private Network feature for this server. This feature is configured through the Apple Silicon - Private Networks API.
     """
 
     zone: Optional[Zone]
@@ -452,6 +542,13 @@ class ListOSResponse:
 
 
 @dataclass
+class ListServerPrivateNetworksResponse:
+    server_private_networks: List[ServerPrivateNetwork]
+
+    total_count: int
+
+
+@dataclass
 class ListServerTypesRequest:
     zone: Optional[Zone]
     """
@@ -514,6 +611,125 @@ class ListServersResponse:
 
 
 @dataclass
+class PrivateNetworkApiAddServerPrivateNetworkRequest:
+    server_id: str
+    """
+    ID of the server.
+    """
+
+    private_network_id: str
+    """
+    ID of the Private Network.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    ipam_ip_ids: Optional[List[str]]
+    """
+    IPAM IDs of IPs to attach to the server.
+    """
+
+
+@dataclass
+class PrivateNetworkApiDeleteServerPrivateNetworkRequest:
+    server_id: str
+    """
+    ID of the server.
+    """
+
+    private_network_id: str
+    """
+    ID of the Private Network.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class PrivateNetworkApiGetServerPrivateNetworkRequest:
+    server_id: str
+
+    private_network_id: str
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class PrivateNetworkApiListServerPrivateNetworksRequest:
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    order_by: Optional[ListServerPrivateNetworksRequestOrderBy]
+    """
+    Sort order for the returned Private Networks.
+    """
+
+    page: Optional[int]
+    """
+    Page number for the returned Private Networks.
+    """
+
+    page_size: Optional[int]
+    """
+    Maximum number of Private Networks per page.
+    """
+
+    server_id: Optional[str]
+    """
+    Filter Private Networks by server ID.
+    """
+
+    private_network_id: Optional[str]
+    """
+    Filter Private Networks by Private Network ID.
+    """
+
+    organization_id: Optional[str]
+    """
+    Filter Private Networks by Organization ID.
+    """
+
+    project_id: Optional[str]
+    """
+    Filter Private Networks by Project ID.
+    """
+
+    ipam_ip_ids: Optional[List[str]]
+    """
+    Filter Private Networks by IPAM IP IDs.
+    """
+
+
+@dataclass
+class PrivateNetworkApiSetServerPrivateNetworksRequest:
+    server_id: str
+    """
+    ID of the server.
+    """
+
+    per_private_network_ipam_ip_ids: Dict[str, List[str]]
+    """
+    Object where the keys are the IDs of Private Networks and the values are arrays of IPAM IDs representing the IPs to assign to this Apple silicon server on the Private Network. If the array supplied for a Private Network is empty, the next available IP from the Private Network's CIDR block will automatically be used for attachment.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
 class RebootServerRequest:
     server_id: str
     """
@@ -542,6 +758,11 @@ class ReinstallServerRequest:
     """
     Reinstall the server with the target OS, when no os_id provided the default OS for the server type is used.
     """
+
+
+@dataclass
+class SetServerPrivateNetworksResponse:
+    server_private_networks: List[ServerPrivateNetwork]
 
 
 @dataclass
@@ -579,4 +800,9 @@ class UpdateServerRequest:
     schedule_deletion: Optional[bool]
     """
     Specify whether the server should be flagged for automatic deletion.
+    """
+
+    enable_vpc: Optional[bool]
+    """
+    Activate or deactivate Private Network support for this server.
     """

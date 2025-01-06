@@ -244,7 +244,7 @@ class K8SV1API(API):
         """
         Create a new Cluster.
         Create a new Kubernetes cluster in a Scaleway region.
-        :param type_: Type of the cluster (possible values are kapsule, multicloud, kapsule-dedicated-8, kapsule-dedicated-16).
+        :param type_: Type of the cluster. See [list available cluster types](#list-available-cluster-types-for-a-cluster) for a list of valid types.
         :param description: Cluster description.
         :param version: Kubernetes version of the cluster.
         :param region: Region to target. If none is passed will use default region from the config.
@@ -407,7 +407,7 @@ class K8SV1API(API):
         :param description: New description for the cluster.
         :param tags: New tags associated with the cluster.
         :param autoscaler_config: New autoscaler config for the cluster.
-        :param auto_upgrade: New auto upgrade configuration for the cluster. Note that all fields need to be set.
+        :param auto_upgrade: New auto upgrade configuration for the cluster. Note that all fields needs to be set.
         :param feature_gates: List of feature gates to enable.
         :param admission_plugins: List of admission plugins to enable.
         :param open_id_connect_config: OpenID Connect configuration of the cluster. This configuration enables to update the OpenID Connect configuration of the Kubernetes API server.
@@ -460,7 +460,7 @@ class K8SV1API(API):
     ) -> Cluster:
         """
         Delete a Cluster.
-        Delete a specific Kubernetes cluster and all its associated pools and nodes. Note that this method will not delete any Load Balancer or Block Volume that are associated with the cluster.
+        Delete a specific Kubernetes cluster and all its associated pools and nodes, and possibly its associated Load Balancers or Block Volumes.
         :param cluster_id: ID of the cluster to delete.
         :param with_additional_resources: Defines whether all volumes (including retain volume type), empty Private Networks and Load Balancers with a name starting with the cluster ID will also be deleted.
         :param region: Region to target. If none is passed will use default region from the config.
@@ -549,7 +549,7 @@ class K8SV1API(API):
     ) -> Cluster:
         """
         Change the Cluster type.
-        Change the type of a specific Kubernetes cluster. To see the possible values you can enter for the `type` field, [list available cluster types](#path-clusters-list-available-cluster-types-for-a-cluster).
+        Change the type of a specific Kubernetes cluster. To see the possible values you can enter for the `type` field, [list available cluster types](#list-available-cluster-types-for-a-cluster).
         :param cluster_id: ID of the cluster to migrate from one type to another.
         :param type_: Type of the cluster. Note that some migrations are not possible (please refer to product documentation).
         :param region: Region to target. If none is passed will use default region from the config.
@@ -701,7 +701,7 @@ class K8SV1API(API):
     ) -> None:
         """
         Reset the admin token of a Cluster.
-        Reset the admin token for a specific Kubernetes cluster. This will revoke the old admin token (which will not be usable afterwards) and create a new one. Note that you will need to download kubeconfig again to keep interacting with the cluster.
+        Reset the admin token for a specific Kubernetes cluster. This will revoke the old admin token (which will not be usable afterwards) and create a new one. Note that you will need to download the kubeconfig again to keep interacting with the cluster.
         :param cluster_id: Cluster ID on which the admin token will be renewed.
         :param region: Region to target. If none is passed will use default region from the config.
 
@@ -735,6 +735,7 @@ class K8SV1API(API):
         """
         Migrate a cluster to SBS CSI.
         Enable the latest CSI compatible with Scaleway Block Storage (SBS) and migrate all existing PersistentVolumes/VolumeSnapshotContents to SBS.
+        Make sure to have the necessary Quota before running this command.
         :param cluster_id: Cluster ID for which the latest CSI compatible with Scaleway Block Storage will be enabled.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Cluster <Cluster>`
@@ -1087,17 +1088,20 @@ class K8SV1API(API):
         :param autoscaling: Defines whether the autoscaling feature is enabled for the pool.
         :param size: Size (number of nodes) of the pool.
         :param name: Pool name.
-        :param placement_group_id: Placement group ID in which all the nodes of the pool will be created.
+        :param placement_group_id: Placement group ID in which all the nodes of the pool will be created, placement groups are limited to 20 instances.
         :param min_size: Defines the minimum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
         :param autohealing: Defines whether the autohealing feature is enabled for the pool.
         :param public_ip_disabled: Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway.
         :param max_size: Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
-        :param container_runtime: Customization of the container runtime is available for each pool. Note that `docker` has been deprecated since version 1.20 and will be removed by version 1.24.
-        :param tags: Tags associated with the pool.
+        :param container_runtime: Customization of the container runtime is available for each pool.
+        :param tags: Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/containers/kubernetes/api-cli/managing-tags).
         :param kubelet_args: Kubelet arguments to be used by this pool. Note that this feature is experimental.
         :param upgrade_policy: Pool upgrade policy.
         :param zone: Zone in which the pool's nodes will be spawned.
-        :param root_volume_type: Defines the system volume disk type. Two different types of volume (`volume_type`) are provided: `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. `b_ssd` is a remote block storage which means your system is stored on a centralized and resilient cluster.
+        :param root_volume_type: * `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. This type is not available for all node types
+        * `sbs-5k` is a remote block storage which means your system is stored on a centralized and resilient cluster with 5k IOPS limits
+        * `sbs-15k` is a faster remote block storage which means your system is stored on a centralized and resilient cluster with 15k IOPS limits
+        * `b_ssd` is the legacy remote block storage which means your system is stored on a centralized and resilient cluster. Consider using `sbs-5k` or `sbs-15k` instead.
         :param root_volume_size: System volume disk size.
         :return: :class:`Pool <Pool>`
 
@@ -1231,6 +1235,7 @@ class K8SV1API(API):
         """
         Upgrade a Pool in a Cluster.
         Upgrade the Kubernetes version of a specific pool. Note that it only works if the targeted version matches the cluster's version.
+        This will drain and replace the nodes in that pool.
         :param pool_id: ID of the pool to upgrade.
         :param version: New Kubernetes version for the pool.
         :param region: Region to target. If none is passed will use default region from the config.
@@ -1282,7 +1287,7 @@ class K8SV1API(API):
     ) -> Pool:
         """
         Update a Pool in a Cluster.
-        Update the attributes of a specific pool, such as its desired size, autoscaling settings, and tags.
+        Update the attributes of a specific pool, such as its desired size, autoscaling settings, and tags. To upgrade a pool, you will need to use the dedicated endpoint.
         :param pool_id: ID of the pool to update.
         :param region: Region to target. If none is passed will use default region from the config.
         :param autoscaling: New value for the pool autoscaling enablement.
@@ -1646,7 +1651,7 @@ class K8SV1API(API):
     ) -> Node:
         """
         Replace a Node in a Cluster.
-        Replace a specific Node. The node will first be cordoned (scheduling will be disabled on it). The existing pods on the node will then be drained and rescheduled onto another schedulable node. Note that when there is not enough space to reschedule all the pods (such as in a one-node cluster), disruption of your applications can be expected.
+        Replace a specific Node. The node will first be drained and pods will be rescheduled onto another node. Note that when there is not enough space to reschedule all the pods (such as in a one-node cluster, or with specific constraints), disruption of your applications may occur.
         :param node_id: ID of the node to replace.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Node <Node>`
@@ -1682,7 +1687,7 @@ class K8SV1API(API):
     ) -> Node:
         """
         Reboot a Node in a Cluster.
-        Reboot a specific Node. The node will first be cordoned (scheduling will be disabled on it). The existing pods on the node will then be drained and rescheduled onto another schedulable node. Note that when there is not enough space to reschedule all the pods (such as in a one-node cluster), disruption of your applications can be expected.
+        Reboot a specific Node. The node will first be drained and pods will be rescheduled onto another node. Note that when there is not enough space to reschedule all the pods (such as in a one-node cluster, or with specific constraints), disruption of your applications may occur.
         :param node_id: ID of the node to reboot.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Node <Node>`
@@ -1719,7 +1724,7 @@ class K8SV1API(API):
     ) -> Node:
         """
         Delete a Node in a Cluster.
-        Delete a specific Node. Note that when there is not enough space to reschedule all the pods (such as in a one-node cluster), disruption of your applications can be expected.
+        Delete a specific Node. The node will first be drained and pods will be rescheduled onto another node. Note that when there is not enough space to reschedule all the pods (such as in a one-node cluster, or with specific constraints), disruption of your applications may occur.
         :param node_id: ID of the node to replace.
         :param skip_drain: Skip draining node from its workload (Note: this parameter is currently inactive).
         :param replace: Add a new node after the deletion of this node.

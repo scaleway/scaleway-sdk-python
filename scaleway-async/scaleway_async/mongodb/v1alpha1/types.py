@@ -673,6 +673,24 @@ class DeleteSnapshotRequest:
 
 
 @dataclass
+class DeleteUserRequest:
+    instance_id: str
+    """
+    UUID of the Database Instance the user belongs to.
+    """
+
+    name: str
+    """
+    Name of the database user.
+    """
+
+    region: Optional[Region]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
 class GetInstanceCertificateRequest:
     instance_id: str
     """

@@ -49,6 +49,8 @@ from .types import (
     DatabaseApiCreateDatabaseUserRequest,
     DatabaseApiUnassignDatabaseUserRequest,
     DnsApiCheckUserOwnsDomainRequest,
+    SyncDomainDnsRecordsRequestRecord,
+    DnsApiSyncDomainDnsRecordsRequest,
     FtpAccountApiChangeFtpAccountPasswordRequest,
     FtpAccountApiCreateFtpAccountRequest,
     CreateHostingRequestDomainConfiguration,
@@ -364,6 +366,10 @@ def unmarshal_Offer(data: Any) -> Offer:
     if field is not None:
         args["id"] = field
 
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+
     field = data.get("billing_operation_path", None)
     if field is not None:
         args["billing_operation_path"] = field
@@ -385,6 +391,10 @@ def unmarshal_Offer(data: Any) -> Offer:
     field = data.get("end_of_life", None)
     if field is not None:
         args["end_of_life"] = field
+
+    field = data.get("quota_warning", None)
+    if field is not None:
+        args["quota_warning"] = field
 
     field = data.get("price", None)
     if field is not None:
@@ -935,6 +945,45 @@ def marshal_DnsApiCheckUserOwnsDomainRequest(
 
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id
+
+    return output
+
+
+def marshal_SyncDomainDnsRecordsRequestRecord(
+    request: SyncDomainDnsRecordsRequestRecord,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.name is not None:
+        output["name"] = request.name
+
+    if request.type_ is not None:
+        output["type"] = str(request.type_)
+
+    return output
+
+
+def marshal_DnsApiSyncDomainDnsRecordsRequest(
+    request: DnsApiSyncDomainDnsRecordsRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.update_web_records is not None:
+        output["update_web_records"] = request.update_web_records
+
+    if request.update_mail_records is not None:
+        output["update_mail_records"] = request.update_mail_records
+
+    if request.update_all_records is not None:
+        output["update_all_records"] = request.update_all_records
+
+    if request.custom_records is not None:
+        output["custom_records"] = [
+            marshal_SyncDomainDnsRecordsRequestRecord(item, defaults)
+            for item in request.custom_records
+        ]
 
     return output
 
