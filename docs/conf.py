@@ -44,8 +44,6 @@ autoapi_options = [
 ]
 autoapi_generate_api_docs = True
 
-autoapi_keep_files = True
-
 def contains(seq, item):
     return item in seq
 
