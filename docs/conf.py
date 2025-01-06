@@ -40,8 +40,6 @@ html_static_path = ['_static']
 autoapi_type = "python"
 autoapi_dirs = [
     os.path.abspath('../scaleway'),
-    os.path.abspath('../scaleway-async'),
-    os.path.abspath('../scaleway-core'),
 ]
 autoapi_template_dir = "_templates/autoapi"
 autoapi_options = [
@@ -55,7 +53,6 @@ autoapi_generate_api_docs = True
 
 def skip_submodules(app, what, name, obj, skip, options):
     if re.search("marshal*", name) or re.search("unmarshal*", name) or re.search("test*", name) or re.search("utils", name):
-        print("value of name: ", name, " obj: ", obj, "what: ", what)
         skip = True
     return skip
 
