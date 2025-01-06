@@ -1,4 +1,3 @@
-{% import 'macros.rst' as macros %}
 {% if obj.display %}
    {% if is_own_page %}
 {{ obj.id }}
@@ -82,7 +81,9 @@ Classes
 
 .. autoapisummary::
 
-         {{ macros.auto_summary(visible_classes, title="Classes") }}
+         {% for klass in visible_classes %}
+   {{ klass.id }}
+         {% endfor %}
 
 
       {% endif %}

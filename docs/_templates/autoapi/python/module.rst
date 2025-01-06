@@ -1,4 +1,3 @@
-{% import 'macros.rst' as macros %}
 {% if obj.display %}
    {% if is_own_page %}
 {{ obj.id }}
@@ -92,12 +91,16 @@ Classes
 .. toctree::
    :hidden:
 
-                    {{ macros.auto_summary(visible_classes, title="Classes") }}
+                     {% for klass in visible_classes %}
+   {{ klass.include_path }}
+                     {% endfor %}
 
                   {% endif %}
 .. autoapisummary::
 
-                  {{ macros.auto_summary(visible_classes, title="Classes") }}
+                  {% for klass in visible_classes %}
+   {{ klass.id }}
+                  {% endfor %}
                {% endif %}
 
 
