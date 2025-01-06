@@ -18,14 +18,8 @@ import os
 import re
 
 
-extensions = [
-    "sphinx.ext.autodoc",
-    "sphinx.ext.napoleon",
-    "sphinx.ext.intersphinx",
-    "sphinx.ext.todo",
-    "sphinx.ext.viewcode",
-    "autoapi.extension"
-]
+extensions = ["sphinx.ext.autodoc", "sphinx.ext.napoleon", "sphinx.ext.intersphinx", "sphinx.ext.todo",
+              "sphinx.ext.viewcode", "autoapi.extension"]
 
 templates_path = ["_templates"]
 
@@ -35,7 +29,6 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'furo'
-html_static_path = ['_static']
 
 autoapi_type = "python"
 autoapi_dirs = [
@@ -51,11 +44,25 @@ autoapi_options = [
 ]
 autoapi_generate_api_docs = True
 
+autoapi_keep_files = True
+
+def contains(seq, item):
+    return item in seq
+
+
+def prepare_jinja_env(jinja_env) -> None:
+    jinja_env.tests["contains"] = contains
+
+
+autoapi_prepare_jinja_env = prepare_jinja_env
+
+
 def skip_submodules(app, what, name, obj, skip, options):
     if re.search("marshal*", name) or re.search("unmarshal*", name) or re.search("test*", name) or re.search("utils", name):
         skip = True
     return skip
 
-
 def setup(sphinx):
     sphinx.connect("autoapi-skip-member", skip_submodules)
+
+
