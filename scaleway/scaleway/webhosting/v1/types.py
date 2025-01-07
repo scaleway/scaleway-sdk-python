@@ -154,6 +154,7 @@ class OfferOptionName(str, Enum, metaclass=StrEnumMeta):
     DEDICATED_IP = "dedicated_ip"
     EMAIL_STORAGE_GB = "email_storage_gb"
     DATABASE_COUNT = "database_count"
+    SUPPORT = "support"
 
     def __str__(self) -> str:
         return str(self.value)
