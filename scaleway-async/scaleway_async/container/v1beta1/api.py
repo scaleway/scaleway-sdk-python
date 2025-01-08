@@ -1156,8 +1156,8 @@ class ContainerV1Beta1API(API):
         order_by: Optional[ListDomainsRequestOrderBy] = None,
     ) -> ListDomainsResponse:
         """
-        List all domain name bindings.
-        List all domain name bindings in a specified region.
+        List all custom domains.
+        List all custom domains in a specified region.
         :param container_id: UUID of the container the domain belongs to.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number.
@@ -1201,8 +1201,8 @@ class ContainerV1Beta1API(API):
         order_by: Optional[ListDomainsRequestOrderBy] = None,
     ) -> List[Domain]:
         """
-        List all domain name bindings.
-        List all domain name bindings in a specified region.
+        List all custom domains.
+        List all custom domains in a specified region.
         :param container_id: UUID of the container the domain belongs to.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number.
@@ -1238,8 +1238,8 @@ class ContainerV1Beta1API(API):
         region: Optional[Region] = None,
     ) -> Domain:
         """
-        Get a domain name binding.
-        Get a domain name binding for the container with the specified ID.
+        Get a custom domain.
+        Get a custom domain for the container with the specified ID.
         :param domain_id: UUID of the domain to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Domain <Domain>`
@@ -1273,8 +1273,8 @@ class ContainerV1Beta1API(API):
         options: Optional[WaitForOptions[Domain, Union[bool, Awaitable[bool]]]] = None,
     ) -> Domain:
         """
-        Get a domain name binding.
-        Get a domain name binding for the container with the specified ID.
+        Get a custom domain.
+        Get a custom domain for the container with the specified ID.
         :param domain_id: UUID of the domain to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Domain <Domain>`
@@ -1310,8 +1310,8 @@ class ContainerV1Beta1API(API):
         region: Optional[Region] = None,
     ) -> Domain:
         """
-        Create a domain name binding.
-        Create a domain name binding for the container with the specified ID.
+        Create a custom domain.
+        Create a custom domain for the container with the specified ID.
         :param hostname: Domain to assign.
         :param container_id: UUID of the container to assign the domain to.
         :param region: Region to target. If none is passed will use default region from the config.
@@ -1353,8 +1353,8 @@ class ContainerV1Beta1API(API):
         region: Optional[Region] = None,
     ) -> Domain:
         """
-        Delete a domain name binding.
-        Delete the domain name binding with the specific ID.
+        Delete a custom domain.
+        Delete the custom domain with the specific ID.
         :param domain_id: UUID of the domain to delete.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Domain <Domain>`
