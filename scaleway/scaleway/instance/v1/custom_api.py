@@ -107,7 +107,6 @@ class InstanceUtilsV1API(InstanceV1API):
                 self.client,
             ),
         )
-        print("res from api: ", res.text)
         self._throw_on_error(res)
         return res.json()
 
@@ -132,18 +131,6 @@ class InstanceUtilsV1API(InstanceV1API):
             body=body,
             headers=headers,
         )
-        try:
-            response_text = res.text  # Expect plain text
-        except requests.exceptions.JSONDecodeError:
-            print(f"Failed to decode JSON. Response content: {res.text}")
-            response_text = None
 
         self._throw_on_error(res)
-        return response_text
-
-
-
-def test_method(self):
-    print("hello")
-
-InstanceV1API.test_method = test_method
+        return res.text
