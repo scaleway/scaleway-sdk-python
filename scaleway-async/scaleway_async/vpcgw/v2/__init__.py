@@ -15,10 +15,13 @@ from .types import GatewayType
 from .types import Gateway
 from .types import PatRule
 from .types import SetPatRulesRequestRule
+from .types import AddBastionAllowedIPsRequest
+from .types import AddBastionAllowedIPsResponse
 from .types import CreateGatewayNetworkRequest
 from .types import CreateGatewayRequest
 from .types import CreateIPRequest
 from .types import CreatePatRuleRequest
+from .types import DeleteBastionAllowedIPsRequest
 from .types import DeleteGatewayNetworkRequest
 from .types import DeleteGatewayRequest
 from .types import DeleteIPRequest
@@ -38,6 +41,8 @@ from .types import ListIPsResponse
 from .types import ListPatRulesRequest
 from .types import ListPatRulesResponse
 from .types import RefreshSSHKeysRequest
+from .types import SetBastionAllowedIPsRequest
+from .types import SetBastionAllowedIPsResponse
 from .types import SetPatRulesRequest
 from .types import SetPatRulesResponse
 from .types import UpdateGatewayNetworkRequest
@@ -63,10 +68,13 @@ __all__ = [
     "Gateway",
     "PatRule",
     "SetPatRulesRequestRule",
+    "AddBastionAllowedIPsRequest",
+    "AddBastionAllowedIPsResponse",
     "CreateGatewayNetworkRequest",
     "CreateGatewayRequest",
     "CreateIPRequest",
     "CreatePatRuleRequest",
+    "DeleteBastionAllowedIPsRequest",
     "DeleteGatewayNetworkRequest",
     "DeleteGatewayRequest",
     "DeleteIPRequest",
@@ -86,6 +94,8 @@ __all__ = [
     "ListPatRulesRequest",
     "ListPatRulesResponse",
     "RefreshSSHKeysRequest",
+    "SetBastionAllowedIPsRequest",
+    "SetBastionAllowedIPsResponse",
     "SetPatRulesRequest",
     "SetPatRulesResponse",
     "UpdateGatewayNetworkRequest",

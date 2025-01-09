@@ -22,6 +22,8 @@ from .types import (
     ListIPsRequestOrderBy,
     ListPatRulesRequestOrderBy,
     PatRuleProtocol,
+    AddBastionAllowedIPsRequest,
+    AddBastionAllowedIPsResponse,
     CreateGatewayNetworkRequest,
     CreateGatewayRequest,
     CreateIPRequest,
@@ -35,6 +37,8 @@ from .types import (
     ListIPsResponse,
     ListPatRulesResponse,
     PatRule,
+    SetBastionAllowedIPsRequest,
+    SetBastionAllowedIPsResponse,
     SetPatRulesRequest,
     SetPatRulesRequestRule,
     SetPatRulesResponse,
@@ -53,16 +57,20 @@ from .marshalling import (
     unmarshal_IP,
     unmarshal_Gateway,
     unmarshal_PatRule,
+    unmarshal_AddBastionAllowedIPsResponse,
     unmarshal_ListGatewayNetworksResponse,
     unmarshal_ListGatewayTypesResponse,
     unmarshal_ListGatewaysResponse,
     unmarshal_ListIPsResponse,
     unmarshal_ListPatRulesResponse,
+    unmarshal_SetBastionAllowedIPsResponse,
     unmarshal_SetPatRulesResponse,
+    marshal_AddBastionAllowedIPsRequest,
     marshal_CreateGatewayNetworkRequest,
     marshal_CreateGatewayRequest,
     marshal_CreateIPRequest,
     marshal_CreatePatRuleRequest,
+    marshal_SetBastionAllowedIPsRequest,
     marshal_SetPatRulesRequest,
     marshal_UpdateGatewayNetworkRequest,
     marshal_UpdateGatewayRequest,
@@ -1381,3 +1389,122 @@ class VpcgwV2API(API):
 
         self._throw_on_error(res)
         return unmarshal_Gateway(res.json())
+
+    def add_bastion_allowed_i_ps(
+        self,
+        *,
+        gateway_id: str,
+        ip_range: str,
+        zone: Optional[Zone] = None,
+    ) -> AddBastionAllowedIPsResponse:
+        """
+        Add allowed IP range to SSH bastion.
+        Add an IP range (in CIDR notation) to be allowed to connect to the SSH bastion.
+        :param gateway_id: ID of the gateway to add the allowed IP range to.
+        :param ip_range: IP range allowed to connect to the SSH bastion.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :return: :class:`AddBastionAllowedIPsResponse <AddBastionAllowedIPsResponse>`
+
+        Usage:
+        ::
+
+            result = api.add_bastion_allowed_i_ps(
+                gateway_id="example",
+                ip_range="example",
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_gateway_id = validate_path_param("gateway_id", gateway_id)
+
+        res = self._request(
+            "POST",
+            f"/vpc-gw/v2/zones/{param_zone}/gateways/{param_gateway_id}/bastion-allowed-ips",
+            body=marshal_AddBastionAllowedIPsRequest(
+                AddBastionAllowedIPsRequest(
+                    gateway_id=gateway_id,
+                    ip_range=ip_range,
+                    zone=zone,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_AddBastionAllowedIPsResponse(res.json())
+
+    def set_bastion_allowed_i_ps(
+        self,
+        *,
+        gateway_id: str,
+        zone: Optional[Zone] = None,
+        ip_ranges: Optional[List[str]] = None,
+    ) -> SetBastionAllowedIPsResponse:
+        """
+        Set all IP ranges allowed for SSH bastion.
+        Set a definitive list of IP ranges (in CIDR notation) allowed to connect to the SSH bastion.
+        :param gateway_id: ID of the gateway on which to set the allowed IP range.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param ip_ranges: New list of IP ranges (each range in CIDR notation) allowed to connect to the SSH bastion.
+        :return: :class:`SetBastionAllowedIPsResponse <SetBastionAllowedIPsResponse>`
+
+        Usage:
+        ::
+
+            result = api.set_bastion_allowed_i_ps(
+                gateway_id="example",
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_gateway_id = validate_path_param("gateway_id", gateway_id)
+
+        res = self._request(
+            "PUT",
+            f"/vpc-gw/v2/zones/{param_zone}/gateways/{param_gateway_id}/bastion-allowed-ips",
+            body=marshal_SetBastionAllowedIPsRequest(
+                SetBastionAllowedIPsRequest(
+                    gateway_id=gateway_id,
+                    zone=zone,
+                    ip_ranges=ip_ranges,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_SetBastionAllowedIPsResponse(res.json())
+
+    def delete_bastion_allowed_i_ps(
+        self,
+        *,
+        gateway_id: str,
+        ip_range: str,
+        zone: Optional[Zone] = None,
+    ) -> None:
+        """
+        Delete allowed IP range from SSH bastion.
+        Delete an IP range (defined in CIDR notation) from SSH bastion, so that it is no longer allowed to connect.
+        :param gateway_id: ID of the gateway on which to delete the allowed IP range.
+        :param ip_range: IP range to delete from SSH bastion's list of allowed IPs.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+
+        Usage:
+        ::
+
+            result = api.delete_bastion_allowed_i_ps(
+                gateway_id="example",
+                ip_range="example",
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_gateway_id = validate_path_param("gateway_id", gateway_id)
+        param_ip_range = validate_path_param("ip_range", ip_range)
+
+        res = self._request(
+            "DELETE",
+            f"/vpc-gw/v2/zones/{param_zone}/gateways/{param_gateway_id}/bastion-allowed-ips/{param_ip_range}",
+        )
+
+        self._throw_on_error(res)

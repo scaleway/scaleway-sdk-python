@@ -10,17 +10,21 @@ from .types import (
     IP,
     Gateway,
     PatRule,
+    AddBastionAllowedIPsResponse,
     ListGatewayNetworksResponse,
     GatewayType,
     ListGatewayTypesResponse,
     ListGatewaysResponse,
     ListIPsResponse,
     ListPatRulesResponse,
+    SetBastionAllowedIPsResponse,
     SetPatRulesResponse,
+    AddBastionAllowedIPsRequest,
     CreateGatewayNetworkRequest,
     CreateGatewayRequest,
     CreateIPRequest,
     CreatePatRuleRequest,
+    SetBastionAllowedIPsRequest,
     SetPatRulesRequestRule,
     SetPatRulesRequest,
     UpdateGatewayNetworkRequest,
@@ -183,6 +187,10 @@ def unmarshal_Gateway(data: Any) -> Gateway:
     if field is not None:
         args["status"] = field
 
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -194,10 +202,6 @@ def unmarshal_Gateway(data: Any) -> Gateway:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["updated_at"] = None
-
-    field = data.get("name", None)
-    if field is not None:
-        args["name"] = field
 
     field = data.get("tags", None)
     if field is not None:
@@ -212,22 +216,6 @@ def unmarshal_Gateway(data: Any) -> Gateway:
     field = data.get("bastion_enabled", None)
     if field is not None:
         args["bastion_enabled"] = field
-
-    field = data.get("bastion_port", None)
-    if field is not None:
-        args["bastion_port"] = field
-
-    field = data.get("smtp_enabled", None)
-    if field is not None:
-        args["smtp_enabled"] = field
-
-    field = data.get("is_legacy", None)
-    if field is not None:
-        args["is_legacy"] = field
-
-    field = data.get("zone", None)
-    if field is not None:
-        args["zone"] = field
 
     field = data.get("ipv4", None)
     if field is not None:
@@ -246,6 +234,26 @@ def unmarshal_Gateway(data: Any) -> Gateway:
         args["can_upgrade_to"] = field
     else:
         args["can_upgrade_to"] = None
+
+    field = data.get("bastion_port", None)
+    if field is not None:
+        args["bastion_port"] = field
+
+    field = data.get("smtp_enabled", None)
+    if field is not None:
+        args["smtp_enabled"] = field
+
+    field = data.get("is_legacy", None)
+    if field is not None:
+        args["is_legacy"] = field
+
+    field = data.get("bastion_allowed_ips", None)
+    if field is not None:
+        args["bastion_allowed_ips"] = field
+
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
 
     return Gateway(**args)
 
@@ -299,6 +307,21 @@ def unmarshal_PatRule(data: Any) -> PatRule:
         args["updated_at"] = None
 
     return PatRule(**args)
+
+
+def unmarshal_AddBastionAllowedIPsResponse(data: Any) -> AddBastionAllowedIPsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'AddBastionAllowedIPsResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("ip_ranges", None)
+    if field is not None:
+        args["ip_ranges"] = field
+
+    return AddBastionAllowedIPsResponse(**args)
 
 
 def unmarshal_ListGatewayNetworksResponse(data: Any) -> ListGatewayNetworksResponse:
@@ -423,6 +446,21 @@ def unmarshal_ListPatRulesResponse(data: Any) -> ListPatRulesResponse:
     return ListPatRulesResponse(**args)
 
 
+def unmarshal_SetBastionAllowedIPsResponse(data: Any) -> SetBastionAllowedIPsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'SetBastionAllowedIPsResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("ip_ranges", None)
+    if field is not None:
+        args["ip_ranges"] = field
+
+    return SetBastionAllowedIPsResponse(**args)
+
+
 def unmarshal_SetPatRulesResponse(data: Any) -> SetPatRulesResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -438,6 +476,18 @@ def unmarshal_SetPatRulesResponse(data: Any) -> SetPatRulesResponse:
         )
 
     return SetPatRulesResponse(**args)
+
+
+def marshal_AddBastionAllowedIPsRequest(
+    request: AddBastionAllowedIPsRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.ip_range is not None:
+        output["ip_range"] = request.ip_range
+
+    return output
 
 
 def marshal_CreateGatewayNetworkRequest(
@@ -532,6 +582,18 @@ def marshal_CreatePatRuleRequest(
 
     if request.protocol is not None:
         output["protocol"] = str(request.protocol)
+
+    return output
+
+
+def marshal_SetBastionAllowedIPsRequest(
+    request: SetBastionAllowedIPsRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.ip_ranges is not None:
+        output["ip_ranges"] = request.ip_ranges
 
     return output
 
