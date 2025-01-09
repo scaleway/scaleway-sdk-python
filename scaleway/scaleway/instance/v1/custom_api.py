@@ -1,5 +1,8 @@
 from dataclasses import dataclass
+from io import StringIO
 from typing import Dict, Any, Optional, BinaryIO
+
+import requests
 
 from scaleway_core.bridge import Zone
 from scaleway_core.profile import ProfileDefaults
@@ -47,7 +50,7 @@ class SetServerUserDataRequest:
     Key defines the user data key to set
     """
 
-    content: BinaryIO
+    content: str
     """
     Content defines the data to set
     """
@@ -104,11 +107,11 @@ class InstanceUtilsV1API(InstanceV1API):
                 self.client,
             ),
         )
-
+        print("res from api: ", res.text)
         self._throw_on_error(res)
         return res.json()
 
-    def set_server_user_data(self, server_id: str, key: str, content: BinaryIO, zone: Optional[Zone] = None):
+    def set_server_user_data(self, server_id: str, key: str, content: StringIO, zone: Optional[Zone] = None):
         """
         Sets the content of a user data on a server for the given key.
         :param zone: Zone to target. If none is passed, it will use the default zone from the config.
@@ -119,23 +122,24 @@ class InstanceUtilsV1API(InstanceV1API):
         """
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-
+        body = content.read()
+        headers = {
+            'Content-Type': 'text/plain',
+        }
         res = self._request(
             "PATCH",
             f"/instance/v1/zones/{param_zone}/servers/{param_server_id}/user_data/{key}",
-            body=marshal_SetServerUserDataRequest(
-                SetServerUserDataRequest(
-                    zone= zone,
-                    server_id= server_id,
-                    key=key,
-                    content=content,
-                ),
-                self.client,
-            ),
+            body=body,
+            headers=headers,
         )
+        try:
+            response_text = res.text  # Expect plain text
+        except requests.exceptions.JSONDecodeError:
+            print(f"Failed to decode JSON. Response content: {res.text}")
+            response_text = None
 
         self._throw_on_error(res)
-        return res.json()
+        return response_text
 
 
 
