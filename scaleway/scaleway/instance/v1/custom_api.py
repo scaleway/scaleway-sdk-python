@@ -1,105 +1,12 @@
-from dataclasses import dataclass
 from io import StringIO
-from typing import Dict, Any, Optional, BinaryIO
-
-import requests
+from typing import Optional
 
 from scaleway_core.bridge import Zone
-from scaleway_core.profile import ProfileDefaults
 from scaleway_core.utils import validate_path_param
 from .api import InstanceV1API
-
-@dataclass
-class GetServerUserDataRequest:
-    zone: Optional[Zone]
-    """
-    Zone of the user data to get
-    """
-
-    server_id: str
-
-    key: str
-    """
-    Key defines the user data key to get
-    """
-
-@dataclass
-class GetServerUserDataResponse:
-    server_id: str
-
-    key: str
-    """
-    Key of the user data
-    """
-
-    content: str
-
-def marshal_GetServerUserDataRequest(request: GetServerUserDataRequest, defaults: ProfileDefaults) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-
-    if request.server_id is not None:
-        output["server_id"] = request.server_id
-    if request.key is not None:
-        output["key"] = request.key
-    if request.zone is not None:
-        output["zone"] = request.zone
-
-    return output
-
-def unmarshal_GetServerUserDataResponse(data: Any) -> GetServerUserDataResponse:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'GetServerUserDataResponse' failed as data isn't a dictionary."
-        )
-    args: Dict[str, Any] = {}
-
-    field = data.get("server_id", None)
-    if field is not None:
-        args["server_id"] = field
-
-    field = data.get("key", None)
-    if field is not None:
-        args["key"] = field
-
-    field = data.get("content", None)
-    if field is not None:
-        args["content"] = field
-
-    return GetServerUserDataResponse(**args)
-
-
-@dataclass
-class SetServerUserDataRequest:
-    zone: Optional[Zone]
-    """
-    Zone of the user data to set
-    """
-
-    server_id: str
-
-    key: str
-    """
-    Key defines the user data key to set
-    """
-
-    content: StringIO
-    """
-    Content defines the data to set
-    """
-
-def marshal_SetServerUserDataRequest(request: SetServerUserDataRequest, defaults: ProfileDefaults) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-
-    if request.server_id is not None:
-        output["server_id"] = request.server_id
-    if request.key is not None:
-        output["key"] = request.key
-    if request.zone is not None:
-        output["zone"] = request.zone
-    if request.content is not None:
-        output["content"] = request.content.getvalue()
-
-    return output
+from .custom_marshalling import marshal_GetServerUserDataRequest, unmarshal_GetServerUserDataResponse, \
+    marshal_SetServerUserDataRequest
+from .custom_types import GetServerUserDataRequest, SetServerUserDataRequest
 
 
 class InstanceUtilsV1API(InstanceV1API):
