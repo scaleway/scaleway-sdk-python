@@ -23,6 +23,16 @@ class GetServerUserDataRequest:
     Key defines the user data key to get
     """
 
+@dataclass
+class GetServerUserDataResponse:
+    server_id: str
+
+    key: str
+    """
+    Key of the user data
+    """
+
+    content: str
 
 def marshal_GetServerUserDataRequest(request: GetServerUserDataRequest, defaults: ProfileDefaults) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
@@ -35,6 +45,28 @@ def marshal_GetServerUserDataRequest(request: GetServerUserDataRequest, defaults
         output["zone"] = request.zone
 
     return output
+
+def unmarshal_GetServerUserDataResponse(data: Any) -> GetServerUserDataResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'GetServerUserDataResponse' failed as data isn't a dictionary."
+        )
+    args: Dict[str, Any] = {}
+
+    field = data.get("server_id", None)
+    if field is not None:
+        args["server_id"] = field
+
+    field = data.get("key", None)
+    if field is not None:
+        args["key"] = field
+
+    field = data.get("content", None)
+    if field is not None:
+        args["content"] = field
+
+    return GetServerUserDataResponse(**args)
+
 
 @dataclass
 class SetServerUserDataRequest:
@@ -50,7 +82,7 @@ class SetServerUserDataRequest:
     Key defines the user data key to set
     """
 
-    content: str
+    content: StringIO
     """
     Content defines the data to set
     """
@@ -65,7 +97,7 @@ def marshal_SetServerUserDataRequest(request: SetServerUserDataRequest, defaults
     if request.zone is not None:
         output["zone"] = request.zone
     if request.content is not None:
-        output["content"] = request.content
+        output["content"] = request.content.getvalue()
 
     return output
 
@@ -108,7 +140,7 @@ class InstanceUtilsV1API(InstanceV1API):
             ),
         )
         self._throw_on_error(res)
-        return res.json()
+        return unmarshal_GetServerUserDataResponse(res.json())
 
     def set_server_user_data(self, server_id: str, key: str, content: StringIO, zone: Optional[Zone] = None):
         """
@@ -121,16 +153,20 @@ class InstanceUtilsV1API(InstanceV1API):
         """
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
-        body = content.read()
         headers = {
             'Content-Type': 'text/plain',
         }
         res = self._request(
             "PATCH",
             f"/instance/v1/zones/{param_zone}/servers/{param_server_id}/user_data/{key}",
-            body=body,
+            body=marshal_SetServerUserDataRequest(SetServerUserDataRequest(
+                zone=zone,
+                server_id=server_id,
+                content=content,
+                key=key,
+            ), self.client),
             headers=headers,
         )
 
         self._throw_on_error(res)
-        return res.text
+        return res
