@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from io import StringIO
 from typing import Optional
 
 from scaleway_core.bridge import Zone
@@ -46,7 +45,7 @@ class SetServerUserDataRequest:
     Key defines the user data key to set
     """
 
-    content: StringIO
+    content: bytes
     """
-    Content defines the data to set
+    Content defines the data to set as bytes
     """

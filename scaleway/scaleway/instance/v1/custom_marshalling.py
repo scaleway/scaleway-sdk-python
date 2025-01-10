@@ -50,6 +50,6 @@ def marshal_SetServerUserDataRequest(request: SetServerUserDataRequest, defaults
     if request.zone is not None:
         output["zone"] = request.zone
     if request.content is not None:
-        output["content"] = request.content.getvalue()
+        output["content"] = request.content.decode("utf-8")
 
     return output

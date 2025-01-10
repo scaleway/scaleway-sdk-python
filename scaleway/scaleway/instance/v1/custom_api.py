@@ -1,6 +1,4 @@
-from io import StringIO
 from typing import Optional
-
 from scaleway_core.bridge import Zone
 from scaleway_core.utils import validate_path_param
 from .api import InstanceV1API
@@ -39,8 +37,8 @@ class InstanceUtilsV1API(InstanceV1API):
             f"/instance/v1/zones/{param_zone}/servers/{param_server_id}/user_data/{key}",
             body=marshal_GetServerUserDataRequest(
                 GetServerUserDataRequest(
-                    zone= zone,
-                    server_id= server_id,
+                    zone=zone,
+                    server_id=server_id,
                     key=key,
                 ),
                 self.client,
@@ -49,13 +47,13 @@ class InstanceUtilsV1API(InstanceV1API):
         self._throw_on_error(res)
         return unmarshal_GetServerUserDataResponse(res.json())
 
-    def set_server_user_data(self, server_id: str, key: str, content: StringIO, zone: Optional[Zone] = None):
+    def set_server_user_data(self, server_id: str, key: str, content: bytes, zone: Optional[Zone] = None):
         """
         Sets the content of a user data on a server for the given key.
         :param zone: Zone to target. If none is passed, it will use the default zone from the config.
         :param server_id: The ID of the server.
         :param key: The user data key.
-        :param content: The content to set as user data.
+        :param content: The content to set as user data in bytes.
         :return: A plain text response confirming the operation.
         """
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
