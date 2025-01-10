@@ -259,6 +259,11 @@ class Gateway:
     Current status of the gateway.
     """
 
+    name: str
+    """
+    Name of the gateway.
+    """
+
     created_at: Optional[datetime]
     """
     Gateway creation date.
@@ -267,11 +272,6 @@ class Gateway:
     updated_at: Optional[datetime]
     """
     Gateway last modification date.
-    """
-
-    name: str
-    """
-    Name of the gateway.
     """
 
     tags: List[str]
@@ -289,6 +289,21 @@ class Gateway:
     Defines whether SSH bastion is enabled on the gateway.
     """
 
+    ipv4: Optional[IP]
+    """
+    Public IPv4 address of the gateway.
+    """
+
+    version: Optional[str]
+    """
+    Version of the running gateway software.
+    """
+
+    can_upgrade_to: Optional[str]
+    """
+    Newly available gateway software version that can be updated to.
+    """
+
     bastion_port: int
     """
     Port of the SSH bastion.
@@ -304,24 +319,14 @@ class Gateway:
     Defines whether the gateway uses non-IPAM IP configurations.
     """
 
+    bastion_allowed_ips: List[str]
+    """
+    Ranges of IP addresses allowed to connect to the gateway's SSH bastion.
+    """
+
     zone: Zone
     """
     Zone of the gateway.
-    """
-
-    ipv4: Optional[IP]
-    """
-    Public IPv4 address of the gateway.
-    """
-
-    version: Optional[str]
-    """
-    Version of the running gateway software.
-    """
-
-    can_upgrade_to: Optional[str]
-    """
-    Newly available gateway software version that can be updated to.
     """
 
 
@@ -393,6 +398,32 @@ class SetPatRulesRequestRule:
     protocol: PatRuleProtocol
     """
     Protocol the rule should apply to.
+    """
+
+
+@dataclass
+class AddBastionAllowedIPsRequest:
+    gateway_id: str
+    """
+    ID of the gateway to add the allowed IP range to.
+    """
+
+    ip_range: str
+    """
+    IP range allowed to connect to the SSH bastion.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class AddBastionAllowedIPsResponse:
+    ip_ranges: List[str]
+    """
+    Ranges of IP addresses allowed to connect to the gateway's SSH bastion.
     """
 
 
@@ -525,6 +556,24 @@ class CreatePatRuleRequest:
     protocol: Optional[PatRuleProtocol]
     """
     Protocol the rule should apply to.
+    """
+
+
+@dataclass
+class DeleteBastionAllowedIPsRequest:
+    gateway_id: str
+    """
+    ID of the gateway on which to delete the allowed IP range.
+    """
+
+    ip_range: str
+    """
+    IP range to delete from SSH bastion's list of allowed IPs.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
     """
 
 
@@ -907,6 +956,32 @@ class RefreshSSHKeysRequest:
     zone: Optional[Zone]
     """
     Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class SetBastionAllowedIPsRequest:
+    gateway_id: str
+    """
+    ID of the gateway on which to set the allowed IP range.
+    """
+
+    zone: Optional[Zone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    ip_ranges: Optional[List[str]]
+    """
+    New list of IP ranges (each range in CIDR notation) allowed to connect to the SSH bastion.
+    """
+
+
+@dataclass
+class SetBastionAllowedIPsResponse:
+    ip_ranges: List[str]
+    """
+    Ranges of IP addresses allowed to connect to the gateway's SSH bastion.
     """
 
 
