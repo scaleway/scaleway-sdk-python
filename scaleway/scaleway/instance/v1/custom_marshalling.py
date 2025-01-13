@@ -2,7 +2,6 @@ from typing import Dict, Any
 
 from scaleway.instance.v1.custom_types import (
     GetServerUserDataRequest,
-    GetServerUserDataResponse,
 )
 from scaleway_core.profile import ProfileDefaults
 
