@@ -15,14 +15,19 @@ from scaleway_core.utils import (
     wait_for_resource,
 )
 from .types import (
+    BlocklistType,
     DomainStatus,
     EmailFlag,
     EmailStatus,
+    ListBlocklistsRequestOrderBy,
     ListEmailsRequestOrderBy,
     ListWebhookEventsRequestOrderBy,
     ListWebhooksRequestOrderBy,
     WebhookEventStatus,
     WebhookEventType,
+    Blocklist,
+    BulkCreateBlocklistsRequest,
+    BulkCreateBlocklistsResponse,
     CreateDomainRequest,
     CreateEmailRequest,
     CreateEmailRequestAddress,
@@ -33,6 +38,7 @@ from .types import (
     Domain,
     DomainLastStatus,
     Email,
+    ListBlocklistsResponse,
     ListDomainsResponse,
     ListEmailsResponse,
     ListWebhookEventsResponse,
@@ -54,14 +60,17 @@ from .marshalling import (
     unmarshal_Email,
     unmarshal_Domain,
     unmarshal_Webhook,
+    unmarshal_BulkCreateBlocklistsResponse,
     unmarshal_CreateEmailResponse,
     unmarshal_DomainLastStatus,
+    unmarshal_ListBlocklistsResponse,
     unmarshal_ListDomainsResponse,
     unmarshal_ListEmailsResponse,
     unmarshal_ListWebhookEventsResponse,
     unmarshal_ListWebhooksResponse,
     unmarshal_ProjectSettings,
     unmarshal_Statistics,
+    marshal_BulkCreateBlocklistsRequest,
     marshal_CreateDomainRequest,
     marshal_CreateEmailRequest,
     marshal_CreateWebhookRequest,
@@ -1277,3 +1286,187 @@ class TemV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ProjectSettings(res.json())
+
+    def list_blocklists(
+        self,
+        *,
+        domain_id: str,
+        region: Optional[Region] = None,
+        order_by: Optional[ListBlocklistsRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        email: Optional[str] = None,
+        type_: Optional[BlocklistType] = None,
+        custom: Optional[bool] = None,
+    ) -> ListBlocklistsResponse:
+        """
+        List blocklists.
+        Retrieve the list of blocklists.
+        :param domain_id: (Optional) Filter by a domain ID.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param order_by: (Optional) List blocklist corresponding to specific criteria.
+        :param page: (Optional) Requested page number. Value must be greater or equal to 1.
+        :param page_size: (Optional) Requested page size. Value must be between 1 and 100.
+        :param email: (Optional) Filter by an email address.
+        :param type_: (Optional) Filter by a blocklist type.
+        :param custom: (Optional) Filter by custom blocklist (true) or automatic Transactional Email blocklist (false).
+        :return: :class:`ListBlocklistsResponse <ListBlocklistsResponse>`
+
+        Usage:
+        ::
+
+            result = api.list_blocklists(
+                domain_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/transactional-email/v1alpha1/regions/{param_region}/blocklists",
+            params={
+                "custom": custom,
+                "domain_id": domain_id,
+                "email": email,
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+                "type": type_,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListBlocklistsResponse(res.json())
+
+    def list_blocklists_all(
+        self,
+        *,
+        domain_id: str,
+        region: Optional[Region] = None,
+        order_by: Optional[ListBlocklistsRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        email: Optional[str] = None,
+        type_: Optional[BlocklistType] = None,
+        custom: Optional[bool] = None,
+    ) -> List[Blocklist]:
+        """
+        List blocklists.
+        Retrieve the list of blocklists.
+        :param domain_id: (Optional) Filter by a domain ID.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param order_by: (Optional) List blocklist corresponding to specific criteria.
+        :param page: (Optional) Requested page number. Value must be greater or equal to 1.
+        :param page_size: (Optional) Requested page size. Value must be between 1 and 100.
+        :param email: (Optional) Filter by an email address.
+        :param type_: (Optional) Filter by a blocklist type.
+        :param custom: (Optional) Filter by custom blocklist (true) or automatic Transactional Email blocklist (false).
+        :return: :class:`List[Blocklist] <List[Blocklist]>`
+
+        Usage:
+        ::
+
+            result = api.list_blocklists_all(
+                domain_id="example",
+            )
+        """
+
+        return fetch_all_pages(
+            type=ListBlocklistsResponse,
+            key="blocklists",
+            fetcher=self.list_blocklists,
+            args={
+                "domain_id": domain_id,
+                "region": region,
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size,
+                "email": email,
+                "type_": type_,
+                "custom": custom,
+            },
+        )
+
+    def bulk_create_blocklists(
+        self,
+        *,
+        domain_id: str,
+        region: Optional[Region] = None,
+        emails: Optional[List[str]] = None,
+        type_: Optional[BlocklistType] = None,
+        reason: Optional[str] = None,
+    ) -> BulkCreateBlocklistsResponse:
+        """
+        Bulk create blocklists.
+        Create multiple blocklists in a specific Project or Organization using the `region` parameter.
+        :param domain_id: Domain ID linked to the blocklist.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param emails: Email blocked by the blocklist.
+        :param type_: Type of blocklist.
+        :param reason: Reason to block the email.
+        :return: :class:`BulkCreateBlocklistsResponse <BulkCreateBlocklistsResponse>`
+
+        Usage:
+        ::
+
+            result = api.bulk_create_blocklists(
+                domain_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "POST",
+            f"/transactional-email/v1alpha1/regions/{param_region}/blocklists",
+            body=marshal_BulkCreateBlocklistsRequest(
+                BulkCreateBlocklistsRequest(
+                    domain_id=domain_id,
+                    region=region,
+                    emails=emails,
+                    type_=type_,
+                    reason=reason,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_BulkCreateBlocklistsResponse(res.json())
+
+    def delete_blocklist(
+        self,
+        *,
+        blocklist_id: str,
+        region: Optional[Region] = None,
+    ) -> None:
+        """
+        Delete a blocklist.
+        You must specify the blocklist you want to delete by the `region` and `blocklist_id`.
+        :param blocklist_id: ID of the blocklist to delete.
+        :param region: Region to target. If none is passed will use default region from the config.
+
+        Usage:
+        ::
+
+            result = api.delete_blocklist(
+                blocklist_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_blocklist_id = validate_path_param("blocklist_id", blocklist_id)
+
+        res = self._request(
+            "DELETE",
+            f"/transactional-email/v1alpha1/regions/{param_region}/blocklists/{param_blocklist_id}",
+        )
+
+        self._throw_on_error(res)
