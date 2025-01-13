@@ -124,6 +124,8 @@ class API:
 
         if body is None:
             body = {}
+
+        raw_body: Union[bytes, str]
         if isinstance(body, bytes):
             raw_body = body
         else:
