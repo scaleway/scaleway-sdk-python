@@ -29,23 +29,3 @@ class GetServerUserDataResponse:
     """
 
     content: str
-
-
-@dataclass
-class SetServerUserDataRequest:
-    zone: Optional[Zone]
-    """
-    Zone of the user data to set
-    """
-
-    server_id: str
-
-    key: str
-    """
-    Key defines the user data key to set
-    """
-
-    content: bytes
-    """
-    Content defines the data to set as bytes
-    """

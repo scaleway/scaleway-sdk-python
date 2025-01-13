@@ -2,9 +2,8 @@ from typing import Optional
 from scaleway_core.bridge import Zone
 from scaleway_core.utils import validate_path_param
 from .api import InstanceV1API
-from .custom_marshalling import marshal_GetServerUserDataRequest, unmarshal_GetServerUserDataResponse, \
-    marshal_SetServerUserDataRequest
-from .custom_types import GetServerUserDataRequest, SetServerUserDataRequest
+from .custom_marshalling import marshal_GetServerUserDataRequest
+from .custom_types import GetServerUserDataRequest
 
 
 class InstanceUtilsV1API(InstanceV1API):
@@ -45,7 +44,7 @@ class InstanceUtilsV1API(InstanceV1API):
             ),
         )
         self._throw_on_error(res)
-        return unmarshal_GetServerUserDataResponse(res.json())
+        return res
 
     def set_server_user_data(self, server_id: str, key: str, content: bytes, zone: Optional[Zone] = None):
         """
@@ -64,12 +63,7 @@ class InstanceUtilsV1API(InstanceV1API):
         res = self._request(
             "PATCH",
             f"/instance/v1/zones/{param_zone}/servers/{param_server_id}/user_data/{key}",
-            body=marshal_SetServerUserDataRequest(SetServerUserDataRequest(
-                zone=zone,
-                server_id=server_id,
-                content=content,
-                key=key,
-            ), self.client),
+            body=content,
             headers=headers,
         )
 
