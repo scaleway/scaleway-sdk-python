@@ -12,7 +12,9 @@ class InstanceUtilsV1API(InstanceV1API):
     such as getting and setting server user data, while inheriting all methods of InstanceV1API.
     """
 
-    def get_server_user_data(self, server_id: str, key: str, zone: Optional[Zone] = None):
+    def get_server_user_data(
+        self, server_id: str, key: str, zone: Optional[Zone] = None
+    ):
         """
         GetServerUserData gets the content of a user data on a server for the given key.
         :param zone: Zone to target. If none is passed will use default zone from the config.
@@ -46,7 +48,9 @@ class InstanceUtilsV1API(InstanceV1API):
         self._throw_on_error(res)
         return res
 
-    def set_server_user_data(self, server_id: str, key: str, content: bytes, zone: Optional[Zone] = None):
+    def set_server_user_data(
+        self, server_id: str, key: str, content: bytes, zone: Optional[Zone] = None
+    ):
         """
         Sets the content of a user data on a server for the given key.
         :param zone: Zone to target. If none is passed, it will use the default zone from the config.
@@ -58,7 +62,7 @@ class InstanceUtilsV1API(InstanceV1API):
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
         headers = {
-            'Content-Type': 'text/plain',
+            "Content-Type": "text/plain",
         }
         res = self._request(
             "PATCH",

@@ -3,6 +3,7 @@ from typing import Optional
 
 from scaleway_core.bridge import Zone
 
+
 @dataclass
 class GetServerUserDataRequest:
     zone: Optional[Zone]
