@@ -122,8 +122,8 @@ class API:
         if method == "POST" or method == "PUT" or method == "PATCH":
             additional_headers["Content-Type"] = "application/json; charset=utf-8"
 
-            if body is None:
-                body = {}
+        if body is None:
+            body = {}
         if isinstance(body, bytes):
             raw_body = body
         else:

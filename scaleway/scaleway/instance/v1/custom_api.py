@@ -1,4 +1,7 @@
 from typing import Optional
+
+from requests import Response
+
 from scaleway_core.bridge import Zone
 from scaleway_core.utils import validate_path_param
 from .api import InstanceV1API
@@ -14,7 +17,7 @@ class InstanceUtilsV1API(InstanceV1API):
 
     def get_server_user_data(
         self, server_id: str, key: str, zone: Optional[Zone] = None
-    ):
+    ) -> Response:
         """
         GetServerUserData gets the content of a user data on a server for the given key.
         :param zone: Zone to target. If none is passed will use default zone from the config.
@@ -50,7 +53,7 @@ class InstanceUtilsV1API(InstanceV1API):
 
     def set_server_user_data(
         self, server_id: str, key: str, content: bytes, zone: Optional[Zone] = None
-    ):
+    ) -> Response:
         """
         Sets the content of a user data on a server for the given key.
         :param zone: Zone to target. If none is passed, it will use the default zone from the config.
