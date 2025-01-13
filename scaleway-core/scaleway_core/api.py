@@ -157,7 +157,9 @@ class API:
             url=url,
             params=request_params,
             headers=headers,
-            body=raw_body.decode("utf-8", errors="replace") if isinstance(raw_body, bytes) else raw_body,
+            body=raw_body.decode("utf-8", errors="replace")
+            if isinstance(raw_body, bytes)
+            else raw_body,
         )
         response = requests.request(
             method=method,
