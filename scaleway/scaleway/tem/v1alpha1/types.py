@@ -77,6 +77,7 @@ class EmailFlag(str, Enum, metaclass=StrEnumMeta):
     MAILBOX_NOT_FOUND = "mailbox_not_found"
     GREYLISTED = "greylisted"
     SEND_BEFORE_EXPIRATION = "send_before_expiration"
+    BLOCKLISTED = "blocklisted"
 
     def __str__(self) -> str:
         return str(self.value)
