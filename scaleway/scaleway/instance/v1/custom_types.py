@@ -1,12 +1,12 @@
 from dataclasses import dataclass
 from typing import Optional, Dict
 
-from scaleway_core.bridge import Zone
+from scaleway_core.bridge import Zone as ScwZone
 
 
 @dataclass
 class GetServerUserDataRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone of the user data to get
     """
@@ -18,22 +18,25 @@ class GetServerUserDataRequest:
     Key defines the user data key to get
     """
 
+
 @dataclass
 class GetAllServerUserDataRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone of the user data to get
     """
 
     server_id: str
 
+
 @dataclass
 class GetAllServerUserDataResponse:
     user_data: Dict[str, bytes]
 
+
 @dataclass
 class SetAllServerUserDataRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone of the user data to set
     """

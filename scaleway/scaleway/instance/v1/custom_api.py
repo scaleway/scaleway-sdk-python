@@ -1,6 +1,5 @@
 from typing import Optional, Dict
 
-from mypy.semanal import names_modified_in_lvalue
 from requests import Response
 
 from scaleway_core.bridge import Zone as ScwZone
@@ -78,15 +77,21 @@ class InstanceUtilsV1API(InstanceV1API):
         self._throw_on_error(res)
         return res
 
-    def get_all_server_user_data(self, server_id: str, zone: Optional[ScwZone] = None) -> GetAllServerUserDataResponse:
+    def get_all_server_user_data(
+        self, server_id: str, zone: Optional[ScwZone] = None
+    ) -> GetAllServerUserDataResponse:
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
 
-        all_user_data_res = InstanceUtilsV1API.list_server_user_data(self, server_id=param_server_id, zone=param_zone)
+        all_user_data_res = InstanceUtilsV1API.list_server_user_data(
+            self, server_id=param_server_id, zone=param_zone
+        )
 
-        user_data: Dict[str,bytes] = {}
+        user_data: Dict[str, bytes] = {}
         for key in all_user_data_res.user_data:
-            value = InstanceUtilsV1API.get_server_user_data(self, server_id=param_server_id, key=key)
+            value = InstanceUtilsV1API.get_server_user_data(
+                self, server_id=param_server_id, key=key
+            )
             print("value: ", value)
             user_data[key] = value.content
 
@@ -94,20 +99,32 @@ class InstanceUtilsV1API(InstanceV1API):
 
         return res
 
-    def set_all_server_user_data(self, server_id: str, user_data: Dict[str, bytes], zone: Optional[ScwZone] = None):
+    def set_all_server_user_data(
+        self,
+        server_id: str,
+        user_data: Dict[str, bytes],
+        zone: Optional[ScwZone] = None,
+    ) -> Optional[None]:
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_server_id = validate_path_param("server_id", server_id)
 
-        all_user_data_res = InstanceUtilsV1API.list_server_user_data(self, server_id=param_server_id, zone=param_zone)
+        all_user_data_res = InstanceUtilsV1API.list_server_user_data(
+            self, server_id=param_server_id, zone=param_zone
+        )
         for key in all_user_data_res.user_data:
             if user_data.get(key) is not None:
                 continue
-            InstanceUtilsV1API.delete_server_user_data(self, server_id=param_server_id, key=key)
+            InstanceUtilsV1API.delete_server_user_data(
+                self, server_id=param_server_id, key=key
+            )
 
         for key in user_data:
-            InstanceUtilsV1API.set_server_user_data(self, server_id=param_server_id, zone=param_zone, key=key, content=user_data[key])
+            InstanceUtilsV1API.set_server_user_data(
+                self,
+                server_id=param_server_id,
+                zone=param_zone,
+                key=key,
+                content=user_data[key],
+            )
 
-
-
-
-
+        return None
