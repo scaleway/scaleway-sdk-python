@@ -1,12 +1,13 @@
-from typing import Optional
+from typing import Optional, Dict
 
+from mypy.semanal import names_modified_in_lvalue
 from requests import Response
 
 from scaleway_core.bridge import Zone
 from scaleway_core.utils import validate_path_param
 from .api import InstanceV1API
 from .custom_marshalling import marshal_GetServerUserDataRequest
-from .custom_types import GetServerUserDataRequest
+from .custom_types import GetServerUserDataRequest, GetAllServerUserDataResponse
 
 
 class InstanceUtilsV1API(InstanceV1API):
@@ -76,3 +77,22 @@ class InstanceUtilsV1API(InstanceV1API):
 
         self._throw_on_error(res)
         return res
+
+    def get_all_server_user_data(self, server_id: str, zone: Optional[Zone] = None) -> GetAllServerUserDataResponse:
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_server_id = validate_path_param("server_id", server_id)
+
+        all_user_data_res = InstanceUtilsV1API.list_server_user_data(self, server_id=param_server_id, zone=param_zone)
+
+        user_data: Dict[str,bytes] = {}
+        for key in all_user_data_res.user_data:
+            value = InstanceUtilsV1API.get_server_user_data(self, server_id=param_server_id, key=key)
+            print("value: ", value)
+            user_data[key] = value.content
+
+        res = GetAllServerUserDataResponse(user_data=user_data)
+
+        return res
+
+
+
