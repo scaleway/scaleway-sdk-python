@@ -2,7 +2,7 @@ from typing import Dict, Any
 
 from scaleway.instance.v1.custom_types import (
     GetServerUserDataRequest,
-    ListServerUserDataRequest,
+    GetAllServerUserDataRequest,
 )
 from scaleway_core.profile import ProfileDefaults
 
@@ -21,7 +21,7 @@ def marshal_GetServerUserDataRequest(
 
     return output
 
-def marshal_ListServerUserDataRequest(request: ListServerUserDataRequest, defaults: ProfileDefaults) -> Dict[str, Any]:
+def marshal_ListServerUserDataRequest(request: GetAllServerUserDataRequest, defaults: ProfileDefaults) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
     if request.server_id is not None:

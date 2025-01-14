@@ -19,7 +19,7 @@ class GetServerUserDataRequest:
     """
 
 @dataclass
-class ListServerUserDataRequest:
+class GetAllServerUserDataRequest:
     zone: Optional[Zone]
     """
     Zone of the user data to get
@@ -29,4 +29,15 @@ class ListServerUserDataRequest:
 
 @dataclass
 class GetAllServerUserDataResponse:
+    user_data: Dict[str, bytes]
+
+@dataclass
+class SetAllServerUserDataRequest:
+    zone: Optional[Zone]
+    """
+    Zone of the user data to set
+    """
+
+    server_id: str
+
     user_data: Dict[str, bytes]
