@@ -5,7 +5,7 @@ from typing import Awaitable, Dict, List, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Zone,
+    Zone as ScwZone,
 )
 from scaleway_core.utils import (
     WaitForOptions,
@@ -68,7 +68,7 @@ class ApplesiliconV1Alpha1API(API):
     async def list_server_types(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> ListServerTypesResponse:
         """
         List server types.
@@ -96,7 +96,7 @@ class ApplesiliconV1Alpha1API(API):
         self,
         *,
         server_type: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> ServerType:
         """
         Get a server type.
@@ -129,7 +129,7 @@ class ApplesiliconV1Alpha1API(API):
         *,
         type_: str,
         enable_vpc: bool,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         project_id: Optional[str] = None,
         os_id: Optional[str] = None,
@@ -178,7 +178,7 @@ class ApplesiliconV1Alpha1API(API):
     async def list_servers(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         order_by: Optional[ListServersRequestOrderBy] = None,
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
@@ -223,7 +223,7 @@ class ApplesiliconV1Alpha1API(API):
     async def list_servers_all(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         order_by: Optional[ListServersRequestOrderBy] = None,
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
@@ -264,7 +264,7 @@ class ApplesiliconV1Alpha1API(API):
     async def list_os(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         server_type: Optional[str] = None,
@@ -305,7 +305,7 @@ class ApplesiliconV1Alpha1API(API):
     async def list_os_all(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         server_type: Optional[str] = None,
@@ -344,7 +344,7 @@ class ApplesiliconV1Alpha1API(API):
         self,
         *,
         os_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> OS:
         """
         Get an Operating System (OS).
@@ -376,7 +376,7 @@ class ApplesiliconV1Alpha1API(API):
         self,
         *,
         server_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Server:
         """
         Get a server.
@@ -408,7 +408,7 @@ class ApplesiliconV1Alpha1API(API):
         self,
         *,
         server_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         options: Optional[WaitForOptions[Server, Union[bool, Awaitable[bool]]]] = None,
     ) -> Server:
         """
@@ -445,7 +445,7 @@ class ApplesiliconV1Alpha1API(API):
         self,
         *,
         server_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         schedule_deletion: Optional[bool] = None,
         enable_vpc: Optional[bool] = None,
@@ -493,7 +493,7 @@ class ApplesiliconV1Alpha1API(API):
         self,
         *,
         server_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Delete a server.
@@ -523,7 +523,7 @@ class ApplesiliconV1Alpha1API(API):
         self,
         *,
         server_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Server:
         """
         Reboot a server.
@@ -556,7 +556,7 @@ class ApplesiliconV1Alpha1API(API):
         self,
         *,
         server_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         os_id: Optional[str] = None,
     ) -> Server:
         """
@@ -598,7 +598,7 @@ class ApplesiliconV1Alpha1API(API):
         self,
         *,
         server_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> StartConnectivityDiagnosticResponse:
         """
         :param server_id:
@@ -634,7 +634,7 @@ class ApplesiliconV1Alpha1API(API):
         self,
         *,
         diagnostic_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> ConnectivityDiagnostic:
         """
         :param diagnostic_id:
@@ -671,7 +671,7 @@ class ApplesiliconV1Alpha1PrivateNetworkAPI(API):
         *,
         server_id: str,
         private_network_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> ServerPrivateNetwork:
         """
         :param server_id:
@@ -707,7 +707,7 @@ class ApplesiliconV1Alpha1PrivateNetworkAPI(API):
         *,
         server_id: str,
         private_network_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         options: Optional[
             WaitForOptions[ServerPrivateNetwork, Union[bool, Awaitable[bool]]]
         ] = None,
@@ -751,7 +751,7 @@ class ApplesiliconV1Alpha1PrivateNetworkAPI(API):
         *,
         server_id: str,
         private_network_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         ipam_ip_ids: Optional[List[str]] = None,
     ) -> ServerPrivateNetwork:
         """
@@ -797,7 +797,7 @@ class ApplesiliconV1Alpha1PrivateNetworkAPI(API):
         *,
         server_id: str,
         per_private_network_ipam_ip_ids: Dict[str, List[str]],
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> SetServerPrivateNetworksResponse:
         """
         Set multiple Private Networks on a server.
@@ -838,7 +838,7 @@ class ApplesiliconV1Alpha1PrivateNetworkAPI(API):
     async def list_server_private_networks(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         order_by: Optional[ListServerPrivateNetworksRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -892,7 +892,7 @@ class ApplesiliconV1Alpha1PrivateNetworkAPI(API):
     async def list_server_private_networks_all(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         order_by: Optional[ListServerPrivateNetworksRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -944,7 +944,7 @@ class ApplesiliconV1Alpha1PrivateNetworkAPI(API):
         *,
         server_id: str,
         private_network_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Delete a Private Network.

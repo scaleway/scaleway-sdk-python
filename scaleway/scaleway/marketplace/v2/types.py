@@ -8,7 +8,7 @@ from enum import Enum
 from typing import List, Optional
 
 from scaleway_core.bridge import (
-    Zone,
+    Zone as ScwZone,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -129,7 +129,7 @@ class LocalImage:
     Supported architecture for this local image.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     Availability Zone where this local image is available.
     """
@@ -267,7 +267,7 @@ class ListLocalImagesRequest:
     Ordering to use.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Filter local images available on this Availability Zone.
     """

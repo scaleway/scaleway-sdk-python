@@ -5,7 +5,7 @@ from typing import Dict, List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     random_name,
@@ -66,7 +66,7 @@ class JobsV1Alpha1API(API):
         image_uri: str,
         command: str,
         description: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         local_storage_capacity: Optional[int] = None,
         project_id: Optional[str] = None,
@@ -135,7 +135,7 @@ class JobsV1Alpha1API(API):
         self,
         *,
         job_definition_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> JobDefinition:
         """
         Get a job definition by its unique identifier.
@@ -169,7 +169,7 @@ class JobsV1Alpha1API(API):
     async def list_job_definitions(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListJobDefinitionsRequestOrderBy] = None,
@@ -215,7 +215,7 @@ class JobsV1Alpha1API(API):
     async def list_job_definitions_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListJobDefinitionsRequestOrderBy] = None,
@@ -256,7 +256,7 @@ class JobsV1Alpha1API(API):
         self,
         *,
         job_definition_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         cpu_limit: Optional[int] = None,
         memory_limit: Optional[int] = None,
@@ -328,7 +328,7 @@ class JobsV1Alpha1API(API):
         self,
         *,
         job_definition_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete an exsisting job definition by its unique identifier.
@@ -361,7 +361,7 @@ class JobsV1Alpha1API(API):
         self,
         *,
         job_definition_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         command: Optional[str] = None,
         environment_variables: Optional[Dict[str, str]] = None,
         replicas: Optional[int] = None,
@@ -413,7 +413,7 @@ class JobsV1Alpha1API(API):
         *,
         job_definition_id: str,
         secrets: List[CreateJobDefinitionSecretsRequestSecretConfig],
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> CreateJobDefinitionSecretsResponse:
         """
         Create a secret reference within a job definition.
@@ -459,7 +459,7 @@ class JobsV1Alpha1API(API):
         *,
         job_definition_id: str,
         secret_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Secret:
         """
         Get a secret references within a job definition.
@@ -497,7 +497,7 @@ class JobsV1Alpha1API(API):
         self,
         *,
         job_definition_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> ListJobDefinitionSecretsResponse:
         """
         List secrets references within a job definition.
@@ -533,7 +533,7 @@ class JobsV1Alpha1API(API):
         *,
         job_definition_id: str,
         secret_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         secret_manager_version: Optional[str] = None,
         path: Optional[str] = None,
         env_var_name: Optional[str] = None,
@@ -591,7 +591,7 @@ class JobsV1Alpha1API(API):
         *,
         job_definition_id: str,
         secret_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete a secret reference within a job definition.
@@ -627,7 +627,7 @@ class JobsV1Alpha1API(API):
         self,
         *,
         job_run_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> JobRun:
         """
         Get a job run by its unique identifier.
@@ -660,7 +660,7 @@ class JobsV1Alpha1API(API):
         self,
         *,
         job_run_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> JobRun:
         """
         Stop a job run by its unique identifier.
@@ -693,7 +693,7 @@ class JobsV1Alpha1API(API):
     async def list_job_runs(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListJobRunsRequestOrderBy] = None,
@@ -742,7 +742,7 @@ class JobsV1Alpha1API(API):
     async def list_job_runs_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListJobRunsRequestOrderBy] = None,
@@ -785,7 +785,7 @@ class JobsV1Alpha1API(API):
     async def list_jobs_resources(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> ListJobsResourcesResponse:
         """
         List jobs resources for the console.
@@ -813,7 +813,7 @@ class JobsV1Alpha1API(API):
     async def get_jobs_limits(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> JobsLimits:
         """
         Get jobs limits for the console.

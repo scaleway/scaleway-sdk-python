@@ -8,7 +8,7 @@ from enum import Enum
 from typing import Dict, List, Optional
 
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -226,7 +226,7 @@ class Deployment:
     ID of the model used for the deployment.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region of the deployment.
     """
@@ -284,7 +284,7 @@ class Model:
     Defines whether the model has an end user license agreement.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region of the model.
     """
@@ -364,7 +364,7 @@ class NodeType:
     Number of GPUs.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region of the node type.
     """
@@ -387,7 +387,7 @@ class AddDeploymentACLRulesRequest:
     ID of the deployment to add ACL rules to.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -423,7 +423,7 @@ class CreateDeploymentRequest:
     List of endpoints to create.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -472,7 +472,7 @@ class CreateEndpointRequest:
     Specification of the endpoint.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -485,7 +485,7 @@ class DeleteDeploymentACLRuleRequest:
     ID of the ACL rule to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -498,7 +498,7 @@ class DeleteDeploymentRequest:
     ID of the deployment to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -511,7 +511,7 @@ class DeleteEndpointRequest:
     ID of the endpoint to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -529,7 +529,7 @@ class Eula:
 class GetDeploymentCertificateRequest:
     deployment_id: str
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -542,7 +542,7 @@ class GetDeploymentRequest:
     ID of the deployment to get.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -552,7 +552,7 @@ class GetDeploymentRequest:
 class GetModelEulaRequest:
     model_id: str
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -565,7 +565,7 @@ class GetModelRequest:
     ID of the model to get.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -578,7 +578,7 @@ class ListDeploymentACLRulesRequest:
     ID of the deployment to list ACL rules for.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -609,7 +609,7 @@ class ListDeploymentACLRulesResponse:
 
 @dataclass
 class ListDeploymentsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -665,7 +665,7 @@ class ListDeploymentsResponse:
 
 @dataclass
 class ListModelsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -721,7 +721,7 @@ class ListNodeTypesRequest:
     Include disabled node types in the response.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -757,7 +757,7 @@ class SetDeploymentACLRulesRequest:
     ID of the deployment to set ACL rules for.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -783,7 +783,7 @@ class UpdateDeploymentRequest:
     ID of the deployment to update.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -816,7 +816,7 @@ class UpdateEndpointRequest:
     ID of the endpoint to update.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """

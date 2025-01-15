@@ -6,7 +6,7 @@ from typing import Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     validate_path_param,
@@ -31,7 +31,7 @@ class AuditTrailV1Alpha1API(API):
     def list_events(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
         resource_type: Optional[ResourceType] = None,
@@ -96,7 +96,7 @@ class AuditTrailV1Alpha1API(API):
     def list_products(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> ListProductsResponse:
         """
         Retrieve the list of Scaleway resources for which you have Audit Trail events.
