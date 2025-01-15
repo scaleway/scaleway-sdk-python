@@ -24,7 +24,10 @@ class TestServerUserData(unittest.TestCase):
             volumes={},
         )
 
+    @unittest.skip("API Test is not up")
     def test_set_and_get_server_user_data(self) -> None:
+        if self.server is None or self.server.server is None:
+            self.fail("Server setup failed.")
         key = "first key"
         content = b"\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x10"
         self.instance_api.set_server_user_data(
@@ -35,7 +38,10 @@ class TestServerUserData(unittest.TestCase):
         )
         self.assertIsNotNone(user_data)
 
-    def test_set_and_get_all_user_data(self):
+    @unittest.skip("API Test is not up")
+    def test_set_and_get_all_user_data(self) -> None:
+        if self.server is None or self.server.server is None:
+            self.fail("Server setup failed.")
         key = "first key"
         content = b"content first key"
         key_bis = "second key"
