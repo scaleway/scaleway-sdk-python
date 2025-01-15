@@ -6,27 +6,27 @@ from scaleway_core.bridge import Zone as ScwZone
 
 @dataclass
 class GetServerUserDataRequest:
-    zone: Optional[ScwZone]
-    """
-    Zone of the user data to get
-    """
-
     server_id: str
 
-    key: str
     """
     Key defines the user data key to get
     """
+    key: str
+
+    """
+    Zone of the user data to get
+    """
+    zone: Optional[ScwZone]
 
 
 @dataclass
 class GetAllServerUserDataRequest:
-    zone: Optional[ScwZone]
+    server_id: str
+
     """
     Zone of the user data to get
     """
-
-    server_id: str
+    zone: Optional[ScwZone]
 
 
 @dataclass
@@ -36,11 +36,11 @@ class GetAllServerUserDataResponse:
 
 @dataclass
 class SetAllServerUserDataRequest:
-    zone: Optional[ScwZone]
-    """
-    Zone of the user data to set
-    """
-
     server_id: str
 
     user_data: Dict[str, bytes]
+
+    """
+    Zone of the user data to set
+    """
+    zone: Optional[ScwZone]

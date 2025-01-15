@@ -30,7 +30,9 @@ class TestServerUserData(unittest.TestCase):
         self.instance_api.set_server_user_data(
             server_id=self.server.server.id, key=key, content=content
         )
-        user_data = self.instance_api.get_server_user_data(server_id=self.server.server.id, key=key)
+        user_data = self.instance_api.get_server_user_data(
+            server_id=self.server.server.id, key=key
+        )
         self.assertIsNotNone(user_data)
 
     def test_set_and_get_all_user_data(self):
@@ -41,7 +43,15 @@ class TestServerUserData(unittest.TestCase):
         another_key = "third key"
         another_content = b"another content to test"
 
-        user_data: Dict[str, bytes] = {key_bis:content_bis, another_key:another_content, key:content}
-        self.instance_api.set_all_server_user_data(server_id=self.server.server.id, user_data=user_data)
-        response = self.instance_api.get_all_server_user_data(server_id=self.server.server.id)
+        user_data: Dict[str, bytes] = {
+            key_bis: content_bis,
+            another_key: another_content,
+            key: content,
+        }
+        self.instance_api.set_all_server_user_data(
+            server_id=self.server.server.id, user_data=user_data
+        )
+        response = self.instance_api.get_all_server_user_data(
+            server_id=self.server.server.id
+        )
         self.assertIsNotNone(response)
