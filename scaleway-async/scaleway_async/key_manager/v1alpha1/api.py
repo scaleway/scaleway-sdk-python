@@ -5,7 +5,7 @@ from typing import List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     validate_path_param,
@@ -53,7 +53,7 @@ class KeyManagerV1Alpha1API(API):
         self,
         *,
         unprotected: bool,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         name: Optional[str] = None,
         usage: Optional[KeyUsage] = None,
@@ -114,7 +114,7 @@ class KeyManagerV1Alpha1API(API):
         self,
         *,
         key_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Key:
         """
         Get key metadata.
@@ -148,7 +148,7 @@ class KeyManagerV1Alpha1API(API):
         self,
         *,
         key_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         description: Optional[str] = None,
         tags: Optional[List[str]] = None,
@@ -201,7 +201,7 @@ class KeyManagerV1Alpha1API(API):
         self,
         *,
         key_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete a key.
@@ -233,7 +233,7 @@ class KeyManagerV1Alpha1API(API):
         self,
         *,
         key_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Key:
         """
         Rotate a key.
@@ -268,7 +268,7 @@ class KeyManagerV1Alpha1API(API):
         self,
         *,
         key_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Key:
         """
         Apply key protection.
@@ -303,7 +303,7 @@ class KeyManagerV1Alpha1API(API):
         self,
         *,
         key_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Key:
         """
         Remove key protection.
@@ -338,7 +338,7 @@ class KeyManagerV1Alpha1API(API):
         self,
         *,
         key_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Key:
         """
         Enable key.
@@ -373,7 +373,7 @@ class KeyManagerV1Alpha1API(API):
         self,
         *,
         key_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Key:
         """
         Disable key.
@@ -407,7 +407,7 @@ class KeyManagerV1Alpha1API(API):
     async def list_keys(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         order_by: Optional[ListKeysRequestOrderBy] = None,
@@ -460,7 +460,7 @@ class KeyManagerV1Alpha1API(API):
     async def list_keys_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         order_by: Optional[ListKeysRequestOrderBy] = None,
@@ -509,7 +509,7 @@ class KeyManagerV1Alpha1API(API):
         *,
         key_id: str,
         without_plaintext: bool,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         algorithm: Optional[DataKeyAlgorithmSymmetricEncryption] = None,
     ) -> DataKey:
         """
@@ -560,7 +560,7 @@ class KeyManagerV1Alpha1API(API):
         *,
         key_id: str,
         plaintext: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         associated_data: Optional[str] = None,
     ) -> EncryptResponse:
         """
@@ -608,7 +608,7 @@ class KeyManagerV1Alpha1API(API):
         *,
         key_id: str,
         ciphertext: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         associated_data: Optional[str] = None,
     ) -> DecryptResponse:
         """
@@ -656,7 +656,7 @@ class KeyManagerV1Alpha1API(API):
         *,
         key_id: str,
         key_material: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         salt: Optional[str] = None,
     ) -> Key:
         """
@@ -703,7 +703,7 @@ class KeyManagerV1Alpha1API(API):
         self,
         *,
         key_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete key material.

@@ -9,8 +9,8 @@ from typing import List, Optional
 
 from scaleway_core.bridge import (
     Money,
-    Region,
-    Zone,
+    Region as ScwRegion,
+    Zone as ScwZone,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -197,7 +197,7 @@ class ScalewayLb:
     ID of the Load Balancer.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     Zone of the Load Balancer.
     """
@@ -264,7 +264,7 @@ class TLSSecret:
     ID of the Secret.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region of the Secret.
     """

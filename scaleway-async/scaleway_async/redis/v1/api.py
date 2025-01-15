@@ -7,7 +7,7 @@ from typing import Awaitable, List, Optional, Union
 from scaleway_core.api import API
 from scaleway_core.bridge import (
     ScwFile,
-    Zone,
+    Zone as ScwZone,
     unmarshal_ScwFile,
 )
 from scaleway_core.utils import (
@@ -88,7 +88,7 @@ class RedisV1API(API):
         *,
         version: str,
         node_type: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         project_id: Optional[str] = None,
         name: Optional[str] = None,
         tags: Optional[List[str]] = None,
@@ -162,7 +162,7 @@ class RedisV1API(API):
         self,
         *,
         cluster_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         tags: Optional[List[str]] = None,
         user_name: Optional[str] = None,
@@ -213,7 +213,7 @@ class RedisV1API(API):
         self,
         *,
         cluster_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Cluster:
         """
         Get a Redis™ Database Instance.
@@ -245,7 +245,7 @@ class RedisV1API(API):
         self,
         *,
         cluster_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         options: Optional[WaitForOptions[Cluster, Union[bool, Awaitable[bool]]]] = None,
     ) -> Cluster:
         """
@@ -281,7 +281,7 @@ class RedisV1API(API):
     async def list_clusters(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         tags: Optional[List[str]] = None,
         name: Optional[str] = None,
         order_by: Optional[ListClustersRequestOrderBy] = None,
@@ -335,7 +335,7 @@ class RedisV1API(API):
     async def list_clusters_all(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         tags: Optional[List[str]] = None,
         name: Optional[str] = None,
         order_by: Optional[ListClustersRequestOrderBy] = None,
@@ -386,7 +386,7 @@ class RedisV1API(API):
         self,
         *,
         cluster_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         version: Optional[str] = None,
         node_type: Optional[str] = None,
         cluster_size: Optional[int] = None,
@@ -437,7 +437,7 @@ class RedisV1API(API):
         self,
         *,
         cluster_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Cluster:
         """
         Delete a Redis™ Database Instance.
@@ -469,7 +469,7 @@ class RedisV1API(API):
         self,
         *,
         cluster_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         start_at: Optional[datetime] = None,
         end_at: Optional[datetime] = None,
         metric_name: Optional[str] = None,
@@ -512,7 +512,7 @@ class RedisV1API(API):
         self,
         *,
         include_disabled_types: bool,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> ListNodeTypesResponse:
@@ -552,7 +552,7 @@ class RedisV1API(API):
         self,
         *,
         include_disabled_types: bool,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[NodeType]:
@@ -591,7 +591,7 @@ class RedisV1API(API):
         include_disabled: bool,
         include_beta: bool,
         include_deprecated: bool,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         version: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -642,7 +642,7 @@ class RedisV1API(API):
         include_disabled: bool,
         include_beta: bool,
         include_deprecated: bool,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         version: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -688,7 +688,7 @@ class RedisV1API(API):
         self,
         *,
         cluster_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> ScwFile:
         """
         Get the TLS certificate of a cluster.
@@ -720,7 +720,7 @@ class RedisV1API(API):
         self,
         *,
         cluster_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Cluster:
         """
         Renew the TLS certificate of a cluster.
@@ -754,7 +754,7 @@ class RedisV1API(API):
         *,
         cluster_id: str,
         settings: List[ClusterSetting],
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> ClusterSettingsResponse:
         """
         Add advanced settings.
@@ -797,7 +797,7 @@ class RedisV1API(API):
         *,
         cluster_id: str,
         setting_name: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Cluster:
         """
         Delete advanced setting.
@@ -833,7 +833,7 @@ class RedisV1API(API):
         *,
         cluster_id: str,
         settings: List[ClusterSetting],
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> ClusterSettingsResponse:
         """
         Set advanced settings.
@@ -876,7 +876,7 @@ class RedisV1API(API):
         *,
         cluster_id: str,
         acl_rules: List[ACLRuleSpec],
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> SetAclRulesResponse:
         """
         Set ACL rules for a cluster.
@@ -919,7 +919,7 @@ class RedisV1API(API):
         *,
         cluster_id: str,
         acl_rules: List[ACLRuleSpec],
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> AddAclRulesResponse:
         """
         Add ACL rules for a cluster.
@@ -961,7 +961,7 @@ class RedisV1API(API):
         self,
         *,
         acl_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Cluster:
         """
         Delete an ACL rule for a cluster.
@@ -993,7 +993,7 @@ class RedisV1API(API):
         self,
         *,
         acl_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> ACLRule:
         """
         Get an ACL rule.
@@ -1026,7 +1026,7 @@ class RedisV1API(API):
         *,
         cluster_id: str,
         endpoints: List[EndpointSpec],
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> SetEndpointsResponse:
         """
         Set endpoints for a cluster.
@@ -1069,7 +1069,7 @@ class RedisV1API(API):
         *,
         cluster_id: str,
         endpoints: List[EndpointSpec],
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> AddEndpointsResponse:
         """
         Add endpoints for a cluster.
@@ -1111,7 +1111,7 @@ class RedisV1API(API):
         self,
         *,
         endpoint_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Cluster:
         """
         Delete an endpoint for a cluster.
@@ -1143,7 +1143,7 @@ class RedisV1API(API):
         self,
         *,
         endpoint_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Endpoint:
         """
         Get an endpoint.
@@ -1175,7 +1175,7 @@ class RedisV1API(API):
         self,
         *,
         endpoint_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         private_network: Optional[EndpointSpecPrivateNetworkSpec] = None,
         public_network: Optional[EndpointSpecPublicNetworkSpec] = None,
     ) -> Endpoint:

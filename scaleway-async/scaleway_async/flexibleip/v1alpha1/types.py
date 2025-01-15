@@ -8,7 +8,7 @@ from enum import Enum
 from typing import List, Optional
 
 from scaleway_core.bridge import (
-    Zone,
+    Zone as ScwZone,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -80,7 +80,7 @@ class MACAddress:
     Status of virtual MAC.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     MAC address IP Availability Zone.
     """
@@ -148,7 +148,7 @@ class FlexibleIP:
     Reverse DNS value.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     Availability Zone of the flexible IP.
     """
@@ -181,7 +181,7 @@ class AttachFlexibleIPRequest:
     ID of the server on which to attach the flexible IPs.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -212,7 +212,7 @@ class CreateFlexibleIPRequest:
     Defines whether the flexible IP has an IPv6 address.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -245,7 +245,7 @@ class DeleteFlexibleIPRequest:
     ID of the flexible IP to delete.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -258,7 +258,7 @@ class DeleteMACAddrRequest:
     If the flexible IP belongs to a MAC group, the MAC will be removed from both the MAC group and flexible IP.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -271,7 +271,7 @@ class DetachFlexibleIPRequest:
     List of flexible IP IDs to detach from a server. Multiple IDs can be provided. Note that flexible IPs must belong to the same MAC group.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -302,7 +302,7 @@ class DuplicateMACAddrRequest:
     Note that flexible IPs need to be attached to the same server.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -320,7 +320,7 @@ class GenerateMACAddrRequest:
     TODO.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -333,7 +333,7 @@ class GetFlexibleIPRequest:
     ID of the flexible IP.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -341,7 +341,7 @@ class GetFlexibleIPRequest:
 
 @dataclass
 class ListFlexibleIPsRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -406,7 +406,7 @@ class MoveMACAddrRequest:
 
     dst_fip_id: str
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -419,7 +419,7 @@ class UpdateFlexibleIPRequest:
     ID of the flexible IP to update.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """

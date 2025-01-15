@@ -8,7 +8,7 @@ from enum import Enum
 from typing import Dict, List, Optional
 
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -134,7 +134,7 @@ class JobDefinition:
 
     local_storage_capacity: int
 
-    region: Region
+    region: ScwRegion
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -174,7 +174,7 @@ class JobRun:
 
     local_storage_capacity: int
 
-    region: Region
+    region: ScwRegion
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -223,7 +223,7 @@ class CreateJobDefinitionRequest:
     Description of the job.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -271,7 +271,7 @@ class CreateJobDefinitionSecretsRequest:
     List of secrets to inject into the job.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -292,7 +292,7 @@ class DeleteJobDefinitionRequest:
     UUID of the job definition to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -310,7 +310,7 @@ class DeleteJobDefinitionSecretRequest:
     UUID of the secret reference within the job.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -323,7 +323,7 @@ class GetJobDefinitionRequest:
     UUID of the job definition to get.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -341,7 +341,7 @@ class GetJobDefinitionSecretRequest:
     UUID of the secret reference within the job.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -354,7 +354,7 @@ class GetJobRunRequest:
     UUID of the job run to get.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -362,7 +362,7 @@ class GetJobRunRequest:
 
 @dataclass
 class GetJobsLimitsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -380,7 +380,7 @@ class ListJobDefinitionSecretsRequest:
     UUID of the job definition.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -401,7 +401,7 @@ class ListJobDefinitionSecretsResponse:
 
 @dataclass
 class ListJobDefinitionsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -426,7 +426,7 @@ class ListJobDefinitionsResponse:
 
 @dataclass
 class ListJobRunsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -453,7 +453,7 @@ class ListJobRunsResponse:
 
 @dataclass
 class ListJobsResourcesRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -471,7 +471,7 @@ class StartJobDefinitionRequest:
     UUID of the job definition to start.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -504,7 +504,7 @@ class StopJobRunRequest:
     UUID of the job run to stop.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -517,7 +517,7 @@ class UpdateJobDefinitionRequest:
     UUID of the job definition to update.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -582,7 +582,7 @@ class UpdateJobDefinitionSecretRequest:
     UUID of the secret reference within the job.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """

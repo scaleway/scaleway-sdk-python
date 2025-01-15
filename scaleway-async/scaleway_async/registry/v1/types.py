@@ -8,7 +8,7 @@ from enum import Enum
 from typing import List, Optional
 
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -200,7 +200,7 @@ class Namespace:
     Number of images in the namespace.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region the namespace belongs to.
     """
@@ -266,7 +266,7 @@ class CreateNamespaceRequest:
     Defines whether or not namespace is public.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -288,7 +288,7 @@ class DeleteImageRequest:
     UUID of the image.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -301,7 +301,7 @@ class DeleteNamespaceRequest:
     UUID of the namespace.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -314,7 +314,7 @@ class DeleteTagRequest:
     UUID of the tag.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -332,7 +332,7 @@ class GetImageRequest:
     UUID of the image.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -345,7 +345,7 @@ class GetNamespaceRequest:
     UUID of the namespace.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -358,7 +358,7 @@ class GetTagRequest:
     UUID of the tag.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -366,7 +366,7 @@ class GetTagRequest:
 
 @dataclass
 class ListImagesRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -422,7 +422,7 @@ class ListImagesResponse:
 
 @dataclass
 class ListNamespacesRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -478,7 +478,7 @@ class ListTagsRequest:
     UUID of the image.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -524,7 +524,7 @@ class UpdateImageRequest:
     ID of the image to update.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -542,7 +542,7 @@ class UpdateNamespaceRequest:
     ID of the namespace to update.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """

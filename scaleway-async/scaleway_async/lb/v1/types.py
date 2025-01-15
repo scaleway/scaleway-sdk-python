@@ -8,8 +8,8 @@ from enum import Enum
 from typing import List, Optional
 
 from scaleway_core.bridge import (
-    Region,
-    Zone,
+    Region as ScwRegion,
+    Zone as ScwZone,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -392,7 +392,7 @@ class Instance:
     Instance IP address.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     The zone the Instance is in.
     """
@@ -407,7 +407,7 @@ class Instance:
     Date on which the Instance was last updated.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     The region the Instance is in.
     """
@@ -445,7 +445,7 @@ class Ip:
     IP tags.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     The zone the IP address is in.
     """
@@ -455,7 +455,7 @@ class Ip:
     Load Balancer ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     The region the IP address is in.
     """
@@ -606,7 +606,7 @@ class Lb:
     Number of routes configured on the Load Balancer.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     The zone the Load Balancer is in.
     """
@@ -626,7 +626,7 @@ class Lb:
     Date on which the Load Balancer was last updated.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     The region the Load Balancer is in.
     """
@@ -1128,12 +1128,12 @@ class LbType:
     Load Balancer commercial offer type description.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     The zone the Load Balancer stock is in.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     The region the Load Balancer stock is in.
     """
@@ -1212,7 +1212,7 @@ class AddBackendServersRequest:
     List of IP addresses to add to backend servers.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1230,7 +1230,7 @@ class AttachPrivateNetworkRequest:
     Private Network ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1273,7 +1273,7 @@ class CreateAclRequest:
     ACL description.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1331,7 +1331,7 @@ class CreateBackendRequest:
     List of backend server IP addresses (IPv4 or IPv6) the backend should forward traffic to.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1414,7 +1414,7 @@ class CreateCertificateRequest:
     Load Balancer ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1451,7 +1451,7 @@ class CreateFrontendRequest:
     Defines whether to enable HTTP/3 protocol on the frontend.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1484,7 +1484,7 @@ class CreateIpRequest:
     If true, creates a Flexible IP with an ipv6 address.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1516,7 +1516,7 @@ class CreateLbRequest:
     Load Balancer commercial offer type. Use the Load Balancer types endpoint to retrieve a list of available offer types.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1573,7 +1573,7 @@ class CreateRouteRequest:
     ID of the target backend for the route.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1595,7 +1595,7 @@ class CreateSubscriberRequest:
     Subscriber name.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1616,7 +1616,7 @@ class DeleteAclRequest:
     ACL ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1629,7 +1629,7 @@ class DeleteBackendRequest:
     ID of the backend to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1642,7 +1642,7 @@ class DeleteCertificateRequest:
     Certificate ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1655,7 +1655,7 @@ class DeleteFrontendRequest:
     ID of the frontend to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1673,7 +1673,7 @@ class DeleteLbRequest:
     Defines whether the Load Balancer's flexible IP should be deleted. Set to true to release the flexible IP, or false to keep it available in your account for future Load Balancers.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1686,7 +1686,7 @@ class DeleteRouteRequest:
     Route ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1699,7 +1699,7 @@ class DeleteSubscriberRequest:
     Subscriber ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1717,7 +1717,7 @@ class DetachPrivateNetworkRequest:
     Set your instance private network id.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1730,7 +1730,7 @@ class GetAclRequest:
     ACL ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1743,7 +1743,7 @@ class GetBackendRequest:
     Backend ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1756,7 +1756,7 @@ class GetCertificateRequest:
     Certificate ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1769,7 +1769,7 @@ class GetFrontendRequest:
     Frontend ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1782,7 +1782,7 @@ class GetIpRequest:
     IP address ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1795,7 +1795,7 @@ class GetLbRequest:
     Load Balancer ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1812,7 +1812,7 @@ class GetLbStatsRequest:
     Load Balancer ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1830,7 +1830,7 @@ class GetRouteRequest:
     Route ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1843,7 +1843,7 @@ class GetSubscriberRequest:
     Subscriber ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1877,7 +1877,7 @@ class ListAclsRequest:
     Frontend ID (ACLs attached to this frontend will be returned in the response).
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1910,7 +1910,7 @@ class ListBackendStatsRequest:
     Load Balancer ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1951,7 +1951,7 @@ class ListBackendsRequest:
     Load Balancer ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1997,7 +1997,7 @@ class ListCertificatesRequest:
     Load Balancer ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2043,7 +2043,7 @@ class ListFrontendsRequest:
     Load Balancer ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2084,7 +2084,7 @@ class ListFrontendsResponse:
 
 @dataclass
 class ListIPsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2145,7 +2145,7 @@ class ListLbPrivateNetworksRequest:
     Load Balancer ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2181,7 +2181,7 @@ class ListLbPrivateNetworksResponse:
 
 @dataclass
 class ListLbTypesRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2212,7 +2212,7 @@ class ListLbTypesResponse:
 
 @dataclass
 class ListLbsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2268,7 +2268,7 @@ class ListLbsResponse:
 
 @dataclass
 class ListRoutesRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2309,7 +2309,7 @@ class ListRoutesResponse:
 
 @dataclass
 class ListSubscriberRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2370,7 +2370,7 @@ class MigrateLbRequest:
     Load Balancer type to migrate to (use the List all Load Balancer offer types endpoint to get a list of available offer types).
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2383,7 +2383,7 @@ class ReleaseIpRequest:
     IP address ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2401,7 +2401,7 @@ class RemoveBackendServersRequest:
     List of IP addresses to remove from backend servers.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2432,7 +2432,7 @@ class SetBackendServersRequest:
     List of IP addresses for backend servers. Any other existing backend servers will be removed.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2450,7 +2450,7 @@ class SubscribeToLbRequest:
     Subscriber ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2463,7 +2463,7 @@ class UnsubscribeFromLbRequest:
     Load Balancer ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2491,7 +2491,7 @@ class UpdateAclRequest:
     Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2544,7 +2544,7 @@ class UpdateBackendRequest:
     Cookie name for cookie-based sticky sessions.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2627,7 +2627,7 @@ class UpdateCertificateRequest:
     Certificate name.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2660,7 +2660,7 @@ class UpdateFrontendRequest:
     Defines whether to enable HTTP/3 protocol on the frontend.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2703,7 +2703,7 @@ class UpdateHealthCheckRequest:
     Defines whether proxy protocol should be activated for the health check.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2745,7 +2745,7 @@ class UpdateIpRequest:
     IP address ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2783,7 +2783,7 @@ class UpdateLbRequest:
     Load Balancer description.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2811,7 +2811,7 @@ class UpdateRouteRequest:
     ID of the target backend for the route.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2834,7 +2834,7 @@ class UpdateSubscriberRequest:
     Subscriber name.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2856,7 +2856,7 @@ class ZonedApiAddBackendServersRequest:
     List of IP addresses to add to backend servers.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2874,7 +2874,7 @@ class ZonedApiAttachPrivateNetworkRequest:
     Private Network ID.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2917,7 +2917,7 @@ class ZonedApiCreateAclRequest:
     ACL description.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2975,7 +2975,7 @@ class ZonedApiCreateBackendRequest:
     List of backend server IP addresses (IPv4 or IPv6) the backend should forward traffic to.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3058,7 +3058,7 @@ class ZonedApiCreateCertificateRequest:
     Load Balancer ID.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3095,7 +3095,7 @@ class ZonedApiCreateFrontendRequest:
     Defines whether to enable HTTP/3 protocol on the frontend.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3128,7 +3128,7 @@ class ZonedApiCreateIpRequest:
     If true, creates a Flexible IP with an ipv6 address.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3160,7 +3160,7 @@ class ZonedApiCreateLbRequest:
     Load Balancer commercial offer type. Use the Load Balancer types endpoint to retrieve a list of available offer types.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3217,7 +3217,7 @@ class ZonedApiCreateRouteRequest:
     ID of the target backend for the route.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3239,7 +3239,7 @@ class ZonedApiCreateSubscriberRequest:
     Subscriber name.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3260,7 +3260,7 @@ class ZonedApiDeleteAclRequest:
     ACL ID.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3273,7 +3273,7 @@ class ZonedApiDeleteBackendRequest:
     ID of the backend to delete.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3286,7 +3286,7 @@ class ZonedApiDeleteCertificateRequest:
     Certificate ID.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3299,7 +3299,7 @@ class ZonedApiDeleteFrontendRequest:
     ID of the frontend to delete.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3317,7 +3317,7 @@ class ZonedApiDeleteLbRequest:
     Defines whether the Load Balancer's flexible IP should be deleted. Set to true to release the flexible IP, or false to keep it available in your account for future Load Balancers.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3330,7 +3330,7 @@ class ZonedApiDeleteRouteRequest:
     Route ID.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3343,7 +3343,7 @@ class ZonedApiDeleteSubscriberRequest:
     Subscriber ID.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3361,7 +3361,7 @@ class ZonedApiDetachPrivateNetworkRequest:
     Set your instance private network id.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3374,7 +3374,7 @@ class ZonedApiGetAclRequest:
     ACL ID.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3387,7 +3387,7 @@ class ZonedApiGetBackendRequest:
     Backend ID.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3400,7 +3400,7 @@ class ZonedApiGetCertificateRequest:
     Certificate ID.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3413,7 +3413,7 @@ class ZonedApiGetFrontendRequest:
     Frontend ID.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3426,7 +3426,7 @@ class ZonedApiGetIpRequest:
     IP address ID.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3439,7 +3439,7 @@ class ZonedApiGetLbRequest:
     Load Balancer ID.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3456,7 +3456,7 @@ class ZonedApiGetLbStatsRequest:
     Load Balancer ID.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3474,7 +3474,7 @@ class ZonedApiGetRouteRequest:
     Route ID.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3487,7 +3487,7 @@ class ZonedApiGetSubscriberRequest:
     Subscriber ID.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3500,7 +3500,7 @@ class ZonedApiListAclsRequest:
     Frontend ID (ACLs attached to this frontend will be returned in the response).
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3533,7 +3533,7 @@ class ZonedApiListBackendStatsRequest:
     Load Balancer ID.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3561,7 +3561,7 @@ class ZonedApiListBackendsRequest:
     Load Balancer ID.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3594,7 +3594,7 @@ class ZonedApiListCertificatesRequest:
     Load Balancer ID.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3627,7 +3627,7 @@ class ZonedApiListFrontendsRequest:
     Load Balancer ID.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3655,7 +3655,7 @@ class ZonedApiListFrontendsRequest:
 
 @dataclass
 class ZonedApiListIPsRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3703,7 +3703,7 @@ class ZonedApiListLbPrivateNetworksRequest:
     Load Balancer ID.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3726,7 +3726,7 @@ class ZonedApiListLbPrivateNetworksRequest:
 
 @dataclass
 class ZonedApiListLbTypesRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3744,7 +3744,7 @@ class ZonedApiListLbTypesRequest:
 
 @dataclass
 class ZonedApiListLbsRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3787,7 +3787,7 @@ class ZonedApiListLbsRequest:
 
 @dataclass
 class ZonedApiListRoutesRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3815,7 +3815,7 @@ class ZonedApiListRoutesRequest:
 
 @dataclass
 class ZonedApiListSubscriberRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3863,7 +3863,7 @@ class ZonedApiMigrateLbRequest:
     Load Balancer type to migrate to (use the List all Load Balancer offer types endpoint to get a list of available offer types).
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3876,7 +3876,7 @@ class ZonedApiReleaseIpRequest:
     IP address ID.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3894,7 +3894,7 @@ class ZonedApiRemoveBackendServersRequest:
     List of IP addresses to remove from backend servers.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3912,7 +3912,7 @@ class ZonedApiSetAclsRequest:
     Frontend ID.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3930,7 +3930,7 @@ class ZonedApiSetBackendServersRequest:
     List of IP addresses for backend servers. Any other existing backend servers will be removed.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3948,7 +3948,7 @@ class ZonedApiSubscribeToLbRequest:
     Subscriber ID.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3961,7 +3961,7 @@ class ZonedApiUnsubscribeFromLbRequest:
     Load Balancer ID.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3989,7 +3989,7 @@ class ZonedApiUpdateAclRequest:
     Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed).
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -4042,7 +4042,7 @@ class ZonedApiUpdateBackendRequest:
     Cookie name for cookie-based sticky sessions.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -4125,7 +4125,7 @@ class ZonedApiUpdateCertificateRequest:
     Certificate name.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -4158,7 +4158,7 @@ class ZonedApiUpdateFrontendRequest:
     Defines whether to enable HTTP/3 protocol on the frontend.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -4201,7 +4201,7 @@ class ZonedApiUpdateHealthCheckRequest:
     Defines whether proxy protocol should be activated for the health check.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -4243,7 +4243,7 @@ class ZonedApiUpdateIpRequest:
     IP address ID.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -4281,7 +4281,7 @@ class ZonedApiUpdateLbRequest:
     Load Balancer description.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -4309,7 +4309,7 @@ class ZonedApiUpdateRouteRequest:
     ID of the target backend for the route.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -4332,7 +4332,7 @@ class ZonedApiUpdateSubscriberRequest:
     Subscriber name.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """

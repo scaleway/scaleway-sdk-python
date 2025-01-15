@@ -5,7 +5,7 @@ from typing import List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     validate_path_param,
@@ -588,7 +588,7 @@ class CockpitV1RegionalAPI(API):
     async def get_config(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> GetConfigResponse:
         """
         Get the Cockpit configuration.
@@ -617,7 +617,7 @@ class CockpitV1RegionalAPI(API):
         self,
         *,
         name: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         type_: Optional[DataSourceType] = None,
         retention_days: Optional[int] = None,
@@ -670,7 +670,7 @@ class CockpitV1RegionalAPI(API):
         self,
         *,
         data_source_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> DataSource:
         """
         Get a data source.
@@ -704,7 +704,7 @@ class CockpitV1RegionalAPI(API):
         self,
         *,
         data_source_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete a data source.
@@ -735,7 +735,7 @@ class CockpitV1RegionalAPI(API):
     async def list_data_sources(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListDataSourcesRequestOrderBy] = None,
@@ -785,7 +785,7 @@ class CockpitV1RegionalAPI(API):
     async def list_data_sources_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListDataSourcesRequestOrderBy] = None,
@@ -831,7 +831,7 @@ class CockpitV1RegionalAPI(API):
         self,
         *,
         data_source_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         retention_days: Optional[int] = None,
     ) -> DataSource:
@@ -877,7 +877,7 @@ class CockpitV1RegionalAPI(API):
     async def get_usage_overview(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         interval: Optional[str] = None,
     ) -> UsageOverview:
@@ -915,7 +915,7 @@ class CockpitV1RegionalAPI(API):
         self,
         *,
         name: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         token_scopes: Optional[List[TokenScope]] = None,
     ) -> Token:
@@ -961,7 +961,7 @@ class CockpitV1RegionalAPI(API):
     async def list_tokens(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListTokensRequestOrderBy] = None,
@@ -1008,7 +1008,7 @@ class CockpitV1RegionalAPI(API):
     async def list_tokens_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListTokensRequestOrderBy] = None,
@@ -1051,7 +1051,7 @@ class CockpitV1RegionalAPI(API):
         self,
         *,
         token_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Token:
         """
         Get a token.
@@ -1085,7 +1085,7 @@ class CockpitV1RegionalAPI(API):
         self,
         *,
         token_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete a token.
@@ -1116,7 +1116,7 @@ class CockpitV1RegionalAPI(API):
     async def get_alert_manager(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
     ) -> AlertManager:
         """
@@ -1151,7 +1151,7 @@ class CockpitV1RegionalAPI(API):
     async def enable_alert_manager(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
     ) -> AlertManager:
         """
@@ -1189,7 +1189,7 @@ class CockpitV1RegionalAPI(API):
     async def disable_alert_manager(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
     ) -> AlertManager:
         """
@@ -1227,7 +1227,7 @@ class CockpitV1RegionalAPI(API):
     async def create_contact_point(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         email: Optional[ContactPointEmail] = None,
     ) -> ContactPoint:
@@ -1271,7 +1271,7 @@ class CockpitV1RegionalAPI(API):
     async def list_contact_points(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         project_id: Optional[str] = None,
@@ -1311,7 +1311,7 @@ class CockpitV1RegionalAPI(API):
     async def list_contact_points_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         project_id: Optional[str] = None,
@@ -1346,7 +1346,7 @@ class CockpitV1RegionalAPI(API):
     async def delete_contact_point(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         email: Optional[ContactPointEmail] = None,
     ) -> None:
@@ -1386,7 +1386,7 @@ class CockpitV1RegionalAPI(API):
     async def list_managed_alerts(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListManagedAlertsRequestOrderBy] = None,
@@ -1429,7 +1429,7 @@ class CockpitV1RegionalAPI(API):
     async def list_managed_alerts_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListManagedAlertsRequestOrderBy] = None,
@@ -1467,7 +1467,7 @@ class CockpitV1RegionalAPI(API):
     async def enable_managed_alerts(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
     ) -> AlertManager:
         """
@@ -1505,7 +1505,7 @@ class CockpitV1RegionalAPI(API):
     async def disable_managed_alerts(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
     ) -> AlertManager:
         """
@@ -1543,7 +1543,7 @@ class CockpitV1RegionalAPI(API):
     async def trigger_test_alert(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
     ) -> None:
         """

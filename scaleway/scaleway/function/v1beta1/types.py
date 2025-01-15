@@ -8,7 +8,7 @@ from enum import Enum
 from typing import Any, Dict, List, Optional
 
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -539,7 +539,7 @@ class Function:
     Description of the function.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region in which the function is deployed.
     """
@@ -621,7 +621,7 @@ class Namespace:
     Secret environment variables of the namespace.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region in which the namespace is located.
     """
@@ -752,7 +752,7 @@ class CreateCronRequest:
     Schedule of the cron in UNIX cron format.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -780,7 +780,7 @@ class CreateDomainRequest:
     UUID of the function to associate the domain with.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -793,7 +793,7 @@ class CreateFunctionRequest:
     UUID of the namespace the function will be created in.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -865,7 +865,7 @@ class CreateFunctionRequest:
 
 @dataclass
 class CreateNamespaceRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -900,7 +900,7 @@ class CreateNamespaceRequest:
 
 @dataclass
 class CreateTokenRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -932,7 +932,7 @@ class CreateTriggerRequest:
     ID of the function to trigger.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -956,7 +956,7 @@ class DeleteCronRequest:
     UUID of the cron to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -969,7 +969,7 @@ class DeleteDomainRequest:
     UUID of the domain to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -982,7 +982,7 @@ class DeleteFunctionRequest:
     UUID of the function to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -995,7 +995,7 @@ class DeleteNamespaceRequest:
     UUID of the namespace.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1008,7 +1008,7 @@ class DeleteTokenRequest:
     UUID of the token to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1021,7 +1021,7 @@ class DeleteTriggerRequest:
     ID of the trigger to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1034,7 +1034,7 @@ class DeployFunctionRequest:
     UUID of the function to deploy.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1054,7 +1054,7 @@ class GetCronRequest:
     UUID of the cron to get.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1067,7 +1067,7 @@ class GetDomainRequest:
     UUID of the domain to get.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1080,7 +1080,7 @@ class GetFunctionDownloadURLRequest:
     UUID of the function to get the the download URL for.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1093,7 +1093,7 @@ class GetFunctionRequest:
     UUID of the function.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1111,7 +1111,7 @@ class GetFunctionUploadURLRequest:
     Size of the archive to upload in bytes.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1124,7 +1124,7 @@ class GetNamespaceRequest:
     UUID of the namespace.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1137,7 +1137,7 @@ class GetTokenRequest:
     UUID of the token to get.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1150,7 +1150,7 @@ class GetTriggerRequest:
     ID of the trigger to get.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1163,7 +1163,7 @@ class ListCronsRequest:
     UUID of the function.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1204,7 +1204,7 @@ class ListDomainsRequest:
     UUID of the function the domain is assoicated with.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1240,7 +1240,7 @@ class ListDomainsResponse:
 
 @dataclass
 class ListFunctionRuntimesRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1266,7 +1266,7 @@ class ListFunctionsRequest:
     UUID of the namespace the function belongs to.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1317,7 +1317,7 @@ class ListFunctionsResponse:
 
 @dataclass
 class ListNamespacesRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1365,7 +1365,7 @@ class ListNamespacesResponse:
 
 @dataclass
 class ListTokensRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1405,7 +1405,7 @@ class ListTokensResponse:
 
 @dataclass
 class ListTriggersRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1452,7 +1452,7 @@ class UpdateCronRequest:
     UUID of the cron to update.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1485,7 +1485,7 @@ class UpdateFunctionRequest:
     UUID of the function to update.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1565,7 +1565,7 @@ class UpdateNamespaceRequest:
     UUID of the namespapce.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1598,7 +1598,7 @@ class UpdateTriggerRequest:
     ID of the trigger to update.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """

@@ -9,7 +9,7 @@ from typing import List, Optional
 
 from scaleway_core.bridge import (
     Money,
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -534,7 +534,7 @@ class HostingSummary:
     Name of the active offer for the Web Hosting plan.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region where the Web Hosting plan is hosted.
     """
@@ -591,7 +591,7 @@ class CheckUserOwnsDomainResponse:
 
 @dataclass
 class ControlPanelApiListControlPanelsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -624,7 +624,7 @@ class DatabaseApiAssignDatabaseUserRequest:
     Name of the database to be assigned.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -647,7 +647,7 @@ class DatabaseApiChangeDatabaseUserPasswordRequest:
     New password.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -665,7 +665,7 @@ class DatabaseApiCreateDatabaseRequest:
     Name of the database to be created.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -692,7 +692,7 @@ class DatabaseApiCreateDatabaseUserRequest:
     Password of the user to create.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -710,7 +710,7 @@ class DatabaseApiDeleteDatabaseRequest:
     Name of the database to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -728,7 +728,7 @@ class DatabaseApiDeleteDatabaseUserRequest:
     Name of the database user to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -746,7 +746,7 @@ class DatabaseApiGetDatabaseRequest:
     Name of the database.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -764,7 +764,7 @@ class DatabaseApiGetDatabaseUserRequest:
     Name of the database user to retrieve details.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -777,7 +777,7 @@ class DatabaseApiListDatabaseUsersRequest:
     UUID of the hosting plan.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -805,7 +805,7 @@ class DatabaseApiListDatabasesRequest:
     UUID of the hosting plan.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -843,7 +843,7 @@ class DatabaseApiUnassignDatabaseUserRequest:
     Name of the database to be unassigned.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -856,7 +856,7 @@ class DnsApiCheckUserOwnsDomainRequest:
     Domain for which ownership is to be verified.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -874,7 +874,7 @@ class DnsApiGetDomainDnsRecordsRequest:
     Domain associated with the DNS records.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -902,7 +902,7 @@ class DnsApiSyncDomainDnsRecordsRequest:
     Whether or not to synchronize all types of records. This one has priority.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -948,7 +948,7 @@ class FtpAccountApiChangeFtpAccountPasswordRequest:
     New password for the FTP account.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -976,7 +976,7 @@ class FtpAccountApiCreateFtpAccountRequest:
     Password for the new FTP account.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -989,7 +989,7 @@ class FtpAccountApiListFtpAccountsRequest:
     UUID of the hosting plan.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1027,7 +1027,7 @@ class FtpAccountApiRemoveFtpAccountRequest:
     Username of the FTP account to be deleted.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1080,7 +1080,7 @@ class Hosting:
     Whether the hosting is protected or not.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region where the Web Hosting plan is hosted.
     """
@@ -1123,7 +1123,7 @@ class HostingApiCreateHostingRequest:
     Domain name to link to the Web Hosting plan. You must already own this domain name, and have completed the DNS validation process beforehand.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1166,7 +1166,7 @@ class HostingApiCreateSessionRequest:
     Hosting ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1179,7 +1179,7 @@ class HostingApiDeleteHostingRequest:
     Hosting ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1192,7 +1192,7 @@ class HostingApiGetHostingRequest:
     Hosting ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1205,7 +1205,7 @@ class HostingApiGetResourceSummaryRequest:
     Hosting ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1213,7 +1213,7 @@ class HostingApiGetResourceSummaryRequest:
 
 @dataclass
 class HostingApiListHostingsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1271,7 +1271,7 @@ class HostingApiResetHostingPasswordRequest:
     UUID of the hosting.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1284,7 +1284,7 @@ class HostingApiUpdateHostingRequest:
     Hosting ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1441,7 +1441,7 @@ class MailAccountApiChangeMailAccountPasswordRequest:
     New password for the mail account.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1469,7 +1469,7 @@ class MailAccountApiCreateMailAccountRequest:
     Password for the new mail account.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1482,7 +1482,7 @@ class MailAccountApiListMailAccountsRequest:
     UUID of the hosting plan.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1525,7 +1525,7 @@ class MailAccountApiRemoveMailAccountRequest:
     Username part of the mail account address.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1533,7 +1533,7 @@ class MailAccountApiRemoveMailAccountRequest:
 
 @dataclass
 class OfferApiListOffersRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1610,7 +1610,7 @@ class WebsiteApiListWebsitesRequest:
     UUID of the hosting plan.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """

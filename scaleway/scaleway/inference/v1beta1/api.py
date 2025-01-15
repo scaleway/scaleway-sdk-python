@@ -5,7 +5,7 @@ from typing import List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
     ScwFile,
     unmarshal_ScwFile,
 )
@@ -71,7 +71,7 @@ class InferenceV1Beta1API(API):
     def list_deployments(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListDeploymentsRequestOrderBy] = None,
@@ -124,7 +124,7 @@ class InferenceV1Beta1API(API):
     def list_deployments_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListDeploymentsRequestOrderBy] = None,
@@ -172,7 +172,7 @@ class InferenceV1Beta1API(API):
         self,
         *,
         deployment_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Deployment:
         """
         Get a deployment.
@@ -206,7 +206,7 @@ class InferenceV1Beta1API(API):
         self,
         *,
         deployment_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         options: Optional[WaitForOptions[Deployment, bool]] = None,
     ) -> Deployment:
         """
@@ -245,7 +245,7 @@ class InferenceV1Beta1API(API):
         model_name: str,
         node_type: str,
         endpoints: List[EndpointSpec],
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         project_id: Optional[str] = None,
         accept_eula: Optional[bool] = None,
@@ -310,7 +310,7 @@ class InferenceV1Beta1API(API):
         self,
         *,
         deployment_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         tags: Optional[List[str]] = None,
         min_size: Optional[int] = None,
@@ -363,7 +363,7 @@ class InferenceV1Beta1API(API):
         self,
         *,
         deployment_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Deployment:
         """
         Delete a deployment.
@@ -397,7 +397,7 @@ class InferenceV1Beta1API(API):
         self,
         *,
         deployment_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> ScwFile:
         """
         Get the CA certificate.
@@ -433,7 +433,7 @@ class InferenceV1Beta1API(API):
         *,
         deployment_id: str,
         endpoint: EndpointSpec,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Endpoint:
         """
         Create an endpoint.
@@ -476,7 +476,7 @@ class InferenceV1Beta1API(API):
         self,
         *,
         endpoint_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         disable_auth: Optional[bool] = None,
     ) -> Endpoint:
         """
@@ -521,7 +521,7 @@ class InferenceV1Beta1API(API):
         self,
         *,
         endpoint_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete an endpoint.
@@ -553,7 +553,7 @@ class InferenceV1Beta1API(API):
         self,
         *,
         deployment_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> ListDeploymentACLRulesResponse:
@@ -595,7 +595,7 @@ class InferenceV1Beta1API(API):
         self,
         *,
         deployment_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ACLRule]:
@@ -632,7 +632,7 @@ class InferenceV1Beta1API(API):
         self,
         *,
         deployment_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         acls: Optional[List[ACLRuleRequest]] = None,
     ) -> AddDeploymentACLRulesResponse:
         """
@@ -676,7 +676,7 @@ class InferenceV1Beta1API(API):
         self,
         *,
         deployment_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         acls: Optional[List[ACLRuleRequest]] = None,
     ) -> SetDeploymentACLRulesResponse:
         """
@@ -720,7 +720,7 @@ class InferenceV1Beta1API(API):
         self,
         *,
         acl_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete an exising ACL.
@@ -750,7 +750,7 @@ class InferenceV1Beta1API(API):
     def list_models(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListModelsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -799,7 +799,7 @@ class InferenceV1Beta1API(API):
     def list_models_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListModelsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -844,7 +844,7 @@ class InferenceV1Beta1API(API):
         self,
         *,
         model_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Model:
         """
         Get a model.
@@ -878,7 +878,7 @@ class InferenceV1Beta1API(API):
         self,
         *,
         model_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Eula:
         """
         :param model_id:
@@ -910,7 +910,7 @@ class InferenceV1Beta1API(API):
         self,
         *,
         include_disabled_types: bool,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> ListNodeTypesResponse:
@@ -952,7 +952,7 @@ class InferenceV1Beta1API(API):
         self,
         *,
         include_disabled_types: bool,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[NodeType]:

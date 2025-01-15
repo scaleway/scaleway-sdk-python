@@ -9,7 +9,7 @@ from typing import List, Optional
 
 from scaleway_core.bridge import (
     Money,
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -391,7 +391,7 @@ class Hosting:
     One-time-password used for the first login or reset password, empty after first use.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region where the Web Hosting plan is hosted.
     """
@@ -465,7 +465,7 @@ class CheckUserOwnsDomainRequest:
     Domain for which ownership is to be verified.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -496,7 +496,7 @@ class ClassicMailApiCreateMailboxRequest:
     Password for the new mailbox.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -519,7 +519,7 @@ class ClassicMailApiDeleteMailboxRequest:
     The ID of the mailbox to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -537,7 +537,7 @@ class ClassicMailApiGetMailboxRequest:
     The ID of the mailbox to get.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -550,7 +550,7 @@ class ClassicMailApiListMailboxesRequest:
     The Online hosting ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -583,7 +583,7 @@ class ClassicMailApiUpdateMailboxRequest:
     The ID of the mailbox to update.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -606,7 +606,7 @@ class CreateHostingRequest:
     Domain name to link to the Web Hosting plan. You must already own this domain name, and have completed the DNS validation process beforehand.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -649,7 +649,7 @@ class CreateSessionRequest:
     Hosting ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -662,7 +662,7 @@ class DeleteHostingRequest:
     Hosting ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -693,7 +693,7 @@ class GetDomainDnsRecordsRequest:
     Domain associated with the DNS records.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -706,7 +706,7 @@ class GetHostingRequest:
     Hosting ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -714,7 +714,7 @@ class GetHostingRequest:
 
 @dataclass
 class ListControlPanelsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -745,7 +745,7 @@ class ListControlPanelsResponse:
 
 @dataclass
 class ListHostingsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -834,7 +834,7 @@ class ListOffersRequest:
     Defines whether the response should consist of options only, without offers.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -870,7 +870,7 @@ class ResetHostingPasswordRequest:
     UUID of the hosting.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -891,7 +891,7 @@ class RestoreHostingRequest:
     Hosting ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -912,7 +912,7 @@ class UpdateHostingRequest:
     Hosting ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """

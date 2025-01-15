@@ -5,7 +5,7 @@ from typing import Awaitable, List, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     WaitForOptions,
@@ -49,7 +49,7 @@ class ServerlessSqldbV1Alpha1API(API):
         name: str,
         cpu_min: int,
         cpu_max: int,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         from_backup_id: Optional[str] = None,
     ) -> Database:
@@ -101,7 +101,7 @@ class ServerlessSqldbV1Alpha1API(API):
         self,
         *,
         database_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Database:
         """
         Get a database information.
@@ -135,7 +135,7 @@ class ServerlessSqldbV1Alpha1API(API):
         self,
         *,
         database_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         options: Optional[
             WaitForOptions[Database, Union[bool, Awaitable[bool]]]
         ] = None,
@@ -174,7 +174,7 @@ class ServerlessSqldbV1Alpha1API(API):
         self,
         *,
         database_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Database:
         """
         Delete a database.
@@ -207,7 +207,7 @@ class ServerlessSqldbV1Alpha1API(API):
     async def list_databases(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         page: Optional[int] = None,
@@ -257,7 +257,7 @@ class ServerlessSqldbV1Alpha1API(API):
     async def list_databases_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         page: Optional[int] = None,
@@ -302,7 +302,7 @@ class ServerlessSqldbV1Alpha1API(API):
         self,
         *,
         database_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         cpu_min: Optional[int] = None,
         cpu_max: Optional[int] = None,
     ) -> Database:
@@ -350,7 +350,7 @@ class ServerlessSqldbV1Alpha1API(API):
         *,
         database_id: str,
         backup_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Database:
         """
         Restore a database from a backup.
@@ -394,7 +394,7 @@ class ServerlessSqldbV1Alpha1API(API):
         self,
         *,
         backup_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> DatabaseBackup:
         """
         Get a database backup information.
@@ -428,7 +428,7 @@ class ServerlessSqldbV1Alpha1API(API):
         self,
         *,
         database_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         page: Optional[int] = None,
@@ -480,7 +480,7 @@ class ServerlessSqldbV1Alpha1API(API):
         self,
         *,
         database_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         page: Optional[int] = None,
@@ -526,7 +526,7 @@ class ServerlessSqldbV1Alpha1API(API):
         self,
         *,
         backup_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> DatabaseBackup:
         """
         Export a database backup.

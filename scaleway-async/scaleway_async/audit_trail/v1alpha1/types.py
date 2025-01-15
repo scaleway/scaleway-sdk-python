@@ -8,7 +8,7 @@ from enum import Enum
 from typing import Any, Dict, List, Optional
 
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -207,7 +207,7 @@ class Product:
 
 @dataclass
 class ListEventsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -274,7 +274,7 @@ class ListEventsResponse:
 
 @dataclass
 class ListProductsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """

@@ -6,7 +6,7 @@ from typing import List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
     ScwFile,
     unmarshal_ScwFile,
 )
@@ -167,7 +167,7 @@ class RdbV1API(API):
     def list_database_engines(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         version: Optional[str] = None,
         page: Optional[int] = None,
@@ -210,7 +210,7 @@ class RdbV1API(API):
     def list_database_engines_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         version: Optional[str] = None,
         page: Optional[int] = None,
@@ -249,7 +249,7 @@ class RdbV1API(API):
         self,
         *,
         include_disabled_types: bool,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> ListNodeTypesResponse:
@@ -291,7 +291,7 @@ class RdbV1API(API):
         self,
         *,
         include_disabled_types: bool,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[NodeType]:
@@ -327,7 +327,7 @@ class RdbV1API(API):
     def list_database_backups(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         order_by: Optional[ListDatabaseBackupsRequestOrderBy] = None,
         instance_id: Optional[str] = None,
@@ -380,7 +380,7 @@ class RdbV1API(API):
     def list_database_backups_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         order_by: Optional[ListDatabaseBackupsRequestOrderBy] = None,
         instance_id: Optional[str] = None,
@@ -429,7 +429,7 @@ class RdbV1API(API):
         *,
         instance_id: str,
         database_name: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         expires_at: Optional[datetime] = None,
     ) -> DatabaseBackup:
@@ -478,7 +478,7 @@ class RdbV1API(API):
         self,
         *,
         database_backup_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> DatabaseBackup:
         """
         Get a database backup.
@@ -514,7 +514,7 @@ class RdbV1API(API):
         self,
         *,
         database_backup_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         options: Optional[WaitForOptions[DatabaseBackup, bool]] = None,
     ) -> DatabaseBackup:
         """
@@ -553,7 +553,7 @@ class RdbV1API(API):
         self,
         *,
         database_backup_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         expires_at: Optional[datetime] = None,
     ) -> DatabaseBackup:
@@ -602,7 +602,7 @@ class RdbV1API(API):
         self,
         *,
         database_backup_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> DatabaseBackup:
         """
         Delete a database backup.
@@ -639,7 +639,7 @@ class RdbV1API(API):
         *,
         database_backup_id: str,
         instance_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         database_name: Optional[str] = None,
     ) -> DatabaseBackup:
         """
@@ -688,7 +688,7 @@ class RdbV1API(API):
         self,
         *,
         database_backup_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> DatabaseBackup:
         """
         Export a database backup.
@@ -725,7 +725,7 @@ class RdbV1API(API):
         self,
         *,
         instance_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         node_type: Optional[str] = None,
         enable_ha: Optional[bool] = None,
         volume_size: Optional[int] = None,
@@ -795,7 +795,7 @@ class RdbV1API(API):
     def list_instances(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         tags: Optional[List[str]] = None,
         name: Optional[str] = None,
         order_by: Optional[ListInstancesRequestOrderBy] = None,
@@ -848,7 +848,7 @@ class RdbV1API(API):
     def list_instances_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         tags: Optional[List[str]] = None,
         name: Optional[str] = None,
         order_by: Optional[ListInstancesRequestOrderBy] = None,
@@ -896,7 +896,7 @@ class RdbV1API(API):
         self,
         *,
         instance_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Instance:
         """
         Get a Database Instance.
@@ -930,7 +930,7 @@ class RdbV1API(API):
         self,
         *,
         instance_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         options: Optional[WaitForOptions[Instance, bool]] = None,
     ) -> Instance:
         """
@@ -970,7 +970,7 @@ class RdbV1API(API):
         user_name: str,
         password: str,
         node_type: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         name: Optional[str] = None,
@@ -1061,7 +1061,7 @@ class RdbV1API(API):
         self,
         *,
         instance_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         backup_schedule_frequency: Optional[int] = None,
         backup_schedule_retention: Optional[int] = None,
         is_backup_schedule_disabled: Optional[bool] = None,
@@ -1126,7 +1126,7 @@ class RdbV1API(API):
         self,
         *,
         instance_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Instance:
         """
         Delete a Database Instance.
@@ -1161,7 +1161,7 @@ class RdbV1API(API):
         *,
         instance_id: str,
         name: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         node_type: Optional[str] = None,
     ) -> Instance:
         """
@@ -1208,7 +1208,7 @@ class RdbV1API(API):
         self,
         *,
         instance_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Instance:
         """
         Restart Database Instance.
@@ -1243,7 +1243,7 @@ class RdbV1API(API):
         self,
         *,
         instance_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> ScwFile:
         """
         Get the TLS certificate of a Database Instance.
@@ -1277,7 +1277,7 @@ class RdbV1API(API):
         self,
         *,
         instance_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Renew the TLS certificate of a Database Instance.
@@ -1310,7 +1310,7 @@ class RdbV1API(API):
         self,
         *,
         instance_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         start_date: Optional[datetime] = None,
         end_date: Optional[datetime] = None,
         metric_name: Optional[str] = None,
@@ -1355,7 +1355,7 @@ class RdbV1API(API):
         self,
         *,
         instance_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         endpoint_spec: Optional[List[ReadReplicaEndpointSpec]] = None,
         same_zone: Optional[bool] = None,
     ) -> ReadReplica:
@@ -1401,7 +1401,7 @@ class RdbV1API(API):
         self,
         *,
         read_replica_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> ReadReplica:
         """
         Get a Read Replica.
@@ -1435,7 +1435,7 @@ class RdbV1API(API):
         self,
         *,
         read_replica_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         options: Optional[WaitForOptions[ReadReplica, bool]] = None,
     ) -> ReadReplica:
         """
@@ -1472,7 +1472,7 @@ class RdbV1API(API):
         self,
         *,
         read_replica_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> ReadReplica:
         """
         Delete a Read Replica.
@@ -1506,7 +1506,7 @@ class RdbV1API(API):
         self,
         *,
         read_replica_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> ReadReplica:
         """
         Resync a Read Replica.
@@ -1542,7 +1542,7 @@ class RdbV1API(API):
         self,
         *,
         read_replica_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Instance:
         """
         Promote a Read Replica.
@@ -1578,7 +1578,7 @@ class RdbV1API(API):
         *,
         read_replica_id: str,
         endpoint_spec: List[ReadReplicaEndpointSpec],
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> ReadReplica:
         """
         Create an endpoint for a Read Replica.
@@ -1622,7 +1622,7 @@ class RdbV1API(API):
         self,
         *,
         instance_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         start_date: Optional[datetime] = None,
         end_date: Optional[datetime] = None,
     ) -> PrepareInstanceLogsResponse:
@@ -1669,7 +1669,7 @@ class RdbV1API(API):
         self,
         *,
         instance_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListInstanceLogsRequestOrderBy] = None,
     ) -> ListInstanceLogsResponse:
         """
@@ -1708,7 +1708,7 @@ class RdbV1API(API):
         self,
         *,
         instance_log_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> InstanceLog:
         """
         Get given logs of a Database Instance.
@@ -1742,7 +1742,7 @@ class RdbV1API(API):
         self,
         *,
         instance_log_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         options: Optional[WaitForOptions[InstanceLog, bool]] = None,
     ) -> InstanceLog:
         """
@@ -1779,7 +1779,7 @@ class RdbV1API(API):
         self,
         *,
         instance_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         log_name: Optional[str] = None,
     ) -> None:
         """
@@ -1821,7 +1821,7 @@ class RdbV1API(API):
         self,
         *,
         instance_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> ListInstanceLogsDetailsResponse:
         """
         List remote Database Instance logs details.
@@ -1856,7 +1856,7 @@ class RdbV1API(API):
         *,
         instance_id: str,
         settings: List[InstanceSetting],
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> AddInstanceSettingsResponse:
         """
         Add Database Instance advanced settings.
@@ -1901,7 +1901,7 @@ class RdbV1API(API):
         *,
         instance_id: str,
         setting_names: List[str],
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> DeleteInstanceSettingsResponse:
         """
         Delete Database Instance advanced settings.
@@ -1946,7 +1946,7 @@ class RdbV1API(API):
         *,
         instance_id: str,
         settings: List[InstanceSetting],
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> SetInstanceSettingsResponse:
         """
         Set Database Instance advanced settings.
@@ -1990,7 +1990,7 @@ class RdbV1API(API):
         self,
         *,
         instance_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> ListInstanceACLRulesResponse:
@@ -2032,7 +2032,7 @@ class RdbV1API(API):
         self,
         *,
         instance_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ACLRule]:
@@ -2070,7 +2070,7 @@ class RdbV1API(API):
         *,
         instance_id: str,
         rules: List[ACLRuleRequest],
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> AddInstanceACLRulesResponse:
         """
         Add an ACL rule to a Database Instance.
@@ -2115,7 +2115,7 @@ class RdbV1API(API):
         *,
         instance_id: str,
         rules: List[ACLRuleRequest],
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> SetInstanceACLRulesResponse:
         """
         Set ACL rules for a Database Instance.
@@ -2160,7 +2160,7 @@ class RdbV1API(API):
         *,
         instance_id: str,
         acl_rule_ips: List[str],
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> DeleteInstanceACLRulesResponse:
         """
         Delete ACL rules of a Database Instance.
@@ -2204,7 +2204,7 @@ class RdbV1API(API):
         self,
         *,
         instance_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         order_by: Optional[ListUsersRequestOrderBy] = None,
         page: Optional[int] = None,
@@ -2252,7 +2252,7 @@ class RdbV1API(API):
         self,
         *,
         instance_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         order_by: Optional[ListUsersRequestOrderBy] = None,
         page: Optional[int] = None,
@@ -2298,7 +2298,7 @@ class RdbV1API(API):
         name: str,
         password: str,
         is_admin: bool,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> User:
         """
         Create a user for a Database Instance.
@@ -2349,7 +2349,7 @@ class RdbV1API(API):
         *,
         instance_id: str,
         name: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         password: Optional[str] = None,
         is_admin: Optional[bool] = None,
     ) -> User:
@@ -2401,7 +2401,7 @@ class RdbV1API(API):
         *,
         instance_id: str,
         name: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete a user on a Database Instance.
@@ -2436,7 +2436,7 @@ class RdbV1API(API):
         self,
         *,
         instance_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         managed: Optional[bool] = None,
         owner: Optional[str] = None,
@@ -2490,7 +2490,7 @@ class RdbV1API(API):
         self,
         *,
         instance_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         managed: Optional[bool] = None,
         owner: Optional[str] = None,
@@ -2540,7 +2540,7 @@ class RdbV1API(API):
         *,
         instance_id: str,
         name: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Database:
         """
         Create a database in a Database Instance.
@@ -2585,7 +2585,7 @@ class RdbV1API(API):
         *,
         instance_id: str,
         name: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete a database in a Database Instance.
@@ -2620,7 +2620,7 @@ class RdbV1API(API):
         self,
         *,
         instance_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListPrivilegesRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -2671,7 +2671,7 @@ class RdbV1API(API):
         self,
         *,
         instance_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListPrivilegesRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -2719,7 +2719,7 @@ class RdbV1API(API):
         instance_id: str,
         database_name: str,
         user_name: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         permission: Optional[Permission] = None,
     ) -> Privilege:
         """
@@ -2768,7 +2768,7 @@ class RdbV1API(API):
     def list_snapshots(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         order_by: Optional[ListSnapshotsRequestOrderBy] = None,
         instance_id: Optional[str] = None,
@@ -2821,7 +2821,7 @@ class RdbV1API(API):
     def list_snapshots_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         order_by: Optional[ListSnapshotsRequestOrderBy] = None,
         instance_id: Optional[str] = None,
@@ -2869,7 +2869,7 @@ class RdbV1API(API):
         self,
         *,
         snapshot_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Snapshot:
         """
         Get a Database Instance snapshot.
@@ -2903,7 +2903,7 @@ class RdbV1API(API):
         self,
         *,
         snapshot_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         options: Optional[WaitForOptions[Snapshot, bool]] = None,
     ) -> Snapshot:
         """
@@ -2940,7 +2940,7 @@ class RdbV1API(API):
         self,
         *,
         instance_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         expires_at: Optional[datetime] = None,
     ) -> Snapshot:
@@ -2987,7 +2987,7 @@ class RdbV1API(API):
         self,
         *,
         snapshot_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         expires_at: Optional[datetime] = None,
     ) -> Snapshot:
@@ -3034,7 +3034,7 @@ class RdbV1API(API):
         self,
         *,
         snapshot_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Snapshot:
         """
         Delete a Database Instance snapshot.
@@ -3069,7 +3069,7 @@ class RdbV1API(API):
         *,
         snapshot_id: str,
         instance_name: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         is_ha_cluster: Optional[bool] = None,
         node_type: Optional[str] = None,
     ) -> Instance:
@@ -3119,7 +3119,7 @@ class RdbV1API(API):
         self,
         *,
         instance_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         endpoint_spec: Optional[EndpointSpec] = None,
     ) -> Endpoint:
         """
@@ -3163,7 +3163,7 @@ class RdbV1API(API):
         self,
         *,
         endpoint_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete a Database Instance endpoint.
@@ -3195,7 +3195,7 @@ class RdbV1API(API):
         self,
         *,
         endpoint_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Endpoint:
         """
         Get a Database Instance endpoint.
@@ -3230,7 +3230,7 @@ class RdbV1API(API):
         *,
         endpoint_id: str,
         instance_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Endpoint:
         """
         Migrate an existing instance endpoint to another instance.
@@ -3273,7 +3273,7 @@ class RdbV1API(API):
         self,
         *,
         instance_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Maintenance:
         """
         Apply Database Instance maintenance.
