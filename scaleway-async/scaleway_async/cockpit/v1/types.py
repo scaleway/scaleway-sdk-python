@@ -8,7 +8,7 @@ from enum import Enum
 from typing import List, Optional
 
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -149,7 +149,7 @@ class ContactPoint:
     Contact point.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -203,7 +203,7 @@ class DataSource:
     BETA - Duration for which the data will be retained in the data source.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region of the data source.
     """
@@ -364,7 +364,7 @@ class Token:
     Token permission scopes.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Regions where the token is located.
     """
@@ -416,7 +416,7 @@ class Usage:
     Data source usage for the given interval.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region of the data source usage.
     """
@@ -448,7 +448,7 @@ class AlertManager:
     Managed alerts are enabled.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Regions where the Alert manager is enabled.
     """
@@ -837,7 +837,7 @@ class RegionalApiCreateContactPointRequest:
     Create a contact point.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -861,7 +861,7 @@ class RegionalApiCreateDataSourceRequest:
     Data source name.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -893,7 +893,7 @@ class RegionalApiCreateTokenRequest:
     Name of the token.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -915,7 +915,7 @@ class RegionalApiDeleteContactPointRequest:
     Delete a contact point.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -939,7 +939,7 @@ class RegionalApiDeleteDataSourceRequest:
     ID of the data source to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -956,7 +956,7 @@ class RegionalApiDeleteTokenRequest:
     ID of the token to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -968,7 +968,7 @@ class RegionalApiDisableAlertManagerRequest:
     Disable the Alert manager.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -985,7 +985,7 @@ class RegionalApiDisableManagedAlertsRequest:
     Disable the sending of managed alerts.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1002,7 +1002,7 @@ class RegionalApiEnableAlertManagerRequest:
     Enable the Alert manager.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1019,7 +1019,7 @@ class RegionalApiEnableManagedAlertsRequest:
     Enable the sending of managed alerts.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1036,7 +1036,7 @@ class RegionalApiGetAlertManagerRequest:
     Get the Alert manager.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1053,7 +1053,7 @@ class RegionalApiGetConfigRequest:
     Get Cockpit configuration.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1070,7 +1070,7 @@ class RegionalApiGetDataSourceRequest:
     ID of the relevant data source.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1087,7 +1087,7 @@ class RegionalApiGetTokenRequest:
     Token ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1095,7 +1095,7 @@ class RegionalApiGetTokenRequest:
 
 @dataclass
 class RegionalApiGetUsageOverviewRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1111,7 +1111,7 @@ class RegionalApiListContactPointsRequest:
     List contact points.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1138,7 +1138,7 @@ class RegionalApiListDataSourcesRequest:
     List data sources.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1180,7 +1180,7 @@ class RegionalApiListManagedAlertsRequest:
     Enable the sending of managed alerts.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1212,7 +1212,7 @@ class RegionalApiListTokensRequest:
     List tokens.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1249,7 +1249,7 @@ class RegionalApiTriggerTestAlertRequest:
     Request to trigger a test alert.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1271,7 +1271,7 @@ class RegionalApiUpdateDataSourceRequest:
     ID of the data source to update.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """

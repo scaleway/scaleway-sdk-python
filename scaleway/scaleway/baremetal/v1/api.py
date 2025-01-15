@@ -6,7 +6,7 @@ from typing import List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Zone,
+    Zone as ScwZone,
 )
 from scaleway_core.utils import (
     WaitForOptions,
@@ -99,7 +99,7 @@ class BaremetalV1API(API):
     def list_servers(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListServersRequestOrderBy] = None,
@@ -156,7 +156,7 @@ class BaremetalV1API(API):
     def list_servers_all(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListServersRequestOrderBy] = None,
@@ -210,7 +210,7 @@ class BaremetalV1API(API):
         self,
         *,
         server_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Server:
         """
         Get a specific Elastic Metal server.
@@ -242,7 +242,7 @@ class BaremetalV1API(API):
         self,
         *,
         server_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         options: Optional[WaitForOptions[Server, bool]] = None,
     ) -> Server:
         """
@@ -281,7 +281,7 @@ class BaremetalV1API(API):
         offer_id: str,
         name: str,
         description: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         tags: Optional[List[str]] = None,
@@ -342,7 +342,7 @@ class BaremetalV1API(API):
         self,
         *,
         server_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         description: Optional[str] = None,
         tags: Optional[List[str]] = None,
@@ -393,7 +393,7 @@ class BaremetalV1API(API):
         os_id: str,
         hostname: str,
         ssh_key_ids: List[str],
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         user: Optional[str] = None,
         password: Optional[str] = None,
         service_user: Optional[str] = None,
@@ -456,7 +456,7 @@ class BaremetalV1API(API):
         self,
         *,
         server_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> GetServerMetricsResponse:
         """
         Return server metrics.
@@ -488,7 +488,7 @@ class BaremetalV1API(API):
         self,
         *,
         server_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Server:
         """
         Delete an Elastic Metal server.
@@ -520,7 +520,7 @@ class BaremetalV1API(API):
         self,
         *,
         server_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         boot_type: Optional[ServerBootType] = None,
     ) -> Server:
         """
@@ -562,7 +562,7 @@ class BaremetalV1API(API):
         self,
         *,
         server_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         boot_type: Optional[ServerBootType] = None,
     ) -> Server:
         """
@@ -604,7 +604,7 @@ class BaremetalV1API(API):
         self,
         *,
         server_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Server:
         """
         Stop an Elastic Metal server.
@@ -637,7 +637,7 @@ class BaremetalV1API(API):
         self,
         *,
         server_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListServerEventsRequestOrderBy] = None,
@@ -680,7 +680,7 @@ class BaremetalV1API(API):
         self,
         *,
         server_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListServerEventsRequestOrderBy] = None,
@@ -721,7 +721,7 @@ class BaremetalV1API(API):
         *,
         offer_id: str,
         os_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Schema:
         """
         Get default partitioning schema.
@@ -759,7 +759,7 @@ class BaremetalV1API(API):
         *,
         offer_id: str,
         os_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         partitioning_schema: Optional[Schema] = None,
     ) -> None:
         """
@@ -802,7 +802,7 @@ class BaremetalV1API(API):
         *,
         server_id: str,
         ip: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> BMCAccess:
         """
         Start BMC access.
@@ -847,7 +847,7 @@ class BaremetalV1API(API):
         self,
         *,
         server_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> BMCAccess:
         """
         Get BMC access.
@@ -879,7 +879,7 @@ class BaremetalV1API(API):
         self,
         *,
         server_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Stop BMC access.
@@ -910,7 +910,7 @@ class BaremetalV1API(API):
         *,
         server_id: str,
         ip_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         reverse: Optional[str] = None,
     ) -> IP:
         """
@@ -957,7 +957,7 @@ class BaremetalV1API(API):
         *,
         server_id: str,
         option_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         expires_at: Optional[datetime] = None,
     ) -> Server:
         """
@@ -1004,7 +1004,7 @@ class BaremetalV1API(API):
         *,
         server_id: str,
         option_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Server:
         """
         Delete server option.
@@ -1038,7 +1038,7 @@ class BaremetalV1API(API):
     def list_offers(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         subscription_period: Optional[OfferSubscriptionPeriod] = None,
@@ -1079,7 +1079,7 @@ class BaremetalV1API(API):
     def list_offers_all(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         subscription_period: Optional[OfferSubscriptionPeriod] = None,
@@ -1118,7 +1118,7 @@ class BaremetalV1API(API):
         self,
         *,
         offer_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Offer:
         """
         Get offer.
@@ -1150,7 +1150,7 @@ class BaremetalV1API(API):
         self,
         *,
         option_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Option:
         """
         Get option.
@@ -1181,7 +1181,7 @@ class BaremetalV1API(API):
     def list_options(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         offer_id: Optional[str] = None,
@@ -1222,7 +1222,7 @@ class BaremetalV1API(API):
     def list_options_all(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         offer_id: Optional[str] = None,
@@ -1260,7 +1260,7 @@ class BaremetalV1API(API):
     def list_settings(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListSettingsRequestOrderBy] = None,
@@ -1301,7 +1301,7 @@ class BaremetalV1API(API):
     def list_settings_all(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListSettingsRequestOrderBy] = None,
@@ -1340,7 +1340,7 @@ class BaremetalV1API(API):
         self,
         *,
         setting_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         enabled: Optional[bool] = None,
     ) -> Setting:
         """
@@ -1381,7 +1381,7 @@ class BaremetalV1API(API):
     def list_os(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         offer_id: Optional[str] = None,
@@ -1419,7 +1419,7 @@ class BaremetalV1API(API):
     def list_os_all(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         offer_id: Optional[str] = None,
@@ -1455,7 +1455,7 @@ class BaremetalV1API(API):
         self,
         *,
         os_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> OS:
         """
         Get OS with an ID.
@@ -1494,7 +1494,7 @@ class BaremetalV1PrivateNetworkAPI(API):
         *,
         server_id: str,
         private_network_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> ServerPrivateNetwork:
         """
         Add a server to a Private Network.
@@ -1536,7 +1536,7 @@ class BaremetalV1PrivateNetworkAPI(API):
         *,
         server_id: str,
         private_network_ids: List[str],
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> SetServerPrivateNetworksResponse:
         """
         Set multiple Private Networks on a server.
@@ -1576,7 +1576,7 @@ class BaremetalV1PrivateNetworkAPI(API):
     def list_server_private_networks(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         order_by: Optional[ListServerPrivateNetworksRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1626,7 +1626,7 @@ class BaremetalV1PrivateNetworkAPI(API):
     def list_server_private_networks_all(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         order_by: Optional[ListServerPrivateNetworksRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1674,7 +1674,7 @@ class BaremetalV1PrivateNetworkAPI(API):
         *,
         server_id: str,
         private_network_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Delete a Private Network.

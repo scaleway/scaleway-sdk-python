@@ -6,7 +6,7 @@ from typing import Awaitable, List, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     WaitForOptions,
@@ -92,7 +92,7 @@ class TemV1Alpha1API(API):
         subject: str,
         text: str,
         html: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         to: Optional[List[CreateEmailRequestAddress]] = None,
         cc: Optional[List[CreateEmailRequestAddress]] = None,
         bcc: Optional[List[CreateEmailRequestAddress]] = None,
@@ -162,7 +162,7 @@ class TemV1Alpha1API(API):
         self,
         *,
         email_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Email:
         """
         Get an email.
@@ -196,7 +196,7 @@ class TemV1Alpha1API(API):
         self,
         *,
         email_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         options: Optional[WaitForOptions[Email, Union[bool, Awaitable[bool]]]] = None,
     ) -> Email:
         """
@@ -232,7 +232,7 @@ class TemV1Alpha1API(API):
     async def list_emails(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         project_id: Optional[str] = None,
@@ -308,7 +308,7 @@ class TemV1Alpha1API(API):
     async def list_emails_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         project_id: Optional[str] = None,
@@ -379,7 +379,7 @@ class TemV1Alpha1API(API):
     async def get_statistics(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         domain_id: Optional[str] = None,
         since: Optional[datetime] = None,
@@ -426,7 +426,7 @@ class TemV1Alpha1API(API):
         self,
         *,
         email_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Email:
         """
         Cancel an email.
@@ -463,7 +463,7 @@ class TemV1Alpha1API(API):
         domain_name: str,
         accept_tos: bool,
         autoconfig: bool,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
     ) -> Domain:
         """
@@ -512,7 +512,7 @@ class TemV1Alpha1API(API):
         self,
         *,
         domain_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Domain:
         """
         Get information about a domain.
@@ -546,7 +546,7 @@ class TemV1Alpha1API(API):
         self,
         *,
         domain_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         options: Optional[WaitForOptions[Domain, Union[bool, Awaitable[bool]]]] = None,
     ) -> Domain:
         """
@@ -582,7 +582,7 @@ class TemV1Alpha1API(API):
     async def list_domains(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         project_id: Optional[str] = None,
@@ -632,7 +632,7 @@ class TemV1Alpha1API(API):
     async def list_domains_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         project_id: Optional[str] = None,
@@ -677,7 +677,7 @@ class TemV1Alpha1API(API):
         self,
         *,
         domain_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Domain:
         """
         Delete a domain.
@@ -712,7 +712,7 @@ class TemV1Alpha1API(API):
         self,
         *,
         domain_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Domain:
         """
         Domain DNS check.
@@ -747,7 +747,7 @@ class TemV1Alpha1API(API):
         self,
         *,
         domain_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> DomainLastStatus:
         """
         Display SPF and DKIM records status and potential errors.
@@ -781,7 +781,7 @@ class TemV1Alpha1API(API):
         self,
         *,
         domain_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         autoconfig: Optional[bool] = None,
     ) -> Domain:
         """
@@ -827,7 +827,7 @@ class TemV1Alpha1API(API):
         domain_id: str,
         name: str,
         sns_arn: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         event_types: Optional[List[WebhookEventType]] = None,
     ) -> Webhook:
@@ -878,7 +878,7 @@ class TemV1Alpha1API(API):
     async def list_webhooks(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListWebhooksRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -928,7 +928,7 @@ class TemV1Alpha1API(API):
     async def list_webhooks_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListWebhooksRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -973,7 +973,7 @@ class TemV1Alpha1API(API):
         self,
         *,
         webhook_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Webhook:
         """
         Get information about a Webhook.
@@ -1007,7 +1007,7 @@ class TemV1Alpha1API(API):
         self,
         *,
         webhook_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         event_types: Optional[List[WebhookEventType]] = None,
         sns_arn: Optional[str] = None,
@@ -1057,7 +1057,7 @@ class TemV1Alpha1API(API):
         self,
         *,
         webhook_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete a Webhook.
@@ -1089,7 +1089,7 @@ class TemV1Alpha1API(API):
         self,
         *,
         webhook_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListWebhookEventsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1153,7 +1153,7 @@ class TemV1Alpha1API(API):
         self,
         *,
         webhook_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListWebhookEventsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1210,7 +1210,7 @@ class TemV1Alpha1API(API):
     async def get_project_settings(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
     ) -> ProjectSettings:
         """
@@ -1244,7 +1244,7 @@ class TemV1Alpha1API(API):
     async def update_project_settings(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         periodic_report: Optional[
             UpdateProjectSettingsRequestUpdatePeriodicReport
@@ -1291,7 +1291,7 @@ class TemV1Alpha1API(API):
         self,
         *,
         domain_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListBlocklistsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1345,7 +1345,7 @@ class TemV1Alpha1API(API):
         self,
         *,
         domain_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListBlocklistsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1394,7 +1394,7 @@ class TemV1Alpha1API(API):
         self,
         *,
         domain_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         emails: Optional[List[str]] = None,
         type_: Optional[BlocklistType] = None,
         reason: Optional[str] = None,
@@ -1443,7 +1443,7 @@ class TemV1Alpha1API(API):
         self,
         *,
         blocklist_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete a blocklist.

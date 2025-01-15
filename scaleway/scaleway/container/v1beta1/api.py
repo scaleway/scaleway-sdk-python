@@ -6,7 +6,7 @@ from typing import Any, Dict, List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     OneOfPossibility,
@@ -100,7 +100,7 @@ class ContainerV1Beta1API(API):
     def list_namespaces(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListNamespacesRequestOrderBy] = None,
@@ -150,7 +150,7 @@ class ContainerV1Beta1API(API):
     def list_namespaces_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListNamespacesRequestOrderBy] = None,
@@ -195,7 +195,7 @@ class ContainerV1Beta1API(API):
         self,
         *,
         namespace_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Namespace:
         """
         Get a namespace.
@@ -229,7 +229,7 @@ class ContainerV1Beta1API(API):
         self,
         *,
         namespace_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         options: Optional[WaitForOptions[Namespace, bool]] = None,
     ) -> Namespace:
         """
@@ -265,7 +265,7 @@ class ContainerV1Beta1API(API):
     def create_namespace(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         environment_variables: Optional[Dict[str, str]] = None,
         project_id: Optional[str] = None,
@@ -319,7 +319,7 @@ class ContainerV1Beta1API(API):
         self,
         *,
         namespace_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         environment_variables: Optional[Dict[str, str]] = None,
         description: Optional[str] = None,
         secret_environment_variables: Optional[List[Secret]] = None,
@@ -372,7 +372,7 @@ class ContainerV1Beta1API(API):
         self,
         *,
         namespace_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Namespace:
         """
         Delete an existing namespace.
@@ -406,7 +406,7 @@ class ContainerV1Beta1API(API):
         self,
         *,
         namespace_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListContainersRequestOrderBy] = None,
@@ -461,7 +461,7 @@ class ContainerV1Beta1API(API):
         self,
         *,
         namespace_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListContainersRequestOrderBy] = None,
@@ -510,7 +510,7 @@ class ContainerV1Beta1API(API):
         self,
         *,
         container_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Container:
         """
         Get a container.
@@ -544,7 +544,7 @@ class ContainerV1Beta1API(API):
         self,
         *,
         container_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         options: Optional[WaitForOptions[Container, bool]] = None,
     ) -> Container:
         """
@@ -582,7 +582,7 @@ class ContainerV1Beta1API(API):
         *,
         namespace_id: str,
         name: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         environment_variables: Optional[Dict[str, str]] = None,
         min_scale: Optional[int] = None,
         max_scale: Optional[int] = None,
@@ -684,7 +684,7 @@ class ContainerV1Beta1API(API):
         self,
         *,
         container_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         environment_variables: Optional[Dict[str, str]] = None,
         min_scale: Optional[int] = None,
         max_scale: Optional[int] = None,
@@ -787,7 +787,7 @@ class ContainerV1Beta1API(API):
         self,
         *,
         container_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Container:
         """
         Delete a container.
@@ -821,7 +821,7 @@ class ContainerV1Beta1API(API):
         self,
         *,
         container_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Container:
         """
         Deploy a container.
@@ -856,7 +856,7 @@ class ContainerV1Beta1API(API):
         self,
         *,
         container_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListCronsRequestOrderBy] = None,
@@ -900,7 +900,7 @@ class ContainerV1Beta1API(API):
         self,
         *,
         container_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListCronsRequestOrderBy] = None,
@@ -939,7 +939,7 @@ class ContainerV1Beta1API(API):
         self,
         *,
         cron_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Cron:
         """
         Get a cron.
@@ -973,7 +973,7 @@ class ContainerV1Beta1API(API):
         self,
         *,
         cron_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         options: Optional[WaitForOptions[Cron, bool]] = None,
     ) -> Cron:
         """
@@ -1011,7 +1011,7 @@ class ContainerV1Beta1API(API):
         *,
         container_id: str,
         schedule: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         args: Optional[Dict[str, Any]] = None,
         name: Optional[str] = None,
     ) -> Cron:
@@ -1059,7 +1059,7 @@ class ContainerV1Beta1API(API):
         self,
         *,
         cron_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         container_id: Optional[str] = None,
         schedule: Optional[str] = None,
         args: Optional[Dict[str, Any]] = None,
@@ -1112,7 +1112,7 @@ class ContainerV1Beta1API(API):
         self,
         *,
         cron_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Cron:
         """
         Delete an existing cron.
@@ -1146,7 +1146,7 @@ class ContainerV1Beta1API(API):
         self,
         *,
         container_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListDomainsRequestOrderBy] = None,
@@ -1191,7 +1191,7 @@ class ContainerV1Beta1API(API):
         self,
         *,
         container_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListDomainsRequestOrderBy] = None,
@@ -1231,7 +1231,7 @@ class ContainerV1Beta1API(API):
         self,
         *,
         domain_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Domain:
         """
         Get a custom domain.
@@ -1265,7 +1265,7 @@ class ContainerV1Beta1API(API):
         self,
         *,
         domain_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         options: Optional[WaitForOptions[Domain, bool]] = None,
     ) -> Domain:
         """
@@ -1303,7 +1303,7 @@ class ContainerV1Beta1API(API):
         *,
         hostname: str,
         container_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Domain:
         """
         Create a custom domain.
@@ -1346,7 +1346,7 @@ class ContainerV1Beta1API(API):
         self,
         *,
         domain_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Domain:
         """
         Delete a custom domain.
@@ -1379,7 +1379,7 @@ class ContainerV1Beta1API(API):
     def create_token(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         container_id: Optional[str] = None,
         namespace_id: Optional[str] = None,
         description: Optional[str] = None,
@@ -1428,7 +1428,7 @@ class ContainerV1Beta1API(API):
         self,
         *,
         token_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Token:
         """
         Get a token.
@@ -1462,7 +1462,7 @@ class ContainerV1Beta1API(API):
         self,
         *,
         token_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         options: Optional[WaitForOptions[Token, bool]] = None,
     ) -> Token:
         """
@@ -1498,7 +1498,7 @@ class ContainerV1Beta1API(API):
     def list_tokens(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListTokensRequestOrderBy] = None,
@@ -1544,7 +1544,7 @@ class ContainerV1Beta1API(API):
     def list_tokens_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListTokensRequestOrderBy] = None,
@@ -1586,7 +1586,7 @@ class ContainerV1Beta1API(API):
         self,
         *,
         token_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Token:
         """
         Delete a token.
@@ -1621,7 +1621,7 @@ class ContainerV1Beta1API(API):
         *,
         name: str,
         container_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         description: Optional[str] = None,
         scw_sqs_config: Optional[CreateTriggerRequestMnqSqsClientConfig] = None,
         scw_nats_config: Optional[CreateTriggerRequestMnqNatsClientConfig] = None,
@@ -1679,7 +1679,7 @@ class ContainerV1Beta1API(API):
         self,
         *,
         trigger_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Trigger:
         """
         Get a trigger.
@@ -1713,7 +1713,7 @@ class ContainerV1Beta1API(API):
         self,
         *,
         trigger_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         options: Optional[WaitForOptions[Trigger, bool]] = None,
     ) -> Trigger:
         """
@@ -1749,7 +1749,7 @@ class ContainerV1Beta1API(API):
     def list_triggers(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListTriggersRequestOrderBy] = None,
@@ -1805,7 +1805,7 @@ class ContainerV1Beta1API(API):
     def list_triggers_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListTriggersRequestOrderBy] = None,
@@ -1853,7 +1853,7 @@ class ContainerV1Beta1API(API):
         self,
         *,
         trigger_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         description: Optional[str] = None,
         sqs_config: Optional[UpdateTriggerRequestSqsClientConfig] = None,
@@ -1904,7 +1904,7 @@ class ContainerV1Beta1API(API):
         self,
         *,
         trigger_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Trigger:
         """
         Delete a trigger.

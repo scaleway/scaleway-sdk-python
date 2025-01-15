@@ -8,7 +8,7 @@ from enum import Enum
 from typing import List, Optional
 
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -83,7 +83,7 @@ class DatabaseBackup:
     UUID of the source Serverless SQL Database the backup is created from.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region of the database backup.
     """
@@ -151,7 +151,7 @@ class Database:
     Project ID the database belongs to.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region of the database.
     """
@@ -204,7 +204,7 @@ class CreateDatabaseRequest:
     The maximum number of CPU units for your Serverless SQL Database.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -227,7 +227,7 @@ class DeleteDatabaseRequest:
     UUID of the Serverless SQL Database.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -240,7 +240,7 @@ class ExportDatabaseBackupRequest:
     UUID of the Serverless SQL Database backup.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -253,7 +253,7 @@ class GetDatabaseBackupRequest:
     UUID of the Serverless SQL Database backup.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -266,7 +266,7 @@ class GetDatabaseRequest:
     UUID of the Serverless SQL DB database.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -279,7 +279,7 @@ class ListDatabaseBackupsRequest:
     Filter by the UUID of the Serverless SQL Database.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -325,7 +325,7 @@ class ListDatabaseBackupsResponse:
 
 @dataclass
 class ListDatabasesRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -386,7 +386,7 @@ class RestoreDatabaseFromBackupRequest:
     UUID of the Serverless SQL Database backup to restore.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -399,7 +399,7 @@ class UpdateDatabaseRequest:
     UUID of the Serverless SQL Database.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """

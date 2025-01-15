@@ -5,7 +5,7 @@ from typing import List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Zone,
+    Zone as ScwZone,
 )
 from scaleway_core.utils import (
     OneOfPossibility,
@@ -272,7 +272,7 @@ class MarketplaceV2API(API):
         page_size: Optional[int] = None,
         page: Optional[int] = None,
         order_by: Optional[ListLocalImagesRequestOrderBy] = None,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         image_id: Optional[str] = None,
         version_id: Optional[str] = None,
         image_label: Optional[str] = None,
@@ -328,7 +328,7 @@ class MarketplaceV2API(API):
         page_size: Optional[int] = None,
         page: Optional[int] = None,
         order_by: Optional[ListLocalImagesRequestOrderBy] = None,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         image_id: Optional[str] = None,
         version_id: Optional[str] = None,
         image_label: Optional[str] = None,

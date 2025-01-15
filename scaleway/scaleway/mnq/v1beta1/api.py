@@ -5,7 +5,7 @@ from typing import List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     random_name,
@@ -74,7 +74,7 @@ class MnqV1Beta1NatsAPI(API):
     def create_nats_account(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         project_id: Optional[str] = None,
     ) -> NatsAccount:
@@ -116,7 +116,7 @@ class MnqV1Beta1NatsAPI(API):
         self,
         *,
         nats_account_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete a NATS account.
@@ -148,7 +148,7 @@ class MnqV1Beta1NatsAPI(API):
         self,
         *,
         nats_account_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
     ) -> NatsAccount:
         """
@@ -192,7 +192,7 @@ class MnqV1Beta1NatsAPI(API):
         self,
         *,
         nats_account_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> NatsAccount:
         """
         Get a NATS account.
@@ -225,7 +225,7 @@ class MnqV1Beta1NatsAPI(API):
     def list_nats_accounts(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -268,7 +268,7 @@ class MnqV1Beta1NatsAPI(API):
     def list_nats_accounts_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -307,7 +307,7 @@ class MnqV1Beta1NatsAPI(API):
         self,
         *,
         nats_account_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
     ) -> NatsCredentials:
         """
@@ -350,7 +350,7 @@ class MnqV1Beta1NatsAPI(API):
         self,
         *,
         nats_credentials_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete NATS credentials.
@@ -384,7 +384,7 @@ class MnqV1Beta1NatsAPI(API):
         self,
         *,
         nats_credentials_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> NatsCredentials:
         """
         Get NATS credentials.
@@ -419,7 +419,7 @@ class MnqV1Beta1NatsAPI(API):
     def list_nats_credentials(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         nats_account_id: Optional[str] = None,
         page: Optional[int] = None,
@@ -465,7 +465,7 @@ class MnqV1Beta1NatsAPI(API):
     def list_nats_credentials_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         nats_account_id: Optional[str] = None,
         page: Optional[int] = None,
@@ -512,7 +512,7 @@ class MnqV1Beta1SnsAPI(API):
     def activate_sns(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
     ) -> SnsInfo:
         """
@@ -550,7 +550,7 @@ class MnqV1Beta1SnsAPI(API):
     def get_sns_info(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
     ) -> SnsInfo:
         """
@@ -584,7 +584,7 @@ class MnqV1Beta1SnsAPI(API):
     def deactivate_sns(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
     ) -> SnsInfo:
         """
@@ -622,7 +622,7 @@ class MnqV1Beta1SnsAPI(API):
     def create_sns_credentials(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         name: Optional[str] = None,
         permissions: Optional[SnsPermissions] = None,
@@ -667,7 +667,7 @@ class MnqV1Beta1SnsAPI(API):
         self,
         *,
         sns_credentials_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete Topics and Events credentials.
@@ -701,7 +701,7 @@ class MnqV1Beta1SnsAPI(API):
         self,
         *,
         sns_credentials_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         permissions: Optional[SnsPermissions] = None,
     ) -> SnsCredentials:
@@ -750,7 +750,7 @@ class MnqV1Beta1SnsAPI(API):
         self,
         *,
         sns_credentials_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> SnsCredentials:
         """
         Get Topics and Events credentials.
@@ -785,7 +785,7 @@ class MnqV1Beta1SnsAPI(API):
     def list_sns_credentials(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -828,7 +828,7 @@ class MnqV1Beta1SnsAPI(API):
     def list_sns_credentials_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -872,7 +872,7 @@ class MnqV1Beta1SqsAPI(API):
     def activate_sqs(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
     ) -> SqsInfo:
         """
@@ -910,7 +910,7 @@ class MnqV1Beta1SqsAPI(API):
     def get_sqs_info(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
     ) -> SqsInfo:
         """
@@ -944,7 +944,7 @@ class MnqV1Beta1SqsAPI(API):
     def deactivate_sqs(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
     ) -> SqsInfo:
         """
@@ -982,7 +982,7 @@ class MnqV1Beta1SqsAPI(API):
     def create_sqs_credentials(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         name: Optional[str] = None,
         permissions: Optional[SqsPermissions] = None,
@@ -1027,7 +1027,7 @@ class MnqV1Beta1SqsAPI(API):
         self,
         *,
         sqs_credentials_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete Queues credentials.
@@ -1061,7 +1061,7 @@ class MnqV1Beta1SqsAPI(API):
         self,
         *,
         sqs_credentials_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         permissions: Optional[SqsPermissions] = None,
     ) -> SqsCredentials:
@@ -1110,7 +1110,7 @@ class MnqV1Beta1SqsAPI(API):
         self,
         *,
         sqs_credentials_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> SqsCredentials:
         """
         Get Queues credentials.
@@ -1145,7 +1145,7 @@ class MnqV1Beta1SqsAPI(API):
     def list_sqs_credentials(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1188,7 +1188,7 @@ class MnqV1Beta1SqsAPI(API):
     def list_sqs_credentials_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,

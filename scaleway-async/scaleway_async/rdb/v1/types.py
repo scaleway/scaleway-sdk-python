@@ -8,9 +8,9 @@ from enum import Enum
 from typing import List, Optional
 
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
     TimeSeries,
-    Zone,
+    Zone as ScwZone,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -289,7 +289,7 @@ class EndpointPrivateNetworkDetails:
     CIDR notation of the endpoint IPv4 address.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     Private network zone.
     """
@@ -566,7 +566,7 @@ class ReadReplica:
     Read replica status.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region the Read Replica is in.
     """
@@ -743,7 +743,7 @@ class DatabaseBackup:
     Name of the Database Instance of the backup.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region of the database backup.
     """
@@ -781,7 +781,7 @@ class DatabaseEngine:
     Available versions.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region of this Database Instance.
     """
@@ -834,7 +834,7 @@ class InstanceLog:
     Name of the underlying node.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region the Database Instance is in.
     """
@@ -857,7 +857,7 @@ class InstanceLog:
 
 @dataclass
 class Instance:
-    region: Region
+    region: ScwRegion
     """
     Region the Database Instance is in.
     """
@@ -1040,7 +1040,7 @@ class NodeType:
     Instance range associated with the NodeType offer.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region the Node Type is in.
     """
@@ -1096,7 +1096,7 @@ class Snapshot:
     Source node type.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region of this snapshot.
     """
@@ -1165,7 +1165,7 @@ class AddInstanceACLRulesRequest:
     ACL rules to add to the Database Instance.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1191,7 +1191,7 @@ class AddInstanceSettingsRequest:
     Settings to add to the Database Instance.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1212,7 +1212,7 @@ class ApplyInstanceMaintenanceRequest:
     UUID of the Database Instance you want to apply maintenance.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1230,7 +1230,7 @@ class CloneInstanceRequest:
     Name of the Database Instance clone.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1253,7 +1253,7 @@ class CreateDatabaseBackupRequest:
     Name of the database you want to back up.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1281,7 +1281,7 @@ class CreateDatabaseRequest:
     Name of the database.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1294,7 +1294,7 @@ class CreateEndpointRequest:
     UUID of the Database Instance you to which you want to add an endpoint.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1317,7 +1317,7 @@ class CreateInstanceFromSnapshotRequest:
     Name of the Database Instance created with the snapshot.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1355,7 +1355,7 @@ class CreateInstanceRequest:
     Type of node to use for the Database Instance.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1427,7 +1427,7 @@ class CreateReadReplicaEndpointRequest:
     Specification of the endpoint you want to create.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1440,7 +1440,7 @@ class CreateReadReplicaRequest:
     UUID of the Database Instance you want to create a Read Replica from.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1463,7 +1463,7 @@ class CreateSnapshotRequest:
     UUID of the Database Instance.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1501,7 +1501,7 @@ class CreateUserRequest:
     Defines whether the user will have administrative privileges.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1514,7 +1514,7 @@ class DeleteDatabaseBackupRequest:
     UUID of the database backup to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1532,7 +1532,7 @@ class DeleteDatabaseRequest:
     Name of the database to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1545,7 +1545,7 @@ class DeleteEndpointRequest:
     This endpoint can also be used to delete a Read Replica endpoint.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1563,7 +1563,7 @@ class DeleteInstanceACLRulesRequest:
     IP addresses defined in the ACL rules of the Database Instance.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1584,7 +1584,7 @@ class DeleteInstanceRequest:
     UUID of the Database Instance to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1602,7 +1602,7 @@ class DeleteInstanceSettingsRequest:
     Settings names to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1623,7 +1623,7 @@ class DeleteReadReplicaRequest:
     UUID of the Read Replica.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1636,7 +1636,7 @@ class DeleteSnapshotRequest:
     UUID of the snapshot to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1654,7 +1654,7 @@ class DeleteUserRequest:
     Name of the user.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1667,7 +1667,7 @@ class ExportDatabaseBackupRequest:
     UUID of the database backup you want to export.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1680,7 +1680,7 @@ class GetDatabaseBackupRequest:
     UUID of the database backup.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1693,7 +1693,7 @@ class GetEndpointRequest:
     UUID of the endpoint you want to get.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1706,7 +1706,7 @@ class GetInstanceCertificateRequest:
     UUID of the Database Instance.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1719,7 +1719,7 @@ class GetInstanceLogRequest:
     UUID of the instance_log you want.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1732,7 +1732,7 @@ class GetInstanceMetricsRequest:
     UUID of the Database Instance.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1760,7 +1760,7 @@ class GetInstanceRequest:
     UUID of the Database Instance.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1773,7 +1773,7 @@ class GetReadReplicaRequest:
     UUID of the Read Replica.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1786,7 +1786,7 @@ class GetSnapshotRequest:
     UUID of the snapshot.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1802,7 +1802,7 @@ class InstanceMetrics:
 
 @dataclass
 class ListDatabaseBackupsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1852,7 +1852,7 @@ class ListDatabaseBackupsResponse:
 
 @dataclass
 class ListDatabaseEnginesRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1892,7 +1892,7 @@ class ListDatabasesRequest:
     UUID of the Database Instance to list the databases of.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1942,7 +1942,7 @@ class ListInstanceACLRulesRequest:
     UUID of the Database Instance.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1972,7 +1972,7 @@ class ListInstanceLogsDetailsRequest:
     UUID of the Database Instance you want logs of.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1993,7 +1993,7 @@ class ListInstanceLogsRequest:
     UUID of the Database Instance you want logs of.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2014,7 +2014,7 @@ class ListInstanceLogsResponse:
 
 @dataclass
 class ListInstancesRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2069,7 +2069,7 @@ class ListNodeTypesRequest:
     Defines whether or not to include disabled types.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2099,7 +2099,7 @@ class ListPrivilegesRequest:
     UUID of the Database Instance.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2139,7 +2139,7 @@ class ListPrivilegesResponse:
 
 @dataclass
 class ListSnapshotsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2194,7 +2194,7 @@ class ListUsersRequest:
     UUID of the Database Instance.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2239,7 +2239,7 @@ class MigrateEndpointRequest:
     UUID of the instance you want to attach the endpoint to.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2252,7 +2252,7 @@ class PrepareInstanceLogsRequest:
     UUID of the Database Instance you want logs of.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2283,7 +2283,7 @@ class PromoteReadReplicaRequest:
     UUID of the Read Replica.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2296,7 +2296,7 @@ class PurgeInstanceLogsRequest:
     UUID of the Database Instance you want logs of.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2314,7 +2314,7 @@ class RenewInstanceCertificateRequest:
     UUID of the Database Instance you want logs of.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2327,7 +2327,7 @@ class ResetReadReplicaRequest:
     UUID of the Read Replica.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2340,7 +2340,7 @@ class RestartInstanceRequest:
     UUID of the Database Instance you want to restart.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2358,7 +2358,7 @@ class RestoreDatabaseBackupRequest:
     Defines the Database Instance where the backup has to be restored.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2381,7 +2381,7 @@ class SetInstanceACLRulesRequest:
     ACL rules to define for the Database Instance.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2407,7 +2407,7 @@ class SetInstanceSettingsRequest:
     Settings to define for the Database Instance.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2438,7 +2438,7 @@ class SetPrivilegeRequest:
     Name of the user.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2456,7 +2456,7 @@ class UpdateDatabaseBackupRequest:
     UUID of the database backup to update.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2479,7 +2479,7 @@ class UpdateInstanceRequest:
     UUID of the Database Instance to update.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2532,7 +2532,7 @@ class UpdateSnapshotRequest:
     UUID of the snapshot to update.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2560,7 +2560,7 @@ class UpdateUserRequest:
     Name of the database user.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2583,7 +2583,7 @@ class UpgradeInstanceRequest:
     UUID of the Database Instance you want to upgrade.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """

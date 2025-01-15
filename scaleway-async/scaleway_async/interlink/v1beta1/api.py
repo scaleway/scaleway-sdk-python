@@ -5,7 +5,7 @@ from typing import List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     validate_path_param,
@@ -59,7 +59,7 @@ class InterlinkV1Beta1API(API):
     async def list_partners(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListPartnersRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -102,7 +102,7 @@ class InterlinkV1Beta1API(API):
     async def list_partners_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListPartnersRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -141,7 +141,7 @@ class InterlinkV1Beta1API(API):
         self,
         *,
         partner_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Partner:
         """
         Get a partner.
@@ -174,7 +174,7 @@ class InterlinkV1Beta1API(API):
     async def list_pops(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListPopsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -226,7 +226,7 @@ class InterlinkV1Beta1API(API):
     async def list_pops_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListPopsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -274,7 +274,7 @@ class InterlinkV1Beta1API(API):
         self,
         *,
         pop_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Pop:
         """
         Get a PoP.
@@ -307,7 +307,7 @@ class InterlinkV1Beta1API(API):
     async def list_links(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListLinksRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -387,7 +387,7 @@ class InterlinkV1Beta1API(API):
     async def list_links_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListLinksRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -462,7 +462,7 @@ class InterlinkV1Beta1API(API):
         self,
         *,
         link_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Link:
         """
         Get a link.
@@ -498,7 +498,7 @@ class InterlinkV1Beta1API(API):
         name: str,
         pop_id: str,
         bandwidth_mbps: int,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         tags: Optional[List[str]] = None,
         dedicated: Optional[bool] = None,
@@ -562,7 +562,7 @@ class InterlinkV1Beta1API(API):
         self,
         *,
         link_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         tags: Optional[List[str]] = None,
     ) -> Link:
@@ -609,7 +609,7 @@ class InterlinkV1Beta1API(API):
         self,
         *,
         link_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Link:
         """
         Delete a link.
@@ -644,7 +644,7 @@ class InterlinkV1Beta1API(API):
         *,
         link_id: str,
         vpc_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Link:
         """
         Attach a VPC.
@@ -688,7 +688,7 @@ class InterlinkV1Beta1API(API):
         self,
         *,
         link_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Link:
         """
         Detach a VPC.
@@ -724,7 +724,7 @@ class InterlinkV1Beta1API(API):
         *,
         link_id: str,
         routing_policy_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Link:
         """
         Attach a routing policy.
@@ -768,7 +768,7 @@ class InterlinkV1Beta1API(API):
         self,
         *,
         link_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Link:
         """
         Detach a routing policy.
@@ -803,7 +803,7 @@ class InterlinkV1Beta1API(API):
         self,
         *,
         link_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Link:
         """
         Enable route propagation.
@@ -838,7 +838,7 @@ class InterlinkV1Beta1API(API):
         self,
         *,
         link_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Link:
         """
         Disable route propagation.
@@ -872,7 +872,7 @@ class InterlinkV1Beta1API(API):
     async def list_routing_policies(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListRoutingPoliciesRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -925,7 +925,7 @@ class InterlinkV1Beta1API(API):
     async def list_routing_policies_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListRoutingPoliciesRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -973,7 +973,7 @@ class InterlinkV1Beta1API(API):
         self,
         *,
         routing_policy_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> RoutingPolicy:
         """
         Get routing policy.
@@ -1009,7 +1009,7 @@ class InterlinkV1Beta1API(API):
         self,
         *,
         name: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         tags: Optional[List[str]] = None,
         prefix_filter_in: Optional[List[str]] = None,
@@ -1061,7 +1061,7 @@ class InterlinkV1Beta1API(API):
         self,
         *,
         routing_policy_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         tags: Optional[List[str]] = None,
         prefix_filter_in: Optional[List[str]] = None,
@@ -1116,7 +1116,7 @@ class InterlinkV1Beta1API(API):
         self,
         *,
         routing_policy_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete a routing policy.

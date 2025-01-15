@@ -5,9 +5,9 @@ from typing import Dict, List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
     ScwFile,
-    Zone,
+    Zone as ScwZone,
     unmarshal_ScwFile,
 )
 from scaleway_core.utils import (
@@ -109,7 +109,7 @@ class K8SV1API(API):
     def list_clusters(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         order_by: Optional[ListClustersRequestOrderBy] = None,
@@ -168,7 +168,7 @@ class K8SV1API(API):
     def list_clusters_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         order_by: Optional[ListClustersRequestOrderBy] = None,
@@ -224,7 +224,7 @@ class K8SV1API(API):
         type_: str,
         description: str,
         version: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         name: Optional[str] = None,
@@ -314,7 +314,7 @@ class K8SV1API(API):
         self,
         *,
         cluster_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Cluster:
         """
         Get a Cluster.
@@ -348,7 +348,7 @@ class K8SV1API(API):
         self,
         *,
         cluster_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         options: Optional[WaitForOptions[Cluster, bool]] = None,
     ) -> Cluster:
         """
@@ -385,7 +385,7 @@ class K8SV1API(API):
         self,
         *,
         cluster_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         description: Optional[str] = None,
         tags: Optional[List[str]] = None,
@@ -456,7 +456,7 @@ class K8SV1API(API):
         *,
         cluster_id: str,
         with_additional_resources: bool,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Cluster:
         """
         Delete a Cluster.
@@ -497,7 +497,7 @@ class K8SV1API(API):
         cluster_id: str,
         version: str,
         upgrade_pools: bool,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Cluster:
         """
         Upgrade a Cluster.
@@ -545,7 +545,7 @@ class K8SV1API(API):
         *,
         cluster_id: str,
         type_: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Cluster:
         """
         Change the Cluster type.
@@ -589,7 +589,7 @@ class K8SV1API(API):
         self,
         *,
         cluster_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> ListClusterAvailableVersionsResponse:
         """
         List available versions for a Cluster.
@@ -623,7 +623,7 @@ class K8SV1API(API):
         self,
         *,
         cluster_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> ListClusterAvailableTypesResponse:
         """
         List available cluster types for a cluster.
@@ -657,7 +657,7 @@ class K8SV1API(API):
         self,
         *,
         cluster_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         redacted: Optional[bool] = None,
     ) -> ScwFile:
         """
@@ -697,7 +697,7 @@ class K8SV1API(API):
         self,
         *,
         cluster_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Reset the admin token of a Cluster.
@@ -730,7 +730,7 @@ class K8SV1API(API):
         self,
         *,
         cluster_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Cluster:
         """
         Migrate a cluster to SBS CSI.
@@ -766,7 +766,7 @@ class K8SV1API(API):
         self,
         *,
         cluster_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> ListClusterACLRulesResponse:
@@ -808,7 +808,7 @@ class K8SV1API(API):
         self,
         *,
         cluster_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ACLRule]:
@@ -845,7 +845,7 @@ class K8SV1API(API):
         self,
         *,
         cluster_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         acls: Optional[List[ACLRuleRequest]] = None,
     ) -> AddClusterACLRulesResponse:
         """
@@ -889,7 +889,7 @@ class K8SV1API(API):
         self,
         *,
         cluster_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         acls: Optional[List[ACLRuleRequest]] = None,
     ) -> SetClusterACLRulesResponse:
         """
@@ -933,7 +933,7 @@ class K8SV1API(API):
         self,
         *,
         acl_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete an existing ACL.
@@ -964,7 +964,7 @@ class K8SV1API(API):
         self,
         *,
         cluster_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListPoolsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1015,7 +1015,7 @@ class K8SV1API(API):
         self,
         *,
         cluster_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListPoolsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1060,7 +1060,7 @@ class K8SV1API(API):
     def create_pool(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         cluster_id: str,
         node_type: str,
         autoscaling: bool,
@@ -1075,7 +1075,7 @@ class K8SV1API(API):
         tags: Optional[List[str]] = None,
         kubelet_args: Optional[Dict[str, str]] = None,
         upgrade_policy: Optional[CreatePoolRequestUpgradePolicy] = None,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         root_volume_type: Optional[PoolVolumeType] = None,
         root_volume_size: Optional[int] = None,
     ) -> Pool:
@@ -1158,7 +1158,7 @@ class K8SV1API(API):
         self,
         *,
         pool_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Pool:
         """
         Get a Pool in a Cluster.
@@ -1192,7 +1192,7 @@ class K8SV1API(API):
         self,
         *,
         pool_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         options: Optional[WaitForOptions[Pool, bool]] = None,
     ) -> Pool:
         """
@@ -1230,7 +1230,7 @@ class K8SV1API(API):
         *,
         pool_id: str,
         version: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Pool:
         """
         Upgrade a Pool in a Cluster.
@@ -1275,7 +1275,7 @@ class K8SV1API(API):
         self,
         *,
         pool_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         autoscaling: Optional[bool] = None,
         size: Optional[int] = None,
         min_size: Optional[int] = None,
@@ -1340,7 +1340,7 @@ class K8SV1API(API):
         self,
         *,
         pool_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Pool:
         """
         Delete a Pool in a Cluster.
@@ -1373,7 +1373,7 @@ class K8SV1API(API):
     def get_node_metadata(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> NodeMetadata:
         """
         Fetch node metadata.
@@ -1403,7 +1403,7 @@ class K8SV1API(API):
         self,
         *,
         pool_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> ExternalNodeAuth:
         """
         Authenticate Kosmos external node.
@@ -1438,7 +1438,7 @@ class K8SV1API(API):
         self,
         *,
         pool_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> ExternalNode:
         """
         Create a Kosmos node.
@@ -1473,7 +1473,7 @@ class K8SV1API(API):
         self,
         *,
         cluster_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         pool_id: Optional[str] = None,
         order_by: Optional[ListNodesRequestOrderBy] = None,
         page: Optional[int] = None,
@@ -1527,7 +1527,7 @@ class K8SV1API(API):
         self,
         *,
         cluster_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         pool_id: Optional[str] = None,
         order_by: Optional[ListNodesRequestOrderBy] = None,
         page: Optional[int] = None,
@@ -1576,7 +1576,7 @@ class K8SV1API(API):
         self,
         *,
         node_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Node:
         """
         Get a Node in a Cluster.
@@ -1610,7 +1610,7 @@ class K8SV1API(API):
         self,
         *,
         node_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         options: Optional[WaitForOptions[Node, bool]] = None,
     ) -> Node:
         """
@@ -1647,7 +1647,7 @@ class K8SV1API(API):
         self,
         *,
         node_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Node:
         """
         Replace a Node in a Cluster.
@@ -1683,7 +1683,7 @@ class K8SV1API(API):
         self,
         *,
         node_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Node:
         """
         Reboot a Node in a Cluster.
@@ -1720,7 +1720,7 @@ class K8SV1API(API):
         node_id: str,
         skip_drain: bool,
         replace: bool,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Node:
         """
         Delete a Node in a Cluster.
@@ -1761,7 +1761,7 @@ class K8SV1API(API):
     def list_versions(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> ListVersionsResponse:
         """
         List all available Versions.
@@ -1791,7 +1791,7 @@ class K8SV1API(API):
         self,
         *,
         version_name: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Version:
         """
         Get a Version.
@@ -1824,7 +1824,7 @@ class K8SV1API(API):
     def list_cluster_types(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> ListClusterTypesResponse:
@@ -1861,7 +1861,7 @@ class K8SV1API(API):
     def list_cluster_types_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ClusterType]:

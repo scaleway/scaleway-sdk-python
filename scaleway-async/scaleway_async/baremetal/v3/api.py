@@ -5,7 +5,7 @@ from typing import Dict, List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Zone,
+    Zone as ScwZone,
 )
 from scaleway_core.utils import (
     validate_path_param,
@@ -38,7 +38,7 @@ class BaremetalV3PrivateNetworkAPI(API):
         *,
         server_id: str,
         private_network_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         ipam_ip_ids: Optional[List[str]] = None,
     ) -> ServerPrivateNetwork:
         """
@@ -84,7 +84,7 @@ class BaremetalV3PrivateNetworkAPI(API):
         *,
         server_id: str,
         per_private_network_ipam_ip_ids: Dict[str, List[str]],
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> SetServerPrivateNetworksResponse:
         """
         Set multiple Private Networks on a server.
@@ -125,7 +125,7 @@ class BaremetalV3PrivateNetworkAPI(API):
     async def list_server_private_networks(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         order_by: Optional[ListServerPrivateNetworksRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -179,7 +179,7 @@ class BaremetalV3PrivateNetworkAPI(API):
     async def list_server_private_networks_all(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         order_by: Optional[ListServerPrivateNetworksRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -231,7 +231,7 @@ class BaremetalV3PrivateNetworkAPI(API):
         *,
         server_id: str,
         private_network_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Delete a Private Network.

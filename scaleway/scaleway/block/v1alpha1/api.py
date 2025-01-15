@@ -5,7 +5,7 @@ from typing import List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Zone,
+    Zone as ScwZone,
 )
 from scaleway_core.utils import (
     WaitForOptions,
@@ -61,7 +61,7 @@ class BlockV1Alpha1API(API):
     def list_volume_types(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> ListVolumeTypesResponse:
@@ -96,7 +96,7 @@ class BlockV1Alpha1API(API):
     def list_volume_types_all(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[VolumeType]:
@@ -128,7 +128,7 @@ class BlockV1Alpha1API(API):
     def list_volumes(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         order_by: Optional[ListVolumesRequestOrderBy] = None,
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
@@ -182,7 +182,7 @@ class BlockV1Alpha1API(API):
     def list_volumes_all(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         order_by: Optional[ListVolumesRequestOrderBy] = None,
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
@@ -232,7 +232,7 @@ class BlockV1Alpha1API(API):
     def create_volume(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         perf_iops: Optional[int] = None,
         project_id: Optional[str] = None,
@@ -288,7 +288,7 @@ class BlockV1Alpha1API(API):
         self,
         *,
         volume_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Volume:
         """
         Get a volume.
@@ -320,7 +320,7 @@ class BlockV1Alpha1API(API):
         self,
         *,
         volume_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         options: Optional[WaitForOptions[Volume, bool]] = None,
     ) -> Volume:
         """
@@ -357,7 +357,7 @@ class BlockV1Alpha1API(API):
         self,
         *,
         volume_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Delete a detached volume.
@@ -387,7 +387,7 @@ class BlockV1Alpha1API(API):
         self,
         *,
         volume_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         size: Optional[int] = None,
         tags: Optional[List[str]] = None,
@@ -439,7 +439,7 @@ class BlockV1Alpha1API(API):
     def list_snapshots(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         order_by: Optional[ListSnapshotsRequestOrderBy] = None,
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
@@ -490,7 +490,7 @@ class BlockV1Alpha1API(API):
     def list_snapshots_all(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         order_by: Optional[ListSnapshotsRequestOrderBy] = None,
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
@@ -538,7 +538,7 @@ class BlockV1Alpha1API(API):
         self,
         *,
         snapshot_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Snapshot:
         """
         Get a snapshot.
@@ -570,7 +570,7 @@ class BlockV1Alpha1API(API):
         self,
         *,
         snapshot_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         options: Optional[WaitForOptions[Snapshot, bool]] = None,
     ) -> Snapshot:
         """
@@ -607,7 +607,7 @@ class BlockV1Alpha1API(API):
         self,
         *,
         volume_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         project_id: Optional[str] = None,
         tags: Optional[List[str]] = None,
@@ -657,7 +657,7 @@ class BlockV1Alpha1API(API):
         bucket: str,
         key: str,
         name: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         project_id: Optional[str] = None,
         tags: Optional[List[str]] = None,
         size: Optional[int] = None,
@@ -715,7 +715,7 @@ class BlockV1Alpha1API(API):
         bucket: str,
         key: str,
         name: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         project_id: Optional[str] = None,
         tags: Optional[List[str]] = None,
         size: Optional[int] = None,
@@ -771,7 +771,7 @@ class BlockV1Alpha1API(API):
         snapshot_id: str,
         bucket: str,
         key: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Snapshot:
         """
         Export a snapshot to a Scaleway Object Storage bucket.
@@ -817,7 +817,7 @@ class BlockV1Alpha1API(API):
         self,
         *,
         snapshot_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Delete a snapshot.
@@ -847,7 +847,7 @@ class BlockV1Alpha1API(API):
         self,
         *,
         snapshot_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         tags: Optional[List[str]] = None,
     ) -> Snapshot:
