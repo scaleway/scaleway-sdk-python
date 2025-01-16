@@ -1455,9 +1455,6 @@ def marshal_UpdateUserPasswordRequest(
     if request.password is not None:
         output["password"] = request.password
 
-    if request.send_email is not None:
-        output["send_email"] = request.send_email
-
     return output
 
 

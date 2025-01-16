@@ -630,13 +630,11 @@ class IamV1Alpha1API(API):
         *,
         user_id: str,
         password: str,
-        send_email: bool,
     ) -> User:
         """
         Update an user's password. Private Beta feature.
         :param user_id: ID of the user to update.
         :param password: The new password.
-        :param send_email: Whether or not to send an email alerting the user their password has changed.
         :return: :class:`User <User>`
 
         Usage:
@@ -645,7 +643,6 @@ class IamV1Alpha1API(API):
             result = await api.update_user_password(
                 user_id="example",
                 password="example",
-                send_email=False,
             )
         """
 
@@ -658,7 +655,6 @@ class IamV1Alpha1API(API):
                 UpdateUserPasswordRequest(
                     user_id=user_id,
                     password=password,
-                    send_email=send_email,
                 ),
                 self.client,
             ),

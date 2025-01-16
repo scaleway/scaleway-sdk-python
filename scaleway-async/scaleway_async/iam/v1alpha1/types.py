@@ -1970,11 +1970,6 @@ class UpdateUserPasswordRequest:
     The new password.
     """
 
-    send_email: bool
-    """
-    Whether or not to send an email alerting the user their password has changed.
-    """
-
 
 @dataclass
 class UpdateUserRequest:
