@@ -40,6 +40,7 @@ from .types import CreateGroupRequest
 from .types import CreateJWTRequest
 from .types import CreatePolicyRequest
 from .types import CreateSSHKeyRequest
+from .types import CreateUserMFAOTPRequest
 from .types import CreateUserRequest
 from .types import DeleteAPIKeyRequest
 from .types import DeleteApplicationRequest
@@ -47,6 +48,7 @@ from .types import DeleteGroupRequest
 from .types import DeleteJWTRequest
 from .types import DeletePolicyRequest
 from .types import DeleteSSHKeyRequest
+from .types import DeleteUserMFAOTPRequest
 from .types import DeleteUserRequest
 from .types import EncodedJWT
 from .types import GetAPIKeyRequest
@@ -84,6 +86,7 @@ from .types import ListSSHKeysResponse
 from .types import ListUsersRequest
 from .types import ListUsersResponse
 from .types import LockUserRequest
+from .types import MFAOTP
 from .types import OrganizationSecuritySettings
 from .types import RemoveGroupMemberRequest
 from .types import SetGroupMembersRequest
@@ -99,6 +102,8 @@ from .types import UpdateSSHKeyRequest
 from .types import UpdateUserPasswordRequest
 from .types import UpdateUserRequest
 from .types import UpdateUserUsernameRequest
+from .types import ValidateUserMFAOTPRequest
+from .types import ValidateUserMFAOTPResponse
 from .api import IamV1Alpha1API
 
 __all__ = [
@@ -142,6 +147,7 @@ __all__ = [
     "CreateJWTRequest",
     "CreatePolicyRequest",
     "CreateSSHKeyRequest",
+    "CreateUserMFAOTPRequest",
     "CreateUserRequest",
     "DeleteAPIKeyRequest",
     "DeleteApplicationRequest",
@@ -149,6 +155,7 @@ __all__ = [
     "DeleteJWTRequest",
     "DeletePolicyRequest",
     "DeleteSSHKeyRequest",
+    "DeleteUserMFAOTPRequest",
     "DeleteUserRequest",
     "EncodedJWT",
     "GetAPIKeyRequest",
@@ -186,6 +193,7 @@ __all__ = [
     "ListUsersRequest",
     "ListUsersResponse",
     "LockUserRequest",
+    "MFAOTP",
     "OrganizationSecuritySettings",
     "RemoveGroupMemberRequest",
     "SetGroupMembersRequest",
@@ -201,5 +209,7 @@ __all__ = [
     "UpdateUserPasswordRequest",
     "UpdateUserRequest",
     "UpdateUserUsernameRequest",
+    "ValidateUserMFAOTPRequest",
+    "ValidateUserMFAOTPResponse",
     "IamV1Alpha1API",
 ]
