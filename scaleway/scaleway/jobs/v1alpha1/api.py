@@ -13,6 +13,7 @@ from scaleway_core.utils import (
     fetch_all_pages,
 )
 from .types import (
+    JobRunState,
     ListJobDefinitionsRequestOrderBy,
     ListJobRunsRequestOrderBy,
     CreateJobDefinitionRequest,
@@ -700,6 +701,7 @@ class JobsV1Alpha1API(API):
         job_definition_id: Optional[str] = None,
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
+        state: Optional[JobRunState] = None,
     ) -> ListJobRunsResponse:
         """
         List all job runs with filters.
@@ -710,6 +712,7 @@ class JobsV1Alpha1API(API):
         :param job_definition_id:
         :param project_id:
         :param organization_id:
+        :param state:
         :return: :class:`ListJobRunsResponse <ListJobRunsResponse>`
 
         Usage:
@@ -733,6 +736,7 @@ class JobsV1Alpha1API(API):
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
+                "state": state,
             },
         )
 
@@ -749,6 +753,7 @@ class JobsV1Alpha1API(API):
         job_definition_id: Optional[str] = None,
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
+        state: Optional[JobRunState] = None,
     ) -> List[JobRun]:
         """
         List all job runs with filters.
@@ -759,6 +764,7 @@ class JobsV1Alpha1API(API):
         :param job_definition_id:
         :param project_id:
         :param organization_id:
+        :param state:
         :return: :class:`List[JobRun] <List[JobRun]>`
 
         Usage:
@@ -779,6 +785,7 @@ class JobsV1Alpha1API(API):
                 "job_definition_id": job_definition_id,
                 "project_id": project_id,
                 "organization_id": organization_id,
+                "state": state,
             },
         )
 
