@@ -443,6 +443,8 @@ class ListJobRunsRequest:
 
     organization_id: Optional[str]
 
+    state: Optional[JobRunState]
+
 
 @dataclass
 class ListJobRunsResponse:
