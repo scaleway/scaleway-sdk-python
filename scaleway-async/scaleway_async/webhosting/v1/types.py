@@ -312,6 +312,11 @@ class DnsRecord:
     Record status.
     """
 
+    raw_data: str
+    """
+    Record representation as it appears in the zone file or DNS management system.
+    """
+
     priority: Optional[int]
     """
     Record priority level.
