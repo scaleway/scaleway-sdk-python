@@ -987,6 +987,14 @@ class CreateSSHKeyRequest:
 
 
 @dataclass
+class CreateUserMFAOTPRequest:
+    user_id: str
+    """
+    User ID of the MFA OTP.
+    """
+
+
+@dataclass
 class CreateUserRequest:
     organization_id: Optional[str]
     """
@@ -1046,6 +1054,14 @@ class DeletePolicyRequest:
 @dataclass
 class DeleteSSHKeyRequest:
     ssh_key_id: str
+
+
+@dataclass
+class DeleteUserMFAOTPRequest:
+    user_id: str
+    """
+    User ID of the MFA OTP.
+    """
 
 
 @dataclass
@@ -1758,6 +1774,11 @@ class LockUserRequest:
 
 
 @dataclass
+class MFAOTP:
+    secret: str
+
+
+@dataclass
 class OrganizationSecuritySettings:
     enforce_password_renewal: bool
     """
@@ -1970,11 +1991,6 @@ class UpdateUserPasswordRequest:
     The new password.
     """
 
-    send_email: bool
-    """
-    Whether or not to send an email alerting the user their password has changed.
-    """
-
 
 @dataclass
 class UpdateUserRequest:
@@ -2004,4 +2020,25 @@ class UpdateUserUsernameRequest:
     username: str
     """
     The new username.
+    """
+
+
+@dataclass
+class ValidateUserMFAOTPRequest:
+    user_id: str
+    """
+    User ID of the MFA OTP.
+    """
+
+    one_time_password: str
+    """
+    A password generated using the OTP.
+    """
+
+
+@dataclass
+class ValidateUserMFAOTPResponse:
+    recovery_codes: List[str]
+    """
+    List of recovery codes usable for this OTP method.
     """
