@@ -122,10 +122,14 @@ class API:
         if method == "POST" or method == "PUT" or method == "PATCH":
             additional_headers["Content-Type"] = "application/json; charset=utf-8"
 
-            if body is None:
-                body = {}
+        if body is None:
+            body = {}
 
-        raw_body = json.dumps(body) if body is not None else None
+        raw_body: Union[bytes, str]
+        if isinstance(body, bytes):
+            raw_body = body
+        else:
+            raw_body = json.dumps(body) if body is not None else None
 
         request_params: List[Tuple[str, Any]] = []
         for k, v in params.items():
@@ -155,9 +159,10 @@ class API:
             url=url,
             params=request_params,
             headers=headers,
-            body=raw_body,
+            body=raw_body.decode("utf-8", errors="replace")
+            if isinstance(raw_body, bytes)
+            else raw_body,
         )
-
         response = requests.request(
             method=method,
             url=url,
