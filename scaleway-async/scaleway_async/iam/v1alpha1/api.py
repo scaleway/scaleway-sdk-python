@@ -54,6 +54,7 @@ from .types import (
     ListSSHKeysResponse,
     ListUsersResponse,
     Log,
+    MFAOTP,
     OrganizationSecuritySettings,
     PermissionSet,
     Policy,
@@ -75,6 +76,8 @@ from .types import (
     UpdateUserRequest,
     UpdateUserUsernameRequest,
     User,
+    ValidateUserMFAOTPRequest,
+    ValidateUserMFAOTPResponse,
 )
 from .marshalling import (
     unmarshal_JWT,
@@ -99,8 +102,10 @@ from .marshalling import (
     unmarshal_ListRulesResponse,
     unmarshal_ListSSHKeysResponse,
     unmarshal_ListUsersResponse,
+    unmarshal_MFAOTP,
     unmarshal_OrganizationSecuritySettings,
     unmarshal_SetRulesResponse,
+    unmarshal_ValidateUserMFAOTPResponse,
     marshal_AddGroupMemberRequest,
     marshal_AddGroupMembersRequest,
     marshal_CreateAPIKeyRequest,
@@ -122,6 +127,7 @@ from .marshalling import (
     marshal_UpdateUserPasswordRequest,
     marshal_UpdateUserRequest,
     marshal_UpdateUserUsernameRequest,
+    marshal_ValidateUserMFAOTPRequest,
 )
 
 
@@ -662,6 +668,100 @@ class IamV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_User(res.json())
+
+    async def create_user_mfaotp(
+        self,
+        *,
+        user_id: str,
+    ) -> MFAOTP:
+        """
+        Create a MFA OTP. Private Beta feature.
+        :param user_id: User ID of the MFA OTP.
+        :return: :class:`MFAOTP <MFAOTP>`
+
+        Usage:
+        ::
+
+            result = await api.create_user_mfaotp(
+                user_id="example",
+            )
+        """
+
+        param_user_id = validate_path_param("user_id", user_id)
+
+        res = self._request(
+            "POST",
+            f"/iam/v1alpha1/users/{param_user_id}/mfa-otp",
+            body={},
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_MFAOTP(res.json())
+
+    async def validate_user_mfaotp(
+        self,
+        *,
+        user_id: str,
+        one_time_password: str,
+    ) -> ValidateUserMFAOTPResponse:
+        """
+        Validate a MFA OTP. Private Beta feature.
+        :param user_id: User ID of the MFA OTP.
+        :param one_time_password: A password generated using the OTP.
+        :return: :class:`ValidateUserMFAOTPResponse <ValidateUserMFAOTPResponse>`
+
+        Usage:
+        ::
+
+            result = await api.validate_user_mfaotp(
+                user_id="example",
+                one_time_password="example",
+            )
+        """
+
+        param_user_id = validate_path_param("user_id", user_id)
+
+        res = self._request(
+            "POST",
+            f"/iam/v1alpha1/users/{param_user_id}/validate-mfa-otp",
+            body=marshal_ValidateUserMFAOTPRequest(
+                ValidateUserMFAOTPRequest(
+                    user_id=user_id,
+                    one_time_password=one_time_password,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ValidateUserMFAOTPResponse(res.json())
+
+    async def delete_user_mfaotp(
+        self,
+        *,
+        user_id: str,
+    ) -> None:
+        """
+        Delete a MFA OTP. Private Beta feature.
+        :param user_id: User ID of the MFA OTP.
+
+        Usage:
+        ::
+
+            result = await api.delete_user_mfaotp(
+                user_id="example",
+            )
+        """
+
+        param_user_id = validate_path_param("user_id", user_id)
+
+        res = self._request(
+            "DELETE",
+            f"/iam/v1alpha1/users/{param_user_id}/mfa-otp",
+            body={},
+        )
+
+        self._throw_on_error(res)
 
     async def lock_user(
         self,

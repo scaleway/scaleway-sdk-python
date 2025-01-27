@@ -35,8 +35,10 @@ from .types import (
     ListRulesResponse,
     ListSSHKeysResponse,
     ListUsersResponse,
+    MFAOTP,
     OrganizationSecuritySettings,
     SetRulesResponse,
+    ValidateUserMFAOTPResponse,
     AddGroupMemberRequest,
     AddGroupMembersRequest,
     CreateAPIKeyRequest,
@@ -60,6 +62,7 @@ from .types import (
     UpdateUserPasswordRequest,
     UpdateUserRequest,
     UpdateUserUsernameRequest,
+    ValidateUserMFAOTPRequest,
 )
 
 
@@ -996,6 +999,21 @@ def unmarshal_ListUsersResponse(data: Any) -> ListUsersResponse:
     return ListUsersResponse(**args)
 
 
+def unmarshal_MFAOTP(data: Any) -> MFAOTP:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'MFAOTP' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("secret", None)
+    if field is not None:
+        args["secret"] = field
+
+    return MFAOTP(**args)
+
+
 def unmarshal_OrganizationSecuritySettings(data: Any) -> OrganizationSecuritySettings:
     if not isinstance(data, dict):
         raise TypeError(
@@ -1036,6 +1054,21 @@ def unmarshal_SetRulesResponse(data: Any) -> SetRulesResponse:
         )
 
     return SetRulesResponse(**args)
+
+
+def unmarshal_ValidateUserMFAOTPResponse(data: Any) -> ValidateUserMFAOTPResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ValidateUserMFAOTPResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("recovery_codes", None)
+    if field is not None:
+        args["recovery_codes"] = field
+
+    return ValidateUserMFAOTPResponse(**args)
 
 
 def marshal_AddGroupMemberRequest(
@@ -1481,5 +1514,17 @@ def marshal_UpdateUserUsernameRequest(
 
     if request.username is not None:
         output["username"] = request.username
+
+    return output
+
+
+def marshal_ValidateUserMFAOTPRequest(
+    request: ValidateUserMFAOTPRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.one_time_password is not None:
+        output["one_time_password"] = request.one_time_password
 
     return output
