@@ -5,7 +5,7 @@ from typing import List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     WaitForOptions,
@@ -113,7 +113,7 @@ class WebhostingV1ControlPanelAPI(API):
     def list_control_panels(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> ListControlPanelsResponse:
@@ -149,7 +149,7 @@ class WebhostingV1ControlPanelAPI(API):
     def list_control_panels_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ControlPanel]:
@@ -188,7 +188,7 @@ class WebhostingV1DatabaseAPI(API):
         *,
         hosting_id: str,
         database_name: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         new_user: Optional[CreateDatabaseRequestUser] = None,
         existing_username: Optional[str] = None,
     ) -> Database:
@@ -239,7 +239,7 @@ class WebhostingV1DatabaseAPI(API):
         self,
         *,
         hosting_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListDatabasesRequestOrderBy] = None,
@@ -283,7 +283,7 @@ class WebhostingV1DatabaseAPI(API):
         self,
         *,
         hosting_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListDatabasesRequestOrderBy] = None,
@@ -323,7 +323,7 @@ class WebhostingV1DatabaseAPI(API):
         *,
         hosting_id: str,
         database_name: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Database:
         """
         "Get details of a database within your hosting plan".
@@ -360,7 +360,7 @@ class WebhostingV1DatabaseAPI(API):
         *,
         hosting_id: str,
         database_name: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Database:
         """
         "Delete a database within your hosting plan".
@@ -398,7 +398,7 @@ class WebhostingV1DatabaseAPI(API):
         hosting_id: str,
         username: str,
         password: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> DatabaseUser:
         """
         "Create a new database user".
@@ -444,7 +444,7 @@ class WebhostingV1DatabaseAPI(API):
         self,
         *,
         hosting_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListDatabaseUsersRequestOrderBy] = None,
@@ -488,7 +488,7 @@ class WebhostingV1DatabaseAPI(API):
         self,
         *,
         hosting_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListDatabaseUsersRequestOrderBy] = None,
@@ -528,7 +528,7 @@ class WebhostingV1DatabaseAPI(API):
         *,
         hosting_id: str,
         username: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> DatabaseUser:
         """
         "Get details of a database user".
@@ -565,7 +565,7 @@ class WebhostingV1DatabaseAPI(API):
         *,
         hosting_id: str,
         username: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> DatabaseUser:
         """
         "Delete a database user".
@@ -603,7 +603,7 @@ class WebhostingV1DatabaseAPI(API):
         hosting_id: str,
         username: str,
         password: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> DatabaseUser:
         """
         "Change the password of a database user".
@@ -652,7 +652,7 @@ class WebhostingV1DatabaseAPI(API):
         hosting_id: str,
         username: str,
         database_name: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> DatabaseUser:
         """
         "Assign a database user to a database".
@@ -701,7 +701,7 @@ class WebhostingV1DatabaseAPI(API):
         hosting_id: str,
         username: str,
         database_name: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> DatabaseUser:
         """
         "Unassign a database user from a database".
@@ -754,7 +754,7 @@ class WebhostingV1DnsAPI(API):
         self,
         *,
         domain: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> DnsRecords:
         """
         Get DNS records.
@@ -788,7 +788,7 @@ class WebhostingV1DnsAPI(API):
         self,
         *,
         domain: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
     ) -> CheckUserOwnsDomainResponse:
         """
@@ -834,7 +834,7 @@ class WebhostingV1DnsAPI(API):
         update_web_records: bool,
         update_mail_records: bool,
         update_all_records: bool,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         custom_records: Optional[List[SyncDomainDnsRecordsRequestRecord]] = None,
     ) -> DnsRecords:
         """
@@ -891,7 +891,7 @@ class WebhostingV1OfferAPI(API):
     def list_offers(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListOffersRequestOrderBy] = None,
@@ -936,7 +936,7 @@ class WebhostingV1OfferAPI(API):
     def list_offers_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListOffersRequestOrderBy] = None,
@@ -985,7 +985,7 @@ class WebhostingV1HostingAPI(API):
         offer_id: str,
         email: str,
         domain: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         tags: Optional[List[str]] = None,
         offer_options: Optional[List[OfferOptionRequest]] = None,
@@ -1048,7 +1048,7 @@ class WebhostingV1HostingAPI(API):
     def list_hostings(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListHostingsRequestOrderBy] = None,
@@ -1107,7 +1107,7 @@ class WebhostingV1HostingAPI(API):
     def list_hostings_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListHostingsRequestOrderBy] = None,
@@ -1161,7 +1161,7 @@ class WebhostingV1HostingAPI(API):
         self,
         *,
         hosting_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Hosting:
         """
         Get a Web Hosting plan.
@@ -1195,7 +1195,7 @@ class WebhostingV1HostingAPI(API):
         self,
         *,
         hosting_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         options: Optional[WaitForOptions[Hosting, bool]] = None,
     ) -> Hosting:
         """
@@ -1232,7 +1232,7 @@ class WebhostingV1HostingAPI(API):
         self,
         *,
         hosting_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         email: Optional[str] = None,
         tags: Optional[List[str]] = None,
         offer_options: Optional[List[OfferOptionRequest]] = None,
@@ -1288,7 +1288,7 @@ class WebhostingV1HostingAPI(API):
         self,
         *,
         hosting_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Hosting:
         """
         Delete a Web Hosting plan.
@@ -1322,7 +1322,7 @@ class WebhostingV1HostingAPI(API):
         self,
         *,
         hosting_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Session:
         """
         Create a user session.
@@ -1356,7 +1356,7 @@ class WebhostingV1HostingAPI(API):
         self,
         *,
         hosting_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> ResetHostingPasswordResponse:
         """
         Reset a Web Hosting plan password.
@@ -1390,7 +1390,7 @@ class WebhostingV1HostingAPI(API):
         self,
         *,
         hosting_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> ResourceSummary:
         """
         Get the total counts of websites, databases, email accounts, and FTP accounts of a Web Hosting plan.
@@ -1432,7 +1432,7 @@ class WebhostingV1FtpAccountAPI(API):
         username: str,
         path: str,
         password: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> FtpAccount:
         """
         Create a new FTP account within your hosting plan.
@@ -1481,7 +1481,7 @@ class WebhostingV1FtpAccountAPI(API):
         self,
         *,
         hosting_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListFtpAccountsRequestOrderBy] = None,
@@ -1528,7 +1528,7 @@ class WebhostingV1FtpAccountAPI(API):
         self,
         *,
         hosting_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListFtpAccountsRequestOrderBy] = None,
@@ -1571,7 +1571,7 @@ class WebhostingV1FtpAccountAPI(API):
         *,
         hosting_id: str,
         username: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> FtpAccount:
         """
         Delete a specific FTP account within your hosting plan.
@@ -1609,7 +1609,7 @@ class WebhostingV1FtpAccountAPI(API):
         hosting_id: str,
         username: str,
         password: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> FtpAccount:
         """
         :param hosting_id: UUID of the hosting plan.
@@ -1664,7 +1664,7 @@ class WebhostingV1MailAccountAPI(API):
         domain: str,
         username: str,
         password: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> MailAccount:
         """
         Create a new mail account within your hosting plan.
@@ -1713,7 +1713,7 @@ class WebhostingV1MailAccountAPI(API):
         self,
         *,
         hosting_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListMailAccountsRequestOrderBy] = None,
@@ -1760,7 +1760,7 @@ class WebhostingV1MailAccountAPI(API):
         self,
         *,
         hosting_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListMailAccountsRequestOrderBy] = None,
@@ -1804,7 +1804,7 @@ class WebhostingV1MailAccountAPI(API):
         hosting_id: str,
         domain: str,
         username: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> MailAccount:
         """
         Delete a mail account within your hosting plan.
@@ -1853,7 +1853,7 @@ class WebhostingV1MailAccountAPI(API):
         domain: str,
         username: str,
         password: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> MailAccount:
         """
         Update the password of a mail account within your hosting plan.
@@ -1908,7 +1908,7 @@ class WebhostingV1WebsiteAPI(API):
         self,
         *,
         hosting_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListWebsitesRequestOrderBy] = None,
@@ -1952,7 +1952,7 @@ class WebhostingV1WebsiteAPI(API):
         self,
         *,
         hosting_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListWebsitesRequestOrderBy] = None,

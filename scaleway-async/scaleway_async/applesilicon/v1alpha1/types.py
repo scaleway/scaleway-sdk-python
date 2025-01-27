@@ -8,7 +8,7 @@ from enum import Enum
 from typing import Dict, List, Optional
 
 from scaleway_core.bridge import (
-    Zone,
+    Zone as ScwZone,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -354,7 +354,7 @@ class Server:
     Set to true to mark the server for automatic deletion depending on `deletable_at` date. Set to false to cancel an existing deletion schedule. Leave unset otherwise.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     Zone of the server.
     """
@@ -417,7 +417,7 @@ class CreateServerRequest:
     Activate the Private Network feature for this server. This feature is configured through the Apple Silicon - Private Networks API.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -445,7 +445,7 @@ class DeleteServerRequest:
     UUID of the server you want to delete.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -455,7 +455,7 @@ class DeleteServerRequest:
 class GetConnectivityDiagnosticRequest:
     diagnostic_id: str
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -468,7 +468,7 @@ class GetOSRequest:
     UUID of the OS you want to get.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -481,7 +481,7 @@ class GetServerRequest:
     UUID of the server you want to get.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -494,7 +494,7 @@ class GetServerTypeRequest:
     Server type identifier.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -502,7 +502,7 @@ class GetServerTypeRequest:
 
 @dataclass
 class ListOSRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -550,7 +550,7 @@ class ListServerPrivateNetworksResponse:
 
 @dataclass
 class ListServerTypesRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -566,7 +566,7 @@ class ListServerTypesResponse:
 
 @dataclass
 class ListServersRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -622,7 +622,7 @@ class PrivateNetworkApiAddServerPrivateNetworkRequest:
     ID of the Private Network.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -645,7 +645,7 @@ class PrivateNetworkApiDeleteServerPrivateNetworkRequest:
     ID of the Private Network.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -657,7 +657,7 @@ class PrivateNetworkApiGetServerPrivateNetworkRequest:
 
     private_network_id: str
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -665,7 +665,7 @@ class PrivateNetworkApiGetServerPrivateNetworkRequest:
 
 @dataclass
 class PrivateNetworkApiListServerPrivateNetworksRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -723,7 +723,7 @@ class PrivateNetworkApiSetServerPrivateNetworksRequest:
     Object where the keys are the IDs of Private Networks and the values are arrays of IPAM IDs representing the IPs to assign to this Apple silicon server on the Private Network. If the array supplied for a Private Network is empty, the next available IP from the Private Network's CIDR block will automatically be used for attachment.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -736,7 +736,7 @@ class RebootServerRequest:
     UUID of the server you want to reboot.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -749,7 +749,7 @@ class ReinstallServerRequest:
     UUID of the server you want to reinstall.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -769,7 +769,7 @@ class SetServerPrivateNetworksResponse:
 class StartConnectivityDiagnosticRequest:
     server_id: str
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -787,7 +787,7 @@ class UpdateServerRequest:
     UUID of the server you want to update.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """

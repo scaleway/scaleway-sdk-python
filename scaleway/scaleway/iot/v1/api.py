@@ -6,7 +6,7 @@ from typing import Any, Dict, List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     WaitForOptions,
@@ -106,7 +106,7 @@ class IotV1API(API):
     def list_hubs(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListHubsRequestOrderBy] = None,
@@ -156,7 +156,7 @@ class IotV1API(API):
     def list_hubs_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListHubsRequestOrderBy] = None,
@@ -201,7 +201,7 @@ class IotV1API(API):
         self,
         *,
         product_plan: HubProductPlan,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         project_id: Optional[str] = None,
         disable_events: Optional[bool] = None,
@@ -257,7 +257,7 @@ class IotV1API(API):
         self,
         *,
         hub_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Hub:
         """
         Get a hub.
@@ -291,7 +291,7 @@ class IotV1API(API):
         self,
         *,
         hub_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         options: Optional[WaitForOptions[Hub, bool]] = None,
     ) -> Hub:
         """
@@ -328,7 +328,7 @@ class IotV1API(API):
         self,
         *,
         hub_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         product_plan: Optional[HubProductPlan] = None,
         disable_events: Optional[bool] = None,
@@ -388,7 +388,7 @@ class IotV1API(API):
         self,
         *,
         hub_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Hub:
         """
         Enable a hub.
@@ -423,7 +423,7 @@ class IotV1API(API):
         self,
         *,
         hub_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Hub:
         """
         Disable a hub.
@@ -458,7 +458,7 @@ class IotV1API(API):
         self,
         *,
         hub_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         delete_devices: Optional[bool] = None,
     ) -> None:
         """
@@ -495,7 +495,7 @@ class IotV1API(API):
         self,
         *,
         hub_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         start_date: Optional[datetime] = None,
     ) -> GetHubMetricsResponse:
         """
@@ -537,7 +537,7 @@ class IotV1API(API):
         hub_id: str,
         ca_cert_pem: str,
         challenge_cert_pem: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Hub:
         """
         Set the certificate authority of a hub.
@@ -584,7 +584,7 @@ class IotV1API(API):
         self,
         *,
         hub_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> GetHubCAResponse:
         """
         Get the certificate authority of a hub.
@@ -617,7 +617,7 @@ class IotV1API(API):
     def list_devices(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListDevicesRequestOrderBy] = None,
@@ -669,7 +669,7 @@ class IotV1API(API):
     def list_devices_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListDevicesRequestOrderBy] = None,
@@ -719,7 +719,7 @@ class IotV1API(API):
         hub_id: str,
         allow_insecure: bool,
         allow_multiple_connections: bool,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         message_filters: Optional[DeviceMessageFilters] = None,
         description: Optional[str] = None,
@@ -774,7 +774,7 @@ class IotV1API(API):
         self,
         *,
         device_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Device:
         """
         Get a device.
@@ -808,7 +808,7 @@ class IotV1API(API):
         self,
         *,
         device_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         description: Optional[str] = None,
         allow_insecure: Optional[bool] = None,
         allow_multiple_connections: Optional[bool] = None,
@@ -864,7 +864,7 @@ class IotV1API(API):
         self,
         *,
         device_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Device:
         """
         Enable a device.
@@ -899,7 +899,7 @@ class IotV1API(API):
         self,
         *,
         device_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Device:
         """
         Disable a device.
@@ -934,7 +934,7 @@ class IotV1API(API):
         self,
         *,
         device_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> RenewDeviceCertificateResponse:
         """
         Renew a device certificate.
@@ -970,7 +970,7 @@ class IotV1API(API):
         *,
         device_id: str,
         certificate_pem: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> SetDeviceCertificateResponse:
         """
         Set a custom certificate on a device.
@@ -1014,7 +1014,7 @@ class IotV1API(API):
         self,
         *,
         device_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> GetDeviceCertificateResponse:
         """
         Get a device's certificate.
@@ -1048,7 +1048,7 @@ class IotV1API(API):
         self,
         *,
         device_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Remove a device.
@@ -1080,7 +1080,7 @@ class IotV1API(API):
         self,
         *,
         device_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         start_date: Optional[datetime] = None,
     ) -> GetDeviceMetricsResponse:
         """
@@ -1119,7 +1119,7 @@ class IotV1API(API):
     def list_routes(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListRoutesRequestOrderBy] = None,
@@ -1165,7 +1165,7 @@ class IotV1API(API):
     def list_routes_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListRoutesRequestOrderBy] = None,
@@ -1208,7 +1208,7 @@ class IotV1API(API):
         *,
         hub_id: str,
         topic: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         s3_config: Optional[CreateRouteRequestS3Config] = None,
         db_config: Optional[CreateRouteRequestDatabaseConfig] = None,
@@ -1275,7 +1275,7 @@ class IotV1API(API):
         self,
         *,
         route_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         topic: Optional[str] = None,
         s3_config: Optional[UpdateRouteRequestS3Config] = None,
@@ -1334,7 +1334,7 @@ class IotV1API(API):
         self,
         *,
         route_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Route:
         """
         Get a route.
@@ -1368,7 +1368,7 @@ class IotV1API(API):
         self,
         *,
         route_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete a route.
@@ -1399,7 +1399,7 @@ class IotV1API(API):
     def list_networks(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListNetworksRequestOrderBy] = None,
@@ -1447,7 +1447,7 @@ class IotV1API(API):
     def list_networks_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListNetworksRequestOrderBy] = None,
@@ -1493,7 +1493,7 @@ class IotV1API(API):
         type_: NetworkNetworkType,
         hub_id: str,
         topic_prefix: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
     ) -> CreateNetworkResponse:
         """
@@ -1542,7 +1542,7 @@ class IotV1API(API):
         self,
         *,
         network_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Network:
         """
         Retrieve a specific network.
@@ -1576,7 +1576,7 @@ class IotV1API(API):
         self,
         *,
         network_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete a Network.
@@ -1609,7 +1609,7 @@ class IotV1API(API):
         *,
         twin_id: str,
         document_name: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> TwinDocument:
         """
         BETA - Get a Cloud Twin Document.
@@ -1646,7 +1646,7 @@ class IotV1API(API):
         *,
         twin_id: str,
         document_name: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         version: Optional[int] = None,
         data: Optional[Dict[str, Any]] = None,
     ) -> TwinDocument:
@@ -1697,7 +1697,7 @@ class IotV1API(API):
         *,
         twin_id: str,
         document_name: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         version: Optional[int] = None,
         data: Optional[Dict[str, Any]] = None,
     ) -> TwinDocument:
@@ -1753,7 +1753,7 @@ class IotV1API(API):
         *,
         twin_id: str,
         document_name: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         BETA - Delete a Cloud Twin Document.
@@ -1787,7 +1787,7 @@ class IotV1API(API):
         self,
         *,
         twin_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> ListTwinDocumentsResponse:
         """
         BETA - List the documents of a Cloud Twin.
@@ -1820,7 +1820,7 @@ class IotV1API(API):
         self,
         *,
         twin_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         BETA - Delete all the documents of a Cloud Twin.

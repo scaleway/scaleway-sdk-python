@@ -8,7 +8,7 @@ from enum import Enum
 from typing import List, Optional
 
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -152,7 +152,7 @@ class NatsAccount:
     Project ID of the Project containing the NATS account.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region where the NATS account is deployed.
     """
@@ -223,7 +223,7 @@ class SnsCredentials:
     Project ID of the Project containing the credentials.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region where the credentials exists.
     """
@@ -276,7 +276,7 @@ class SqsCredentials:
     Project ID of the Project containing the credentials.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region where the credentials exists.
     """
@@ -366,7 +366,7 @@ class ListSqsCredentialsResponse:
 
 @dataclass
 class NatsApiCreateNatsAccountRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -389,7 +389,7 @@ class NatsApiCreateNatsCredentialsRequest:
     NATS account containing the credentials.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -407,7 +407,7 @@ class NatsApiDeleteNatsAccountRequest:
     ID of the NATS account to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -420,7 +420,7 @@ class NatsApiDeleteNatsCredentialsRequest:
     ID of the credentials to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -433,7 +433,7 @@ class NatsApiGetNatsAccountRequest:
     ID of the NATS account to get.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -446,7 +446,7 @@ class NatsApiGetNatsCredentialsRequest:
     ID of the credentials to get.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -454,7 +454,7 @@ class NatsApiGetNatsCredentialsRequest:
 
 @dataclass
 class NatsApiListNatsAccountsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -482,7 +482,7 @@ class NatsApiListNatsAccountsRequest:
 
 @dataclass
 class NatsApiListNatsCredentialsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -520,7 +520,7 @@ class NatsApiUpdateNatsAccountRequest:
     ID of the NATS account to update.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -533,7 +533,7 @@ class NatsApiUpdateNatsAccountRequest:
 
 @dataclass
 class SnsApiActivateSnsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -546,7 +546,7 @@ class SnsApiActivateSnsRequest:
 
 @dataclass
 class SnsApiCreateSnsCredentialsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -569,7 +569,7 @@ class SnsApiCreateSnsCredentialsRequest:
 
 @dataclass
 class SnsApiDeactivateSnsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -587,7 +587,7 @@ class SnsApiDeleteSnsCredentialsRequest:
     ID of the credentials to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -600,7 +600,7 @@ class SnsApiGetSnsCredentialsRequest:
     ID of the Topics and Events credentials to get.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -608,7 +608,7 @@ class SnsApiGetSnsCredentialsRequest:
 
 @dataclass
 class SnsApiGetSnsInfoRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -621,7 +621,7 @@ class SnsApiGetSnsInfoRequest:
 
 @dataclass
 class SnsApiListSnsCredentialsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -654,7 +654,7 @@ class SnsApiUpdateSnsCredentialsRequest:
     ID of the Topics and Events credentials to update.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -677,7 +677,7 @@ class SnsInfo:
     Project ID of the Project containing the service.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region of the service.
     """
@@ -705,7 +705,7 @@ class SnsInfo:
 
 @dataclass
 class SqsApiActivateSqsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -718,7 +718,7 @@ class SqsApiActivateSqsRequest:
 
 @dataclass
 class SqsApiCreateSqsCredentialsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -741,7 +741,7 @@ class SqsApiCreateSqsCredentialsRequest:
 
 @dataclass
 class SqsApiDeactivateSqsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -759,7 +759,7 @@ class SqsApiDeleteSqsCredentialsRequest:
     ID of the credentials to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -772,7 +772,7 @@ class SqsApiGetSqsCredentialsRequest:
     ID of the Queues credentials to get.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -780,7 +780,7 @@ class SqsApiGetSqsCredentialsRequest:
 
 @dataclass
 class SqsApiGetSqsInfoRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -793,7 +793,7 @@ class SqsApiGetSqsInfoRequest:
 
 @dataclass
 class SqsApiListSqsCredentialsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -826,7 +826,7 @@ class SqsApiUpdateSqsCredentialsRequest:
     ID of the Queues credentials to update.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -849,7 +849,7 @@ class SqsInfo:
     Project ID of the Project containing the service.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region of the service.
     """

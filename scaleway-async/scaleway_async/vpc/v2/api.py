@@ -5,7 +5,7 @@ from typing import List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     random_name,
@@ -68,7 +68,7 @@ class VpcV2API(API):
     async def list_vp_cs(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListVPCsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -127,7 +127,7 @@ class VpcV2API(API):
     async def list_vp_cs_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListVPCsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -181,7 +181,7 @@ class VpcV2API(API):
         self,
         *,
         enable_routing: bool,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         project_id: Optional[str] = None,
         tags: Optional[List[str]] = None,
@@ -230,7 +230,7 @@ class VpcV2API(API):
         self,
         *,
         vpc_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> VPC:
         """
         Get a VPC.
@@ -264,7 +264,7 @@ class VpcV2API(API):
         self,
         *,
         vpc_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         tags: Optional[List[str]] = None,
     ) -> VPC:
@@ -311,7 +311,7 @@ class VpcV2API(API):
         self,
         *,
         vpc_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete a VPC.
@@ -342,7 +342,7 @@ class VpcV2API(API):
     async def list_private_networks(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListPrivateNetworksRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -404,7 +404,7 @@ class VpcV2API(API):
     async def list_private_networks_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListPrivateNetworksRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -460,7 +460,7 @@ class VpcV2API(API):
     async def create_private_network(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         project_id: Optional[str] = None,
         tags: Optional[List[str]] = None,
@@ -511,7 +511,7 @@ class VpcV2API(API):
         self,
         *,
         private_network_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> PrivateNetwork:
         """
         Get a Private Network.
@@ -547,7 +547,7 @@ class VpcV2API(API):
         self,
         *,
         private_network_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         tags: Optional[List[str]] = None,
     ) -> PrivateNetwork:
@@ -596,7 +596,7 @@ class VpcV2API(API):
         self,
         *,
         private_network_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete a Private Network.
@@ -629,7 +629,7 @@ class VpcV2API(API):
     async def migrate_zonal_private_networks(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         private_network_ids: Optional[List[str]] = None,
@@ -674,7 +674,7 @@ class VpcV2API(API):
         self,
         *,
         private_network_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> PrivateNetwork:
         """
         Enable DHCP on a Private Network.
@@ -711,7 +711,7 @@ class VpcV2API(API):
         self,
         *,
         vpc_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> VPC:
         """
         Enable routing on a VPC.
@@ -745,7 +745,7 @@ class VpcV2API(API):
     async def list_subnets(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListSubnetsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -798,7 +798,7 @@ class VpcV2API(API):
     async def list_subnets_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListSubnetsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -846,7 +846,7 @@ class VpcV2API(API):
         self,
         *,
         private_network_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         subnets: Optional[List[str]] = None,
     ) -> SetSubnetsResponse:
         """
@@ -892,7 +892,7 @@ class VpcV2API(API):
         self,
         *,
         private_network_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         subnets: Optional[List[str]] = None,
     ) -> AddSubnetsResponse:
         """
@@ -938,7 +938,7 @@ class VpcV2API(API):
         self,
         *,
         private_network_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         subnets: Optional[List[str]] = None,
     ) -> DeleteSubnetsResponse:
         """
@@ -986,7 +986,7 @@ class VpcV2API(API):
         description: str,
         vpc_id: str,
         destination: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         tags: Optional[List[str]] = None,
         nexthop_resource_id: Optional[str] = None,
         nexthop_private_network_id: Optional[str] = None,
@@ -1041,7 +1041,7 @@ class VpcV2API(API):
         self,
         *,
         route_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Route:
         """
         Get a Route.
@@ -1075,7 +1075,7 @@ class VpcV2API(API):
         self,
         *,
         route_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         description: Optional[str] = None,
         tags: Optional[List[str]] = None,
         destination: Optional[str] = None,
@@ -1131,7 +1131,7 @@ class VpcV2API(API):
         self,
         *,
         route_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete a Route.

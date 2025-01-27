@@ -8,7 +8,7 @@ from enum import Enum
 from typing import List, Optional
 
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -142,7 +142,7 @@ class Key:
     Refer to the `Key.Origin` enum for a description of values.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region of the key.
     """
@@ -170,7 +170,7 @@ class CreateKeyRequest:
     Default value is `false`.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -251,7 +251,7 @@ class DecryptRequest:
     Data size must be between 1 and 131071 bytes.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -287,7 +287,7 @@ class DeleteKeyMaterialRequest:
     ID of the key of which to delete the key material.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -300,7 +300,7 @@ class DeleteKeyRequest:
     ID of the key to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -313,7 +313,7 @@ class DisableKeyRequest:
     ID of the key to disable.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -326,7 +326,7 @@ class EnableKeyRequest:
     ID of the key to enable.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -344,7 +344,7 @@ class EncryptRequest:
     Data size must be between 1 and 65535 bytes.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -381,7 +381,7 @@ class GenerateDataKeyRequest:
 Set it to `true` if you do not wish the plaintext to be returned in the response object.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -399,7 +399,7 @@ class GetKeyRequest:
     ID of the key to target.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -417,7 +417,7 @@ class ImportKeyMaterialRequest:
     The key material The key material is a random sequence of bytes used to derive a cryptographic key.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -430,7 +430,7 @@ class ImportKeyMaterialRequest:
 
 @dataclass
 class ListKeysRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -482,7 +482,7 @@ class ProtectKeyRequest:
     ID of the key to apply key protection to.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -495,7 +495,7 @@ class RotateKeyRequest:
     ID of the key to rotate.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -508,7 +508,7 @@ class UnprotectKeyRequest:
     ID of the key to remove key protection from.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -521,7 +521,7 @@ class UpdateKeyRequest:
     ID of the key to update.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """

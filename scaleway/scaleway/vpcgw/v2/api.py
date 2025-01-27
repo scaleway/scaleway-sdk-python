@@ -5,7 +5,7 @@ from typing import List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Zone,
+    Zone as ScwZone,
 )
 from scaleway_core.utils import (
     WaitForOptions,
@@ -88,7 +88,7 @@ class VpcgwV2API(API):
     def list_gateways(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         order_by: Optional[ListGatewaysRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -151,7 +151,7 @@ class VpcgwV2API(API):
     def list_gateways_all(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         order_by: Optional[ListGatewaysRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -211,7 +211,7 @@ class VpcgwV2API(API):
         self,
         *,
         gateway_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Gateway:
         """
         Get a Public Gateway.
@@ -243,7 +243,7 @@ class VpcgwV2API(API):
         self,
         *,
         gateway_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         options: Optional[WaitForOptions[Gateway, bool]] = None,
     ) -> Gateway:
         """
@@ -282,7 +282,7 @@ class VpcgwV2API(API):
         type_: str,
         enable_smtp: bool,
         enable_bastion: bool,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         project_id: Optional[str] = None,
         name: Optional[str] = None,
         tags: Optional[List[str]] = None,
@@ -341,7 +341,7 @@ class VpcgwV2API(API):
         self,
         *,
         gateway_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         tags: Optional[List[str]] = None,
         enable_bastion: Optional[bool] = None,
@@ -396,7 +396,7 @@ class VpcgwV2API(API):
         *,
         gateway_id: str,
         delete_ip: bool,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Gateway:
         """
         Delete a Public Gateway.
@@ -433,7 +433,7 @@ class VpcgwV2API(API):
         self,
         *,
         gateway_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         type_: Optional[str] = None,
     ) -> Gateway:
         """
@@ -474,7 +474,7 @@ class VpcgwV2API(API):
     def list_gateway_networks(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         order_by: Optional[ListGatewayNetworksRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -524,7 +524,7 @@ class VpcgwV2API(API):
     def list_gateway_networks_all(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         order_by: Optional[ListGatewayNetworksRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -572,7 +572,7 @@ class VpcgwV2API(API):
         self,
         *,
         gateway_network_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> GatewayNetwork:
         """
         Get a Public Gateway connection to a Private Network.
@@ -606,7 +606,7 @@ class VpcgwV2API(API):
         self,
         *,
         gateway_network_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         options: Optional[WaitForOptions[GatewayNetwork, bool]] = None,
     ) -> GatewayNetwork:
         """
@@ -648,7 +648,7 @@ class VpcgwV2API(API):
         private_network_id: str,
         enable_masquerade: bool,
         push_default_route: bool,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         ipam_ip_id: Optional[str] = None,
     ) -> GatewayNetwork:
         """
@@ -698,7 +698,7 @@ class VpcgwV2API(API):
         self,
         *,
         gateway_network_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         enable_masquerade: Optional[bool] = None,
         push_default_route: Optional[bool] = None,
         ipam_ip_id: Optional[str] = None,
@@ -748,7 +748,7 @@ class VpcgwV2API(API):
         self,
         *,
         gateway_network_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> GatewayNetwork:
         """
         Detach a Public Gateway from a Private Network.
@@ -781,7 +781,7 @@ class VpcgwV2API(API):
     def list_pat_rules(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         order_by: Optional[ListPatRulesRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -828,7 +828,7 @@ class VpcgwV2API(API):
     def list_pat_rules_all(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         order_by: Optional[ListPatRulesRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -873,7 +873,7 @@ class VpcgwV2API(API):
         self,
         *,
         pat_rule_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> PatRule:
         """
         Get a PAT rule.
@@ -908,7 +908,7 @@ class VpcgwV2API(API):
         public_port: int,
         private_ip: str,
         private_port: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         protocol: Optional[PatRuleProtocol] = None,
     ) -> PatRule:
         """
@@ -958,7 +958,7 @@ class VpcgwV2API(API):
         self,
         *,
         pat_rule_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         public_port: Optional[int] = None,
         private_ip: Optional[str] = None,
         private_port: Optional[int] = None,
@@ -1010,7 +1010,7 @@ class VpcgwV2API(API):
         *,
         gateway_id: str,
         pat_rules: List[SetPatRulesRequestRule],
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> SetPatRulesResponse:
         """
         Set all PAT rules.
@@ -1051,7 +1051,7 @@ class VpcgwV2API(API):
         self,
         *,
         pat_rule_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Delete a PAT rule.
@@ -1080,7 +1080,7 @@ class VpcgwV2API(API):
     def list_gateway_types(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> ListGatewayTypesResponse:
         """
         List Public Gateway types.
@@ -1107,7 +1107,7 @@ class VpcgwV2API(API):
     def list_i_ps(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         order_by: Optional[ListIPsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1161,7 +1161,7 @@ class VpcgwV2API(API):
     def list_i_ps_all(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         order_by: Optional[ListIPsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1212,7 +1212,7 @@ class VpcgwV2API(API):
         self,
         *,
         ip_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> IP:
         """
         Get an IP.
@@ -1243,7 +1243,7 @@ class VpcgwV2API(API):
     def create_ip(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         project_id: Optional[str] = None,
         tags: Optional[List[str]] = None,
     ) -> IP:
@@ -1283,7 +1283,7 @@ class VpcgwV2API(API):
         self,
         *,
         ip_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         tags: Optional[List[str]] = None,
         reverse: Optional[str] = None,
         gateway_id: Optional[str] = None,
@@ -1331,7 +1331,7 @@ class VpcgwV2API(API):
         self,
         *,
         ip_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Delete an IP.
@@ -1361,7 +1361,7 @@ class VpcgwV2API(API):
         self,
         *,
         gateway_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Gateway:
         """
         Refresh a Public Gateway's SSH keys.
@@ -1395,7 +1395,7 @@ class VpcgwV2API(API):
         *,
         gateway_id: str,
         ip_range: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> AddBastionAllowedIPsResponse:
         """
         Add allowed IP range to SSH bastion.
@@ -1437,7 +1437,7 @@ class VpcgwV2API(API):
         self,
         *,
         gateway_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         ip_ranges: Optional[List[str]] = None,
     ) -> SetBastionAllowedIPsResponse:
         """
@@ -1480,7 +1480,7 @@ class VpcgwV2API(API):
         *,
         gateway_id: str,
         ip_range: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Delete allowed IP range from SSH bastion.

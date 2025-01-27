@@ -8,7 +8,7 @@ from enum import Enum
 from typing import Any, Dict, List, Optional
 
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
     TimeSeries,
 )
 from scaleway_core.utils import (
@@ -400,7 +400,7 @@ class Hub:
     Hub events topic prefix.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region of the Hub.
     """
@@ -617,7 +617,7 @@ class CreateDeviceRequest:
     Defines whether to allow multiple physical devices to connect with this device's credentials.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -658,7 +658,7 @@ class CreateHubRequest:
     Hub product plan.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -703,7 +703,7 @@ class CreateNetworkRequest:
     Topic prefix for the Network.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -739,7 +739,7 @@ class CreateRouteRequest:
     Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -763,7 +763,7 @@ class DeleteDeviceRequest:
     Device ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -776,7 +776,7 @@ class DeleteHubRequest:
     Hub ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -794,7 +794,7 @@ class DeleteNetworkRequest:
     Network ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -807,7 +807,7 @@ class DeleteRouteRequest:
     Route ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -825,7 +825,7 @@ class DeleteTwinDocumentRequest:
     Name of the document.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -838,7 +838,7 @@ class DeleteTwinDocumentsRequest:
     Twin ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -851,7 +851,7 @@ class DisableDeviceRequest:
     Device ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -864,7 +864,7 @@ class DisableHubRequest:
     Hub ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -877,7 +877,7 @@ class EnableDeviceRequest:
     Device ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -890,7 +890,7 @@ class EnableHubRequest:
     Hub ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -903,7 +903,7 @@ class GetDeviceCertificateRequest:
     Device ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -929,7 +929,7 @@ class GetDeviceMetricsRequest:
     Device ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -955,7 +955,7 @@ class GetDeviceRequest:
     Device ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -965,7 +965,7 @@ class GetDeviceRequest:
 class GetHubCARequest:
     hub_id: str
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -983,7 +983,7 @@ class GetHubMetricsRequest:
     Hub ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1009,7 +1009,7 @@ class GetHubRequest:
     Hub ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1022,7 +1022,7 @@ class GetNetworkRequest:
     Network ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1035,7 +1035,7 @@ class GetRouteRequest:
     Route ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1053,7 +1053,7 @@ class GetTwinDocumentRequest:
     Name of the document.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1061,7 +1061,7 @@ class GetTwinDocumentRequest:
 
 @dataclass
 class ListDevicesRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1117,7 +1117,7 @@ class ListDevicesResponse:
 
 @dataclass
 class ListHubsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1168,7 +1168,7 @@ class ListHubsResponse:
 
 @dataclass
 class ListNetworksRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1219,7 +1219,7 @@ class ListNetworksResponse:
 
 @dataclass
 class ListRoutesRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1270,7 +1270,7 @@ class ListTwinDocumentsRequest:
     Twin ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1296,7 +1296,7 @@ class PatchTwinDocumentRequest:
     Name of the document.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1329,7 +1329,7 @@ class PutTwinDocumentRequest:
     Name of the document.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1352,7 +1352,7 @@ class RenewDeviceCertificateRequest:
     Device ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1427,7 +1427,7 @@ class SetDeviceCertificateRequest:
     PEM-encoded custom certificate.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1457,7 +1457,7 @@ class SetHubCARequest:
     Challenge is a PEM-encoded certificate that acts as proof of possession of the CA. It must be signed by the CA, and have a Common Name equal to the Hub ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1493,7 +1493,7 @@ class UpdateDeviceRequest:
     Device ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1531,7 +1531,7 @@ class UpdateHubRequest:
     ID of the Hub you want to update.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1571,7 +1571,7 @@ class UpdateRouteRequest:
     Route id.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """

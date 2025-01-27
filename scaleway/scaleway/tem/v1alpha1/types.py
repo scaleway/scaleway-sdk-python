@@ -8,7 +8,7 @@ from enum import Enum
 from typing import List, Optional
 
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -566,7 +566,7 @@ class Domain:
     Status of auto-configuration for the domain's DNS zone.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -756,7 +756,7 @@ class BulkCreateBlocklistsRequest:
     Domain ID linked to the blocklist.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -792,7 +792,7 @@ class CancelEmailRequest:
     ID of the email to cancel.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -805,7 +805,7 @@ class CheckDomainRequest:
     ID of the domain to check.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -828,7 +828,7 @@ class CreateDomainRequest:
     Activate auto-configuration of the domain's DNS zone.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -861,7 +861,7 @@ class CreateEmailRequest:
     HTML content.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -927,7 +927,7 @@ class CreateWebhookRequest:
     Scaleway SNS ARN topic to push the events to.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -950,7 +950,7 @@ class DeleteBlocklistRequest:
     ID of the blocklist to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -963,7 +963,7 @@ class DeleteWebhookRequest:
     ID of the Webhook to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1009,7 +1009,7 @@ class GetDomainLastStatusRequest:
     ID of the domain to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1022,7 +1022,7 @@ class GetDomainRequest:
     ID of the domain.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1035,7 +1035,7 @@ class GetEmailRequest:
     ID of the email to retrieve.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1043,7 +1043,7 @@ class GetEmailRequest:
 
 @dataclass
 class GetProjectSettingsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1056,7 +1056,7 @@ class GetProjectSettingsRequest:
 
 @dataclass
 class GetStatisticsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1094,7 +1094,7 @@ class GetWebhookRequest:
     ID of the Webhook to check.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1107,7 +1107,7 @@ class ListBlocklistsRequest:
     (Optional) Filter by a domain ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1158,7 +1158,7 @@ class ListBlocklistsResponse:
 
 @dataclass
 class ListDomainsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1209,7 +1209,7 @@ class ListDomainsResponse:
 
 @dataclass
 class ListEmailsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1304,7 +1304,7 @@ class ListWebhookEventsRequest:
     ID of the Webhook linked to the events.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1370,7 +1370,7 @@ class ListWebhookEventsResponse:
 
 @dataclass
 class ListWebhooksRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1434,7 +1434,7 @@ class RevokeDomainRequest:
     ID of the domain to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1480,7 +1480,7 @@ class UpdateDomainRequest:
     ID of the domain to update.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1493,7 +1493,7 @@ class UpdateDomainRequest:
 
 @dataclass
 class UpdateProjectSettingsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1516,7 +1516,7 @@ class UpdateWebhookRequest:
     ID of the Webhook to update.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """

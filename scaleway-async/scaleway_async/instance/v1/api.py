@@ -6,7 +6,7 @@ from typing import Dict, List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Zone,
+    Zone as ScwZone,
 )
 from scaleway_core.utils import (
     random_name,
@@ -251,7 +251,7 @@ class InstanceV1API(API):
     async def get_server_types_availability(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         per_page: Optional[int] = None,
         page: Optional[int] = None,
     ) -> GetServerTypesAvailabilityResponse:
@@ -286,7 +286,7 @@ class InstanceV1API(API):
     async def list_servers_types(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         per_page: Optional[int] = None,
         page: Optional[int] = None,
     ) -> ListServersTypesResponse:
@@ -321,7 +321,7 @@ class InstanceV1API(API):
     async def list_volumes_types(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         per_page: Optional[int] = None,
         page: Optional[int] = None,
     ) -> ListVolumesTypesResponse:
@@ -356,7 +356,7 @@ class InstanceV1API(API):
     async def list_servers(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         per_page: Optional[int] = None,
         page: Optional[int] = None,
         organization: Optional[str] = None,
@@ -435,7 +435,7 @@ class InstanceV1API(API):
     async def list_servers_all(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         per_page: Optional[int] = None,
         page: Optional[int] = None,
         organization: Optional[str] = None,
@@ -510,7 +510,7 @@ class InstanceV1API(API):
         self,
         *,
         commercial_type: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         dynamic_ip_required: Optional[bool] = None,
         routed_ip_enabled: Optional[bool] = None,
@@ -596,7 +596,7 @@ class InstanceV1API(API):
         self,
         *,
         server_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Delete an Instance.
@@ -626,7 +626,7 @@ class InstanceV1API(API):
         self,
         *,
         server_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> GetServerResponse:
         """
         Get an Instance.
@@ -657,7 +657,7 @@ class InstanceV1API(API):
     async def _set_server(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         id: str,
         name: str,
         commercial_type: str,
@@ -788,7 +788,7 @@ class InstanceV1API(API):
         self,
         *,
         server_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         boot_type: Optional[BootType] = None,
         tags: Optional[List[str]] = None,
@@ -873,7 +873,7 @@ class InstanceV1API(API):
         self,
         *,
         server_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> ListServerActionsResponse:
         """
         List Instance actions.
@@ -905,7 +905,7 @@ class InstanceV1API(API):
         self,
         *,
         server_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         action: Optional[ServerAction] = None,
         name: Optional[str] = None,
         volumes: Optional[Dict[str, ServerActionRequestVolumeBackupTemplate]] = None,
@@ -974,7 +974,7 @@ class InstanceV1API(API):
         self,
         *,
         server_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> ListServerUserDataResponse:
         """
         List user data.
@@ -1007,7 +1007,7 @@ class InstanceV1API(API):
         *,
         server_id: str,
         key: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Delete user data.
@@ -1041,7 +1041,7 @@ class InstanceV1API(API):
         *,
         server_id: str,
         volume_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         volume_type: Optional[AttachServerVolumeRequestVolumeType] = None,
         boot: Optional[bool] = None,
     ) -> AttachServerVolumeResponse:
@@ -1088,7 +1088,7 @@ class InstanceV1API(API):
         *,
         server_id: str,
         volume_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> DetachServerVolumeResponse:
         """
         :param server_id:
@@ -1127,7 +1127,7 @@ class InstanceV1API(API):
     async def list_images(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         organization: Optional[str] = None,
         per_page: Optional[int] = None,
         page: Optional[int] = None,
@@ -1180,7 +1180,7 @@ class InstanceV1API(API):
     async def list_images_all(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         organization: Optional[str] = None,
         per_page: Optional[int] = None,
         page: Optional[int] = None,
@@ -1231,7 +1231,7 @@ class InstanceV1API(API):
         self,
         *,
         image_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> GetImageResponse:
         """
         Get an Instance image.
@@ -1264,7 +1264,7 @@ class InstanceV1API(API):
         *,
         root_volume: str,
         arch: Arch,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         extra_volumes: Optional[Dict[str, VolumeTemplate]] = None,
         organization: Optional[str] = None,
@@ -1324,7 +1324,7 @@ class InstanceV1API(API):
     async def _set_image(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         id: str,
         name: str,
         arch: Optional[Arch] = None,
@@ -1406,7 +1406,7 @@ class InstanceV1API(API):
         self,
         *,
         image_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         arch: Optional[Arch] = None,
         extra_volumes: Optional[Dict[str, VolumeImageUpdateTemplate]] = None,
@@ -1460,7 +1460,7 @@ class InstanceV1API(API):
         self,
         *,
         image_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Delete an Instance image.
@@ -1489,7 +1489,7 @@ class InstanceV1API(API):
     async def list_snapshots(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         organization: Optional[str] = None,
         project: Optional[str] = None,
         per_page: Optional[int] = None,
@@ -1539,7 +1539,7 @@ class InstanceV1API(API):
     async def list_snapshots_all(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         organization: Optional[str] = None,
         project: Optional[str] = None,
         per_page: Optional[int] = None,
@@ -1586,7 +1586,7 @@ class InstanceV1API(API):
     async def create_snapshot(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         volume_id: Optional[str] = None,
         tags: Optional[List[str]] = None,
@@ -1650,7 +1650,7 @@ class InstanceV1API(API):
         self,
         *,
         snapshot_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> GetSnapshotResponse:
         """
         Get a snapshot.
@@ -1683,7 +1683,7 @@ class InstanceV1API(API):
         *,
         id: str,
         name: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         organization: Optional[str] = None,
         volume_type: Optional[VolumeVolumeType] = None,
         size: int,
@@ -1757,7 +1757,7 @@ class InstanceV1API(API):
         self,
         *,
         snapshot_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         tags: Optional[List[str]] = None,
     ) -> UpdateSnapshotResponse:
@@ -1802,7 +1802,7 @@ class InstanceV1API(API):
         self,
         *,
         snapshot_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Delete a snapshot.
@@ -1834,7 +1834,7 @@ class InstanceV1API(API):
         bucket: str,
         key: str,
         snapshot_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> ExportSnapshotResponse:
         """
         Export a snapshot.
@@ -1878,7 +1878,7 @@ class InstanceV1API(API):
     async def list_volumes(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         volume_type: Optional[VolumeVolumeType] = None,
         per_page: Optional[int] = None,
         page: Optional[int] = None,
@@ -1928,7 +1928,7 @@ class InstanceV1API(API):
     async def list_volumes_all(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         volume_type: Optional[VolumeVolumeType] = None,
         per_page: Optional[int] = None,
         page: Optional[int] = None,
@@ -1975,7 +1975,7 @@ class InstanceV1API(API):
     async def create_volume(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         organization: Optional[str] = None,
         project: Optional[str] = None,
@@ -2034,7 +2034,7 @@ class InstanceV1API(API):
         self,
         *,
         volume_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> GetVolumeResponse:
         """
         Get a volume.
@@ -2066,7 +2066,7 @@ class InstanceV1API(API):
         self,
         *,
         volume_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         tags: Optional[List[str]] = None,
         size: Optional[int] = None,
@@ -2114,7 +2114,7 @@ class InstanceV1API(API):
         self,
         *,
         volume_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Delete a volume.
@@ -2143,7 +2143,7 @@ class InstanceV1API(API):
     async def list_security_groups(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         organization: Optional[str] = None,
         project: Optional[str] = None,
@@ -2193,7 +2193,7 @@ class InstanceV1API(API):
     async def list_security_groups_all(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         organization: Optional[str] = None,
         project: Optional[str] = None,
@@ -2242,7 +2242,7 @@ class InstanceV1API(API):
         *,
         description: str,
         stateful: bool,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         organization: Optional[str] = None,
         project: Optional[str] = None,
@@ -2314,7 +2314,7 @@ class InstanceV1API(API):
         self,
         *,
         security_group_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> GetSecurityGroupResponse:
         """
         Get a security group.
@@ -2348,7 +2348,7 @@ class InstanceV1API(API):
         self,
         *,
         security_group_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Delete a security group.
@@ -2379,7 +2379,7 @@ class InstanceV1API(API):
     async def _set_security_group(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         id: str,
         name: str,
         description: str,
@@ -2466,7 +2466,7 @@ class InstanceV1API(API):
         self,
         *,
         security_group_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         description: Optional[str] = None,
         enable_default_security: Optional[bool] = None,
@@ -2533,7 +2533,7 @@ class InstanceV1API(API):
     async def list_default_security_group_rules(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> ListSecurityGroupRulesResponse:
         """
         Get default rules.
@@ -2561,7 +2561,7 @@ class InstanceV1API(API):
         self,
         *,
         security_group_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         per_page: Optional[int] = None,
         page: Optional[int] = None,
     ) -> ListSecurityGroupRulesResponse:
@@ -2603,7 +2603,7 @@ class InstanceV1API(API):
         self,
         *,
         security_group_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         per_page: Optional[int] = None,
         page: Optional[int] = None,
     ) -> List[SecurityGroupRule]:
@@ -2646,7 +2646,7 @@ class InstanceV1API(API):
         ip_range: str,
         position: int,
         editable: bool,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         dest_port_from: Optional[int] = None,
         dest_port_to: Optional[int] = None,
     ) -> CreateSecurityGroupRuleResponse:
@@ -2711,7 +2711,7 @@ class InstanceV1API(API):
         self,
         *,
         security_group_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         rules: Optional[List[SetSecurityGroupRulesRequestRule]] = None,
     ) -> SetSecurityGroupRulesResponse:
         """
@@ -2756,7 +2756,7 @@ class InstanceV1API(API):
         *,
         security_group_id: str,
         security_group_rule_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Delete rule.
@@ -2794,7 +2794,7 @@ class InstanceV1API(API):
         *,
         security_group_id: str,
         security_group_rule_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> GetSecurityGroupRuleResponse:
         """
         Get rule.
@@ -2838,7 +2838,7 @@ class InstanceV1API(API):
         ip_range: str,
         position: int,
         editable: bool,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         protocol: Optional[SecurityGroupRuleProtocol] = None,
         direction: Optional[SecurityGroupRuleDirection] = None,
         action: Optional[SecurityGroupRuleAction] = None,
@@ -2913,7 +2913,7 @@ class InstanceV1API(API):
         *,
         security_group_id: str,
         security_group_rule_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         protocol: Optional[SecurityGroupRuleProtocol] = None,
         direction: Optional[SecurityGroupRuleDirection] = None,
         action: Optional[SecurityGroupRuleAction] = None,
@@ -2980,7 +2980,7 @@ class InstanceV1API(API):
     async def list_placement_groups(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         per_page: Optional[int] = None,
         page: Optional[int] = None,
         organization: Optional[str] = None,
@@ -3027,7 +3027,7 @@ class InstanceV1API(API):
     async def list_placement_groups_all(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         per_page: Optional[int] = None,
         page: Optional[int] = None,
         organization: Optional[str] = None,
@@ -3071,7 +3071,7 @@ class InstanceV1API(API):
     async def create_placement_group(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         organization: Optional[str] = None,
         project: Optional[str] = None,
@@ -3125,7 +3125,7 @@ class InstanceV1API(API):
         self,
         *,
         placement_group_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> GetPlacementGroupResponse:
         """
         Get a placement group.
@@ -3160,7 +3160,7 @@ class InstanceV1API(API):
         *,
         placement_group_id: str,
         name: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         organization: Optional[str] = None,
         policy_mode: Optional[PlacementGroupPolicyMode] = None,
         policy_type: Optional[PlacementGroupPolicyType] = None,
@@ -3219,7 +3219,7 @@ class InstanceV1API(API):
         self,
         *,
         placement_group_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         tags: Optional[List[str]] = None,
         policy_mode: Optional[PlacementGroupPolicyMode] = None,
@@ -3272,7 +3272,7 @@ class InstanceV1API(API):
         self,
         *,
         placement_group_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Delete the specified placement group.
@@ -3303,7 +3303,7 @@ class InstanceV1API(API):
         self,
         *,
         placement_group_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> GetPlacementGroupServersResponse:
         """
         Get placement group servers.
@@ -3338,7 +3338,7 @@ class InstanceV1API(API):
         *,
         placement_group_id: str,
         servers: List[str],
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> SetPlacementGroupServersResponse:
         """
         Set placement group servers.
@@ -3383,7 +3383,7 @@ class InstanceV1API(API):
         *,
         placement_group_id: str,
         servers: List[str],
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> UpdatePlacementGroupServersResponse:
         """
         Update placement group servers.
@@ -3426,7 +3426,7 @@ class InstanceV1API(API):
     async def list_ips(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         project: Optional[str] = None,
         organization: Optional[str] = None,
         tags: Optional[List[str]] = None,
@@ -3476,7 +3476,7 @@ class InstanceV1API(API):
     async def list_ips_all(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         project: Optional[str] = None,
         organization: Optional[str] = None,
         tags: Optional[List[str]] = None,
@@ -3523,7 +3523,7 @@ class InstanceV1API(API):
     async def create_ip(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         organization: Optional[str] = None,
         project: Optional[str] = None,
         tags: Optional[List[str]] = None,
@@ -3574,7 +3574,7 @@ class InstanceV1API(API):
         self,
         *,
         ip: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> GetIpResponse:
         """
         Get a flexible IP.
@@ -3606,7 +3606,7 @@ class InstanceV1API(API):
         self,
         *,
         ip: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         reverse: Optional[str] = None,
         type_: Optional[IpType] = None,
         tags: Optional[List[str]] = None,
@@ -3657,7 +3657,7 @@ class InstanceV1API(API):
         self,
         *,
         ip: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Delete a flexible IP.
@@ -3687,7 +3687,7 @@ class InstanceV1API(API):
         self,
         *,
         server_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         tags: Optional[List[str]] = None,
         per_page: Optional[int] = None,
         page: Optional[int] = None,
@@ -3730,7 +3730,7 @@ class InstanceV1API(API):
         self,
         *,
         server_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         tags: Optional[List[str]] = None,
         per_page: Optional[int] = None,
         page: Optional[int] = None,
@@ -3771,7 +3771,7 @@ class InstanceV1API(API):
         *,
         server_id: str,
         private_network_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         tags: Optional[List[str]] = None,
         ip_ids: Optional[List[str]] = None,
         ipam_ip_ids: Optional[List[str]] = None,
@@ -3822,7 +3822,7 @@ class InstanceV1API(API):
         *,
         server_id: str,
         private_nic_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> GetPrivateNICResponse:
         """
         Get a private NIC.
@@ -3858,7 +3858,7 @@ class InstanceV1API(API):
         *,
         server_id: str,
         private_nic_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         tags: Optional[List[str]] = None,
     ) -> PrivateNIC:
         """
@@ -3905,7 +3905,7 @@ class InstanceV1API(API):
         *,
         server_id: str,
         private_nic_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Delete a private NIC.
@@ -3936,7 +3936,7 @@ class InstanceV1API(API):
     async def get_dashboard(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         organization: Optional[str] = None,
         project: Optional[str] = None,
     ) -> GetDashboardResponse:
@@ -3969,7 +3969,7 @@ class InstanceV1API(API):
     async def plan_block_migration(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         volume_id: Optional[str] = None,
         snapshot_id: Optional[str] = None,
     ) -> MigrationPlan:
@@ -4015,7 +4015,7 @@ class InstanceV1API(API):
         self,
         *,
         validation_key: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         volume_id: Optional[str] = None,
         snapshot_id: Optional[str] = None,
     ) -> None:
@@ -4058,7 +4058,7 @@ class InstanceV1API(API):
     async def check_block_migration_organization_quotas(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         organization: Optional[str] = None,
     ) -> None:
         """

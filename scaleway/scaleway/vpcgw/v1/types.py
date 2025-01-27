@@ -8,7 +8,7 @@ from enum import Enum
 from typing import List, Optional
 
 from scaleway_core.bridge import (
-    Zone,
+    Zone as ScwZone,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -208,7 +208,7 @@ class DHCP:
     TLD given to hostnames in the Private Networks. If an Instance with hostname `foo` gets a lease, and this is set to `bar`, `foo.bar` will resolve.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     Zone of this DHCP configuration.
     """
@@ -289,7 +289,7 @@ class GatewayNetwork:
     Defines whether DHCP is enabled on the connected Private Network.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     Zone of the GatewayNetwork connection.
     """
@@ -322,7 +322,7 @@ class GatewayType:
     Bandwidth, in bps, of the Public Gateway. This is the public bandwidth to the outer Internet, and the internal bandwidth to each connected Private Networks.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     Zone the Public Gateway type is available in.
     """
@@ -355,7 +355,7 @@ class IP:
     The IP address itself.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     Zone of the IP address.
     """
@@ -388,7 +388,7 @@ class CreateDHCPRequest:
     Subnet for the DHCP server.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -504,7 +504,7 @@ class DHCPEntry:
     Entry type, either static (DHCP reservation) or dynamic (DHCP lease).
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     Zone of this DHCP entry.
     """
@@ -617,7 +617,7 @@ class Gateway:
     Defines whether the gateway uses routed IPs (IP mobility) instead of NAT IPs.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     Zone of the gateway.
     """
@@ -655,7 +655,7 @@ class PATRule:
     Protocol the rule applies to.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     Zone of the PAT rule.
     """
@@ -737,7 +737,7 @@ class CreateDHCPEntryRequest:
     IP address to give to the device.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -760,7 +760,7 @@ class CreateGatewayNetworkRequest:
     Note: this setting is ignored when passing `ipam_config`.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -797,7 +797,7 @@ class CreateGatewayRequest:
     Defines whether SSH bastion should be enabled the gateway.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -835,7 +835,7 @@ class CreateGatewayRequest:
 
 @dataclass
 class CreateIPRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -873,7 +873,7 @@ class CreatePATRuleRequest:
     Private port to translate to.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -891,7 +891,7 @@ class DeleteDHCPEntryRequest:
     ID of the DHCP entry to delete.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -904,7 +904,7 @@ class DeleteDHCPRequest:
     DHCP configuration ID to delete.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -922,7 +922,7 @@ class DeleteGatewayNetworkRequest:
     Defines whether to clean up attached DHCP configurations (if any, and if not attached to another Gateway Network).
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -940,7 +940,7 @@ class DeleteGatewayRequest:
     Defines whether to clean up attached DHCP configurations (if any, and if not attached to another Gateway Network).
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -953,7 +953,7 @@ class DeleteIPRequest:
     ID of the IP address to delete.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -966,7 +966,7 @@ class DeletePATRuleRequest:
     ID of the PAT rule to delete.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -979,7 +979,7 @@ class EnableIPMobilityRequest:
     ID of the gateway to upgrade to IP mobility.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -992,7 +992,7 @@ class GetDHCPEntryRequest:
     ID of the DHCP entry to fetch.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1005,7 +1005,7 @@ class GetDHCPRequest:
     ID of the DHCP configuration to fetch.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1018,7 +1018,7 @@ class GetGatewayNetworkRequest:
     ID of the GatewayNetwork to fetch.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1031,7 +1031,7 @@ class GetGatewayRequest:
     ID of the gateway to fetch.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1044,7 +1044,7 @@ class GetIPRequest:
     ID of the IP address to get.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1057,7 +1057,7 @@ class GetPATRuleRequest:
     ID of the PAT rule to get.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1065,7 +1065,7 @@ class GetPATRuleRequest:
 
 @dataclass
 class ListDHCPEntriesRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1126,7 +1126,7 @@ class ListDHCPEntriesResponse:
 
 @dataclass
 class ListDHCPsRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1182,7 +1182,7 @@ class ListDHCPsResponse:
 
 @dataclass
 class ListGatewayNetworksRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1243,7 +1243,7 @@ class ListGatewayNetworksResponse:
 
 @dataclass
 class ListGatewayTypesRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1259,7 +1259,7 @@ class ListGatewayTypesResponse:
 
 @dataclass
 class ListGatewaysRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1330,7 +1330,7 @@ class ListGatewaysResponse:
 
 @dataclass
 class ListIPsRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1391,7 +1391,7 @@ class ListIPsResponse:
 
 @dataclass
 class ListPATRulesRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1447,7 +1447,7 @@ class RefreshSSHKeysRequest:
     ID of the gateway to refresh SSH keys on.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1460,7 +1460,7 @@ class SetDHCPEntriesRequest:
     ID of the Gateway Network on which to set DHCP reservation list.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1491,7 +1491,7 @@ class SetPATRulesRequest:
     New list of PAT rules.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1512,7 +1512,7 @@ class UpdateDHCPEntryRequest:
     ID of the DHCP entry to update.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1530,7 +1530,7 @@ class UpdateDHCPRequest:
     DHCP configuration to update.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1608,7 +1608,7 @@ class UpdateGatewayNetworkRequest:
     ID of the GatewayNetwork to update.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1638,7 +1638,7 @@ class UpdateGatewayRequest:
     ID of the gateway to update.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1681,7 +1681,7 @@ class UpdateIPRequest:
     ID of the IP address to update.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1709,7 +1709,7 @@ class UpdatePATRuleRequest:
     ID of the PAT rule to update.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1742,7 +1742,7 @@ class UpgradeGatewayRequest:
     ID of the gateway to upgrade.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """

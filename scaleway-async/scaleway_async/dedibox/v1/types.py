@@ -9,7 +9,7 @@ from typing import Dict, List, Optional
 
 from scaleway_core.bridge import (
     Money,
-    Zone,
+    Zone as ScwZone,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -1166,7 +1166,7 @@ class Server:
     Network interfaces of the server.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     The zone in which is the server.
     """
@@ -1323,7 +1323,7 @@ class RpnSanServer:
     RPN SANs linked to the RPN SAN server.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     The RPN SAN server zone.
     """
@@ -1791,7 +1791,7 @@ class RpnServerCapability:
     Server datacenter name.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     Server zone.
     """
@@ -1950,7 +1950,7 @@ class ServerSummary:
     Network interfaces of the server.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     The zone in which is the server.
     """
@@ -2137,7 +2137,7 @@ class AttachFailoverIPToMacAddressRequest:
     ID of the failover IP.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2165,7 +2165,7 @@ class AttachFailoverIPsRequest:
     List of ID of failovers IP to attach.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2325,7 +2325,7 @@ class CancelServerInstallRequest:
     Server ID of the server to cancel install.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2343,7 +2343,7 @@ class CreateFailoverIPsRequest:
     Quantity.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2373,7 +2373,7 @@ class CreateServerRequest:
     Server option IDs of the new server.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2396,7 +2396,7 @@ class DeleteFailoverIPRequest:
     ID of the failover IP to delete.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2409,7 +2409,7 @@ class DeleteServerRequest:
     Server ID to delete.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2422,7 +2422,7 @@ class DeleteServiceRequest:
     ID of the service.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2435,7 +2435,7 @@ class DetachFailoverIPFromMacAddressRequest:
     ID of the failover IP.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2448,7 +2448,7 @@ class DetachFailoverIPsRequest:
     List of IDs of failovers IP to detach.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2461,7 +2461,7 @@ class GetBMCAccessRequest:
     ID of the server to get BMC access.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2474,7 +2474,7 @@ class GetFailoverIPRequest:
     ID of the failover IP.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2505,7 +2505,7 @@ class GetOSRequest:
     ID of the server.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2523,7 +2523,7 @@ class GetOfferRequest:
     ID of offer.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2538,7 +2538,7 @@ class GetOfferRequest:
 class GetOrderedServiceRequest:
     ordered_service_id: int
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2551,7 +2551,7 @@ class GetRaidRequest:
     ID of the server.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2559,7 +2559,7 @@ class GetRaidRequest:
 
 @dataclass
 class GetRemainingQuotaRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2600,7 +2600,7 @@ class GetRescueRequest:
     ID of the server to get rescue.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2626,7 +2626,7 @@ class GetServerBackupRequest:
     Server ID of the backup.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2644,7 +2644,7 @@ class GetServerDefaultPartitioningRequest:
     OS ID of the default partitioning.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2657,7 +2657,7 @@ class GetServerInstallRequest:
     Server ID of the server to install.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2670,7 +2670,7 @@ class GetServerRequest:
     ID of the server.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2683,7 +2683,7 @@ class GetServiceRequest:
     ID of the service.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2815,7 +2815,7 @@ class InstallServerRequest:
     Hostname of the server.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2884,7 +2884,7 @@ class Invoice:
 
 @dataclass
 class ListFailoverIPsRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2974,7 +2974,7 @@ class ListOSRequest:
     Filter OS by compatible server ID.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3020,7 +3020,7 @@ class ListOSResponse:
 
 @dataclass
 class ListOffersRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3251,7 +3251,7 @@ class ListServerDisksRequest:
     Server ID of the server disks.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3292,7 +3292,7 @@ class ListServerEventsRequest:
     Server ID of the server events.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3328,7 +3328,7 @@ class ListServerEventsResponse:
 
 @dataclass
 class ListServersRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3374,7 +3374,7 @@ class ListServersResponse:
 
 @dataclass
 class ListServicesRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3420,7 +3420,7 @@ class ListSubscribableServerOptionsRequest:
     Server ID of the subscribable server options.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3528,7 +3528,7 @@ class RebootServerRequest:
     Server ID to reboot.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -4228,7 +4228,7 @@ class StartBMCAccessRequest:
     The IP authorized to connect to the given server.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -4246,7 +4246,7 @@ class StartRescueRequest:
     OS ID to use to start rescue.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -4259,7 +4259,7 @@ class StartServerRequest:
     Server ID to start.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -4272,7 +4272,7 @@ class StopBMCAccessRequest:
     ID of the server to stop BMC access.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -4285,7 +4285,7 @@ class StopRescueRequest:
     ID of the server to stop rescue.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -4298,7 +4298,7 @@ class StopServerRequest:
     Server ID to stop.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -4316,7 +4316,7 @@ class SubscribeServerOptionRequest:
     Option ID to subscribe.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -4334,7 +4334,7 @@ class SubscribeStorageOptionsRequest:
     Option IDs of the storage options to subscribe.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -4360,7 +4360,7 @@ class UpdateRaidRequest:
     RAIDs to update.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -4378,7 +4378,7 @@ class UpdateReverseRequest:
     Reverse to apply on the IP.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -4391,7 +4391,7 @@ class UpdateServerBackupRequest:
     Server ID to update backup.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -4419,7 +4419,7 @@ class UpdateServerRequest:
     Server ID to update.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -4442,7 +4442,7 @@ class UpdateServerTagsRequest:
     Server ID to update the tags.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
