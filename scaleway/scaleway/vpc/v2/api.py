@@ -643,6 +643,7 @@ class VpcV2API(API):
         :param project_id: Project to target. The specified zoned Private Networks within this Project will be migrated to regional.
         One-Of ('scope'): at most one of 'organization_id', 'project_id' could be set.
         :param private_network_ids: IDs of the Private Networks to migrate.
+        :deprecated
 
         Usage:
         ::
