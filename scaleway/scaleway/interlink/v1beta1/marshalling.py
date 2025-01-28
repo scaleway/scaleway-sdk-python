@@ -117,6 +117,12 @@ def unmarshal_Link(data: Any) -> Link:
     else:
         args["updated_at"] = None
 
+    field = data.get("disapproved_reason", None)
+    if field is not None:
+        args["disapproved_reason"] = field
+    else:
+        args["disapproved_reason"] = None
+
     return Link(**args)
 
 

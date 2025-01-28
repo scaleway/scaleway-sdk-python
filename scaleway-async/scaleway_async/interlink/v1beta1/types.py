@@ -173,6 +173,11 @@ class Link:
     Last modification date of the link.
     """
 
+    disapproved_reason: Optional[str]
+    """
+    Reason given by partner to explain why they did not approve the request for a hosted link.
+    """
+
 
 @dataclass
 class Partner:
