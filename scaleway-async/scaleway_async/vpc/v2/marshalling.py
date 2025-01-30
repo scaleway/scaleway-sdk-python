@@ -5,10 +5,6 @@ from typing import Any, Dict
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
-from scaleway_core.utils import (
-    OneOfPossibility,
-    resolve_one_of,
-)
 from .types import (
     Subnet,
     PrivateNetwork,
@@ -25,7 +21,6 @@ from .types import (
     CreateRouteRequest,
     CreateVPCRequest,
     DeleteSubnetsRequest,
-    MigrateZonalPrivateNetworksRequest,
     SetSubnetsRequest,
     UpdatePrivateNetworkRequest,
     UpdateRouteRequest,
@@ -457,32 +452,6 @@ def marshal_DeleteSubnetsRequest(
 
     if request.subnets is not None:
         output["subnets"] = request.subnets
-
-    return output
-
-
-def marshal_MigrateZonalPrivateNetworksRequest(
-    request: MigrateZonalPrivateNetworksRequest,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-    output.update(
-        resolve_one_of(
-            [
-                OneOfPossibility(
-                    "organization_id",
-                    request.organization_id,
-                    defaults.default_organization_id,
-                ),
-                OneOfPossibility(
-                    "project_id", request.project_id, defaults.default_project_id
-                ),
-            ]
-        ),
-    )
-
-    if request.private_network_ids is not None:
-        output["private_network_ids"] = request.private_network_ids
 
     return output
 

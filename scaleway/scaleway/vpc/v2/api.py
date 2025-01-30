@@ -26,7 +26,6 @@ from .types import (
     ListPrivateNetworksResponse,
     ListSubnetsResponse,
     ListVPCsResponse,
-    MigrateZonalPrivateNetworksRequest,
     PrivateNetwork,
     Route,
     SetSubnetsRequest,
@@ -52,7 +51,6 @@ from .marshalling import (
     marshal_CreateRouteRequest,
     marshal_CreateVPCRequest,
     marshal_DeleteSubnetsRequest,
-    marshal_MigrateZonalPrivateNetworksRequest,
     marshal_SetSubnetsRequest,
     marshal_UpdatePrivateNetworkRequest,
     marshal_UpdateRouteRequest,
@@ -622,51 +620,6 @@ class VpcV2API(API):
         res = self._request(
             "DELETE",
             f"/vpc/v2/regions/{param_region}/private-networks/{param_private_network_id}",
-        )
-
-        self._throw_on_error(res)
-
-    def migrate_zonal_private_networks(
-        self,
-        *,
-        region: Optional[ScwRegion] = None,
-        organization_id: Optional[str] = None,
-        project_id: Optional[str] = None,
-        private_network_ids: Optional[List[str]] = None,
-    ) -> None:
-        """
-        Migrate Private Networks from zoned to regional.
-        Transform multiple existing zoned Private Networks (scoped to a single Availability Zone) into regional Private Networks, scoped to an entire region. You can transform one or many Private Networks (specified by their Private Network IDs) within a single Scaleway Organization or Project, with the same call.
-        :param region: Region to target. If none is passed will use default region from the config.
-        :param organization_id: Organization ID to target. The specified zoned Private Networks within this Organization will be migrated to regional.
-        One-Of ('scope'): at most one of 'organization_id', 'project_id' could be set.
-        :param project_id: Project to target. The specified zoned Private Networks within this Project will be migrated to regional.
-        One-Of ('scope'): at most one of 'organization_id', 'project_id' could be set.
-        :param private_network_ids: IDs of the Private Networks to migrate.
-        :deprecated
-
-        Usage:
-        ::
-
-            result = api.migrate_zonal_private_networks()
-        """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
-        res = self._request(
-            "POST",
-            f"/vpc/v2/regions/{param_region}/private-networks/migrate-zonal",
-            body=marshal_MigrateZonalPrivateNetworksRequest(
-                MigrateZonalPrivateNetworksRequest(
-                    region=region,
-                    private_network_ids=private_network_ids,
-                    organization_id=organization_id,
-                    project_id=project_id,
-                ),
-                self.client,
-            ),
         )
 
         self._throw_on_error(res)
