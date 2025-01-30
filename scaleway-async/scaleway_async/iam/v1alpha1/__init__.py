@@ -12,11 +12,13 @@ from .types import ListPoliciesRequestOrderBy
 from .types import ListQuotaRequestOrderBy
 from .types import ListSSHKeysRequestOrderBy
 from .types import ListUsersRequestOrderBy
+from .types import LocalityType
 from .types import LogAction
 from .types import LogResourceType
 from .types import PermissionSetScopeType
 from .types import UserStatus
 from .types import UserType
+from .types import QuotumLimit
 from .types import JWT
 from .types import RuleSpecs
 from .types import CreateUserRequestMember
@@ -119,11 +121,13 @@ __all__ = [
     "ListQuotaRequestOrderBy",
     "ListSSHKeysRequestOrderBy",
     "ListUsersRequestOrderBy",
+    "LocalityType",
     "LogAction",
     "LogResourceType",
     "PermissionSetScopeType",
     "UserStatus",
     "UserType",
+    "QuotumLimit",
     "JWT",
     "RuleSpecs",
     "CreateUserRequestMember",

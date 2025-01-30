@@ -185,6 +185,10 @@ def unmarshal_DnsRecord(data: Any) -> DnsRecord:
     if field is not None:
         args["status"] = field
 
+    field = data.get("raw_data", None)
+    if field is not None:
+        args["raw_data"] = field
+
     field = data.get("priority", None)
     if field is not None:
         args["priority"] = field
