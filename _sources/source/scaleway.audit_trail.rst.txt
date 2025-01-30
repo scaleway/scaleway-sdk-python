@@ -1,0 +1,18 @@
+scaleway.audit\_trail package
+=============================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway.audit_trail.v1alpha1
+
+Module contents
+---------------
+
+.. automodule:: scaleway.audit_trail
+   :members:
+   :undoc-members:
+   :show-inheritance:

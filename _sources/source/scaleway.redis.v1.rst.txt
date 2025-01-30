@@ -1,0 +1,45 @@
+scaleway.redis.v1 package
+=========================
+
+Submodules
+----------
+
+scaleway.redis.v1.api module
+----------------------------
+
+.. automodule:: scaleway.redis.v1.api
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway.redis.v1.content module
+--------------------------------
+
+.. automodule:: scaleway.redis.v1.content
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway.redis.v1.marshalling module
+------------------------------------
+
+.. automodule:: scaleway.redis.v1.marshalling
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway.redis.v1.types module
+------------------------------
+
+.. automodule:: scaleway.redis.v1.types
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: scaleway.redis.v1
+   :members:
+   :undoc-members:
+   :show-inheritance:

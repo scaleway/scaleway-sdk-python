@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scaleway_core.bridge package &mdash; Scaleway Python SDK  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scaleway Python SDK
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">scaleway_core.bridge package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-scaleway_core.bridge.decimal">scaleway_core.bridge.decimal module</a><ul>
+<li><a class="reference internal" href="#scaleway_core.bridge.decimal.marshal_Decimal"><code class="docutils literal notranslate"><span class="pre">marshal_Decimal()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.decimal.unmarshal_Decimal"><code class="docutils literal notranslate"><span class="pre">unmarshal_Decimal()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-scaleway_core.bridge.money">scaleway_core.bridge.money module</a><ul>
+<li><a class="reference internal" href="#scaleway_core.bridge.money.Money"><code class="docutils literal notranslate"><span class="pre">Money</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway_core.bridge.money.Money.currency_code"><code class="docutils literal notranslate"><span class="pre">Money.currency_code</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.money.Money.nanos"><code class="docutils literal notranslate"><span class="pre">Money.nanos</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.money.Money.units"><code class="docutils literal notranslate"><span class="pre">Money.units</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway_core.bridge.money.marshal_Money"><code class="docutils literal notranslate"><span class="pre">marshal_Money()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.money.unmarshal_Money"><code class="docutils literal notranslate"><span class="pre">unmarshal_Money()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-scaleway_core.bridge.region">scaleway_core.bridge.region module</a></li>
+<li><a class="reference internal" href="#module-scaleway_core.bridge.scwfile">scaleway_core.bridge.scwfile module</a><ul>
+<li><a class="reference internal" href="#scaleway_core.bridge.scwfile.ScwFile"><code class="docutils literal notranslate"><span class="pre">ScwFile</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway_core.bridge.scwfile.ScwFile.content"><code class="docutils literal notranslate"><span class="pre">ScwFile.content</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.scwfile.ScwFile.content_type"><code class="docutils literal notranslate"><span class="pre">ScwFile.content_type</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.scwfile.ScwFile.name"><code class="docutils literal notranslate"><span class="pre">ScwFile.name</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway_core.bridge.scwfile.marshal_ScwFile"><code class="docutils literal notranslate"><span class="pre">marshal_ScwFile()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.scwfile.unmarshal_ScwFile"><code class="docutils literal notranslate"><span class="pre">unmarshal_ScwFile()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-scaleway_core.bridge.serviceinfo">scaleway_core.bridge.serviceinfo module</a><ul>
+<li><a class="reference internal" href="#scaleway_core.bridge.serviceinfo.ServiceInfo"><code class="docutils literal notranslate"><span class="pre">ServiceInfo</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway_core.bridge.serviceinfo.ServiceInfo.description"><code class="docutils literal notranslate"><span class="pre">ServiceInfo.description</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.serviceinfo.ServiceInfo.documentation_url"><code class="docutils literal notranslate"><span class="pre">ServiceInfo.documentation_url</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.serviceinfo.ServiceInfo.name"><code class="docutils literal notranslate"><span class="pre">ServiceInfo.name</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.serviceinfo.ServiceInfo.version"><code class="docutils literal notranslate"><span class="pre">ServiceInfo.version</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway_core.bridge.serviceinfo.marshal_ServiceInfo"><code class="docutils literal notranslate"><span class="pre">marshal_ServiceInfo()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.serviceinfo.unmarshal_ServiceInfo"><code class="docutils literal notranslate"><span class="pre">unmarshal_ServiceInfo()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-scaleway_core.bridge.timeseries">scaleway_core.bridge.timeseries module</a><ul>
+<li><a class="reference internal" href="#scaleway_core.bridge.timeseries.TimeSeries"><code class="docutils literal notranslate"><span class="pre">TimeSeries</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway_core.bridge.timeseries.TimeSeries.metadata"><code class="docutils literal notranslate"><span class="pre">TimeSeries.metadata</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.timeseries.TimeSeries.name"><code class="docutils literal notranslate"><span class="pre">TimeSeries.name</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.timeseries.TimeSeries.points"><code class="docutils literal notranslate"><span class="pre">TimeSeries.points</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway_core.bridge.timeseries.TimeSeriesPoint"><code class="docutils literal notranslate"><span class="pre">TimeSeriesPoint</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway_core.bridge.timeseries.TimeSeriesPoint.timestamp"><code class="docutils literal notranslate"><span class="pre">TimeSeriesPoint.timestamp</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.timeseries.TimeSeriesPoint.value"><code class="docutils literal notranslate"><span class="pre">TimeSeriesPoint.value</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway_core.bridge.timeseries.marshal_TimeSeries"><code class="docutils literal notranslate"><span class="pre">marshal_TimeSeries()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.timeseries.marshal_TimeSeriesPoint"><code class="docutils literal notranslate"><span class="pre">marshal_TimeSeriesPoint()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.timeseries.unmarshal_TimeSeries"><code class="docutils literal notranslate"><span class="pre">unmarshal_TimeSeries()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.timeseries.unmarshal_TimeSeriesPoint"><code class="docutils literal notranslate"><span class="pre">unmarshal_TimeSeriesPoint()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-scaleway_core.bridge.zone">scaleway_core.bridge.zone module</a></li>
+<li><a class="reference internal" href="#module-scaleway_core.bridge">Module contents</a><ul>
+<li><a class="reference internal" href="#scaleway_core.bridge.Money"><code class="docutils literal notranslate"><span class="pre">Money</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway_core.bridge.Money.currency_code"><code class="docutils literal notranslate"><span class="pre">Money.currency_code</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.Money.nanos"><code class="docutils literal notranslate"><span class="pre">Money.nanos</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.Money.units"><code class="docutils literal notranslate"><span class="pre">Money.units</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway_core.bridge.Region"><code class="docutils literal notranslate"><span class="pre">Region</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.ScwFile"><code class="docutils literal notranslate"><span class="pre">ScwFile</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway_core.bridge.ScwFile.content"><code class="docutils literal notranslate"><span class="pre">ScwFile.content</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.ScwFile.content_type"><code class="docutils literal notranslate"><span class="pre">ScwFile.content_type</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.ScwFile.name"><code class="docutils literal notranslate"><span class="pre">ScwFile.name</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway_core.bridge.ServiceInfo"><code class="docutils literal notranslate"><span class="pre">ServiceInfo</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway_core.bridge.ServiceInfo.description"><code class="docutils literal notranslate"><span class="pre">ServiceInfo.description</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.ServiceInfo.documentation_url"><code class="docutils literal notranslate"><span class="pre">ServiceInfo.documentation_url</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.ServiceInfo.name"><code class="docutils literal notranslate"><span class="pre">ServiceInfo.name</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.ServiceInfo.version"><code class="docutils literal notranslate"><span class="pre">ServiceInfo.version</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway_core.bridge.TimeSeries"><code class="docutils literal notranslate"><span class="pre">TimeSeries</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway_core.bridge.TimeSeries.metadata"><code class="docutils literal notranslate"><span class="pre">TimeSeries.metadata</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.TimeSeries.name"><code class="docutils literal notranslate"><span class="pre">TimeSeries.name</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.TimeSeries.points"><code class="docutils literal notranslate"><span class="pre">TimeSeries.points</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway_core.bridge.TimeSeriesPoint"><code class="docutils literal notranslate"><span class="pre">TimeSeriesPoint</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway_core.bridge.TimeSeriesPoint.timestamp"><code class="docutils literal notranslate"><span class="pre">TimeSeriesPoint.timestamp</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.TimeSeriesPoint.value"><code class="docutils literal notranslate"><span class="pre">TimeSeriesPoint.value</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway_core.bridge.Zone"><code class="docutils literal notranslate"><span class="pre">Zone</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.marshal_Decimal"><code class="docutils literal notranslate"><span class="pre">marshal_Decimal()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.marshal_Money"><code class="docutils literal notranslate"><span class="pre">marshal_Money()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.marshal_ScwFile"><code class="docutils literal notranslate"><span class="pre">marshal_ScwFile()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.marshal_ServiceInfo"><code class="docutils literal notranslate"><span class="pre">marshal_ServiceInfo()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.marshal_TimeSeries"><code class="docutils literal notranslate"><span class="pre">marshal_TimeSeries()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.marshal_TimeSeriesPoint"><code class="docutils literal notranslate"><span class="pre">marshal_TimeSeriesPoint()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.unmarshal_Decimal"><code class="docutils literal notranslate"><span class="pre">unmarshal_Decimal()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.unmarshal_Money"><code class="docutils literal notranslate"><span class="pre">unmarshal_Money()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.unmarshal_ScwFile"><code class="docutils literal notranslate"><span class="pre">unmarshal_ScwFile()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.unmarshal_ServiceInfo"><code class="docutils literal notranslate"><span class="pre">unmarshal_ServiceInfo()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.unmarshal_TimeSeries"><code class="docutils literal notranslate"><span class="pre">unmarshal_TimeSeries()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway_core.bridge.unmarshal_TimeSeriesPoint"><code class="docutils literal notranslate"><span class="pre">unmarshal_TimeSeriesPoint()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scaleway Python SDK</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">scaleway_core.bridge package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/source/scaleway_core.bridge.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="scaleway-core-bridge-package">
+<h1>scaleway_core.bridge package<a class="headerlink" href="#scaleway-core-bridge-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-scaleway_core.bridge.decimal">
+<span id="scaleway-core-bridge-decimal-module"></span><h2>scaleway_core.bridge.decimal module<a class="headerlink" href="#module-scaleway_core.bridge.decimal" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.bridge.decimal.marshal_Decimal">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.bridge.decimal.</span></span><span class="sig-name descname"><span class="pre">marshal_Decimal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Decimal</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scaleway_core.bridge.decimal.marshal_Decimal" title="Permalink to this definition"></a></dt>
+<dd><p>Marshal an instance of Decimal into google.protobuf.Decimal JSON representation.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.bridge.decimal.unmarshal_Decimal">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.bridge.decimal.</span></span><span class="sig-name descname"><span class="pre">unmarshal_Decimal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Decimal</span></span></span><a class="headerlink" href="#scaleway_core.bridge.decimal.unmarshal_Decimal" title="Permalink to this definition"></a></dt>
+<dd><p>Unmarshal an instance of Decimal from the given data.</p>
+</dd></dl>
+
+</section>
+<section id="module-scaleway_core.bridge.money">
+<span id="scaleway-core-bridge-money-module"></span><h2>scaleway_core.bridge.money module<a class="headerlink" href="#module-scaleway_core.bridge.money" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_core.bridge.money.Money">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_core.bridge.money.</span></span><span class="sig-name descname"><span class="pre">Money</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">currency_code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nanos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_core.bridge.money.Money" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents an amount of money with its currency type.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.bridge.money.Money.currency_code">
+<span class="sig-name descname"><span class="pre">currency_code</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway_core.bridge.money.Money.currency_code" title="Permalink to this definition"></a></dt>
+<dd><p>3-letter currency code defined in ISO 4217.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.bridge.money.Money.nanos">
+<span class="sig-name descname"><span class="pre">nanos</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#scaleway_core.bridge.money.Money.nanos" title="Permalink to this definition"></a></dt>
+<dd><p>Number of nano (10^-9) units of the amount.</p>
+<p>The value must be between -999,999,999 and +999,999,999 inclusive.
+If <cite>units</cite> is positive, <cite>nanos</cite> must be positive or zero.
+If <cite>units</cite> is zero, <cite>nanos</cite> can be positive, zero, or negative.
+If <cite>units</cite> is negative, <cite>nanos</cite> must be negative or zero.
+For example $-1.75 is represented as <a href="#id1"><span class="problematic" id="id2">`</span></a>units`=-1 and <a href="#id3"><span class="problematic" id="id4">`</span></a>nanos`=-750,000,000.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.bridge.money.Money.units">
+<span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#scaleway_core.bridge.money.Money.units" title="Permalink to this definition"></a></dt>
+<dd><p>Whole units of the amount.</p>
+<p>For example if <cite>currency_code</cite> is <cite>“USD”</cite>, then 1 unit is one US dollar.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.bridge.money.marshal_Money">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.bridge.money.</span></span><span class="sig-name descname"><span class="pre">marshal_Money</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scaleway_core.bridge.money.Money" title="scaleway_core.bridge.money.Money"><span class="pre">Money</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scaleway_core.bridge.money.marshal_Money" title="Permalink to this definition"></a></dt>
+<dd><p>Marshal an instance of Money into a JSON compatible data structure.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.bridge.money.unmarshal_Money">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.bridge.money.</span></span><span class="sig-name descname"><span class="pre">unmarshal_Money</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway_core.bridge.money.Money" title="scaleway_core.bridge.money.Money"><span class="pre">Money</span></a></span></span><a class="headerlink" href="#scaleway_core.bridge.money.unmarshal_Money" title="Permalink to this definition"></a></dt>
+<dd><p>Unmarshal an instance of Money from the given data.</p>
+</dd></dl>
+
+</section>
+<section id="module-scaleway_core.bridge.region">
+<span id="scaleway-core-bridge-region-module"></span><h2>scaleway_core.bridge.region module<a class="headerlink" href="#module-scaleway_core.bridge.region" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-scaleway_core.bridge.scwfile">
+<span id="scaleway-core-bridge-scwfile-module"></span><h2>scaleway_core.bridge.scwfile module<a class="headerlink" href="#module-scaleway_core.bridge.scwfile" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_core.bridge.scwfile.ScwFile">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_core.bridge.scwfile.</span></span><span class="sig-name descname"><span class="pre">ScwFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_core.bridge.scwfile.ScwFile" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents a Scaleway file.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.bridge.scwfile.ScwFile.content">
+<span class="sig-name descname"><span class="pre">content</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway_core.bridge.scwfile.ScwFile.content" title="Permalink to this definition"></a></dt>
+<dd><p>Content of the file in base64.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.bridge.scwfile.ScwFile.content_type">
+<span class="sig-name descname"><span class="pre">content_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway_core.bridge.scwfile.ScwFile.content_type" title="Permalink to this definition"></a></dt>
+<dd><p>Content-type of the file.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.bridge.scwfile.ScwFile.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway_core.bridge.scwfile.ScwFile.name" title="Permalink to this definition"></a></dt>
+<dd><p>Name of the file.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.bridge.scwfile.marshal_ScwFile">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.bridge.scwfile.</span></span><span class="sig-name descname"><span class="pre">marshal_ScwFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scaleway_core.bridge.scwfile.ScwFile" title="scaleway_core.bridge.scwfile.ScwFile"><span class="pre">ScwFile</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scaleway_core.bridge.scwfile.marshal_ScwFile" title="Permalink to this definition"></a></dt>
+<dd><p>Marshals a ScwFile object into a dict.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.bridge.scwfile.unmarshal_ScwFile">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.bridge.scwfile.</span></span><span class="sig-name descname"><span class="pre">unmarshal_ScwFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway_core.bridge.scwfile.ScwFile" title="scaleway_core.bridge.scwfile.ScwFile"><span class="pre">ScwFile</span></a></span></span><a class="headerlink" href="#scaleway_core.bridge.scwfile.unmarshal_ScwFile" title="Permalink to this definition"></a></dt>
+<dd><p>Unmarshals a ScwFile object from a dict.</p>
+</dd></dl>
+
+</section>
+<section id="module-scaleway_core.bridge.serviceinfo">
+<span id="scaleway-core-bridge-serviceinfo-module"></span><h2>scaleway_core.bridge.serviceinfo module<a class="headerlink" href="#module-scaleway_core.bridge.serviceinfo" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_core.bridge.serviceinfo.ServiceInfo">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_core.bridge.serviceinfo.</span></span><span class="sig-name descname"><span class="pre">ServiceInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_core.bridge.serviceinfo.ServiceInfo" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents API metadata.</p>
+<p>These metadata are only here for debugging. Do not rely on these values.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.bridge.serviceinfo.ServiceInfo.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway_core.bridge.serviceinfo.ServiceInfo.description" title="Permalink to this definition"></a></dt>
+<dd><p>Human readable description for the API.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.bridge.serviceinfo.ServiceInfo.documentation_url">
+<span class="sig-name descname"><span class="pre">documentation_url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#scaleway_core.bridge.serviceinfo.ServiceInfo.documentation_url" title="Permalink to this definition"></a></dt>
+<dd><p>Web url where the documentation of the API can be found.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.bridge.serviceinfo.ServiceInfo.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway_core.bridge.serviceinfo.ServiceInfo.name" title="Permalink to this definition"></a></dt>
+<dd><p>Name of the API</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.bridge.serviceinfo.ServiceInfo.version">
+<span class="sig-name descname"><span class="pre">version</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway_core.bridge.serviceinfo.ServiceInfo.version" title="Permalink to this definition"></a></dt>
+<dd><p>Version of the API.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.bridge.serviceinfo.marshal_ServiceInfo">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.bridge.serviceinfo.</span></span><span class="sig-name descname"><span class="pre">marshal_ServiceInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scaleway_core.bridge.serviceinfo.ServiceInfo" title="scaleway_core.bridge.serviceinfo.ServiceInfo"><span class="pre">ServiceInfo</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scaleway_core.bridge.serviceinfo.marshal_ServiceInfo" title="Permalink to this definition"></a></dt>
+<dd><p>Marshals a ServiceInfo object into a dict.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.bridge.serviceinfo.unmarshal_ServiceInfo">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.bridge.serviceinfo.</span></span><span class="sig-name descname"><span class="pre">unmarshal_ServiceInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway_core.bridge.serviceinfo.ServiceInfo" title="scaleway_core.bridge.serviceinfo.ServiceInfo"><span class="pre">ServiceInfo</span></a></span></span><a class="headerlink" href="#scaleway_core.bridge.serviceinfo.unmarshal_ServiceInfo" title="Permalink to this definition"></a></dt>
+<dd><p>Unmarshals a ServiceInfo object from a dict.</p>
+</dd></dl>
+
+</section>
+<section id="module-scaleway_core.bridge.timeseries">
+<span id="scaleway-core-bridge-timeseries-module"></span><h2>scaleway_core.bridge.timeseries module<a class="headerlink" href="#module-scaleway_core.bridge.timeseries" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_core.bridge.timeseries.TimeSeries">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_core.bridge.timeseries.</span></span><span class="sig-name descname"><span class="pre">TimeSeries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway_core.bridge.timeseries.TimeSeriesPoint" title="scaleway_core.bridge.timeseries.TimeSeriesPoint"><span class="pre">TimeSeriesPoint</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_core.bridge.timeseries.TimeSeries" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents a time series that could be used for graph purposes.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.bridge.timeseries.TimeSeries.metadata">
+<span class="sig-name descname"><span class="pre">metadata</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_core.bridge.timeseries.TimeSeries.metadata" title="Permalink to this definition"></a></dt>
+<dd><p>Metadata contains some string metadata related to a metric.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.bridge.timeseries.TimeSeries.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway_core.bridge.timeseries.TimeSeries.name" title="Permalink to this definition"></a></dt>
+<dd><p>Name of the metric.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.bridge.timeseries.TimeSeries.points">
+<span class="sig-name descname"><span class="pre">points</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway_core.bridge.timeseries.TimeSeriesPoint" title="scaleway_core.bridge.timeseries.TimeSeriesPoint"><span class="pre">TimeSeriesPoint</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_core.bridge.timeseries.TimeSeries.points" title="Permalink to this definition"></a></dt>
+<dd><p>Points contains all the points that composed the series.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_core.bridge.timeseries.TimeSeriesPoint">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_core.bridge.timeseries.</span></span><span class="sig-name descname"><span class="pre">TimeSeriesPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_core.bridge.timeseries.TimeSeriesPoint" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents a point in a TimeSeries.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.bridge.timeseries.TimeSeriesPoint.timestamp">
+<span class="sig-name descname"><span class="pre">timestamp</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></em><a class="headerlink" href="#scaleway_core.bridge.timeseries.TimeSeriesPoint.timestamp" title="Permalink to this definition"></a></dt>
+<dd><p>Date of the point.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.bridge.timeseries.TimeSeriesPoint.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#scaleway_core.bridge.timeseries.TimeSeriesPoint.value" title="Permalink to this definition"></a></dt>
+<dd><p>Value of the point.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.bridge.timeseries.marshal_TimeSeries">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.bridge.timeseries.</span></span><span class="sig-name descname"><span class="pre">marshal_TimeSeries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scaleway_core.bridge.timeseries.TimeSeries" title="scaleway_core.bridge.timeseries.TimeSeries"><span class="pre">TimeSeries</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scaleway_core.bridge.timeseries.marshal_TimeSeries" title="Permalink to this definition"></a></dt>
+<dd><p>Marshal an instance of TimeSeries into a JSON compatible data structure.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.bridge.timeseries.marshal_TimeSeriesPoint">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.bridge.timeseries.</span></span><span class="sig-name descname"><span class="pre">marshal_TimeSeriesPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scaleway_core.bridge.timeseries.TimeSeriesPoint" title="scaleway_core.bridge.timeseries.TimeSeriesPoint"><span class="pre">TimeSeriesPoint</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scaleway_core.bridge.timeseries.marshal_TimeSeriesPoint" title="Permalink to this definition"></a></dt>
+<dd><p>Marshal an instance of TimeSeriesPoint into a JSON compatible data structure.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.bridge.timeseries.unmarshal_TimeSeries">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.bridge.timeseries.</span></span><span class="sig-name descname"><span class="pre">unmarshal_TimeSeries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway_core.bridge.timeseries.TimeSeries" title="scaleway_core.bridge.timeseries.TimeSeries"><span class="pre">TimeSeries</span></a></span></span><a class="headerlink" href="#scaleway_core.bridge.timeseries.unmarshal_TimeSeries" title="Permalink to this definition"></a></dt>
+<dd><p>Unmarshal an instance of TimeSeries from the given data.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.bridge.timeseries.unmarshal_TimeSeriesPoint">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.bridge.timeseries.</span></span><span class="sig-name descname"><span class="pre">unmarshal_TimeSeriesPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway_core.bridge.timeseries.TimeSeriesPoint" title="scaleway_core.bridge.timeseries.TimeSeriesPoint"><span class="pre">TimeSeriesPoint</span></a></span></span><a class="headerlink" href="#scaleway_core.bridge.timeseries.unmarshal_TimeSeriesPoint" title="Permalink to this definition"></a></dt>
+<dd><p>Unmarshal an instance of TimeSeriesPoint from the given data.</p>
+</dd></dl>
+
+</section>
+<section id="module-scaleway_core.bridge.zone">
+<span id="scaleway-core-bridge-zone-module"></span><h2>scaleway_core.bridge.zone module<a class="headerlink" href="#module-scaleway_core.bridge.zone" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-scaleway_core.bridge">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-scaleway_core.bridge" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_core.bridge.Money">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_core.bridge.</span></span><span class="sig-name descname"><span class="pre">Money</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">currency_code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nanos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_core.bridge.Money" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents an amount of money with its currency type.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.bridge.Money.currency_code">
+<span class="sig-name descname"><span class="pre">currency_code</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway_core.bridge.Money.currency_code" title="Permalink to this definition"></a></dt>
+<dd><p>3-letter currency code defined in ISO 4217.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.bridge.Money.nanos">
+<span class="sig-name descname"><span class="pre">nanos</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#scaleway_core.bridge.Money.nanos" title="Permalink to this definition"></a></dt>
+<dd><p>Number of nano (10^-9) units of the amount.</p>
+<p>The value must be between -999,999,999 and +999,999,999 inclusive.
+If <cite>units</cite> is positive, <cite>nanos</cite> must be positive or zero.
+If <cite>units</cite> is zero, <cite>nanos</cite> can be positive, zero, or negative.
+If <cite>units</cite> is negative, <cite>nanos</cite> must be negative or zero.
+For example $-1.75 is represented as <a href="#id5"><span class="problematic" id="id6">`</span></a>units`=-1 and <a href="#id7"><span class="problematic" id="id8">`</span></a>nanos`=-750,000,000.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.bridge.Money.units">
+<span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#scaleway_core.bridge.Money.units" title="Permalink to this definition"></a></dt>
+<dd><p>Whole units of the amount.</p>
+<p>For example if <cite>currency_code</cite> is <cite>“USD”</cite>, then 1 unit is one US dollar.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.bridge.Region">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.bridge.</span></span><span class="sig-name descname"><span class="pre">Region</span></span><a class="headerlink" href="#scaleway_core.bridge.Region" title="Permalink to this definition"></a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_core.bridge.ScwFile">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_core.bridge.</span></span><span class="sig-name descname"><span class="pre">ScwFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_core.bridge.ScwFile" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents a Scaleway file.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.bridge.ScwFile.content">
+<span class="sig-name descname"><span class="pre">content</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway_core.bridge.ScwFile.content" title="Permalink to this definition"></a></dt>
+<dd><p>Content of the file in base64.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.bridge.ScwFile.content_type">
+<span class="sig-name descname"><span class="pre">content_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway_core.bridge.ScwFile.content_type" title="Permalink to this definition"></a></dt>
+<dd><p>Content-type of the file.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.bridge.ScwFile.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway_core.bridge.ScwFile.name" title="Permalink to this definition"></a></dt>
+<dd><p>Name of the file.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_core.bridge.ServiceInfo">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_core.bridge.</span></span><span class="sig-name descname"><span class="pre">ServiceInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_core.bridge.ServiceInfo" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents API metadata.</p>
+<p>These metadata are only here for debugging. Do not rely on these values.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.bridge.ServiceInfo.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway_core.bridge.ServiceInfo.description" title="Permalink to this definition"></a></dt>
+<dd><p>Human readable description for the API.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.bridge.ServiceInfo.documentation_url">
+<span class="sig-name descname"><span class="pre">documentation_url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#scaleway_core.bridge.ServiceInfo.documentation_url" title="Permalink to this definition"></a></dt>
+<dd><p>Web url where the documentation of the API can be found.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.bridge.ServiceInfo.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway_core.bridge.ServiceInfo.name" title="Permalink to this definition"></a></dt>
+<dd><p>Name of the API</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.bridge.ServiceInfo.version">
+<span class="sig-name descname"><span class="pre">version</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway_core.bridge.ServiceInfo.version" title="Permalink to this definition"></a></dt>
+<dd><p>Version of the API.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_core.bridge.TimeSeries">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_core.bridge.</span></span><span class="sig-name descname"><span class="pre">TimeSeries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway_core.bridge.timeseries.TimeSeriesPoint" title="scaleway_core.bridge.timeseries.TimeSeriesPoint"><span class="pre">TimeSeriesPoint</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_core.bridge.TimeSeries" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents a time series that could be used for graph purposes.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.bridge.TimeSeries.metadata">
+<span class="sig-name descname"><span class="pre">metadata</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_core.bridge.TimeSeries.metadata" title="Permalink to this definition"></a></dt>
+<dd><p>Metadata contains some string metadata related to a metric.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.bridge.TimeSeries.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway_core.bridge.TimeSeries.name" title="Permalink to this definition"></a></dt>
+<dd><p>Name of the metric.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.bridge.TimeSeries.points">
+<span class="sig-name descname"><span class="pre">points</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway_core.bridge.timeseries.TimeSeriesPoint" title="scaleway_core.bridge.timeseries.TimeSeriesPoint"><span class="pre">TimeSeriesPoint</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway_core.bridge.TimeSeries.points" title="Permalink to this definition"></a></dt>
+<dd><p>Points contains all the points that composed the series.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway_core.bridge.TimeSeriesPoint">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway_core.bridge.</span></span><span class="sig-name descname"><span class="pre">TimeSeriesPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway_core.bridge.TimeSeriesPoint" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents a point in a TimeSeries.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.bridge.TimeSeriesPoint.timestamp">
+<span class="sig-name descname"><span class="pre">timestamp</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></em><a class="headerlink" href="#scaleway_core.bridge.TimeSeriesPoint.timestamp" title="Permalink to this definition"></a></dt>
+<dd><p>Date of the point.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.bridge.TimeSeriesPoint.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#scaleway_core.bridge.TimeSeriesPoint.value" title="Permalink to this definition"></a></dt>
+<dd><p>Value of the point.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway_core.bridge.Zone">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.bridge.</span></span><span class="sig-name descname"><span class="pre">Zone</span></span><a class="headerlink" href="#scaleway_core.bridge.Zone" title="Permalink to this definition"></a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.bridge.marshal_Decimal">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.bridge.</span></span><span class="sig-name descname"><span class="pre">marshal_Decimal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Decimal</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scaleway_core.bridge.marshal_Decimal" title="Permalink to this definition"></a></dt>
+<dd><p>Marshal an instance of Decimal into google.protobuf.Decimal JSON representation.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.bridge.marshal_Money">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.bridge.</span></span><span class="sig-name descname"><span class="pre">marshal_Money</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scaleway_core.bridge.money.Money" title="scaleway_core.bridge.money.Money"><span class="pre">Money</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scaleway_core.bridge.marshal_Money" title="Permalink to this definition"></a></dt>
+<dd><p>Marshal an instance of Money into a JSON compatible data structure.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.bridge.marshal_ScwFile">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.bridge.</span></span><span class="sig-name descname"><span class="pre">marshal_ScwFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scaleway_core.bridge.scwfile.ScwFile" title="scaleway_core.bridge.scwfile.ScwFile"><span class="pre">ScwFile</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scaleway_core.bridge.marshal_ScwFile" title="Permalink to this definition"></a></dt>
+<dd><p>Marshals a ScwFile object into a dict.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.bridge.marshal_ServiceInfo">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.bridge.</span></span><span class="sig-name descname"><span class="pre">marshal_ServiceInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scaleway_core.bridge.serviceinfo.ServiceInfo" title="scaleway_core.bridge.serviceinfo.ServiceInfo"><span class="pre">ServiceInfo</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scaleway_core.bridge.marshal_ServiceInfo" title="Permalink to this definition"></a></dt>
+<dd><p>Marshals a ServiceInfo object into a dict.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.bridge.marshal_TimeSeries">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.bridge.</span></span><span class="sig-name descname"><span class="pre">marshal_TimeSeries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scaleway_core.bridge.timeseries.TimeSeries" title="scaleway_core.bridge.timeseries.TimeSeries"><span class="pre">TimeSeries</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scaleway_core.bridge.marshal_TimeSeries" title="Permalink to this definition"></a></dt>
+<dd><p>Marshal an instance of TimeSeries into a JSON compatible data structure.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.bridge.marshal_TimeSeriesPoint">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.bridge.</span></span><span class="sig-name descname"><span class="pre">marshal_TimeSeriesPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scaleway_core.bridge.timeseries.TimeSeriesPoint" title="scaleway_core.bridge.timeseries.TimeSeriesPoint"><span class="pre">TimeSeriesPoint</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scaleway_core.bridge.marshal_TimeSeriesPoint" title="Permalink to this definition"></a></dt>
+<dd><p>Marshal an instance of TimeSeriesPoint into a JSON compatible data structure.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.bridge.unmarshal_Decimal">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.bridge.</span></span><span class="sig-name descname"><span class="pre">unmarshal_Decimal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Decimal</span></span></span><a class="headerlink" href="#scaleway_core.bridge.unmarshal_Decimal" title="Permalink to this definition"></a></dt>
+<dd><p>Unmarshal an instance of Decimal from the given data.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.bridge.unmarshal_Money">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.bridge.</span></span><span class="sig-name descname"><span class="pre">unmarshal_Money</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway_core.bridge.money.Money" title="scaleway_core.bridge.money.Money"><span class="pre">Money</span></a></span></span><a class="headerlink" href="#scaleway_core.bridge.unmarshal_Money" title="Permalink to this definition"></a></dt>
+<dd><p>Unmarshal an instance of Money from the given data.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.bridge.unmarshal_ScwFile">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.bridge.</span></span><span class="sig-name descname"><span class="pre">unmarshal_ScwFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway_core.bridge.scwfile.ScwFile" title="scaleway_core.bridge.scwfile.ScwFile"><span class="pre">ScwFile</span></a></span></span><a class="headerlink" href="#scaleway_core.bridge.unmarshal_ScwFile" title="Permalink to this definition"></a></dt>
+<dd><p>Unmarshals a ScwFile object from a dict.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.bridge.unmarshal_ServiceInfo">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.bridge.</span></span><span class="sig-name descname"><span class="pre">unmarshal_ServiceInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway_core.bridge.serviceinfo.ServiceInfo" title="scaleway_core.bridge.serviceinfo.ServiceInfo"><span class="pre">ServiceInfo</span></a></span></span><a class="headerlink" href="#scaleway_core.bridge.unmarshal_ServiceInfo" title="Permalink to this definition"></a></dt>
+<dd><p>Unmarshals a ServiceInfo object from a dict.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.bridge.unmarshal_TimeSeries">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.bridge.</span></span><span class="sig-name descname"><span class="pre">unmarshal_TimeSeries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway_core.bridge.timeseries.TimeSeries" title="scaleway_core.bridge.timeseries.TimeSeries"><span class="pre">TimeSeries</span></a></span></span><a class="headerlink" href="#scaleway_core.bridge.unmarshal_TimeSeries" title="Permalink to this definition"></a></dt>
+<dd><p>Unmarshal an instance of TimeSeries from the given data.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway_core.bridge.unmarshal_TimeSeriesPoint">
+<span class="sig-prename descclassname"><span class="pre">scaleway_core.bridge.</span></span><span class="sig-name descname"><span class="pre">unmarshal_TimeSeriesPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway_core.bridge.timeseries.TimeSeriesPoint" title="scaleway_core.bridge.timeseries.TimeSeriesPoint"><span class="pre">TimeSeriesPoint</span></a></span></span><a class="headerlink" href="#scaleway_core.bridge.unmarshal_TimeSeriesPoint" title="Permalink to this definition"></a></dt>
+<dd><p>Unmarshal an instance of TimeSeriesPoint from the given data.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Scaleway.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
