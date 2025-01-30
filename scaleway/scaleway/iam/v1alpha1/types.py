@@ -7,6 +7,10 @@ from datetime import datetime
 from enum import Enum
 from typing import List, Optional
 
+from scaleway_core.bridge import (
+    Region as ScwRegion,
+    Zone as ScwZone,
+)
 from scaleway_core.utils import (
     StrEnumMeta,
 )
@@ -142,6 +146,15 @@ class ListUsersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class LocalityType(str, Enum, metaclass=StrEnumMeta):
+    GLOBAL = "global"
+    REGION = "region"
+    ZONE = "zone"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class LogAction(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_ACTION = "unknown_action"
     CREATED = "created"
@@ -191,6 +204,19 @@ class UserType(str, Enum, metaclass=StrEnumMeta):
 
     def __str__(self) -> str:
         return str(self.value)
+
+
+@dataclass
+class QuotumLimit:
+    global_: Optional[bool]
+
+    region: Optional[ScwRegion]
+
+    zone: Optional[ScwZone]
+
+    limit: Optional[int]
+
+    unlimited: Optional[bool]
 
 
 @dataclass
@@ -654,6 +680,16 @@ class Quotum:
     description: str
     """
     Details about the quota.
+    """
+
+    locality_type: LocalityType
+    """
+    Whether this quotum is applied on at the zone level, region level, or globally.
+    """
+
+    limits: List[QuotumLimit]
+    """
+    Limits per locality.
     """
 
     limit: Optional[int]
