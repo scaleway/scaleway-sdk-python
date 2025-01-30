@@ -516,7 +516,8 @@ class PlacementGroup:
 
     policy_respected: bool
     """
-    Returns true if the policy is respected, false otherwise.
+    In the server endpoints the value is always false as it is deprecated.
+In the placement group endpoints the value is correct.
     """
 
     zone: ScwZone
