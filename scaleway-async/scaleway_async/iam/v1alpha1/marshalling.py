@@ -16,6 +16,7 @@ from .types import (
     Group,
     Log,
     Policy,
+    QuotumLimit,
     Quotum,
     SSHKey,
     User,
@@ -452,6 +453,47 @@ def unmarshal_Policy(data: Any) -> Policy:
     return Policy(**args)
 
 
+def unmarshal_QuotumLimit(data: Any) -> QuotumLimit:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'QuotumLimit' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("global", None)
+    if field is not None:
+        args["global_"] = field
+    else:
+        args["global_"] = None
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
+
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
+
+    field = data.get("limit", None)
+    if field is not None:
+        args["limit"] = field
+    else:
+        args["limit"] = None
+
+    field = data.get("unlimited", None)
+    if field is not None:
+        args["unlimited"] = field
+    else:
+        args["unlimited"] = None
+
+    return QuotumLimit(**args)
+
+
 def unmarshal_Quotum(data: Any) -> Quotum:
     if not isinstance(data, dict):
         raise TypeError(
@@ -475,6 +517,16 @@ def unmarshal_Quotum(data: Any) -> Quotum:
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+
+    field = data.get("locality_type", None)
+    if field is not None:
+        args["locality_type"] = field
+
+    field = data.get("limits", None)
+    if field is not None:
+        args["limits"] = (
+            [unmarshal_QuotumLimit(v) for v in field] if field is not None else None
+        )
 
     field = data.get("limit", None)
     if field is not None:
