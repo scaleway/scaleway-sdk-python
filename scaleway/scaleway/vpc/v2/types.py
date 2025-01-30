@@ -680,23 +680,6 @@ class ListVPCsResponse:
 
 
 @dataclass
-class MigrateZonalPrivateNetworksRequest:
-    region: Optional[ScwRegion]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    private_network_ids: Optional[List[str]]
-    """
-    IDs of the Private Networks to migrate.
-    """
-
-    organization_id: Optional[str]
-
-    project_id: Optional[str]
-
-
-@dataclass
 class SetSubnetsRequest:
     private_network_id: str
     """

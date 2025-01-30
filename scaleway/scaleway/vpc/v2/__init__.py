@@ -28,7 +28,6 @@ from .types import ListSubnetsRequest
 from .types import ListSubnetsResponse
 from .types import ListVPCsRequest
 from .types import ListVPCsResponse
-from .types import MigrateZonalPrivateNetworksRequest
 from .types import SetSubnetsRequest
 from .types import SetSubnetsResponse
 from .types import UpdatePrivateNetworkRequest
@@ -65,7 +64,6 @@ __all__ = [
     "ListSubnetsResponse",
     "ListVPCsRequest",
     "ListVPCsResponse",
-    "MigrateZonalPrivateNetworksRequest",
     "SetSubnetsRequest",
     "SetSubnetsResponse",
     "UpdatePrivateNetworkRequest",
