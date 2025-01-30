@@ -3445,7 +3445,7 @@ class InstanceV1API(API):
         :param name: Filter on the IP address (Works as a LIKE operation on the IP address).
         :param per_page: A positive integer lower or equal to 100 to select the number of items to return.
         :param page: A positive integer to choose the page to return.
-        :param type_: Filter on the IP Mobility IP type (whose value should be either 'routed_ipv4', 'routed_ipv6' or 'nat').
+        :param type_: Filter on the IP Mobility IP type (whose value should be either 'routed_ipv4' or 'routed_ipv6').
         :return: :class:`ListIpsResponse <ListIpsResponse>`
 
         Usage:
@@ -3495,7 +3495,7 @@ class InstanceV1API(API):
         :param name: Filter on the IP address (Works as a LIKE operation on the IP address).
         :param per_page: A positive integer lower or equal to 100 to select the number of items to return.
         :param page: A positive integer to choose the page to return.
-        :param type_: Filter on the IP Mobility IP type (whose value should be either 'routed_ipv4', 'routed_ipv6' or 'nat').
+        :param type_: Filter on the IP Mobility IP type (whose value should be either 'routed_ipv4' or 'routed_ipv6').
         :return: :class:`List[Ip] <List[Ip]>`
 
         Usage:
@@ -3540,7 +3540,7 @@ class InstanceV1API(API):
         One-Of ('project_identifier'): at most one of 'project', 'organization' could be set.
         :param tags: Tags of the IP.
         :param server: UUID of the Instance you want to attach the IP to.
-        :param type_: IP type to reserve (either 'routed_ipv4' or 'routed_ipv6', use of 'nat' is deprecated).
+        :param type_: IP type to reserve (either 'routed_ipv4' or 'routed_ipv6').
         :return: :class:`CreateIpResponse <CreateIpResponse>`
 
         Usage:
@@ -3618,7 +3618,7 @@ class InstanceV1API(API):
         :param ip: IP ID or IP address.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param reverse: Reverse domain name.
-        :param type_: Convert a 'nat' IP to a 'routed_ipv4'.
+        :param type_: Should have no effect.
         :param tags: An array of keywords you want to tag this IP with.
         :param server:
         :return: :class:`UpdateIpResponse <UpdateIpResponse>`

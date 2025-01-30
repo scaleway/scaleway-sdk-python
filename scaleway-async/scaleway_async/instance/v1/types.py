@@ -66,7 +66,6 @@ class IpState(str, Enum, metaclass=StrEnumMeta):
 
 class IpType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_IPTYPE = "unknown_iptype"
-    NAT = "nat"
     ROUTED_IPV4 = "routed_ipv4"
     ROUTED_IPV6 = "routed_ipv6"
 
@@ -1579,7 +1578,7 @@ class CreateIpRequest:
 
     type_: Optional[IpType]
     """
-    IP type to reserve (either 'routed_ipv4' or 'routed_ipv6', use of 'nat' is deprecated).
+    IP type to reserve (either 'routed_ipv4' or 'routed_ipv6').
     """
 
     project: Optional[str]
@@ -2444,7 +2443,7 @@ class ListIpsRequest:
 
     type_: Optional[str]
     """
-    Filter on the IP Mobility IP type (whose value should be either 'routed_ipv4', 'routed_ipv6' or 'nat').
+    Filter on the IP Mobility IP type (whose value should be either 'routed_ipv4' or 'routed_ipv6').
     """
 
 
@@ -3180,7 +3179,7 @@ class UpdateIpRequest:
 
     type_: Optional[IpType]
     """
-    Convert a 'nat' IP to a 'routed_ipv4'.
+    Should have no effect.
     """
 
     tags: Optional[List[str]]
