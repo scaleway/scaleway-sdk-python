@@ -499,7 +499,7 @@ class WebhostingV1Alpha1API(API):
 
         res = self._request(
             "POST",
-            f"/webhosting/v1/regions/{param_region}/domains/{param_domain}/check-ownership",
+            f"/webhosting/v1alpha1/regions/{param_region}/domains/{param_domain}/check-ownership",
             body=marshal_CheckUserOwnsDomainRequest(
                 CheckUserOwnsDomainRequest(
                     domain=domain,
