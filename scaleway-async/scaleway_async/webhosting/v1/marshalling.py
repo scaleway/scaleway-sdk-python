@@ -13,6 +13,9 @@ from scaleway_core.utils import (
     resolve_one_of,
 )
 from .types import (
+    DomainAction,
+    DomainAvailabilityAction,
+    DomainDnsAction,
     DatabaseUser,
     Database,
     FtpAccount,
@@ -21,6 +24,7 @@ from .types import (
     DnsRecord,
     Nameserver,
     DnsRecords,
+    Domain,
     PlatformControlPanelUrls,
     OfferOption,
     PlatformControlPanel,
@@ -41,6 +45,8 @@ from .types import (
     ListWebsitesResponse,
     ResetHostingPasswordResponse,
     ResourceSummary,
+    DomainAvailability,
+    SearchDomainsResponse,
     Session,
     DatabaseApiAssignDatabaseUserRequest,
     DatabaseApiChangeDatabaseUserPasswordRequest,
@@ -246,6 +252,41 @@ def unmarshal_DnsRecords(data: Any) -> DnsRecords:
         args["status"] = field
 
     return DnsRecords(**args)
+
+
+def unmarshal_Domain(data: Any) -> Domain:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Domain' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+
+    field = data.get("owner", None)
+    if field is not None:
+        args["owner"] = field
+
+    field = data.get("available_actions", None)
+    if field is not None:
+        args["available_actions"] = (
+            [DomainAction(v) for v in field] if field is not None else None
+        )
+
+    field = data.get("available_dns_actions", None)
+    if field is not None:
+        args["available_dns_actions"] = (
+            [DomainDnsAction(v) for v in field] if field is not None else None
+        )
+
+    return Domain(**args)
 
 
 def unmarshal_PlatformControlPanelUrls(data: Any) -> PlatformControlPanelUrls:
@@ -840,6 +881,64 @@ def unmarshal_ResourceSummary(data: Any) -> ResourceSummary:
     return ResourceSummary(**args)
 
 
+def unmarshal_DomainAvailability(data: Any) -> DomainAvailability:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'DomainAvailability' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+
+    field = data.get("zone_name", None)
+    if field is not None:
+        args["zone_name"] = field
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+
+    field = data.get("available_actions", None)
+    if field is not None:
+        args["available_actions"] = (
+            [DomainAvailabilityAction(v) for v in field] if field is not None else None
+        )
+
+    field = data.get("can_create_hosting", None)
+    if field is not None:
+        args["can_create_hosting"] = field
+
+    field = data.get("price", None)
+    if field is not None:
+        args["price"] = unmarshal_Money(field)
+    else:
+        args["price"] = None
+
+    return DomainAvailability(**args)
+
+
+def unmarshal_SearchDomainsResponse(data: Any) -> SearchDomainsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'SearchDomainsResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("domains_available", None)
+    if field is not None:
+        args["domains_available"] = (
+            [unmarshal_DomainAvailability(v) for v in field]
+            if field is not None
+            else None
+        )
+
+    return SearchDomainsResponse(**args)
+
+
 def unmarshal_Session(data: Any) -> Session:
     if not isinstance(data, dict):
         raise TypeError(
@@ -982,6 +1081,9 @@ def marshal_DnsApiSyncDomainDnsRecordsRequest(
 
     if request.update_all_records is not None:
         output["update_all_records"] = request.update_all_records
+
+    if request.update_nameservers is not None:
+        output["update_nameservers"] = request.update_nameservers
 
     if request.custom_records is not None:
         output["custom_records"] = [

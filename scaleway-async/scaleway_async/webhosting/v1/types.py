@@ -51,6 +51,71 @@ class DnsRecordsStatus(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class DomainAction(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_ACTION = "unknown_action"
+    TRANSFER = "transfer"
+    MANAGE_EXTERNAL = "manage_external"
+    RENEW = "renew"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class DomainAvailabilityAction(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_ACTION = "unknown_action"
+    REGISTER = "register"
+    TRANSFER = "transfer"
+    MANAGE_EXTERNAL = "manage_external"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class DomainAvailabilityStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATUS = "unknown_status"
+    AVAILABLE = "available"
+    NOT_AVAILABLE = "not_available"
+    OWNED = "owned"
+    VALIDATING = "validating"
+    ERROR = "error"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class DomainDnsAction(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_DNS_ACTION = "unknown_dns_action"
+    AUTO_CONFIG_ALL_RECORDS = "auto_config_all_records"
+    AUTO_CONFIG_WEB_RECORDS = "auto_config_web_records"
+    AUTO_CONFIG_MAIL_RECORDS = "auto_config_mail_records"
+    AUTO_CONFIG_NAMESERVERS = "auto_config_nameservers"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class DomainStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATUS = "unknown_status"
+    VALID = "valid"
+    INVALID = "invalid"
+    VALIDATING = "validating"
+    ERROR = "error"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class DomainZoneOwner(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_ZONE_OWNER = "unknown_zone_owner"
+    EXTERNAL = "external"
+    SCALEWAY = "scaleway"
+    ONLINE = "online"
+    WEBHOSTING = "webhosting"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class HostingStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
     DELIVERING = "delivering"
@@ -587,6 +652,39 @@ class Website:
 
 
 @dataclass
+class DomainAvailability:
+    name: str
+    """
+    Fully qualified domain name (FQDN).
+    """
+
+    zone_name: str
+    """
+    DNS zone associated with the domain.
+    """
+
+    status: DomainAvailabilityStatus
+    """
+    Availability status of the domain.
+    """
+
+    available_actions: List[DomainAvailabilityAction]
+    """
+    A list of actions that can be performed on the domain.
+    """
+
+    can_create_hosting: bool
+    """
+    Whether a hosting can be created for this domain.
+    """
+
+    price: Optional[Money]
+    """
+    Price for registering the domain.
+    """
+
+
+@dataclass
 class CheckUserOwnsDomainResponse:
     owns_domain: bool
     """
@@ -886,6 +984,42 @@ class DnsApiGetDomainDnsRecordsRequest:
 
 
 @dataclass
+class DnsApiGetDomainRequest:
+    domain_name: str
+    """
+    Domain name to get.
+    """
+
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    ID of the Scaleway Project in which to get the domain to create the Web Hosting plan.
+    """
+
+
+@dataclass
+class DnsApiSearchDomainsRequest:
+    domain_name: str
+    """
+    Domain name to search.
+    """
+
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    ID of the Scaleway Project in which to search the domain to create the Web Hosting plan.
+    """
+
+
+@dataclass
 class DnsApiSyncDomainDnsRecordsRequest:
     domain: str
     """
@@ -905,6 +1039,11 @@ class DnsApiSyncDomainDnsRecordsRequest:
     update_all_records: bool
     """
     Whether or not to synchronize all types of records. This one has priority.
+    """
+
+    update_nameservers: bool
+    """
+    Whether or not to synchronize domain nameservers.
     """
 
     region: Optional[ScwRegion]
@@ -933,6 +1072,34 @@ class DnsRecords:
     status: DnsRecordsStatus
     """
     Status of the records.
+    """
+
+
+@dataclass
+class Domain:
+    name: str
+    """
+    Name of the domain.
+    """
+
+    status: DomainStatus
+    """
+    Current status of the domain.
+    """
+
+    owner: DomainZoneOwner
+    """
+    Zone owner of the domain.
+    """
+
+    available_actions: List[DomainAction]
+    """
+    A list of actions that can be performed on the domain.
+    """
+
+    available_dns_actions: List[DomainDnsAction]
+    """
+    A list of DNS-related actions that can be auto configured for the domain.
     """
 
 
@@ -1597,6 +1764,14 @@ class ResourceSummary:
     websites_count: int
     """
     Total number of active domains in the the Web Hosting plan.
+    """
+
+
+@dataclass
+class SearchDomainsResponse:
+    domains_available: List[DomainAvailability]
+    """
+    List of domains availability.
     """
 
 
