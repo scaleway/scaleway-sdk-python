@@ -151,7 +151,12 @@ class ContactPoint:
 
     region: ScwRegion
     """
-    Region to target. If none is passed will use default region from the config.
+    Region.
+    """
+
+    receive_resolved_notifications: bool
+    """
+    Send an email notification when an alert is marked as resolved.
     """
 
     email: Optional[ContactPointEmail]
@@ -847,6 +852,11 @@ class RegionalApiCreateContactPointRequest:
     ID of the Project to create the contact point in.
     """
 
+    receive_resolved_notifications: Optional[bool]
+    """
+    Send an email notification when an alert is marked as resolved.
+    """
+
     email: Optional[ContactPointEmail]
 
 
@@ -1258,6 +1268,30 @@ class RegionalApiTriggerTestAlertRequest:
     """
     ID of the Project.
     """
+
+
+@dataclass
+class RegionalApiUpdateContactPointRequest:
+    """
+    Update a contact point.
+    """
+
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    ID of the Project containing the contact point to update.
+    """
+
+    receive_resolved_notifications: Optional[bool]
+    """
+    Enable or disable notifications when alert is resolved.
+    """
+
+    email: Optional[ContactPointEmail]
 
 
 @dataclass

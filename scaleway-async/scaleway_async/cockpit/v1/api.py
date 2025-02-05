@@ -52,6 +52,7 @@ from .types import (
     RegionalApiEnableAlertManagerRequest,
     RegionalApiEnableManagedAlertsRequest,
     RegionalApiTriggerTestAlertRequest,
+    RegionalApiUpdateContactPointRequest,
     RegionalApiUpdateDataSourceRequest,
     Token,
     UsageOverview,
@@ -87,6 +88,7 @@ from .marshalling import (
     marshal_RegionalApiEnableAlertManagerRequest,
     marshal_RegionalApiEnableManagedAlertsRequest,
     marshal_RegionalApiTriggerTestAlertRequest,
+    marshal_RegionalApiUpdateContactPointRequest,
     marshal_RegionalApiUpdateDataSourceRequest,
 )
 
@@ -1230,6 +1232,7 @@ class CockpitV1RegionalAPI(API):
         region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         email: Optional[ContactPointEmail] = None,
+        receive_resolved_notifications: Optional[bool] = None,
     ) -> ContactPoint:
         """
         Create a contact point.
@@ -1240,6 +1243,7 @@ class CockpitV1RegionalAPI(API):
         :param project_id: ID of the Project to create the contact point in.
         :param email: Email address of the contact point to create.
         One-Of ('configuration'): at most one of 'email' could be set.
+        :param receive_resolved_notifications: Send an email notification when an alert is marked as resolved.
         :return: :class:`ContactPoint <ContactPoint>`
 
         Usage:
@@ -1259,6 +1263,7 @@ class CockpitV1RegionalAPI(API):
                 RegionalApiCreateContactPointRequest(
                     region=region,
                     project_id=project_id,
+                    receive_resolved_notifications=receive_resolved_notifications,
                     email=email,
                 ),
                 self.client,
@@ -1342,6 +1347,49 @@ class CockpitV1RegionalAPI(API):
                 "project_id": project_id,
             },
         )
+
+    async def update_contact_point(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        project_id: Optional[str] = None,
+        email: Optional[ContactPointEmail] = None,
+        receive_resolved_notifications: Optional[bool] = None,
+    ) -> ContactPoint:
+        """
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: ID of the Project containing the contact point to update.
+        :param email: Email address of the contact point to update.
+        One-Of ('configuration'): at most one of 'email' could be set.
+        :param receive_resolved_notifications: Enable or disable notifications when alert is resolved.
+        :return: :class:`ContactPoint <ContactPoint>`
+
+        Usage:
+        ::
+
+            result = await api.update_contact_point()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "PATCH",
+            f"/cockpit/v1/regions/{param_region}/alert-manager/contact-points",
+            body=marshal_RegionalApiUpdateContactPointRequest(
+                RegionalApiUpdateContactPointRequest(
+                    region=region,
+                    project_id=project_id,
+                    receive_resolved_notifications=receive_resolved_notifications,
+                    email=email,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ContactPoint(res.json())
 
     async def delete_contact_point(
         self,
