@@ -66,12 +66,12 @@ class ListKeysRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 class KeyRotationPolicy:
     rotation_period: Optional[str]
     """
-    Duration between two key rotations. The minimum duration is 24 hours and the maximum duration is 876000 hours (1 year).
+    Time interval between two key rotations. The minimum duration is 24 hours and the maximum duration is 1 year (876000 hours).
     """
 
     next_rotation_at: Optional[datetime]
     """
-    Date at which the key will be rotated next.
+    Timestamp indicating the next scheduled rotation.
     """
 
 
@@ -99,17 +99,17 @@ class Key:
 
     state: KeyState
     """
-    See the `Key.State` enum for a description of values.
+    See the `Key.State` enum for a description of possible values.
     """
 
     rotation_count: int
     """
-    The rotation count tracks the amount of times that the key was rotated.
+    The rotation count tracks the number of times the key has been rotated.
     """
 
     usage: Optional[KeyUsage]
     """
-    Keys with a usage set to `symmetric_encryption` are used to encrypt and decrypt data. The only key algorithm currently supported by Key Manager is AES-256-GCM.
+    Keys with a usage set to `symmetric_encryption` can encrypt and decrypt data using the `AES-256-GCM` key algorithm. Key Manager currently only supports `AES-256-GCM`.
     """
 
     created_at: Optional[datetime]
@@ -144,7 +144,7 @@ class Key:
 
     region: ScwRegion
     """
-    Region of the key.
+    Region where the key is stored.
     """
 
     description: Optional[str]
@@ -220,7 +220,7 @@ class DataKey:
 
     algorithm: DataKeyAlgorithmSymmetricEncryption
     """
-    Symmetric encryption algorithm of the data encryption key.
+    Symmetric encryption algorithm of the data encryption key (`AES-256-GCM`).
     """
 
     ciphertext: str
@@ -409,7 +409,7 @@ class GetKeyRequest:
 class ImportKeyMaterialRequest:
     key_id: str
     """
-    The key's origin must be 'external'.
+    The key's origin must be `external`.
     """
 
     key_material: str
@@ -424,7 +424,7 @@ class ImportKeyMaterialRequest:
 
     salt: Optional[str]
     """
-    A salt can be used to improve the quality of randomness when the key material is generated from a low entropy source.
+    A salt is random data added to key material to ensure unique derived keys, even if the input is similar. It helps strengthen security when the key material has low randomness (low entropy).
     """
 
 
