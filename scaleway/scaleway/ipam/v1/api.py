@@ -5,7 +5,7 @@ from typing import List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     OneOfPossibility,
@@ -50,7 +50,7 @@ class IpamV1API(API):
         *,
         source: Source,
         is_ipv6: bool,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         address: Optional[str] = None,
         tags: Optional[List[str]] = None,
@@ -105,7 +105,7 @@ class IpamV1API(API):
         self,
         *,
         ip_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Release an IP.
@@ -137,7 +137,7 @@ class IpamV1API(API):
     def release_ip_set(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         ip_ids: Optional[List[str]] = None,
     ) -> None:
         """
@@ -172,7 +172,7 @@ class IpamV1API(API):
         self,
         *,
         ip_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> IP:
         """
         Get an IP.
@@ -206,7 +206,7 @@ class IpamV1API(API):
         self,
         *,
         ip_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         tags: Optional[List[str]] = None,
         reverses: Optional[List[Reverse]] = None,
     ) -> IP:
@@ -252,7 +252,7 @@ class IpamV1API(API):
     def list_i_ps(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListIPsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -348,7 +348,7 @@ class IpamV1API(API):
     def list_i_ps_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListIPsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -436,7 +436,7 @@ class IpamV1API(API):
         *,
         ip_id: str,
         resource: CustomResource,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> IP:
         """
         Attach IP to custom resource.
@@ -481,7 +481,7 @@ class IpamV1API(API):
         *,
         ip_id: str,
         resource: CustomResource,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> IP:
         """
         Detach IP from a custom resource.
@@ -526,7 +526,7 @@ class IpamV1API(API):
         *,
         ip_id: str,
         from_resource: CustomResource,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         to_resource: Optional[CustomResource] = None,
     ) -> IP:
         """
