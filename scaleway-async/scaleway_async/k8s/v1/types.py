@@ -1428,6 +1428,8 @@ class ExternalNode:
 
     node_taints: List[ExternalNodeCoreV1Taint]
 
+    iam_token: str
+
 
 @dataclass
 class ExternalNodeAuth:

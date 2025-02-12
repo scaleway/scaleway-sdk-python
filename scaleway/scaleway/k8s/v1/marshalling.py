@@ -713,6 +713,10 @@ def unmarshal_ExternalNode(data: Any) -> ExternalNode:
             else None
         )
 
+    field = data.get("iam_token", None)
+    if field is not None:
+        args["iam_token"] = field
+
     return ExternalNode(**args)
 
 
