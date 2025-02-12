@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Dict, List, Optional
 
 from scaleway_core.bridge import (
     Money,
@@ -502,6 +502,19 @@ class PlanDetails:
     Number of pipelines included in subscription plan.
     """
 
+    waf_requests: int
+    """
+    Number of WAF requests included in subscription plan.
+    """
+
+
+@dataclass
+class PlanUsageDetails:
+    plan_cost: Optional[Money]
+    """
+    Cost to date (this month) for the corresponding Edge Services subscription plan.
+    """
+
 
 @dataclass
 class PipelineStages:
@@ -758,6 +771,11 @@ class GetBillingRequest:
 
 @dataclass
 class GetBillingResponse:
+    current_plan: Optional[PlanDetails]
+    """
+    Information on the currently-selected, active Edge Services subscription plan.
+    """
+
     pipeline_number: int
     """
     Total number of pipelines currently configured.
@@ -773,9 +791,14 @@ class GetBillingResponse:
     Total amount of extra data egressed from cache in gigabytes from the beginning of the month, not included in the subscription plans.
     """
 
-    current_plan: Optional[PlanDetails]
+    current_plan_waf_usage: int
     """
-    Information on the currently-selected, active Edge Services subscription plan.
+    Total number of requests processed by the WAF since the beginning of the current month, for the active subscription plan.
+    """
+
+    extra_waf_usage: int
+    """
+    Total number of extra requests processed by the WAF from the beginning of the month, not included in the subscription plans.
     """
 
     plan_cost: Optional[Money]
@@ -788,9 +811,24 @@ class GetBillingResponse:
     Cost to date (this month) of pipelines not included in the subscription plans.
     """
 
+    plans_usage_details: Dict[str, PlanUsageDetails]
+    """
+    Detailed costs and usage for all Edge Services subscription plans that were activated during the month.
+    """
+
     extra_cache_cost: Optional[Money]
     """
     Cost to date (this month) of the data egressed from the cache that is not included in the subscription plans.
+    """
+
+    extra_waf_cost: Optional[Money]
+    """
+    Cost to date (this month) of the extra requests processed by the WAF that were not included in the subscription plans.
+    """
+
+    waf_add_on: Optional[Money]
+    """
+    Cost of activating WAF add-on (where subscription plan does not include WAF).
     """
 
     total_cost: Optional[Money]
