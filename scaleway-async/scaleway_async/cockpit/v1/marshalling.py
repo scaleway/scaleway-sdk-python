@@ -22,6 +22,8 @@ from .types import (
     GetConfigResponseRetention,
     GetConfigResponse,
     Grafana,
+    AnyAlert,
+    ListAlertsResponse,
     ListContactPointsResponse,
     ListDataSourcesResponse,
     ListGrafanaProductDashboardsResponse,
@@ -413,6 +415,66 @@ def unmarshal_Grafana(data: Any) -> Grafana:
         args["grafana_url"] = field
 
     return Grafana(**args)
+
+
+def unmarshal_AnyAlert(data: Any) -> AnyAlert:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'AnyAlert' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+
+    field = data.get("preconfigured", None)
+    if field is not None:
+        args["preconfigured"] = field
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+
+    field = data.get("rule", None)
+    if field is not None:
+        args["rule"] = field
+
+    field = data.get("duration", None)
+    if field is not None:
+        args["duration"] = field
+
+    field = data.get("state", None)
+    if field is not None:
+        args["state"] = field
+
+    field = data.get("annotations", None)
+    if field is not None:
+        args["annotations"] = field
+
+    return AnyAlert(**args)
+
+
+def unmarshal_ListAlertsResponse(data: Any) -> ListAlertsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListAlertsResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+
+    field = data.get("alerts", None)
+    if field is not None:
+        args["alerts"] = (
+            [unmarshal_AnyAlert(v) for v in field] if field is not None else None
+        )
+
+    return ListAlertsResponse(**args)
 
 
 def unmarshal_ListContactPointsResponse(data: Any) -> ListContactPointsResponse:

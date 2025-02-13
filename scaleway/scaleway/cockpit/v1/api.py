@@ -12,6 +12,7 @@ from scaleway_core.utils import (
     fetch_all_pages,
 )
 from .types import (
+    AnyAlertState,
     DataSourceOrigin,
     DataSourceType,
     GrafanaUserRole,
@@ -35,6 +36,7 @@ from .types import (
     Grafana,
     GrafanaProductDashboard,
     GrafanaUser,
+    ListAlertsResponse,
     ListContactPointsResponse,
     ListDataSourcesResponse,
     ListGrafanaProductDashboardsResponse,
@@ -67,6 +69,7 @@ from .marshalling import (
     unmarshal_AlertManager,
     unmarshal_GetConfigResponse,
     unmarshal_Grafana,
+    unmarshal_ListAlertsResponse,
     unmarshal_ListContactPointsResponse,
     unmarshal_ListDataSourcesResponse,
     unmarshal_ListGrafanaProductDashboardsResponse,
@@ -1511,6 +1514,49 @@ class CockpitV1RegionalAPI(API):
                 "project_id": project_id,
             },
         )
+
+    def list_alerts(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        project_id: Optional[str] = None,
+        is_enabled: Optional[bool] = None,
+        is_preconfigured: Optional[bool] = None,
+        state: Optional[AnyAlertState] = None,
+    ) -> ListAlertsResponse:
+        """
+        List alerts.
+        List preconfigured and/or custom alerts for the specified Project.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: Project ID to filter for, only alerts from this Project will be returned.
+        :param is_enabled: True returns only enabled alerts. False returns only disabled alerts. If omitted, no alert filtering is applied. Other filters may still apply.
+        :param is_preconfigured: True returns only preconfigured alerts. False returns only custom alerts. If omitted, no filtering is applied on alert types. Other filters may still apply.
+        :param state: Valid values to filter on are `disabled`, `enabled`, `pending` and `firing`. If omitted, no filtering is applied on alert states. Other filters may still apply.
+        :return: :class:`ListAlertsResponse <ListAlertsResponse>`
+
+        Usage:
+        ::
+
+            result = api.list_alerts()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/cockpit/v1/regions/{param_region}/alerts",
+            params={
+                "is_enabled": is_enabled,
+                "is_preconfigured": is_preconfigured,
+                "project_id": project_id or self.client.default_project_id,
+                "state": state,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListAlertsResponse(res.json())
 
     def enable_managed_alerts(
         self,

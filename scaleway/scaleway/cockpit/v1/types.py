@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Dict, List, Optional
 
 from scaleway_core.bridge import (
     Region as ScwRegion,
@@ -13,6 +13,17 @@ from scaleway_core.bridge import (
 from scaleway_core.utils import (
     StrEnumMeta,
 )
+
+
+class AnyAlertState(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATE = "unknown_state"
+    DISABLED = "disabled"
+    ENABLED = "enabled"
+    PENDING = "pending"
+    FIRING = "firing"
+
+    def __str__(self) -> str:
+        return str(self.value)
 
 
 class DataSourceOrigin(str, Enum, metaclass=StrEnumMeta):
@@ -141,6 +152,26 @@ class GetConfigResponseRetention:
     max_days: int
 
     default_days: int
+
+
+@dataclass
+class AnyAlert:
+    region: ScwRegion
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    preconfigured: bool
+
+    name: str
+
+    rule: str
+
+    duration: str
+
+    state: AnyAlertState
+
+    annotations: Dict[str, str]
 
 
 @dataclass
@@ -708,6 +739,23 @@ class Grafana:
 
 
 @dataclass
+class ListAlertsResponse:
+    """
+    Retrieve a list of alerts matching the request.
+    """
+
+    total_count: int
+    """
+    Total count of alerts matching the request.
+    """
+
+    alerts: List[AnyAlert]
+    """
+    List of alerts matching the applied filters.
+    """
+
+
+@dataclass
 class ListContactPointsResponse:
     """
     Response returned when listing contact points.
@@ -1113,6 +1161,38 @@ class RegionalApiGetUsageOverviewRequest:
     project_id: Optional[str]
 
     interval: Optional[str]
+
+
+@dataclass
+class RegionalApiListAlertsRequest:
+    """
+    Retrieve a list of alerts.
+    """
+
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    Project ID to filter for, only alerts from this Project will be returned.
+    """
+
+    is_enabled: Optional[bool]
+    """
+    True returns only enabled alerts. False returns only disabled alerts. If omitted, no alert filtering is applied. Other filters may still apply.
+    """
+
+    is_preconfigured: Optional[bool]
+    """
+    True returns only preconfigured alerts. False returns only custom alerts. If omitted, no filtering is applied on alert types. Other filters may still apply.
+    """
+
+    state: Optional[AnyAlertState]
+    """
+    Valid values to filter on are `disabled`, `enabled`, `pending` and `firing`. If omitted, no filtering is applied on alert states. Other filters may still apply.
+    """
 
 
 @dataclass
