@@ -29,6 +29,7 @@ from .types import (
     CheckLbOriginResponse,
     CheckPEMChainResponse,
     PlanDetails,
+    PlanUsageDetails,
     GetBillingResponse,
     ListBackendStagesResponse,
     ListCacheStagesResponse,
@@ -634,7 +635,28 @@ def unmarshal_PlanDetails(data: Any) -> PlanDetails:
     if field is not None:
         args["pipeline_limit"] = field
 
+    field = data.get("waf_requests", None)
+    if field is not None:
+        args["waf_requests"] = field
+
     return PlanDetails(**args)
+
+
+def unmarshal_PlanUsageDetails(data: Any) -> PlanUsageDetails:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PlanUsageDetails' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("plan_cost", None)
+    if field is not None:
+        args["plan_cost"] = unmarshal_Money(field)
+    else:
+        args["plan_cost"] = None
+
+    return PlanUsageDetails(**args)
 
 
 def unmarshal_GetBillingResponse(data: Any) -> GetBillingResponse:
@@ -644,6 +666,12 @@ def unmarshal_GetBillingResponse(data: Any) -> GetBillingResponse:
         )
 
     args: Dict[str, Any] = {}
+
+    field = data.get("current_plan", None)
+    if field is not None:
+        args["current_plan"] = unmarshal_PlanDetails(field)
+    else:
+        args["current_plan"] = None
 
     field = data.get("pipeline_number", None)
     if field is not None:
@@ -657,11 +685,13 @@ def unmarshal_GetBillingResponse(data: Any) -> GetBillingResponse:
     if field is not None:
         args["extra_cache_usage"] = field
 
-    field = data.get("current_plan", None)
+    field = data.get("current_plan_waf_usage", None)
     if field is not None:
-        args["current_plan"] = unmarshal_PlanDetails(field)
-    else:
-        args["current_plan"] = None
+        args["current_plan_waf_usage"] = field
+
+    field = data.get("extra_waf_usage", None)
+    if field is not None:
+        args["extra_waf_usage"] = field
 
     field = data.get("plan_cost", None)
     if field is not None:
@@ -675,11 +705,31 @@ def unmarshal_GetBillingResponse(data: Any) -> GetBillingResponse:
     else:
         args["extra_pipelines_cost"] = None
 
+    field = data.get("plans_usage_details", None)
+    if field is not None:
+        args["plans_usage_details"] = (
+            {key: unmarshal_PlanUsageDetails(value) for key, value in field.items()}
+            if field is not None
+            else None
+        )
+
     field = data.get("extra_cache_cost", None)
     if field is not None:
         args["extra_cache_cost"] = unmarshal_Money(field)
     else:
         args["extra_cache_cost"] = None
+
+    field = data.get("extra_waf_cost", None)
+    if field is not None:
+        args["extra_waf_cost"] = unmarshal_Money(field)
+    else:
+        args["extra_waf_cost"] = None
+
+    field = data.get("waf_add_on", None)
+    if field is not None:
+        args["waf_add_on"] = unmarshal_Money(field)
+    else:
+        args["waf_add_on"] = None
 
     field = data.get("total_cost", None)
     if field is not None:
