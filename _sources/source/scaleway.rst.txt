@@ -1,0 +1,57 @@
+scaleway package
+================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway.account
+   scaleway.applesilicon
+   scaleway.audit_trail
+   scaleway.baremetal
+   scaleway.billing
+   scaleway.block
+   scaleway.cockpit
+   scaleway.container
+   scaleway.dedibox
+   scaleway.document_db
+   scaleway.domain
+   scaleway.edge_services
+   scaleway.flexibleip
+   scaleway.function
+   scaleway.iam
+   scaleway.inference
+   scaleway.instance
+   scaleway.interlink
+   scaleway.iot
+   scaleway.ipam
+   scaleway.ipfs
+   scaleway.jobs
+   scaleway.k8s
+   scaleway.key_manager
+   scaleway.lb
+   scaleway.marketplace
+   scaleway.mnq
+   scaleway.mongodb
+   scaleway.qaas
+   scaleway.rdb
+   scaleway.redis
+   scaleway.registry
+   scaleway.secret
+   scaleway.serverless_sqldb
+   scaleway.std
+   scaleway.tem
+   scaleway.test
+   scaleway.vpc
+   scaleway.vpcgw
+   scaleway.webhosting
+
+Module contents
+---------------
+
+.. automodule:: scaleway
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scaleway.vpc package &mdash; Scaleway Python SDK  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scaleway Python SDK
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">scaleway.vpc package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#module-scaleway.vpc">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scaleway Python SDK</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">scaleway.vpc package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/source/scaleway.vpc.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="scaleway-vpc-package">
+<h1>scaleway.vpc package<a class="headerlink" href="#scaleway-vpc-package" title="Permalink to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.vpc.v1.html">scaleway.vpc.v1 package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.vpc.v1.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.vpc.v1.html#module-scaleway.vpc.v1.api">scaleway.vpc.v1.api module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.api.VpcV1API"><code class="docutils literal notranslate"><span class="pre">VpcV1API</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.api.VpcV1API.create_private_network"><code class="docutils literal notranslate"><span class="pre">VpcV1API.create_private_network()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.api.VpcV1API.delete_private_network"><code class="docutils literal notranslate"><span class="pre">VpcV1API.delete_private_network()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.api.VpcV1API.get_private_network"><code class="docutils literal notranslate"><span class="pre">VpcV1API.get_private_network()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.api.VpcV1API.list_private_networks"><code class="docutils literal notranslate"><span class="pre">VpcV1API.list_private_networks()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.api.VpcV1API.list_private_networks_all"><code class="docutils literal notranslate"><span class="pre">VpcV1API.list_private_networks_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.api.VpcV1API.update_private_network"><code class="docutils literal notranslate"><span class="pre">VpcV1API.update_private_network()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.vpc.v1.html#module-scaleway.vpc.v1.marshalling">scaleway.vpc.v1.marshalling module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.marshalling.marshal_CreatePrivateNetworkRequest"><code class="docutils literal notranslate"><span class="pre">marshal_CreatePrivateNetworkRequest()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.marshalling.marshal_UpdatePrivateNetworkRequest"><code class="docutils literal notranslate"><span class="pre">marshal_UpdatePrivateNetworkRequest()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.marshalling.unmarshal_ListPrivateNetworksResponse"><code class="docutils literal notranslate"><span class="pre">unmarshal_ListPrivateNetworksResponse()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.marshalling.unmarshal_PrivateNetwork"><code class="docutils literal notranslate"><span class="pre">unmarshal_PrivateNetwork()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.vpc.v1.html#module-scaleway.vpc.v1.types">scaleway.vpc.v1.types module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.CreatePrivateNetworkRequest"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.CreatePrivateNetworkRequest.name"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.CreatePrivateNetworkRequest.project_id"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest.project_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.CreatePrivateNetworkRequest.subnets"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest.subnets</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.CreatePrivateNetworkRequest.tags"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest.tags</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.CreatePrivateNetworkRequest.zone"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest.zone</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.DeletePrivateNetworkRequest"><code class="docutils literal notranslate"><span class="pre">DeletePrivateNetworkRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.DeletePrivateNetworkRequest.private_network_id"><code class="docutils literal notranslate"><span class="pre">DeletePrivateNetworkRequest.private_network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.DeletePrivateNetworkRequest.zone"><code class="docutils literal notranslate"><span class="pre">DeletePrivateNetworkRequest.zone</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.GetPrivateNetworkRequest"><code class="docutils literal notranslate"><span class="pre">GetPrivateNetworkRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.GetPrivateNetworkRequest.private_network_id"><code class="docutils literal notranslate"><span class="pre">GetPrivateNetworkRequest.private_network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.GetPrivateNetworkRequest.zone"><code class="docutils literal notranslate"><span class="pre">GetPrivateNetworkRequest.zone</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.ListPrivateNetworksRequest"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.ListPrivateNetworksRequest.include_regional"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.include_regional</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.ListPrivateNetworksRequest.name"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.ListPrivateNetworksRequest.order_by"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.order_by</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.ListPrivateNetworksRequest.organization_id"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.organization_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.ListPrivateNetworksRequest.page"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.page</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.ListPrivateNetworksRequest.page_size"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.page_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.ListPrivateNetworksRequest.private_network_ids"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.private_network_ids</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.ListPrivateNetworksRequest.project_id"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.project_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.ListPrivateNetworksRequest.tags"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.tags</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.ListPrivateNetworksRequest.zone"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.zone</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.ListPrivateNetworksRequestOrderBy"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequestOrderBy</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.ListPrivateNetworksRequestOrderBy.CREATED_AT_ASC"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequestOrderBy.CREATED_AT_ASC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.ListPrivateNetworksRequestOrderBy.CREATED_AT_DESC"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequestOrderBy.CREATED_AT_DESC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.ListPrivateNetworksRequestOrderBy.NAME_ASC"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequestOrderBy.NAME_ASC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.ListPrivateNetworksRequestOrderBy.NAME_DESC"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequestOrderBy.NAME_DESC</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.ListPrivateNetworksResponse"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksResponse</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.ListPrivateNetworksResponse.private_networks"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksResponse.private_networks</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.ListPrivateNetworksResponse.total_count"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksResponse.total_count</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.PrivateNetwork"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.PrivateNetwork.created_at"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.created_at</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.PrivateNetwork.id"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.PrivateNetwork.name"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.PrivateNetwork.organization_id"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.organization_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.PrivateNetwork.project_id"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.project_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.PrivateNetwork.subnets"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.subnets</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.PrivateNetwork.tags"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.tags</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.PrivateNetwork.updated_at"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.updated_at</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.PrivateNetwork.zone"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.zone</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.UpdatePrivateNetworkRequest"><code class="docutils literal notranslate"><span class="pre">UpdatePrivateNetworkRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.UpdatePrivateNetworkRequest.name"><code class="docutils literal notranslate"><span class="pre">UpdatePrivateNetworkRequest.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.UpdatePrivateNetworkRequest.private_network_id"><code class="docutils literal notranslate"><span class="pre">UpdatePrivateNetworkRequest.private_network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.UpdatePrivateNetworkRequest.subnets"><code class="docutils literal notranslate"><span class="pre">UpdatePrivateNetworkRequest.subnets</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.UpdatePrivateNetworkRequest.tags"><code class="docutils literal notranslate"><span class="pre">UpdatePrivateNetworkRequest.tags</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.types.UpdatePrivateNetworkRequest.zone"><code class="docutils literal notranslate"><span class="pre">UpdatePrivateNetworkRequest.zone</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.vpc.v1.html#module-scaleway.vpc.v1">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.CreatePrivateNetworkRequest"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.CreatePrivateNetworkRequest.name"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.CreatePrivateNetworkRequest.project_id"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest.project_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.CreatePrivateNetworkRequest.subnets"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest.subnets</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.CreatePrivateNetworkRequest.tags"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest.tags</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.CreatePrivateNetworkRequest.zone"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest.zone</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.DeletePrivateNetworkRequest"><code class="docutils literal notranslate"><span class="pre">DeletePrivateNetworkRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.DeletePrivateNetworkRequest.private_network_id"><code class="docutils literal notranslate"><span class="pre">DeletePrivateNetworkRequest.private_network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.DeletePrivateNetworkRequest.zone"><code class="docutils literal notranslate"><span class="pre">DeletePrivateNetworkRequest.zone</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.GetPrivateNetworkRequest"><code class="docutils literal notranslate"><span class="pre">GetPrivateNetworkRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.GetPrivateNetworkRequest.private_network_id"><code class="docutils literal notranslate"><span class="pre">GetPrivateNetworkRequest.private_network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.GetPrivateNetworkRequest.zone"><code class="docutils literal notranslate"><span class="pre">GetPrivateNetworkRequest.zone</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.ListPrivateNetworksRequest"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.ListPrivateNetworksRequest.include_regional"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.include_regional</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.ListPrivateNetworksRequest.name"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.ListPrivateNetworksRequest.order_by"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.order_by</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.ListPrivateNetworksRequest.organization_id"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.organization_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.ListPrivateNetworksRequest.page"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.page</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.ListPrivateNetworksRequest.page_size"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.page_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.ListPrivateNetworksRequest.private_network_ids"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.private_network_ids</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.ListPrivateNetworksRequest.project_id"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.project_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.ListPrivateNetworksRequest.tags"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.tags</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.ListPrivateNetworksRequest.zone"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.zone</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.ListPrivateNetworksRequestOrderBy"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequestOrderBy</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.ListPrivateNetworksRequestOrderBy.CREATED_AT_ASC"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequestOrderBy.CREATED_AT_ASC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.ListPrivateNetworksRequestOrderBy.CREATED_AT_DESC"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequestOrderBy.CREATED_AT_DESC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.ListPrivateNetworksRequestOrderBy.NAME_ASC"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequestOrderBy.NAME_ASC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.ListPrivateNetworksRequestOrderBy.NAME_DESC"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequestOrderBy.NAME_DESC</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.ListPrivateNetworksResponse"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksResponse</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.ListPrivateNetworksResponse.private_networks"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksResponse.private_networks</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.ListPrivateNetworksResponse.total_count"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksResponse.total_count</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.PrivateNetwork"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.PrivateNetwork.created_at"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.created_at</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.PrivateNetwork.id"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.PrivateNetwork.name"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.PrivateNetwork.organization_id"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.organization_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.PrivateNetwork.project_id"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.project_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.PrivateNetwork.subnets"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.subnets</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.PrivateNetwork.tags"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.tags</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.PrivateNetwork.updated_at"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.updated_at</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.PrivateNetwork.zone"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.zone</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.UpdatePrivateNetworkRequest"><code class="docutils literal notranslate"><span class="pre">UpdatePrivateNetworkRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.UpdatePrivateNetworkRequest.name"><code class="docutils literal notranslate"><span class="pre">UpdatePrivateNetworkRequest.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.UpdatePrivateNetworkRequest.private_network_id"><code class="docutils literal notranslate"><span class="pre">UpdatePrivateNetworkRequest.private_network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.UpdatePrivateNetworkRequest.subnets"><code class="docutils literal notranslate"><span class="pre">UpdatePrivateNetworkRequest.subnets</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.UpdatePrivateNetworkRequest.tags"><code class="docutils literal notranslate"><span class="pre">UpdatePrivateNetworkRequest.tags</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.UpdatePrivateNetworkRequest.zone"><code class="docutils literal notranslate"><span class="pre">UpdatePrivateNetworkRequest.zone</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.VpcV1API"><code class="docutils literal notranslate"><span class="pre">VpcV1API</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.VpcV1API.create_private_network"><code class="docutils literal notranslate"><span class="pre">VpcV1API.create_private_network()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.VpcV1API.delete_private_network"><code class="docutils literal notranslate"><span class="pre">VpcV1API.delete_private_network()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.VpcV1API.get_private_network"><code class="docutils literal notranslate"><span class="pre">VpcV1API.get_private_network()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.VpcV1API.list_private_networks"><code class="docutils literal notranslate"><span class="pre">VpcV1API.list_private_networks()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.VpcV1API.list_private_networks_all"><code class="docutils literal notranslate"><span class="pre">VpcV1API.list_private_networks_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#scaleway.vpc.v1.VpcV1API.update_private_network"><code class="docutils literal notranslate"><span class="pre">VpcV1API.update_private_network()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.vpc.v2.html">scaleway.vpc.v2 package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.vpc.v2.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.vpc.v2.html#module-scaleway.vpc.v2.api">scaleway.vpc.v2.api module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.api.VpcV2API"><code class="docutils literal notranslate"><span class="pre">VpcV2API</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.api.VpcV2API.add_subnets"><code class="docutils literal notranslate"><span class="pre">VpcV2API.add_subnets()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.api.VpcV2API.create_private_network"><code class="docutils literal notranslate"><span class="pre">VpcV2API.create_private_network()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.api.VpcV2API.create_route"><code class="docutils literal notranslate"><span class="pre">VpcV2API.create_route()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.api.VpcV2API.create_vpc"><code class="docutils literal notranslate"><span class="pre">VpcV2API.create_vpc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.api.VpcV2API.delete_private_network"><code class="docutils literal notranslate"><span class="pre">VpcV2API.delete_private_network()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.api.VpcV2API.delete_route"><code class="docutils literal notranslate"><span class="pre">VpcV2API.delete_route()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.api.VpcV2API.delete_subnets"><code class="docutils literal notranslate"><span class="pre">VpcV2API.delete_subnets()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.api.VpcV2API.delete_vpc"><code class="docutils literal notranslate"><span class="pre">VpcV2API.delete_vpc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.api.VpcV2API.enable_dhcp"><code class="docutils literal notranslate"><span class="pre">VpcV2API.enable_dhcp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.api.VpcV2API.enable_routing"><code class="docutils literal notranslate"><span class="pre">VpcV2API.enable_routing()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.api.VpcV2API.get_private_network"><code class="docutils literal notranslate"><span class="pre">VpcV2API.get_private_network()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.api.VpcV2API.get_route"><code class="docutils literal notranslate"><span class="pre">VpcV2API.get_route()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.api.VpcV2API.get_vpc"><code class="docutils literal notranslate"><span class="pre">VpcV2API.get_vpc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.api.VpcV2API.list_private_networks"><code class="docutils literal notranslate"><span class="pre">VpcV2API.list_private_networks()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.api.VpcV2API.list_private_networks_all"><code class="docutils literal notranslate"><span class="pre">VpcV2API.list_private_networks_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.api.VpcV2API.list_subnets"><code class="docutils literal notranslate"><span class="pre">VpcV2API.list_subnets()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.api.VpcV2API.list_subnets_all"><code class="docutils literal notranslate"><span class="pre">VpcV2API.list_subnets_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.api.VpcV2API.list_vp_cs"><code class="docutils literal notranslate"><span class="pre">VpcV2API.list_vp_cs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.api.VpcV2API.list_vp_cs_all"><code class="docutils literal notranslate"><span class="pre">VpcV2API.list_vp_cs_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.api.VpcV2API.set_subnets"><code class="docutils literal notranslate"><span class="pre">VpcV2API.set_subnets()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.api.VpcV2API.update_private_network"><code class="docutils literal notranslate"><span class="pre">VpcV2API.update_private_network()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.api.VpcV2API.update_route"><code class="docutils literal notranslate"><span class="pre">VpcV2API.update_route()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.api.VpcV2API.update_vpc"><code class="docutils literal notranslate"><span class="pre">VpcV2API.update_vpc()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.vpc.v2.html#module-scaleway.vpc.v2.marshalling">scaleway.vpc.v2.marshalling module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.marshalling.marshal_AddSubnetsRequest"><code class="docutils literal notranslate"><span class="pre">marshal_AddSubnetsRequest()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.marshalling.marshal_CreatePrivateNetworkRequest"><code class="docutils literal notranslate"><span class="pre">marshal_CreatePrivateNetworkRequest()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.marshalling.marshal_CreateRouteRequest"><code class="docutils literal notranslate"><span class="pre">marshal_CreateRouteRequest()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.marshalling.marshal_CreateVPCRequest"><code class="docutils literal notranslate"><span class="pre">marshal_CreateVPCRequest()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.marshalling.marshal_DeleteSubnetsRequest"><code class="docutils literal notranslate"><span class="pre">marshal_DeleteSubnetsRequest()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.marshalling.marshal_SetSubnetsRequest"><code class="docutils literal notranslate"><span class="pre">marshal_SetSubnetsRequest()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.marshalling.marshal_UpdatePrivateNetworkRequest"><code class="docutils literal notranslate"><span class="pre">marshal_UpdatePrivateNetworkRequest()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.marshalling.marshal_UpdateRouteRequest"><code class="docutils literal notranslate"><span class="pre">marshal_UpdateRouteRequest()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.marshalling.marshal_UpdateVPCRequest"><code class="docutils literal notranslate"><span class="pre">marshal_UpdateVPCRequest()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.marshalling.unmarshal_AddSubnetsResponse"><code class="docutils literal notranslate"><span class="pre">unmarshal_AddSubnetsResponse()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.marshalling.unmarshal_DeleteSubnetsResponse"><code class="docutils literal notranslate"><span class="pre">unmarshal_DeleteSubnetsResponse()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.marshalling.unmarshal_ListPrivateNetworksResponse"><code class="docutils literal notranslate"><span class="pre">unmarshal_ListPrivateNetworksResponse()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.marshalling.unmarshal_ListSubnetsResponse"><code class="docutils literal notranslate"><span class="pre">unmarshal_ListSubnetsResponse()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.marshalling.unmarshal_ListVPCsResponse"><code class="docutils literal notranslate"><span class="pre">unmarshal_ListVPCsResponse()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.marshalling.unmarshal_PrivateNetwork"><code class="docutils literal notranslate"><span class="pre">unmarshal_PrivateNetwork()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.marshalling.unmarshal_Route"><code class="docutils literal notranslate"><span class="pre">unmarshal_Route()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.marshalling.unmarshal_SetSubnetsResponse"><code class="docutils literal notranslate"><span class="pre">unmarshal_SetSubnetsResponse()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.marshalling.unmarshal_Subnet"><code class="docutils literal notranslate"><span class="pre">unmarshal_Subnet()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.marshalling.unmarshal_VPC"><code class="docutils literal notranslate"><span class="pre">unmarshal_VPC()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.vpc.v2.html#module-scaleway.vpc.v2.types">scaleway.vpc.v2.types module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.AddSubnetsRequest"><code class="docutils literal notranslate"><span class="pre">AddSubnetsRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.AddSubnetsRequest.private_network_id"><code class="docutils literal notranslate"><span class="pre">AddSubnetsRequest.private_network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.AddSubnetsRequest.region"><code class="docutils literal notranslate"><span class="pre">AddSubnetsRequest.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.AddSubnetsRequest.subnets"><code class="docutils literal notranslate"><span class="pre">AddSubnetsRequest.subnets</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.AddSubnetsResponse"><code class="docutils literal notranslate"><span class="pre">AddSubnetsResponse</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.AddSubnetsResponse.subnets"><code class="docutils literal notranslate"><span class="pre">AddSubnetsResponse.subnets</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.CreatePrivateNetworkRequest"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.CreatePrivateNetworkRequest.name"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.CreatePrivateNetworkRequest.project_id"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest.project_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.CreatePrivateNetworkRequest.region"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.CreatePrivateNetworkRequest.subnets"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest.subnets</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.CreatePrivateNetworkRequest.tags"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest.tags</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.CreatePrivateNetworkRequest.vpc_id"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest.vpc_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.CreateRouteRequest"><code class="docutils literal notranslate"><span class="pre">CreateRouteRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.CreateRouteRequest.description"><code class="docutils literal notranslate"><span class="pre">CreateRouteRequest.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.CreateRouteRequest.destination"><code class="docutils literal notranslate"><span class="pre">CreateRouteRequest.destination</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.CreateRouteRequest.nexthop_private_network_id"><code class="docutils literal notranslate"><span class="pre">CreateRouteRequest.nexthop_private_network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.CreateRouteRequest.nexthop_resource_id"><code class="docutils literal notranslate"><span class="pre">CreateRouteRequest.nexthop_resource_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.CreateRouteRequest.region"><code class="docutils literal notranslate"><span class="pre">CreateRouteRequest.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.CreateRouteRequest.tags"><code class="docutils literal notranslate"><span class="pre">CreateRouteRequest.tags</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.CreateRouteRequest.vpc_id"><code class="docutils literal notranslate"><span class="pre">CreateRouteRequest.vpc_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.CreateVPCRequest"><code class="docutils literal notranslate"><span class="pre">CreateVPCRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.CreateVPCRequest.enable_routing"><code class="docutils literal notranslate"><span class="pre">CreateVPCRequest.enable_routing</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.CreateVPCRequest.name"><code class="docutils literal notranslate"><span class="pre">CreateVPCRequest.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.CreateVPCRequest.project_id"><code class="docutils literal notranslate"><span class="pre">CreateVPCRequest.project_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.CreateVPCRequest.region"><code class="docutils literal notranslate"><span class="pre">CreateVPCRequest.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.CreateVPCRequest.tags"><code class="docutils literal notranslate"><span class="pre">CreateVPCRequest.tags</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.DeletePrivateNetworkRequest"><code class="docutils literal notranslate"><span class="pre">DeletePrivateNetworkRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.DeletePrivateNetworkRequest.private_network_id"><code class="docutils literal notranslate"><span class="pre">DeletePrivateNetworkRequest.private_network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.DeletePrivateNetworkRequest.region"><code class="docutils literal notranslate"><span class="pre">DeletePrivateNetworkRequest.region</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.DeleteRouteRequest"><code class="docutils literal notranslate"><span class="pre">DeleteRouteRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.DeleteRouteRequest.region"><code class="docutils literal notranslate"><span class="pre">DeleteRouteRequest.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.DeleteRouteRequest.route_id"><code class="docutils literal notranslate"><span class="pre">DeleteRouteRequest.route_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.DeleteSubnetsRequest"><code class="docutils literal notranslate"><span class="pre">DeleteSubnetsRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.DeleteSubnetsRequest.private_network_id"><code class="docutils literal notranslate"><span class="pre">DeleteSubnetsRequest.private_network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.DeleteSubnetsRequest.region"><code class="docutils literal notranslate"><span class="pre">DeleteSubnetsRequest.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.DeleteSubnetsRequest.subnets"><code class="docutils literal notranslate"><span class="pre">DeleteSubnetsRequest.subnets</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.DeleteSubnetsResponse"><code class="docutils literal notranslate"><span class="pre">DeleteSubnetsResponse</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.DeleteSubnetsResponse.subnets"><code class="docutils literal notranslate"><span class="pre">DeleteSubnetsResponse.subnets</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.DeleteVPCRequest"><code class="docutils literal notranslate"><span class="pre">DeleteVPCRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.DeleteVPCRequest.region"><code class="docutils literal notranslate"><span class="pre">DeleteVPCRequest.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.DeleteVPCRequest.vpc_id"><code class="docutils literal notranslate"><span class="pre">DeleteVPCRequest.vpc_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.EnableDHCPRequest"><code class="docutils literal notranslate"><span class="pre">EnableDHCPRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.EnableDHCPRequest.private_network_id"><code class="docutils literal notranslate"><span class="pre">EnableDHCPRequest.private_network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.EnableDHCPRequest.region"><code class="docutils literal notranslate"><span class="pre">EnableDHCPRequest.region</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.EnableRoutingRequest"><code class="docutils literal notranslate"><span class="pre">EnableRoutingRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.EnableRoutingRequest.region"><code class="docutils literal notranslate"><span class="pre">EnableRoutingRequest.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.EnableRoutingRequest.vpc_id"><code class="docutils literal notranslate"><span class="pre">EnableRoutingRequest.vpc_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.GetPrivateNetworkRequest"><code class="docutils literal notranslate"><span class="pre">GetPrivateNetworkRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.GetPrivateNetworkRequest.private_network_id"><code class="docutils literal notranslate"><span class="pre">GetPrivateNetworkRequest.private_network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.GetPrivateNetworkRequest.region"><code class="docutils literal notranslate"><span class="pre">GetPrivateNetworkRequest.region</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.GetRouteRequest"><code class="docutils literal notranslate"><span class="pre">GetRouteRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.GetRouteRequest.region"><code class="docutils literal notranslate"><span class="pre">GetRouteRequest.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.GetRouteRequest.route_id"><code class="docutils literal notranslate"><span class="pre">GetRouteRequest.route_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.GetVPCRequest"><code class="docutils literal notranslate"><span class="pre">GetVPCRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.GetVPCRequest.region"><code class="docutils literal notranslate"><span class="pre">GetVPCRequest.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.GetVPCRequest.vpc_id"><code class="docutils literal notranslate"><span class="pre">GetVPCRequest.vpc_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListPrivateNetworksRequest"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListPrivateNetworksRequest.dhcp_enabled"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.dhcp_enabled</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListPrivateNetworksRequest.name"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListPrivateNetworksRequest.order_by"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.order_by</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListPrivateNetworksRequest.organization_id"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.organization_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListPrivateNetworksRequest.page"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.page</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListPrivateNetworksRequest.page_size"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.page_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListPrivateNetworksRequest.private_network_ids"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.private_network_ids</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListPrivateNetworksRequest.project_id"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.project_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListPrivateNetworksRequest.region"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListPrivateNetworksRequest.tags"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.tags</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListPrivateNetworksRequest.vpc_id"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.vpc_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListPrivateNetworksRequestOrderBy"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequestOrderBy</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListPrivateNetworksRequestOrderBy.CREATED_AT_ASC"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequestOrderBy.CREATED_AT_ASC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListPrivateNetworksRequestOrderBy.CREATED_AT_DESC"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequestOrderBy.CREATED_AT_DESC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListPrivateNetworksRequestOrderBy.NAME_ASC"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequestOrderBy.NAME_ASC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListPrivateNetworksRequestOrderBy.NAME_DESC"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequestOrderBy.NAME_DESC</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListPrivateNetworksResponse"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksResponse</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListPrivateNetworksResponse.private_networks"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksResponse.private_networks</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListPrivateNetworksResponse.total_count"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksResponse.total_count</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListSubnetsRequest"><code class="docutils literal notranslate"><span class="pre">ListSubnetsRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListSubnetsRequest.order_by"><code class="docutils literal notranslate"><span class="pre">ListSubnetsRequest.order_by</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListSubnetsRequest.organization_id"><code class="docutils literal notranslate"><span class="pre">ListSubnetsRequest.organization_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListSubnetsRequest.page"><code class="docutils literal notranslate"><span class="pre">ListSubnetsRequest.page</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListSubnetsRequest.page_size"><code class="docutils literal notranslate"><span class="pre">ListSubnetsRequest.page_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListSubnetsRequest.project_id"><code class="docutils literal notranslate"><span class="pre">ListSubnetsRequest.project_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListSubnetsRequest.region"><code class="docutils literal notranslate"><span class="pre">ListSubnetsRequest.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListSubnetsRequest.subnet_ids"><code class="docutils literal notranslate"><span class="pre">ListSubnetsRequest.subnet_ids</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListSubnetsRequest.vpc_id"><code class="docutils literal notranslate"><span class="pre">ListSubnetsRequest.vpc_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListSubnetsRequestOrderBy"><code class="docutils literal notranslate"><span class="pre">ListSubnetsRequestOrderBy</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListSubnetsRequestOrderBy.CREATED_AT_ASC"><code class="docutils literal notranslate"><span class="pre">ListSubnetsRequestOrderBy.CREATED_AT_ASC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListSubnetsRequestOrderBy.CREATED_AT_DESC"><code class="docutils literal notranslate"><span class="pre">ListSubnetsRequestOrderBy.CREATED_AT_DESC</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListSubnetsResponse"><code class="docutils literal notranslate"><span class="pre">ListSubnetsResponse</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListSubnetsResponse.subnets"><code class="docutils literal notranslate"><span class="pre">ListSubnetsResponse.subnets</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListSubnetsResponse.total_count"><code class="docutils literal notranslate"><span class="pre">ListSubnetsResponse.total_count</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListVPCsRequest"><code class="docutils literal notranslate"><span class="pre">ListVPCsRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListVPCsRequest.is_default"><code class="docutils literal notranslate"><span class="pre">ListVPCsRequest.is_default</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListVPCsRequest.name"><code class="docutils literal notranslate"><span class="pre">ListVPCsRequest.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListVPCsRequest.order_by"><code class="docutils literal notranslate"><span class="pre">ListVPCsRequest.order_by</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListVPCsRequest.organization_id"><code class="docutils literal notranslate"><span class="pre">ListVPCsRequest.organization_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListVPCsRequest.page"><code class="docutils literal notranslate"><span class="pre">ListVPCsRequest.page</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListVPCsRequest.page_size"><code class="docutils literal notranslate"><span class="pre">ListVPCsRequest.page_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListVPCsRequest.project_id"><code class="docutils literal notranslate"><span class="pre">ListVPCsRequest.project_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListVPCsRequest.region"><code class="docutils literal notranslate"><span class="pre">ListVPCsRequest.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListVPCsRequest.routing_enabled"><code class="docutils literal notranslate"><span class="pre">ListVPCsRequest.routing_enabled</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListVPCsRequest.tags"><code class="docutils literal notranslate"><span class="pre">ListVPCsRequest.tags</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListVPCsRequestOrderBy"><code class="docutils literal notranslate"><span class="pre">ListVPCsRequestOrderBy</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListVPCsRequestOrderBy.CREATED_AT_ASC"><code class="docutils literal notranslate"><span class="pre">ListVPCsRequestOrderBy.CREATED_AT_ASC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListVPCsRequestOrderBy.CREATED_AT_DESC"><code class="docutils literal notranslate"><span class="pre">ListVPCsRequestOrderBy.CREATED_AT_DESC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListVPCsRequestOrderBy.NAME_ASC"><code class="docutils literal notranslate"><span class="pre">ListVPCsRequestOrderBy.NAME_ASC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListVPCsRequestOrderBy.NAME_DESC"><code class="docutils literal notranslate"><span class="pre">ListVPCsRequestOrderBy.NAME_DESC</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListVPCsResponse"><code class="docutils literal notranslate"><span class="pre">ListVPCsResponse</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListVPCsResponse.total_count"><code class="docutils literal notranslate"><span class="pre">ListVPCsResponse.total_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.ListVPCsResponse.vpcs"><code class="docutils literal notranslate"><span class="pre">ListVPCsResponse.vpcs</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.PrivateNetwork"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.PrivateNetwork.created_at"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.created_at</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.PrivateNetwork.dhcp_enabled"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.dhcp_enabled</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.PrivateNetwork.id"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.PrivateNetwork.name"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.PrivateNetwork.organization_id"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.organization_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.PrivateNetwork.project_id"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.project_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.PrivateNetwork.region"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.PrivateNetwork.subnets"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.subnets</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.PrivateNetwork.tags"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.tags</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.PrivateNetwork.updated_at"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.updated_at</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.PrivateNetwork.vpc_id"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.vpc_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.Route"><code class="docutils literal notranslate"><span class="pre">Route</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.Route.created_at"><code class="docutils literal notranslate"><span class="pre">Route.created_at</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.Route.description"><code class="docutils literal notranslate"><span class="pre">Route.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.Route.destination"><code class="docutils literal notranslate"><span class="pre">Route.destination</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.Route.id"><code class="docutils literal notranslate"><span class="pre">Route.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.Route.is_read_only"><code class="docutils literal notranslate"><span class="pre">Route.is_read_only</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.Route.nexthop_private_network_id"><code class="docutils literal notranslate"><span class="pre">Route.nexthop_private_network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.Route.nexthop_resource_id"><code class="docutils literal notranslate"><span class="pre">Route.nexthop_resource_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.Route.region"><code class="docutils literal notranslate"><span class="pre">Route.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.Route.tags"><code class="docutils literal notranslate"><span class="pre">Route.tags</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.Route.updated_at"><code class="docutils literal notranslate"><span class="pre">Route.updated_at</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.Route.vpc_id"><code class="docutils literal notranslate"><span class="pre">Route.vpc_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.SetSubnetsRequest"><code class="docutils literal notranslate"><span class="pre">SetSubnetsRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.SetSubnetsRequest.private_network_id"><code class="docutils literal notranslate"><span class="pre">SetSubnetsRequest.private_network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.SetSubnetsRequest.region"><code class="docutils literal notranslate"><span class="pre">SetSubnetsRequest.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.SetSubnetsRequest.subnets"><code class="docutils literal notranslate"><span class="pre">SetSubnetsRequest.subnets</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.SetSubnetsResponse"><code class="docutils literal notranslate"><span class="pre">SetSubnetsResponse</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.SetSubnetsResponse.subnets"><code class="docutils literal notranslate"><span class="pre">SetSubnetsResponse.subnets</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.Subnet"><code class="docutils literal notranslate"><span class="pre">Subnet</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.Subnet.created_at"><code class="docutils literal notranslate"><span class="pre">Subnet.created_at</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.Subnet.id"><code class="docutils literal notranslate"><span class="pre">Subnet.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.Subnet.private_network_id"><code class="docutils literal notranslate"><span class="pre">Subnet.private_network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.Subnet.project_id"><code class="docutils literal notranslate"><span class="pre">Subnet.project_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.Subnet.subnet"><code class="docutils literal notranslate"><span class="pre">Subnet.subnet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.Subnet.updated_at"><code class="docutils literal notranslate"><span class="pre">Subnet.updated_at</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.Subnet.vpc_id"><code class="docutils literal notranslate"><span class="pre">Subnet.vpc_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.UpdatePrivateNetworkRequest"><code class="docutils literal notranslate"><span class="pre">UpdatePrivateNetworkRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.UpdatePrivateNetworkRequest.name"><code class="docutils literal notranslate"><span class="pre">UpdatePrivateNetworkRequest.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.UpdatePrivateNetworkRequest.private_network_id"><code class="docutils literal notranslate"><span class="pre">UpdatePrivateNetworkRequest.private_network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.UpdatePrivateNetworkRequest.region"><code class="docutils literal notranslate"><span class="pre">UpdatePrivateNetworkRequest.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.UpdatePrivateNetworkRequest.tags"><code class="docutils literal notranslate"><span class="pre">UpdatePrivateNetworkRequest.tags</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.UpdateRouteRequest"><code class="docutils literal notranslate"><span class="pre">UpdateRouteRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.UpdateRouteRequest.description"><code class="docutils literal notranslate"><span class="pre">UpdateRouteRequest.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.UpdateRouteRequest.destination"><code class="docutils literal notranslate"><span class="pre">UpdateRouteRequest.destination</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.UpdateRouteRequest.nexthop_private_network_id"><code class="docutils literal notranslate"><span class="pre">UpdateRouteRequest.nexthop_private_network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.UpdateRouteRequest.nexthop_resource_id"><code class="docutils literal notranslate"><span class="pre">UpdateRouteRequest.nexthop_resource_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.UpdateRouteRequest.region"><code class="docutils literal notranslate"><span class="pre">UpdateRouteRequest.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.UpdateRouteRequest.route_id"><code class="docutils literal notranslate"><span class="pre">UpdateRouteRequest.route_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.UpdateRouteRequest.tags"><code class="docutils literal notranslate"><span class="pre">UpdateRouteRequest.tags</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.UpdateVPCRequest"><code class="docutils literal notranslate"><span class="pre">UpdateVPCRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.UpdateVPCRequest.name"><code class="docutils literal notranslate"><span class="pre">UpdateVPCRequest.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.UpdateVPCRequest.region"><code class="docutils literal notranslate"><span class="pre">UpdateVPCRequest.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.UpdateVPCRequest.tags"><code class="docutils literal notranslate"><span class="pre">UpdateVPCRequest.tags</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.UpdateVPCRequest.vpc_id"><code class="docutils literal notranslate"><span class="pre">UpdateVPCRequest.vpc_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.VPC"><code class="docutils literal notranslate"><span class="pre">VPC</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.VPC.created_at"><code class="docutils literal notranslate"><span class="pre">VPC.created_at</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.VPC.id"><code class="docutils literal notranslate"><span class="pre">VPC.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.VPC.is_default"><code class="docutils literal notranslate"><span class="pre">VPC.is_default</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.VPC.name"><code class="docutils literal notranslate"><span class="pre">VPC.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.VPC.organization_id"><code class="docutils literal notranslate"><span class="pre">VPC.organization_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.VPC.private_network_count"><code class="docutils literal notranslate"><span class="pre">VPC.private_network_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.VPC.project_id"><code class="docutils literal notranslate"><span class="pre">VPC.project_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.VPC.region"><code class="docutils literal notranslate"><span class="pre">VPC.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.VPC.routing_enabled"><code class="docutils literal notranslate"><span class="pre">VPC.routing_enabled</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.VPC.tags"><code class="docutils literal notranslate"><span class="pre">VPC.tags</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.types.VPC.updated_at"><code class="docutils literal notranslate"><span class="pre">VPC.updated_at</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.vpc.v2.html#module-scaleway.vpc.v2">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.AddSubnetsRequest"><code class="docutils literal notranslate"><span class="pre">AddSubnetsRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.AddSubnetsRequest.private_network_id"><code class="docutils literal notranslate"><span class="pre">AddSubnetsRequest.private_network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.AddSubnetsRequest.region"><code class="docutils literal notranslate"><span class="pre">AddSubnetsRequest.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.AddSubnetsRequest.subnets"><code class="docutils literal notranslate"><span class="pre">AddSubnetsRequest.subnets</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.AddSubnetsResponse"><code class="docutils literal notranslate"><span class="pre">AddSubnetsResponse</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.AddSubnetsResponse.subnets"><code class="docutils literal notranslate"><span class="pre">AddSubnetsResponse.subnets</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.CreatePrivateNetworkRequest"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.CreatePrivateNetworkRequest.name"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.CreatePrivateNetworkRequest.project_id"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest.project_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.CreatePrivateNetworkRequest.region"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.CreatePrivateNetworkRequest.subnets"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest.subnets</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.CreatePrivateNetworkRequest.tags"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest.tags</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.CreatePrivateNetworkRequest.vpc_id"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest.vpc_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.CreateRouteRequest"><code class="docutils literal notranslate"><span class="pre">CreateRouteRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.CreateRouteRequest.description"><code class="docutils literal notranslate"><span class="pre">CreateRouteRequest.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.CreateRouteRequest.destination"><code class="docutils literal notranslate"><span class="pre">CreateRouteRequest.destination</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.CreateRouteRequest.nexthop_private_network_id"><code class="docutils literal notranslate"><span class="pre">CreateRouteRequest.nexthop_private_network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.CreateRouteRequest.nexthop_resource_id"><code class="docutils literal notranslate"><span class="pre">CreateRouteRequest.nexthop_resource_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.CreateRouteRequest.region"><code class="docutils literal notranslate"><span class="pre">CreateRouteRequest.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.CreateRouteRequest.tags"><code class="docutils literal notranslate"><span class="pre">CreateRouteRequest.tags</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.CreateRouteRequest.vpc_id"><code class="docutils literal notranslate"><span class="pre">CreateRouteRequest.vpc_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.CreateVPCRequest"><code class="docutils literal notranslate"><span class="pre">CreateVPCRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.CreateVPCRequest.enable_routing"><code class="docutils literal notranslate"><span class="pre">CreateVPCRequest.enable_routing</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.CreateVPCRequest.name"><code class="docutils literal notranslate"><span class="pre">CreateVPCRequest.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.CreateVPCRequest.project_id"><code class="docutils literal notranslate"><span class="pre">CreateVPCRequest.project_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.CreateVPCRequest.region"><code class="docutils literal notranslate"><span class="pre">CreateVPCRequest.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.CreateVPCRequest.tags"><code class="docutils literal notranslate"><span class="pre">CreateVPCRequest.tags</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.DeletePrivateNetworkRequest"><code class="docutils literal notranslate"><span class="pre">DeletePrivateNetworkRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.DeletePrivateNetworkRequest.private_network_id"><code class="docutils literal notranslate"><span class="pre">DeletePrivateNetworkRequest.private_network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.DeletePrivateNetworkRequest.region"><code class="docutils literal notranslate"><span class="pre">DeletePrivateNetworkRequest.region</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.DeleteRouteRequest"><code class="docutils literal notranslate"><span class="pre">DeleteRouteRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.DeleteRouteRequest.region"><code class="docutils literal notranslate"><span class="pre">DeleteRouteRequest.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.DeleteRouteRequest.route_id"><code class="docutils literal notranslate"><span class="pre">DeleteRouteRequest.route_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.DeleteSubnetsRequest"><code class="docutils literal notranslate"><span class="pre">DeleteSubnetsRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.DeleteSubnetsRequest.private_network_id"><code class="docutils literal notranslate"><span class="pre">DeleteSubnetsRequest.private_network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.DeleteSubnetsRequest.region"><code class="docutils literal notranslate"><span class="pre">DeleteSubnetsRequest.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.DeleteSubnetsRequest.subnets"><code class="docutils literal notranslate"><span class="pre">DeleteSubnetsRequest.subnets</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.DeleteSubnetsResponse"><code class="docutils literal notranslate"><span class="pre">DeleteSubnetsResponse</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.DeleteSubnetsResponse.subnets"><code class="docutils literal notranslate"><span class="pre">DeleteSubnetsResponse.subnets</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.DeleteVPCRequest"><code class="docutils literal notranslate"><span class="pre">DeleteVPCRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.DeleteVPCRequest.region"><code class="docutils literal notranslate"><span class="pre">DeleteVPCRequest.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.DeleteVPCRequest.vpc_id"><code class="docutils literal notranslate"><span class="pre">DeleteVPCRequest.vpc_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.EnableDHCPRequest"><code class="docutils literal notranslate"><span class="pre">EnableDHCPRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.EnableDHCPRequest.private_network_id"><code class="docutils literal notranslate"><span class="pre">EnableDHCPRequest.private_network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.EnableDHCPRequest.region"><code class="docutils literal notranslate"><span class="pre">EnableDHCPRequest.region</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.EnableRoutingRequest"><code class="docutils literal notranslate"><span class="pre">EnableRoutingRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.EnableRoutingRequest.region"><code class="docutils literal notranslate"><span class="pre">EnableRoutingRequest.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.EnableRoutingRequest.vpc_id"><code class="docutils literal notranslate"><span class="pre">EnableRoutingRequest.vpc_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.GetPrivateNetworkRequest"><code class="docutils literal notranslate"><span class="pre">GetPrivateNetworkRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.GetPrivateNetworkRequest.private_network_id"><code class="docutils literal notranslate"><span class="pre">GetPrivateNetworkRequest.private_network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.GetPrivateNetworkRequest.region"><code class="docutils literal notranslate"><span class="pre">GetPrivateNetworkRequest.region</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.GetRouteRequest"><code class="docutils literal notranslate"><span class="pre">GetRouteRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.GetRouteRequest.region"><code class="docutils literal notranslate"><span class="pre">GetRouteRequest.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.GetRouteRequest.route_id"><code class="docutils literal notranslate"><span class="pre">GetRouteRequest.route_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.GetVPCRequest"><code class="docutils literal notranslate"><span class="pre">GetVPCRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.GetVPCRequest.region"><code class="docutils literal notranslate"><span class="pre">GetVPCRequest.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.GetVPCRequest.vpc_id"><code class="docutils literal notranslate"><span class="pre">GetVPCRequest.vpc_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListPrivateNetworksRequest"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListPrivateNetworksRequest.dhcp_enabled"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.dhcp_enabled</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListPrivateNetworksRequest.name"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListPrivateNetworksRequest.order_by"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.order_by</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListPrivateNetworksRequest.organization_id"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.organization_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListPrivateNetworksRequest.page"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.page</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListPrivateNetworksRequest.page_size"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.page_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListPrivateNetworksRequest.private_network_ids"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.private_network_ids</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListPrivateNetworksRequest.project_id"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.project_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListPrivateNetworksRequest.region"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListPrivateNetworksRequest.tags"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.tags</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListPrivateNetworksRequest.vpc_id"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.vpc_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListPrivateNetworksRequestOrderBy"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequestOrderBy</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListPrivateNetworksRequestOrderBy.CREATED_AT_ASC"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequestOrderBy.CREATED_AT_ASC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListPrivateNetworksRequestOrderBy.CREATED_AT_DESC"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequestOrderBy.CREATED_AT_DESC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListPrivateNetworksRequestOrderBy.NAME_ASC"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequestOrderBy.NAME_ASC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListPrivateNetworksRequestOrderBy.NAME_DESC"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequestOrderBy.NAME_DESC</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListPrivateNetworksResponse"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksResponse</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListPrivateNetworksResponse.private_networks"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksResponse.private_networks</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListPrivateNetworksResponse.total_count"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksResponse.total_count</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListSubnetsRequest"><code class="docutils literal notranslate"><span class="pre">ListSubnetsRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListSubnetsRequest.order_by"><code class="docutils literal notranslate"><span class="pre">ListSubnetsRequest.order_by</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListSubnetsRequest.organization_id"><code class="docutils literal notranslate"><span class="pre">ListSubnetsRequest.organization_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListSubnetsRequest.page"><code class="docutils literal notranslate"><span class="pre">ListSubnetsRequest.page</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListSubnetsRequest.page_size"><code class="docutils literal notranslate"><span class="pre">ListSubnetsRequest.page_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListSubnetsRequest.project_id"><code class="docutils literal notranslate"><span class="pre">ListSubnetsRequest.project_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListSubnetsRequest.region"><code class="docutils literal notranslate"><span class="pre">ListSubnetsRequest.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListSubnetsRequest.subnet_ids"><code class="docutils literal notranslate"><span class="pre">ListSubnetsRequest.subnet_ids</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListSubnetsRequest.vpc_id"><code class="docutils literal notranslate"><span class="pre">ListSubnetsRequest.vpc_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListSubnetsRequestOrderBy"><code class="docutils literal notranslate"><span class="pre">ListSubnetsRequestOrderBy</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListSubnetsRequestOrderBy.CREATED_AT_ASC"><code class="docutils literal notranslate"><span class="pre">ListSubnetsRequestOrderBy.CREATED_AT_ASC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListSubnetsRequestOrderBy.CREATED_AT_DESC"><code class="docutils literal notranslate"><span class="pre">ListSubnetsRequestOrderBy.CREATED_AT_DESC</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListSubnetsResponse"><code class="docutils literal notranslate"><span class="pre">ListSubnetsResponse</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListSubnetsResponse.subnets"><code class="docutils literal notranslate"><span class="pre">ListSubnetsResponse.subnets</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListSubnetsResponse.total_count"><code class="docutils literal notranslate"><span class="pre">ListSubnetsResponse.total_count</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListVPCsRequest"><code class="docutils literal notranslate"><span class="pre">ListVPCsRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListVPCsRequest.is_default"><code class="docutils literal notranslate"><span class="pre">ListVPCsRequest.is_default</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListVPCsRequest.name"><code class="docutils literal notranslate"><span class="pre">ListVPCsRequest.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListVPCsRequest.order_by"><code class="docutils literal notranslate"><span class="pre">ListVPCsRequest.order_by</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListVPCsRequest.organization_id"><code class="docutils literal notranslate"><span class="pre">ListVPCsRequest.organization_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListVPCsRequest.page"><code class="docutils literal notranslate"><span class="pre">ListVPCsRequest.page</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListVPCsRequest.page_size"><code class="docutils literal notranslate"><span class="pre">ListVPCsRequest.page_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListVPCsRequest.project_id"><code class="docutils literal notranslate"><span class="pre">ListVPCsRequest.project_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListVPCsRequest.region"><code class="docutils literal notranslate"><span class="pre">ListVPCsRequest.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListVPCsRequest.routing_enabled"><code class="docutils literal notranslate"><span class="pre">ListVPCsRequest.routing_enabled</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListVPCsRequest.tags"><code class="docutils literal notranslate"><span class="pre">ListVPCsRequest.tags</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListVPCsRequestOrderBy"><code class="docutils literal notranslate"><span class="pre">ListVPCsRequestOrderBy</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListVPCsRequestOrderBy.CREATED_AT_ASC"><code class="docutils literal notranslate"><span class="pre">ListVPCsRequestOrderBy.CREATED_AT_ASC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListVPCsRequestOrderBy.CREATED_AT_DESC"><code class="docutils literal notranslate"><span class="pre">ListVPCsRequestOrderBy.CREATED_AT_DESC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListVPCsRequestOrderBy.NAME_ASC"><code class="docutils literal notranslate"><span class="pre">ListVPCsRequestOrderBy.NAME_ASC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListVPCsRequestOrderBy.NAME_DESC"><code class="docutils literal notranslate"><span class="pre">ListVPCsRequestOrderBy.NAME_DESC</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListVPCsResponse"><code class="docutils literal notranslate"><span class="pre">ListVPCsResponse</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListVPCsResponse.total_count"><code class="docutils literal notranslate"><span class="pre">ListVPCsResponse.total_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.ListVPCsResponse.vpcs"><code class="docutils literal notranslate"><span class="pre">ListVPCsResponse.vpcs</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.PrivateNetwork"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.PrivateNetwork.created_at"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.created_at</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.PrivateNetwork.dhcp_enabled"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.dhcp_enabled</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.PrivateNetwork.id"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.PrivateNetwork.name"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.PrivateNetwork.organization_id"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.organization_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.PrivateNetwork.project_id"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.project_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.PrivateNetwork.region"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.PrivateNetwork.subnets"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.subnets</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.PrivateNetwork.tags"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.tags</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.PrivateNetwork.updated_at"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.updated_at</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.PrivateNetwork.vpc_id"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.vpc_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.Route"><code class="docutils literal notranslate"><span class="pre">Route</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.Route.created_at"><code class="docutils literal notranslate"><span class="pre">Route.created_at</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.Route.description"><code class="docutils literal notranslate"><span class="pre">Route.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.Route.destination"><code class="docutils literal notranslate"><span class="pre">Route.destination</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.Route.id"><code class="docutils literal notranslate"><span class="pre">Route.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.Route.is_read_only"><code class="docutils literal notranslate"><span class="pre">Route.is_read_only</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.Route.nexthop_private_network_id"><code class="docutils literal notranslate"><span class="pre">Route.nexthop_private_network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.Route.nexthop_resource_id"><code class="docutils literal notranslate"><span class="pre">Route.nexthop_resource_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.Route.region"><code class="docutils literal notranslate"><span class="pre">Route.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.Route.tags"><code class="docutils literal notranslate"><span class="pre">Route.tags</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.Route.updated_at"><code class="docutils literal notranslate"><span class="pre">Route.updated_at</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.Route.vpc_id"><code class="docutils literal notranslate"><span class="pre">Route.vpc_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.SetSubnetsRequest"><code class="docutils literal notranslate"><span class="pre">SetSubnetsRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.SetSubnetsRequest.private_network_id"><code class="docutils literal notranslate"><span class="pre">SetSubnetsRequest.private_network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.SetSubnetsRequest.region"><code class="docutils literal notranslate"><span class="pre">SetSubnetsRequest.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.SetSubnetsRequest.subnets"><code class="docutils literal notranslate"><span class="pre">SetSubnetsRequest.subnets</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.SetSubnetsResponse"><code class="docutils literal notranslate"><span class="pre">SetSubnetsResponse</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.SetSubnetsResponse.subnets"><code class="docutils literal notranslate"><span class="pre">SetSubnetsResponse.subnets</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.Subnet"><code class="docutils literal notranslate"><span class="pre">Subnet</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.Subnet.created_at"><code class="docutils literal notranslate"><span class="pre">Subnet.created_at</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.Subnet.id"><code class="docutils literal notranslate"><span class="pre">Subnet.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.Subnet.private_network_id"><code class="docutils literal notranslate"><span class="pre">Subnet.private_network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.Subnet.project_id"><code class="docutils literal notranslate"><span class="pre">Subnet.project_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.Subnet.subnet"><code class="docutils literal notranslate"><span class="pre">Subnet.subnet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.Subnet.updated_at"><code class="docutils literal notranslate"><span class="pre">Subnet.updated_at</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.Subnet.vpc_id"><code class="docutils literal notranslate"><span class="pre">Subnet.vpc_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.UpdatePrivateNetworkRequest"><code class="docutils literal notranslate"><span class="pre">UpdatePrivateNetworkRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.UpdatePrivateNetworkRequest.name"><code class="docutils literal notranslate"><span class="pre">UpdatePrivateNetworkRequest.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.UpdatePrivateNetworkRequest.private_network_id"><code class="docutils literal notranslate"><span class="pre">UpdatePrivateNetworkRequest.private_network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.UpdatePrivateNetworkRequest.region"><code class="docutils literal notranslate"><span class="pre">UpdatePrivateNetworkRequest.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.UpdatePrivateNetworkRequest.tags"><code class="docutils literal notranslate"><span class="pre">UpdatePrivateNetworkRequest.tags</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.UpdateRouteRequest"><code class="docutils literal notranslate"><span class="pre">UpdateRouteRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.UpdateRouteRequest.description"><code class="docutils literal notranslate"><span class="pre">UpdateRouteRequest.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.UpdateRouteRequest.destination"><code class="docutils literal notranslate"><span class="pre">UpdateRouteRequest.destination</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.UpdateRouteRequest.nexthop_private_network_id"><code class="docutils literal notranslate"><span class="pre">UpdateRouteRequest.nexthop_private_network_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.UpdateRouteRequest.nexthop_resource_id"><code class="docutils literal notranslate"><span class="pre">UpdateRouteRequest.nexthop_resource_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.UpdateRouteRequest.region"><code class="docutils literal notranslate"><span class="pre">UpdateRouteRequest.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.UpdateRouteRequest.route_id"><code class="docutils literal notranslate"><span class="pre">UpdateRouteRequest.route_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.UpdateRouteRequest.tags"><code class="docutils literal notranslate"><span class="pre">UpdateRouteRequest.tags</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.UpdateVPCRequest"><code class="docutils literal notranslate"><span class="pre">UpdateVPCRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.UpdateVPCRequest.name"><code class="docutils literal notranslate"><span class="pre">UpdateVPCRequest.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.UpdateVPCRequest.region"><code class="docutils literal notranslate"><span class="pre">UpdateVPCRequest.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.UpdateVPCRequest.tags"><code class="docutils literal notranslate"><span class="pre">UpdateVPCRequest.tags</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.UpdateVPCRequest.vpc_id"><code class="docutils literal notranslate"><span class="pre">UpdateVPCRequest.vpc_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.VPC"><code class="docutils literal notranslate"><span class="pre">VPC</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.VPC.created_at"><code class="docutils literal notranslate"><span class="pre">VPC.created_at</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.VPC.id"><code class="docutils literal notranslate"><span class="pre">VPC.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.VPC.is_default"><code class="docutils literal notranslate"><span class="pre">VPC.is_default</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.VPC.name"><code class="docutils literal notranslate"><span class="pre">VPC.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.VPC.organization_id"><code class="docutils literal notranslate"><span class="pre">VPC.organization_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.VPC.private_network_count"><code class="docutils literal notranslate"><span class="pre">VPC.private_network_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.VPC.project_id"><code class="docutils literal notranslate"><span class="pre">VPC.project_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.VPC.region"><code class="docutils literal notranslate"><span class="pre">VPC.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.VPC.routing_enabled"><code class="docutils literal notranslate"><span class="pre">VPC.routing_enabled</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.VPC.tags"><code class="docutils literal notranslate"><span class="pre">VPC.tags</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.VPC.updated_at"><code class="docutils literal notranslate"><span class="pre">VPC.updated_at</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.VpcV2API"><code class="docutils literal notranslate"><span class="pre">VpcV2API</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.VpcV2API.add_subnets"><code class="docutils literal notranslate"><span class="pre">VpcV2API.add_subnets()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.VpcV2API.create_private_network"><code class="docutils literal notranslate"><span class="pre">VpcV2API.create_private_network()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.VpcV2API.create_route"><code class="docutils literal notranslate"><span class="pre">VpcV2API.create_route()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.VpcV2API.create_vpc"><code class="docutils literal notranslate"><span class="pre">VpcV2API.create_vpc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.VpcV2API.delete_private_network"><code class="docutils literal notranslate"><span class="pre">VpcV2API.delete_private_network()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.VpcV2API.delete_route"><code class="docutils literal notranslate"><span class="pre">VpcV2API.delete_route()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.VpcV2API.delete_subnets"><code class="docutils literal notranslate"><span class="pre">VpcV2API.delete_subnets()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.VpcV2API.delete_vpc"><code class="docutils literal notranslate"><span class="pre">VpcV2API.delete_vpc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.VpcV2API.enable_dhcp"><code class="docutils literal notranslate"><span class="pre">VpcV2API.enable_dhcp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.VpcV2API.enable_routing"><code class="docutils literal notranslate"><span class="pre">VpcV2API.enable_routing()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.VpcV2API.get_private_network"><code class="docutils literal notranslate"><span class="pre">VpcV2API.get_private_network()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.VpcV2API.get_route"><code class="docutils literal notranslate"><span class="pre">VpcV2API.get_route()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.VpcV2API.get_vpc"><code class="docutils literal notranslate"><span class="pre">VpcV2API.get_vpc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.VpcV2API.list_private_networks"><code class="docutils literal notranslate"><span class="pre">VpcV2API.list_private_networks()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.VpcV2API.list_private_networks_all"><code class="docutils literal notranslate"><span class="pre">VpcV2API.list_private_networks_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.VpcV2API.list_subnets"><code class="docutils literal notranslate"><span class="pre">VpcV2API.list_subnets()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.VpcV2API.list_subnets_all"><code class="docutils literal notranslate"><span class="pre">VpcV2API.list_subnets_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.VpcV2API.list_vp_cs"><code class="docutils literal notranslate"><span class="pre">VpcV2API.list_vp_cs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.VpcV2API.list_vp_cs_all"><code class="docutils literal notranslate"><span class="pre">VpcV2API.list_vp_cs_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.VpcV2API.set_subnets"><code class="docutils literal notranslate"><span class="pre">VpcV2API.set_subnets()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.VpcV2API.update_private_network"><code class="docutils literal notranslate"><span class="pre">VpcV2API.update_private_network()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.VpcV2API.update_route"><code class="docutils literal notranslate"><span class="pre">VpcV2API.update_route()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#scaleway.vpc.v2.VpcV2API.update_vpc"><code class="docutils literal notranslate"><span class="pre">VpcV2API.update_vpc()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="module-scaleway.vpc">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-scaleway.vpc" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Scaleway.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

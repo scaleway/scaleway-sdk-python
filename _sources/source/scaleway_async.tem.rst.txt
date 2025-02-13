@@ -1,0 +1,18 @@
+scaleway\_async.tem package
+===========================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway_async.tem.v1alpha1
+
+Module contents
+---------------
+
+.. automodule:: scaleway_async.tem
+   :members:
+   :undoc-members:
+   :show-inheritance:
