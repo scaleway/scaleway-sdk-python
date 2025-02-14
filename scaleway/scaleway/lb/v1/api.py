@@ -1515,6 +1515,7 @@ class LbV1ZonedAPI(API):
         timeout_client: Optional[str] = None,
         certificate_id: Optional[str] = None,
         certificate_ids: Optional[List[str]] = None,
+        connection_rate_limit: Optional[int] = None,
     ) -> Frontend:
         """
         Create a frontend in a given Load Balancer.
@@ -1528,6 +1529,7 @@ class LbV1ZonedAPI(API):
         :param timeout_client: Maximum allowed inactivity time on the client side.
         :param certificate_id: Certificate ID, deprecated in favor of certificate_ids array.
         :param certificate_ids: List of SSL/TLS certificate IDs to bind to the frontend.
+        :param connection_rate_limit: Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second.
         :return: :class:`Frontend <Frontend>`
 
         Usage:
@@ -1558,6 +1560,7 @@ class LbV1ZonedAPI(API):
                     timeout_client=timeout_client,
                     certificate_id=certificate_id,
                     certificate_ids=certificate_ids,
+                    connection_rate_limit=connection_rate_limit,
                 ),
                 self.client,
             ),
@@ -1610,6 +1613,7 @@ class LbV1ZonedAPI(API):
         timeout_client: Optional[str] = None,
         certificate_id: Optional[str] = None,
         certificate_ids: Optional[List[str]] = None,
+        connection_rate_limit: Optional[int] = None,
     ) -> Frontend:
         """
         Update a frontend.
@@ -1623,6 +1627,7 @@ class LbV1ZonedAPI(API):
         :param timeout_client: Maximum allowed inactivity time on the client side.
         :param certificate_id: Certificate ID, deprecated in favor of certificate_ids array.
         :param certificate_ids: List of SSL/TLS certificate IDs to bind to the frontend.
+        :param connection_rate_limit: Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second.
         :return: :class:`Frontend <Frontend>`
 
         Usage:
@@ -1654,6 +1659,7 @@ class LbV1ZonedAPI(API):
                     timeout_client=timeout_client,
                     certificate_id=certificate_id,
                     certificate_ids=certificate_ids,
+                    connection_rate_limit=connection_rate_limit,
                 ),
                 self.client,
             ),
@@ -4547,6 +4553,7 @@ class LbV1API(API):
         timeout_client: Optional[str] = None,
         certificate_id: Optional[str] = None,
         certificate_ids: Optional[List[str]] = None,
+        connection_rate_limit: Optional[int] = None,
     ) -> Frontend:
         """
         Create a frontend in a given load balancer.
@@ -4559,6 +4566,7 @@ class LbV1API(API):
         :param timeout_client: Maximum allowed inactivity time on the client side.
         :param certificate_id: Certificate ID, deprecated in favor of certificate_ids array.
         :param certificate_ids: List of SSL/TLS certificate IDs to bind to the frontend.
+        :param connection_rate_limit: Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second.
         :return: :class:`Frontend <Frontend>`
 
         Usage:
@@ -4591,6 +4599,7 @@ class LbV1API(API):
                     timeout_client=timeout_client,
                     certificate_id=certificate_id,
                     certificate_ids=certificate_ids,
+                    connection_rate_limit=connection_rate_limit,
                 ),
                 self.client,
             ),
@@ -4644,6 +4653,7 @@ class LbV1API(API):
         timeout_client: Optional[str] = None,
         certificate_id: Optional[str] = None,
         certificate_ids: Optional[List[str]] = None,
+        connection_rate_limit: Optional[int] = None,
     ) -> Frontend:
         """
         Update a frontend.
@@ -4656,6 +4666,7 @@ class LbV1API(API):
         :param timeout_client: Maximum allowed inactivity time on the client side.
         :param certificate_id: Certificate ID, deprecated in favor of certificate_ids array.
         :param certificate_ids: List of SSL/TLS certificate IDs to bind to the frontend.
+        :param connection_rate_limit: Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second.
         :return: :class:`Frontend <Frontend>`
 
         Usage:
@@ -4689,6 +4700,7 @@ class LbV1API(API):
                     timeout_client=timeout_client,
                     certificate_id=certificate_id,
                     certificate_ids=certificate_ids,
+                    connection_rate_limit=connection_rate_limit,
                 ),
                 self.client,
             ),
