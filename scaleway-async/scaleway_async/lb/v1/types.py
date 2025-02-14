@@ -944,6 +944,11 @@ class Frontend:
     Date on which the frontend was last updated.
     """
 
+    connection_rate_limit: Optional[int]
+    """
+    Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second.
+    """
+
 
 @dataclass
 class PrivateNetworkDHCPConfig:
@@ -1474,6 +1479,11 @@ class CreateFrontendRequest:
     certificate_ids: Optional[List[str]]
     """
     List of SSL/TLS certificate IDs to bind to the frontend.
+    """
+
+    connection_rate_limit: Optional[int]
+    """
+    Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second.
     """
 
 
@@ -2680,6 +2690,11 @@ class UpdateFrontendRequest:
     List of SSL/TLS certificate IDs to bind to the frontend.
     """
 
+    connection_rate_limit: Optional[int]
+    """
+    Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second.
+    """
+
 
 @dataclass
 class UpdateHealthCheckRequest:
@@ -3118,6 +3133,11 @@ class ZonedApiCreateFrontendRequest:
     certificate_ids: Optional[List[str]]
     """
     List of SSL/TLS certificate IDs to bind to the frontend.
+    """
+
+    connection_rate_limit: Optional[int]
+    """
+    Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second.
     """
 
 
@@ -4176,6 +4196,11 @@ class ZonedApiUpdateFrontendRequest:
     certificate_ids: Optional[List[str]]
     """
     List of SSL/TLS certificate IDs to bind to the frontend.
+    """
+
+    connection_rate_limit: Optional[int]
+    """
+    Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second.
     """
 
 
