@@ -22,14 +22,12 @@ from .types import (
     GetConfigResponseRetention,
     GetConfigResponse,
     Grafana,
-    AnyAlert,
+    Alert,
     ListAlertsResponse,
     ListContactPointsResponse,
     ListDataSourcesResponse,
     ListGrafanaProductDashboardsResponse,
     ListGrafanaUsersResponse,
-    Alert,
-    ListManagedAlertsResponse,
     ListPlansResponse,
     ListTokensResponse,
     Usage,
@@ -417,10 +415,10 @@ def unmarshal_Grafana(data: Any) -> Grafana:
     return Grafana(**args)
 
 
-def unmarshal_AnyAlert(data: Any) -> AnyAlert:
+def unmarshal_Alert(data: Any) -> Alert:
     if not isinstance(data, dict):
         raise TypeError(
-            "Unmarshalling the type 'AnyAlert' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Alert' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -445,15 +443,21 @@ def unmarshal_AnyAlert(data: Any) -> AnyAlert:
     if field is not None:
         args["duration"] = field
 
-    field = data.get("state", None)
+    field = data.get("enabled", None)
     if field is not None:
-        args["state"] = field
+        args["enabled"] = field
 
     field = data.get("annotations", None)
     if field is not None:
         args["annotations"] = field
 
-    return AnyAlert(**args)
+    field = data.get("state", None)
+    if field is not None:
+        args["state"] = field
+    else:
+        args["state"] = None
+
+    return Alert(**args)
 
 
 def unmarshal_ListAlertsResponse(data: Any) -> ListAlertsResponse:
@@ -471,7 +475,7 @@ def unmarshal_ListAlertsResponse(data: Any) -> ListAlertsResponse:
     field = data.get("alerts", None)
     if field is not None:
         args["alerts"] = (
-            [unmarshal_AnyAlert(v) for v in field] if field is not None else None
+            [unmarshal_Alert(v) for v in field] if field is not None else None
         )
 
     return ListAlertsResponse(**args)
@@ -571,58 +575,6 @@ def unmarshal_ListGrafanaUsersResponse(data: Any) -> ListGrafanaUsersResponse:
         )
 
     return ListGrafanaUsersResponse(**args)
-
-
-def unmarshal_Alert(data: Any) -> Alert:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'Alert' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("product_family", None)
-    if field is not None:
-        args["product_family"] = field
-
-    field = data.get("product", None)
-    if field is not None:
-        args["product"] = field
-
-    field = data.get("name", None)
-    if field is not None:
-        args["name"] = field
-
-    field = data.get("rule", None)
-    if field is not None:
-        args["rule"] = field
-
-    field = data.get("description", None)
-    if field is not None:
-        args["description"] = field
-
-    return Alert(**args)
-
-
-def unmarshal_ListManagedAlertsResponse(data: Any) -> ListManagedAlertsResponse:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'ListManagedAlertsResponse' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("total_count", None)
-    if field is not None:
-        args["total_count"] = field
-
-    field = data.get("alerts", None)
-    if field is not None:
-        args["alerts"] = (
-            [unmarshal_Alert(v) for v in field] if field is not None else None
-        )
-
-    return ListManagedAlertsResponse(**args)
 
 
 def unmarshal_ListPlansResponse(data: Any) -> ListPlansResponse:

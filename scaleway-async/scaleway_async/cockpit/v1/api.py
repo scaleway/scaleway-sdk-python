@@ -12,18 +12,16 @@ from scaleway_core.utils import (
     fetch_all_pages_async,
 )
 from .types import (
-    AnyAlertState,
+    AlertState,
     DataSourceOrigin,
     DataSourceType,
     GrafanaUserRole,
     ListDataSourcesRequestOrderBy,
     ListGrafanaUsersRequestOrderBy,
-    ListManagedAlertsRequestOrderBy,
     ListPlansRequestOrderBy,
     ListTokensRequestOrderBy,
     PlanName,
     TokenScope,
-    Alert,
     AlertManager,
     ContactPoint,
     ContactPointEmail,
@@ -41,7 +39,6 @@ from .types import (
     ListDataSourcesResponse,
     ListGrafanaProductDashboardsResponse,
     ListGrafanaUsersResponse,
-    ListManagedAlertsResponse,
     ListPlansResponse,
     ListTokensResponse,
     Plan,
@@ -74,7 +71,6 @@ from .marshalling import (
     unmarshal_ListDataSourcesResponse,
     unmarshal_ListGrafanaProductDashboardsResponse,
     unmarshal_ListGrafanaUsersResponse,
-    unmarshal_ListManagedAlertsResponse,
     unmarshal_ListPlansResponse,
     unmarshal_ListTokensResponse,
     unmarshal_UsageOverview,
@@ -1434,87 +1430,6 @@ class CockpitV1RegionalAPI(API):
 
         self._throw_on_error(res)
 
-    async def list_managed_alerts(
-        self,
-        *,
-        region: Optional[ScwRegion] = None,
-        page: Optional[int] = None,
-        page_size: Optional[int] = None,
-        order_by: Optional[ListManagedAlertsRequestOrderBy] = None,
-        project_id: Optional[str] = None,
-    ) -> ListManagedAlertsResponse:
-        """
-        List managed alerts.
-        List all managed alerts for the specified Project.
-        :param region: Region to target. If none is passed will use default region from the config.
-        :param page: Page number to return, from the paginated results.
-        :param page_size: Number of data sources to return per page.
-        :param order_by: Sort order for data sources in the response.
-        :param project_id: Project ID to filter for, only data sources from this Project will be returned.
-        :return: :class:`ListManagedAlertsResponse <ListManagedAlertsResponse>`
-
-        Usage:
-        ::
-
-            result = await api.list_managed_alerts()
-        """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-
-        res = self._request(
-            "GET",
-            f"/cockpit/v1/regions/{param_region}/managed-alerts",
-            params={
-                "order_by": order_by,
-                "page": page,
-                "page_size": page_size or self.client.default_page_size,
-                "project_id": project_id or self.client.default_project_id,
-            },
-        )
-
-        self._throw_on_error(res)
-        return unmarshal_ListManagedAlertsResponse(res.json())
-
-    async def list_managed_alerts_all(
-        self,
-        *,
-        region: Optional[ScwRegion] = None,
-        page: Optional[int] = None,
-        page_size: Optional[int] = None,
-        order_by: Optional[ListManagedAlertsRequestOrderBy] = None,
-        project_id: Optional[str] = None,
-    ) -> List[Alert]:
-        """
-        List managed alerts.
-        List all managed alerts for the specified Project.
-        :param region: Region to target. If none is passed will use default region from the config.
-        :param page: Page number to return, from the paginated results.
-        :param page_size: Number of data sources to return per page.
-        :param order_by: Sort order for data sources in the response.
-        :param project_id: Project ID to filter for, only data sources from this Project will be returned.
-        :return: :class:`List[Alert] <List[Alert]>`
-
-        Usage:
-        ::
-
-            result = await api.list_managed_alerts_all()
-        """
-
-        return await fetch_all_pages_async(
-            type=ListManagedAlertsResponse,
-            key="alerts",
-            fetcher=self.list_managed_alerts,
-            args={
-                "region": region,
-                "page": page,
-                "page_size": page_size,
-                "order_by": order_by,
-                "project_id": project_id,
-            },
-        )
-
     async def list_alerts(
         self,
         *,
@@ -1522,7 +1437,7 @@ class CockpitV1RegionalAPI(API):
         project_id: Optional[str] = None,
         is_enabled: Optional[bool] = None,
         is_preconfigured: Optional[bool] = None,
-        state: Optional[AnyAlertState] = None,
+        state: Optional[AlertState] = None,
     ) -> ListAlertsResponse:
         """
         List alerts.
