@@ -15,6 +15,7 @@ from .types import (
     ServerTypeMemory,
     ServerTypeNetwork,
     ServerType,
+    Commitment,
     Server,
     ConnectivityDiagnosticServerHealth,
     ConnectivityDiagnostic,
@@ -29,6 +30,7 @@ from .types import (
     PrivateNetworkApiSetServerPrivateNetworksRequest,
     ReinstallServerRequest,
     StartConnectivityDiagnosticRequest,
+    CommitmentTypeValue,
     UpdateServerRequest,
 )
 
@@ -285,6 +287,25 @@ def unmarshal_ServerType(data: Any) -> ServerType:
     return ServerType(**args)
 
 
+def unmarshal_Commitment(data: Any) -> Commitment:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Commitment' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("type", None)
+    if field is not None:
+        args["type_"] = field
+
+    field = data.get("cancelled", None)
+    if field is not None:
+        args["cancelled"] = field
+
+    return Commitment(**args)
+
+
 def unmarshal_Server(data: Any) -> Server:
     if not isinstance(data, dict):
         raise TypeError(
@@ -337,22 +358,6 @@ def unmarshal_Server(data: Any) -> Server:
     if field is not None:
         args["status"] = field
 
-    field = data.get("deletion_scheduled", None)
-    if field is not None:
-        args["deletion_scheduled"] = field
-
-    field = data.get("zone", None)
-    if field is not None:
-        args["zone"] = field
-
-    field = data.get("delivered", None)
-    if field is not None:
-        args["delivered"] = field
-
-    field = data.get("vpc_status", None)
-    if field is not None:
-        args["vpc_status"] = field
-
     field = data.get("os", None)
     if field is not None:
         args["os"] = unmarshal_OS(field)
@@ -378,6 +383,28 @@ def unmarshal_Server(data: Any) -> Server:
         )
     else:
         args["deletable_at"] = None
+
+    field = data.get("deletion_scheduled", None)
+    if field is not None:
+        args["deletion_scheduled"] = field
+
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+
+    field = data.get("delivered", None)
+    if field is not None:
+        args["delivered"] = field
+
+    field = data.get("vpc_status", None)
+    if field is not None:
+        args["vpc_status"] = field
+
+    field = data.get("commitment", None)
+    if field is not None:
+        args["commitment"] = unmarshal_Commitment(field)
+    else:
+        args["commitment"] = None
 
     return Server(**args)
 
@@ -605,6 +632,9 @@ def marshal_CreateServerRequest(
     if request.os_id is not None:
         output["os_id"] = request.os_id
 
+    if request.commitment_type is not None:
+        output["commitment_type"] = str(request.commitment_type)
+
     return output
 
 
@@ -661,6 +691,18 @@ def marshal_StartConnectivityDiagnosticRequest(
     return output
 
 
+def marshal_CommitmentTypeValue(
+    request: CommitmentTypeValue,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.commitment_type is not None:
+        output["commitment_type"] = str(request.commitment_type)
+
+    return output
+
+
 def marshal_UpdateServerRequest(
     request: UpdateServerRequest,
     defaults: ProfileDefaults,
@@ -675,5 +717,10 @@ def marshal_UpdateServerRequest(
 
     if request.enable_vpc is not None:
         output["enable_vpc"] = request.enable_vpc
+
+    if request.commitment_type is not None:
+        output["commitment_type"] = marshal_CommitmentTypeValue(
+            request.commitment_type, defaults
+        )
 
     return output
