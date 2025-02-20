@@ -83,6 +83,7 @@ class SecretVersionStatus(str, Enum, metaclass=StrEnumMeta):
     ENABLED = "enabled"
     DISABLED = "disabled"
     DELETED = "deleted"
+    SCHEDULED_FOR_DELETION = "scheduled_for_deletion"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -174,6 +175,7 @@ class SecretVersion:
     * `unknown_status`: the version is in an invalid state.
 * `enabled`: the version is accessible.
 * `disabled`: the version is not accessible but can be enabled.
+* `scheduled_for_deletion`: the version is scheduled for deletion. It will be deleted in 7 days.
 * `deleted`: the version is permanently deleted. It is not possible to recover it.
     """
 
@@ -205,6 +207,11 @@ class SecretVersion:
     ephemeral_properties: Optional[EphemeralProperties]
     """
     Returns the version's expiration date, whether it expires after being accessed once, and the action to perform (disable or delete) once the version expires.
+    """
+
+    deletion_requested_at: Optional[datetime]
+    """
+    Returns the time at which deletion was requested.
     """
 
 
@@ -289,6 +296,11 @@ class Secret:
     ephemeral_policy: Optional[EphemeralPolicy]
     """
     (Optional.) Policy that defines whether/when a secret's versions expire. By default, the policy is applied to all the secret's versions.
+    """
+
+    deletion_requested_at: Optional[datetime]
+    """
+    Returns the time at which deletion was requested.
     """
 
 
@@ -792,6 +804,11 @@ class ListSecretsRequest:
     Filter by secret type (optional).
     """
 
+    scheduled_for_deletion: Optional[bool]
+    """
+    Filter by whether the secret was scheduled for deletion / not scheduled for deletion (optional).
+    """
+
 
 @dataclass
 class ListSecretsResponse:
@@ -842,6 +859,28 @@ class ProtectSecretRequest:
     """
     ID of the secret to enable secret protection for.
     """
+
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class RestoreSecretRequest:
+    secret_id: str
+
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class RestoreSecretVersionRequest:
+    secret_id: str
+
+    revision: str
 
     region: Optional[ScwRegion]
     """
