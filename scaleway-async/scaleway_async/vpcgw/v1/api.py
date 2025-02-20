@@ -2080,3 +2080,32 @@ class VpcgwV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Gateway(res.json())
+
+    async def migrate_to_v2(
+        self,
+        *,
+        gateway_id: str,
+        zone: Optional[ScwZone] = None,
+    ) -> None:
+        """
+        :param gateway_id:
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+
+        Usage:
+        ::
+
+            result = await api.migrate_to_v2(
+                gateway_id="example",
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_gateway_id = validate_path_param("gateway_id", gateway_id)
+
+        res = self._request(
+            "POST",
+            f"/vpc-gw/v1/zones/{param_zone}/gateways/{param_gateway_id}/migrate-to-v2",
+            body={},
+        )
+
+        self._throw_on_error(res)
