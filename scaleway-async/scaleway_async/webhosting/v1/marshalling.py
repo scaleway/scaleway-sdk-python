@@ -251,6 +251,12 @@ def unmarshal_DnsRecords(data: Any) -> DnsRecords:
     if field is not None:
         args["status"] = field
 
+    field = data.get("dns_config", None)
+    if field is not None:
+        args["dns_config"] = (
+            [DomainDnsAction(v) for v in field] if field is not None else None
+        )
+
     return DnsRecords(**args)
 
 
