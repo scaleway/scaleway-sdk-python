@@ -57,6 +57,7 @@ from .types import ListIPsRequest
 from .types import ListIPsResponse
 from .types import ListPATRulesRequest
 from .types import ListPATRulesResponse
+from .types import MigrateToV2Request
 from .types import RefreshSSHKeysRequest
 from .types import SetDHCPEntriesRequest
 from .types import SetDHCPEntriesResponse
@@ -129,6 +130,7 @@ __all__ = [
     "ListIPsResponse",
     "ListPATRulesRequest",
     "ListPATRulesResponse",
+    "MigrateToV2Request",
     "RefreshSSHKeysRequest",
     "SetDHCPEntriesRequest",
     "SetDHCPEntriesResponse",

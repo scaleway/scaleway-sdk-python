@@ -1441,6 +1441,16 @@ class ListPATRulesResponse:
 
 
 @dataclass
+class MigrateToV2Request:
+    gateway_id: str
+
+    zone: Optional[ScwZone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
 class RefreshSSHKeysRequest:
     gateway_id: str
     """
