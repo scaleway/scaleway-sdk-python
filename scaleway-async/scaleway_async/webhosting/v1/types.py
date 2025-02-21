@@ -579,11 +579,6 @@ class HostingSummary:
     ID of the Scaleway Project the Web Hosting plan belongs to.
     """
 
-    status: HostingSummaryStatus
-    """
-    Status of the Web Hosting plan.
-    """
-
     domain: str
     """
     Main domain associated with the Web Hosting plan.
@@ -594,14 +589,19 @@ class HostingSummary:
     Whether the hosting is protected or not.
     """
 
-    dns_status: DnsRecordsStatus
-    """
-    DNS status of the Web Hosting plan.
-    """
-
     offer_name: str
     """
     Name of the active offer for the Web Hosting plan.
+    """
+
+    hosting_status: HostingStatus
+    """
+    Status of the Web Hosting plan.
+    """
+
+    domain_status: DomainStatus
+    """
+    Main domain status of the Web Hosting plan.
     """
 
     region: ScwRegion
@@ -617,6 +617,16 @@ class HostingSummary:
     updated_at: Optional[datetime]
     """
     Date on which the Web Hosting plan was last updated.
+    """
+
+    status: Optional[HostingSummaryStatus]
+    """
+    Status of the Web Hosting plan.
+    """
+
+    dns_status: Optional[DnsRecordsStatus]
+    """
+    DNS status of the Web Hosting plan.
     """
 
 
@@ -1232,9 +1242,9 @@ class Hosting:
     List of tags associated with the Web Hosting plan.
     """
 
-    dns_status: DnsRecordsStatus
+    ipv4: str
     """
-    DNS status of the Web Hosting plan.
+    Current IPv4 address of the hosting.
     """
 
     updated_at: Optional[datetime]
@@ -1242,9 +1252,9 @@ class Hosting:
     Date on which the Web Hosting plan was last updated.
     """
 
-    ipv4: str
+    created_at: Optional[datetime]
     """
-    Current IPv4 address of the hosting.
+    Date on which the Web Hosting plan was created.
     """
 
     protected: bool
@@ -1252,14 +1262,14 @@ class Hosting:
     Whether the hosting is protected or not.
     """
 
+    domain_status: DomainStatus
+    """
+    Main domain status of the Web Hosting plan.
+    """
+
     region: ScwRegion
     """
     Region where the Web Hosting plan is hosted.
-    """
-
-    created_at: Optional[datetime]
-    """
-    Date on which the Web Hosting plan was created.
     """
 
     offer: Optional[Offer]
@@ -1270,6 +1280,11 @@ class Hosting:
     platform: Optional[Platform]
     """
     Details of the hosting platform.
+    """
+
+    dns_status: Optional[DnsRecordsStatus]
+    """
+    DNS status of the Web Hosting plan.
     """
 
     user: Optional[HostingUser]
