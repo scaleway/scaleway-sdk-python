@@ -1084,6 +1084,11 @@ class DnsRecords:
     Status of the records.
     """
 
+    dns_config: List[DomainDnsAction]
+    """
+    Records dns auto configuration settings.
+    """
+
 
 @dataclass
 class Domain:
