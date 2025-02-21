@@ -1,12 +1,11 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
-from .types import AnyAlertState
+from .types import AlertState
 from .types import DataSourceOrigin
 from .types import DataSourceType
 from .types import GrafanaUserRole
 from .types import ListDataSourcesRequestOrderBy
 from .types import ListGrafanaUsersRequestOrderBy
-from .types import ListManagedAlertsRequestOrderBy
 from .types import ListPlansRequestOrderBy
 from .types import ListTokensRequestOrderBy
 from .types import PlanName
@@ -14,12 +13,11 @@ from .types import TokenScope
 from .types import UsageUnit
 from .types import ContactPointEmail
 from .types import GetConfigResponseRetention
-from .types import AnyAlert
+from .types import Alert
 from .types import ContactPoint
 from .types import DataSource
 from .types import GrafanaProductDashboard
 from .types import GrafanaUser
-from .types import Alert
 from .types import Plan
 from .types import Token
 from .types import Usage
@@ -42,7 +40,6 @@ from .types import ListContactPointsResponse
 from .types import ListDataSourcesResponse
 from .types import ListGrafanaProductDashboardsResponse
 from .types import ListGrafanaUsersResponse
-from .types import ListManagedAlertsResponse
 from .types import ListPlansResponse
 from .types import ListTokensResponse
 from .types import RegionalApiCreateContactPointRequest
@@ -63,7 +60,6 @@ from .types import RegionalApiGetUsageOverviewRequest
 from .types import RegionalApiListAlertsRequest
 from .types import RegionalApiListContactPointsRequest
 from .types import RegionalApiListDataSourcesRequest
-from .types import RegionalApiListManagedAlertsRequest
 from .types import RegionalApiListTokensRequest
 from .types import RegionalApiTriggerTestAlertRequest
 from .types import RegionalApiUpdateContactPointRequest
@@ -73,13 +69,12 @@ from .api import CockpitV1GlobalAPI
 from .api import CockpitV1RegionalAPI
 
 __all__ = [
-    "AnyAlertState",
+    "AlertState",
     "DataSourceOrigin",
     "DataSourceType",
     "GrafanaUserRole",
     "ListDataSourcesRequestOrderBy",
     "ListGrafanaUsersRequestOrderBy",
-    "ListManagedAlertsRequestOrderBy",
     "ListPlansRequestOrderBy",
     "ListTokensRequestOrderBy",
     "PlanName",
@@ -87,12 +82,11 @@ __all__ = [
     "UsageUnit",
     "ContactPointEmail",
     "GetConfigResponseRetention",
-    "AnyAlert",
+    "Alert",
     "ContactPoint",
     "DataSource",
     "GrafanaProductDashboard",
     "GrafanaUser",
-    "Alert",
     "Plan",
     "Token",
     "Usage",
@@ -115,7 +109,6 @@ __all__ = [
     "ListDataSourcesResponse",
     "ListGrafanaProductDashboardsResponse",
     "ListGrafanaUsersResponse",
-    "ListManagedAlertsResponse",
     "ListPlansResponse",
     "ListTokensResponse",
     "RegionalApiCreateContactPointRequest",
@@ -136,7 +129,6 @@ __all__ = [
     "RegionalApiListAlertsRequest",
     "RegionalApiListContactPointsRequest",
     "RegionalApiListDataSourcesRequest",
-    "RegionalApiListManagedAlertsRequest",
     "RegionalApiListTokensRequest",
     "RegionalApiTriggerTestAlertRequest",
     "RegionalApiUpdateContactPointRequest",
