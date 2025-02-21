@@ -1,0 +1,37 @@
+scaleway.interlink.v1beta1 package
+==================================
+
+Submodules
+----------
+
+scaleway.interlink.v1beta1.api module
+-------------------------------------
+
+.. automodule:: scaleway.interlink.v1beta1.api
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway.interlink.v1beta1.marshalling module
+---------------------------------------------
+
+.. automodule:: scaleway.interlink.v1beta1.marshalling
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway.interlink.v1beta1.types module
+---------------------------------------
+
+.. automodule:: scaleway.interlink.v1beta1.types
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: scaleway.interlink.v1beta1
+   :members:
+   :undoc-members:
+   :show-inheritance:

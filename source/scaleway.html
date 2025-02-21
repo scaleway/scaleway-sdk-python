@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scaleway package &mdash; Scaleway Python SDK  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scaleway Python SDK
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">scaleway package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#module-scaleway">Module contents</a><ul>
+<li><a class="reference internal" href="#scaleway.API"><code class="docutils literal notranslate"><span class="pre">API</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.Client"><code class="docutils literal notranslate"><span class="pre">Client</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.Client.from_profile"><code class="docutils literal notranslate"><span class="pre">Client.from_profile()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.Client.validate"><code class="docutils literal notranslate"><span class="pre">Client.validate()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.Client.validate_credentials"><code class="docutils literal notranslate"><span class="pre">Client.validate_credentials()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.Client.validate_settings"><code class="docutils literal notranslate"><span class="pre">Client.validate_settings()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.Money"><code class="docutils literal notranslate"><span class="pre">Money</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.Money.currency_code"><code class="docutils literal notranslate"><span class="pre">Money.currency_code</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.Money.nanos"><code class="docutils literal notranslate"><span class="pre">Money.nanos</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.Money.units"><code class="docutils literal notranslate"><span class="pre">Money.units</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.Profile"><code class="docutils literal notranslate"><span class="pre">Profile</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.Profile.from_config_file"><code class="docutils literal notranslate"><span class="pre">Profile.from_config_file()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.Profile.from_config_file_and_env"><code class="docutils literal notranslate"><span class="pre">Profile.from_config_file_and_env()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.Profile.from_env"><code class="docutils literal notranslate"><span class="pre">Profile.from_env()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.Profile.get_default_config_directory"><code class="docutils literal notranslate"><span class="pre">Profile.get_default_config_directory()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.Profile.get_default_config_file_path"><code class="docutils literal notranslate"><span class="pre">Profile.get_default_config_file_path()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.Profile.merge"><code class="docutils literal notranslate"><span class="pre">Profile.merge()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.ProfileConfig"><code class="docutils literal notranslate"><span class="pre">ProfileConfig</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.ProfileConfig.access_key"><code class="docutils literal notranslate"><span class="pre">ProfileConfig.access_key</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.ProfileConfig.api_allow_insecure"><code class="docutils literal notranslate"><span class="pre">ProfileConfig.api_allow_insecure</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.ProfileConfig.api_url"><code class="docutils literal notranslate"><span class="pre">ProfileConfig.api_url</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.ProfileConfig.secret_key"><code class="docutils literal notranslate"><span class="pre">ProfileConfig.secret_key</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.ProfileConfig.user_agent"><code class="docutils literal notranslate"><span class="pre">ProfileConfig.user_agent</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.ProfileDefaults"><code class="docutils literal notranslate"><span class="pre">ProfileDefaults</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.ProfileDefaults.default_organization_id"><code class="docutils literal notranslate"><span class="pre">ProfileDefaults.default_organization_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.ProfileDefaults.default_page_size"><code class="docutils literal notranslate"><span class="pre">ProfileDefaults.default_page_size</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.ProfileDefaults.default_project_id"><code class="docutils literal notranslate"><span class="pre">ProfileDefaults.default_project_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.ProfileDefaults.default_region"><code class="docutils literal notranslate"><span class="pre">ProfileDefaults.default_region</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.ProfileDefaults.default_zone"><code class="docutils literal notranslate"><span class="pre">ProfileDefaults.default_zone</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.Region"><code class="docutils literal notranslate"><span class="pre">Region</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.ScalewayException"><code class="docutils literal notranslate"><span class="pre">ScalewayException</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.ScalewayException.response"><code class="docutils literal notranslate"><span class="pre">ScalewayException.response</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.ScalewayException.status_code"><code class="docutils literal notranslate"><span class="pre">ScalewayException.status_code</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.ScwFile"><code class="docutils literal notranslate"><span class="pre">ScwFile</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.ScwFile.content"><code class="docutils literal notranslate"><span class="pre">ScwFile.content</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.ScwFile.content_type"><code class="docutils literal notranslate"><span class="pre">ScwFile.content_type</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.ScwFile.name"><code class="docutils literal notranslate"><span class="pre">ScwFile.name</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.ServiceInfo"><code class="docutils literal notranslate"><span class="pre">ServiceInfo</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.ServiceInfo.description"><code class="docutils literal notranslate"><span class="pre">ServiceInfo.description</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.ServiceInfo.documentation_url"><code class="docutils literal notranslate"><span class="pre">ServiceInfo.documentation_url</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.ServiceInfo.name"><code class="docutils literal notranslate"><span class="pre">ServiceInfo.name</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.ServiceInfo.version"><code class="docutils literal notranslate"><span class="pre">ServiceInfo.version</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.TimeSeries"><code class="docutils literal notranslate"><span class="pre">TimeSeries</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.TimeSeries.metadata"><code class="docutils literal notranslate"><span class="pre">TimeSeries.metadata</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.TimeSeries.name"><code class="docutils literal notranslate"><span class="pre">TimeSeries.name</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.TimeSeries.points"><code class="docutils literal notranslate"><span class="pre">TimeSeries.points</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.TimeSeriesPoint"><code class="docutils literal notranslate"><span class="pre">TimeSeriesPoint</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.TimeSeriesPoint.timestamp"><code class="docutils literal notranslate"><span class="pre">TimeSeriesPoint.timestamp</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.TimeSeriesPoint.value"><code class="docutils literal notranslate"><span class="pre">TimeSeriesPoint.value</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.WaitForOptions"><code class="docutils literal notranslate"><span class="pre">WaitForOptions</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.WaitForOptions.max_delay"><code class="docutils literal notranslate"><span class="pre">WaitForOptions.max_delay</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.WaitForOptions.min_delay"><code class="docutils literal notranslate"><span class="pre">WaitForOptions.min_delay</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.WaitForOptions.stop"><code class="docutils literal notranslate"><span class="pre">WaitForOptions.stop</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.WaitForOptions.timeout"><code class="docutils literal notranslate"><span class="pre">WaitForOptions.timeout</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.Zone"><code class="docutils literal notranslate"><span class="pre">Zone</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scaleway Python SDK</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">scaleway package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/source/scaleway.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="scaleway-package">
+<h1>scaleway package<a class="headerlink" href="#scaleway-package" title="Permalink to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.account.html">scaleway.account package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.account.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.account.v2.html">scaleway.account.v2 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.account.v2.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.account.v2.html#module-scaleway.account.v2.api">scaleway.account.v2.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.account.v2.html#module-scaleway.account.v2.marshalling">scaleway.account.v2.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.account.v2.html#module-scaleway.account.v2.types">scaleway.account.v2.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.account.v2.html#module-scaleway.account.v2">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.account.v3.html">scaleway.account.v3 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.account.v3.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.account.v3.html#module-scaleway.account.v3.api">scaleway.account.v3.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.account.v3.html#module-scaleway.account.v3.marshalling">scaleway.account.v3.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.account.v3.html#module-scaleway.account.v3.types">scaleway.account.v3.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.account.v3.html#module-scaleway.account.v3">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.account.html#module-scaleway.account">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.applesilicon.html">scaleway.applesilicon package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.applesilicon.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.applesilicon.v1alpha1.html">scaleway.applesilicon.v1alpha1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.applesilicon.v1alpha1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.applesilicon.v1alpha1.html#module-scaleway.applesilicon.v1alpha1.api">scaleway.applesilicon.v1alpha1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.applesilicon.v1alpha1.html#module-scaleway.applesilicon.v1alpha1.content">scaleway.applesilicon.v1alpha1.content module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.applesilicon.v1alpha1.html#module-scaleway.applesilicon.v1alpha1.marshalling">scaleway.applesilicon.v1alpha1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.applesilicon.v1alpha1.html#module-scaleway.applesilicon.v1alpha1.types">scaleway.applesilicon.v1alpha1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.applesilicon.v1alpha1.html#module-scaleway.applesilicon.v1alpha1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.applesilicon.html#module-scaleway.applesilicon">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.audit_trail.html">scaleway.audit_trail package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.audit_trail.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.audit_trail.v1alpha1.html">scaleway.audit_trail.v1alpha1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.audit_trail.v1alpha1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.audit_trail.v1alpha1.html#module-scaleway.audit_trail.v1alpha1.api">scaleway.audit_trail.v1alpha1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.audit_trail.v1alpha1.html#module-scaleway.audit_trail.v1alpha1.marshalling">scaleway.audit_trail.v1alpha1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.audit_trail.v1alpha1.html#module-scaleway.audit_trail.v1alpha1.types">scaleway.audit_trail.v1alpha1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.audit_trail.v1alpha1.html#module-scaleway.audit_trail.v1alpha1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.audit_trail.html#module-scaleway.audit_trail">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.baremetal.html">scaleway.baremetal package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.baremetal.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.baremetal.v1.html">scaleway.baremetal.v1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.baremetal.v1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.baremetal.v1.html#module-scaleway.baremetal.v1.api">scaleway.baremetal.v1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.baremetal.v1.html#module-scaleway.baremetal.v1.content">scaleway.baremetal.v1.content module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.baremetal.v1.html#module-scaleway.baremetal.v1.marshalling">scaleway.baremetal.v1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.baremetal.v1.html#module-scaleway.baremetal.v1.types">scaleway.baremetal.v1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.baremetal.v1.html#module-scaleway.baremetal.v1">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.baremetal.v3.html">scaleway.baremetal.v3 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.baremetal.v3.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.baremetal.v3.html#module-scaleway.baremetal.v3.api">scaleway.baremetal.v3.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.baremetal.v3.html#module-scaleway.baremetal.v3.content">scaleway.baremetal.v3.content module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.baremetal.v3.html#module-scaleway.baremetal.v3.marshalling">scaleway.baremetal.v3.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.baremetal.v3.html#module-scaleway.baremetal.v3.types">scaleway.baremetal.v3.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.baremetal.v3.html#module-scaleway.baremetal.v3">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.baremetal.html#module-scaleway.baremetal">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.billing.html">scaleway.billing package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.billing.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.billing.v2alpha1.html">scaleway.billing.v2alpha1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.billing.v2alpha1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.billing.v2alpha1.html#module-scaleway.billing.v2alpha1.api">scaleway.billing.v2alpha1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.billing.v2alpha1.html#module-scaleway.billing.v2alpha1.marshalling">scaleway.billing.v2alpha1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.billing.v2alpha1.html#module-scaleway.billing.v2alpha1.types">scaleway.billing.v2alpha1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.billing.v2alpha1.html#module-scaleway.billing.v2alpha1">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.billing.v2beta1.html">scaleway.billing.v2beta1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.billing.v2beta1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.billing.v2beta1.html#module-scaleway.billing.v2beta1.api">scaleway.billing.v2beta1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.billing.v2beta1.html#module-scaleway.billing.v2beta1.marshalling">scaleway.billing.v2beta1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.billing.v2beta1.html#module-scaleway.billing.v2beta1.types">scaleway.billing.v2beta1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.billing.v2beta1.html#module-scaleway.billing.v2beta1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.billing.html#module-scaleway.billing">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.block.html">scaleway.block package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.block.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.block.v1alpha1.html">scaleway.block.v1alpha1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.block.v1alpha1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.block.v1alpha1.html#module-scaleway.block.v1alpha1.api">scaleway.block.v1alpha1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.block.v1alpha1.html#module-scaleway.block.v1alpha1.content">scaleway.block.v1alpha1.content module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.block.v1alpha1.html#module-scaleway.block.v1alpha1.marshalling">scaleway.block.v1alpha1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.block.v1alpha1.html#module-scaleway.block.v1alpha1.types">scaleway.block.v1alpha1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.block.v1alpha1.html#module-scaleway.block.v1alpha1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.block.html#module-scaleway.block">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.cockpit.html">scaleway.cockpit package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.cockpit.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.cockpit.v1.html">scaleway.cockpit.v1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.cockpit.v1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.cockpit.v1.html#module-scaleway.cockpit.v1.api">scaleway.cockpit.v1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.cockpit.v1.html#module-scaleway.cockpit.v1.marshalling">scaleway.cockpit.v1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.cockpit.v1.html#module-scaleway.cockpit.v1.types">scaleway.cockpit.v1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.cockpit.v1.html#module-scaleway.cockpit.v1">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.cockpit.v1beta1.html">scaleway.cockpit.v1beta1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.cockpit.v1beta1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.cockpit.v1beta1.html#module-scaleway.cockpit.v1beta1.api">scaleway.cockpit.v1beta1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.cockpit.v1beta1.html#module-scaleway.cockpit.v1beta1.content">scaleway.cockpit.v1beta1.content module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.cockpit.v1beta1.html#module-scaleway.cockpit.v1beta1.marshalling">scaleway.cockpit.v1beta1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.cockpit.v1beta1.html#module-scaleway.cockpit.v1beta1.types">scaleway.cockpit.v1beta1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.cockpit.v1beta1.html#module-scaleway.cockpit.v1beta1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.cockpit.html#module-scaleway.cockpit">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.container.html">scaleway.container package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.container.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.container.v1beta1.html">scaleway.container.v1beta1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.container.v1beta1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.container.v1beta1.html#module-scaleway.container.v1beta1.api">scaleway.container.v1beta1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.container.v1beta1.html#module-scaleway.container.v1beta1.content">scaleway.container.v1beta1.content module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.container.v1beta1.html#module-scaleway.container.v1beta1.marshalling">scaleway.container.v1beta1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.container.v1beta1.html#module-scaleway.container.v1beta1.types">scaleway.container.v1beta1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.container.v1beta1.html#module-scaleway.container.v1beta1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.container.html#module-scaleway.container">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.dedibox.html">scaleway.dedibox package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.dedibox.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.dedibox.v1.html">scaleway.dedibox.v1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.dedibox.v1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.dedibox.v1.html#module-scaleway.dedibox.v1.api">scaleway.dedibox.v1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.dedibox.v1.html#module-scaleway.dedibox.v1.content">scaleway.dedibox.v1.content module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.dedibox.v1.html#module-scaleway.dedibox.v1.marshalling">scaleway.dedibox.v1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.dedibox.v1.html#module-scaleway.dedibox.v1.types">scaleway.dedibox.v1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.dedibox.v1.html#module-scaleway.dedibox.v1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.dedibox.html#module-scaleway.dedibox">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.document_db.html">scaleway.document_db package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.document_db.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.document_db.v1beta1.html">scaleway.document_db.v1beta1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.document_db.v1beta1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.document_db.v1beta1.html#module-scaleway.document_db.v1beta1.api">scaleway.document_db.v1beta1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.document_db.v1beta1.html#module-scaleway.document_db.v1beta1.content">scaleway.document_db.v1beta1.content module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.document_db.v1beta1.html#module-scaleway.document_db.v1beta1.marshalling">scaleway.document_db.v1beta1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.document_db.v1beta1.html#module-scaleway.document_db.v1beta1.types">scaleway.document_db.v1beta1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.document_db.v1beta1.html#module-scaleway.document_db.v1beta1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.document_db.html#module-scaleway.document_db">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.domain.html">scaleway.domain package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.domain.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.domain.v2beta1.html">scaleway.domain.v2beta1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.domain.v2beta1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.domain.v2beta1.html#module-scaleway.domain.v2beta1.api">scaleway.domain.v2beta1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.domain.v2beta1.html#module-scaleway.domain.v2beta1.content">scaleway.domain.v2beta1.content module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.domain.v2beta1.html#module-scaleway.domain.v2beta1.marshalling">scaleway.domain.v2beta1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.domain.v2beta1.html#module-scaleway.domain.v2beta1.types">scaleway.domain.v2beta1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.domain.v2beta1.html#module-scaleway.domain.v2beta1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.domain.html#module-scaleway.domain">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.edge_services.html">scaleway.edge_services package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.edge_services.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.edge_services.v1alpha1.html">scaleway.edge_services.v1alpha1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.edge_services.v1alpha1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.edge_services.v1alpha1.html#module-scaleway.edge_services.v1alpha1.api">scaleway.edge_services.v1alpha1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.edge_services.v1alpha1.html#module-scaleway.edge_services.v1alpha1.content">scaleway.edge_services.v1alpha1.content module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.edge_services.v1alpha1.html#module-scaleway.edge_services.v1alpha1.marshalling">scaleway.edge_services.v1alpha1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.edge_services.v1alpha1.html#module-scaleway.edge_services.v1alpha1.types">scaleway.edge_services.v1alpha1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.edge_services.v1alpha1.html#module-scaleway.edge_services.v1alpha1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.edge_services.html#module-scaleway.edge_services">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.flexibleip.html">scaleway.flexibleip package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.flexibleip.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.flexibleip.v1alpha1.html">scaleway.flexibleip.v1alpha1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.flexibleip.v1alpha1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.flexibleip.v1alpha1.html#module-scaleway.flexibleip.v1alpha1.api">scaleway.flexibleip.v1alpha1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.flexibleip.v1alpha1.html#module-scaleway.flexibleip.v1alpha1.content">scaleway.flexibleip.v1alpha1.content module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.flexibleip.v1alpha1.html#module-scaleway.flexibleip.v1alpha1.marshalling">scaleway.flexibleip.v1alpha1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.flexibleip.v1alpha1.html#module-scaleway.flexibleip.v1alpha1.types">scaleway.flexibleip.v1alpha1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.flexibleip.v1alpha1.html#module-scaleway.flexibleip.v1alpha1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.flexibleip.html#module-scaleway.flexibleip">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.function.html">scaleway.function package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.function.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.function.v1beta1.html">scaleway.function.v1beta1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.function.v1beta1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.function.v1beta1.html#module-scaleway.function.v1beta1.api">scaleway.function.v1beta1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.function.v1beta1.html#module-scaleway.function.v1beta1.content">scaleway.function.v1beta1.content module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.function.v1beta1.html#module-scaleway.function.v1beta1.marshalling">scaleway.function.v1beta1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.function.v1beta1.html#module-scaleway.function.v1beta1.types">scaleway.function.v1beta1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.function.v1beta1.html#module-scaleway.function.v1beta1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.function.html#module-scaleway.function">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.iam.html">scaleway.iam package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.iam.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.iam.v1alpha1.html">scaleway.iam.v1alpha1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.iam.v1alpha1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.iam.v1alpha1.html#module-scaleway.iam.v1alpha1.api">scaleway.iam.v1alpha1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.iam.v1alpha1.html#module-scaleway.iam.v1alpha1.marshalling">scaleway.iam.v1alpha1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.iam.v1alpha1.html#module-scaleway.iam.v1alpha1.types">scaleway.iam.v1alpha1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.iam.v1alpha1.html#module-scaleway.iam.v1alpha1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.iam.html#module-scaleway.iam">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.inference.html">scaleway.inference package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.inference.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.inference.v1beta1.html">scaleway.inference.v1beta1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.inference.v1beta1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.inference.v1beta1.html#module-scaleway.inference.v1beta1.api">scaleway.inference.v1beta1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.inference.v1beta1.html#module-scaleway.inference.v1beta1.content">scaleway.inference.v1beta1.content module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.inference.v1beta1.html#module-scaleway.inference.v1beta1.marshalling">scaleway.inference.v1beta1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.inference.v1beta1.html#module-scaleway.inference.v1beta1.types">scaleway.inference.v1beta1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.inference.v1beta1.html#module-scaleway.inference.v1beta1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.inference.html#module-scaleway.inference">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.instance.html">scaleway.instance package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.instance.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.instance.v1.html">scaleway.instance.v1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.instance.v1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.instance.v1.html#module-scaleway.instance.v1.api">scaleway.instance.v1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.instance.v1.html#module-scaleway.instance.v1.content">scaleway.instance.v1.content module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.instance.v1.html#module-scaleway.instance.v1.custom_api">scaleway.instance.v1.custom_api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.instance.v1.html#module-scaleway.instance.v1.custom_marshalling">scaleway.instance.v1.custom_marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.instance.v1.html#module-scaleway.instance.v1.custom_types">scaleway.instance.v1.custom_types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.instance.v1.html#module-scaleway.instance.v1.marshalling">scaleway.instance.v1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.instance.v1.html#module-scaleway.instance.v1.test_user_data">scaleway.instance.v1.test_user_data module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.instance.v1.html#module-scaleway.instance.v1.types">scaleway.instance.v1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.instance.v1.html#module-scaleway.instance.v1.types_private">scaleway.instance.v1.types_private module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.instance.v1.html#module-scaleway.instance.v1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.instance.html#module-scaleway.instance">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.interlink.html">scaleway.interlink package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.interlink.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.interlink.v1beta1.html">scaleway.interlink.v1beta1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.interlink.v1beta1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.interlink.v1beta1.html#module-scaleway.interlink.v1beta1.api">scaleway.interlink.v1beta1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.interlink.v1beta1.html#module-scaleway.interlink.v1beta1.marshalling">scaleway.interlink.v1beta1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.interlink.v1beta1.html#module-scaleway.interlink.v1beta1.types">scaleway.interlink.v1beta1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.interlink.v1beta1.html#module-scaleway.interlink.v1beta1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.interlink.html#module-scaleway.interlink">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.iot.html">scaleway.iot package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.iot.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.iot.v1.html">scaleway.iot.v1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.iot.v1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.iot.v1.html#module-scaleway.iot.v1.api">scaleway.iot.v1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.iot.v1.html#module-scaleway.iot.v1.content">scaleway.iot.v1.content module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.iot.v1.html#module-scaleway.iot.v1.marshalling">scaleway.iot.v1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.iot.v1.html#module-scaleway.iot.v1.types">scaleway.iot.v1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.iot.v1.html#module-scaleway.iot.v1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.iot.html#module-scaleway.iot">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.ipam.html">scaleway.ipam package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.ipam.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.ipam.v1.html">scaleway.ipam.v1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.ipam.v1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.ipam.v1.html#module-scaleway.ipam.v1.api">scaleway.ipam.v1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.ipam.v1.html#module-scaleway.ipam.v1.marshalling">scaleway.ipam.v1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.ipam.v1.html#module-scaleway.ipam.v1.types">scaleway.ipam.v1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.ipam.v1.html#module-scaleway.ipam.v1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.ipam.html#module-scaleway.ipam">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.ipfs.html">scaleway.ipfs package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.ipfs.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.ipfs.v1alpha1.html">scaleway.ipfs.v1alpha1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.ipfs.v1alpha1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.ipfs.v1alpha1.html#module-scaleway.ipfs.v1alpha1.api">scaleway.ipfs.v1alpha1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.ipfs.v1alpha1.html#module-scaleway.ipfs.v1alpha1.content">scaleway.ipfs.v1alpha1.content module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.ipfs.v1alpha1.html#module-scaleway.ipfs.v1alpha1.marshalling">scaleway.ipfs.v1alpha1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.ipfs.v1alpha1.html#module-scaleway.ipfs.v1alpha1.types">scaleway.ipfs.v1alpha1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.ipfs.v1alpha1.html#module-scaleway.ipfs.v1alpha1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.ipfs.html#module-scaleway.ipfs">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.jobs.html">scaleway.jobs package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.jobs.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.jobs.v1alpha1.html">scaleway.jobs.v1alpha1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.jobs.v1alpha1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.jobs.v1alpha1.html#module-scaleway.jobs.v1alpha1.api">scaleway.jobs.v1alpha1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.jobs.v1alpha1.html#module-scaleway.jobs.v1alpha1.content">scaleway.jobs.v1alpha1.content module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.jobs.v1alpha1.html#module-scaleway.jobs.v1alpha1.marshalling">scaleway.jobs.v1alpha1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.jobs.v1alpha1.html#module-scaleway.jobs.v1alpha1.types">scaleway.jobs.v1alpha1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.jobs.v1alpha1.html#module-scaleway.jobs.v1alpha1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.jobs.html#module-scaleway.jobs">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.k8s.html">scaleway.k8s package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.k8s.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.k8s.v1.html">scaleway.k8s.v1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.k8s.v1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.k8s.v1.html#module-scaleway.k8s.v1.api">scaleway.k8s.v1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.k8s.v1.html#module-scaleway.k8s.v1.content">scaleway.k8s.v1.content module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.k8s.v1.html#module-scaleway.k8s.v1.marshalling">scaleway.k8s.v1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.k8s.v1.html#module-scaleway.k8s.v1.types">scaleway.k8s.v1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.k8s.v1.html#module-scaleway.k8s.v1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.k8s.html#module-scaleway.k8s">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.key_manager.html">scaleway.key_manager package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.key_manager.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.key_manager.v1alpha1.html">scaleway.key_manager.v1alpha1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.key_manager.v1alpha1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.key_manager.v1alpha1.html#module-scaleway.key_manager.v1alpha1.api">scaleway.key_manager.v1alpha1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.key_manager.v1alpha1.html#module-scaleway.key_manager.v1alpha1.marshalling">scaleway.key_manager.v1alpha1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.key_manager.v1alpha1.html#module-scaleway.key_manager.v1alpha1.types">scaleway.key_manager.v1alpha1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.key_manager.v1alpha1.html#module-scaleway.key_manager.v1alpha1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.key_manager.html#module-scaleway.key_manager">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.lb.html">scaleway.lb package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.lb.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.lb.v1.html">scaleway.lb.v1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.lb.v1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.lb.v1.html#module-scaleway.lb.v1.api">scaleway.lb.v1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.lb.v1.html#module-scaleway.lb.v1.content">scaleway.lb.v1.content module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.lb.v1.html#module-scaleway.lb.v1.marshalling">scaleway.lb.v1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.lb.v1.html#module-scaleway.lb.v1.types">scaleway.lb.v1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.lb.v1.html#module-scaleway.lb.v1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.lb.html#module-scaleway.lb">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.marketplace.html">scaleway.marketplace package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.marketplace.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.marketplace.v2.html">scaleway.marketplace.v2 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.marketplace.v2.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.marketplace.v2.html#module-scaleway.marketplace.v2.api">scaleway.marketplace.v2.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.marketplace.v2.html#module-scaleway.marketplace.v2.marshalling">scaleway.marketplace.v2.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.marketplace.v2.html#module-scaleway.marketplace.v2.types">scaleway.marketplace.v2.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.marketplace.v2.html#module-scaleway.marketplace.v2">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.marketplace.html#module-scaleway.marketplace">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.mnq.html">scaleway.mnq package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.mnq.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.mnq.v1beta1.html">scaleway.mnq.v1beta1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.mnq.v1beta1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.mnq.v1beta1.html#module-scaleway.mnq.v1beta1.api">scaleway.mnq.v1beta1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.mnq.v1beta1.html#module-scaleway.mnq.v1beta1.marshalling">scaleway.mnq.v1beta1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.mnq.v1beta1.html#module-scaleway.mnq.v1beta1.types">scaleway.mnq.v1beta1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.mnq.v1beta1.html#module-scaleway.mnq.v1beta1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.mnq.html#module-scaleway.mnq">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.mongodb.html">scaleway.mongodb package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.mongodb.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.mongodb.v1alpha1.html">scaleway.mongodb.v1alpha1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.mongodb.v1alpha1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.mongodb.v1alpha1.html#module-scaleway.mongodb.v1alpha1.api">scaleway.mongodb.v1alpha1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.mongodb.v1alpha1.html#module-scaleway.mongodb.v1alpha1.content">scaleway.mongodb.v1alpha1.content module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.mongodb.v1alpha1.html#module-scaleway.mongodb.v1alpha1.marshalling">scaleway.mongodb.v1alpha1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.mongodb.v1alpha1.html#module-scaleway.mongodb.v1alpha1.types">scaleway.mongodb.v1alpha1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.mongodb.v1alpha1.html#module-scaleway.mongodb.v1alpha1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.mongodb.html#module-scaleway.mongodb">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.qaas.html">scaleway.qaas package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.qaas.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.qaas.v1alpha1.html">scaleway.qaas.v1alpha1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.qaas.v1alpha1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.qaas.v1alpha1.html#module-scaleway.qaas.v1alpha1.api">scaleway.qaas.v1alpha1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.qaas.v1alpha1.html#module-scaleway.qaas.v1alpha1.content">scaleway.qaas.v1alpha1.content module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.qaas.v1alpha1.html#module-scaleway.qaas.v1alpha1.marshalling">scaleway.qaas.v1alpha1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.qaas.v1alpha1.html#module-scaleway.qaas.v1alpha1.types">scaleway.qaas.v1alpha1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.qaas.v1alpha1.html#module-scaleway.qaas.v1alpha1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.qaas.html#module-scaleway.qaas">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.rdb.html">scaleway.rdb package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.rdb.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.rdb.v1.html">scaleway.rdb.v1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.rdb.v1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.rdb.v1.html#module-scaleway.rdb.v1.api">scaleway.rdb.v1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.rdb.v1.html#module-scaleway.rdb.v1.content">scaleway.rdb.v1.content module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.rdb.v1.html#module-scaleway.rdb.v1.marshalling">scaleway.rdb.v1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.rdb.v1.html#module-scaleway.rdb.v1.types">scaleway.rdb.v1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.rdb.v1.html#module-scaleway.rdb.v1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.rdb.html#module-scaleway.rdb">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.redis.html">scaleway.redis package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.redis.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.redis.v1.html">scaleway.redis.v1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.redis.v1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.redis.v1.html#module-scaleway.redis.v1.api">scaleway.redis.v1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.redis.v1.html#module-scaleway.redis.v1.content">scaleway.redis.v1.content module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.redis.v1.html#module-scaleway.redis.v1.marshalling">scaleway.redis.v1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.redis.v1.html#module-scaleway.redis.v1.types">scaleway.redis.v1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.redis.v1.html#module-scaleway.redis.v1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.redis.html#module-scaleway.redis">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.registry.html">scaleway.registry package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.registry.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.registry.v1.html">scaleway.registry.v1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.registry.v1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.registry.v1.html#module-scaleway.registry.v1.api">scaleway.registry.v1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.registry.v1.html#module-scaleway.registry.v1.content">scaleway.registry.v1.content module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.registry.v1.html#module-scaleway.registry.v1.marshalling">scaleway.registry.v1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.registry.v1.html#module-scaleway.registry.v1.types">scaleway.registry.v1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.registry.v1.html#module-scaleway.registry.v1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.registry.html#module-scaleway.registry">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.secret.html">scaleway.secret package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.secret.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.secret.v1alpha1.html">scaleway.secret.v1alpha1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.secret.v1alpha1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.secret.v1alpha1.html#module-scaleway.secret.v1alpha1.api">scaleway.secret.v1alpha1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.secret.v1alpha1.html#module-scaleway.secret.v1alpha1.marshalling">scaleway.secret.v1alpha1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.secret.v1alpha1.html#module-scaleway.secret.v1alpha1.types">scaleway.secret.v1alpha1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.secret.v1alpha1.html#module-scaleway.secret.v1alpha1">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.secret.v1beta1.html">scaleway.secret.v1beta1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.secret.v1beta1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.secret.v1beta1.html#module-scaleway.secret.v1beta1.api">scaleway.secret.v1beta1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.secret.v1beta1.html#module-scaleway.secret.v1beta1.marshalling">scaleway.secret.v1beta1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.secret.v1beta1.html#module-scaleway.secret.v1beta1.types">scaleway.secret.v1beta1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.secret.v1beta1.html#module-scaleway.secret.v1beta1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.secret.html#module-scaleway.secret">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.serverless_sqldb.html">scaleway.serverless_sqldb package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.serverless_sqldb.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.serverless_sqldb.v1alpha1.html">scaleway.serverless_sqldb.v1alpha1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.serverless_sqldb.v1alpha1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.serverless_sqldb.v1alpha1.html#module-scaleway.serverless_sqldb.v1alpha1.api">scaleway.serverless_sqldb.v1alpha1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.serverless_sqldb.v1alpha1.html#module-scaleway.serverless_sqldb.v1alpha1.content">scaleway.serverless_sqldb.v1alpha1.content module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.serverless_sqldb.v1alpha1.html#module-scaleway.serverless_sqldb.v1alpha1.marshalling">scaleway.serverless_sqldb.v1alpha1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.serverless_sqldb.v1alpha1.html#module-scaleway.serverless_sqldb.v1alpha1.types">scaleway.serverless_sqldb.v1alpha1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.serverless_sqldb.v1alpha1.html#module-scaleway.serverless_sqldb.v1alpha1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.serverless_sqldb.html#module-scaleway.serverless_sqldb">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.std.html">scaleway.std package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.std.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.std.html#module-scaleway.std.api">scaleway.std.api module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.std.html#module-scaleway.std.marshalling">scaleway.std.marshalling module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.std.html#module-scaleway.std.types">scaleway.std.types module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.std.html#scaleway.std.types.LanguageCode"><code class="docutils literal notranslate"><span class="pre">LanguageCode</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.std.html#scaleway.std.types.LanguageCode.DE_DE"><code class="docutils literal notranslate"><span class="pre">LanguageCode.DE_DE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.std.html#scaleway.std.types.LanguageCode.EN_US"><code class="docutils literal notranslate"><span class="pre">LanguageCode.EN_US</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.std.html#scaleway.std.types.LanguageCode.FR_FR"><code class="docutils literal notranslate"><span class="pre">LanguageCode.FR_FR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.std.html#scaleway.std.types.LanguageCode.UNKNOWN_LANGUAGE_CODE"><code class="docutils literal notranslate"><span class="pre">LanguageCode.UNKNOWN_LANGUAGE_CODE</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.std.html#module-scaleway.std">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.std.html#scaleway.std.LanguageCode"><code class="docutils literal notranslate"><span class="pre">LanguageCode</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.std.html#scaleway.std.LanguageCode.DE_DE"><code class="docutils literal notranslate"><span class="pre">LanguageCode.DE_DE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.std.html#scaleway.std.LanguageCode.EN_US"><code class="docutils literal notranslate"><span class="pre">LanguageCode.EN_US</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.std.html#scaleway.std.LanguageCode.FR_FR"><code class="docutils literal notranslate"><span class="pre">LanguageCode.FR_FR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.std.html#scaleway.std.LanguageCode.UNKNOWN_LANGUAGE_CODE"><code class="docutils literal notranslate"><span class="pre">LanguageCode.UNKNOWN_LANGUAGE_CODE</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.tem.html">scaleway.tem package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.tem.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.tem.v1alpha1.html">scaleway.tem.v1alpha1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.tem.v1alpha1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.tem.v1alpha1.html#module-scaleway.tem.v1alpha1.api">scaleway.tem.v1alpha1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.tem.v1alpha1.html#module-scaleway.tem.v1alpha1.content">scaleway.tem.v1alpha1.content module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.tem.v1alpha1.html#module-scaleway.tem.v1alpha1.marshalling">scaleway.tem.v1alpha1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.tem.v1alpha1.html#module-scaleway.tem.v1alpha1.types">scaleway.tem.v1alpha1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.tem.v1alpha1.html#module-scaleway.tem.v1alpha1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.tem.html#module-scaleway.tem">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.test.html">scaleway.test package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.test.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.test.v1.html">scaleway.test.v1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.test.v1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.test.v1.html#module-scaleway.test.v1.api">scaleway.test.v1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.test.v1.html#module-scaleway.test.v1.content">scaleway.test.v1.content module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.test.v1.html#module-scaleway.test.v1.marshalling">scaleway.test.v1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.test.v1.html#module-scaleway.test.v1.types">scaleway.test.v1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.test.v1.html#module-scaleway.test.v1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.test.html#module-scaleway.test">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.vpc.html">scaleway.vpc package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.vpc.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v1.html">scaleway.vpc.v1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#module-scaleway.vpc.v1.api">scaleway.vpc.v1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#module-scaleway.vpc.v1.marshalling">scaleway.vpc.v1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#module-scaleway.vpc.v1.types">scaleway.vpc.v1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v1.html#module-scaleway.vpc.v1">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpc.v2.html">scaleway.vpc.v2 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#module-scaleway.vpc.v2.api">scaleway.vpc.v2.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#module-scaleway.vpc.v2.marshalling">scaleway.vpc.v2.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#module-scaleway.vpc.v2.types">scaleway.vpc.v2.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpc.v2.html#module-scaleway.vpc.v2">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.vpc.html#module-scaleway.vpc">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.vpcgw.html">scaleway.vpcgw package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.vpcgw.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpcgw.v1.html">scaleway.vpcgw.v1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpcgw.v1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpcgw.v1.html#module-scaleway.vpcgw.v1.api">scaleway.vpcgw.v1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpcgw.v1.html#module-scaleway.vpcgw.v1.content">scaleway.vpcgw.v1.content module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpcgw.v1.html#module-scaleway.vpcgw.v1.marshalling">scaleway.vpcgw.v1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpcgw.v1.html#module-scaleway.vpcgw.v1.types">scaleway.vpcgw.v1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpcgw.v1.html#module-scaleway.vpcgw.v1">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.vpcgw.v2.html">scaleway.vpcgw.v2 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpcgw.v2.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpcgw.v2.html#module-scaleway.vpcgw.v2.api">scaleway.vpcgw.v2.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpcgw.v2.html#module-scaleway.vpcgw.v2.content">scaleway.vpcgw.v2.content module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpcgw.v2.html#module-scaleway.vpcgw.v2.marshalling">scaleway.vpcgw.v2.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpcgw.v2.html#module-scaleway.vpcgw.v2.types">scaleway.vpcgw.v2.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.vpcgw.v2.html#module-scaleway.vpcgw.v2">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.vpcgw.html#module-scaleway.vpcgw">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scaleway.webhosting.html">scaleway.webhosting package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.webhosting.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.webhosting.v1.html">scaleway.webhosting.v1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.webhosting.v1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.webhosting.v1.html#module-scaleway.webhosting.v1.api">scaleway.webhosting.v1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.webhosting.v1.html#module-scaleway.webhosting.v1.content">scaleway.webhosting.v1.content module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.webhosting.v1.html#module-scaleway.webhosting.v1.marshalling">scaleway.webhosting.v1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.webhosting.v1.html#module-scaleway.webhosting.v1.types">scaleway.webhosting.v1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.webhosting.v1.html#module-scaleway.webhosting.v1">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scaleway.webhosting.v1alpha1.html">scaleway.webhosting.v1alpha1 package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.webhosting.v1alpha1.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.webhosting.v1alpha1.html#module-scaleway.webhosting.v1alpha1.api">scaleway.webhosting.v1alpha1.api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.webhosting.v1alpha1.html#module-scaleway.webhosting.v1alpha1.content">scaleway.webhosting.v1alpha1.content module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.webhosting.v1alpha1.html#module-scaleway.webhosting.v1alpha1.marshalling">scaleway.webhosting.v1alpha1.marshalling module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.webhosting.v1alpha1.html#module-scaleway.webhosting.v1alpha1.types">scaleway.webhosting.v1alpha1.types module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scaleway.webhosting.v1alpha1.html#module-scaleway.webhosting.v1alpha1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scaleway.webhosting.html#module-scaleway.webhosting">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="module-scaleway">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-scaleway" title="Permalink to this heading"></a></h2>
+<p>Scaleway SDK for Python</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.API">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.</span></span><span class="sig-name descname"><span class="pre">API</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scaleway_core.html#scaleway_core.client.Client" title="scaleway_core.client.Client"><span class="pre">Client</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bypass_validation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.API" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.Client">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.</span></span><span class="sig-name descname"><span class="pre">Client</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">access_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">secret_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'https://api.scaleway.com'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_allow_insecure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_agent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'scaleway-sdk-python/2.0.0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_organization_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_region</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_page_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.Client" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.profile.Profile" title="scaleway_core.profile.profile.Profile"><code class="xref py py-class docutils literal notranslate"><span class="pre">Profile</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.Client.from_profile">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">profile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.profile.Profile" title="scaleway_core.profile.profile.Profile"><span class="pre">Profile</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="scaleway_core.html#scaleway_core.client.Client" title="scaleway_core.client.Client"><span class="pre">Client</span></a></span></span><a class="headerlink" href="#scaleway.Client.from_profile" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.Client.validate">
+<span class="sig-name descname"><span class="pre">validate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#scaleway.Client.validate" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.Client.validate_credentials">
+<span class="sig-name descname"><span class="pre">validate_credentials</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#scaleway.Client.validate_credentials" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.Client.validate_settings">
+<span class="sig-name descname"><span class="pre">validate_settings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#scaleway.Client.validate_settings" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.Money">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.</span></span><span class="sig-name descname"><span class="pre">Money</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">currency_code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nanos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.Money" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents an amount of money with its currency type.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.Money.currency_code">
+<span class="sig-name descname"><span class="pre">currency_code</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.Money.currency_code" title="Permalink to this definition"></a></dt>
+<dd><p>3-letter currency code defined in ISO 4217.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.Money.nanos">
+<span class="sig-name descname"><span class="pre">nanos</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#scaleway.Money.nanos" title="Permalink to this definition"></a></dt>
+<dd><p>Number of nano (10^-9) units of the amount.</p>
+<p>The value must be between -999,999,999 and +999,999,999 inclusive.
+If <cite>units</cite> is positive, <cite>nanos</cite> must be positive or zero.
+If <cite>units</cite> is zero, <cite>nanos</cite> can be positive, zero, or negative.
+If <cite>units</cite> is negative, <cite>nanos</cite> must be negative or zero.
+For example $-1.75 is represented as <a href="#id1"><span class="problematic" id="id2">`</span></a>units`=-1 and <a href="#id3"><span class="problematic" id="id4">`</span></a>nanos`=-750,000,000.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.Money.units">
+<span class="sig-name descname"><span class="pre">units</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#scaleway.Money.units" title="Permalink to this definition"></a></dt>
+<dd><p>Whole units of the amount.</p>
+<p>For example if <cite>currency_code</cite> is <cite>“USD”</cite>, then 1 unit is one US dollar.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.Profile">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.</span></span><span class="sig-name descname"><span class="pre">Profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">access_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">secret_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'https://api.scaleway.com'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_allow_insecure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'bool'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_agent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'scaleway-sdk-python/2.0.0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_organization_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_region</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_page_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[int]'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.Profile" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.profile.ProfileDefaults" title="scaleway_core.profile.profile.ProfileDefaults"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfileDefaults</span></code></a>, <a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.profile.ProfileConfig" title="scaleway_core.profile.profile.ProfileConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfileConfig</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.Profile.from_config_file">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_config_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'default'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_none</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ProfileSelf</span></span></span><a class="headerlink" href="#scaleway.Profile.from_config_file" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.Profile.from_config_file_and_env">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_config_file_and_env</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ProfileSelf</span></span></span><a class="headerlink" href="#scaleway.Profile.from_config_file_and_env" title="Permalink to this definition"></a></dt>
+<dd><p>Loads profile from a config file and environment variables.</p>
+<dl class="simple">
+<dt>Environment variables override config file.</dt><dd><ul class="simple">
+<li><p>If config file is not found, the profile is still loaded from environment variables.</p></li>
+<li><p>If you want it to throw an error in case of missing or invalid config file, use <cite>Profile.from_config_file</cite> and <cite>Profile.from_env</cite> instead.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.Profile.from_env">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_env</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">force_none</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ProfileSelf</span></span></span><a class="headerlink" href="#scaleway.Profile.from_env" title="Permalink to this definition"></a></dt>
+<dd><p>Loads profile from environment variables.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.Profile.get_default_config_directory">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_default_config_directory</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#scaleway.Profile.get_default_config_directory" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.Profile.get_default_config_file_path">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_default_config_file_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#scaleway.Profile.get_default_config_file_path" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.Profile.merge">
+<span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.profile.Profile" title="scaleway_core.profile.profile.Profile"><span class="pre">Profile</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#scaleway.Profile.merge" title="Permalink to this definition"></a></dt>
+<dd><p>Merge the current profile with another one.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.ProfileConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.</span></span><span class="sig-name descname"><span class="pre">ProfileConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">access_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">secret_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'https://api.scaleway.com'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_allow_insecure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'bool'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_agent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'scaleway-sdk-python/2.0.0'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.ProfileConfig" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.ProfileConfig.access_key">
+<span class="sig-name descname"><span class="pre">access_key</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#scaleway.ProfileConfig.access_key" title="Permalink to this definition"></a></dt>
+<dd><p>You need an access key and a secret key to connect to Scaleway API.
+Generate your access key at the following address: <a class="reference external" href="https://console.scaleway.com/project/credentials">https://console.scaleway.com/project/credentials</a>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.ProfileConfig.api_allow_insecure">
+<span class="sig-name descname"><span class="pre">api_allow_insecure</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#scaleway.ProfileConfig.api_allow_insecure" title="Permalink to this definition"></a></dt>
+<dd><p>Allow insecure connection to the API.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.ProfileConfig.api_url">
+<span class="sig-name descname"><span class="pre">api_url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'https://api.scaleway.com'</span></em><a class="headerlink" href="#scaleway.ProfileConfig.api_url" title="Permalink to this definition"></a></dt>
+<dd><p>The Scaleway API URL.
+Change that if you want to direct requests to a different endpoint.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.ProfileConfig.secret_key">
+<span class="sig-name descname"><span class="pre">secret_key</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#scaleway.ProfileConfig.secret_key" title="Permalink to this definition"></a></dt>
+<dd><p>The secret key is the value that can be used to authenticate against the API (the value used in X-Auth-Token HTTP-header).
+The secret key MUST remain secret and not given to anyone or published online.
+Generate your secret key at the following address: <a class="reference external" href="https://console.scaleway.com/project/credentials">https://console.scaleway.com/project/credentials</a>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.ProfileConfig.user_agent">
+<span class="sig-name descname"><span class="pre">user_agent</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'scaleway-sdk-python/2.0.0'</span></em><a class="headerlink" href="#scaleway.ProfileConfig.user_agent" title="Permalink to this definition"></a></dt>
+<dd><p>The User-Agent sent with each request.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.ProfileDefaults">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.</span></span><span class="sig-name descname"><span class="pre">ProfileDefaults</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">default_organization_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_region</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_page_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[int]'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.ProfileDefaults" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.ProfileDefaults.default_organization_id">
+<span class="sig-name descname"><span class="pre">default_organization_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#scaleway.ProfileDefaults.default_organization_id" title="Permalink to this definition"></a></dt>
+<dd><p>Your organization ID is the identifier of your account inside Scaleway infrastructure.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.ProfileDefaults.default_page_size">
+<span class="sig-name descname"><span class="pre">default_page_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#scaleway.ProfileDefaults.default_page_size" title="Permalink to this definition"></a></dt>
+<dd><p>The default number of results when requesting a paginated resource.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.ProfileDefaults.default_project_id">
+<span class="sig-name descname"><span class="pre">default_project_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#scaleway.ProfileDefaults.default_project_id" title="Permalink to this definition"></a></dt>
+<dd><p>Your project ID is the identifier of the project your resources are attached to.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.ProfileDefaults.default_region">
+<span class="sig-name descname"><span class="pre">default_region</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#scaleway.ProfileDefaults.default_region" title="Permalink to this definition"></a></dt>
+<dd><p>A region is represented as a geographical area such as France (Paris) or the Netherlands (Amsterdam).
+It can contain multiple availability zones.</p>
+<p>Examples: fr-par, nl-ams.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.ProfileDefaults.default_zone">
+<span class="sig-name descname"><span class="pre">default_zone</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#scaleway.ProfileDefaults.default_zone" title="Permalink to this definition"></a></dt>
+<dd><p>A region can be split into many availability zones (AZ).
+Latency between multiple AZ of the same region are low as they have a common network layer.</p>
+<p>Examples: fr-par-1, nl-ams-1</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.Region">
+<span class="sig-prename descclassname"><span class="pre">scaleway.</span></span><span class="sig-name descname"><span class="pre">Region</span></span><a class="headerlink" href="#scaleway.Region" title="Permalink to this definition"></a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="scaleway.ScalewayException">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.</span></span><span class="sig-name descname"><span class="pre">ScalewayException</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">requests.models.Response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.ScalewayException" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.ScalewayException.response">
+<span class="sig-name descname"><span class="pre">response</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Response</span></em><a class="headerlink" href="#scaleway.ScalewayException.response" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="scaleway.ScalewayException.status_code">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">status_code</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#scaleway.ScalewayException.status_code" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.ScwFile">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.</span></span><span class="sig-name descname"><span class="pre">ScwFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.ScwFile" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents a Scaleway file.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.ScwFile.content">
+<span class="sig-name descname"><span class="pre">content</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.ScwFile.content" title="Permalink to this definition"></a></dt>
+<dd><p>Content of the file in base64.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.ScwFile.content_type">
+<span class="sig-name descname"><span class="pre">content_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.ScwFile.content_type" title="Permalink to this definition"></a></dt>
+<dd><p>Content-type of the file.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.ScwFile.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.ScwFile.name" title="Permalink to this definition"></a></dt>
+<dd><p>Name of the file.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.ServiceInfo">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.</span></span><span class="sig-name descname"><span class="pre">ServiceInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.ServiceInfo" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents API metadata.</p>
+<p>These metadata are only here for debugging. Do not rely on these values.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.ServiceInfo.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.ServiceInfo.description" title="Permalink to this definition"></a></dt>
+<dd><p>Human readable description for the API.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.ServiceInfo.documentation_url">
+<span class="sig-name descname"><span class="pre">documentation_url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#scaleway.ServiceInfo.documentation_url" title="Permalink to this definition"></a></dt>
+<dd><p>Web url where the documentation of the API can be found.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.ServiceInfo.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.ServiceInfo.name" title="Permalink to this definition"></a></dt>
+<dd><p>Name of the API</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.ServiceInfo.version">
+<span class="sig-name descname"><span class="pre">version</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.ServiceInfo.version" title="Permalink to this definition"></a></dt>
+<dd><p>Version of the API.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.TimeSeries">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.</span></span><span class="sig-name descname"><span class="pre">TimeSeries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.timeseries.TimeSeriesPoint" title="scaleway_core.bridge.timeseries.TimeSeriesPoint"><span class="pre">TimeSeriesPoint</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.TimeSeries" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents a time series that could be used for graph purposes.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.TimeSeries.metadata">
+<span class="sig-name descname"><span class="pre">metadata</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.TimeSeries.metadata" title="Permalink to this definition"></a></dt>
+<dd><p>Metadata contains some string metadata related to a metric.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.TimeSeries.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.TimeSeries.name" title="Permalink to this definition"></a></dt>
+<dd><p>Name of the metric.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.TimeSeries.points">
+<span class="sig-name descname"><span class="pre">points</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="scaleway_core.bridge.html#scaleway_core.bridge.timeseries.TimeSeriesPoint" title="scaleway_core.bridge.timeseries.TimeSeriesPoint"><span class="pre">TimeSeriesPoint</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.TimeSeries.points" title="Permalink to this definition"></a></dt>
+<dd><p>Points contains all the points that composed the series.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.TimeSeriesPoint">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.</span></span><span class="sig-name descname"><span class="pre">TimeSeriesPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.TimeSeriesPoint" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents a point in a TimeSeries.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.TimeSeriesPoint.timestamp">
+<span class="sig-name descname"><span class="pre">timestamp</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></em><a class="headerlink" href="#scaleway.TimeSeriesPoint.timestamp" title="Permalink to this definition"></a></dt>
+<dd><p>Date of the point.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.TimeSeriesPoint.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#scaleway.TimeSeriesPoint.value" title="Permalink to this definition"></a></dt>
+<dd><p>Value of the point.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.WaitForOptions">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.</span></span><span class="sig-name descname"><span class="pre">WaitForOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_delay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_delay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">U</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.WaitForOptions" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">U</span></code>]</p>
+<p>The options to wait until a resource is ready.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.WaitForOptions.max_delay">
+<span class="sig-name descname"><span class="pre">max_delay</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">30</span></em><a class="headerlink" href="#scaleway.WaitForOptions.max_delay" title="Permalink to this definition"></a></dt>
+<dd><p>The maximum delay before the next try in seconds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>30 seconds.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.WaitForOptions.min_delay">
+<span class="sig-name descname"><span class="pre">min_delay</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#scaleway.WaitForOptions.min_delay" title="Permalink to this definition"></a></dt>
+<dd><p>The minimum delay before the next try in seconds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>1 second.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.WaitForOptions.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">U</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#scaleway.WaitForOptions.stop" title="Permalink to this definition"></a></dt>
+<dd><p>The condition to stop trying.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Waits for non-transient value.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.WaitForOptions.timeout">
+<span class="sig-name descname"><span class="pre">timeout</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">300</span></em><a class="headerlink" href="#scaleway.WaitForOptions.timeout" title="Permalink to this definition"></a></dt>
+<dd><p>Timeout in seconds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Default<span class="colon">:</span></dt>
+<dd class="field-odd"><p>300 seconds (5 minutes).</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.Zone">
+<span class="sig-prename descclassname"><span class="pre">scaleway.</span></span><span class="sig-name descname"><span class="pre">Zone</span></span><a class="headerlink" href="#scaleway.Zone" title="Permalink to this definition"></a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Scaleway.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

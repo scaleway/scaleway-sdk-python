@@ -1,0 +1,18 @@
+scaleway\_async.registry package
+================================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway_async.registry.v1
+
+Module contents
+---------------
+
+.. automodule:: scaleway_async.registry
+   :members:
+   :undoc-members:
+   :show-inheritance:
