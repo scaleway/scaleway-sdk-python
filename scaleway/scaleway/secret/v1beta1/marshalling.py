@@ -110,6 +110,14 @@ def unmarshal_SecretVersion(data: Any) -> SecretVersion:
     else:
         args["ephemeral_properties"] = None
 
+    field = data.get("deletion_requested_at", None)
+    if field is not None:
+        args["deletion_requested_at"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
+    else:
+        args["deletion_requested_at"] = None
+
     return SecretVersion(**args)
 
 
@@ -219,6 +227,14 @@ def unmarshal_Secret(data: Any) -> Secret:
         args["ephemeral_policy"] = unmarshal_EphemeralPolicy(field)
     else:
         args["ephemeral_policy"] = None
+
+    field = data.get("deletion_requested_at", None)
+    if field is not None:
+        args["deletion_requested_at"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
+    else:
+        args["deletion_requested_at"] = None
 
     return Secret(**args)
 
