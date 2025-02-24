@@ -447,6 +447,7 @@ class BlockV1Alpha1API(API):
         page_size: Optional[int] = None,
         volume_id: Optional[str] = None,
         name: Optional[str] = None,
+        tags: Optional[List[str]] = None,
     ) -> ListSnapshotsResponse:
         """
         List all snapshots.
@@ -459,6 +460,7 @@ class BlockV1Alpha1API(API):
         :param page_size: Page size, defines how many entries are returned in one page, must be lower or equal to 100.
         :param volume_id: Filter snapshots by the ID of the original volume.
         :param name: Filter snapshots by their names.
+        :param tags: Filter by tags. Only snapshots with one or more matching tags will be returned.
         :return: :class:`ListSnapshotsResponse <ListSnapshotsResponse>`
 
         Usage:
@@ -480,6 +482,7 @@ class BlockV1Alpha1API(API):
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
+                "tags": tags,
                 "volume_id": volume_id,
             },
         )
@@ -498,6 +501,7 @@ class BlockV1Alpha1API(API):
         page_size: Optional[int] = None,
         volume_id: Optional[str] = None,
         name: Optional[str] = None,
+        tags: Optional[List[str]] = None,
     ) -> List[Snapshot]:
         """
         List all snapshots.
@@ -510,6 +514,7 @@ class BlockV1Alpha1API(API):
         :param page_size: Page size, defines how many entries are returned in one page, must be lower or equal to 100.
         :param volume_id: Filter snapshots by the ID of the original volume.
         :param name: Filter snapshots by their names.
+        :param tags: Filter by tags. Only snapshots with one or more matching tags will be returned.
         :return: :class:`List[Snapshot] <List[Snapshot]>`
 
         Usage:
@@ -531,6 +536,7 @@ class BlockV1Alpha1API(API):
                 "page_size": page_size,
                 "volume_id": volume_id,
                 "name": name,
+                "tags": tags,
             },
         )
 
