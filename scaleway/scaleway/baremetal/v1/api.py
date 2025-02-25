@@ -1035,6 +1035,38 @@ class BaremetalV1API(API):
         self._throw_on_error(res)
         return unmarshal_Server(res.json())
 
+    def migrate_server_to_monthly_offer(
+        self,
+        *,
+        server_id: str,
+        zone: Optional[ScwZone] = None,
+    ) -> Server:
+        """
+        Migrate server offer.
+        Migrate server with hourly offer to monthly offer.
+        :param server_id: ID of the server.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :return: :class:`Server <Server>`
+
+        Usage:
+        ::
+
+            result = api.migrate_server_to_monthly_offer(
+                server_id="example",
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_server_id = validate_path_param("server_id", server_id)
+
+        res = self._request(
+            "POST",
+            f"/baremetal/v1/zones/{param_zone}/servers/{param_server_id}/migrate-offer-monthly",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Server(res.json())
+
     def list_offers(
         self,
         *,
