@@ -1342,6 +1342,11 @@ class ServerType:
     True if it is a baremetal Instance.
     """
 
+    end_of_service: bool
+    """
+    True if this Instance type has reached end of service.
+    """
+
     per_volume_constraint: Optional[ServerTypeVolumeConstraintsByType]
     """
     Additional volume constraints.
@@ -2278,6 +2283,19 @@ class GetSecurityGroupRuleResponse:
 
 
 @dataclass
+class GetServerCompatibleTypesRequest:
+    server_id: str
+    """
+    UUID of the Instance you want to get.
+    """
+
+    zone: Optional[ScwZone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
 class GetServerRequest:
     server_id: str
     """
@@ -3003,6 +3021,14 @@ This field should only be specified when performing a enable_routed_ip action.
 @dataclass
 class ServerActionResponse:
     task: Optional[Task]
+
+
+@dataclass
+class ServerCompatibleTypes:
+    compatible_types: List[str]
+    """
+    Instance compatible types.
+    """
 
 
 @dataclass
