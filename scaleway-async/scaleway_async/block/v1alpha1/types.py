@@ -601,6 +601,11 @@ class ListSnapshotsRequest:
     Filter snapshots by their names.
     """
 
+    tags: Optional[List[str]]
+    """
+    Filter by tags. Only snapshots with one or more matching tags will be returned.
+    """
+
 
 @dataclass
 class ListSnapshotsResponse:
