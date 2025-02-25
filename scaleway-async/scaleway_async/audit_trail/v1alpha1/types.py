@@ -32,12 +32,12 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     KUBE_NODE = "kube_node"
     KUBE_ACL = "kube_acl"
     KEYM_KEY = "keym_key"
-    IAMX_USER = "iamx_user"
-    IAMX_APPLICATION = "iamx_application"
-    IAMX_GROUP = "iamx_group"
-    IAMX_POLICY = "iamx_policy"
-    IAMX_API_KEY = "iamx_api_key"
-    IAMX_SSH_KEY = "iamx_ssh_key"
+    IAM_USER = "iam_user"
+    IAM_APPLICATION = "iam_application"
+    IAM_GROUP = "iam_group"
+    IAM_POLICY = "iam_policy"
+    IAM_API_KEY = "iam_api_key"
+    IAM_SSH_KEY = "iam_ssh_key"
 
     def __str__(self) -> str:
         return str(self.value)
