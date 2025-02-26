@@ -108,6 +108,7 @@ from .types import (
     ServerActionRequest,
     ServerActionRequestVolumeBackupTemplate,
     ServerActionResponse,
+    ServerCompatibleTypes,
     ServerIp,
     ServerIpv6,
     ServerLocation,
@@ -189,6 +190,7 @@ from .marshalling import (
     unmarshal_ListVolumesTypesResponse,
     unmarshal_MigrationPlan,
     unmarshal_ServerActionResponse,
+    unmarshal_ServerCompatibleTypes,
     unmarshal_SetPlacementGroupResponse,
     unmarshal_SetPlacementGroupServersResponse,
     unmarshal_SetSecurityGroupRulesResponse,
@@ -1035,6 +1037,43 @@ class InstanceV1API(API):
         )
 
         self._throw_on_error(res)
+
+    async def get_server_compatible_types(
+        self,
+        *,
+        server_id: str,
+        zone: Optional[ScwZone] = None,
+    ) -> ServerCompatibleTypes:
+        """
+        Get Instance compatible types.
+        Get compatible commercial types that can be used to update the Instance. The compatibility of an Instance offer is based on:
+        * the CPU architecture
+        * the OS type
+        * the required l_ssd storage size
+        * the required scratch storage size
+        If the specified Instance offer is flagged as end of service, the best compatible offer is the first returned.
+        :param server_id: UUID of the Instance you want to get.
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :return: :class:`ServerCompatibleTypes <ServerCompatibleTypes>`
+
+        Usage:
+        ::
+
+            result = await api.get_server_compatible_types(
+                server_id="example",
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_server_id = validate_path_param("server_id", server_id)
+
+        res = self._request(
+            "GET",
+            f"/instance/v1/zones/{param_zone}/servers/{param_server_id}/compatible-types",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ServerCompatibleTypes(res.json())
 
     async def attach_server_volume(
         self,
