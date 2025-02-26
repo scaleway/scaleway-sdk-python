@@ -145,11 +145,6 @@ class Event:
     IP address at the origin of the event.
     """
 
-    product_name: str
-    """
-    Product name of the resource attached to the event.
-    """
-
     recorded_at: Optional[datetime]
     """
     Timestamp of the event.
@@ -170,6 +165,11 @@ class Event:
     User Agent at the origin of the event.
     """
 
+    product_name: str
+    """
+    Product name of the resource attached to the event.
+    """
+
     service_name: str
     """
     API name called to trigger the event.
@@ -178,6 +178,11 @@ class Event:
     method_name: str
     """
     API method called to trigger the event.
+    """
+
+    resources: List[Resource]
+    """
+    Resources attached to the event.
     """
 
     request_id: str
