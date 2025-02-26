@@ -203,6 +203,7 @@ class ServerStatus(str, Enum, metaclass=StrEnumMeta):
     OUT_OF_STOCK = "out_of_stock"
     ORDERED = "ordered"
     RESETTING = "resetting"
+    MIGRATING = "migrating"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -822,6 +823,11 @@ class Offer:
     fee: Optional[Money]
     """
     One time fee invoiced by Scaleway for the setup and activation of the server.
+    """
+
+    monthly_offer_id: Optional[str]
+    """
+    Exist only for hourly offers, to migrate to the monthly offer.
     """
 
 
@@ -1586,6 +1592,19 @@ class ListSettingsResponse:
     settings: List[Setting]
     """
     Settings that match filters.
+    """
+
+
+@dataclass
+class MigrateServerToMonthlyOfferRequest:
+    server_id: str
+    """
+    ID of the server.
+    """
+
+    zone: Optional[ScwZone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
     """
 
 

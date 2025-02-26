@@ -781,6 +781,12 @@ def unmarshal_Offer(data: Any) -> Offer:
     else:
         args["fee"] = None
 
+    field = data.get("monthly_offer_id", None)
+    if field is not None:
+        args["monthly_offer_id"] = field
+    else:
+        args["monthly_offer_id"] = None
+
     return Offer(**args)
 
 

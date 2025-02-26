@@ -81,6 +81,7 @@ from .types import ListServersRequest
 from .types import ListServersResponse
 from .types import ListSettingsRequest
 from .types import ListSettingsResponse
+from .types import MigrateServerToMonthlyOfferRequest
 from .types import PrivateNetworkApiAddServerPrivateNetworkRequest
 from .types import PrivateNetworkApiDeleteServerPrivateNetworkRequest
 from .types import PrivateNetworkApiListServerPrivateNetworksRequest
@@ -180,6 +181,7 @@ __all__ = [
     "ListServersResponse",
     "ListSettingsRequest",
     "ListSettingsResponse",
+    "MigrateServerToMonthlyOfferRequest",
     "PrivateNetworkApiAddServerPrivateNetworkRequest",
     "PrivateNetworkApiDeleteServerPrivateNetworkRequest",
     "PrivateNetworkApiListServerPrivateNetworksRequest",
