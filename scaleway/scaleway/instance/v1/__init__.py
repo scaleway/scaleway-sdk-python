@@ -128,6 +128,7 @@ from .types import GetSecurityGroupRequest
 from .types import GetSecurityGroupResponse
 from .types import GetSecurityGroupRuleRequest
 from .types import GetSecurityGroupRuleResponse
+from .types import GetServerCompatibleTypesRequest
 from .types import GetServerRequest
 from .types import GetServerResponse
 from .types import GetServerTypesAvailabilityRequest
@@ -167,6 +168,7 @@ from .types import MigrationPlan
 from .types import PlanBlockMigrationRequest
 from .types import ServerActionRequest
 from .types import ServerActionResponse
+from .types import ServerCompatibleTypes
 from .types import SetImageRequest
 from .types import SetPlacementGroupRequest
 from .types import SetPlacementGroupResponse
@@ -324,6 +326,7 @@ __all__ = [
     "GetSecurityGroupResponse",
     "GetSecurityGroupRuleRequest",
     "GetSecurityGroupRuleResponse",
+    "GetServerCompatibleTypesRequest",
     "GetServerRequest",
     "GetServerResponse",
     "GetServerTypesAvailabilityRequest",
@@ -363,6 +366,7 @@ __all__ = [
     "PlanBlockMigrationRequest",
     "ServerActionRequest",
     "ServerActionResponse",
+    "ServerCompatibleTypes",
     "SetImageRequest",
     "SetPlacementGroupRequest",
     "SetPlacementGroupResponse",
