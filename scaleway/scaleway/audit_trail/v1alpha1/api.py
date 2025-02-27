@@ -97,10 +97,12 @@ class AuditTrailV1Alpha1API(API):
         self,
         *,
         region: Optional[ScwRegion] = None,
+        organization_id: Optional[str] = None,
     ) -> ListProductsResponse:
         """
         Retrieve the list of Scaleway resources for which you have Audit Trail events.
         :param region: Region to target. If none is passed will use default region from the config.
+        :param organization_id: ID of the Organization containing the Audit Trail events.
         :return: :class:`ListProductsResponse <ListProductsResponse>`
 
         Usage:
@@ -116,6 +118,10 @@ class AuditTrailV1Alpha1API(API):
         res = self._request(
             "GET",
             f"/audit-trail/v1alpha1/regions/{param_region}/products",
+            params={
+                "organization_id": organization_id
+                or self.client.default_organization_id,
+            },
         )
 
         self._throw_on_error(res)
