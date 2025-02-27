@@ -6,7 +6,6 @@ from .types import (
     DomainAvailabilityStatus,
     DomainStatus,
     HostingStatus,
-    HostingSummaryStatus,
 )
 
 DOMAIN_AVAILABILITY_TRANSIENT_STATUSES: List[DomainAvailabilityStatus] = [
@@ -28,12 +27,4 @@ HOSTING_TRANSIENT_STATUSES: List[HostingStatus] = [
 ]
 """
 Lists transient statutes of the enum :class:`HostingStatus <HostingStatus>`.
-"""
-HOSTING_SUMMARY_TRANSIENT_STATUSES: List[HostingSummaryStatus] = [
-    HostingSummaryStatus.DELIVERING,
-    HostingSummaryStatus.DELETING,
-    HostingSummaryStatus.MIGRATING,
-]
-"""
-Lists transient statutes of the enum :class:`HostingSummaryStatus <HostingSummaryStatus>`.
 """

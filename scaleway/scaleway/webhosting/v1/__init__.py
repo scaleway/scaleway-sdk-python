@@ -13,8 +13,6 @@ from .content import DOMAIN_TRANSIENT_STATUSES
 from .types import DomainZoneOwner
 from .types import HostingStatus
 from .content import HOSTING_TRANSIENT_STATUSES
-from .types import HostingSummaryStatus
-from .content import HOSTING_SUMMARY_TRANSIENT_STATUSES
 from .types import ListDatabaseUsersRequestOrderBy
 from .types import ListDatabasesRequestOrderBy
 from .types import ListFtpAccountsRequestOrderBy
@@ -120,8 +118,6 @@ __all__ = [
     "DomainZoneOwner",
     "HostingStatus",
     "HOSTING_TRANSIENT_STATUSES",
-    "HostingSummaryStatus",
-    "HOSTING_SUMMARY_TRANSIENT_STATUSES",
     "ListDatabaseUsersRequestOrderBy",
     "ListDatabasesRequestOrderBy",
     "ListFtpAccountsRequestOrderBy",
