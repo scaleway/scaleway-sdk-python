@@ -298,6 +298,11 @@ class ListProductsRequest:
     Region to target. If none is passed will use default region from the config.
     """
 
+    organization_id: Optional[str]
+    """
+    ID of the Organization containing the Audit Trail events.
+    """
+
 
 @dataclass
 class ListProductsResponse:
