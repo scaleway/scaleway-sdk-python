@@ -37,12 +37,14 @@ from .types import (
     NodeType,
     RestoreSnapshotRequest,
     RestoreSnapshotRequestVolumeDetails,
+    SetUserRoleRequest,
     Snapshot,
     UpdateInstanceRequest,
     UpdateSnapshotRequest,
     UpdateUserRequest,
     UpgradeInstanceRequest,
     User,
+    UserRole,
     Version,
 )
 from .content import (
@@ -64,6 +66,7 @@ from .marshalling import (
     marshal_CreateSnapshotRequest,
     marshal_CreateUserRequest,
     marshal_RestoreSnapshotRequest,
+    marshal_SetUserRoleRequest,
     marshal_UpdateInstanceRequest,
     marshal_UpdateSnapshotRequest,
     marshal_UpdateUserRequest,
@@ -1206,6 +1209,52 @@ class MongodbV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
+
+    def set_user_role(
+        self,
+        *,
+        instance_id: str,
+        user_name: str,
+        region: Optional[ScwRegion] = None,
+        roles: Optional[List[UserRole]] = None,
+    ) -> User:
+        """
+        :param instance_id: UUID of the Database Instance the user belongs to.
+        :param user_name: Name of the database user.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param roles: List of roles assigned to the user, along with the corresponding database where each role is granted.
+        :return: :class:`User <User>`
+
+        Usage:
+        ::
+
+            result = api.set_user_role(
+                instance_id="example",
+                user_name="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_instance_id = validate_path_param("instance_id", instance_id)
+
+        res = self._request(
+            "PUT",
+            f"/mongodb/v1alpha1/regions/{param_region}/instances/{param_instance_id}/roles",
+            body=marshal_SetUserRoleRequest(
+                SetUserRoleRequest(
+                    instance_id=instance_id,
+                    user_name=user_name,
+                    region=region,
+                    roles=roles,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_User(res.json())
 
     def delete_endpoint(
         self,
