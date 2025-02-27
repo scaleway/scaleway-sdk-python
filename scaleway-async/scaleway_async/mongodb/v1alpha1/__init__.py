@@ -9,6 +9,7 @@ from .types import NodeTypeStock
 from .types import SettingPropertyType
 from .types import SnapshotStatus
 from .content import SNAPSHOT_TRANSIENT_STATUSES
+from .types import UserRoleRole
 from .types import VolumeType
 from .types import EndpointPrivateNetworkDetails
 from .types import EndpointPublicDetails
@@ -19,6 +20,7 @@ from .types import InstanceSetting
 from .types import Volume
 from .types import NodeTypeVolumeType
 from .types import SnapshotVolumeType
+from .types import UserRole
 from .types import Setting
 from .types import EndpointSpec
 from .types import CreateInstanceRequestVolumeDetails
@@ -50,6 +52,7 @@ from .types import ListUsersResponse
 from .types import ListVersionsRequest
 from .types import ListVersionsResponse
 from .types import RestoreSnapshotRequest
+from .types import SetUserRoleRequest
 from .types import UpdateInstanceRequest
 from .types import UpdateSnapshotRequest
 from .types import UpdateUserRequest
@@ -66,6 +69,7 @@ __all__ = [
     "SettingPropertyType",
     "SnapshotStatus",
     "SNAPSHOT_TRANSIENT_STATUSES",
+    "UserRoleRole",
     "VolumeType",
     "EndpointPrivateNetworkDetails",
     "EndpointPublicDetails",
@@ -76,6 +80,7 @@ __all__ = [
     "Volume",
     "NodeTypeVolumeType",
     "SnapshotVolumeType",
+    "UserRole",
     "Setting",
     "EndpointSpec",
     "CreateInstanceRequestVolumeDetails",
@@ -107,6 +112,7 @@ __all__ = [
     "ListVersionsRequest",
     "ListVersionsResponse",
     "RestoreSnapshotRequest",
+    "SetUserRoleRequest",
     "UpdateInstanceRequest",
     "UpdateSnapshotRequest",
     "UpdateUserRequest",

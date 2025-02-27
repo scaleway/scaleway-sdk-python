@@ -95,6 +95,16 @@ class SnapshotStatus(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class UserRoleRole(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_ROLE = "unknown_role"
+    READ = "read"
+    READ_WRITE = "read_write"
+    DB_ADMIN = "db_admin"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class VolumeType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_TYPE = "unknown_type"
     SBS_5K = "sbs_5k"
@@ -218,6 +228,15 @@ class NodeTypeVolumeType:
 @dataclass
 class SnapshotVolumeType:
     type_: VolumeType
+
+
+@dataclass
+class UserRole:
+    role: UserRoleRole
+
+    database: Optional[str]
+
+    any_database: Optional[bool]
 
 
 @dataclass
@@ -482,6 +501,11 @@ class User:
     name: str
     """
     Name of the user (Length must be between 1 and 63 characters. First character must be an alphabet character (a-zA-Z). Only a-zA-Z0-9_$- characters are accepted).
+    """
+
+    roles: List[UserRole]
+    """
+    List of roles assigned to the user, along with the corresponding database where each role is granted.
     """
 
 
@@ -956,6 +980,29 @@ class RestoreSnapshotRequest:
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class SetUserRoleRequest:
+    instance_id: str
+    """
+    UUID of the Database Instance the user belongs to.
+    """
+
+    user_name: str
+    """
+    Name of the database user.
+    """
+
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    roles: Optional[List[UserRole]]
+    """
+    List of roles assigned to the user, along with the corresponding database where each role is granted.
     """
 
 

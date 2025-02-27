@@ -18,6 +18,7 @@ from .types import (
     Instance,
     SnapshotVolumeType,
     Snapshot,
+    UserRole,
     User,
     ListInstancesResponse,
     NodeTypeVolumeType,
@@ -38,6 +39,7 @@ from .types import (
     CreateUserRequest,
     RestoreSnapshotRequestVolumeDetails,
     RestoreSnapshotRequest,
+    SetUserRoleRequest,
     UpdateInstanceRequest,
     UpdateSnapshotRequest,
     UpdateUserRequest,
@@ -301,6 +303,33 @@ def unmarshal_Snapshot(data: Any) -> Snapshot:
     return Snapshot(**args)
 
 
+def unmarshal_UserRole(data: Any) -> UserRole:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'UserRole' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("role", None)
+    if field is not None:
+        args["role"] = field
+
+    field = data.get("database", None)
+    if field is not None:
+        args["database"] = field
+    else:
+        args["database"] = None
+
+    field = data.get("any_database", None)
+    if field is not None:
+        args["any_database"] = field
+    else:
+        args["any_database"] = None
+
+    return UserRole(**args)
+
+
 def unmarshal_User(data: Any) -> User:
     if not isinstance(data, dict):
         raise TypeError(
@@ -312,6 +341,12 @@ def unmarshal_User(data: Any) -> User:
     field = data.get("name", None)
     if field is not None:
         args["name"] = field
+
+    field = data.get("roles", None)
+    if field is not None:
+        args["roles"] = (
+            [unmarshal_UserRole(v) for v in field] if field is not None else None
+        )
 
     return User(**args)
 
@@ -771,6 +806,41 @@ def marshal_RestoreSnapshotRequest(
         output["volume"] = marshal_RestoreSnapshotRequestVolumeDetails(
             request.volume, defaults
         )
+
+    return output
+
+
+def marshal_UserRole(
+    request: UserRole,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
+            [
+                OneOfPossibility("database", request.database),
+                OneOfPossibility("any_database", request.any_database),
+            ]
+        ),
+    )
+
+    if request.role is not None:
+        output["role"] = str(request.role)
+
+    return output
+
+
+def marshal_SetUserRoleRequest(
+    request: SetUserRoleRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.user_name is not None:
+        output["user_name"] = request.user_name
+
+    if request.roles is not None:
+        output["roles"] = [marshal_UserRole(item, defaults) for item in request.roles]
 
     return output
 
