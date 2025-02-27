@@ -2151,6 +2151,8 @@ def unmarshal_ServerType(data: Any) -> ServerType:
     field = data.get("baremetal", None)
     if field is not None:
         args["baremetal"] = field
+    else:
+        args["baremetal"] = False
 
     field = data.get("end_of_service", None)
     if field is not None:
