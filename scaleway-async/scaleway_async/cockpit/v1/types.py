@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Dict, List, Optional
 
 from scaleway_core.bridge import (
     Region as ScwRegion,
@@ -13,6 +13,16 @@ from scaleway_core.bridge import (
 from scaleway_core.utils import (
     StrEnumMeta,
 )
+
+
+class AlertState(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATE = "unknown_state"
+    INACTIVE = "inactive"
+    PENDING = "pending"
+    FIRING = "firing"
+
+    def __str__(self) -> str:
+        return str(self.value)
 
 
 class DataSourceOrigin(str, Enum, metaclass=StrEnumMeta):
@@ -59,18 +69,6 @@ class ListDataSourcesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 class ListGrafanaUsersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     LOGIN_ASC = "login_asc"
     LOGIN_DESC = "login_desc"
-
-    def __str__(self) -> str:
-        return str(self.value)
-
-
-class ListManagedAlertsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
-    CREATED_AT_ASC = "created_at_asc"
-    CREATED_AT_DESC = "created_at_desc"
-    NAME_ASC = "name_asc"
-    NAME_DESC = "name_desc"
-    TYPE_ASC = "type_asc"
-    TYPE_DESC = "type_desc"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -144,6 +142,28 @@ class GetConfigResponseRetention:
 
 
 @dataclass
+class Alert:
+    region: ScwRegion
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    preconfigured: bool
+
+    name: str
+
+    rule: str
+
+    duration: str
+
+    enabled: bool
+
+    annotations: Dict[str, str]
+
+    state: Optional[AlertState]
+
+
+@dataclass
 class ContactPoint:
     """
     Contact point.
@@ -151,7 +171,12 @@ class ContactPoint:
 
     region: ScwRegion
     """
-    Region to target. If none is passed will use default region from the config.
+    Region.
+    """
+
+    receive_resolved_notifications: bool
+    """
+    Send an email notification when an alert is marked as resolved.
     """
 
     email: Optional[ContactPointEmail]
@@ -276,19 +301,6 @@ class GrafanaUser:
     """
     Grafana user's password.
     """
-
-
-@dataclass
-class Alert:
-    product_family: str
-
-    product: str
-
-    name: str
-
-    rule: str
-
-    description: str
 
 
 @dataclass
@@ -703,6 +715,23 @@ class Grafana:
 
 
 @dataclass
+class ListAlertsResponse:
+    """
+    Retrieve a list of alerts matching the request.
+    """
+
+    total_count: int
+    """
+    Total count of alerts matching the request.
+    """
+
+    alerts: List[Alert]
+    """
+    List of alerts matching the applied filters.
+    """
+
+
+@dataclass
 class ListContactPointsResponse:
     """
     Response returned when listing contact points.
@@ -781,23 +810,6 @@ class ListGrafanaUsersResponse:
 
 
 @dataclass
-class ListManagedAlertsResponse:
-    """
-    Response returned when listing data sources.
-    """
-
-    total_count: int
-    """
-    Total count of data sources matching the request.
-    """
-
-    alerts: List[Alert]
-    """
-    Alerts matching the request within the pagination.
-    """
-
-
-@dataclass
 class ListPlansResponse:
     """
     Output returned when listing pricing plans.
@@ -845,6 +857,11 @@ class RegionalApiCreateContactPointRequest:
     project_id: Optional[str]
     """
     ID of the Project to create the contact point in.
+    """
+
+    receive_resolved_notifications: Optional[bool]
+    """
+    Send an email notification when an alert is marked as resolved.
     """
 
     email: Optional[ContactPointEmail]
@@ -1106,6 +1123,38 @@ class RegionalApiGetUsageOverviewRequest:
 
 
 @dataclass
+class RegionalApiListAlertsRequest:
+    """
+    Retrieve a list of alerts.
+    """
+
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    Project ID to filter for, only alerts from this Project will be returned.
+    """
+
+    is_enabled: Optional[bool]
+    """
+    True returns only enabled alerts. False returns only disabled alerts. If omitted, no alert filtering is applied. Other filters may still apply.
+    """
+
+    is_preconfigured: Optional[bool]
+    """
+    True returns only preconfigured alerts. False returns only custom alerts. If omitted, no filtering is applied on alert types. Other filters may still apply.
+    """
+
+    state: Optional[AlertState]
+    """
+    Valid values to filter on are `disabled`, `enabled`, `pending` and `firing`. If omitted, no filtering is applied on alert states. Other filters may still apply.
+    """
+
+
+@dataclass
 class RegionalApiListContactPointsRequest:
     """
     List contact points.
@@ -1175,38 +1224,6 @@ class RegionalApiListDataSourcesRequest:
 
 
 @dataclass
-class RegionalApiListManagedAlertsRequest:
-    """
-    Enable the sending of managed alerts.
-    """
-
-    region: Optional[ScwRegion]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    page: Optional[int]
-    """
-    Page number to return, from the paginated results.
-    """
-
-    page_size: Optional[int]
-    """
-    Number of data sources to return per page.
-    """
-
-    order_by: Optional[ListManagedAlertsRequestOrderBy]
-    """
-    Sort order for data sources in the response.
-    """
-
-    project_id: Optional[str]
-    """
-    Project ID to filter for, only data sources from this Project will be returned.
-    """
-
-
-@dataclass
 class RegionalApiListTokensRequest:
     """
     List tokens.
@@ -1258,6 +1275,30 @@ class RegionalApiTriggerTestAlertRequest:
     """
     ID of the Project.
     """
+
+
+@dataclass
+class RegionalApiUpdateContactPointRequest:
+    """
+    Update a contact point.
+    """
+
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    ID of the Project containing the contact point to update.
+    """
+
+    receive_resolved_notifications: Optional[bool]
+    """
+    Enable or disable notifications when alert is resolved.
+    """
+
+    email: Optional[ContactPointEmail]
 
 
 @dataclass

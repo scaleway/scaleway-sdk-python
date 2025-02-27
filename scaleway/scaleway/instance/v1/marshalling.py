@@ -94,6 +94,7 @@ from .types import (
     ListVolumesTypesResponse,
     MigrationPlan,
     ServerActionResponse,
+    ServerCompatibleTypes,
     SetPlacementGroupResponse,
     SetPlacementGroupServersResponse,
     SetSecurityGroupRulesResponse,
@@ -2153,6 +2154,10 @@ def unmarshal_ServerType(data: Any) -> ServerType:
     else:
         args["baremetal"] = False
 
+    field = data.get("end_of_service", None)
+    if field is not None:
+        args["end_of_service"] = field
+
     field = data.get("per_volume_constraint", None)
     if field is not None:
         args["per_volume_constraint"] = unmarshal_ServerTypeVolumeConstraintsByType(
@@ -2391,6 +2396,21 @@ def unmarshal_ServerActionResponse(data: Any) -> ServerActionResponse:
         args["task"] = None
 
     return ServerActionResponse(**args)
+
+
+def unmarshal_ServerCompatibleTypes(data: Any) -> ServerCompatibleTypes:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ServerCompatibleTypes' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("compatible_types", None)
+    if field is not None:
+        args["compatible_types"] = field
+
+    return ServerCompatibleTypes(**args)
 
 
 def unmarshal_SetPlacementGroupResponse(data: Any) -> SetPlacementGroupResponse:

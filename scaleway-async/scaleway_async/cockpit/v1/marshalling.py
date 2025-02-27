@@ -22,12 +22,12 @@ from .types import (
     GetConfigResponseRetention,
     GetConfigResponse,
     Grafana,
+    Alert,
+    ListAlertsResponse,
     ListContactPointsResponse,
     ListDataSourcesResponse,
     ListGrafanaProductDashboardsResponse,
     ListGrafanaUsersResponse,
-    Alert,
-    ListManagedAlertsResponse,
     ListPlansResponse,
     ListTokensResponse,
     Usage,
@@ -45,6 +45,7 @@ from .types import (
     RegionalApiEnableAlertManagerRequest,
     RegionalApiEnableManagedAlertsRequest,
     RegionalApiTriggerTestAlertRequest,
+    RegionalApiUpdateContactPointRequest,
     RegionalApiUpdateDataSourceRequest,
 )
 
@@ -75,6 +76,10 @@ def unmarshal_ContactPoint(data: Any) -> ContactPoint:
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
+
+    field = data.get("receive_resolved_notifications", None)
+    if field is not None:
+        args["receive_resolved_notifications"] = field
 
     field = data.get("email", None)
     if field is not None:
@@ -410,6 +415,72 @@ def unmarshal_Grafana(data: Any) -> Grafana:
     return Grafana(**args)
 
 
+def unmarshal_Alert(data: Any) -> Alert:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Alert' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+
+    field = data.get("preconfigured", None)
+    if field is not None:
+        args["preconfigured"] = field
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+
+    field = data.get("rule", None)
+    if field is not None:
+        args["rule"] = field
+
+    field = data.get("duration", None)
+    if field is not None:
+        args["duration"] = field
+
+    field = data.get("enabled", None)
+    if field is not None:
+        args["enabled"] = field
+
+    field = data.get("annotations", None)
+    if field is not None:
+        args["annotations"] = field
+
+    field = data.get("state", None)
+    if field is not None:
+        args["state"] = field
+    else:
+        args["state"] = None
+
+    return Alert(**args)
+
+
+def unmarshal_ListAlertsResponse(data: Any) -> ListAlertsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListAlertsResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+
+    field = data.get("alerts", None)
+    if field is not None:
+        args["alerts"] = (
+            [unmarshal_Alert(v) for v in field] if field is not None else None
+        )
+
+    return ListAlertsResponse(**args)
+
+
 def unmarshal_ListContactPointsResponse(data: Any) -> ListContactPointsResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -504,58 +575,6 @@ def unmarshal_ListGrafanaUsersResponse(data: Any) -> ListGrafanaUsersResponse:
         )
 
     return ListGrafanaUsersResponse(**args)
-
-
-def unmarshal_Alert(data: Any) -> Alert:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'Alert' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("product_family", None)
-    if field is not None:
-        args["product_family"] = field
-
-    field = data.get("product", None)
-    if field is not None:
-        args["product"] = field
-
-    field = data.get("name", None)
-    if field is not None:
-        args["name"] = field
-
-    field = data.get("rule", None)
-    if field is not None:
-        args["rule"] = field
-
-    field = data.get("description", None)
-    if field is not None:
-        args["description"] = field
-
-    return Alert(**args)
-
-
-def unmarshal_ListManagedAlertsResponse(data: Any) -> ListManagedAlertsResponse:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'ListManagedAlertsResponse' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("total_count", None)
-    if field is not None:
-        args["total_count"] = field
-
-    field = data.get("alerts", None)
-    if field is not None:
-        args["alerts"] = (
-            [unmarshal_Alert(v) for v in field] if field is not None else None
-        )
-
-    return ListManagedAlertsResponse(**args)
 
 
 def unmarshal_ListPlansResponse(data: Any) -> ListPlansResponse:
@@ -773,6 +792,11 @@ def marshal_RegionalApiCreateContactPointRequest(
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id
 
+    if request.receive_resolved_notifications is not None:
+        output["receive_resolved_notifications"] = (
+            request.receive_resolved_notifications
+        )
+
     return output
 
 
@@ -890,6 +914,30 @@ def marshal_RegionalApiTriggerTestAlertRequest(
 
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id
+
+    return output
+
+
+def marshal_RegionalApiUpdateContactPointRequest(
+    request: RegionalApiUpdateContactPointRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
+            [
+                OneOfPossibility("email", request.email),
+            ]
+        ),
+    )
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    if request.receive_resolved_notifications is not None:
+        output["receive_resolved_notifications"] = (
+            request.receive_resolved_notifications
+        )
 
     return output
 

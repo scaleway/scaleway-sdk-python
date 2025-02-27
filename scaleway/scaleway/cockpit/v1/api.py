@@ -12,17 +12,16 @@ from scaleway_core.utils import (
     fetch_all_pages,
 )
 from .types import (
+    AlertState,
     DataSourceOrigin,
     DataSourceType,
     GrafanaUserRole,
     ListDataSourcesRequestOrderBy,
     ListGrafanaUsersRequestOrderBy,
-    ListManagedAlertsRequestOrderBy,
     ListPlansRequestOrderBy,
     ListTokensRequestOrderBy,
     PlanName,
     TokenScope,
-    Alert,
     AlertManager,
     ContactPoint,
     ContactPointEmail,
@@ -35,11 +34,11 @@ from .types import (
     Grafana,
     GrafanaProductDashboard,
     GrafanaUser,
+    ListAlertsResponse,
     ListContactPointsResponse,
     ListDataSourcesResponse,
     ListGrafanaProductDashboardsResponse,
     ListGrafanaUsersResponse,
-    ListManagedAlertsResponse,
     ListPlansResponse,
     ListTokensResponse,
     Plan,
@@ -52,6 +51,7 @@ from .types import (
     RegionalApiEnableAlertManagerRequest,
     RegionalApiEnableManagedAlertsRequest,
     RegionalApiTriggerTestAlertRequest,
+    RegionalApiUpdateContactPointRequest,
     RegionalApiUpdateDataSourceRequest,
     Token,
     UsageOverview,
@@ -66,11 +66,11 @@ from .marshalling import (
     unmarshal_AlertManager,
     unmarshal_GetConfigResponse,
     unmarshal_Grafana,
+    unmarshal_ListAlertsResponse,
     unmarshal_ListContactPointsResponse,
     unmarshal_ListDataSourcesResponse,
     unmarshal_ListGrafanaProductDashboardsResponse,
     unmarshal_ListGrafanaUsersResponse,
-    unmarshal_ListManagedAlertsResponse,
     unmarshal_ListPlansResponse,
     unmarshal_ListTokensResponse,
     unmarshal_UsageOverview,
@@ -87,6 +87,7 @@ from .marshalling import (
     marshal_RegionalApiEnableAlertManagerRequest,
     marshal_RegionalApiEnableManagedAlertsRequest,
     marshal_RegionalApiTriggerTestAlertRequest,
+    marshal_RegionalApiUpdateContactPointRequest,
     marshal_RegionalApiUpdateDataSourceRequest,
 )
 
@@ -1230,6 +1231,7 @@ class CockpitV1RegionalAPI(API):
         region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         email: Optional[ContactPointEmail] = None,
+        receive_resolved_notifications: Optional[bool] = None,
     ) -> ContactPoint:
         """
         Create a contact point.
@@ -1240,6 +1242,7 @@ class CockpitV1RegionalAPI(API):
         :param project_id: ID of the Project to create the contact point in.
         :param email: Email address of the contact point to create.
         One-Of ('configuration'): at most one of 'email' could be set.
+        :param receive_resolved_notifications: Send an email notification when an alert is marked as resolved.
         :return: :class:`ContactPoint <ContactPoint>`
 
         Usage:
@@ -1259,6 +1262,7 @@ class CockpitV1RegionalAPI(API):
                 RegionalApiCreateContactPointRequest(
                     region=region,
                     project_id=project_id,
+                    receive_resolved_notifications=receive_resolved_notifications,
                     email=email,
                 ),
                 self.client,
@@ -1343,6 +1347,49 @@ class CockpitV1RegionalAPI(API):
             },
         )
 
+    def update_contact_point(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        project_id: Optional[str] = None,
+        email: Optional[ContactPointEmail] = None,
+        receive_resolved_notifications: Optional[bool] = None,
+    ) -> ContactPoint:
+        """
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: ID of the Project containing the contact point to update.
+        :param email: Email address of the contact point to update.
+        One-Of ('configuration'): at most one of 'email' could be set.
+        :param receive_resolved_notifications: Enable or disable notifications when alert is resolved.
+        :return: :class:`ContactPoint <ContactPoint>`
+
+        Usage:
+        ::
+
+            result = api.update_contact_point()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "PATCH",
+            f"/cockpit/v1/regions/{param_region}/alert-manager/contact-points",
+            body=marshal_RegionalApiUpdateContactPointRequest(
+                RegionalApiUpdateContactPointRequest(
+                    region=region,
+                    project_id=project_id,
+                    receive_resolved_notifications=receive_resolved_notifications,
+                    email=email,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ContactPoint(res.json())
+
     def delete_contact_point(
         self,
         *,
@@ -1383,29 +1430,29 @@ class CockpitV1RegionalAPI(API):
 
         self._throw_on_error(res)
 
-    def list_managed_alerts(
+    def list_alerts(
         self,
         *,
         region: Optional[ScwRegion] = None,
-        page: Optional[int] = None,
-        page_size: Optional[int] = None,
-        order_by: Optional[ListManagedAlertsRequestOrderBy] = None,
         project_id: Optional[str] = None,
-    ) -> ListManagedAlertsResponse:
+        is_enabled: Optional[bool] = None,
+        is_preconfigured: Optional[bool] = None,
+        state: Optional[AlertState] = None,
+    ) -> ListAlertsResponse:
         """
-        List managed alerts.
-        List all managed alerts for the specified Project.
+        List alerts.
+        List preconfigured and/or custom alerts for the specified Project.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param page: Page number to return, from the paginated results.
-        :param page_size: Number of data sources to return per page.
-        :param order_by: Sort order for data sources in the response.
-        :param project_id: Project ID to filter for, only data sources from this Project will be returned.
-        :return: :class:`ListManagedAlertsResponse <ListManagedAlertsResponse>`
+        :param project_id: Project ID to filter for, only alerts from this Project will be returned.
+        :param is_enabled: True returns only enabled alerts. False returns only disabled alerts. If omitted, no alert filtering is applied. Other filters may still apply.
+        :param is_preconfigured: True returns only preconfigured alerts. False returns only custom alerts. If omitted, no filtering is applied on alert types. Other filters may still apply.
+        :param state: Valid values to filter on are `disabled`, `enabled`, `pending` and `firing`. If omitted, no filtering is applied on alert states. Other filters may still apply.
+        :return: :class:`ListAlertsResponse <ListAlertsResponse>`
 
         Usage:
         ::
 
-            result = api.list_managed_alerts()
+            result = api.list_alerts()
         """
 
         param_region = validate_path_param(
@@ -1414,55 +1461,17 @@ class CockpitV1RegionalAPI(API):
 
         res = self._request(
             "GET",
-            f"/cockpit/v1/regions/{param_region}/managed-alerts",
+            f"/cockpit/v1/regions/{param_region}/alerts",
             params={
-                "order_by": order_by,
-                "page": page,
-                "page_size": page_size or self.client.default_page_size,
+                "is_enabled": is_enabled,
+                "is_preconfigured": is_preconfigured,
                 "project_id": project_id or self.client.default_project_id,
+                "state": state,
             },
         )
 
         self._throw_on_error(res)
-        return unmarshal_ListManagedAlertsResponse(res.json())
-
-    def list_managed_alerts_all(
-        self,
-        *,
-        region: Optional[ScwRegion] = None,
-        page: Optional[int] = None,
-        page_size: Optional[int] = None,
-        order_by: Optional[ListManagedAlertsRequestOrderBy] = None,
-        project_id: Optional[str] = None,
-    ) -> List[Alert]:
-        """
-        List managed alerts.
-        List all managed alerts for the specified Project.
-        :param region: Region to target. If none is passed will use default region from the config.
-        :param page: Page number to return, from the paginated results.
-        :param page_size: Number of data sources to return per page.
-        :param order_by: Sort order for data sources in the response.
-        :param project_id: Project ID to filter for, only data sources from this Project will be returned.
-        :return: :class:`List[Alert] <List[Alert]>`
-
-        Usage:
-        ::
-
-            result = api.list_managed_alerts_all()
-        """
-
-        return fetch_all_pages(
-            type=ListManagedAlertsResponse,
-            key="alerts",
-            fetcher=self.list_managed_alerts,
-            args={
-                "region": region,
-                "page": page,
-                "page_size": page_size,
-                "order_by": order_by,
-                "project_id": project_id,
-            },
-        )
+        return unmarshal_ListAlertsResponse(res.json())
 
     def enable_managed_alerts(
         self,

@@ -66,7 +66,6 @@ class IpState(str, Enum, metaclass=StrEnumMeta):
 
 class IpType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_IPTYPE = "unknown_iptype"
-    NAT = "nat"
     ROUTED_IPV4 = "routed_ipv4"
     ROUTED_IPV6 = "routed_ipv6"
 
@@ -516,7 +515,8 @@ class PlacementGroup:
 
     policy_respected: bool
     """
-    Returns true if the policy is respected, false otherwise.
+    In the server endpoints the value is always false as it is deprecated.
+In the placement group endpoints the value is correct.
     """
 
     zone: ScwZone
@@ -1342,6 +1342,11 @@ class ServerType:
     True if it is a baremetal Instance.
     """
 
+    end_of_service: bool
+    """
+    True if this Instance type has reached end of service.
+    """
+
     per_volume_constraint: Optional[ServerTypeVolumeConstraintsByType]
     """
     Additional volume constraints.
@@ -1578,7 +1583,7 @@ class CreateIpRequest:
 
     type_: Optional[IpType]
     """
-    IP type to reserve (either 'routed_ipv4' or 'routed_ipv6', use of 'nat' is deprecated).
+    IP type to reserve (either 'routed_ipv4' or 'routed_ipv6').
     """
 
     project: Optional[str]
@@ -2278,6 +2283,19 @@ class GetSecurityGroupRuleResponse:
 
 
 @dataclass
+class GetServerCompatibleTypesRequest:
+    server_id: str
+    """
+    UUID of the Instance you want to get.
+    """
+
+    zone: Optional[ScwZone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
 class GetServerRequest:
     server_id: str
     """
@@ -2443,7 +2461,7 @@ class ListIpsRequest:
 
     type_: Optional[str]
     """
-    Filter on the IP Mobility IP type (whose value should be either 'routed_ipv4', 'routed_ipv6' or 'nat').
+    Filter on the IP Mobility IP type (whose value should be either 'routed_ipv4' or 'routed_ipv6').
     """
 
 
@@ -3006,6 +3024,14 @@ class ServerActionResponse:
 
 
 @dataclass
+class ServerCompatibleTypes:
+    compatible_types: List[str]
+    """
+    Instance compatible types.
+    """
+
+
+@dataclass
 class SetImageRequest:
     zone: Optional[ScwZone]
     """
@@ -3179,7 +3205,7 @@ class UpdateIpRequest:
 
     type_: Optional[IpType]
     """
-    Convert a 'nat' IP to a 'routed_ipv4'.
+    Should have no effect.
     """
 
     tags: Optional[List[str]]

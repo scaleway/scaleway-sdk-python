@@ -8,8 +8,8 @@ from enum import Enum
 from typing import List, Optional
 
 from scaleway_core.bridge import (
-    Region,
-    Zone,
+    Region as ScwRegion,
+    Zone as ScwZone,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -48,6 +48,8 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     MGDB_INSTANCE = "mgdb_instance"
     APPLE_SILICON_SERVER = "apple_silicon_server"
     APPLE_SILICON_PRIVATE_NIC = "apple_silicon_private_nic"
+    SERVERLESS_CONTAINER = "serverless_container"
+    SERVERLESS_FUNCTION = "serverless_function"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -143,7 +145,7 @@ class IP:
     Array of reverses associated with the IP.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region of the IP.
     """
@@ -168,7 +170,7 @@ class IP:
     Resource which the IP is attached to.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone of the IP, if zonal.
     """
@@ -186,7 +188,7 @@ class AttachIPRequest:
     Custom resource to be attached to the IP.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -204,7 +206,7 @@ class BookIPRequest:
     Request an IPv6 instead of an IPv4.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -242,7 +244,7 @@ class DetachIPRequest:
     Custom resource currently attached to the IP.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -255,7 +257,7 @@ class GetIPRequest:
     IP ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -263,7 +265,7 @@ class GetIPRequest:
 
 @dataclass
 class ListIPsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -374,7 +376,7 @@ class MoveIPRequest:
     Custom resource currently attached to the IP.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -392,7 +394,7 @@ class ReleaseIPRequest:
     IP ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -400,7 +402,7 @@ class ReleaseIPRequest:
 
 @dataclass
 class ReleaseIPSetRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -415,7 +417,7 @@ class UpdateIPRequest:
     IP ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """

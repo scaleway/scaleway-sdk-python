@@ -36,6 +36,7 @@ from .types import (
     DnsApiCheckUserOwnsDomainRequest,
     DnsApiSyncDomainDnsRecordsRequest,
     DnsRecords,
+    Domain,
     FtpAccount,
     FtpAccountApiChangeFtpAccountPasswordRequest,
     FtpAccountApiCreateFtpAccountRequest,
@@ -59,11 +60,13 @@ from .types import (
     OfferOptionRequest,
     ResetHostingPasswordResponse,
     ResourceSummary,
+    SearchDomainsResponse,
     Session,
     SyncDomainDnsRecordsRequestRecord,
     Website,
 )
 from .content import (
+    DOMAIN_TRANSIENT_STATUSES,
     HOSTING_TRANSIENT_STATUSES,
 )
 from .marshalling import (
@@ -73,6 +76,7 @@ from .marshalling import (
     unmarshal_MailAccount,
     unmarshal_CheckUserOwnsDomainResponse,
     unmarshal_DnsRecords,
+    unmarshal_Domain,
     unmarshal_Hosting,
     unmarshal_ListControlPanelsResponse,
     unmarshal_ListDatabaseUsersResponse,
@@ -84,6 +88,7 @@ from .marshalling import (
     unmarshal_ListWebsitesResponse,
     unmarshal_ResetHostingPasswordResponse,
     unmarshal_ResourceSummary,
+    unmarshal_SearchDomainsResponse,
     unmarshal_Session,
     marshal_DatabaseApiAssignDatabaseUserRequest,
     marshal_DatabaseApiChangeDatabaseUserPasswordRequest,
@@ -792,7 +797,7 @@ class WebhostingV1DnsAPI(API):
         project_id: Optional[str] = None,
     ) -> CheckUserOwnsDomainResponse:
         """
-        "Check whether you own this domain or not.".
+        Check whether you own this domain or not.
         :param domain: Domain for which ownership is to be verified.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the project currently in use.
@@ -834,15 +839,17 @@ class WebhostingV1DnsAPI(API):
         update_web_records: bool,
         update_mail_records: bool,
         update_all_records: bool,
+        update_nameservers: bool,
         region: Optional[ScwRegion] = None,
         custom_records: Optional[List[SyncDomainDnsRecordsRequestRecord]] = None,
     ) -> DnsRecords:
         """
-        "Synchronize your DNS records on the Elements Console and on cPanel.".
+        Synchronize your DNS records on the Elements Console and on cPanel.
         :param domain: Domain for which the DNS records will be synchronized.
         :param update_web_records: Whether or not to synchronize the web records.
         :param update_mail_records: Whether or not to synchronize the mail records.
         :param update_all_records: Whether or not to synchronize all types of records. This one has priority.
+        :param update_nameservers: Whether or not to synchronize domain nameservers.
         :param region: Region to target. If none is passed will use default region from the config.
         :param custom_records: Custom records to synchronize.
         :return: :class:`DnsRecords <DnsRecords>`
@@ -855,6 +862,7 @@ class WebhostingV1DnsAPI(API):
                 update_web_records=False,
                 update_mail_records=False,
                 update_all_records=False,
+                update_nameservers=False,
             )
         """
 
@@ -872,6 +880,7 @@ class WebhostingV1DnsAPI(API):
                     update_web_records=update_web_records,
                     update_mail_records=update_mail_records,
                     update_all_records=update_all_records,
+                    update_nameservers=update_nameservers,
                     region=region,
                     custom_records=custom_records,
                 ),
@@ -881,6 +890,121 @@ class WebhostingV1DnsAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_DnsRecords(res.json())
+
+    async def search_domains(
+        self,
+        *,
+        domain_name: str,
+        region: Optional[ScwRegion] = None,
+        project_id: Optional[str] = None,
+    ) -> SearchDomainsResponse:
+        """
+        Search for available domains based on domain name.
+        :param domain_name: Domain name to search.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: ID of the Scaleway Project in which to search the domain to create the Web Hosting plan.
+        :return: :class:`SearchDomainsResponse <SearchDomainsResponse>`
+
+        Usage:
+        ::
+
+            result = await api.search_domains(
+                domain_name="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/webhosting/v1/regions/{param_region}/search-domains",
+            params={
+                "domain_name": domain_name,
+                "project_id": project_id or self.client.default_project_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_SearchDomainsResponse(res.json())
+
+    async def get_domain(
+        self,
+        *,
+        domain_name: str,
+        region: Optional[ScwRegion] = None,
+        project_id: Optional[str] = None,
+    ) -> Domain:
+        """
+        Retrieve detailed information about a specific domain, including its status, DNS configuration, and ownership.
+        :param domain_name: Domain name to get.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: ID of the Scaleway Project in which to get the domain to create the Web Hosting plan.
+        :return: :class:`Domain <Domain>`
+
+        Usage:
+        ::
+
+            result = await api.get_domain(
+                domain_name="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_domain_name = validate_path_param("domain_name", domain_name)
+
+        res = self._request(
+            "GET",
+            f"/webhosting/v1/regions/{param_region}/domains/{param_domain_name}",
+            params={
+                "project_id": project_id or self.client.default_project_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Domain(res.json())
+
+    async def wait_for_domain(
+        self,
+        *,
+        domain_name: str,
+        region: Optional[ScwRegion] = None,
+        project_id: Optional[str] = None,
+        options: Optional[WaitForOptions[Domain, Union[bool, Awaitable[bool]]]] = None,
+    ) -> Domain:
+        """
+        Retrieve detailed information about a specific domain, including its status, DNS configuration, and ownership.
+        :param domain_name: Domain name to get.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: ID of the Scaleway Project in which to get the domain to create the Web Hosting plan.
+        :return: :class:`Domain <Domain>`
+
+        Usage:
+        ::
+
+            result = await api.get_domain(
+                domain_name="example",
+            )
+        """
+
+        if not options:
+            options = WaitForOptions()
+
+        if not options.stop:
+            options.stop = lambda res: res.status not in DOMAIN_TRANSIENT_STATUSES
+
+        return await wait_for_resource_async(
+            fetcher=self.get_domain,
+            options=options,
+            args={
+                "domain_name": domain_name,
+                "region": region,
+                "project_id": project_id,
+            },
+        )
 
 
 class WebhostingV1OfferAPI(API):

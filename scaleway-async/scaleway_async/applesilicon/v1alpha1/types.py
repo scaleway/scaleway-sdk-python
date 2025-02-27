@@ -15,6 +15,15 @@ from scaleway_core.utils import (
 )
 
 
+class CommitmentType(str, Enum, metaclass=StrEnumMeta):
+    DURATION_24H = "duration_24h"
+    RENEWED_MONTHLY = "renewed_monthly"
+    NONE = "none"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ConnectivityDiagnosticActionType(str, Enum, metaclass=StrEnumMeta):
     REBOOT_SERVER = "reboot_server"
     REINSTALL_SERVER = "reinstall_server"
@@ -179,6 +188,13 @@ class ServerTypeMemory:
 @dataclass
 class ServerTypeNetwork:
     public_bandwidth_bps: int
+
+
+@dataclass
+class Commitment:
+    type_: CommitmentType
+
+    cancelled: bool
 
 
 @dataclass
@@ -349,6 +365,26 @@ class Server:
     Current status of the server.
     """
 
+    os: Optional[OS]
+    """
+    Initially installed OS, this does not necessarily reflect the current OS version.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Date on which the server was created.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Date on which the server was last updated.
+    """
+
+    deletable_at: Optional[datetime]
+    """
+    Date from which the server can be deleted.
+    """
+
     deletion_scheduled: bool
     """
     Set to true to mark the server for automatic deletion depending on `deletable_at` date. Set to false to cancel an existing deletion schedule. Leave unset otherwise.
@@ -369,25 +405,15 @@ class Server:
     Activation status of optional Private Network feature support for this server.
     """
 
-    os: Optional[OS]
+    commitment: Optional[Commitment]
     """
-    Initially installed OS, this does not necessarily reflect the current OS version.
-    """
-
-    created_at: Optional[datetime]
-    """
-    Date on which the server was created.
+    Commitment scheme applied to this server.
     """
 
-    updated_at: Optional[datetime]
-    """
-    Date on which the server was last updated.
-    """
 
-    deletable_at: Optional[datetime]
-    """
-    Date from which the server can be deleted.
-    """
+@dataclass
+class CommitmentTypeValue:
+    commitment_type: CommitmentType
 
 
 @dataclass
@@ -435,6 +461,11 @@ class CreateServerRequest:
     os_id: Optional[str]
     """
     Create a server & install the given os_id, when no os_id provided the default OS for this server type is chosen. Requesting a non-default OS will induce an extended delivery time.
+    """
+
+    commitment_type: Optional[CommitmentType]
+    """
+    Activate commitment for this server. If not specified, there is a 24h commitment due to Apple licensing. It can be updated with the Update Server request. Available commitment depends on server type.
     """
 
 
@@ -805,4 +836,9 @@ class UpdateServerRequest:
     enable_vpc: Optional[bool]
     """
     Activate or deactivate Private Network support for this server.
+    """
+
+    commitment_type: Optional[CommitmentTypeValue]
+    """
+    Change commitment. Use 'none' to automatically cancel a renewing commitment.
     """

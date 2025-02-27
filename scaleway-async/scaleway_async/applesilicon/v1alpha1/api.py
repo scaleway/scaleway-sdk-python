@@ -15,8 +15,10 @@ from scaleway_core.utils import (
     wait_for_resource_async,
 )
 from .types import (
+    CommitmentType,
     ListServerPrivateNetworksRequestOrderBy,
     ListServersRequestOrderBy,
+    CommitmentTypeValue,
     ConnectivityDiagnostic,
     CreateServerRequest,
     ListOSResponse,
@@ -133,6 +135,7 @@ class ApplesiliconV1Alpha1API(API):
         name: Optional[str] = None,
         project_id: Optional[str] = None,
         os_id: Optional[str] = None,
+        commitment_type: Optional[CommitmentType] = None,
     ) -> Server:
         """
         Create a server.
@@ -143,6 +146,7 @@ class ApplesiliconV1Alpha1API(API):
         :param name: Create a server with this given name.
         :param project_id: Create a server in the given project ID.
         :param os_id: Create a server & install the given os_id, when no os_id provided the default OS for this server type is chosen. Requesting a non-default OS will induce an extended delivery time.
+        :param commitment_type: Activate commitment for this server. If not specified, there is a 24h commitment due to Apple licensing. It can be updated with the Update Server request. Available commitment depends on server type.
         :return: :class:`Server <Server>`
 
         Usage:
@@ -167,6 +171,7 @@ class ApplesiliconV1Alpha1API(API):
                     name=name or random_name(prefix="as"),
                     project_id=project_id,
                     os_id=os_id,
+                    commitment_type=commitment_type,
                 ),
                 self.client,
             ),
@@ -449,6 +454,7 @@ class ApplesiliconV1Alpha1API(API):
         name: Optional[str] = None,
         schedule_deletion: Optional[bool] = None,
         enable_vpc: Optional[bool] = None,
+        commitment_type: Optional[CommitmentTypeValue] = None,
     ) -> Server:
         """
         Update a server.
@@ -458,6 +464,7 @@ class ApplesiliconV1Alpha1API(API):
         :param name: Updated name for your server.
         :param schedule_deletion: Specify whether the server should be flagged for automatic deletion.
         :param enable_vpc: Activate or deactivate Private Network support for this server.
+        :param commitment_type: Change commitment. Use 'none' to automatically cancel a renewing commitment.
         :return: :class:`Server <Server>`
 
         Usage:
@@ -481,6 +488,7 @@ class ApplesiliconV1Alpha1API(API):
                     name=name,
                     schedule_deletion=schedule_deletion,
                     enable_vpc=enable_vpc,
+                    commitment_type=commitment_type,
                 ),
                 self.client,
             ),
