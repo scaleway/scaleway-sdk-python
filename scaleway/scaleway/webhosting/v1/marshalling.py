@@ -705,6 +705,10 @@ def unmarshal_HostingSummary(data: Any) -> HostingSummary:
     if field is not None:
         args["project_id"] = field
 
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+
     field = data.get("domain", None)
     if field is not None:
         args["domain"] = field
@@ -716,10 +720,6 @@ def unmarshal_HostingSummary(data: Any) -> HostingSummary:
     field = data.get("offer_name", None)
     if field is not None:
         args["offer_name"] = field
-
-    field = data.get("hosting_status", None)
-    if field is not None:
-        args["hosting_status"] = field
 
     field = data.get("domain_status", None)
     if field is not None:
@@ -740,12 +740,6 @@ def unmarshal_HostingSummary(data: Any) -> HostingSummary:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["updated_at"] = None
-
-    field = data.get("status", None)
-    if field is not None:
-        args["status"] = field
-    else:
-        args["status"] = None
 
     field = data.get("dns_status", None)
     if field is not None:

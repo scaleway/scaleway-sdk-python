@@ -89,6 +89,7 @@ class DomainDnsAction(str, Enum, metaclass=StrEnumMeta):
     AUTO_CONFIG_WEB_RECORDS = "auto_config_web_records"
     AUTO_CONFIG_MAIL_RECORDS = "auto_config_mail_records"
     AUTO_CONFIG_NAMESERVERS = "auto_config_nameservers"
+    AUTO_CONFIG_NONE = "auto_config_none"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -117,19 +118,6 @@ class DomainZoneOwner(str, Enum, metaclass=StrEnumMeta):
 
 
 class HostingStatus(str, Enum, metaclass=StrEnumMeta):
-    UNKNOWN_STATUS = "unknown_status"
-    DELIVERING = "delivering"
-    READY = "ready"
-    DELETING = "deleting"
-    ERROR = "error"
-    LOCKED = "locked"
-    MIGRATING = "migrating"
-
-    def __str__(self) -> str:
-        return str(self.value)
-
-
-class HostingSummaryStatus(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_STATUS = "unknown_status"
     DELIVERING = "delivering"
     READY = "ready"
@@ -579,6 +567,11 @@ class HostingSummary:
     ID of the Scaleway Project the Web Hosting plan belongs to.
     """
 
+    status: HostingStatus
+    """
+    Status of the Web Hosting plan.
+    """
+
     domain: str
     """
     Main domain associated with the Web Hosting plan.
@@ -592,11 +585,6 @@ class HostingSummary:
     offer_name: str
     """
     Name of the active offer for the Web Hosting plan.
-    """
-
-    hosting_status: HostingStatus
-    """
-    Status of the Web Hosting plan.
     """
 
     domain_status: DomainStatus
@@ -617,11 +605,6 @@ class HostingSummary:
     updated_at: Optional[datetime]
     """
     Date on which the Web Hosting plan was last updated.
-    """
-
-    status: Optional[HostingSummaryStatus]
-    """
-    Status of the Web Hosting plan.
     """
 
     dns_status: Optional[DnsRecordsStatus]
