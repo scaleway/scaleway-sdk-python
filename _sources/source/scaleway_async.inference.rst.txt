@@ -1,0 +1,18 @@
+scaleway\_async.inference package
+=================================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway_async.inference.v1beta1
+
+Module contents
+---------------
+
+.. automodule:: scaleway_async.inference
+   :members:
+   :undoc-members:
+   :show-inheritance:
