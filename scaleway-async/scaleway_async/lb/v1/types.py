@@ -970,6 +970,11 @@ class PrivateNetworkStaticConfig:
 
 @dataclass
 class RouteMatch:
+    match_subdomains: bool
+    """
+    If true, all subdomains will match.
+    """
+
     sni: Optional[str]
 
     host_header: Optional[str]
