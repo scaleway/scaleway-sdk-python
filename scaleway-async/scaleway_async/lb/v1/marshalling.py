@@ -1112,6 +1112,10 @@ def unmarshal_RouteMatch(data: Any) -> RouteMatch:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("match_subdomains", None)
+    if field is not None:
+        args["match_subdomains"] = field
+
     field = data.get("sni", None)
     if field is not None:
         args["sni"] = field
@@ -2035,6 +2039,9 @@ def marshal_RouteMatch(
             ]
         ),
     )
+
+    if request.match_subdomains is not None:
+        output["match_subdomains"] = request.match_subdomains
 
     return output
 
