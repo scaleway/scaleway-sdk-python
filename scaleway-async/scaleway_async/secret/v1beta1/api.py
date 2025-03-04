@@ -242,6 +242,7 @@ class SecretV1Beta1API(API):
     async def list_secrets(
         self,
         *,
+        scheduled_for_deletion: bool,
         region: Optional[ScwRegion] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -253,11 +254,11 @@ class SecretV1Beta1API(API):
         path: Optional[str] = None,
         ephemeral: Optional[bool] = None,
         type_: Optional[SecretType] = None,
-        scheduled_for_deletion: Optional[bool] = None,
     ) -> ListSecretsResponse:
         """
         List secrets.
         Retrieve the list of secrets created within an Organization and/or Project. You must specify either the `organization_id` or the `project_id` and the `region`.
+        :param scheduled_for_deletion: Filter by whether the secret was scheduled for deletion / not scheduled for deletion. By default, it will display only not scheduled for deletion secrets.
         :param region: Region to target. If none is passed will use default region from the config.
         :param organization_id: Filter by Organization ID (optional).
         :param project_id: Filter by Project ID (optional).
@@ -269,13 +270,14 @@ class SecretV1Beta1API(API):
         :param path: Filter by exact path (optional).
         :param ephemeral: Filter by ephemeral / not ephemeral (optional).
         :param type_: Filter by secret type (optional).
-        :param scheduled_for_deletion: Filter by whether the secret was scheduled for deletion / not scheduled for deletion (optional).
         :return: :class:`ListSecretsResponse <ListSecretsResponse>`
 
         Usage:
         ::
 
-            result = await api.list_secrets()
+            result = await api.list_secrets(
+                scheduled_for_deletion=False,
+            )
         """
 
         param_region = validate_path_param(
@@ -307,6 +309,7 @@ class SecretV1Beta1API(API):
     async def list_secrets_all(
         self,
         *,
+        scheduled_for_deletion: bool,
         region: Optional[ScwRegion] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -318,11 +321,11 @@ class SecretV1Beta1API(API):
         path: Optional[str] = None,
         ephemeral: Optional[bool] = None,
         type_: Optional[SecretType] = None,
-        scheduled_for_deletion: Optional[bool] = None,
     ) -> List[Secret]:
         """
         List secrets.
         Retrieve the list of secrets created within an Organization and/or Project. You must specify either the `organization_id` or the `project_id` and the `region`.
+        :param scheduled_for_deletion: Filter by whether the secret was scheduled for deletion / not scheduled for deletion. By default, it will display only not scheduled for deletion secrets.
         :param region: Region to target. If none is passed will use default region from the config.
         :param organization_id: Filter by Organization ID (optional).
         :param project_id: Filter by Project ID (optional).
@@ -334,13 +337,14 @@ class SecretV1Beta1API(API):
         :param path: Filter by exact path (optional).
         :param ephemeral: Filter by ephemeral / not ephemeral (optional).
         :param type_: Filter by secret type (optional).
-        :param scheduled_for_deletion: Filter by whether the secret was scheduled for deletion / not scheduled for deletion (optional).
         :return: :class:`List[Secret] <List[Secret]>`
 
         Usage:
         ::
 
-            result = await api.list_secrets_all()
+            result = await api.list_secrets_all(
+                scheduled_for_deletion=False,
+            )
         """
 
         return await fetch_all_pages_async(
@@ -348,6 +352,7 @@ class SecretV1Beta1API(API):
             key="secrets",
             fetcher=self.list_secrets,
             args={
+                "scheduled_for_deletion": scheduled_for_deletion,
                 "region": region,
                 "organization_id": organization_id,
                 "project_id": project_id,
@@ -359,7 +364,6 @@ class SecretV1Beta1API(API):
                 "path": path,
                 "ephemeral": ephemeral,
                 "type_": type_,
-                "scheduled_for_deletion": scheduled_for_deletion,
             },
         )
 

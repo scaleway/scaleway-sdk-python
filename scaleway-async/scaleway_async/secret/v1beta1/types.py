@@ -758,6 +758,11 @@ class ListSecretVersionsResponse:
 
 @dataclass
 class ListSecretsRequest:
+    scheduled_for_deletion: bool
+    """
+    Filter by whether the secret was scheduled for deletion / not scheduled for deletion. By default, it will display only not scheduled for deletion secrets.
+    """
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
@@ -802,11 +807,6 @@ class ListSecretsRequest:
     type_: Optional[SecretType]
     """
     Filter by secret type (optional).
-    """
-
-    scheduled_for_deletion: Optional[bool]
-    """
-    Filter by whether the secret was scheduled for deletion / not scheduled for deletion (optional).
     """
 
 
