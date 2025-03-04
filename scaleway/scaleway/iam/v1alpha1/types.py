@@ -220,6 +220,24 @@ class QuotumLimit:
 
 
 @dataclass
+class ListUserConnectionsResponseConnectionConnectedOrganization:
+    id: str
+
+    name: str
+
+    locked: bool
+
+
+@dataclass
+class ListUserConnectionsResponseConnectionConnectedUser:
+    id: str
+
+    username: str
+
+    type_: UserType
+
+
+@dataclass
 class JWT:
     jti: str
     """
@@ -771,6 +789,19 @@ class SSHKey:
     updated_at: Optional[datetime]
     """
     Last update date of SSH key.
+    """
+
+
+@dataclass
+class ListUserConnectionsResponseConnection:
+    organization: Optional[ListUserConnectionsResponseConnectionConnectedOrganization]
+    """
+    Information about the connected organization.
+    """
+
+    user: Optional[ListUserConnectionsResponseConnectionConnectedUser]
+    """
+    Information about the connected user.
     """
 
 
@@ -1747,6 +1778,22 @@ class ListSSHKeysResponse:
     total_count: int
     """
     Total count of SSH keys.
+    """
+
+
+@dataclass
+class ListUserConnectionsRequest:
+    user_id: str
+    """
+    ID of the user to list connections for.
+    """
+
+
+@dataclass
+class ListUserConnectionsResponse:
+    connections: List[ListUserConnectionsResponseConnection]
+    """
+    List of connections.
     """
 
 
