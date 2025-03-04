@@ -38,6 +38,9 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     IAM_POLICY = "iam_policy"
     IAM_API_KEY = "iam_api_key"
     IAM_SSH_KEY = "iam_ssh_key"
+    SECRET_MANAGER_SECRET = "secret_manager_secret"
+    SECRET_MANAGER_VERSION = "secret_manager_version"
+    KEY_MANAGER_KEY = "key_manager_key"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -114,6 +117,12 @@ class Resource:
     kube_acl_info: Optional[KubernetesACLInfo]
 
     keym_key_info: Optional[KeyManagerKeyInfo]
+
+    secret_manager_secret_info: Optional[SecretManagerSecretInfo]
+
+    secret_manager_version_info: Optional[SecretManagerSecretVersionInfo]
+
+    key_manager_key_info: Optional[KeyManagerKeyInfo]
 
 
 @dataclass
