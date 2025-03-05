@@ -207,6 +207,24 @@ class UserType(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
+class GetUserConnectionsResponseConnectionConnectedOrganization:
+    id: str
+
+    name: str
+
+    locked: bool
+
+
+@dataclass
+class GetUserConnectionsResponseConnectionConnectedUser:
+    id: str
+
+    username: str
+
+    type_: UserType
+
+
+@dataclass
 class QuotumLimit:
     global_: Optional[bool]
 
@@ -304,6 +322,19 @@ class CreateUserRequestMember:
     password: str
     """
     The member's password.
+    """
+
+
+@dataclass
+class GetUserConnectionsResponseConnection:
+    organization: Optional[GetUserConnectionsResponseConnectionConnectedOrganization]
+    """
+    Information about the connected organization.
+    """
+
+    user: Optional[GetUserConnectionsResponseConnectionConnectedUser]
+    """
+    Information about the connected user.
     """
 
 
@@ -1200,6 +1231,22 @@ class GetSSHKeyRequest:
     ssh_key_id: str
     """
     ID of the SSH key.
+    """
+
+
+@dataclass
+class GetUserConnectionsRequest:
+    user_id: str
+    """
+    ID of the user to list connections for.
+    """
+
+
+@dataclass
+class GetUserConnectionsResponse:
+    connections: List[GetUserConnectionsResponseConnection]
+    """
+    List of connections.
     """
 
 

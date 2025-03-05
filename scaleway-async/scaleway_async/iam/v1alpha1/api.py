@@ -39,6 +39,7 @@ from .types import (
     CreateUserRequest,
     CreateUserRequestMember,
     EncodedJWT,
+    GetUserConnectionsResponse,
     Group,
     JWT,
     ListAPIKeysResponse,
@@ -90,6 +91,7 @@ from .marshalling import (
     unmarshal_SSHKey,
     unmarshal_User,
     unmarshal_EncodedJWT,
+    unmarshal_GetUserConnectionsResponse,
     unmarshal_ListAPIKeysResponse,
     unmarshal_ListApplicationsResponse,
     unmarshal_ListGracePeriodsResponse,
@@ -850,6 +852,33 @@ class IamV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListGracePeriodsResponse(res.json())
+
+    async def get_user_connections(
+        self,
+        *,
+        user_id: str,
+    ) -> GetUserConnectionsResponse:
+        """
+        :param user_id: ID of the user to list connections for.
+        :return: :class:`GetUserConnectionsResponse <GetUserConnectionsResponse>`
+
+        Usage:
+        ::
+
+            result = await api.get_user_connections(
+                user_id="example",
+            )
+        """
+
+        param_user_id = validate_path_param("user_id", user_id)
+
+        res = self._request(
+            "GET",
+            f"/iam/v1alpha1/users/{param_user_id}/connections",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_GetUserConnectionsResponse(res.json())
 
     async def list_applications(
         self,
