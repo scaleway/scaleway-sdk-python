@@ -867,28 +867,6 @@ class ProtectSecretRequest:
 
 
 @dataclass
-class RestoreSecretRequest:
-    secret_id: str
-
-    region: Optional[ScwRegion]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-
-@dataclass
-class RestoreSecretVersionRequest:
-    secret_id: str
-
-    revision: str
-
-    region: Optional[ScwRegion]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-
-@dataclass
 class SSHKey:
     ssh_private_key: str
     """
