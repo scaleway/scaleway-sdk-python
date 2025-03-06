@@ -35,6 +35,10 @@ from .types import (
     Rule,
     ListRulesResponse,
     ListSSHKeysResponse,
+    ListUserConnectionsResponseConnectionConnectedOrganization,
+    ListUserConnectionsResponseConnectionConnectedUser,
+    ListUserConnectionsResponseConnection,
+    ListUserConnectionsResponse,
     ListUsersResponse,
     MFAOTP,
     OrganizationSecuritySettings,
@@ -1028,6 +1032,104 @@ def unmarshal_ListSSHKeysResponse(data: Any) -> ListSSHKeysResponse:
         args["total_count"] = field
 
     return ListSSHKeysResponse(**args)
+
+
+def unmarshal_ListUserConnectionsResponseConnectionConnectedOrganization(
+    data: Any,
+) -> ListUserConnectionsResponseConnectionConnectedOrganization:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListUserConnectionsResponseConnectionConnectedOrganization' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+
+    field = data.get("locked", None)
+    if field is not None:
+        args["locked"] = field
+
+    return ListUserConnectionsResponseConnectionConnectedOrganization(**args)
+
+
+def unmarshal_ListUserConnectionsResponseConnectionConnectedUser(
+    data: Any,
+) -> ListUserConnectionsResponseConnectionConnectedUser:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListUserConnectionsResponseConnectionConnectedUser' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+
+    field = data.get("username", None)
+    if field is not None:
+        args["username"] = field
+
+    field = data.get("type", None)
+    if field is not None:
+        args["type_"] = field
+
+    return ListUserConnectionsResponseConnectionConnectedUser(**args)
+
+
+def unmarshal_ListUserConnectionsResponseConnection(
+    data: Any,
+) -> ListUserConnectionsResponseConnection:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListUserConnectionsResponseConnection' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("organization", None)
+    if field is not None:
+        args["organization"] = (
+            unmarshal_ListUserConnectionsResponseConnectionConnectedOrganization(field)
+        )
+    else:
+        args["organization"] = None
+
+    field = data.get("user", None)
+    if field is not None:
+        args["user"] = unmarshal_ListUserConnectionsResponseConnectionConnectedUser(
+            field
+        )
+    else:
+        args["user"] = None
+
+    return ListUserConnectionsResponseConnection(**args)
+
+
+def unmarshal_ListUserConnectionsResponse(data: Any) -> ListUserConnectionsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListUserConnectionsResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("connections", None)
+    if field is not None:
+        args["connections"] = (
+            [unmarshal_ListUserConnectionsResponseConnection(v) for v in field]
+            if field is not None
+            else None
+        )
+
+    return ListUserConnectionsResponse(**args)
 
 
 def unmarshal_ListUsersResponse(data: Any) -> ListUsersResponse:

@@ -52,6 +52,7 @@ from .types import (
     ListQuotaResponse,
     ListRulesResponse,
     ListSSHKeysResponse,
+    ListUserConnectionsResponse,
     ListUsersResponse,
     Log,
     MFAOTP,
@@ -101,6 +102,7 @@ from .marshalling import (
     unmarshal_ListQuotaResponse,
     unmarshal_ListRulesResponse,
     unmarshal_ListSSHKeysResponse,
+    unmarshal_ListUserConnectionsResponse,
     unmarshal_ListUsersResponse,
     unmarshal_MFAOTP,
     unmarshal_OrganizationSecuritySettings,
@@ -850,6 +852,33 @@ class IamV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ListGracePeriodsResponse(res.json())
+
+    def list_user_connections(
+        self,
+        *,
+        user_id: str,
+    ) -> ListUserConnectionsResponse:
+        """
+        :param user_id: ID of the user to list connections for.
+        :return: :class:`ListUserConnectionsResponse <ListUserConnectionsResponse>`
+
+        Usage:
+        ::
+
+            result = api.list_user_connections(
+                user_id="example",
+            )
+        """
+
+        param_user_id = validate_path_param("user_id", user_id)
+
+        res = self._request(
+            "GET",
+            f"/iam/v1alpha1/users/{param_user_id}/connections",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListUserConnectionsResponse(res.json())
 
     def list_applications(
         self,

@@ -19,6 +19,8 @@ from .types import PermissionSetScopeType
 from .types import UserStatus
 from .types import UserType
 from .types import QuotumLimit
+from .types import ListUserConnectionsResponseConnectionConnectedOrganization
+from .types import ListUserConnectionsResponseConnectionConnectedUser
 from .types import JWT
 from .types import RuleSpecs
 from .types import CreateUserRequestMember
@@ -32,6 +34,7 @@ from .types import Policy
 from .types import Quotum
 from .types import Rule
 from .types import SSHKey
+from .types import ListUserConnectionsResponseConnection
 from .types import User
 from .types import AddGroupMemberRequest
 from .types import AddGroupMembersRequest
@@ -85,6 +88,8 @@ from .types import ListRulesRequest
 from .types import ListRulesResponse
 from .types import ListSSHKeysRequest
 from .types import ListSSHKeysResponse
+from .types import ListUserConnectionsRequest
+from .types import ListUserConnectionsResponse
 from .types import ListUsersRequest
 from .types import ListUsersResponse
 from .types import LockUserRequest
@@ -128,6 +133,8 @@ __all__ = [
     "UserStatus",
     "UserType",
     "QuotumLimit",
+    "ListUserConnectionsResponseConnectionConnectedOrganization",
+    "ListUserConnectionsResponseConnectionConnectedUser",
     "JWT",
     "RuleSpecs",
     "CreateUserRequestMember",
@@ -141,6 +148,7 @@ __all__ = [
     "Quotum",
     "Rule",
     "SSHKey",
+    "ListUserConnectionsResponseConnection",
     "User",
     "AddGroupMemberRequest",
     "AddGroupMembersRequest",
@@ -194,6 +202,8 @@ __all__ = [
     "ListRulesResponse",
     "ListSSHKeysRequest",
     "ListSSHKeysResponse",
+    "ListUserConnectionsRequest",
+    "ListUserConnectionsResponse",
     "ListUsersRequest",
     "ListUsersResponse",
     "LockUserRequest",
