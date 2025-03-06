@@ -207,6 +207,24 @@ class UserType(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
+class GetUserConnectionsResponseConnectionConnectedOrganization:
+    id: str
+
+    name: str
+
+    locked: bool
+
+
+@dataclass
+class GetUserConnectionsResponseConnectionConnectedUser:
+    id: str
+
+    username: str
+
+    type_: UserType
+
+
+@dataclass
 class QuotumLimit:
     global_: Optional[bool]
 
@@ -217,24 +235,6 @@ class QuotumLimit:
     limit: Optional[int]
 
     unlimited: Optional[bool]
-
-
-@dataclass
-class ListUserConnectionsResponseConnectionConnectedOrganization:
-    id: str
-
-    name: str
-
-    locked: bool
-
-
-@dataclass
-class ListUserConnectionsResponseConnectionConnectedUser:
-    id: str
-
-    username: str
-
-    type_: UserType
 
 
 @dataclass
@@ -322,6 +322,19 @@ class CreateUserRequestMember:
     password: str
     """
     The member's password.
+    """
+
+
+@dataclass
+class GetUserConnectionsResponseConnection:
+    organization: Optional[GetUserConnectionsResponseConnectionConnectedOrganization]
+    """
+    Information about the connected organization.
+    """
+
+    user: Optional[GetUserConnectionsResponseConnectionConnectedUser]
+    """
+    Information about the connected user.
     """
 
 
@@ -793,19 +806,6 @@ class SSHKey:
 
 
 @dataclass
-class ListUserConnectionsResponseConnection:
-    organization: Optional[ListUserConnectionsResponseConnectionConnectedOrganization]
-    """
-    Information about the connected organization.
-    """
-
-    user: Optional[ListUserConnectionsResponseConnectionConnectedUser]
-    """
-    Information about the connected user.
-    """
-
-
-@dataclass
 class User:
     id: str
     """
@@ -1231,6 +1231,22 @@ class GetSSHKeyRequest:
     ssh_key_id: str
     """
     ID of the SSH key.
+    """
+
+
+@dataclass
+class GetUserConnectionsRequest:
+    user_id: str
+    """
+    ID of the user to list connections for.
+    """
+
+
+@dataclass
+class GetUserConnectionsResponse:
+    connections: List[GetUserConnectionsResponseConnection]
+    """
+    List of connections.
     """
 
 
@@ -1778,22 +1794,6 @@ class ListSSHKeysResponse:
     total_count: int
     """
     Total count of SSH keys.
-    """
-
-
-@dataclass
-class ListUserConnectionsRequest:
-    user_id: str
-    """
-    ID of the user to list connections for.
-    """
-
-
-@dataclass
-class ListUserConnectionsResponse:
-    connections: List[ListUserConnectionsResponseConnection]
-    """
-    List of connections.
     """
 
 
