@@ -43,6 +43,7 @@ class AuditTrailV1Alpha1API(API):
         page_size: Optional[int] = None,
         page_token: Optional[str] = None,
         product_name: Optional[str] = None,
+        service_name: Optional[str] = None,
     ) -> ListEventsResponse:
         """
         List events.
@@ -51,7 +52,7 @@ class AuditTrailV1Alpha1API(API):
         :param project_id: (Optional) ID of the Project containing the Audit Trail events.
         :param organization_id: ID of the Organization containing the Audit Trail events.
         :param resource_type: (Optional) Returns a paginated list of Scaleway resources' features.
-        :param method_name: (Optional) Name of the method or the API call performed.
+        :param method_name: (Optional) Name of the method of the API call performed.
         :param status: (Optional) HTTP status code of the request. Returns either `200` if the request was successful or `403` if the permission was denied.
         :param recorded_after: (Optional) The `recorded_after` parameter defines the earliest timestamp from which Audit Trail events are retrieved. Returns `one hour ago` by default.
         :param recorded_before: (Optional) The `recorded_before` parameter defines the latest timestamp up to which Audit Trail events are retrieved. Returns `now` by default.
@@ -59,6 +60,7 @@ class AuditTrailV1Alpha1API(API):
         :param page_size:
         :param page_token:
         :param product_name: (Optional) Name of the Scaleway resource in a hyphenated format.
+        :param service_name: (Optional) Name of the service of the API call performed.
         :return: :class:`ListEventsResponse <ListEventsResponse>`
 
         Usage:
@@ -86,6 +88,7 @@ class AuditTrailV1Alpha1API(API):
                 "recorded_after": recorded_after,
                 "recorded_before": recorded_before,
                 "resource_type": resource_type,
+                "service_name": service_name,
                 "status": status,
             },
         )

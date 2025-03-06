@@ -257,7 +257,7 @@ class ListEventsRequest:
 
     method_name: Optional[str]
     """
-    (Optional) Name of the method or the API call performed.
+    (Optional) Name of the method of the API call performed.
     """
 
     status: Optional[int]
@@ -284,6 +284,11 @@ class ListEventsRequest:
     product_name: Optional[str]
     """
     (Optional) Name of the Scaleway resource in a hyphenated format.
+    """
+
+    service_name: Optional[str]
+    """
+    (Optional) Name of the service of the API call performed.
     """
 
 
