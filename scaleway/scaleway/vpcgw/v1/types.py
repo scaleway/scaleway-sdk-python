@@ -1443,6 +1443,9 @@ class ListPATRulesResponse:
 @dataclass
 class MigrateToV2Request:
     gateway_id: str
+    """
+    ID of the gateway to put into IPAM mode.
+    """
 
     zone: Optional[ScwZone]
     """

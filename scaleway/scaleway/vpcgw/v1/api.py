@@ -2086,7 +2086,9 @@ class VpcgwV1API(API):
         zone: Optional[ScwZone] = None,
     ) -> None:
         """
-        :param gateway_id:
+        Put a Public Gateway in IPAM mode.
+        Put a Public Gateway in IPAM mode, so that it can be used with the Public Gateways API v2. This call is idempotent.
+        :param gateway_id: ID of the gateway to put into IPAM mode.
         :param zone: Zone to target. If none is passed will use default zone from the config.
 
         Usage:

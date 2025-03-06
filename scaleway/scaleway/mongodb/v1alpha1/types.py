@@ -100,6 +100,7 @@ class UserRoleRole(str, Enum, metaclass=StrEnumMeta):
     READ = "read"
     READ_WRITE = "read_write"
     DB_ADMIN = "db_admin"
+    SYNC = "sync"
 
     def __str__(self) -> str:
         return str(self.value)
