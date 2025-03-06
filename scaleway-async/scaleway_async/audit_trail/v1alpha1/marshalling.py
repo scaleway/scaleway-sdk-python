@@ -224,6 +224,26 @@ def unmarshal_Resource(data: Any) -> Resource:
     else:
         args["keym_key_info"] = None
 
+    field = data.get("secret_manager_secret_info", None)
+    if field is not None:
+        args["secret_manager_secret_info"] = unmarshal_SecretManagerSecretInfo(field)
+    else:
+        args["secret_manager_secret_info"] = None
+
+    field = data.get("secret_manager_version_info", None)
+    if field is not None:
+        args["secret_manager_version_info"] = unmarshal_SecretManagerSecretVersionInfo(
+            field
+        )
+    else:
+        args["secret_manager_version_info"] = None
+
+    field = data.get("key_manager_key_info", None)
+    if field is not None:
+        args["key_manager_key_info"] = unmarshal_KeyManagerKeyInfo(field)
+    else:
+        args["key_manager_key_info"] = None
+
     return Resource(**args)
 
 
