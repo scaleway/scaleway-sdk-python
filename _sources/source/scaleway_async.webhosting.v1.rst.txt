@@ -1,0 +1,45 @@
+scaleway\_async.webhosting.v1 package
+=====================================
+
+Submodules
+----------
+
+scaleway\_async.webhosting.v1.api module
+----------------------------------------
+
+.. automodule:: scaleway_async.webhosting.v1.api
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway\_async.webhosting.v1.content module
+--------------------------------------------
+
+.. automodule:: scaleway_async.webhosting.v1.content
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway\_async.webhosting.v1.marshalling module
+------------------------------------------------
+
+.. automodule:: scaleway_async.webhosting.v1.marshalling
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway\_async.webhosting.v1.types module
+------------------------------------------
+
+.. automodule:: scaleway_async.webhosting.v1.types
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: scaleway_async.webhosting.v1
+   :members:
+   :undoc-members:
+   :show-inheritance:
