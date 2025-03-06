@@ -39,6 +39,7 @@ from .types import (
     CreateUserRequest,
     CreateUserRequestMember,
     EncodedJWT,
+    GetUserConnectionsResponse,
     Group,
     JWT,
     ListAPIKeysResponse,
@@ -52,7 +53,6 @@ from .types import (
     ListQuotaResponse,
     ListRulesResponse,
     ListSSHKeysResponse,
-    ListUserConnectionsResponse,
     ListUsersResponse,
     Log,
     MFAOTP,
@@ -91,6 +91,7 @@ from .marshalling import (
     unmarshal_SSHKey,
     unmarshal_User,
     unmarshal_EncodedJWT,
+    unmarshal_GetUserConnectionsResponse,
     unmarshal_ListAPIKeysResponse,
     unmarshal_ListApplicationsResponse,
     unmarshal_ListGracePeriodsResponse,
@@ -102,7 +103,6 @@ from .marshalling import (
     unmarshal_ListQuotaResponse,
     unmarshal_ListRulesResponse,
     unmarshal_ListSSHKeysResponse,
-    unmarshal_ListUserConnectionsResponse,
     unmarshal_ListUsersResponse,
     unmarshal_MFAOTP,
     unmarshal_OrganizationSecuritySettings,
@@ -853,19 +853,19 @@ class IamV1Alpha1API(API):
         self._throw_on_error(res)
         return unmarshal_ListGracePeriodsResponse(res.json())
 
-    def list_user_connections(
+    def get_user_connections(
         self,
         *,
         user_id: str,
-    ) -> ListUserConnectionsResponse:
+    ) -> GetUserConnectionsResponse:
         """
         :param user_id: ID of the user to list connections for.
-        :return: :class:`ListUserConnectionsResponse <ListUserConnectionsResponse>`
+        :return: :class:`GetUserConnectionsResponse <GetUserConnectionsResponse>`
 
         Usage:
         ::
 
-            result = api.list_user_connections(
+            result = api.get_user_connections(
                 user_id="example",
             )
         """
@@ -878,7 +878,7 @@ class IamV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
-        return unmarshal_ListUserConnectionsResponse(res.json())
+        return unmarshal_GetUserConnectionsResponse(res.json())
 
     def list_applications(
         self,

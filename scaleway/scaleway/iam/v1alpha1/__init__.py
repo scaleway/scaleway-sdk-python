@@ -18,12 +18,13 @@ from .types import LogResourceType
 from .types import PermissionSetScopeType
 from .types import UserStatus
 from .types import UserType
+from .types import GetUserConnectionsResponseConnectionConnectedOrganization
+from .types import GetUserConnectionsResponseConnectionConnectedUser
 from .types import QuotumLimit
-from .types import ListUserConnectionsResponseConnectionConnectedOrganization
-from .types import ListUserConnectionsResponseConnectionConnectedUser
 from .types import JWT
 from .types import RuleSpecs
 from .types import CreateUserRequestMember
+from .types import GetUserConnectionsResponseConnection
 from .types import APIKey
 from .types import Application
 from .types import GracePeriod
@@ -34,7 +35,6 @@ from .types import Policy
 from .types import Quotum
 from .types import Rule
 from .types import SSHKey
-from .types import ListUserConnectionsResponseConnection
 from .types import User
 from .types import AddGroupMemberRequest
 from .types import AddGroupMembersRequest
@@ -65,6 +65,8 @@ from .types import GetOrganizationSecuritySettingsRequest
 from .types import GetPolicyRequest
 from .types import GetQuotumRequest
 from .types import GetSSHKeyRequest
+from .types import GetUserConnectionsRequest
+from .types import GetUserConnectionsResponse
 from .types import GetUserRequest
 from .types import ListAPIKeysRequest
 from .types import ListAPIKeysResponse
@@ -88,8 +90,6 @@ from .types import ListRulesRequest
 from .types import ListRulesResponse
 from .types import ListSSHKeysRequest
 from .types import ListSSHKeysResponse
-from .types import ListUserConnectionsRequest
-from .types import ListUserConnectionsResponse
 from .types import ListUsersRequest
 from .types import ListUsersResponse
 from .types import LockUserRequest
@@ -132,12 +132,13 @@ __all__ = [
     "PermissionSetScopeType",
     "UserStatus",
     "UserType",
+    "GetUserConnectionsResponseConnectionConnectedOrganization",
+    "GetUserConnectionsResponseConnectionConnectedUser",
     "QuotumLimit",
-    "ListUserConnectionsResponseConnectionConnectedOrganization",
-    "ListUserConnectionsResponseConnectionConnectedUser",
     "JWT",
     "RuleSpecs",
     "CreateUserRequestMember",
+    "GetUserConnectionsResponseConnection",
     "APIKey",
     "Application",
     "GracePeriod",
@@ -148,7 +149,6 @@ __all__ = [
     "Quotum",
     "Rule",
     "SSHKey",
-    "ListUserConnectionsResponseConnection",
     "User",
     "AddGroupMemberRequest",
     "AddGroupMembersRequest",
@@ -179,6 +179,8 @@ __all__ = [
     "GetPolicyRequest",
     "GetQuotumRequest",
     "GetSSHKeyRequest",
+    "GetUserConnectionsRequest",
+    "GetUserConnectionsResponse",
     "GetUserRequest",
     "ListAPIKeysRequest",
     "ListAPIKeysResponse",
@@ -202,8 +204,6 @@ __all__ = [
     "ListRulesResponse",
     "ListSSHKeysRequest",
     "ListSSHKeysResponse",
-    "ListUserConnectionsRequest",
-    "ListUserConnectionsResponse",
     "ListUsersRequest",
     "ListUsersResponse",
     "LockUserRequest",
