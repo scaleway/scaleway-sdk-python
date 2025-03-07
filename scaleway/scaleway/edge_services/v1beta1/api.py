@@ -2040,7 +2040,7 @@ class EdgeServicesV1Beta1API(API):
 
         res = self._request(
             "GET",
-            f"/edge-services/v1beta1/{param_route_stage_id}/route-rules",
+            f"/edge-services/v1beta1/route-stages/{param_route_stage_id}/route-rules",
         )
 
         self._throw_on_error(res)
