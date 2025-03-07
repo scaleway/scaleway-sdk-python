@@ -261,7 +261,7 @@ class TemV1Alpha1API(API):
         :param since: (Optional) List emails created after this date.
         :param until: (Optional) List emails created before this date.
         :param mail_from: (Optional) List emails sent with this sender's email address.
-        :param mail_to: List emails sent to this recipient's email address.
+        :param mail_to: Deprecated. List emails sent to this recipient's email address.
         :param mail_rcpt: (Optional) List emails sent to this recipient's email address.
         :param statuses: (Optional) List emails with any of these statuses.
         :param subject: (Optional) List emails with this subject.
@@ -337,7 +337,7 @@ class TemV1Alpha1API(API):
         :param since: (Optional) List emails created after this date.
         :param until: (Optional) List emails created before this date.
         :param mail_from: (Optional) List emails sent with this sender's email address.
-        :param mail_to: List emails sent to this recipient's email address.
+        :param mail_to: Deprecated. List emails sent to this recipient's email address.
         :param mail_rcpt: (Optional) List emails sent to this recipient's email address.
         :param statuses: (Optional) List emails with any of these statuses.
         :param subject: (Optional) List emails with this subject.
@@ -461,19 +461,19 @@ class TemV1Alpha1API(API):
         self,
         *,
         domain_name: str,
-        accept_tos: bool,
         autoconfig: bool,
         region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
+        accept_tos: Optional[bool] = None,
     ) -> Domain:
         """
         Register a domain in a project.
         You must specify the `region`, `project_id` and `domain_name` to register a domain in a specific Project.
         :param domain_name: Fully qualified domain dame.
-        :param accept_tos: Accept Scaleway's Terms of Service.
         :param autoconfig: Activate auto-configuration of the domain's DNS zone.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the project to which the domain belongs.
+        :param accept_tos: Deprecated. Accept Scaleway's Terms of Service.
         :return: :class:`Domain <Domain>`
 
         Usage:
@@ -481,7 +481,6 @@ class TemV1Alpha1API(API):
 
             result = api.create_domain(
                 domain_name="example",
-                accept_tos=False,
                 autoconfig=False,
             )
         """
@@ -496,10 +495,10 @@ class TemV1Alpha1API(API):
             body=marshal_CreateDomainRequest(
                 CreateDomainRequest(
                     domain_name=domain_name,
-                    accept_tos=accept_tos,
                     autoconfig=autoconfig,
                     region=region,
                     project_id=project_id,
+                    accept_tos=accept_tos,
                 ),
                 self.client,
             ),
