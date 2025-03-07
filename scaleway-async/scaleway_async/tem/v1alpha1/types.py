@@ -388,7 +388,7 @@ class Email:
 
     rcpt_to: Optional[str]
     """
-    Email address of the recipient.
+    Deprecated. Email address of the recipient.
     """
 
     rcpt_type: EmailRcptType
@@ -578,7 +578,7 @@ class Domain:
 
     last_error: Optional[str]
     """
-    Error message returned if the last check failed.
+    Deprecated. Error message returned if the last check failed.
     """
 
     statistics: Optional[DomainStatistics]
@@ -818,11 +818,6 @@ class CreateDomainRequest:
     Fully qualified domain dame.
     """
 
-    accept_tos: bool
-    """
-    Accept Scaleway's Terms of Service.
-    """
-
     autoconfig: bool
     """
     Activate auto-configuration of the domain's DNS zone.
@@ -836,6 +831,11 @@ class CreateDomainRequest:
     project_id: Optional[str]
     """
     ID of the project to which the domain belongs.
+    """
+
+    accept_tos: Optional[bool]
+    """
+    Deprecated. Accept Scaleway's Terms of Service.
     """
 
 
@@ -1250,7 +1250,7 @@ class ListEmailsRequest:
 
     mail_to: Optional[str]
     """
-    List emails sent to this recipient's email address.
+    Deprecated. List emails sent to this recipient's email address.
     """
 
     mail_rcpt: Optional[str]

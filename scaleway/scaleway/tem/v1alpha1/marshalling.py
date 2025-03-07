@@ -930,14 +930,14 @@ def marshal_CreateDomainRequest(
     if request.domain_name is not None:
         output["domain_name"] = request.domain_name
 
-    if request.accept_tos is not None:
-        output["accept_tos"] = request.accept_tos
-
     if request.autoconfig is not None:
         output["autoconfig"] = request.autoconfig
 
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id
+
+    if request.accept_tos is not None:
+        output["accept_tos"] = request.accept_tos
 
     return output
 
