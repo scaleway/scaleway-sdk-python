@@ -8,7 +8,7 @@ from enum import Enum
 from typing import List, Optional
 
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -90,6 +90,17 @@ class SnapshotStatus(str, Enum, metaclass=StrEnumMeta):
     DELETING = "deleting"
     ERROR = "error"
     LOCKED = "locked"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class UserRoleRole(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_ROLE = "unknown_role"
+    READ = "read"
+    READ_WRITE = "read_write"
+    DB_ADMIN = "db_admin"
+    SYNC = "sync"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -218,6 +229,15 @@ class NodeTypeVolumeType:
 @dataclass
 class SnapshotVolumeType:
     type_: VolumeType
+
+
+@dataclass
+class UserRole:
+    role: UserRoleRole
+
+    database: Optional[str]
+
+    any_database: Optional[bool]
 
 
 @dataclass
@@ -350,7 +370,7 @@ class Instance:
     List of Database Instance endpoints.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region the Database Instance is in.
     """
@@ -451,7 +471,7 @@ class Snapshot:
     Source node type.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region of the snapshot.
     """
@@ -482,6 +502,11 @@ class User:
     name: str
     """
     Name of the user (Length must be between 1 and 63 characters. First character must be an alphabet character (a-zA-Z). Only a-zA-Z0-9_$- characters are accepted).
+    """
+
+    roles: List[UserRole]
+    """
+    List of roles assigned to the user, along with the corresponding database where each role is granted.
     """
 
 
@@ -523,7 +548,7 @@ class CreateEndpointRequest:
     EndpointSpec used to expose your Database Instance.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -556,7 +581,7 @@ class CreateInstanceRequest:
     Password of the initial user.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -599,7 +624,7 @@ class CreateSnapshotRequest:
     Name of the snapshot.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -627,7 +652,7 @@ class CreateUserRequest:
     Password of the database user.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -640,7 +665,7 @@ class DeleteEndpointRequest:
     UUID of the Endpoint to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -653,7 +678,7 @@ class DeleteInstanceRequest:
     UUID of the Database Instance to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -666,7 +691,7 @@ class DeleteSnapshotRequest:
     UUID of the snapshot.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -684,7 +709,7 @@ class DeleteUserRequest:
     Name of the database user.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -697,7 +722,7 @@ class GetInstanceCertificateRequest:
     UUID of the Database Instance.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -710,7 +735,7 @@ class GetInstanceRequest:
     UUID of the Database Instance.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -723,7 +748,7 @@ class GetSnapshotRequest:
     UUID of the snapshot.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -731,7 +756,7 @@ class GetSnapshotRequest:
 
 @dataclass
 class ListInstancesRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -781,7 +806,7 @@ class ListInstancesResponse:
 
 @dataclass
 class ListNodeTypesRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -811,7 +836,7 @@ class ListNodeTypesResponse:
 
 @dataclass
 class ListSnapshotsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -866,7 +891,7 @@ class ListUsersRequest:
     UUID of the Database Instance.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -901,7 +926,7 @@ class ListUsersResponse:
 
 @dataclass
 class ListVersionsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -953,9 +978,32 @@ class RestoreSnapshotRequest:
     Instance volume information.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class SetUserRoleRequest:
+    instance_id: str
+    """
+    UUID of the Database Instance the user belongs to.
+    """
+
+    user_name: str
+    """
+    Name of the database user.
+    """
+
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    roles: Optional[List[UserRole]]
+    """
+    List of roles assigned to the user, along with the corresponding database where each role is granted.
     """
 
 
@@ -966,7 +1014,7 @@ class UpdateInstanceRequest:
     UUID of the Database Instance to update.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -989,7 +1037,7 @@ class UpdateSnapshotRequest:
     UUID of the Snapshot.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1017,7 +1065,7 @@ class UpdateUserRequest:
     Name of the database user.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1035,7 +1083,7 @@ class UpgradeInstanceRequest:
     UUID of the Database Instance you want to upgrade.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """

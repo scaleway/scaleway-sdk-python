@@ -5,7 +5,7 @@ from typing import List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     validate_path_param,
@@ -60,7 +60,7 @@ class SecretV1Beta1API(API):
         *,
         name: str,
         protected: bool,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         tags: Optional[List[str]] = None,
         description: Optional[str] = None,
@@ -121,7 +121,7 @@ class SecretV1Beta1API(API):
         self,
         *,
         secret_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Secret:
         """
         Get metadata using the secret's ID.
@@ -155,7 +155,7 @@ class SecretV1Beta1API(API):
         self,
         *,
         secret_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         tags: Optional[List[str]] = None,
         description: Optional[str] = None,
@@ -211,7 +211,7 @@ class SecretV1Beta1API(API):
         self,
         *,
         secret_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete a secret.
@@ -242,7 +242,8 @@ class SecretV1Beta1API(API):
     def list_secrets(
         self,
         *,
-        region: Optional[Region] = None,
+        scheduled_for_deletion: bool,
+        region: Optional[ScwRegion] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         order_by: Optional[ListSecretsRequestOrderBy] = None,
@@ -257,6 +258,7 @@ class SecretV1Beta1API(API):
         """
         List secrets.
         Retrieve the list of secrets created within an Organization and/or Project. You must specify either the `organization_id` or the `project_id` and the `region`.
+        :param scheduled_for_deletion: Filter by whether the secret was scheduled for deletion / not scheduled for deletion. By default, it will display only not scheduled for deletion secrets.
         :param region: Region to target. If none is passed will use default region from the config.
         :param organization_id: Filter by Organization ID (optional).
         :param project_id: Filter by Project ID (optional).
@@ -273,7 +275,9 @@ class SecretV1Beta1API(API):
         Usage:
         ::
 
-            result = api.list_secrets()
+            result = api.list_secrets(
+                scheduled_for_deletion=False,
+            )
         """
 
         param_region = validate_path_param(
@@ -293,6 +297,7 @@ class SecretV1Beta1API(API):
                 "page_size": page_size or self.client.default_page_size,
                 "path": path,
                 "project_id": project_id or self.client.default_project_id,
+                "scheduled_for_deletion": scheduled_for_deletion,
                 "tags": tags,
                 "type": type_,
             },
@@ -304,7 +309,8 @@ class SecretV1Beta1API(API):
     def list_secrets_all(
         self,
         *,
-        region: Optional[Region] = None,
+        scheduled_for_deletion: bool,
+        region: Optional[ScwRegion] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         order_by: Optional[ListSecretsRequestOrderBy] = None,
@@ -319,6 +325,7 @@ class SecretV1Beta1API(API):
         """
         List secrets.
         Retrieve the list of secrets created within an Organization and/or Project. You must specify either the `organization_id` or the `project_id` and the `region`.
+        :param scheduled_for_deletion: Filter by whether the secret was scheduled for deletion / not scheduled for deletion. By default, it will display only not scheduled for deletion secrets.
         :param region: Region to target. If none is passed will use default region from the config.
         :param organization_id: Filter by Organization ID (optional).
         :param project_id: Filter by Project ID (optional).
@@ -335,7 +342,9 @@ class SecretV1Beta1API(API):
         Usage:
         ::
 
-            result = api.list_secrets_all()
+            result = api.list_secrets_all(
+                scheduled_for_deletion=False,
+            )
         """
 
         return fetch_all_pages(
@@ -343,6 +352,7 @@ class SecretV1Beta1API(API):
             key="secrets",
             fetcher=self.list_secrets,
             args={
+                "scheduled_for_deletion": scheduled_for_deletion,
                 "region": region,
                 "organization_id": organization_id,
                 "project_id": project_id,
@@ -361,7 +371,7 @@ class SecretV1Beta1API(API):
         self,
         *,
         prefix: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         order_by: Optional[BrowseSecretsRequestOrderBy] = None,
         page: Optional[int] = None,
@@ -415,7 +425,7 @@ class SecretV1Beta1API(API):
         self,
         *,
         secret_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Secret:
         """
         Enable secret protection.
@@ -450,7 +460,7 @@ class SecretV1Beta1API(API):
         self,
         *,
         secret_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Secret:
         """
         Disable secret protection.
@@ -485,7 +495,7 @@ class SecretV1Beta1API(API):
         self,
         *,
         secret_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         product: Optional[Product] = None,
     ) -> None:
         """
@@ -527,7 +537,7 @@ class SecretV1Beta1API(API):
         *,
         secret_id: str,
         data: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         description: Optional[str] = None,
         disable_previous: Optional[bool] = None,
         data_crc32: Optional[int] = None,
@@ -581,7 +591,7 @@ class SecretV1Beta1API(API):
         *,
         secret_id: str,
         revision: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> SecretVersion:
         """
         Get metadata of a secret's version using the secret's ID.
@@ -622,7 +632,7 @@ class SecretV1Beta1API(API):
         *,
         secret_id: str,
         revision: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         description: Optional[str] = None,
         ephemeral_properties: Optional[EphemeralProperties] = None,
     ) -> SecretVersion:
@@ -677,7 +687,7 @@ class SecretV1Beta1API(API):
         *,
         secret_id: str,
         revision: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete a version.
@@ -715,7 +725,7 @@ class SecretV1Beta1API(API):
         self,
         *,
         secret_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         status: Optional[List[SecretVersionStatus]] = None,
@@ -760,7 +770,7 @@ class SecretV1Beta1API(API):
         self,
         *,
         secret_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         status: Optional[List[SecretVersionStatus]] = None,
@@ -801,7 +811,7 @@ class SecretV1Beta1API(API):
         *,
         secret_id: str,
         revision: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> AccessSecretVersionResponse:
         """
         Access a secret's version using the secret's ID.
@@ -843,7 +853,7 @@ class SecretV1Beta1API(API):
         secret_path: str,
         secret_name: str,
         revision: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
     ) -> AccessSecretVersionResponse:
         """
@@ -892,7 +902,7 @@ class SecretV1Beta1API(API):
         *,
         secret_id: str,
         revision: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> SecretVersion:
         """
         Enable a version.
@@ -934,7 +944,7 @@ class SecretV1Beta1API(API):
         *,
         secret_id: str,
         revision: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> SecretVersion:
         """
         Disable a version.
@@ -974,7 +984,7 @@ class SecretV1Beta1API(API):
     def list_tags(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1014,7 +1024,7 @@ class SecretV1Beta1API(API):
     def list_tags_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1049,7 +1059,7 @@ class SecretV1Beta1API(API):
     def list_secret_types(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1089,7 +1099,7 @@ class SecretV1Beta1API(API):
     def list_secret_types_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,

@@ -7,7 +7,7 @@ from datetime import datetime
 from typing import Dict, List, Optional
 
 from scaleway_core.bridge import (
-    Zone,
+    Zone as ScwZone,
 )
 
 from .types import (
@@ -46,7 +46,7 @@ class _SetImageResponse:
 
 @dataclass
 class _SetSecurityGroupRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -125,7 +125,7 @@ class _SetSecurityGroupRuleRequest:
     ip_range: str
     position: int
     editable: bool
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -143,7 +143,7 @@ class _SetSecurityGroupRuleResponse:
 
 @dataclass
 class _SetServerRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -278,7 +278,7 @@ class _SetServerResponse:
 class _SetSnapshotRequest:
     id: str
     name: str
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """

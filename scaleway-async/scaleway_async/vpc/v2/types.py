@@ -8,7 +8,7 @@ from enum import Enum
 from typing import List, Optional
 
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -103,7 +103,7 @@ class PrivateNetwork:
     Scaleway Project the Private Network belongs to.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region in which the Private Network is available.
     """
@@ -171,7 +171,7 @@ class Route:
     Defines whether the route can be modified or deleted by the user.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region of the Route.
     """
@@ -219,7 +219,7 @@ class VPC:
     Scaleway Project the VPC belongs to.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region of the VPC.
     """
@@ -262,7 +262,7 @@ class AddSubnetsRequest:
     Private Network ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -280,7 +280,7 @@ class AddSubnetsResponse:
 
 @dataclass
 class CreatePrivateNetworkRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -328,7 +328,7 @@ class CreateRouteRequest:
     Destination of the Route.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -356,7 +356,7 @@ class CreateVPCRequest:
     Enable routing between Private Networks in the VPC.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -384,7 +384,7 @@ class DeletePrivateNetworkRequest:
     Private Network ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -397,7 +397,7 @@ class DeleteRouteRequest:
     Route ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -410,7 +410,7 @@ class DeleteSubnetsRequest:
     Private Network ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -433,7 +433,7 @@ class DeleteVPCRequest:
     VPC ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -446,7 +446,7 @@ class EnableDHCPRequest:
     Private Network ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -459,7 +459,7 @@ class EnableRoutingRequest:
     VPC ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -472,7 +472,7 @@ class GetPrivateNetworkRequest:
     Private Network ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -485,7 +485,7 @@ class GetRouteRequest:
     Route ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -498,7 +498,7 @@ class GetVPCRequest:
     VPC ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -506,7 +506,7 @@ class GetVPCRequest:
 
 @dataclass
 class ListPrivateNetworksRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -571,7 +571,7 @@ class ListPrivateNetworksResponse:
 
 @dataclass
 class ListSubnetsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -621,7 +621,7 @@ class ListSubnetsResponse:
 
 @dataclass
 class ListVPCsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -680,30 +680,13 @@ class ListVPCsResponse:
 
 
 @dataclass
-class MigrateZonalPrivateNetworksRequest:
-    region: Optional[Region]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    private_network_ids: Optional[List[str]]
-    """
-    IDs of the Private Networks to migrate.
-    """
-
-    organization_id: Optional[str]
-
-    project_id: Optional[str]
-
-
-@dataclass
 class SetSubnetsRequest:
     private_network_id: str
     """
     Private Network ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -726,7 +709,7 @@ class UpdatePrivateNetworkRequest:
     Private Network ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -749,7 +732,7 @@ class UpdateRouteRequest:
     Route ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -787,7 +770,7 @@ class UpdateVPCRequest:
     VPC ID.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """

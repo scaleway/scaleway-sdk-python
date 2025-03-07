@@ -5,7 +5,7 @@ from typing import List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     WaitForOptions,
@@ -71,7 +71,7 @@ class WebhostingV1Alpha1API(API):
         *,
         offer_id: str,
         domain: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         email: Optional[str] = None,
         tags: Optional[List[str]] = None,
@@ -131,7 +131,7 @@ class WebhostingV1Alpha1API(API):
     def list_hostings(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListHostingsRequestOrderBy] = None,
@@ -190,7 +190,7 @@ class WebhostingV1Alpha1API(API):
     def list_hostings_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListHostingsRequestOrderBy] = None,
@@ -244,7 +244,7 @@ class WebhostingV1Alpha1API(API):
         self,
         *,
         hosting_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Hosting:
         """
         Get a Web Hosting plan.
@@ -278,7 +278,7 @@ class WebhostingV1Alpha1API(API):
         self,
         *,
         hosting_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         options: Optional[WaitForOptions[Hosting, bool]] = None,
     ) -> Hosting:
         """
@@ -315,7 +315,7 @@ class WebhostingV1Alpha1API(API):
         self,
         *,
         hosting_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         email: Optional[str] = None,
         tags: Optional[List[str]] = None,
         option_ids: Optional[List[str]] = None,
@@ -371,7 +371,7 @@ class WebhostingV1Alpha1API(API):
         self,
         *,
         hosting_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Hosting:
         """
         Delete a Web Hosting plan.
@@ -405,7 +405,7 @@ class WebhostingV1Alpha1API(API):
         self,
         *,
         hosting_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Hosting:
         """
         Restore a Web Hosting plan.
@@ -440,7 +440,7 @@ class WebhostingV1Alpha1API(API):
         self,
         *,
         domain: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> DnsRecords:
         """
         Get DNS records.
@@ -474,7 +474,7 @@ class WebhostingV1Alpha1API(API):
         self,
         *,
         domain: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
     ) -> CheckUserOwnsDomainResponse:
         """
@@ -499,7 +499,7 @@ class WebhostingV1Alpha1API(API):
 
         res = self._request(
             "POST",
-            f"/webhosting/v1/regions/{param_region}/domains/{param_domain}/check-ownership",
+            f"/webhosting/v1alpha1/regions/{param_region}/domains/{param_domain}/check-ownership",
             body=marshal_CheckUserOwnsDomainRequest(
                 CheckUserOwnsDomainRequest(
                     domain=domain,
@@ -518,7 +518,7 @@ class WebhostingV1Alpha1API(API):
         *,
         without_options: bool,
         only_options: bool,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListOffersRequestOrderBy] = None,
         hosting_id: Optional[str] = None,
         control_panels: Optional[List[str]] = None,
@@ -565,7 +565,7 @@ class WebhostingV1Alpha1API(API):
     def list_control_panels(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> ListControlPanelsResponse:
@@ -601,7 +601,7 @@ class WebhostingV1Alpha1API(API):
     def list_control_panels_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ControlPanel]:
@@ -633,7 +633,7 @@ class WebhostingV1Alpha1API(API):
         self,
         *,
         hosting_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Session:
         """
         Create a user session.
@@ -667,7 +667,7 @@ class WebhostingV1Alpha1API(API):
         self,
         *,
         hosting_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> ResetHostingPasswordResponse:
         """
         :param hosting_id: UUID of the hosting.
@@ -707,7 +707,7 @@ class WebhostingV1Alpha1ClassicMailAPI(API):
         *,
         online_id: int,
         password: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         email: Optional[EmailAddress] = None,
     ) -> Mailbox:
         """
@@ -754,7 +754,7 @@ class WebhostingV1Alpha1ClassicMailAPI(API):
         *,
         online_id: int,
         mailbox_id: int,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Mailbox:
         """
         Get a mailbox by id within your hosting plan.
@@ -790,7 +790,7 @@ class WebhostingV1Alpha1ClassicMailAPI(API):
         self,
         *,
         online_id: int,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         domain: Optional[str] = None,
@@ -834,7 +834,7 @@ class WebhostingV1Alpha1ClassicMailAPI(API):
         self,
         *,
         online_id: int,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         domain: Optional[str] = None,
@@ -874,7 +874,7 @@ class WebhostingV1Alpha1ClassicMailAPI(API):
         *,
         online_id: int,
         mailbox_id: int,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Mailbox:
         """
         :param online_id: The Online hosting ID.
@@ -910,7 +910,7 @@ class WebhostingV1Alpha1ClassicMailAPI(API):
         *,
         online_id: int,
         mailbox_id: int,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         password: Optional[str] = None,
     ) -> Mailbox:
         """

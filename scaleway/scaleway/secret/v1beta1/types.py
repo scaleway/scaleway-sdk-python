@@ -8,7 +8,7 @@ from enum import Enum
 from typing import List, Optional
 
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -83,6 +83,7 @@ class SecretVersionStatus(str, Enum, metaclass=StrEnumMeta):
     ENABLED = "enabled"
     DISABLED = "disabled"
     DELETED = "deleted"
+    SCHEDULED_FOR_DELETION = "scheduled_for_deletion"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -174,6 +175,7 @@ class SecretVersion:
     * `unknown_status`: the version is in an invalid state.
 * `enabled`: the version is accessible.
 * `disabled`: the version is not accessible but can be enabled.
+* `scheduled_for_deletion`: the version is scheduled for deletion. It will be deleted in 7 days.
 * `deleted`: the version is permanently deleted. It is not possible to recover it.
     """
 
@@ -205,6 +207,11 @@ class SecretVersion:
     ephemeral_properties: Optional[EphemeralProperties]
     """
     Returns the version's expiration date, whether it expires after being accessed once, and the action to perform (disable or delete) once the version expires.
+    """
+
+    deletion_requested_at: Optional[datetime]
+    """
+    Returns the time at which deletion was requested.
     """
 
 
@@ -266,7 +273,7 @@ class Secret:
     List of Scaleway resources that can access and manage the secret.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region of the secret.
     """
@@ -291,6 +298,11 @@ class Secret:
     (Optional.) Policy that defines whether/when a secret's versions expire. By default, the policy is applied to all the secret's versions.
     """
 
+    deletion_requested_at: Optional[datetime]
+    """
+    Returns the time at which deletion was requested.
+    """
+
 
 @dataclass
 class AccessSecretVersionByPathRequest:
@@ -312,7 +324,7 @@ class AccessSecretVersionByPathRequest:
 - "latest_enabled" (the latest enabled revision).
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -338,7 +350,7 @@ class AccessSecretVersionRequest:
 - "latest_enabled" (the latest enabled revision).
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -379,7 +391,7 @@ class AddSecretOwnerRequest:
     ID of the secret.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -410,7 +422,7 @@ class BrowseSecretsRequest:
     Filter secrets and folders for a given prefix (default /).
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -467,7 +479,7 @@ class CreateSecretRequest:
     A protected secret cannot be deleted.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -515,7 +527,7 @@ class CreateSecretVersionRequest:
     The base64-encoded secret payload of the version.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -576,7 +588,7 @@ class DeleteSecretRequest:
     ID of the secret.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -597,7 +609,7 @@ class DeleteSecretVersionRequest:
 - "latest_enabled" (the latest enabled revision).
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -618,7 +630,7 @@ class DisableSecretVersionRequest:
 - "latest_enabled" (the latest enabled revision).
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -639,7 +651,7 @@ class EnableSecretVersionRequest:
 - "latest_enabled" (the latest enabled revision).
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -652,7 +664,7 @@ class GetSecretRequest:
     ID of the secret.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -673,7 +685,7 @@ class GetSecretVersionRequest:
 - "latest_enabled" (the latest enabled revision).
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -681,7 +693,7 @@ class GetSecretVersionRequest:
 
 @dataclass
 class ListSecretTypesRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -716,7 +728,7 @@ class ListSecretVersionsRequest:
     ID of the secret.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -746,7 +758,12 @@ class ListSecretVersionsResponse:
 
 @dataclass
 class ListSecretsRequest:
-    region: Optional[Region]
+    scheduled_for_deletion: bool
+    """
+    Filter by whether the secret was scheduled for deletion / not scheduled for deletion. By default, it will display only not scheduled for deletion secrets.
+    """
+
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -808,7 +825,7 @@ class ListSecretsResponse:
 
 @dataclass
 class ListTagsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -843,7 +860,7 @@ class ProtectSecretRequest:
     ID of the secret to enable secret protection for.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -864,7 +881,7 @@ class UnprotectSecretRequest:
     ID of the secret to disable secret protection for.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -877,7 +894,7 @@ class UpdateSecretRequest:
     ID of the secret.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -923,7 +940,7 @@ class UpdateSecretVersionRequest:
 - "latest_enabled" (the latest enabled revision).
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """

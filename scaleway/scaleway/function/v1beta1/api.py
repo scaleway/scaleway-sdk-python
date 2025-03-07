@@ -6,7 +6,7 @@ from typing import Any, Dict, List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     OneOfPossibility,
@@ -104,7 +104,7 @@ class FunctionV1Beta1API(API):
     def list_namespaces(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListNamespacesRequestOrderBy] = None,
@@ -154,7 +154,7 @@ class FunctionV1Beta1API(API):
     def list_namespaces_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListNamespacesRequestOrderBy] = None,
@@ -199,7 +199,7 @@ class FunctionV1Beta1API(API):
         self,
         *,
         namespace_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Namespace:
         """
         Get a namespace.
@@ -233,7 +233,7 @@ class FunctionV1Beta1API(API):
         self,
         *,
         namespace_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         options: Optional[WaitForOptions[Namespace, bool]] = None,
     ) -> Namespace:
         """
@@ -269,7 +269,7 @@ class FunctionV1Beta1API(API):
     def create_namespace(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         environment_variables: Optional[Dict[str, str]] = None,
         project_id: Optional[str] = None,
@@ -323,7 +323,7 @@ class FunctionV1Beta1API(API):
         self,
         *,
         namespace_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         environment_variables: Optional[Dict[str, str]] = None,
         description: Optional[str] = None,
         secret_environment_variables: Optional[List[Secret]] = None,
@@ -376,7 +376,7 @@ class FunctionV1Beta1API(API):
         self,
         *,
         namespace_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Namespace:
         """
         Delete an existing namespace.
@@ -410,7 +410,7 @@ class FunctionV1Beta1API(API):
         self,
         *,
         namespace_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListFunctionsRequestOrderBy] = None,
@@ -464,7 +464,7 @@ class FunctionV1Beta1API(API):
         self,
         *,
         namespace_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListFunctionsRequestOrderBy] = None,
@@ -512,7 +512,7 @@ class FunctionV1Beta1API(API):
         self,
         *,
         function_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Function:
         """
         Get a function.
@@ -546,7 +546,7 @@ class FunctionV1Beta1API(API):
         self,
         *,
         function_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         options: Optional[WaitForOptions[Function, bool]] = None,
     ) -> Function:
         """
@@ -583,7 +583,7 @@ class FunctionV1Beta1API(API):
         self,
         *,
         namespace_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         environment_variables: Optional[Dict[str, str]] = None,
         min_scale: Optional[int] = None,
@@ -664,7 +664,7 @@ class FunctionV1Beta1API(API):
         self,
         *,
         function_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         environment_variables: Optional[Dict[str, str]] = None,
         min_scale: Optional[int] = None,
         max_scale: Optional[int] = None,
@@ -746,7 +746,7 @@ class FunctionV1Beta1API(API):
         self,
         *,
         function_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Function:
         """
         Delete a function.
@@ -780,7 +780,7 @@ class FunctionV1Beta1API(API):
         self,
         *,
         function_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Function:
         """
         Deploy a function.
@@ -814,7 +814,7 @@ class FunctionV1Beta1API(API):
     def list_function_runtimes(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> ListFunctionRuntimesResponse:
         """
         List function runtimes.
@@ -845,7 +845,7 @@ class FunctionV1Beta1API(API):
         *,
         function_id: str,
         content_length: int,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> UploadURL:
         """
         Get an upload URL of a function.
@@ -884,7 +884,7 @@ class FunctionV1Beta1API(API):
         self,
         *,
         function_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> DownloadURL:
         """
         Get a download URL of a function.
@@ -918,7 +918,7 @@ class FunctionV1Beta1API(API):
         self,
         *,
         function_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListCronsRequestOrderBy] = None,
@@ -963,7 +963,7 @@ class FunctionV1Beta1API(API):
         self,
         *,
         function_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListCronsRequestOrderBy] = None,
@@ -1003,7 +1003,7 @@ class FunctionV1Beta1API(API):
         self,
         *,
         cron_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Cron:
         """
         Get a cron.
@@ -1037,7 +1037,7 @@ class FunctionV1Beta1API(API):
         self,
         *,
         cron_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         options: Optional[WaitForOptions[Cron, bool]] = None,
     ) -> Cron:
         """
@@ -1075,7 +1075,7 @@ class FunctionV1Beta1API(API):
         *,
         function_id: str,
         schedule: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         args: Optional[Dict[str, Any]] = None,
         name: Optional[str] = None,
     ) -> Cron:
@@ -1124,7 +1124,7 @@ class FunctionV1Beta1API(API):
         self,
         *,
         cron_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         function_id: Optional[str] = None,
         schedule: Optional[str] = None,
         args: Optional[Dict[str, Any]] = None,
@@ -1177,7 +1177,7 @@ class FunctionV1Beta1API(API):
         self,
         *,
         cron_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Cron:
         """
         Delete an existing cron.
@@ -1211,7 +1211,7 @@ class FunctionV1Beta1API(API):
         self,
         *,
         function_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListDomainsRequestOrderBy] = None,
@@ -1256,7 +1256,7 @@ class FunctionV1Beta1API(API):
         self,
         *,
         function_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListDomainsRequestOrderBy] = None,
@@ -1296,7 +1296,7 @@ class FunctionV1Beta1API(API):
         self,
         *,
         domain_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Domain:
         """
         Get a domain name binding.
@@ -1330,7 +1330,7 @@ class FunctionV1Beta1API(API):
         self,
         *,
         domain_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         options: Optional[WaitForOptions[Domain, bool]] = None,
     ) -> Domain:
         """
@@ -1368,7 +1368,7 @@ class FunctionV1Beta1API(API):
         *,
         hostname: str,
         function_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Domain:
         """
         Create a domain name binding.
@@ -1411,7 +1411,7 @@ class FunctionV1Beta1API(API):
         self,
         *,
         domain_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Domain:
         """
         Delete a domain name binding.
@@ -1444,7 +1444,7 @@ class FunctionV1Beta1API(API):
     def create_token(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         function_id: Optional[str] = None,
         namespace_id: Optional[str] = None,
         description: Optional[str] = None,
@@ -1493,7 +1493,7 @@ class FunctionV1Beta1API(API):
         self,
         *,
         token_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Token:
         """
         Get a token.
@@ -1526,7 +1526,7 @@ class FunctionV1Beta1API(API):
         self,
         *,
         token_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         options: Optional[WaitForOptions[Token, bool]] = None,
     ) -> Token:
         """
@@ -1561,7 +1561,7 @@ class FunctionV1Beta1API(API):
     def list_tokens(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListTokensRequestOrderBy] = None,
@@ -1606,7 +1606,7 @@ class FunctionV1Beta1API(API):
     def list_tokens_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListTokensRequestOrderBy] = None,
@@ -1647,7 +1647,7 @@ class FunctionV1Beta1API(API):
         self,
         *,
         token_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Token:
         """
         Delete a token.
@@ -1681,7 +1681,7 @@ class FunctionV1Beta1API(API):
         *,
         name: str,
         function_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         description: Optional[str] = None,
         scw_sqs_config: Optional[CreateTriggerRequestMnqSqsClientConfig] = None,
         scw_nats_config: Optional[CreateTriggerRequestMnqNatsClientConfig] = None,
@@ -1739,7 +1739,7 @@ class FunctionV1Beta1API(API):
         self,
         *,
         trigger_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Trigger:
         """
         Get a trigger.
@@ -1773,7 +1773,7 @@ class FunctionV1Beta1API(API):
         self,
         *,
         trigger_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         options: Optional[WaitForOptions[Trigger, bool]] = None,
     ) -> Trigger:
         """
@@ -1809,7 +1809,7 @@ class FunctionV1Beta1API(API):
     def list_triggers(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListTriggersRequestOrderBy] = None,
@@ -1865,7 +1865,7 @@ class FunctionV1Beta1API(API):
     def list_triggers_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListTriggersRequestOrderBy] = None,
@@ -1913,7 +1913,7 @@ class FunctionV1Beta1API(API):
         self,
         *,
         trigger_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         description: Optional[str] = None,
         sqs_config: Optional[UpdateTriggerRequestSqsClientConfig] = None,
@@ -1964,7 +1964,7 @@ class FunctionV1Beta1API(API):
         self,
         *,
         trigger_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Trigger:
         """
         Delete a trigger.

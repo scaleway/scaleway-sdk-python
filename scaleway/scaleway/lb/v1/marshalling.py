@@ -855,6 +855,12 @@ def unmarshal_Frontend(data: Any) -> Frontend:
     else:
         args["updated_at"] = None
 
+    field = data.get("connection_rate_limit", None)
+    if field is not None:
+        args["connection_rate_limit"] = field
+    else:
+        args["connection_rate_limit"] = None
+
     return Frontend(**args)
 
 
@@ -1105,6 +1111,10 @@ def unmarshal_RouteMatch(data: Any) -> RouteMatch:
         )
 
     args: Dict[str, Any] = {}
+
+    field = data.get("match_subdomains", None)
+    if field is not None:
+        args["match_subdomains"] = field
 
     field = data.get("sni", None)
     if field is not None:
@@ -1928,6 +1938,9 @@ def marshal_CreateFrontendRequest(
     if request.certificate_ids is not None:
         output["certificate_ids"] = request.certificate_ids
 
+    if request.connection_rate_limit is not None:
+        output["connection_rate_limit"] = request.connection_rate_limit
+
     return output
 
 
@@ -2026,6 +2039,9 @@ def marshal_RouteMatch(
             ]
         ),
     )
+
+    if request.match_subdomains is not None:
+        output["match_subdomains"] = request.match_subdomains
 
     return output
 
@@ -2282,6 +2298,9 @@ def marshal_UpdateFrontendRequest(
 
     if request.certificate_ids is not None:
         output["certificate_ids"] = request.certificate_ids
+
+    if request.connection_rate_limit is not None:
+        output["connection_rate_limit"] = request.connection_rate_limit
 
     return output
 
@@ -2575,6 +2594,9 @@ def marshal_ZonedApiCreateFrontendRequest(
 
     if request.certificate_ids is not None:
         output["certificate_ids"] = request.certificate_ids
+
+    if request.connection_rate_limit is not None:
+        output["connection_rate_limit"] = request.connection_rate_limit
 
     return output
 
@@ -2925,6 +2947,9 @@ def marshal_ZonedApiUpdateFrontendRequest(
 
     if request.certificate_ids is not None:
         output["certificate_ids"] = request.certificate_ids
+
+    if request.connection_rate_limit is not None:
+        output["connection_rate_limit"] = request.connection_rate_limit
 
     return output
 

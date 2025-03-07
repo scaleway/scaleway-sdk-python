@@ -8,11 +8,20 @@ from enum import Enum
 from typing import List, Optional
 
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
 )
+
+
+class BlocklistType(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_TYPE = "unknown_type"
+    MAILBOX_FULL = "mailbox_full"
+    MAILBOX_NOT_FOUND = "mailbox_not_found"
+
+    def __str__(self) -> str:
+        return str(self.value)
 
 
 class DomainLastStatusAutoconfigStateReason(str, Enum, metaclass=StrEnumMeta):
@@ -68,6 +77,7 @@ class EmailFlag(str, Enum, metaclass=StrEnumMeta):
     MAILBOX_NOT_FOUND = "mailbox_not_found"
     GREYLISTED = "greylisted"
     SEND_BEFORE_EXPIRATION = "send_before_expiration"
+    BLOCKLISTED = "blocklisted"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -90,6 +100,16 @@ class EmailStatus(str, Enum, metaclass=StrEnumMeta):
     SENT = "sent"
     FAILED = "failed"
     CANCELED = "canceled"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class ListBlocklistsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_DESC = "created_at_desc"
+    CREATED_AT_ASC = "created_at_asc"
+    ENDS_AT_DESC = "ends_at_desc"
+    ENDS_AT_ASC = "ends_at_asc"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -245,6 +265,54 @@ class DomainStatistics:
     failed_count: int
 
     canceled_count: int
+
+
+@dataclass
+class Blocklist:
+    id: str
+    """
+    ID of the blocklist.
+    """
+
+    domain_id: str
+    """
+    Domain ID linked to the blocklist.
+    """
+
+    email: str
+    """
+    Email blocked by the blocklist.
+    """
+
+    type_: BlocklistType
+    """
+    Type of block for this email.
+    """
+
+    reason: str
+    """
+    Reason to block this email.
+    """
+
+    custom: bool
+    """
+    True if this blocklist was created manually. False for an automatic Transactional Email blocklist.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Date and time of the blocklist creation.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Date and time of the blocklist's last update.
+    """
+
+    ends_at: Optional[datetime]
+    """
+    Date and time when the blocklist ends. Empty if the blocklist has no end.
+    """
 
 
 @dataclass
@@ -498,7 +566,7 @@ class Domain:
     Status of auto-configuration for the domain's DNS zone.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -682,13 +750,49 @@ class UpdateProjectSettingsRequestUpdatePeriodicReport:
 
 
 @dataclass
+class BulkCreateBlocklistsRequest:
+    domain_id: str
+    """
+    Domain ID linked to the blocklist.
+    """
+
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    emails: Optional[List[str]]
+    """
+    Email blocked by the blocklist.
+    """
+
+    type_: Optional[BlocklistType]
+    """
+    Type of blocklist.
+    """
+
+    reason: Optional[str]
+    """
+    Reason to block the email.
+    """
+
+
+@dataclass
+class BulkCreateBlocklistsResponse:
+    blocklists: List[Blocklist]
+    """
+    List of blocklist created.
+    """
+
+
+@dataclass
 class CancelEmailRequest:
     email_id: str
     """
     ID of the email to cancel.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -701,7 +805,7 @@ class CheckDomainRequest:
     ID of the domain to check.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -724,7 +828,7 @@ class CreateDomainRequest:
     Activate auto-configuration of the domain's DNS zone.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -757,7 +861,7 @@ class CreateEmailRequest:
     HTML content.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -823,7 +927,7 @@ class CreateWebhookRequest:
     Scaleway SNS ARN topic to push the events to.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -840,13 +944,26 @@ class CreateWebhookRequest:
 
 
 @dataclass
+class DeleteBlocklistRequest:
+    blocklist_id: str
+    """
+    ID of the blocklist to delete.
+    """
+
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
 class DeleteWebhookRequest:
     webhook_id: str
     """
     ID of the Webhook to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -892,7 +1009,7 @@ class GetDomainLastStatusRequest:
     ID of the domain to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -905,7 +1022,7 @@ class GetDomainRequest:
     ID of the domain.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -918,7 +1035,7 @@ class GetEmailRequest:
     ID of the email to retrieve.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -926,7 +1043,7 @@ class GetEmailRequest:
 
 @dataclass
 class GetProjectSettingsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -939,7 +1056,7 @@ class GetProjectSettingsRequest:
 
 @dataclass
 class GetStatisticsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -977,15 +1094,71 @@ class GetWebhookRequest:
     ID of the Webhook to check.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
 
 @dataclass
+class ListBlocklistsRequest:
+    domain_id: str
+    """
+    (Optional) Filter by a domain ID.
+    """
+
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    order_by: Optional[ListBlocklistsRequestOrderBy]
+    """
+    (Optional) List blocklist corresponding to specific criteria.
+    """
+
+    page: Optional[int]
+    """
+    (Optional) Requested page number. Value must be greater or equal to 1.
+    """
+
+    page_size: Optional[int]
+    """
+    (Optional) Requested page size. Value must be between 1 and 100.
+    """
+
+    email: Optional[str]
+    """
+    (Optional) Filter by an email address.
+    """
+
+    type_: Optional[BlocklistType]
+    """
+    (Optional) Filter by a blocklist type.
+    """
+
+    custom: Optional[bool]
+    """
+    (Optional) Filter by custom blocklist (true) or automatic Transactional Email blocklist (false).
+    """
+
+
+@dataclass
+class ListBlocklistsResponse:
+    total_count: int
+    """
+    Number of blocklists matching the requested criteria.
+    """
+
+    blocklists: List[Blocklist]
+    """
+    Single page of blocklists matching the requested criteria.
+    """
+
+
+@dataclass
 class ListDomainsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1036,7 +1209,7 @@ class ListDomainsResponse:
 
 @dataclass
 class ListEmailsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1131,7 +1304,7 @@ class ListWebhookEventsRequest:
     ID of the Webhook linked to the events.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1197,7 +1370,7 @@ class ListWebhookEventsResponse:
 
 @dataclass
 class ListWebhooksRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1261,7 +1434,7 @@ class RevokeDomainRequest:
     ID of the domain to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1307,7 +1480,7 @@ class UpdateDomainRequest:
     ID of the domain to update.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1320,7 +1493,7 @@ class UpdateDomainRequest:
 
 @dataclass
 class UpdateProjectSettingsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1343,7 +1516,7 @@ class UpdateWebhookRequest:
     ID of the Webhook to update.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """

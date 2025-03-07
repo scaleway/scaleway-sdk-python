@@ -9,7 +9,7 @@ from typing import List, Optional
 
 from scaleway_core.bridge import (
     TimeSeries,
-    Zone,
+    Zone as ScwZone,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -87,7 +87,7 @@ class PrivateNetwork:
     List of IPv4 CIDR notation addresses of the endpoint.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     Zone of the Private Network.
     """
@@ -259,7 +259,7 @@ class ClusterVersion:
     Redis™ logo url.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     Zone of the Redis™ Database Instance.
     """
@@ -342,7 +342,7 @@ class Cluster:
     Number of nodes of the Database Instance cluster.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     Zone of the Database Instance.
     """
@@ -395,7 +395,7 @@ class NodeType:
     Defines whether node type is currently in beta.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     Zone of the node type.
     """
@@ -413,7 +413,7 @@ class AddAclRulesRequest:
     ACLs rules to add to the cluster.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -444,7 +444,7 @@ class AddClusterSettingsRequest:
     Settings to add to the cluster.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -462,7 +462,7 @@ class AddEndpointsRequest:
     Endpoints to add to the Database Instance.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -509,7 +509,7 @@ class CreateClusterRequest:
     Type of node to use for the Database Instance.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -572,7 +572,7 @@ class DeleteAclRuleRequest:
     UUID of the ACL rule you want to delete.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -585,7 +585,7 @@ class DeleteClusterRequest:
     UUID of the Database Instance to delete.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -603,7 +603,7 @@ class DeleteClusterSettingRequest:
     Setting name to delete.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -616,7 +616,7 @@ class DeleteEndpointRequest:
     UUID of the endpoint you want to delete.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -629,7 +629,7 @@ class GetAclRuleRequest:
     UUID of the ACL rule you want to get.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -642,7 +642,7 @@ class GetClusterCertificateRequest:
     UUID of the cluster.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -655,7 +655,7 @@ class GetClusterMetricsRequest:
     UUID of the cluster.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -683,7 +683,7 @@ class GetClusterRequest:
     UUID of the cluster.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -696,7 +696,7 @@ class GetEndpointRequest:
     UUID of the endpoint you want to get.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -719,7 +719,7 @@ class ListClusterVersionsRequest:
     Defines whether or not to include deprecated Redis™ engine versions.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -749,7 +749,7 @@ class ListClusterVersionsResponse:
 
 @dataclass
 class ListClustersRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -809,7 +809,7 @@ class ListNodeTypesRequest:
     Defines whether or not to include disabled types.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -839,7 +839,7 @@ class MigrateClusterRequest:
     UUID of the Database Instance to update.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -858,7 +858,7 @@ class RenewClusterCertificateRequest:
     UUID of the cluster.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -876,7 +876,7 @@ class SetAclRulesRequest:
     ACLs rules to define for the cluster.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -902,7 +902,7 @@ class SetClusterSettingsRequest:
     Settings to define for the Database Instance.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -920,7 +920,7 @@ class SetEndpointsRequest:
     Endpoints to define for the Database Instance.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -941,7 +941,7 @@ class UpdateClusterRequest:
     UUID of the Database Instance to update.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -974,7 +974,7 @@ class UpdateEndpointRequest:
     UUID of the endpoint you want to get.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """

@@ -12,14 +12,19 @@ from .types import ListPoliciesRequestOrderBy
 from .types import ListQuotaRequestOrderBy
 from .types import ListSSHKeysRequestOrderBy
 from .types import ListUsersRequestOrderBy
+from .types import LocalityType
 from .types import LogAction
 from .types import LogResourceType
 from .types import PermissionSetScopeType
 from .types import UserStatus
 from .types import UserType
+from .types import GetUserConnectionsResponseConnectionConnectedOrganization
+from .types import GetUserConnectionsResponseConnectionConnectedUser
+from .types import QuotumLimit
 from .types import JWT
 from .types import RuleSpecs
 from .types import CreateUserRequestMember
+from .types import GetUserConnectionsResponseConnection
 from .types import APIKey
 from .types import Application
 from .types import GracePeriod
@@ -40,6 +45,7 @@ from .types import CreateGroupRequest
 from .types import CreateJWTRequest
 from .types import CreatePolicyRequest
 from .types import CreateSSHKeyRequest
+from .types import CreateUserMFAOTPRequest
 from .types import CreateUserRequest
 from .types import DeleteAPIKeyRequest
 from .types import DeleteApplicationRequest
@@ -47,6 +53,7 @@ from .types import DeleteGroupRequest
 from .types import DeleteJWTRequest
 from .types import DeletePolicyRequest
 from .types import DeleteSSHKeyRequest
+from .types import DeleteUserMFAOTPRequest
 from .types import DeleteUserRequest
 from .types import EncodedJWT
 from .types import GetAPIKeyRequest
@@ -58,6 +65,8 @@ from .types import GetOrganizationSecuritySettingsRequest
 from .types import GetPolicyRequest
 from .types import GetQuotumRequest
 from .types import GetSSHKeyRequest
+from .types import GetUserConnectionsRequest
+from .types import GetUserConnectionsResponse
 from .types import GetUserRequest
 from .types import ListAPIKeysRequest
 from .types import ListAPIKeysResponse
@@ -84,6 +93,7 @@ from .types import ListSSHKeysResponse
 from .types import ListUsersRequest
 from .types import ListUsersResponse
 from .types import LockUserRequest
+from .types import MFAOTP
 from .types import OrganizationSecuritySettings
 from .types import RemoveGroupMemberRequest
 from .types import SetGroupMembersRequest
@@ -99,6 +109,8 @@ from .types import UpdateSSHKeyRequest
 from .types import UpdateUserPasswordRequest
 from .types import UpdateUserRequest
 from .types import UpdateUserUsernameRequest
+from .types import ValidateUserMFAOTPRequest
+from .types import ValidateUserMFAOTPResponse
 from .api import IamV1Alpha1API
 
 __all__ = [
@@ -114,14 +126,19 @@ __all__ = [
     "ListQuotaRequestOrderBy",
     "ListSSHKeysRequestOrderBy",
     "ListUsersRequestOrderBy",
+    "LocalityType",
     "LogAction",
     "LogResourceType",
     "PermissionSetScopeType",
     "UserStatus",
     "UserType",
+    "GetUserConnectionsResponseConnectionConnectedOrganization",
+    "GetUserConnectionsResponseConnectionConnectedUser",
+    "QuotumLimit",
     "JWT",
     "RuleSpecs",
     "CreateUserRequestMember",
+    "GetUserConnectionsResponseConnection",
     "APIKey",
     "Application",
     "GracePeriod",
@@ -142,6 +159,7 @@ __all__ = [
     "CreateJWTRequest",
     "CreatePolicyRequest",
     "CreateSSHKeyRequest",
+    "CreateUserMFAOTPRequest",
     "CreateUserRequest",
     "DeleteAPIKeyRequest",
     "DeleteApplicationRequest",
@@ -149,6 +167,7 @@ __all__ = [
     "DeleteJWTRequest",
     "DeletePolicyRequest",
     "DeleteSSHKeyRequest",
+    "DeleteUserMFAOTPRequest",
     "DeleteUserRequest",
     "EncodedJWT",
     "GetAPIKeyRequest",
@@ -160,6 +179,8 @@ __all__ = [
     "GetPolicyRequest",
     "GetQuotumRequest",
     "GetSSHKeyRequest",
+    "GetUserConnectionsRequest",
+    "GetUserConnectionsResponse",
     "GetUserRequest",
     "ListAPIKeysRequest",
     "ListAPIKeysResponse",
@@ -186,6 +207,7 @@ __all__ = [
     "ListUsersRequest",
     "ListUsersResponse",
     "LockUserRequest",
+    "MFAOTP",
     "OrganizationSecuritySettings",
     "RemoveGroupMemberRequest",
     "SetGroupMembersRequest",
@@ -201,5 +223,7 @@ __all__ = [
     "UpdateUserPasswordRequest",
     "UpdateUserRequest",
     "UpdateUserUsernameRequest",
+    "ValidateUserMFAOTPRequest",
+    "ValidateUserMFAOTPResponse",
     "IamV1Alpha1API",
 ]

@@ -30,6 +30,7 @@ from .types import Pipeline
 from .types import TLSStage
 from .types import CheckPEMChainRequestSecretChain
 from .types import PlanDetails
+from .types import PlanUsageDetails
 from .types import PipelineStages
 from .types import PurgeRequest
 from .types import TLSSecretsConfig
@@ -115,6 +116,7 @@ __all__ = [
     "TLSStage",
     "CheckPEMChainRequestSecretChain",
     "PlanDetails",
+    "PlanUsageDetails",
     "PipelineStages",
     "PurgeRequest",
     "TLSSecretsConfig",

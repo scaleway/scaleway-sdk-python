@@ -3,10 +3,16 @@
 from .types import DnsRecordStatus
 from .types import DnsRecordType
 from .types import DnsRecordsStatus
+from .types import DomainAction
+from .types import DomainAvailabilityAction
+from .types import DomainAvailabilityStatus
+from .content import DOMAIN_AVAILABILITY_TRANSIENT_STATUSES
+from .types import DomainDnsAction
+from .types import DomainStatus
+from .content import DOMAIN_TRANSIENT_STATUSES
+from .types import DomainZoneOwner
 from .types import HostingStatus
 from .content import HOSTING_TRANSIENT_STATUSES
-from .types import HostingSummaryStatus
-from .content import HOSTING_SUMMARY_TRANSIENT_STATUSES
 from .types import ListDatabaseUsersRequestOrderBy
 from .types import ListDatabasesRequestOrderBy
 from .types import ListFtpAccountsRequestOrderBy
@@ -37,6 +43,7 @@ from .types import FtpAccount
 from .types import HostingSummary
 from .types import MailAccount
 from .types import Website
+from .types import DomainAvailability
 from .types import CheckUserOwnsDomainResponse
 from .types import ControlPanelApiListControlPanelsRequest
 from .types import DatabaseApiAssignDatabaseUserRequest
@@ -52,8 +59,11 @@ from .types import DatabaseApiListDatabasesRequest
 from .types import DatabaseApiUnassignDatabaseUserRequest
 from .types import DnsApiCheckUserOwnsDomainRequest
 from .types import DnsApiGetDomainDnsRecordsRequest
+from .types import DnsApiGetDomainRequest
+from .types import DnsApiSearchDomainsRequest
 from .types import DnsApiSyncDomainDnsRecordsRequest
 from .types import DnsRecords
+from .types import Domain
 from .types import FtpAccountApiChangeFtpAccountPasswordRequest
 from .types import FtpAccountApiCreateFtpAccountRequest
 from .types import FtpAccountApiListFtpAccountsRequest
@@ -82,6 +92,7 @@ from .types import MailAccountApiRemoveMailAccountRequest
 from .types import OfferApiListOffersRequest
 from .types import ResetHostingPasswordResponse
 from .types import ResourceSummary
+from .types import SearchDomainsResponse
 from .types import Session
 from .types import WebsiteApiListWebsitesRequest
 from .api import WebhostingV1ControlPanelAPI
@@ -97,10 +108,16 @@ __all__ = [
     "DnsRecordStatus",
     "DnsRecordType",
     "DnsRecordsStatus",
+    "DomainAction",
+    "DomainAvailabilityAction",
+    "DomainAvailabilityStatus",
+    "DOMAIN_AVAILABILITY_TRANSIENT_STATUSES",
+    "DomainDnsAction",
+    "DomainStatus",
+    "DOMAIN_TRANSIENT_STATUSES",
+    "DomainZoneOwner",
     "HostingStatus",
     "HOSTING_TRANSIENT_STATUSES",
-    "HostingSummaryStatus",
-    "HOSTING_SUMMARY_TRANSIENT_STATUSES",
     "ListDatabaseUsersRequestOrderBy",
     "ListDatabasesRequestOrderBy",
     "ListFtpAccountsRequestOrderBy",
@@ -131,6 +148,7 @@ __all__ = [
     "HostingSummary",
     "MailAccount",
     "Website",
+    "DomainAvailability",
     "CheckUserOwnsDomainResponse",
     "ControlPanelApiListControlPanelsRequest",
     "DatabaseApiAssignDatabaseUserRequest",
@@ -146,8 +164,11 @@ __all__ = [
     "DatabaseApiUnassignDatabaseUserRequest",
     "DnsApiCheckUserOwnsDomainRequest",
     "DnsApiGetDomainDnsRecordsRequest",
+    "DnsApiGetDomainRequest",
+    "DnsApiSearchDomainsRequest",
     "DnsApiSyncDomainDnsRecordsRequest",
     "DnsRecords",
+    "Domain",
     "FtpAccountApiChangeFtpAccountPasswordRequest",
     "FtpAccountApiCreateFtpAccountRequest",
     "FtpAccountApiListFtpAccountsRequest",
@@ -176,6 +197,7 @@ __all__ = [
     "OfferApiListOffersRequest",
     "ResetHostingPasswordResponse",
     "ResourceSummary",
+    "SearchDomainsResponse",
     "Session",
     "WebsiteApiListWebsitesRequest",
     "WebhostingV1ControlPanelAPI",

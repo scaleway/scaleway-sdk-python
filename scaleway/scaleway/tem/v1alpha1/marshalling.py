@@ -16,12 +16,15 @@ from .types import (
     DomainStatistics,
     Domain,
     Webhook,
+    Blocklist,
+    BulkCreateBlocklistsResponse,
     CreateEmailResponse,
     DomainLastStatusAutoconfigState,
     DomainLastStatusDkimRecord,
     DomainLastStatusDmarcRecord,
     DomainLastStatusSpfRecord,
     DomainLastStatus,
+    ListBlocklistsResponse,
     ListDomainsResponse,
     ListEmailsResponse,
     WebhookEvent,
@@ -30,6 +33,7 @@ from .types import (
     ProjectSettingsPeriodicReport,
     ProjectSettings,
     Statistics,
+    BulkCreateBlocklistsRequest,
     CreateDomainRequest,
     CreateEmailRequestAddress,
     CreateEmailRequestAttachment,
@@ -407,6 +411,76 @@ def unmarshal_Webhook(data: Any) -> Webhook:
     return Webhook(**args)
 
 
+def unmarshal_Blocklist(data: Any) -> Blocklist:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Blocklist' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+
+    field = data.get("domain_id", None)
+    if field is not None:
+        args["domain_id"] = field
+
+    field = data.get("email", None)
+    if field is not None:
+        args["email"] = field
+
+    field = data.get("type", None)
+    if field is not None:
+        args["type_"] = field
+
+    field = data.get("reason", None)
+    if field is not None:
+        args["reason"] = field
+
+    field = data.get("custom", None)
+    if field is not None:
+        args["custom"] = field
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
+    field = data.get("ends_at", None)
+    if field is not None:
+        args["ends_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["ends_at"] = None
+
+    return Blocklist(**args)
+
+
+def unmarshal_BulkCreateBlocklistsResponse(data: Any) -> BulkCreateBlocklistsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'BulkCreateBlocklistsResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("blocklists", None)
+    if field is not None:
+        args["blocklists"] = (
+            [unmarshal_Blocklist(v) for v in field] if field is not None else None
+        )
+
+    return BulkCreateBlocklistsResponse(**args)
+
+
 def unmarshal_CreateEmailResponse(data: Any) -> CreateEmailResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -579,6 +653,27 @@ def unmarshal_DomainLastStatus(data: Any) -> DomainLastStatus:
         args["autoconfig_state"] = None
 
     return DomainLastStatus(**args)
+
+
+def unmarshal_ListBlocklistsResponse(data: Any) -> ListBlocklistsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListBlocklistsResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+
+    field = data.get("blocklists", None)
+    if field is not None:
+        args["blocklists"] = (
+            [unmarshal_Blocklist(v) for v in field] if field is not None else None
+        )
+
+    return ListBlocklistsResponse(**args)
 
 
 def unmarshal_ListDomainsResponse(data: Any) -> ListDomainsResponse:
@@ -803,6 +898,27 @@ def unmarshal_Statistics(data: Any) -> Statistics:
         args["canceled_count"] = field
 
     return Statistics(**args)
+
+
+def marshal_BulkCreateBlocklistsRequest(
+    request: BulkCreateBlocklistsRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.domain_id is not None:
+        output["domain_id"] = request.domain_id
+
+    if request.emails is not None:
+        output["emails"] = request.emails
+
+    if request.type_ is not None:
+        output["type"] = str(request.type_)
+
+    if request.reason is not None:
+        output["reason"] = request.reason
+
+    return output
 
 
 def marshal_CreateDomainRequest(

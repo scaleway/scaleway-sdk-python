@@ -1,5 +1,6 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
+from .types import CommitmentType
 from .types import ConnectivityDiagnosticActionType
 from .types import ConnectivityDiagnosticDiagnosticStatus
 from .types import ListServerPrivateNetworksRequestOrderBy
@@ -17,10 +18,12 @@ from .types import ServerTypeDisk
 from .types import ServerTypeGPU
 from .types import ServerTypeMemory
 from .types import ServerTypeNetwork
+from .types import Commitment
 from .types import ConnectivityDiagnosticServerHealth
 from .types import ServerPrivateNetwork
 from .types import ServerType
 from .types import Server
+from .types import CommitmentTypeValue
 from .types import ConnectivityDiagnostic
 from .types import CreateServerRequest
 from .types import DeleteServerRequest
@@ -50,6 +53,7 @@ from .api import ApplesiliconV1Alpha1API
 from .api import ApplesiliconV1Alpha1PrivateNetworkAPI
 
 __all__ = [
+    "CommitmentType",
     "ConnectivityDiagnosticActionType",
     "ConnectivityDiagnosticDiagnosticStatus",
     "ListServerPrivateNetworksRequestOrderBy",
@@ -67,10 +71,12 @@ __all__ = [
     "ServerTypeGPU",
     "ServerTypeMemory",
     "ServerTypeNetwork",
+    "Commitment",
     "ConnectivityDiagnosticServerHealth",
     "ServerPrivateNetwork",
     "ServerType",
     "Server",
+    "CommitmentTypeValue",
     "ConnectivityDiagnostic",
     "CreateServerRequest",
     "DeleteServerRequest",

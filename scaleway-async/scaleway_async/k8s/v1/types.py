@@ -8,8 +8,8 @@ from enum import Enum
 from typing import Dict, List, Optional
 
 from scaleway_core.bridge import (
-    Region,
-    Zone,
+    Region as ScwRegion,
+    Zone as ScwZone,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -415,7 +415,7 @@ class Pool:
     Kubelet arguments to be used by this pool. Note that this feature is experimental.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     Zone in which the pool's nodes will be spawned.
     """
@@ -433,7 +433,7 @@ class Pool:
     Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Cluster region of the pool.
     """
@@ -644,7 +644,7 @@ class CreateClusterRequestPoolConfig:
     Kubelet arguments to be used by this pool. Note that this feature is experimental.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     Zone in which the pool's nodes will be spawned.
     """
@@ -754,7 +754,7 @@ class Version:
     Label of the Kubernetes version.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region in which this version is available.
     """
@@ -812,7 +812,7 @@ class Cluster:
     Kubernetes version of the cluster.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region in which the cluster is deployed.
     """
@@ -940,7 +940,7 @@ class Node:
     Underlying instance ID. It is prefixed by instance type and location information (see https://pkg.go.dev/k8s.io/api/core/v1#NodeSpec.ProviderID).
     """
 
-    region: Region
+    region: ScwRegion
     """
     Cluster region of the node.
     """
@@ -1113,7 +1113,7 @@ class AddClusterACLRulesRequest:
     ID of the cluster whose ACLs will be added.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1139,7 +1139,7 @@ class AuthExternalNodeRequest:
     Pool the node will be attached to.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1162,7 +1162,7 @@ class CreateClusterRequest:
     Kubernetes version of the cluster.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1231,7 +1231,7 @@ class CreateClusterRequest:
 class CreateExternalNodeRequest:
     pool_id: str
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1239,7 +1239,7 @@ class CreateExternalNodeRequest:
 
 @dataclass
 class CreatePoolRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1314,7 +1314,7 @@ class CreatePoolRequest:
     Pool upgrade policy.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone in which the pool's nodes will be spawned.
     """
@@ -1340,7 +1340,7 @@ class DeleteACLRuleRequest:
     ID of the ACL rule to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1358,7 +1358,7 @@ class DeleteClusterRequest:
     Defines whether all volumes (including retain volume type), empty Private Networks and Load Balancers with a name starting with the cluster ID will also be deleted.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1381,7 +1381,7 @@ class DeleteNodeRequest:
     Add a new node after the deletion of this node.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1394,7 +1394,7 @@ class DeletePoolRequest:
     ID of the pool to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1428,6 +1428,8 @@ class ExternalNode:
 
     node_taints: List[ExternalNodeCoreV1Taint]
 
+    iam_token: str
+
 
 @dataclass
 class ExternalNodeAuth:
@@ -1443,7 +1445,7 @@ class GetClusterKubeConfigRequest:
     Cluster ID for which to download the kubeconfig.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1461,7 +1463,7 @@ class GetClusterRequest:
     ID of the requested cluster.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1469,7 +1471,7 @@ class GetClusterRequest:
 
 @dataclass
 class GetNodeMetadataRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1482,7 +1484,7 @@ class GetNodeRequest:
     ID of the requested node.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1495,7 +1497,7 @@ class GetPoolRequest:
     ID of the requested pool.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1508,7 +1510,7 @@ class GetVersionRequest:
     Requested version name.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1521,7 +1523,7 @@ class ListClusterACLRulesRequest:
     ID of the cluster whose ACLs will be listed.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1557,7 +1559,7 @@ class ListClusterAvailableTypesRequest:
     Cluster ID for which the available Kubernetes types will be listed.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1583,7 +1585,7 @@ class ListClusterAvailableVersionsRequest:
     Cluster ID for which the available Kubernetes versions will be listed.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1599,7 +1601,7 @@ class ListClusterAvailableVersionsResponse:
 
 @dataclass
 class ListClusterTypesRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1630,7 +1632,7 @@ class ListClusterTypesResponse:
 
 @dataclass
 class ListClustersRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1701,7 +1703,7 @@ class ListNodesRequest:
     Cluster ID from which the nodes will be listed from.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1757,7 +1759,7 @@ class ListPoolsRequest:
     ID of the cluster whose pools will be listed.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1803,7 +1805,7 @@ class ListPoolsResponse:
 
 @dataclass
 class ListVersionsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1824,7 +1826,7 @@ class MigrateClusterToSBSCSIRequest:
     Cluster ID for which the latest CSI compatible with Scaleway Block Storage will be enabled.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1864,7 +1866,7 @@ class RebootNodeRequest:
     ID of the node to reboot.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1877,7 +1879,7 @@ class ReplaceNodeRequest:
     ID of the node to replace.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1890,7 +1892,7 @@ class ResetClusterAdminTokenRequest:
     Cluster ID on which the admin token will be renewed.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1903,7 +1905,7 @@ class SetClusterACLRulesRequest:
     ID of the cluster whose ACLs will be set.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1934,7 +1936,7 @@ class SetClusterTypeRequest:
     Type of the cluster. Note that some migrations are not possible (please refer to product documentation).
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -1947,7 +1949,7 @@ class UpdateClusterRequest:
     ID of the cluster to update.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2005,7 +2007,7 @@ class UpdatePoolRequest:
     ID of the pool to update.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2068,7 +2070,7 @@ class UpgradeClusterRequest:
     Defines whether pools will also be upgraded once the control plane is upgraded.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -2086,7 +2088,7 @@ class UpgradePoolRequest:
     New Kubernetes version for the pool.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """

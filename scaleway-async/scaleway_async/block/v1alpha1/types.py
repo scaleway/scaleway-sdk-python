@@ -9,7 +9,7 @@ from typing import List, Optional
 
 from scaleway_core.bridge import (
     Money,
-    Zone,
+    Zone as ScwZone,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -229,7 +229,7 @@ class Snapshot:
     List of tags assigned to the volume.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     Snapshot zone.
     """
@@ -335,7 +335,7 @@ class Volume:
     List of tags assigned to the volume.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     Volume zone.
     """
@@ -358,7 +358,7 @@ class CreateSnapshotRequest:
     UUID of the volume to snapshot.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -381,7 +381,7 @@ class CreateSnapshotRequest:
 
 @dataclass
 class CreateVolumeRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -415,7 +415,7 @@ class DeleteSnapshotRequest:
     UUID of the snapshot.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -428,7 +428,7 @@ class DeleteVolumeRequest:
     UUID of the volume.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -451,7 +451,7 @@ class ExportSnapshotToObjectStorageRequest:
     The object key inside the given bucket.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -464,7 +464,7 @@ class GetSnapshotRequest:
     UUID of the snapshot.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -477,7 +477,7 @@ class GetVolumeRequest:
     UUID of the volume.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -500,7 +500,7 @@ class ImportSnapshotFromObjectStorageRequest:
     Name of the snapshot.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -538,7 +538,7 @@ class ImportSnapshotFromS3Request:
     Name of the snapshot.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -561,7 +561,7 @@ class ImportSnapshotFromS3Request:
 
 @dataclass
 class ListSnapshotsRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -601,6 +601,11 @@ class ListSnapshotsRequest:
     Filter snapshots by their names.
     """
 
+    tags: Optional[List[str]]
+    """
+    Filter by tags. Only snapshots with one or more matching tags will be returned.
+    """
+
 
 @dataclass
 class ListSnapshotsResponse:
@@ -617,7 +622,7 @@ class ListSnapshotsResponse:
 
 @dataclass
 class ListVolumeTypesRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -648,7 +653,7 @@ class ListVolumeTypesResponse:
 
 @dataclass
 class ListVolumesRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -714,7 +719,7 @@ class UpdateSnapshotRequest:
     UUID of the snapshot.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -737,7 +742,7 @@ class UpdateVolumeRequest:
     UUID of the volume.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """

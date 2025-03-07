@@ -211,7 +211,7 @@ class Discount:
 
     organization_id: str
     """
-    The organization ID of the discount.
+    The Organization ID of the discount.
     """
 
     description: str

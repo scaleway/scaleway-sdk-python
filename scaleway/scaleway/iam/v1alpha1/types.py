@@ -7,6 +7,10 @@ from datetime import datetime
 from enum import Enum
 from typing import List, Optional
 
+from scaleway_core.bridge import (
+    Region as ScwRegion,
+    Zone as ScwZone,
+)
 from scaleway_core.utils import (
     StrEnumMeta,
 )
@@ -142,6 +146,15 @@ class ListUsersRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class LocalityType(str, Enum, metaclass=StrEnumMeta):
+    GLOBAL = "global"
+    REGION = "region"
+    ZONE = "zone"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class LogAction(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_ACTION = "unknown_action"
     CREATED = "created"
@@ -191,6 +204,37 @@ class UserType(str, Enum, metaclass=StrEnumMeta):
 
     def __str__(self) -> str:
         return str(self.value)
+
+
+@dataclass
+class GetUserConnectionsResponseConnectionConnectedOrganization:
+    id: str
+
+    name: str
+
+    locked: bool
+
+
+@dataclass
+class GetUserConnectionsResponseConnectionConnectedUser:
+    id: str
+
+    username: str
+
+    type_: UserType
+
+
+@dataclass
+class QuotumLimit:
+    global_: Optional[bool]
+
+    region: Optional[ScwRegion]
+
+    zone: Optional[ScwZone]
+
+    limit: Optional[int]
+
+    unlimited: Optional[bool]
 
 
 @dataclass
@@ -278,6 +322,19 @@ class CreateUserRequestMember:
     password: str
     """
     The member's password.
+    """
+
+
+@dataclass
+class GetUserConnectionsResponseConnection:
+    organization: Optional[GetUserConnectionsResponseConnectionConnectedOrganization]
+    """
+    Information about the connected organization.
+    """
+
+    user: Optional[GetUserConnectionsResponseConnectionConnectedUser]
+    """
+    Information about the connected user.
     """
 
 
@@ -656,6 +713,16 @@ class Quotum:
     Details about the quota.
     """
 
+    locality_type: LocalityType
+    """
+    Whether this quotum is applied on at the zone level, region level, or globally.
+    """
+
+    limits: List[QuotumLimit]
+    """
+    Limits per locality.
+    """
+
     limit: Optional[int]
 
     unlimited: Optional[bool]
@@ -987,6 +1054,14 @@ class CreateSSHKeyRequest:
 
 
 @dataclass
+class CreateUserMFAOTPRequest:
+    user_id: str
+    """
+    User ID of the MFA OTP.
+    """
+
+
+@dataclass
 class CreateUserRequest:
     organization_id: Optional[str]
     """
@@ -1046,6 +1121,14 @@ class DeletePolicyRequest:
 @dataclass
 class DeleteSSHKeyRequest:
     ssh_key_id: str
+
+
+@dataclass
+class DeleteUserMFAOTPRequest:
+    user_id: str
+    """
+    User ID of the MFA OTP.
+    """
 
 
 @dataclass
@@ -1148,6 +1231,22 @@ class GetSSHKeyRequest:
     ssh_key_id: str
     """
     ID of the SSH key.
+    """
+
+
+@dataclass
+class GetUserConnectionsRequest:
+    user_id: str
+    """
+    ID of the user to list connections for.
+    """
+
+
+@dataclass
+class GetUserConnectionsResponse:
+    connections: List[GetUserConnectionsResponseConnection]
+    """
+    List of connections.
     """
 
 
@@ -1758,6 +1857,11 @@ class LockUserRequest:
 
 
 @dataclass
+class MFAOTP:
+    secret: str
+
+
+@dataclass
 class OrganizationSecuritySettings:
     enforce_password_renewal: bool
     """
@@ -1970,11 +2074,6 @@ class UpdateUserPasswordRequest:
     The new password.
     """
 
-    send_email: bool
-    """
-    Whether or not to send an email alerting the user their password has changed.
-    """
-
 
 @dataclass
 class UpdateUserRequest:
@@ -2004,4 +2103,25 @@ class UpdateUserUsernameRequest:
     username: str
     """
     The new username.
+    """
+
+
+@dataclass
+class ValidateUserMFAOTPRequest:
+    user_id: str
+    """
+    User ID of the MFA OTP.
+    """
+
+    one_time_password: str
+    """
+    A password generated using the OTP.
+    """
+
+
+@dataclass
+class ValidateUserMFAOTPResponse:
+    recovery_codes: List[str]
+    """
+    List of recovery codes usable for this OTP method.
     """

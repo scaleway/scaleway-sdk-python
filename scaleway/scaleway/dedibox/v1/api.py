@@ -6,7 +6,7 @@ from typing import List, Optional
 from scaleway_core.api import API
 from scaleway_core.bridge import (
     ScwFile,
-    Zone,
+    Zone as ScwZone,
     unmarshal_ScwFile,
 )
 from scaleway_core.utils import (
@@ -235,7 +235,7 @@ class DediboxV1API(API):
     def list_servers(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListServersRequestOrderBy] = None,
@@ -278,7 +278,7 @@ class DediboxV1API(API):
     def list_servers_all(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListServersRequestOrderBy] = None,
@@ -319,7 +319,7 @@ class DediboxV1API(API):
         self,
         *,
         server_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Server:
         """
         Get a specific baremetal server.
@@ -351,7 +351,7 @@ class DediboxV1API(API):
         self,
         *,
         server_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         options: Optional[WaitForOptions[Server, bool]] = None,
     ) -> Server:
         """
@@ -388,7 +388,7 @@ class DediboxV1API(API):
         self,
         *,
         server_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Backup:
         """
         :param server_id: Server ID of the backup.
@@ -418,7 +418,7 @@ class DediboxV1API(API):
         self,
         *,
         server_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         password: Optional[str] = None,
         autologin: Optional[bool] = None,
         acl_enabled: Optional[bool] = None,
@@ -464,7 +464,7 @@ class DediboxV1API(API):
         self,
         *,
         server_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> ListSubscribableServerOptionsResponse:
@@ -504,7 +504,7 @@ class DediboxV1API(API):
         self,
         *,
         server_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[Offer]:
@@ -542,7 +542,7 @@ class DediboxV1API(API):
         *,
         server_id: int,
         option_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Service:
         """
         Subscribe server option.
@@ -585,7 +585,7 @@ class DediboxV1API(API):
         *,
         offer_id: int,
         server_option_ids: List[int],
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         project_id: Optional[str] = None,
         datacenter_name: Optional[str] = None,
     ) -> Service:
@@ -633,7 +633,7 @@ class DediboxV1API(API):
         *,
         server_id: int,
         options_ids: List[int],
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> SubscribeStorageOptionsResponse:
         """
         Subscribe storage server option.
@@ -675,7 +675,7 @@ class DediboxV1API(API):
         self,
         *,
         server_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         hostname: Optional[str] = None,
         enable_ipv6: Optional[bool] = None,
     ) -> Server:
@@ -720,7 +720,7 @@ class DediboxV1API(API):
         self,
         *,
         server_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         tags: Optional[List[str]] = None,
     ) -> Server:
         """
@@ -760,7 +760,7 @@ class DediboxV1API(API):
         self,
         *,
         server_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Reboot a baremetal server.
@@ -791,7 +791,7 @@ class DediboxV1API(API):
         self,
         *,
         server_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Start a baremetal server.
@@ -822,7 +822,7 @@ class DediboxV1API(API):
         self,
         *,
         server_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Stop a baremetal server.
@@ -853,7 +853,7 @@ class DediboxV1API(API):
         self,
         *,
         server_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Delete a baremetal server.
@@ -883,7 +883,7 @@ class DediboxV1API(API):
         self,
         *,
         server_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListServerEventsRequestOrderBy] = None,
@@ -926,7 +926,7 @@ class DediboxV1API(API):
         self,
         *,
         server_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListServerEventsRequestOrderBy] = None,
@@ -966,7 +966,7 @@ class DediboxV1API(API):
         self,
         *,
         server_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListServerDisksRequestOrderBy] = None,
@@ -1009,7 +1009,7 @@ class DediboxV1API(API):
         self,
         *,
         server_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListServerDisksRequestOrderBy] = None,
@@ -1049,7 +1049,7 @@ class DediboxV1API(API):
         self,
         *,
         ordered_service_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Service:
         """
         :param ordered_service_id:
@@ -1081,7 +1081,7 @@ class DediboxV1API(API):
         self,
         *,
         service_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Service:
         """
         Get a specific service.
@@ -1114,7 +1114,7 @@ class DediboxV1API(API):
         self,
         *,
         service_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Service:
         """
         Delete a specific service.
@@ -1145,7 +1145,7 @@ class DediboxV1API(API):
     def list_services(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListServicesRequestOrderBy] = None,
@@ -1185,7 +1185,7 @@ class DediboxV1API(API):
     def list_services_all(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListServicesRequestOrderBy] = None,
@@ -1225,7 +1225,7 @@ class DediboxV1API(API):
         server_id: int,
         os_id: int,
         hostname: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         user_login: Optional[str] = None,
         user_password: Optional[str] = None,
         panel_password: Optional[str] = None,
@@ -1294,7 +1294,7 @@ class DediboxV1API(API):
         self,
         *,
         server_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> ServerInstall:
         """
         Get a specific server installation status.
@@ -1326,7 +1326,7 @@ class DediboxV1API(API):
         self,
         *,
         server_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         options: Optional[WaitForOptions[ServerInstall, bool]] = None,
     ) -> ServerInstall:
         """
@@ -1365,7 +1365,7 @@ class DediboxV1API(API):
         self,
         *,
         server_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Cancels the current (running) server installation.
@@ -1396,7 +1396,7 @@ class DediboxV1API(API):
         *,
         server_id: int,
         os_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> ServerDefaultPartitioning:
         """
         Get server default partitioning.
@@ -1432,7 +1432,7 @@ class DediboxV1API(API):
         *,
         server_id: int,
         ip: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Start BMC (Baseboard Management Controller) access for a given baremetal server.
@@ -1473,7 +1473,7 @@ class DediboxV1API(API):
         self,
         *,
         server_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> BMCAccess:
         """
         Get BMC (Baseboard Management Controller) access for a given baremetal server.
@@ -1505,7 +1505,7 @@ class DediboxV1API(API):
         self,
         *,
         server_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         options: Optional[WaitForOptions[BMCAccess, bool]] = None,
     ) -> BMCAccess:
         """
@@ -1542,7 +1542,7 @@ class DediboxV1API(API):
         self,
         *,
         server_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Stop BMC (Baseboard Management Controller) access for a given baremetal server.
@@ -1571,7 +1571,7 @@ class DediboxV1API(API):
     def list_offers(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListOffersRequestOrderBy] = None,
@@ -1633,7 +1633,7 @@ class DediboxV1API(API):
     def list_offers_all(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListOffersRequestOrderBy] = None,
@@ -1693,7 +1693,7 @@ class DediboxV1API(API):
         self,
         *,
         offer_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         project_id: Optional[str] = None,
     ) -> Offer:
         """
@@ -1730,7 +1730,7 @@ class DediboxV1API(API):
         self,
         *,
         server_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListOSRequestOrderBy] = None,
@@ -1778,7 +1778,7 @@ class DediboxV1API(API):
         self,
         *,
         server_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListOSRequestOrderBy] = None,
@@ -1824,7 +1824,7 @@ class DediboxV1API(API):
         *,
         os_id: int,
         server_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         project_id: Optional[str] = None,
     ) -> OS:
         """
@@ -1865,7 +1865,7 @@ class DediboxV1API(API):
         *,
         ip_id: int,
         reverse: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> IP:
         """
         Update reverse of ip.
@@ -1908,7 +1908,7 @@ class DediboxV1API(API):
         *,
         offer_id: int,
         quantity: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         project_id: Optional[str] = None,
     ) -> CreateFailoverIPsResponse:
         """
@@ -1953,7 +1953,7 @@ class DediboxV1API(API):
         *,
         server_id: int,
         fips_ids: List[int],
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Attach failovers on baremetal server.
@@ -1992,7 +1992,7 @@ class DediboxV1API(API):
         self,
         *,
         fips_ids: List[int],
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Detach failovers on baremetal server.
@@ -2028,7 +2028,7 @@ class DediboxV1API(API):
         self,
         *,
         ip_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         type_: Optional[AttachFailoverIPToMacAddressRequestMacType] = None,
         mac: Optional[str] = None,
     ) -> IP:
@@ -2072,7 +2072,7 @@ class DediboxV1API(API):
         self,
         *,
         ip_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> IP:
         """
         Detach a failover IP from a MAC address.
@@ -2104,7 +2104,7 @@ class DediboxV1API(API):
         self,
         *,
         ip_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Delete a failover server.
@@ -2133,7 +2133,7 @@ class DediboxV1API(API):
     def list_failover_i_ps(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListFailoverIPsRequestOrderBy] = None,
@@ -2181,7 +2181,7 @@ class DediboxV1API(API):
     def list_failover_i_ps_all(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListFailoverIPsRequestOrderBy] = None,
@@ -2227,7 +2227,7 @@ class DediboxV1API(API):
         self,
         *,
         ip_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> FailoverIP:
         """
         Get a specific baremetal server.
@@ -2258,7 +2258,7 @@ class DediboxV1API(API):
     def get_remaining_quota(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         project_id: Optional[str] = None,
     ) -> GetRemainingQuotaResponse:
         """
@@ -2290,7 +2290,7 @@ class DediboxV1API(API):
         self,
         *,
         server_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Raid:
         """
         Get raid.
@@ -2323,7 +2323,7 @@ class DediboxV1API(API):
         *,
         server_id: int,
         raid_arrays: List[UpdatableRaidArray],
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Update RAID.
@@ -2364,7 +2364,7 @@ class DediboxV1API(API):
         *,
         server_id: int,
         os_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Rescue:
         """
         Start in rescue baremetal server.
@@ -2406,7 +2406,7 @@ class DediboxV1API(API):
         self,
         *,
         server_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Rescue:
         """
         Get rescue information.
@@ -2438,7 +2438,7 @@ class DediboxV1API(API):
         self,
         *,
         server_id: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Stop rescue on baremetal server.

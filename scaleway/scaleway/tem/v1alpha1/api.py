@@ -6,7 +6,7 @@ from typing import List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     WaitForOptions,
@@ -15,14 +15,19 @@ from scaleway_core.utils import (
     wait_for_resource,
 )
 from .types import (
+    BlocklistType,
     DomainStatus,
     EmailFlag,
     EmailStatus,
+    ListBlocklistsRequestOrderBy,
     ListEmailsRequestOrderBy,
     ListWebhookEventsRequestOrderBy,
     ListWebhooksRequestOrderBy,
     WebhookEventStatus,
     WebhookEventType,
+    Blocklist,
+    BulkCreateBlocklistsRequest,
+    BulkCreateBlocklistsResponse,
     CreateDomainRequest,
     CreateEmailRequest,
     CreateEmailRequestAddress,
@@ -33,6 +38,7 @@ from .types import (
     Domain,
     DomainLastStatus,
     Email,
+    ListBlocklistsResponse,
     ListDomainsResponse,
     ListEmailsResponse,
     ListWebhookEventsResponse,
@@ -54,14 +60,17 @@ from .marshalling import (
     unmarshal_Email,
     unmarshal_Domain,
     unmarshal_Webhook,
+    unmarshal_BulkCreateBlocklistsResponse,
     unmarshal_CreateEmailResponse,
     unmarshal_DomainLastStatus,
+    unmarshal_ListBlocklistsResponse,
     unmarshal_ListDomainsResponse,
     unmarshal_ListEmailsResponse,
     unmarshal_ListWebhookEventsResponse,
     unmarshal_ListWebhooksResponse,
     unmarshal_ProjectSettings,
     unmarshal_Statistics,
+    marshal_BulkCreateBlocklistsRequest,
     marshal_CreateDomainRequest,
     marshal_CreateEmailRequest,
     marshal_CreateWebhookRequest,
@@ -83,7 +92,7 @@ class TemV1Alpha1API(API):
         subject: str,
         text: str,
         html: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         to: Optional[List[CreateEmailRequestAddress]] = None,
         cc: Optional[List[CreateEmailRequestAddress]] = None,
         bcc: Optional[List[CreateEmailRequestAddress]] = None,
@@ -153,7 +162,7 @@ class TemV1Alpha1API(API):
         self,
         *,
         email_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Email:
         """
         Get an email.
@@ -187,7 +196,7 @@ class TemV1Alpha1API(API):
         self,
         *,
         email_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         options: Optional[WaitForOptions[Email, bool]] = None,
     ) -> Email:
         """
@@ -223,7 +232,7 @@ class TemV1Alpha1API(API):
     def list_emails(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         project_id: Optional[str] = None,
@@ -299,7 +308,7 @@ class TemV1Alpha1API(API):
     def list_emails_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         project_id: Optional[str] = None,
@@ -370,7 +379,7 @@ class TemV1Alpha1API(API):
     def get_statistics(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         domain_id: Optional[str] = None,
         since: Optional[datetime] = None,
@@ -417,7 +426,7 @@ class TemV1Alpha1API(API):
         self,
         *,
         email_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Email:
         """
         Cancel an email.
@@ -454,7 +463,7 @@ class TemV1Alpha1API(API):
         domain_name: str,
         accept_tos: bool,
         autoconfig: bool,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
     ) -> Domain:
         """
@@ -503,7 +512,7 @@ class TemV1Alpha1API(API):
         self,
         *,
         domain_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Domain:
         """
         Get information about a domain.
@@ -537,7 +546,7 @@ class TemV1Alpha1API(API):
         self,
         *,
         domain_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         options: Optional[WaitForOptions[Domain, bool]] = None,
     ) -> Domain:
         """
@@ -573,7 +582,7 @@ class TemV1Alpha1API(API):
     def list_domains(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         project_id: Optional[str] = None,
@@ -623,7 +632,7 @@ class TemV1Alpha1API(API):
     def list_domains_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         project_id: Optional[str] = None,
@@ -668,7 +677,7 @@ class TemV1Alpha1API(API):
         self,
         *,
         domain_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Domain:
         """
         Delete a domain.
@@ -703,7 +712,7 @@ class TemV1Alpha1API(API):
         self,
         *,
         domain_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Domain:
         """
         Domain DNS check.
@@ -738,7 +747,7 @@ class TemV1Alpha1API(API):
         self,
         *,
         domain_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> DomainLastStatus:
         """
         Display SPF and DKIM records status and potential errors.
@@ -772,7 +781,7 @@ class TemV1Alpha1API(API):
         self,
         *,
         domain_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         autoconfig: Optional[bool] = None,
     ) -> Domain:
         """
@@ -818,7 +827,7 @@ class TemV1Alpha1API(API):
         domain_id: str,
         name: str,
         sns_arn: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         event_types: Optional[List[WebhookEventType]] = None,
     ) -> Webhook:
@@ -869,7 +878,7 @@ class TemV1Alpha1API(API):
     def list_webhooks(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListWebhooksRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -919,7 +928,7 @@ class TemV1Alpha1API(API):
     def list_webhooks_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListWebhooksRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -964,7 +973,7 @@ class TemV1Alpha1API(API):
         self,
         *,
         webhook_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Webhook:
         """
         Get information about a Webhook.
@@ -998,7 +1007,7 @@ class TemV1Alpha1API(API):
         self,
         *,
         webhook_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         event_types: Optional[List[WebhookEventType]] = None,
         sns_arn: Optional[str] = None,
@@ -1048,7 +1057,7 @@ class TemV1Alpha1API(API):
         self,
         *,
         webhook_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete a Webhook.
@@ -1080,7 +1089,7 @@ class TemV1Alpha1API(API):
         self,
         *,
         webhook_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListWebhookEventsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1144,7 +1153,7 @@ class TemV1Alpha1API(API):
         self,
         *,
         webhook_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListWebhookEventsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -1201,7 +1210,7 @@ class TemV1Alpha1API(API):
     def get_project_settings(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
     ) -> ProjectSettings:
         """
@@ -1235,7 +1244,7 @@ class TemV1Alpha1API(API):
     def update_project_settings(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         periodic_report: Optional[
             UpdateProjectSettingsRequestUpdatePeriodicReport
@@ -1277,3 +1286,187 @@ class TemV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_ProjectSettings(res.json())
+
+    def list_blocklists(
+        self,
+        *,
+        domain_id: str,
+        region: Optional[ScwRegion] = None,
+        order_by: Optional[ListBlocklistsRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        email: Optional[str] = None,
+        type_: Optional[BlocklistType] = None,
+        custom: Optional[bool] = None,
+    ) -> ListBlocklistsResponse:
+        """
+        List blocklists.
+        Retrieve the list of blocklists.
+        :param domain_id: (Optional) Filter by a domain ID.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param order_by: (Optional) List blocklist corresponding to specific criteria.
+        :param page: (Optional) Requested page number. Value must be greater or equal to 1.
+        :param page_size: (Optional) Requested page size. Value must be between 1 and 100.
+        :param email: (Optional) Filter by an email address.
+        :param type_: (Optional) Filter by a blocklist type.
+        :param custom: (Optional) Filter by custom blocklist (true) or automatic Transactional Email blocklist (false).
+        :return: :class:`ListBlocklistsResponse <ListBlocklistsResponse>`
+
+        Usage:
+        ::
+
+            result = api.list_blocklists(
+                domain_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/transactional-email/v1alpha1/regions/{param_region}/blocklists",
+            params={
+                "custom": custom,
+                "domain_id": domain_id,
+                "email": email,
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+                "type": type_,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListBlocklistsResponse(res.json())
+
+    def list_blocklists_all(
+        self,
+        *,
+        domain_id: str,
+        region: Optional[ScwRegion] = None,
+        order_by: Optional[ListBlocklistsRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        email: Optional[str] = None,
+        type_: Optional[BlocklistType] = None,
+        custom: Optional[bool] = None,
+    ) -> List[Blocklist]:
+        """
+        List blocklists.
+        Retrieve the list of blocklists.
+        :param domain_id: (Optional) Filter by a domain ID.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param order_by: (Optional) List blocklist corresponding to specific criteria.
+        :param page: (Optional) Requested page number. Value must be greater or equal to 1.
+        :param page_size: (Optional) Requested page size. Value must be between 1 and 100.
+        :param email: (Optional) Filter by an email address.
+        :param type_: (Optional) Filter by a blocklist type.
+        :param custom: (Optional) Filter by custom blocklist (true) or automatic Transactional Email blocklist (false).
+        :return: :class:`List[Blocklist] <List[Blocklist]>`
+
+        Usage:
+        ::
+
+            result = api.list_blocklists_all(
+                domain_id="example",
+            )
+        """
+
+        return fetch_all_pages(
+            type=ListBlocklistsResponse,
+            key="blocklists",
+            fetcher=self.list_blocklists,
+            args={
+                "domain_id": domain_id,
+                "region": region,
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size,
+                "email": email,
+                "type_": type_,
+                "custom": custom,
+            },
+        )
+
+    def bulk_create_blocklists(
+        self,
+        *,
+        domain_id: str,
+        region: Optional[ScwRegion] = None,
+        emails: Optional[List[str]] = None,
+        type_: Optional[BlocklistType] = None,
+        reason: Optional[str] = None,
+    ) -> BulkCreateBlocklistsResponse:
+        """
+        Bulk create blocklists.
+        Create multiple blocklists in a specific Project or Organization using the `region` parameter.
+        :param domain_id: Domain ID linked to the blocklist.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param emails: Email blocked by the blocklist.
+        :param type_: Type of blocklist.
+        :param reason: Reason to block the email.
+        :return: :class:`BulkCreateBlocklistsResponse <BulkCreateBlocklistsResponse>`
+
+        Usage:
+        ::
+
+            result = api.bulk_create_blocklists(
+                domain_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "POST",
+            f"/transactional-email/v1alpha1/regions/{param_region}/blocklists",
+            body=marshal_BulkCreateBlocklistsRequest(
+                BulkCreateBlocklistsRequest(
+                    domain_id=domain_id,
+                    region=region,
+                    emails=emails,
+                    type_=type_,
+                    reason=reason,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_BulkCreateBlocklistsResponse(res.json())
+
+    def delete_blocklist(
+        self,
+        *,
+        blocklist_id: str,
+        region: Optional[ScwRegion] = None,
+    ) -> None:
+        """
+        Delete a blocklist.
+        You must specify the blocklist you want to delete by the `region` and `blocklist_id`.
+        :param blocklist_id: ID of the blocklist to delete.
+        :param region: Region to target. If none is passed will use default region from the config.
+
+        Usage:
+        ::
+
+            result = api.delete_blocklist(
+                blocklist_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_blocklist_id = validate_path_param("blocklist_id", blocklist_id)
+
+        res = self._request(
+            "DELETE",
+            f"/transactional-email/v1alpha1/regions/{param_region}/blocklists/{param_blocklist_id}",
+        )
+
+        self._throw_on_error(res)

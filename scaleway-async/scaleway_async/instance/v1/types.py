@@ -8,7 +8,7 @@ from enum import Enum
 from typing import Dict, List, Optional
 
 from scaleway_core.bridge import (
-    Zone,
+    Zone as ScwZone,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -66,7 +66,6 @@ class IpState(str, Enum, metaclass=StrEnumMeta):
 
 class IpType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_IPTYPE = "unknown_iptype"
-    NAT = "nat"
     ROUTED_IPV4 = "routed_ipv4"
     ROUTED_IPV6 = "routed_ipv6"
 
@@ -330,7 +329,7 @@ class Bootscript:
 
     project: str
 
-    zone: Zone
+    zone: ScwZone
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -393,7 +392,7 @@ class Volume:
     Volume state.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     Zone in which the volume is located.
     """
@@ -469,7 +468,7 @@ class Image:
 
     tags: List[str]
 
-    zone: Zone
+    zone: ScwZone
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -516,10 +515,11 @@ class PlacementGroup:
 
     policy_respected: bool
     """
-    Returns true if the policy is respected, false otherwise.
+    In the server endpoints the value is always false as it is deprecated.
+In the placement group endpoints the value is correct.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     Zone in which the placement group is located.
     """
@@ -674,7 +674,7 @@ class VolumeServer:
 
     boot: bool
 
-    zone: Zone
+    zone: ScwZone
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -899,7 +899,7 @@ class Server:
     Instance private NICs.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     Zone in which the Instance is located.
     """
@@ -972,7 +972,7 @@ class Ip:
 
     ipam_id: str
 
-    zone: Zone
+    zone: ScwZone
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1049,7 +1049,7 @@ class SecurityGroup:
     Security group state.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     Zone in which the security group is located.
     """
@@ -1086,7 +1086,7 @@ class SecurityGroupRule:
 
     editable: bool
 
-    zone: Zone
+    zone: ScwZone
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1181,7 +1181,7 @@ class Snapshot:
     Snapshot state.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     Snapshot zone.
     """
@@ -1233,7 +1233,7 @@ class Task:
 
     href_result: str
 
-    zone: Zone
+    zone: ScwZone
     """
     Zone in which the task is excecuted.
     """
@@ -1342,6 +1342,11 @@ class ServerType:
     True if it is a baremetal Instance.
     """
 
+    end_of_service: bool
+    """
+    True if this Instance type has reached end of service.
+    """
+
     per_volume_constraint: Optional[ServerTypeVolumeConstraintsByType]
     """
     Additional volume constraints.
@@ -1443,7 +1448,7 @@ class SetSecurityGroupRulesRequestRule:
     Indicates if this rule is editable. Rules with the value false will be ignored.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone of the rule. This field is ignored.
     """
@@ -1471,7 +1476,7 @@ class ApplyBlockMigrationRequest:
     A value to be retrieved from a call to the [Get a volume or snapshot's migration plan](#path-volumes-get-a-volume-or-snapshots-migration-plan) endpoint, to confirm that the volume and/or snapshots specified in said plan should be migrated.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1487,7 +1492,7 @@ class AttachServerVolumeRequest:
 
     volume_id: str
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1504,7 +1509,7 @@ class AttachServerVolumeResponse:
 
 @dataclass
 class CheckBlockMigrationOrganizationQuotasRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1524,7 +1529,7 @@ class CreateImageRequest:
     Architecture of the image.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1561,7 +1566,7 @@ class CreateImageResponse:
 
 @dataclass
 class CreateIpRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1578,7 +1583,7 @@ class CreateIpRequest:
 
     type_: Optional[IpType]
     """
-    IP type to reserve (either 'routed_ipv4' or 'routed_ipv6', use of 'nat' is deprecated).
+    IP type to reserve (either 'routed_ipv4' or 'routed_ipv6').
     """
 
     project: Optional[str]
@@ -1593,7 +1598,7 @@ class CreateIpResponse:
 
 @dataclass
 class CreatePlacementGroupRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1640,7 +1645,7 @@ class CreatePrivateNICRequest:
     UUID of the private network where the private NIC will be attached.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1678,7 +1683,7 @@ class CreateSecurityGroupRequest:
     Whether the security group is stateful or not.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1747,7 +1752,7 @@ class CreateSecurityGroupRuleRequest:
     Indicates if this rule is editable (will be ignored).
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1775,7 +1780,7 @@ class CreateServerRequest:
     Define the Instance commercial type (i.e. GP1-S).
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1857,7 +1862,7 @@ class CreateServerResponse:
 
 @dataclass
 class CreateSnapshotRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1912,7 +1917,7 @@ class CreateSnapshotResponse:
 
 @dataclass
 class CreateVolumeRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1953,7 +1958,7 @@ class DeleteImageRequest:
     UUID of the image you want to delete.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1966,7 +1971,7 @@ class DeleteIpRequest:
     ID or address of the IP to delete.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1979,7 +1984,7 @@ class DeletePlacementGroupRequest:
     UUID of the placement group you want to delete.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1997,7 +2002,7 @@ class DeletePrivateNICRequest:
     Private NIC unique ID.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2010,7 +2015,7 @@ class DeleteSecurityGroupRequest:
     UUID of the security group you want to delete.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2022,7 +2027,7 @@ class DeleteSecurityGroupRuleRequest:
 
     security_group_rule_id: str
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2032,7 +2037,7 @@ class DeleteSecurityGroupRuleRequest:
 class DeleteServerRequest:
     server_id: str
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2050,7 +2055,7 @@ class DeleteServerUserDataRequest:
     Key of the user data to delete.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2063,7 +2068,7 @@ class DeleteSnapshotRequest:
     UUID of the snapshot you want to delete.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2076,7 +2081,7 @@ class DeleteVolumeRequest:
     UUID of the volume you want to delete.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2088,7 +2093,7 @@ class DetachServerVolumeRequest:
 
     volume_id: str
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2116,7 +2121,7 @@ class ExportSnapshotRequest:
     Snapshot ID.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2129,7 +2134,7 @@ class ExportSnapshotResponse:
 
 @dataclass
 class GetDashboardRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2151,7 +2156,7 @@ class GetImageRequest:
     UUID of the image you want to get.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2169,7 +2174,7 @@ class GetIpRequest:
     IP ID or address to get.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2187,7 +2192,7 @@ class GetPlacementGroupRequest:
     UUID of the placement group you want to get.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2205,7 +2210,7 @@ class GetPlacementGroupServersRequest:
     UUID of the placement group you want to get.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2231,7 +2236,7 @@ class GetPrivateNICRequest:
     Private NIC unique ID.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2249,7 +2254,7 @@ class GetSecurityGroupRequest:
     UUID of the security group you want to get.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2266,7 +2271,7 @@ class GetSecurityGroupRuleRequest:
 
     security_group_rule_id: str
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2278,13 +2283,26 @@ class GetSecurityGroupRuleResponse:
 
 
 @dataclass
+class GetServerCompatibleTypesRequest:
+    server_id: str
+    """
+    UUID of the Instance you want to get.
+    """
+
+    zone: Optional[ScwZone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
 class GetServerRequest:
     server_id: str
     """
     UUID of the Instance you want to get.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2297,7 +2315,7 @@ class GetServerResponse:
 
 @dataclass
 class GetServerTypesAvailabilityRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2330,7 +2348,7 @@ class GetSnapshotRequest:
     UUID of the snapshot you want to get.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2348,7 +2366,7 @@ class GetVolumeRequest:
     UUID of the volume you want to get.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2361,7 +2379,7 @@ class GetVolumeResponse:
 
 @dataclass
 class ListDefaultSecurityGroupRulesRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2369,7 +2387,7 @@ class ListDefaultSecurityGroupRulesRequest:
 
 @dataclass
 class ListImagesRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2406,7 +2424,7 @@ class ListImagesResponse:
 
 @dataclass
 class ListIpsRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2443,7 +2461,7 @@ class ListIpsRequest:
 
     type_: Optional[str]
     """
-    Filter on the IP Mobility IP type (whose value should be either 'routed_ipv4', 'routed_ipv6' or 'nat').
+    Filter on the IP Mobility IP type (whose value should be either 'routed_ipv4' or 'routed_ipv6').
     """
 
 
@@ -2462,7 +2480,7 @@ class ListIpsResponse:
 
 @dataclass
 class ListPlacementGroupsRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2518,7 +2536,7 @@ class ListPrivateNICsRequest:
     Instance to which the private NIC is attached.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2553,7 +2571,7 @@ class ListSecurityGroupRulesRequest:
     UUID of the security group.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2584,7 +2602,7 @@ class ListSecurityGroupRulesResponse:
 
 @dataclass
 class ListSecurityGroupsRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2642,7 +2660,7 @@ class ListSecurityGroupsResponse:
 class ListServerActionsRequest:
     server_id: str
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2660,7 +2678,7 @@ class ListServerUserDataRequest:
     UUID of the Instance.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2673,7 +2691,7 @@ class ListServerUserDataResponse:
 
 @dataclass
 class ListServersRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2774,7 +2792,7 @@ class ListServersResponse:
 
 @dataclass
 class ListServersTypesRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2799,7 +2817,7 @@ class ListServersTypesResponse:
 
 @dataclass
 class ListSnapshotsRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2855,7 +2873,7 @@ class ListSnapshotsResponse:
 
 @dataclass
 class ListVolumesRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2911,7 +2929,7 @@ class ListVolumesResponse:
 
 @dataclass
 class ListVolumesTypesRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2954,7 +2972,7 @@ class MigrationPlan:
 
 @dataclass
 class PlanBlockMigrationRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -2971,7 +2989,7 @@ class ServerActionRequest:
     UUID of the Instance.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3006,8 +3024,16 @@ class ServerActionResponse:
 
 
 @dataclass
+class ServerCompatibleTypes:
+    compatible_types: List[str]
+    """
+    Instance compatible types.
+    """
+
+
+@dataclass
 class SetImageRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3047,7 +3073,7 @@ class SetPlacementGroupRequest:
 
     name: str
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3080,7 +3106,7 @@ class SetPlacementGroupServersRequest:
     An array of the Instances' UUIDs you want to configure.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3101,7 +3127,7 @@ class SetSecurityGroupRulesRequest:
     UUID of the security group to update the rules on.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3124,7 +3150,7 @@ class UpdateImageRequest:
     UUID of the image.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3167,7 +3193,7 @@ class UpdateIpRequest:
     IP ID or IP address.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3179,7 +3205,7 @@ class UpdateIpRequest:
 
     type_: Optional[IpType]
     """
-    Convert a 'nat' IP to a 'routed_ipv4'.
+    Should have no effect.
     """
 
     tags: Optional[List[str]]
@@ -3202,7 +3228,7 @@ class UpdatePlacementGroupRequest:
     UUID of the placement group.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3245,7 +3271,7 @@ class UpdatePlacementGroupServersRequest:
     An array of the Instances' UUIDs you want to configure.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3271,7 +3297,7 @@ class UpdatePrivateNICRequest:
     Private NIC unique ID.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3289,7 +3315,7 @@ class UpdateSecurityGroupRequest:
     UUID of the security group.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3357,7 +3383,7 @@ class UpdateSecurityGroupRuleRequest:
     UUID of the rule.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3410,7 +3436,7 @@ class UpdateServerRequest:
     UUID of the Instance.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3484,7 +3510,7 @@ class UpdateSnapshotRequest:
     UUID of the snapshot.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -3512,7 +3538,7 @@ class UpdateVolumeRequest:
     UUID of the volume.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """

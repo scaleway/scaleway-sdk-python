@@ -8,7 +8,7 @@ from enum import Enum
 from typing import List, Optional
 
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -66,12 +66,12 @@ class ListKeysRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 class KeyRotationPolicy:
     rotation_period: Optional[str]
     """
-    Duration between two key rotations. The minimum duration is 24 hours and the maximum duration is 876000 hours (1 year).
+    Time interval between two key rotations. The minimum duration is 24 hours and the maximum duration is 1 year (876000 hours).
     """
 
     next_rotation_at: Optional[datetime]
     """
-    Date at which the key will be rotated next.
+    Timestamp indicating the next scheduled rotation.
     """
 
 
@@ -99,17 +99,17 @@ class Key:
 
     state: KeyState
     """
-    See the `Key.State` enum for a description of values.
+    See the `Key.State` enum for a description of possible values.
     """
 
     rotation_count: int
     """
-    The rotation count tracks the amount of times that the key was rotated.
+    The rotation count tracks the number of times the key has been rotated.
     """
 
     usage: Optional[KeyUsage]
     """
-    Keys with a usage set to `symmetric_encryption` are used to encrypt and decrypt data. The only key algorithm currently supported by Key Manager is AES-256-GCM.
+    Keys with a usage set to `symmetric_encryption` can encrypt and decrypt data using the `AES-256-GCM` key algorithm. Key Manager currently only supports `AES-256-GCM`.
     """
 
     created_at: Optional[datetime]
@@ -142,9 +142,9 @@ class Key:
     Refer to the `Key.Origin` enum for a description of values.
     """
 
-    region: Region
+    region: ScwRegion
     """
-    Region of the key.
+    Region where the key is stored.
     """
 
     description: Optional[str]
@@ -170,7 +170,7 @@ class CreateKeyRequest:
     Default value is `false`.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -220,7 +220,7 @@ class DataKey:
 
     algorithm: DataKeyAlgorithmSymmetricEncryption
     """
-    Symmetric encryption algorithm of the data encryption key.
+    Symmetric encryption algorithm of the data encryption key (`AES-256-GCM`).
     """
 
     ciphertext: str
@@ -251,7 +251,7 @@ class DecryptRequest:
     Data size must be between 1 and 131071 bytes.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -287,7 +287,7 @@ class DeleteKeyMaterialRequest:
     ID of the key of which to delete the key material.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -300,7 +300,7 @@ class DeleteKeyRequest:
     ID of the key to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -313,7 +313,7 @@ class DisableKeyRequest:
     ID of the key to disable.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -326,7 +326,7 @@ class EnableKeyRequest:
     ID of the key to enable.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -344,7 +344,7 @@ class EncryptRequest:
     Data size must be between 1 and 65535 bytes.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -381,7 +381,7 @@ class GenerateDataKeyRequest:
 Set it to `true` if you do not wish the plaintext to be returned in the response object.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -399,7 +399,7 @@ class GetKeyRequest:
     ID of the key to target.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -409,7 +409,7 @@ class GetKeyRequest:
 class ImportKeyMaterialRequest:
     key_id: str
     """
-    The key's origin must be 'external'.
+    The key's origin must be `external`.
     """
 
     key_material: str
@@ -417,20 +417,20 @@ class ImportKeyMaterialRequest:
     The key material The key material is a random sequence of bytes used to derive a cryptographic key.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
     salt: Optional[str]
     """
-    A salt can be used to improve the quality of randomness when the key material is generated from a low entropy source.
+    A salt is random data added to key material to ensure unique derived keys, even if the input is similar. It helps strengthen security when the key material has low randomness (low entropy).
     """
 
 
 @dataclass
 class ListKeysRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -482,7 +482,7 @@ class ProtectKeyRequest:
     ID of the key to apply key protection to.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -495,7 +495,7 @@ class RotateKeyRequest:
     ID of the key to rotate.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -508,7 +508,7 @@ class UnprotectKeyRequest:
     ID of the key to remove key protection from.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -521,7 +521,7 @@ class UpdateKeyRequest:
     ID of the key to update.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """

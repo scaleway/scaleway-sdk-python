@@ -16,10 +16,15 @@ from .types import (
     Group,
     Log,
     Policy,
+    QuotumLimit,
     Quotum,
     SSHKey,
     User,
     EncodedJWT,
+    GetUserConnectionsResponseConnectionConnectedOrganization,
+    GetUserConnectionsResponseConnectionConnectedUser,
+    GetUserConnectionsResponseConnection,
+    GetUserConnectionsResponse,
     ListAPIKeysResponse,
     ListApplicationsResponse,
     GracePeriod,
@@ -35,8 +40,10 @@ from .types import (
     ListRulesResponse,
     ListSSHKeysResponse,
     ListUsersResponse,
+    MFAOTP,
     OrganizationSecuritySettings,
     SetRulesResponse,
+    ValidateUserMFAOTPResponse,
     AddGroupMemberRequest,
     AddGroupMembersRequest,
     CreateAPIKeyRequest,
@@ -60,6 +67,7 @@ from .types import (
     UpdateUserPasswordRequest,
     UpdateUserRequest,
     UpdateUserUsernameRequest,
+    ValidateUserMFAOTPRequest,
 )
 
 
@@ -449,6 +457,47 @@ def unmarshal_Policy(data: Any) -> Policy:
     return Policy(**args)
 
 
+def unmarshal_QuotumLimit(data: Any) -> QuotumLimit:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'QuotumLimit' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("global", None)
+    if field is not None:
+        args["global_"] = field
+    else:
+        args["global_"] = None
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+    else:
+        args["region"] = None
+
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
+
+    field = data.get("limit", None)
+    if field is not None:
+        args["limit"] = field
+    else:
+        args["limit"] = None
+
+    field = data.get("unlimited", None)
+    if field is not None:
+        args["unlimited"] = field
+    else:
+        args["unlimited"] = None
+
+    return QuotumLimit(**args)
+
+
 def unmarshal_Quotum(data: Any) -> Quotum:
     if not isinstance(data, dict):
         raise TypeError(
@@ -472,6 +521,16 @@ def unmarshal_Quotum(data: Any) -> Quotum:
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
+
+    field = data.get("locality_type", None)
+    if field is not None:
+        args["locality_type"] = field
+
+    field = data.get("limits", None)
+    if field is not None:
+        args["limits"] = (
+            [unmarshal_QuotumLimit(v) for v in field] if field is not None else None
+        )
 
     field = data.get("limit", None)
     if field is not None:
@@ -643,6 +702,104 @@ def unmarshal_EncodedJWT(data: Any) -> EncodedJWT:
         args["jwt"] = None
 
     return EncodedJWT(**args)
+
+
+def unmarshal_GetUserConnectionsResponseConnectionConnectedOrganization(
+    data: Any,
+) -> GetUserConnectionsResponseConnectionConnectedOrganization:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'GetUserConnectionsResponseConnectionConnectedOrganization' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+
+    field = data.get("locked", None)
+    if field is not None:
+        args["locked"] = field
+
+    return GetUserConnectionsResponseConnectionConnectedOrganization(**args)
+
+
+def unmarshal_GetUserConnectionsResponseConnectionConnectedUser(
+    data: Any,
+) -> GetUserConnectionsResponseConnectionConnectedUser:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'GetUserConnectionsResponseConnectionConnectedUser' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+
+    field = data.get("username", None)
+    if field is not None:
+        args["username"] = field
+
+    field = data.get("type", None)
+    if field is not None:
+        args["type_"] = field
+
+    return GetUserConnectionsResponseConnectionConnectedUser(**args)
+
+
+def unmarshal_GetUserConnectionsResponseConnection(
+    data: Any,
+) -> GetUserConnectionsResponseConnection:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'GetUserConnectionsResponseConnection' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("organization", None)
+    if field is not None:
+        args["organization"] = (
+            unmarshal_GetUserConnectionsResponseConnectionConnectedOrganization(field)
+        )
+    else:
+        args["organization"] = None
+
+    field = data.get("user", None)
+    if field is not None:
+        args["user"] = unmarshal_GetUserConnectionsResponseConnectionConnectedUser(
+            field
+        )
+    else:
+        args["user"] = None
+
+    return GetUserConnectionsResponseConnection(**args)
+
+
+def unmarshal_GetUserConnectionsResponse(data: Any) -> GetUserConnectionsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'GetUserConnectionsResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("connections", None)
+    if field is not None:
+        args["connections"] = (
+            [unmarshal_GetUserConnectionsResponseConnection(v) for v in field]
+            if field is not None
+            else None
+        )
+
+    return GetUserConnectionsResponse(**args)
 
 
 def unmarshal_ListAPIKeysResponse(data: Any) -> ListAPIKeysResponse:
@@ -996,6 +1153,21 @@ def unmarshal_ListUsersResponse(data: Any) -> ListUsersResponse:
     return ListUsersResponse(**args)
 
 
+def unmarshal_MFAOTP(data: Any) -> MFAOTP:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'MFAOTP' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("secret", None)
+    if field is not None:
+        args["secret"] = field
+
+    return MFAOTP(**args)
+
+
 def unmarshal_OrganizationSecuritySettings(data: Any) -> OrganizationSecuritySettings:
     if not isinstance(data, dict):
         raise TypeError(
@@ -1036,6 +1208,21 @@ def unmarshal_SetRulesResponse(data: Any) -> SetRulesResponse:
         )
 
     return SetRulesResponse(**args)
+
+
+def unmarshal_ValidateUserMFAOTPResponse(data: Any) -> ValidateUserMFAOTPResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ValidateUserMFAOTPResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("recovery_codes", None)
+    if field is not None:
+        args["recovery_codes"] = field
+
+    return ValidateUserMFAOTPResponse(**args)
 
 
 def marshal_AddGroupMemberRequest(
@@ -1455,9 +1642,6 @@ def marshal_UpdateUserPasswordRequest(
     if request.password is not None:
         output["password"] = request.password
 
-    if request.send_email is not None:
-        output["send_email"] = request.send_email
-
     return output
 
 
@@ -1484,5 +1668,17 @@ def marshal_UpdateUserUsernameRequest(
 
     if request.username is not None:
         output["username"] = request.username
+
+    return output
+
+
+def marshal_ValidateUserMFAOTPRequest(
+    request: ValidateUserMFAOTPRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.one_time_password is not None:
+        output["one_time_password"] = request.one_time_password
 
     return output

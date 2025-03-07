@@ -8,7 +8,7 @@ from enum import Enum
 from typing import List, Optional
 
 from scaleway_core.bridge import (
-    Zone,
+    Zone as ScwZone,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -135,7 +135,7 @@ class GatewayNetwork:
     Use this IPAM-booked IP ID as the Gateway's IP in this Private Network.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     Zone of the GatewayNetwork connection.
     """
@@ -183,7 +183,7 @@ class IP:
     The IP address itself.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     Zone of the IP address.
     """
@@ -221,7 +221,7 @@ class GatewayType:
     Bandwidth, in bps, of the Public Gateway. This is the public bandwidth to the outer Internet, and the internal bandwidth to each connected Private Networks.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     Zone the Public Gateway type is available in.
     """
@@ -259,6 +259,11 @@ class Gateway:
     Current status of the gateway.
     """
 
+    name: str
+    """
+    Name of the gateway.
+    """
+
     created_at: Optional[datetime]
     """
     Gateway creation date.
@@ -267,11 +272,6 @@ class Gateway:
     updated_at: Optional[datetime]
     """
     Gateway last modification date.
-    """
-
-    name: str
-    """
-    Name of the gateway.
     """
 
     tags: List[str]
@@ -289,6 +289,21 @@ class Gateway:
     Defines whether SSH bastion is enabled on the gateway.
     """
 
+    ipv4: Optional[IP]
+    """
+    Public IPv4 address of the gateway.
+    """
+
+    version: Optional[str]
+    """
+    Version of the running gateway software.
+    """
+
+    can_upgrade_to: Optional[str]
+    """
+    Newly available gateway software version that can be updated to.
+    """
+
     bastion_port: int
     """
     Port of the SSH bastion.
@@ -304,24 +319,14 @@ class Gateway:
     Defines whether the gateway uses non-IPAM IP configurations.
     """
 
-    zone: Zone
+    bastion_allowed_ips: List[str]
+    """
+    Ranges of IP addresses allowed to connect to the gateway's SSH bastion.
+    """
+
+    zone: ScwZone
     """
     Zone of the gateway.
-    """
-
-    ipv4: Optional[IP]
-    """
-    Public IPv4 address of the gateway.
-    """
-
-    version: Optional[str]
-    """
-    Version of the running gateway software.
-    """
-
-    can_upgrade_to: Optional[str]
-    """
-    Newly available gateway software version that can be updated to.
     """
 
 
@@ -357,7 +362,7 @@ class PatRule:
     Protocol the rule applies to.
     """
 
-    zone: Zone
+    zone: ScwZone
     """
     Zone of the PAT rule.
     """
@@ -397,6 +402,32 @@ class SetPatRulesRequestRule:
 
 
 @dataclass
+class AddBastionAllowedIPsRequest:
+    gateway_id: str
+    """
+    ID of the gateway to add the allowed IP range to.
+    """
+
+    ip_range: str
+    """
+    IP range allowed to connect to the SSH bastion.
+    """
+
+    zone: Optional[ScwZone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class AddBastionAllowedIPsResponse:
+    ip_ranges: List[str]
+    """
+    Ranges of IP addresses allowed to connect to the gateway's SSH bastion.
+    """
+
+
+@dataclass
 class CreateGatewayNetworkRequest:
     gateway_id: str
     """
@@ -418,7 +449,7 @@ class CreateGatewayNetworkRequest:
     Enabling the default route also enables masquerading.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -446,7 +477,7 @@ class CreateGatewayRequest:
     Defines whether SSH bastion should be enabled the gateway.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -479,7 +510,7 @@ class CreateGatewayRequest:
 
 @dataclass
 class CreateIPRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -517,7 +548,7 @@ class CreatePatRuleRequest:
     Private port to translate to.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -529,13 +560,31 @@ class CreatePatRuleRequest:
 
 
 @dataclass
+class DeleteBastionAllowedIPsRequest:
+    gateway_id: str
+    """
+    ID of the gateway on which to delete the allowed IP range.
+    """
+
+    ip_range: str
+    """
+    IP range to delete from SSH bastion's list of allowed IPs.
+    """
+
+    zone: Optional[ScwZone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
 class DeleteGatewayNetworkRequest:
     gateway_network_id: str
     """
     ID of the GatewayNetwork to delete.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -553,7 +602,7 @@ class DeleteGatewayRequest:
     Defines whether the PGW's IP should be deleted.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -566,7 +615,7 @@ class DeleteIPRequest:
     ID of the IP address to delete.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -579,7 +628,7 @@ class DeletePatRuleRequest:
     ID of the PAT rule to delete.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -592,7 +641,7 @@ class GetGatewayNetworkRequest:
     ID of the GatewayNetwork to fetch.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -605,7 +654,7 @@ class GetGatewayRequest:
     ID of the gateway to fetch.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -618,7 +667,7 @@ class GetIPRequest:
     ID of the IP address to get.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -631,7 +680,7 @@ class GetPatRuleRequest:
     ID of the PAT rule to get.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -639,7 +688,7 @@ class GetPatRuleRequest:
 
 @dataclass
 class ListGatewayNetworksRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -695,7 +744,7 @@ class ListGatewayNetworksResponse:
 
 @dataclass
 class ListGatewayTypesRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -711,7 +760,7 @@ class ListGatewayTypesResponse:
 
 @dataclass
 class ListGatewaysRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -787,7 +836,7 @@ class ListGatewaysResponse:
 
 @dataclass
 class ListIPsRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -848,7 +897,7 @@ class ListIPsResponse:
 
 @dataclass
 class ListPatRulesRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -904,9 +953,35 @@ class RefreshSSHKeysRequest:
     ID of the gateway to refresh SSH keys on.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class SetBastionAllowedIPsRequest:
+    gateway_id: str
+    """
+    ID of the gateway on which to set the allowed IP range.
+    """
+
+    zone: Optional[ScwZone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+    ip_ranges: Optional[List[str]]
+    """
+    New list of IP ranges (each range in CIDR notation) allowed to connect to the SSH bastion.
+    """
+
+
+@dataclass
+class SetBastionAllowedIPsResponse:
+    ip_ranges: List[str]
+    """
+    Ranges of IP addresses allowed to connect to the gateway's SSH bastion.
     """
 
 
@@ -922,7 +997,7 @@ class SetPatRulesRequest:
     New list of PAT rules.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -943,7 +1018,7 @@ class UpdateGatewayNetworkRequest:
     ID of the GatewayNetwork to update.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -971,7 +1046,7 @@ class UpdateGatewayRequest:
     ID of the gateway to update.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1009,7 +1084,7 @@ class UpdateIPRequest:
     ID of the IP address to update.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1037,7 +1112,7 @@ class UpdatePatRuleRequest:
     ID of the PAT rule to update.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -1070,7 +1145,7 @@ class UpgradeGatewayRequest:
     ID of the gateway to upgrade.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """

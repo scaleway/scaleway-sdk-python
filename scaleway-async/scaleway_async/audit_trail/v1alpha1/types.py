@@ -8,7 +8,7 @@ from enum import Enum
 from typing import Any, Dict, List, Optional
 
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -31,9 +31,24 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     KUBE_POOL = "kube_pool"
     KUBE_NODE = "kube_node"
     KUBE_ACL = "kube_acl"
+    KEYM_KEY = "keym_key"
+    IAM_USER = "iam_user"
+    IAM_APPLICATION = "iam_application"
+    IAM_GROUP = "iam_group"
+    IAM_POLICY = "iam_policy"
+    IAM_API_KEY = "iam_api_key"
+    IAM_SSH_KEY = "iam_ssh_key"
+    SECRET_MANAGER_SECRET = "secret_manager_secret"
+    SECRET_MANAGER_VERSION = "secret_manager_version"
+    KEY_MANAGER_KEY = "key_manager_key"
 
     def __str__(self) -> str:
         return str(self.value)
+
+
+@dataclass
+class KeyManagerKeyInfo:
+    pass
 
 
 @dataclass
@@ -101,6 +116,14 @@ class Resource:
 
     kube_acl_info: Optional[KubernetesACLInfo]
 
+    keym_key_info: Optional[KeyManagerKeyInfo]
+
+    secret_manager_secret_info: Optional[SecretManagerSecretInfo]
+
+    secret_manager_version_info: Optional[SecretManagerSecretVersionInfo]
+
+    key_manager_key_info: Optional[KeyManagerKeyInfo]
+
 
 @dataclass
 class ProductService:
@@ -131,11 +154,6 @@ class Event:
     IP address at the origin of the event.
     """
 
-    product_name: str
-    """
-    Product name of the resource attached to the event.
-    """
-
     recorded_at: Optional[datetime]
     """
     Timestamp of the event.
@@ -156,6 +174,11 @@ class Event:
     User Agent at the origin of the event.
     """
 
+    product_name: str
+    """
+    Product name of the resource attached to the event.
+    """
+
     service_name: str
     """
     API name called to trigger the event.
@@ -164,6 +187,11 @@ class Event:
     method_name: str
     """
     API method called to trigger the event.
+    """
+
+    resources: List[Resource]
+    """
+    Resources attached to the event.
     """
 
     request_id: str
@@ -207,7 +235,7 @@ class Product:
 
 @dataclass
 class ListEventsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -229,7 +257,7 @@ class ListEventsRequest:
 
     method_name: Optional[str]
     """
-    (Optional) Name of the method or the API call performed.
+    (Optional) Name of the method of the API call performed.
     """
 
     status: Optional[int]
@@ -258,6 +286,11 @@ class ListEventsRequest:
     (Optional) Name of the Scaleway resource in a hyphenated format.
     """
 
+    service_name: Optional[str]
+    """
+    (Optional) Name of the service of the API call performed.
+    """
+
 
 @dataclass
 class ListEventsResponse:
@@ -274,9 +307,14 @@ class ListEventsResponse:
 
 @dataclass
 class ListProductsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
+    """
+
+    organization_id: Optional[str]
+    """
+    ID of the Organization containing the Audit Trail events.
     """
 
 

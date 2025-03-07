@@ -5,7 +5,7 @@ from typing import List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     validate_path_param,
@@ -53,7 +53,7 @@ class KeyManagerV1Alpha1API(API):
         self,
         *,
         unprotected: bool,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         name: Optional[str] = None,
         usage: Optional[KeyUsage] = None,
@@ -64,7 +64,7 @@ class KeyManagerV1Alpha1API(API):
     ) -> Key:
         """
         Create a key.
-        Create a key in a given region specified by the `region` parameter. Keys only support symmetric encryption. You can use keys to encrypt or decrypt arbitrary payloads, or to generate data encryption keys that can be used without being stored in Key Manager.
+        Create a key in a given region specified by the `region` parameter. Keys only support symmetric encryption. You can use keys to encrypt or decrypt arbitrary payloads, or to generate data encryption keys. **Data encryption keys are not stored in Key Manager**.
         :param unprotected: Default value is `false`.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the Project containing the key.
@@ -114,11 +114,11 @@ class KeyManagerV1Alpha1API(API):
         self,
         *,
         key_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Key:
         """
         Get key metadata.
-        Retrieve the metadata of a key specified by the `region` and `key_id` parameters.
+        Retrieve metadata for a specified key using the `region` and `key_id` parameters.
         :param key_id: ID of the key to target.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Key <Key>`
@@ -148,7 +148,7 @@ class KeyManagerV1Alpha1API(API):
         self,
         *,
         key_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         description: Optional[str] = None,
         tags: Optional[List[str]] = None,
@@ -156,7 +156,7 @@ class KeyManagerV1Alpha1API(API):
     ) -> Key:
         """
         Update a key.
-        Update a key's metadata (name, description and tags), specified by the `key_id` and `region` parameters.
+        Modify a key's metadata including name, description and tags, specified by the `key_id` and `region` parameters.
         :param key_id: ID of the key to update.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: (Optional) Updated name of the key.
@@ -201,11 +201,11 @@ class KeyManagerV1Alpha1API(API):
         self,
         *,
         key_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete a key.
-        Delete an existing key specified by the `region` and `key_id` parameters. Deleting a key is permanent and cannot be undone. All data encrypted using this key, including data encryption keys, will become unusable.
+        Permanently delete a key specified by the `region` and `key_id` parameters. This action is irreversible. Any data encrypted with this key, including data encryption keys, will no longer be decipherable.
         :param key_id: ID of the key to delete.
         :param region: Region to target. If none is passed will use default region from the config.
 
@@ -233,11 +233,11 @@ class KeyManagerV1Alpha1API(API):
         self,
         *,
         key_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Key:
         """
         Rotate a key.
-        Generate a new version of an existing key with randomly generated key material. Rotated keys can still be used to decrypt previously encrypted data. The key's new material will be used for subsequent encryption operations and data key generation.
+        Generate a new version of an existing key with new key material. Previous key versions remain usable to decrypt previously encrypted data, but the key's new version will be used for subsequent encryption operations and data key generation.
         :param key_id: ID of the key to rotate.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Key <Key>`
@@ -268,11 +268,11 @@ class KeyManagerV1Alpha1API(API):
         self,
         *,
         key_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Key:
         """
         Apply key protection.
-        Apply key protection to a given key specified by the `key_id` parameter. Applying key protection means that your key can be used and modified, but it cannot be deleted.
+        Apply protection to a given key specified by the `key_id` parameter. Applying key protection means that your key can be used and modified, but it cannot be deleted.
         :param key_id: ID of the key to apply key protection to.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Key <Key>`
@@ -303,7 +303,7 @@ class KeyManagerV1Alpha1API(API):
         self,
         *,
         key_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Key:
         """
         Remove key protection.
@@ -338,7 +338,7 @@ class KeyManagerV1Alpha1API(API):
         self,
         *,
         key_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Key:
         """
         Enable key.
@@ -373,11 +373,11 @@ class KeyManagerV1Alpha1API(API):
         self,
         *,
         key_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Key:
         """
         Disable key.
-        Disable a given key to be used for cryptographic operations. Disabling a key renders it unusable. You must specify the `region` and `key_id` parameters.
+        Disable a given key, preventing it to be used for cryptographic operations. Disabling a key renders it unusable. You must specify the `region` and `key_id` parameters.
         :param key_id: ID of the key to disable.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Key <Key>`
@@ -407,7 +407,7 @@ class KeyManagerV1Alpha1API(API):
     def list_keys(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         order_by: Optional[ListKeysRequestOrderBy] = None,
@@ -418,7 +418,7 @@ class KeyManagerV1Alpha1API(API):
     ) -> ListKeysResponse:
         """
         List keys.
-        Retrieve the list of keys created within all Projects of an Organization or in a given Project. You must specify the `region`, and either the `organization_id` or the `project_id`.
+        Retrieve a list of keys across all Projects in an Organization or within a specific Project. You must specify the `region`, and either the `organization_id` or the `project_id`.
         :param region: Region to target. If none is passed will use default region from the config.
         :param organization_id: (Optional) Filter by Organization ID.
         :param project_id: (Optional) Filter by Project ID.
@@ -460,7 +460,7 @@ class KeyManagerV1Alpha1API(API):
     def list_keys_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         order_by: Optional[ListKeysRequestOrderBy] = None,
@@ -471,7 +471,7 @@ class KeyManagerV1Alpha1API(API):
     ) -> List[Key]:
         """
         List keys.
-        Retrieve the list of keys created within all Projects of an Organization or in a given Project. You must specify the `region`, and either the `organization_id` or the `project_id`.
+        Retrieve a list of keys across all Projects in an Organization or within a specific Project. You must specify the `region`, and either the `organization_id` or the `project_id`.
         :param region: Region to target. If none is passed will use default region from the config.
         :param organization_id: (Optional) Filter by Organization ID.
         :param project_id: (Optional) Filter by Project ID.
@@ -509,14 +509,14 @@ class KeyManagerV1Alpha1API(API):
         *,
         key_id: str,
         without_plaintext: bool,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         algorithm: Optional[DataKeyAlgorithmSymmetricEncryption] = None,
     ) -> DataKey:
         """
-        Generate a data encryption key.
-        Generate a new data encryption key to use for cryptographic operations outside of Key Manager. Note that Key Manager does not store your data encryption key. The data encryption key is encrypted and must be decrypted using the key you have created in Key Manager. The data encryption key's plaintext is returned in the response object, for immediate usage.
+        Create a data encryption key.
+        Create a new data encryption key for cryptographic operations outside of Key Manager. The data encryption key is encrypted and must be decrypted using the key you have created in Key Manager.
 
-        Always store the data encryption key's ciphertext, rather than its plaintext, which must not be stored. To retrieve your key's plaintext, call the Decrypt endpoint with your key's ID and ciphertext.
+        The data encryption key is returned in plaintext and ciphertext but it should only be stored in its encrypted form (ciphertext). Key Manager does not store your data encryption key. To retrieve your key's plaintext, use the `Decrypt` method with your key's ID and ciphertext.
         :param key_id: ID of the key.
         :param without_plaintext: Default value is `false`, meaning that the plaintext is returned.
         Set it to `true` if you do not wish the plaintext to be returned in the response object.
@@ -560,12 +560,12 @@ class KeyManagerV1Alpha1API(API):
         *,
         key_id: str,
         plaintext: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         associated_data: Optional[str] = None,
     ) -> EncryptResponse:
         """
-        Encrypt data.
-        Encrypt data using an existing key, specified by the `key_id` parameter. Only keys with a usage set to **symmetric_encryption** are supported by this method. The maximum payload size that can be encrypted is 64KB of plaintext.
+        Encrypt a payload.
+        Encrypt a payload using an existing key, specified by the `key_id` parameter. Only keys with a usage set to `symmetric_encryption` are supported by this method. The maximum payload size that can be encrypted is 64 KB of plaintext.
         :param key_id: ID of the key to encrypt.
         :param plaintext: Data size must be between 1 and 65535 bytes.
         :param region: Region to target. If none is passed will use default region from the config.
@@ -608,12 +608,12 @@ class KeyManagerV1Alpha1API(API):
         *,
         key_id: str,
         ciphertext: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         associated_data: Optional[str] = None,
     ) -> DecryptResponse:
         """
-        Decrypt data.
-        Decrypt data using an existing key, specified by the `key_id` parameter. The maximum payload size that can be decrypted is the result of the encryption of 64KB of data (around 131KB).
+        Decrypt an encrypted payload.
+        Decrypt an encrypted payload using an existing key, specified by the `key_id` parameter. The maximum payload size that can be decrypted is equivalent to the encrypted output of 64 KB of data (around 131 KB).
         :param key_id: ID of the key to decrypt.
         :param ciphertext: Data size must be between 1 and 131071 bytes.
         :param region: Region to target. If none is passed will use default region from the config.
@@ -656,16 +656,16 @@ class KeyManagerV1Alpha1API(API):
         *,
         key_id: str,
         key_material: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         salt: Optional[str] = None,
     ) -> Key:
         """
         Import key material.
-        Import key material to use to derive a new cryptographic key. The key's origin must be `external`.
-        :param key_id: The key's origin must be 'external'.
+        Import externally generated key material into Key Manager to derive a new cryptographic key. The key's origin must be `external`.
+        :param key_id: The key's origin must be `external`.
         :param key_material: The key material The key material is a random sequence of bytes used to derive a cryptographic key.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param salt: A salt can be used to improve the quality of randomness when the key material is generated from a low entropy source.
+        :param salt: A salt is random data added to key material to ensure unique derived keys, even if the input is similar. It helps strengthen security when the key material has low randomness (low entropy).
         :return: :class:`Key <Key>`
 
         Usage:
@@ -703,7 +703,7 @@ class KeyManagerV1Alpha1API(API):
         self,
         *,
         key_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete key material.

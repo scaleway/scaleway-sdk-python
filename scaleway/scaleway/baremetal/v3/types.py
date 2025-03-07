@@ -8,7 +8,7 @@ from enum import Enum
 from typing import Dict, List, Optional
 
 from scaleway_core.bridge import (
-    Zone,
+    Zone as ScwZone,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -104,7 +104,7 @@ class PrivateNetworkApiAddServerPrivateNetworkRequest:
     UUID of the Private Network.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -127,7 +127,7 @@ class PrivateNetworkApiDeleteServerPrivateNetworkRequest:
     UUID of the Private Network.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -135,7 +135,7 @@ class PrivateNetworkApiDeleteServerPrivateNetworkRequest:
 
 @dataclass
 class PrivateNetworkApiListServerPrivateNetworksRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -193,7 +193,7 @@ class PrivateNetworkApiSetServerPrivateNetworksRequest:
     Object where the keys are the UUIDs of Private Networks and the values are arrays of IPAM IDs representing the IPs to assign to this Elastic Metal server on the Private Network. If the array supplied for a Private Network is empty, the next available IP from the Private Network's CIDR block will automatically be used for attachment.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """

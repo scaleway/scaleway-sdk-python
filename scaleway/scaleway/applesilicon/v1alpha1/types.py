@@ -8,11 +8,20 @@ from enum import Enum
 from typing import Dict, List, Optional
 
 from scaleway_core.bridge import (
-    Zone,
+    Zone as ScwZone,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
 )
+
+
+class CommitmentType(str, Enum, metaclass=StrEnumMeta):
+    DURATION_24H = "duration_24h"
+    RENEWED_MONTHLY = "renewed_monthly"
+    NONE = "none"
+
+    def __str__(self) -> str:
+        return str(self.value)
 
 
 class ConnectivityDiagnosticActionType(str, Enum, metaclass=StrEnumMeta):
@@ -179,6 +188,13 @@ class ServerTypeMemory:
 @dataclass
 class ServerTypeNetwork:
     public_bandwidth_bps: int
+
+
+@dataclass
+class Commitment:
+    type_: CommitmentType
+
+    cancelled: bool
 
 
 @dataclass
@@ -349,26 +365,6 @@ class Server:
     Current status of the server.
     """
 
-    deletion_scheduled: bool
-    """
-    Set to true to mark the server for automatic deletion depending on `deletable_at` date. Set to false to cancel an existing deletion schedule. Leave unset otherwise.
-    """
-
-    zone: Zone
-    """
-    Zone of the server.
-    """
-
-    delivered: bool
-    """
-    Set to true once the server has completed its provisioning steps and is ready to use. Some OS configurations might require a reinstallation of the server before delivery depending on the available stock. A reinstallation after the initial delivery will not change this flag and can be tracked using the server status.
-    """
-
-    vpc_status: ServerPrivateNetworkStatus
-    """
-    Activation status of optional Private Network feature support for this server.
-    """
-
     os: Optional[OS]
     """
     Initially installed OS, this does not necessarily reflect the current OS version.
@@ -388,6 +384,36 @@ class Server:
     """
     Date from which the server can be deleted.
     """
+
+    deletion_scheduled: bool
+    """
+    Set to true to mark the server for automatic deletion depending on `deletable_at` date. Set to false to cancel an existing deletion schedule. Leave unset otherwise.
+    """
+
+    zone: ScwZone
+    """
+    Zone of the server.
+    """
+
+    delivered: bool
+    """
+    Set to true once the server has completed its provisioning steps and is ready to use. Some OS configurations might require a reinstallation of the server before delivery depending on the available stock. A reinstallation after the initial delivery will not change this flag and can be tracked using the server status.
+    """
+
+    vpc_status: ServerPrivateNetworkStatus
+    """
+    Activation status of optional Private Network feature support for this server.
+    """
+
+    commitment: Optional[Commitment]
+    """
+    Commitment scheme applied to this server.
+    """
+
+
+@dataclass
+class CommitmentTypeValue:
+    commitment_type: CommitmentType
 
 
 @dataclass
@@ -417,7 +443,7 @@ class CreateServerRequest:
     Activate the Private Network feature for this server. This feature is configured through the Apple Silicon - Private Networks API.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -437,6 +463,11 @@ class CreateServerRequest:
     Create a server & install the given os_id, when no os_id provided the default OS for this server type is chosen. Requesting a non-default OS will induce an extended delivery time.
     """
 
+    commitment_type: Optional[CommitmentType]
+    """
+    Activate commitment for this server. If not specified, there is a 24h commitment due to Apple licensing. It can be updated with the Update Server request. Available commitment depends on server type.
+    """
+
 
 @dataclass
 class DeleteServerRequest:
@@ -445,7 +476,7 @@ class DeleteServerRequest:
     UUID of the server you want to delete.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -455,7 +486,7 @@ class DeleteServerRequest:
 class GetConnectivityDiagnosticRequest:
     diagnostic_id: str
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -468,7 +499,7 @@ class GetOSRequest:
     UUID of the OS you want to get.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -481,7 +512,7 @@ class GetServerRequest:
     UUID of the server you want to get.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -494,7 +525,7 @@ class GetServerTypeRequest:
     Server type identifier.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -502,7 +533,7 @@ class GetServerTypeRequest:
 
 @dataclass
 class ListOSRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -550,7 +581,7 @@ class ListServerPrivateNetworksResponse:
 
 @dataclass
 class ListServerTypesRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -566,7 +597,7 @@ class ListServerTypesResponse:
 
 @dataclass
 class ListServersRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -622,7 +653,7 @@ class PrivateNetworkApiAddServerPrivateNetworkRequest:
     ID of the Private Network.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -645,7 +676,7 @@ class PrivateNetworkApiDeleteServerPrivateNetworkRequest:
     ID of the Private Network.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -657,7 +688,7 @@ class PrivateNetworkApiGetServerPrivateNetworkRequest:
 
     private_network_id: str
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -665,7 +696,7 @@ class PrivateNetworkApiGetServerPrivateNetworkRequest:
 
 @dataclass
 class PrivateNetworkApiListServerPrivateNetworksRequest:
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -723,7 +754,7 @@ class PrivateNetworkApiSetServerPrivateNetworksRequest:
     Object where the keys are the IDs of Private Networks and the values are arrays of IPAM IDs representing the IPs to assign to this Apple silicon server on the Private Network. If the array supplied for a Private Network is empty, the next available IP from the Private Network's CIDR block will automatically be used for attachment.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -736,7 +767,7 @@ class RebootServerRequest:
     UUID of the server you want to reboot.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -749,7 +780,7 @@ class ReinstallServerRequest:
     UUID of the server you want to reinstall.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -769,7 +800,7 @@ class SetServerPrivateNetworksResponse:
 class StartConnectivityDiagnosticRequest:
     server_id: str
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -787,7 +818,7 @@ class UpdateServerRequest:
     UUID of the server you want to update.
     """
 
-    zone: Optional[Zone]
+    zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
     """
@@ -805,4 +836,9 @@ class UpdateServerRequest:
     enable_vpc: Optional[bool]
     """
     Activate or deactivate Private Network support for this server.
+    """
+
+    commitment_type: Optional[CommitmentTypeValue]
+    """
+    Change commitment. Use 'none' to automatically cancel a renewing commitment.
     """

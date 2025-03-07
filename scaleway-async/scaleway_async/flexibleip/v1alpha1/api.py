@@ -5,7 +5,7 @@ from typing import Awaitable, List, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Zone,
+    Zone as ScwZone,
 )
 from scaleway_core.utils import (
     WaitForOptions,
@@ -57,7 +57,7 @@ class FlexibleipV1Alpha1API(API):
         *,
         description: str,
         is_ipv6: bool,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         project_id: Optional[str] = None,
         tags: Optional[List[str]] = None,
         server_id: Optional[str] = None,
@@ -110,7 +110,7 @@ class FlexibleipV1Alpha1API(API):
         self,
         *,
         fip_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> FlexibleIP:
         """
         Get an existing flexible IP.
@@ -142,7 +142,7 @@ class FlexibleipV1Alpha1API(API):
         self,
         *,
         fip_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         options: Optional[
             WaitForOptions[FlexibleIP, Union[bool, Awaitable[bool]]]
         ] = None,
@@ -180,7 +180,7 @@ class FlexibleipV1Alpha1API(API):
     async def list_flexible_i_ps(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         order_by: Optional[ListFlexibleIPsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -234,7 +234,7 @@ class FlexibleipV1Alpha1API(API):
     async def list_flexible_i_ps_all(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         order_by: Optional[ListFlexibleIPsRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -285,7 +285,7 @@ class FlexibleipV1Alpha1API(API):
         self,
         *,
         fip_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         description: Optional[str] = None,
         tags: Optional[List[str]] = None,
         reverse: Optional[str] = None,
@@ -333,7 +333,7 @@ class FlexibleipV1Alpha1API(API):
         self,
         *,
         fip_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Delete an existing flexible IP.
@@ -364,7 +364,7 @@ class FlexibleipV1Alpha1API(API):
         *,
         fips_ids: List[str],
         server_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> AttachFlexibleIPsResponse:
         """
         Attach an existing flexible IP to a server.
@@ -405,7 +405,7 @@ class FlexibleipV1Alpha1API(API):
         self,
         *,
         fips_ids: List[str],
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> DetachFlexibleIPsResponse:
         """
         Detach an existing flexible IP from a server.
@@ -444,7 +444,7 @@ class FlexibleipV1Alpha1API(API):
         *,
         fip_id: str,
         mac_type: MACAddressType,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> FlexibleIP:
         """
         Generate a virtual MAC address on an existing flexible IP.
@@ -487,7 +487,7 @@ class FlexibleipV1Alpha1API(API):
         *,
         fip_id: str,
         duplicate_from_fip_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> FlexibleIP:
         """
         Duplicate a virtual MAC address to another flexible IP.
@@ -530,7 +530,7 @@ class FlexibleipV1Alpha1API(API):
         *,
         fip_id: str,
         dst_fip_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> FlexibleIP:
         """
         Relocate an existing virtual MAC address to a different flexible IP.
@@ -572,7 +572,7 @@ class FlexibleipV1Alpha1API(API):
         self,
         *,
         fip_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Detach a given virtual MAC address from an existing flexible IP.

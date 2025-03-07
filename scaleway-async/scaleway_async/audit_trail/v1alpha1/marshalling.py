@@ -5,6 +5,7 @@ from typing import Any, Dict
 from dateutil import parser
 
 from .types import (
+    KeyManagerKeyInfo,
     KubernetesACLInfo,
     KubernetesClusterInfo,
     KubernetesNodeInfo,
@@ -19,6 +20,17 @@ from .types import (
     Product,
     ListProductsResponse,
 )
+
+
+def unmarshal_KeyManagerKeyInfo(data: Any) -> KeyManagerKeyInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'KeyManagerKeyInfo' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    return KeyManagerKeyInfo(**args)
 
 
 def unmarshal_KubernetesACLInfo(data: Any) -> KubernetesACLInfo:
@@ -206,6 +218,32 @@ def unmarshal_Resource(data: Any) -> Resource:
     else:
         args["kube_acl_info"] = None
 
+    field = data.get("keym_key_info", None)
+    if field is not None:
+        args["keym_key_info"] = unmarshal_KeyManagerKeyInfo(field)
+    else:
+        args["keym_key_info"] = None
+
+    field = data.get("secret_manager_secret_info", None)
+    if field is not None:
+        args["secret_manager_secret_info"] = unmarshal_SecretManagerSecretInfo(field)
+    else:
+        args["secret_manager_secret_info"] = None
+
+    field = data.get("secret_manager_version_info", None)
+    if field is not None:
+        args["secret_manager_version_info"] = unmarshal_SecretManagerSecretVersionInfo(
+            field
+        )
+    else:
+        args["secret_manager_version_info"] = None
+
+    field = data.get("key_manager_key_info", None)
+    if field is not None:
+        args["key_manager_key_info"] = unmarshal_KeyManagerKeyInfo(field)
+    else:
+        args["key_manager_key_info"] = None
+
     return Resource(**args)
 
 
@@ -233,10 +271,6 @@ def unmarshal_Event(data: Any) -> Event:
     if field is not None:
         args["source_ip"] = field
 
-    field = data.get("product_name", None)
-    if field is not None:
-        args["product_name"] = field
-
     field = data.get("recorded_at", None)
     if field is not None:
         args["recorded_at"] = (
@@ -263,6 +297,10 @@ def unmarshal_Event(data: Any) -> Event:
     else:
         args["user_agent"] = None
 
+    field = data.get("product_name", None)
+    if field is not None:
+        args["product_name"] = field
+
     field = data.get("service_name", None)
     if field is not None:
         args["service_name"] = field
@@ -270,6 +308,12 @@ def unmarshal_Event(data: Any) -> Event:
     field = data.get("method_name", None)
     if field is not None:
         args["method_name"] = field
+
+    field = data.get("resources", None)
+    if field is not None:
+        args["resources"] = (
+            [unmarshal_Resource(v) for v in field] if field is not None else None
+        )
 
     field = data.get("request_id", None)
     if field is not None:

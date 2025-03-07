@@ -6,7 +6,7 @@ from typing import Awaitable, List, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
     ScwFile,
     unmarshal_ScwFile,
 )
@@ -37,12 +37,14 @@ from .types import (
     NodeType,
     RestoreSnapshotRequest,
     RestoreSnapshotRequestVolumeDetails,
+    SetUserRoleRequest,
     Snapshot,
     UpdateInstanceRequest,
     UpdateSnapshotRequest,
     UpdateUserRequest,
     UpgradeInstanceRequest,
     User,
+    UserRole,
     Version,
 )
 from .content import (
@@ -64,6 +66,7 @@ from .marshalling import (
     marshal_CreateSnapshotRequest,
     marshal_CreateUserRequest,
     marshal_RestoreSnapshotRequest,
+    marshal_SetUserRoleRequest,
     marshal_UpdateInstanceRequest,
     marshal_UpdateSnapshotRequest,
     marshal_UpdateUserRequest,
@@ -79,7 +82,7 @@ class MongodbV1Alpha1API(API):
     async def list_node_types(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         include_disabled_types: Optional[bool] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -118,7 +121,7 @@ class MongodbV1Alpha1API(API):
     async def list_node_types_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         include_disabled_types: Optional[bool] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -152,7 +155,7 @@ class MongodbV1Alpha1API(API):
     async def list_versions(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         version: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -191,7 +194,7 @@ class MongodbV1Alpha1API(API):
     async def list_versions_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         version: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -225,7 +228,7 @@ class MongodbV1Alpha1API(API):
     async def list_instances(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         tags: Optional[List[str]] = None,
         name: Optional[str] = None,
         order_by: Optional[ListInstancesRequestOrderBy] = None,
@@ -278,7 +281,7 @@ class MongodbV1Alpha1API(API):
     async def list_instances_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         tags: Optional[List[str]] = None,
         name: Optional[str] = None,
         order_by: Optional[ListInstancesRequestOrderBy] = None,
@@ -326,7 +329,7 @@ class MongodbV1Alpha1API(API):
         self,
         *,
         instance_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Instance:
         """
         Get a MongoDB® Database Instance.
@@ -360,7 +363,7 @@ class MongodbV1Alpha1API(API):
         self,
         *,
         instance_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         options: Optional[
             WaitForOptions[Instance, Union[bool, Awaitable[bool]]]
         ] = None,
@@ -403,7 +406,7 @@ class MongodbV1Alpha1API(API):
         node_type: str,
         user_name: str,
         password: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         name: Optional[str] = None,
         tags: Optional[List[str]] = None,
@@ -470,7 +473,7 @@ class MongodbV1Alpha1API(API):
         self,
         *,
         instance_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         tags: Optional[List[str]] = None,
     ) -> Instance:
@@ -517,7 +520,7 @@ class MongodbV1Alpha1API(API):
         self,
         *,
         instance_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Instance:
         """
         Delete a MongoDB® Database Instance.
@@ -551,7 +554,7 @@ class MongodbV1Alpha1API(API):
         self,
         *,
         instance_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         volume_size: Optional[int] = None,
     ) -> Instance:
         """
@@ -596,7 +599,7 @@ class MongodbV1Alpha1API(API):
         self,
         *,
         instance_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> ScwFile:
         """
         Get the certificate of a Database Instance.
@@ -631,7 +634,7 @@ class MongodbV1Alpha1API(API):
         *,
         instance_id: str,
         name: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         expires_at: Optional[datetime] = None,
     ) -> Snapshot:
         """
@@ -678,7 +681,7 @@ class MongodbV1Alpha1API(API):
         self,
         *,
         snapshot_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Snapshot:
         """
         Get a Database Instance snapshot.
@@ -712,7 +715,7 @@ class MongodbV1Alpha1API(API):
         self,
         *,
         snapshot_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         options: Optional[
             WaitForOptions[Snapshot, Union[bool, Awaitable[bool]]]
         ] = None,
@@ -751,7 +754,7 @@ class MongodbV1Alpha1API(API):
         self,
         *,
         snapshot_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         expires_at: Optional[datetime] = None,
     ) -> Snapshot:
@@ -802,7 +805,7 @@ class MongodbV1Alpha1API(API):
         node_type: str,
         node_number: int,
         volume: RestoreSnapshotRequestVolumeDetails,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Instance:
         """
         Restore a Database Instance snapshot.
@@ -854,7 +857,7 @@ class MongodbV1Alpha1API(API):
     async def list_snapshots(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         instance_id: Optional[str] = None,
         name: Optional[str] = None,
         order_by: Optional[ListSnapshotsRequestOrderBy] = None,
@@ -907,7 +910,7 @@ class MongodbV1Alpha1API(API):
     async def list_snapshots_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         instance_id: Optional[str] = None,
         name: Optional[str] = None,
         order_by: Optional[ListSnapshotsRequestOrderBy] = None,
@@ -955,7 +958,7 @@ class MongodbV1Alpha1API(API):
         self,
         *,
         snapshot_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Snapshot:
         """
         Delete a Database Instance snapshot.
@@ -989,7 +992,7 @@ class MongodbV1Alpha1API(API):
         self,
         *,
         instance_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         order_by: Optional[ListUsersRequestOrderBy] = None,
         page: Optional[int] = None,
@@ -1037,7 +1040,7 @@ class MongodbV1Alpha1API(API):
         self,
         *,
         instance_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         order_by: Optional[ListUsersRequestOrderBy] = None,
         page: Optional[int] = None,
@@ -1082,7 +1085,7 @@ class MongodbV1Alpha1API(API):
         instance_id: str,
         name: str,
         password: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> User:
         """
         Create an user on a Database Instance.
@@ -1130,7 +1133,7 @@ class MongodbV1Alpha1API(API):
         *,
         instance_id: str,
         name: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         password: Optional[str] = None,
     ) -> User:
         """
@@ -1179,7 +1182,7 @@ class MongodbV1Alpha1API(API):
         *,
         instance_id: str,
         name: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete a user on a Database Instance.
@@ -1211,11 +1214,57 @@ class MongodbV1Alpha1API(API):
 
         self._throw_on_error(res)
 
+    async def set_user_role(
+        self,
+        *,
+        instance_id: str,
+        user_name: str,
+        region: Optional[ScwRegion] = None,
+        roles: Optional[List[UserRole]] = None,
+    ) -> User:
+        """
+        :param instance_id: UUID of the Database Instance the user belongs to.
+        :param user_name: Name of the database user.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param roles: List of roles assigned to the user, along with the corresponding database where each role is granted.
+        :return: :class:`User <User>`
+
+        Usage:
+        ::
+
+            result = await api.set_user_role(
+                instance_id="example",
+                user_name="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_instance_id = validate_path_param("instance_id", instance_id)
+
+        res = self._request(
+            "PUT",
+            f"/mongodb/v1alpha1/regions/{param_region}/instances/{param_instance_id}/roles",
+            body=marshal_SetUserRoleRequest(
+                SetUserRoleRequest(
+                    instance_id=instance_id,
+                    user_name=user_name,
+                    region=region,
+                    roles=roles,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_User(res.json())
+
     async def delete_endpoint(
         self,
         *,
         endpoint_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete a Database Instance endpoint.
@@ -1248,7 +1297,7 @@ class MongodbV1Alpha1API(API):
         *,
         instance_id: str,
         endpoint: EndpointSpec,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Endpoint:
         """
         Create a new Instance endpoint.

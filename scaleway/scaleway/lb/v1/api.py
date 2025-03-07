@@ -5,8 +5,8 @@ from typing import List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Region,
-    Zone,
+    Region as ScwRegion,
+    Zone as ScwZone,
 )
 from scaleway_core.utils import (
     WaitForOptions,
@@ -208,7 +208,7 @@ class LbV1ZonedAPI(API):
     def list_lbs(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         order_by: Optional[ListLbsRequestOrderBy] = None,
         page_size: Optional[int] = None,
@@ -259,7 +259,7 @@ class LbV1ZonedAPI(API):
     def list_lbs_all(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         order_by: Optional[ListLbsRequestOrderBy] = None,
         page_size: Optional[int] = None,
@@ -308,7 +308,7 @@ class LbV1ZonedAPI(API):
         *,
         description: str,
         type_: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         name: Optional[str] = None,
@@ -378,7 +378,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         lb_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Lb:
         """
         Get a Load Balancer.
@@ -410,7 +410,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         lb_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         options: Optional[WaitForOptions[Lb, bool]] = None,
     ) -> Lb:
         """
@@ -449,7 +449,7 @@ class LbV1ZonedAPI(API):
         lb_id: str,
         name: str,
         description: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         tags: Optional[List[str]] = None,
         ssl_compatibility_level: Optional[SSLCompatibilityLevel] = None,
     ) -> Lb:
@@ -501,7 +501,7 @@ class LbV1ZonedAPI(API):
         *,
         lb_id: str,
         release_ip: bool,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Delete a Load Balancer.
@@ -537,7 +537,7 @@ class LbV1ZonedAPI(API):
         *,
         lb_id: str,
         type_: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Lb:
         """
         Migrate a Load Balancer.
@@ -578,7 +578,7 @@ class LbV1ZonedAPI(API):
     def list_i_ps(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         ip_address: Optional[str] = None,
@@ -629,7 +629,7 @@ class LbV1ZonedAPI(API):
     def list_i_ps_all(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         ip_address: Optional[str] = None,
@@ -677,7 +677,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         is_ipv6: bool,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         reverse: Optional[str] = None,
@@ -729,7 +729,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         ip_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Ip:
         """
         Get an IP address.
@@ -761,7 +761,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         ip_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Delete an IP address.
@@ -791,7 +791,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         ip_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         reverse: Optional[str] = None,
         lb_id: Optional[str] = None,
         tags: Optional[List[str]] = None,
@@ -839,7 +839,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         lb_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         order_by: Optional[ListBackendsRequestOrderBy] = None,
         page: Optional[int] = None,
@@ -885,7 +885,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         lb_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         order_by: Optional[ListBackendsRequestOrderBy] = None,
         page: Optional[int] = None,
@@ -935,7 +935,7 @@ class LbV1ZonedAPI(API):
         lb_id: str,
         health_check: HealthCheck,
         server_ip: List[str],
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         send_proxy_v2: Optional[bool] = None,
         timeout_server: Optional[str] = None,
@@ -1037,7 +1037,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         backend_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Backend:
         """
         Get a backend of a given Load Balancer.
@@ -1075,7 +1075,7 @@ class LbV1ZonedAPI(API):
         forward_port_algorithm: ForwardPortAlgorithm,
         sticky_sessions: StickySessionsType,
         sticky_sessions_cookie_name: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         send_proxy_v2: Optional[bool] = None,
         timeout_server: Optional[str] = None,
         timeout_connect: Optional[str] = None,
@@ -1171,7 +1171,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         backend_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Delete a backend of a given Load Balancer.
@@ -1202,7 +1202,7 @@ class LbV1ZonedAPI(API):
         *,
         backend_id: str,
         server_ip: List[str],
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Backend:
         """
         Add a set of backend servers to a given backend.
@@ -1245,7 +1245,7 @@ class LbV1ZonedAPI(API):
         *,
         backend_id: str,
         server_ip: List[str],
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Backend:
         """
         Remove a set of servers for a given backend.
@@ -1288,7 +1288,7 @@ class LbV1ZonedAPI(API):
         *,
         backend_id: str,
         server_ip: List[str],
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Backend:
         """
         Define all backend servers for a given backend.
@@ -1332,7 +1332,7 @@ class LbV1ZonedAPI(API):
         port: int,
         check_max_retries: int,
         backend_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         check_delay: Optional[str] = None,
         check_timeout: Optional[str] = None,
         check_send_proxy: bool,
@@ -1418,7 +1418,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         lb_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         order_by: Optional[ListFrontendsRequestOrderBy] = None,
         page: Optional[int] = None,
@@ -1464,7 +1464,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         lb_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         order_by: Optional[ListFrontendsRequestOrderBy] = None,
         page: Optional[int] = None,
@@ -1510,11 +1510,12 @@ class LbV1ZonedAPI(API):
         lb_id: str,
         backend_id: str,
         enable_http3: bool,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         timeout_client: Optional[str] = None,
         certificate_id: Optional[str] = None,
         certificate_ids: Optional[List[str]] = None,
+        connection_rate_limit: Optional[int] = None,
     ) -> Frontend:
         """
         Create a frontend in a given Load Balancer.
@@ -1528,6 +1529,7 @@ class LbV1ZonedAPI(API):
         :param timeout_client: Maximum allowed inactivity time on the client side.
         :param certificate_id: Certificate ID, deprecated in favor of certificate_ids array.
         :param certificate_ids: List of SSL/TLS certificate IDs to bind to the frontend.
+        :param connection_rate_limit: Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second.
         :return: :class:`Frontend <Frontend>`
 
         Usage:
@@ -1558,6 +1560,7 @@ class LbV1ZonedAPI(API):
                     timeout_client=timeout_client,
                     certificate_id=certificate_id,
                     certificate_ids=certificate_ids,
+                    connection_rate_limit=connection_rate_limit,
                 ),
                 self.client,
             ),
@@ -1570,7 +1573,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         frontend_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Frontend:
         """
         Get a frontend.
@@ -1606,10 +1609,11 @@ class LbV1ZonedAPI(API):
         inbound_port: int,
         backend_id: str,
         enable_http3: bool,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         timeout_client: Optional[str] = None,
         certificate_id: Optional[str] = None,
         certificate_ids: Optional[List[str]] = None,
+        connection_rate_limit: Optional[int] = None,
     ) -> Frontend:
         """
         Update a frontend.
@@ -1623,6 +1627,7 @@ class LbV1ZonedAPI(API):
         :param timeout_client: Maximum allowed inactivity time on the client side.
         :param certificate_id: Certificate ID, deprecated in favor of certificate_ids array.
         :param certificate_ids: List of SSL/TLS certificate IDs to bind to the frontend.
+        :param connection_rate_limit: Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second.
         :return: :class:`Frontend <Frontend>`
 
         Usage:
@@ -1654,6 +1659,7 @@ class LbV1ZonedAPI(API):
                     timeout_client=timeout_client,
                     certificate_id=certificate_id,
                     certificate_ids=certificate_ids,
+                    connection_rate_limit=connection_rate_limit,
                 ),
                 self.client,
             ),
@@ -1666,7 +1672,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         frontend_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Delete a frontend.
@@ -1695,7 +1701,7 @@ class LbV1ZonedAPI(API):
     def list_routes(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         order_by: Optional[ListRoutesRequestOrderBy] = None,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
@@ -1736,7 +1742,7 @@ class LbV1ZonedAPI(API):
     def list_routes_all(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         order_by: Optional[ListRoutesRequestOrderBy] = None,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
@@ -1776,7 +1782,7 @@ class LbV1ZonedAPI(API):
         *,
         frontend_id: str,
         backend_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         match: Optional[RouteMatch] = None,
     ) -> Route:
         """
@@ -1820,7 +1826,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         route_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Route:
         """
         Get a route.
@@ -1853,7 +1859,7 @@ class LbV1ZonedAPI(API):
         *,
         route_id: str,
         backend_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         match: Optional[RouteMatch] = None,
     ) -> Route:
         """
@@ -1898,7 +1904,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         route_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Delete a route.
@@ -1928,7 +1934,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         lb_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         backend_id: Optional[str] = None,
     ) -> LbStats:
         """
@@ -1965,7 +1971,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         lb_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         backend_id: Optional[str] = None,
@@ -2008,7 +2014,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         lb_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         backend_id: Optional[str] = None,
@@ -2048,7 +2054,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         frontend_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         order_by: Optional[ListAclRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -2094,7 +2100,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         frontend_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         order_by: Optional[ListAclRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -2140,7 +2146,7 @@ class LbV1ZonedAPI(API):
         action: AclAction,
         index: int,
         description: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         match: Optional[AclMatch] = None,
     ) -> Acl:
@@ -2194,7 +2200,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         acl_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Acl:
         """
         Get an ACL.
@@ -2229,7 +2235,7 @@ class LbV1ZonedAPI(API):
         name: str,
         action: AclAction,
         index: int,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         match: Optional[AclMatch] = None,
         description: Optional[str] = None,
     ) -> Acl:
@@ -2283,7 +2289,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         acl_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Delete an ACL.
@@ -2314,7 +2320,7 @@ class LbV1ZonedAPI(API):
         *,
         acls: List[AclSpec],
         frontend_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> SetAclsResponse:
         """
         Define all ACLs for a given frontend.
@@ -2356,7 +2362,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         lb_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         letsencrypt: Optional[CreateCertificateRequestLetsencryptConfig] = None,
         custom_certificate: Optional[CreateCertificateRequestCustomCertificate] = None,
@@ -2406,7 +2412,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         lb_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         order_by: Optional[ListCertificatesRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -2452,7 +2458,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         lb_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         order_by: Optional[ListCertificatesRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -2495,7 +2501,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         certificate_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Certificate:
         """
         Get an SSL/TLS certificate.
@@ -2527,7 +2533,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         certificate_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         options: Optional[WaitForOptions[Certificate, bool]] = None,
     ) -> Certificate:
         """
@@ -2565,7 +2571,7 @@ class LbV1ZonedAPI(API):
         *,
         certificate_id: str,
         name: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Certificate:
         """
         Update an SSL/TLS certificate.
@@ -2607,7 +2613,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         certificate_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Delete an SSL/TLS certificate.
@@ -2636,7 +2642,7 @@ class LbV1ZonedAPI(API):
     def list_lb_types(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> ListLbTypesResponse:
@@ -2671,7 +2677,7 @@ class LbV1ZonedAPI(API):
     def list_lb_types_all(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[LbType]:
@@ -2704,7 +2710,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         name: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         email_config: Optional[SubscriberEmailConfig] = None,
         webhook_config: Optional[SubscriberWebhookConfig] = None,
         organization_id: Optional[str] = None,
@@ -2758,7 +2764,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         subscriber_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Subscriber:
         """
         Get a subscriber.
@@ -2789,7 +2795,7 @@ class LbV1ZonedAPI(API):
     def list_subscriber(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         order_by: Optional[ListSubscriberRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -2837,7 +2843,7 @@ class LbV1ZonedAPI(API):
     def list_subscriber_all(
         self,
         *,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         order_by: Optional[ListSubscriberRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -2883,7 +2889,7 @@ class LbV1ZonedAPI(API):
         *,
         subscriber_id: str,
         name: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         email_config: Optional[SubscriberEmailConfig] = None,
         webhook_config: Optional[SubscriberWebhookConfig] = None,
     ) -> Subscriber:
@@ -2933,7 +2939,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         subscriber_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Delete a subscriber.
@@ -2964,7 +2970,7 @@ class LbV1ZonedAPI(API):
         *,
         lb_id: str,
         subscriber_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Lb:
         """
         Subscribe a subscriber to alerts for a given Load Balancer.
@@ -3006,7 +3012,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         lb_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> Lb:
         """
         Unsubscribe a subscriber from alerts for a given Load Balancer.
@@ -3038,7 +3044,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         lb_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         order_by: Optional[ListPrivateNetworksRequestOrderBy] = None,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
@@ -3081,7 +3087,7 @@ class LbV1ZonedAPI(API):
         self,
         *,
         lb_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         order_by: Optional[ListPrivateNetworksRequestOrderBy] = None,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
@@ -3122,7 +3128,7 @@ class LbV1ZonedAPI(API):
         *,
         lb_id: str,
         private_network_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
         static_config: Optional[PrivateNetworkStaticConfig] = None,
         dhcp_config: Optional[PrivateNetworkDHCPConfig] = None,
         ipam_config: Optional[PrivateNetworkIpamConfig] = None,
@@ -3183,7 +3189,7 @@ class LbV1ZonedAPI(API):
         *,
         lb_id: str,
         private_network_id: str,
-        zone: Optional[Zone] = None,
+        zone: Optional[ScwZone] = None,
     ) -> None:
         """
         Detach Load Balancer from Private Network.
@@ -3224,7 +3230,7 @@ class LbV1API(API):
     def list_lbs(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         order_by: Optional[ListLbsRequestOrderBy] = None,
         page_size: Optional[int] = None,
@@ -3276,7 +3282,7 @@ class LbV1API(API):
     def list_lbs_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         order_by: Optional[ListLbsRequestOrderBy] = None,
         page_size: Optional[int] = None,
@@ -3324,7 +3330,7 @@ class LbV1API(API):
         *,
         description: str,
         type_: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         name: Optional[str] = None,
@@ -3395,7 +3401,7 @@ class LbV1API(API):
         self,
         *,
         lb_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Lb:
         """
         Get a load balancer.
@@ -3428,7 +3434,7 @@ class LbV1API(API):
         self,
         *,
         lb_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         options: Optional[WaitForOptions[Lb, bool]] = None,
     ) -> Lb:
         """
@@ -3466,7 +3472,7 @@ class LbV1API(API):
         lb_id: str,
         name: str,
         description: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         tags: Optional[List[str]] = None,
         ssl_compatibility_level: Optional[SSLCompatibilityLevel] = None,
     ) -> Lb:
@@ -3519,7 +3525,7 @@ class LbV1API(API):
         *,
         lb_id: str,
         release_ip: bool,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete a load balancer.
@@ -3556,7 +3562,7 @@ class LbV1API(API):
         *,
         lb_id: str,
         type_: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Lb:
         """
         Migrate a load balancer.
@@ -3598,7 +3604,7 @@ class LbV1API(API):
     def list_i_ps(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         ip_address: Optional[str] = None,
@@ -3650,7 +3656,7 @@ class LbV1API(API):
     def list_i_ps_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         ip_address: Optional[str] = None,
@@ -3697,7 +3703,7 @@ class LbV1API(API):
         self,
         *,
         is_ipv6: bool,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
         reverse: Optional[str] = None,
@@ -3750,7 +3756,7 @@ class LbV1API(API):
         self,
         *,
         ip_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Ip:
         """
         Get an IP.
@@ -3783,7 +3789,7 @@ class LbV1API(API):
         self,
         *,
         ip_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete an IP.
@@ -3814,7 +3820,7 @@ class LbV1API(API):
         self,
         *,
         ip_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         reverse: Optional[str] = None,
         lb_id: Optional[str] = None,
         tags: Optional[List[str]] = None,
@@ -3863,7 +3869,7 @@ class LbV1API(API):
         self,
         *,
         lb_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         order_by: Optional[ListBackendsRequestOrderBy] = None,
         page: Optional[int] = None,
@@ -3910,7 +3916,7 @@ class LbV1API(API):
         self,
         *,
         lb_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         order_by: Optional[ListBackendsRequestOrderBy] = None,
         page: Optional[int] = None,
@@ -3959,7 +3965,7 @@ class LbV1API(API):
         lb_id: str,
         health_check: HealthCheck,
         server_ip: List[str],
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         send_proxy_v2: Optional[bool] = None,
         timeout_server: Optional[str] = None,
@@ -4062,7 +4068,7 @@ class LbV1API(API):
         self,
         *,
         backend_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Backend:
         """
         Get a backend in a given load balancer.
@@ -4101,7 +4107,7 @@ class LbV1API(API):
         forward_port_algorithm: ForwardPortAlgorithm,
         sticky_sessions: StickySessionsType,
         sticky_sessions_cookie_name: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         send_proxy_v2: Optional[bool] = None,
         timeout_server: Optional[str] = None,
         timeout_connect: Optional[str] = None,
@@ -4198,7 +4204,7 @@ class LbV1API(API):
         self,
         *,
         backend_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete a backend in a given load balancer.
@@ -4230,7 +4236,7 @@ class LbV1API(API):
         *,
         backend_id: str,
         server_ip: List[str],
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Backend:
         """
         Add a set of servers in a given backend.
@@ -4274,7 +4280,7 @@ class LbV1API(API):
         *,
         backend_id: str,
         server_ip: List[str],
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Backend:
         """
         Remove a set of servers for a given backend.
@@ -4318,7 +4324,7 @@ class LbV1API(API):
         *,
         backend_id: str,
         server_ip: List[str],
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Backend:
         """
         Define all servers in a given backend.
@@ -4363,7 +4369,7 @@ class LbV1API(API):
         port: int,
         check_max_retries: int,
         backend_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         check_delay: Optional[str] = None,
         check_timeout: Optional[str] = None,
         check_send_proxy: bool,
@@ -4450,7 +4456,7 @@ class LbV1API(API):
         self,
         *,
         lb_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         order_by: Optional[ListFrontendsRequestOrderBy] = None,
         page: Optional[int] = None,
@@ -4497,7 +4503,7 @@ class LbV1API(API):
         self,
         *,
         lb_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         order_by: Optional[ListFrontendsRequestOrderBy] = None,
         page: Optional[int] = None,
@@ -4542,11 +4548,12 @@ class LbV1API(API):
         lb_id: str,
         backend_id: str,
         enable_http3: bool,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         timeout_client: Optional[str] = None,
         certificate_id: Optional[str] = None,
         certificate_ids: Optional[List[str]] = None,
+        connection_rate_limit: Optional[int] = None,
     ) -> Frontend:
         """
         Create a frontend in a given load balancer.
@@ -4559,6 +4566,7 @@ class LbV1API(API):
         :param timeout_client: Maximum allowed inactivity time on the client side.
         :param certificate_id: Certificate ID, deprecated in favor of certificate_ids array.
         :param certificate_ids: List of SSL/TLS certificate IDs to bind to the frontend.
+        :param connection_rate_limit: Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second.
         :return: :class:`Frontend <Frontend>`
 
         Usage:
@@ -4591,6 +4599,7 @@ class LbV1API(API):
                     timeout_client=timeout_client,
                     certificate_id=certificate_id,
                     certificate_ids=certificate_ids,
+                    connection_rate_limit=connection_rate_limit,
                 ),
                 self.client,
             ),
@@ -4603,7 +4612,7 @@ class LbV1API(API):
         self,
         *,
         frontend_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Frontend:
         """
         Get a frontend.
@@ -4640,10 +4649,11 @@ class LbV1API(API):
         inbound_port: int,
         backend_id: str,
         enable_http3: bool,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         timeout_client: Optional[str] = None,
         certificate_id: Optional[str] = None,
         certificate_ids: Optional[List[str]] = None,
+        connection_rate_limit: Optional[int] = None,
     ) -> Frontend:
         """
         Update a frontend.
@@ -4656,6 +4666,7 @@ class LbV1API(API):
         :param timeout_client: Maximum allowed inactivity time on the client side.
         :param certificate_id: Certificate ID, deprecated in favor of certificate_ids array.
         :param certificate_ids: List of SSL/TLS certificate IDs to bind to the frontend.
+        :param connection_rate_limit: Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second.
         :return: :class:`Frontend <Frontend>`
 
         Usage:
@@ -4689,6 +4700,7 @@ class LbV1API(API):
                     timeout_client=timeout_client,
                     certificate_id=certificate_id,
                     certificate_ids=certificate_ids,
+                    connection_rate_limit=connection_rate_limit,
                 ),
                 self.client,
             ),
@@ -4701,7 +4713,7 @@ class LbV1API(API):
         self,
         *,
         frontend_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete a frontend.
@@ -4731,7 +4743,7 @@ class LbV1API(API):
     def list_routes(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListRoutesRequestOrderBy] = None,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
@@ -4773,7 +4785,7 @@ class LbV1API(API):
     def list_routes_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListRoutesRequestOrderBy] = None,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
@@ -4812,7 +4824,7 @@ class LbV1API(API):
         *,
         frontend_id: str,
         backend_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         match: Optional[RouteMatch] = None,
     ) -> Route:
         """
@@ -4857,7 +4869,7 @@ class LbV1API(API):
         self,
         *,
         route_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Route:
         """
         Get single backend redirection.
@@ -4891,7 +4903,7 @@ class LbV1API(API):
         *,
         route_id: str,
         backend_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         match: Optional[RouteMatch] = None,
     ) -> Route:
         """
@@ -4937,7 +4949,7 @@ class LbV1API(API):
         self,
         *,
         route_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete a backend redirection.
@@ -4968,7 +4980,7 @@ class LbV1API(API):
         self,
         *,
         lb_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         backend_id: Optional[str] = None,
     ) -> LbStats:
         """
@@ -5007,7 +5019,7 @@ class LbV1API(API):
         self,
         *,
         lb_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         backend_id: Optional[str] = None,
@@ -5051,7 +5063,7 @@ class LbV1API(API):
         self,
         *,
         lb_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         backend_id: Optional[str] = None,
@@ -5090,7 +5102,7 @@ class LbV1API(API):
         self,
         *,
         frontend_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListAclRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -5137,7 +5149,7 @@ class LbV1API(API):
         self,
         *,
         frontend_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListAclRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -5182,7 +5194,7 @@ class LbV1API(API):
         action: AclAction,
         index: int,
         description: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         match: Optional[AclMatch] = None,
     ) -> Acl:
@@ -5237,7 +5249,7 @@ class LbV1API(API):
         self,
         *,
         acl_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Acl:
         """
         Get an ACL.
@@ -5273,7 +5285,7 @@ class LbV1API(API):
         name: str,
         action: AclAction,
         index: int,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         match: Optional[AclMatch] = None,
         description: Optional[str] = None,
     ) -> Acl:
@@ -5328,7 +5340,7 @@ class LbV1API(API):
         self,
         *,
         acl_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete an ACL.
@@ -5359,7 +5371,7 @@ class LbV1API(API):
         self,
         *,
         lb_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         letsencrypt: Optional[CreateCertificateRequestLetsencryptConfig] = None,
         custom_certificate: Optional[CreateCertificateRequestCustomCertificate] = None,
@@ -5411,7 +5423,7 @@ class LbV1API(API):
         self,
         *,
         lb_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListCertificatesRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -5458,7 +5470,7 @@ class LbV1API(API):
         self,
         *,
         lb_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListCertificatesRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -5500,7 +5512,7 @@ class LbV1API(API):
         self,
         *,
         certificate_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Certificate:
         """
         Get a TLS certificate.
@@ -5533,7 +5545,7 @@ class LbV1API(API):
         self,
         *,
         certificate_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         options: Optional[WaitForOptions[Certificate, bool]] = None,
     ) -> Certificate:
         """
@@ -5570,7 +5582,7 @@ class LbV1API(API):
         *,
         certificate_id: str,
         name: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Certificate:
         """
         Update a TLS certificate.
@@ -5613,7 +5625,7 @@ class LbV1API(API):
         self,
         *,
         certificate_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete a TLS certificate.
@@ -5643,7 +5655,7 @@ class LbV1API(API):
     def list_lb_types(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> ListLbTypesResponse:
@@ -5679,7 +5691,7 @@ class LbV1API(API):
     def list_lb_types_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[LbType]:
@@ -5711,7 +5723,7 @@ class LbV1API(API):
         self,
         *,
         name: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         email_config: Optional[SubscriberEmailConfig] = None,
         webhook_config: Optional[SubscriberWebhookConfig] = None,
         organization_id: Optional[str] = None,
@@ -5766,7 +5778,7 @@ class LbV1API(API):
         self,
         *,
         subscriber_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Subscriber:
         """
         Get a subscriber.
@@ -5798,7 +5810,7 @@ class LbV1API(API):
     def list_subscriber(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListSubscriberRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -5847,7 +5859,7 @@ class LbV1API(API):
     def list_subscriber_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListSubscriberRequestOrderBy] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -5892,7 +5904,7 @@ class LbV1API(API):
         *,
         subscriber_id: str,
         name: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         email_config: Optional[SubscriberEmailConfig] = None,
         webhook_config: Optional[SubscriberWebhookConfig] = None,
     ) -> Subscriber:
@@ -5943,7 +5955,7 @@ class LbV1API(API):
         self,
         *,
         subscriber_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Delete a subscriber.
@@ -5975,7 +5987,7 @@ class LbV1API(API):
         *,
         lb_id: str,
         subscriber_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Lb:
         """
         Subscribe a subscriber to a given load balancer.
@@ -6018,7 +6030,7 @@ class LbV1API(API):
         self,
         *,
         lb_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Lb:
         """
         Unsubscribe a subscriber from a given load balancer.
@@ -6051,7 +6063,7 @@ class LbV1API(API):
         self,
         *,
         lb_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListPrivateNetworksRequestOrderBy] = None,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
@@ -6095,7 +6107,7 @@ class LbV1API(API):
         self,
         *,
         lb_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         order_by: Optional[ListPrivateNetworksRequestOrderBy] = None,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
@@ -6135,7 +6147,7 @@ class LbV1API(API):
         *,
         lb_id: str,
         private_network_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         static_config: Optional[PrivateNetworkStaticConfig] = None,
         dhcp_config: Optional[PrivateNetworkDHCPConfig] = None,
         ipam_config: Optional[PrivateNetworkIpamConfig] = None,
@@ -6197,7 +6209,7 @@ class LbV1API(API):
         *,
         lb_id: str,
         private_network_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> None:
         """
         Remove load balancer of private network.

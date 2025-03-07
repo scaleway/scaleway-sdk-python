@@ -5,7 +5,7 @@ from typing import List, Optional
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     WaitForOptions,
@@ -55,7 +55,7 @@ class RegistryV1API(API):
     def list_namespaces(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListNamespacesRequestOrderBy] = None,
@@ -105,7 +105,7 @@ class RegistryV1API(API):
     def list_namespaces_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListNamespacesRequestOrderBy] = None,
@@ -150,7 +150,7 @@ class RegistryV1API(API):
         self,
         *,
         namespace_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Namespace:
         """
         Get a namespace.
@@ -184,7 +184,7 @@ class RegistryV1API(API):
         self,
         *,
         namespace_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         options: Optional[WaitForOptions[Namespace, bool]] = None,
     ) -> Namespace:
         """
@@ -222,7 +222,7 @@ class RegistryV1API(API):
         *,
         description: str,
         is_public: bool,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         organization_id: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -276,7 +276,7 @@ class RegistryV1API(API):
         self,
         *,
         namespace_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         description: Optional[str] = None,
         is_public: Optional[bool] = None,
     ) -> Namespace:
@@ -323,7 +323,7 @@ class RegistryV1API(API):
         self,
         *,
         namespace_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Namespace:
         """
         Delete a namespace.
@@ -356,7 +356,7 @@ class RegistryV1API(API):
     def list_images(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListImagesRequestOrderBy] = None,
@@ -409,7 +409,7 @@ class RegistryV1API(API):
     def list_images_all(
         self,
         *,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListImagesRequestOrderBy] = None,
@@ -457,7 +457,7 @@ class RegistryV1API(API):
         self,
         *,
         image_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Image:
         """
         Get an image.
@@ -491,7 +491,7 @@ class RegistryV1API(API):
         self,
         *,
         image_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         options: Optional[WaitForOptions[Image, bool]] = None,
     ) -> Image:
         """
@@ -528,7 +528,7 @@ class RegistryV1API(API):
         self,
         *,
         image_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         visibility: Optional[ImageVisibility] = None,
     ) -> Image:
         """
@@ -572,7 +572,7 @@ class RegistryV1API(API):
         self,
         *,
         image_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Image:
         """
         Delete an image.
@@ -606,7 +606,7 @@ class RegistryV1API(API):
         self,
         *,
         image_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListTagsRequestOrderBy] = None,
@@ -654,7 +654,7 @@ class RegistryV1API(API):
         self,
         *,
         image_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
         order_by: Optional[ListTagsRequestOrderBy] = None,
@@ -697,7 +697,7 @@ class RegistryV1API(API):
         self,
         *,
         tag_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
     ) -> Tag:
         """
         Get a tag.
@@ -731,7 +731,7 @@ class RegistryV1API(API):
         self,
         *,
         tag_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         options: Optional[WaitForOptions[Tag, bool]] = None,
     ) -> Tag:
         """
@@ -768,7 +768,7 @@ class RegistryV1API(API):
         self,
         *,
         tag_id: str,
-        region: Optional[Region] = None,
+        region: Optional[ScwRegion] = None,
         force: Optional[bool] = None,
     ) -> Tag:
         """

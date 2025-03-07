@@ -29,6 +29,7 @@ SERVER_TRANSIENT_STATUSES: List[ServerStatus] = [
     ServerStatus.DELETING,
     ServerStatus.ORDERED,
     ServerStatus.RESETTING,
+    ServerStatus.MIGRATING,
 ]
 """
 Lists transient statutes of the enum :class:`ServerStatus <ServerStatus>`.

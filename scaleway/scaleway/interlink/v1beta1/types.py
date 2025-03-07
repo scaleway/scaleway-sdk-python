@@ -8,7 +8,7 @@ from enum import Enum
 from typing import List, Optional
 
 from scaleway_core.bridge import (
-    Region,
+    Region as ScwRegion,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -148,7 +148,7 @@ class Link:
     Used to identify a link from a user or partner's point of view.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region of the link.
     """
@@ -171,6 +171,11 @@ class Link:
     updated_at: Optional[datetime]
     """
     Last modification date of the link.
+    """
+
+    disapproved_reason: Optional[str]
+    """
+    Reason given by partner to explain why they did not approve the request for a hosted link.
     """
 
 
@@ -249,7 +254,7 @@ class Pop:
     Available bandwidth in Mbits/s for future hosted_links from available ports in this PoP.
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region of the PoP.
     """
@@ -292,7 +297,7 @@ class RoutingPolicy:
     IP prefix filters to advertise to the peer (ranges of routes to advertise).
     """
 
-    region: Region
+    region: ScwRegion
     """
     Region of the routing policy.
     """
@@ -320,7 +325,7 @@ class AttachRoutingPolicyRequest:
     ID of the routing policy to be attached.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -338,7 +343,7 @@ class AttachVpcRequest:
     ID of the VPC to attach.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -361,7 +366,7 @@ class CreateLinkRequest:
     Desired bandwidth for the link. Must be compatible with available link bandwidths and remaining bandwidth capacity of the port.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -390,7 +395,7 @@ class CreateRoutingPolicyRequest:
     Name of the routing policy.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -423,7 +428,7 @@ class DeleteLinkRequest:
     ID of the link to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -436,7 +441,7 @@ class DeleteRoutingPolicyRequest:
     ID of the routing policy to delete.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -449,7 +454,7 @@ class DetachRoutingPolicyRequest:
     ID of the link to detach a routing policy from.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -462,7 +467,7 @@ class DetachVpcRequest:
     ID of the link to detach the VPC from.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -475,7 +480,7 @@ class DisableRoutePropagationRequest:
     ID of the link on which to disable route propagation.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -488,7 +493,7 @@ class EnableRoutePropagationRequest:
     ID of the link on which to enable route propagation.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -501,7 +506,7 @@ class GetLinkRequest:
     ID of the link to get.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -514,7 +519,7 @@ class GetPartnerRequest:
     ID of partner to get.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -527,7 +532,7 @@ class GetPopRequest:
     ID of PoP to get.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -540,7 +545,7 @@ class GetRoutingPolicyRequest:
     ID of the routing policy to get.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -548,7 +553,7 @@ class GetRoutingPolicyRequest:
 
 @dataclass
 class ListLinksRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -649,7 +654,7 @@ class ListLinksResponse:
 
 @dataclass
 class ListPartnersRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -690,7 +695,7 @@ class ListPartnersResponse:
 
 @dataclass
 class ListPopsRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -746,7 +751,7 @@ class ListPopsResponse:
 
 @dataclass
 class ListRoutingPoliciesRequest:
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -801,7 +806,7 @@ class UpdateLinkRequest:
     ID of the link to update.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
@@ -824,7 +829,7 @@ class UpdateRoutingPolicyRequest:
     ID of the routing policy to update.
     """
 
-    region: Optional[Region]
+    region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
