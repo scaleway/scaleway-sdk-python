@@ -146,7 +146,7 @@ class ApplesiliconV1Alpha1API(API):
         :param name: Create a server with this given name.
         :param project_id: Create a server in the given project ID.
         :param os_id: Create a server & install the given os_id, when no os_id provided the default OS for this server type is chosen. Requesting a non-default OS will induce an extended delivery time.
-        :param commitment_type: Activate commitment for this server. If not specified, there is a 24h commitment due to Apple licensing. It can be updated with the Update Server request. Available commitment depends on server type.
+        :param commitment_type: Activate commitment for this server. If not specified, there is a 24h commitment due to Apple licensing (commitment_type `duration_24h`). It can be updated with the Update Server request. Available commitment depends on server type.
         :return: :class:`Server <Server>`
 
         Usage:

@@ -465,7 +465,7 @@ class CreateServerRequest:
 
     commitment_type: Optional[CommitmentType]
     """
-    Activate commitment for this server. If not specified, there is a 24h commitment due to Apple licensing. It can be updated with the Update Server request. Available commitment depends on server type.
+    Activate commitment for this server. If not specified, there is a 24h commitment due to Apple licensing (commitment_type `duration_24h`). It can be updated with the Update Server request. Available commitment depends on server type.
     """
 
 
