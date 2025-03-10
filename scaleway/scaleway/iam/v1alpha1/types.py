@@ -1834,6 +1834,11 @@ class ListUsersRequest:
     Filter by tags containing a given string.
     """
 
+    status: Optional[UserStatus]
+    """
+    Filter by user status.
+    """
+
 
 @dataclass
 class ListUsersResponse:

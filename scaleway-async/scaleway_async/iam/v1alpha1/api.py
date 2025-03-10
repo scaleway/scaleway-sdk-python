@@ -26,6 +26,7 @@ from .types import (
     ListUsersRequestOrderBy,
     LogAction,
     LogResourceType,
+    UserStatus,
     APIKey,
     AddGroupMemberRequest,
     AddGroupMembersRequest,
@@ -375,6 +376,7 @@ class IamV1Alpha1API(API):
         user_ids: Optional[List[str]] = None,
         mfa: Optional[bool] = None,
         tag: Optional[str] = None,
+        status: Optional[UserStatus] = None,
     ) -> ListUsersResponse:
         """
         List users of an Organization.
@@ -386,6 +388,7 @@ class IamV1Alpha1API(API):
         :param user_ids: Filter by list of IDs.
         :param mfa: Filter by MFA status.
         :param tag: Filter by tags containing a given string.
+        :param status: Filter by user status.
         :return: :class:`ListUsersResponse <ListUsersResponse>`
 
         Usage:
@@ -404,6 +407,7 @@ class IamV1Alpha1API(API):
                 or self.client.default_organization_id,
                 "page": page,
                 "page_size": page_size or self.client.default_page_size,
+                "status": status,
                 "tag": tag,
                 "user_ids": user_ids,
             },
@@ -422,6 +426,7 @@ class IamV1Alpha1API(API):
         user_ids: Optional[List[str]] = None,
         mfa: Optional[bool] = None,
         tag: Optional[str] = None,
+        status: Optional[UserStatus] = None,
     ) -> List[User]:
         """
         List users of an Organization.
@@ -433,6 +438,7 @@ class IamV1Alpha1API(API):
         :param user_ids: Filter by list of IDs.
         :param mfa: Filter by MFA status.
         :param tag: Filter by tags containing a given string.
+        :param status: Filter by user status.
         :return: :class:`List[User] <List[User]>`
 
         Usage:
@@ -453,6 +459,7 @@ class IamV1Alpha1API(API):
                 "user_ids": user_ids,
                 "mfa": mfa,
                 "tag": tag,
+                "status": status,
             },
         )
 
