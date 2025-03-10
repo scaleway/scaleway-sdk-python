@@ -1,0 +1,37 @@
+scaleway\_core.profile package
+==============================
+
+Submodules
+----------
+
+scaleway\_core.profile.env module
+---------------------------------
+
+.. automodule:: scaleway_core.profile.env
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway\_core.profile.file module
+----------------------------------
+
+.. automodule:: scaleway_core.profile.file
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway\_core.profile.profile module
+-------------------------------------
+
+.. automodule:: scaleway_core.profile.profile
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: scaleway_core.profile
+   :members:
+   :undoc-members:
+   :show-inheritance:
