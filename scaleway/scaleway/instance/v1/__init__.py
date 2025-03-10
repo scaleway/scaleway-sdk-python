@@ -55,6 +55,7 @@ from .types import ServerMaintenance
 from .types import VolumeServer
 from .types import SnapshotBaseVolume
 from .types import ServerTypeCapabilities
+from .types import ServerTypeGPUInfo
 from .types import ServerTypeNetwork
 from .types import ServerTypeVolumeConstraintsByType
 from .types import VolumeTypeCapabilities
@@ -253,6 +254,7 @@ __all__ = [
     "VolumeServer",
     "SnapshotBaseVolume",
     "ServerTypeCapabilities",
+    "ServerTypeGPUInfo",
     "ServerTypeNetwork",
     "ServerTypeVolumeConstraintsByType",
     "VolumeTypeCapabilities",
