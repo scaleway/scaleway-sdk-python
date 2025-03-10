@@ -82,6 +82,7 @@ from .types import (
     ServerTypeNetworkInterface,
     ServerTypeVolumeConstraintSizes,
     ServerTypeCapabilities,
+    ServerTypeGPUInfo,
     ServerTypeNetwork,
     ServerTypeVolumeConstraintsByType,
     ServerType,
@@ -2060,6 +2061,29 @@ def unmarshal_ServerTypeCapabilities(data: Any) -> ServerTypeCapabilities:
     return ServerTypeCapabilities(**args)
 
 
+def unmarshal_ServerTypeGPUInfo(data: Any) -> ServerTypeGPUInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ServerTypeGPUInfo' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("gpu_manufacturer", None)
+    if field is not None:
+        args["gpu_manufacturer"] = field
+
+    field = data.get("gpu_name", None)
+    if field is not None:
+        args["gpu_name"] = field
+
+    field = data.get("gpu_memory", None)
+    if field is not None:
+        args["gpu_memory"] = field
+
+    return ServerTypeGPUInfo(**args)
+
+
 def unmarshal_ServerTypeNetwork(data: Any) -> ServerTypeNetwork:
     if not isinstance(data, dict):
         raise TypeError(
@@ -2152,10 +2176,6 @@ def unmarshal_ServerType(data: Any) -> ServerType:
     if field is not None:
         args["baremetal"] = field
 
-    field = data.get("end_of_service", None)
-    if field is not None:
-        args["end_of_service"] = field
-
     field = data.get("per_volume_constraint", None)
     if field is not None:
         args["per_volume_constraint"] = unmarshal_ServerTypeVolumeConstraintsByType(
@@ -2175,6 +2195,16 @@ def unmarshal_ServerType(data: Any) -> ServerType:
         args["gpu"] = field
     else:
         args["gpu"] = None
+
+    field = data.get("end_of_service", None)
+    if field is not None:
+        args["end_of_service"] = field
+
+    field = data.get("gpu_info", None)
+    if field is not None:
+        args["gpu_info"] = unmarshal_ServerTypeGPUInfo(field)
+    else:
+        args["gpu_info"] = None
 
     field = data.get("network", None)
     if field is not None:

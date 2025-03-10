@@ -715,6 +715,24 @@ class ServerTypeCapabilities:
 
 
 @dataclass
+class ServerTypeGPUInfo:
+    gpu_manufacturer: str
+    """
+    GPU manufacturer.
+    """
+
+    gpu_name: str
+    """
+    GPU model name.
+    """
+
+    gpu_memory: int
+    """
+    RAM of a single GPU, in bytes.
+    """
+
+
+@dataclass
 class ServerTypeNetwork:
     interfaces: List[ServerTypeNetworkInterface]
     """
@@ -1342,11 +1360,6 @@ class ServerType:
     True if it is a baremetal Instance.
     """
 
-    end_of_service: bool
-    """
-    True if this Instance type has reached end of service.
-    """
-
     per_volume_constraint: Optional[ServerTypeVolumeConstraintsByType]
     """
     Additional volume constraints.
@@ -1360,6 +1373,16 @@ class ServerType:
     gpu: Optional[int]
     """
     Number of GPU.
+    """
+
+    end_of_service: bool
+    """
+    True if this Instance type has reached end of service.
+    """
+
+    gpu_info: Optional[ServerTypeGPUInfo]
+    """
+    GPU information.
     """
 
     network: Optional[ServerTypeNetwork]
