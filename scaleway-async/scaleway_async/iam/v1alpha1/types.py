@@ -207,7 +207,7 @@ class UserType(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
-class GetUserConnectionsResponseConnectionConnectedOrganization:
+class ConnectionConnectedOrganization:
     id: str
 
     name: str
@@ -216,7 +216,7 @@ class GetUserConnectionsResponseConnectionConnectedOrganization:
 
 
 @dataclass
-class GetUserConnectionsResponseConnectionConnectedUser:
+class ConnectionConnectedUser:
     id: str
 
     username: str
@@ -326,13 +326,13 @@ class CreateUserRequestMember:
 
 
 @dataclass
-class GetUserConnectionsResponseConnection:
-    organization: Optional[GetUserConnectionsResponseConnectionConnectedOrganization]
+class Connection:
+    organization: Optional[ConnectionConnectedOrganization]
     """
     Information about the connected organization.
     """
 
-    user: Optional[GetUserConnectionsResponseConnectionConnectedUser]
+    user: Optional[ConnectionConnectedUser]
     """
     Information about the connected user.
     """
@@ -1244,7 +1244,7 @@ class GetUserConnectionsRequest:
 
 @dataclass
 class GetUserConnectionsResponse:
-    connections: List[GetUserConnectionsResponseConnection]
+    connections: List[Connection]
     """
     List of connections.
     """

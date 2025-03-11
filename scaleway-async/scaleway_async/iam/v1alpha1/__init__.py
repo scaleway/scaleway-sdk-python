@@ -18,13 +18,13 @@ from .types import LogResourceType
 from .types import PermissionSetScopeType
 from .types import UserStatus
 from .types import UserType
-from .types import GetUserConnectionsResponseConnectionConnectedOrganization
-from .types import GetUserConnectionsResponseConnectionConnectedUser
+from .types import ConnectionConnectedOrganization
+from .types import ConnectionConnectedUser
 from .types import QuotumLimit
 from .types import JWT
 from .types import RuleSpecs
 from .types import CreateUserRequestMember
-from .types import GetUserConnectionsResponseConnection
+from .types import Connection
 from .types import APIKey
 from .types import Application
 from .types import GracePeriod
@@ -132,13 +132,13 @@ __all__ = [
     "PermissionSetScopeType",
     "UserStatus",
     "UserType",
-    "GetUserConnectionsResponseConnectionConnectedOrganization",
-    "GetUserConnectionsResponseConnectionConnectedUser",
+    "ConnectionConnectedOrganization",
+    "ConnectionConnectedUser",
     "QuotumLimit",
     "JWT",
     "RuleSpecs",
     "CreateUserRequestMember",
-    "GetUserConnectionsResponseConnection",
+    "Connection",
     "APIKey",
     "Application",
     "GracePeriod",

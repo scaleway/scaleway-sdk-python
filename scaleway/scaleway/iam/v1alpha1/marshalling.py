@@ -21,9 +21,9 @@ from .types import (
     SSHKey,
     User,
     EncodedJWT,
-    GetUserConnectionsResponseConnectionConnectedOrganization,
-    GetUserConnectionsResponseConnectionConnectedUser,
-    GetUserConnectionsResponseConnection,
+    ConnectionConnectedOrganization,
+    ConnectionConnectedUser,
+    Connection,
     GetUserConnectionsResponse,
     ListAPIKeysResponse,
     ListApplicationsResponse,
@@ -704,12 +704,12 @@ def unmarshal_EncodedJWT(data: Any) -> EncodedJWT:
     return EncodedJWT(**args)
 
 
-def unmarshal_GetUserConnectionsResponseConnectionConnectedOrganization(
+def unmarshal_ConnectionConnectedOrganization(
     data: Any,
-) -> GetUserConnectionsResponseConnectionConnectedOrganization:
+) -> ConnectionConnectedOrganization:
     if not isinstance(data, dict):
         raise TypeError(
-            "Unmarshalling the type 'GetUserConnectionsResponseConnectionConnectedOrganization' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ConnectionConnectedOrganization' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -726,15 +726,13 @@ def unmarshal_GetUserConnectionsResponseConnectionConnectedOrganization(
     if field is not None:
         args["locked"] = field
 
-    return GetUserConnectionsResponseConnectionConnectedOrganization(**args)
+    return ConnectionConnectedOrganization(**args)
 
 
-def unmarshal_GetUserConnectionsResponseConnectionConnectedUser(
-    data: Any,
-) -> GetUserConnectionsResponseConnectionConnectedUser:
+def unmarshal_ConnectionConnectedUser(data: Any) -> ConnectionConnectedUser:
     if not isinstance(data, dict):
         raise TypeError(
-            "Unmarshalling the type 'GetUserConnectionsResponseConnectionConnectedUser' failed as data isn't a dictionary."
+            "Unmarshalling the type 'ConnectionConnectedUser' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -751,36 +749,30 @@ def unmarshal_GetUserConnectionsResponseConnectionConnectedUser(
     if field is not None:
         args["type_"] = field
 
-    return GetUserConnectionsResponseConnectionConnectedUser(**args)
+    return ConnectionConnectedUser(**args)
 
 
-def unmarshal_GetUserConnectionsResponseConnection(
-    data: Any,
-) -> GetUserConnectionsResponseConnection:
+def unmarshal_Connection(data: Any) -> Connection:
     if not isinstance(data, dict):
         raise TypeError(
-            "Unmarshalling the type 'GetUserConnectionsResponseConnection' failed as data isn't a dictionary."
+            "Unmarshalling the type 'Connection' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
 
     field = data.get("organization", None)
     if field is not None:
-        args["organization"] = (
-            unmarshal_GetUserConnectionsResponseConnectionConnectedOrganization(field)
-        )
+        args["organization"] = unmarshal_ConnectionConnectedOrganization(field)
     else:
         args["organization"] = None
 
     field = data.get("user", None)
     if field is not None:
-        args["user"] = unmarshal_GetUserConnectionsResponseConnectionConnectedUser(
-            field
-        )
+        args["user"] = unmarshal_ConnectionConnectedUser(field)
     else:
         args["user"] = None
 
-    return GetUserConnectionsResponseConnection(**args)
+    return Connection(**args)
 
 
 def unmarshal_GetUserConnectionsResponse(data: Any) -> GetUserConnectionsResponse:
@@ -794,9 +786,7 @@ def unmarshal_GetUserConnectionsResponse(data: Any) -> GetUserConnectionsRespons
     field = data.get("connections", None)
     if field is not None:
         args["connections"] = (
-            [unmarshal_GetUserConnectionsResponseConnection(v) for v in field]
-            if field is not None
-            else None
+            [unmarshal_Connection(v) for v in field] if field is not None else None
         )
 
     return GetUserConnectionsResponse(**args)
