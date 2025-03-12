@@ -308,6 +308,29 @@ class CreateDatabaseRequestUser:
 
 
 @dataclass
+class AutoConfigDomainDns:
+    nameservers: bool
+    """
+    Whether or not to synchronize domain nameservers.
+    """
+
+    web_records: bool
+    """
+    Whether or not to synchronize web records.
+    """
+
+    mail_records: bool
+    """
+    Whether or not to synchronize mail records.
+    """
+
+    all_records: bool
+    """
+    Whether or not to synchronize all types of records. Takes priority over the other fields.
+    """
+
+
+@dataclass
 class CreateHostingRequestDomainConfiguration:
     update_nameservers: bool
 
@@ -1019,34 +1042,39 @@ class DnsApiSyncDomainDnsRecordsRequest:
     Domain for which the DNS records will be synchronized.
     """
 
-    update_web_records: bool
-    """
-    Whether or not to synchronize the web records.
-    """
-
-    update_mail_records: bool
-    """
-    Whether or not to synchronize the mail records.
-    """
-
-    update_all_records: bool
-    """
-    Whether or not to synchronize all types of records. This one has priority.
-    """
-
-    update_nameservers: bool
-    """
-    Whether or not to synchronize domain nameservers.
-    """
-
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
     """
 
+    update_web_records: Optional[bool]
+    """
+    Whether or not to synchronize the web records (deprecated, use auto_config_domain_dns).
+    """
+
+    update_mail_records: Optional[bool]
+    """
+    Whether or not to synchronize the mail records (deprecated, use auto_config_domain_dns).
+    """
+
+    update_all_records: Optional[bool]
+    """
+    Whether or not to synchronize all types of records. This one has priority (deprecated, use auto_config_domain_dns).
+    """
+
+    update_nameservers: Optional[bool]
+    """
+    Whether or not to synchronize domain nameservers (deprecated, use auto_config_domain_dns).
+    """
+
     custom_records: Optional[List[SyncDomainDnsRecordsRequestRecord]]
     """
     Custom records to synchronize.
+    """
+
+    auto_config_domain_dns: Optional[AutoConfigDomainDns]
+    """
+    Whether or not to synchronize each types of records.
     """
 
 
@@ -1095,9 +1123,14 @@ class Domain:
     A list of actions that can be performed on the domain.
     """
 
-    available_dns_actions: List[DomainDnsAction]
+    available_dns_actions: Optional[List[DomainDnsAction]]
     """
-    A list of DNS-related actions that can be auto configured for the domain.
+    A list of DNS-related actions that can be auto configured for the domain (deprecated, use auto_config_domain_dns instead).
+    """
+
+    auto_config_domain_dns: Optional[AutoConfigDomainDns]
+    """
+    Whether or not to synchronize each type of record.
     """
 
 
@@ -1325,12 +1358,17 @@ class HostingApiCreateHostingRequest:
 
     domain_configuration: Optional[CreateHostingRequestDomainConfiguration]
     """
-    Indicates whether to update hosting domain name servers and DNS records for domains managed by Scaleway Elements.
+    Indicates whether to update hosting domain name servers and DNS records for domains managed by Scaleway Elements (deprecated, use auto_config_domain_dns instead).
     """
 
     skip_welcome_email: Optional[bool]
     """
     Indicates whether to skip a welcome email to the contact email containing hosting info.
+    """
+
+    auto_config_domain_dns: Optional[AutoConfigDomainDns]
+    """
+    Indicates whether to update hosting domain name servers and DNS records for domains managed by Scaleway Elements (deprecated, use auto_update_* fields instead).
     """
 
 
