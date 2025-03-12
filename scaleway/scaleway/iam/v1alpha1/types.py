@@ -1834,9 +1834,9 @@ class ListUsersRequest:
     Filter by tags containing a given string.
     """
 
-    status: Optional[UserStatus]
+    type_: Optional[UserType]
     """
-    Filter by user status.
+    Filter by user type.
     """
 
 
