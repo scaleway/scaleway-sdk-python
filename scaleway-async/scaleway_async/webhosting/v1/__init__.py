@@ -28,6 +28,7 @@ from .types import PlatformControlPanelUrls
 from .types import OfferOption
 from .types import PlatformControlPanel
 from .types import CreateDatabaseRequestUser
+from .types import AutoConfigDomainDns
 from .types import CreateHostingRequestDomainConfiguration
 from .types import OfferOptionRequest
 from .types import SyncDomainDnsRecordsRequestRecord
@@ -133,6 +134,7 @@ __all__ = [
     "OfferOption",
     "PlatformControlPanel",
     "CreateDatabaseRequestUser",
+    "AutoConfigDomainDns",
     "CreateHostingRequestDomainConfiguration",
     "OfferOptionRequest",
     "SyncDomainDnsRecordsRequestRecord",

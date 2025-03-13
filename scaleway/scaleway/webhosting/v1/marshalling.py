@@ -24,6 +24,7 @@ from .types import (
     DnsRecord,
     Nameserver,
     DnsRecords,
+    AutoConfigDomainDns,
     Domain,
     PlatformControlPanelUrls,
     OfferOption,
@@ -260,6 +261,33 @@ def unmarshal_DnsRecords(data: Any) -> DnsRecords:
     return DnsRecords(**args)
 
 
+def unmarshal_AutoConfigDomainDns(data: Any) -> AutoConfigDomainDns:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'AutoConfigDomainDns' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("nameservers", None)
+    if field is not None:
+        args["nameservers"] = field
+
+    field = data.get("web_records", None)
+    if field is not None:
+        args["web_records"] = field
+
+    field = data.get("mail_records", None)
+    if field is not None:
+        args["mail_records"] = field
+
+    field = data.get("all_records", None)
+    if field is not None:
+        args["all_records"] = field
+
+    return AutoConfigDomainDns(**args)
+
+
 def unmarshal_Domain(data: Any) -> Domain:
     if not isinstance(data, dict):
         raise TypeError(
@@ -291,6 +319,14 @@ def unmarshal_Domain(data: Any) -> Domain:
         args["available_dns_actions"] = (
             [DomainDnsAction(v) for v in field] if field is not None else None
         )
+    else:
+        args["available_dns_actions"] = None
+
+    field = data.get("auto_config_domain_dns", None)
+    if field is not None:
+        args["auto_config_domain_dns"] = unmarshal_AutoConfigDomainDns(field)
+    else:
+        args["auto_config_domain_dns"] = None
 
     return Domain(**args)
 
@@ -1070,6 +1106,27 @@ def marshal_DnsApiCheckUserOwnsDomainRequest(
     return output
 
 
+def marshal_AutoConfigDomainDns(
+    request: AutoConfigDomainDns,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.nameservers is not None:
+        output["nameservers"] = request.nameservers
+
+    if request.web_records is not None:
+        output["web_records"] = request.web_records
+
+    if request.mail_records is not None:
+        output["mail_records"] = request.mail_records
+
+    if request.all_records is not None:
+        output["all_records"] = request.all_records
+
+    return output
+
+
 def marshal_SyncDomainDnsRecordsRequestRecord(
     request: SyncDomainDnsRecordsRequestRecord,
     defaults: ProfileDefaults,
@@ -1108,6 +1165,11 @@ def marshal_DnsApiSyncDomainDnsRecordsRequest(
             marshal_SyncDomainDnsRecordsRequestRecord(item, defaults)
             for item in request.custom_records
         ]
+
+    if request.auto_config_domain_dns is not None:
+        output["auto_config_domain_dns"] = marshal_AutoConfigDomainDns(
+            request.auto_config_domain_dns, defaults
+        )
 
     return output
 
@@ -1216,6 +1278,11 @@ def marshal_HostingApiCreateHostingRequest(
 
     if request.skip_welcome_email is not None:
         output["skip_welcome_email"] = request.skip_welcome_email
+
+    if request.auto_config_domain_dns is not None:
+        output["auto_config_domain_dns"] = marshal_AutoConfigDomainDns(
+            request.auto_config_domain_dns, defaults
+        )
 
     return output
 
