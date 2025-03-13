@@ -2175,6 +2175,8 @@ def unmarshal_ServerType(data: Any) -> ServerType:
     field = data.get("baremetal", None)
     if field is not None:
         args["baremetal"] = field
+    else:
+        args["baremetal"] = False
 
     field = data.get("per_volume_constraint", None)
     if field is not None:
