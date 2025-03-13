@@ -77,9 +77,9 @@ def unmarshal_ContactPoint(data: Any) -> ContactPoint:
     if field is not None:
         args["region"] = field
 
-    field = data.get("receive_resolved_notifications", None)
+    field = data.get("send_resolved_notifications", None)
     if field is not None:
-        args["receive_resolved_notifications"] = field
+        args["send_resolved_notifications"] = field
 
     field = data.get("email", None)
     if field is not None:
@@ -792,10 +792,8 @@ def marshal_RegionalApiCreateContactPointRequest(
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id
 
-    if request.receive_resolved_notifications is not None:
-        output["receive_resolved_notifications"] = (
-            request.receive_resolved_notifications
-        )
+    if request.send_resolved_notifications is not None:
+        output["send_resolved_notifications"] = request.send_resolved_notifications
 
     return output
 
@@ -934,10 +932,8 @@ def marshal_RegionalApiUpdateContactPointRequest(
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id
 
-    if request.receive_resolved_notifications is not None:
-        output["receive_resolved_notifications"] = (
-            request.receive_resolved_notifications
-        )
+    if request.send_resolved_notifications is not None:
+        output["send_resolved_notifications"] = request.send_resolved_notifications
 
     return output
 
