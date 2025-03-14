@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scaleway.vpc.v1 package &mdash; Scaleway Python SDK  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Scaleway Python SDK
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">scaleway.vpc.v1 package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-scaleway.vpc.v1.api">scaleway.vpc.v1.api module</a><ul>
+<li><a class="reference internal" href="#scaleway.vpc.v1.api.VpcV1API"><code class="docutils literal notranslate"><span class="pre">VpcV1API</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.vpc.v1.api.VpcV1API.create_private_network"><code class="docutils literal notranslate"><span class="pre">VpcV1API.create_private_network()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.api.VpcV1API.delete_private_network"><code class="docutils literal notranslate"><span class="pre">VpcV1API.delete_private_network()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.api.VpcV1API.get_private_network"><code class="docutils literal notranslate"><span class="pre">VpcV1API.get_private_network()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.api.VpcV1API.list_private_networks"><code class="docutils literal notranslate"><span class="pre">VpcV1API.list_private_networks()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.api.VpcV1API.list_private_networks_all"><code class="docutils literal notranslate"><span class="pre">VpcV1API.list_private_networks_all()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.api.VpcV1API.update_private_network"><code class="docutils literal notranslate"><span class="pre">VpcV1API.update_private_network()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-scaleway.vpc.v1.marshalling">scaleway.vpc.v1.marshalling module</a><ul>
+<li><a class="reference internal" href="#scaleway.vpc.v1.marshalling.marshal_CreatePrivateNetworkRequest"><code class="docutils literal notranslate"><span class="pre">marshal_CreatePrivateNetworkRequest()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.marshalling.marshal_UpdatePrivateNetworkRequest"><code class="docutils literal notranslate"><span class="pre">marshal_UpdatePrivateNetworkRequest()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.marshalling.unmarshal_ListPrivateNetworksResponse"><code class="docutils literal notranslate"><span class="pre">unmarshal_ListPrivateNetworksResponse()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.marshalling.unmarshal_PrivateNetwork"><code class="docutils literal notranslate"><span class="pre">unmarshal_PrivateNetwork()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-scaleway.vpc.v1.types">scaleway.vpc.v1.types module</a><ul>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.CreatePrivateNetworkRequest"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.CreatePrivateNetworkRequest.name"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest.name</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.CreatePrivateNetworkRequest.project_id"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest.project_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.CreatePrivateNetworkRequest.subnets"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest.subnets</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.CreatePrivateNetworkRequest.tags"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest.tags</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.CreatePrivateNetworkRequest.zone"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest.zone</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.DeletePrivateNetworkRequest"><code class="docutils literal notranslate"><span class="pre">DeletePrivateNetworkRequest</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.DeletePrivateNetworkRequest.private_network_id"><code class="docutils literal notranslate"><span class="pre">DeletePrivateNetworkRequest.private_network_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.DeletePrivateNetworkRequest.zone"><code class="docutils literal notranslate"><span class="pre">DeletePrivateNetworkRequest.zone</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.GetPrivateNetworkRequest"><code class="docutils literal notranslate"><span class="pre">GetPrivateNetworkRequest</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.GetPrivateNetworkRequest.private_network_id"><code class="docutils literal notranslate"><span class="pre">GetPrivateNetworkRequest.private_network_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.GetPrivateNetworkRequest.zone"><code class="docutils literal notranslate"><span class="pre">GetPrivateNetworkRequest.zone</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequest"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequest.include_regional"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.include_regional</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequest.name"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.name</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequest.order_by"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.order_by</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequest.organization_id"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.organization_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequest.page"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.page</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequest.page_size"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.page_size</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequest.private_network_ids"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.private_network_ids</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequest.project_id"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.project_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequest.tags"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.tags</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequest.zone"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.zone</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequestOrderBy"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequestOrderBy</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequestOrderBy.CREATED_AT_ASC"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequestOrderBy.CREATED_AT_ASC</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequestOrderBy.CREATED_AT_DESC"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequestOrderBy.CREATED_AT_DESC</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequestOrderBy.NAME_ASC"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequestOrderBy.NAME_ASC</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequestOrderBy.NAME_DESC"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequestOrderBy.NAME_DESC</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.ListPrivateNetworksResponse"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksResponse</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.ListPrivateNetworksResponse.private_networks"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksResponse.private_networks</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.ListPrivateNetworksResponse.total_count"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksResponse.total_count</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.PrivateNetwork"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.PrivateNetwork.created_at"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.created_at</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.PrivateNetwork.id"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.PrivateNetwork.name"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.name</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.PrivateNetwork.organization_id"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.organization_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.PrivateNetwork.project_id"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.project_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.PrivateNetwork.subnets"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.subnets</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.PrivateNetwork.tags"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.tags</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.PrivateNetwork.updated_at"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.updated_at</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.PrivateNetwork.zone"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.zone</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.UpdatePrivateNetworkRequest"><code class="docutils literal notranslate"><span class="pre">UpdatePrivateNetworkRequest</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.UpdatePrivateNetworkRequest.name"><code class="docutils literal notranslate"><span class="pre">UpdatePrivateNetworkRequest.name</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.UpdatePrivateNetworkRequest.private_network_id"><code class="docutils literal notranslate"><span class="pre">UpdatePrivateNetworkRequest.private_network_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.UpdatePrivateNetworkRequest.subnets"><code class="docutils literal notranslate"><span class="pre">UpdatePrivateNetworkRequest.subnets</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.UpdatePrivateNetworkRequest.tags"><code class="docutils literal notranslate"><span class="pre">UpdatePrivateNetworkRequest.tags</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.types.UpdatePrivateNetworkRequest.zone"><code class="docutils literal notranslate"><span class="pre">UpdatePrivateNetworkRequest.zone</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-scaleway.vpc.v1">Module contents</a><ul>
+<li><a class="reference internal" href="#scaleway.vpc.v1.CreatePrivateNetworkRequest"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.vpc.v1.CreatePrivateNetworkRequest.name"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest.name</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.CreatePrivateNetworkRequest.project_id"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest.project_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.CreatePrivateNetworkRequest.subnets"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest.subnets</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.CreatePrivateNetworkRequest.tags"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest.tags</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.CreatePrivateNetworkRequest.zone"><code class="docutils literal notranslate"><span class="pre">CreatePrivateNetworkRequest.zone</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.DeletePrivateNetworkRequest"><code class="docutils literal notranslate"><span class="pre">DeletePrivateNetworkRequest</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.vpc.v1.DeletePrivateNetworkRequest.private_network_id"><code class="docutils literal notranslate"><span class="pre">DeletePrivateNetworkRequest.private_network_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.DeletePrivateNetworkRequest.zone"><code class="docutils literal notranslate"><span class="pre">DeletePrivateNetworkRequest.zone</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.GetPrivateNetworkRequest"><code class="docutils literal notranslate"><span class="pre">GetPrivateNetworkRequest</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.vpc.v1.GetPrivateNetworkRequest.private_network_id"><code class="docutils literal notranslate"><span class="pre">GetPrivateNetworkRequest.private_network_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.GetPrivateNetworkRequest.zone"><code class="docutils literal notranslate"><span class="pre">GetPrivateNetworkRequest.zone</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.ListPrivateNetworksRequest"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.vpc.v1.ListPrivateNetworksRequest.include_regional"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.include_regional</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.ListPrivateNetworksRequest.name"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.name</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.ListPrivateNetworksRequest.order_by"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.order_by</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.ListPrivateNetworksRequest.organization_id"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.organization_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.ListPrivateNetworksRequest.page"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.page</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.ListPrivateNetworksRequest.page_size"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.page_size</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.ListPrivateNetworksRequest.private_network_ids"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.private_network_ids</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.ListPrivateNetworksRequest.project_id"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.project_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.ListPrivateNetworksRequest.tags"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.tags</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.ListPrivateNetworksRequest.zone"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequest.zone</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.ListPrivateNetworksRequestOrderBy"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequestOrderBy</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.vpc.v1.ListPrivateNetworksRequestOrderBy.CREATED_AT_ASC"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequestOrderBy.CREATED_AT_ASC</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.ListPrivateNetworksRequestOrderBy.CREATED_AT_DESC"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequestOrderBy.CREATED_AT_DESC</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.ListPrivateNetworksRequestOrderBy.NAME_ASC"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequestOrderBy.NAME_ASC</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.ListPrivateNetworksRequestOrderBy.NAME_DESC"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksRequestOrderBy.NAME_DESC</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.ListPrivateNetworksResponse"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksResponse</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.vpc.v1.ListPrivateNetworksResponse.private_networks"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksResponse.private_networks</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.ListPrivateNetworksResponse.total_count"><code class="docutils literal notranslate"><span class="pre">ListPrivateNetworksResponse.total_count</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.PrivateNetwork"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.vpc.v1.PrivateNetwork.created_at"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.created_at</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.PrivateNetwork.id"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.PrivateNetwork.name"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.name</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.PrivateNetwork.organization_id"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.organization_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.PrivateNetwork.project_id"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.project_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.PrivateNetwork.subnets"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.subnets</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.PrivateNetwork.tags"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.tags</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.PrivateNetwork.updated_at"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.updated_at</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.PrivateNetwork.zone"><code class="docutils literal notranslate"><span class="pre">PrivateNetwork.zone</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.UpdatePrivateNetworkRequest"><code class="docutils literal notranslate"><span class="pre">UpdatePrivateNetworkRequest</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.vpc.v1.UpdatePrivateNetworkRequest.name"><code class="docutils literal notranslate"><span class="pre">UpdatePrivateNetworkRequest.name</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.UpdatePrivateNetworkRequest.private_network_id"><code class="docutils literal notranslate"><span class="pre">UpdatePrivateNetworkRequest.private_network_id</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.UpdatePrivateNetworkRequest.subnets"><code class="docutils literal notranslate"><span class="pre">UpdatePrivateNetworkRequest.subnets</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.UpdatePrivateNetworkRequest.tags"><code class="docutils literal notranslate"><span class="pre">UpdatePrivateNetworkRequest.tags</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.UpdatePrivateNetworkRequest.zone"><code class="docutils literal notranslate"><span class="pre">UpdatePrivateNetworkRequest.zone</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.VpcV1API"><code class="docutils literal notranslate"><span class="pre">VpcV1API</span></code></a><ul>
+<li><a class="reference internal" href="#scaleway.vpc.v1.VpcV1API.create_private_network"><code class="docutils literal notranslate"><span class="pre">VpcV1API.create_private_network()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.VpcV1API.delete_private_network"><code class="docutils literal notranslate"><span class="pre">VpcV1API.delete_private_network()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.VpcV1API.get_private_network"><code class="docutils literal notranslate"><span class="pre">VpcV1API.get_private_network()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.VpcV1API.list_private_networks"><code class="docutils literal notranslate"><span class="pre">VpcV1API.list_private_networks()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.VpcV1API.list_private_networks_all"><code class="docutils literal notranslate"><span class="pre">VpcV1API.list_private_networks_all()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.vpc.v1.VpcV1API.update_private_network"><code class="docutils literal notranslate"><span class="pre">VpcV1API.update_private_network()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Scaleway Python SDK</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">scaleway.vpc.v1 package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/source/scaleway.vpc.v1.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="scaleway-vpc-v1-package">
+<h1>scaleway.vpc.v1 package<a class="headerlink" href="#scaleway-vpc-v1-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-scaleway.vpc.v1.api">
+<span id="scaleway-vpc-v1-api-module"></span><h2>scaleway.vpc.v1.api module<a class="headerlink" href="#module-scaleway.vpc.v1.api" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.api.VpcV1API">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.vpc.v1.api.</span></span><span class="sig-name descname"><span class="pre">VpcV1API</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scaleway_core.html#scaleway_core.client.Client" title="scaleway_core.client.Client"><span class="pre">Client</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bypass_validation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.vpc.v1.api.VpcV1API" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scaleway_core.html#scaleway_core.api.API" title="scaleway_core.api.API"><code class="xref py py-class docutils literal notranslate"><span class="pre">API</span></code></a></p>
+<p>This API allows you to manage your Virtual Private Clouds (VPCs) and Private Networks.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.api.VpcV1API.create_private_network">
+<span class="sig-name descname"><span class="pre">create_private_network</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subnets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway.vpc.v1.types.PrivateNetwork" title="scaleway.vpc.v1.types.PrivateNetwork"><span class="pre">PrivateNetwork</span></a></span></span><a class="headerlink" href="#scaleway.vpc.v1.api.VpcV1API.create_private_network" title="Permalink to this definition"></a></dt>
+<dd><p>Create a Private Network.
+Create a new Private Network. Once created, you can attach Scaleway resources in the same Availability Zone.
+:param zone: Zone to target. If none is passed will use default zone from the config.
+:param name: Name for the Private Network.
+:param project_id: Scaleway Project in which to create the Private Network.
+:param tags: Tags for the Private Network.
+:param subnets: Private Network subnets CIDR.
+:return: <code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateNetwork</span></code></p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">create_private_network</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.api.VpcV1API.delete_private_network">
+<span class="sig-name descname"><span class="pre">delete_private_network</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_network_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#scaleway.vpc.v1.api.VpcV1API.delete_private_network" title="Permalink to this definition"></a></dt>
+<dd><p>Delete a Private Network.
+Delete an existing Private Network. Note that you must first detach all resources from the network, in order to delete it.
+:param private_network_id: Private Network ID.
+:param zone: Zone to target. If none is passed will use default zone from the config.</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">delete_private_network</span><span class="p">(</span>
+    <span class="n">private_network_id</span><span class="o">=</span><span class="s2">&quot;example&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.api.VpcV1API.get_private_network">
+<span class="sig-name descname"><span class="pre">get_private_network</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_network_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway.vpc.v1.types.PrivateNetwork" title="scaleway.vpc.v1.types.PrivateNetwork"><span class="pre">PrivateNetwork</span></a></span></span><a class="headerlink" href="#scaleway.vpc.v1.api.VpcV1API.get_private_network" title="Permalink to this definition"></a></dt>
+<dd><p>Get a Private Network.
+Retrieve information about an existing Private Network, specified by its Private Network ID. Its full details are returned in the response object.
+:param private_network_id: Private Network ID.
+:param zone: Zone to target. If none is passed will use default zone from the config.
+:return: <code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateNetwork</span></code></p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">get_private_network</span><span class="p">(</span>
+    <span class="n">private_network_id</span><span class="o">=</span><span class="s2">&quot;example&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.api.VpcV1API.list_private_networks">
+<span class="sig-name descname"><span class="pre">list_private_networks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequestOrderBy" title="scaleway.vpc.v1.types.ListPrivateNetworksRequestOrderBy"><span class="pre">ListPrivateNetworksRequestOrderBy</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">organization_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_network_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_regional</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway.vpc.v1.types.ListPrivateNetworksResponse" title="scaleway.vpc.v1.types.ListPrivateNetworksResponse"><span class="pre">ListPrivateNetworksResponse</span></a></span></span><a class="headerlink" href="#scaleway.vpc.v1.api.VpcV1API.list_private_networks" title="Permalink to this definition"></a></dt>
+<dd><p>List Private Networks.
+List existing Private Networks in a specified Availability Zone. By default, the Private Networks returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
+:param zone: Zone to target. If none is passed will use default zone from the config.
+:param order_by: Sort order of the returned Private Networks.
+:param page: Page number to return, from the paginated results.
+:param page_size: Maximum number of Private Networks to return per page.
+:param name: Name to filter for. Only Private Networks with names containing this string will be returned.
+:param tags: Tags to filter for. Only Private Networks with one or more matching tags will be returned.
+:param organization_id: Organization ID to filter for. Only Private Networks belonging to this Organization will be returned.
+:param project_id: Project ID to filter for. Only Private Networks belonging to this Project will be returned.
+:param private_network_ids: Private Network IDs to filter for. Only Private Networks with one of these IDs will be returned.
+:param include_regional: Defines whether to include regional Private Networks in the response.
+:return: <code class="xref py py-class docutils literal notranslate"><span class="pre">ListPrivateNetworksResponse</span></code></p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">list_private_networks</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.api.VpcV1API.list_private_networks_all">
+<span class="sig-name descname"><span class="pre">list_private_networks_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequestOrderBy" title="scaleway.vpc.v1.types.ListPrivateNetworksRequestOrderBy"><span class="pre">ListPrivateNetworksRequestOrderBy</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">organization_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_network_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_regional</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.vpc.v1.types.PrivateNetwork" title="scaleway.vpc.v1.types.PrivateNetwork"><span class="pre">PrivateNetwork</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scaleway.vpc.v1.api.VpcV1API.list_private_networks_all" title="Permalink to this definition"></a></dt>
+<dd><p>List Private Networks.
+List existing Private Networks in a specified Availability Zone. By default, the Private Networks returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
+:param zone: Zone to target. If none is passed will use default zone from the config.
+:param order_by: Sort order of the returned Private Networks.
+:param page: Page number to return, from the paginated results.
+:param page_size: Maximum number of Private Networks to return per page.
+:param name: Name to filter for. Only Private Networks with names containing this string will be returned.
+:param tags: Tags to filter for. Only Private Networks with one or more matching tags will be returned.
+:param organization_id: Organization ID to filter for. Only Private Networks belonging to this Organization will be returned.
+:param project_id: Project ID to filter for. Only Private Networks belonging to this Project will be returned.
+:param private_network_ids: Private Network IDs to filter for. Only Private Networks with one of these IDs will be returned.
+:param include_regional: Defines whether to include regional Private Networks in the response.
+:return: <code class="xref py py-class docutils literal notranslate"><span class="pre">List[PrivateNetwork]</span></code></p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">list_private_networks_all</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.api.VpcV1API.update_private_network">
+<span class="sig-name descname"><span class="pre">update_private_network</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_network_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subnets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway.vpc.v1.types.PrivateNetwork" title="scaleway.vpc.v1.types.PrivateNetwork"><span class="pre">PrivateNetwork</span></a></span></span><a class="headerlink" href="#scaleway.vpc.v1.api.VpcV1API.update_private_network" title="Permalink to this definition"></a></dt>
+<dd><p>Update Private Network.
+Update parameters (such as name or tags) of an existing Private Network, specified by its Private Network ID.
+:param private_network_id: Private Network ID.
+:param zone: Zone to target. If none is passed will use default zone from the config.
+:param name: Name of the private network.
+:param tags: Tags for the Private Network.
+:param subnets: Private Network subnets CIDR (deprecated).
+:return: <code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateNetwork</span></code></p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">update_private_network</span><span class="p">(</span>
+    <span class="n">private_network_id</span><span class="o">=</span><span class="s2">&quot;example&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-scaleway.vpc.v1.marshalling">
+<span id="scaleway-vpc-v1-marshalling-module"></span><h2>scaleway.vpc.v1.marshalling module<a class="headerlink" href="#module-scaleway.vpc.v1.marshalling" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.marshalling.marshal_CreatePrivateNetworkRequest">
+<span class="sig-prename descclassname"><span class="pre">scaleway.vpc.v1.marshalling.</span></span><span class="sig-name descname"><span class="pre">marshal_CreatePrivateNetworkRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scaleway.vpc.v1.types.CreatePrivateNetworkRequest" title="scaleway.vpc.v1.types.CreatePrivateNetworkRequest"><span class="pre">CreatePrivateNetworkRequest</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">defaults</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.profile.ProfileDefaults" title="scaleway_core.profile.profile.ProfileDefaults"><span class="pre">ProfileDefaults</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scaleway.vpc.v1.marshalling.marshal_CreatePrivateNetworkRequest" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.marshalling.marshal_UpdatePrivateNetworkRequest">
+<span class="sig-prename descclassname"><span class="pre">scaleway.vpc.v1.marshalling.</span></span><span class="sig-name descname"><span class="pre">marshal_UpdatePrivateNetworkRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#scaleway.vpc.v1.types.UpdatePrivateNetworkRequest" title="scaleway.vpc.v1.types.UpdatePrivateNetworkRequest"><span class="pre">UpdatePrivateNetworkRequest</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">defaults</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scaleway_core.profile.html#scaleway_core.profile.profile.ProfileDefaults" title="scaleway_core.profile.profile.ProfileDefaults"><span class="pre">ProfileDefaults</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scaleway.vpc.v1.marshalling.marshal_UpdatePrivateNetworkRequest" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.marshalling.unmarshal_ListPrivateNetworksResponse">
+<span class="sig-prename descclassname"><span class="pre">scaleway.vpc.v1.marshalling.</span></span><span class="sig-name descname"><span class="pre">unmarshal_ListPrivateNetworksResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway.vpc.v1.types.ListPrivateNetworksResponse" title="scaleway.vpc.v1.types.ListPrivateNetworksResponse"><span class="pre">ListPrivateNetworksResponse</span></a></span></span><a class="headerlink" href="#scaleway.vpc.v1.marshalling.unmarshal_ListPrivateNetworksResponse" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.marshalling.unmarshal_PrivateNetwork">
+<span class="sig-prename descclassname"><span class="pre">scaleway.vpc.v1.marshalling.</span></span><span class="sig-name descname"><span class="pre">unmarshal_PrivateNetwork</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway.vpc.v1.types.PrivateNetwork" title="scaleway.vpc.v1.types.PrivateNetwork"><span class="pre">PrivateNetwork</span></a></span></span><a class="headerlink" href="#scaleway.vpc.v1.marshalling.unmarshal_PrivateNetwork" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-scaleway.vpc.v1.types">
+<span id="scaleway-vpc-v1-types-module"></span><h2>scaleway.vpc.v1.types module<a class="headerlink" href="#module-scaleway.vpc.v1.types" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.CreatePrivateNetworkRequest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.vpc.v1.types.</span></span><span class="sig-name descname"><span class="pre">CreatePrivateNetworkRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[Zone]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[List[str]]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subnets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[List[str]]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.vpc.v1.types.CreatePrivateNetworkRequest" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.CreatePrivateNetworkRequest.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.types.CreatePrivateNetworkRequest.name" title="Permalink to this definition"></a></dt>
+<dd><p>Name for the Private Network.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.CreatePrivateNetworkRequest.project_id">
+<span class="sig-name descname"><span class="pre">project_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.types.CreatePrivateNetworkRequest.project_id" title="Permalink to this definition"></a></dt>
+<dd><p>Scaleway Project in which to create the Private Network.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.CreatePrivateNetworkRequest.subnets">
+<span class="sig-name descname"><span class="pre">subnets</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.types.CreatePrivateNetworkRequest.subnets" title="Permalink to this definition"></a></dt>
+<dd><p>Private Network subnets CIDR.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.CreatePrivateNetworkRequest.tags">
+<span class="sig-name descname"><span class="pre">tags</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.types.CreatePrivateNetworkRequest.tags" title="Permalink to this definition"></a></dt>
+<dd><p>Tags for the Private Network.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.CreatePrivateNetworkRequest.zone">
+<span class="sig-name descname"><span class="pre">zone</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.types.CreatePrivateNetworkRequest.zone" title="Permalink to this definition"></a></dt>
+<dd><p>Zone to target. If none is passed will use default zone from the config.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.DeletePrivateNetworkRequest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.vpc.v1.types.</span></span><span class="sig-name descname"><span class="pre">DeletePrivateNetworkRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">private_network_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[Zone]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.vpc.v1.types.DeletePrivateNetworkRequest" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.DeletePrivateNetworkRequest.private_network_id">
+<span class="sig-name descname"><span class="pre">private_network_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.vpc.v1.types.DeletePrivateNetworkRequest.private_network_id" title="Permalink to this definition"></a></dt>
+<dd><p>Private Network ID.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.DeletePrivateNetworkRequest.zone">
+<span class="sig-name descname"><span class="pre">zone</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.types.DeletePrivateNetworkRequest.zone" title="Permalink to this definition"></a></dt>
+<dd><p>Zone to target. If none is passed will use default zone from the config.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.GetPrivateNetworkRequest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.vpc.v1.types.</span></span><span class="sig-name descname"><span class="pre">GetPrivateNetworkRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">private_network_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[Zone]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.vpc.v1.types.GetPrivateNetworkRequest" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.GetPrivateNetworkRequest.private_network_id">
+<span class="sig-name descname"><span class="pre">private_network_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.vpc.v1.types.GetPrivateNetworkRequest.private_network_id" title="Permalink to this definition"></a></dt>
+<dd><p>Private Network ID.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.GetPrivateNetworkRequest.zone">
+<span class="sig-name descname"><span class="pre">zone</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.types.GetPrivateNetworkRequest.zone" title="Permalink to this definition"></a></dt>
+<dd><p>Zone to target. If none is passed will use default zone from the config.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.ListPrivateNetworksRequest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.vpc.v1.types.</span></span><span class="sig-name descname"><span class="pre">ListPrivateNetworksRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[Zone]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[ListPrivateNetworksRequestOrderBy]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[int]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[int]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[List[str]]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">organization_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_network_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[List[str]]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_regional</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[bool]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequest" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.ListPrivateNetworksRequest.include_regional">
+<span class="sig-name descname"><span class="pre">include_regional</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequest.include_regional" title="Permalink to this definition"></a></dt>
+<dd><p>Defines whether to include regional Private Networks in the response.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.ListPrivateNetworksRequest.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequest.name" title="Permalink to this definition"></a></dt>
+<dd><p>Name to filter for. Only Private Networks with names containing this string will be returned.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.ListPrivateNetworksRequest.order_by">
+<span class="sig-name descname"><span class="pre">order_by</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequestOrderBy" title="scaleway.vpc.v1.types.ListPrivateNetworksRequestOrderBy"><span class="pre">ListPrivateNetworksRequestOrderBy</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequest.order_by" title="Permalink to this definition"></a></dt>
+<dd><p>Sort order of the returned Private Networks.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.ListPrivateNetworksRequest.organization_id">
+<span class="sig-name descname"><span class="pre">organization_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequest.organization_id" title="Permalink to this definition"></a></dt>
+<dd><p>Organization ID to filter for. Only Private Networks belonging to this Organization will be returned.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.ListPrivateNetworksRequest.page">
+<span class="sig-name descname"><span class="pre">page</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequest.page" title="Permalink to this definition"></a></dt>
+<dd><p>Page number to return, from the paginated results.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.ListPrivateNetworksRequest.page_size">
+<span class="sig-name descname"><span class="pre">page_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequest.page_size" title="Permalink to this definition"></a></dt>
+<dd><p>Maximum number of Private Networks to return per page.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.ListPrivateNetworksRequest.private_network_ids">
+<span class="sig-name descname"><span class="pre">private_network_ids</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequest.private_network_ids" title="Permalink to this definition"></a></dt>
+<dd><p>Private Network IDs to filter for. Only Private Networks with one of these IDs will be returned.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.ListPrivateNetworksRequest.project_id">
+<span class="sig-name descname"><span class="pre">project_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequest.project_id" title="Permalink to this definition"></a></dt>
+<dd><p>Project ID to filter for. Only Private Networks belonging to this Project will be returned.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.ListPrivateNetworksRequest.tags">
+<span class="sig-name descname"><span class="pre">tags</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequest.tags" title="Permalink to this definition"></a></dt>
+<dd><p>Tags to filter for. Only Private Networks with one or more matching tags will be returned.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.ListPrivateNetworksRequest.zone">
+<span class="sig-name descname"><span class="pre">zone</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequest.zone" title="Permalink to this definition"></a></dt>
+<dd><p>Zone to target. If none is passed will use default zone from the config.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.ListPrivateNetworksRequestOrderBy">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.vpc.v1.types.</span></span><span class="sig-name descname"><span class="pre">ListPrivateNetworksRequestOrderBy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequestOrderBy" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.ListPrivateNetworksRequestOrderBy.CREATED_AT_ASC">
+<span class="sig-name descname"><span class="pre">CREATED_AT_ASC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'created_at_asc'</span></em><a class="headerlink" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequestOrderBy.CREATED_AT_ASC" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.ListPrivateNetworksRequestOrderBy.CREATED_AT_DESC">
+<span class="sig-name descname"><span class="pre">CREATED_AT_DESC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'created_at_desc'</span></em><a class="headerlink" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequestOrderBy.CREATED_AT_DESC" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.ListPrivateNetworksRequestOrderBy.NAME_ASC">
+<span class="sig-name descname"><span class="pre">NAME_ASC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'name_asc'</span></em><a class="headerlink" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequestOrderBy.NAME_ASC" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.ListPrivateNetworksRequestOrderBy.NAME_DESC">
+<span class="sig-name descname"><span class="pre">NAME_DESC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'name_desc'</span></em><a class="headerlink" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequestOrderBy.NAME_DESC" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.ListPrivateNetworksResponse">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.vpc.v1.types.</span></span><span class="sig-name descname"><span class="pre">ListPrivateNetworksResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">private_networks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'List[PrivateNetwork]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'int'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.vpc.v1.types.ListPrivateNetworksResponse" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.ListPrivateNetworksResponse.private_networks">
+<span class="sig-name descname"><span class="pre">private_networks</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.vpc.v1.types.PrivateNetwork" title="scaleway.vpc.v1.types.PrivateNetwork"><span class="pre">PrivateNetwork</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.types.ListPrivateNetworksResponse.private_networks" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.ListPrivateNetworksResponse.total_count">
+<span class="sig-name descname"><span class="pre">total_count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#scaleway.vpc.v1.types.ListPrivateNetworksResponse.total_count" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.PrivateNetwork">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.vpc.v1.types.</span></span><span class="sig-name descname"><span class="pre">PrivateNetwork</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">organization_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Zone'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'List[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subnets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'List[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">created_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[datetime]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">updated_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[datetime]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.vpc.v1.types.PrivateNetwork" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.PrivateNetwork.created_at">
+<span class="sig-name descname"><span class="pre">created_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.types.PrivateNetwork.created_at" title="Permalink to this definition"></a></dt>
+<dd><p>Date the Private Network was created.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.PrivateNetwork.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.vpc.v1.types.PrivateNetwork.id" title="Permalink to this definition"></a></dt>
+<dd><p>Private Network ID.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.PrivateNetwork.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.vpc.v1.types.PrivateNetwork.name" title="Permalink to this definition"></a></dt>
+<dd><p>Private Network name.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.PrivateNetwork.organization_id">
+<span class="sig-name descname"><span class="pre">organization_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.vpc.v1.types.PrivateNetwork.organization_id" title="Permalink to this definition"></a></dt>
+<dd><p>Scaleway Organization the Private Network belongs to.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.PrivateNetwork.project_id">
+<span class="sig-name descname"><span class="pre">project_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.vpc.v1.types.PrivateNetwork.project_id" title="Permalink to this definition"></a></dt>
+<dd><p>Scaleway Project the Private Network belongs to.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.PrivateNetwork.subnets">
+<span class="sig-name descname"><span class="pre">subnets</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.types.PrivateNetwork.subnets" title="Permalink to this definition"></a></dt>
+<dd><p>Private Network subnets CIDR.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.PrivateNetwork.tags">
+<span class="sig-name descname"><span class="pre">tags</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.types.PrivateNetwork.tags" title="Permalink to this definition"></a></dt>
+<dd><p>Tags of the Private Network.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.PrivateNetwork.updated_at">
+<span class="sig-name descname"><span class="pre">updated_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.types.PrivateNetwork.updated_at" title="Permalink to this definition"></a></dt>
+<dd><p>Date the Private Network was last modified.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.PrivateNetwork.zone">
+<span class="sig-name descname"><span class="pre">zone</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.vpc.v1.types.PrivateNetwork.zone" title="Permalink to this definition"></a></dt>
+<dd><p>Availability Zone in which the Private Network is available.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.UpdatePrivateNetworkRequest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.vpc.v1.types.</span></span><span class="sig-name descname"><span class="pre">UpdatePrivateNetworkRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">private_network_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[Zone]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[List[str]]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subnets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[List[str]]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.vpc.v1.types.UpdatePrivateNetworkRequest" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.UpdatePrivateNetworkRequest.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.types.UpdatePrivateNetworkRequest.name" title="Permalink to this definition"></a></dt>
+<dd><p>Name of the private network.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.UpdatePrivateNetworkRequest.private_network_id">
+<span class="sig-name descname"><span class="pre">private_network_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.vpc.v1.types.UpdatePrivateNetworkRequest.private_network_id" title="Permalink to this definition"></a></dt>
+<dd><p>Private Network ID.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.UpdatePrivateNetworkRequest.subnets">
+<span class="sig-name descname"><span class="pre">subnets</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.types.UpdatePrivateNetworkRequest.subnets" title="Permalink to this definition"></a></dt>
+<dd><p>Private Network subnets CIDR (deprecated).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.UpdatePrivateNetworkRequest.tags">
+<span class="sig-name descname"><span class="pre">tags</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.types.UpdatePrivateNetworkRequest.tags" title="Permalink to this definition"></a></dt>
+<dd><p>Tags for the Private Network.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.types.UpdatePrivateNetworkRequest.zone">
+<span class="sig-name descname"><span class="pre">zone</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.types.UpdatePrivateNetworkRequest.zone" title="Permalink to this definition"></a></dt>
+<dd><p>Zone to target. If none is passed will use default zone from the config.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-scaleway.vpc.v1">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-scaleway.vpc.v1" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.CreatePrivateNetworkRequest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.vpc.v1.</span></span><span class="sig-name descname"><span class="pre">CreatePrivateNetworkRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[Zone]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[List[str]]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subnets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[List[str]]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.vpc.v1.CreatePrivateNetworkRequest" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.CreatePrivateNetworkRequest.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.CreatePrivateNetworkRequest.name" title="Permalink to this definition"></a></dt>
+<dd><p>Name for the Private Network.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.CreatePrivateNetworkRequest.project_id">
+<span class="sig-name descname"><span class="pre">project_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.CreatePrivateNetworkRequest.project_id" title="Permalink to this definition"></a></dt>
+<dd><p>Scaleway Project in which to create the Private Network.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.CreatePrivateNetworkRequest.subnets">
+<span class="sig-name descname"><span class="pre">subnets</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.CreatePrivateNetworkRequest.subnets" title="Permalink to this definition"></a></dt>
+<dd><p>Private Network subnets CIDR.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.CreatePrivateNetworkRequest.tags">
+<span class="sig-name descname"><span class="pre">tags</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.CreatePrivateNetworkRequest.tags" title="Permalink to this definition"></a></dt>
+<dd><p>Tags for the Private Network.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.CreatePrivateNetworkRequest.zone">
+<span class="sig-name descname"><span class="pre">zone</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.CreatePrivateNetworkRequest.zone" title="Permalink to this definition"></a></dt>
+<dd><p>Zone to target. If none is passed will use default zone from the config.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.DeletePrivateNetworkRequest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.vpc.v1.</span></span><span class="sig-name descname"><span class="pre">DeletePrivateNetworkRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">private_network_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[Zone]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.vpc.v1.DeletePrivateNetworkRequest" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.DeletePrivateNetworkRequest.private_network_id">
+<span class="sig-name descname"><span class="pre">private_network_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.vpc.v1.DeletePrivateNetworkRequest.private_network_id" title="Permalink to this definition"></a></dt>
+<dd><p>Private Network ID.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.DeletePrivateNetworkRequest.zone">
+<span class="sig-name descname"><span class="pre">zone</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.DeletePrivateNetworkRequest.zone" title="Permalink to this definition"></a></dt>
+<dd><p>Zone to target. If none is passed will use default zone from the config.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.GetPrivateNetworkRequest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.vpc.v1.</span></span><span class="sig-name descname"><span class="pre">GetPrivateNetworkRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">private_network_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[Zone]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.vpc.v1.GetPrivateNetworkRequest" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.GetPrivateNetworkRequest.private_network_id">
+<span class="sig-name descname"><span class="pre">private_network_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.vpc.v1.GetPrivateNetworkRequest.private_network_id" title="Permalink to this definition"></a></dt>
+<dd><p>Private Network ID.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.GetPrivateNetworkRequest.zone">
+<span class="sig-name descname"><span class="pre">zone</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.GetPrivateNetworkRequest.zone" title="Permalink to this definition"></a></dt>
+<dd><p>Zone to target. If none is passed will use default zone from the config.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.ListPrivateNetworksRequest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.vpc.v1.</span></span><span class="sig-name descname"><span class="pre">ListPrivateNetworksRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[Zone]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[ListPrivateNetworksRequestOrderBy]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[int]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[int]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[List[str]]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">organization_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_network_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[List[str]]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_regional</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[bool]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.vpc.v1.ListPrivateNetworksRequest" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.ListPrivateNetworksRequest.include_regional">
+<span class="sig-name descname"><span class="pre">include_regional</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.ListPrivateNetworksRequest.include_regional" title="Permalink to this definition"></a></dt>
+<dd><p>Defines whether to include regional Private Networks in the response.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.ListPrivateNetworksRequest.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.ListPrivateNetworksRequest.name" title="Permalink to this definition"></a></dt>
+<dd><p>Name to filter for. Only Private Networks with names containing this string will be returned.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.ListPrivateNetworksRequest.order_by">
+<span class="sig-name descname"><span class="pre">order_by</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequestOrderBy" title="scaleway.vpc.v1.types.ListPrivateNetworksRequestOrderBy"><span class="pre">ListPrivateNetworksRequestOrderBy</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.ListPrivateNetworksRequest.order_by" title="Permalink to this definition"></a></dt>
+<dd><p>Sort order of the returned Private Networks.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.ListPrivateNetworksRequest.organization_id">
+<span class="sig-name descname"><span class="pre">organization_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.ListPrivateNetworksRequest.organization_id" title="Permalink to this definition"></a></dt>
+<dd><p>Organization ID to filter for. Only Private Networks belonging to this Organization will be returned.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.ListPrivateNetworksRequest.page">
+<span class="sig-name descname"><span class="pre">page</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.ListPrivateNetworksRequest.page" title="Permalink to this definition"></a></dt>
+<dd><p>Page number to return, from the paginated results.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.ListPrivateNetworksRequest.page_size">
+<span class="sig-name descname"><span class="pre">page_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.ListPrivateNetworksRequest.page_size" title="Permalink to this definition"></a></dt>
+<dd><p>Maximum number of Private Networks to return per page.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.ListPrivateNetworksRequest.private_network_ids">
+<span class="sig-name descname"><span class="pre">private_network_ids</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.ListPrivateNetworksRequest.private_network_ids" title="Permalink to this definition"></a></dt>
+<dd><p>Private Network IDs to filter for. Only Private Networks with one of these IDs will be returned.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.ListPrivateNetworksRequest.project_id">
+<span class="sig-name descname"><span class="pre">project_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.ListPrivateNetworksRequest.project_id" title="Permalink to this definition"></a></dt>
+<dd><p>Project ID to filter for. Only Private Networks belonging to this Project will be returned.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.ListPrivateNetworksRequest.tags">
+<span class="sig-name descname"><span class="pre">tags</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.ListPrivateNetworksRequest.tags" title="Permalink to this definition"></a></dt>
+<dd><p>Tags to filter for. Only Private Networks with one or more matching tags will be returned.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.ListPrivateNetworksRequest.zone">
+<span class="sig-name descname"><span class="pre">zone</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.ListPrivateNetworksRequest.zone" title="Permalink to this definition"></a></dt>
+<dd><p>Zone to target. If none is passed will use default zone from the config.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.ListPrivateNetworksRequestOrderBy">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.vpc.v1.</span></span><span class="sig-name descname"><span class="pre">ListPrivateNetworksRequestOrderBy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.vpc.v1.ListPrivateNetworksRequestOrderBy" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.ListPrivateNetworksRequestOrderBy.CREATED_AT_ASC">
+<span class="sig-name descname"><span class="pre">CREATED_AT_ASC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'created_at_asc'</span></em><a class="headerlink" href="#scaleway.vpc.v1.ListPrivateNetworksRequestOrderBy.CREATED_AT_ASC" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.ListPrivateNetworksRequestOrderBy.CREATED_AT_DESC">
+<span class="sig-name descname"><span class="pre">CREATED_AT_DESC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'created_at_desc'</span></em><a class="headerlink" href="#scaleway.vpc.v1.ListPrivateNetworksRequestOrderBy.CREATED_AT_DESC" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.ListPrivateNetworksRequestOrderBy.NAME_ASC">
+<span class="sig-name descname"><span class="pre">NAME_ASC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'name_asc'</span></em><a class="headerlink" href="#scaleway.vpc.v1.ListPrivateNetworksRequestOrderBy.NAME_ASC" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.ListPrivateNetworksRequestOrderBy.NAME_DESC">
+<span class="sig-name descname"><span class="pre">NAME_DESC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'name_desc'</span></em><a class="headerlink" href="#scaleway.vpc.v1.ListPrivateNetworksRequestOrderBy.NAME_DESC" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.ListPrivateNetworksResponse">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.vpc.v1.</span></span><span class="sig-name descname"><span class="pre">ListPrivateNetworksResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">private_networks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'List[PrivateNetwork]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'int'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.vpc.v1.ListPrivateNetworksResponse" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.ListPrivateNetworksResponse.private_networks">
+<span class="sig-name descname"><span class="pre">private_networks</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.vpc.v1.types.PrivateNetwork" title="scaleway.vpc.v1.types.PrivateNetwork"><span class="pre">PrivateNetwork</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.ListPrivateNetworksResponse.private_networks" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.ListPrivateNetworksResponse.total_count">
+<span class="sig-name descname"><span class="pre">total_count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#scaleway.vpc.v1.ListPrivateNetworksResponse.total_count" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.PrivateNetwork">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.vpc.v1.</span></span><span class="sig-name descname"><span class="pre">PrivateNetwork</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">organization_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Zone'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'List[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subnets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'List[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">created_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[datetime]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">updated_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[datetime]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.vpc.v1.PrivateNetwork" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.PrivateNetwork.created_at">
+<span class="sig-name descname"><span class="pre">created_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.PrivateNetwork.created_at" title="Permalink to this definition"></a></dt>
+<dd><p>Date the Private Network was created.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.PrivateNetwork.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.vpc.v1.PrivateNetwork.id" title="Permalink to this definition"></a></dt>
+<dd><p>Private Network ID.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.PrivateNetwork.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.vpc.v1.PrivateNetwork.name" title="Permalink to this definition"></a></dt>
+<dd><p>Private Network name.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.PrivateNetwork.organization_id">
+<span class="sig-name descname"><span class="pre">organization_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.vpc.v1.PrivateNetwork.organization_id" title="Permalink to this definition"></a></dt>
+<dd><p>Scaleway Organization the Private Network belongs to.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.PrivateNetwork.project_id">
+<span class="sig-name descname"><span class="pre">project_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.vpc.v1.PrivateNetwork.project_id" title="Permalink to this definition"></a></dt>
+<dd><p>Scaleway Project the Private Network belongs to.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.PrivateNetwork.subnets">
+<span class="sig-name descname"><span class="pre">subnets</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.PrivateNetwork.subnets" title="Permalink to this definition"></a></dt>
+<dd><p>Private Network subnets CIDR.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.PrivateNetwork.tags">
+<span class="sig-name descname"><span class="pre">tags</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.PrivateNetwork.tags" title="Permalink to this definition"></a></dt>
+<dd><p>Tags of the Private Network.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.PrivateNetwork.updated_at">
+<span class="sig-name descname"><span class="pre">updated_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">datetime</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.PrivateNetwork.updated_at" title="Permalink to this definition"></a></dt>
+<dd><p>Date the Private Network was last modified.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.PrivateNetwork.zone">
+<span class="sig-name descname"><span class="pre">zone</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.vpc.v1.PrivateNetwork.zone" title="Permalink to this definition"></a></dt>
+<dd><p>Availability Zone in which the Private Network is available.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.UpdatePrivateNetworkRequest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.vpc.v1.</span></span><span class="sig-name descname"><span class="pre">UpdatePrivateNetworkRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">private_network_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[Zone]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[str]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[List[str]]'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subnets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Optional[List[str]]'</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.vpc.v1.UpdatePrivateNetworkRequest" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.UpdatePrivateNetworkRequest.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.UpdatePrivateNetworkRequest.name" title="Permalink to this definition"></a></dt>
+<dd><p>Name of the private network.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.UpdatePrivateNetworkRequest.private_network_id">
+<span class="sig-name descname"><span class="pre">private_network_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#scaleway.vpc.v1.UpdatePrivateNetworkRequest.private_network_id" title="Permalink to this definition"></a></dt>
+<dd><p>Private Network ID.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.UpdatePrivateNetworkRequest.subnets">
+<span class="sig-name descname"><span class="pre">subnets</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.UpdatePrivateNetworkRequest.subnets" title="Permalink to this definition"></a></dt>
+<dd><p>Private Network subnets CIDR (deprecated).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.UpdatePrivateNetworkRequest.tags">
+<span class="sig-name descname"><span class="pre">tags</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.UpdatePrivateNetworkRequest.tags" title="Permalink to this definition"></a></dt>
+<dd><p>Tags for the Private Network.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.UpdatePrivateNetworkRequest.zone">
+<span class="sig-name descname"><span class="pre">zone</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#scaleway.vpc.v1.UpdatePrivateNetworkRequest.zone" title="Permalink to this definition"></a></dt>
+<dd><p>Zone to target. If none is passed will use default zone from the config.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.VpcV1API">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">scaleway.vpc.v1.</span></span><span class="sig-name descname"><span class="pre">VpcV1API</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="scaleway_core.html#scaleway_core.client.Client" title="scaleway_core.client.Client"><span class="pre">Client</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bypass_validation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scaleway.vpc.v1.VpcV1API" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="scaleway_core.html#scaleway_core.api.API" title="scaleway_core.api.API"><code class="xref py py-class docutils literal notranslate"><span class="pre">API</span></code></a></p>
+<p>This API allows you to manage your Virtual Private Clouds (VPCs) and Private Networks.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.VpcV1API.create_private_network">
+<span class="sig-name descname"><span class="pre">create_private_network</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subnets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway.vpc.v1.types.PrivateNetwork" title="scaleway.vpc.v1.types.PrivateNetwork"><span class="pre">PrivateNetwork</span></a></span></span><a class="headerlink" href="#scaleway.vpc.v1.VpcV1API.create_private_network" title="Permalink to this definition"></a></dt>
+<dd><p>Create a Private Network.
+Create a new Private Network. Once created, you can attach Scaleway resources in the same Availability Zone.
+:param zone: Zone to target. If none is passed will use default zone from the config.
+:param name: Name for the Private Network.
+:param project_id: Scaleway Project in which to create the Private Network.
+:param tags: Tags for the Private Network.
+:param subnets: Private Network subnets CIDR.
+:return: <a class="reference internal" href="#scaleway.vpc.v1.PrivateNetwork" title="scaleway.vpc.v1.PrivateNetwork"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateNetwork</span></code></a></p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">create_private_network</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.VpcV1API.delete_private_network">
+<span class="sig-name descname"><span class="pre">delete_private_network</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_network_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#scaleway.vpc.v1.VpcV1API.delete_private_network" title="Permalink to this definition"></a></dt>
+<dd><p>Delete a Private Network.
+Delete an existing Private Network. Note that you must first detach all resources from the network, in order to delete it.
+:param private_network_id: Private Network ID.
+:param zone: Zone to target. If none is passed will use default zone from the config.</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">delete_private_network</span><span class="p">(</span>
+    <span class="n">private_network_id</span><span class="o">=</span><span class="s2">&quot;example&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.VpcV1API.get_private_network">
+<span class="sig-name descname"><span class="pre">get_private_network</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_network_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway.vpc.v1.types.PrivateNetwork" title="scaleway.vpc.v1.types.PrivateNetwork"><span class="pre">PrivateNetwork</span></a></span></span><a class="headerlink" href="#scaleway.vpc.v1.VpcV1API.get_private_network" title="Permalink to this definition"></a></dt>
+<dd><p>Get a Private Network.
+Retrieve information about an existing Private Network, specified by its Private Network ID. Its full details are returned in the response object.
+:param private_network_id: Private Network ID.
+:param zone: Zone to target. If none is passed will use default zone from the config.
+:return: <a class="reference internal" href="#scaleway.vpc.v1.PrivateNetwork" title="scaleway.vpc.v1.PrivateNetwork"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateNetwork</span></code></a></p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">get_private_network</span><span class="p">(</span>
+    <span class="n">private_network_id</span><span class="o">=</span><span class="s2">&quot;example&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.VpcV1API.list_private_networks">
+<span class="sig-name descname"><span class="pre">list_private_networks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequestOrderBy" title="scaleway.vpc.v1.types.ListPrivateNetworksRequestOrderBy"><span class="pre">ListPrivateNetworksRequestOrderBy</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">organization_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_network_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_regional</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway.vpc.v1.types.ListPrivateNetworksResponse" title="scaleway.vpc.v1.types.ListPrivateNetworksResponse"><span class="pre">ListPrivateNetworksResponse</span></a></span></span><a class="headerlink" href="#scaleway.vpc.v1.VpcV1API.list_private_networks" title="Permalink to this definition"></a></dt>
+<dd><p>List Private Networks.
+List existing Private Networks in a specified Availability Zone. By default, the Private Networks returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
+:param zone: Zone to target. If none is passed will use default zone from the config.
+:param order_by: Sort order of the returned Private Networks.
+:param page: Page number to return, from the paginated results.
+:param page_size: Maximum number of Private Networks to return per page.
+:param name: Name to filter for. Only Private Networks with names containing this string will be returned.
+:param tags: Tags to filter for. Only Private Networks with one or more matching tags will be returned.
+:param organization_id: Organization ID to filter for. Only Private Networks belonging to this Organization will be returned.
+:param project_id: Project ID to filter for. Only Private Networks belonging to this Project will be returned.
+:param private_network_ids: Private Network IDs to filter for. Only Private Networks with one of these IDs will be returned.
+:param include_regional: Defines whether to include regional Private Networks in the response.
+:return: <a class="reference internal" href="#scaleway.vpc.v1.ListPrivateNetworksResponse" title="scaleway.vpc.v1.ListPrivateNetworksResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">ListPrivateNetworksResponse</span></code></a></p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">list_private_networks</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.VpcV1API.list_private_networks_all">
+<span class="sig-name descname"><span class="pre">list_private_networks_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.vpc.v1.types.ListPrivateNetworksRequestOrderBy" title="scaleway.vpc.v1.types.ListPrivateNetworksRequestOrderBy"><span class="pre">ListPrivateNetworksRequestOrderBy</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">organization_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_network_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_regional</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scaleway.vpc.v1.types.PrivateNetwork" title="scaleway.vpc.v1.types.PrivateNetwork"><span class="pre">PrivateNetwork</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scaleway.vpc.v1.VpcV1API.list_private_networks_all" title="Permalink to this definition"></a></dt>
+<dd><p>List Private Networks.
+List existing Private Networks in a specified Availability Zone. By default, the Private Networks returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
+:param zone: Zone to target. If none is passed will use default zone from the config.
+:param order_by: Sort order of the returned Private Networks.
+:param page: Page number to return, from the paginated results.
+:param page_size: Maximum number of Private Networks to return per page.
+:param name: Name to filter for. Only Private Networks with names containing this string will be returned.
+:param tags: Tags to filter for. Only Private Networks with one or more matching tags will be returned.
+:param organization_id: Organization ID to filter for. Only Private Networks belonging to this Organization will be returned.
+:param project_id: Project ID to filter for. Only Private Networks belonging to this Project will be returned.
+:param private_network_ids: Private Network IDs to filter for. Only Private Networks with one of these IDs will be returned.
+:param include_regional: Defines whether to include regional Private Networks in the response.
+:return: <code class="xref py py-class docutils literal notranslate"><span class="pre">List[PrivateNetwork]</span></code></p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">list_private_networks_all</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scaleway.vpc.v1.VpcV1API.update_private_network">
+<span class="sig-name descname"><span class="pre">update_private_network</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_network_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subnets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#scaleway.vpc.v1.types.PrivateNetwork" title="scaleway.vpc.v1.types.PrivateNetwork"><span class="pre">PrivateNetwork</span></a></span></span><a class="headerlink" href="#scaleway.vpc.v1.VpcV1API.update_private_network" title="Permalink to this definition"></a></dt>
+<dd><p>Update Private Network.
+Update parameters (such as name or tags) of an existing Private Network, specified by its Private Network ID.
+:param private_network_id: Private Network ID.
+:param zone: Zone to target. If none is passed will use default zone from the config.
+:param name: Name of the private network.
+:param tags: Tags for the Private Network.
+:param subnets: Private Network subnets CIDR (deprecated).
+:return: <a class="reference internal" href="#scaleway.vpc.v1.PrivateNetwork" title="scaleway.vpc.v1.PrivateNetwork"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateNetwork</span></code></a></p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">update_private_network</span><span class="p">(</span>
+    <span class="n">private_network_id</span><span class="o">=</span><span class="s2">&quot;example&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Scaleway.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scaleway Python SDK documentation &mdash; Scaleway Python SDK  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            Scaleway Python SDK
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Scaleway Python SDK documentation</a><ul>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#initialization">Initialization</a><ul>
+<li><a class="reference internal" href="#scaleway.Client"><code class="docutils literal notranslate"><span class="pre">Client()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.Client.from_config_file_and_env"><code class="docutils literal notranslate"><span class="pre">from_config_file_and_env()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pagination">Pagination</a><ul>
+<li><a class="reference internal" href="#scaleway.registry.v1.RegistryV1API.list_namespaces"><code class="docutils literal notranslate"><span class="pre">list_namespaces()</span></code></a></li>
+<li><a class="reference internal" href="#scaleway.registry.v1.RegistryV1API.list_namespaces_all"><code class="docutils literal notranslate"><span class="pre">list_namespaces_all()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#types">Types</a></li>
+<li><a class="reference internal" href="#logging">Logging</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Scaleway Python SDK</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Scaleway Python SDK documentation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="scaleway-python-sdk-documentation">
+<h1>Scaleway Python SDK documentation<a class="headerlink" href="#scaleway-python-sdk-documentation" title="Permalink to this heading"></a></h1>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h2>
+<p>This library is made to work with Python 3.8 but should work on the latest versions too.</p>
+<p>The SDK is available in two flavors, a synchronous and an asynchronous one.</p>
+<p>Install from PyPI:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">scaleway</span>
+</pre></div>
+</div>
+<p>Install from PyPI (async):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">scaleway</span><span class="o">-</span><span class="k">async</span>
+</pre></div>
+</div>
+</section>
+<section id="initialization">
+<h2>Initialization<a class="headerlink" href="#initialization" title="Permalink to this heading"></a></h2>
+<p>You’ll need a pair of access and secret keys to connect to Scaleway API. Please check the <a class="reference external" href="https://www.scaleway.com/en/docs/identity-and-access-management/iam/how-to/create-api-keys">documentation</a> on how to retrieve them.</p>
+<p><a class="reference internal" href="source/scaleway.html#module-scaleway" title="scaleway"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scaleway</span></code></a> APIs must be initialized with a <a class="reference internal" href="source/scaleway.html#scaleway.Client" title="scaleway.Client"><code class="xref py py-class docutils literal notranslate"><span class="pre">scaleway.Client</span></code></a>.</p>
+<p>A <strong>minimal setup</strong> would look like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scaleway</span> <span class="kn">import</span> <span class="n">Client</span>
+<span class="kn">from</span> <span class="nn">scaleway.registry.v1</span> <span class="kn">import</span> <span class="n">RegistryV1API</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span>
+   <span class="n">access_key</span><span class="o">=</span><span class="s2">&quot;SCWXXXXXXXXXXXXXXXXX&quot;</span><span class="p">,</span>
+   <span class="n">secret_key</span><span class="o">=</span><span class="s2">&quot;xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx&quot;</span><span class="p">,</span>
+   <span class="n">default_project_id</span><span class="o">=</span><span class="s2">&quot;xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx&quot;</span><span class="p">,</span>
+   <span class="n">default_region</span><span class="o">=</span><span class="s2">&quot;fr-par&quot;</span><span class="p">,</span>
+   <span class="n">default_zone</span><span class="o">=</span><span class="s2">&quot;fr-par-1&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">registry_api</span> <span class="o">=</span> <span class="n">RegistryV1API</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway.Client">
+<span class="sig-prename descclassname"><span class="pre">scaleway.</span></span><span class="sig-name descname"><span class="pre">Client</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">access_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">secret_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'https://api.scaleway.com'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_allow_insecure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_agent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'scaleway-sdk-python/2.0.0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_organization_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_region</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_zone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_page_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#scaleway.Client" title="Permalink to this definition"></a></dt>
+<dd><p>Profile(access_key: ‘Optional[str]’ = None, secret_key: ‘Optional[str]’ = None, api_url: ‘str’ = ‘<a class="reference external" href="https://api.scaleway.com">https://api.scaleway.com</a>’, api_allow_insecure: ‘bool’ = False, user_agent: ‘str’ = ‘scaleway-sdk-python/2.0.0’, default_organization_id: ‘Optional[str]’ = None, default_project_id: ‘Optional[str]’ = None, default_region: ‘Optional[str]’ = None, default_zone: ‘Optional[str]’ = None, default_page_size: ‘Optional[int]’ = None)</p>
+</dd></dl>
+
+<p>For a simpler setup, you could retrieve the profile from either the configuration file or the environment variables:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scaleway</span> <span class="kn">import</span> <span class="n">Client</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">from_config_file_and_env</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway.Client.from_config_file_and_env">
+<span class="sig-prename descclassname"><span class="pre">scaleway.Client.</span></span><span class="sig-name descname"><span class="pre">from_config_file_and_env</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ProfileSelf</span></span></span><a class="headerlink" href="#scaleway.Client.from_config_file_and_env" title="Permalink to this definition"></a></dt>
+<dd><p>Loads profile from a config file and environment variables.</p>
+<dl class="simple">
+<dt>Environment variables override config file.</dt><dd><ul class="simple">
+<li><p>If config file is not found, the profile is still loaded from environment variables.</p></li>
+<li><p>If you want it to throw an error in case of missing or invalid config file, use <cite>Profile.from_config_file</cite> and <cite>Profile.from_env</cite> instead.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="pagination">
+<h2>Pagination<a class="headerlink" href="#pagination" title="Permalink to this heading"></a></h2>
+<p>We included some pagination helpers for the methods supporting the feature. Let’s take <a class="reference internal" href="source/scaleway.registry.v1.html#scaleway.registry.v1.RegistryV1API.list_namespaces" title="scaleway.registry.v1.RegistryV1API.list_namespaces"><code class="xref py py-meth docutils literal notranslate"><span class="pre">scaleway.registry.v1.RegistryV1API.list_namespaces()</span></code></a> as an example:</p>
+<p>Retrieve the <strong>first page</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">list_namespaces</span><span class="p">(</span>
+   <span class="c1"># page=1,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway.registry.v1.RegistryV1API.list_namespaces">
+<span class="sig-prename descclassname"><span class="pre">scaleway.registry.v1.RegistryV1API.</span></span><span class="sig-name descname"><span class="pre">list_namespaces</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="source/scaleway.registry.v1.html#scaleway.registry.v1.types.ListNamespacesRequestOrderBy" title="scaleway.registry.v1.types.ListNamespacesRequestOrderBy"><span class="pre">ListNamespacesRequestOrderBy</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">organization_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="source/scaleway.registry.v1.html#scaleway.registry.v1.types.ListNamespacesResponse" title="scaleway.registry.v1.types.ListNamespacesResponse"><span class="pre">ListNamespacesResponse</span></a></span></span><a class="headerlink" href="#scaleway.registry.v1.RegistryV1API.list_namespaces" title="Permalink to this definition"></a></dt>
+<dd><p>List namespaces.
+List all namespaces in a specified region. By default, the namespaces listed are ordered by creation date in ascending order. This can be modified via the order_by field. You can also define additional parameters for your query, such as the <cite>instance_id</cite> and <cite>project_id</cite> parameters.
+:param region: Region to target. If none is passed will use default region from the config.
+:param page: A positive integer to choose the page to display.
+:param page_size: A positive integer lower or equal to 100 to select the number of items to display.
+:param order_by: Criteria to use when ordering namespace listings. Possible values are <cite>created_at_asc</cite>, <cite>created_at_desc</cite>, <cite>name_asc</cite>, <cite>name_desc</cite>, <cite>region</cite>, <cite>status_asc</cite> and <cite>status_desc</cite>. The default value is <cite>created_at_asc</cite>.
+:param organization_id: Filter by Organization ID.
+:param project_id: Filter by Project ID.
+:param name: Filter by the namespace name (exact match).
+:return: <code class="xref py py-class docutils literal notranslate"><span class="pre">ListNamespacesResponse</span></code></p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">list_namespaces</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p>Retrieve <strong>all the pages</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">namespaces</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">list_namespaces_all</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="py function">
+<dt class="sig sig-object py" id="scaleway.registry.v1.RegistryV1API.list_namespaces_all">
+<span class="sig-prename descclassname"><span class="pre">scaleway.registry.v1.RegistryV1API.</span></span><span class="sig-name descname"><span class="pre">list_namespaces_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="source/scaleway.registry.v1.html#scaleway.registry.v1.types.ListNamespacesRequestOrderBy" title="scaleway.registry.v1.types.ListNamespacesRequestOrderBy"><span class="pre">ListNamespacesRequestOrderBy</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">organization_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="source/scaleway.registry.v1.html#scaleway.registry.v1.types.Namespace" title="scaleway.registry.v1.types.Namespace"><span class="pre">Namespace</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scaleway.registry.v1.RegistryV1API.list_namespaces_all" title="Permalink to this definition"></a></dt>
+<dd><p>List namespaces.
+List all namespaces in a specified region. By default, the namespaces listed are ordered by creation date in ascending order. This can be modified via the order_by field. You can also define additional parameters for your query, such as the <cite>instance_id</cite> and <cite>project_id</cite> parameters.
+:param region: Region to target. If none is passed will use default region from the config.
+:param page: A positive integer to choose the page to display.
+:param page_size: A positive integer lower or equal to 100 to select the number of items to display.
+:param order_by: Criteria to use when ordering namespace listings. Possible values are <cite>created_at_asc</cite>, <cite>created_at_desc</cite>, <cite>name_asc</cite>, <cite>name_desc</cite>, <cite>region</cite>, <cite>status_asc</cite> and <cite>status_desc</cite>. The default value is <cite>created_at_asc</cite>.
+:param organization_id: Filter by Organization ID.
+:param project_id: Filter by Project ID.
+:param name: Filter by the namespace name (exact match).
+:return: <code class="xref py py-class docutils literal notranslate"><span class="pre">List[Namespace]</span></code></p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">list_namespaces_all</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="types">
+<h2>Types<a class="headerlink" href="#types" title="Permalink to this heading"></a></h2>
+<p>The project is coded with Python, so don’t hesitate to take advantage of it.</p>
+<ol class="arabic simple">
+<li><p>All <strong>types of a product</strong> are stored in the <cite>scaleway.product.version</cite> namespace. For instance, <a class="reference internal" href="source/scaleway.registry.v1.html#scaleway.registry.v1.Image" title="scaleway.registry.v1.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">scaleway.registry.v1.Image</span></code></a>.</p></li>
+</ol>
+</section>
+<section id="logging">
+<h2>Logging<a class="headerlink" href="#logging" title="Permalink to this heading"></a></h2>
+<p>We are using the standard Python logging library. You can configure it as you wish:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;scaleway&quot;</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">())</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="indices-and-tables">
+<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Scaleway.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
