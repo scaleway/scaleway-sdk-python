@@ -91,6 +91,10 @@ def unmarshal_SchemaPartition(data: Any) -> SchemaPartition:
     if field is not None:
         args["size"] = field
 
+    field = data.get("use_all_available_space", None)
+    if field is not None:
+        args["use_all_available_space"] = field
+
     return SchemaPartition(**args)
 
 
@@ -1416,6 +1420,9 @@ def marshal_SchemaPartition(
 
     if request.size is not None:
         output["size"] = request.size
+
+    if request.use_all_available_space is not None:
+        output["use_all_available_space"] = request.use_all_available_space
 
     return output
 
