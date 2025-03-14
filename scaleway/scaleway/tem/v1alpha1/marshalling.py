@@ -15,6 +15,7 @@ from .types import (
     DomainReputation,
     DomainStatistics,
     Domain,
+    OfferSubscription,
     Webhook,
     Blocklist,
     BulkCreateBlocklistsResponse,
@@ -27,9 +28,15 @@ from .types import (
     ListBlocklistsResponse,
     ListDomainsResponse,
     ListEmailsResponse,
+    ListOfferSubscriptionsResponse,
+    Offer,
+    ListOffersResponse,
+    Pool,
+    ListPoolsResponse,
     WebhookEvent,
     ListWebhookEventsResponse,
     ListWebhooksResponse,
+    ProjectConsumption,
     ProjectSettingsPeriodicReport,
     ProjectSettings,
     Statistics,
@@ -41,6 +48,7 @@ from .types import (
     CreateEmailRequest,
     CreateWebhookRequest,
     UpdateDomainRequest,
+    UpdateOfferSubscriptionRequest,
     UpdateProjectSettingsRequestUpdatePeriodicReport,
     UpdateProjectSettingsRequest,
     UpdateWebhookRequest,
@@ -356,6 +364,69 @@ def unmarshal_Domain(data: Any) -> Domain:
         args["records"] = None
 
     return Domain(**args)
+
+
+def unmarshal_OfferSubscription(data: Any) -> OfferSubscription:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'OfferSubscription' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("organization_id", None)
+    if field is not None:
+        args["organization_id"] = field
+
+    field = data.get("project_id", None)
+    if field is not None:
+        args["project_id"] = field
+
+    field = data.get("offer_name", None)
+    if field is not None:
+        args["offer_name"] = field
+
+    field = data.get("sla", None)
+    if field is not None:
+        args["sla"] = field
+
+    field = data.get("max_domains", None)
+    if field is not None:
+        args["max_domains"] = field
+
+    field = data.get("max_dedicated_ips", None)
+    if field is not None:
+        args["max_dedicated_ips"] = field
+
+    field = data.get("max_webhooks_per_domain", None)
+    if field is not None:
+        args["max_webhooks_per_domain"] = field
+
+    field = data.get("max_custom_blocklists_per_domain", None)
+    if field is not None:
+        args["max_custom_blocklists_per_domain"] = field
+
+    field = data.get("included_monthly_emails", None)
+    if field is not None:
+        args["included_monthly_emails"] = field
+
+    field = data.get("subscribed_at", None)
+    if field is not None:
+        args["subscribed_at"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
+    else:
+        args["subscribed_at"] = None
+
+    field = data.get("cancellation_available_at", None)
+    if field is not None:
+        args["cancellation_available_at"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
+    else:
+        args["cancellation_available_at"] = None
+
+    return OfferSubscription(**args)
 
 
 def unmarshal_Webhook(data: Any) -> Webhook:
@@ -718,6 +789,165 @@ def unmarshal_ListEmailsResponse(data: Any) -> ListEmailsResponse:
     return ListEmailsResponse(**args)
 
 
+def unmarshal_ListOfferSubscriptionsResponse(
+    data: Any,
+) -> ListOfferSubscriptionsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListOfferSubscriptionsResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+
+    field = data.get("offer_subscriptions", None)
+    if field is not None:
+        args["offer_subscriptions"] = (
+            [unmarshal_OfferSubscription(v) for v in field]
+            if field is not None
+            else None
+        )
+
+    return ListOfferSubscriptionsResponse(**args)
+
+
+def unmarshal_Offer(data: Any) -> Offer:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Offer' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+
+    field = data.get("sla", None)
+    if field is not None:
+        args["sla"] = field
+
+    field = data.get("max_domains", None)
+    if field is not None:
+        args["max_domains"] = field
+
+    field = data.get("max_dedicated_ips", None)
+    if field is not None:
+        args["max_dedicated_ips"] = field
+
+    field = data.get("included_monthly_emails", None)
+    if field is not None:
+        args["included_monthly_emails"] = field
+
+    field = data.get("max_webhooks_per_domain", None)
+    if field is not None:
+        args["max_webhooks_per_domain"] = field
+
+    field = data.get("max_custom_blocklists_per_domain", None)
+    if field is not None:
+        args["max_custom_blocklists_per_domain"] = field
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("commitment_period", None)
+    if field is not None:
+        args["commitment_period"] = field
+    else:
+        args["commitment_period"] = None
+
+    return Offer(**args)
+
+
+def unmarshal_ListOffersResponse(data: Any) -> ListOffersResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListOffersResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+
+    field = data.get("offers", None)
+    if field is not None:
+        args["offers"] = (
+            [unmarshal_Offer(v) for v in field] if field is not None else None
+        )
+
+    return ListOffersResponse(**args)
+
+
+def unmarshal_Pool(data: Any) -> Pool:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Pool' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("project_id", None)
+    if field is not None:
+        args["project_id"] = field
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+
+    field = data.get("ips", None)
+    if field is not None:
+        args["ips"] = field
+
+    field = data.get("details", None)
+    if field is not None:
+        args["details"] = field
+    else:
+        args["details"] = None
+
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
+
+    field = data.get("reverse", None)
+    if field is not None:
+        args["reverse"] = field
+    else:
+        args["reverse"] = None
+
+    return Pool(**args)
+
+
+def unmarshal_ListPoolsResponse(data: Any) -> ListPoolsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListPoolsResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+
+    field = data.get("pools", None)
+    if field is not None:
+        args["pools"] = (
+            [unmarshal_Pool(v) for v in field] if field is not None else None
+        )
+
+    return ListPoolsResponse(**args)
+
+
 def unmarshal_WebhookEvent(data: Any) -> WebhookEvent:
     if not isinstance(data, dict):
         raise TypeError(
@@ -819,6 +1049,41 @@ def unmarshal_ListWebhooksResponse(data: Any) -> ListWebhooksResponse:
         )
 
     return ListWebhooksResponse(**args)
+
+
+def unmarshal_ProjectConsumption(data: Any) -> ProjectConsumption:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ProjectConsumption' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("project_id", None)
+    if field is not None:
+        args["project_id"] = field
+
+    field = data.get("domains_count", None)
+    if field is not None:
+        args["domains_count"] = field
+
+    field = data.get("dedicated_ips_count", None)
+    if field is not None:
+        args["dedicated_ips_count"] = field
+
+    field = data.get("monthly_emails_count", None)
+    if field is not None:
+        args["monthly_emails_count"] = field
+
+    field = data.get("webhooks_count", None)
+    if field is not None:
+        args["webhooks_count"] = field
+
+    field = data.get("custom_blocklists_count", None)
+    if field is not None:
+        args["custom_blocklists_count"] = field
+
+    return ProjectConsumption(**args)
 
 
 def unmarshal_ProjectSettingsPeriodicReport(data: Any) -> ProjectSettingsPeriodicReport:
@@ -1076,6 +1341,21 @@ def marshal_UpdateDomainRequest(
 
     if request.autoconfig is not None:
         output["autoconfig"] = request.autoconfig
+
+    return output
+
+
+def marshal_UpdateOfferSubscriptionRequest(
+    request: UpdateOfferSubscriptionRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    if request.name is not None:
+        output["name"] = str(request.name)
 
     return output
 
