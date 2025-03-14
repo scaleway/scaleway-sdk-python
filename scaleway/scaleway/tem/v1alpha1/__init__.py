@@ -14,6 +14,8 @@ from .types import ListBlocklistsRequestOrderBy
 from .types import ListEmailsRequestOrderBy
 from .types import ListWebhookEventsRequestOrderBy
 from .types import ListWebhooksRequestOrderBy
+from .types import OfferName
+from .types import PoolStatus
 from .types import ProjectSettingsPeriodicReportFrequency
 from .types import WebhookEventStatus
 from .types import WebhookEventType
@@ -32,6 +34,9 @@ from .types import DomainLastStatusDkimRecord
 from .types import DomainLastStatusDmarcRecord
 from .types import DomainLastStatusSpfRecord
 from .types import Domain
+from .types import OfferSubscription
+from .types import Offer
+from .types import Pool
 from .types import WebhookEvent
 from .types import Webhook
 from .types import ProjectSettingsPeriodicReport
@@ -50,6 +55,7 @@ from .types import DomainLastStatus
 from .types import GetDomainLastStatusRequest
 from .types import GetDomainRequest
 from .types import GetEmailRequest
+from .types import GetProjectConsumptionRequest
 from .types import GetProjectSettingsRequest
 from .types import GetStatisticsRequest
 from .types import GetWebhookRequest
@@ -59,14 +65,22 @@ from .types import ListDomainsRequest
 from .types import ListDomainsResponse
 from .types import ListEmailsRequest
 from .types import ListEmailsResponse
+from .types import ListOfferSubscriptionsRequest
+from .types import ListOfferSubscriptionsResponse
+from .types import ListOffersRequest
+from .types import ListOffersResponse
+from .types import ListPoolsRequest
+from .types import ListPoolsResponse
 from .types import ListWebhookEventsRequest
 from .types import ListWebhookEventsResponse
 from .types import ListWebhooksRequest
 from .types import ListWebhooksResponse
+from .types import ProjectConsumption
 from .types import ProjectSettings
 from .types import RevokeDomainRequest
 from .types import Statistics
 from .types import UpdateDomainRequest
+from .types import UpdateOfferSubscriptionRequest
 from .types import UpdateProjectSettingsRequest
 from .types import UpdateWebhookRequest
 from .api import TemV1Alpha1API
@@ -86,6 +100,8 @@ __all__ = [
     "ListEmailsRequestOrderBy",
     "ListWebhookEventsRequestOrderBy",
     "ListWebhooksRequestOrderBy",
+    "OfferName",
+    "PoolStatus",
     "ProjectSettingsPeriodicReportFrequency",
     "WebhookEventStatus",
     "WebhookEventType",
@@ -104,6 +120,9 @@ __all__ = [
     "DomainLastStatusDmarcRecord",
     "DomainLastStatusSpfRecord",
     "Domain",
+    "OfferSubscription",
+    "Offer",
+    "Pool",
     "WebhookEvent",
     "Webhook",
     "ProjectSettingsPeriodicReport",
@@ -122,6 +141,7 @@ __all__ = [
     "GetDomainLastStatusRequest",
     "GetDomainRequest",
     "GetEmailRequest",
+    "GetProjectConsumptionRequest",
     "GetProjectSettingsRequest",
     "GetStatisticsRequest",
     "GetWebhookRequest",
@@ -131,14 +151,22 @@ __all__ = [
     "ListDomainsResponse",
     "ListEmailsRequest",
     "ListEmailsResponse",
+    "ListOfferSubscriptionsRequest",
+    "ListOfferSubscriptionsResponse",
+    "ListOffersRequest",
+    "ListOffersResponse",
+    "ListPoolsRequest",
+    "ListPoolsResponse",
     "ListWebhookEventsRequest",
     "ListWebhookEventsResponse",
     "ListWebhooksRequest",
     "ListWebhooksResponse",
+    "ProjectConsumption",
     "ProjectSettings",
     "RevokeDomainRequest",
     "Statistics",
     "UpdateDomainRequest",
+    "UpdateOfferSubscriptionRequest",
     "UpdateProjectSettingsRequest",
     "UpdateWebhookRequest",
     "TemV1Alpha1API",
