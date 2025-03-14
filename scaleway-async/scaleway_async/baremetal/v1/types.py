@@ -225,6 +225,8 @@ class SchemaPartition:
 
     size: int
 
+    use_all_available_space: bool
+
 
 @dataclass
 class SchemaPool:
