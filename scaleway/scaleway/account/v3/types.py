@@ -50,6 +50,41 @@ class ListProjectsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class QualificationArchitectureType(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_ARCHITECTURE_TYPE = "unknown_architecture_type"
+    OBJECT_STORAGE = "object_storage"
+    WEB_HOSTING = "web_hosting"
+    INSTANCE = "instance"
+    ELASTIC = "elastic"
+    KUBERNETES = "kubernetes"
+    SERVERLESS = "serverless"
+    DEDICATED_SERVER = "dedicated_server"
+    OTHER_ARCHITECTURE_TYPE = "other_architecture_type"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class QualificationHostApplicationSubUseCase(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_SUB_USE_CASE = "unknown_sub_use_case"
+    SAAS_APP = "saas_app"
+    GOVERNMENT_APP = "government_app"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class QualificationHostWebsiteSubUseCase(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_SUB_USE_CASE = "unknown_sub_use_case"
+    INFORMATION_WEBSITE = "information_website"
+    ECOMMERCE_WEBSITE = "ecommerce_website"
+    HIGH_WEBSITE = "high_website"
+    OTHER_SUB_USE_CASE = "other_sub_use_case"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 @dataclass
 class Contract:
     id: str
@@ -81,6 +116,51 @@ class Contract:
     """
     The last modification date of the contract.
     """
+
+
+@dataclass
+class QualificationAiMachine:
+    pass
+
+
+@dataclass
+class QualificationArchiveData:
+    pass
+
+
+@dataclass
+class QualificationContainer:
+    pass
+
+
+@dataclass
+class QualificationDeploySoftware:
+    pass
+
+
+@dataclass
+class QualificationHostApplication:
+    sub_use_case: QualificationHostApplicationSubUseCase
+
+
+@dataclass
+class QualificationHostWebsite:
+    sub_use_case: QualificationHostWebsiteSubUseCase
+
+
+@dataclass
+class QualificationOtherUseCase:
+    pass
+
+
+@dataclass
+class QualificationSetScalewayEnvironment:
+    pass
+
+
+@dataclass
+class QualificationShareData:
+    pass
 
 
 @dataclass
@@ -147,6 +227,32 @@ class Project:
     """
     Update date of the Project.
     """
+
+
+@dataclass
+class Qualification:
+    architecture_type: QualificationArchitectureType
+    """
+    Architecture type of the qualification.
+    """
+
+    host_website: Optional[QualificationHostWebsite]
+
+    host_application: Optional[QualificationHostApplication]
+
+    deploy_software: Optional[QualificationDeploySoftware]
+
+    set_scaleway_environment: Optional[QualificationSetScalewayEnvironment]
+
+    ai_machine: Optional[QualificationAiMachine]
+
+    container: Optional[QualificationContainer]
+
+    archive_data: Optional[QualificationArchiveData]
+
+    share_data: Optional[QualificationShareData]
+
+    other_use_case: Optional[QualificationOtherUseCase]
 
 
 @dataclass
@@ -341,6 +447,19 @@ class ProjectApiListProjectsRequest:
 
 
 @dataclass
+class ProjectApiSetProjectQualificationRequest:
+    project_id: Optional[str]
+    """
+    Project ID.
+    """
+
+    qualification: Optional[Qualification]
+    """
+    Use case chosen for the Project.
+    """
+
+
+@dataclass
 class ProjectApiUpdateProjectRequest:
     project_id: Optional[str]
     """
@@ -355,4 +474,17 @@ class ProjectApiUpdateProjectRequest:
     description: Optional[str]
     """
     Description of the Project.
+    """
+
+
+@dataclass
+class ProjectQualification:
+    project_id: str
+    """
+    Project ID.
+    """
+
+    qualification: Optional[Qualification]
+    """
+    Qualification of the Project.
     """

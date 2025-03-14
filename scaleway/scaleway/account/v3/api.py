@@ -25,7 +25,10 @@ from .types import (
     ListProjectsResponse,
     Project,
     ProjectApiCreateProjectRequest,
+    ProjectApiSetProjectQualificationRequest,
     ProjectApiUpdateProjectRequest,
+    ProjectQualification,
+    Qualification,
 )
 from .marshalling import (
     unmarshal_ContractSignature,
@@ -33,9 +36,11 @@ from .marshalling import (
     unmarshal_CheckContractSignatureResponse,
     unmarshal_ListContractSignaturesResponse,
     unmarshal_ListProjectsResponse,
+    unmarshal_ProjectQualification,
     marshal_ContractApiCheckContractSignatureRequest,
     marshal_ContractApiCreateContractSignatureRequest,
     marshal_ProjectApiCreateProjectRequest,
+    marshal_ProjectApiSetProjectQualificationRequest,
     marshal_ProjectApiUpdateProjectRequest,
 )
 from ...std.types import (
@@ -491,3 +496,41 @@ class AccountV3ProjectAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_Project(res.json())
+
+    def set_project_qualification(
+        self,
+        *,
+        project_id: Optional[str] = None,
+        qualification: Optional[Qualification] = None,
+    ) -> ProjectQualification:
+        """
+        Set project use case.
+        Set the project use case for a new or existing Project, specified by its Project ID. You can customize the use case, sub use case, and architecture type you want to use in the Project.
+        :param project_id: Project ID.
+        :param qualification: Use case chosen for the Project.
+        :return: :class:`ProjectQualification <ProjectQualification>`
+
+        Usage:
+        ::
+
+            result = api.set_project_qualification()
+        """
+
+        param_project_id = validate_path_param(
+            "project_id", project_id or self.client.default_project_id
+        )
+
+        res = self._request(
+            "POST",
+            f"/account/v3/projects/{param_project_id}/project-qualification",
+            body=marshal_ProjectApiSetProjectQualificationRequest(
+                ProjectApiSetProjectQualificationRequest(
+                    project_id=project_id,
+                    qualification=qualification,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ProjectQualification(res.json())
