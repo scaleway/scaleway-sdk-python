@@ -9,6 +9,7 @@ from typing import List, Optional
 
 from scaleway_core.bridge import (
     Region as ScwRegion,
+    Zone as ScwZone,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -144,6 +145,26 @@ class ListWebhookEventsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
 class ListWebhooksRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_DESC = "created_at_desc"
     CREATED_AT_ASC = "created_at_asc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class OfferName(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_NAME = "unknown_name"
+    ESSENTIAL = "essential"
+    SCALE = "scale"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class PoolStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATUS = "unknown_status"
+    DISABLED = "disabled"
+    CREATING = "creating"
+    READY = "ready"
+    ERROR = "error"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -598,6 +619,145 @@ class Domain:
 
 
 @dataclass
+class OfferSubscription:
+    organization_id: str
+    """
+    ID of the offer-subscription Organization.
+    """
+
+    project_id: str
+    """
+    ID of the offer-subscription Project.
+    """
+
+    offer_name: OfferName
+    """
+    Name of the offer associated with the Project.
+    """
+
+    sla: float
+    """
+    Service Level Agreement percentage of the offer-subscription.
+    """
+
+    max_domains: int
+    """
+    Max number of domains that can be associated with the offer-subscription for a particular Project.
+    """
+
+    max_dedicated_ips: int
+    """
+    Max number of dedicated IPs that can be associated with the offer-subscription for a particular Project.
+    """
+
+    max_webhooks_per_domain: int
+    """
+    Max number of webhooks that can be associated with the offer-subscription for a particular Project.
+    """
+
+    max_custom_blocklists_per_domain: int
+    """
+    Max number of custom blocklists that can be associated with the offer-subscription for a particular Project.
+    """
+
+    included_monthly_emails: int
+    """
+    Number of emails included in the offer-subscription per month.
+    """
+
+    subscribed_at: Optional[datetime]
+    """
+    Date and time of the subscription.
+    """
+
+    cancellation_available_at: Optional[datetime]
+    """
+    Date and time of the end of the offer-subscription commitment.
+    """
+
+
+@dataclass
+class Offer:
+    name: OfferName
+    """
+    Name of the offer.
+    """
+
+    sla: float
+    """
+    Service Level Agreement percentage of the offer.
+    """
+
+    max_domains: int
+    """
+    Max number of checked domains that can be associated with the offer.
+    """
+
+    max_dedicated_ips: int
+    """
+    Max number of dedicated IPs that can be associated with the offer.
+    """
+
+    included_monthly_emails: int
+    """
+    Number of emails included in the offer per month.
+    """
+
+    max_webhooks_per_domain: int
+    """
+    Max number of webhooks that can be associated with the offer.
+    """
+
+    max_custom_blocklists_per_domain: int
+    """
+    Max number of active custom blocklists that can be associated with the offer.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Date and time of the offer creation.
+    """
+
+    commitment_period: Optional[str]
+    """
+    Period of commitment.
+    """
+
+
+@dataclass
+class Pool:
+    project_id: str
+    """
+    ID of the Project.
+    """
+
+    status: PoolStatus
+    """
+    Status of the pool.
+    """
+
+    ips: List[str]
+    """
+    IPs of the pool.
+    """
+
+    details: Optional[str]
+    """
+    Details of the pool.
+    """
+
+    zone: Optional[ScwZone]
+    """
+    Zone of the pool.
+    """
+
+    reverse: Optional[str]
+    """
+    Reverse hostname of all IPs of the pool.
+    """
+
+
+@dataclass
 class WebhookEvent:
     id: str
     """
@@ -1042,6 +1202,19 @@ class GetEmailRequest:
 
 
 @dataclass
+class GetProjectConsumptionRequest:
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    ID of the project.
+    """
+
+
+@dataclass
 class GetProjectSettingsRequest:
     region: Optional[ScwRegion]
     """
@@ -1298,6 +1471,89 @@ class ListEmailsResponse:
 
 
 @dataclass
+class ListOfferSubscriptionsRequest:
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    ID of the Project.
+    """
+
+
+@dataclass
+class ListOfferSubscriptionsResponse:
+    total_count: int
+    """
+    Number of offer-subscriptions matching the requested criteria.
+    """
+
+    offer_subscriptions: List[OfferSubscription]
+    """
+    Single page of offer-subscriptions matching the requested criteria.
+    """
+
+
+@dataclass
+class ListOffersRequest:
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class ListOffersResponse:
+    total_count: int
+    """
+    Number of offers matching the requested criteria.
+    """
+
+    offers: List[Offer]
+    """
+    Single page of offers matching the requested criteria.
+    """
+
+
+@dataclass
+class ListPoolsRequest:
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    page: Optional[int]
+    """
+    Requested page number. Value must be greater or equal to 1.
+    """
+
+    page_size: Optional[int]
+    """
+    Requested page size. Value must be between 1 and 1000.
+    """
+
+    project_id: Optional[str]
+    """
+    ID of the Project.
+    """
+
+
+@dataclass
+class ListPoolsResponse:
+    total_count: int
+    """
+    Number of pools matching the requested criteria.
+    """
+
+    pools: List[Pool]
+    """
+    Single page of pools matching the requested criteria.
+    """
+
+
+@dataclass
 class ListWebhookEventsRequest:
     webhook_id: str
     """
@@ -1420,6 +1676,39 @@ class ListWebhooksResponse:
 
 
 @dataclass
+class ProjectConsumption:
+    project_id: str
+    """
+    ID of the project.
+    """
+
+    domains_count: int
+    """
+    Number of domains in the project.
+    """
+
+    dedicated_ips_count: int
+    """
+    Number of dedicated IP in the project.
+    """
+
+    monthly_emails_count: int
+    """
+    Number of emails sent during the current month in the project.
+    """
+
+    webhooks_count: int
+    """
+    Number of webhooks in the project.
+    """
+
+    custom_blocklists_count: int
+    """
+    Number of custom blocklists in the project.
+    """
+
+
+@dataclass
 class ProjectSettings:
     periodic_report: Optional[ProjectSettingsPeriodicReport]
     """
@@ -1488,6 +1777,24 @@ class UpdateDomainRequest:
     autoconfig: Optional[bool]
     """
     (Optional) If set to true, activate auto-configuration of the domain's DNS zone.
+    """
+
+
+@dataclass
+class UpdateOfferSubscriptionRequest:
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+    """
+    ID of the Project.
+    """
+
+    name: Optional[OfferName]
+    """
+    Name of the offer-subscription.
     """
 
 

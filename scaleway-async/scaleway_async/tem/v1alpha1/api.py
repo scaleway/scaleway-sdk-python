@@ -23,6 +23,7 @@ from .types import (
     ListEmailsRequestOrderBy,
     ListWebhookEventsRequestOrderBy,
     ListWebhooksRequestOrderBy,
+    OfferName,
     WebhookEventStatus,
     WebhookEventType,
     Blocklist,
@@ -41,11 +42,18 @@ from .types import (
     ListBlocklistsResponse,
     ListDomainsResponse,
     ListEmailsResponse,
+    ListOfferSubscriptionsResponse,
+    ListOffersResponse,
+    ListPoolsResponse,
     ListWebhookEventsResponse,
     ListWebhooksResponse,
+    OfferSubscription,
+    Pool,
+    ProjectConsumption,
     ProjectSettings,
     Statistics,
     UpdateDomainRequest,
+    UpdateOfferSubscriptionRequest,
     UpdateProjectSettingsRequest,
     UpdateProjectSettingsRequestUpdatePeriodicReport,
     UpdateWebhookRequest,
@@ -59,6 +67,7 @@ from .content import (
 from .marshalling import (
     unmarshal_Email,
     unmarshal_Domain,
+    unmarshal_OfferSubscription,
     unmarshal_Webhook,
     unmarshal_BulkCreateBlocklistsResponse,
     unmarshal_CreateEmailResponse,
@@ -66,8 +75,12 @@ from .marshalling import (
     unmarshal_ListBlocklistsResponse,
     unmarshal_ListDomainsResponse,
     unmarshal_ListEmailsResponse,
+    unmarshal_ListOfferSubscriptionsResponse,
+    unmarshal_ListOffersResponse,
+    unmarshal_ListPoolsResponse,
     unmarshal_ListWebhookEventsResponse,
     unmarshal_ListWebhooksResponse,
+    unmarshal_ProjectConsumption,
     unmarshal_ProjectSettings,
     unmarshal_Statistics,
     marshal_BulkCreateBlocklistsRequest,
@@ -75,6 +88,7 @@ from .marshalling import (
     marshal_CreateEmailRequest,
     marshal_CreateWebhookRequest,
     marshal_UpdateDomainRequest,
+    marshal_UpdateOfferSubscriptionRequest,
     marshal_UpdateProjectSettingsRequest,
     marshal_UpdateWebhookRequest,
 )
@@ -1469,3 +1483,214 @@ class TemV1Alpha1API(API):
         )
 
         self._throw_on_error(res)
+
+    async def list_offer_subscriptions(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        project_id: Optional[str] = None,
+    ) -> ListOfferSubscriptionsResponse:
+        """
+        Get information about subscribed offers.
+        Retrieve information about the offers you are subscribed to using the `project_id` and `region` parameters.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: ID of the Project.
+        :return: :class:`ListOfferSubscriptionsResponse <ListOfferSubscriptionsResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_offer_subscriptions()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/transactional-email/v1alpha1/regions/{param_region}/offer-subscriptions",
+            params={
+                "project_id": project_id or self.client.default_project_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListOfferSubscriptionsResponse(res.json())
+
+    async def update_offer_subscription(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        project_id: Optional[str] = None,
+        name: Optional[OfferName] = None,
+    ) -> OfferSubscription:
+        """
+        Update a subscribed offer.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: ID of the Project.
+        :param name: Name of the offer-subscription.
+        :return: :class:`OfferSubscription <OfferSubscription>`
+
+        Usage:
+        ::
+
+            result = await api.update_offer_subscription()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "PATCH",
+            f"/transactional-email/v1alpha1/regions/{param_region}/offer-subscriptions",
+            body=marshal_UpdateOfferSubscriptionRequest(
+                UpdateOfferSubscriptionRequest(
+                    region=region,
+                    project_id=project_id,
+                    name=name,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_OfferSubscription(res.json())
+
+    async def list_offers(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+    ) -> ListOffersResponse:
+        """
+        List the available offers.
+        Retrieve the list of the available and free-of-charge offers you can subscribe to.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`ListOffersResponse <ListOffersResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_offers()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/transactional-email/v1alpha1/regions/{param_region}/offers",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListOffersResponse(res.json())
+
+    async def list_pools(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        project_id: Optional[str] = None,
+    ) -> ListPoolsResponse:
+        """
+        Get information about a sending pool.
+        Retrieve information about a sending pool, including its creation status and configuration parameters.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page: Requested page number. Value must be greater or equal to 1.
+        :param page_size: Requested page size. Value must be between 1 and 1000.
+        :param project_id: ID of the Project.
+        :return: :class:`ListPoolsResponse <ListPoolsResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_pools()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/transactional-email/v1alpha1/regions/{param_region}/pools",
+            params={
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+                "project_id": project_id or self.client.default_project_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListPoolsResponse(res.json())
+
+    async def list_pools_all(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        project_id: Optional[str] = None,
+    ) -> List[Pool]:
+        """
+        Get information about a sending pool.
+        Retrieve information about a sending pool, including its creation status and configuration parameters.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param page: Requested page number. Value must be greater or equal to 1.
+        :param page_size: Requested page size. Value must be between 1 and 1000.
+        :param project_id: ID of the Project.
+        :return: :class:`List[Pool] <List[Pool]>`
+
+        Usage:
+        ::
+
+            result = await api.list_pools_all()
+        """
+
+        return await fetch_all_pages_async(
+            type=ListPoolsResponse,
+            key="pools",
+            fetcher=self.list_pools,
+            args={
+                "region": region,
+                "page": page,
+                "page_size": page_size,
+                "project_id": project_id,
+            },
+        )
+
+    async def get_project_consumption(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        project_id: Optional[str] = None,
+    ) -> ProjectConsumption:
+        """
+        Get project resource consumption.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id: ID of the project.
+        :return: :class:`ProjectConsumption <ProjectConsumption>`
+
+        Usage:
+        ::
+
+            result = await api.get_project_consumption()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/transactional-email/v1alpha1/regions/{param_region}/project-consumption",
+            params={
+                "project_id": project_id or self.client.default_project_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ProjectConsumption(res.json())
