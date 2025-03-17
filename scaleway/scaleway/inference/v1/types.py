@@ -750,6 +750,16 @@ class UpdateDeploymentRequest:
     Defines the new maximum size of the pool.
     """
 
+    model_id: Optional[str]
+    """
+    Id of the model to set to the deployment.
+    """
+
+    quantization: Optional[DeploymentQuantization]
+    """
+    Quantization to use to the deployment.
+    """
+
 
 @dataclass
 class UpdateEndpointRequest:
