@@ -15,6 +15,25 @@ from scaleway_core.utils import (
 )
 
 
+class AclRuleProtocol(str, Enum, metaclass=StrEnumMeta):
+    ANY = "any"
+    TCP = "tcp"
+    UDP = "udp"
+    ICMP = "icmp"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class Action(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_ACTION = "unknown_action"
+    ACCEPT = "accept"
+    DROP = "drop"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class ListPrivateNetworksRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
     CREATED_AT_ASC = "created_at_asc"
     CREATED_AT_DESC = "created_at_desc"
@@ -194,6 +213,54 @@ class Route:
     updated_at: Optional[datetime]
     """
     Date the Route was last modified.
+    """
+
+
+@dataclass
+class AclRule:
+    protocol: AclRuleProtocol
+    """
+    Protocol to which this rule applies.
+    """
+
+    source: str
+    """
+    Source IP range to which this rule applies (CIDR notation with subnet mask).
+    """
+
+    src_port_low: int
+    """
+    Starting port of the source port range to which this rule applies (inclusive).
+    """
+
+    src_port_high: int
+    """
+    Ending port of the source port range to which this rule applies (inclusive).
+    """
+
+    destination: str
+    """
+    Destination IP range to which this rule applies (CIDR notation with subnet mask).
+    """
+
+    dst_port_low: int
+    """
+    Starting port of the destination port range to which this rule applies (inclusive).
+    """
+
+    dst_port_high: int
+    """
+    Ending port of the destination port range to which this rule applies (inclusive).
+    """
+
+    action: Action
+    """
+    Policy to apply to the packet.
+    """
+
+    description: Optional[str]
+    """
+    Rule description.
     """
 
 
@@ -466,6 +533,31 @@ class EnableRoutingRequest:
 
 
 @dataclass
+class GetAclRequest:
+    vpc_id: str
+    """
+    ID of the Network ACL's VPC.
+    """
+
+    is_ipv6: bool
+    """
+    Defines whether this set of ACL rules is for IPv6 (false = IPv4). Each Network ACL can have rules for only one IP type.
+    """
+
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class GetAclResponse:
+    rules: List[AclRule]
+
+    default_policy: Action
+
+
+@dataclass
 class GetPrivateNetworkRequest:
     private_network_id: str
     """
@@ -677,6 +769,41 @@ class ListVPCsResponse:
     vpcs: List[VPC]
 
     total_count: int
+
+
+@dataclass
+class SetAclRequest:
+    vpc_id: str
+    """
+    ID of the Network ACL's VPC.
+    """
+
+    rules: List[AclRule]
+    """
+    List of Network ACL rules.
+    """
+
+    is_ipv6: bool
+    """
+    Defines whether this set of ACL rules is for IPv6 (false = IPv4). Each Network ACL can have rules for only one IP type.
+    """
+
+    default_policy: Action
+    """
+    Action to take for packets which do not match any rules.
+    """
+
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class SetAclResponse:
+    rules: List[AclRule]
+
+    default_policy: Action
 
 
 @dataclass
