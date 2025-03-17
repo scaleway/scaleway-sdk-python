@@ -5,6 +5,10 @@ from typing import Any, Dict
 from dateutil import parser
 
 from scaleway_core.profile import ProfileDefaults
+from scaleway_core.utils import (
+    OneOfPossibility,
+    resolve_one_of,
+)
 from .types import (
     Contract,
     ContractSignature,
@@ -12,9 +16,21 @@ from .types import (
     CheckContractSignatureResponse,
     ListContractSignaturesResponse,
     ListProjectsResponse,
+    QualificationAiMachine,
+    QualificationArchiveData,
+    QualificationContainer,
+    QualificationDeploySoftware,
+    QualificationHostApplication,
+    QualificationHostWebsite,
+    QualificationOtherUseCase,
+    QualificationSetScalewayEnvironment,
+    QualificationShareData,
+    Qualification,
+    ProjectQualification,
     ContractApiCheckContractSignatureRequest,
     ContractApiCreateContractSignatureRequest,
     ProjectApiCreateProjectRequest,
+    ProjectApiSetProjectQualificationRequest,
     ProjectApiUpdateProjectRequest,
 )
 
@@ -207,6 +223,207 @@ def unmarshal_ListProjectsResponse(data: Any) -> ListProjectsResponse:
     return ListProjectsResponse(**args)
 
 
+def unmarshal_QualificationAiMachine(data: Any) -> QualificationAiMachine:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'QualificationAiMachine' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    return QualificationAiMachine(**args)
+
+
+def unmarshal_QualificationArchiveData(data: Any) -> QualificationArchiveData:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'QualificationArchiveData' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    return QualificationArchiveData(**args)
+
+
+def unmarshal_QualificationContainer(data: Any) -> QualificationContainer:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'QualificationContainer' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    return QualificationContainer(**args)
+
+
+def unmarshal_QualificationDeploySoftware(data: Any) -> QualificationDeploySoftware:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'QualificationDeploySoftware' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    return QualificationDeploySoftware(**args)
+
+
+def unmarshal_QualificationHostApplication(data: Any) -> QualificationHostApplication:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'QualificationHostApplication' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("sub_use_case", None)
+    if field is not None:
+        args["sub_use_case"] = field
+
+    return QualificationHostApplication(**args)
+
+
+def unmarshal_QualificationHostWebsite(data: Any) -> QualificationHostWebsite:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'QualificationHostWebsite' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("sub_use_case", None)
+    if field is not None:
+        args["sub_use_case"] = field
+
+    return QualificationHostWebsite(**args)
+
+
+def unmarshal_QualificationOtherUseCase(data: Any) -> QualificationOtherUseCase:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'QualificationOtherUseCase' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    return QualificationOtherUseCase(**args)
+
+
+def unmarshal_QualificationSetScalewayEnvironment(
+    data: Any,
+) -> QualificationSetScalewayEnvironment:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'QualificationSetScalewayEnvironment' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    return QualificationSetScalewayEnvironment(**args)
+
+
+def unmarshal_QualificationShareData(data: Any) -> QualificationShareData:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'QualificationShareData' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    return QualificationShareData(**args)
+
+
+def unmarshal_Qualification(data: Any) -> Qualification:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Qualification' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("architecture_type", None)
+    if field is not None:
+        args["architecture_type"] = field
+
+    field = data.get("host_website", None)
+    if field is not None:
+        args["host_website"] = unmarshal_QualificationHostWebsite(field)
+    else:
+        args["host_website"] = None
+
+    field = data.get("host_application", None)
+    if field is not None:
+        args["host_application"] = unmarshal_QualificationHostApplication(field)
+    else:
+        args["host_application"] = None
+
+    field = data.get("deploy_software", None)
+    if field is not None:
+        args["deploy_software"] = unmarshal_QualificationDeploySoftware(field)
+    else:
+        args["deploy_software"] = None
+
+    field = data.get("set_scaleway_environment", None)
+    if field is not None:
+        args["set_scaleway_environment"] = (
+            unmarshal_QualificationSetScalewayEnvironment(field)
+        )
+    else:
+        args["set_scaleway_environment"] = None
+
+    field = data.get("ai_machine", None)
+    if field is not None:
+        args["ai_machine"] = unmarshal_QualificationAiMachine(field)
+    else:
+        args["ai_machine"] = None
+
+    field = data.get("container", None)
+    if field is not None:
+        args["container"] = unmarshal_QualificationContainer(field)
+    else:
+        args["container"] = None
+
+    field = data.get("archive_data", None)
+    if field is not None:
+        args["archive_data"] = unmarshal_QualificationArchiveData(field)
+    else:
+        args["archive_data"] = None
+
+    field = data.get("share_data", None)
+    if field is not None:
+        args["share_data"] = unmarshal_QualificationShareData(field)
+    else:
+        args["share_data"] = None
+
+    field = data.get("other_use_case", None)
+    if field is not None:
+        args["other_use_case"] = unmarshal_QualificationOtherUseCase(field)
+    else:
+        args["other_use_case"] = None
+
+    return Qualification(**args)
+
+
+def unmarshal_ProjectQualification(data: Any) -> ProjectQualification:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ProjectQualification' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("project_id", None)
+    if field is not None:
+        args["project_id"] = field
+
+    field = data.get("qualification", None)
+    if field is not None:
+        args["qualification"] = unmarshal_Qualification(field)
+    else:
+        args["qualification"] = None
+
+    return ProjectQualification(**args)
+
+
 def marshal_ContractApiCheckContractSignatureRequest(
     request: ContractApiCheckContractSignatureRequest,
     defaults: ProfileDefaults,
@@ -266,6 +483,134 @@ def marshal_ProjectApiCreateProjectRequest(
         output["organization_id"] = (
             request.organization_id or defaults.default_organization_id
         )
+
+    return output
+
+
+def marshal_QualificationAiMachine(
+    request: QualificationAiMachine,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    return output
+
+
+def marshal_QualificationArchiveData(
+    request: QualificationArchiveData,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    return output
+
+
+def marshal_QualificationContainer(
+    request: QualificationContainer,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    return output
+
+
+def marshal_QualificationDeploySoftware(
+    request: QualificationDeploySoftware,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    return output
+
+
+def marshal_QualificationHostApplication(
+    request: QualificationHostApplication,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.sub_use_case is not None:
+        output["sub_use_case"] = str(request.sub_use_case)
+
+    return output
+
+
+def marshal_QualificationHostWebsite(
+    request: QualificationHostWebsite,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.sub_use_case is not None:
+        output["sub_use_case"] = str(request.sub_use_case)
+
+    return output
+
+
+def marshal_QualificationOtherUseCase(
+    request: QualificationOtherUseCase,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    return output
+
+
+def marshal_QualificationSetScalewayEnvironment(
+    request: QualificationSetScalewayEnvironment,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    return output
+
+
+def marshal_QualificationShareData(
+    request: QualificationShareData,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    return output
+
+
+def marshal_Qualification(
+    request: Qualification,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+    output.update(
+        resolve_one_of(
+            [
+                OneOfPossibility("host_website", request.host_website),
+                OneOfPossibility("host_application", request.host_application),
+                OneOfPossibility("deploy_software", request.deploy_software),
+                OneOfPossibility(
+                    "set_scaleway_environment", request.set_scaleway_environment
+                ),
+                OneOfPossibility("ai_machine", request.ai_machine),
+                OneOfPossibility("container", request.container),
+                OneOfPossibility("archive_data", request.archive_data),
+                OneOfPossibility("share_data", request.share_data),
+                OneOfPossibility("other_use_case", request.other_use_case),
+            ]
+        ),
+    )
+
+    if request.architecture_type is not None:
+        output["architecture_type"] = str(request.architecture_type)
+
+    return output
+
+
+def marshal_ProjectApiSetProjectQualificationRequest(
+    request: ProjectApiSetProjectQualificationRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.qualification is not None:
+        output["qualification"] = marshal_Qualification(request.qualification, defaults)
 
     return output
 
