@@ -174,7 +174,7 @@ class ContactPoint:
     Region.
     """
 
-    receive_resolved_notifications: bool
+    send_resolved_notifications: bool
     """
     Send an email notification when an alert is marked as resolved.
     """
@@ -859,7 +859,7 @@ class RegionalApiCreateContactPointRequest:
     ID of the Project to create the contact point in.
     """
 
-    receive_resolved_notifications: Optional[bool]
+    send_resolved_notifications: Optional[bool]
     """
     Send an email notification when an alert is marked as resolved.
     """
@@ -1293,7 +1293,7 @@ class RegionalApiUpdateContactPointRequest:
     ID of the Project containing the contact point to update.
     """
 
-    receive_resolved_notifications: Optional[bool]
+    send_resolved_notifications: Optional[bool]
     """
     Enable or disable notifications when alert is resolved.
     """
