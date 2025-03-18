@@ -639,6 +639,14 @@ def marshal_UpdateDeploymentRequest(
     if request.max_size is not None:
         output["max_size"] = request.max_size
 
+    if request.model_id is not None:
+        output["model_id"] = request.model_id
+
+    if request.quantization is not None:
+        output["quantization"] = marshal_DeploymentQuantization(
+            request.quantization, defaults
+        )
+
     return output
 
 
