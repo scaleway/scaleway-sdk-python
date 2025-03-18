@@ -468,6 +468,10 @@ def unmarshal_Cluster(data: Any) -> Cluster:
     if field is not None:
         args["apiserver_cert_sans"] = field
 
+    field = data.get("iam_nodes_group_id", None)
+    if field is not None:
+        args["iam_nodes_group_id"] = field
+
     field = data.get("open_id_connect_config", None)
     if field is not None:
         args["open_id_connect_config"] = unmarshal_ClusterOpenIDConnectConfig(field)

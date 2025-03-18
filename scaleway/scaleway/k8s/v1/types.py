@@ -892,6 +892,11 @@ class Cluster:
     Additional Subject Alternative Names for the Kubernetes API server certificate.
     """
 
+    iam_nodes_group_id: str
+    """
+    IAM group that nodes are members of (this field might be empty during early stage of cluster creation).
+    """
+
     open_id_connect_config: Optional[ClusterOpenIDConnectConfig]
     """
     This configuration enables to update the OpenID Connect configuration of the Kubernetes API server.
