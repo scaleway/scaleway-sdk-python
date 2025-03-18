@@ -297,7 +297,7 @@ class SubscriberWebhookConfig:
 class HealthCheckHttpConfig:
     uri: str
     """
-    The HTTP URI to use when performing a health check on backend servers.
+    The HTTP path to use when performing a health check on backend servers.
     """
 
     method: str
@@ -320,7 +320,7 @@ class HealthCheckHttpConfig:
 class HealthCheckHttpsConfig:
     uri: str
     """
-    The HTTP URI to use when performing a health check on backend servers.
+    The HTTP path to use when performing a health check on backend servers.
     """
 
     method: str
