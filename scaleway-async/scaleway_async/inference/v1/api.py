@@ -311,6 +311,8 @@ class InferenceV1API(API):
         tags: Optional[List[str]] = None,
         min_size: Optional[int] = None,
         max_size: Optional[int] = None,
+        model_id: Optional[str] = None,
+        quantization: Optional[DeploymentQuantization] = None,
     ) -> Deployment:
         """
         Update a deployment.
@@ -321,6 +323,8 @@ class InferenceV1API(API):
         :param tags: List of tags to apply to the deployment.
         :param min_size: Defines the new minimum size of the pool.
         :param max_size: Defines the new maximum size of the pool.
+        :param model_id: Id of the model to set to the deployment.
+        :param quantization: Quantization to use to the deployment.
         :return: :class:`Deployment <Deployment>`
 
         Usage:
@@ -347,6 +351,8 @@ class InferenceV1API(API):
                     tags=tags,
                     min_size=min_size,
                     max_size=max_size,
+                    model_id=model_id,
+                    quantization=quantization,
                 ),
                 self.client,
             ),
