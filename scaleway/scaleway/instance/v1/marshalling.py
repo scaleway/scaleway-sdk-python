@@ -2172,9 +2172,9 @@ def unmarshal_ServerType(data: Any) -> ServerType:
     if field is not None:
         args["arch"] = field
 
-    field = data.get("baremetal", None)
+    field = data.get("end_of_service", None)
     if field is not None:
-        args["baremetal"] = field
+        args["end_of_service"] = field
 
     field = data.get("per_volume_constraint", None)
     if field is not None:
@@ -2195,10 +2195,6 @@ def unmarshal_ServerType(data: Any) -> ServerType:
         args["gpu"] = field
     else:
         args["gpu"] = None
-
-    field = data.get("end_of_service", None)
-    if field is not None:
-        args["end_of_service"] = field
 
     field = data.get("gpu_info", None)
     if field is not None:

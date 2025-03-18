@@ -1355,9 +1355,9 @@ class ServerType:
     CPU architecture.
     """
 
-    baremetal: bool
+    end_of_service: bool
     """
-    True if it is a baremetal Instance.
+    True if this Instance type has reached end of service.
     """
 
     per_volume_constraint: Optional[ServerTypeVolumeConstraintsByType]
@@ -1373,11 +1373,6 @@ class ServerType:
     gpu: Optional[int]
     """
     Number of GPU.
-    """
-
-    end_of_service: bool
-    """
-    True if this Instance type has reached end of service.
     """
 
     gpu_info: Optional[ServerTypeGPUInfo]
