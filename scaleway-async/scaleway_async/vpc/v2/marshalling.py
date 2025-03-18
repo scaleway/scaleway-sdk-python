@@ -12,15 +12,19 @@ from .types import (
     VPC,
     AddSubnetsResponse,
     DeleteSubnetsResponse,
+    AclRule,
+    GetAclResponse,
     ListPrivateNetworksResponse,
     ListSubnetsResponse,
     ListVPCsResponse,
+    SetAclResponse,
     SetSubnetsResponse,
     AddSubnetsRequest,
     CreatePrivateNetworkRequest,
     CreateRouteRequest,
     CreateVPCRequest,
     DeleteSubnetsRequest,
+    SetAclRequest,
     SetSubnetsRequest,
     UpdatePrivateNetworkRequest,
     UpdateRouteRequest,
@@ -284,6 +288,76 @@ def unmarshal_DeleteSubnetsResponse(data: Any) -> DeleteSubnetsResponse:
     return DeleteSubnetsResponse(**args)
 
 
+def unmarshal_AclRule(data: Any) -> AclRule:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'AclRule' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("protocol", None)
+    if field is not None:
+        args["protocol"] = field
+
+    field = data.get("source", None)
+    if field is not None:
+        args["source"] = field
+
+    field = data.get("src_port_low", None)
+    if field is not None:
+        args["src_port_low"] = field
+
+    field = data.get("src_port_high", None)
+    if field is not None:
+        args["src_port_high"] = field
+
+    field = data.get("destination", None)
+    if field is not None:
+        args["destination"] = field
+
+    field = data.get("dst_port_low", None)
+    if field is not None:
+        args["dst_port_low"] = field
+
+    field = data.get("dst_port_high", None)
+    if field is not None:
+        args["dst_port_high"] = field
+
+    field = data.get("action", None)
+    if field is not None:
+        args["action"] = field
+
+    field = data.get("description", None)
+    if field is not None:
+        args["description"] = field
+    else:
+        args["description"] = None
+
+    return AclRule(**args)
+
+
+def unmarshal_GetAclResponse(data: Any) -> GetAclResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'GetAclResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("rules", None)
+    if field is not None:
+        args["rules"] = (
+            [unmarshal_AclRule(v) for v in field] if field is not None else None
+        )
+
+    field = data.get("default_policy", None)
+    if field is not None:
+        args["default_policy"] = field
+
+    return GetAclResponse(**args)
+
+
 def unmarshal_ListPrivateNetworksResponse(data: Any) -> ListPrivateNetworksResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -343,6 +417,27 @@ def unmarshal_ListVPCsResponse(data: Any) -> ListVPCsResponse:
         args["total_count"] = field
 
     return ListVPCsResponse(**args)
+
+
+def unmarshal_SetAclResponse(data: Any) -> SetAclResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'SetAclResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("rules", None)
+    if field is not None:
+        args["rules"] = (
+            [unmarshal_AclRule(v) for v in field] if field is not None else None
+        )
+
+    field = data.get("default_policy", None)
+    if field is not None:
+        args["default_policy"] = field
+
+    return SetAclResponse(**args)
 
 
 def unmarshal_SetSubnetsResponse(data: Any) -> SetSubnetsResponse:
@@ -452,6 +547,60 @@ def marshal_DeleteSubnetsRequest(
 
     if request.subnets is not None:
         output["subnets"] = request.subnets
+
+    return output
+
+
+def marshal_AclRule(
+    request: AclRule,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.protocol is not None:
+        output["protocol"] = str(request.protocol)
+
+    if request.source is not None:
+        output["source"] = request.source
+
+    if request.src_port_low is not None:
+        output["src_port_low"] = request.src_port_low
+
+    if request.src_port_high is not None:
+        output["src_port_high"] = request.src_port_high
+
+    if request.destination is not None:
+        output["destination"] = request.destination
+
+    if request.dst_port_low is not None:
+        output["dst_port_low"] = request.dst_port_low
+
+    if request.dst_port_high is not None:
+        output["dst_port_high"] = request.dst_port_high
+
+    if request.action is not None:
+        output["action"] = str(request.action)
+
+    if request.description is not None:
+        output["description"] = request.description
+
+    return output
+
+
+def marshal_SetAclRequest(
+    request: SetAclRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.rules is not None:
+        output["rules"] = [marshal_AclRule(item, defaults) for item in request.rules]
+
+    if request.is_ipv6 is not None:
+        output["is_ipv6"] = request.is_ipv6
+
+    if request.default_policy is not None:
+        output["default_policy"] = str(request.default_policy)
 
     return output
 

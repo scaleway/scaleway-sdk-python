@@ -13,9 +13,11 @@ from scaleway_core.utils import (
     fetch_all_pages_async,
 )
 from .types import (
+    Action,
     ListPrivateNetworksRequestOrderBy,
     ListSubnetsRequestOrderBy,
     ListVPCsRequestOrderBy,
+    AclRule,
     AddSubnetsRequest,
     AddSubnetsResponse,
     CreatePrivateNetworkRequest,
@@ -23,11 +25,14 @@ from .types import (
     CreateVPCRequest,
     DeleteSubnetsRequest,
     DeleteSubnetsResponse,
+    GetAclResponse,
     ListPrivateNetworksResponse,
     ListSubnetsResponse,
     ListVPCsResponse,
     PrivateNetwork,
     Route,
+    SetAclRequest,
+    SetAclResponse,
     SetSubnetsRequest,
     SetSubnetsResponse,
     Subnet,
@@ -42,15 +47,18 @@ from .marshalling import (
     unmarshal_VPC,
     unmarshal_AddSubnetsResponse,
     unmarshal_DeleteSubnetsResponse,
+    unmarshal_GetAclResponse,
     unmarshal_ListPrivateNetworksResponse,
     unmarshal_ListSubnetsResponse,
     unmarshal_ListVPCsResponse,
+    unmarshal_SetAclResponse,
     unmarshal_SetSubnetsResponse,
     marshal_AddSubnetsRequest,
     marshal_CreatePrivateNetworkRequest,
     marshal_CreateRouteRequest,
     marshal_CreateVPCRequest,
     marshal_DeleteSubnetsRequest,
+    marshal_SetAclRequest,
     marshal_SetSubnetsRequest,
     marshal_UpdatePrivateNetworkRequest,
     marshal_UpdateRouteRequest,
@@ -1112,3 +1120,96 @@ class VpcV2API(API):
         )
 
         self._throw_on_error(res)
+
+    async def get_acl(
+        self,
+        *,
+        vpc_id: str,
+        is_ipv6: bool,
+        region: Optional[ScwRegion] = None,
+    ) -> GetAclResponse:
+        """
+        Get Acl Rules for VPC.
+        Retrieve a list of ACL rules for a VPC, specified by its VPC ID.
+        :param vpc_id: ID of the Network ACL's VPC.
+        :param is_ipv6: Defines whether this set of ACL rules is for IPv6 (false = IPv4). Each Network ACL can have rules for only one IP type.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`GetAclResponse <GetAclResponse>`
+
+        Usage:
+        ::
+
+            result = await api.get_acl(
+                vpc_id="example",
+                is_ipv6=False,
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_vpc_id = validate_path_param("vpc_id", vpc_id)
+
+        res = self._request(
+            "GET",
+            f"/vpc/v2/regions/{param_region}/vpc/{param_vpc_id}/acl-rules",
+            params={
+                "is_ipv6": is_ipv6,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_GetAclResponse(res.json())
+
+    async def set_acl(
+        self,
+        *,
+        vpc_id: str,
+        rules: List[AclRule],
+        is_ipv6: bool,
+        default_policy: Action,
+        region: Optional[ScwRegion] = None,
+    ) -> SetAclResponse:
+        """
+        Set VPC ACL rules.
+        Set the list of ACL rules and the default routing policy for a VPC.
+        :param vpc_id: ID of the Network ACL's VPC.
+        :param rules: List of Network ACL rules.
+        :param is_ipv6: Defines whether this set of ACL rules is for IPv6 (false = IPv4). Each Network ACL can have rules for only one IP type.
+        :param default_policy: Action to take for packets which do not match any rules.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`SetAclResponse <SetAclResponse>`
+
+        Usage:
+        ::
+
+            result = await api.set_acl(
+                vpc_id="example",
+                rules=[],
+                is_ipv6=False,
+                default_policy=Action.unknown_action,
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_vpc_id = validate_path_param("vpc_id", vpc_id)
+
+        res = self._request(
+            "PUT",
+            f"/vpc/v2/regions/{param_region}/vpc/{param_vpc_id}/acl-rules",
+            body=marshal_SetAclRequest(
+                SetAclRequest(
+                    vpc_id=vpc_id,
+                    rules=rules,
+                    is_ipv6=is_ipv6,
+                    default_policy=default_policy,
+                    region=region,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_SetAclResponse(res.json())
