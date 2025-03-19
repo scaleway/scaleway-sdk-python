@@ -1130,3 +1130,77 @@ class SecretV1Beta1API(API):
                 "page_size": page_size,
             },
         )
+
+    async def restore_secret_version(
+        self,
+        *,
+        secret_id: str,
+        revision: str,
+        region: Optional[ScwRegion] = None,
+    ) -> SecretVersion:
+        """
+        Restore a version.
+        Restore a secret's version specified by the `region`, `secret_id` and `revision` parameters.
+        :param secret_id:
+        :param revision:
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`SecretVersion <SecretVersion>`
+
+        Usage:
+        ::
+
+            result = await api.restore_secret_version(
+                secret_id="example",
+                revision="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_secret_id = validate_path_param("secret_id", secret_id)
+        param_revision = validate_path_param("revision", revision)
+
+        res = self._request(
+            "POST",
+            f"/secret-manager/v1beta1/regions/{param_region}/secrets/{param_secret_id}/versions/{param_revision}/restore",
+            body={},
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_SecretVersion(res.json())
+
+    async def restore_secret(
+        self,
+        *,
+        secret_id: str,
+        region: Optional[ScwRegion] = None,
+    ) -> Secret:
+        """
+        Restore a secret.
+        Restore a secret and all its versions scheduled for deletion specified by the `region` and `secret_id` parameters.
+        :param secret_id:
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Secret <Secret>`
+
+        Usage:
+        ::
+
+            result = await api.restore_secret(
+                secret_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_secret_id = validate_path_param("secret_id", secret_id)
+
+        res = self._request(
+            "POST",
+            f"/secret-manager/v1beta1/regions/{param_region}/secrets/{param_secret_id}/restore",
+            body={},
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_Secret(res.json())
