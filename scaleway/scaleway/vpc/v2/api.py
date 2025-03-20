@@ -1152,7 +1152,7 @@ class VpcV2API(API):
 
         res = self._request(
             "GET",
-            f"/vpc/v2/regions/{param_region}/vpc/{param_vpc_id}/acl-rules",
+            f"/vpc/v2/regions/{param_region}/vpcs/{param_vpc_id}/acl-rules",
             params={
                 "is_ipv6": is_ipv6,
             },
@@ -1198,7 +1198,7 @@ class VpcV2API(API):
 
         res = self._request(
             "PUT",
-            f"/vpc/v2/regions/{param_region}/vpc/{param_vpc_id}/acl-rules",
+            f"/vpc/v2/regions/{param_region}/vpcs/{param_vpc_id}/acl-rules",
             body=marshal_SetAclRequest(
                 SetAclRequest(
                     vpc_id=vpc_id,
