@@ -113,11 +113,6 @@ class ModelSupportedNode:
 
 @dataclass
 class DeploymentQuantization:
-    enabled: bool
-    """
-    Whether to enable quantization for this deployment.
-    """
-
     bits: int
     """
     The number of bits each model parameter should be quantized to. The quantization method is chosen based on this value.
