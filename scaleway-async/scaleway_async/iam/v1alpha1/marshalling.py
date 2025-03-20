@@ -618,9 +618,29 @@ def unmarshal_User(data: Any) -> User:
     if field is not None:
         args["username"] = field
 
+    field = data.get("first_name", None)
+    if field is not None:
+        args["first_name"] = field
+
+    field = data.get("last_name", None)
+    if field is not None:
+        args["last_name"] = field
+
+    field = data.get("phone_number", None)
+    if field is not None:
+        args["phone_number"] = field
+
+    field = data.get("locale", None)
+    if field is not None:
+        args["locale"] = field
+
     field = data.get("organization_id", None)
     if field is not None:
         args["organization_id"] = field
+
+    field = data.get("deletable", None)
+    if field is not None:
+        args["deletable"] = field
 
     field = data.get("created_at", None)
     if field is not None:
@@ -634,9 +654,13 @@ def unmarshal_User(data: Any) -> User:
     else:
         args["updated_at"] = None
 
-    field = data.get("deletable", None)
+    field = data.get("last_login_at", None)
     if field is not None:
-        args["deletable"] = field
+        args["last_login_at"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
+    else:
+        args["last_login_at"] = None
 
     field = data.get("type", None)
     if field is not None:
@@ -661,14 +685,6 @@ def unmarshal_User(data: Any) -> User:
     field = data.get("locked", None)
     if field is not None:
         args["locked"] = field
-
-    field = data.get("last_login_at", None)
-    if field is not None:
-        args["last_login_at"] = (
-            parser.isoparse(field) if isinstance(field, str) else field
-        )
-    else:
-        args["last_login_at"] = None
 
     field = data.get("two_factor_enabled", None)
     if field is not None:
@@ -1436,6 +1452,18 @@ def marshal_CreateUserRequestMember(
     if request.password is not None:
         output["password"] = request.password
 
+    if request.first_name is not None:
+        output["first_name"] = request.first_name
+
+    if request.last_name is not None:
+        output["last_name"] = request.last_name
+
+    if request.phone_number is not None:
+        output["phone_number"] = request.phone_number
+
+    if request.locale is not None:
+        output["locale"] = request.locale
+
     return output
 
 
@@ -1646,6 +1674,18 @@ def marshal_UpdateUserRequest(
 
     if request.email is not None:
         output["email"] = request.email
+
+    if request.first_name is not None:
+        output["first_name"] = request.first_name
+
+    if request.last_name is not None:
+        output["last_name"] = request.last_name
+
+    if request.phone_number is not None:
+        output["phone_number"] = request.phone_number
+
+    if request.locale is not None:
+        output["locale"] = request.locale
 
     return output
 

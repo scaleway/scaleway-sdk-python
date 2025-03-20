@@ -324,6 +324,26 @@ class CreateUserRequestMember:
     The member's password.
     """
 
+    first_name: str
+    """
+    The member's first name.
+    """
+
+    last_name: str
+    """
+    The member's last name.
+    """
+
+    phone_number: str
+    """
+    The member's phone number.
+    """
+
+    locale: str
+    """
+    The member's locale.
+    """
+
 
 @dataclass
 class Connection:
@@ -822,9 +842,34 @@ class User:
     User identifier unique to the Organization.
     """
 
+    first_name: str
+    """
+    First name of the user.
+    """
+
+    last_name: str
+    """
+    Last name of the user.
+    """
+
+    phone_number: str
+    """
+    Phone number of the user.
+    """
+
+    locale: str
+    """
+    Locale of the user.
+    """
+
     organization_id: str
     """
     ID of the Organization.
+    """
+
+    deletable: bool
+    """
+    Deletion status of user. Owners cannot be deleted.
     """
 
     created_at: Optional[datetime]
@@ -837,9 +882,9 @@ class User:
     Date of last user update.
     """
 
-    deletable: bool
+    last_login_at: Optional[datetime]
     """
-    Deletion status of user. Owners cannot be deleted.
+    Date of the last login.
     """
 
     type_: UserType
@@ -870,11 +915,6 @@ class User:
     locked: bool
     """
     Defines whether the user is locked.
-    """
-
-    last_login_at: Optional[datetime]
-    """
-    Date of the last login.
     """
 
     two_factor_enabled: Optional[bool]
@@ -2095,6 +2135,26 @@ class UpdateUserRequest:
     email: Optional[str]
     """
     IAM member email.
+    """
+
+    first_name: Optional[str]
+    """
+    IAM member first name.
+    """
+
+    last_name: Optional[str]
+    """
+    IAM member last name.
+    """
+
+    phone_number: Optional[str]
+    """
+    IAM member phone number.
+    """
+
+    locale: Optional[str]
+    """
+    IAM member locale.
     """
 
 

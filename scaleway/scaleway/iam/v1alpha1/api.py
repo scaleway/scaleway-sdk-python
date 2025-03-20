@@ -498,6 +498,10 @@ class IamV1Alpha1API(API):
         user_id: str,
         tags: Optional[List[str]] = None,
         email: Optional[str] = None,
+        first_name: Optional[str] = None,
+        last_name: Optional[str] = None,
+        phone_number: Optional[str] = None,
+        locale: Optional[str] = None,
     ) -> User:
         """
         Update a user.
@@ -505,6 +509,10 @@ class IamV1Alpha1API(API):
         :param user_id: ID of the user to update.
         :param tags: New tags for the user (maximum of 10 tags).
         :param email: IAM member email.
+        :param first_name: IAM member first name.
+        :param last_name: IAM member last name.
+        :param phone_number: IAM member phone number.
+        :param locale: IAM member locale.
         :return: :class:`User <User>`
 
         Usage:
@@ -525,6 +533,10 @@ class IamV1Alpha1API(API):
                     user_id=user_id,
                     tags=tags,
                     email=email,
+                    first_name=first_name,
+                    last_name=last_name,
+                    phone_number=phone_number,
+                    locale=locale,
                 ),
                 self.client,
             ),
