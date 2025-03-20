@@ -1,0 +1,85 @@
+scaleway.instance.v1 package
+============================
+
+Submodules
+----------
+
+scaleway.instance.v1.api module
+-------------------------------
+
+.. automodule:: scaleway.instance.v1.api
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway.instance.v1.content module
+-----------------------------------
+
+.. automodule:: scaleway.instance.v1.content
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway.instance.v1.custom\_api module
+---------------------------------------
+
+.. automodule:: scaleway.instance.v1.custom_api
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway.instance.v1.custom\_marshalling module
+-----------------------------------------------
+
+.. automodule:: scaleway.instance.v1.custom_marshalling
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway.instance.v1.custom\_types module
+-----------------------------------------
+
+.. automodule:: scaleway.instance.v1.custom_types
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway.instance.v1.marshalling module
+---------------------------------------
+
+.. automodule:: scaleway.instance.v1.marshalling
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway.instance.v1.test\_user\_data module
+--------------------------------------------
+
+.. automodule:: scaleway.instance.v1.test_user_data
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway.instance.v1.types module
+---------------------------------
+
+.. automodule:: scaleway.instance.v1.types
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+scaleway.instance.v1.types\_private module
+------------------------------------------
+
+.. automodule:: scaleway.instance.v1.types_private
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: scaleway.instance.v1
+   :members:
+   :undoc-members:
+   :show-inheritance:
