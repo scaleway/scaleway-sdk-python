@@ -21,10 +21,10 @@ from .types import (
     FtpAccount,
     MailAccount,
     CheckUserOwnsDomainResponse,
+    AutoConfigDomainDns,
     DnsRecord,
     Nameserver,
     DnsRecords,
-    AutoConfigDomainDns,
     Domain,
     PlatformControlPanelUrls,
     OfferOption,
@@ -164,6 +164,37 @@ def unmarshal_CheckUserOwnsDomainResponse(data: Any) -> CheckUserOwnsDomainRespo
     return CheckUserOwnsDomainResponse(**args)
 
 
+def unmarshal_AutoConfigDomainDns(data: Any) -> AutoConfigDomainDns:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'AutoConfigDomainDns' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("nameservers", None)
+    if field is not None:
+        args["nameservers"] = field
+
+    field = data.get("web_records", None)
+    if field is not None:
+        args["web_records"] = field
+
+    field = data.get("mail_records", None)
+    if field is not None:
+        args["mail_records"] = field
+
+    field = data.get("all_records", None)
+    if field is not None:
+        args["all_records"] = field
+
+    field = data.get("none", None)
+    if field is not None:
+        args["none"] = field
+
+    return AutoConfigDomainDns(**args)
+
+
 def unmarshal_DnsRecord(data: Any) -> DnsRecord:
     if not isinstance(data, dict):
         raise TypeError(
@@ -257,35 +288,16 @@ def unmarshal_DnsRecords(data: Any) -> DnsRecords:
         args["dns_config"] = (
             [DomainDnsAction(v) for v in field] if field is not None else None
         )
+    else:
+        args["dns_config"] = None
+
+    field = data.get("auto_config_domain_dns", None)
+    if field is not None:
+        args["auto_config_domain_dns"] = unmarshal_AutoConfigDomainDns(field)
+    else:
+        args["auto_config_domain_dns"] = None
 
     return DnsRecords(**args)
-
-
-def unmarshal_AutoConfigDomainDns(data: Any) -> AutoConfigDomainDns:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'AutoConfigDomainDns' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("nameservers", None)
-    if field is not None:
-        args["nameservers"] = field
-
-    field = data.get("web_records", None)
-    if field is not None:
-        args["web_records"] = field
-
-    field = data.get("mail_records", None)
-    if field is not None:
-        args["mail_records"] = field
-
-    field = data.get("all_records", None)
-    if field is not None:
-        args["all_records"] = field
-
-    return AutoConfigDomainDns(**args)
 
 
 def unmarshal_Domain(data: Any) -> Domain:
@@ -1123,6 +1135,9 @@ def marshal_AutoConfigDomainDns(
 
     if request.all_records is not None:
         output["all_records"] = request.all_records
+
+    if request.none is not None:
+        output["none"] = request.none
 
     return output
 
