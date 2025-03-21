@@ -183,6 +183,7 @@ class PipelineStatus(str, Enum, metaclass=StrEnumMeta):
     ERROR = "error"
     PENDING = "pending"
     WARNING = "warning"
+    LOCKED = "locked"
 
     def __str__(self) -> str:
         return str(self.value)
