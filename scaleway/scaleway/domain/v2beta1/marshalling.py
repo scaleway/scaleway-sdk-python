@@ -3257,17 +3257,27 @@ def marshal_RecordChange(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
-    output.update(
-        resolve_one_of(
+    changeRecord = resolve_one_of(
             [
                 OneOfPossibility("add", request.add),
                 OneOfPossibility("set", request.set_),
                 OneOfPossibility("delete", request.delete),
                 OneOfPossibility("clear", request.clear),
             ]
-        ),
-    )
-
+        )
+    
+    match changeRecord:
+        case {"set": recordChangeSet}:
+            output.update({"set": marshal_RecordChangeSet(recordChangeSet[0], defaults)})
+        case {"add": recordChangeAdd}:
+            output.update({"add": marshal_RecordChangeAdd(recordChangeAdd[0], defaults)})
+        case {"delete": recordChangeDelete}:
+            output.update({"delete": marshal_RecordChangeDelete(recordChangeDelete[0], defaults)})
+        case {"clear": recordChangeClear}:
+            output.update({"clear": marshal_RecordChangeClear(recordChangeClear[0], defaults)})
+        case _:
+            raise TypeError("Invalid key in change record. Only 'set', 'add', 'delete' and 'clear' are supported")
+        
     return output
 
 
