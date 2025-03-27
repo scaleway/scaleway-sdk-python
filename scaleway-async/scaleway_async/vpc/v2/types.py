@@ -807,29 +807,6 @@ class SetAclResponse:
 
 
 @dataclass
-class SetSubnetsRequest:
-    private_network_id: str
-    """
-    Private Network ID.
-    """
-
-    region: Optional[ScwRegion]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-    subnets: Optional[List[str]]
-    """
-    Private Network subnets CIDR.
-    """
-
-
-@dataclass
-class SetSubnetsResponse:
-    subnets: List[str]
-
-
-@dataclass
 class UpdatePrivateNetworkRequest:
     private_network_id: str
     """

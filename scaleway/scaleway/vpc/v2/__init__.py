@@ -35,8 +35,6 @@ from .types import ListVPCsRequest
 from .types import ListVPCsResponse
 from .types import SetAclRequest
 from .types import SetAclResponse
-from .types import SetSubnetsRequest
-from .types import SetSubnetsResponse
 from .types import UpdatePrivateNetworkRequest
 from .types import UpdateRouteRequest
 from .types import UpdateVPCRequest
@@ -78,8 +76,6 @@ __all__ = [
     "ListVPCsResponse",
     "SetAclRequest",
     "SetAclResponse",
-    "SetSubnetsRequest",
-    "SetSubnetsResponse",
     "UpdatePrivateNetworkRequest",
     "UpdateRouteRequest",
     "UpdateVPCRequest",

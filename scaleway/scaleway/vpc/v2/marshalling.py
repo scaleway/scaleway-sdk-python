@@ -18,14 +18,12 @@ from .types import (
     ListSubnetsResponse,
     ListVPCsResponse,
     SetAclResponse,
-    SetSubnetsResponse,
     AddSubnetsRequest,
     CreatePrivateNetworkRequest,
     CreateRouteRequest,
     CreateVPCRequest,
     DeleteSubnetsRequest,
     SetAclRequest,
-    SetSubnetsRequest,
     UpdatePrivateNetworkRequest,
     UpdateRouteRequest,
     UpdateVPCRequest,
@@ -440,21 +438,6 @@ def unmarshal_SetAclResponse(data: Any) -> SetAclResponse:
     return SetAclResponse(**args)
 
 
-def unmarshal_SetSubnetsResponse(data: Any) -> SetSubnetsResponse:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'SetSubnetsResponse' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("subnets", None)
-    if field is not None:
-        args["subnets"] = field
-
-    return SetSubnetsResponse(**args)
-
-
 def marshal_AddSubnetsRequest(
     request: AddSubnetsRequest,
     defaults: ProfileDefaults,
@@ -601,18 +584,6 @@ def marshal_SetAclRequest(
 
     if request.default_policy is not None:
         output["default_policy"] = str(request.default_policy)
-
-    return output
-
-
-def marshal_SetSubnetsRequest(
-    request: SetSubnetsRequest,
-    defaults: ProfileDefaults,
-) -> Dict[str, Any]:
-    output: Dict[str, Any] = {}
-
-    if request.subnets is not None:
-        output["subnets"] = request.subnets
 
     return output
 
