@@ -587,7 +587,7 @@ class IamV1Alpha1API(API):
         :param email: Email of the user.
         One-Of ('type'): at most one of 'email', 'member' could be set.
         :param tags: Tags associated with the user.
-        :param member: Details of IAM member. Private Beta feature.
+        :param member: Details of IAM member.
         One-Of ('type'): at most one of 'email', 'member' could be set.
         :return: :class:`User <User>`
 
@@ -621,7 +621,7 @@ class IamV1Alpha1API(API):
         username: str,
     ) -> User:
         """
-        Update an user's username. Private Beta feature.
+        Update an user's username.
         :param user_id: ID of the user to update.
         :param username: The new username.
         :return: :class:`User <User>`
@@ -659,7 +659,7 @@ class IamV1Alpha1API(API):
         password: str,
     ) -> User:
         """
-        Update an user's password. Private Beta feature.
+        Update an user's password.
         :param user_id: ID of the user to update.
         :param password: The new password.
         :return: :class:`User <User>`
@@ -696,7 +696,7 @@ class IamV1Alpha1API(API):
         user_id: str,
     ) -> MFAOTP:
         """
-        Create a MFA OTP. Private Beta feature.
+        Create a MFA OTP.
         :param user_id: User ID of the MFA OTP.
         :return: :class:`MFAOTP <MFAOTP>`
 
@@ -726,7 +726,7 @@ class IamV1Alpha1API(API):
         one_time_password: str,
     ) -> ValidateUserMFAOTPResponse:
         """
-        Validate a MFA OTP. Private Beta feature.
+        Validate a MFA OTP.
         :param user_id: User ID of the MFA OTP.
         :param one_time_password: A password generated using the OTP.
         :return: :class:`ValidateUserMFAOTPResponse <ValidateUserMFAOTPResponse>`
@@ -763,7 +763,7 @@ class IamV1Alpha1API(API):
         user_id: str,
     ) -> None:
         """
-        Delete a MFA OTP. Private Beta feature.
+        Delete a MFA OTP.
         :param user_id: User ID of the MFA OTP.
 
         Usage:
@@ -791,7 +791,7 @@ class IamV1Alpha1API(API):
     ) -> User:
         """
         Lock a member.
-        Lock a member. A locked member cannot log in or use API keys until the locked status is removed. Private Beta feature.
+        Lock a member. A locked member cannot log in or use API keys until the locked status is removed.
         :param user_id: ID of the user to lock.
         :return: :class:`User <User>`
 
@@ -821,7 +821,6 @@ class IamV1Alpha1API(API):
     ) -> User:
         """
         Unlock a member.
-        Unlock a member. Private Beta feature.
         :param user_id: ID of the user to unlock.
         :return: :class:`User <User>`
 
@@ -851,7 +850,7 @@ class IamV1Alpha1API(API):
     ) -> ListGracePeriodsResponse:
         """
         List grace periods of a member.
-        List the grace periods of a member. Private Beta feature.
+        List the grace periods of a member.
         :param user_id: ID of the user to list grace periods for.
         :return: :class:`ListGracePeriodsResponse <ListGracePeriodsResponse>`
 

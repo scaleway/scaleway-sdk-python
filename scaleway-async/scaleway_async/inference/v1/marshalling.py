@@ -167,10 +167,6 @@ def unmarshal_DeploymentQuantization(data: Any) -> DeploymentQuantization:
 
     args: Dict[str, Any] = {}
 
-    field = data.get("enabled", None)
-    if field is not None:
-        args["enabled"] = field
-
     field = data.get("bits", None)
     if field is not None:
         args["bits"] = field
@@ -496,9 +492,6 @@ def marshal_DeploymentQuantization(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
-
-    if request.enabled is not None:
-        output["enabled"] = request.enabled
 
     if request.bits is not None:
         output["bits"] = request.bits
