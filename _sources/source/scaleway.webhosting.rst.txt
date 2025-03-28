@@ -1,0 +1,19 @@
+scaleway.webhosting package
+===========================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway.webhosting.v1
+   scaleway.webhosting.v1alpha1
+
+Module contents
+---------------
+
+.. automodule:: scaleway.webhosting
+   :members:
+   :undoc-members:
+   :show-inheritance:
