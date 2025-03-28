@@ -1129,7 +1129,7 @@ class VpcV2API(API):
         region: Optional[ScwRegion] = None,
     ) -> GetAclResponse:
         """
-        Get Acl Rules for VPC.
+        Get ACL Rules for VPC.
         Retrieve a list of ACL rules for a VPC, specified by its VPC ID.
         :param vpc_id: ID of the Network ACL's VPC.
         :param is_ipv6: Defines whether this set of ACL rules is for IPv6 (false = IPv4). Each Network ACL can have rules for only one IP type.
