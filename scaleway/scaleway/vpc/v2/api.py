@@ -33,8 +33,6 @@ from .types import (
     Route,
     SetAclRequest,
     SetAclResponse,
-    SetSubnetsRequest,
-    SetSubnetsResponse,
     Subnet,
     UpdatePrivateNetworkRequest,
     UpdateRouteRequest,
@@ -52,14 +50,12 @@ from .marshalling import (
     unmarshal_ListSubnetsResponse,
     unmarshal_ListVPCsResponse,
     unmarshal_SetAclResponse,
-    unmarshal_SetSubnetsResponse,
     marshal_AddSubnetsRequest,
     marshal_CreatePrivateNetworkRequest,
     marshal_CreateRouteRequest,
     marshal_CreateVPCRequest,
     marshal_DeleteSubnetsRequest,
     marshal_SetAclRequest,
-    marshal_SetSubnetsRequest,
     marshal_UpdatePrivateNetworkRequest,
     marshal_UpdateRouteRequest,
     marshal_UpdateVPCRequest,
@@ -803,52 +799,6 @@ class VpcV2API(API):
                 "vpc_id": vpc_id,
             },
         )
-
-    def set_subnets(
-        self,
-        *,
-        private_network_id: str,
-        region: Optional[ScwRegion] = None,
-        subnets: Optional[List[str]] = None,
-    ) -> SetSubnetsResponse:
-        """
-        Set a Private Network's subnets.
-        Set subnets for an existing Private Network. Note that the method is PUT and not PATCH. Any existing subnets will be removed in favor of the new specified set of subnets.
-        :param private_network_id: Private Network ID.
-        :param region: Region to target. If none is passed will use default region from the config.
-        :param subnets: Private Network subnets CIDR.
-        :return: :class:`SetSubnetsResponse <SetSubnetsResponse>`
-
-        Usage:
-        ::
-
-            result = api.set_subnets(
-                private_network_id="example",
-            )
-        """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-        param_private_network_id = validate_path_param(
-            "private_network_id", private_network_id
-        )
-
-        res = self._request(
-            "PUT",
-            f"/vpc/v2/regions/{param_region}/private-networks/{param_private_network_id}/subnets",
-            body=marshal_SetSubnetsRequest(
-                SetSubnetsRequest(
-                    private_network_id=private_network_id,
-                    region=region,
-                    subnets=subnets,
-                ),
-                self.client,
-            ),
-        )
-
-        self._throw_on_error(res)
-        return unmarshal_SetSubnetsResponse(res.json())
 
     def add_subnets(
         self,
