@@ -740,7 +740,7 @@ class ListVPCsRequest:
 
     tags: Optional[List[str]]
     """
-    Tags to filter for. Only VPCs with one more more matching tags will be returned.
+    Tags to filter for. Only VPCs with one or more matching tags will be returned.
     """
 
     organization_id: Optional[str]

@@ -1082,7 +1082,7 @@ class GetDomainRequest:
 class GetFunctionDownloadURLRequest:
     function_id: str
     """
-    UUID of the function to get the the download URL for.
+    UUID of the function to get the download URL for.
     """
 
     region: Optional[ScwRegion]
