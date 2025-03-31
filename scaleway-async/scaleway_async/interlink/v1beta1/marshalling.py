@@ -10,10 +10,15 @@ from scaleway_core.utils import (
     resolve_one_of,
 )
 from .types import (
+    DedicatedConnection,
+    BgpConfig,
+    PartnerHost,
+    SelfHost,
     Link,
     Partner,
     Pop,
     RoutingPolicy,
+    ListDedicatedConnectionsResponse,
     ListLinksResponse,
     ListPartnersResponse,
     ListPopsResponse,
@@ -25,6 +30,138 @@ from .types import (
     UpdateLinkRequest,
     UpdateRoutingPolicyRequest,
 )
+
+
+def unmarshal_DedicatedConnection(data: Any) -> DedicatedConnection:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'DedicatedConnection' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+
+    field = data.get("project_id", None)
+    if field is not None:
+        args["project_id"] = field
+
+    field = data.get("organization_id", None)
+    if field is not None:
+        args["organization_id"] = field
+
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+
+    field = data.get("tags", None)
+    if field is not None:
+        args["tags"] = field
+
+    field = data.get("pop_id", None)
+    if field is not None:
+        args["pop_id"] = field
+
+    field = data.get("bandwidth_mbps", None)
+    if field is not None:
+        args["bandwidth_mbps"] = field
+
+    field = data.get("available_link_bandwidths", None)
+    if field is not None:
+        args["available_link_bandwidths"] = field
+
+    field = data.get("region", None)
+    if field is not None:
+        args["region"] = field
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
+    field = data.get("demarcation_info", None)
+    if field is not None:
+        args["demarcation_info"] = field
+    else:
+        args["demarcation_info"] = None
+
+    return DedicatedConnection(**args)
+
+
+def unmarshal_BgpConfig(data: Any) -> BgpConfig:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'BgpConfig' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("asn", None)
+    if field is not None:
+        args["asn"] = field
+
+    field = data.get("ipv4", None)
+    if field is not None:
+        args["ipv4"] = field
+
+    field = data.get("ipv6", None)
+    if field is not None:
+        args["ipv6"] = field
+
+    return BgpConfig(**args)
+
+
+def unmarshal_PartnerHost(data: Any) -> PartnerHost:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PartnerHost' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("partner_id", None)
+    if field is not None:
+        args["partner_id"] = field
+
+    field = data.get("pairing_key", None)
+    if field is not None:
+        args["pairing_key"] = field
+
+    field = data.get("disapproved_reason", None)
+    if field is not None:
+        args["disapproved_reason"] = field
+    else:
+        args["disapproved_reason"] = None
+
+    return PartnerHost(**args)
+
+
+def unmarshal_SelfHost(data: Any) -> SelfHost:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'SelfHost' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("connection_id", None)
+    if field is not None:
+        args["connection_id"] = field
+
+    return SelfHost(**args)
 
 
 def unmarshal_Link(data: Any) -> Link:
@@ -63,12 +200,6 @@ def unmarshal_Link(data: Any) -> Link:
     if field is not None:
         args["bandwidth_mbps"] = field
 
-    field = data.get("partner_id", None)
-    if field is not None:
-        args["partner_id"] = field
-    else:
-        args["partner_id"] = None
-
     field = data.get("status", None)
     if field is not None:
         args["status"] = field
@@ -85,9 +216,9 @@ def unmarshal_Link(data: Any) -> Link:
     if field is not None:
         args["enable_route_propagation"] = field
 
-    field = data.get("pairing_key", None)
+    field = data.get("vlan", None)
     if field is not None:
-        args["pairing_key"] = field
+        args["vlan"] = field
 
     field = data.get("region", None)
     if field is not None:
@@ -117,11 +248,29 @@ def unmarshal_Link(data: Any) -> Link:
     else:
         args["updated_at"] = None
 
-    field = data.get("disapproved_reason", None)
+    field = data.get("partner", None)
     if field is not None:
-        args["disapproved_reason"] = field
+        args["partner"] = unmarshal_PartnerHost(field)
     else:
-        args["disapproved_reason"] = None
+        args["partner"] = None
+
+    field = data.get("self", None)
+    if field is not None:
+        args["self_"] = unmarshal_SelfHost(field)
+    else:
+        args["self_"] = None
+
+    field = data.get("scw_bgp_config", None)
+    if field is not None:
+        args["scw_bgp_config"] = unmarshal_BgpConfig(field)
+    else:
+        args["scw_bgp_config"] = None
+
+    field = data.get("peer_bgp_config", None)
+    if field is not None:
+        args["peer_bgp_config"] = unmarshal_BgpConfig(field)
+    else:
+        args["peer_bgp_config"] = None
 
     return Link(**args)
 
@@ -267,6 +416,31 @@ def unmarshal_RoutingPolicy(data: Any) -> RoutingPolicy:
     return RoutingPolicy(**args)
 
 
+def unmarshal_ListDedicatedConnectionsResponse(
+    data: Any,
+) -> ListDedicatedConnectionsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListDedicatedConnectionsResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("connections", None)
+    if field is not None:
+        args["connections"] = (
+            [unmarshal_DedicatedConnection(v) for v in field]
+            if field is not None
+            else None
+        )
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+
+    return ListDedicatedConnectionsResponse(**args)
+
+
 def unmarshal_ListLinksResponse(data: Any) -> ListLinksResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -381,8 +555,7 @@ def marshal_CreateLinkRequest(
     output.update(
         resolve_one_of(
             [
-                OneOfPossibility("dedicated", request.dedicated),
-                OneOfPossibility("port_id", request.port_id),
+                OneOfPossibility("connection_id", request.connection_id),
                 OneOfPossibility("partner_id", request.partner_id),
             ]
         ),
