@@ -1,19 +1,24 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 
-from typing import List, Optional
+from typing import Awaitable, List, Optional, Union
 
 from scaleway_core.api import API
 from scaleway_core.bridge import (
     Region as ScwRegion,
 )
 from scaleway_core.utils import (
+    WaitForOptions,
     validate_path_param,
     fetch_all_pages_async,
+    wait_for_resource_async,
 )
 from .types import (
     BgpStatus,
+    DedicatedConnectionStatus,
+    LinkKind,
     LinkStatus,
+    ListDedicatedConnectionsRequestOrderBy,
     ListLinksRequestOrderBy,
     ListPartnersRequestOrderBy,
     ListPopsRequestOrderBy,
@@ -22,7 +27,9 @@ from .types import (
     AttachVpcRequest,
     CreateLinkRequest,
     CreateRoutingPolicyRequest,
+    DedicatedConnection,
     Link,
+    ListDedicatedConnectionsResponse,
     ListLinksResponse,
     ListPartnersResponse,
     ListPopsResponse,
@@ -33,11 +40,17 @@ from .types import (
     UpdateLinkRequest,
     UpdateRoutingPolicyRequest,
 )
+from .content import (
+    DEDICATED_CONNECTION_TRANSIENT_STATUSES,
+    LINK_TRANSIENT_STATUSES,
+)
 from .marshalling import (
+    unmarshal_DedicatedConnection,
     unmarshal_Link,
     unmarshal_Partner,
     unmarshal_Pop,
     unmarshal_RoutingPolicy,
+    unmarshal_ListDedicatedConnectionsResponse,
     unmarshal_ListLinksResponse,
     unmarshal_ListPartnersResponse,
     unmarshal_ListPopsResponse,
@@ -56,6 +69,199 @@ class InterlinkV1Beta1API(API):
     This API allows you to manage your Scaleway InterLink, to connect your on-premises infrastructure with your Scaleway VPC.
     """
 
+    async def list_dedicated_connections(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        order_by: Optional[ListDedicatedConnectionsRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
+        name: Optional[str] = None,
+        tags: Optional[List[str]] = None,
+        status: Optional[DedicatedConnectionStatus] = None,
+        bandwidth_mbps: Optional[int] = None,
+        pop_id: Optional[str] = None,
+    ) -> ListDedicatedConnectionsResponse:
+        """
+        List dedicated connections.
+        For self-hosted users, list their dedicated physical connections in a given region. By default, the connections returned in the list are ordered by name in ascending order, though this can be modified via the `order_by` field.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param order_by: Order in which to return results.
+        :param page: Page number to return.
+        :param page_size: Maximum number of connections to return per page.
+        :param project_id: Project ID to filter for.
+        :param organization_id: Organization ID to filter for.
+        :param name: Link name to filter for.
+        :param tags: Tags to filter for.
+        :param status: Connection status to filter for.
+        :param bandwidth_mbps: Filter for dedicated connections with this bandwidth size.
+        :param pop_id: Filter for dedicated connections present in this PoP.
+        :return: :class:`ListDedicatedConnectionsResponse <ListDedicatedConnectionsResponse>`
+
+        Usage:
+        ::
+
+            result = await api.list_dedicated_connections()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "GET",
+            f"/interlink/v1beta1/regions/{param_region}/dedicated-connections",
+            params={
+                "bandwidth_mbps": bandwidth_mbps,
+                "name": name,
+                "order_by": order_by,
+                "organization_id": organization_id
+                or self.client.default_organization_id,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+                "pop_id": pop_id,
+                "project_id": project_id or self.client.default_project_id,
+                "status": status,
+                "tags": tags,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListDedicatedConnectionsResponse(res.json())
+
+    async def list_dedicated_connections_all(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        order_by: Optional[ListDedicatedConnectionsRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        project_id: Optional[str] = None,
+        organization_id: Optional[str] = None,
+        name: Optional[str] = None,
+        tags: Optional[List[str]] = None,
+        status: Optional[DedicatedConnectionStatus] = None,
+        bandwidth_mbps: Optional[int] = None,
+        pop_id: Optional[str] = None,
+    ) -> List[DedicatedConnection]:
+        """
+        List dedicated connections.
+        For self-hosted users, list their dedicated physical connections in a given region. By default, the connections returned in the list are ordered by name in ascending order, though this can be modified via the `order_by` field.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param order_by: Order in which to return results.
+        :param page: Page number to return.
+        :param page_size: Maximum number of connections to return per page.
+        :param project_id: Project ID to filter for.
+        :param organization_id: Organization ID to filter for.
+        :param name: Link name to filter for.
+        :param tags: Tags to filter for.
+        :param status: Connection status to filter for.
+        :param bandwidth_mbps: Filter for dedicated connections with this bandwidth size.
+        :param pop_id: Filter for dedicated connections present in this PoP.
+        :return: :class:`List[DedicatedConnection] <List[DedicatedConnection]>`
+
+        Usage:
+        ::
+
+            result = await api.list_dedicated_connections_all()
+        """
+
+        return await fetch_all_pages_async(
+            type=ListDedicatedConnectionsResponse,
+            key="connections",
+            fetcher=self.list_dedicated_connections,
+            args={
+                "region": region,
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size,
+                "project_id": project_id,
+                "organization_id": organization_id,
+                "name": name,
+                "tags": tags,
+                "status": status,
+                "bandwidth_mbps": bandwidth_mbps,
+                "pop_id": pop_id,
+            },
+        )
+
+    async def get_dedicated_connection(
+        self,
+        *,
+        connection_id: str,
+        region: Optional[ScwRegion] = None,
+    ) -> DedicatedConnection:
+        """
+        Get a dedicated connection.
+        For self-hosted users, get a dedicated physical connection corresponding to the given ID. The response object includes information such as the connection's name, status and total bandwidth.
+        :param connection_id: ID of connection to get.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`DedicatedConnection <DedicatedConnection>`
+
+        Usage:
+        ::
+
+            result = await api.get_dedicated_connection(
+                connection_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_connection_id = validate_path_param("connection_id", connection_id)
+
+        res = self._request(
+            "GET",
+            f"/interlink/v1beta1/regions/{param_region}/dedicated-connections/{param_connection_id}",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_DedicatedConnection(res.json())
+
+    async def wait_for_dedicated_connection(
+        self,
+        *,
+        connection_id: str,
+        region: Optional[ScwRegion] = None,
+        options: Optional[
+            WaitForOptions[DedicatedConnection, Union[bool, Awaitable[bool]]]
+        ] = None,
+    ) -> DedicatedConnection:
+        """
+        Get a dedicated connection.
+        For self-hosted users, get a dedicated physical connection corresponding to the given ID. The response object includes information such as the connection's name, status and total bandwidth.
+        :param connection_id: ID of connection to get.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`DedicatedConnection <DedicatedConnection>`
+
+        Usage:
+        ::
+
+            result = await api.get_dedicated_connection(
+                connection_id="example",
+            )
+        """
+
+        if not options:
+            options = WaitForOptions()
+
+        if not options.stop:
+            options.stop = (
+                lambda res: res.status not in DEDICATED_CONNECTION_TRANSIENT_STATUSES
+            )
+
+        return await wait_for_resource_async(
+            fetcher=self.get_dedicated_connection,
+            options=options,
+            args={
+                "connection_id": connection_id,
+                "region": region,
+            },
+        )
+
     async def list_partners(
         self,
         *,
@@ -72,7 +278,7 @@ class InterlinkV1Beta1API(API):
         :param order_by: Order in which to return results.
         :param page: Page number to return.
         :param page_size: Maximum number of partners to return per page.
-        :param pop_ids: Filter for partners present (offering a port) in one of these PoPs.
+        :param pop_ids: Filter for partners present (offering a connection) in one of these PoPs.
         :return: :class:`ListPartnersResponse <ListPartnersResponse>`
 
         Usage:
@@ -115,7 +321,7 @@ class InterlinkV1Beta1API(API):
         :param order_by: Order in which to return results.
         :param page: Page number to return.
         :param page_size: Maximum number of partners to return per page.
-        :param pop_ids: Filter for partners present (offering a port) in one of these PoPs.
+        :param pop_ids: Filter for partners present (offering a connection) in one of these PoPs.
         :return: :class:`List[Partner] <List[Partner]>`
 
         Usage:
@@ -182,6 +388,7 @@ class InterlinkV1Beta1API(API):
         hosting_provider_name: Optional[str] = None,
         partner_id: Optional[str] = None,
         link_bandwidth_mbps: Optional[int] = None,
+        dedicated_available: Optional[bool] = None,
     ) -> ListPopsResponse:
         """
         List PoPs.
@@ -192,8 +399,9 @@ class InterlinkV1Beta1API(API):
         :param page_size: Maximum number of PoPs to return per page.
         :param name: PoP name to filter for.
         :param hosting_provider_name: Hosting provider name to filter for.
-        :param partner_id: Filter for PoPs hosting an available shared port from this partner.
-        :param link_bandwidth_mbps: Filter for PoPs with a shared port allowing this bandwidth size. Note that we cannot guarantee that PoPs returned will have available capacity.
+        :param partner_id: Filter for PoPs hosting an available shared connection from this partner.
+        :param link_bandwidth_mbps: Filter for PoPs with a shared connection allowing this bandwidth size. Note that we cannot guarantee that PoPs returned will have available capacity.
+        :param dedicated_available: Filter for PoPs with a dedicated connection available for self-hosted links.
         :return: :class:`ListPopsResponse <ListPopsResponse>`
 
         Usage:
@@ -210,6 +418,7 @@ class InterlinkV1Beta1API(API):
             "GET",
             f"/interlink/v1beta1/regions/{param_region}/pops",
             params={
+                "dedicated_available": dedicated_available,
                 "hosting_provider_name": hosting_provider_name,
                 "link_bandwidth_mbps": link_bandwidth_mbps,
                 "name": name,
@@ -234,6 +443,7 @@ class InterlinkV1Beta1API(API):
         hosting_provider_name: Optional[str] = None,
         partner_id: Optional[str] = None,
         link_bandwidth_mbps: Optional[int] = None,
+        dedicated_available: Optional[bool] = None,
     ) -> List[Pop]:
         """
         List PoPs.
@@ -244,8 +454,9 @@ class InterlinkV1Beta1API(API):
         :param page_size: Maximum number of PoPs to return per page.
         :param name: PoP name to filter for.
         :param hosting_provider_name: Hosting provider name to filter for.
-        :param partner_id: Filter for PoPs hosting an available shared port from this partner.
-        :param link_bandwidth_mbps: Filter for PoPs with a shared port allowing this bandwidth size. Note that we cannot guarantee that PoPs returned will have available capacity.
+        :param partner_id: Filter for PoPs hosting an available shared connection from this partner.
+        :param link_bandwidth_mbps: Filter for PoPs with a shared connection allowing this bandwidth size. Note that we cannot guarantee that PoPs returned will have available capacity.
+        :param dedicated_available: Filter for PoPs with a dedicated connection available for self-hosted links.
         :return: :class:`List[Pop] <List[Pop]>`
 
         Usage:
@@ -267,6 +478,7 @@ class InterlinkV1Beta1API(API):
                 "hosting_provider_name": hosting_provider_name,
                 "partner_id": partner_id,
                 "link_bandwidth_mbps": link_bandwidth_mbps,
+                "dedicated_available": dedicated_available,
             },
         )
 
@@ -324,6 +536,8 @@ class InterlinkV1Beta1API(API):
         vpc_id: Optional[str] = None,
         routing_policy_id: Optional[str] = None,
         pairing_key: Optional[str] = None,
+        kind: Optional[LinkKind] = None,
+        connection_id: Optional[str] = None,
     ) -> ListLinksResponse:
         """
         List links.
@@ -339,12 +553,14 @@ class InterlinkV1Beta1API(API):
         :param status: Link status to filter for.
         :param bgp_v4_status: BGP IPv4 status to filter for.
         :param bgp_v6_status: BGP IPv6 status to filter for.
-        :param pop_id: Filter for links attached to this PoP (via ports).
+        :param pop_id: Filter for links attached to this PoP (via connections).
         :param bandwidth_mbps: Filter for link bandwidth (in Mbps).
         :param partner_id: Filter for links hosted by this partner.
         :param vpc_id: Filter for links attached to this VPC.
         :param routing_policy_id: Filter for links using this routing policy.
         :param pairing_key: Filter for the link with this pairing_key.
+        :param kind: Filter for hosted or self-hosted links.
+        :param connection_id: Filter for links self-hosted on this connection.
         :return: :class:`ListLinksResponse <ListLinksResponse>`
 
         Usage:
@@ -364,6 +580,8 @@ class InterlinkV1Beta1API(API):
                 "bandwidth_mbps": bandwidth_mbps,
                 "bgp_v4_status": bgp_v4_status,
                 "bgp_v6_status": bgp_v6_status,
+                "connection_id": connection_id,
+                "kind": kind,
                 "name": name,
                 "order_by": order_by,
                 "organization_id": organization_id
@@ -404,6 +622,8 @@ class InterlinkV1Beta1API(API):
         vpc_id: Optional[str] = None,
         routing_policy_id: Optional[str] = None,
         pairing_key: Optional[str] = None,
+        kind: Optional[LinkKind] = None,
+        connection_id: Optional[str] = None,
     ) -> List[Link]:
         """
         List links.
@@ -419,12 +639,14 @@ class InterlinkV1Beta1API(API):
         :param status: Link status to filter for.
         :param bgp_v4_status: BGP IPv4 status to filter for.
         :param bgp_v6_status: BGP IPv6 status to filter for.
-        :param pop_id: Filter for links attached to this PoP (via ports).
+        :param pop_id: Filter for links attached to this PoP (via connections).
         :param bandwidth_mbps: Filter for link bandwidth (in Mbps).
         :param partner_id: Filter for links hosted by this partner.
         :param vpc_id: Filter for links attached to this VPC.
         :param routing_policy_id: Filter for links using this routing policy.
         :param pairing_key: Filter for the link with this pairing_key.
+        :param kind: Filter for hosted or self-hosted links.
+        :param connection_id: Filter for links self-hosted on this connection.
         :return: :class:`List[Link] <List[Link]>`
 
         Usage:
@@ -455,6 +677,8 @@ class InterlinkV1Beta1API(API):
                 "vpc_id": vpc_id,
                 "routing_policy_id": routing_policy_id,
                 "pairing_key": pairing_key,
+                "kind": kind,
+                "connection_id": connection_id,
             },
         )
 
@@ -466,7 +690,7 @@ class InterlinkV1Beta1API(API):
     ) -> Link:
         """
         Get a link.
-        Get a link (InterLink connection) for the given link ID. The response object includes information about the link's various configuration details.
+        Get a link (InterLink session / logical InterLink resource) for the given link ID. The response object includes information about the link's various configuration details.
         :param link_id: ID of the link to get.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`Link <Link>`
@@ -492,6 +716,43 @@ class InterlinkV1Beta1API(API):
         self._throw_on_error(res)
         return unmarshal_Link(res.json())
 
+    async def wait_for_link(
+        self,
+        *,
+        link_id: str,
+        region: Optional[ScwRegion] = None,
+        options: Optional[WaitForOptions[Link, Union[bool, Awaitable[bool]]]] = None,
+    ) -> Link:
+        """
+        Get a link.
+        Get a link (InterLink session / logical InterLink resource) for the given link ID. The response object includes information about the link's various configuration details.
+        :param link_id: ID of the link to get.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`Link <Link>`
+
+        Usage:
+        ::
+
+            result = await api.get_link(
+                link_id="example",
+            )
+        """
+
+        if not options:
+            options = WaitForOptions()
+
+        if not options.stop:
+            options.stop = lambda res: res.status not in LINK_TRANSIENT_STATUSES
+
+        return await wait_for_resource_async(
+            fetcher=self.get_link,
+            options=options,
+            args={
+                "link_id": link_id,
+                "region": region,
+            },
+        )
+
     async def create_link(
         self,
         *,
@@ -501,25 +762,22 @@ class InterlinkV1Beta1API(API):
         region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         tags: Optional[List[str]] = None,
-        dedicated: Optional[bool] = None,
-        port_id: Optional[str] = None,
+        connection_id: Optional[str] = None,
         partner_id: Optional[str] = None,
     ) -> Link:
         """
         Create a link.
-        Create a link (InterLink connection) in a given PoP, specifying its various configuration details. For the moment only hosted links (faciliated by partners) are available, though in the future dedicated and shared links will also be possible.
+        Create a link (InterLink session / logical InterLink resource) in a given PoP, specifying its various configuration details. Links can either be hosted (faciliated by partners' shared physical connections) or self-hosted (for users who have purchased a dedicated physical connection).
         :param name: Name of the link.
         :param pop_id: PoP (location) where the link will be created.
-        :param bandwidth_mbps: Desired bandwidth for the link. Must be compatible with available link bandwidths and remaining bandwidth capacity of the port.
+        :param bandwidth_mbps: Desired bandwidth for the link. Must be compatible with available link bandwidths and remaining bandwidth capacity of the connection.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id: ID of the Project to create the link in.
         :param tags: List of tags to apply to the link.
-        :param dedicated: If true, a dedicated link (1 link per port, dedicated to one customer) will be crated. It is not necessary to specify a `port_id` or `partner_id`. A new port will created and assigned to the link. Note that Scaleway has not yet enabled the creation of dedicated links, this field is reserved for future use.
-        One-Of ('link_kind'): at most one of 'dedicated', 'port_id', 'partner_id' could be set.
-        :param port_id: If set, a shared link (N links per port, one of which is this customer's port) will be created. As the customer, specify the ID of the port you already have for this link. Note that shared links are not currently available. Note that Scaleway has not yet enabled the creation of shared links, this field is reserved for future use.
-        One-Of ('link_kind'): at most one of 'dedicated', 'port_id', 'partner_id' could be set.
-        :param partner_id: If set, a hosted link (N links per port on a partner port) will be created. Specify the ID of the chosen partner, who already has a shareable port with available bandwidth. Note that this is currently the only type of link offered by Scaleway, and therefore this field must be set when creating a link.
-        One-Of ('link_kind'): at most one of 'dedicated', 'port_id', 'partner_id' could be set.
+        :param connection_id: If set, creates a self-hosted link using this dedicated physical connection. As the customer, specify the ID of the physical connection you already have for this link.
+        One-Of ('host'): at most one of 'connection_id', 'partner_id' could be set.
+        :param partner_id: If set, creates a hosted link on a partner's connection. Specify the ID of the chosen partner, who already has a shared connection with available bandwidth.
+        One-Of ('host'): at most one of 'connection_id', 'partner_id' could be set.
         :return: :class:`Link <Link>`
 
         Usage:
@@ -547,8 +805,7 @@ class InterlinkV1Beta1API(API):
                     region=region,
                     project_id=project_id,
                     tags=tags,
-                    dedicated=dedicated,
-                    port_id=port_id,
+                    connection_id=connection_id,
                     partner_id=partner_id,
                 ),
                 self.client,

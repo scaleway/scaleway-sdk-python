@@ -329,6 +329,11 @@ class AutoConfigDomainDns:
     Whether or not to synchronize all types of records. Takes priority over the other fields.
     """
 
+    none: bool
+    """
+    No automatic domain configuration. Users must configure their domain for the Web Hosting to work.
+    """
+
 
 @dataclass
 class CreateHostingRequestDomainConfiguration:
@@ -1095,9 +1100,14 @@ class DnsRecords:
     Status of the records.
     """
 
-    dns_config: List[DomainDnsAction]
+    dns_config: Optional[List[DomainDnsAction]]
     """
-    Records dns auto configuration settings.
+    Records dns auto configuration settings (deprecated, use auto_config_domain_dns).
+    """
+
+    auto_config_domain_dns: Optional[AutoConfigDomainDns]
+    """
+    Whether or not to synchronize each types of records.
     """
 
 
