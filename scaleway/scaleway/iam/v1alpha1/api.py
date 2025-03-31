@@ -1407,7 +1407,7 @@ class IamV1Alpha1API(API):
     ) -> Group:
         """
         Add a user or an application to a group.
-        Add a user or an application to a group. You can specify a `user_id` and and `application_id` in the body of your request. Note that you can only add one of each per request.
+        Add a user or an application to a group. You can specify a `user_id` and `application_id` in the body of your request. Note that you can only add one of each per request.
         :param group_id: ID of the group.
         :param user_id: ID of the user to add.
         One-Of ('member'): at most one of 'user_id', 'application_id' could be set.
@@ -1491,7 +1491,7 @@ class IamV1Alpha1API(API):
     ) -> Group:
         """
         Remove a user or an application from a group.
-        Remove a user or an application from a group. You can specify a `user_id` and and `application_id` in the body of your request. Note that you can only remove one of each per request. Removing a user from a group means that any permissions given to them via the group (i.e. from an attached policy) will no longer apply. Be sure you want to remove these permissions from the user before proceeding.
+        Remove a user or an application from a group. You can specify a `user_id` and `application_id` in the body of your request. Note that you can only remove one of each per request. Removing a user from a group means that any permissions given to them via the group (i.e. from an attached policy) will no longer apply. Be sure you want to remove these permissions from the user before proceeding.
         :param group_id: ID of the group.
         :param user_id: ID of the user to remove.
         One-Of ('member'): at most one of 'user_id', 'application_id' could be set.

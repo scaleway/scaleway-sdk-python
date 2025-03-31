@@ -89,7 +89,7 @@ class VpcV2API(API):
         :param page: Page number to return, from the paginated results.
         :param page_size: Maximum number of VPCs to return per page.
         :param name: Name to filter for. Only VPCs with names containing this string will be returned.
-        :param tags: Tags to filter for. Only VPCs with one more more matching tags will be returned.
+        :param tags: Tags to filter for. Only VPCs with one or more matching tags will be returned.
         :param organization_id: Organization ID to filter for. Only VPCs belonging to this Organization will be returned.
         :param project_id: Project ID to filter for. Only VPCs belonging to this Project will be returned.
         :param is_default: Defines whether to filter only for VPCs which are the default one for their Project.
@@ -148,7 +148,7 @@ class VpcV2API(API):
         :param page: Page number to return, from the paginated results.
         :param page_size: Maximum number of VPCs to return per page.
         :param name: Name to filter for. Only VPCs with names containing this string will be returned.
-        :param tags: Tags to filter for. Only VPCs with one more more matching tags will be returned.
+        :param tags: Tags to filter for. Only VPCs with one or more matching tags will be returned.
         :param organization_id: Organization ID to filter for. Only VPCs belonging to this Organization will be returned.
         :param project_id: Project ID to filter for. Only VPCs belonging to this Project will be returned.
         :param is_default: Defines whether to filter only for VPCs which are the default one for their Project.

@@ -722,7 +722,7 @@ class VpcgwV1API(API):
         One-Of ('ip_config'): at most one of 'dhcp_id', 'dhcp', 'address', 'ipam_config' could be set.
         :param dhcp: New DHCP configuration object to use for this GatewayNetwork.
         One-Of ('ip_config'): at most one of 'dhcp_id', 'dhcp', 'address', 'ipam_config' could be set.
-        :param address: Static IP address in CIDR format to to use without DHCP.
+        :param address: Static IP address in CIDR format to use without DHCP.
         One-Of ('ip_config'): at most one of 'dhcp_id', 'dhcp', 'address', 'ipam_config' could be set.
         :param ipam_config: Note: all or none of the GatewayNetworks for a single gateway can use the IPAM. DHCP and IPAM configurations cannot be mixed. Some products may require that the Public Gateway uses the IPAM, to ensure correct functionality.
         One-Of ('ip_config'): at most one of 'dhcp_id', 'dhcp', 'address', 'ipam_config' could be set.
