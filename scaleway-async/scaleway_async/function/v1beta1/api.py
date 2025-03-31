@@ -893,7 +893,7 @@ class FunctionV1Beta1API(API):
         """
         Get a download URL of a function.
         Get a download URL for a function associated with the specified ID.
-        :param function_id: UUID of the function to get the the download URL for.
+        :param function_id: UUID of the function to get the download URL for.
         :param region: Region to target. If none is passed will use default region from the config.
         :return: :class:`DownloadURL <DownloadURL>`
 

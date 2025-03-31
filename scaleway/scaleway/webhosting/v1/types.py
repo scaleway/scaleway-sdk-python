@@ -1814,7 +1814,7 @@ class ResourceSummary:
 
     websites_count: int
     """
-    Total number of active domains in the the Web Hosting plan.
+    Total number of active domains in the Web Hosting plan.
     """
 
 
