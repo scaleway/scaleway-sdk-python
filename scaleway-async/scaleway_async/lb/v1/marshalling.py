@@ -87,6 +87,7 @@ from .types import (
     ZonedApiCreateLbRequest,
     ZonedApiCreateRouteRequest,
     ZonedApiCreateSubscriberRequest,
+    ZonedApiDetachPrivateNetworkRequest,
     ZonedApiMigrateLbRequest,
     ZonedApiRemoveBackendServersRequest,
     AclSpec,
@@ -2446,6 +2447,9 @@ def marshal_ZonedApiAttachPrivateNetworkRequest(
         ),
     )
 
+    if request.private_network_id is not None:
+        output["private_network_id"] = request.private_network_id
+
     if request.ipam_ids is not None:
         output["ipam_ids"] = request.ipam_ids
 
@@ -2731,6 +2735,18 @@ def marshal_ZonedApiCreateSubscriberRequest(
 
     if request.name is not None:
         output["name"] = request.name
+
+    return output
+
+
+def marshal_ZonedApiDetachPrivateNetworkRequest(
+    request: ZonedApiDetachPrivateNetworkRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.private_network_id is not None:
+        output["private_network_id"] = request.private_network_id
 
     return output
 

@@ -107,6 +107,7 @@ from .types import (
     ZonedApiCreateLbRequest,
     ZonedApiCreateRouteRequest,
     ZonedApiCreateSubscriberRequest,
+    ZonedApiDetachPrivateNetworkRequest,
     ZonedApiMigrateLbRequest,
     ZonedApiRemoveBackendServersRequest,
     ZonedApiSetAclsRequest,
@@ -183,6 +184,7 @@ from .marshalling import (
     marshal_ZonedApiCreateLbRequest,
     marshal_ZonedApiCreateRouteRequest,
     marshal_ZonedApiCreateSubscriberRequest,
+    marshal_ZonedApiDetachPrivateNetworkRequest,
     marshal_ZonedApiMigrateLbRequest,
     marshal_ZonedApiRemoveBackendServersRequest,
     marshal_ZonedApiSetAclsRequest,
@@ -3162,13 +3164,10 @@ class LbV1ZonedAPI(API):
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_lb_id = validate_path_param("lb_id", lb_id)
-        param_private_network_id = validate_path_param(
-            "private_network_id", private_network_id
-        )
 
         res = self._request(
             "POST",
-            f"/lb/v1/zones/{param_zone}/lbs/{param_lb_id}/private-networks/{param_private_network_id}/attach",
+            f"/lb/v1/zones/{param_zone}/lbs/{param_lb_id}/attach-private-network",
             body=marshal_ZonedApiAttachPrivateNetworkRequest(
                 ZonedApiAttachPrivateNetworkRequest(
                     lb_id=lb_id,
@@ -3211,14 +3210,18 @@ class LbV1ZonedAPI(API):
 
         param_zone = validate_path_param("zone", zone or self.client.default_zone)
         param_lb_id = validate_path_param("lb_id", lb_id)
-        param_private_network_id = validate_path_param(
-            "private_network_id", private_network_id
-        )
 
         res = self._request(
             "POST",
-            f"/lb/v1/zones/{param_zone}/lbs/{param_lb_id}/private-networks/{param_private_network_id}/detach",
-            body={},
+            f"/lb/v1/zones/{param_zone}/lbs/{param_lb_id}/detach-private-network",
+            body=marshal_ZonedApiDetachPrivateNetworkRequest(
+                ZonedApiDetachPrivateNetworkRequest(
+                    lb_id=lb_id,
+                    private_network_id=private_network_id,
+                    zone=zone,
+                ),
+                self.client,
+            ),
         )
 
         self._throw_on_error(res)
