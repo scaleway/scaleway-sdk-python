@@ -533,6 +533,11 @@ class CreateLinkRequest:
     List of tags to apply to the link.
     """
 
+    peer_asn: Optional[int]
+    """
+    For self-hosted links we need the peer AS Number to establish BGP session. If not given, a default one will be assigned.
+    """
+
     connection_id: Optional[str]
 
     partner_id: Optional[str]
@@ -1068,6 +1073,11 @@ class UpdateLinkRequest:
     tags: Optional[List[str]]
     """
     List of tags to apply to the link.
+    """
+
+    peer_asn: Optional[int]
+    """
+    For self-hosted links, AS Number to establish BGP session.
     """
 
 

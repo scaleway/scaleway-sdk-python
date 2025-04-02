@@ -576,6 +576,9 @@ def marshal_CreateLinkRequest(
     if request.tags is not None:
         output["tags"] = request.tags
 
+    if request.peer_asn is not None:
+        output["peer_asn"] = request.peer_asn
+
     return output
 
 
@@ -614,6 +617,9 @@ def marshal_UpdateLinkRequest(
 
     if request.tags is not None:
         output["tags"] = request.tags
+
+    if request.peer_asn is not None:
+        output["peer_asn"] = request.peer_asn
 
     return output
 
