@@ -1093,7 +1093,7 @@ class ListDevicesRequest:
 
     allow_insecure: Optional[bool]
     """
-    Defines wheter to filter the allow_insecure flag.
+    Defines whether to filter the allow_insecure flag.
     """
 
     status: Optional[DeviceStatus]

@@ -426,7 +426,7 @@ class FunctionV1Beta1API(API):
         :param page_size: Number of functions per page.
         :param order_by: Order of the functions.
         :param name: Name of the function.
-        :param organization_id: UUID of the Organziation the function belongs to.
+        :param organization_id: UUID of the Organization the function belongs to.
         :param project_id: UUID of the Project the function belongs to.
         :return: :class:`ListFunctionsResponse <ListFunctionsResponse>`
 
@@ -480,7 +480,7 @@ class FunctionV1Beta1API(API):
         :param page_size: Number of functions per page.
         :param order_by: Order of the functions.
         :param name: Name of the function.
-        :param organization_id: UUID of the Organziation the function belongs to.
+        :param organization_id: UUID of the Organization the function belongs to.
         :param project_id: UUID of the Project the function belongs to.
         :return: :class:`List[Function] <List[Function]>`
 
@@ -605,7 +605,7 @@ class FunctionV1Beta1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the function to create.
         :param environment_variables: Environment variables of the function.
-        :param min_scale: Minumum number of instances to scale the function to.
+        :param min_scale: Minimum number of instances to scale the function to.
         :param max_scale: Maximum number of instances to scale the function to.
         :param runtime: Runtime to use with the function.
         :param memory_limit: Memory limit of the function in MB.
@@ -685,7 +685,7 @@ class FunctionV1Beta1API(API):
         :param function_id: UUID of the function to update.
         :param region: Region to target. If none is passed will use default region from the config.
         :param environment_variables: Environment variables of the function to update.
-        :param min_scale: Minumum number of instances to scale the function to.
+        :param min_scale: Minimum number of instances to scale the function to.
         :param max_scale: Maximum number of instances to scale the function to.
         :param runtime: Runtime to use with the function.
         :param memory_limit: Memory limit of the function in MB.
@@ -1219,7 +1219,7 @@ class FunctionV1Beta1API(API):
         """
         List all domain name bindings.
         List all domain name bindings in a specified region.
-        :param function_id: UUID of the function the domain is assoicated with.
+        :param function_id: UUID of the function the domain is associated with.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number.
         :param page_size: Number of domains per page.
@@ -1264,7 +1264,7 @@ class FunctionV1Beta1API(API):
         """
         List all domain name bindings.
         List all domain name bindings in a specified region.
-        :param function_id: UUID of the function the domain is assoicated with.
+        :param function_id: UUID of the function the domain is associated with.
         :param region: Region to target. If none is passed will use default region from the config.
         :param page: Page number.
         :param page_size: Number of domains per page.
@@ -1574,7 +1574,7 @@ class FunctionV1Beta1API(API):
         :param page: Page number.
         :param page_size: Number of tokens per page.
         :param order_by: Sort order for the tokens.
-        :param function_id: UUID of the function the token is assoicated with.
+        :param function_id: UUID of the function the token is associated with.
         :param namespace_id: UUID of the namespace the token is associated with.
         :return: :class:`ListTokensResponse <ListTokensResponse>`
 
@@ -1619,7 +1619,7 @@ class FunctionV1Beta1API(API):
         :param page: Page number.
         :param page_size: Number of tokens per page.
         :param order_by: Sort order for the tokens.
-        :param function_id: UUID of the function the token is assoicated with.
+        :param function_id: UUID of the function the token is associated with.
         :param namespace_id: UUID of the namespace the token is associated with.
         :return: :class:`List[Token] <List[Token]>`
 

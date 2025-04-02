@@ -1950,7 +1950,7 @@ class RdbV1API(API):
     ) -> SetInstanceSettingsResponse:
         """
         Set Database Instance advanced settings.
-        Update an advanced setting for a Database Instance. Settings added upon database engine initalization can only be defined once, and cannot, therefore, be updated.
+        Update an advanced setting for a Database Instance. Settings added upon database engine initialization can only be defined once, and cannot, therefore, be updated.
         :param instance_id: UUID of the Database Instance where the settings must be set.
         :param settings: Settings to define for the Database Instance.
         :param region: Region to target. If none is passed will use default region from the config.

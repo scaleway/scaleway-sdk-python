@@ -635,7 +635,7 @@ class IotV1API(API):
         :param order_by: Ordering of requested devices.
         :param name: Name to filter for, only devices with this name will be returned.
         :param hub_id: Hub ID to filter for, only devices attached to this Hub will be returned.
-        :param allow_insecure: Defines wheter to filter the allow_insecure flag.
+        :param allow_insecure: Defines whether to filter the allow_insecure flag.
         :param status: Device status (enabled, disabled, etc.).
         :return: :class:`ListDevicesResponse <ListDevicesResponse>`
 
@@ -687,7 +687,7 @@ class IotV1API(API):
         :param order_by: Ordering of requested devices.
         :param name: Name to filter for, only devices with this name will be returned.
         :param hub_id: Hub ID to filter for, only devices attached to this Hub will be returned.
-        :param allow_insecure: Defines wheter to filter the allow_insecure flag.
+        :param allow_insecure: Defines whether to filter the allow_insecure flag.
         :param status: Device status (enabled, disabled, etc.).
         :return: :class:`List[Device] <List[Device]>`
 

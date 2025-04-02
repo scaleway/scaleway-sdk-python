@@ -606,7 +606,7 @@ class Volume:
 class NodeTypeVolumeConstraintSizes:
     min_size: int
     """
-    [deprecated] Mimimum size required for the Volume.
+    [deprecated] Minimum size required for the Volume.
     """
 
     max_size: int
@@ -629,7 +629,7 @@ class NodeTypeVolumeType:
 
     min_size: int
     """
-    Mimimum size required for the Volume.
+    Minimum size required for the Volume.
     """
 
     max_size: int

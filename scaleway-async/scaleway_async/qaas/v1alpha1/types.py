@@ -363,7 +363,7 @@ class Platform:
 
     version: str
     """
-    Verison of the platform.
+    Version of the platform.
     """
 
     name: str
@@ -408,7 +408,7 @@ class Platform:
 
     price_per_hour: Optional[Money]
     """
-    Price to be payed per hour (excluding free tiers).
+    Price to be paid per hour (excluding free tiers).
     """
 
     hardware: Optional[PlatformHardware]

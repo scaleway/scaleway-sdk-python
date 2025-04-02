@@ -1289,7 +1289,7 @@ class IamV1Alpha1API(API):
     ) -> Group:
         """
         Get a group.
-        Retrive information about a given group, specified by the `group_id` parameter. The group's full details, including `user_ids` and `application_ids` are returned in the response.
+        Retrieve information about a given group, specified by the `group_id` parameter. The group's full details, including `user_ids` and `application_ids` are returned in the response.
         :param group_id: ID of the group.
         :return: :class:`Group <Group>`
 
@@ -2249,7 +2249,7 @@ class IamV1Alpha1API(API):
     ) -> APIKey:
         """
         Get an API key.
-        Retrive information about an API key, specified by the `access_key` parameter. The API key's details, including either the `user_id` or `application_id` of its bearer are returned in the response. Note that the string value for the `secret_key` is nullable, and therefore is not displayed in the response. The `secret_key` value is only displayed upon API key creation.
+        Retrieve information about an API key, specified by the `access_key` parameter. The API key's details, including either the `user_id` or `application_id` of its bearer are returned in the response. Note that the string value for the `secret_key` is nullable, and therefore is not displayed in the response. The `secret_key` value is only displayed upon API key creation.
         :param access_key: Access key to search for.
         :return: :class:`APIKey <APIKey>`
 
