@@ -762,6 +762,7 @@ class InterlinkV1Beta1API(API):
         tags: Optional[List[str]] = None,
         connection_id: Optional[str] = None,
         partner_id: Optional[str] = None,
+        peer_asn: Optional[int] = None,
     ) -> Link:
         """
         Create a link.
@@ -776,6 +777,7 @@ class InterlinkV1Beta1API(API):
         One-Of ('host'): at most one of 'connection_id', 'partner_id' could be set.
         :param partner_id: If set, creates a hosted link on a partner's connection. Specify the ID of the chosen partner, who already has a shared connection with available bandwidth.
         One-Of ('host'): at most one of 'connection_id', 'partner_id' could be set.
+        :param peer_asn: For self-hosted links we need the peer AS Number to establish BGP session. If not given, a default one will be assigned.
         :return: :class:`Link <Link>`
 
         Usage:
@@ -803,6 +805,7 @@ class InterlinkV1Beta1API(API):
                     region=region,
                     project_id=project_id,
                     tags=tags,
+                    peer_asn=peer_asn,
                     connection_id=connection_id,
                     partner_id=partner_id,
                 ),
@@ -820,6 +823,7 @@ class InterlinkV1Beta1API(API):
         region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         tags: Optional[List[str]] = None,
+        peer_asn: Optional[int] = None,
     ) -> Link:
         """
         Update a link.
@@ -828,6 +832,7 @@ class InterlinkV1Beta1API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the link.
         :param tags: List of tags to apply to the link.
+        :param peer_asn: For self-hosted links, AS Number to establish BGP session.
         :return: :class:`Link <Link>`
 
         Usage:
@@ -852,6 +857,7 @@ class InterlinkV1Beta1API(API):
                     region=region,
                     name=name,
                     tags=tags,
+                    peer_asn=peer_asn,
                 ),
                 self.client,
             ),
