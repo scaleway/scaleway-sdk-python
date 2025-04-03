@@ -837,7 +837,7 @@ class RedisV1API(API):
     ) -> ClusterSettingsResponse:
         """
         Set advanced settings.
-        Update an advanced setting for a Redis™ Database Instance (Redis™ cluster). Settings added upon database engine initalization can only be defined once, and cannot, therefore, be updated.
+        Update an advanced setting for a Redis™ Database Instance (Redis™ cluster). Settings added upon database engine initialization can only be defined once, and cannot, therefore, be updated.
         :param cluster_id: UUID of the Database Instance where the settings must be set.
         :param settings: Settings to define for the Database Instance.
         :param zone: Zone to target. If none is passed will use default zone from the config.

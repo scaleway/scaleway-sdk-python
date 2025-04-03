@@ -725,7 +725,7 @@ class InferenceV1Beta1API(API):
         region: Optional[ScwRegion] = None,
     ) -> None:
         """
-        Delete an exising ACL.
+        Delete an existing ACL.
         :param acl_id: ID of the ACL rule to delete.
         :param region: Region to target. If none is passed will use default region from the config.
 

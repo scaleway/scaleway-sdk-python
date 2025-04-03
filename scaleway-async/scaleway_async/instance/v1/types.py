@@ -1253,7 +1253,7 @@ class Task:
 
     zone: ScwZone
     """
-    Zone in which the task is excecuted.
+    Zone in which the task is executed.
     """
 
     started_at: Optional[datetime]

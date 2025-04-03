@@ -815,7 +815,7 @@ class CreateFunctionRequest:
 
     min_scale: Optional[int]
     """
-    Minumum number of instances to scale the function to.
+    Minimum number of instances to scale the function to.
     """
 
     max_scale: Optional[int]
@@ -1206,7 +1206,7 @@ class ListCronsResponse:
 class ListDomainsRequest:
     function_id: str
     """
-    UUID of the function the domain is assoicated with.
+    UUID of the function the domain is associated with.
     """
 
     region: Optional[ScwRegion]
@@ -1298,7 +1298,7 @@ class ListFunctionsRequest:
 
     organization_id: Optional[str]
     """
-    UUID of the Organziation the function belongs to.
+    UUID of the Organization the function belongs to.
     """
 
     project_id: Optional[str]
@@ -1392,7 +1392,7 @@ class ListTokensRequest:
 
     function_id: Optional[str]
     """
-    UUID of the function the token is assoicated with.
+    UUID of the function the token is associated with.
     """
 
     namespace_id: Optional[str]
@@ -1502,7 +1502,7 @@ class UpdateFunctionRequest:
 
     min_scale: Optional[int]
     """
-    Minumum number of instances to scale the function to.
+    Minimum number of instances to scale the function to.
     """
 
     max_scale: Optional[int]

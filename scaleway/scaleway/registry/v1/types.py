@@ -152,7 +152,7 @@ class Namespace:
 
     name: str
     """
-    Name of the namespace, unique in a region accross all organizations.
+    Name of the namespace, unique in a region across all organizations.
     """
 
     description: str

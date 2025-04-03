@@ -695,7 +695,7 @@ class OfferSANInfo:
 
     ha: bool
     """
-    High availabilty offer.
+    High availability offer.
     """
 
     device_type: OfferSANInfoType
@@ -933,12 +933,12 @@ class OS:
 
     requires_valid_hostname: Optional[bool]
     """
-    If both requires_valid_hostname & hostname_regex are set, it means that at least one of the criterias must be valid.
+    If both requires_valid_hostname & hostname_regex are set, it means that at least one of the criteria must be valid.
     """
 
     hostname_regex: Optional[str]
     """
-    If both requires_valid_hostname & hostname_regex are set, it means that at least one of the criterias must be valid.
+    If both requires_valid_hostname & hostname_regex are set, it means that at least one of the criteria must be valid.
     """
 
     released_at: Optional[datetime]

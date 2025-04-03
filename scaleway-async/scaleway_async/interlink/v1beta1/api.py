@@ -768,7 +768,7 @@ class InterlinkV1Beta1API(API):
     ) -> Link:
         """
         Create a link.
-        Create a link (InterLink session / logical InterLink resource) in a given PoP, specifying its various configuration details. Links can either be hosted (faciliated by partners' shared physical connections) or self-hosted (for users who have purchased a dedicated physical connection).
+        Create a link (InterLink session / logical InterLink resource) in a given PoP, specifying its various configuration details. Links can either be hosted (facilitated by partners' shared physical connections) or self-hosted (for users who have purchased a dedicated physical connection).
         :param name: Name of the link.
         :param pop_id: PoP (location) where the link will be created.
         :param bandwidth_mbps: Desired bandwidth for the link. Must be compatible with available link bandwidths and remaining bandwidth capacity of the connection.
