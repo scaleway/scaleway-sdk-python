@@ -1,0 +1,57 @@
+scaleway\_async package
+=======================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway_async.account
+   scaleway_async.applesilicon
+   scaleway_async.audit_trail
+   scaleway_async.baremetal
+   scaleway_async.billing
+   scaleway_async.block
+   scaleway_async.cockpit
+   scaleway_async.container
+   scaleway_async.dedibox
+   scaleway_async.document_db
+   scaleway_async.domain
+   scaleway_async.edge_services
+   scaleway_async.flexibleip
+   scaleway_async.function
+   scaleway_async.iam
+   scaleway_async.inference
+   scaleway_async.instance
+   scaleway_async.interlink
+   scaleway_async.iot
+   scaleway_async.ipam
+   scaleway_async.ipfs
+   scaleway_async.jobs
+   scaleway_async.k8s
+   scaleway_async.key_manager
+   scaleway_async.lb
+   scaleway_async.marketplace
+   scaleway_async.mnq
+   scaleway_async.mongodb
+   scaleway_async.qaas
+   scaleway_async.rdb
+   scaleway_async.redis
+   scaleway_async.registry
+   scaleway_async.secret
+   scaleway_async.serverless_sqldb
+   scaleway_async.std
+   scaleway_async.tem
+   scaleway_async.test
+   scaleway_async.vpc
+   scaleway_async.vpcgw
+   scaleway_async.webhosting
+
+Module contents
+---------------
+
+.. automodule:: scaleway_async
+   :members:
+   :undoc-members:
+   :show-inheritance:
