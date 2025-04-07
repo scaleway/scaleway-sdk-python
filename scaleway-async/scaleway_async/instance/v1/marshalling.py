@@ -898,6 +898,10 @@ def unmarshal_Server(data: Any) -> Server:
     if field is not None:
         args["zone"] = field
 
+    field = data.get("end_of_service", None)
+    if field is not None:
+        args["end_of_service"] = field
+
     field = data.get("admin_password_encryption_ssh_key_id", None)
     if field is not None:
         args["admin_password_encryption_ssh_key_id"] = field
