@@ -50,6 +50,13 @@ class ListProjectsRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class QualificationAiMachineSubUseCase(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_SUB_USE_CASE = "unknown_sub_use_case"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class QualificationArchitectureType(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_ARCHITECTURE_TYPE = "unknown_architecture_type"
     OBJECT_STORAGE = "object_storage"
@@ -60,6 +67,27 @@ class QualificationArchitectureType(str, Enum, metaclass=StrEnumMeta):
     SERVERLESS = "serverless"
     DEDICATED_SERVER = "dedicated_server"
     OTHER_ARCHITECTURE_TYPE = "other_architecture_type"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class QualificationArchiveDataSubUseCase(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_SUB_USE_CASE = "unknown_sub_use_case"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class QualificationContainerSubUseCase(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_SUB_USE_CASE = "unknown_sub_use_case"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class QualificationDeploySoftwareSubUseCase(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_SUB_USE_CASE = "unknown_sub_use_case"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -80,6 +108,27 @@ class QualificationHostWebsiteSubUseCase(str, Enum, metaclass=StrEnumMeta):
     ECOMMERCE_WEBSITE = "ecommerce_website"
     HIGH_WEBSITE = "high_website"
     OTHER_SUB_USE_CASE = "other_sub_use_case"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class QualificationOtherUseCaseSubUseCase(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_SUB_USE_CASE = "unknown_sub_use_case"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class QualificationSetScalewayEnvironmentSubUseCase(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_SUB_USE_CASE = "unknown_sub_use_case"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class QualificationShareDataSubUseCase(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_SUB_USE_CASE = "unknown_sub_use_case"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -120,22 +169,22 @@ class Contract:
 
 @dataclass
 class QualificationAiMachine:
-    pass
+    sub_use_case: QualificationAiMachineSubUseCase
 
 
 @dataclass
 class QualificationArchiveData:
-    pass
+    sub_use_case: QualificationArchiveDataSubUseCase
 
 
 @dataclass
 class QualificationContainer:
-    pass
+    sub_use_case: QualificationContainerSubUseCase
 
 
 @dataclass
 class QualificationDeploySoftware:
-    pass
+    sub_use_case: QualificationDeploySoftwareSubUseCase
 
 
 @dataclass
@@ -150,17 +199,17 @@ class QualificationHostWebsite:
 
 @dataclass
 class QualificationOtherUseCase:
-    pass
+    sub_use_case: QualificationOtherUseCaseSubUseCase
 
 
 @dataclass
 class QualificationSetScalewayEnvironment:
-    pass
+    sub_use_case: QualificationSetScalewayEnvironmentSubUseCase
 
 
 @dataclass
 class QualificationShareData:
-    pass
+    sub_use_case: QualificationShareDataSubUseCase
 
 
 @dataclass

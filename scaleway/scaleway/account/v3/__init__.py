@@ -3,9 +3,16 @@
 from .types import ContractType
 from .types import ListContractSignaturesRequestOrderBy
 from .types import ListProjectsRequestOrderBy
+from .types import QualificationAiMachineSubUseCase
 from .types import QualificationArchitectureType
+from .types import QualificationArchiveDataSubUseCase
+from .types import QualificationContainerSubUseCase
+from .types import QualificationDeploySoftwareSubUseCase
 from .types import QualificationHostApplicationSubUseCase
 from .types import QualificationHostWebsiteSubUseCase
+from .types import QualificationOtherUseCaseSubUseCase
+from .types import QualificationSetScalewayEnvironmentSubUseCase
+from .types import QualificationShareDataSubUseCase
 from .types import Contract
 from .types import QualificationAiMachine
 from .types import QualificationArchiveData
@@ -41,9 +48,16 @@ __all__ = [
     "ContractType",
     "ListContractSignaturesRequestOrderBy",
     "ListProjectsRequestOrderBy",
+    "QualificationAiMachineSubUseCase",
     "QualificationArchitectureType",
+    "QualificationArchiveDataSubUseCase",
+    "QualificationContainerSubUseCase",
+    "QualificationDeploySoftwareSubUseCase",
     "QualificationHostApplicationSubUseCase",
     "QualificationHostWebsiteSubUseCase",
+    "QualificationOtherUseCaseSubUseCase",
+    "QualificationSetScalewayEnvironmentSubUseCase",
+    "QualificationShareDataSubUseCase",
     "Contract",
     "QualificationAiMachine",
     "QualificationArchiveData",
