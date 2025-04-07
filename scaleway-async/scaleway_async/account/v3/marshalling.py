@@ -231,6 +231,10 @@ def unmarshal_QualificationAiMachine(data: Any) -> QualificationAiMachine:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("sub_use_case", None)
+    if field is not None:
+        args["sub_use_case"] = field
+
     return QualificationAiMachine(**args)
 
 
@@ -241,6 +245,10 @@ def unmarshal_QualificationArchiveData(data: Any) -> QualificationArchiveData:
         )
 
     args: Dict[str, Any] = {}
+
+    field = data.get("sub_use_case", None)
+    if field is not None:
+        args["sub_use_case"] = field
 
     return QualificationArchiveData(**args)
 
@@ -253,6 +261,10 @@ def unmarshal_QualificationContainer(data: Any) -> QualificationContainer:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("sub_use_case", None)
+    if field is not None:
+        args["sub_use_case"] = field
+
     return QualificationContainer(**args)
 
 
@@ -263,6 +275,10 @@ def unmarshal_QualificationDeploySoftware(data: Any) -> QualificationDeploySoftw
         )
 
     args: Dict[str, Any] = {}
+
+    field = data.get("sub_use_case", None)
+    if field is not None:
+        args["sub_use_case"] = field
 
     return QualificationDeploySoftware(**args)
 
@@ -305,6 +321,10 @@ def unmarshal_QualificationOtherUseCase(data: Any) -> QualificationOtherUseCase:
 
     args: Dict[str, Any] = {}
 
+    field = data.get("sub_use_case", None)
+    if field is not None:
+        args["sub_use_case"] = field
+
     return QualificationOtherUseCase(**args)
 
 
@@ -318,6 +338,10 @@ def unmarshal_QualificationSetScalewayEnvironment(
 
     args: Dict[str, Any] = {}
 
+    field = data.get("sub_use_case", None)
+    if field is not None:
+        args["sub_use_case"] = field
+
     return QualificationSetScalewayEnvironment(**args)
 
 
@@ -328,6 +352,10 @@ def unmarshal_QualificationShareData(data: Any) -> QualificationShareData:
         )
 
     args: Dict[str, Any] = {}
+
+    field = data.get("sub_use_case", None)
+    if field is not None:
+        args["sub_use_case"] = field
 
     return QualificationShareData(**args)
 
@@ -493,6 +521,9 @@ def marshal_QualificationAiMachine(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
+    if request.sub_use_case is not None:
+        output["sub_use_case"] = str(request.sub_use_case)
+
     return output
 
 
@@ -501,6 +532,9 @@ def marshal_QualificationArchiveData(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
+
+    if request.sub_use_case is not None:
+        output["sub_use_case"] = str(request.sub_use_case)
 
     return output
 
@@ -511,6 +545,9 @@ def marshal_QualificationContainer(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
+    if request.sub_use_case is not None:
+        output["sub_use_case"] = str(request.sub_use_case)
+
     return output
 
 
@@ -519,6 +556,9 @@ def marshal_QualificationDeploySoftware(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
+
+    if request.sub_use_case is not None:
+        output["sub_use_case"] = str(request.sub_use_case)
 
     return output
 
@@ -553,6 +593,9 @@ def marshal_QualificationOtherUseCase(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
+    if request.sub_use_case is not None:
+        output["sub_use_case"] = str(request.sub_use_case)
+
     return output
 
 
@@ -562,6 +605,9 @@ def marshal_QualificationSetScalewayEnvironment(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
+    if request.sub_use_case is not None:
+        output["sub_use_case"] = str(request.sub_use_case)
+
     return output
 
 
@@ -570,6 +616,9 @@ def marshal_QualificationShareData(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
+
+    if request.sub_use_case is not None:
+        output["sub_use_case"] = str(request.sub_use_case)
 
     return output
 
