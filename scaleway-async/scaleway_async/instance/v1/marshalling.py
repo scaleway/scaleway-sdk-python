@@ -898,6 +898,10 @@ def unmarshal_Server(data: Any) -> Server:
     if field is not None:
         args["zone"] = field
 
+    field = data.get("end_of_service", None)
+    if field is not None:
+        args["end_of_service"] = field
+
     field = data.get("admin_password_encryption_ssh_key_id", None)
     if field is not None:
         args["admin_password_encryption_ssh_key_id"] = field
@@ -3118,6 +3122,9 @@ def marshal_CreateServerRequest(
 
     if request.enable_ipv6 is not None:
         output["enable_ipv6"] = request.enable_ipv6
+
+    if request.protected is not None:
+        output["protected"] = request.protected
 
     if request.public_ip is not None:
         output["public_ip"] = request.public_ip

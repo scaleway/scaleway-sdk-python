@@ -832,31 +832,6 @@ class Server:
     Defines whether the Instance protection option is activated.
     """
 
-    routed_ip_enabled: Optional[bool]
-    """
-    True to configure the instance so it uses the routed IP mode. Use of `routed_ip_enabled` as `False` is deprecated.
-    """
-
-    enable_ipv6: Optional[bool]
-    """
-    True if IPv6 is enabled (deprecated and always `False` when `routed_ip_enabled` is `True`).
-    """
-
-    image: Optional[Image]
-    """
-    Information about the Instance image.
-    """
-
-    private_ip: Optional[str]
-    """
-    Private IP address of the Instance (deprecated and always `null` when `routed_ip_enabled` is `True`).
-    """
-
-    public_ip: Optional[ServerIp]
-    """
-    Information about the public IP (deprecated in favor of `public_ips`).
-    """
-
     public_ips: List[ServerIp]
     """
     Information about all the public IPs attached to the server.
@@ -882,21 +857,6 @@ class Server:
     Instance volumes.
     """
 
-    modification_date: Optional[datetime]
-    """
-    Instance modification date.
-    """
-
-    location: Optional[ServerLocation]
-    """
-    Instance location.
-    """
-
-    ipv6: Optional[ServerIpv6]
-    """
-    Instance IPv6 address (deprecated when `routed_ip_enabled` is `True`).
-    """
-
     maintenances: List[ServerMaintenance]
     """
     Instance planned maintenance.
@@ -920,6 +880,51 @@ class Server:
     zone: ScwZone
     """
     Zone in which the Instance is located.
+    """
+
+    end_of_service: bool
+    """
+    True if the Instance type has reached end of service.
+    """
+
+    routed_ip_enabled: Optional[bool]
+    """
+    True to configure the instance so it uses the routed IP mode. Use of `routed_ip_enabled` as `False` is deprecated.
+    """
+
+    enable_ipv6: Optional[bool]
+    """
+    True if IPv6 is enabled (deprecated and always `False` when `routed_ip_enabled` is `True`).
+    """
+
+    image: Optional[Image]
+    """
+    Information about the Instance image.
+    """
+
+    private_ip: Optional[str]
+    """
+    Private IP address of the Instance (deprecated and always `null` when `routed_ip_enabled` is `True`).
+    """
+
+    public_ip: Optional[ServerIp]
+    """
+    Information about the public IP (deprecated in favor of `public_ips`).
+    """
+
+    modification_date: Optional[datetime]
+    """
+    Instance modification date.
+    """
+
+    location: Optional[ServerLocation]
+    """
+    Instance location.
+    """
+
+    ipv6: Optional[ServerIpv6]
+    """
+    Instance IPv6 address (deprecated when `routed_ip_enabled` is `True`).
     """
 
     security_group: Optional[SecurityGroupSummary]
@@ -1793,14 +1798,14 @@ class CreateSecurityGroupRuleResponse:
 
 @dataclass
 class CreateServerRequest:
-    commercial_type: str
-    """
-    Define the Instance commercial type (i.e. GP1-S).
-    """
-
     zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
+    """
+
+    commercial_type: str
+    """
+    Define the Instance commercial type (i.e. GP1-S).
     """
 
     name: Optional[str]
@@ -1831,6 +1836,11 @@ class CreateServerRequest:
     enable_ipv6: Optional[bool]
     """
     True if IPv6 is enabled on the server (deprecated and always `False` when `routed_ip_enabled` is `True`).
+    """
+
+    protected: bool
+    """
+    True to activate server protection option.
     """
 
     public_ip: Optional[str]
@@ -3488,6 +3498,9 @@ class UpdateServerRequest:
     enable_ipv6: Optional[bool]
 
     protected: Optional[bool]
+    """
+    True to activate server protection option.
+    """
 
     security_group: Optional[SecurityGroupTemplate]
 
