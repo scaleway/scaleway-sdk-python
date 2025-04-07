@@ -22,6 +22,7 @@ class TestServerUserData(unittest.TestCase):
             image="ubuntu_jammy",
             name="my-server-web",
             volumes={},
+            protected=False,
         )
 
     @unittest.skip("API Test is not up")
