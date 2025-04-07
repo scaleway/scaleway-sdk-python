@@ -511,14 +511,15 @@ class InstanceV1API(API):
     def _create_server(
         self,
         *,
-        commercial_type: str,
         zone: Optional[ScwZone] = None,
+        commercial_type: str,
         name: Optional[str] = None,
         dynamic_ip_required: Optional[bool] = None,
         routed_ip_enabled: Optional[bool] = None,
         image: Optional[str] = None,
         volumes: Optional[Dict[str, VolumeServerTemplate]] = None,
         enable_ipv6: Optional[bool] = None,
+        protected: bool,
         public_ip: Optional[str] = None,
         public_ips: Optional[List[str]] = None,
         boot_type: Optional[BootType] = None,
@@ -533,14 +534,15 @@ class InstanceV1API(API):
         Create an Instance.
         Create a new Instance of the specified commercial type in the specified zone. Pay attention to the volumes parameter, which takes an object which can be used in different ways to achieve different behaviors.
         Get more information in the [Technical Information](#technical-information) section of the introduction.
-        :param commercial_type: Define the Instance commercial type (i.e. GP1-S).
         :param zone: Zone to target. If none is passed will use default zone from the config.
+        :param commercial_type: Define the Instance commercial type (i.e. GP1-S).
         :param name: Instance name.
         :param dynamic_ip_required: Define if a dynamic IPv4 is required for the Instance.
         :param routed_ip_enabled: If true, configure the Instance so it uses the new routed IP mode.
         :param image: Instance image ID or label.
         :param volumes: Volumes attached to the server.
         :param enable_ipv6: True if IPv6 is enabled on the server (deprecated and always `False` when `routed_ip_enabled` is `True`).
+        :param protected: True to activate server protection option.
         :param public_ip: ID of the reserved IP to attach to the Instance.
         :param public_ips: A list of reserved IP IDs to attach to the Instance.
         :param boot_type: Boot type to use.
@@ -559,6 +561,7 @@ class InstanceV1API(API):
 
             result = api._create_server(
                 commercial_type="example",
+                protected=False,
             )
         """
 
@@ -569,14 +572,15 @@ class InstanceV1API(API):
             f"/instance/v1/zones/{param_zone}/servers",
             body=marshal_CreateServerRequest(
                 CreateServerRequest(
-                    commercial_type=commercial_type,
                     zone=zone,
+                    commercial_type=commercial_type,
                     name=name or random_name(prefix="srv"),
                     dynamic_ip_required=dynamic_ip_required,
                     routed_ip_enabled=routed_ip_enabled,
                     image=image,
                     volumes=volumes,
                     enable_ipv6=enable_ipv6,
+                    protected=protected,
                     public_ip=public_ip,
                     public_ips=public_ips,
                     boot_type=boot_type,
@@ -819,7 +823,7 @@ class InstanceV1API(API):
         :param routed_ip_enabled: True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False).
         :param public_ips: A list of reserved IP IDs to attach to the Instance.
         :param enable_ipv6:
-        :param protected:
+        :param protected: True to activate server protection option.
         :param security_group:
         :param placement_group: Placement group ID if Instance must be part of a placement group.
         :param private_nics: Instance private NICs.

@@ -1793,14 +1793,14 @@ class CreateSecurityGroupRuleResponse:
 
 @dataclass
 class CreateServerRequest:
-    commercial_type: str
-    """
-    Define the Instance commercial type (i.e. GP1-S).
-    """
-
     zone: Optional[ScwZone]
     """
     Zone to target. If none is passed will use default zone from the config.
+    """
+
+    commercial_type: str
+    """
+    Define the Instance commercial type (i.e. GP1-S).
     """
 
     name: Optional[str]
@@ -1831,6 +1831,11 @@ class CreateServerRequest:
     enable_ipv6: Optional[bool]
     """
     True if IPv6 is enabled on the server (deprecated and always `False` when `routed_ip_enabled` is `True`).
+    """
+
+    protected: bool
+    """
+    True to activate server protection option.
     """
 
     public_ip: Optional[str]
@@ -3488,6 +3493,9 @@ class UpdateServerRequest:
     enable_ipv6: Optional[bool]
 
     protected: Optional[bool]
+    """
+    True to activate server protection option.
+    """
 
     security_group: Optional[SecurityGroupTemplate]
 
