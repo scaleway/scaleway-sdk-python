@@ -133,6 +133,7 @@ class VpcgwV1API(API):
         :param status: Filter for gateways with this current status. Use `unknown` to include all statuses.
         :param private_network_id: Filter for gateways attached to this Private nNetwork.
         :return: :class:`ListGatewaysResponse <ListGatewaysResponse>`
+        :deprecated
 
         Usage:
         ::
@@ -193,6 +194,7 @@ class VpcgwV1API(API):
         :param status: Filter for gateways with this current status. Use `unknown` to include all statuses.
         :param private_network_id: Filter for gateways attached to this Private nNetwork.
         :return: :class:`List[Gateway] <List[Gateway]>`
+        :deprecated
 
         Usage:
         ::
@@ -231,6 +233,7 @@ class VpcgwV1API(API):
         :param gateway_id: ID of the gateway to fetch.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Gateway <Gateway>`
+        :deprecated
 
         Usage:
         ::
@@ -264,6 +267,7 @@ class VpcgwV1API(API):
         :param gateway_id: ID of the gateway to fetch.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Gateway <Gateway>`
+        :deprecated
 
         Usage:
         ::
@@ -316,6 +320,7 @@ class VpcgwV1API(API):
         :param ip_id: Existing IP address to attach to the gateway.
         :param bastion_port: Port of the SSH bastion.
         :return: :class:`Gateway <Gateway>`
+        :deprecated
 
         Usage:
         ::
@@ -376,6 +381,7 @@ class VpcgwV1API(API):
         :param bastion_port: Port of the SSH bastion.
         :param enable_smtp: Defines whether SMTP traffic should be allowed to pass through the gateway.
         :return: :class:`Gateway <Gateway>`
+        :deprecated
 
         Usage:
         ::
@@ -422,6 +428,7 @@ class VpcgwV1API(API):
         :param gateway_id: ID of the gateway to delete.
         :param cleanup_dhcp: Defines whether to clean up attached DHCP configurations (if any, and if not attached to another Gateway Network).
         :param zone: Zone to target. If none is passed will use default zone from the config.
+        :deprecated
 
         Usage:
         ::
@@ -459,6 +466,7 @@ class VpcgwV1API(API):
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param type_: Gateway type (commercial offer).
         :return: :class:`Gateway <Gateway>`
+        :deprecated
 
         Usage:
         ::
@@ -498,6 +506,7 @@ class VpcgwV1API(API):
         Upgrade a Public Gateway to IP mobility (move from NAT IP to routed IP). This is idempotent: repeated calls after the first will return no error but have no effect.
         :param gateway_id: ID of the gateway to upgrade to IP mobility.
         :param zone: Zone to target. If none is passed will use default zone from the config.
+        :deprecated
 
         Usage:
         ::
@@ -544,6 +553,7 @@ class VpcgwV1API(API):
         :param dhcp_id: Filter for GatewayNetworks using this DHCP configuration.
         :param status: Filter for GatewayNetworks with this current status this status. Use `unknown` to include all statuses.
         :return: :class:`ListGatewayNetworksResponse <ListGatewayNetworksResponse>`
+        :deprecated
 
         Usage:
         ::
@@ -597,6 +607,7 @@ class VpcgwV1API(API):
         :param dhcp_id: Filter for GatewayNetworks using this DHCP configuration.
         :param status: Filter for GatewayNetworks with this current status this status. Use `unknown` to include all statuses.
         :return: :class:`List[GatewayNetwork] <List[GatewayNetwork]>`
+        :deprecated
 
         Usage:
         ::
@@ -633,6 +644,7 @@ class VpcgwV1API(API):
         :param gateway_network_id: ID of the GatewayNetwork to fetch.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`GatewayNetwork <GatewayNetwork>`
+        :deprecated
 
         Usage:
         ::
@@ -670,6 +682,7 @@ class VpcgwV1API(API):
         :param gateway_network_id: ID of the GatewayNetwork to fetch.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`GatewayNetwork <GatewayNetwork>`
+        :deprecated
 
         Usage:
         ::
@@ -727,6 +740,7 @@ class VpcgwV1API(API):
         :param ipam_config: Note: all or none of the GatewayNetworks for a single gateway can use the IPAM. DHCP and IPAM configurations cannot be mixed. Some products may require that the Public Gateway uses the IPAM, to ensure correct functionality.
         One-Of ('ip_config'): at most one of 'dhcp_id', 'dhcp', 'address', 'ipam_config' could be set.
         :return: :class:`GatewayNetwork <GatewayNetwork>`
+        :deprecated
 
         Usage:
         ::
@@ -788,6 +802,7 @@ class VpcgwV1API(API):
         :param ipam_config: Note: all or none of the GatewayNetworks for a single gateway can use the IPAM. DHCP and IPAM configurations cannot be mixed. Some products may require that the Public Gateway uses the IPAM, to ensure correct functionality.
         One-Of ('ip_config'): at most one of 'dhcp_id', 'address', 'ipam_config' could be set.
         :return: :class:`GatewayNetwork <GatewayNetwork>`
+        :deprecated
 
         Usage:
         ::
@@ -835,6 +850,7 @@ class VpcgwV1API(API):
         :param gateway_network_id: ID of the GatewayNetwork to delete.
         :param cleanup_dhcp: Defines whether to clean up attached DHCP configurations (if any, and if not attached to another Gateway Network).
         :param zone: Zone to target. If none is passed will use default zone from the config.
+        :deprecated
 
         Usage:
         ::
@@ -884,6 +900,7 @@ class VpcgwV1API(API):
         :param address: Filter for DHCP configuration objects with this DHCP server IP address (the gateway's address in the Private Network).
         :param has_address: Filter for DHCP configuration objects with subnets containing this IP address.
         :return: :class:`ListDHCPsResponse <ListDHCPsResponse>`
+        :deprecated
 
         Usage:
         ::
@@ -935,6 +952,7 @@ class VpcgwV1API(API):
         :param address: Filter for DHCP configuration objects with this DHCP server IP address (the gateway's address in the Private Network).
         :param has_address: Filter for DHCP configuration objects with subnets containing this IP address.
         :return: :class:`List[DHCP] <List[DHCP]>`
+        :deprecated
 
         Usage:
         ::
@@ -970,6 +988,7 @@ class VpcgwV1API(API):
         :param dhcp_id: ID of the DHCP configuration to fetch.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`DHCP <DHCP>`
+        :deprecated
 
         Usage:
         ::
@@ -1028,6 +1047,7 @@ class VpcgwV1API(API):
         :param dns_search: Array of search paths in addition to the pushed DNS configuration.
         :param dns_local_name: TLD given to hostnames in the Private Network. Allowed characters are `a-z0-9-.`. Defaults to the slugified Private Network name if created along a GatewayNetwork, or else to `priv`.
         :return: :class:`DHCP <DHCP>`
+        :deprecated
 
         Usage:
         ::
@@ -1105,6 +1125,7 @@ class VpcgwV1API(API):
         :param dns_search: Array of search paths in addition to the pushed DNS configuration.
         :param dns_local_name: TLD given to hostnames in the Private Networks. If an instance with hostname `foo` gets a lease, and this is set to `bar`, `foo.bar` will resolve. Allowed characters are `a-z0-9-.`.
         :return: :class:`DHCP <DHCP>`
+        :deprecated
 
         Usage:
         ::
@@ -1156,6 +1177,7 @@ class VpcgwV1API(API):
         Delete a DHCP configuration object, identified by its DHCP ID. Note that you cannot delete a DHCP configuration object that is currently being used by a Gateway Network.
         :param dhcp_id: DHCP configuration ID to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
+        :deprecated
 
         Usage:
         ::
@@ -1201,6 +1223,7 @@ class VpcgwV1API(API):
         :param hostname: Filter for entries with this hostname substring.
         :param type_: Filter for entries of this type.
         :return: :class:`ListDHCPEntriesResponse <ListDHCPEntriesResponse>`
+        :deprecated
 
         Usage:
         ::
@@ -1254,6 +1277,7 @@ class VpcgwV1API(API):
         :param hostname: Filter for entries with this hostname substring.
         :param type_: Filter for entries of this type.
         :return: :class:`List[DHCPEntry] <List[DHCPEntry]>`
+        :deprecated
 
         Usage:
         ::
@@ -1290,6 +1314,7 @@ class VpcgwV1API(API):
         :param dhcp_entry_id: ID of the DHCP entry to fetch.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`DHCPEntry <DHCPEntry>`
+        :deprecated
 
         Usage:
         ::
@@ -1326,6 +1351,7 @@ class VpcgwV1API(API):
         :param ip_address: IP address to give to the device.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`DHCPEntry <DHCPEntry>`
+        :deprecated
 
         Usage:
         ::
@@ -1370,6 +1396,7 @@ class VpcgwV1API(API):
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param ip_address: New IP address to give to the device.
         :return: :class:`DHCPEntry <DHCPEntry>`
+        :deprecated
 
         Usage:
         ::
@@ -1412,6 +1439,7 @@ class VpcgwV1API(API):
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param dhcp_entries: New list of DHCP reservations.
         :return: :class:`SetDHCPEntriesResponse <SetDHCPEntriesResponse>`
+        :deprecated
 
         Usage:
         ::
@@ -1450,6 +1478,7 @@ class VpcgwV1API(API):
         Delete a static DHCP reservation, identified by its DHCP entry ID. Note that you cannot delete DHCP entries of type `lease`, these are deleted automatically when their time-to-live expires.
         :param dhcp_entry_id: ID of the DHCP entry to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
+        :deprecated
 
         Usage:
         ::
@@ -1491,6 +1520,7 @@ class VpcgwV1API(API):
         :param private_ip: Filter for PAT rules targeting this private ip.
         :param protocol: Filter for PAT rules with this protocol.
         :return: :class:`ListPATRulesResponse <ListPATRulesResponse>`
+        :deprecated
 
         Usage:
         ::
@@ -1538,6 +1568,7 @@ class VpcgwV1API(API):
         :param private_ip: Filter for PAT rules targeting this private ip.
         :param protocol: Filter for PAT rules with this protocol.
         :return: :class:`List[PATRule] <List[PATRule]>`
+        :deprecated
 
         Usage:
         ::
@@ -1572,6 +1603,7 @@ class VpcgwV1API(API):
         :param pat_rule_id: ID of the PAT rule to get.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`PATRule <PATRule>`
+        :deprecated
 
         Usage:
         ::
@@ -1612,6 +1644,7 @@ class VpcgwV1API(API):
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param protocol: Protocol the rule should apply to.
         :return: :class:`PATRule <PATRule>`
+        :deprecated
 
         Usage:
         ::
@@ -1665,6 +1698,7 @@ class VpcgwV1API(API):
         :param private_port: Private port to translate to.
         :param protocol: Protocol the rule should apply to.
         :return: :class:`PATRule <PATRule>`
+        :deprecated
 
         Usage:
         ::
@@ -1710,6 +1744,7 @@ class VpcgwV1API(API):
         :param pat_rules: New list of PAT rules.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`SetPATRulesResponse <SetPATRulesResponse>`
+        :deprecated
 
         Usage:
         ::
@@ -1749,6 +1784,7 @@ class VpcgwV1API(API):
         Delete a PAT rule, identified by its PAT rule ID. This action is irreversible.
         :param pat_rule_id: ID of the PAT rule to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
+        :deprecated
 
         Usage:
         ::
@@ -1778,6 +1814,7 @@ class VpcgwV1API(API):
         List the different Public Gateway commercial offer types available at Scaleway. The response is an array of objects describing the name and technical details of each available gateway type.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`ListGatewayTypesResponse <ListGatewayTypesResponse>`
+        :deprecated
 
         Usage:
         ::
@@ -1821,6 +1858,7 @@ class VpcgwV1API(API):
         :param reverse: Filter for IP addresses that have a reverse containing this string.
         :param is_free: Filter based on whether the IP is attached to a gateway or not.
         :return: :class:`ListIPsResponse <ListIPsResponse>`
+        :deprecated
 
         Usage:
         ::
@@ -1875,6 +1913,7 @@ class VpcgwV1API(API):
         :param reverse: Filter for IP addresses that have a reverse containing this string.
         :param is_free: Filter based on whether the IP is attached to a gateway or not.
         :return: :class:`List[IP] <List[IP]>`
+        :deprecated
 
         Usage:
         ::
@@ -1911,6 +1950,7 @@ class VpcgwV1API(API):
         :param ip_id: ID of the IP address to get.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`IP <IP>`
+        :deprecated
 
         Usage:
         ::
@@ -1945,6 +1985,7 @@ class VpcgwV1API(API):
         :param project_id: Project to create the IP address in.
         :param tags: Tags to give to the IP address.
         :return: :class:`IP <IP>`
+        :deprecated
 
         Usage:
         ::
@@ -1988,6 +2029,7 @@ class VpcgwV1API(API):
         :param reverse: Reverse to set on the address. Empty string to unset.
         :param gateway_id: Gateway to attach the IP address to. Empty string to detach.
         :return: :class:`IP <IP>`
+        :deprecated
 
         Usage:
         ::
@@ -2029,6 +2071,7 @@ class VpcgwV1API(API):
         Delete a flexible IP address from your account. This action is irreversible.
         :param ip_id: ID of the IP address to delete.
         :param zone: Zone to target. If none is passed will use default zone from the config.
+        :deprecated
 
         Usage:
         ::
@@ -2060,6 +2103,7 @@ class VpcgwV1API(API):
         :param gateway_id: ID of the gateway to refresh SSH keys on.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :return: :class:`Gateway <Gateway>`
+        :deprecated
 
         Usage:
         ::
@@ -2092,6 +2136,7 @@ class VpcgwV1API(API):
         Put a Public Gateway in IPAM mode, so that it can be used with the Public Gateways API v2. This call is idempotent.
         :param gateway_id: ID of the gateway to put into IPAM mode.
         :param zone: Zone to target. If none is passed will use default zone from the config.
+        :deprecated
 
         Usage:
         ::
