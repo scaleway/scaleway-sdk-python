@@ -12,10 +12,6 @@ from scaleway_core.utils import (
 from .types import (
     Contract,
     ContractSignature,
-    Project,
-    CheckContractSignatureResponse,
-    ListContractSignaturesResponse,
-    ListProjectsResponse,
     QualificationAiMachine,
     QualificationArchiveData,
     QualificationContainer,
@@ -26,6 +22,10 @@ from .types import (
     QualificationSetScalewayEnvironment,
     QualificationShareData,
     Qualification,
+    Project,
+    CheckContractSignatureResponse,
+    ListContractSignaturesResponse,
+    ListProjectsResponse,
     ProjectQualification,
     ContractApiCheckContractSignatureRequest,
     ContractApiCreateContractSignatureRequest,
@@ -115,112 +115,6 @@ def unmarshal_ContractSignature(data: Any) -> ContractSignature:
         args["contract"] = None
 
     return ContractSignature(**args)
-
-
-def unmarshal_Project(data: Any) -> Project:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'Project' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("id", None)
-    if field is not None:
-        args["id"] = field
-
-    field = data.get("name", None)
-    if field is not None:
-        args["name"] = field
-
-    field = data.get("organization_id", None)
-    if field is not None:
-        args["organization_id"] = field
-
-    field = data.get("description", None)
-    if field is not None:
-        args["description"] = field
-
-    field = data.get("created_at", None)
-    if field is not None:
-        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["created_at"] = None
-
-    field = data.get("updated_at", None)
-    if field is not None:
-        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
-    else:
-        args["updated_at"] = None
-
-    return Project(**args)
-
-
-def unmarshal_CheckContractSignatureResponse(
-    data: Any,
-) -> CheckContractSignatureResponse:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'CheckContractSignatureResponse' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("created", None)
-    if field is not None:
-        args["created"] = field
-
-    field = data.get("validated", None)
-    if field is not None:
-        args["validated"] = field
-
-    return CheckContractSignatureResponse(**args)
-
-
-def unmarshal_ListContractSignaturesResponse(
-    data: Any,
-) -> ListContractSignaturesResponse:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'ListContractSignaturesResponse' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("total_count", None)
-    if field is not None:
-        args["total_count"] = field
-
-    field = data.get("contract_signatures", None)
-    if field is not None:
-        args["contract_signatures"] = (
-            [unmarshal_ContractSignature(v) for v in field]
-            if field is not None
-            else None
-        )
-
-    return ListContractSignaturesResponse(**args)
-
-
-def unmarshal_ListProjectsResponse(data: Any) -> ListProjectsResponse:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'ListProjectsResponse' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("total_count", None)
-    if field is not None:
-        args["total_count"] = field
-
-    field = data.get("projects", None)
-    if field is not None:
-        args["projects"] = (
-            [unmarshal_Project(v) for v in field] if field is not None else None
-        )
-
-    return ListProjectsResponse(**args)
 
 
 def unmarshal_QualificationAiMachine(data: Any) -> QualificationAiMachine:
@@ -429,6 +323,118 @@ def unmarshal_Qualification(data: Any) -> Qualification:
         args["other_use_case"] = None
 
     return Qualification(**args)
+
+
+def unmarshal_Project(data: Any) -> Project:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'Project' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("id", None)
+    if field is not None:
+        args["id"] = field
+
+    field = data.get("name", None)
+    if field is not None:
+        args["name"] = field
+
+    field = data.get("organization_id", None)
+    if field is not None:
+        args["organization_id"] = field
+
+    field = data.get("description", None)
+    if field is not None:
+        args["description"] = field
+
+    field = data.get("created_at", None)
+    if field is not None:
+        args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["created_at"] = None
+
+    field = data.get("updated_at", None)
+    if field is not None:
+        args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
+    else:
+        args["updated_at"] = None
+
+    field = data.get("qualification", None)
+    if field is not None:
+        args["qualification"] = unmarshal_Qualification(field)
+    else:
+        args["qualification"] = None
+
+    return Project(**args)
+
+
+def unmarshal_CheckContractSignatureResponse(
+    data: Any,
+) -> CheckContractSignatureResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'CheckContractSignatureResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("created", None)
+    if field is not None:
+        args["created"] = field
+
+    field = data.get("validated", None)
+    if field is not None:
+        args["validated"] = field
+
+    return CheckContractSignatureResponse(**args)
+
+
+def unmarshal_ListContractSignaturesResponse(
+    data: Any,
+) -> ListContractSignaturesResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListContractSignaturesResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+
+    field = data.get("contract_signatures", None)
+    if field is not None:
+        args["contract_signatures"] = (
+            [unmarshal_ContractSignature(v) for v in field]
+            if field is not None
+            else None
+        )
+
+    return ListContractSignaturesResponse(**args)
+
+
+def unmarshal_ListProjectsResponse(data: Any) -> ListProjectsResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'ListProjectsResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("total_count", None)
+    if field is not None:
+        args["total_count"] = field
+
+    field = data.get("projects", None)
+    if field is not None:
+        args["projects"] = (
+            [unmarshal_Project(v) for v in field] if field is not None else None
+        )
+
+    return ListProjectsResponse(**args)
 
 
 def unmarshal_ProjectQualification(data: Any) -> ProjectQualification:

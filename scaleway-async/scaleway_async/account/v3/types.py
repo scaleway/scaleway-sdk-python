@@ -135,39 +135,6 @@ class QualificationShareDataSubUseCase(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
-class Contract:
-    id: str
-    """
-    ID of the contract.
-    """
-
-    type_: ContractType
-    """
-    The type of the contract.
-    """
-
-    name: str
-    """
-    The name of the contract.
-    """
-
-    version: int
-    """
-    The version of the contract.
-    """
-
-    created_at: Optional[datetime]
-    """
-    The creation date of the contract.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    The last modification date of the contract.
-    """
-
-
-@dataclass
 class QualificationAiMachine:
     sub_use_case: QualificationAiMachineSubUseCase
 
@@ -210,6 +177,65 @@ class QualificationSetScalewayEnvironment:
 @dataclass
 class QualificationShareData:
     sub_use_case: QualificationShareDataSubUseCase
+
+
+@dataclass
+class Contract:
+    id: str
+    """
+    ID of the contract.
+    """
+
+    type_: ContractType
+    """
+    The type of the contract.
+    """
+
+    name: str
+    """
+    The name of the contract.
+    """
+
+    version: int
+    """
+    The version of the contract.
+    """
+
+    created_at: Optional[datetime]
+    """
+    The creation date of the contract.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    The last modification date of the contract.
+    """
+
+
+@dataclass
+class Qualification:
+    architecture_type: QualificationArchitectureType
+    """
+    Architecture type of the qualification.
+    """
+
+    host_website: Optional[QualificationHostWebsite]
+
+    host_application: Optional[QualificationHostApplication]
+
+    deploy_software: Optional[QualificationDeploySoftware]
+
+    set_scaleway_environment: Optional[QualificationSetScalewayEnvironment]
+
+    ai_machine: Optional[QualificationAiMachine]
+
+    container: Optional[QualificationContainer]
+
+    archive_data: Optional[QualificationArchiveData]
+
+    share_data: Optional[QualificationShareData]
+
+    other_use_case: Optional[QualificationOtherUseCase]
 
 
 @dataclass
@@ -277,31 +303,10 @@ class Project:
     Update date of the Project.
     """
 
-
-@dataclass
-class Qualification:
-    architecture_type: QualificationArchitectureType
+    qualification: Optional[Qualification]
     """
-    Architecture type of the qualification.
+    Qualification of the Project.
     """
-
-    host_website: Optional[QualificationHostWebsite]
-
-    host_application: Optional[QualificationHostApplication]
-
-    deploy_software: Optional[QualificationDeploySoftware]
-
-    set_scaleway_environment: Optional[QualificationSetScalewayEnvironment]
-
-    ai_machine: Optional[QualificationAiMachine]
-
-    container: Optional[QualificationContainer]
-
-    archive_data: Optional[QualificationArchiveData]
-
-    share_data: Optional[QualificationShareData]
-
-    other_use_case: Optional[QualificationOtherUseCase]
 
 
 @dataclass

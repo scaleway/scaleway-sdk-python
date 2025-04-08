@@ -13,7 +13,6 @@ from .types import QualificationHostWebsiteSubUseCase
 from .types import QualificationOtherUseCaseSubUseCase
 from .types import QualificationSetScalewayEnvironmentSubUseCase
 from .types import QualificationShareDataSubUseCase
-from .types import Contract
 from .types import QualificationAiMachine
 from .types import QualificationArchiveData
 from .types import QualificationContainer
@@ -23,9 +22,10 @@ from .types import QualificationHostWebsite
 from .types import QualificationOtherUseCase
 from .types import QualificationSetScalewayEnvironment
 from .types import QualificationShareData
+from .types import Contract
+from .types import Qualification
 from .types import ContractSignature
 from .types import Project
-from .types import Qualification
 from .types import CheckContractSignatureResponse
 from .types import ContractApiCheckContractSignatureRequest
 from .types import ContractApiCreateContractSignatureRequest
@@ -58,7 +58,6 @@ __all__ = [
     "QualificationOtherUseCaseSubUseCase",
     "QualificationSetScalewayEnvironmentSubUseCase",
     "QualificationShareDataSubUseCase",
-    "Contract",
     "QualificationAiMachine",
     "QualificationArchiveData",
     "QualificationContainer",
@@ -68,9 +67,10 @@ __all__ = [
     "QualificationOtherUseCase",
     "QualificationSetScalewayEnvironment",
     "QualificationShareData",
+    "Contract",
+    "Qualification",
     "ContractSignature",
     "Project",
-    "Qualification",
     "CheckContractSignatureResponse",
     "ContractApiCheckContractSignatureRequest",
     "ContractApiCreateContractSignatureRequest",
