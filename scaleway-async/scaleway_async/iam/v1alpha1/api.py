@@ -2456,16 +2456,16 @@ class IamV1Alpha1API(API):
     async def list_jw_ts(
         self,
         *,
+        audience_id: str,
         order_by: Optional[ListJWTsRequestOrderBy] = None,
-        audience_id: Optional[str] = None,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
         expired: Optional[bool] = None,
     ) -> ListJWTsResponse:
         """
         List JWTs.
-        :param order_by: Criteria for sorting results.
         :param audience_id: ID of the user to search.
+        :param order_by: Criteria for sorting results.
         :param page_size: Number of results per page. Value must be between 1 and 100.
         :param page: Page number. Value must be greater to 1.
         :param expired: Filter out expired JWTs or not.
@@ -2474,7 +2474,9 @@ class IamV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.list_jw_ts()
+            result = await api.list_jw_ts(
+                audience_id="example",
+            )
         """
 
         res = self._request(
@@ -2495,16 +2497,16 @@ class IamV1Alpha1API(API):
     async def list_jw_ts_all(
         self,
         *,
+        audience_id: str,
         order_by: Optional[ListJWTsRequestOrderBy] = None,
-        audience_id: Optional[str] = None,
         page_size: Optional[int] = None,
         page: Optional[int] = None,
         expired: Optional[bool] = None,
     ) -> List[JWT]:
         """
         List JWTs.
-        :param order_by: Criteria for sorting results.
         :param audience_id: ID of the user to search.
+        :param order_by: Criteria for sorting results.
         :param page_size: Number of results per page. Value must be between 1 and 100.
         :param page: Page number. Value must be greater to 1.
         :param expired: Filter out expired JWTs or not.
@@ -2513,7 +2515,9 @@ class IamV1Alpha1API(API):
         Usage:
         ::
 
-            result = await api.list_jw_ts_all()
+            result = await api.list_jw_ts_all(
+                audience_id="example",
+            )
         """
 
         return await fetch_all_pages_async(
@@ -2521,8 +2525,8 @@ class IamV1Alpha1API(API):
             key="jwts",
             fetcher=self.list_jw_ts,
             args={
-                "order_by": order_by,
                 "audience_id": audience_id,
+                "order_by": order_by,
                 "page_size": page_size,
                 "page": page,
                 "expired": expired,
