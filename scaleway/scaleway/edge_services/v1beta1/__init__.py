@@ -23,6 +23,7 @@ from .content import PURGE_REQUEST_TRANSIENT_STATUSES
 from .types import RuleHttpMatchMethodFilter
 from .types import RuleHttpMatchPathFilterPathFilterType
 from .types import SearchBackendStagesRequestOrderBy
+from .types import SearchWafStagesRequestOrderBy
 from .types import WafStageMode
 from .types import ScalewayLb
 from .types import RuleHttpMatchPathFilter
@@ -112,6 +113,7 @@ from .types import ListWafStagesRequest
 from .types import ListWafStagesResponse
 from .types import Plan
 from .types import SearchBackendStagesRequest
+from .types import SearchWafStagesRequest
 from .types import SelectPlanRequest
 from .types import SetHeadStageRequest
 from .types import SetRouteRulesRequest
@@ -149,6 +151,7 @@ __all__ = [
     "RuleHttpMatchMethodFilter",
     "RuleHttpMatchPathFilterPathFilterType",
     "SearchBackendStagesRequestOrderBy",
+    "SearchWafStagesRequestOrderBy",
     "WafStageMode",
     "ScalewayLb",
     "RuleHttpMatchPathFilter",
@@ -238,6 +241,7 @@ __all__ = [
     "ListWafStagesResponse",
     "Plan",
     "SearchBackendStagesRequest",
+    "SearchWafStagesRequest",
     "SelectPlanRequest",
     "SetHeadStageRequest",
     "SetRouteRulesRequest",
