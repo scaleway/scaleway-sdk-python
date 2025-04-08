@@ -22,6 +22,7 @@ from .types import (
     ListWafStagesRequestOrderBy,
     PlanName,
     SearchBackendStagesRequestOrderBy,
+    SearchWafStagesRequestOrderBy,
     WafStageMode,
     AddRouteRulesRequest,
     AddRouteRulesResponse,
@@ -1584,6 +1585,50 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
 
+    async def search_backend_stages(
+        self,
+        *,
+        order_by: Optional[SearchBackendStagesRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        project_id: Optional[str] = None,
+        bucket_name: Optional[str] = None,
+        bucket_region: Optional[str] = None,
+        lb_id: Optional[str] = None,
+    ) -> ListBackendStagesResponse:
+        """
+        :param order_by:
+        :param page:
+        :param page_size:
+        :param project_id:
+        :param bucket_name:
+        :param bucket_region:
+        :param lb_id:
+        :return: :class:`ListBackendStagesResponse <ListBackendStagesResponse>`
+
+        Usage:
+        ::
+
+            result = await api.search_backend_stages()
+        """
+
+        res = self._request(
+            "GET",
+            "/edge-services/v1beta1/search-backend-stages",
+            params={
+                "bucket_name": bucket_name,
+                "bucket_region": bucket_region,
+                "lb_id": lb_id,
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+                "project_id": project_id or self.client.default_project_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListBackendStagesResponse(res.json())
+
     async def list_waf_stages(
         self,
         *,
@@ -1807,6 +1852,41 @@ class EdgeServicesV1Beta1API(API):
         )
 
         self._throw_on_error(res)
+
+    async def search_waf_stages(
+        self,
+        *,
+        order_by: Optional[SearchWafStagesRequestOrderBy] = None,
+        page: Optional[int] = None,
+        page_size: Optional[int] = None,
+        project_id: Optional[str] = None,
+    ) -> ListWafStagesResponse:
+        """
+        :param order_by:
+        :param page:
+        :param page_size:
+        :param project_id:
+        :return: :class:`ListWafStagesResponse <ListWafStagesResponse>`
+
+        Usage:
+        ::
+
+            result = await api.search_waf_stages()
+        """
+
+        res = self._request(
+            "GET",
+            "/edge-services/v1beta1/search-waf-stages",
+            params={
+                "order_by": order_by,
+                "page": page,
+                "page_size": page_size or self.client.default_page_size,
+                "project_id": project_id or self.client.default_project_id,
+            },
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_ListWafStagesResponse(res.json())
 
     async def list_route_stages(
         self,
@@ -2211,50 +2291,6 @@ class EdgeServicesV1Beta1API(API):
 
         self._throw_on_error(res)
         return unmarshal_CheckPEMChainResponse(res.json())
-
-    async def search_backend_stages(
-        self,
-        *,
-        order_by: Optional[SearchBackendStagesRequestOrderBy] = None,
-        page: Optional[int] = None,
-        page_size: Optional[int] = None,
-        project_id: Optional[str] = None,
-        bucket_name: Optional[str] = None,
-        bucket_region: Optional[str] = None,
-        lb_id: Optional[str] = None,
-    ) -> ListBackendStagesResponse:
-        """
-        :param order_by:
-        :param page:
-        :param page_size:
-        :param project_id:
-        :param bucket_name:
-        :param bucket_region:
-        :param lb_id:
-        :return: :class:`ListBackendStagesResponse <ListBackendStagesResponse>`
-
-        Usage:
-        ::
-
-            result = await api.search_backend_stages()
-        """
-
-        res = self._request(
-            "GET",
-            "/edge-services/v1beta1/search-backend-stages",
-            params={
-                "bucket_name": bucket_name,
-                "bucket_region": bucket_region,
-                "lb_id": lb_id,
-                "order_by": order_by,
-                "page": page,
-                "page_size": page_size or self.client.default_page_size,
-                "project_id": project_id or self.client.default_project_id,
-            },
-        )
-
-        self._throw_on_error(res)
-        return unmarshal_ListBackendStagesResponse(res.json())
 
     async def list_purge_requests(
         self,

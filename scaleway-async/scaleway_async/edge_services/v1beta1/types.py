@@ -239,6 +239,14 @@ class SearchBackendStagesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class SearchWafStagesRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
+    CREATED_AT_ASC = "created_at_asc"
+    CREATED_AT_DESC = "created_at_desc"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class WafStageMode(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_MODE = "unknown_mode"
     DISABLE = "disable"
@@ -1608,6 +1616,17 @@ class SearchBackendStagesRequest:
     bucket_region: Optional[str]
 
     lb_id: Optional[str]
+
+
+@dataclass
+class SearchWafStagesRequest:
+    order_by: Optional[SearchWafStagesRequestOrderBy]
+
+    page: Optional[int]
+
+    page_size: Optional[int]
+
+    project_id: Optional[str]
 
 
 @dataclass
