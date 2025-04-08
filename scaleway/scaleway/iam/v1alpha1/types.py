@@ -1508,14 +1508,14 @@ class ListGroupsResponse:
 
 @dataclass
 class ListJWTsRequest:
+    audience_id: str
+    """
+    ID of the user to search.
+    """
+
     order_by: Optional[ListJWTsRequestOrderBy]
     """
     Criteria for sorting results.
-    """
-
-    audience_id: Optional[str]
-    """
-    ID of the user to search.
     """
 
     page_size: Optional[int]
