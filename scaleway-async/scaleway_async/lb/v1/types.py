@@ -866,6 +866,11 @@ class AclMatch:
     List of IPs or CIDR v4/v6 addresses to filter for from the client side.
     """
 
+    ips_edge_services: bool
+    """
+    Defines whether Edge Services IPs should be matched.
+    """
+
     http_filter: AclHttpFilter
     """
     Type of HTTP filter to match. Extracts the request's URL path, which starts at the first slash and ends before the question mark (without the host part). Defines where to filter for the http_filter_value. Only supported for HTTP backends.

@@ -923,6 +923,10 @@ def unmarshal_AclMatch(data: Any) -> AclMatch:
     if field is not None:
         args["ip_subnet"] = field
 
+    field = data.get("ips_edge_services", None)
+    if field is not None:
+        args["ips_edge_services"] = field
+
     field = data.get("http_filter", None)
     if field is not None:
         args["http_filter"] = field
@@ -1617,6 +1621,9 @@ def marshal_AclMatch(
 
     if request.ip_subnet is not None:
         output["ip_subnet"] = request.ip_subnet
+
+    if request.ips_edge_services is not None:
+        output["ips_edge_services"] = request.ips_edge_services
 
     if request.http_filter is not None:
         output["http_filter"] = str(request.http_filter)
