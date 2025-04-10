@@ -2056,6 +2056,10 @@ def unmarshal_ServerTypeCapabilities(data: Any) -> ServerTypeCapabilities:
     if field is not None:
         args["boot_types"] = [BootType(v) for v in field] if field is not None else None
 
+    field = data.get("max_file_systems", None)
+    if field is not None:
+        args["max_file_systems"] = field
+
     field = data.get("block_storage", None)
     if field is not None:
         args["block_storage"] = field
