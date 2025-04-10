@@ -708,6 +708,11 @@ class ServerTypeCapabilities:
     List of supported boot types.
     """
 
+    max_file_systems: int
+    """
+    Max number of SFS (Scaleway File Systems) that can be attached to the Instance.
+    """
+
     block_storage: Optional[bool]
     """
     Defines whether the Instance supports block storage.
