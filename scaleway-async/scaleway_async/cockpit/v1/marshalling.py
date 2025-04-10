@@ -22,6 +22,7 @@ from .types import (
     GetConfigResponseRetention,
     GetConfigResponse,
     Grafana,
+    PreconfiguredAlertData,
     Alert,
     ListAlertsResponse,
     ListContactPointsResponse,
@@ -41,8 +42,10 @@ from .types import (
     RegionalApiCreateTokenRequest,
     RegionalApiDeleteContactPointRequest,
     RegionalApiDisableAlertManagerRequest,
+    RegionalApiDisableAlertRulesRequest,
     RegionalApiDisableManagedAlertsRequest,
     RegionalApiEnableAlertManagerRequest,
+    RegionalApiEnableAlertRulesRequest,
     RegionalApiEnableManagedAlertsRequest,
     RegionalApiTriggerTestAlertRequest,
     RegionalApiUpdateContactPointRequest,
@@ -415,6 +418,29 @@ def unmarshal_Grafana(data: Any) -> Grafana:
     return Grafana(**args)
 
 
+def unmarshal_PreconfiguredAlertData(data: Any) -> PreconfiguredAlertData:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PreconfiguredAlertData' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("preconfigured_rule_id", None)
+    if field is not None:
+        args["preconfigured_rule_id"] = field
+
+    field = data.get("display_name", None)
+    if field is not None:
+        args["display_name"] = field
+
+    field = data.get("display_description", None)
+    if field is not None:
+        args["display_description"] = field
+
+    return PreconfiguredAlertData(**args)
+
+
 def unmarshal_Alert(data: Any) -> Alert:
     if not isinstance(data, dict):
         raise TypeError(
@@ -456,6 +482,12 @@ def unmarshal_Alert(data: Any) -> Alert:
         args["state"] = field
     else:
         args["state"] = None
+
+    field = data.get("preconfigured_data", None)
+    if field is not None:
+        args["preconfigured_data"] = unmarshal_PreconfiguredAlertData(field)
+    else:
+        args["preconfigured_data"] = None
 
     return Alert(**args)
 
@@ -868,6 +900,21 @@ def marshal_RegionalApiDisableAlertManagerRequest(
     return output
 
 
+def marshal_RegionalApiDisableAlertRulesRequest(
+    request: RegionalApiDisableAlertRulesRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    if request.rule_ids is not None:
+        output["rule_ids"] = request.rule_ids
+
+    return output
+
+
 def marshal_RegionalApiDisableManagedAlertsRequest(
     request: RegionalApiDisableManagedAlertsRequest,
     defaults: ProfileDefaults,
@@ -888,6 +935,21 @@ def marshal_RegionalApiEnableAlertManagerRequest(
 
     if request.project_id is not None:
         output["project_id"] = request.project_id or defaults.default_project_id
+
+    return output
+
+
+def marshal_RegionalApiEnableAlertRulesRequest(
+    request: RegionalApiEnableAlertRulesRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.project_id is not None:
+        output["project_id"] = request.project_id or defaults.default_project_id
+
+    if request.rule_ids is not None:
+        output["rule_ids"] = request.rule_ids
 
     return output
 

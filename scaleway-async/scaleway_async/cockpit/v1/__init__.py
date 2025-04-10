@@ -11,6 +11,7 @@ from .types import ListTokensRequestOrderBy
 from .types import PlanName
 from .types import TokenScope
 from .types import UsageUnit
+from .types import PreconfiguredAlertData
 from .types import ContactPointEmail
 from .types import GetConfigResponseRetention
 from .types import Alert
@@ -49,8 +50,10 @@ from .types import RegionalApiDeleteContactPointRequest
 from .types import RegionalApiDeleteDataSourceRequest
 from .types import RegionalApiDeleteTokenRequest
 from .types import RegionalApiDisableAlertManagerRequest
+from .types import RegionalApiDisableAlertRulesRequest
 from .types import RegionalApiDisableManagedAlertsRequest
 from .types import RegionalApiEnableAlertManagerRequest
+from .types import RegionalApiEnableAlertRulesRequest
 from .types import RegionalApiEnableManagedAlertsRequest
 from .types import RegionalApiGetAlertManagerRequest
 from .types import RegionalApiGetConfigRequest
@@ -80,6 +83,7 @@ __all__ = [
     "PlanName",
     "TokenScope",
     "UsageUnit",
+    "PreconfiguredAlertData",
     "ContactPointEmail",
     "GetConfigResponseRetention",
     "Alert",
@@ -118,8 +122,10 @@ __all__ = [
     "RegionalApiDeleteDataSourceRequest",
     "RegionalApiDeleteTokenRequest",
     "RegionalApiDisableAlertManagerRequest",
+    "RegionalApiDisableAlertRulesRequest",
     "RegionalApiDisableManagedAlertsRequest",
     "RegionalApiEnableAlertManagerRequest",
+    "RegionalApiEnableAlertRulesRequest",
     "RegionalApiEnableManagedAlertsRequest",
     "RegionalApiGetAlertManagerRequest",
     "RegionalApiGetConfigRequest",
