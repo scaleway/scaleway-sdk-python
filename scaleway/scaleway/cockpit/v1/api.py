@@ -47,8 +47,10 @@ from .types import (
     RegionalApiCreateTokenRequest,
     RegionalApiDeleteContactPointRequest,
     RegionalApiDisableAlertManagerRequest,
+    RegionalApiDisableAlertRulesRequest,
     RegionalApiDisableManagedAlertsRequest,
     RegionalApiEnableAlertManagerRequest,
+    RegionalApiEnableAlertRulesRequest,
     RegionalApiEnableManagedAlertsRequest,
     RegionalApiTriggerTestAlertRequest,
     RegionalApiUpdateContactPointRequest,
@@ -83,8 +85,10 @@ from .marshalling import (
     marshal_RegionalApiCreateTokenRequest,
     marshal_RegionalApiDeleteContactPointRequest,
     marshal_RegionalApiDisableAlertManagerRequest,
+    marshal_RegionalApiDisableAlertRulesRequest,
     marshal_RegionalApiDisableManagedAlertsRequest,
     marshal_RegionalApiEnableAlertManagerRequest,
+    marshal_RegionalApiEnableAlertRulesRequest,
     marshal_RegionalApiEnableManagedAlertsRequest,
     marshal_RegionalApiTriggerTestAlertRequest,
     marshal_RegionalApiUpdateContactPointRequest,
@@ -1446,7 +1450,7 @@ class CockpitV1RegionalAPI(API):
         :param project_id: Project ID to filter for, only alerts from this Project will be returned.
         :param is_enabled: True returns only enabled alerts. False returns only disabled alerts. If omitted, no alert filtering is applied. Other filters may still apply.
         :param is_preconfigured: True returns only preconfigured alerts. False returns only custom alerts. If omitted, no filtering is applied on alert types. Other filters may still apply.
-        :param state: Valid values to filter on are `disabled`, `enabled`, `pending` and `firing`. If omitted, no filtering is applied on alert states. Other filters may still apply.
+        :param state: Valid values to filter on are `inactive`, `pending` and `firing`. If omitted, no filtering is applied on alert states. Other filters may still apply.
         :return: :class:`ListAlertsResponse <ListAlertsResponse>`
 
         Usage:
@@ -1548,6 +1552,82 @@ class CockpitV1RegionalAPI(API):
 
         self._throw_on_error(res)
         return unmarshal_AlertManager(res.json())
+
+    def enable_alert_rules(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        project_id: Optional[str] = None,
+        rule_ids: Optional[List[str]] = None,
+    ) -> None:
+        """
+        Enable preconfigured alert rules. Enable alert rules from the list of available preconfigured rules.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id:
+        :param rule_ids:
+
+        Usage:
+        ::
+
+            result = api.enable_alert_rules()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "POST",
+            f"/cockpit/v1/regions/{param_region}/alert-manager/enable-alert-rules",
+            body=marshal_RegionalApiEnableAlertRulesRequest(
+                RegionalApiEnableAlertRulesRequest(
+                    region=region,
+                    project_id=project_id,
+                    rule_ids=rule_ids,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+
+    def disable_alert_rules(
+        self,
+        *,
+        region: Optional[ScwRegion] = None,
+        project_id: Optional[str] = None,
+        rule_ids: Optional[List[str]] = None,
+    ) -> None:
+        """
+        Disable preconfigured alert rules. Disable alert rules from the list of available preconfigured rules.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param project_id:
+        :param rule_ids:
+
+        Usage:
+        ::
+
+            result = api.disable_alert_rules()
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+
+        res = self._request(
+            "POST",
+            f"/cockpit/v1/regions/{param_region}/alert-manager/disable-alert-rules",
+            body=marshal_RegionalApiDisableAlertRulesRequest(
+                RegionalApiDisableAlertRulesRequest(
+                    region=region,
+                    project_id=project_id,
+                    rule_ids=rule_ids,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
 
     def trigger_test_alert(
         self,

@@ -128,6 +128,28 @@ class UsageUnit(str, Enum, metaclass=StrEnumMeta):
 
 
 @dataclass
+class PreconfiguredAlertData:
+    """
+    Structure for additional data relative to preconfigured alerts.
+    """
+
+    preconfigured_rule_id: str
+    """
+    ID of the preconfigured rule if the alert is preconfigured.
+    """
+
+    display_name: str
+    """
+    Human readable name of the alert.
+    """
+
+    display_description: str
+    """
+    Human readable description of the alert.
+    """
+
+
+@dataclass
 class ContactPointEmail:
     to: str
 
@@ -143,24 +165,54 @@ class GetConfigResponseRetention:
 
 @dataclass
 class Alert:
+    """
+    Structure representing an alert.
+    """
+
     region: ScwRegion
     """
-    Region to target. If none is passed will use default region from the config.
+    The region in which the alert is defined.
     """
 
     preconfigured: bool
+    """
+    Indicates if the alert is preconfigured or custom.
+    """
 
     name: str
+    """
+    Name of the alert.
+    """
 
     rule: str
+    """
+    Rule defining the alert condition.
+    """
 
     duration: str
+    """
+    Duration for which the alert must be active before firing. The format of this duration follows the prometheus duration format.
+    """
 
     enabled: bool
+    """
+    Indicates if the alert is enabled or disabled. Only preconfigured alerts can be disabled.
+    """
 
     annotations: Dict[str, str]
+    """
+    Annotations for the alert, used to provide additional information about the alert.
+    """
 
     state: Optional[AlertState]
+    """
+    Current state of the alert. Possible states are `inactive`, `pending`, and `firing`.
+    """
+
+    preconfigured_data: Optional[PreconfiguredAlertData]
+    """
+    Contains additional data for preconfigured alerts, such as the rule ID, display name, and description. Only present if the alert is preconfigured.
+    """
 
 
 @dataclass
@@ -997,6 +1049,18 @@ class RegionalApiDisableAlertManagerRequest:
 
 
 @dataclass
+class RegionalApiDisableAlertRulesRequest:
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+
+    rule_ids: Optional[List[str]]
+
+
+@dataclass
 class RegionalApiDisableManagedAlertsRequest:
     """
     Disable the sending of managed alerts.
@@ -1028,6 +1092,18 @@ class RegionalApiEnableAlertManagerRequest:
     """
     ID of the Project to enable the Alert manager in.
     """
+
+
+@dataclass
+class RegionalApiEnableAlertRulesRequest:
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    project_id: Optional[str]
+
+    rule_ids: Optional[List[str]]
 
 
 @dataclass
@@ -1150,7 +1226,7 @@ class RegionalApiListAlertsRequest:
 
     state: Optional[AlertState]
     """
-    Valid values to filter on are `disabled`, `enabled`, `pending` and `firing`. If omitted, no filtering is applied on alert states. Other filters may still apply.
+    Valid values to filter on are `inactive`, `pending` and `firing`. If omitted, no filtering is applied on alert states. Other filters may still apply.
     """
 
 
