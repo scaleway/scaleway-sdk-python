@@ -1,0 +1,18 @@
+scaleway.jobs package
+=====================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway.jobs.v1alpha1
+
+Module contents
+---------------
+
+.. automodule:: scaleway.jobs
+   :members:
+   :undoc-members:
+   :show-inheritance:
