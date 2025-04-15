@@ -50,6 +50,7 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     APPLE_SILICON_PRIVATE_NIC = "apple_silicon_private_nic"
     SERVERLESS_CONTAINER = "serverless_container"
     SERVERLESS_FUNCTION = "serverless_function"
+    VPN_GATEWAY = "vpn_gateway"
 
     def __str__(self) -> str:
         return str(self.value)
