@@ -98,6 +98,12 @@ def unmarshal_Attachment(data: Any) -> Attachment:
     if field is not None:
         args["resource_type"] = field
 
+    field = data.get("zone", None)
+    if field is not None:
+        args["zone"] = field
+    else:
+        args["zone"] = None
+
     return Attachment(**args)
 
 

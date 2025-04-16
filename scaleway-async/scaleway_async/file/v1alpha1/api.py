@@ -6,6 +6,7 @@ from typing import Awaitable, List, Optional, Union
 from scaleway_core.api import API
 from scaleway_core.bridge import (
     Region as ScwRegion,
+    Zone as ScwZone,
 )
 from scaleway_core.utils import (
     WaitForOptions,
@@ -215,6 +216,7 @@ class FileV1Alpha1API(API):
         filesystem_id: Optional[str] = None,
         resource_id: Optional[str] = None,
         resource_type: Optional[AttachmentResourceType] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> ListAttachmentsResponse:
@@ -227,6 +229,7 @@ class FileV1Alpha1API(API):
         :param filesystem_id: UUID of the File Storage volume.
         :param resource_id: Filter by resource ID.
         :param resource_type: Filter by resource type.
+        :param zone: Filter by resource zone.
         :param page: Page number (starting at 1).
         :param page_size: Number of entries per page (default: 20, max: 100).
         :return: :class:`ListAttachmentsResponse <ListAttachmentsResponse>`
@@ -250,6 +253,7 @@ class FileV1Alpha1API(API):
                 "page_size": page_size or self.client.default_page_size,
                 "resource_id": resource_id,
                 "resource_type": resource_type,
+                "zone": zone or self.client.default_zone,
             },
         )
 
@@ -263,6 +267,7 @@ class FileV1Alpha1API(API):
         filesystem_id: Optional[str] = None,
         resource_id: Optional[str] = None,
         resource_type: Optional[AttachmentResourceType] = None,
+        zone: Optional[ScwZone] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[Attachment]:
@@ -275,6 +280,7 @@ class FileV1Alpha1API(API):
         :param filesystem_id: UUID of the File Storage volume.
         :param resource_id: Filter by resource ID.
         :param resource_type: Filter by resource type.
+        :param zone: Filter by resource zone.
         :param page: Page number (starting at 1).
         :param page_size: Number of entries per page (default: 20, max: 100).
         :return: :class:`List[Attachment] <List[Attachment]>`
@@ -294,6 +300,7 @@ class FileV1Alpha1API(API):
                 "filesystem_id": filesystem_id,
                 "resource_id": resource_id,
                 "resource_type": resource_type,
+                "zone": zone,
                 "page": page,
                 "page_size": page_size,
             },

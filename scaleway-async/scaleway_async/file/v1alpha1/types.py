@@ -9,6 +9,7 @@ from typing import List, Optional
 
 from scaleway_core.bridge import (
     Region as ScwRegion,
+    Zone as ScwZone,
 )
 from scaleway_core.utils import (
     StrEnumMeta,
@@ -68,6 +69,11 @@ class Attachment:
     resource_type: AttachmentResourceType
     """
     The type of the attached resource.
+    """
+
+    zone: Optional[ScwZone]
+    """
+    The zone where the resource is located.
     """
 
 
@@ -223,6 +229,11 @@ class ListAttachmentsRequest:
     resource_type: Optional[AttachmentResourceType]
     """
     Filter by resource type.
+    """
+
+    zone: Optional[ScwZone]
+    """
+    Filter by resource zone.
     """
 
     page: Optional[int]
