@@ -236,6 +236,12 @@ def unmarshal_Secret(data: Any) -> Secret:
     else:
         args["deletion_requested_at"] = None
 
+    field = data.get("key_id", None)
+    if field is not None:
+        args["key_id"] = field
+    else:
+        args["key_id"] = None
+
     return Secret(**args)
 
 
@@ -531,6 +537,9 @@ def marshal_CreateSecretRequest(
         output["ephemeral_policy"] = marshal_EphemeralPolicy(
             request.ephemeral_policy, defaults
         )
+
+    if request.key_id is not None:
+        output["key_id"] = request.key_id
 
     return output
 
