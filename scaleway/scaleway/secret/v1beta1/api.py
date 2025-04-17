@@ -67,6 +67,7 @@ class SecretV1Beta1API(API):
         type_: Optional[SecretType] = None,
         path: Optional[str] = None,
         ephemeral_policy: Optional[EphemeralPolicy] = None,
+        key_id: Optional[str] = None,
     ) -> Secret:
         """
         Create a secret.
@@ -80,6 +81,7 @@ class SecretV1Beta1API(API):
         :param type_: (Optional.) See the `Secret.Type` enum for a description of values. If not specified, the type is `Opaque`.
         :param path: (Optional.) Location of the secret in the directory structure. If not specified, the path is `/`.
         :param ephemeral_policy: (Optional.) Policy that defines whether/when a secret's versions expire. By default, the policy is applied to all the secret's versions.
+        :param key_id: (Optional.) The Scaleway's Key Manager key ID will be used to encrypt and decrypt secret versions. If not specified, the Secret Manager will use an internal key.
         :return: :class:`Secret <Secret>`
 
         Usage:
@@ -109,6 +111,7 @@ class SecretV1Beta1API(API):
                     type_=type_,
                     path=path,
                     ephemeral_policy=ephemeral_policy,
+                    key_id=key_id,
                 ),
                 self.client,
             ),

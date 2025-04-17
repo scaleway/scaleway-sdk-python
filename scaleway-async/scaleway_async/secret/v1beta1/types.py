@@ -303,6 +303,11 @@ class Secret:
     Returns the time at which deletion was requested.
     """
 
+    key_id: Optional[str]
+    """
+    (Optional.) The Scaleway's Key Manager key ID used to encrypt and decrypt secret versions.
+    """
+
 
 @dataclass
 class AccessSecretVersionByPathRequest:
@@ -512,6 +517,11 @@ class CreateSecretRequest:
     ephemeral_policy: Optional[EphemeralPolicy]
     """
     (Optional.) Policy that defines whether/when a secret's versions expire. By default, the policy is applied to all the secret's versions.
+    """
+
+    key_id: Optional[str]
+    """
+    (Optional.) The Scaleway's Key Manager key ID will be used to encrypt and decrypt secret versions. If not specified, the Secret Manager will use an internal key.
     """
 
 
