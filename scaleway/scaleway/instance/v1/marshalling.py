@@ -37,6 +37,7 @@ from .types import (
     ServerMaintenance,
     VolumeServer,
     Server,
+    AttachServerFileSystemResponse,
     AttachServerVolumeResponse,
     CreateImageResponse,
     Ip,
@@ -53,6 +54,7 @@ from .types import (
     Task,
     CreateSnapshotResponse,
     CreateVolumeResponse,
+    DetachServerFileSystemResponse,
     DetachServerVolumeResponse,
     ExportSnapshotResponse,
     Dashboard,
@@ -109,6 +111,7 @@ from .types import (
     UpdateSnapshotResponse,
     UpdateVolumeResponse,
     ApplyBlockMigrationRequest,
+    AttachServerFileSystemRequest,
     AttachServerVolumeRequest,
     CheckBlockMigrationOrganizationQuotasRequest,
     VolumeTemplate,
@@ -122,6 +125,7 @@ from .types import (
     CreateServerRequest,
     CreateSnapshotRequest,
     CreateVolumeRequest,
+    DetachServerFileSystemRequest,
     DetachServerVolumeRequest,
     ExportSnapshotRequest,
     PlanBlockMigrationRequest,
@@ -917,6 +921,25 @@ def unmarshal_Server(data: Any) -> Server:
     return Server(**args)
 
 
+def unmarshal_AttachServerFileSystemResponse(
+    data: Any,
+) -> AttachServerFileSystemResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'AttachServerFileSystemResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("server", None)
+    if field is not None:
+        args["server"] = unmarshal_Server(field)
+    else:
+        args["server"] = None
+
+    return AttachServerFileSystemResponse(**args)
+
+
 def unmarshal_AttachServerVolumeResponse(data: Any) -> AttachServerVolumeResponse:
     if not isinstance(data, dict):
         raise TypeError(
@@ -1449,6 +1472,25 @@ def unmarshal_CreateVolumeResponse(data: Any) -> CreateVolumeResponse:
         args["volume"] = None
 
     return CreateVolumeResponse(**args)
+
+
+def unmarshal_DetachServerFileSystemResponse(
+    data: Any,
+) -> DetachServerFileSystemResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'DetachServerFileSystemResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("server", None)
+    if field is not None:
+        args["server"] = unmarshal_Server(field)
+    else:
+        args["server"] = None
+
+    return DetachServerFileSystemResponse(**args)
 
 
 def unmarshal_DetachServerVolumeResponse(data: Any) -> DetachServerVolumeResponse:
@@ -2766,6 +2808,18 @@ def marshal_ApplyBlockMigrationRequest(
     return output
 
 
+def marshal_AttachServerFileSystemRequest(
+    request: AttachServerFileSystemRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.filesystem_id is not None:
+        output["filesystem_id"] = request.filesystem_id
+
+    return output
+
+
 def marshal_AttachServerVolumeRequest(
     request: AttachServerVolumeRequest,
     defaults: ProfileDefaults,
@@ -3236,6 +3290,18 @@ def marshal_CreateVolumeRequest(
 
     if request.volume_type is not None:
         output["volume_type"] = str(request.volume_type)
+
+    return output
+
+
+def marshal_DetachServerFileSystemRequest(
+    request: DetachServerFileSystemRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.filesystem_id is not None:
+        output["filesystem_id"] = request.filesystem_id
 
     return output
 
