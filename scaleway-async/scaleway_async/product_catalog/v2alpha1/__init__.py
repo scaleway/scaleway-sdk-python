@@ -2,6 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 from .types import PublicCatalogProductPriceUnitOfMeasureCountableUnit
 from .types import PublicCatalogProductPropertiesHardwareCPUArch
+from .types import PublicCatalogProductUnitOfMeasureCountableUnit
 from .types import PublicCatalogProductPropertiesHardwareCPUPhysical
 from .types import PublicCatalogProductPropertiesHardwareCPUVirtual
 from .types import PublicCatalogProductPropertiesHardwareCPU
@@ -15,10 +16,11 @@ from .types import PublicCatalogProductPropertiesDedibox
 from .types import PublicCatalogProductPropertiesElasticMetal
 from .types import PublicCatalogProductPropertiesHardware
 from .types import PublicCatalogProductPropertiesInstance
-from .types import PublicCatalogProductEnvironmentalImpact
+from .types import PublicCatalogProductEnvironmentalImpactEstimation
 from .types import PublicCatalogProductLocality
 from .types import PublicCatalogProductPrice
 from .types import PublicCatalogProductProperties
+from .types import PublicCatalogProductUnitOfMeasure
 from .types import PublicCatalogProduct
 from .types import ListPublicCatalogProductsResponse
 from .types import PublicCatalogApiListPublicCatalogProductsRequest
@@ -27,6 +29,7 @@ from .api import ProductCatalogV2Alpha1PublicCatalogAPI
 __all__ = [
     "PublicCatalogProductPriceUnitOfMeasureCountableUnit",
     "PublicCatalogProductPropertiesHardwareCPUArch",
+    "PublicCatalogProductUnitOfMeasureCountableUnit",
     "PublicCatalogProductPropertiesHardwareCPUPhysical",
     "PublicCatalogProductPropertiesHardwareCPUVirtual",
     "PublicCatalogProductPropertiesHardwareCPU",
@@ -40,10 +43,11 @@ __all__ = [
     "PublicCatalogProductPropertiesElasticMetal",
     "PublicCatalogProductPropertiesHardware",
     "PublicCatalogProductPropertiesInstance",
-    "PublicCatalogProductEnvironmentalImpact",
+    "PublicCatalogProductEnvironmentalImpactEstimation",
     "PublicCatalogProductLocality",
     "PublicCatalogProductPrice",
     "PublicCatalogProductProperties",
+    "PublicCatalogProductUnitOfMeasure",
     "PublicCatalogProduct",
     "ListPublicCatalogProductsResponse",
     "PublicCatalogApiListPublicCatalogProductsRequest",

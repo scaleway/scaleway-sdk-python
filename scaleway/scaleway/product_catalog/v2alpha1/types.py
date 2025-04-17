@@ -61,6 +61,38 @@ class PublicCatalogProductPropertiesHardwareCPUArch(str, Enum, metaclass=StrEnum
         return str(self.value)
 
 
+class PublicCatalogProductUnitOfMeasureCountableUnit(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_COUNTABLE_UNIT = "unknown_countable_unit"
+    CHUNK = "chunk"
+    CORE = "core"
+    CURRENCY = "currency"
+    DEVICE = "device"
+    DOMAIN = "domain"
+    EMAIL = "email"
+    GB_S = "gb_s"
+    GIGABYTE = "gigabyte"
+    HOUR = "hour"
+    IOPS_GIGABYTE = "iops_gigabyte"
+    IP = "ip"
+    MONTH = "month"
+    NODE = "node"
+    PLAN = "plan"
+    QUERY = "query"
+    REQUEST = "request"
+    SESSION = "session"
+    VCPU_S = "vcpu_s"
+    VERSION = "version"
+    YEAR = "year"
+    KEY = "key"
+    TOKEN = "token"
+    MINUTE = "minute"
+    SETUP = "setup"
+    DAY = "day"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 @dataclass
 class PublicCatalogProductPropertiesHardwareCPUPhysical:
     sockets: int
@@ -270,16 +302,10 @@ class PublicCatalogProductPropertiesInstance:
 
 
 @dataclass
-class PublicCatalogProductEnvironmentalImpact:
+class PublicCatalogProductEnvironmentalImpactEstimation:
     kg_co2_equivalent: Optional[float]
-    """
-    Kilograms of CO2 that would need to be released to produce the equivalent warming impact.
-    """
 
     m3_water_usage: Optional[float]
-    """
-    Cubic meters of water used.
-    """
 
 
 @dataclass
@@ -302,7 +328,7 @@ class PublicCatalogProductPrice:
 
     unit_of_measure: Optional[PublicCatalogProductPriceUnitOfMeasure]
     """
-    The unit of measure of the price.
+    The unit of measure of the price (deprecated).
     """
 
 
@@ -320,6 +346,13 @@ class PublicCatalogProductProperties:
     apple_silicon: Optional[PublicCatalogProductPropertiesAppleSilicon]
 
     instance: Optional[PublicCatalogProductPropertiesInstance]
+
+
+@dataclass
+class PublicCatalogProductUnitOfMeasure:
+    unit: PublicCatalogProductUnitOfMeasureCountableUnit
+
+    size: int
 
 
 @dataclass
@@ -364,9 +397,16 @@ class PublicCatalogProduct:
     The properties of the product.
     """
 
-    environmental_impact: Optional[PublicCatalogProductEnvironmentalImpact]
+    environmental_impact_estimation: Optional[
+        PublicCatalogProductEnvironmentalImpactEstimation
+    ]
     """
-    The environmental impact of the product.
+    The environmental impact estimation of the product.
+    """
+
+    unit_of_measure: Optional[PublicCatalogProductUnitOfMeasure]
+    """
+    The unit of measure of the product.
     """
 
 
