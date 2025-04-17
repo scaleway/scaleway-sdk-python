@@ -305,7 +305,7 @@ class Secret:
 
     key_id: Optional[str]
     """
-    (Optional.) The Scaleway's Key Manager key ID used to encrypt and decrypt secret versions.
+    (Optional.) The Scaleway Key Manager key ID used to encrypt and decrypt secret versions.
     """
 
 
@@ -521,7 +521,7 @@ class CreateSecretRequest:
 
     key_id: Optional[str]
     """
-    (Optional.) The Scaleway's Key Manager key ID will be used to encrypt and decrypt secret versions. If not specified, the Secret Manager will use an internal key.
+    (Optional.) The Scaleway Key Manager key ID will be used to encrypt and decrypt secret versions. If not specified, Secret Manager will use a Key Manager internal key.
     """
 
 
