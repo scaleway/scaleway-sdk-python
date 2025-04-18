@@ -78,6 +78,8 @@ from .types import SetSecurityGroupRulesRequestRule
 from .types import VolumeImageUpdateTemplate
 from .types import SecurityGroupTemplate
 from .types import ApplyBlockMigrationRequest
+from .types import AttachServerFileSystemRequest
+from .types import AttachServerFileSystemResponse
 from .types import AttachServerVolumeRequest
 from .types import AttachServerVolumeResponse
 from .types import CheckBlockMigrationOrganizationQuotasRequest
@@ -109,6 +111,8 @@ from .types import DeleteServerRequest
 from .types import DeleteServerUserDataRequest
 from .types import DeleteSnapshotRequest
 from .types import DeleteVolumeRequest
+from .types import DetachServerFileSystemRequest
+from .types import DetachServerFileSystemResponse
 from .types import DetachServerVolumeRequest
 from .types import DetachServerVolumeResponse
 from .types import ExportSnapshotRequest
@@ -277,6 +281,8 @@ __all__ = [
     "VolumeImageUpdateTemplate",
     "SecurityGroupTemplate",
     "ApplyBlockMigrationRequest",
+    "AttachServerFileSystemRequest",
+    "AttachServerFileSystemResponse",
     "AttachServerVolumeRequest",
     "AttachServerVolumeResponse",
     "CheckBlockMigrationOrganizationQuotasRequest",
@@ -308,6 +314,8 @@ __all__ = [
     "DeleteServerUserDataRequest",
     "DeleteSnapshotRequest",
     "DeleteVolumeRequest",
+    "DetachServerFileSystemRequest",
+    "DetachServerFileSystemResponse",
     "DetachServerVolumeRequest",
     "DetachServerVolumeResponse",
     "ExportSnapshotRequest",

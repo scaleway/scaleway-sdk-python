@@ -1515,6 +1515,23 @@ class ApplyBlockMigrationRequest:
 
 
 @dataclass
+class AttachServerFileSystemRequest:
+    server_id: str
+
+    filesystem_id: str
+
+    zone: Optional[ScwZone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class AttachServerFileSystemResponse:
+    server: Optional[Server]
+
+
+@dataclass
 class AttachServerVolumeRequest:
     server_id: str
 
@@ -2118,6 +2135,23 @@ class DeleteVolumeRequest:
     """
     Zone to target. If none is passed will use default zone from the config.
     """
+
+
+@dataclass
+class DetachServerFileSystemRequest:
+    server_id: str
+
+    filesystem_id: str
+
+    zone: Optional[ScwZone]
+    """
+    Zone to target. If none is passed will use default zone from the config.
+    """
+
+
+@dataclass
+class DetachServerFileSystemResponse:
+    server: Optional[Server]
 
 
 @dataclass

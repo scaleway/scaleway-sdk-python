@@ -43,6 +43,8 @@ from .types import (
     SnapshotVolumeType,
     VolumeVolumeType,
     ApplyBlockMigrationRequest,
+    AttachServerFileSystemRequest,
+    AttachServerFileSystemResponse,
     AttachServerVolumeRequest,
     AttachServerVolumeResponse,
     Bootscript,
@@ -65,6 +67,8 @@ from .types import (
     CreateSnapshotResponse,
     CreateVolumeRequest,
     CreateVolumeResponse,
+    DetachServerFileSystemRequest,
+    DetachServerFileSystemResponse,
     DetachServerVolumeRequest,
     DetachServerVolumeResponse,
     ExportSnapshotRequest,
@@ -151,6 +155,7 @@ from .types import (
 )
 from .marshalling import (
     unmarshal_PrivateNIC,
+    unmarshal_AttachServerFileSystemResponse,
     unmarshal_AttachServerVolumeResponse,
     unmarshal_CreateImageResponse,
     unmarshal_CreateIpResponse,
@@ -161,6 +166,7 @@ from .marshalling import (
     unmarshal_CreateServerResponse,
     unmarshal_CreateSnapshotResponse,
     unmarshal_CreateVolumeResponse,
+    unmarshal_DetachServerFileSystemResponse,
     unmarshal_DetachServerVolumeResponse,
     unmarshal_ExportSnapshotResponse,
     unmarshal_GetDashboardResponse,
@@ -209,6 +215,7 @@ from .marshalling import (
     unmarshal__SetServerResponse,
     unmarshal__SetSnapshotResponse,
     marshal_ApplyBlockMigrationRequest,
+    marshal_AttachServerFileSystemRequest,
     marshal_AttachServerVolumeRequest,
     marshal_CheckBlockMigrationOrganizationQuotasRequest,
     marshal_CreateImageRequest,
@@ -220,6 +227,7 @@ from .marshalling import (
     marshal_CreateServerRequest,
     marshal_CreateSnapshotRequest,
     marshal_CreateVolumeRequest,
+    marshal_DetachServerFileSystemRequest,
     marshal_DetachServerVolumeRequest,
     marshal_ExportSnapshotRequest,
     marshal_PlanBlockMigrationRequest,
@@ -1166,6 +1174,90 @@ class InstanceV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_DetachServerVolumeResponse(res.json())
+
+    def attach_server_file_system(
+        self,
+        *,
+        server_id: str,
+        filesystem_id: str,
+        zone: Optional[ScwZone] = None,
+    ) -> AttachServerFileSystemResponse:
+        """
+        Attach a filesystem volume to an Instance.
+        :param server_id:
+        :param filesystem_id:
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :return: :class:`AttachServerFileSystemResponse <AttachServerFileSystemResponse>`
+
+        Usage:
+        ::
+
+            result = api.attach_server_file_system(
+                server_id="example",
+                filesystem_id="example",
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_server_id = validate_path_param("server_id", server_id)
+
+        res = self._request(
+            "POST",
+            f"/instance/v1/zones/{param_zone}/servers/{param_server_id}/attach-filesystem",
+            body=marshal_AttachServerFileSystemRequest(
+                AttachServerFileSystemRequest(
+                    server_id=server_id,
+                    filesystem_id=filesystem_id,
+                    zone=zone,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_AttachServerFileSystemResponse(res.json())
+
+    def detach_server_file_system(
+        self,
+        *,
+        server_id: str,
+        filesystem_id: str,
+        zone: Optional[ScwZone] = None,
+    ) -> DetachServerFileSystemResponse:
+        """
+        Detach a filesystem volume to an Instance.
+        :param server_id:
+        :param filesystem_id:
+        :param zone: Zone to target. If none is passed will use default zone from the config.
+        :return: :class:`DetachServerFileSystemResponse <DetachServerFileSystemResponse>`
+
+        Usage:
+        ::
+
+            result = api.detach_server_file_system(
+                server_id="example",
+                filesystem_id="example",
+            )
+        """
+
+        param_zone = validate_path_param("zone", zone or self.client.default_zone)
+        param_server_id = validate_path_param("server_id", server_id)
+
+        res = self._request(
+            "POST",
+            f"/instance/v1/zones/{param_zone}/servers/{param_server_id}/detach-filesystem",
+            body=marshal_DetachServerFileSystemRequest(
+                DetachServerFileSystemRequest(
+                    server_id=server_id,
+                    filesystem_id=filesystem_id,
+                    zone=zone,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_DetachServerFileSystemResponse(res.json())
 
     def list_images(
         self,
