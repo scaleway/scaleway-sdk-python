@@ -20,10 +20,11 @@ from .types import (
     PublicCatalogProductPropertiesElasticMetal,
     PublicCatalogProductPropertiesHardware,
     PublicCatalogProductPropertiesInstance,
-    PublicCatalogProductEnvironmentalImpact,
+    PublicCatalogProductEnvironmentalImpactEstimation,
     PublicCatalogProductLocality,
     PublicCatalogProductPrice,
     PublicCatalogProductProperties,
+    PublicCatalogProductUnitOfMeasure,
     PublicCatalogProduct,
     ListPublicCatalogProductsResponse,
 )
@@ -356,12 +357,12 @@ def unmarshal_PublicCatalogProductPropertiesInstance(
     return PublicCatalogProductPropertiesInstance(**args)
 
 
-def unmarshal_PublicCatalogProductEnvironmentalImpact(
+def unmarshal_PublicCatalogProductEnvironmentalImpactEstimation(
     data: Any,
-) -> PublicCatalogProductEnvironmentalImpact:
+) -> PublicCatalogProductEnvironmentalImpactEstimation:
     if not isinstance(data, dict):
         raise TypeError(
-            "Unmarshalling the type 'PublicCatalogProductEnvironmentalImpact' failed as data isn't a dictionary."
+            "Unmarshalling the type 'PublicCatalogProductEnvironmentalImpactEstimation' failed as data isn't a dictionary."
         )
 
     args: Dict[str, Any] = {}
@@ -378,7 +379,7 @@ def unmarshal_PublicCatalogProductEnvironmentalImpact(
     else:
         args["m3_water_usage"] = None
 
-    return PublicCatalogProductEnvironmentalImpact(**args)
+    return PublicCatalogProductEnvironmentalImpactEstimation(**args)
 
 
 def unmarshal_PublicCatalogProductLocality(data: Any) -> PublicCatalogProductLocality:
@@ -488,6 +489,27 @@ def unmarshal_PublicCatalogProductProperties(
     return PublicCatalogProductProperties(**args)
 
 
+def unmarshal_PublicCatalogProductUnitOfMeasure(
+    data: Any,
+) -> PublicCatalogProductUnitOfMeasure:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicCatalogProductUnitOfMeasure' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("unit", None)
+    if field is not None:
+        args["unit"] = field
+
+    field = data.get("size", None)
+    if field is not None:
+        args["size"] = field
+
+    return PublicCatalogProductUnitOfMeasure(**args)
+
+
 def unmarshal_PublicCatalogProduct(data: Any) -> PublicCatalogProduct:
     if not isinstance(data, dict):
         raise TypeError(
@@ -534,13 +556,19 @@ def unmarshal_PublicCatalogProduct(data: Any) -> PublicCatalogProduct:
     else:
         args["properties"] = None
 
-    field = data.get("environmental_impact", None)
+    field = data.get("environmental_impact_estimation", None)
     if field is not None:
-        args["environmental_impact"] = (
-            unmarshal_PublicCatalogProductEnvironmentalImpact(field)
+        args["environmental_impact_estimation"] = (
+            unmarshal_PublicCatalogProductEnvironmentalImpactEstimation(field)
         )
     else:
-        args["environmental_impact"] = None
+        args["environmental_impact_estimation"] = None
+
+    field = data.get("unit_of_measure", None)
+    if field is not None:
+        args["unit_of_measure"] = unmarshal_PublicCatalogProductUnitOfMeasure(field)
+    else:
+        args["unit_of_measure"] = None
 
     return PublicCatalogProduct(**args)
 
