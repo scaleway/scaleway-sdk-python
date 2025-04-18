@@ -81,7 +81,7 @@ class SecretV1Beta1API(API):
         :param type_: (Optional.) See the `Secret.Type` enum for a description of values. If not specified, the type is `Opaque`.
         :param path: (Optional.) Location of the secret in the directory structure. If not specified, the path is `/`.
         :param ephemeral_policy: (Optional.) Policy that defines whether/when a secret's versions expire. By default, the policy is applied to all the secret's versions.
-        :param key_id: (Optional.) The Scaleway's Key Manager key ID will be used to encrypt and decrypt secret versions. If not specified, the Secret Manager will use an internal key.
+        :param key_id: (Optional.) The Scaleway Key Manager key ID will be used to encrypt and decrypt secret versions. If not specified, Secret Manager will use a Key Manager internal key.
         :return: :class:`Secret <Secret>`
 
         Usage:

@@ -238,6 +238,14 @@ def unmarshal_Platform(data: Any) -> Platform:
     if field is not None:
         args["max_qubit_count"] = field
 
+    field = data.get("max_shot_count", None)
+    if field is not None:
+        args["max_shot_count"] = field
+
+    field = data.get("max_circuit_count", None)
+    if field is not None:
+        args["max_circuit_count"] = field
+
     field = data.get("availability", None)
     if field is not None:
         args["availability"] = field
@@ -251,6 +259,18 @@ def unmarshal_Platform(data: Any) -> Platform:
         args["price_per_hour"] = unmarshal_Money(field)
     else:
         args["price_per_hour"] = None
+
+    field = data.get("price_per_shot", None)
+    if field is not None:
+        args["price_per_shot"] = unmarshal_Money(field)
+    else:
+        args["price_per_shot"] = None
+
+    field = data.get("price_per_circuit", None)
+    if field is not None:
+        args["price_per_circuit"] = unmarshal_Money(field)
+    else:
+        args["price_per_circuit"] = None
 
     field = data.get("hardware", None)
     if field is not None:
