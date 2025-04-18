@@ -1,0 +1,18 @@
+scaleway.domain package
+=======================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway.domain.v2beta1
+
+Module contents
+---------------
+
+.. automodule:: scaleway.domain
+   :members:
+   :undoc-members:
+   :show-inheritance:
