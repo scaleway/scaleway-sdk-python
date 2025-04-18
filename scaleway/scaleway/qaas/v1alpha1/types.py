@@ -135,6 +135,7 @@ class PlatformAvailability(str, Enum, metaclass=StrEnumMeta):
     AVAILABLE = "available"
     SHORTAGE = "shortage"
     SCARCE = "scarce"
+    MAINTENANCE = "maintenance"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -144,6 +145,8 @@ class PlatformTechnology(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_TECHNOLOGY = "unknown_technology"
     PHOTONIC = "photonic"
     GENERAL_PURPOSE = "general_purpose"
+    TRAPPED_ION = "trapped_ion"
+    SUPERCONDUCTING = "superconducting"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -396,6 +399,16 @@ class Platform:
     Estimated maximum number of qubits supported by the platform.
     """
 
+    max_shot_count: int
+    """
+    Maximum number of shots during a circuit execution.
+    """
+
+    max_circuit_count: int
+    """
+    Maximum number of circuit that can be executed in one call.
+    """
+
     availability: PlatformAvailability
     """
     Availability of the platform.
@@ -409,6 +422,16 @@ class Platform:
     price_per_hour: Optional[Money]
     """
     Price to be paid per hour (excluding free tiers).
+    """
+
+    price_per_shot: Optional[Money]
+    """
+    Price to be paid per shot (excluding free tiers).
+    """
+
+    price_per_circuit: Optional[Money]
+    """
+    Price to be paid per circuit setup before its execution (excluding free tiers).
     """
 
     hardware: Optional[PlatformHardware]
