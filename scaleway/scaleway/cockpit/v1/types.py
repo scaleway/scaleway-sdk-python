@@ -524,6 +524,16 @@ class AlertManager:
 
 
 @dataclass
+class DisableAlertRulesResponse:
+    disabled_rule_ids: List[str]
+
+
+@dataclass
+class EnableAlertRulesResponse:
+    enabled_rule_ids: List[str]
+
+
+@dataclass
 class GetConfigResponse:
     """
     Cockpit configuration.

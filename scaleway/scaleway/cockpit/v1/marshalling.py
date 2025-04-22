@@ -19,6 +19,8 @@ from .types import (
     Plan,
     Token,
     AlertManager,
+    DisableAlertRulesResponse,
+    EnableAlertRulesResponse,
     GetConfigResponseRetention,
     GetConfigResponse,
     Grafana,
@@ -337,6 +339,36 @@ def unmarshal_AlertManager(data: Any) -> AlertManager:
         args["alert_manager_url"] = None
 
     return AlertManager(**args)
+
+
+def unmarshal_DisableAlertRulesResponse(data: Any) -> DisableAlertRulesResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'DisableAlertRulesResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("disabled_rule_ids", None)
+    if field is not None:
+        args["disabled_rule_ids"] = field
+
+    return DisableAlertRulesResponse(**args)
+
+
+def unmarshal_EnableAlertRulesResponse(data: Any) -> EnableAlertRulesResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'EnableAlertRulesResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("enabled_rule_ids", None)
+    if field is not None:
+        args["enabled_rule_ids"] = field
+
+    return EnableAlertRulesResponse(**args)
 
 
 def unmarshal_GetConfigResponseRetention(data: Any) -> GetConfigResponseRetention:

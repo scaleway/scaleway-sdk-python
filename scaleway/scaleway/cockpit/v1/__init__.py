@@ -23,6 +23,8 @@ from .types import Plan
 from .types import Token
 from .types import Usage
 from .types import AlertManager
+from .types import DisableAlertRulesResponse
+from .types import EnableAlertRulesResponse
 from .types import GetConfigResponse
 from .types import GlobalApiCreateGrafanaUserRequest
 from .types import GlobalApiDeleteGrafanaUserRequest
@@ -95,6 +97,8 @@ __all__ = [
     "Token",
     "Usage",
     "AlertManager",
+    "DisableAlertRulesResponse",
+    "EnableAlertRulesResponse",
     "GetConfigResponse",
     "GlobalApiCreateGrafanaUserRequest",
     "GlobalApiDeleteGrafanaUserRequest",
