@@ -726,42 +726,6 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
 
-    def migrate_cluster_to_sbscsi(
-        self,
-        *,
-        cluster_id: str,
-        region: Optional[ScwRegion] = None,
-    ) -> Cluster:
-        """
-        Migrate a cluster to SBS CSI.
-        Enable the latest CSI compatible with Scaleway Block Storage (SBS) and migrate all existing PersistentVolumes/VolumeSnapshotContents to SBS.
-        Make sure to have the necessary Quota before running this command.
-        :param cluster_id: Cluster ID for which the latest CSI compatible with Scaleway Block Storage will be enabled.
-        :param region: Region to target. If none is passed will use default region from the config.
-        :return: :class:`Cluster <Cluster>`
-
-        Usage:
-        ::
-
-            result = api.migrate_cluster_to_sbscsi(
-                cluster_id="example",
-            )
-        """
-
-        param_region = validate_path_param(
-            "region", region or self.client.default_region
-        )
-        param_cluster_id = validate_path_param("cluster_id", cluster_id)
-
-        res = self._request(
-            "POST",
-            f"/k8s/v1/regions/{param_region}/clusters/{param_cluster_id}/migrate-to-sbs-csi",
-            body={},
-        )
-
-        self._throw_on_error(res)
-        return unmarshal_Cluster(res.json())
-
     def list_cluster_acl_rules(
         self,
         *,
