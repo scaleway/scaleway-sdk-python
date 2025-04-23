@@ -26,6 +26,8 @@ from .types import (
     ContactPoint,
     ContactPointEmail,
     DataSource,
+    DisableAlertRulesResponse,
+    EnableAlertRulesResponse,
     GetConfigResponse,
     GlobalApiCreateGrafanaUserRequest,
     GlobalApiResetGrafanaUserPasswordRequest,
@@ -66,6 +68,8 @@ from .marshalling import (
     unmarshal_Plan,
     unmarshal_Token,
     unmarshal_AlertManager,
+    unmarshal_DisableAlertRulesResponse,
+    unmarshal_EnableAlertRulesResponse,
     unmarshal_GetConfigResponse,
     unmarshal_Grafana,
     unmarshal_ListAlertsResponse,
@@ -1559,12 +1563,13 @@ class CockpitV1RegionalAPI(API):
         region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         rule_ids: Optional[List[str]] = None,
-    ) -> None:
+    ) -> EnableAlertRulesResponse:
         """
         Enable preconfigured alert rules. Enable alert rules from the list of available preconfigured rules.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id:
         :param rule_ids:
+        :return: :class:`EnableAlertRulesResponse <EnableAlertRulesResponse>`
 
         Usage:
         ::
@@ -1590,6 +1595,7 @@ class CockpitV1RegionalAPI(API):
         )
 
         self._throw_on_error(res)
+        return unmarshal_EnableAlertRulesResponse(res.json())
 
     async def disable_alert_rules(
         self,
@@ -1597,12 +1603,13 @@ class CockpitV1RegionalAPI(API):
         region: Optional[ScwRegion] = None,
         project_id: Optional[str] = None,
         rule_ids: Optional[List[str]] = None,
-    ) -> None:
+    ) -> DisableAlertRulesResponse:
         """
         Disable preconfigured alert rules. Disable alert rules from the list of available preconfigured rules.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id:
         :param rule_ids:
+        :return: :class:`DisableAlertRulesResponse <DisableAlertRulesResponse>`
 
         Usage:
         ::
@@ -1628,6 +1635,7 @@ class CockpitV1RegionalAPI(API):
         )
 
         self._throw_on_error(res)
+        return unmarshal_DisableAlertRulesResponse(res.json())
 
     async def trigger_test_alert(
         self,
