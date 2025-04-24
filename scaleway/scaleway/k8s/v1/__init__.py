@@ -75,7 +75,6 @@ from .types import ListPoolsRequest
 from .types import ListPoolsResponse
 from .types import ListVersionsRequest
 from .types import ListVersionsResponse
-from .types import MigrateClusterToSBSCSIRequest
 from .types import NodeMetadata
 from .types import RebootNodeRequest
 from .types import ReplaceNodeRequest
@@ -165,7 +164,6 @@ __all__ = [
     "ListPoolsResponse",
     "ListVersionsRequest",
     "ListVersionsResponse",
-    "MigrateClusterToSBSCSIRequest",
     "NodeMetadata",
     "RebootNodeRequest",
     "ReplaceNodeRequest",

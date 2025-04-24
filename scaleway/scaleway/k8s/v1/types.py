@@ -1825,19 +1825,6 @@ class ListVersionsResponse:
 
 
 @dataclass
-class MigrateClusterToSBSCSIRequest:
-    cluster_id: str
-    """
-    Cluster ID for which the latest CSI compatible with Scaleway Block Storage will be enabled.
-    """
-
-    region: Optional[ScwRegion]
-    """
-    Region to target. If none is passed will use default region from the config.
-    """
-
-
-@dataclass
 class NodeMetadata:
     id: str
 
