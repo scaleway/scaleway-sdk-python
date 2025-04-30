@@ -492,12 +492,6 @@ def unmarshal_Cluster(data: Any) -> Cluster:
     else:
         args["commitment_ends_at"] = None
 
-    field = data.get("sbs_csi_enabled", None)
-    if field is not None:
-        args["sbs_csi_enabled"] = field
-    else:
-        args["sbs_csi_enabled"] = None
-
     field = data.get("acl_available", None)
     if field is not None:
         args["acl_available"] = field
