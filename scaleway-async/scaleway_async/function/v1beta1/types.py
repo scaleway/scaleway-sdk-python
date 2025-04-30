@@ -563,6 +563,11 @@ class Function:
     Execution environment of the function.
     """
 
+    tags: List[str]
+    """
+    List of tags applied to the Serverless Function.
+    """
+
     created_at: Optional[datetime]
     """
     Creation date of the function.
@@ -633,7 +638,7 @@ class Namespace:
 
     tags: List[str]
     """
-    [ALPHA] List of tags applied to the Serverless Function Namespace.
+    List of tags applied to the Serverless Function Namespace.
     """
 
     error_message: Optional[str]
@@ -867,6 +872,11 @@ class CreateFunctionRequest:
     Execution environment of the function.
     """
 
+    tags: Optional[List[str]]
+    """
+    Tags of the Serverless Function.
+    """
+
 
 @dataclass
 class CreateNamespaceRequest:
@@ -899,7 +909,7 @@ class CreateNamespaceRequest:
 
     tags: Optional[List[str]]
     """
-    [ALPHA] Tags of the Serverless Function Namespace.
+    Tags of the Serverless Function Namespace.
     """
 
 
@@ -1562,6 +1572,11 @@ class UpdateFunctionRequest:
     Execution environment of the function.
     """
 
+    tags: Optional[List[str]]
+    """
+    Tags of the Serverless Function.
+    """
+
 
 @dataclass
 class UpdateNamespaceRequest:
@@ -1592,7 +1607,7 @@ class UpdateNamespaceRequest:
 
     tags: Optional[List[str]]
     """
-    [ALPHA] Tags of the Serverless Function Namespace.
+    Tags of the Serverless Function Namespace.
     """
 
 

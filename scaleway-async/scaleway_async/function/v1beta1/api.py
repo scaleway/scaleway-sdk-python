@@ -288,7 +288,7 @@ class FunctionV1Beta1API(API):
         :param project_id: UUID of the project in which the namespace will be created.
         :param description: Description of the namespace.
         :param secret_environment_variables: Secret environment variables of the namespace.
-        :param tags: [ALPHA] Tags of the Serverless Function Namespace.
+        :param tags: Tags of the Serverless Function Namespace.
         :return: :class:`Namespace <Namespace>`
 
         Usage:
@@ -339,7 +339,7 @@ class FunctionV1Beta1API(API):
         :param environment_variables: Environment variables of the namespace.
         :param description: Description of the namespace.
         :param secret_environment_variables: Secret environment variables of the namespace.
-        :param tags: [ALPHA] Tags of the Serverless Function Namespace.
+        :param tags: Tags of the Serverless Function Namespace.
         :return: :class:`Namespace <Namespace>`
 
         Usage:
@@ -601,6 +601,7 @@ class FunctionV1Beta1API(API):
         secret_environment_variables: Optional[List[Secret]] = None,
         http_option: Optional[FunctionHttpOption] = None,
         sandbox: Optional[FunctionSandbox] = None,
+        tags: Optional[List[str]] = None,
     ) -> Function:
         """
         Create a new function.
@@ -622,6 +623,7 @@ class FunctionV1Beta1API(API):
          - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
          - enabled: Serve both HTTP and HTTPS traffic.
         :param sandbox: Execution environment of the function.
+        :param tags: Tags of the Serverless Function.
         :return: :class:`Function <Function>`
 
         Usage:
@@ -656,6 +658,7 @@ class FunctionV1Beta1API(API):
                     secret_environment_variables=secret_environment_variables,
                     http_option=http_option,
                     sandbox=sandbox,
+                    tags=tags,
                 ),
                 self.client,
             ),
@@ -682,6 +685,7 @@ class FunctionV1Beta1API(API):
         secret_environment_variables: Optional[List[Secret]] = None,
         http_option: Optional[FunctionHttpOption] = None,
         sandbox: Optional[FunctionSandbox] = None,
+        tags: Optional[List[str]] = None,
     ) -> Function:
         """
         Update an existing function.
@@ -703,6 +707,7 @@ class FunctionV1Beta1API(API):
          - redirected: Responds to HTTP request with a 301 redirect to ask the clients to use HTTPS.
          - enabled: Serve both HTTP and HTTPS traffic.
         :param sandbox: Execution environment of the function.
+        :param tags: Tags of the Serverless Function.
         :return: :class:`Function <Function>`
 
         Usage:
@@ -738,6 +743,7 @@ class FunctionV1Beta1API(API):
                     secret_environment_variables=secret_environment_variables,
                     http_option=http_option,
                     sandbox=sandbox,
+                    tags=tags,
                 ),
                 self.client,
             ),

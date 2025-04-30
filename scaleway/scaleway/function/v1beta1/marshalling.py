@@ -249,6 +249,10 @@ def unmarshal_Function(data: Any) -> Function:
     if field is not None:
         args["sandbox"] = field
 
+    field = data.get("tags", None)
+    if field is not None:
+        args["tags"] = field
+
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -892,6 +896,9 @@ def marshal_CreateFunctionRequest(
     if request.sandbox is not None:
         output["sandbox"] = str(request.sandbox)
 
+    if request.tags is not None:
+        output["tags"] = request.tags
+
     return output
 
 
@@ -1103,6 +1110,9 @@ def marshal_UpdateFunctionRequest(
 
     if request.sandbox is not None:
         output["sandbox"] = str(request.sandbox)
+
+    if request.tags is not None:
+        output["tags"] = request.tags
 
     return output
 

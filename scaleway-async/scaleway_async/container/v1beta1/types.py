@@ -478,6 +478,11 @@ class Container:
     Region in which the container will be deployed.
     """
 
+    tags: List[str]
+    """
+    List of tags applied to the Serverless Container.
+    """
+
     scaling_option: Optional[ContainerScalingOption]
     """
     Possible values:
@@ -627,7 +632,7 @@ class Namespace:
 
     tags: List[str]
     """
-    [ALPHA] List of tags applied to the Serverless Container Namespace.
+    List of tags applied to the Serverless Container Namespace.
     """
 
     error_message: Optional[str]
@@ -851,6 +856,11 @@ class CreateContainerRequest:
     Health check configuration of the container.
     """
 
+    tags: Optional[List[str]]
+    """
+    Tags of the Serverless Container.
+    """
+
 
 @dataclass
 class CreateCronRequest:
@@ -932,7 +942,7 @@ class CreateNamespaceRequest:
 
     tags: Optional[List[str]]
     """
-    [ALPHA] Tags of the Serverless Container Namespace.
+    Tags of the Serverless Container Namespace.
     """
 
 
@@ -1530,6 +1540,11 @@ class UpdateContainerRequest:
     Health check configuration of the container.
     """
 
+    tags: Optional[List[str]]
+    """
+    Tags of the Serverless Container.
+    """
+
 
 @dataclass
 class UpdateCronRequest:
@@ -1593,7 +1608,7 @@ class UpdateNamespaceRequest:
 
     tags: Optional[List[str]]
     """
-    [ALPHA] Tags of the Serverless Container Namespace.
+    Tags of the Serverless Container Namespace.
     """
 
 

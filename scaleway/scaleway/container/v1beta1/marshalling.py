@@ -269,6 +269,10 @@ def unmarshal_Container(data: Any) -> Container:
     if field is not None:
         args["region"] = field
 
+    field = data.get("tags", None)
+    if field is not None:
+        args["tags"] = field
+
     field = data.get("scaling_option", None)
     if field is not None:
         args["scaling_option"] = unmarshal_ContainerScalingOption(field)
@@ -941,6 +945,9 @@ def marshal_CreateContainerRequest(
             request.health_check, defaults
         )
 
+    if request.tags is not None:
+        output["tags"] = request.tags
+
     return output
 
 
@@ -1189,6 +1196,9 @@ def marshal_UpdateContainerRequest(
         output["health_check"] = marshal_ContainerHealthCheckSpec(
             request.health_check, defaults
         )
+
+    if request.tags is not None:
+        output["tags"] = request.tags
 
     return output
 

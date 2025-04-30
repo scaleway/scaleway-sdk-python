@@ -284,7 +284,7 @@ class ContainerV1Beta1API(API):
         :param project_id: UUID of the Project in which the namespace will be created.
         :param description: Description of the namespace to create.
         :param secret_environment_variables: Secret environment variables of the namespace to create.
-        :param tags: [ALPHA] Tags of the Serverless Container Namespace.
+        :param tags: Tags of the Serverless Container Namespace.
         :return: :class:`Namespace <Namespace>`
 
         Usage:
@@ -335,7 +335,7 @@ class ContainerV1Beta1API(API):
         :param environment_variables: Environment variables of the namespace to update.
         :param description: Description of the namespace to update.
         :param secret_environment_variables: Secret environment variables of the namespace to update.
-        :param tags: [ALPHA] Tags of the Serverless Container Namespace.
+        :param tags: Tags of the Serverless Container Namespace.
         :return: :class:`Namespace <Namespace>`
 
         Usage:
@@ -605,6 +605,7 @@ class ContainerV1Beta1API(API):
         local_storage_limit: Optional[int] = None,
         scaling_option: Optional[ContainerScalingOption] = None,
         health_check: Optional[ContainerHealthCheckSpec] = None,
+        tags: Optional[List[str]] = None,
     ) -> Container:
         """
         Create a new container.
@@ -635,6 +636,7 @@ class ContainerV1Beta1API(API):
         - cpu_usage_threshold: Scale depending on the CPU usage of a container instance.
         - memory_usage_threshold: Scale depending on the memory usage of a container instance.
         :param health_check: Health check configuration of the container.
+        :param tags: Tags of the Serverless Container.
         :return: :class:`Container <Container>`
 
         Usage:
@@ -676,6 +678,7 @@ class ContainerV1Beta1API(API):
                     local_storage_limit=local_storage_limit,
                     scaling_option=scaling_option,
                     health_check=health_check,
+                    tags=tags,
                 ),
                 self.client,
             ),
@@ -708,6 +711,7 @@ class ContainerV1Beta1API(API):
         local_storage_limit: Optional[int] = None,
         scaling_option: Optional[ContainerScalingOption] = None,
         health_check: Optional[ContainerHealthCheckSpec] = None,
+        tags: Optional[List[str]] = None,
     ) -> Container:
         """
         Update an existing container.
@@ -738,6 +742,7 @@ class ContainerV1Beta1API(API):
         - cpu_usage_threshold: Scale depending on the CPU usage of a container instance.
         - memory_usage_threshold: Scale depending on the memory usage of a container instance.
         :param health_check: Health check configuration of the container.
+        :param tags: Tags of the Serverless Container.
         :return: :class:`Container <Container>`
 
         Usage:
@@ -779,6 +784,7 @@ class ContainerV1Beta1API(API):
                     local_storage_limit=local_storage_limit,
                     scaling_option=scaling_option,
                     health_check=health_check,
+                    tags=tags,
                 ),
                 self.client,
             ),
