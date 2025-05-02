@@ -1565,7 +1565,8 @@ class CockpitV1RegionalAPI(API):
         rule_ids: Optional[List[str]] = None,
     ) -> EnableAlertRulesResponse:
         """
-        Enable preconfigured alert rules. Enable alert rules from the list of available preconfigured rules.
+        Enable preconfigured alert rules.
+        Enable alert rules from the list of available preconfigured rules.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id:
         :param rule_ids:
@@ -1605,7 +1606,8 @@ class CockpitV1RegionalAPI(API):
         rule_ids: Optional[List[str]] = None,
     ) -> DisableAlertRulesResponse:
         """
-        Disable preconfigured alert rules. Disable alert rules from the list of available preconfigured rules.
+        Disable preconfigured alert rules.
+        Disable alert rules from the list of available preconfigured rules.
         :param region: Region to target. If none is passed will use default region from the config.
         :param project_id:
         :param rule_ids:
