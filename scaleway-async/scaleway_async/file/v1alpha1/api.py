@@ -400,7 +400,6 @@ class FileV1Alpha1API(API):
         """
         Update filesystem properties.
         Update the technical details of a filesystem, such as its name, tags or its new size.
-        You can only resize a filesystem to a larger size.
         :param filesystem_id: UUID of the filesystem.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: When defined, is the new name of the filesystem.
