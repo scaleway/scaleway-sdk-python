@@ -14,7 +14,6 @@ from .types import (
     PublicCatalogProductPropertiesHardwareNetwork,
     PublicCatalogProductPropertiesHardwareRAM,
     PublicCatalogProductPropertiesHardwareStorage,
-    PublicCatalogProductPriceUnitOfMeasure,
     PublicCatalogProductPropertiesAppleSilicon,
     PublicCatalogProductPropertiesDedibox,
     PublicCatalogProductPropertiesElasticMetal,
@@ -225,27 +224,6 @@ def unmarshal_PublicCatalogProductPropertiesHardwareStorage(
     return PublicCatalogProductPropertiesHardwareStorage(**args)
 
 
-def unmarshal_PublicCatalogProductPriceUnitOfMeasure(
-    data: Any,
-) -> PublicCatalogProductPriceUnitOfMeasure:
-    if not isinstance(data, dict):
-        raise TypeError(
-            "Unmarshalling the type 'PublicCatalogProductPriceUnitOfMeasure' failed as data isn't a dictionary."
-        )
-
-    args: Dict[str, Any] = {}
-
-    field = data.get("unit", None)
-    if field is not None:
-        args["unit"] = field
-
-    field = data.get("size", None)
-    if field is not None:
-        args["size"] = field
-
-    return PublicCatalogProductPriceUnitOfMeasure(**args)
-
-
 def unmarshal_PublicCatalogProductPropertiesAppleSilicon(
     data: Any,
 ) -> PublicCatalogProductPropertiesAppleSilicon:
@@ -430,14 +408,6 @@ def unmarshal_PublicCatalogProductPrice(data: Any) -> PublicCatalogProductPrice:
         args["retail_price"] = unmarshal_Money(field)
     else:
         args["retail_price"] = None
-
-    field = data.get("unit_of_measure", None)
-    if field is not None:
-        args["unit_of_measure"] = unmarshal_PublicCatalogProductPriceUnitOfMeasure(
-            field
-        )
-    else:
-        args["unit_of_measure"] = None
 
     return PublicCatalogProductPrice(**args)
 

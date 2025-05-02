@@ -16,40 +16,6 @@ from scaleway_core.utils import (
 )
 
 
-class PublicCatalogProductPriceUnitOfMeasureCountableUnit(
-    str, Enum, metaclass=StrEnumMeta
-):
-    UNKNOWN_COUNTABLE_UNIT = "unknown_countable_unit"
-    CHUNK = "chunk"
-    CORE = "core"
-    CURRENCY = "currency"
-    DEVICE = "device"
-    DOMAIN = "domain"
-    EMAIL = "email"
-    GB_S = "gb_s"
-    GIGABYTE = "gigabyte"
-    HOUR = "hour"
-    IOPS_GIGABYTE = "iops_gigabyte"
-    IP = "ip"
-    MONTH = "month"
-    NODE = "node"
-    PLAN = "plan"
-    QUERY = "query"
-    REQUEST = "request"
-    SESSION = "session"
-    VCPU_S = "vcpu_s"
-    VERSION = "version"
-    YEAR = "year"
-    KEY = "key"
-    TOKEN = "token"
-    MINUTE = "minute"
-    SETUP = "setup"
-    DAY = "day"
-
-    def __str__(self) -> str:
-        return str(self.value)
-
-
 class PublicCatalogProductPropertiesHardwareCPUArch(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_ARCH = "unknown_arch"
     X64 = "x64"
@@ -229,19 +195,6 @@ class PublicCatalogProductPropertiesHardwareStorage:
 
 
 @dataclass
-class PublicCatalogProductPriceUnitOfMeasure:
-    unit: PublicCatalogProductPriceUnitOfMeasureCountableUnit
-    """
-    The unit of measure.
-    """
-
-    size: int
-    """
-    The size of the unit.
-    """
-
-
-@dataclass
 class PublicCatalogProductPropertiesAppleSilicon:
     range: str
     """
@@ -324,11 +277,6 @@ class PublicCatalogProductPrice:
     retail_price: Optional[Money]
     """
     The retail price of the product.
-    """
-
-    unit_of_measure: Optional[PublicCatalogProductPriceUnitOfMeasure]
-    """
-    The unit of measure of the price (deprecated).
     """
 
 
