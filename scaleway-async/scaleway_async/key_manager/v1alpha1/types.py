@@ -406,6 +406,19 @@ class GetKeyRequest:
 
 
 @dataclass
+class GetPublicKeyRequest:
+    key_id: str
+    """
+    ID of the key.
+    """
+
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
 class ImportKeyMaterialRequest:
     key_id: str
     """
@@ -486,6 +499,11 @@ class ProtectKeyRequest:
     """
     Region to target. If none is passed will use default region from the config.
     """
+
+
+@dataclass
+class PublicKey:
+    pem: str
 
 
 @dataclass
