@@ -1,0 +1,18 @@
+scaleway.marketplace package
+============================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   scaleway.marketplace.v2
+
+Module contents
+---------------
+
+.. automodule:: scaleway.marketplace
+   :members:
+   :undoc-members:
+   :show-inheritance:
