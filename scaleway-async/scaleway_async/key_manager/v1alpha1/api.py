@@ -27,6 +27,7 @@ from .types import (
     KeyRotationPolicy,
     KeyUsage,
     ListKeysResponse,
+    PublicKey,
     UpdateKeyRequest,
 )
 from .marshalling import (
@@ -35,6 +36,7 @@ from .marshalling import (
     unmarshal_DecryptResponse,
     unmarshal_EncryptResponse,
     unmarshal_ListKeysResponse,
+    unmarshal_PublicKey,
     marshal_CreateKeyRequest,
     marshal_DecryptRequest,
     marshal_EncryptRequest,
@@ -143,6 +145,40 @@ class KeyManagerV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Key(res.json())
+
+    async def get_public_key(
+        self,
+        *,
+        key_id: str,
+        region: Optional[ScwRegion] = None,
+    ) -> PublicKey:
+        """
+        Get the public key in PEM format.
+        Retrieves the public portion of an asymmetric cryptographic key in PEM format.
+        :param key_id: ID of the key.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`PublicKey <PublicKey>`
+
+        Usage:
+        ::
+
+            result = await api.get_public_key(
+                key_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_key_id = validate_path_param("key_id", key_id)
+
+        res = self._request(
+            "GET",
+            f"/key-manager/v1alpha1/regions/{param_region}/keys/{param_key_id}/public-key",
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_PublicKey(res.json())
 
     async def update_key(
         self,

@@ -20,10 +20,12 @@ from .types import EncryptRequest
 from .types import EncryptResponse
 from .types import GenerateDataKeyRequest
 from .types import GetKeyRequest
+from .types import GetPublicKeyRequest
 from .types import ImportKeyMaterialRequest
 from .types import ListKeysRequest
 from .types import ListKeysResponse
 from .types import ProtectKeyRequest
+from .types import PublicKey
 from .types import RotateKeyRequest
 from .types import UnprotectKeyRequest
 from .types import UpdateKeyRequest
@@ -50,10 +52,12 @@ __all__ = [
     "EncryptResponse",
     "GenerateDataKeyRequest",
     "GetKeyRequest",
+    "GetPublicKeyRequest",
     "ImportKeyMaterialRequest",
     "ListKeysRequest",
     "ListKeysResponse",
     "ProtectKeyRequest",
+    "PublicKey",
     "RotateKeyRequest",
     "UnprotectKeyRequest",
     "UpdateKeyRequest",

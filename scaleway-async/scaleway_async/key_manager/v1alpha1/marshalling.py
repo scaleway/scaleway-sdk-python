@@ -17,6 +17,7 @@ from .types import (
     DecryptResponse,
     EncryptResponse,
     ListKeysResponse,
+    PublicKey,
     CreateKeyRequest,
     DecryptRequest,
     EncryptRequest,
@@ -251,6 +252,21 @@ def unmarshal_ListKeysResponse(data: Any) -> ListKeysResponse:
         args["total_count"] = field
 
     return ListKeysResponse(**args)
+
+
+def unmarshal_PublicKey(data: Any) -> PublicKey:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'PublicKey' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("pem", None)
+    if field is not None:
+        args["pem"] = field
+
+    return PublicKey(**args)
 
 
 def marshal_KeyRotationPolicy(
