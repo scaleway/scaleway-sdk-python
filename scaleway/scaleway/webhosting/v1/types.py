@@ -296,7 +296,7 @@ class PlatformControlPanel:
 
     urls: Optional[PlatformControlPanelUrls]
     """
-    URL to connect to cPanel dashboard and to Webmail interface.
+    URL to connect to control panel dashboard and to Webmail interface.
     """
 
 
@@ -426,7 +426,7 @@ class Nameserver:
 class HostingUser:
     username: str
     """
-    Main Web Hosting cPanel username.
+    Main Web Hosting control panel username.
     """
 
     contact_email: str
@@ -436,7 +436,12 @@ class HostingUser:
 
     one_time_password: Optional[str]
     """
-    One-time-password used for the first login or reset password, empty after first use.
+    One-time-password used for the first login to the control panel, cleared after first use (deprecated, use password_b64 instead).
+    """
+
+    one_time_password_b64: Optional[str]
+    """
+    One-time-password used for the first login to the control panel, cleared after first use, encoded in base64.
     """
 
 
@@ -1789,9 +1794,14 @@ class OfferApiListOffersRequest:
 
 @dataclass
 class ResetHostingPasswordResponse:
-    one_time_password: str
+    one_time_password_b64: str
     """
-    New temporary password.
+    New temporary password, encoded in base64.
+    """
+
+    one_time_password: Optional[str]
+    """
+    New temporary password (deprecated, use password_b64 instead).
     """
 
 
