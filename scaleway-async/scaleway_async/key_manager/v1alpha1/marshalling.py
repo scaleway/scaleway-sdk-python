@@ -18,12 +18,16 @@ from .types import (
     EncryptResponse,
     ListKeysResponse,
     PublicKey,
+    SignResponse,
+    VerifyResponse,
     CreateKeyRequest,
     DecryptRequest,
     EncryptRequest,
     GenerateDataKeyRequest,
     ImportKeyMaterialRequest,
+    SignRequest,
     UpdateKeyRequest,
+    VerifyRequest,
 )
 
 
@@ -65,6 +69,18 @@ def unmarshal_KeyUsage(data: Any) -> KeyUsage:
         args["symmetric_encryption"] = field
     else:
         args["symmetric_encryption"] = None
+
+    field = data.get("asymmetric_encryption", None)
+    if field is not None:
+        args["asymmetric_encryption"] = field
+    else:
+        args["asymmetric_encryption"] = None
+
+    field = data.get("asymmetric_signing", None)
+    if field is not None:
+        args["asymmetric_signing"] = field
+    else:
+        args["asymmetric_signing"] = None
 
     return KeyUsage(**args)
 
@@ -269,6 +285,44 @@ def unmarshal_PublicKey(data: Any) -> PublicKey:
     return PublicKey(**args)
 
 
+def unmarshal_SignResponse(data: Any) -> SignResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'SignResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("key_id", None)
+    if field is not None:
+        args["key_id"] = field
+
+    field = data.get("signature", None)
+    if field is not None:
+        args["signature"] = field
+
+    return SignResponse(**args)
+
+
+def unmarshal_VerifyResponse(data: Any) -> VerifyResponse:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'VerifyResponse' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("key_id", None)
+    if field is not None:
+        args["key_id"] = field
+
+    field = data.get("valid", None)
+    if field is not None:
+        args["valid"] = field
+
+    return VerifyResponse(**args)
+
+
 def marshal_KeyRotationPolicy(
     request: KeyRotationPolicy,
     defaults: ProfileDefaults,
@@ -293,6 +347,10 @@ def marshal_KeyUsage(
         resolve_one_of(
             [
                 OneOfPossibility("symmetric_encryption", request.symmetric_encryption),
+                OneOfPossibility(
+                    "asymmetric_encryption", request.asymmetric_encryption
+                ),
+                OneOfPossibility("asymmetric_signing", request.asymmetric_signing),
             ]
         ),
     )
@@ -395,6 +453,18 @@ def marshal_ImportKeyMaterialRequest(
     return output
 
 
+def marshal_SignRequest(
+    request: SignRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.digest is not None:
+        output["digest"] = request.digest
+
+    return output
+
+
 def marshal_UpdateKeyRequest(
     request: UpdateKeyRequest,
     defaults: ProfileDefaults,
@@ -414,5 +484,20 @@ def marshal_UpdateKeyRequest(
         output["rotation_policy"] = marshal_KeyRotationPolicy(
             request.rotation_policy, defaults
         )
+
+    return output
+
+
+def marshal_VerifyRequest(
+    request: VerifyRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.digest is not None:
+        output["digest"] = request.digest
+
+    if request.signature is not None:
+        output["signature"] = request.signature
 
     return output
