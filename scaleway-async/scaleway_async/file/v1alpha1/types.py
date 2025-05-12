@@ -297,7 +297,7 @@ class ListFileSystemsRequest:
 
     name: Optional[str]
     """
-    Filter the return filesystems by their names.
+    Filter the returned filesystems by their names.
     """
 
     tags: Optional[List[str]]
