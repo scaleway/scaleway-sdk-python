@@ -87,6 +87,16 @@ class ListKeysRequestOrderBy(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class ListKeysRequestUsage(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_USAGE = "unknown_usage"
+    SYMMETRIC_ENCRYPTION = "symmetric_encryption"
+    ASYMMETRIC_ENCRYPTION = "asymmetric_encryption"
+    ASYMMETRIC_SIGNING = "asymmetric_signing"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 @dataclass
 class KeyRotationPolicy:
     rotation_period: Optional[str]
@@ -501,6 +511,11 @@ class ListKeysRequest:
     name: Optional[str]
     """
     (Optional) Filter by key name.
+    """
+
+    usage: Optional[ListKeysRequestUsage]
+    """
+    Select from symmetric encryption, asymmetric encryption, or asymmetric signing.
     """
 
 

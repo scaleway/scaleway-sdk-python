@@ -15,6 +15,7 @@ from .types import (
     DataKeyAlgorithmSymmetricEncryption,
     KeyOrigin,
     ListKeysRequestOrderBy,
+    ListKeysRequestUsage,
     CreateKeyRequest,
     DataKey,
     DecryptRequest,
@@ -459,6 +460,7 @@ class KeyManagerV1Alpha1API(API):
         page_size: Optional[int] = None,
         tags: Optional[List[str]] = None,
         name: Optional[str] = None,
+        usage: Optional[ListKeysRequestUsage] = None,
     ) -> ListKeysResponse:
         """
         List keys.
@@ -471,6 +473,7 @@ class KeyManagerV1Alpha1API(API):
         :param page_size:
         :param tags: (Optional) List of tags to filter on.
         :param name: (Optional) Filter by key name.
+        :param usage: Select from symmetric encryption, asymmetric encryption, or asymmetric signing.
         :return: :class:`ListKeysResponse <ListKeysResponse>`
 
         Usage:
@@ -495,6 +498,7 @@ class KeyManagerV1Alpha1API(API):
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
                 "tags": tags,
+                "usage": usage,
             },
         )
 
@@ -512,6 +516,7 @@ class KeyManagerV1Alpha1API(API):
         page_size: Optional[int] = None,
         tags: Optional[List[str]] = None,
         name: Optional[str] = None,
+        usage: Optional[ListKeysRequestUsage] = None,
     ) -> List[Key]:
         """
         List keys.
@@ -524,6 +529,7 @@ class KeyManagerV1Alpha1API(API):
         :param page_size:
         :param tags: (Optional) List of tags to filter on.
         :param name: (Optional) Filter by key name.
+        :param usage: Select from symmetric encryption, asymmetric encryption, or asymmetric signing.
         :return: :class:`List[Key] <List[Key]>`
 
         Usage:
@@ -545,6 +551,7 @@ class KeyManagerV1Alpha1API(API):
                 "page_size": page_size,
                 "tags": tags,
                 "name": name,
+                "usage": usage,
             },
         )
 
