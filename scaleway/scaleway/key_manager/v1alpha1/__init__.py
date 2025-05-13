@@ -1,6 +1,8 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 from .types import DataKeyAlgorithmSymmetricEncryption
+from .types import KeyAlgorithmAsymmetricEncryption
+from .types import KeyAlgorithmAsymmetricSigning
 from .types import KeyAlgorithmSymmetricEncryption
 from .types import KeyOrigin
 from .types import KeyState
@@ -27,12 +29,18 @@ from .types import ListKeysResponse
 from .types import ProtectKeyRequest
 from .types import PublicKey
 from .types import RotateKeyRequest
+from .types import SignRequest
+from .types import SignResponse
 from .types import UnprotectKeyRequest
 from .types import UpdateKeyRequest
+from .types import VerifyRequest
+from .types import VerifyResponse
 from .api import KeyManagerV1Alpha1API
 
 __all__ = [
     "DataKeyAlgorithmSymmetricEncryption",
+    "KeyAlgorithmAsymmetricEncryption",
+    "KeyAlgorithmAsymmetricSigning",
     "KeyAlgorithmSymmetricEncryption",
     "KeyOrigin",
     "KeyState",
@@ -59,7 +67,11 @@ __all__ = [
     "ProtectKeyRequest",
     "PublicKey",
     "RotateKeyRequest",
+    "SignRequest",
+    "SignResponse",
     "UnprotectKeyRequest",
     "UpdateKeyRequest",
+    "VerifyRequest",
+    "VerifyResponse",
     "KeyManagerV1Alpha1API",
 ]
