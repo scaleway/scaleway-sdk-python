@@ -1133,6 +1133,12 @@ def unmarshal_RouteMatch(data: Any) -> RouteMatch:
     else:
         args["host_header"] = None
 
+    field = data.get("path_begin", None)
+    if field is not None:
+        args["path_begin"] = field
+    else:
+        args["path_begin"] = None
+
     return RouteMatch(**args)
 
 
@@ -2044,6 +2050,7 @@ def marshal_RouteMatch(
             [
                 OneOfPossibility("sni", request.sni),
                 OneOfPossibility("host_header", request.host_header),
+                OneOfPossibility("path_begin", request.path_begin),
             ]
         ),
     )
