@@ -204,6 +204,11 @@ class Alert:
     Annotations for the alert, used to provide additional information about the alert.
     """
 
+    data_source_id: str
+    """
+    ID of the data source containing the alert rule.
+    """
+
     state: Optional[AlertState]
     """
     Current state of the alert. Possible states are `inactive`, `pending`, and `firing`.
@@ -1237,6 +1242,11 @@ class RegionalApiListAlertsRequest:
     state: Optional[AlertState]
     """
     Valid values to filter on are `inactive`, `pending` and `firing`. If omitted, no filtering is applied on alert states. Other filters may still apply.
+    """
+
+    data_source_id: Optional[str]
+    """
+    If omitted, only alerts from the default scaleway data source will be listed.
     """
 
 

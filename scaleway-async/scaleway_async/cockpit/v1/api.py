@@ -591,7 +591,7 @@ class CockpitV1GlobalAPI(API):
 
 class CockpitV1RegionalAPI(API):
     """
-    The Cockpit Regional API allows you to create data sources and tokens to store and query data types such as metrics, logs, and traces. You can also push your data into Cockpit, and send alerts to your contact points when your resources may require your attention, using the regional Alert manager.
+    The Cockpit API allows you to create data sources and Cockpit tokens to store and query data types such as metrics, logs, and traces. You can also push your data into Cockpit, and send alerts to your contact points when your resources may require your attention, using the regional Alert manager.
     """
 
     async def get_config(
@@ -1446,6 +1446,7 @@ class CockpitV1RegionalAPI(API):
         is_enabled: Optional[bool] = None,
         is_preconfigured: Optional[bool] = None,
         state: Optional[AlertState] = None,
+        data_source_id: Optional[str] = None,
     ) -> ListAlertsResponse:
         """
         List alerts.
@@ -1455,6 +1456,7 @@ class CockpitV1RegionalAPI(API):
         :param is_enabled: True returns only enabled alerts. False returns only disabled alerts. If omitted, no alert filtering is applied. Other filters may still apply.
         :param is_preconfigured: True returns only preconfigured alerts. False returns only custom alerts. If omitted, no filtering is applied on alert types. Other filters may still apply.
         :param state: Valid values to filter on are `inactive`, `pending` and `firing`. If omitted, no filtering is applied on alert states. Other filters may still apply.
+        :param data_source_id: If omitted, only alerts from the default scaleway data source will be listed.
         :return: :class:`ListAlertsResponse <ListAlertsResponse>`
 
         Usage:
@@ -1471,6 +1473,7 @@ class CockpitV1RegionalAPI(API):
             "GET",
             f"/cockpit/v1/regions/{param_region}/alerts",
             params={
+                "data_source_id": data_source_id,
                 "is_enabled": is_enabled,
                 "is_preconfigured": is_preconfigured,
                 "project_id": project_id or self.client.default_project_id,
