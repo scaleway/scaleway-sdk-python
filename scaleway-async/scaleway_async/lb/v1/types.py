@@ -984,6 +984,8 @@ class RouteMatch:
 
     host_header: Optional[str]
 
+    path_begin: Optional[str]
+
 
 @dataclass
 class CreateCertificateRequestCustomCertificate:
