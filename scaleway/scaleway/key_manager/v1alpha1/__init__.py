@@ -7,6 +7,7 @@ from .types import KeyAlgorithmSymmetricEncryption
 from .types import KeyOrigin
 from .types import KeyState
 from .types import ListKeysRequestOrderBy
+from .types import ListKeysRequestUsage
 from .types import KeyRotationPolicy
 from .types import KeyUsage
 from .types import Key
@@ -45,6 +46,7 @@ __all__ = [
     "KeyOrigin",
     "KeyState",
     "ListKeysRequestOrderBy",
+    "ListKeysRequestUsage",
     "KeyRotationPolicy",
     "KeyUsage",
     "Key",
