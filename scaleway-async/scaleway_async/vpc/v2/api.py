@@ -462,6 +462,7 @@ class VpcV2API(API):
     async def create_private_network(
         self,
         *,
+        default_route_propagation_enabled: bool,
         region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         project_id: Optional[str] = None,
@@ -472,6 +473,7 @@ class VpcV2API(API):
         """
         Create a Private Network.
         Create a new Private Network. Once created, you can attach Scaleway resources which are in the same region.
+        :param default_route_propagation_enabled: Defines whether default v4 and v6 routes are propagated for this Private Network.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name for the Private Network.
         :param project_id: Scaleway Project in which to create the Private Network.
@@ -483,7 +485,9 @@ class VpcV2API(API):
         Usage:
         ::
 
-            result = await api.create_private_network()
+            result = await api.create_private_network(
+                default_route_propagation_enabled=False,
+            )
         """
 
         param_region = validate_path_param(
@@ -495,6 +499,7 @@ class VpcV2API(API):
             f"/vpc/v2/regions/{param_region}/private-networks",
             body=marshal_CreatePrivateNetworkRequest(
                 CreatePrivateNetworkRequest(
+                    default_route_propagation_enabled=default_route_propagation_enabled,
                     region=region,
                     name=name or random_name(prefix="pn"),
                     project_id=project_id,
@@ -552,6 +557,7 @@ class VpcV2API(API):
         region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         tags: Optional[List[str]] = None,
+        default_route_propagation_enabled: Optional[bool] = None,
     ) -> PrivateNetwork:
         """
         Update Private Network.
@@ -560,6 +566,7 @@ class VpcV2API(API):
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name for the Private Network.
         :param tags: Tags for the Private Network.
+        :param default_route_propagation_enabled: Defines whether default v4 and v6 routes are propagated for this Private Network.
         :return: :class:`PrivateNetwork <PrivateNetwork>`
 
         Usage:
@@ -586,6 +593,7 @@ class VpcV2API(API):
                     region=region,
                     name=name,
                     tags=tags,
+                    default_route_propagation_enabled=default_route_propagation_enabled,
                 ),
                 self.client,
             ),
