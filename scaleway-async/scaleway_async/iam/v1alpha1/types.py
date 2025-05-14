@@ -1907,6 +1907,14 @@ class MFAOTP:
 
 
 @dataclass
+class MigrateOrganizationGuestsRequest:
+    organization_id: Optional[str]
+    """
+    ID of the Organization.
+    """
+
+
+@dataclass
 class OrganizationSecuritySettings:
     enforce_password_renewal: bool
     """
