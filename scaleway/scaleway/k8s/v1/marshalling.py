@@ -48,6 +48,7 @@ from .types import (
     CreateClusterRequest,
     CreatePoolRequestUpgradePolicy,
     CreatePoolRequest,
+    MigratePoolsToNewImagesRequest,
     SetClusterACLRulesRequest,
     SetClusterTypeRequest,
     UpdateClusterRequestAutoUpgrade,
@@ -120,6 +121,14 @@ def unmarshal_Pool(data: Any) -> Pool:
     if field is not None:
         args["size"] = field
 
+    field = data.get("min_size", None)
+    if field is not None:
+        args["min_size"] = field
+
+    field = data.get("max_size", None)
+    if field is not None:
+        args["max_size"] = field
+
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -131,14 +140,6 @@ def unmarshal_Pool(data: Any) -> Pool:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["updated_at"] = None
-
-    field = data.get("min_size", None)
-    if field is not None:
-        args["min_size"] = field
-
-    field = data.get("max_size", None)
-    if field is not None:
-        args["max_size"] = field
 
     field = data.get("container_runtime", None)
     if field is not None:
@@ -189,6 +190,12 @@ def unmarshal_Pool(data: Any) -> Pool:
         args["root_volume_size"] = field
     else:
         args["root_volume_size"] = None
+
+    field = data.get("new_images_enabled", None)
+    if field is not None:
+        args["new_images_enabled"] = field
+    else:
+        args["new_images_enabled"] = None
 
     return Pool(**args)
 
@@ -497,6 +504,12 @@ def unmarshal_Cluster(data: Any) -> Cluster:
         args["acl_available"] = field
     else:
         args["acl_available"] = None
+
+    field = data.get("new_images_enabled", None)
+    if field is not None:
+        args["new_images_enabled"] = field
+    else:
+        args["new_images_enabled"] = None
 
     return Cluster(**args)
 
@@ -1420,6 +1433,18 @@ def marshal_CreatePoolRequest(
 
     if request.root_volume_size is not None:
         output["root_volume_size"] = request.root_volume_size
+
+    return output
+
+
+def marshal_MigratePoolsToNewImagesRequest(
+    request: MigratePoolsToNewImagesRequest,
+    defaults: ProfileDefaults,
+) -> Dict[str, Any]:
+    output: Dict[str, Any] = {}
+
+    if request.pool_ids is not None:
+        output["pool_ids"] = request.pool_ids
 
     return output
 

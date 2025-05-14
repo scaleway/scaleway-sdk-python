@@ -375,16 +375,6 @@ class Pool:
     Size (number of nodes) of the pool.
     """
 
-    created_at: Optional[datetime]
-    """
-    Date on which the pool was created.
-    """
-
-    updated_at: Optional[datetime]
-    """
-    Date on which the pool was last updated.
-    """
-
     min_size: int
     """
     Defines the minimum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
@@ -393,6 +383,16 @@ class Pool:
     max_size: int
     """
     Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool.
+    """
+
+    created_at: Optional[datetime]
+    """
+    Date on which the pool was created.
+    """
+
+    updated_at: Optional[datetime]
+    """
+    Date on which the pool was last updated.
     """
 
     container_runtime: Runtime
@@ -451,6 +451,11 @@ class Pool:
     root_volume_size: Optional[int]
     """
     System volume disk size.
+    """
+
+    new_images_enabled: Optional[bool]
+    """
+    Defines whether the pool is migrated to new images.
     """
 
 
@@ -915,6 +920,11 @@ class Cluster:
     acl_available: Optional[bool]
     """
     Defines whether ACL is available on the cluster.
+    """
+
+    new_images_enabled: Optional[bool]
+    """
+    Defines whether all pools are migrated to new images.
     """
 
 
@@ -1817,6 +1827,18 @@ class ListVersionsResponse:
     """
     Available Kubernetes versions.
     """
+
+
+@dataclass
+class MigratePoolsToNewImagesRequest:
+    cluster_id: str
+
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+    pool_ids: Optional[List[str]]
 
 
 @dataclass
