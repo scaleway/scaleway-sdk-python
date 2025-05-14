@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import datetime
 from enum import Enum
 from typing import List, Optional
 
@@ -22,6 +23,18 @@ class PublicCatalogProductPropertiesHardwareCPUArch(str, Enum, metaclass=StrEnum
     ARM64 = "arm64"
     RISCV = "riscv"
     APPLE_SILICON = "apple_silicon"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class PublicCatalogProductStatus(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_STATUS = "unknown_status"
+    PUBLIC_BETA = "public_beta"
+    PREVIEW = "preview"
+    GENERAL_AVAILABILITY = "general_availability"
+    END_OF_DEPLOYMENT = "end_of_deployment"
+    END_OF_SUPPORT = "end_of_support"
 
     def __str__(self) -> str:
         return str(self.value)
@@ -253,6 +266,16 @@ class PublicCatalogProductPropertiesInstance:
     The range of the Instance server.
     """
 
+    offer_id: str
+    """
+    The offer ID of the Instance server.
+    """
+
+    recommended_replacement_offer_ids: List[str]
+    """
+    The recommended replacement offer IDs of the Instance server.
+    """
+
 
 @dataclass
 class PublicCatalogProductEnvironmentalImpactEstimation:
@@ -330,6 +353,11 @@ class PublicCatalogProduct:
     The product description.
     """
 
+    status: PublicCatalogProductStatus
+    """
+    The status of the product.
+    """
+
     locality: Optional[PublicCatalogProductLocality]
     """
     The locality of the product.
@@ -355,6 +383,11 @@ class PublicCatalogProduct:
     unit_of_measure: Optional[PublicCatalogProductUnitOfMeasure]
     """
     The unit of measure of the product.
+    """
+
+    end_of_life_at: Optional[datetime]
+    """
+    The end of life date of the product.
     """
 
 
