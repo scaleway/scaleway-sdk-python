@@ -28,7 +28,11 @@ from .types import (
     KeyUsage,
     ListKeysResponse,
     PublicKey,
+    SignRequest,
+    SignResponse,
     UpdateKeyRequest,
+    VerifyRequest,
+    VerifyResponse,
 )
 from .marshalling import (
     unmarshal_Key,
@@ -37,12 +41,16 @@ from .marshalling import (
     unmarshal_EncryptResponse,
     unmarshal_ListKeysResponse,
     unmarshal_PublicKey,
+    unmarshal_SignResponse,
+    unmarshal_VerifyResponse,
     marshal_CreateKeyRequest,
     marshal_DecryptRequest,
     marshal_EncryptRequest,
     marshal_GenerateDataKeyRequest,
     marshal_ImportKeyMaterialRequest,
+    marshal_SignRequest,
     marshal_UpdateKeyRequest,
+    marshal_VerifyRequest,
 )
 
 
@@ -602,10 +610,10 @@ class KeyManagerV1Alpha1API(API):
         """
         Encrypt a payload.
         Encrypt a payload using an existing key, specified by the `key_id` parameter. Only keys with a usage set to `symmetric_encryption` are supported by this method. The maximum payload size that can be encrypted is 64 KB of plaintext.
-        :param key_id: ID of the key to encrypt.
+        :param key_id: The key must have an usage set to `symmetric_encryption` or `asymmetric_encryption`.
         :param plaintext: Data size must be between 1 and 65535 bytes.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param associated_data: Additional data which will not be encrypted, but authenticated and appended to the encrypted payload.
+        :param associated_data: Additional data which will not be encrypted, but authenticated and appended to the encrypted payload. Only supported by keys with a usage set to `symmetric_encryption`.
         :return: :class:`EncryptResponse <EncryptResponse>`
 
         Usage:
@@ -650,10 +658,10 @@ class KeyManagerV1Alpha1API(API):
         """
         Decrypt an encrypted payload.
         Decrypt an encrypted payload using an existing key, specified by the `key_id` parameter. The maximum payload size that can be decrypted is equivalent to the encrypted output of 64 KB of data (around 131 KB).
-        :param key_id: ID of the key to decrypt.
+        :param key_id: The key must have an usage set to `symmetric_encryption` or `asymmetric_encryption`.
         :param ciphertext: Data size must be between 1 and 131071 bytes.
         :param region: Region to target. If none is passed will use default region from the config.
-        :param associated_data: The additional data must match the value passed in the encryption request.
+        :param associated_data: The additional data must match the value passed in the encryption request. Only supported by keys with a usage set to `symmetric_encryption`.
         :return: :class:`DecryptResponse <DecryptResponse>`
 
         Usage:
@@ -686,6 +694,100 @@ class KeyManagerV1Alpha1API(API):
 
         self._throw_on_error(res)
         return unmarshal_DecryptResponse(res.json())
+
+    async def sign(
+        self,
+        *,
+        key_id: str,
+        digest: str,
+        region: Optional[ScwRegion] = None,
+    ) -> SignResponse:
+        """
+        Sign a message digest.
+        Use a given key to sign a message digest. The key must have its usage set to `asymmetric_signing`. The digest must be created using the same digest algorithm that is defined in the key's algorithm configuration.
+        :param key_id: ID of the key to use for signing.
+        :param digest: The digest must be generated using the same algorithm defined in the key’s algorithm settings.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`SignResponse <SignResponse>`
+
+        Usage:
+        ::
+
+            result = await api.sign(
+                key_id="example",
+                digest="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_key_id = validate_path_param("key_id", key_id)
+
+        res = self._request(
+            "POST",
+            f"/key-manager/v1alpha1/regions/{param_region}/keys/{param_key_id}/sign",
+            body=marshal_SignRequest(
+                SignRequest(
+                    key_id=key_id,
+                    digest=digest,
+                    region=region,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_SignResponse(res.json())
+
+    async def verify(
+        self,
+        *,
+        key_id: str,
+        digest: str,
+        signature: str,
+        region: Optional[ScwRegion] = None,
+    ) -> VerifyResponse:
+        """
+        Verify a message signature.
+        Use a given key to verify a message signature against a message digest. The key must have its usage set to `asymmetric_signing`. The message digest must be generated using the same digest algorithm that is defined in the key's algorithm configuration.
+        :param key_id: ID of the key to use for signature verification.
+        :param digest: Must be generated using the same algorithm specified in the key’s configuration.
+        :param signature: The message signature to verify.
+        :param region: Region to target. If none is passed will use default region from the config.
+        :return: :class:`VerifyResponse <VerifyResponse>`
+
+        Usage:
+        ::
+
+            result = await api.verify(
+                key_id="example",
+                digest="example",
+                signature="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_key_id = validate_path_param("key_id", key_id)
+
+        res = self._request(
+            "POST",
+            f"/key-manager/v1alpha1/regions/{param_region}/keys/{param_key_id}/verify",
+            body=marshal_VerifyRequest(
+                VerifyRequest(
+                    key_id=key_id,
+                    digest=digest,
+                    signature=signature,
+                    region=region,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
+        return unmarshal_VerifyResponse(res.json())
 
     async def import_key_material(
         self,

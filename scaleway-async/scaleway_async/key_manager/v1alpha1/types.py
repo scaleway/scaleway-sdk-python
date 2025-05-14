@@ -23,6 +23,31 @@ class DataKeyAlgorithmSymmetricEncryption(str, Enum, metaclass=StrEnumMeta):
         return str(self.value)
 
 
+class KeyAlgorithmAsymmetricEncryption(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_ASYMMETRIC_ENCRYPTION = "unknown_asymmetric_encryption"
+    RSA_OAEP_2048_SHA256 = "rsa_oaep_2048_sha256"
+    RSA_OAEP_3072_SHA256 = "rsa_oaep_3072_sha256"
+    RSA_OAEP_4096_SHA256 = "rsa_oaep_4096_sha256"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
+class KeyAlgorithmAsymmetricSigning(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_ASYMMETRIC_SIGNING = "unknown_asymmetric_signing"
+    EC_P256_SHA256 = "ec_p256_sha256"
+    EC_P384_SHA384 = "ec_p384_sha384"
+    RSA_PSS_2048_SHA256 = "rsa_pss_2048_sha256"
+    RSA_PSS_3072_SHA256 = "rsa_pss_3072_sha256"
+    RSA_PSS_4096_SHA256 = "rsa_pss_4096_sha256"
+    RSA_PKCS1_2048_SHA256 = "rsa_pkcs1_2048_sha256"
+    RSA_PKCS1_3072_SHA256 = "rsa_pkcs1_3072_sha256"
+    RSA_PKCS1_4096_SHA256 = "rsa_pkcs1_4096_sha256"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class KeyAlgorithmSymmetricEncryption(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_SYMMETRIC_ENCRYPTION = "unknown_symmetric_encryption"
     AES_256_GCM = "aes_256_gcm"
@@ -78,6 +103,10 @@ class KeyRotationPolicy:
 @dataclass
 class KeyUsage:
     symmetric_encryption: Optional[KeyAlgorithmSymmetricEncryption]
+
+    asymmetric_encryption: Optional[KeyAlgorithmAsymmetricEncryption]
+
+    asymmetric_signing: Optional[KeyAlgorithmAsymmetricSigning]
 
 
 @dataclass
@@ -243,7 +272,7 @@ class DataKey:
 class DecryptRequest:
     key_id: str
     """
-    ID of the key to decrypt.
+    The key must have an usage set to `symmetric_encryption` or `asymmetric_encryption`.
     """
 
     ciphertext: str
@@ -258,7 +287,7 @@ class DecryptRequest:
 
     associated_data: Optional[str]
     """
-    The additional data must match the value passed in the encryption request.
+    The additional data must match the value passed in the encryption request. Only supported by keys with a usage set to `symmetric_encryption`.
     """
 
 
@@ -336,7 +365,7 @@ class EnableKeyRequest:
 class EncryptRequest:
     key_id: str
     """
-    ID of the key to encrypt.
+    The key must have an usage set to `symmetric_encryption` or `asymmetric_encryption`.
     """
 
     plaintext: str
@@ -351,7 +380,7 @@ class EncryptRequest:
 
     associated_data: Optional[str]
     """
-    Additional data which will not be encrypted, but authenticated and appended to the encrypted payload.
+    Additional data which will not be encrypted, but authenticated and appended to the encrypted payload. Only supported by keys with a usage set to `symmetric_encryption`.
     """
 
 
@@ -520,6 +549,37 @@ class RotateKeyRequest:
 
 
 @dataclass
+class SignRequest:
+    key_id: str
+    """
+    ID of the key to use for signing.
+    """
+
+    digest: str
+    """
+    The digest must be generated using the same algorithm defined in the key’s algorithm settings.
+    """
+
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class SignResponse:
+    key_id: str
+    """
+    ID of the key used to generate the signature.
+    """
+
+    signature: str
+    """
+    The message signature.
+    """
+
+
+@dataclass
 class UnprotectKeyRequest:
     key_id: str
     """
@@ -562,4 +622,40 @@ class UpdateKeyRequest:
     rotation_policy: Optional[KeyRotationPolicy]
     """
     If not specified, the key's existing rotation policy applies.
+    """
+
+
+@dataclass
+class VerifyRequest:
+    key_id: str
+    """
+    ID of the key to use for signature verification.
+    """
+
+    digest: str
+    """
+    Must be generated using the same algorithm specified in the key’s configuration.
+    """
+
+    signature: str
+    """
+    The message signature to verify.
+    """
+
+    region: Optional[ScwRegion]
+    """
+    Region to target. If none is passed will use default region from the config.
+    """
+
+
+@dataclass
+class VerifyResponse:
+    key_id: str
+    """
+    ID of the key used for verification.
+    """
+
+    valid: bool
+    """
+    Returns `true` if the signature is valid for the digest and key, `false` otherwise.
     """
