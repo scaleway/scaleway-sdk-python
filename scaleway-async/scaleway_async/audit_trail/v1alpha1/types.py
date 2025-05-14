@@ -42,9 +42,21 @@ class ResourceType(str, Enum, metaclass=StrEnumMeta):
     SECRET_MANAGER_SECRET = "secret_manager_secret"
     SECRET_MANAGER_VERSION = "secret_manager_version"
     KEY_MANAGER_KEY = "key_manager_key"
+    ACCOUNT_USER = "account_user"
+    ACCOUNT_ORGANIZATION = "account_organization"
 
     def __str__(self) -> str:
         return str(self.value)
+
+
+@dataclass
+class AccountOrganizationInfo:
+    pass
+
+
+@dataclass
+class AccountUserInfo:
+    email: str
 
 
 @dataclass
@@ -124,6 +136,10 @@ class Resource:
     secret_manager_version_info: Optional[SecretManagerSecretVersionInfo]
 
     key_manager_key_info: Optional[KeyManagerKeyInfo]
+
+    account_user_info: Optional[AccountUserInfo]
+
+    account_organization_info: Optional[AccountOrganizationInfo]
 
 
 @dataclass
