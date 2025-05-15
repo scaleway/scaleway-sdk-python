@@ -75,6 +75,7 @@ from .types import ListPoolsRequest
 from .types import ListPoolsResponse
 from .types import ListVersionsRequest
 from .types import ListVersionsResponse
+from .types import MigratePoolsToNewImagesRequest
 from .types import NodeMetadata
 from .types import RebootNodeRequest
 from .types import ReplaceNodeRequest
@@ -164,6 +165,7 @@ __all__ = [
     "ListPoolsResponse",
     "ListVersionsRequest",
     "ListVersionsResponse",
+    "MigratePoolsToNewImagesRequest",
     "NodeMetadata",
     "RebootNodeRequest",
     "ReplaceNodeRequest",
