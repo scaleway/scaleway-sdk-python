@@ -5,6 +5,8 @@ from typing import Any, Dict
 from dateutil import parser
 
 from .types import (
+    AccountOrganizationInfo,
+    AccountUserInfo,
     KeyManagerKeyInfo,
     KubernetesACLInfo,
     KubernetesClusterInfo,
@@ -20,6 +22,32 @@ from .types import (
     Product,
     ListProductsResponse,
 )
+
+
+def unmarshal_AccountOrganizationInfo(data: Any) -> AccountOrganizationInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'AccountOrganizationInfo' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    return AccountOrganizationInfo(**args)
+
+
+def unmarshal_AccountUserInfo(data: Any) -> AccountUserInfo:
+    if not isinstance(data, dict):
+        raise TypeError(
+            "Unmarshalling the type 'AccountUserInfo' failed as data isn't a dictionary."
+        )
+
+    args: Dict[str, Any] = {}
+
+    field = data.get("email", None)
+    if field is not None:
+        args["email"] = field
+
+    return AccountUserInfo(**args)
 
 
 def unmarshal_KeyManagerKeyInfo(data: Any) -> KeyManagerKeyInfo:
@@ -243,6 +271,18 @@ def unmarshal_Resource(data: Any) -> Resource:
         args["key_manager_key_info"] = unmarshal_KeyManagerKeyInfo(field)
     else:
         args["key_manager_key_info"] = None
+
+    field = data.get("account_user_info", None)
+    if field is not None:
+        args["account_user_info"] = unmarshal_AccountUserInfo(field)
+    else:
+        args["account_user_info"] = None
+
+    field = data.get("account_organization_info", None)
+    if field is not None:
+        args["account_organization_info"] = unmarshal_AccountOrganizationInfo(field)
+    else:
+        args["account_organization_info"] = None
 
     return Resource(**args)
 
