@@ -591,7 +591,7 @@ class CockpitV1GlobalAPI(API):
 
 class CockpitV1RegionalAPI(API):
     """
-    The Cockpit Regional API allows you to create data sources and tokens to store and query data types such as metrics, logs, and traces. You can also push your data into Cockpit, and send alerts to your contact points when your resources may require your attention, using the regional Alert manager.
+    The Cockpit API allows you to create data sources and Cockpit tokens to store and query data types such as metrics, logs, and traces. You can also push your data into Cockpit, and send alerts to your contact points when your resources may require your attention, using the regional Alert manager.
     """
 
     def get_config(
