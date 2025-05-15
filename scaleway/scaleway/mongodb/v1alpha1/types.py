@@ -234,6 +234,9 @@ class SnapshotVolumeType:
 @dataclass
 class UserRole:
     role: UserRoleRole
+    """
+    Name of the preset role.
+    """
 
     database: Optional[str]
 

@@ -1219,6 +1219,8 @@ class MongodbV1Alpha1API(API):
         roles: Optional[List[UserRole]] = None,
     ) -> User:
         """
+        Apply user roles.
+        Apply preset roles for a user in a Database Instance.
         :param instance_id: UUID of the Database Instance the user belongs to.
         :param user_name: Name of the database user.
         :param region: Region to target. If none is passed will use default region from the config.
