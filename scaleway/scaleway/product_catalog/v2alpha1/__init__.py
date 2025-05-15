@@ -1,6 +1,7 @@
 # This file was automatically generated. DO NOT EDIT.
 # If you have any remark or suggestion do not hesitate to open an issue.
 from .types import PublicCatalogProductPropertiesHardwareCPUArch
+from .types import PublicCatalogProductStatus
 from .types import PublicCatalogProductUnitOfMeasureCountableUnit
 from .types import PublicCatalogProductPropertiesHardwareCPUPhysical
 from .types import PublicCatalogProductPropertiesHardwareCPUVirtual
@@ -26,6 +27,7 @@ from .api import ProductCatalogV2Alpha1PublicCatalogAPI
 
 __all__ = [
     "PublicCatalogProductPropertiesHardwareCPUArch",
+    "PublicCatalogProductStatus",
     "PublicCatalogProductUnitOfMeasureCountableUnit",
     "PublicCatalogProductPropertiesHardwareCPUPhysical",
     "PublicCatalogProductPropertiesHardwareCPUVirtual",

@@ -2,6 +2,7 @@
 # If you have any remark or suggestion do not hesitate to open an issue.
 
 from typing import Any, Dict
+from dateutil import parser
 
 from scaleway_core.bridge import (
     unmarshal_Money,
@@ -332,6 +333,14 @@ def unmarshal_PublicCatalogProductPropertiesInstance(
     if field is not None:
         args["range"] = field
 
+    field = data.get("offer_id", None)
+    if field is not None:
+        args["offer_id"] = field
+
+    field = data.get("recommended_replacement_offer_ids", None)
+    if field is not None:
+        args["recommended_replacement_offer_ids"] = field
+
     return PublicCatalogProductPropertiesInstance(**args)
 
 
@@ -508,6 +517,10 @@ def unmarshal_PublicCatalogProduct(data: Any) -> PublicCatalogProduct:
     if field is not None:
         args["description"] = field
 
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+
     field = data.get("locality", None)
     if field is not None:
         args["locality"] = unmarshal_PublicCatalogProductLocality(field)
@@ -539,6 +552,14 @@ def unmarshal_PublicCatalogProduct(data: Any) -> PublicCatalogProduct:
         args["unit_of_measure"] = unmarshal_PublicCatalogProductUnitOfMeasure(field)
     else:
         args["unit_of_measure"] = None
+
+    field = data.get("end_of_life_at", None)
+    if field is not None:
+        args["end_of_life_at"] = (
+            parser.isoparse(field) if isinstance(field, str) else field
+        )
+    else:
+        args["end_of_life_at"] = None
 
     return PublicCatalogProduct(**args)
 

@@ -125,14 +125,13 @@ class FileV1Alpha1API(API):
     ) -> ListFileSystemsResponse:
         """
         List all filesystems.
-        Retrieve all filesystems in the specified region. Results are ordered by creation date in ascending order by default.
-        Use the order_by parameter to modify the sorting behavior.
+        Retrieve all filesystems in the specified region. By default, the filesystems listed are ordered by creation date in ascending order. This can be modified using the `order_by` field.
         :param region: Region to target. If none is passed will use default region from the config.
         :param order_by: Criteria to use when ordering the list.
         :param project_id: Filter by project ID.
         :param page: Page number (starting at 1).
         :param page_size: Number of entries per page (default: 20, max: 100).
-        :param name: Filter the return filesystems by their names.
+        :param name: Filter the returned filesystems by their names.
         :param tags: Filter by tags. Only filesystems with one or more matching tags will be returned.
         :return: :class:`ListFileSystemsResponse <ListFileSystemsResponse>`
 
@@ -175,14 +174,13 @@ class FileV1Alpha1API(API):
     ) -> List[FileSystem]:
         """
         List all filesystems.
-        Retrieve all filesystems in the specified region. Results are ordered by creation date in ascending order by default.
-        Use the order_by parameter to modify the sorting behavior.
+        Retrieve all filesystems in the specified region. By default, the filesystems listed are ordered by creation date in ascending order. This can be modified using the `order_by` field.
         :param region: Region to target. If none is passed will use default region from the config.
         :param order_by: Criteria to use when ordering the list.
         :param project_id: Filter by project ID.
         :param page: Page number (starting at 1).
         :param page_size: Number of entries per page (default: 20, max: 100).
-        :param name: Filter the return filesystems by their names.
+        :param name: Filter the returned filesystems by their names.
         :param tags: Filter by tags. Only filesystems with one or more matching tags will be returned.
         :return: :class:`List[FileSystem] <List[FileSystem]>`
 
@@ -221,8 +219,7 @@ class FileV1Alpha1API(API):
         """
         List filesystems attachments.
         List all existing attachments in a specified region.
-        By default, the attachments listed are ordered by creation date in ascending order.
-        This can be modified using the `order_by` field.
+        By default, the attachments listed are ordered by creation date in ascending order. This can be modified using the `order_by` field.
         :param region: Region to target. If none is passed will use default region from the config.
         :param filesystem_id: UUID of the File Storage volume.
         :param resource_id: Filter by resource ID.
@@ -272,8 +269,7 @@ class FileV1Alpha1API(API):
         """
         List filesystems attachments.
         List all existing attachments in a specified region.
-        By default, the attachments listed are ordered by creation date in ascending order.
-        This can be modified using the `order_by` field.
+        By default, the attachments listed are ordered by creation date in ascending order. This can be modified using the `order_by` field.
         :param region: Region to target. If none is passed will use default region from the config.
         :param filesystem_id: UUID of the File Storage volume.
         :param resource_id: Filter by resource ID.
@@ -315,7 +311,7 @@ class FileV1Alpha1API(API):
     ) -> FileSystem:
         """
         Create a new filesystem.
-        To create a new filesystem, you need to provide a name, a size, and a project ID.
+        To create a new filesystem, you must specify a name, a size, and a project ID.
         :param name: Name of the filesystem.
         :param size: Must be compliant with the minimum (100 GB) and maximum (10 TB) allowed size.
         :param region: Region to target. If none is passed will use default region from the config.
