@@ -509,6 +509,10 @@ def unmarshal_Alert(data: Any) -> Alert:
     if field is not None:
         args["annotations"] = field
 
+    field = data.get("data_source_id", None)
+    if field is not None:
+        args["data_source_id"] = field
+
     field = data.get("state", None)
     if field is not None:
         args["state"] = field
