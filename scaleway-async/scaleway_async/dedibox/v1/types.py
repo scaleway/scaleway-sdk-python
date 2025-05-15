@@ -1146,14 +1146,14 @@ class Server:
     Hostname of the server.
     """
 
-    rebooted_at: Optional[datetime]
-    """
-    Date of last reboot of the server.
-    """
-
     status: ServerStatus
     """
     Status of the server.
+    """
+
+    rebooted_at: Optional[datetime]
+    """
+    Date of last reboot of the server.
     """
 
     abuse_contact: str
@@ -1204,6 +1204,11 @@ class Server:
     is_rpnv2_member: bool
     """
     Whether or not the server is already part of an rpnv2 group.
+    """
+
+    is_hds: bool
+    """
+    Whether or not the server is HDS.
     """
 
     created_at: Optional[datetime]
