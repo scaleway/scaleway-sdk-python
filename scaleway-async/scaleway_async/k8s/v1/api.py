@@ -50,6 +50,7 @@ from .types import (
     ListNodesResponse,
     ListPoolsResponse,
     ListVersionsResponse,
+    MigratePoolsToNewImagesRequest,
     Node,
     NodeMetadata,
     Pool,
@@ -92,6 +93,7 @@ from .marshalling import (
     marshal_AddClusterACLRulesRequest,
     marshal_CreateClusterRequest,
     marshal_CreatePoolRequest,
+    marshal_MigratePoolsToNewImagesRequest,
     marshal_SetClusterACLRulesRequest,
     marshal_SetClusterTypeRequest,
     marshal_UpdateClusterRequest,
@@ -1333,6 +1335,48 @@ class K8SV1API(API):
 
         self._throw_on_error(res)
         return unmarshal_Pool(res.json())
+
+    async def migrate_pools_to_new_images(
+        self,
+        *,
+        cluster_id: str,
+        region: Optional[ScwRegion] = None,
+        pool_ids: Optional[List[str]] = None,
+    ) -> None:
+        """
+        Migrate specific pools or all pools of a cluster to new images.
+        If no pool is specified, all pools of the cluster will be migrated to new images.
+        :param cluster_id:
+        :param region: Region to target. If none is passed will use default region from the config.
+        :param pool_ids:
+
+        Usage:
+        ::
+
+            result = await api.migrate_pools_to_new_images(
+                cluster_id="example",
+            )
+        """
+
+        param_region = validate_path_param(
+            "region", region or self.client.default_region
+        )
+        param_cluster_id = validate_path_param("cluster_id", cluster_id)
+
+        res = self._request(
+            "POST",
+            f"/k8s/v1/regions/{param_region}/clusters/{param_cluster_id}/migrate-pools-to-new-images",
+            body=marshal_MigratePoolsToNewImagesRequest(
+                MigratePoolsToNewImagesRequest(
+                    cluster_id=cluster_id,
+                    region=region,
+                    pool_ids=pool_ids,
+                ),
+                self.client,
+            ),
+        )
+
+        self._throw_on_error(res)
 
     async def get_node_metadata(
         self,
