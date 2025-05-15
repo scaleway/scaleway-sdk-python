@@ -147,6 +147,11 @@ class PrivateNetwork:
     Defines whether managed DHCP is enabled for this Private Network.
     """
 
+    default_route_propagation_enabled: bool
+    """
+    Defines whether default v4 and v6 routes are propagated for this Private Network.
+    """
+
     created_at: Optional[datetime]
     """
     Date the Private Network was created.
@@ -347,6 +352,11 @@ class AddSubnetsResponse:
 
 @dataclass
 class CreatePrivateNetworkRequest:
+    default_route_propagation_enabled: bool
+    """
+    Defines whether default v4 and v6 routes are propagated for this Private Network.
+    """
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
@@ -826,6 +836,11 @@ class UpdatePrivateNetworkRequest:
     tags: Optional[List[str]]
     """
     Tags for the Private Network.
+    """
+
+    default_route_propagation_enabled: Optional[bool]
+    """
+    Defines whether default v4 and v6 routes are propagated for this Private Network.
     """
 
 

@@ -119,6 +119,10 @@ def unmarshal_PrivateNetwork(data: Any) -> PrivateNetwork:
     if field is not None:
         args["dhcp_enabled"] = field
 
+    field = data.get("default_route_propagation_enabled", None)
+    if field is not None:
+        args["default_route_propagation_enabled"] = field
+
     field = data.get("created_at", None)
     if field is not None:
         args["created_at"] = parser.isoparse(field) if isinstance(field, str) else field
@@ -456,6 +460,11 @@ def marshal_CreatePrivateNetworkRequest(
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
 
+    if request.default_route_propagation_enabled is not None:
+        output["default_route_propagation_enabled"] = (
+            request.default_route_propagation_enabled
+        )
+
     if request.name is not None:
         output["name"] = request.name
 
@@ -599,6 +608,11 @@ def marshal_UpdatePrivateNetworkRequest(
 
     if request.tags is not None:
         output["tags"] = request.tags
+
+    if request.default_route_propagation_enabled is not None:
+        output["default_route_propagation_enabled"] = (
+            request.default_route_propagation_enabled
+        )
 
     return output
 
