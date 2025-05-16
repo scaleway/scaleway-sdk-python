@@ -1089,6 +1089,10 @@ def unmarshal_Server(data: Any) -> Server:
     if field is not None:
         args["hostname"] = field
 
+    field = data.get("status", None)
+    if field is not None:
+        args["status"] = field
+
     field = data.get("rebooted_at", None)
     if field is not None:
         args["rebooted_at"] = (
@@ -1096,10 +1100,6 @@ def unmarshal_Server(data: Any) -> Server:
         )
     else:
         args["rebooted_at"] = None
-
-    field = data.get("status", None)
-    if field is not None:
-        args["status"] = field
 
     field = data.get("abuse_contact", None)
     if field is not None:
@@ -1146,6 +1146,10 @@ def unmarshal_Server(data: Any) -> Server:
     field = data.get("is_rpnv2_member", None)
     if field is not None:
         args["is_rpnv2_member"] = field
+
+    field = data.get("is_hds", None)
+    if field is not None:
+        args["is_hds"] = field
 
     field = data.get("created_at", None)
     if field is not None:
