@@ -511,6 +511,8 @@ class Container:
     Last date when the container was successfully deployed and set to ready.
     """
 
+    private_network_id: Optional[str]
+
 
 @dataclass
 class Cron:
@@ -615,6 +617,11 @@ class Namespace:
     UUID of the registry namespace.
     """
 
+    error_message: Optional[str]
+    """
+    Last error message of the namesace.
+    """
+
     registry_endpoint: str
     """
     Registry endpoint of the namespace.
@@ -635,11 +642,6 @@ class Namespace:
     List of tags applied to the Serverless Container Namespace.
     """
 
-    error_message: Optional[str]
-    """
-    Last error message of the namesace.
-    """
-
     description: Optional[str]
     """
     Description of the endpoint.
@@ -654,6 +656,8 @@ class Namespace:
     """
     Last update date of the namespace.
     """
+
+    vpc_integration_activated: Optional[bool]
 
 
 @dataclass
@@ -861,6 +865,8 @@ class CreateContainerRequest:
     Tags of the Serverless Container.
     """
 
+    private_network_id: Optional[str]
+
 
 @dataclass
 class CreateCronRequest:
@@ -910,6 +916,8 @@ class CreateDomainRequest:
 
 @dataclass
 class CreateNamespaceRequest:
+    activate_vpc_integration: bool
+
     region: Optional[ScwRegion]
     """
     Region to target. If none is passed will use default region from the config.
@@ -1544,6 +1552,8 @@ class UpdateContainerRequest:
     """
     Tags of the Serverless Container.
     """
+
+    private_network_id: Optional[str]
 
 
 @dataclass
