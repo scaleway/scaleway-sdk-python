@@ -303,6 +303,12 @@ def unmarshal_Container(data: Any) -> Container:
     else:
         args["ready_at"] = None
 
+    field = data.get("private_network_id", None)
+    if field is not None:
+        args["private_network_id"] = field
+    else:
+        args["private_network_id"] = None
+
     return Container(**args)
 
 
@@ -416,6 +422,12 @@ def unmarshal_Namespace(data: Any) -> Namespace:
     if field is not None:
         args["registry_namespace_id"] = field
 
+    field = data.get("error_message", None)
+    if field is not None:
+        args["error_message"] = field
+    else:
+        args["error_message"] = None
+
     field = data.get("registry_endpoint", None)
     if field is not None:
         args["registry_endpoint"] = field
@@ -436,12 +448,6 @@ def unmarshal_Namespace(data: Any) -> Namespace:
     if field is not None:
         args["tags"] = field
 
-    field = data.get("error_message", None)
-    if field is not None:
-        args["error_message"] = field
-    else:
-        args["error_message"] = None
-
     field = data.get("description", None)
     if field is not None:
         args["description"] = field
@@ -459,6 +465,12 @@ def unmarshal_Namespace(data: Any) -> Namespace:
         args["updated_at"] = parser.isoparse(field) if isinstance(field, str) else field
     else:
         args["updated_at"] = None
+
+    field = data.get("vpc_integration_activated", None)
+    if field is not None:
+        args["vpc_integration_activated"] = field
+    else:
+        args["vpc_integration_activated"] = None
 
     return Namespace(**args)
 
@@ -948,6 +960,9 @@ def marshal_CreateContainerRequest(
     if request.tags is not None:
         output["tags"] = request.tags
 
+    if request.private_network_id is not None:
+        output["private_network_id"] = request.private_network_id
+
     return output
 
 
@@ -992,6 +1007,9 @@ def marshal_CreateNamespaceRequest(
     defaults: ProfileDefaults,
 ) -> Dict[str, Any]:
     output: Dict[str, Any] = {}
+
+    if request.activate_vpc_integration is not None:
+        output["activate_vpc_integration"] = request.activate_vpc_integration
 
     if request.name is not None:
         output["name"] = request.name
@@ -1199,6 +1217,9 @@ def marshal_UpdateContainerRequest(
 
     if request.tags is not None:
         output["tags"] = request.tags
+
+    if request.private_network_id is not None:
+        output["private_network_id"] = request.private_network_id
 
     return output
 
