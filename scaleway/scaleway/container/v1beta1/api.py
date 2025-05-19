@@ -265,6 +265,7 @@ class ContainerV1Beta1API(API):
     def create_namespace(
         self,
         *,
+        activate_vpc_integration: bool,
         region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         environment_variables: Optional[Dict[str, str]] = None,
@@ -276,6 +277,7 @@ class ContainerV1Beta1API(API):
         """
         Create a new namespace.
         Create a new namespace in a specified region.
+        :param activate_vpc_integration:
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name of the namespace to create.
         :param environment_variables: Environment variables of the namespace to create.
@@ -288,7 +290,9 @@ class ContainerV1Beta1API(API):
         Usage:
         ::
 
-            result = api.create_namespace()
+            result = api.create_namespace(
+                activate_vpc_integration=False,
+            )
         """
 
         param_region = validate_path_param(
@@ -300,6 +304,7 @@ class ContainerV1Beta1API(API):
             f"/containers/v1beta1/regions/{param_region}/namespaces",
             body=marshal_CreateNamespaceRequest(
                 CreateNamespaceRequest(
+                    activate_vpc_integration=activate_vpc_integration,
                     region=region,
                     name=name or random_name(prefix="cns"),
                     environment_variables=environment_variables,
@@ -602,6 +607,7 @@ class ContainerV1Beta1API(API):
         scaling_option: Optional[ContainerScalingOption] = None,
         health_check: Optional[ContainerHealthCheckSpec] = None,
         tags: Optional[List[str]] = None,
+        private_network_id: Optional[str] = None,
     ) -> Container:
         """
         Create a new container.
@@ -633,6 +639,7 @@ class ContainerV1Beta1API(API):
         - memory_usage_threshold: Scale depending on the memory usage of a container instance.
         :param health_check: Health check configuration of the container.
         :param tags: Tags of the Serverless Container.
+        :param private_network_id:
         :return: :class:`Container <Container>`
 
         Usage:
@@ -675,6 +682,7 @@ class ContainerV1Beta1API(API):
                     scaling_option=scaling_option,
                     health_check=health_check,
                     tags=tags,
+                    private_network_id=private_network_id,
                 ),
                 self.client,
             ),
@@ -708,6 +716,7 @@ class ContainerV1Beta1API(API):
         scaling_option: Optional[ContainerScalingOption] = None,
         health_check: Optional[ContainerHealthCheckSpec] = None,
         tags: Optional[List[str]] = None,
+        private_network_id: Optional[str] = None,
     ) -> Container:
         """
         Update an existing container.
@@ -739,6 +748,7 @@ class ContainerV1Beta1API(API):
         - memory_usage_threshold: Scale depending on the memory usage of a container instance.
         :param health_check: Health check configuration of the container.
         :param tags: Tags of the Serverless Container.
+        :param private_network_id:
         :return: :class:`Container <Container>`
 
         Usage:
@@ -781,6 +791,7 @@ class ContainerV1Beta1API(API):
                     scaling_option=scaling_option,
                     health_check=health_check,
                     tags=tags,
+                    private_network_id=private_network_id,
                 ),
                 self.client,
             ),
