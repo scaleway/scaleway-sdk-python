@@ -702,6 +702,7 @@ class JobsV1Alpha1API(API):
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
         state: Optional[JobRunState] = None,
+        states: Optional[List[JobRunState]] = None,
     ) -> ListJobRunsResponse:
         """
         List all job runs with filters.
@@ -713,6 +714,7 @@ class JobsV1Alpha1API(API):
         :param project_id:
         :param organization_id:
         :param state:
+        :param states:
         :return: :class:`ListJobRunsResponse <ListJobRunsResponse>`
 
         Usage:
@@ -737,6 +739,7 @@ class JobsV1Alpha1API(API):
                 "page_size": page_size or self.client.default_page_size,
                 "project_id": project_id or self.client.default_project_id,
                 "state": state,
+                "states": states,
             },
         )
 
@@ -754,6 +757,7 @@ class JobsV1Alpha1API(API):
         project_id: Optional[str] = None,
         organization_id: Optional[str] = None,
         state: Optional[JobRunState] = None,
+        states: Optional[List[JobRunState]] = None,
     ) -> List[JobRun]:
         """
         List all job runs with filters.
@@ -765,6 +769,7 @@ class JobsV1Alpha1API(API):
         :param project_id:
         :param organization_id:
         :param state:
+        :param states:
         :return: :class:`List[JobRun] <List[JobRun]>`
 
         Usage:
@@ -786,6 +791,7 @@ class JobsV1Alpha1API(API):
                 "project_id": project_id,
                 "organization_id": organization_id,
                 "state": state,
+                "states": states,
             },
         )
 
