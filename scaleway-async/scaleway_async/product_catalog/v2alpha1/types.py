@@ -17,6 +17,17 @@ from scaleway_core.utils import (
 )
 
 
+class ListPublicCatalogProductsRequestProductType(str, Enum, metaclass=StrEnumMeta):
+    UNKNOWN_PRODUCT_TYPE = "unknown_product_type"
+    INSTANCE = "instance"
+    APPLE_SILICON = "apple_silicon"
+    ELASTIC_METAL = "elastic_metal"
+    DEDIBOX = "dedibox"
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+
 class PublicCatalogProductPropertiesHardwareCPUArch(str, Enum, metaclass=StrEnumMeta):
     UNKNOWN_ARCH = "unknown_arch"
     X64 = "x64"
@@ -414,4 +425,9 @@ class PublicCatalogApiListPublicCatalogProductsRequest:
     page_size: Optional[int]
     """
     The number of products per page. Value must be greater or equal to 1.
+    """
+
+    product_types: Optional[List[ListPublicCatalogProductsRequestProductType]]
+    """
+    The list of filtered product categories.
     """
