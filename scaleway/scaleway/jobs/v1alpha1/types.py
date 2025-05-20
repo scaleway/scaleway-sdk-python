@@ -445,6 +445,8 @@ class ListJobRunsRequest:
 
     state: Optional[JobRunState]
 
+    states: Optional[List[JobRunState]]
+
 
 @dataclass
 class ListJobRunsResponse:
