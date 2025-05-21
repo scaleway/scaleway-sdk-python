@@ -2875,6 +2875,10 @@ def unmarshal_ServerSummary(data: Any) -> ServerSummary:
     if field is not None:
         args["qinq"] = field
 
+    field = data.get("is_hds", None)
+    if field is not None:
+        args["is_hds"] = field
+
     field = data.get("os_id", None)
     if field is not None:
         args["os_id"] = field

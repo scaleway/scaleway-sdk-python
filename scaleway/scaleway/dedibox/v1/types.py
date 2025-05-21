@@ -1970,6 +1970,11 @@ class ServerSummary:
     Whether the server is compatible with QinQ.
     """
 
+    is_hds: bool
+    """
+    Whether or not the server is HDS.
+    """
+
     os_id: Optional[int]
     """
     OS ID installed on server.
