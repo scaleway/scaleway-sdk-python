@@ -816,10 +816,6 @@ def unmarshal_Frontend(data: Any) -> Frontend:
     if field is not None:
         args["certificate_ids"] = field
 
-    field = data.get("enable_http3", None)
-    if field is not None:
-        args["enable_http3"] = field
-
     field = data.get("backend", None)
     if field is not None:
         args["backend"] = unmarshal_Backend(field)
@@ -837,6 +833,14 @@ def unmarshal_Frontend(data: Any) -> Frontend:
         args["timeout_client"] = field
     else:
         args["timeout_client"] = None
+
+    field = data.get("enable_http3", None)
+    if field is not None:
+        args["enable_http3"] = field
+
+    field = data.get("enable_access_logs", None)
+    if field is not None:
+        args["enable_access_logs"] = field
 
     field = data.get("certificate", None)
     if field is not None:
@@ -1940,6 +1944,9 @@ def marshal_CreateFrontendRequest(
     if request.enable_http3 is not None:
         output["enable_http3"] = request.enable_http3
 
+    if request.enable_access_logs is not None:
+        output["enable_access_logs"] = request.enable_access_logs
+
     if request.name is not None:
         output["name"] = request.name
 
@@ -2317,6 +2324,9 @@ def marshal_UpdateFrontendRequest(
     if request.connection_rate_limit is not None:
         output["connection_rate_limit"] = request.connection_rate_limit
 
+    if request.enable_access_logs is not None:
+        output["enable_access_logs"] = request.enable_access_logs
+
     return output
 
 
@@ -2600,6 +2610,9 @@ def marshal_ZonedApiCreateFrontendRequest(
 
     if request.enable_http3 is not None:
         output["enable_http3"] = request.enable_http3
+
+    if request.enable_access_logs is not None:
+        output["enable_access_logs"] = request.enable_access_logs
 
     if request.name is not None:
         output["name"] = request.name
@@ -2980,6 +2993,9 @@ def marshal_ZonedApiUpdateFrontendRequest(
 
     if request.connection_rate_limit is not None:
         output["connection_rate_limit"] = request.connection_rate_limit
+
+    if request.enable_access_logs is not None:
+        output["enable_access_logs"] = request.enable_access_logs
 
     return output
 
