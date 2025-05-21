@@ -608,6 +608,8 @@ class ContainerV1Beta1API(API):
         health_check: Optional[ContainerHealthCheckSpec] = None,
         tags: Optional[List[str]] = None,
         private_network_id: Optional[str] = None,
+        command: Optional[List[str]] = None,
+        args: Optional[List[str]] = None,
     ) -> Container:
         """
         Create a new container.
@@ -640,6 +642,8 @@ class ContainerV1Beta1API(API):
         :param health_check: Health check configuration of the container.
         :param tags: Tags of the Serverless Container.
         :param private_network_id:
+        :param command: Command executed when the container starts. This overrides the default command defined in the container image. This is usually the main executable, or entry point script to run.
+        :param args: Arguments passed to the command specified in the "command" field. These override the default arguments from the container image, and behave like command-line parameters.
         :return: :class:`Container <Container>`
 
         Usage:
@@ -683,6 +687,8 @@ class ContainerV1Beta1API(API):
                     health_check=health_check,
                     tags=tags,
                     private_network_id=private_network_id,
+                    command=command,
+                    args=args,
                 ),
                 self.client,
             ),
@@ -717,6 +723,8 @@ class ContainerV1Beta1API(API):
         health_check: Optional[ContainerHealthCheckSpec] = None,
         tags: Optional[List[str]] = None,
         private_network_id: Optional[str] = None,
+        command: Optional[List[str]] = None,
+        args: Optional[List[str]] = None,
     ) -> Container:
         """
         Update an existing container.
@@ -749,6 +757,8 @@ class ContainerV1Beta1API(API):
         :param health_check: Health check configuration of the container.
         :param tags: Tags of the Serverless Container.
         :param private_network_id:
+        :param command: Command executed when the container starts. This overrides the default command defined in the container image. This is usually the main executable, or entry point script to run.
+        :param args: Arguments passed to the command specified in the "command" field. These override the default arguments from the container image, and behave like command-line parameters.
         :return: :class:`Container <Container>`
 
         Usage:
@@ -792,6 +802,8 @@ class ContainerV1Beta1API(API):
                     health_check=health_check,
                     tags=tags,
                     private_network_id=private_network_id,
+                    command=command,
+                    args=args,
                 ),
                 self.client,
             ),
