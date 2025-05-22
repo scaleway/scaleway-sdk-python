@@ -1512,6 +1512,7 @@ class LbV1ZonedAPI(API):
         lb_id: str,
         backend_id: str,
         enable_http3: bool,
+        enable_access_logs: bool,
         zone: Optional[ScwZone] = None,
         name: Optional[str] = None,
         timeout_client: Optional[str] = None,
@@ -1526,6 +1527,7 @@ class LbV1ZonedAPI(API):
         :param lb_id: Load Balancer ID (ID of the Load Balancer to attach the frontend to).
         :param backend_id: Backend ID (ID of the backend the frontend should pass traffic to).
         :param enable_http3: Defines whether to enable HTTP/3 protocol on the frontend.
+        :param enable_access_logs: Defines wether to enable access logs on the frontend.
         :param zone: Zone to target. If none is passed will use default zone from the config.
         :param name: Name for the frontend.
         :param timeout_client: Maximum allowed inactivity time on the client side.
@@ -1542,6 +1544,7 @@ class LbV1ZonedAPI(API):
                 lb_id="example",
                 backend_id="example",
                 enable_http3=False,
+                enable_access_logs=False,
             )
         """
 
@@ -1557,6 +1560,7 @@ class LbV1ZonedAPI(API):
                     lb_id=lb_id,
                     backend_id=backend_id,
                     enable_http3=enable_http3,
+                    enable_access_logs=enable_access_logs,
                     zone=zone,
                     name=name or random_name(prefix="lbf"),
                     timeout_client=timeout_client,
@@ -1616,6 +1620,7 @@ class LbV1ZonedAPI(API):
         certificate_id: Optional[str] = None,
         certificate_ids: Optional[List[str]] = None,
         connection_rate_limit: Optional[int] = None,
+        enable_access_logs: Optional[bool] = None,
     ) -> Frontend:
         """
         Update a frontend.
@@ -1630,6 +1635,7 @@ class LbV1ZonedAPI(API):
         :param certificate_id: Certificate ID, deprecated in favor of certificate_ids array.
         :param certificate_ids: List of SSL/TLS certificate IDs to bind to the frontend.
         :param connection_rate_limit: Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second.
+        :param enable_access_logs: Defines wether to enable access logs on the frontend.
         :return: :class:`Frontend <Frontend>`
 
         Usage:
@@ -1662,6 +1668,7 @@ class LbV1ZonedAPI(API):
                     certificate_id=certificate_id,
                     certificate_ids=certificate_ids,
                     connection_rate_limit=connection_rate_limit,
+                    enable_access_logs=enable_access_logs,
                 ),
                 self.client,
             ),
@@ -4553,6 +4560,7 @@ class LbV1API(API):
         lb_id: str,
         backend_id: str,
         enable_http3: bool,
+        enable_access_logs: bool,
         region: Optional[ScwRegion] = None,
         name: Optional[str] = None,
         timeout_client: Optional[str] = None,
@@ -4566,6 +4574,7 @@ class LbV1API(API):
         :param lb_id: Load Balancer ID (ID of the Load Balancer to attach the frontend to).
         :param backend_id: Backend ID (ID of the backend the frontend should pass traffic to).
         :param enable_http3: Defines whether to enable HTTP/3 protocol on the frontend.
+        :param enable_access_logs: Defines wether to enable access logs on the frontend.
         :param region: Region to target. If none is passed will use default region from the config.
         :param name: Name for the frontend.
         :param timeout_client: Maximum allowed inactivity time on the client side.
@@ -4582,6 +4591,7 @@ class LbV1API(API):
                 lb_id="example",
                 backend_id="example",
                 enable_http3=False,
+                enable_access_logs=False,
             )
         """
 
@@ -4599,6 +4609,7 @@ class LbV1API(API):
                     lb_id=lb_id,
                     backend_id=backend_id,
                     enable_http3=enable_http3,
+                    enable_access_logs=enable_access_logs,
                     region=region,
                     name=name or random_name(prefix="lbf"),
                     timeout_client=timeout_client,
@@ -4659,6 +4670,7 @@ class LbV1API(API):
         certificate_id: Optional[str] = None,
         certificate_ids: Optional[List[str]] = None,
         connection_rate_limit: Optional[int] = None,
+        enable_access_logs: Optional[bool] = None,
     ) -> Frontend:
         """
         Update a frontend.
@@ -4672,6 +4684,7 @@ class LbV1API(API):
         :param certificate_id: Certificate ID, deprecated in favor of certificate_ids array.
         :param certificate_ids: List of SSL/TLS certificate IDs to bind to the frontend.
         :param connection_rate_limit: Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second.
+        :param enable_access_logs: Defines wether to enable access logs on the frontend.
         :return: :class:`Frontend <Frontend>`
 
         Usage:
@@ -4706,6 +4719,7 @@ class LbV1API(API):
                     certificate_id=certificate_id,
                     certificate_ids=certificate_ids,
                     connection_rate_limit=connection_rate_limit,
+                    enable_access_logs=enable_access_logs,
                 ),
                 self.client,
             ),
