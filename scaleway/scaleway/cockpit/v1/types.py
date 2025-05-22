@@ -148,6 +148,16 @@ class PreconfiguredAlertData:
     Human readable description of the alert.
     """
 
+    product_name: str
+    """
+    Product associated with the alert.
+    """
+
+    product_family: str
+    """
+    Family of the product associated with the alert.
+    """
+
 
 @dataclass
 class ContactPointEmail:
