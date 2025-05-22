@@ -470,6 +470,14 @@ def unmarshal_PreconfiguredAlertData(data: Any) -> PreconfiguredAlertData:
     if field is not None:
         args["display_description"] = field
 
+    field = data.get("product_name", None)
+    if field is not None:
+        args["product_name"] = field
+
+    field = data.get("product_family", None)
+    if field is not None:
+        args["product_family"] = field
+
     return PreconfiguredAlertData(**args)
 
 

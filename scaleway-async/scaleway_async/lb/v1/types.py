@@ -914,11 +914,6 @@ class Frontend:
     List of SSL/TLS certificate IDs to bind to the frontend.
     """
 
-    enable_http3: bool
-    """
-    Defines whether to enable HTTP/3 protocol on the frontend.
-    """
-
     backend: Optional[Backend]
     """
     Backend object the frontend is attached to.
@@ -932,6 +927,16 @@ class Frontend:
     timeout_client: Optional[str]
     """
     Maximum allowed inactivity time on the client side.
+    """
+
+    enable_http3: bool
+    """
+    Defines whether to enable HTTP/3 protocol on the frontend.
+    """
+
+    enable_access_logs: bool
+    """
+    Defines wether to enable access logs on the frontend.
     """
 
     certificate: Optional[Certificate]
@@ -1466,6 +1471,11 @@ class CreateFrontendRequest:
     enable_http3: bool
     """
     Defines whether to enable HTTP/3 protocol on the frontend.
+    """
+
+    enable_access_logs: bool
+    """
+    Defines wether to enable access logs on the frontend.
     """
 
     region: Optional[ScwRegion]
@@ -2707,6 +2717,11 @@ class UpdateFrontendRequest:
     Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second.
     """
 
+    enable_access_logs: Optional[bool]
+    """
+    Defines wether to enable access logs on the frontend.
+    """
+
 
 @dataclass
 class UpdateHealthCheckRequest:
@@ -3120,6 +3135,11 @@ class ZonedApiCreateFrontendRequest:
     enable_http3: bool
     """
     Defines whether to enable HTTP/3 protocol on the frontend.
+    """
+
+    enable_access_logs: bool
+    """
+    Defines wether to enable access logs on the frontend.
     """
 
     zone: Optional[ScwZone]
@@ -4213,6 +4233,11 @@ class ZonedApiUpdateFrontendRequest:
     connection_rate_limit: Optional[int]
     """
     Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second.
+    """
+
+    enable_access_logs: Optional[bool]
+    """
+    Defines wether to enable access logs on the frontend.
     """
 
 
