@@ -416,6 +416,16 @@ class Container:
     Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag").
     """
 
+    max_concurrency: int
+    """
+    Number of maximum concurrent executions of the container.
+    """
+
+    domain_name: str
+    """
+    Domain name attributed to the contaioner.
+    """
+
     timeout: Optional[str]
     """
     Processing time limit for the container.
@@ -429,16 +439,6 @@ class Container:
     description: Optional[str]
     """
     Description of the container.
-    """
-
-    max_concurrency: int
-    """
-    Number of maximum concurrent executions of the container.
-    """
-
-    domain_name: str
-    """
-    Domain name attributed to the contaioner.
     """
 
     protocol: ContainerProtocol
@@ -473,6 +473,14 @@ class Container:
     Local storage limit of the container (in MB).
     """
 
+    scaling_option: Optional[ContainerScalingOption]
+    """
+    Possible values:
+- concurrent_requests_threshold: Scale depending on the number of concurrent requests being processed per container instance.
+- cpu_usage_threshold: Scale depending on the CPU usage of a container instance.
+- memory_usage_threshold: Scale depending on the memory usage of a container instance.
+    """
+
     region: ScwRegion
     """
     Region in which the container will be deployed.
@@ -483,12 +491,14 @@ class Container:
     List of tags applied to the Serverless Container.
     """
 
-    scaling_option: Optional[ContainerScalingOption]
+    command: List[str]
     """
-    Possible values:
-- concurrent_requests_threshold: Scale depending on the number of concurrent requests being processed per container instance.
-- cpu_usage_threshold: Scale depending on the CPU usage of a container instance.
-- memory_usage_threshold: Scale depending on the memory usage of a container instance.
+    Command executed when the container starts. This overrides the default command defined in the container image. This is usually the main executable, or entry point script to run.
+    """
+
+    args: List[str]
+    """
+    Arguments passed to the command specified in the "command" field. These override the default arguments from the container image, and behave like command-line parameters.
     """
 
     health_check: Optional[ContainerHealthCheckSpec]
@@ -866,6 +876,16 @@ class CreateContainerRequest:
     """
 
     private_network_id: Optional[str]
+
+    command: Optional[List[str]]
+    """
+    Command executed when the container starts. This overrides the default command defined in the container image. This is usually the main executable, or entry point script to run.
+    """
+
+    args: Optional[List[str]]
+    """
+    Arguments passed to the command specified in the "command" field. These override the default arguments from the container image, and behave like command-line parameters.
+    """
 
 
 @dataclass
@@ -1554,6 +1574,16 @@ class UpdateContainerRequest:
     """
 
     private_network_id: Optional[str]
+
+    command: Optional[List[str]]
+    """
+    Command executed when the container starts. This overrides the default command defined in the container image. This is usually the main executable, or entry point script to run.
+    """
+
+    args: Optional[List[str]]
+    """
+    Arguments passed to the command specified in the "command" field. These override the default arguments from the container image, and behave like command-line parameters.
+    """
 
 
 @dataclass

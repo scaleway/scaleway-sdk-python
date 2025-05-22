@@ -211,6 +211,14 @@ def unmarshal_Container(data: Any) -> Container:
     if field is not None:
         args["registry_image"] = field
 
+    field = data.get("max_concurrency", None)
+    if field is not None:
+        args["max_concurrency"] = field
+
+    field = data.get("domain_name", None)
+    if field is not None:
+        args["domain_name"] = field
+
     field = data.get("timeout", None)
     if field is not None:
         args["timeout"] = field
@@ -228,14 +236,6 @@ def unmarshal_Container(data: Any) -> Container:
         args["description"] = field
     else:
         args["description"] = None
-
-    field = data.get("max_concurrency", None)
-    if field is not None:
-        args["max_concurrency"] = field
-
-    field = data.get("domain_name", None)
-    if field is not None:
-        args["domain_name"] = field
 
     field = data.get("protocol", None)
     if field is not None:
@@ -265,6 +265,12 @@ def unmarshal_Container(data: Any) -> Container:
     if field is not None:
         args["local_storage_limit"] = field
 
+    field = data.get("scaling_option", None)
+    if field is not None:
+        args["scaling_option"] = unmarshal_ContainerScalingOption(field)
+    else:
+        args["scaling_option"] = None
+
     field = data.get("region", None)
     if field is not None:
         args["region"] = field
@@ -273,11 +279,13 @@ def unmarshal_Container(data: Any) -> Container:
     if field is not None:
         args["tags"] = field
 
-    field = data.get("scaling_option", None)
+    field = data.get("command", None)
     if field is not None:
-        args["scaling_option"] = unmarshal_ContainerScalingOption(field)
-    else:
-        args["scaling_option"] = None
+        args["command"] = field
+
+    field = data.get("args", None)
+    if field is not None:
+        args["args"] = field
 
     field = data.get("health_check", None)
     if field is not None:
@@ -963,6 +971,12 @@ def marshal_CreateContainerRequest(
     if request.private_network_id is not None:
         output["private_network_id"] = request.private_network_id
 
+    if request.command is not None:
+        output["command"] = request.command
+
+    if request.args is not None:
+        output["args"] = request.args
+
     return output
 
 
@@ -1220,6 +1234,12 @@ def marshal_UpdateContainerRequest(
 
     if request.private_network_id is not None:
         output["private_network_id"] = request.private_network_id
+
+    if request.command is not None:
+        output["command"] = request.command
+
+    if request.args is not None:
+        output["args"] = request.args
 
     return output
 
